@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 	interface = new cInterface(argc, argv);
 
 	//just for testing
-	interface->ReadInterfaceWindow(interface->mainWindow, &gPar);
+	interface->SynchronizeInterfaceWindow(interface->mainWindow, &gPar, cInterface::write);
 
 	return interface->application->exec();
 

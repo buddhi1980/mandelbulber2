@@ -68,12 +68,12 @@ cInterface::cInterface(int argc, char* argv[])
 
 }
 
-void cInterface::ReadInterfaceWindow(QWidget *window, parameters::container *par)
+void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::container *par, enumReadWrite mode)
 {
-	WriteLog("ReadInterface() started");
+	WriteLog("SynchronizeInterfaceWindow() started");
 	QList<QLineEdit *> widgetList = window->findChildren<QLineEdit *>();
 
-	WriteLog("ReadInterface() QLineEdit");
+	WriteLog("SynchronizeInterfaceWindow() QLineEdit");
 	foreach (QLineEdit* it, widgetList)
 	{
 		cout << "QLineEdit:" << it->objectName().toStdString() << " Type:" << it->metaObject()->className()<< endl;
@@ -81,7 +81,7 @@ void cInterface::ReadInterfaceWindow(QWidget *window, parameters::container *par
 		string name = it->objectName().toStdString();
 		if(name.length() > 1 && it->metaObject()->className() == string("QLineEdit"))
 		{
-			const QLineEdit *lineEdit = it;
+			QLineEdit *lineEdit = it;
 			string text = lineEdit->text().toStdString();
 			cout << name << " - text: " << text << endl;
 
@@ -94,41 +94,77 @@ void cInterface::ReadInterfaceWindow(QWidget *window, parameters::container *par
 				char lastChar = parameterName.at(parameterName.length()-1);
 
 				string nameVect = string(parameterName, 0, parameterName.length() - 2);
-				double value = lineEdit->text().toDouble();
-				cout << nameVect << " - " << lastChar << " axis = " << value << endl;
-				CVector3 vect = par->Get<CVector3>(nameVect);
 
-				switch(lastChar)
+				if(mode == read)
 				{
-					case 'x':
-					vect.x = value;
-					break;
+					double value = lineEdit->text().toDouble();
+					cout << nameVect << " - " << lastChar << " axis = " << value << endl;
+					CVector3 vect = par->Get<CVector3>(nameVect);
 
-					case 'y':
-					vect.y = value;
-					break;
+					switch(lastChar)
+					{
+						case 'x':
+						vect.x = value;
+						break;
 
-					case 'z':
-					vect.z = value;
-					break;
+						case 'y':
+						vect.y = value;
+						break;
 
-					default:
-					cerr << "cInterface::ReadInterface(): edit field " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
-					break;
+						case 'z':
+						vect.z = value;
+						break;
+
+						default:
+						cerr << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+						break;
+					}
+					par->Set(nameVect, vect);
 				}
+				else if(mode == write)
+				{
+					CVector3 vect = par->Get<CVector3>(nameVect);
+					QString qtext;
 
-				par->Set(nameVect, vect);
+					switch(lastChar)
+					{
+						case 'x':
+						qtext = QString::number(vect.x);
+						break;
+
+						case 'y':
+						qtext = QString::number(vect.y);
+						break;
+
+						case 'z':
+						qtext = QString::number(vect.z);
+						break;
+
+						default:
+						cerr << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+						break;
+					}
+					lineEdit->setText(qtext);
+				}
 			}
 
 			//---------- get scalars --------
 			else if(type == string("edit"))
 			{
-				double value = lineEdit->text().toDouble();
-				par->Set(parameterName, value);
+				if(mode == read)
+				{
+					double value = lineEdit->text().toDouble();
+					par->Set(parameterName, value);
+				}
+				else if(mode == write)
+				{
+					double value = par->Get<double>(parameterName);
+					lineEdit->setText(QString::number(value));
+				}
 			}
 		}
 	}
-	WriteLog("ReadInterface() finished");
+	WriteLog("SynchronizeInterfaceWindow() finished");
 }
 
 void cInterface::SetSlotsForSlidersWindow(QWidget *window)
