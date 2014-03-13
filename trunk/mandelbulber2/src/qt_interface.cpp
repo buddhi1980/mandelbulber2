@@ -49,7 +49,7 @@ void InterfaceSlots::testSlot(void)
 
 	printf("Hello World!\n");
 
-	interface->ReadInterfaceWindow(interface->mainWindow, &gPar);
+	interface->SynchronizeInterfaceWindow(interface->mainWindow, &gPar, cInterface::read);
 
 	int width = 1000;
 	int height = 1000;
