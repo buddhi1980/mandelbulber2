@@ -1,0 +1,14 @@
+<RCC>
+  <qresource prefix="arrows">
+    <file>icons/edit-undo.png</file>
+    <file>icons/object-rotate-left.png</file>
+    <file>icons/object-rotate-right.png</file>
+    <file>icons/edit-redo.png</file>
+    <file>icons/arrow-up-double.png</file>
+    <file>icons/arrow-down-double.png</file>
+    <file>icons/go-down.png</file>
+    <file>icons/go-next.png</file>
+    <file>icons/go-previous.png</file>
+    <file>icons/go-up.png</file>
+  </qresource>
+</RCC>
