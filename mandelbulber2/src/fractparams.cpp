@@ -339,37 +339,56 @@ void InitParams(parameters::container *par)
 	//NewPalette(palette, 1.0);
 	//par->addParam("palette", palette, false);
 
-	WriteLog("Parameters initialization finished");
-}
-
-void InitAppParams(parameters::container *par)
-{
+	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", std::string("5555"), true);
+	par->SetAsAppParam("net_render_client_port", true);
 	par->addParam("net_render_client_IP", std::string("10.0.0.4"), true);
+	par->SetAsAppParam("net_render_client_IP", true);
 	par->addParam("net_render_server_port", std::string("5555"), true);
+	par->SetAsAppParam("net_render_server_port", true);
 	par->addParam("light_manual_placement_dist", 0.1, 1e-15, 1e15, true);
+	par->SetAsAppParam("light_manual_placement_dist", true);
 	par->addParam("camera_movenent_step_de", 0.5, 1e-15, 1e5, false);
+	par->SetAsAppParam("camera_movenent_step_de", true);
 	par->addParam("camera_movenent_step_absolute", 0.5, 1e-15, 1e15, false);
+	par->SetAsAppParam("camera_movenent_step_absolute", true);
 	par->addParam("camera_rotation_step", 0.5, 1e-15, 360.0, false);
+	par->SetAsAppParam("camera_rotation_step", true);
 	par->addParam("camera_mouse_click_step", 0.5, 1e-15, 1e5, false);
+	par->SetAsAppParam("camera_mouse_click_step", true);
 	par->addParam("camera_straight_rotation", false, false);
+	par->SetAsAppParam("camera_straight_rotation", true);
 	par->addParam("camera_absolute_distance_mode", false, false);
+	par->SetAsAppParam("camera_absolute_distance_mode", true);
 	par->addParam("camera_go_to_surface_mode", false, false);
+	par->SetAsAppParam("camera_go_to_surface_mode", true);
 	par->addParam("auto_save_images", false, false);
+	par->SetAsAppParam("auto_save_images", true);
 	par->addParam("save_image_format", 0, false);
+	par->SetAsAppParam("save_image_format", true);
 
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);
+	par->SetAsAppParam("openCL_use_CPU", true);
 	par->addParam("openCL_platform_index", 0, true);
+	par->SetAsAppParam("openCL_platform_index", true);
 	par->addParam("openCL_device_index", 0, true);
+	par->SetAsAppParam("openCL_device_index", true);
 	par->addParam("openCL_engine", 0, true);
+	par->SetAsAppParam("openCL_engine", true);
 	par->addParam("openCL_cycle_time", 1.0, 0.02, 60.0, true);
+	par->SetAsAppParam("openCL_cycle_time", true);
 	par->addParam("openCL_memory_limit", 256, true);
+	par->SetAsAppParam("openCL_memory_limit", true);
 #ifdef WIN32
-	par->addParam("CreateEditWithMap("openCL_cycle_time", &mapAppParamsEdit)", std::string("notepad.exe"), true);
+	par->addParam("openCL_text_editor", std::string("notepad.exe"), true);
+	par->SetAsAppParam("openCL_text_editor", true);
 #else
 	par->addParam("openCL_text_editor", std::string("/usr/bin/kate"), true);
+	par->SetAsAppParam("openCL_text_editor", true);
+#endif
 #endif
 
-#endif
+	WriteLog("Parameters initialization finished");
 }
+

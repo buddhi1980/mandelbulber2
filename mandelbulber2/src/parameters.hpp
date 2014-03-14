@@ -41,6 +41,7 @@ struct sRecord
 	bool morphable;
 	bool limitsDefined;
 	bool toSave;
+	bool appParam;
 };
 
 class container
@@ -61,6 +62,8 @@ public:
 
 	void SetToSave(std::string, bool toSave);
 	void SetToSave(std::string, int index, bool toSave);
+	void SetAsAppParam(std::string name, bool asAppParam);
+	void SetAsAppParam(std::string name, int index, bool asAppParam);
 
 	void Copy(std::string name, container *sourceContainer);
 

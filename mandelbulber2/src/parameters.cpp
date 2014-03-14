@@ -42,6 +42,7 @@ void container::addParam(std::string name, T defaultVal, bool morphable)
 	newRecord.morphable = morphable;
 	newRecord.limitsDefined = false;
 	newRecord.toSave = true;
+	newRecord.appParam = false;
 
 	std::pair<std::map<std::string, sRecord>::iterator, bool> ret;
 	ret = myMap.insert(std::pair<std::string, sRecord>(name, newRecord));
@@ -74,6 +75,7 @@ void container::addParam(std::string name, T defaultVal, T minVal, T maxVal, boo
 	newRecord.morphable = morphable;
 	newRecord.limitsDefined = true;
 	newRecord.toSave = true;
+	newRecord.appParam = false;
 
 	std::pair<std::map<std::string, sRecord>::iterator, bool> ret;
 	ret = myMap.insert(std::pair<std::string, sRecord>(name, newRecord));
@@ -102,6 +104,7 @@ void container::addParam(std::string name, int index, T defaultVal, bool morphab
 		newRecord.morphable = morphable;
 		newRecord.limitsDefined = false;
 		newRecord.toSave = true;
+		newRecord.appParam = false;
 
 		std::string indexName = nameWithIndex(&name, index);
 		std::pair<std::map<std::string, sRecord>::iterator, bool> ret;
@@ -141,6 +144,7 @@ void container::addParam(std::string name, int index, T defaultVal, T minVal, T 
 		newRecord.morphable = morphable;
 		newRecord.limitsDefined = true;
 		newRecord.toSave = true;
+		newRecord.appParam = false;
 
 		std::string indexName = nameWithIndex(&name, index);
 		std::pair<std::map<std::string, sRecord>::iterator, bool> ret;
@@ -538,6 +542,42 @@ void container::SetToSave(std::string name, int index, bool toSave)
 	else
 	{
 		std::cerr << "SetToSave(): element '" << name << "' has negative index (" << index << ")" << std::endl;
+	}
+}
+
+void container::SetAsAppParam(std::string name, bool asAppParam)
+{
+	std::map<std::string, sRecord>::iterator it;
+	it = myMap.find(name);
+	if (it != myMap.end())
+	{
+		it->second.appParam = asAppParam;
+	}
+	else
+	{
+		std::cerr << "SetAsAppParam(): element '" << name << "' doesn't exists" << std::endl;
+	}
+}
+
+void container::SetAsAppParam(std::string name, int index, bool asAppParam)
+{
+	if (index >= 0)
+	{
+		std::string indexName = nameWithIndex(&name, index);
+		std::map<std::string, sRecord>::iterator it;
+		it = myMap.find(indexName);
+		if (it != myMap.end())
+		{
+			it->second.appParam = asAppParam;
+		}
+		else
+		{
+			std::cerr << "SetAsAppParam(): element '" << indexName << "' doesn't exists" << std::endl;
+		}
+	}
+	else
+	{
+		std::cerr << "SetAsAppParam(): element '" << name << "' has negative index (" << index << ")" << std::endl;
 	}
 }
 
