@@ -71,10 +71,10 @@ cInterface::cInterface(int argc, char* argv[])
 void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::container *par, enumReadWrite mode)
 {
 	WriteLog("SynchronizeInterfaceWindow() started");
-	QList<QLineEdit *> widgetList = window->findChildren<QLineEdit *>();
+	QList<QLineEdit *> widgetListLineEdit = window->findChildren<QLineEdit *>();
 
 	WriteLog("SynchronizeInterfaceWindow() QLineEdit");
-	foreach (QLineEdit* it, widgetList)
+	foreach (QLineEdit* it, widgetListLineEdit)
 	{
 		cout << "QLineEdit:" << it->objectName().toStdString() << " Type:" << it->metaObject()->className()<< endl;
 
@@ -160,6 +160,36 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 				{
 					double value = par->Get<double>(parameterName);
 					lineEdit->setText(QString::number(value));
+				}
+			}
+		}
+	}//end foreach
+
+	WriteLog("SynchronizeInterfaceWindow() QDoubleSpinBox");
+	QList<QDoubleSpinBox *> widgetListDoubleSpinBox = window->findChildren<QDoubleSpinBox*>();
+	foreach (QDoubleSpinBox* it, widgetListDoubleSpinBox)
+	{
+		cout << "QDoubleSpinBox:" << it->objectName().toStdString() << " Type:" << it->metaObject()->className()<< endl;
+
+		string name = it->objectName().toStdString();
+		if(name.length() > 1 && it->metaObject()->className() == string("QDoubleSpinBox"))
+		{
+			QDoubleSpinBox *spinbox = it;
+
+			string type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			if(type == string("spinbox"))
+			{
+				if(mode == read)
+				{
+					double value = spinbox->value();
+					par->Set(parameterName, value);
+				}
+				else if(mode == write)
+				{
+					double value = par->Get<double>(parameterName);
+					spinbox->setValue(value);
 				}
 			}
 		}

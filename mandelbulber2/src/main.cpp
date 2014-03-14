@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 
 	//just for testing
 	interface->SynchronizeInterfaceWindow(interface->mainWindow, &gPar, cInterface::write);
+	interface->SynchronizeInterfaceWindow(interface->shadersWindow, &gPar, cInterface::write);
 
 	return interface->application->exec();
 
