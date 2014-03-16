@@ -122,4 +122,52 @@ void InterfaceSlots::slotDoubleSpinBoxChanged(double value)
 	}
 }
 
+void InterfaceSlots::slotLogSliderMoved(int value)
+{
+	using namespace std;
+	string sliderName = this->sender()->objectName().toStdString();
+	string type, parameterName;
+	interface->GetNameAndType(sliderName, &parameterName, &type);
+	string lineEditName = string("logedit_") + parameterName;
+
+	QLineEdit *lineEdit = qFindChild<QLineEdit*>(this->sender()->parent(), lineEditName.c_str());
+	if(lineEdit)
+	{
+		double dValue = exp10(value/100.0);
+		QString text = QString::number(dValue);
+		lineEdit->setText(text);
+	}
+	else
+	{
+		cerr << "slotLogSliderMoved() error: lineEdit " << lineEditName << " doesn't exists" << endl;
+	}
+}
+
+void InterfaceSlots::slotLogLineEditChanged(const QString &text)
+{
+	using namespace std;
+	string lineEditName = this->sender()->objectName().toStdString();
+	string type, parameterName;
+	interface->GetNameAndType(lineEditName, &parameterName, &type);
+	string sliderName = string("logslider_") + parameterName;
+
+	QSlider *slider = qFindChild<QSlider*>(this->sender()->parent(), sliderName.c_str());
+	if (slider)
+	{
+		double value = text.toDouble();
+		if(value > 0.0)
+		{
+			int sliderPosition = log10(text.toDouble()) * 100.0;
+			slider->setValue(sliderPosition);
+		}
+		else
+		{
+			cerr << "slotLogLineEditChanged() error: value from " << lineEditName << " is not greater zero" << endl;
+		}
+	}
+	else
+	{
+		cerr << "slotLogLineEditChanged() error: slider " << sliderName << " doesn't exists" << endl;
+	}
+}
 

@@ -14,6 +14,7 @@ cInterface *interface;
 
 using namespace std;
 
+//constructor of interface (loading of ui files)
 cInterface::cInterface(int argc, char* argv[])
 {
 	printf("Hello World!\n");
@@ -26,7 +27,6 @@ cInterface::cInterface(int argc, char* argv[])
 	loader.setWorkingDirectory(workDirectory);
 
 	mainWindow = new QWidget;
-	shadersWindow = new QWidget;
 
 	{
 		QFile file("/home/krzysztof/workspace/mandelbulber3/qt/render_window.ui");
@@ -34,16 +34,8 @@ cInterface::cInterface(int argc, char* argv[])
 		mainWindow = loader.load(&file, NULL);
 		file.close();
 	}
-	{
-		QFile file("/home/krzysztof/workspace/mandelbulber3/qt/shaders_window.ui");
-		file.open(QFile::ReadOnly);
-		shadersWindow = loader.load(&file, NULL);
-		file.close();
-	}
-
 
 	mainWindow->show();
-	shadersWindow->show();
 
 	QHBoxLayout *hboxlayoutScrolledArea = qFindChild<QHBoxLayout*>(mainWindow, "scrollAreaHLayout");
 	QWidget *scrollAreaWidgetContents = qFindChild<QWidget*>(mainWindow, "scrollAreaWidgetContents");
@@ -62,12 +54,13 @@ cInterface::cInterface(int argc, char* argv[])
 	QAction *actionLoad = qFindChild<QAction*>(mainWindow, "actionLoad");
 	QApplication::connect(actionLoad, SIGNAL(triggered()), slot, SLOT(load()));
 
-	SetSlotsForSlidersWindow(shadersWindow);
+	SetSlotsForSlidersWindow(mainWindow);
 
 	qimage = NULL;
 
 }
 
+//Reading ad writing parameters from/to ui to/from parameters container
 void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::container *par, enumReadWrite mode)
 {
 	WriteLog("SynchronizeInterfaceWindow() started");
@@ -149,7 +142,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 			}
 
 			//---------- get scalars --------
-			else if(type == string("edit"))
+			else if(type == string("edit") or type == string("logedit"))
 			{
 				if(mode == read)
 				{
@@ -197,6 +190,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 	WriteLog("SynchronizeInterfaceWindow() finished");
 }
 
+//automatic setting of event slots for all sliders
 void cInterface::SetSlotsForSlidersWindow(QWidget *window)
 {
 	WriteLog("SetSlotsForSlidersWindow() started");
@@ -227,12 +221,29 @@ void cInterface::SetSlotsForSlidersWindow(QWidget *window)
 					cerr << "SetSlotsForSlidersWindow() error: spinbox " << spinBoxName << " doesn't exists" << endl;
 				}
 			}
+			if(type == string("logslider"))
+			{
+				QApplication::connect(slider, SIGNAL(sliderMoved(int)), slot, SLOT(slotLogSliderMoved(int)));
+
+				string editFieldName = string("logedit_") + parameterName;
+				QLineEdit *lineEdit = qFindChild<QLineEdit*>(slider->parent(), editFieldName.c_str());
+				if(lineEdit)
+				{
+					QApplication::connect(lineEdit, SIGNAL(textChanged(const QString&)), slot, SLOT(slotLogLineEditChanged(const QString&)));
+				}
+				else
+				{
+					cerr << "SetSlotsForSlidersWindow() error: lineEdit " << editFieldName << " doesn't exists" << endl;
+				}
+			}
+
 
 		}
 	}
 	WriteLog("SetSlotsForSlidersWindow() finished");
 }
 
+//extract name and type string from widget name
 void cInterface::GetNameAndType(string name, string *parameterName, string *type)
 {
 	size_t firstDashPosition = name.find("_");
