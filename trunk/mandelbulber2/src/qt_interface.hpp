@@ -27,6 +27,8 @@ public slots:
 	void load();
 	void slotSliderMoved(int value);
 	void slotDoubleSpinBoxChanged(double value);
+	void slotLogSliderMoved(int value);
+	void slotLogLineEditChanged(const QString &text);
 };
 
 class RenderedImage: public QWidget

@@ -30,12 +30,13 @@ int main(int argc, char *argv[])
 	//create internal database with parameters
 	InitParams(&gPar);
 
+	//create Qt interface windows
 	interface = new cInterface(argc, argv);
 
-	//just for testing
+	//write parameters to ui
 	interface->SynchronizeInterfaceWindow(interface->mainWindow, &gPar, cInterface::write);
-	interface->SynchronizeInterfaceWindow(interface->shadersWindow, &gPar, cInterface::write);
 
+	//start main Qt loop
 	return interface->application->exec();
 
 }

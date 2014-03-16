@@ -13,6 +13,8 @@
 
 using namespace std;
 
+//class for main user interface
+
 class cInterface
 {
 public:
@@ -27,7 +29,6 @@ public:
 
 	QApplication *application;
 	QWidget *mainWindow;
-	QWidget *shadersWindow;
 	QImage *qimage;
 
 private:

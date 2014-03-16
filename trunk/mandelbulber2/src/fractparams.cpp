@@ -13,6 +13,8 @@
 
 #include <stdlib.h>
 
+
+//definition of all parameters
 void InitParams(parameters::container *par)
 {
 
@@ -95,7 +97,6 @@ void InitParams(parameters::container *par)
 	par->addParam("ambient", 0.0, 0.0, 1e15, true);
 	par->addParam("reflect", 0.0, 0.0, 1e15, true);
 	par->addParam("shadows_intensity", 0.7, 0.0, 1e15, true);
-	par->addParam("shadows_cone_angle", 1.0, 0.0, 180.0, true);
 	par->addParam("ambient_occlusion", 1.0, 0.0, 1e15, true);
 	par->addParam("ambient_occlusion_quality", 4, 1, 10, true);
 	par->addParam("ambient_occlusion_fast_tune", 1.0, true);
@@ -148,9 +149,14 @@ void InitParams(parameters::container *par)
 
 	//main light
 	par->addParam("main_light_intensity", 1.0, true);
+	par->addParam("main_light_visibility", 1.0, true);
+	par->addParam("main_light_visibility_size", 1.0, true);
 	par->addParam("main_light_alpha", -45.0, true);
 	par->addParam("main_light_beta", 45.0, true);
 	par->addParam("main_light_colour", (sRGB){65535, 65535, 65535}, true);
+	par->addParam("shadows_cone_angle", 1.0, 0.0, 180.0, true);
+	par->addParam("main_light_enable", true, true);
+	par->addParam("main_light_position_relative", true, true);
 
 	//aux lights
 	par->addParam("aux_light_intensity", 1.0, true);
@@ -160,6 +166,7 @@ void InitParams(parameters::container *par)
 	par->addParam("aux_light_distribution_radius", 3.0, 0.0, 1e15, false);
 	par->addParam("aux_light_random_center", CVector3(0.0, 0.0, 0.0), true);
 	par->addParam("aux_light_visibility", 1.0, true);
+	par->addParam("aux_light_visibility_size", 1.0, true);
 
 	par->addParam("aux_light_predefined_position", 1, CVector3(3.0, -3.0, -3.0), true);
 	par->addParam("aux_light_predefined_position", 2, CVector3(-3.0, -3.0, 0.0), true);

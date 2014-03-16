@@ -22,7 +22,7 @@ static const uint qt_meta_data_InterfaceSlots[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -34,6 +34,8 @@ static const uint qt_meta_data_InterfaceSlots[] = {
       27,   15,   15,   15, 0x0a,
       40,   34,   15,   15, 0x0a,
       61,   34,   15,   15, 0x0a,
+      94,   34,   15,   15, 0x0a,
+     123,  118,   15,   15, 0x0a,
 
        0        // eod
 };
@@ -42,6 +44,8 @@ static const char qt_meta_stringdata_InterfaceSlots[] = {
     "InterfaceSlots\0\0testSlot()\0load()\0"
     "value\0slotSliderMoved(int)\0"
     "slotDoubleSpinBoxChanged(double)\0"
+    "slotLogSliderMoved(int)\0text\0"
+    "slotLogLineEditChanged(QString)\0"
 };
 
 void InterfaceSlots::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -54,6 +58,8 @@ void InterfaceSlots::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 1: _t->load(); break;
         case 2: _t->slotSliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->slotDoubleSpinBoxChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 4: _t->slotLogSliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->slotLogLineEditChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -91,9 +97,9 @@ int InterfaceSlots::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 6;
     }
     return _id;
 }
