@@ -112,14 +112,14 @@ void InitParams(parameters::container *par)
 	par->addParam("raytraced_reflections", false, true);
 	par->addParam("reflections_max", 5, 0, 10, false);
 
-	par->addParam("glow_color", 1, (sRGB){40984, 44713, 49490}, true);
-	par->addParam("glow_color", 2, (sRGB){57192, 60888, 62408}, true);
-	par->addParam("background_color", 1, (sRGB){0, 38306, 65535}, true);
-	par->addParam("background_color", 2, (sRGB){65535, 65535, 65535}, true);
-	par->addParam("background_color", 3, (sRGB){0, 10000, 500}, true);
-	par->addParam("fog_color", 1, (sRGB){20000, 20000, 20000}, true);
-	par->addParam("fog_color", 2, (sRGB){0, 30000, 65535}, true);
-	par->addParam("fog_color", 3, (sRGB){65535, 65535, 65535}, true);
+	par->addParam("glow_color", 1, sRGB(40984, 44713, 49490), true);
+	par->addParam("glow_color", 2, sRGB(57192, 60888, 62408), true);
+	par->addParam("background_color", 1, sRGB(0, 38306, 65535), true);
+	par->addParam("background_color", 2, sRGB(65535, 65535, 65535), true);
+	par->addParam("background_color", 3, sRGB(0, 10000, 500), true);
+	par->addParam("fog_color", 1, sRGB(20000, 20000, 20000), true);
+	par->addParam("fog_color", 2, sRGB(0, 30000, 65535), true);
+	par->addParam("fog_color", 3, sRGB(65535, 65535, 65535), true);
 
 	par->addParam("volumetric_fog_density", 0.0, 0.0, 1e15, true);
 	par->addParam("volumetric_fog_colour_1_distance", 1.0, true);
@@ -140,7 +140,7 @@ void InitParams(parameters::container *par)
 	//fog
 	par->addParam("post_fog_enabled", false, true);
 	par->addParam("post_fog_visibility", 20.0, true);
-	par->addParam("post_fog_color", (sRGB){59399, 61202, 65535}, true);
+	par->addParam("post_fog_color", sRGB(59399, 61202, 65535), true);
 	par->addParam("post_SSAO_enabled", true, true);
 	par->addParam("post_SSAO_quality", 20, 1, 100, true);
 	par->addParam("post_DOF_enabled", false, true);
@@ -153,7 +153,7 @@ void InitParams(parameters::container *par)
 	par->addParam("main_light_visibility_size", 1.0, true);
 	par->addParam("main_light_alpha", -45.0, true);
 	par->addParam("main_light_beta", 45.0, true);
-	par->addParam("main_light_colour", (sRGB){65535, 65535, 65535}, true);
+	par->addParam("main_light_colour", sRGB(65535, 65535, 65535), true);
 	par->addParam("shadows_cone_angle", 1.0, 0.0, 180.0, true);
 	par->addParam("main_light_enable", true, true);
 	par->addParam("main_light_position_relative", true, true);
@@ -180,10 +180,10 @@ void InitParams(parameters::container *par)
 	par->addParam("aux_light_predefined_enabled", 2, false, true);
 	par->addParam("aux_light_predefined_enabled", 3, false, true);
 	par->addParam("aux_light_predefined_enabled", 4, false, true);
-	par->addParam("aux_light_predefined_colour", 1, (sRGB){45761, 53633, 59498}, true);
-	par->addParam("aux_light_predefined_colour", 2, (sRGB){62875, 55818, 50083}, true);
-	par->addParam("aux_light_predefined_colour", 3, (sRGB){64884, 64928, 48848}, true);
-	par->addParam("aux_light_predefined_colour", 4, (sRGB){52704, 62492, 45654}, true);
+	par->addParam("aux_light_predefined_colour", 1, sRGB(45761, 53633, 59498), true);
+	par->addParam("aux_light_predefined_colour", 2, sRGB(62875, 55818, 50083), true);
+	par->addParam("aux_light_predefined_colour", 3, sRGB(64884, 64928, 48848), true);
+	par->addParam("aux_light_predefined_colour", 4, sRGB(52704, 62492, 45654), true);
 
 	for(int i=0; i<5; i++)
 	{
@@ -282,31 +282,31 @@ void InitParams(parameters::container *par)
 	par->addParam("primitive_plane_enabled", false, false);
 	par->addParam("primitive_plane_centre", CVector3(0.0, 0.0, 0.0), true);
 	par->addParam("primitive_plane_normal", CVector3(0.0, 0.0, -1.0), true);
-	par->addParam("primitive_plane_colour", (sRGB){20000, 20000, 20000}, true);
+	par->addParam("primitive_plane_colour", sRGB(20000, 20000, 20000), true);
 	par->addParam("primitive_plane_reflect", 0.0, 0.0, 1e15, true);
 
 	par->addParam("primitive_box_enabled", false, true);
 	par->addParam("primitive_box_centre", CVector3(0.0, 0.0, 0.0), true);
 	par->addParam("primitive_box_size", CVector3(2.0, 2.0, 2.0), true);
-	par->addParam("primitive_box_colour", (sRGB){20000, 20000, 20000}, true);
+	par->addParam("primitive_box_colour", sRGB(20000, 20000, 20000), true);
 	par->addParam("primitive_box_reflect", 0.0, 0.0, 1e15, true);
 
 	par->addParam("primitive_invertedBox_enabled", false, true);
 	par->addParam("primitive_invertedBox_centre", CVector3(0.0, 0.0, 0.0), true);
 	par->addParam("primitive_invertedBox_size", CVector3(10.0, 10.0, 10.0), true);
-	par->addParam("primitive_invertedBox_colour", (sRGB){20000, 20000, 20000}, true);
+	par->addParam("primitive_invertedBox_colour", sRGB(20000, 20000, 20000), true);
 	par->addParam("primitive_invertedBox_reflect", 0.0, 0.0, 1e15, true);
 
 	par->addParam("primitive_sphere_enabled", false, true);
 	par->addParam("primitive_sphere_centre", CVector3(0.0, 0.0, 0.0), true);
 	par->addParam("primitive_sphere_radius", 1.5, true);
-	par->addParam("primitive_sphere_colour", (sRGB){20000, 20000, 20000}, true);
+	par->addParam("primitive_sphere_colour", sRGB(20000, 20000, 20000), true);
 	par->addParam("primitive_sphere_reflect", 0.0, 0.0, 1e15, true);
 
 	par->addParam("primitive_invertedSphere_enabled", false, true);
 	par->addParam("primitive_invertedSphere_centre", CVector3(0.0, 0.0, 0.0), true);
 	par->addParam("primitive_invertedSphere_radius", 5.0, true);
-	par->addParam("primitive_invertedSphere_colour", (sRGB){20000, 20000, 20000}, true);
+	par->addParam("primitive_invertedSphere_colour", sRGB(20000, 20000, 20000), true);
 	par->addParam("primitive_invertedSphere_reflect", 0.0, 0.0, 1e15, true);
 
 	par->addParam("primitive_water_enabled", false, true);
@@ -316,7 +316,7 @@ void InitParams(parameters::container *par)
 	par->addParam("primitive_water_iterations", 5, 1, 250, true);
 	par->addParam("primitive_water_rotation", 0.0, true);
 	par->addParam("primitive_water_anim_speed", 0.1, true);
-	par->addParam("primitive_water_colour", (sRGB){0, 5000, 10000}, true);
+	par->addParam("primitive_water_colour", sRGB(0, 5000, 10000), true);
 	par->addParam("primitive_water_reflect", 0.7, 0.0, 1e15, true);
 
 	//OpenCL Support

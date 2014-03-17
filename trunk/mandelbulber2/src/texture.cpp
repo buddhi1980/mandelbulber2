@@ -82,7 +82,7 @@ cTexture::~cTexture(void)
 //read pixel
 sRGB8 cTexture::Pixel(double x, double y)
 {
-	sRGB8 black = { 0, 0, 0 };
+	sRGB8 black = sRGB8(0,0,0);
 	if (x >= 0 && x < width && y >= 0 && y < height - 1.0)
 	{
 		return Interpolation(x, y);
@@ -95,7 +95,7 @@ sRGB8 cTexture::Pixel(double x, double y)
 
 sRGB8 cTexture::Interpolation(double x, double y)
 {
-	sRGB8 kolor = { 0, 0, 0 };
+	sRGB8 kolor;
 	int ix = x;
 	int iy = y;
 	double rx = (x - (int) x);

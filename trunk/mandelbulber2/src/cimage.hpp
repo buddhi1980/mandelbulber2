@@ -20,6 +20,8 @@ struct sRGB8
 	unsigned char R;
 	unsigned char G;
 	unsigned char B;
+	sRGB8(unsigned char r, unsigned char g, unsigned char b) : R(r), G(g), B(b) {};
+	sRGB8(){R = 0; G = 0; B = 0;}
 };
 
 struct sRGB16
@@ -27,6 +29,8 @@ struct sRGB16
 	unsigned short R;
 	unsigned short G;
 	unsigned short B;
+	sRGB16(unsigned short r, unsigned short g, unsigned short b) : R(r), G(g), B(b) {};
+	sRGB16(){R = 0; G = 0; B = 0;}
 };
 
 struct sRGBfloat
@@ -34,6 +38,8 @@ struct sRGBfloat
 	float R;
 	float G;
 	float B;
+	sRGBfloat(float r, float g, float b) : R(r), G(g), B(b) {};
+	sRGBfloat(){R = 0.0; G = 0.0; B = 0.0;}
 };
 
 struct sRGB
@@ -41,6 +47,8 @@ struct sRGB
 	int R;
 	int G;
 	int B;
+	sRGB(int r, int g, int b) : R(r), G(g), B(b) {};
+	sRGB(){R = 0; G = 0; B = 0;}
 };
 
 struct sImageAdjustments
@@ -148,9 +156,9 @@ public:
 private:
   sRGB8 Interpolation(float x, float y);
 	bool AllocMem(void);
-	inline sRGB16 Black16(void) {sRGB16 black = {0,0,0};return black;}
-	inline sRGB8 Black8(void) {sRGB8 black = {0,0,0};return black;}
-	inline sRGBfloat BlackFloat(void) {sRGBfloat black = {0.0,0.0,0.0};return black;}
+	inline sRGB16 Black16(void) {return sRGB16(0,0,0);}
+	inline sRGB8 Black8(void) {return sRGB8(0,0,0);}
+	inline sRGBfloat BlackFloat(void) {return sRGBfloat(0,0,0);}
 
 	sRGB8 *image8;
 	sRGB16 *image16;
