@@ -248,7 +248,7 @@ unsigned char* cImage::ConvertTo8bit(void)
 
 sRGB8 cImage::Interpolation(float x, float y)
 {
-	sRGB8 colour = { 0, 0, 0 };
+	sRGB8 colour = sRGB8(0, 0, 0);
 	if (x >= 0 && x < width - 1 && y >= 0 && y < height - 1)
 	{
 		int ix = x;
