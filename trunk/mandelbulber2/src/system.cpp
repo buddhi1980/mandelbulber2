@@ -11,8 +11,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include <sys/stat.h>
-#include <errno.h>
 #include <string.h>
 #include <QtGui>
 
