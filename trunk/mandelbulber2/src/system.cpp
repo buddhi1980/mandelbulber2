@@ -7,15 +7,14 @@
 
 #include "system.hpp"
 
-#include <unistd.h>
 #include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include <dirent.h>
 #include <sys/stat.h>
 #include <errno.h>
 #include <string.h>
+#include <QtGui>
 
 #define CLSUPPORT
 
@@ -28,27 +27,10 @@ bool InitSystem(void)
 
 	setlocale(LC_ALL, "");
 
-	//read $home env variable
-	char *homedir = NULL;
-#ifdef WIN32 /* WINDOWS */
-	homedir = getenv("USERPROFILE");
-#else               /*other unix - try sysconf*/
-	homedir = getenv("HOME");
-#endif  /* WINDOWS */
-
-	if(homedir)
-	{
-		systemData.homedir = string(homedir);
-	}
-	else
-	{
-		cerr << "Can't get homedir path from environment variables";
-	}
+	systemData.homedir = QDir::homePath().toStdString();
 
 #ifdef WIN32 /* WINDOWS */
-  char pathCWD[MAXPATHLEN];
-  getcwd(pathCWD, MAXPATHLEN);
-  systemData.sharedDir = std::string(pathCWD) + "\\";
+  systemData.sharedDir = QDir::currentPath() + "\\";
 #else               /*other unix - try sysconf*/
 	systemData.sharedDir = string(SHARED_DIR) + "/";
 #endif  /* WINDOWS */
@@ -91,19 +73,7 @@ bool InitSystem(void)
 
 int get_cpu_count()
 {
-	int ret;
-
-#ifdef WIN32 /* WINDOWS */
-	SYSTEM_INFO info;
-
-	GetSystemInfo(&info);
-	ret = info.dwNumberOfProcessors;
-#elif defined(__sgi)
-	ret = (int) sysconf(_SC_NPROC_ONLN);
-#else               /*other unix - try sysconf*/
-	ret = (int) sysconf(_SC_NPROCESSORS_ONLN);
-#endif  /* WINDOWS */
-	return ret;
+	return QThread::idealThreadCount ();
 }
 
 void WriteLog(string text)
@@ -141,37 +111,21 @@ bool CreateDefaultFolders(void)
 
 #ifdef CLSUPPORT
 		string oclDir = systemData.dataDirectory + "/custom_ocl_formulas";
-		DIR *dir;
-		dir = opendir(oclDir.c_str());
-		if (dir != NULL) (void) closedir(dir);
-		else
+		QString qoclDir = QString::fromStdString(oclDir);
+		if(!QDir(qoclDir).exists())
 		{
 			result &= CreateDirectory(oclDir);
+			if(result)
+			{
+				fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example1.c", oclDir + "/cl_example1.c");
+				fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example2.c", oclDir + "/cl_example2.c");
+				fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example3.c", oclDir + +"/cl_example3.c");
+				fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example1Init.c", oclDir + "/cl_example1Init.c");
+				fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example2Init.c", oclDir + "/cl_example2Init.c");
+				fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example3Init.c", oclDir + "/cl_example3Init.c");
+			}
 		}
 #endif
-
-	#ifdef CLSUPPORT
-		//create and copy of example custom formulas
-
-		dir = opendir(oclDir.c_str());
-		if (dir != NULL) (void) closedir(dir);
-	#ifdef WIN32
-		else
-		{
-			mkdir(oclDir.c_str());
-	#else
-		else
-		{
-			mkdir(oclDir.c_str(), (S_IRUSR | S_IWUSR | S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH));
-	#endif
-			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example1.c", oclDir + "/cl_example1.c");
-			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example2.c", oclDir + "/cl_example2.c");
-			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example3.c", oclDir + +"/cl_example3.c");
-			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example1Init.c", oclDir + "/cl_example1Init.c");
-			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example2Init.c", oclDir + "/cl_example2Init.c");
-			fcopy(systemData.sharedDir + "/exampleOCLformulas/cl_example3Init.c", oclDir + "/cl_example3Init.c");
-		}
-	#endif
 
 		actualFileNames.actualFilenameSettings = "settings/default.fract";
 		actualFileNames.actualFilenameImage = "images/image.jpg";
@@ -182,34 +136,24 @@ bool CreateDefaultFolders(void)
 
 bool CreateDirectory(string name)
 {
-	DIR *dir;
-	dir = opendir(name.c_str());
-	if (dir != NULL) {
-		(void) closedir(dir);
+	QString qname = QString::fromStdString(name);
+	if(QDir(qname).exists())
+	{
 		WriteLogString("Directory already exists", name);
 		return true;
 	}
 	else
 	{
-		bool result;
-		errno = 0;
-#ifdef WIN32
-		result = mkdir(name);
-#else
-		result = mkdir(name.c_str(), (S_IRUSR | S_IWUSR | S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH));
-#endif
-		if(result)
-		{
-			int error = errno;
-			cerr << "system error no. " << errno << " occured during creating directory: " << name << endl << "error: " << strerror( error ) << endl;
-			WriteLogString("Directory can't be created", name);
-			WriteLogDouble("mkdir", error);
-			return false;
-		}
-		else
+		if(QDir().mkdir(qname))
 		{
 			WriteLogString("Directory created", name);
 			return true;
+		}
+		else
+		{
+			WriteLogString("Directory can't be created", name);
+			cerr << "error: directory " << name << " cannot be created" << endl;
+			return false;
 		}
 	}
 }
