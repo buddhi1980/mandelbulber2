@@ -136,7 +136,7 @@ void InterfaceSlots::slotLogSliderMoved(int value)
 	QLineEdit *lineEdit = qFindChild<QLineEdit*>(this->sender()->parent(), lineEditName.c_str());
 	if(lineEdit)
 	{
-		double dValue = exp10(value/100.0);
+		double dValue = pow(10.0, value/100.0);
 		QString text = QString::number(dValue);
 		lineEdit->setText(text);
 	}
