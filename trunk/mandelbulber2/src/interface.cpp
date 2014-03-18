@@ -10,7 +10,7 @@
 #include "system.hpp"
 #include <iostream>
 
-cInterface *interface;
+cInterface *mainInterface;
 
 using namespace std;
 
@@ -142,7 +142,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 			}
 
 			//---------- get scalars --------
-			else if(type == string("edit") or type == string("logedit"))
+			else if(type == string("edit") || type == string("logedit"))
 			{
 				if(mode == read)
 				{

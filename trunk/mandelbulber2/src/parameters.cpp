@@ -171,7 +171,7 @@ varType container::Assigner(sMultiVal &multi, double val)
 	multi.dVal[0] = val;
 	multi.iVal[0] = val;
 	char sbuff[100];
-	snprintf(sbuff, 100, "%.16lg", val);
+	sprintf(sbuff, "%.16lg", val);
 	multi.sVal = std::string(sbuff);
 	return typeDouble;
 }
@@ -182,7 +182,7 @@ varType container::Assigner(sMultiVal &multi, int val)
 	multi.dVal[0] = val;
 	multi.iVal[0] = val;
 	char sbuff[100];
-	snprintf(sbuff, 100, "%d", val);
+	sprintf(sbuff, "%d", val);
 	multi.sVal = std::string(sbuff);
 	return typeInt;
 }
@@ -206,7 +206,7 @@ varType container::Assigner(sMultiVal &multi, CVector3 val)
 	multi.iVal[1] = val.y;
 	multi.iVal[2] = val.z;
 	char sbuff[100];
-	snprintf(sbuff, 100, "%.16lg %.16lg %.16lg", val.x, val.y, val.z);
+	sprintf(sbuff, "%.16lg %.16lg %.16lg", val.x, val.y, val.z);
 	multi.sVal = std::string(sbuff);
 	return typeVector3;
 }
@@ -221,7 +221,7 @@ varType container::Assigner(sMultiVal &multi, sRGB val)
 	multi.iVal[1] = val.G;
 	multi.iVal[2] = val.B;
 	char sbuff[100];
-	snprintf(sbuff, 100, "%x %x %x", val.R, val.G, val.B);
+	sprintf(sbuff, "%x %x %x", val.R, val.G, val.B);
 	multi.sVal = std::string(sbuff);
 	return typeRgb;
 }
@@ -232,7 +232,7 @@ varType container::Assigner(sMultiVal &multi, bool val)
 	multi.dVal[0] = val;
 	multi.iVal[0] = val;
 	char sbuff[100];
-	snprintf(sbuff, 100, "%d", val);
+	sprintf(sbuff, "%d", val);
 	multi.sVal = std::string(sbuff);
 	return typeBool;
 }
@@ -270,7 +270,7 @@ varType container::Getter(sMultiVal multi, std::string &val)
 
 varType container::Getter(sMultiVal multi, sRGB &val)
 {
-	val = (sRGB){multi.iVal[0], multi.iVal[1], multi.iVal[2]};
+	val = sRGB(multi.iVal[0], multi.iVal[1], multi.iVal[2]);
 	return typeRgb;
 }
 

@@ -36,6 +36,6 @@ private:
 
 };
 
-extern cInterface *interface;
+extern cInterface *mainInterface;
 
 #endif /* INTERFACE_HPP_ */
