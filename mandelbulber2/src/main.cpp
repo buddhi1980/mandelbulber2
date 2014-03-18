@@ -31,13 +31,13 @@ int main(int argc, char *argv[])
 	InitParams(&gPar);
 
 	//create Qt interface windows
-	interface = new cInterface(argc, argv);
+	mainInterface = new cInterface(argc, argv);
 
 	//write parameters to ui
-	interface->SynchronizeInterfaceWindow(interface->mainWindow, &gPar, cInterface::write);
+	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, &gPar, cInterface::write);
 
 	//start main Qt loop
-	return interface->application->exec();
+	return mainInterface->application->exec();
 
 }
 

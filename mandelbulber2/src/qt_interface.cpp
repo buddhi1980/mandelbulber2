@@ -10,6 +10,9 @@
  / many improvements done by Rayan Hitchman
  ********************************************************/
 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include <stdio.h>
 #include "qt_interface.hpp"
 #include <iostream>
@@ -35,10 +38,10 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 	painter.drawLine(0, 0, 400, 20);
 
 	printf("paint\n");
-	if(interface->qimage)
+	if(mainInterface->qimage)
 	{
 		printf("paintImage\n");
-		painter.drawImage(QRect(0,0,1000,1000), *interface->qimage, QRect(0,0,1000,1000));
+		painter.drawImage(QRect(0,0,1000,1000), *mainInterface->qimage, QRect(0,0,1000,1000));
 	}
 }
 
@@ -49,13 +52,13 @@ void InterfaceSlots::testSlot(void)
 
 	printf("Hello World!\n");
 
-	interface->SynchronizeInterfaceWindow(interface->mainWindow, &gPar, cInterface::read);
+	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, &gPar, cInterface::read);
 
 	int width = 1000;
 	int height = 1000;
 	sRGBA *img = new sRGBA[width*height];
-	interface->qimage = new QImage((const uchar*)img, width, height, width*sizeof(sRGBA), QImage::Format_ARGB32);
-	QWidget *scrollAreaWidgetContents = qFindChild<QWidget*>(interface->mainWindow, "scrollAreaWidgetContents");
+	mainInterface->qimage = new QImage((const uchar*)img, width, height, width*sizeof(sRGBA), QImage::Format_ARGB32);
+	QWidget *scrollAreaWidgetContents = qFindChild<QWidget*>(mainInterface->mainWindow, "scrollAreaWidgetContents");
 
 	for (int index = 0; index < 5; index++)
 	{
@@ -72,8 +75,8 @@ void InterfaceSlots::testSlot(void)
 
 		}
 
-		interface->application->processEvents();
-		interface->mainWindow->update();
+		mainInterface->application->processEvents();
+		mainInterface->mainWindow->update();
 		scrollAreaWidgetContents->update();
 	}
 
@@ -89,7 +92,7 @@ void InterfaceSlots::slotSliderMoved(int value)
 	using namespace std;
 	string sliderName = this->sender()->objectName().toStdString();
 	string type, parameterName;
-	interface->GetNameAndType(sliderName, &parameterName, &type);
+	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
 	string spinBoxName = string("spinbox_") + parameterName;
 
 	QDoubleSpinBox *spinBox = qFindChild<QDoubleSpinBox*>(this->sender()->parent(), spinBoxName.c_str());
@@ -108,7 +111,7 @@ void InterfaceSlots::slotDoubleSpinBoxChanged(double value)
 	using namespace std;
 	string spinBoxName = this->sender()->objectName().toStdString();
 	string type, parameterName;
-	interface->GetNameAndType(spinBoxName, &parameterName, &type);
+	mainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
 	string sliderName = string("slider_") + parameterName;
 
 	QSlider *slider = qFindChild<QSlider*>(this->sender()->parent(), sliderName.c_str());
@@ -127,7 +130,7 @@ void InterfaceSlots::slotLogSliderMoved(int value)
 	using namespace std;
 	string sliderName = this->sender()->objectName().toStdString();
 	string type, parameterName;
-	interface->GetNameAndType(sliderName, &parameterName, &type);
+	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
 	string lineEditName = string("logedit_") + parameterName;
 
 	QLineEdit *lineEdit = qFindChild<QLineEdit*>(this->sender()->parent(), lineEditName.c_str());
@@ -148,7 +151,7 @@ void InterfaceSlots::slotLogLineEditChanged(const QString &text)
 	using namespace std;
 	string lineEditName = this->sender()->objectName().toStdString();
 	string type, parameterName;
-	interface->GetNameAndType(lineEditName, &parameterName, &type);
+	mainInterface->GetNameAndType(lineEditName, &parameterName, &type);
 	string sliderName = string("logslider_") + parameterName;
 
 	QSlider *slider = qFindChild<QSlider*>(this->sender()->parent(), sliderName.c_str());

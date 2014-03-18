@@ -36,7 +36,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>606</width>
+           <width>636</width>
            <height>797</height>
           </rect>
          </property>
@@ -223,8 +223,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>426</width>
-          <height>180</height>
+          <width>396</width>
+          <height>348</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -1075,8 +1075,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-753</y>
-          <width>410</width>
+          <y>-870</y>
+          <width>380</width>
           <height>1349</height>
          </rect>
         </property>
@@ -2091,8 +2091,11 @@
               </item>
               <item row="1" column="1">
                <widget class="QSlider" name="logslider_aux_light_distribution_radius">
+                <property name="minimum">
+                 <number>-1500</number>
+                </property>
                 <property name="maximum">
-                 <number>36000</number>
+                 <number>300</number>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -2184,6 +2187,28 @@
          </item>
         </layout>
        </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_3">
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Shaders</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <layout class="QVBoxLayout" name="verticalLayout_6">
+     <item>
+      <widget class="QGroupBox" name="groupBox_10">
+       <property name="title">
+        <string>GroupBox</string>
+       </property>
       </widget>
      </item>
     </layout>
