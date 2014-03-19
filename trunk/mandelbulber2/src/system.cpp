@@ -10,27 +10,27 @@
 #include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
 #include <string.h>
 #include <QtGui>
+#include <ctime>
+#include <QTextStream>
 
-#define CLSUPPORT
+//#define CLSUPPORT
 
 sSystem systemData;
 sActualFileNames actualFileNames;
 
 bool InitSystem(void)
 {
-	using namespace std;
-
+	QTextStream out(stdout);
 	setlocale(LC_ALL, "");
 
-	systemData.homedir = QDir::homePath().toStdString();
+	systemData.homedir = QDir::homePath();
 
 #ifdef WIN32 /* WINDOWS */
   systemData.sharedDir = (QDir::currentPath() + QDir::separator()).toStdString();
 #else               /*other unix - try sysconf*/
-	systemData.sharedDir = string(SHARED_DIR) + "/";
+	systemData.sharedDir = QString(SHARED_DIR) + "/";
 #endif  /* WINDOWS */
 
 	//logfile
@@ -39,12 +39,12 @@ bool InitSystem(void)
 #else
 	systemData.logfileName = systemData.homedir + "/.mandelbulber_log.txt";
 #endif
-	FILE *logfile = fopen(systemData.logfileName.c_str(), "w");
+	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "w");
 	fclose(logfile);
 
-	printf("Log file: %s\n", systemData.logfileName.c_str());
-	WriteLogString("Mandelbulber version", string(MANDELBULBER_VERSION_STRING));
-	WriteLogString("Mandelbulber compilation date", string(__DATE__) + " " + string(__TIME__));
+	out << "Log file name: " << systemData.logfileName << endl;
+	WriteLogString("Mandelbulber version", QString(MANDELBULBER_VERSION_STRING));
+	WriteLogString("Mandelbulber compilation date", QString(__DATE__) + " " + QString(__TIME__));
 
 	//detecting number of CPU cores
 	systemData.numberOfThreads = get_cpu_count();
@@ -63,7 +63,7 @@ bool InitSystem(void)
 #else
 	systemData.dataDirectory = systemData.homedir + "/.mandelbulber";
 #endif
-	printf("Default data directory: %s\n", systemData.dataDirectory.c_str());
+	out << "Default data directory: " << systemData.dataDirectory << endl;
 	WriteLogString("Default data directory", systemData.dataDirectory);
 
 	return true;
@@ -74,24 +74,24 @@ int get_cpu_count()
 	return QThread::idealThreadCount ();
 }
 
-void WriteLog(string text)
+void WriteLog(QString text)
 {
-	FILE *logfile = fopen(systemData.logfileName.c_str(), "a");
-	fprintf(logfile, "%ld: %s\n", (unsigned long int) clock(), text.c_str());
+	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "a");
+	fprintf(logfile, "%ld: %s\n", (unsigned long int) clock(), text.toUtf8().constData());
 	fclose(logfile);
 }
 
-void WriteLogDouble(string text, double value)
+void WriteLogDouble(QString text, double value)
 {
-	FILE *logfile = fopen(systemData.logfileName.c_str(), "a");
-	fprintf(logfile, "%ld: %s, value = %g\n", (unsigned long int) clock(), text.c_str(), value);
+	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "a");
+	fprintf(logfile, "%ld: %s, value = %g\n", (unsigned long int) clock(), text.toUtf8().constData(), value);
 	fclose(logfile);
 }
 
-void WriteLogString(string text, string value)
+void WriteLogString(QString text, QString value)
 {
-	FILE *logfile = fopen(systemData.logfileName.c_str(), "a");
-	fprintf(logfile, "%ld: %s, value = %s\n", (unsigned long int) clock(), text.c_str(), value.c_str());
+	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "a");
+	fprintf(logfile, "%ld: %s, value = %s\n", (unsigned long int) clock(), text.toUtf8().constData(), value.toUtf8().constData());
 	fclose(logfile);
 }
 
@@ -132,31 +132,30 @@ bool CreateDefaultFolders(void)
 		return result;
 }
 
-bool CreateDirectory(string name)
+bool CreateDirectory(QString qname)
 {
-	QString qname = QString::fromStdString(name);
 	if(QDir(qname).exists())
 	{
-		WriteLogString("Directory already exists", name);
+		WriteLogString("Directory already exists", qname);
 		return true;
 	}
 	else
 	{
 		if(QDir().mkdir(qname))
 		{
-			WriteLogString("Directory created", name);
+			WriteLogString("Directory created", qname);
 			return true;
 		}
 		else
 		{
-			WriteLogString("Directory can't be created", name);
-			cerr << "error: directory " << name << " cannot be created" << endl;
+			WriteLogString("Directory can't be created", qname);
+			qCritical() << "error: directory " << qname << " cannot be created" << endl;
 			return false;
 		}
 	}
 }
 
-int fcopy(string source, string dest)
+int fcopy(QString source, QString dest)
 {
 	// ------ file reading
 
@@ -165,10 +164,10 @@ int fcopy(string source, string dest)
 	char *buffer;
 	size_t result;
 
-	pFile = fopen(source.c_str(), "rb");
+	pFile = fopen(source.toUtf8().constData(), "rb");
 	if (pFile == NULL)
 	{
-		cerr << "Can't open source file for copying: " << source << endl;
+		qCritical() << "Can't open source file for copying: " << source << endl;
 		WriteLogString("Can't open source file for copying", source);
 		return 1;
 	}
@@ -185,7 +184,7 @@ int fcopy(string source, string dest)
 	result = fread(buffer, 1, lSize, pFile);
 	if (result != lSize)
 	{
-		cerr << "Can't read source file for copying: " << source << endl;
+		qCritical() << "Can't read source file for copying: " << source << endl;
 		WriteLogString("Can't read source file for copying", source);
 		delete[] buffer;
 		fclose(pFile);
@@ -195,10 +194,10 @@ int fcopy(string source, string dest)
 
 	// ----- file writing
 
-	pFile = fopen(dest.c_str(), "wb");
+	pFile = fopen(dest.toUtf8().constData(), "wb");
 	if (pFile == NULL)
 	{
-		cerr << "Can't open destination file for copying: " << dest << endl;
+		qCritical() << "Can't open destination file for copying: " << dest << endl;
 		WriteLogString("Can't open destination file for copying", dest);
 		delete[] buffer;
 		return 3;

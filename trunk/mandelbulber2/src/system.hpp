@@ -23,24 +23,24 @@
 	#endif
 #endif
 
-#include <string>
+#include <QtCore>
 
 using namespace std;
 
 struct sSystem
 {
-	string homedir;
-	string dataDirectory;
-	string sharedDir;
-	string logfileName;
+	QString homedir;
+	QString dataDirectory;
+	QString sharedDir;
+	QString logfileName;
 	unsigned int numberOfThreads;
 };
 
 struct sActualFileNames
 {
-	string actualFilenameSettings;
-	string actualFilenameImage;
-	string actualFilenamePalette;
+	QString actualFilenameSettings;
+	QString actualFilenameImage;
+	QString actualFilenamePalette;
 };
 
 
@@ -48,12 +48,12 @@ extern sSystem systemData;
 extern sActualFileNames actualFileNames;
 
 bool InitSystem(void);
-void WriteLog(string text);
-void WriteLogDouble(string text, double value);
-void WriteLogString(string text, string value);
+void WriteLog(QString text);
+void WriteLogDouble(QString text, double value);
+void WriteLogString(QString text, QString value);
 int get_cpu_count();
 bool CreateDefaultFolders(void);
-bool CreateDirectory(string name);
-int fcopy(string source, string dest);
+bool CreateDirectory(QString name);
+int fcopy(QString source, QString dest);
 
 #endif /* SYSTEM_HPP_ */
