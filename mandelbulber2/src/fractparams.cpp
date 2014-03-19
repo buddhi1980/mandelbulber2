@@ -10,9 +10,7 @@
  ********************************************************/
 #include "fractparams.hpp"
 #include "system.hpp"
-
-#include <stdlib.h>
-
+#include <QtCore>
 
 //definition of all parameters
 void InitParams(parameters::container *par)
@@ -322,7 +320,7 @@ void InitParams(parameters::container *par)
 	//OpenCL Support
 #ifdef CLSUPPORT
 	par->addParam("ocl_custom_DE_mode", false, false);
-	par->addParam("ocl_custom_formula_name", std::string("example"), false);
+	par->addParam("ocl_custom_formula_name", QString("example"), false);
 	for (int i = 0; i < 15; ++i)
 	{
 		par->addParam("ocl_custom_par", i, 0.0, true);
@@ -333,12 +331,12 @@ void InitParams(parameters::container *par)
 #endif
 
 	//files
-	par->addParam("file_destination", std::string("images/image"), false);
-	par->addParam("file_background", (std::string(systemData.sharedDir)+"textures/background.jpg"), false);
-	par->addParam("file_envmap", (std::string(systemData.sharedDir)+"textures/envmap.jpg"), false);
-	par->addParam("file_lightmap", (std::string(systemData.sharedDir)+"textures/lightmap.jpg"), false);
-	par->addParam("file_animation_path", std::string("paths/path.txt"), false);
-	par->addParam("file_keyframes", std::string("keyframes/keyframe"), false);
+	par->addParam("file_destination", QString("images/image"), false);
+	par->addParam("file_background", (QString(systemData.sharedDir)+"textures/background.jpg"), false);
+	par->addParam("file_envmap", (QString(systemData.sharedDir)+"textures/envmap.jpg"), false);
+	par->addParam("file_lightmap", (QString(systemData.sharedDir)+"textures/lightmap.jpg"), false);
+	par->addParam("file_animation_path", QString("paths/path.txt"), false);
+	par->addParam("file_keyframes", QString("keyframes/keyframe"), false);
 
 	//color palette
 	//sRGB palette[256];
@@ -347,11 +345,11 @@ void InitParams(parameters::container *par)
 	//par->addParam("palette", palette, false);
 
 	//----------------------- application parameters ---------------------
-	par->addParam("net_render_client_port", std::string("5555"), true);
+	par->addParam("net_render_client_port", QString("5555"), true);
 	par->SetAsAppParam("net_render_client_port", true);
-	par->addParam("net_render_client_IP", std::string("10.0.0.4"), true);
+	par->addParam("net_render_client_IP", QString("10.0.0.4"), true);
 	par->SetAsAppParam("net_render_client_IP", true);
-	par->addParam("net_render_server_port", std::string("5555"), true);
+	par->addParam("net_render_server_port", QString("5555"), true);
 	par->SetAsAppParam("net_render_server_port", true);
 	par->addParam("light_manual_placement_dist", 0.1, 1e-15, 1e15, true);
 	par->SetAsAppParam("light_manual_placement_dist", true);
@@ -388,10 +386,10 @@ void InitParams(parameters::container *par)
 	par->addParam("openCL_memory_limit", 256, true);
 	par->SetAsAppParam("openCL_memory_limit", true);
 #ifdef WIN32
-	par->addParam("openCL_text_editor", std::string("notepad.exe"), true);
+	par->addParam("openCL_text_editor", QString("notepad.exe"), true);
 	par->SetAsAppParam("openCL_text_editor", true);
 #else
-	par->addParam("openCL_text_editor", std::string("/usr/bin/kate"), true);
+	par->addParam("openCL_text_editor", QString("/usr/bin/kate"), true);
 	par->SetAsAppParam("openCL_text_editor", true);
 #endif
 #endif

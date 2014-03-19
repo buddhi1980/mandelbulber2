@@ -9,7 +9,4 @@
 #define MAIN_HPP_
 
 
-
-using namespace std;
-
 #endif /* MAIN_HPP_ */

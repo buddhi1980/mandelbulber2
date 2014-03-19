@@ -8,11 +8,8 @@
 
 #include "interface.hpp"
 #include "system.hpp"
-#include <iostream>
-
+#include <QTextStream>
 cInterface *mainInterface;
-
-using namespace std;
 
 //constructor of interface (loading of ui files)
 cInterface::cInterface(int argc, char* argv[])
@@ -63,35 +60,35 @@ cInterface::cInterface(int argc, char* argv[])
 //Reading ad writing parameters from/to ui to/from parameters container
 void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::container *par, enumReadWrite mode)
 {
+	QTextStream out(stdout);
 	WriteLog("SynchronizeInterfaceWindow() started");
 	QList<QLineEdit *> widgetListLineEdit = window->findChildren<QLineEdit *>();
 
 	WriteLog("SynchronizeInterfaceWindow() QLineEdit");
 	foreach (QLineEdit* it, widgetListLineEdit)
 	{
-		cout << "QLineEdit:" << it->objectName().toStdString() << " Type:" << it->metaObject()->className()<< endl;
+		out << "QLineEdit:" << it->objectName() << " Type:" << it->metaObject()->className()<< endl;
 
-		string name = it->objectName().toStdString();
-		if(name.length() > 1 && it->metaObject()->className() == string("QLineEdit"))
+		QString name = it->objectName();
+		if(name.length() > 1 && it->metaObject()->className() == QString("QLineEdit"))
 		{
 			QLineEdit *lineEdit = it;
-			string text = lineEdit->text().toStdString();
-			cout << name << " - text: " << text << endl;
+			QString text = lineEdit->text();
+			out << name << " - text: " << text << endl;
 
-			string type, parameterName;
+			QString type, parameterName;
 			GetNameAndType(name, &parameterName, &type);
 
 			//----- get vectors ------------
-			if(type == string("vect3"))
+			if(type == QString("vect3"))
 			{
-				char lastChar = parameterName.at(parameterName.length()-1);
-
-				string nameVect = string(parameterName, 0, parameterName.length() - 2);
+				char lastChar = (parameterName.at(parameterName.length()-1)).toAscii();
+				QString nameVect = parameterName.left(parameterName.length() - 2);
 
 				if(mode == read)
 				{
 					double value = lineEdit->text().toDouble();
-					cout << nameVect << " - " << lastChar << " axis = " << value << endl;
+					qDebug() << nameVect << " - " << lastChar << " axis = " << value << endl;
 					CVector3 vect = par->Get<CVector3>(nameVect);
 
 					switch(lastChar)
@@ -109,7 +106,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 						break;
 
 						default:
-						cerr << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+						qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
 						break;
 					}
 					par->Set(nameVect, vect);
@@ -134,7 +131,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 						break;
 
 						default:
-						cerr << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+						qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
 						break;
 					}
 					lineEdit->setText(qtext);
@@ -142,7 +139,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 			}
 
 			//---------- get scalars --------
-			else if(type == string("edit") || type == string("logedit"))
+			else if(type == QString("edit") || type == QString("logedit"))
 			{
 				if(mode == read)
 				{
@@ -162,17 +159,17 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 	QList<QDoubleSpinBox *> widgetListDoubleSpinBox = window->findChildren<QDoubleSpinBox*>();
 	foreach (QDoubleSpinBox* it, widgetListDoubleSpinBox)
 	{
-		cout << "QDoubleSpinBox:" << it->objectName().toStdString() << " Type:" << it->metaObject()->className()<< endl;
+		out << "QDoubleSpinBox:" << it->objectName() << " Type:" << it->metaObject()->className()<< endl;
 
-		string name = it->objectName().toStdString();
-		if(name.length() > 1 && it->metaObject()->className() == string("QDoubleSpinBox"))
+		QString name = it->objectName();
+		if(name.length() > 1 && it->metaObject()->className() == QString("QDoubleSpinBox"))
 		{
 			QDoubleSpinBox *spinbox = it;
 
-			string type, parameterName;
+			QString type, parameterName;
 			GetNameAndType(name, &parameterName, &type);
 
-			if(type == string("spinbox"))
+			if(type == QString("spinbox"))
 			{
 				if(mode == read)
 				{
@@ -198,42 +195,42 @@ void cInterface::SetSlotsForSlidersWindow(QWidget *window)
 	QList<QSlider *> widgetList = window->findChildren<QSlider *>();
 	foreach (QSlider* it, widgetList)
 	{
-		string name = it->objectName().toStdString();
-		if(name.length() > 1 && it->metaObject()->className() == string("QSlider"))
+		QString name = it->objectName();
+		if(name.length() > 1 && it->metaObject()->className() == QString("QSlider"))
 		{
 			const QSlider *slider = it;
 
-			string type, parameterName;
+			QString type, parameterName;
 			GetNameAndType(name, &parameterName, &type);
 
-			if(type == string("slider"))
+			if(type == QString("slider"))
 			{
 				QApplication::connect(slider, SIGNAL(sliderMoved(int)), slot, SLOT(slotSliderMoved(int)));
 
-				string spinBoxName = string("spinbox_") + parameterName;
-				QDoubleSpinBox *spinBox = qFindChild<QDoubleSpinBox*>(slider->parent(), spinBoxName.c_str());
+				QString spinBoxName = QString("spinbox_") + parameterName;
+				QDoubleSpinBox *spinBox = qFindChild<QDoubleSpinBox*>(slider->parent(), spinBoxName);
 				if(spinBox)
 				{
 					QApplication::connect(spinBox, SIGNAL(valueChanged(double)), slot, SLOT(slotDoubleSpinBoxChanged(double)));
 				}
 				else
 				{
-					cerr << "SetSlotsForSlidersWindow() error: spinbox " << spinBoxName << " doesn't exists" << endl;
+					qWarning() << "SetSlotsForSlidersWindow() error: spinbox " << spinBoxName << " doesn't exists" << endl;
 				}
 			}
-			if(type == string("logslider"))
+			if(type == QString("logslider"))
 			{
 				QApplication::connect(slider, SIGNAL(sliderMoved(int)), slot, SLOT(slotLogSliderMoved(int)));
 
-				string editFieldName = string("logedit_") + parameterName;
-				QLineEdit *lineEdit = qFindChild<QLineEdit*>(slider->parent(), editFieldName.c_str());
+				QString editFieldName = QString("logedit_") + parameterName;
+				QLineEdit *lineEdit = qFindChild<QLineEdit*>(slider->parent(), editFieldName);
 				if(lineEdit)
 				{
 					QApplication::connect(lineEdit, SIGNAL(textChanged(const QString&)), slot, SLOT(slotLogLineEditChanged(const QString&)));
 				}
 				else
 				{
-					cerr << "SetSlotsForSlidersWindow() error: lineEdit " << editFieldName << " doesn't exists" << endl;
+					qWarning() << "SetSlotsForSlidersWindow() error: lineEdit " << editFieldName << " doesn't exists" << endl;
 				}
 			}
 
@@ -244,9 +241,9 @@ void cInterface::SetSlotsForSlidersWindow(QWidget *window)
 }
 
 //extract name and type string from widget name
-void cInterface::GetNameAndType(string name, string *parameterName, string *type)
+void cInterface::GetNameAndType(QString name, QString *parameterName, QString *type)
 {
-	size_t firstDashPosition = name.find("_");
-	*type = string(name, 0, firstDashPosition);
-	*parameterName = string(name, firstDashPosition + 1);
+	size_t firstDashPosition = name.indexOf("_");
+	*type = name.left(firstDashPosition);
+	*parameterName = name.mid(firstDashPosition + 1);
 }

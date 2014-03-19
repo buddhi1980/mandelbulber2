@@ -9,10 +9,7 @@
  /
  ********************************************************/
 #include "parameters.hpp"
-#include <iostream>
-#include <string>
-#include <stdio.h>
-#include <stdlib.h>
+#include <QtCore>
 
 //#define _PARAM_DEBUG
 
@@ -32,7 +29,7 @@ container::~container()
 
 //defining of params without limits
 template<class T>
-void container::addParam(std::string name, T defaultVal, bool morphable)
+void container::addParam(QString name, T defaultVal, bool morphable)
 {
 	sRecord newRecord;
 	sMultiVal multi;
@@ -44,25 +41,26 @@ void container::addParam(std::string name, T defaultVal, bool morphable)
 	newRecord.toSave = true;
 	newRecord.appParam = false;
 
-	std::pair<std::map<std::string, sRecord>::iterator, bool> ret;
-	ret = myMap.insert(std::pair<std::string, sRecord>(name, newRecord));
-
-	if (ret.second == false)
+	if(myMap.find(name) != myMap.end())
 	{
-		std::cerr << "addParam(): element '" << name << "' already existed" << std::endl;
+		qWarning() << "addParam(): element '" << name << "' already existed" << endl;
+	}
+	else
+	{
+		myMap.insert(name, newRecord);
 	}
 }
-template void container::addParam<double>(std::string name, double defaultVal, bool morphable);
-template void container::addParam<int>(std::string name, int defaultVal, bool morphable);
-template void container::addParam<std::string>(std::string name, std::string defaultVal, bool morphable);
-template void container::addParam<CVector3>(std::string name, CVector3 defaultVal, bool morphable);
-template void container::addParam<sRGB>(std::string name, sRGB defaultVal, bool morphable);
-template void container::addParam<bool>(std::string name, bool defaultVal, bool morphable);
-template void container::addParam<sRGB*>(std::string name, sRGB *defaultVal, bool morphable);
+template void container::addParam<double>(QString name, double defaultVal, bool morphable);
+template void container::addParam<int>(QString name, int defaultVal, bool morphable);
+template void container::addParam<QString>(QString name, QString defaultVal, bool morphable);
+template void container::addParam<CVector3>(QString name, CVector3 defaultVal, bool morphable);
+template void container::addParam<sRGB>(QString name, sRGB defaultVal, bool morphable);
+template void container::addParam<bool>(QString name, bool defaultVal, bool morphable);
+template void container::addParam<sRGB*>(QString name, sRGB *defaultVal, bool morphable);
 
 //defining of params with limits
 template<class T>
-void container::addParam(std::string name, T defaultVal, T minVal, T maxVal, bool morphable)
+void container::addParam(QString name, T defaultVal, T minVal, T maxVal, bool morphable)
 {
 	sRecord newRecord;
 	sMultiVal multi;
@@ -77,22 +75,23 @@ void container::addParam(std::string name, T defaultVal, T minVal, T maxVal, boo
 	newRecord.toSave = true;
 	newRecord.appParam = false;
 
-	std::pair<std::map<std::string, sRecord>::iterator, bool> ret;
-	ret = myMap.insert(std::pair<std::string, sRecord>(name, newRecord));
-
-	if (ret.second == false)
+	if(myMap.find(name) != myMap.end())
 	{
-		std::cerr << "addParam(): element '" << name << "' already existed" << std::endl;
+		qWarning() << "addParam(): element '" << name << "' already existed" << endl;
+	}
+	else
+	{
+		myMap.insert(name, newRecord);
 	}
 }
-template void container::addParam<double>(std::string name, double defaultVal, double minVal, double maxVal, bool morphable);
-template void container::addParam<int>(std::string name, int defaultVal, int minVal, int maxVal, bool morphable);
-template void container::addParam<CVector3>(std::string name, CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, bool morphable);
-template void container::addParam<sRGB>(std::string name, sRGB defaultVal, sRGB minVal, sRGB maxVal, bool morphable);
+template void container::addParam<double>(QString name, double defaultVal, double minVal, double maxVal, bool morphable);
+template void container::addParam<int>(QString name, int defaultVal, int minVal, int maxVal, bool morphable);
+template void container::addParam<CVector3>(QString name, CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, bool morphable);
+template void container::addParam<sRGB>(QString name, sRGB defaultVal, sRGB minVal, sRGB maxVal, bool morphable);
 
 //defining of params without limits and with index
 template<class T>
-void container::addParam(std::string name, int index, T defaultVal, bool morphable)
+void container::addParam(QString name, int index, T defaultVal, bool morphable)
 {
 	if (index >= 0)
 	{
@@ -106,30 +105,31 @@ void container::addParam(std::string name, int index, T defaultVal, bool morphab
 		newRecord.toSave = true;
 		newRecord.appParam = false;
 
-		std::string indexName = nameWithIndex(&name, index);
-		std::pair<std::map<std::string, sRecord>::iterator, bool> ret;
-		ret = myMap.insert(std::pair<std::string, sRecord>(indexName, newRecord));
-
-		if (ret.second == false)
+		QString indexName = nameWithIndex(&name, index);
+		if(myMap.find(indexName) != myMap.end())
 		{
-			std::cerr << "addParam(): element '" << indexName << "' already existed" << std::endl;
+			qWarning() << "addParam(): element '" << indexName << "' already existed" << endl;
+		}
+		else
+		{
+			myMap.insert(indexName, newRecord);
 		}
 	}
 	else
 	{
-		std::cerr << "addParam(): element '" << name << "' has negative index (" << index << ")" << std::endl;
+		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")" << endl;
 	}
 }
-template void container::addParam<double>(std::string name, int index, double defaultVal, bool morphable);
-template void container::addParam<int>(std::string name, int index, int defaultVal, bool morphable);
-template void container::addParam<std::string>(std::string name, int index, std::string defaultVal, bool morphable);
-template void container::addParam<CVector3>(std::string name, int index, CVector3 defaultVal, bool morphable);
-template void container::addParam<sRGB>(std::string name, int index, sRGB defaultVal, bool morphable);
-template void container::addParam<bool>(std::string name, int index, bool defaultVal, bool morphable);
+template void container::addParam<double>(QString name, int index, double defaultVal, bool morphable);
+template void container::addParam<int>(QString name, int index, int defaultVal, bool morphable);
+template void container::addParam<QString>(QString name, int index, QString defaultVal, bool morphable);
+template void container::addParam<CVector3>(QString name, int index, CVector3 defaultVal, bool morphable);
+template void container::addParam<sRGB>(QString name, int index, sRGB defaultVal, bool morphable);
+template void container::addParam<bool>(QString name, int index, bool defaultVal, bool morphable);
 
 //defining of params with limits and index
 template<class T>
-void container::addParam(std::string name, int index, T defaultVal, T minVal, T maxVal, bool morphable)
+void container::addParam(QString name, int index, T defaultVal, T minVal, T maxVal, bool morphable)
 {
 	if (index >= 0)
 	{
@@ -146,24 +146,25 @@ void container::addParam(std::string name, int index, T defaultVal, T minVal, T 
 		newRecord.toSave = true;
 		newRecord.appParam = false;
 
-		std::string indexName = nameWithIndex(&name, index);
-		std::pair<std::map<std::string, sRecord>::iterator, bool> ret;
-		ret = myMap.insert(std::pair<std::string, sRecord>(indexName, newRecord));
-
-		if (ret.second == false)
+		QString indexName = nameWithIndex(&name, index);
+		if(myMap.find(indexName) != myMap.end())
 		{
-			std::cerr << "addParam(): element '" << indexName << "' already existed" << std::endl;
+			qWarning() << "addParam(): element '" << indexName << "' already existed" << endl;
+		}
+		else
+		{
+			myMap.insert(indexName, newRecord);
 		}
 	}
 	else
 	{
-		std::cerr << "addParam(): element '" << name << "' has negative index (" << index << ")" << std::endl;
+		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")" << endl;
 	}
 }
-template void container::addParam<double>(std::string name, int index, double defaultVal, double minVal, double maxVal, bool morphable);
-template void container::addParam<int>(std::string name, int index, int defaultVal, int minVal, int maxVal, bool morphable);
-template void container::addParam<CVector3>(std::string name, int index, CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, bool morphable);
-template void container::addParam<sRGB>(std::string name, int index, sRGB defaultVal, sRGB minVal, sRGB maxVal, bool morphable);
+template void container::addParam<double>(QString name, int index, double defaultVal, double minVal, double maxVal, bool morphable);
+template void container::addParam<int>(QString name, int index, int defaultVal, int minVal, int maxVal, bool morphable);
+template void container::addParam<CVector3>(QString name, int index, CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, bool morphable);
+template void container::addParam<sRGB>(QString name, int index, sRGB defaultVal, sRGB minVal, sRGB maxVal, bool morphable);
 
 varType container::Assigner(sMultiVal &multi, double val)
 {
@@ -172,7 +173,7 @@ varType container::Assigner(sMultiVal &multi, double val)
 	multi.iVal[0] = val;
 	char sbuff[100];
 	sprintf(sbuff, "%.16lg", val);
-	multi.sVal = std::string(sbuff);
+	multi.sVal = QString(sbuff);
 	return typeDouble;
 }
 
@@ -183,15 +184,15 @@ varType container::Assigner(sMultiVal &multi, int val)
 	multi.iVal[0] = val;
 	char sbuff[100];
 	sprintf(sbuff, "%d", val);
-	multi.sVal = std::string(sbuff);
+	multi.sVal = QString(sbuff);
 	return typeInt;
 }
 
-varType container::Assigner(sMultiVal &multi, std::string val)
+varType container::Assigner(sMultiVal &multi, QString val)
 {
 	clearMultiVal(multi);
-	sscanf(val.c_str(), "%lf %lf %lf %lf", &multi.dVal[0], &multi.dVal[1], &multi.dVal[2], &multi.dVal[3]);
-	sscanf(val.c_str(), "%d %d %d %d", &multi.iVal[0], &multi.iVal[1], &multi.iVal[2], &multi.iVal[3]);
+	sscanf(val.toUtf8(), "%lf %lf %lf %lf", &multi.dVal[0], &multi.dVal[1], &multi.dVal[2], &multi.dVal[3]);
+	sscanf(val.toUtf8(), "%d %d %d %d", &multi.iVal[0], &multi.iVal[1], &multi.iVal[2], &multi.iVal[3]);
 	multi.sVal = val;
 	return typeString;
 }
@@ -207,7 +208,7 @@ varType container::Assigner(sMultiVal &multi, CVector3 val)
 	multi.iVal[2] = val.z;
 	char sbuff[100];
 	sprintf(sbuff, "%.16lg %.16lg %.16lg", val.x, val.y, val.z);
-	multi.sVal = std::string(sbuff);
+	multi.sVal = QString(sbuff);
 	return typeVector3;
 }
 
@@ -222,7 +223,7 @@ varType container::Assigner(sMultiVal &multi, sRGB val)
 	multi.iVal[2] = val.B;
 	char sbuff[100];
 	sprintf(sbuff, "%x %x %x", val.R, val.G, val.B);
-	multi.sVal = std::string(sbuff);
+	multi.sVal = QString(sbuff);
 	return typeRgb;
 }
 
@@ -233,7 +234,7 @@ varType container::Assigner(sMultiVal &multi, bool val)
 	multi.iVal[0] = val;
 	char sbuff[100];
 	sprintf(sbuff, "%d", val);
-	multi.sVal = std::string(sbuff);
+	multi.sVal = QString(sbuff);
 	return typeBool;
 }
 
@@ -262,7 +263,7 @@ varType container::Getter(sMultiVal multi, CVector3 &val)
 	return typeVector3;
 }
 
-varType container::Getter(sMultiVal multi, std::string &val)
+varType container::Getter(sMultiVal multi, QString &val)
 {
 	val = multi.sVal;
 	return typeString;
@@ -282,165 +283,165 @@ varType container::Getter(sMultiVal multi, bool &val)
 
 //set parameter value by name
 template<class T>
-void container::Set(std::string name, T val)
+void container::Set(QString name, T val)
 {
-	std::map<std::string, sRecord>::iterator it;
+	QMap<QString, sRecord>::iterator it;
 	it = myMap.find(name);
 	if (it != myMap.end())
 	{
 		sMultiVal multi;
 		varType type = Assigner(multi, val);
-		if (it->second.type == type)
+		if (it->type == type)
 		{
-			it->second.actualVal = multi;
+			it->actualVal = multi;
 		}
 #ifdef _PARAM_DEBUG
 		else
 		{
-			std::cerr << "Set(): element '" << name << "' got value of not default type" << std::endl;
+			qWarning() << "Set(): element '" << name << "' got value of not default type" << endl;
 			DebugPrintf(name);
 		}
 #endif
 	}
 	else
 	{
-		std::cerr << "Set(): element '" << name << "' doesn't exists" << std::endl;
+		qWarning() << "Set(): element '" << name << "' doesn't exists" << endl;
 	}
 }
-template void container::Set<double>(std::string name, double val);
-template void container::Set<int>(std::string name, int val);
-template void container::Set<std::string>(std::string name, std::string val);
-template void container::Set<CVector3>(std::string name, CVector3 val);
-template void container::Set<sRGB>(std::string name, sRGB val);
-template void container::Set<bool>(std::string name, bool val);
+template void container::Set<double>(QString name, double val);
+template void container::Set<int>(QString name, int val);
+template void container::Set<QString>(QString name, QString val);
+template void container::Set<CVector3>(QString name, CVector3 val);
+template void container::Set<sRGB>(QString name, sRGB val);
+template void container::Set<bool>(QString name, bool val);
 
 //set parameter value by name and index
 template<class T>
-void container::Set(std::string name, int index, T val)
+void container::Set(QString name, int index, T val)
 {
 	if (index >= 0)
 	{
-		std::string indexName = nameWithIndex(&name, index);
-		std::map<std::string, sRecord>::iterator it;
+		QString indexName = nameWithIndex(&name, index);
+		QMap<QString, sRecord>::iterator it;
 		it = myMap.find(indexName);
 		if (it != myMap.end())
 		{
 			sMultiVal multi;
 			varType type = Assigner(multi, val);
-			if (it->second.type == type)
+			if (it->type == type)
 			{
-				it->second.actualVal = multi;
+				it->actualVal = multi;
 			}
 #ifdef _PARAM_DEBUG
 			else
 			{
-				std::cerr << "Set(): element '" << name << "' got value of not default type" << std::endl;
+				qWarning() << "Set(): element '" << name << "' got value of not default type" << endl;
 				DebugPrintf(name);
 			}
 #endif
 		}
 		else
 		{
-			std::cerr << "Set(): element '" << indexName << "' doesn't exists" << std::endl;
+			qWarning() << "Set(): element '" << indexName << "' doesn't exists" << endl;
 		}
 	}
 	else
 	{
-		std::cerr << "Set(): element '" << name << "' has negative index (" << index << ")" << std::endl;
+		qWarning() << "Set(): element '" << name << "' has negative index (" << index << ")" << endl;
 	}
 }
-template void container::Set<double>(std::string name, int index,double val);
-template void container::Set<int>(std::string name, int index,int val);
-template void container::Set<std::string>(std::string name, int index,std::string val);
-template void container::Set<CVector3>(std::string name, int index,CVector3 val);
-template void container::Set<sRGB>(std::string name, int index,sRGB val);
-template void container::Set<bool>(std::string name, int index,bool val);
+template void container::Set<double>(QString name, int index,double val);
+template void container::Set<int>(QString name, int index,int val);
+template void container::Set<QString>(QString name, int index,QString val);
+template void container::Set<CVector3>(QString name, int index,CVector3 val);
+template void container::Set<sRGB>(QString name, int index,sRGB val);
+template void container::Set<bool>(QString name, int index,bool val);
 
 //get parameter value by name
 template<class T>
-T container::Get(std::string name)
+T container::Get(QString name)
 {
-	std::map<std::string, sRecord>::iterator it;
+	QMap<QString, sRecord>::iterator it;
 	it = myMap.find(name);
 	T val;
 	if (it != myMap.end())
 	{
-		sRecord rec = it->second;
+		sRecord rec = it.value();
 		sMultiVal multi = rec.actualVal;
 		varType type = Getter(multi, val);
 #ifdef _PARAM_DEBUG
-		if (it->second.type != type)
+		if (it->type != type)
 		{
-			std::cerr << "Get(): element '" << name << "' gave value of not default type" << std::endl;
+			qWarning() << "Get(): element '" << name << "' gave value of not default type" << endl;
 			DebugPrintf(name);
 		}
 #endif
 	}
 	else
 	{
-		std::cerr << "Get(): element '" << name << "' doesn't exists" << std::endl;
+		qWarning() << "Get(): element '" << name << "' doesn't exists" << endl;
 	}
 	return val;
 }
-template double container::Get<double>(std::string name);
-template int container::Get<int>(std::string name);
-template std::string container::Get<std::string>(std::string name);
-template CVector3 container::Get<CVector3>(std::string name);
-template sRGB container::Get<sRGB>(std::string name);
-template bool container::Get<bool>(std::string name);
+template double container::Get<double>(QString name);
+template int container::Get<int>(QString name);
+template QString container::Get<QString>(QString name);
+template CVector3 container::Get<CVector3>(QString name);
+template sRGB container::Get<sRGB>(QString name);
+template bool container::Get<bool>(QString name);
 
 //get parameter value by name and index
 template<class T>
-T container::Get(std::string name, int index)
+T container::Get(QString name, int index)
 {
 	T val;
 	if (index >= 0)
 	{
-		std::string indexName = nameWithIndex(&name, index);
-		std::map<std::string, sRecord>::iterator it;
+		QString indexName = nameWithIndex(&name, index);
+		QMap<QString, sRecord>::iterator it;
 		it = myMap.find(indexName);
 		if (it != myMap.end())
 		{
-			sRecord rec = it->second;
+			sRecord rec = it.value();
 			sMultiVal multi = rec.actualVal;
 			varType type = Getter(multi, val);
 #ifdef _PARAM_DEBUG
-			if (it->second.type != type)
+			if (it->type != type)
 			{
-				std::cerr << "Get(): element '" << indexName << "' gave value of not default type" << std::endl;
+				qWarning() << "Get(): element '" << indexName << "' gave value of not default type" << endl;
 				DebugPrintf(indexName);
 			}
 #endif
 		}
 		else
 		{
-			std::cerr << "Get(): element '" << indexName << "' doesn't exists" << std::endl;
+			qWarning() << "Get(): element '" << indexName << "' doesn't exists" << endl;
 		}
 	}
 	else
 	{
-		std::cerr << "Get(): element '" << name << "' has negative index (" << index << ")" << std::endl;
+		qWarning() << "Get(): element '" << name << "' has negative index (" << index << ")" << endl;
 	}
 	return val;
 }
-template double container::Get<double>(std::string name, int index);
-template int container::Get<int>(std::string name, int index);
-template std::string container::Get<std::string>(std::string name, int index);
-template CVector3 container::Get<CVector3>(std::string name, int index);
-template sRGB container::Get<sRGB>(std::string name, int index);
-template bool container::Get<bool>(std::string name, int index);
+template double container::Get<double>(QString name, int index);
+template int container::Get<int>(QString name, int index);
+template QString container::Get<QString>(QString name, int index);
+template CVector3 container::Get<CVector3>(QString name, int index);
+template sRGB container::Get<sRGB>(QString name, int index);
+template bool container::Get<bool>(QString name, int index);
 
-void container::DebugPrintf(std::string name)
+void container::DebugPrintf(QString name)
 {
-	std::map<std::string, sRecord>::iterator it;
+	QMap<QString, sRecord>::iterator it;
 	it = myMap.find(name);
 	if (it != myMap.end())
 	{
-		sRecord rec = it->second;
-		printf("Actual value of variable '%s'\n", name.c_str());
+		sRecord rec = it.value();
+		printf("Actual value of variable '%s'\n", name.toUtf8().constData());
 		printf("int = %d; %d; %d; %d\n", rec.actualVal.iVal[0], rec.actualVal.iVal[1], rec.actualVal.iVal[2], rec.actualVal.iVal[3]);
 		printf("double = %.16lg; %.16lg; %.16lg; %.16lg\n", rec.actualVal.dVal[0], rec.actualVal.dVal[1], rec.actualVal.dVal[2], rec.actualVal.dVal[3]);
-		printf("string = %s\n", rec.actualVal.sVal.c_str());
+		printf("string = %s\n", rec.actualVal.sVal.toUtf8().constData());
 		switch (rec.type)
 		{
 			case typeInt:
@@ -468,16 +469,14 @@ void container::DebugPrintf(std::string name)
 	}
 	else
 	{
-		std::cerr << "DebugPrintf(): element '" << name << "' doesn't exists" << std::endl;
+		qWarning() << "DebugPrintf(): element '" << name << "' doesn't exists" << endl;
 	}
 }
 
-std::string container::nameWithIndex(std::string *str, int index)
+QString container::nameWithIndex(QString *str, int index)
 {
-	char name[256];
-	sprintf(name, "%s_%d", str->c_str(), index);
-	std::string out(name);
-	return out;
+	QString name = *str + "_" + QString::number(index);
+	return name;
 }
 
 void container::clearMultiVal(sMultiVal &multiVal)
@@ -493,7 +492,7 @@ void container::clearMultiVal(sMultiVal &multiVal)
 	multiVal.sVal.clear();
 }
 
-std::string container::MakePaletteString(sRGB palette[256])
+QString container::MakePaletteString(sRGB palette[256])
 {
 	int length;
 	int pointer = 0;
@@ -505,100 +504,100 @@ std::string container::MakePaletteString(sRGB palette[256])
 		length = sprintf(&paletteString[pointer], "%x ", colour);
 		pointer += length;
 	}
-	std::string out(paletteString);
+	QString out(paletteString);
 	return out;
 }
 
-void container::SetToSave(std::string name, bool toSave)
+void container::SetToSave(QString name, bool toSave)
 {
-	std::map<std::string, sRecord>::iterator it;
+	QMap<QString, sRecord>::iterator it;
 	it = myMap.find(name);
 	if (it != myMap.end())
 	{
-		it->second.toSave = toSave;
+		it->toSave = toSave;
 	}
 	else
 	{
-		std::cerr << "SetToSave(): element '" << name << "' doesn't exists" << std::endl;
+		qWarning() << "SetToSave(): element '" << name << "' doesn't exists" << endl;
 	}
 }
 
-void container::SetToSave(std::string name, int index, bool toSave)
+void container::SetToSave(QString name, int index, bool toSave)
 {
 	if (index >= 0)
 	{
-		std::string indexName = nameWithIndex(&name, index);
-		std::map<std::string, sRecord>::iterator it;
+		QString indexName = nameWithIndex(&name, index);
+		QMap<QString, sRecord>::iterator it;
 		it = myMap.find(indexName);
 		if (it != myMap.end())
 		{
-			it->second.toSave = toSave;
+			it->toSave = toSave;
 		}
 		else
 		{
-			std::cerr << "SetToSave(): element '" << indexName << "' doesn't exists" << std::endl;
+			qWarning() << "SetToSave(): element '" << indexName << "' doesn't exists" << endl;
 		}
 	}
 	else
 	{
-		std::cerr << "SetToSave(): element '" << name << "' has negative index (" << index << ")" << std::endl;
+		qWarning() << "SetToSave(): element '" << name << "' has negative index (" << index << ")" << endl;
 	}
 }
 
-void container::SetAsAppParam(std::string name, bool asAppParam)
+void container::SetAsAppParam(QString name, bool asAppParam)
 {
-	std::map<std::string, sRecord>::iterator it;
+	QMap<QString, sRecord>::iterator it;
 	it = myMap.find(name);
 	if (it != myMap.end())
 	{
-		it->second.appParam = asAppParam;
+		it->appParam = asAppParam;
 	}
 	else
 	{
-		std::cerr << "SetAsAppParam(): element '" << name << "' doesn't exists" << std::endl;
+		qWarning() << "SetAsAppParam(): element '" << name << "' doesn't exists" << endl;
 	}
 }
 
-void container::SetAsAppParam(std::string name, int index, bool asAppParam)
+void container::SetAsAppParam(QString name, int index, bool asAppParam)
 {
 	if (index >= 0)
 	{
-		std::string indexName = nameWithIndex(&name, index);
-		std::map<std::string, sRecord>::iterator it;
+		QString indexName = nameWithIndex(&name, index);
+		QMap<QString, sRecord>::iterator it;
 		it = myMap.find(indexName);
 		if (it != myMap.end())
 		{
-			it->second.appParam = asAppParam;
+			it->appParam = asAppParam;
 		}
 		else
 		{
-			std::cerr << "SetAsAppParam(): element '" << indexName << "' doesn't exists" << std::endl;
+			qWarning() << "SetAsAppParam(): element '" << indexName << "' doesn't exists" << endl;
 		}
 	}
 	else
 	{
-		std::cerr << "SetAsAppParam(): element '" << name << "' has negative index (" << index << ")" << std::endl;
+		qWarning() << "SetAsAppParam(): element '" << name << "' has negative index (" << index << ")" << endl;
 	}
 }
 
-void container::Copy(std::string name, container *sourceContainer)
+void container::Copy(QString name, container *sourceContainer)
 {
-	std::map<std::string, sRecord>::iterator itSource, itDest;
+	QMap<QString, sRecord>::iterator itSource, itDest;
 	itDest = myMap.find(name);
 	if (itDest != myMap.end())
 	{
 		itSource = sourceContainer->myMap.find(name);
 		if (itDest != myMap.end())
 		{
-			itDest->second = itSource->second;
+			itDest.value() = itSource.value();
 		}
 		else
 		{
-			std::cerr << "CopyPar(): source element '" << name << "' doesn't exists" << std::endl;
+			qWarning() << "CopyPar(): source element '" << name << "' doesn't exists" << endl;
 		}
 	}
 	else
 	{
-		std::cerr << "CopyPar(): destination element '" << name << "' doesn't exists" << std::endl;
+		qWarning() << "CopyPar(): destination element '" << name << "' doesn't exists" << endl;
 	}
 }

@@ -11,10 +11,6 @@
 #include "fractparams.hpp"
 #include "interface.hpp"
 
-#include <iostream>
-
-using namespace std;
-
 int main(int argc, char *argv[])
 {
 	//Initialization of system functions
@@ -23,7 +19,7 @@ int main(int argc, char *argv[])
 	//Create default directiories and copy all needed files
 	if(!CreateDefaultFolders())
 	{
-		cerr << "Files/directories initialization failed" << endl;
+		qCritical() << "Files/directories initialization failed" << endl;
 		return 73;
 	}
 
