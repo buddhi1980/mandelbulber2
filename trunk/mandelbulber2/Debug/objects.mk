@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -lQtCore -ljpeg -lpng -lQtGui -lQtUiTools -lQtXml
+LIBS := -lQtCore -ljpeg -lpng -lQtGui -lQtUiTools -lQtXml -lkdeui
 

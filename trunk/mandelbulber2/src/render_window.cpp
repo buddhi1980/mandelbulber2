@@ -1,48 +1,35 @@
-/*********************************************************
- /                   MANDELBULBER
- / Qt user interface
- /
- /
- / author: Krzysztof Marczak
- / contact: buddhi1980@gmail.com
- / licence: GNU GPL v3.0
- /
- / many improvements done by Rayan Hitchman
- ********************************************************/
+/*
+ * render_window.cpp
+ *
+ *  Created on: Mar 20, 2014
+ *      Author: krzysztof
+ */
+
+
+#include "render_window.hpp"
+#include "ui_render_window.h"
+#include "qt_resources.res"
+#include "interface.hpp"
+
+#include <QtGui>
 
 #define _USE_MATH_DEFINES
 #include <cmath>
-#include "qt_interface.hpp"
-#include "qt_interface.moc.hpp"
-#include "interface.hpp"
-#include "parameters.hpp"
 
-InterfaceSlots::InterfaceSlots(void)
+RenderWindow::RenderWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::RenderWindow)
 {
+    ui->setupUi(this);
 }
 
-RenderedImage::RenderedImage(QWidget *parent)
-    : QWidget(parent)
-{ }
-
-void RenderedImage::paintEvent(QPaintEvent *event)
+RenderWindow::~RenderWindow()
 {
-	QPainter painter(this);
-	painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-
-	QPen pen(Qt::white, 2, Qt::SolidLine);
-	painter.setPen(pen);
-	painter.drawLine(0, 0, 400, 20);
-
-	printf("paint\n");
-	if(mainInterface->qimage)
-	{
-		printf("paintImage\n");
-		painter.drawImage(QRect(0,0,1000,1000), *mainInterface->qimage, QRect(0,0,1000,1000));
-	}
+    delete ui;
 }
 
-void InterfaceSlots::testSlot(void)
+
+void RenderWindow::testSlot(void)
 {
 	using namespace std;
 	qDebug() << "Object name from slot" << this->sender()->objectName() << endl;
@@ -79,12 +66,12 @@ void InterfaceSlots::testSlot(void)
 
 }
 
-void InterfaceSlots::load(void)
+void RenderWindow::load(void)
 {
 	printf("load\n");
 }
 
-void InterfaceSlots::slotSliderMoved(int value)
+void RenderWindow::slotSliderMoved(int value)
 {
 	using namespace std;
 	QString sliderName = this->sender()->objectName();
@@ -103,7 +90,7 @@ void InterfaceSlots::slotSliderMoved(int value)
 	}
 }
 
-void InterfaceSlots::slotDoubleSpinBoxChanged(double value)
+void RenderWindow::slotDoubleSpinBoxChanged(double value)
 {
 	using namespace std;
 	QString spinBoxName = this->sender()->objectName();
@@ -122,7 +109,7 @@ void InterfaceSlots::slotDoubleSpinBoxChanged(double value)
 	}
 }
 
-void InterfaceSlots::slotLogSliderMoved(int value)
+void RenderWindow::slotLogSliderMoved(int value)
 {
 	using namespace std;
 	QString sliderName = this->sender()->objectName();
@@ -143,7 +130,7 @@ void InterfaceSlots::slotLogSliderMoved(int value)
 	}
 }
 
-void InterfaceSlots::slotLogLineEditChanged(const QString &text)
+void RenderWindow::slotLogLineEditChanged(const QString &text)
 {
 	using namespace std;
 	QString lineEditName = this->sender()->objectName();
@@ -168,6 +155,29 @@ void InterfaceSlots::slotLogLineEditChanged(const QString &text)
 	else
 	{
 		qWarning() << "slotLogLineEditChanged() error: slider " << sliderName << " doesn't exists" << endl;
+	}
+}
+
+//=================== rendered image widget ==================/
+
+RenderedImage::RenderedImage(QWidget *parent)
+    : QWidget(parent)
+{ }
+
+void RenderedImage::paintEvent(QPaintEvent *event)
+{
+	QPainter painter(this);
+	painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+
+	QPen pen(Qt::white, 2, Qt::SolidLine);
+	painter.setPen(pen);
+	painter.drawLine(0, 0, 400, 20);
+
+	printf("paint\n");
+	if(mainInterface->qimage)
+	{
+		printf("paintImage\n");
+		painter.drawImage(QRect(0,0,1000,1000), *mainInterface->qimage, QRect(0,0,1000,1000));
 	}
 }
 

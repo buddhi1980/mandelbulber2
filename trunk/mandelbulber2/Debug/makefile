@@ -57,7 +57,7 @@ clean:
 	-@echo ' '
 
 pre-build:
-	-moc ../src/qt_interface.hpp >../src/qt_interface.moc.hpp
+	-moc ../src/render_window.hpp >../src/render_window.moc.cpp && rcc ../qt/icons.qrc >../src/qt_resources.res && uic ../qt/render_window.ui >../src/ui_render_window.h
 	-@echo ' '
 
 .PHONY: all clean dependents
