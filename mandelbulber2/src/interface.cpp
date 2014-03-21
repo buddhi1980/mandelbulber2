@@ -9,6 +9,7 @@
 #include "interface.hpp"
 #include "system.hpp"
 #include <QTextStream>
+
 cInterface *mainInterface;
 
 //constructor of interface (loading of ui files)
@@ -17,21 +18,8 @@ cInterface::cInterface(int argc, char* argv[])
 	printf("Hello World!\n");
 
 	application = new QApplication(argc, argv);
-	slot = new InterfaceSlots;
 
-	QUiLoader loader;
-	QDir workDirectory("/home/krzysztof/workspace/mandelbulber3/qt");
-	loader.setWorkingDirectory(workDirectory);
-
-	mainWindow = new QWidget;
-
-	{
-		QFile file("/home/krzysztof/workspace/mandelbulber3/qt/render_window.ui");
-		file.open(QFile::ReadOnly);
-		mainWindow = loader.load(&file, NULL);
-		file.close();
-	}
-
+	mainWindow = new RenderWindow;
 	mainWindow->show();
 
 	QHBoxLayout *hboxlayoutScrolledArea = qFindChild<QHBoxLayout*>(mainWindow, "scrollAreaHLayout");
@@ -43,13 +31,13 @@ cInterface::cInterface(int argc, char* argv[])
 	renderedImage->show();
 
 	QWidget *button = qFindChild<QPushButton*>(mainWindow, "pushButton_render");
-	QApplication::connect(button, SIGNAL(clicked()), slot, SLOT(testSlot()));
+	QApplication::connect(button, SIGNAL(clicked()), mainWindow, SLOT(testSlot()));
 
 	QAction *actionQuit = qFindChild<QAction*>(mainWindow, "actionQuit");
 	QApplication::connect(actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 
 	QAction *actionLoad = qFindChild<QAction*>(mainWindow, "actionLoad");
-	QApplication::connect(actionLoad, SIGNAL(triggered()), slot, SLOT(load()));
+	QApplication::connect(actionLoad, SIGNAL(triggered()), mainWindow, SLOT(load()));
 
 	SetSlotsForSlidersWindow(mainWindow);
 
@@ -205,13 +193,13 @@ void cInterface::SetSlotsForSlidersWindow(QWidget *window)
 
 			if(type == QString("slider"))
 			{
-				QApplication::connect(slider, SIGNAL(sliderMoved(int)), slot, SLOT(slotSliderMoved(int)));
+				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotSliderMoved(int)));
 
 				QString spinBoxName = QString("spinbox_") + parameterName;
 				QDoubleSpinBox *spinBox = qFindChild<QDoubleSpinBox*>(slider->parent(), spinBoxName);
 				if(spinBox)
 				{
-					QApplication::connect(spinBox, SIGNAL(valueChanged(double)), slot, SLOT(slotDoubleSpinBoxChanged(double)));
+					QApplication::connect(spinBox, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotDoubleSpinBoxChanged(double)));
 				}
 				else
 				{
@@ -220,13 +208,13 @@ void cInterface::SetSlotsForSlidersWindow(QWidget *window)
 			}
 			if(type == QString("logslider"))
 			{
-				QApplication::connect(slider, SIGNAL(sliderMoved(int)), slot, SLOT(slotLogSliderMoved(int)));
+				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotLogSliderMoved(int)));
 
 				QString editFieldName = QString("logedit_") + parameterName;
 				QLineEdit *lineEdit = qFindChild<QLineEdit*>(slider->parent(), editFieldName);
 				if(lineEdit)
 				{
-					QApplication::connect(lineEdit, SIGNAL(textChanged(const QString&)), slot, SLOT(slotLogLineEditChanged(const QString&)));
+					QApplication::connect(lineEdit, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotLogLineEditChanged(const QString&)));
 				}
 				else
 				{

@@ -8,8 +8,8 @@
 #ifndef INTERFACE_HPP_
 #define INTERFACE_HPP_
 
-#include "qt_interface.hpp"
 #include "parameters.hpp"
+#include "render_window.hpp"
 
 //class for main user interface
 
@@ -26,11 +26,10 @@ public:
 	void GetNameAndType(QString name, QString *parameterName, QString *type);
 
 	QApplication *application;
-	QWidget *mainWindow;
+	RenderWindow *mainWindow;
 	QImage *qimage;
 
 private:
-	InterfaceSlots *slot;
 
 };
 

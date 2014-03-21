@@ -14,7 +14,8 @@ CPP_SRCS += \
 ../src/main.cpp \
 ../src/parameters.cpp \
 ../src/primitives.cpp \
-../src/qt_interface.cpp \
+../src/render_window.cpp \
+../src/render_window.moc.cpp \
 ../src/system.cpp \
 ../src/texture.cpp 
 
@@ -29,7 +30,8 @@ OBJS += \
 ./src/main.o \
 ./src/parameters.o \
 ./src/primitives.o \
-./src/qt_interface.o \
+./src/render_window.o \
+./src/render_window.moc.o \
 ./src/system.o \
 ./src/texture.o 
 
@@ -44,7 +46,8 @@ CPP_DEPS += \
 ./src/main.d \
 ./src/parameters.d \
 ./src/primitives.d \
-./src/qt_interface.d \
+./src/render_window.d \
+./src/render_window.moc.d \
 ./src/system.d \
 ./src/texture.d 
 
