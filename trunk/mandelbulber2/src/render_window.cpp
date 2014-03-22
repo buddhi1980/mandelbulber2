@@ -170,16 +170,16 @@ void RenderWindow::slotPresedOnColorButton(void)
 	QString pushButtonName = pushButton->objectName();
 	QColorDialog colorDialog(mainInterface->mainWindow);
 	QColor color;
-	color.setRed(pushButton->property("selectedColor_r").toInt());
-	color.setGreen(pushButton->property("selectedColor_g").toInt());
-	color.setBlue(pushButton->property("selectedColor_b").toInt());
+	color.setRed(pushButton->property("selectedColor_r").toInt() / 256);
+	color.setGreen(pushButton->property("selectedColor_g").toInt() / 256);
+	color.setBlue(pushButton->property("selectedColor_b").toInt() / 256);
 	colorDialog.setCurrentColor(color);
 	colorDialog.exec();
 	color = colorDialog.currentColor();
 	MakeIconForButton(color, pushButton);
-	pushButton->setProperty("selectedColor_r", color.red());
-	pushButton->setProperty("selectedColor_g", color.green());
-	pushButton->setProperty("selectedColor_b", color.blue());
+	pushButton->setProperty("selectedColor_r", color.red() * 256);
+	pushButton->setProperty("selectedColor_g", color.green() * 256);
+	pushButton->setProperty("selectedColor_b", color.blue() * 256);
 }
 
 //=================== rendered image widget ==================/
