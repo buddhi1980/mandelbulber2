@@ -18,9 +18,12 @@ int main(int argc, char *argv[])
 
 	//class for interface windows
 	mainInterface = new cInterface;
+
+	WriteLog("Prepare QApplication");
 	mainInterface->application = new QApplication(argc, argv);
 
 	//Create default directiories and copy all needed files
+	WriteLog("CreateDefaultFolders()");
 	if(!CreateDefaultFolders())
 	{
 		qCritical() << "Files/directories initialization failed" << endl;

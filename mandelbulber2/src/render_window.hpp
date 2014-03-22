@@ -31,6 +31,7 @@ private slots:
 	void slotDoubleSpinBoxChanged(double value);
 	void slotLogSliderMoved(int value);
 	void slotLogLineEditChanged(const QString &text);
+	void slotPresedOnColorButton();
 private:
 	Ui::RenderWindow *ui;
 

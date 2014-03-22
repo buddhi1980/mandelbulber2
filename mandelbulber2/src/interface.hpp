@@ -23,6 +23,7 @@ public:
 	void ConnectSignals(void);
 	void SynchronizeInterfaceWindow(QWidget *window, parameters::container *par, enumReadWrite mode);
 	void ConnectSignalsForSlidersInWindow(QWidget *window);
+	void MakeColorButtonsInWindow(QWidget *window);
 	void GetNameAndType(QString name, QString *parameterName, QString *type);
 
 	QApplication *application;
@@ -35,5 +36,7 @@ private:
 };
 
 extern cInterface *mainInterface;
+
+void MakeIconForButton(QColor &color, QPushButton *pushbutton);
 
 #endif /* INTERFACE_HPP_ */

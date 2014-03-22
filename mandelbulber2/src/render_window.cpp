@@ -63,7 +63,6 @@ void RenderWindow::testSlot(void)
 				img[x + y * width].b = x*y+index;
 				img[x + y * width].a = 255;
 			}
-
 		}
 
 		mainInterface->application->processEvents();
@@ -165,6 +164,24 @@ void RenderWindow::slotLogLineEditChanged(const QString &text)
 	}
 }
 
+void RenderWindow::slotPresedOnColorButton(void)
+{
+	QPushButton *pushButton = qobject_cast<QPushButton*>(this->sender());
+	QString pushButtonName = pushButton->objectName();
+	QColorDialog colorDialog(mainInterface->mainWindow);
+	QColor color;
+	color.setRed(pushButton->property("selectedColor_r").toInt());
+	color.setGreen(pushButton->property("selectedColor_g").toInt());
+	color.setBlue(pushButton->property("selectedColor_b").toInt());
+	colorDialog.setCurrentColor(color);
+	colorDialog.exec();
+	color = colorDialog.currentColor();
+	MakeIconForButton(color, pushButton);
+	pushButton->setProperty("selectedColor_r", color.red());
+	pushButton->setProperty("selectedColor_g", color.green());
+	pushButton->setProperty("selectedColor_b", color.blue());
+}
+
 //=================== rendered image widget ==================/
 
 RenderedImage::RenderedImage(QWidget *parent)
@@ -187,4 +204,6 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 		painter.drawImage(QRect(0,0,1000,1000), *mainInterface->qimage, QRect(0,0,1000,1000));
 	}
 }
+
+
 
