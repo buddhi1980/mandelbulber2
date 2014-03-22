@@ -177,6 +177,43 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 			}
 		}
 	}
+
+	WriteLog("SynchronizeInterfaceWindow() colorButtons");
+	QList<QPushButton *> widgetListPushButton = window->findChildren<QPushButton*>();
+	QList<QPushButton *>::iterator it3;
+	for (it3 = widgetListPushButton.begin(); it3 != widgetListPushButton.end(); ++it3)
+	{
+		QString name = (*it3)->objectName();
+		out << "QDoubleSpinBox:" << (*it3)->objectName() << " Type:" << (*it3)->metaObject()->className() << endl;
+		if (name.length() > 1 && (*it3)->metaObject()->className() == QString("QPushButton"))
+		{
+			QPushButton *colorButton = *it3;
+
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			if (type == QString("colorButton"))
+			{
+				if (mode == read)
+				{
+					sRGB color;
+					color.R = colorButton->property("selectedColor_r").toInt();
+					color.G = colorButton->property("selectedColor_g").toInt();
+					color.B = colorButton->property("selectedColor_b").toInt();
+					par->Set(parameterName, color);
+				}
+				else if (mode == write)
+				{
+					sRGB color = par->Get<sRGB>(parameterName);
+					QColor qcolor(color.R / 256, color.G / 256, color.B / 256);
+					MakeIconForButton(qcolor, colorButton);
+					colorButton->setProperty("selectedColor_r", color.R);
+					colorButton->setProperty("selectedColor_g", color.G);
+					colorButton->setProperty("selectedColor_b", color.B);
+				}
+			}
+		}
+	}
 	WriteLog("SynchronizeInterfaceWindow() finished");
 }
 
@@ -233,6 +270,7 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 	WriteLog("ConnectSignalsForSlidersInWindow() finished");
 }
 
+//automatic setting of event slots for all colorButtons and preparation of buttons
 void cInterface::MakeColorButtonsInWindow(QWidget *window)
 {
 	WriteLog("MakeColorButtonsInWindow() started");
@@ -268,6 +306,7 @@ void cInterface::GetNameAndType(QString name, QString *parameterName, QString *t
 	*parameterName = name.mid(firstDashPosition + 1);
 }
 
+//function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 {
 	const int w = 40;
