@@ -36,7 +36,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>621</width>
+           <width>636</width>
            <height>797</height>
           </rect>
          </property>
@@ -229,8 +229,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>411</width>
-          <height>239</height>
+          <width>396</width>
+          <height>164</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -1087,9 +1087,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-1106</y>
-          <width>395</width>
-          <height>1349</height>
+          <y>0</y>
+          <width>380</width>
+          <height>1337</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1136,10 +1136,84 @@
             </property>
             <item>
              <layout class="QGridLayout" name="gridLayoutMainLightSource">
-              <item row="5" column="0">
-               <widget class="QLabel" name="label_10">
+              <item row="6" column="1">
+               <widget class="QSlider" name="slider_shadows_cone_angle">
+                <property name="maximum">
+                 <number>4500</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="label_8">
                 <property name="text">
-                 <string>Vertical angle:</string>
+                 <string>Horizontal angle:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QSlider" name="slider_main_light_beta">
+                <property name="minimum">
+                 <number>-36000</number>
+                </property>
+                <property name="maximum">
+                 <number>36000</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>Intensity:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="2">
+               <widget class="QDoubleSpinBox" name="spinbox_main_light_alpha">
+                <property name="accelerated">
+                 <bool>true</bool>
+                </property>
+                <property name="prefix">
+                 <string/>
+                </property>
+                <property name="suffix">
+                 <string/>
+                </property>
+                <property name="decimals">
+                 <number>2</number>
+                </property>
+                <property name="minimum">
+                 <double>-100000.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>100000.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>1.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QDoubleSpinBox" name="spinbox_main_light_visibility_size">
+                <property name="prefix">
+                 <string/>
+                </property>
+                <property name="suffix">
+                 <string/>
+                </property>
+                <property name="decimals">
+                 <number>2</number>
+                </property>
+                <property name="maximum">
+                 <double>1000.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.100000000000000</double>
                 </property>
                </widget>
               </item>
@@ -1194,6 +1268,48 @@
                 </property>
                </widget>
               </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>Size:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="2">
+               <widget class="QDoubleSpinBox" name="spinbox_shadows_cone_angle">
+                <property name="frame">
+                 <bool>true</bool>
+                </property>
+                <property name="accelerated">
+                 <bool>true</bool>
+                </property>
+                <property name="prefix">
+                 <string/>
+                </property>
+                <property name="suffix">
+                 <string/>
+                </property>
+                <property name="decimals">
+                 <number>2</number>
+                </property>
+                <property name="minimum">
+                 <double>-100000.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>100000.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>1.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_10">
+                <property name="text">
+                 <string>Vertical angle:</string>
+                </property>
+               </widget>
+              </item>
               <item row="2" column="1">
                <widget class="QSlider" name="slider_main_light_visibility_size">
                 <property name="maximum">
@@ -1232,26 +1348,6 @@
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>Color:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QSlider" name="slider_main_light_intensity">
-                <property name="maximum">
-                 <number>200</number>
-                </property>
-                <property name="singleStep">
-                 <number>1</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
               <item row="6" column="0">
                <widget class="QLabel" name="label_30">
                 <property name="text">
@@ -1276,81 +1372,20 @@
                 </property>
                </widget>
               </item>
-              <item row="4" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_main_light_alpha">
-                <property name="accelerated">
-                 <bool>true</bool>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_7">
+                <property name="text">
+                 <string>Color:</string>
                 </property>
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="decimals">
-                 <number>2</number>
-                </property>
-                <property name="minimum">
-                 <double>-100000.000000000000000</double>
-                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QSlider" name="slider_main_light_intensity">
                 <property name="maximum">
-                 <double>100000.000000000000000</double>
+                 <number>200</number>
                 </property>
                 <property name="singleStep">
-                 <double>1.000000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_main_light_visibility_size">
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="decimals">
-                 <number>2</number>
-                </property>
-                <property name="maximum">
-                 <double>1000.000000000000000</double>
-                </property>
-                <property name="singleStep">
-                 <double>0.100000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>Horizontal angle:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="1">
-               <widget class="QSlider" name="slider_main_light_beta">
-                <property name="minimum">
-                 <number>-36000</number>
-                </property>
-                <property name="maximum">
-                 <number>36000</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_2">
-                <property name="text">
-                 <string>Intensity:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="1">
-               <widget class="QSlider" name="slider_shadows_cone_angle">
-                <property name="maximum">
-                 <number>4500</number>
+                 <number>1</number>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -1358,40 +1393,9 @@
                </widget>
               </item>
               <item row="3" column="1">
-               <widget class="KColorButton" name="kcolorbutton_main_light_colour"/>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_5">
+               <widget class="QPushButton" name="colorButton_main_light_colour">
                 <property name="text">
-                 <string>Size:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_shadows_cone_angle">
-                <property name="frame">
-                 <bool>true</bool>
-                </property>
-                <property name="accelerated">
-                 <bool>true</bool>
-                </property>
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="decimals">
-                 <number>2</number>
-                </property>
-                <property name="minimum">
-                 <double>-100000.000000000000000</double>
-                </property>
-                <property name="maximum">
-                 <double>100000.000000000000000</double>
-                </property>
-                <property name="singleStep">
-                 <double>1.000000000000000</double>
+                 <string>PushButton</string>
                 </property>
                </widget>
               </item>
@@ -1511,7 +1515,11 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="KColorButton" name="kcolorbutton_aux_light_predefined_colour_1"/>
+                    <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_1">
+                     <property name="text">
+                      <string>PushButton</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -1614,7 +1622,11 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="KColorButton" name="kcolorbutton_aux_light_predefined_colour_2"/>
+                    <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_2">
+                     <property name="text">
+                      <string>PushButton</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -1717,7 +1729,11 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="KColorButton" name="kcolorbutton_aux_light_predefined_colour_3"/>
+                    <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_3">
+                     <property name="text">
+                      <string>PushButton</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -1823,7 +1839,11 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="KColorButton" name="kcolorbutton_aux_light_predefined_colour_4"/>
+                    <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_4">
+                     <property name="text">
+                      <string>PushButton</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -2232,8 +2252,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>411</width>
-          <height>246</height>
+          <width>396</width>
+          <height>270</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2515,13 +2535,6 @@
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KColorButton</class>
-   <extends>QPushButton</extends>
-   <header>kcolorbutton.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="icons.qrc"/>
  </resources>

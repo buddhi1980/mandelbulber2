@@ -23,14 +23,21 @@ cInterface::cInterface()
 
 void cInterface::ShowUi(void)
 {
+	WriteLog("Prepare RenderWindow class");
 	mainWindow = new RenderWindow;
+
+	WriteLog("mainWindow->show()");
 	mainWindow->show();
 
+	WriteLog("Prepare RenderedImage class");
 	renderedImage = new RenderedImage(mainWindow);
 	mainWindow->ui->scrollAreaHLayout->addWidget(renderedImage);
 	mainWindow->ui->scrollAreaWidgetContents->setMinimumSize(1000,1000);
 	renderedImage->show();
 
+
+
+	WriteLog("ConnectSignals()");
 	ConnectSignals();
 }
 
@@ -39,6 +46,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(testSlot()));
 	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 	ConnectSignalsForSlidersInWindow(mainWindow);
+	MakeColorButtonsInWindow(mainWindow);
 }
 
 //Reading ad writing parameters from/to ui to/from parameters container
@@ -46,17 +54,18 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 {
 	QTextStream out(stdout);
 	WriteLog("SynchronizeInterfaceWindow() started");
-	QList<QLineEdit *> widgetListLineEdit = window->findChildren<QLineEdit *>();
-
 	WriteLog("SynchronizeInterfaceWindow() QLineEdit");
-	foreach (QLineEdit* it, widgetListLineEdit)
-	{
-		out << "QLineEdit:" << it->objectName() << " Type:" << it->metaObject()->className()<< endl;
+	QList<QLineEdit *> widgetListLineEdit = window->findChildren<QLineEdit *>();
+	QList<QLineEdit *>::iterator it1;
 
-		QString name = it->objectName();
-		if(name.length() > 1 && it->metaObject()->className() == QString("QLineEdit"))
+	for (it1 = widgetListLineEdit.begin(); it1 != widgetListLineEdit.end(); ++it1)
+	{
+		out << "QLineEdit:" << (*it1)->objectName() << " Type:" << (*it1)->metaObject()->className()<< endl;
+
+		QString name = (*it1)->objectName();
+		if(name.length() > 1 && (*it1)->metaObject()->className() == QString("QLineEdit"))
 		{
-			QLineEdit *lineEdit = it;
+			QLineEdit *lineEdit = *it1;
 			QString text = lineEdit->text();
 			out << name << " - text: " << text << endl;
 
@@ -141,14 +150,14 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 
 	WriteLog("SynchronizeInterfaceWindow() QDoubleSpinBox");
 	QList<QDoubleSpinBox *> widgetListDoubleSpinBox = window->findChildren<QDoubleSpinBox*>();
-	foreach (QDoubleSpinBox* it, widgetListDoubleSpinBox)
+	QList<QDoubleSpinBox *>::iterator it2;
+	for (it2 = widgetListDoubleSpinBox.begin(); it2 != widgetListDoubleSpinBox.end(); ++it2)
 	{
-		out << "QDoubleSpinBox:" << it->objectName() << " Type:" << it->metaObject()->className()<< endl;
-
-		QString name = it->objectName();
-		if(name.length() > 1 && it->metaObject()->className() == QString("QDoubleSpinBox"))
+		QString name = (*it2)->objectName();
+		out << "QDoubleSpinBox:" << (*it2)->objectName() << " Type:" << (*it2)->metaObject()->className()<< endl;
+		if(name.length() > 1 && (*it2)->metaObject()->className() == QString("QDoubleSpinBox"))
 		{
-			QDoubleSpinBox *spinbox = it;
+			QDoubleSpinBox *spinbox = *it2;
 
 			QString type, parameterName;
 			GetNameAndType(name, &parameterName, &type);
@@ -177,23 +186,24 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 	WriteLog("ConnectSignalsForSlidersInWindow() started");
 
 	QList<QSlider *> widgetList = window->findChildren<QSlider *>();
-	foreach (QSlider* it, widgetList)
+	QList<QSlider *>::iterator it;
+	for (it = widgetList.begin(); it != widgetList.end(); ++it)
 	{
-		QString name = it->objectName();
-		if(name.length() > 1 && it->metaObject()->className() == QString("QSlider"))
+		QString name = (*it)->objectName();
+		if (name.length() > 1 && (*it)->metaObject()->className() == QString("QSlider"))
 		{
-			const QSlider *slider = it;
+			const QSlider *slider = *it;
 
 			QString type, parameterName;
 			GetNameAndType(name, &parameterName, &type);
 
-			if(type == QString("slider"))
+			if (type == QString("slider"))
 			{
 				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotSliderMoved(int)));
 
 				QString spinBoxName = QString("spinbox_") + parameterName;
 				QDoubleSpinBox *spinBox = qFindChild<QDoubleSpinBox*>(slider->parent(), spinBoxName);
-				if(spinBox)
+				if (spinBox)
 				{
 					QApplication::connect(spinBox, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotDoubleSpinBoxChanged(double)));
 				}
@@ -202,13 +212,13 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox " << spinBoxName << " doesn't exists" << endl;
 				}
 			}
-			if(type == QString("logslider"))
+			if (type == QString("logslider"))
 			{
 				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotLogSliderMoved(int)));
 
 				QString editFieldName = QString("logedit_") + parameterName;
 				QLineEdit *lineEdit = qFindChild<QLineEdit*>(slider->parent(), editFieldName);
-				if(lineEdit)
+				if (lineEdit)
 				{
 					QApplication::connect(lineEdit, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotLogLineEditChanged(const QString&)));
 				}
@@ -218,10 +228,36 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 				}
 			}
 
-
 		}
 	}
 	WriteLog("ConnectSignalsForSlidersInWindow() finished");
+}
+
+void cInterface::MakeColorButtonsInWindow(QWidget *window)
+{
+	WriteLog("MakeColorButtonsInWindow() started");
+
+	QList<QPushButton *> widgetList = window->findChildren<QPushButton *>();
+	QList<QPushButton *>::iterator it;
+	for(it = widgetList.begin(); it != widgetList.end(); ++it)
+	{
+		QString name = (*it)->objectName();
+		if(name.length() > 1 && (*it)->metaObject()->className() == QString("QPushButton"))
+		{
+			QPushButton *pushButton = (*it);
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			if(type == QString("colorButton"))
+			{
+				pushButton->setText("");
+				QColor color(255,255,255);
+				MakeIconForButton(color, pushButton);
+				QApplication::connect(pushButton, SIGNAL(clicked()), mainWindow, SLOT(slotPresedOnColorButton()));
+			}
+		}
+	}
+	WriteLog("MakeColorButtonsInWindow() finished");
 }
 
 //extract name and type string from widget name
@@ -231,3 +267,17 @@ void cInterface::GetNameAndType(QString name, QString *parameterName, QString *t
 	*type = name.left(firstDashPosition);
 	*parameterName = name.mid(firstDashPosition + 1);
 }
+
+void MakeIconForButton(QColor &color, QPushButton *pushbutton)
+{
+	const int w = 40;
+	const int h = 15;
+	QPixmap pix(w,h);
+	QPainter painter(&pix);
+	painter.fillRect(QRect(0,0,w,h), color);
+	painter.drawRect(0,0,w-1,h-1);
+	QIcon icon(pix);
+	pushbutton->setIcon(icon);
+	pushbutton->setIconSize(QSize(w,h));
+}
+

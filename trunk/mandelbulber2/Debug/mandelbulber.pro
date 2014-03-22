@@ -39,8 +39,5 @@ LIBS += -lQtGui
 LIBS += -lQtUiTools
 LIBS += -lQtCore
 LIBS += -lQtXml
-LIBS += -lkdeui
 LIBS += -lpng
 LIBS += -ljpeg
-
-
