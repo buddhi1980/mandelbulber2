@@ -13,36 +13,32 @@
 cInterface *mainInterface;
 
 //constructor of interface (loading of ui files)
-cInterface::cInterface(int argc, char* argv[])
+cInterface::cInterface()
 {
-	printf("Hello World!\n");
+	mainWindow = NULL;
+	application = NULL;
+	qimage = NULL;
+	renderedImage = NULL;
+}
 
-	application = new QApplication(argc, argv);
-
+void cInterface::ShowUi(void)
+{
 	mainWindow = new RenderWindow;
 	mainWindow->show();
 
-	QHBoxLayout *hboxlayoutScrolledArea = qFindChild<QHBoxLayout*>(mainWindow, "scrollAreaHLayout");
-	QWidget *scrollAreaWidgetContents = qFindChild<QWidget*>(mainWindow, "scrollAreaWidgetContents");
-
-	RenderedImage *renderedImage = new RenderedImage(mainWindow);
-	hboxlayoutScrolledArea->addWidget(renderedImage);
-	scrollAreaWidgetContents->setMinimumSize(1000,1000);
+	renderedImage = new RenderedImage(mainWindow);
+	mainWindow->ui->scrollAreaHLayout->addWidget(renderedImage);
+	mainWindow->ui->scrollAreaWidgetContents->setMinimumSize(1000,1000);
 	renderedImage->show();
 
-	QWidget *button = qFindChild<QPushButton*>(mainWindow, "pushButton_render");
-	QApplication::connect(button, SIGNAL(clicked()), mainWindow, SLOT(testSlot()));
+	ConnectSignals();
+}
 
-	QAction *actionQuit = qFindChild<QAction*>(mainWindow, "actionQuit");
-	QApplication::connect(actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
-
-	QAction *actionLoad = qFindChild<QAction*>(mainWindow, "actionLoad");
-	QApplication::connect(actionLoad, SIGNAL(triggered()), mainWindow, SLOT(load()));
-
-	SetSlotsForSlidersWindow(mainWindow);
-
-	qimage = NULL;
-
+void cInterface::ConnectSignals(void)
+{
+	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(testSlot()));
+	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
+	ConnectSignalsForSlidersInWindow(mainWindow);
 }
 
 //Reading ad writing parameters from/to ui to/from parameters container
@@ -176,9 +172,9 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 }
 
 //automatic setting of event slots for all sliders
-void cInterface::SetSlotsForSlidersWindow(QWidget *window)
+void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 {
-	WriteLog("SetSlotsForSlidersWindow() started");
+	WriteLog("ConnectSignalsForSlidersInWindow() started");
 
 	QList<QSlider *> widgetList = window->findChildren<QSlider *>();
 	foreach (QSlider* it, widgetList)
@@ -203,7 +199,7 @@ void cInterface::SetSlotsForSlidersWindow(QWidget *window)
 				}
 				else
 				{
-					qWarning() << "SetSlotsForSlidersWindow() error: spinbox " << spinBoxName << " doesn't exists" << endl;
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox " << spinBoxName << " doesn't exists" << endl;
 				}
 			}
 			if(type == QString("logslider"))
@@ -218,14 +214,14 @@ void cInterface::SetSlotsForSlidersWindow(QWidget *window)
 				}
 				else
 				{
-					qWarning() << "SetSlotsForSlidersWindow() error: lineEdit " << editFieldName << " doesn't exists" << endl;
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName << " doesn't exists" << endl;
 				}
 			}
 
 
 		}
 	}
-	WriteLog("SetSlotsForSlidersWindow() finished");
+	WriteLog("ConnectSignalsForSlidersInWindow() finished");
 }
 
 //extract name and type string from widget name

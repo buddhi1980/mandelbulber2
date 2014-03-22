@@ -18,16 +18,17 @@ class cInterface
 public:
 	enum enumReadWrite {read, write};
 
-	cInterface(int argc, char* argv[]);
-
+	cInterface();
+	void ShowUi(void);
+	void ConnectSignals(void);
 	void SynchronizeInterfaceWindow(QWidget *window, parameters::container *par, enumReadWrite mode);
-
-	void SetSlotsForSlidersWindow(QWidget *window);
+	void ConnectSignalsForSlidersInWindow(QWidget *window);
 	void GetNameAndType(QString name, QString *parameterName, QString *type);
 
 	QApplication *application;
 	RenderWindow *mainWindow;
 	QImage *qimage;
+	RenderedImage *renderedImage;
 
 private:
 
