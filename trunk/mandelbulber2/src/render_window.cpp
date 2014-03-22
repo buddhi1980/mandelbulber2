@@ -7,7 +7,6 @@
 
 
 #include "render_window.hpp"
-#include "qt_resources.res"
 #include "interface.hpp"
 
 #include <QtGui>

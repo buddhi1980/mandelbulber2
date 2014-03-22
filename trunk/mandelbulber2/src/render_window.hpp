@@ -9,7 +9,7 @@
 #define _RENDER_WINDOW_H
 
 #include <QMainWindow>
-#include "ui_render_window.h"
+#include "../qt/ui_render_window.h"
 
 namespace Ui
 {
