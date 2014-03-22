@@ -7,7 +7,6 @@
 
 
 #include "render_window.hpp"
-#include "ui_render_window.h"
 #include "qt_resources.res"
 #include "interface.hpp"
 
@@ -40,6 +39,15 @@ void RenderWindow::testSlot(void)
 
 	int width = 1000;
 	int height = 1000;
+
+	struct sRGBA
+	{
+		uchar b;
+		uchar g;
+		uchar r;
+		uchar a;
+	};
+
 	sRGBA *img = new sRGBA[width*height];
 	mainInterface->qimage = new QImage((const uchar*)img, width, height, width*sizeof(sRGBA), QImage::Format_ARGB32);
 	QWidget *scrollAreaWidgetContents = qFindChild<QWidget*>(mainInterface->mainWindow, "scrollAreaWidgetContents");

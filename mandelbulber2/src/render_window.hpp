@@ -9,7 +9,7 @@
 #define _RENDER_WINDOW_H
 
 #include <QMainWindow>
-
+#include "ui_render_window.h"
 
 namespace Ui
 {
@@ -33,6 +33,8 @@ private slots:
 	void slotLogLineEditChanged(const QString &text);
 private:
 	Ui::RenderWindow *ui;
+
+	friend class cInterface;
 };
 
 
@@ -47,14 +49,6 @@ protected:
 	void paintEvent(QPaintEvent *event);
 };
 
-struct sRGBA
-{
-	uchar b;
-	uchar g;
-	uchar r;
-	uchar a;
-
-};
 
 #endif // _RENDER_WINDOW_H
 

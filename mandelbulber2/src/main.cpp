@@ -16,6 +16,10 @@ int main(int argc, char *argv[])
 	//Initialization of system functions
 	InitSystem();
 
+	//class for interface windows
+	mainInterface = new cInterface;
+	mainInterface->application = new QApplication(argc, argv);
+
 	//Create default directiories and copy all needed files
 	if(!CreateDefaultFolders())
 	{
@@ -26,8 +30,7 @@ int main(int argc, char *argv[])
 	//create internal database with parameters
 	InitParams(&gPar);
 
-	//create Qt interface windows
-	mainInterface = new cInterface(argc, argv);
+	mainInterface->ShowUi();
 
 	//write parameters to ui
 	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, &gPar, cInterface::write);
