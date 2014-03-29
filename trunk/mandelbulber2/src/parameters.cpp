@@ -9,6 +9,7 @@
  /
  ********************************************************/
 #include "parameters.hpp"
+#include "fractparams.hpp"
 #include <QtCore>
 
 //#define _PARAM_DEBUG
