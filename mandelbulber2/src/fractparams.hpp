@@ -14,64 +14,10 @@
 
 #include "fractal.h"
 #include "texture.hpp"
-#include "parameters.hpp"
 
-void InitParams(parameters::container *par);
-
-struct sParamRenderD
+class sParamRender
 {
-	double zoom; //zoom
-	double DE_factor; //factor for distance estimation steps
-	double resolution; //resolution of image in fractal coordinates
-	double persp; //perspective factor
-	double quality; //DE threshold factor
-	double smoothness;
-	double alpha; //rotation of fractal
-	double beta; //
-	double gamma;
-	double DOFFocus;
-	double DOFRadius;
-	double mainLightAlpha;
-	double mainLightBeta;
-	double auxLightIntensity;
-	double auxLightMaxDist;
-	double auxLightDistributionRadius;
-	double auxLightVisibility;
-	double auxLightPreIntensity[4];
-	double stereoEyeDistance;
-	double viewDistanceMin;
-	double viewDistanceMax;
-	double volumetricLightIntensity[5];
-	double fogDensity;
-	double fogColour1Distance;
-	double fogColour2Distance;
-	double fogDistanceFactor;
-	double colourSaturation;
-	double fastAoTune;
-	double iterFogOpacity;
-	double iterFogOpacityTrim;
-	double fakeLightsIntensity;
-	double fakeLightsVisibility;
-	double fakeLightsVisibilitySize;
-	double shadowConeAngle;
-	double primitivePlaneReflect;
-	double primitiveBoxReflect;
-	double primitiveInvertedBoxReflect;
-	double primitiveSphereReflect;
-	double primitiveInvertedSphereReflect;
-	double primitiveWaterReflect;
-
-	sImageAdjustments imageAdjustments;
-
-	CVector3 vp; //view point
-	CVector3 auxLightPre[4];
-	CVector3 auxLightRandomCenter;
-};
-
-struct sParamRender
-{
-	sParamRenderD doubles;
-
+public:
 	sFractal fractal;
 	int image_width; //image width
 	int image_height; //image height
@@ -129,6 +75,53 @@ struct sParamRender
 	sRGB primitiveInvertedSphereColour;
 	sRGB primitiveWaterColour;
 	sEffectColours effectColours;
+
+	double zoom; //zoom
+	double DE_factor; //factor for distance estimation steps
+	double resolution; //resolution of image in fractal coordinates
+	double persp; //perspective factor
+	double quality; //DE threshold factor
+	double smoothness;
+	double alpha; //rotation of fractal
+	double beta; //
+	double gamma;
+	double DOFFocus;
+	double DOFRadius;
+	double mainLightAlpha;
+	double mainLightBeta;
+	double auxLightIntensity;
+	double auxLightMaxDist;
+	double auxLightDistributionRadius;
+	double auxLightVisibility;
+	double auxLightPreIntensity[4];
+	double stereoEyeDistance;
+	double viewDistanceMin;
+	double viewDistanceMax;
+	double volumetricLightIntensity[5];
+	double fogDensity;
+	double fogColour1Distance;
+	double fogColour2Distance;
+	double fogDistanceFactor;
+	double colourSaturation;
+	double fastAoTune;
+	double iterFogOpacity;
+	double iterFogOpacityTrim;
+	double fakeLightsIntensity;
+	double fakeLightsVisibility;
+	double fakeLightsVisibilitySize;
+	double shadowConeAngle;
+	double primitivePlaneReflect;
+	double primitiveBoxReflect;
+	double primitiveInvertedBoxReflect;
+	double primitiveSphereReflect;
+	double primitiveInvertedSphereReflect;
+	double primitiveWaterReflect;
+
+	sImageAdjustments imageAdjustments;
+
+	CVector3 vp; //view point
+	CVector3 auxLightPre[4];
+	CVector3 auxLightRandomCenter;
 
 	double settingsVersion;
 };

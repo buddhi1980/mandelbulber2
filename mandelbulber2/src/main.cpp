@@ -10,6 +10,7 @@
 #include "parameters.hpp"
 #include "fractparams.hpp"
 #include "interface.hpp"
+#include "initparameters.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -39,7 +40,7 @@ int main(int argc, char *argv[])
 	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, &gPar, cInterface::write);
 
 	//start main Qt loop
+	WriteLog("application->exec()");
 	return mainInterface->application->exec();
-
 }
 

@@ -51,7 +51,7 @@ void RenderWindow::testSlot(void)
 	mainInterface->qimage = new QImage((const uchar*)img, width, height, width*sizeof(sRGBA), QImage::Format_ARGB32);
 	QWidget *scrollAreaWidgetContents = qFindChild<QWidget*>(mainInterface->mainWindow, "scrollAreaWidgetContents");
 
-	for (int index = 0; index < 5; index++)
+	for (int index = 0; index < 100; index++)
 	{
 
 		for (int y = 0; y < height; y++)

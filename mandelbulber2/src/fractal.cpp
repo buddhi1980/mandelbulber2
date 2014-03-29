@@ -51,20 +51,20 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 	double r_dz = 1;
 	double ph_dz = 0;
 	double th_dz = 0;
-	double p = par.doubles.power; //mandelbulb power
-	int N = par.doubles.N;
+	double p = par.power; //mandelbulb power
+	int N = par.N;
 
 	CVector3 constant;
 
-	double fixedRadius = par.mandelbox.doubles.foldingSphericalFixed;
+	double fixedRadius = par.mandelbox.foldingSphericalFixed;
 	double fR2 = fixedRadius * fixedRadius;
-	double minRadius = par.mandelbox.doubles.foldingSphericalMin;
+	double minRadius = par.mandelbox.foldingSphericalMin;
 	double mR2 = minRadius * minRadius;
 	double tglad_factor1 = fR2 / mR2;
 
 	double tgladDE = 1.0;
 	double orbitTrapTotal = 0.0;
-	double scale = par.mandelbox.doubles.scale;
+	double scale = par.mandelbox.scale;
 
 	fractal::enumFractalFormula actualFormula = par.formula;
 	if (actualFormula == fractal::kaleidoscopic || actualFormula == fractal::menger_sponge)
@@ -74,11 +74,11 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 
 	if (par.juliaMode)
 	{
-		constant = par.doubles.julia;
+		constant = par.julia;
 	}
 	else
 	{
-		constant = z * par.doubles.constantFactor;
+		constant = z * par.constantFactor;
 	}
 
 	bool hybridEnabled = false;
@@ -109,53 +109,53 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 				if (par.IFS.enabled[i])
 				{
 					z = par.IFS.rot[i].RotateVector(z);
-					double length = z.Dot(par.IFS.doubles.direction[i]);
+					double length = z.Dot(par.IFS.direction[i]);
 
-					if (length < par.IFS.doubles.distance[i])
+					if (length < par.IFS.distance[i])
 					{
-						z -= par.IFS.doubles.direction[i] * 2.0 * (length - par.IFS.doubles.distance[i]);
+						z -= par.IFS.direction[i] * 2.0 * (length - par.IFS.distance[i]);
 					}
 
 				}
 			}
 
-			z = par.IFS.mainRot.RotateVector(z - par.IFS.doubles.offset) + par.IFS.doubles.offset;
-			z *= par.IFS.doubles.scale;
-			z -= par.IFS.doubles.offset * (par.IFS.doubles.scale - 1.0);
+			z = par.IFS.mainRot.RotateVector(z - par.IFS.offset) + par.IFS.offset;
+			z *= par.IFS.scale;
+			z -= par.IFS.offset * (par.IFS.scale - 1.0);
 
 			r = z.Length();
 		}
 
 		if (par.tgladFoldingMode)
 		{
-			if (z.x > par.doubles.foldingLimit)
+			if (z.x > par.foldingLimit)
 			{
-				z.x = par.doubles.foldingValue - z.x;
+				z.x = par.foldingValue - z.x;
 				tgladColor *= 0.9;
 			}
-			else if (z.x < -par.doubles.foldingLimit)
+			else if (z.x < -par.foldingLimit)
 			{
-				z.x = -par.doubles.foldingValue - z.x;
+				z.x = -par.foldingValue - z.x;
 				tgladColor *= 0.9;
 			}
-			if (z.y > par.doubles.foldingLimit)
+			if (z.y > par.foldingLimit)
 			{
-				z.y = par.doubles.foldingValue - z.y;
+				z.y = par.foldingValue - z.y;
 				tgladColor *= 0.9;
 			}
-			else if (z.y < -par.doubles.foldingLimit)
+			else if (z.y < -par.foldingLimit)
 			{
-				z.y = -par.doubles.foldingValue - z.y;
+				z.y = -par.foldingValue - z.y;
 				tgladColor *= 0.9;
 			}
-			if (z.z > par.doubles.foldingLimit)
+			if (z.z > par.foldingLimit)
 			{
-				z.z = par.doubles.foldingValue - z.z;
+				z.z = par.foldingValue - z.z;
 				tgladColor *= 0.9;
 			}
-			else if (z.z < -par.doubles.foldingLimit)
+			else if (z.z < -par.foldingLimit)
 			{
-				z.z = -par.doubles.foldingValue - z.z;
+				z.z = -par.foldingValue - z.z;
 				tgladColor *= 0.9;
 			}
 			r = z.Length();
@@ -163,8 +163,8 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 
 		if (par.sphericalFoldingMode)
 		{
-			double fR2_2 = par.doubles.foldingSphericalFixed * par.doubles.foldingSphericalFixed;
-			double mR2_2 = par.doubles.foldingSphericalMin * par.doubles.foldingSphericalMin;
+			double fR2_2 = par.foldingSphericalFixed * par.foldingSphericalFixed;
+			double mR2_2 = par.foldingSphericalMin * par.foldingSphericalMin;
 			double r2_2 = r * r;
 			double tglad_factor1_2 = fR2_2 / mR2_2;
 
@@ -412,112 +412,112 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 				{
 					bool lockout = false;
 					z = par.mandelbox.rot[0][0].RotateVector(z);
-					if (z.x > par.mandelbox.doubles.foldingLimit)
+					if (z.x > par.mandelbox.foldingLimit)
 					{
-						z.x = par.mandelbox.doubles.foldingValue - z.x;
-						tgladColor += par.mandelbox.doubles.colorFactorX;
+						z.x = par.mandelbox.foldingValue - z.x;
+						tgladColor += par.mandelbox.colorFactorX;
 						lockout = true;
 					}
 					z = par.mandelbox.rotinv[0][0].RotateVector(z);
 
 					z = par.mandelbox.rot[1][0].RotateVector(z);
-					if (!lockout && z.x < -par.mandelbox.doubles.foldingLimit)
+					if (!lockout && z.x < -par.mandelbox.foldingLimit)
 					{
-						z.x = -par.mandelbox.doubles.foldingValue - z.x;
-						tgladColor += par.mandelbox.doubles.colorFactorX;
+						z.x = -par.mandelbox.foldingValue - z.x;
+						tgladColor += par.mandelbox.colorFactorX;
 					}
 					z = par.mandelbox.rotinv[1][0].RotateVector(z);
 
 					lockout = false;
 					z = par.mandelbox.rot[0][1].RotateVector(z);
-					if (z.y > par.mandelbox.doubles.foldingLimit)
+					if (z.y > par.mandelbox.foldingLimit)
 					{
-						z.y = par.mandelbox.doubles.foldingValue - z.y;
-						tgladColor += par.mandelbox.doubles.colorFactorY;
+						z.y = par.mandelbox.foldingValue - z.y;
+						tgladColor += par.mandelbox.colorFactorY;
 						lockout = true;
 					}
 					z = par.mandelbox.rotinv[0][1].RotateVector(z);
 
 					z = par.mandelbox.rot[1][1].RotateVector(z);
-					if (!lockout && z.y < -par.mandelbox.doubles.foldingLimit)
+					if (!lockout && z.y < -par.mandelbox.foldingLimit)
 					{
-						z.y = -par.mandelbox.doubles.foldingValue - z.y;
-						tgladColor += par.mandelbox.doubles.colorFactorY;
+						z.y = -par.mandelbox.foldingValue - z.y;
+						tgladColor += par.mandelbox.colorFactorY;
 					}
 					z = par.mandelbox.rotinv[1][1].RotateVector(z);
 
 					lockout = false;
 					z = par.mandelbox.rot[0][2].RotateVector(z);
-					if (z.z > par.mandelbox.doubles.foldingLimit)
+					if (z.z > par.mandelbox.foldingLimit)
 					{
-						z.z = par.mandelbox.doubles.foldingValue - z.z;
-						tgladColor += par.mandelbox.doubles.colorFactorZ;
+						z.z = par.mandelbox.foldingValue - z.z;
+						tgladColor += par.mandelbox.colorFactorZ;
 						lockout = true;
 					}
 					z = par.mandelbox.rotinv[0][2].RotateVector(z);
 
 					z = par.mandelbox.rot[1][2].RotateVector(z);
-					if (!lockout && z.z < -par.mandelbox.doubles.foldingLimit)
+					if (!lockout && z.z < -par.mandelbox.foldingLimit)
 					{
-						z.z = -par.mandelbox.doubles.foldingValue - z.z;
-						tgladColor += par.mandelbox.doubles.colorFactorZ;
+						z.z = -par.mandelbox.foldingValue - z.z;
+						tgladColor += par.mandelbox.colorFactorZ;
 					}
 					z = par.mandelbox.rotinv[1][2].RotateVector(z);
 				}
 				else
 				{
-					if (z.x > par.mandelbox.doubles.foldingLimit)
+					if (z.x > par.mandelbox.foldingLimit)
 					{
-						z.x = par.mandelbox.doubles.foldingValue - z.x;
-						tgladColor += par.mandelbox.doubles.colorFactorX;
+						z.x = par.mandelbox.foldingValue - z.x;
+						tgladColor += par.mandelbox.colorFactorX;
 					}
-					else if (z.x < -par.mandelbox.doubles.foldingLimit)
+					else if (z.x < -par.mandelbox.foldingLimit)
 					{
-						z.x = -par.mandelbox.doubles.foldingValue - z.x;
-						tgladColor += par.mandelbox.doubles.colorFactorX;
+						z.x = -par.mandelbox.foldingValue - z.x;
+						tgladColor += par.mandelbox.colorFactorX;
 					}
-					if (z.y > par.mandelbox.doubles.foldingLimit)
+					if (z.y > par.mandelbox.foldingLimit)
 					{
-						z.y = par.mandelbox.doubles.foldingValue - z.y;
-						tgladColor += par.mandelbox.doubles.colorFactorY;
+						z.y = par.mandelbox.foldingValue - z.y;
+						tgladColor += par.mandelbox.colorFactorY;
 					}
-					else if (z.y < -par.mandelbox.doubles.foldingLimit)
+					else if (z.y < -par.mandelbox.foldingLimit)
 					{
-						z.y = -par.mandelbox.doubles.foldingValue - z.y;
-						tgladColor += par.mandelbox.doubles.colorFactorY;
+						z.y = -par.mandelbox.foldingValue - z.y;
+						tgladColor += par.mandelbox.colorFactorY;
 					}
-					if (z.z > par.mandelbox.doubles.foldingLimit)
+					if (z.z > par.mandelbox.foldingLimit)
 					{
-						z.z = par.mandelbox.doubles.foldingValue - z.z;
-						tgladColor += par.mandelbox.doubles.colorFactorZ;
+						z.z = par.mandelbox.foldingValue - z.z;
+						tgladColor += par.mandelbox.colorFactorZ;
 					}
-					else if (z.z < -par.mandelbox.doubles.foldingLimit)
+					else if (z.z < -par.mandelbox.foldingLimit)
 					{
-						z.z = -par.mandelbox.doubles.foldingValue - z.z;
-						tgladColor += par.mandelbox.doubles.colorFactorZ;
+						z.z = -par.mandelbox.foldingValue - z.z;
+						tgladColor += par.mandelbox.colorFactorZ;
 					}
 				}
 
 				r = z.Length();
 				double r2 = r * r;
 
-				z += par.mandelbox.doubles.offset;
+				z += par.mandelbox.offset;
 
 				if (r2 < mR2)
 				{
 					z *= tglad_factor1;
 					tgladDE *= tglad_factor1;
-					tgladColor += par.mandelbox.doubles.colorFactorSp1;
+					tgladColor += par.mandelbox.colorFactorSp1;
 				}
 				else if (r2 < fR2)
 				{
 					double tglad_factor2 = fR2 / r2;
 					z *= tglad_factor2;
 					tgladDE *= tglad_factor2;
-					tgladColor += par.mandelbox.doubles.colorFactorSp2;
+					tgladColor += par.mandelbox.colorFactorSp2;
 				}
 
-				z -= par.mandelbox.doubles.offset;
+				z -= par.mandelbox.offset;
 
 				z = par.mandelbox.mainRot.RotateVector(z);
 
@@ -575,8 +575,8 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 					sides = par.genFoldBox.sides_box5;
 				}
 
-        double melt = par.mandelbox.doubles.melt;
-        double solid = par.mandelbox.doubles.solid;
+        double melt = par.mandelbox.melt;
+        double solid = par.mandelbox.solid;
 
 				// Find the closest cutting plane if any that cuts the line between the origin and z.
 				// Line is parameterized as X = Y + L*a;
@@ -688,7 +688,7 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 							{
 								double z2X_mag = z2X.Length();
 								z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
-								tgladColor += par.mandelbox.doubles.colorFactorZ;
+								tgladColor += par.mandelbox.colorFactorZ;
 							}
 						}
 						else
@@ -700,7 +700,7 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 							{
 								double z2X_mag = z2X.Length();
 								z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
-								tgladColor += par.mandelbox.doubles.colorFactorY;
+								tgladColor += par.mandelbox.colorFactorY;
 							}
 						}
 
@@ -713,7 +713,7 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 						{
 							double z2X_mag = z2X.Length();
 							z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
-							tgladColor += par.mandelbox.doubles.colorFactorX;
+							tgladColor += par.mandelbox.colorFactorX;
 						}
 					}
 				} // outside solid
@@ -721,23 +721,23 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 				r = z.Length();
 				double r2 = r * r;
 
-				z += par.mandelbox.doubles.offset;
+				z += par.mandelbox.offset;
 
 				if (r2 < mR2)
 				{
 					z *= tglad_factor1;
 					tgladDE *= tglad_factor1;
-					tgladColor += par.mandelbox.doubles.colorFactorSp1;
+					tgladColor += par.mandelbox.colorFactorSp1;
 				}
 				else if (r2 < fR2)
 				{
 					double tglad_factor2 = fR2 / r2;
 					z *= tglad_factor2;
 					tgladDE *= tglad_factor2;
-					tgladColor += par.mandelbox.doubles.colorFactorSp2;
+					tgladColor += par.mandelbox.colorFactorSp2;
 				}
 
-				z -= par.mandelbox.doubles.offset;
+				z -= par.mandelbox.offset;
 
 				z = par.mandelbox.mainRot.RotateVector(z);
 
@@ -750,25 +750,25 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 
 			case fractal::smoothMandelbox:
 			{
-				double sm = par.mandelbox.doubles.sharpness;
+				double sm = par.mandelbox.sharpness;
 
-				double zk1 = SmoothConditionAGreaterB(z.x, par.mandelbox.doubles.foldingLimit,sm);
-				double zk2 = SmoothConditionALessB(z.x, -par.mandelbox.doubles.foldingLimit,sm);
-				z.x = z.x * (1.0 - zk1) + (par.mandelbox.doubles.foldingValue - z.x) * zk1;
-				z.x = z.x * (1.0 - zk2) + (-par.mandelbox.doubles.foldingValue - z.x) * zk2;
-				tgladColor += (zk1 + zk2) * par.mandelbox.doubles.colorFactorX;
+				double zk1 = SmoothConditionAGreaterB(z.x, par.mandelbox.foldingLimit,sm);
+				double zk2 = SmoothConditionALessB(z.x, -par.mandelbox.foldingLimit,sm);
+				z.x = z.x * (1.0 - zk1) + (par.mandelbox.foldingValue - z.x) * zk1;
+				z.x = z.x * (1.0 - zk2) + (-par.mandelbox.foldingValue - z.x) * zk2;
+				tgladColor += (zk1 + zk2) * par.mandelbox.colorFactorX;
 
-				double zk3 = SmoothConditionAGreaterB(z.y, par.mandelbox.doubles.foldingLimit,sm);
-				double zk4 = SmoothConditionALessB(z.y, -par.mandelbox.doubles.foldingLimit,sm);
-				z.y = z.y * (1.0 - zk3) + (par.mandelbox.doubles.foldingValue - z.y) * zk3;
-				z.y = z.y * (1.0 - zk4) + (-par.mandelbox.doubles.foldingValue - z.y) * zk4;
-				tgladColor += (zk3 + zk4) * par.mandelbox.doubles.colorFactorY;
+				double zk3 = SmoothConditionAGreaterB(z.y, par.mandelbox.foldingLimit,sm);
+				double zk4 = SmoothConditionALessB(z.y, -par.mandelbox.foldingLimit,sm);
+				z.y = z.y * (1.0 - zk3) + (par.mandelbox.foldingValue - z.y) * zk3;
+				z.y = z.y * (1.0 - zk4) + (-par.mandelbox.foldingValue - z.y) * zk4;
+				tgladColor += (zk3 + zk4) * par.mandelbox.colorFactorY;
 
-				double zk5 = SmoothConditionAGreaterB(z.z, par.mandelbox.doubles.foldingLimit,sm);
-				double zk6 = SmoothConditionALessB(z.z, -par.mandelbox.doubles.foldingLimit,sm);
-				z.z = z.z * (1.0 - zk5) + (par.mandelbox.doubles.foldingValue - z.z) * zk5;
-				z.z = z.z * (1.0 - zk6) + (-par.mandelbox.doubles.foldingValue - z.z) * zk6;
-				tgladColor += (zk5 + zk6) * par.mandelbox.doubles.colorFactorZ;
+				double zk5 = SmoothConditionAGreaterB(z.z, par.mandelbox.foldingLimit,sm);
+				double zk6 = SmoothConditionALessB(z.z, -par.mandelbox.foldingLimit,sm);
+				z.z = z.z * (1.0 - zk5) + (par.mandelbox.foldingValue - z.z) * zk5;
+				z.z = z.z * (1.0 - zk6) + (-par.mandelbox.foldingValue - z.z) * zk6;
+				tgladColor += (zk5 + zk6) * par.mandelbox.colorFactorZ;
 
 				r = z.Length();
 				double r2 = r * r;
@@ -781,8 +781,8 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 				z = z * (1.0 - rk21) + z * (tglad_factor2 * rk21);
 				tgladDE = tgladDE * (1.0 - rk1) + tgladDE * (tglad_factor1 * rk1);
 				tgladDE = tgladDE * (1.0 - rk21) + tgladDE * (tglad_factor2 * rk21);
-				tgladColor += rk1 * par.mandelbox.doubles.colorFactorSp1;
-				tgladColor += rk21 * par.mandelbox.doubles.colorFactorSp2;
+				tgladColor += rk1 * par.mandelbox.colorFactorSp1;
+				tgladColor += rk21 * par.mandelbox.colorFactorSp2;
 
 				z = par.mandelbox.mainRot.RotateVector(z);
 				z = z * scale + constant;
@@ -793,14 +793,14 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 			}
 			case fractal::foldingIntPow2:
 			{
-				if (z.x > par.doubles.FoldingIntPowFoldFactor) z.x = par.doubles.FoldingIntPowFoldFactor * 2.0 - z.x;
-				else if (z.x < -par.doubles.FoldingIntPowFoldFactor) z.x = -par.doubles.FoldingIntPowFoldFactor * 2.0 - z.x;
+				if (z.x > par.FoldingIntPowFoldFactor) z.x = par.FoldingIntPowFoldFactor * 2.0 - z.x;
+				else if (z.x < -par.FoldingIntPowFoldFactor) z.x = -par.FoldingIntPowFoldFactor * 2.0 - z.x;
 
-				if (z.y > par.doubles.FoldingIntPowFoldFactor) z.y = par.doubles.FoldingIntPowFoldFactor * 2.0 - z.y;
-				else if (z.y < -par.doubles.FoldingIntPowFoldFactor) z.y = -par.doubles.FoldingIntPowFoldFactor * 2.0 - z.y;
+				if (z.y > par.FoldingIntPowFoldFactor) z.y = par.FoldingIntPowFoldFactor * 2.0 - z.y;
+				else if (z.y < -par.FoldingIntPowFoldFactor) z.y = -par.FoldingIntPowFoldFactor * 2.0 - z.y;
 
-				if (z.z > par.doubles.FoldingIntPowFoldFactor) z.z = par.doubles.FoldingIntPowFoldFactor * 2.0 - z.z;
-				else if (z.z < -par.doubles.FoldingIntPowFoldFactor) z.z = -par.doubles.FoldingIntPowFoldFactor * 2.0 - z.z;
+				if (z.z > par.FoldingIntPowFoldFactor) z.z = par.FoldingIntPowFoldFactor * 2.0 - z.z;
+				else if (z.z < -par.FoldingIntPowFoldFactor) z.z = -par.FoldingIntPowFoldFactor * 2.0 - z.z;
 
 				r = z.Length();
 
@@ -830,7 +830,7 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 				z.x = newx + constant.x;
 				z.y = newy + constant.y;
 				z.z = newz + constant.z;
-				z.z *= par.doubles.FoldingIntPowZfactor;
+				z.z *= par.FoldingIntPowZfactor;
 				r = z.Length();
 				break;
 			}
@@ -846,20 +846,20 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 					if (par.IFS.enabled[i])
 					{
 						z = par.IFS.rot[i].RotateVector(z);
-						double length = z.Dot(par.IFS.doubles.direction[i]);
+						double length = z.Dot(par.IFS.direction[i]);
 
-						if (length < par.IFS.doubles.distance[i])
+						if (length < par.IFS.distance[i])
 						{
-							z -= par.IFS.doubles.direction[i] * (2.0 * (length - par.IFS.doubles.distance[i]) * par.IFS.doubles.intensity[i]);
+							z -= par.IFS.direction[i] * (2.0 * (length - par.IFS.distance[i]) * par.IFS.intensity[i]);
 						}
 
 					}
 				}
-				z = par.IFS.mainRot.RotateVector(z - par.IFS.doubles.offset) + par.IFS.doubles.offset;
+				z = par.IFS.mainRot.RotateVector(z - par.IFS.offset) + par.IFS.offset;
 
-				if(par.IFS.doubles.edge.x > 0) z.x = par.IFS.doubles.edge.x - fabs(par.IFS.doubles.edge.x - z.x);
-				if(par.IFS.doubles.edge.y > 0) z.y = par.IFS.doubles.edge.y - fabs(par.IFS.doubles.edge.y - z.y);
-				if(par.IFS.doubles.edge.z > 0) z.z = par.IFS.doubles.edge.z - fabs(par.IFS.doubles.edge.z - z.z);
+				if(par.IFS.edge.x > 0) z.x = par.IFS.edge.x - fabs(par.IFS.edge.x - z.x);
+				if(par.IFS.edge.y > 0) z.y = par.IFS.edge.y - fabs(par.IFS.edge.y - z.y);
+				if(par.IFS.edge.z > 0) z.z = par.IFS.edge.z - fabs(par.IFS.edge.z - z.z);
 
 				if (Mode == fractal::colouring)
 				{
@@ -867,48 +867,48 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 					if (length2 < min) min = length2;
 				}
 
-				z *= par.IFS.doubles.scale;
+				z *= par.IFS.scale;
 				if(par.IFS.mengerSpongeMode)
 				{
-					z.x -= par.IFS.doubles.offset.x * (par.IFS.doubles.scale - 1.0);
-					z.y -= par.IFS.doubles.offset.y * (par.IFS.doubles.scale - 1.0);
-					if (z.z > 0.5 * par.IFS.doubles.offset.z * (par.IFS.doubles.scale - 1.0)) z.z -= par.IFS.doubles.offset.z * (par.IFS.doubles.scale - 1.0);
+					z.x -= par.IFS.offset.x * (par.IFS.scale - 1.0);
+					z.y -= par.IFS.offset.y * (par.IFS.scale - 1.0);
+					if (z.z > 0.5 * par.IFS.offset.z * (par.IFS.scale - 1.0)) z.z -= par.IFS.offset.z * (par.IFS.scale - 1.0);
 				}
 				else
 				{
-					z -= par.IFS.doubles.offset * (par.IFS.doubles.scale - 1.0);
+					z -= par.IFS.offset * (par.IFS.scale - 1.0);
 				}
 
-				tgladDE *= par.IFS.doubles.scale;
+				tgladDE *= par.IFS.scale;
 				r = z.Length();
 
 				break;
 			}
 			case fractal::mandelboxVaryScale4D:
 			{
-				scale = scale + par.mandelbox.doubles.vary4D.scaleVary * (fabs(scale) - 1.0);
+				scale = scale + par.mandelbox.vary4D.scaleVary * (fabs(scale) - 1.0);
 				CVector3 oldz = z;
-				z.x = fabs(z.x + par.mandelbox.doubles.vary4D.fold) - fabs(z.x - par.mandelbox.doubles.vary4D.fold) - z.x;
-				z.y = fabs(z.y + par.mandelbox.doubles.vary4D.fold) - fabs(z.y - par.mandelbox.doubles.vary4D.fold) - z.y;
-				z.z = fabs(z.z + par.mandelbox.doubles.vary4D.fold) - fabs(z.z - par.mandelbox.doubles.vary4D.fold) - z.z;
-				w = fabs(w + par.mandelbox.doubles.vary4D.fold) - fabs(w - par.mandelbox.doubles.vary4D.fold) - w;
-				if(z.x != oldz.x) tgladColor += par.mandelbox.doubles.colorFactorX;
-				if(z.y != oldz.y) tgladColor += par.mandelbox.doubles.colorFactorY;
-				if(z.z != oldz.z) tgladColor += par.mandelbox.doubles.colorFactorZ;
-				double rr = pow(z.x * z.x + z.y * z.y + z.z * z.z + w * w, par.mandelbox.doubles.vary4D.rPower);
+				z.x = fabs(z.x + par.mandelbox.vary4D.fold) - fabs(z.x - par.mandelbox.vary4D.fold) - z.x;
+				z.y = fabs(z.y + par.mandelbox.vary4D.fold) - fabs(z.y - par.mandelbox.vary4D.fold) - z.y;
+				z.z = fabs(z.z + par.mandelbox.vary4D.fold) - fabs(z.z - par.mandelbox.vary4D.fold) - z.z;
+				w = fabs(w + par.mandelbox.vary4D.fold) - fabs(w - par.mandelbox.vary4D.fold) - w;
+				if(z.x != oldz.x) tgladColor += par.mandelbox.colorFactorX;
+				if(z.y != oldz.y) tgladColor += par.mandelbox.colorFactorY;
+				if(z.z != oldz.z) tgladColor += par.mandelbox.colorFactorZ;
+				double rr = pow(z.x * z.x + z.y * z.y + z.z * z.z + w * w, par.mandelbox.vary4D.rPower);
 				double m = scale;
-				if (rr < par.mandelbox.doubles.vary4D.minR * par.mandelbox.doubles.vary4D.minR)
+				if (rr < par.mandelbox.vary4D.minR * par.mandelbox.vary4D.minR)
 				{
-					m = scale / (par.mandelbox.doubles.vary4D.minR * par.mandelbox.doubles.vary4D.minR);
-					tgladColor += par.mandelbox.doubles.colorFactorSp1;
+					m = scale / (par.mandelbox.vary4D.minR * par.mandelbox.vary4D.minR);
+					tgladColor += par.mandelbox.colorFactorSp1;
 				}
 				else if (rr < 1.0)
 				{
 					m = scale / rr;
-					tgladColor += par.mandelbox.doubles.colorFactorSp2;
+					tgladColor += par.mandelbox.colorFactorSp2;
 				}
 				z = z * m + constant;
-				w = w * m + par.mandelbox.doubles.vary4D.wadd;
+				w = w * m + par.mandelbox.vary4D.wadd;
 				tgladDE = tgladDE * fabs(m) + 1.0;
 				r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 				break;
@@ -917,18 +917,18 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 			{
 				if(L == 0)
 				{
-					double cx = fabs(constant.x + constant.y + constant.z) + par.doubles.cadd;
-					double cy = fabs(-constant.x - constant.y + constant.z) + par.doubles.cadd;
-					double cz = fabs(-constant.x + constant.y - constant.z) + par.doubles.cadd;
-					double cw = fabs(constant.x - constant.y - constant.z) + par.doubles.cadd;
+					double cx = fabs(constant.x + constant.y + constant.z) + par.cadd;
+					double cy = fabs(-constant.x - constant.y + constant.z) + par.cadd;
+					double cz = fabs(-constant.x + constant.y - constant.z) + par.cadd;
+					double cw = fabs(constant.x - constant.y - constant.z) + par.cadd;
 					constant.x = cx;
 					constant.y = cy;
 					constant.z = cz;
 					constantw = cw;
-					double tempx = fabs(z.x + z.y + z.z) + par.doubles.cadd;
-					double tempy = fabs(-z.x - z.y + z.z) + par.doubles.cadd;
-					double tempz = fabs(-z.x + z.y - z.z) + par.doubles.cadd;
-					double tempw = fabs(z.x - z.y - z.z) + par.doubles.cadd;
+					double tempx = fabs(z.x + z.y + z.z) + par.cadd;
+					double tempy = fabs(-z.x - z.y + z.z) + par.cadd;
+					double tempz = fabs(-z.x + z.y - z.z) + par.cadd;
+					double tempw = fabs(z.x - z.y - z.z) + par.cadd;
 					z.x = tempx;
 					z.y = tempy;
 					z.z = tempz;
@@ -1120,7 +1120,7 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 
 		if (Mode == fractal::orbitTrap)
 		{
-			CVector3 delta = z - par.doubles.fakeLightsOrbitTrap;
+			CVector3 delta = z - par.fakeLightsOrbitTrap;
 			distance = delta.Length();
 			if (L >= par.fakeLightsMinIter && L <= par.fakeLightsMaxIter) orbitTrapTotal += (1.0f/(distance*distance));
 			if (distance > 1000)
@@ -1232,7 +1232,7 @@ double Compute(CVector3 z, const sFractal &par, int *iter_count)
 			return distance * 5000.0 + tgladColor * 100.0 + min * 1000.0;
 		} 
 		else if (actualFormula == fractal::tglad || actualFormula == fractal::smoothMandelbox || actualFormula == fractal::mandelboxVaryScale4D || actualFormula == fractal::generalizedFoldBox)
-			return tgladColor * 100.0 + z.Length()*par.mandelbox.doubles.colorFactorR;
+			return tgladColor * 100.0 + z.Length()*par.mandelbox.colorFactorR;
 		else if (actualFormula == fractal::kaleidoscopic || actualFormula == fractal::menger_sponge)
 			return min * 1000.0;
 		else
@@ -1252,12 +1252,12 @@ double CalculateDistance(CVector3 point, sFractal &params, bool *max_iter)
 
 	if (params.limits_enabled)
 	{
-		double distance_a = MAX(point.x - params.doubles.amax, -(point.x - params.doubles.amin));
-		double distance_b = MAX(point.y - params.doubles.bmax, -(point.y - params.doubles.bmin));
-		double distance_c = MAX(point.z - params.doubles.cmax, -(point.z - params.doubles.cmin));
+		double distance_a = MAX(point.x - params.amax, -(point.x - params.amin));
+		double distance_b = MAX(point.y - params.bmax, -(point.y - params.bmin));
+		double distance_c = MAX(point.z - params.cmax, -(point.z - params.cmin));
 		limitBoxDist = dMax(distance_a, distance_b, distance_c);
 
-		if(limitBoxDist > params.doubles.detailSize)
+		if(limitBoxDist > params.detailSize)
 		{
 			if (max_iter != NULL)
 					*max_iter = false;
@@ -1272,36 +1272,36 @@ double CalculateDistance(CVector3 point, sFractal &params, bool *max_iter)
 			distance = Compute<fractal::normal>(point, params, &L);
 			if (max_iter != NULL)
 			{
-				if (L == (int)params.doubles.N) *max_iter = true;
+				if (L == (int)params.N) *max_iter = true;
 				else *max_iter = false;
 			}
 			params.itersOut = L;
 			if (distance < 0) distance = 0;
 
-			if (L < params.minN && distance < params.doubles.detailSize) distance = params.doubles.detailSize;
+			if (L < params.minN && distance < params.detailSize) distance = params.detailSize;
 
 			if (params.interiorMode && !params.normalCalculationMode)
 			{
-				if (distance < 0.5 * params.doubles.detailSize || L == (int)params.doubles.N)
+				if (distance < 0.5 * params.detailSize || L == (int)params.N)
 				{
-					distance = params.doubles.detailSize;
+					distance = params.detailSize;
 					if (max_iter != NULL) *max_iter = false;
 				}
 			}
 			else if(params.interiorMode && params.normalCalculationMode)
 			{
-				if (distance < 0.9 * params.doubles.detailSize)
+				if (distance < 0.9 * params.detailSize)
 				{
-					distance = params.doubles.detailSize - distance;
+					distance = params.detailSize - distance;
 					if (max_iter != NULL) *max_iter = false;
 				}
 			}
 
-			if (params.iterThresh && L < (int)params.doubles.N)
+			if (params.iterThresh && L < (int)params.N)
 			{
-				if(distance < params.doubles.detailSize)
+				if(distance < params.detailSize)
 				{
-					distance = params.doubles.detailSize * 1.01;
+					distance = params.detailSize * 1.01;
 				}
 			}
 		}
@@ -1344,37 +1344,37 @@ double CalculateDistance(CVector3 point, sFractal &params, bool *max_iter)
 
 			if (distance < 0) distance = 0;
 
-			if (retval == (int)params.doubles.N)
+			if (retval == (int)params.N)
 			{
 				if (max_iter != NULL) *max_iter = true;
 				distance = 0;
 			}
 			else if (max_iter != NULL) *max_iter = false;
 
-			if (L < params.minN && distance < params.doubles.detailSize) distance = params.doubles.detailSize;
+			if (L < params.minN && distance < params.detailSize) distance = params.detailSize;
 
 			if (params.interiorMode && !params.normalCalculationMode)
 			{
-				if (distance < 0.5 * params.doubles.detailSize || L == (int)params.doubles.N)
+				if (distance < 0.5 * params.detailSize || L == (int)params.N)
 				{
-					distance = params.doubles.detailSize;
+					distance = params.detailSize;
 					if (max_iter != NULL) *max_iter = false;
 				}
 			}
 			else if(params.interiorMode && params.normalCalculationMode)
 			{
-				if (distance < 0.9 * params.doubles.detailSize)
+				if (distance < 0.9 * params.detailSize)
 				{
-					distance = params.doubles.detailSize - distance;
+					distance = params.detailSize - distance;
 					if (max_iter != NULL) *max_iter = false;
 				}
 			}
 
-			if (params.iterThresh && retval < (int)params.doubles.N)
+			if (params.iterThresh && retval < (int)params.N)
 			{
-				if(distance < params.doubles.detailSize)
+				if(distance < params.detailSize)
 				{
-					distance = params.doubles.detailSize * 1.01;
+					distance = params.detailSize * 1.01;
 				}
 			}
 
@@ -1389,7 +1389,7 @@ double CalculateDistance(CVector3 point, sFractal &params, bool *max_iter)
 	//plane
 	if (params.primitives.planeEnable)
 	{
-		double planeDistance = PrimitivePlane(point, params.doubles.primitives.planeCentre, params.doubles.primitives.planeNormal);
+		double planeDistance = PrimitivePlane(point, params.primitives.planeCentre, params.primitives.planeNormal);
 		if(!params.primitives.onlyPlane && planeDistance < distance) 	params.objectOut = fractal::objPlane;
 		distance = (planeDistance < distance) ? planeDistance : distance;
 
@@ -1398,7 +1398,7 @@ double CalculateDistance(CVector3 point, sFractal &params, bool *max_iter)
 	//box
 	if (params.primitives.boxEnable)
 	{
-		double boxDistance = PrimitiveBox(point, params.doubles.primitives.boxCentre, params.doubles.primitives.boxSize);
+		double boxDistance = PrimitiveBox(point, params.primitives.boxCentre, params.primitives.boxSize);
 		if(boxDistance < distance) 	params.objectOut = fractal::objBox;
 		distance = (boxDistance < distance) ? boxDistance : distance;
 	}
@@ -1406,7 +1406,7 @@ double CalculateDistance(CVector3 point, sFractal &params, bool *max_iter)
 	//inverted box
 	if (params.primitives.invertedBoxEnable)
 	{
-		double boxDistance = PrimitiveInvertedBox(point, params.doubles.primitives.invertedBoxCentre, params.doubles.primitives.invertedBoxSize);
+		double boxDistance = PrimitiveInvertedBox(point, params.primitives.invertedBoxCentre, params.primitives.invertedBoxSize);
 		if(boxDistance < distance) 	params.objectOut = fractal::objBoxInv;
 		distance = (boxDistance < distance) ? boxDistance : distance;
 	}
@@ -1414,7 +1414,7 @@ double CalculateDistance(CVector3 point, sFractal &params, bool *max_iter)
 	//sphere
 	if (params.primitives.sphereEnable)
 	{
-		double sphereDistance = PrimitiveSphere(point, params.doubles.primitives.sphereCentre, params.doubles.primitives.sphereRadius);
+		double sphereDistance = PrimitiveSphere(point, params.primitives.sphereCentre, params.primitives.sphereRadius);
 		if(sphereDistance < distance) 	params.objectOut = fractal::objSphere;
 		distance = (sphereDistance < distance) ? sphereDistance : distance;
 	}
@@ -1422,7 +1422,7 @@ double CalculateDistance(CVector3 point, sFractal &params, bool *max_iter)
 	//invertedSphere
 	if (params.primitives.invertedSphereEnable)
 	{
-		double sphereDistance = PrimitiveInvertedSphere(point, params.doubles.primitives.invertedSphereCentre, params.doubles.primitives.invertedSphereRadius);
+		double sphereDistance = PrimitiveInvertedSphere(point, params.primitives.invertedSphereCentre, params.primitives.invertedSphereRadius);
 		if(sphereDistance < distance) 	params.objectOut = fractal::objSphereInv;
 		distance = (sphereDistance < distance) ? sphereDistance : distance;
 	}
@@ -1430,8 +1430,8 @@ double CalculateDistance(CVector3 point, sFractal &params, bool *max_iter)
 	//water
 	if (params.primitives.waterEnable)
 	{
-		double waterDistance = PrimitiveWater(point, params.doubles.primitives.waterHeight, params.doubles.primitives.waterAmplitude,
-				params.doubles.primitives.waterLength, params.doubles.primitives.waterRotation, params.primitives.waterIterations, params.doubles.primitives.waterAnimSpeed, params.frameNo);
+		double waterDistance = PrimitiveWater(point, params.primitives.waterHeight, params.primitives.waterAmplitude,
+				params.primitives.waterLength, params.primitives.waterRotation, params.primitives.waterIterations, params.primitives.waterAnimSpeed, params.frameNo);
 		if(waterDistance < distance) 	params.objectOut = fractal::objWater;
 		distance = (waterDistance < distance) ? waterDistance : distance;
 	}
@@ -1439,7 +1439,7 @@ double CalculateDistance(CVector3 point, sFractal &params, bool *max_iter)
 
 	if (params.limits_enabled)
 	{
-		if (limitBoxDist < params.doubles.detailSize)
+		if (limitBoxDist < params.detailSize)
 		{
 			distance = MAX(distance, limitBoxDist);
 		}

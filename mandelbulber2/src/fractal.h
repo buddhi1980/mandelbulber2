@@ -86,22 +86,6 @@ enum enumOCLDEMode
 };
 }
 
-struct sFractalIFSD
-{
-	double rotationGamma;
-	double rotationAlfa;
-	double rotationBeta;
-	double scale;
-	double distance[IFS_VECTOR_COUNT];
-	double alfa[IFS_VECTOR_COUNT];
-	double beta[IFS_VECTOR_COUNT];
-	double gamma[IFS_VECTOR_COUNT];
-	double intensity[IFS_VECTOR_COUNT];
-	CVector3 offset;
-	CVector3 direction[IFS_VECTOR_COUNT];
-	CVector3 edge;
-};
-
 struct sFractalGeneralizedFoldBox
 {
 	fractal::enumGeneralizedFoldBoxType type;
@@ -125,7 +109,18 @@ struct sFractalGeneralizedFoldBox
 
 struct sFractalIFS
 {
-	sFractalIFSD doubles;
+	double rotationGamma;
+	double rotationAlfa;
+	double rotationBeta;
+	double scale;
+	double distance[IFS_VECTOR_COUNT];
+	double alfa[IFS_VECTOR_COUNT];
+	double beta[IFS_VECTOR_COUNT];
+	double gamma[IFS_VECTOR_COUNT];
+	double intensity[IFS_VECTOR_COUNT];
+	CVector3 offset;
+	CVector3 direction[IFS_VECTOR_COUNT];
+	CVector3 edge;
 	bool absX, absY, absZ;
 	bool foldingMode; // Kaleidoscopic IFS folding mode
 	bool enabled[IFS_VECTOR_COUNT];
@@ -144,7 +139,7 @@ struct sFractalMandelboxVary4D
 	double rPower;
 };
 
-struct sFractalMandelboxD
+struct sFractalMandelbox
 {
 	double rotationMain[3];
 	double rotation[MANDELBOX_FOLDS][3][3];
@@ -164,18 +159,13 @@ struct sFractalMandelboxD
 	double melt;
 	CVector3 offset;
 	sFractalMandelboxVary4D vary4D;
-};
-
-struct sFractalMandelbox
-{
-	sFractalMandelboxD doubles;
 	bool rotationsEnabled;
 	CRotationMatrix mainRot;
 	CRotationMatrix rot[MANDELBOX_FOLDS][3];
 	CRotationMatrix rotinv[MANDELBOX_FOLDS][3];
 };
 
-struct sFractalPrimitivesD
+struct sFractalPrimitives
 {
 	CVector3 planeCentre;
 	CVector3 planeNormal;
@@ -192,10 +182,6 @@ struct sFractalPrimitivesD
 	double waterLength;
 	double waterRotation;
 	double waterAnimSpeed;
-};
-
-struct sFractalPrimitives
-{
 	bool planeEnable;
 	bool boxEnable;
 	bool invertedBoxEnable;
@@ -206,7 +192,7 @@ struct sFractalPrimitives
 	int waterIterations;
 };
 
-struct sFractalD
+struct sFractal
 {
 	double N;
 	double amin;  //fractal limits
@@ -232,12 +218,6 @@ struct sFractalD
 #endif
 	CVector3 julia; // Julia constant
 	CVector3 fakeLightsOrbitTrap;
-	sFractalPrimitivesD primitives;
-};
-
-struct sFractal
-{
-	sFractalD doubles;
 
 	  // maximum number of iterations
 	int minN;	  // minimum number of iterations
