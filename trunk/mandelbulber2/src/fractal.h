@@ -13,9 +13,9 @@
 #define FRACTAL_H_
 
 #include <vector>
-#include "common_math.h"
 #include <stddef.h>
 #include <string>
+#include "algebra.hpp"
 
 const int IFS_VECTOR_COUNT = 9;
 const int HYBRID_COUNT = 5;

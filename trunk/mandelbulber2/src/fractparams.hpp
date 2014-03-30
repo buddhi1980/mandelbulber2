@@ -15,6 +15,29 @@
 #include "fractal.h"
 #include "texture.hpp"
 
+namespace params
+{
+enum enumPerspectiveType
+{
+	threePoint = 0, fishEye = 1, equirectangular = 2, fishEyeCut = 3
+};
+
+enum enumAOMode
+{
+	AOmodeFast = 0,
+	AOmodeMultipeRays = 1,
+	AOmodeScreenSpace = 2
+};
+
+enum enumTextureMapType
+{
+	mapEquirectangular = 0,
+	mapDoubleHemisphere = 1,
+};
+
+}
+
+
 class sParamRender
 {
 public:
@@ -38,7 +61,7 @@ public:
 	int OpenCLPixelsPerJob;
 	int OpenCLDOFMethod;
 
-	enumPerspectiveType perspectiveType;
+	params::enumPerspectiveType perspectiveType;
 
 	bool shadow; //enable shadows
 	bool global_ilumination; //enable global ilumination

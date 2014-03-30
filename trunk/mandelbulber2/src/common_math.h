@@ -13,6 +13,7 @@
 #define COMMON_MATH_H_
 
 #include "algebra.hpp"
+#include "fractparams.hpp"
 
 #undef	MAX
 #define MAX(a, b)  (((a) > (b)) ? (a) : (b))
@@ -45,10 +46,7 @@ struct sSortZ
 	int i;
 };
 
-enum enumPerspectiveType
-{
-	threePoint = 0, fishEye = 1, equirectangular = 2, fishEyeCut = 3
-};
+
 
 //int abs(int v);
 int Random(int max);
@@ -57,9 +55,9 @@ double dMin(double a, double b, double c);
 //void QuickSortZBuffer(sSortZ<float> *dane, int l, int p);
 
 template <class T> void QuickSortZBuffer(sSortZ<T> *dane, int l, int p);
-CVector3 Projection3D(CVector3 point, CVector3 vp, CRotationMatrix mRot, enumPerspectiveType perspectiveType, double fov, double zoom);
+CVector3 Projection3D(CVector3 point, CVector3 vp, CRotationMatrix mRot, params::enumPerspectiveType perspectiveType, double fov, double zoom);
 inline double SmoothConditionAGreaterB(double a, double b, double sharpness) {return 1.0 / (1.0 + exp(sharpness * (b - a)));}
 inline double SmoothConditionALessB(double a, double b, double sharpness) {return 1.0 / (1.0 + exp(sharpness * (a - b)));}
-CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth, double imgHeight);
+CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, params::enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth, double imgHeight);
 
 #endif /* COMMON_MATH_H_ */

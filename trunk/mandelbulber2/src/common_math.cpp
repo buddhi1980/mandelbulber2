@@ -17,6 +17,7 @@
  */
 #include "common_math.h"
 #include <cstdlib>
+
 #ifdef __sgi
 #include <stdlib.h>
 #endif
@@ -89,12 +90,12 @@ void QuickSortZBuffer(sSortZ<T> *dane, int l, int p)
 }
 template void QuickSortZBuffer<double>(sSortZ<double> *dane, int l, int p);
 
-CVector3 Projection3D(CVector3 point, CVector3 vp, CRotationMatrix mRot, enumPerspectiveType perspectiveType, double fov, double zoom)
+CVector3 Projection3D(CVector3 point, CVector3 vp, CRotationMatrix mRot, params::enumPerspectiveType perspectiveType, double fov, double zoom)
 {
 	double perspFactor = 1.0 + point.y * fov;
 	CVector3 vector1, vector2;
 
-	if (perspectiveType == fishEye)
+	if (perspectiveType == params::fishEye)
 	{
 		double r = sqrt(point.x * point.x + point.z * point.z);
 
@@ -116,7 +117,7 @@ CVector3 Projection3D(CVector3 point, CVector3 vp, CRotationMatrix mRot, enumPer
 		//vector1.y = cos(fov * point.x) * cos(fov * point.z) * point.y;
 
 	}
-	else if(perspectiveType == equirectangular)
+	else if(perspectiveType == params::equirectangular)
 	{
 		vector1.x = sin(fov * point.x) * cos(fov * point.z) * point.y;
 		vector1.z = sin(fov * point.z) * point.y;
@@ -135,7 +136,7 @@ CVector3 Projection3D(CVector3 point, CVector3 vp, CRotationMatrix mRot, enumPer
 	return result;
 }
 
-CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth, double imgHeight)
+CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, params::enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth, double imgHeight)
 {
 	CVector3 screenPoint;
 	CVector3 baseZ(0.0, 1.0, 0.0);
@@ -143,7 +144,7 @@ CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, e
 	double aspectRatio = (double) imgWidth / imgHeight;
 
 	CVector3 start;
-	if (perspectiveType == fishEye || perspectiveType == equirectangular)
+	if (perspectiveType == params::fishEye || perspectiveType == params::equirectangular)
 	{
 		start = vp;
 	}
@@ -155,7 +156,7 @@ CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, e
 	viewVector = mRotInv.RotateVector(viewVector);
 
 	double x, y, z;
-	if (perspectiveType == fishEye)
+	if (perspectiveType == params::fishEye)
 	{
 		z = viewVector.Length();
 		if(viewVector.y < 0) z = -z;

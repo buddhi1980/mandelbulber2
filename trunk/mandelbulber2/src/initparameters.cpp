@@ -100,11 +100,13 @@ void InitParams(parameters::container *par)
 	par->addParam("ambient_occlusion_quality", 4, 1, 10, true);
 	par->addParam("ambient_occlusion_fast_tune", 1.0, true);
 	par->addParam("ambient_occlusion_enabled", false, true);
-	par->addParam("fast_ambient_occlusion_mode", false, true);
+	par->addParam("ambient_occlusion_mode", (int)params::AOmodeFast, false);
 	par->addParam("shading", 1.0, 0.0, 1e15, true);
 	par->addParam("specular", 1.0, 0.0, 1e15, true);
-	par->addParam("glow_intensity", 0.0, 0.0, 1e15, true);
+	par->addParam("glow_enabled", true, true);
+	par->addParam("glow_intensity", 0.2, 0.0, 1e15, true);
 	par->addParam("textured_background", false, true);
+	par->addParam("textured_background_map_type", (int)params::mapEquirectangular, true);
 	par->addParam("background_as_fuldome", false, false);
 	par->addParam("shadows_enabled", true, true);
 	par->addParam("penetrating_lights", true, true);
@@ -120,7 +122,8 @@ void InitParams(parameters::container *par)
 	par->addParam("fog_color", 2, sRGB(0, 30000, 65535), true);
 	par->addParam("fog_color", 3, sRGB(65535, 65535, 65535), true);
 
-	par->addParam("volumetric_fog_density", 0.0, 0.0, 1e15, true);
+	par->addParam("volumetric_fog_enabled", false, true);
+	par->addParam("volumetric_fog_density", 0.5, 0.0, 1e15, true);
 	par->addParam("volumetric_fog_colour_1_distance", 1.0, true);
 	par->addParam("volumetric_fog_colour_2_distance", 2.0, true);
 	par->addParam("volumetric_fog_distance_factor", 1.0, true);
@@ -128,6 +131,11 @@ void InitParams(parameters::container *par)
 	par->addParam("iteration_fog_enable", false, true);
 	par->addParam("iteration_fog_opacity", 1000.0, 0.0, 1e15, true);
 	par->addParam("iteration_fog_opacity_trim", 4.0, 0.0, 1000.0, true);
+	par->addParam("iteration_fog_color_1_maxiter", 8.0, 0.0, 1000.0, true);
+	par->addParam("iteration_fog_color_2_maxiter", 12.0, 0.0, 1000.0, true);
+	par->addParam("iteration_fog_color", 1, sRGB(65535, 65535, 65535), true);
+	par->addParam("iteration_fog_color", 2, sRGB(65535, 65535, 65535), true);
+	par->addParam("iteration_fog_color", 3, sRGB(65535, 65535, 65535), true);
 
 	//coloring
 	par->addParam("fractal_color", true, true);
@@ -137,14 +145,14 @@ void InitParams(parameters::container *par)
 	par->addParam("coloring_palette_offset", 0.0, 0.0, 256.0, true);
 
 	//fog
-	par->addParam("post_fog_enabled", false, true);
-	par->addParam("post_fog_visibility", 20.0, true);
-	par->addParam("post_fog_color", sRGB(59399, 61202, 65535), true);
+	par->addParam("basic_fog_enabled", false, true);
+	par->addParam("basic_fog_visibility", 20.0, true);
+	par->addParam("basic_fog_color", sRGB(59399, 61202, 65535), true);
 	par->addParam("post_SSAO_enabled", true, true);
 	par->addParam("post_SSAO_quality", 20, 1, 100, true);
-	par->addParam("post_DOF_enabled", false, true);
-	par->addParam("post_DOF_focus", 166.0, 0.0, 200.0, true);
-	par->addParam("post_DOF_radius", 10.0, 0.0, 200.0, true);
+	par->addParam("DOF_enabled", false, true);
+	par->addParam("DOF_focus", 166.0, 0.0, 200.0, true);
+	par->addParam("DOF_radius", 10.0, 0.0, 200.0, true);
 
 	//main light
 	par->addParam("main_light_intensity", 1.0, true);
