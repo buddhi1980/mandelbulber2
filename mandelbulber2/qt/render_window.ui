@@ -247,8 +247,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>396</width>
-          <height>428</height>
+          <width>380</width>
+          <height>283</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -1257,8 +1257,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>380</width>
-          <height>186</height>
+          <width>396</width>
+          <height>230</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1280,8 +1280,8 @@
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-38</y>
-              <width>361</width>
+              <y>0</y>
+              <width>377</width>
               <height>469</height>
              </rect>
             </property>
@@ -1848,8 +1848,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>376</width>
-              <height>87</height>
+              <width>392</width>
+              <height>131</height>
              </rect>
             </property>
             <attribute name="label">
@@ -1920,7 +1920,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>361</width>
+              <width>377</width>
               <height>715</height>
              </rect>
             </property>
@@ -2432,7 +2432,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>376</width>
+              <width>377</width>
               <height>245</height>
              </rect>
             </property>
@@ -2568,8 +2568,8 @@
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-1177</y>
-              <width>361</width>
+              <y>0</y>
+              <width>377</width>
               <height>1608</height>
              </rect>
             </property>
@@ -3938,6 +3938,14 @@
         <number>1</number>
        </property>
        <widget class="QWidget" name="page_8">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>381</width>
+          <height>147</height>
+         </rect>
+        </property>
         <attribute name="label">
          <string>Common fractal parameters</string>
         </attribute>
@@ -4109,8 +4117,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>364</width>
-                  <height>184</height>
+                  <width>100</width>
+                  <height>30</height>
                  </rect>
                 </property>
                </widget>
@@ -4133,8 +4141,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>364</width>
-                  <height>184</height>
+                  <width>100</width>
+                  <height>30</height>
                  </rect>
                 </property>
                </widget>
@@ -4157,8 +4165,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>364</width>
-                  <height>184</height>
+                  <width>100</width>
+                  <height>30</height>
                  </rect>
                 </property>
                </widget>
@@ -4176,7 +4184,7 @@
           <x>0</x>
           <y>0</y>
           <width>396</width>
-          <height>91</height>
+          <height>145</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4206,7 +4214,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-83</y>
+          <y>0</y>
           <width>380</width>
           <height>602</height>
          </rect>
@@ -4791,7 +4799,7 @@
   </action>
   <action name="actionSave_docks_positions">
    <property name="text">
-    <string>Save docks positions</string>
+    <string>Save window state</string>
    </property>
   </action>
   <action name="actionDefault_docks_positions">

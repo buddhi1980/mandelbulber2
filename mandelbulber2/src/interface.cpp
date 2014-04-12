@@ -26,6 +26,12 @@ void cInterface::ShowUi(void)
 	WriteLog("Prepare RenderWindow class");
 	mainWindow = new RenderWindow;
 
+	WriteLog("Restoring window geometry");
+	mainWindow->restoreGeometry(mainWindow->settings.value("mainWindowGeometry").toByteArray());
+
+	WriteLog("Restoring window state");
+	mainWindow->restoreState(mainWindow->settings.value("mainWindowState").toByteArray());
+
 	WriteLog("mainWindow->show()");
 	mainWindow->show();
 
@@ -45,6 +51,7 @@ void cInterface::ConnectSignals(void)
 {
 	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(testSlot()));
 	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
+	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveDocksPositions()));
 	ConnectSignalsForSlidersInWindow(mainWindow);
 	MakeColorButtonsInWindow(mainWindow);
 }

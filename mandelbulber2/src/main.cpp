@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
 
 	WriteLog("Prepare QApplication");
 	mainInterface->application = new QApplication(argc, argv);
+	mainInterface->application->setOrganizationName("Buddhi Software");
+	mainInterface->application->setApplicationName("Mandelbulber");
 
 	//Create default directiories and copy all needed files
 	WriteLog("CreateDefaultFolders()");
