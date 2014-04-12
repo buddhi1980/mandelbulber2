@@ -57,12 +57,13 @@ void InitParams(parameters::container *par)
 	par->addParam("formula", (int)fractal::trig_optim, false);
 	//par->addParam("formula_combo", MainFormulaNumberData2GUI(fractal::trig_optim), false);
 //par->SetToSave("formula_combo", false);
-	par->addParam("power", 9.0, true);
+
 	par->addParam("julia_mode", false, true);
 	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), true);
 	par->addParam("N", 250, 0, 65536, true);
 	par->addParam("minN", 1, 0, 65536, true);
 	par->addParam("fractal_constant_factor", 1.0, true);
+	par->addParam("detail_level", 1.0, true);
 	par->addParam("DE_thresh", 1.0, true); //old name was 'quality'
 	par->addParam("smoothness", 1.0, true);
 	par->addParam("iteration_threshold_mode", false, true);
@@ -207,82 +208,6 @@ void InitParams(parameters::container *par)
 	par->addParam("fake_lights_min_iter", 1, 0, 250, true);
 	par->addParam("fake_lights_max_iter", 2, 0, 250, true);
 
-	//IFS formula
-	par->addParam("IFS_scale", 2.0, true);
-	par->addParam("IFS_rot_alpha", 0.0, true);
-	par->addParam("IFS_rot_beta", 0.0, true);
-	par->addParam("IFS_rot_gamma", 0.0, true);
-	par->addParam("IFS_offset", CVector3(1.0, 0.0, 0.0), true);
-	par->addParam("IFS_edge", CVector3(0.0, 0.0, 0.0), true);
-	par->addParam("IFS_abs_X", false, true);
-	par->addParam("IFS_abs_Y", false, true);
-	par->addParam("IFS_abs_Z", false, true);
-	par->addParam("IFS_menger_sponge_mode", false, true);
-
-	for(int i = 0; i < IFS_VECTOR_COUNT; i++)
-	{
-		par->addParam("IFS_direction", i, CVector3(1.0, 0.0, 0.0), true);
-		par->addParam("IFS_alpha", i, 0.0, true);
-		par->addParam("IFS_beta", i, 0.0, true);
-		par->addParam("IFS_gamma", i, 0.0, true);
-		par->addParam("IFS_distance", i, 0.0, true);
-		par->addParam("IFS_intensity", i, 1.0, true);
-		par->addParam("IFS_enabled", i, false, true);
-	}
-
-	//Hybrid formula
-	for (int i = 1; i <= HYBRID_COUNT; i++)
-	{
-		if (i != HYBRID_COUNT)
-		{
-			par->addParam("hybrid_formula", i, (int) fractal::none, false);
-			par->addParam("hybrid_formula_combo", i, (int) fractal::none, false);
-			par->SetToSave("hybrid_formula_combo", i, false);
-		}
-		else
-		{
-			par->addParam("hybrid_formula", i, (int) fractal::fast_trig, false);
-			//par->addParam("hybrid_formula_combo", i, HybridFormulaNumberData2GUI(fractal::fast_trig), false);
-			//par->SetToSave("hybrid_formula_combo", i, false);
-		}
-		par->addParam("hybrid_iterations", i, 1, true);
-		par->addParam("hybrid_power", i, 2.0, true);
-	}
-	par->addParam("hybrid_cyclic", false, true);
-
-	//Mandelbox
-	par->addParam("mandelbox_scale", 2.0, true);
-	par->addParam("mandelbox_folding_limit", 1.0, true);
-	par->addParam("mandelbox_folding_value", 2.0, true);
-	par->addParam("mandelbox_folding_min_radius", 0.5, true);
-	par->addParam("mandelbox_folding_fixed_radius", 1.0, true);
-	par->addParam("mandelbox_sharpness", 3.0, true);
-	par->addParam("mandelbox_offset", CVector3(0.0, 0.0, 0.0), true);
-	par->addParam("mandelbox_rotation_main", CVector3(0.0, 0.0, 0.0), true);
-	for(int i = 1; i<=3; i++)
-	{
-		par->addParam("mandelbox_rotation_neg", i, CVector3(0.0, 0.0, 0.0), true);
-		par->addParam("mandelbox_rotation_pos", i, CVector3(0.0, 0.0, 0.0), true);
-	}
-	par->addParam("mandelbox_color", CVector3(0.03, 0.05, 0.07), true);
-	par->addParam("mandelbox_color_R", 0.0, true);
-	par->addParam("mandelbox_color_Sp1", 0.2, true);
-	par->addParam("mandelbox_color_Sp2", 0.2, true);
-	par->addParam("mandelbox_rotation_enabled", false, true);
-	par->addParam("mandelbox_fold_mode", true, true);
-	par->addParam("mandelbox_solid", 1.0, true);
-	par->addParam("mandelbox_melt", 0.0, true);
-
-	par->addParam("mandelbox_vary_scale_vary", 0.1, true);
-	par->addParam("mandelbox_vary_fold", 1.0, true);
-	par->addParam("mandelbox_vary_minr", 0.5, true);
-	par->addParam("mandelbox_vary_rpower", 1.0, true);
-	par->addParam("mandelbox_vary_wadd", 0.0, true);
-
-	//FoldingIntPow
-	par->addParam("foldingIntPow_folding_factor", 2.0, true);
-	par->addParam("foldingIntPow_z_factor", 5.0, true);
-
 	//primitives
 	par->addParam("primitive_only_plane", false, false);
 
@@ -406,3 +331,66 @@ void InitParams(parameters::container *par)
 	WriteLog("Parameters initialization finished");
 }
 
+//definition of all parameters
+void InitFractalParams(parameters::container *par)
+{
+
+	par->addParam("power", 9.0, true);
+
+	//IFS formula
+	par->addParam("IFS_scale", 2.0, true);
+	par->addParam("IFS_rot_alpha", 0.0, true);
+	par->addParam("IFS_rot_beta", 0.0, true);
+	par->addParam("IFS_rot_gamma", 0.0, true);
+	par->addParam("IFS_offset", CVector3(1.0, 0.0, 0.0), true);
+	par->addParam("IFS_edge", CVector3(0.0, 0.0, 0.0), true);
+	par->addParam("IFS_abs_X", false, true);
+	par->addParam("IFS_abs_Y", false, true);
+	par->addParam("IFS_abs_Z", false, true);
+	par->addParam("IFS_menger_sponge_mode", false, true);
+
+	for(int i = 0; i < IFS_VECTOR_COUNT; i++)
+	{
+		par->addParam("IFS_direction", i, CVector3(1.0, 0.0, 0.0), true);
+		par->addParam("IFS_alpha", i, 0.0, true);
+		par->addParam("IFS_beta", i, 0.0, true);
+		par->addParam("IFS_gamma", i, 0.0, true);
+		par->addParam("IFS_distance", i, 0.0, true);
+		par->addParam("IFS_intensity", i, 1.0, true);
+		par->addParam("IFS_enabled", i, false, true);
+	}
+
+	//Mandelbox
+	par->addParam("mandelbox_scale", 2.0, true);
+	par->addParam("mandelbox_folding_limit", 1.0, true);
+	par->addParam("mandelbox_folding_value", 2.0, true);
+	par->addParam("mandelbox_folding_min_radius", 0.5, true);
+	par->addParam("mandelbox_folding_fixed_radius", 1.0, true);
+	par->addParam("mandelbox_sharpness", 3.0, true);
+	par->addParam("mandelbox_offset", CVector3(0.0, 0.0, 0.0), true);
+	par->addParam("mandelbox_rotation_main", CVector3(0.0, 0.0, 0.0), true);
+	for(int i = 1; i<=3; i++)
+	{
+		par->addParam("mandelbox_rotation_neg", i, CVector3(0.0, 0.0, 0.0), true);
+		par->addParam("mandelbox_rotation_pos", i, CVector3(0.0, 0.0, 0.0), true);
+	}
+	par->addParam("mandelbox_color", CVector3(0.03, 0.05, 0.07), true);
+	par->addParam("mandelbox_color_R", 0.0, true);
+	par->addParam("mandelbox_color_Sp1", 0.2, true);
+	par->addParam("mandelbox_color_Sp2", 0.2, true);
+	par->addParam("mandelbox_rotation_enabled", false, true);
+	par->addParam("mandelbox_fold_mode", true, true);
+	par->addParam("mandelbox_solid", 1.0, true);
+	par->addParam("mandelbox_melt", 0.0, true);
+
+	par->addParam("mandelbox_vary_scale_vary", 0.1, true);
+	par->addParam("mandelbox_vary_fold", 1.0, true);
+	par->addParam("mandelbox_vary_minr", 0.5, true);
+	par->addParam("mandelbox_vary_rpower", 1.0, true);
+	par->addParam("mandelbox_vary_wadd", 0.0, true);
+
+
+	//FoldingIntPow
+	par->addParam("foldingIntPow_folding_factor", 2.0, true);
+	par->addParam("foldingIntPow_z_factor", 5.0, true);
+}

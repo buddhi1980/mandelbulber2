@@ -115,6 +115,25 @@ void RenderWindow::slotDoubleSpinBoxChanged(double value)
 	}
 }
 
+void RenderWindow::slotIntSpinBoxChanged(int value)
+{
+	using namespace std;
+	QString spinBoxName = this->sender()->objectName();
+	QString type, parameterName;
+	mainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+	QString sliderName = QString("sliderInt_") + parameterName;
+
+	QSlider *slider = qFindChild<QSlider*>(this->sender()->parent(), sliderName);
+	if (slider)
+	{
+		slider->setValue(value);
+	}
+	else
+	{
+		qWarning() << "slotIntSpinBoxChanged() error: slider " << sliderName << " doesn't exists" << endl;
+	}
+}
+
 void RenderWindow::slotLogSliderMoved(int value)
 {
 	using namespace std;
@@ -133,6 +152,25 @@ void RenderWindow::slotLogSliderMoved(int value)
 	else
 	{
 		qWarning() << "slotLogSliderMoved() error: lineEdit " << lineEditName << " doesn't exists" << endl;
+	}
+}
+
+void RenderWindow::slotIntSliderMoved(int value)
+{
+	using namespace std;
+	QString sliderName = this->sender()->objectName();
+	QString type, parameterName;
+	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
+	QString spinboxName = QString("spinboxInt_") + parameterName;
+
+	QSpinBox *spinbox = qFindChild<QSpinBox*>(this->sender()->parent(), spinboxName);
+	if(spinbox)
+	{
+		spinbox->setValue(value);
+	}
+	else
+	{
+		qWarning() << "slotLogSliderMoved() error: lineEdit " << spinboxName << " doesn't exists" << endl;
 	}
 }
 

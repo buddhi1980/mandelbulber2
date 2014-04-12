@@ -29,7 +29,9 @@ private slots:
 	void load();
 	void slotSliderMoved(int value);
 	void slotDoubleSpinBoxChanged(double value);
+	void slotIntSpinBoxChanged(int value);
 	void slotLogSliderMoved(int value);
+	void slotIntSliderMoved(int value);
 	void slotLogLineEditChanged(const QString &text);
 	void slotPresedOnColorButton();
 private:

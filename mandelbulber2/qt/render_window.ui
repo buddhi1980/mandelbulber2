@@ -6,15 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1310</width>
-    <height>911</height>
+    <width>1440</width>
+    <height>1125</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
-   <string>Image window</string>
+   <string>Mandelbulber main window</string>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0">
@@ -36,8 +45,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>636</width>
-           <height>797</height>
+           <width>765</width>
+           <height>1000</height>
           </rect>
          </property>
          <property name="sizePolicy">
@@ -135,7 +144,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox">
+         <widget class="QCheckBox" name="checkBox_show_cursor">
           <property name="text">
            <string>Show cursor</string>
           </property>
@@ -172,7 +181,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1310</width>
+     <width>1440</width>
      <height>21</height>
     </rect>
    </property>
@@ -237,9 +246,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-45</y>
-          <width>380</width>
-          <height>137</height>
+          <y>0</y>
+          <width>396</width>
+          <height>428</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -250,9 +259,149 @@
           <number>2</number>
          </property>
          <item>
+          <widget class="QGroupBox" name="groupBox_3">
+           <property name="title">
+            <string>Image resolution</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_40">
+            <item>
+             <layout class="QGridLayout" name="gridLayout_18">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <item row="1" column="2">
+               <widget class="QSpinBox" name="spinboxInt_image_height">
+                <property name="minimum">
+                 <number>32</number>
+                </property>
+                <property name="maximum">
+                 <number>65536</number>
+                </property>
+                <property name="singleStep">
+                 <number>8</number>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QSlider" name="sliderInt_image_height">
+                <property name="minimum">
+                 <number>32</number>
+                </property>
+                <property name="maximum">
+                 <number>16000</number>
+                </property>
+                <property name="singleStep">
+                 <number>8</number>
+                </property>
+                <property name="pageStep">
+                 <number>64</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_100">
+                <property name="text">
+                 <string>Image width:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_101">
+                <property name="text">
+                 <string>Image height:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QSlider" name="sliderInt_image_width">
+                <property name="minimum">
+                 <number>32</number>
+                </property>
+                <property name="maximum">
+                 <number>16000</number>
+                </property>
+                <property name="singleStep">
+                 <number>8</number>
+                </property>
+                <property name="pageStep">
+                 <number>64</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QSpinBox" name="spinboxInt_image_width">
+                <property name="minimum">
+                 <number>32</number>
+                </property>
+                <property name="maximum">
+                 <number>65536</number>
+                </property>
+                <property name="singleStep">
+                 <number>8</number>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_102">
+                <property name="text">
+                 <string>Image proportion:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QComboBox" name="comboBox_image_proportion">
+                <item>
+                 <property name="text">
+                  <string>Free</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>1:1</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>4:3</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>3:2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>16:9</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>16:10</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>1:2</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
           <widget class="QGroupBox" name="groupBox_ImageAdjustments">
            <property name="title">
-            <string>Image adjustments</string>
+            <string>Picture</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_20">
             <property name="spacing">
@@ -380,6 +529,17 @@
              <widget class="QCheckBox" name="checkBox_hdr">
               <property name="text">
                <string>High Dynamic Range (HDR)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton">
+              <property name="text">
+               <string>Apply changes</string>
+              </property>
+              <property name="icon">
+               <iconset theme="dialog-ok-apply">
+                <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
               </property>
              </widget>
             </item>
@@ -1072,1150 +1232,6 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QDockWidget" name="dockWidget">
-   <property name="features">
-    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
-   </property>
-   <property name="windowTitle">
-    <string>Light sources</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>1</number>
-   </attribute>
-   <widget class="QWidget" name="dockWidgetContents">
-    <layout class="QVBoxLayout" name="verticalLayout_21">
-     <item>
-      <widget class="QScrollArea" name="scrollAreaLights">
-       <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-       <property name="widgetResizable">
-        <bool>true</bool>
-       </property>
-       <widget class="QWidget" name="scrollAreaWidgetLightsContents">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>-1108</y>
-          <width>380</width>
-          <height>1289</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_7">
-         <property name="spacing">
-          <number>2</number>
-         </property>
-         <property name="margin">
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="QGroupBox" name="groupBox_7">
-           <property name="title">
-            <string>Common light options</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_12">
-            <property name="spacing">
-             <number>2</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="checkBox_shadows_enabled">
-              <property name="text">
-               <string>Cast shadows</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_penetrating_lights">
-              <property name="text">
-               <string>Penetrating lights</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupCheck_main_light_enable">
-           <property name="title">
-            <string>Main light source</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_8">
-            <property name="spacing">
-             <number>2</number>
-            </property>
-            <item>
-             <layout class="QGridLayout" name="gridLayoutMainLightSource">
-              <item row="6" column="1">
-               <widget class="QSlider" name="slider_shadows_cone_angle">
-                <property name="maximum">
-                 <number>4500</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>Horizontal angle:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="1">
-               <widget class="QSlider" name="slider_main_light_beta">
-                <property name="minimum">
-                 <number>-36000</number>
-                </property>
-                <property name="maximum">
-                 <number>36000</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_2">
-                <property name="text">
-                 <string>Intensity:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_main_light_alpha">
-                <property name="accelerated">
-                 <bool>true</bool>
-                </property>
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="decimals">
-                 <number>2</number>
-                </property>
-                <property name="minimum">
-                 <double>-100000.000000000000000</double>
-                </property>
-                <property name="maximum">
-                 <double>100000.000000000000000</double>
-                </property>
-                <property name="singleStep">
-                 <double>1.000000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_main_light_visibility_size">
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="decimals">
-                 <number>2</number>
-                </property>
-                <property name="maximum">
-                 <double>1000.000000000000000</double>
-                </property>
-                <property name="singleStep">
-                 <double>0.100000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_main_light_intensity">
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="decimals">
-                 <number>2</number>
-                </property>
-                <property name="maximum">
-                 <double>1000.000000000000000</double>
-                </property>
-                <property name="singleStep">
-                 <double>0.100000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_main_light_visibility">
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="decimals">
-                 <number>2</number>
-                </property>
-                <property name="maximum">
-                 <double>1000.000000000000000</double>
-                </property>
-                <property name="singleStep">
-                 <double>0.100000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="1">
-               <widget class="QSlider" name="slider_main_light_alpha">
-                <property name="minimum">
-                 <number>-36000</number>
-                </property>
-                <property name="maximum">
-                 <number>36000</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Size:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_shadows_cone_angle">
-                <property name="frame">
-                 <bool>true</bool>
-                </property>
-                <property name="accelerated">
-                 <bool>true</bool>
-                </property>
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="decimals">
-                 <number>2</number>
-                </property>
-                <property name="minimum">
-                 <double>-100000.000000000000000</double>
-                </property>
-                <property name="maximum">
-                 <double>100000.000000000000000</double>
-                </property>
-                <property name="singleStep">
-                 <double>1.000000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="0">
-               <widget class="QLabel" name="label_10">
-                <property name="text">
-                 <string>Vertical angle:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QSlider" name="slider_main_light_visibility_size">
-                <property name="maximum">
-                 <number>200</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_main_light_beta">
-                <property name="frame">
-                 <bool>true</bool>
-                </property>
-                <property name="accelerated">
-                 <bool>true</bool>
-                </property>
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="suffix">
-                 <string/>
-                </property>
-                <property name="decimals">
-                 <number>2</number>
-                </property>
-                <property name="minimum">
-                 <double>-100000.000000000000000</double>
-                </property>
-                <property name="maximum">
-                 <double>100000.000000000000000</double>
-                </property>
-                <property name="singleStep">
-                 <double>1.000000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0">
-               <widget class="QLabel" name="label_30">
-                <property name="text">
-                 <string>Soft shadow cone angle:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QSlider" name="slider_main_light_visibility">
-                <property name="maximum">
-                 <number>200</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>Visibility:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>Color:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QSlider" name="slider_main_light_intensity">
-                <property name="maximum">
-                 <number>200</number>
-                </property>
-                <property name="singleStep">
-                 <number>1</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QPushButton" name="colorButton_main_light_colour">
-                <property name="text">
-                 <string>PushButton</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="checkBox_main_light_position_relative">
-              <property name="text">
-               <string>Position relative to the camera</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_2">
-           <property name="title">
-            <string>Custom lights</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_9">
-            <item>
-             <layout class="QGridLayout" name="gridLayout_4">
-              <item row="0" column="0">
-               <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_1">
-                <property name="title">
-                 <string>Light #1</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_10">
-                 <property name="spacing">
-                  <number>2</number>
-                 </property>
-                 <item>
-                  <layout class="QFormLayout" name="formLayout_coordinates_5">
-                   <property name="fieldGrowthPolicy">
-                    <enum>QFormLayout::ExpandingFieldsGrow</enum>
-                   </property>
-                   <property name="horizontalSpacing">
-                    <number>5</number>
-                   </property>
-                   <property name="verticalSpacing">
-                    <number>1</number>
-                   </property>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_21">
-                     <property name="text">
-                      <string>x:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_1_x"/>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_22">
-                     <property name="text">
-                      <string>y:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_1_y"/>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_23">
-                     <property name="text">
-                      <string>z:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_1_z"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_3">
-                   <item>
-                    <widget class="QLabel" name="label_11">
-                     <property name="text">
-                      <string>Intensity:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_1"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="QSlider" name="logslider_aux_light_predefined_intensity_1">
-                   <property name="minimum">
-                    <number>-1500</number>
-                   </property>
-                   <property name="maximum">
-                    <number>1500</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_4">
-                   <item>
-                    <widget class="QLabel" name="label_12">
-                     <property name="text">
-                      <string>Color:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_1">
-                     <property name="text">
-                      <string>PushButton</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_2">
-                <property name="title">
-                 <string>Light #2</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_11">
-                 <property name="spacing">
-                  <number>2</number>
-                 </property>
-                 <item>
-                  <layout class="QFormLayout" name="formLayout_coordinates_6">
-                   <property name="fieldGrowthPolicy">
-                    <enum>QFormLayout::ExpandingFieldsGrow</enum>
-                   </property>
-                   <property name="horizontalSpacing">
-                    <number>5</number>
-                   </property>
-                   <property name="verticalSpacing">
-                    <number>1</number>
-                   </property>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_24">
-                     <property name="text">
-                      <string>x:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_2_x"/>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_25">
-                     <property name="text">
-                      <string>y:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_2_y"/>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_26">
-                     <property name="text">
-                      <string>z:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_2_z"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_5">
-                   <item>
-                    <widget class="QLabel" name="label_13">
-                     <property name="text">
-                      <string>Intensity:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_2"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="QSlider" name="logslider_aux_light_predefined_intensity_2">
-                   <property name="minimum">
-                    <number>-1500</number>
-                   </property>
-                   <property name="maximum">
-                    <number>1500</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_6">
-                   <item>
-                    <widget class="QLabel" name="label_14">
-                     <property name="text">
-                      <string>Color:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_2">
-                     <property name="text">
-                      <string>PushButton</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_3">
-                <property name="title">
-                 <string>Light #3</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_15">
-                 <property name="spacing">
-                  <number>2</number>
-                 </property>
-                 <item>
-                  <layout class="QFormLayout" name="formLayout_coordinates_7">
-                   <property name="fieldGrowthPolicy">
-                    <enum>QFormLayout::ExpandingFieldsGrow</enum>
-                   </property>
-                   <property name="horizontalSpacing">
-                    <number>5</number>
-                   </property>
-                   <property name="verticalSpacing">
-                    <number>1</number>
-                   </property>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_27">
-                     <property name="text">
-                      <string>x:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_3_x"/>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_28">
-                     <property name="text">
-                      <string>y:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_3_y"/>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_29">
-                     <property name="text">
-                      <string>z:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_3_z"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_7">
-                   <item>
-                    <widget class="QLabel" name="label_31">
-                     <property name="text">
-                      <string>Intensity:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_3"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="QSlider" name="logslider_aux_light_predefined_intensity_3">
-                   <property name="minimum">
-                    <number>-1500</number>
-                   </property>
-                   <property name="maximum">
-                    <number>1500</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_8">
-                   <item>
-                    <widget class="QLabel" name="label_32">
-                     <property name="text">
-                      <string>Color:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_3">
-                     <property name="text">
-                      <string>PushButton</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_4">
-                <property name="title">
-                 <string>Light #4</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_16">
-                 <property name="spacing">
-                  <number>2</number>
-                 </property>
-                 <item>
-                  <layout class="QFormLayout" name="formLayout_coordinates_8">
-                   <property name="fieldGrowthPolicy">
-                    <enum>QFormLayout::ExpandingFieldsGrow</enum>
-                   </property>
-                   <property name="horizontalSpacing">
-                    <number>5</number>
-                   </property>
-                   <property name="verticalSpacing">
-                    <number>1</number>
-                   </property>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_33">
-                     <property name="text">
-                      <string>x:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_4_x"/>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_34">
-                     <property name="text">
-                      <string>y:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_4_y"/>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_35">
-                     <property name="text">
-                      <string>z:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="QLineEdit" name="vect3_aux_light_predefined_position_4_z"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_9">
-                   <item>
-                    <widget class="QLabel" name="label_36">
-                     <property name="text">
-                      <string>Intensity:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_4"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="QSlider" name="logslider_aux_light_predefined_intensity_4">
-                   <property name="minimum">
-                    <number>-1500</number>
-                   </property>
-                   <property name="maximum">
-                    <number>1500</number>
-                   </property>
-                   <property name="value">
-                    <number>0</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_10">
-                   <item>
-                    <widget class="QLabel" name="label_37">
-                     <property name="text">
-                      <string>Color:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_4">
-                     <property name="text">
-                      <string>PushButton</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QGroupBox" name="groupBox_8">
-              <property name="title">
-               <string>Custom lights options</string>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_17">
-               <item>
-                <layout class="QGridLayout" name="gridLayout_5">
-                 <property name="spacing">
-                  <number>2</number>
-                 </property>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_38">
-                   <property name="text">
-                    <string>Size:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QSlider" name="logslider_aux_light_visibility_size">
-                   <property name="minimum">
-                    <number>-1500</number>
-                   </property>
-                   <property name="maximum">
-                    <number>300</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QSlider" name="logslider_aux_light_visibility">
-                   <property name="minimum">
-                    <number>-1500</number>
-                   </property>
-                   <property name="maximum">
-                    <number>1500</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="2">
-                  <widget class="QLineEdit" name="logedit_aux_light_visibility"/>
-                 </item>
-                 <item row="2" column="2">
-                  <widget class="QLineEdit" name="logedit_aux_light_visibility_size"/>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_39">
-                   <property name="text">
-                    <string>Visibility:</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_9">
-           <property name="title">
-            <string>Volumetric lights</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_18">
-            <item>
-             <layout class="QGridLayout" name="gridLayout_6">
-              <property name="spacing">
-               <number>2</number>
-              </property>
-              <item row="3" column="1">
-               <widget class="QSlider" name="logslider_volumetric_light_intensity_1">
-                <property name="minimum">
-                 <number>-1500</number>
-                </property>
-                <property name="maximum">
-                 <number>1500</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="0">
-               <widget class="QLabel" name="label_40">
-                <property name="text">
-                 <string>Visibility of light #2:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label_41">
-                <property name="text">
-                 <string>Visibility of light #1:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_42">
-                <property name="text">
-                 <string>Visibility of main light:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="2">
-               <widget class="QLineEdit" name="logedit_volumetric_light_intensity_3"/>
-              </item>
-              <item row="5" column="2">
-               <widget class="QLineEdit" name="logedit_volumetric_light_intensity_2"/>
-              </item>
-              <item row="1" column="1">
-               <widget class="QSlider" name="logslider_volumetric_light_intensity_0">
-                <property name="minimum">
-                 <number>-1500</number>
-                </property>
-                <property name="maximum">
-                 <number>1500</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QLineEdit" name="logedit_volumetric_light_intensity_0"/>
-              </item>
-              <item row="3" column="2">
-               <widget class="QLineEdit" name="logedit_volumetric_light_intensity_1"/>
-              </item>
-              <item row="7" column="0">
-               <widget class="QLabel" name="label_43">
-                <property name="text">
-                 <string>Visibility of light #3:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="1">
-               <widget class="QSlider" name="logslider_volumetric_light_intensity_3">
-                <property name="minimum">
-                 <number>-1500</number>
-                </property>
-                <property name="maximum">
-                 <number>1500</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="0">
-               <widget class="QLabel" name="label_44">
-                <property name="text">
-                 <string>Visibility of light #4:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="1">
-               <widget class="QSlider" name="logslider_volumetric_light_intensity_4">
-                <property name="minimum">
-                 <number>-1500</number>
-                </property>
-                <property name="maximum">
-                 <number>1500</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="2">
-               <widget class="QLineEdit" name="logedit_volumetric_light_intensity_4"/>
-              </item>
-              <item row="5" column="1">
-               <widget class="QSlider" name="logslider_volumetric_light_intensity_2">
-                <property name="minimum">
-                 <number>-1500</number>
-                </property>
-                <property name="maximum">
-                 <number>1500</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0" colspan="3">
-               <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_0">
-                <property name="text">
-                 <string>Main light as volumetric</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0" colspan="3">
-               <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_1">
-                <property name="text">
-                 <string>Light #1 as volumetric</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0" colspan="3">
-               <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_2">
-                <property name="text">
-                 <string>Light #2 as volumetric</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0" colspan="3">
-               <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_3">
-                <property name="text">
-                 <string>Light #3 as volumetric</string>
-                </property>
-               </widget>
-              </item>
-              <item row="8" column="0" colspan="3">
-               <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_4">
-                <property name="text">
-                 <string>Light #4 as volumetric</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox">
-           <property name="title">
-            <string>Random lights</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_25">
-            <item>
-             <layout class="QGridLayout" name="gridLayout_3">
-              <property name="spacing">
-               <number>2</number>
-              </property>
-              <item row="0" column="2">
-               <widget class="QSpinBox" name="spinboxInt_aux_light_number">
-                <property name="maximum">
-                 <number>10000</number>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QLabel" name="label_50">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>y:</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QSlider" name="logslider_aux_light_distribution_radius">
-                <property name="minimum">
-                 <number>-1500</number>
-                </property>
-                <property name="maximum">
-                 <number>300</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_47">
-                <property name="text">
-                 <string>Distribution radius:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_48">
-                <property name="text">
-                 <string>Centre of distribution:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_46">
-                <property name="text">
-                 <string>Number of lights:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QLabel" name="label_49">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>x:</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QLineEdit" name="logedit_aux_light_distribution_radius"/>
-              </item>
-              <item row="4" column="1">
-               <widget class="QLabel" name="label_51">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>z:</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QLineEdit" name="vect3_aux_light_random_center_x"/>
-              </item>
-              <item row="3" column="2">
-               <widget class="QLineEdit" name="vect3_aux_light_random_center_y"/>
-              </item>
-              <item row="4" column="2">
-               <widget class="QLineEdit" name="vect3_aux_light_random_center_z"/>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-  </widget>
   <widget class="QDockWidget" name="dockWidget_3">
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
@@ -2241,8 +1257,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>396</width>
-          <height>455</height>
+          <width>380</width>
+          <height>186</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2258,14 +1274,14 @@
             <enum>QFrame::NoFrame</enum>
            </property>
            <property name="currentIndex">
-            <number>3</number>
+            <number>4</number>
            </property>
            <widget class="QWidget" name="page">
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-94</y>
-              <width>377</width>
+              <y>-38</y>
+              <width>361</width>
               <height>469</height>
              </rect>
             </property>
@@ -2832,8 +1848,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>392</width>
-              <height>375</height>
+              <width>376</width>
+              <height>87</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2845,17 +1861,17 @@
                <property name="spacing">
                 <number>2</number>
                </property>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_62">
-                 <property name="text">
-                  <string>Reflections depth:</string>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="2">
                 <widget class="QSpinBox" name="spinboxInt_reflections_max">
                  <property name="maximum">
                   <number>9</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_62">
+                 <property name="text">
+                  <string>Reflections depth:</string>
                  </property>
                 </widget>
                </item>
@@ -2903,8 +1919,8 @@
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-340</y>
-              <width>377</width>
+              <y>0</y>
+              <width>361</width>
               <height>715</height>
              </rect>
             </property>
@@ -3412,6 +2428,14 @@
             </layout>
            </widget>
            <widget class="QWidget" name="page_4">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>376</width>
+              <height>245</height>
+             </rect>
+            </property>
             <attribute name="label">
              <string>Background</string>
             </attribute>
@@ -3540,7 +2564,2148 @@
              </item>
             </layout>
            </widget>
+           <widget class="QWidget" name="page_5">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>-1177</y>
+              <width>361</width>
+              <height>1608</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Light sources</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayout_41">
+             <item>
+              <widget class="QGroupBox" name="groupBox_7">
+               <property name="title">
+                <string>Common light options</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_12">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_shadows_enabled">
+                  <property name="text">
+                   <string>Cast shadows</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_penetrating_lights">
+                  <property name="text">
+                   <string>Penetrating lights</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupCheck_main_light_enable">
+               <property name="title">
+                <string>Main light source</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item>
+                 <layout class="QGridLayout" name="gridLayoutMainLightSource">
+                  <item row="6" column="1">
+                   <widget class="QSlider" name="slider_shadows_cone_angle">
+                    <property name="maximum">
+                     <number>4500</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_8">
+                    <property name="text">
+                     <string>Horizontal angle:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QSlider" name="slider_main_light_beta">
+                    <property name="minimum">
+                     <number>-36000</number>
+                    </property>
+                    <property name="maximum">
+                     <number>36000</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_2">
+                    <property name="text">
+                     <string>Intensity:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="2">
+                   <widget class="QDoubleSpinBox" name="spinbox_main_light_alpha">
+                    <property name="accelerated">
+                     <bool>true</bool>
+                    </property>
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="minimum">
+                     <double>-100000.000000000000000</double>
+                    </property>
+                    <property name="maximum">
+                     <double>100000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>1.000000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="2">
+                   <widget class="QDoubleSpinBox" name="spinbox_main_light_visibility_size">
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="maximum">
+                     <double>1000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="QDoubleSpinBox" name="spinbox_main_light_intensity">
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="maximum">
+                     <double>1000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="2">
+                   <widget class="QDoubleSpinBox" name="spinbox_main_light_visibility">
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="maximum">
+                     <double>1000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QSlider" name="slider_main_light_alpha">
+                    <property name="minimum">
+                     <number>-36000</number>
+                    </property>
+                    <property name="maximum">
+                     <number>36000</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_5">
+                    <property name="text">
+                     <string>Size:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="2">
+                   <widget class="QDoubleSpinBox" name="spinbox_shadows_cone_angle">
+                    <property name="frame">
+                     <bool>true</bool>
+                    </property>
+                    <property name="accelerated">
+                     <bool>true</bool>
+                    </property>
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="minimum">
+                     <double>-100000.000000000000000</double>
+                    </property>
+                    <property name="maximum">
+                     <double>100000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>1.000000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="label_10">
+                    <property name="text">
+                     <string>Vertical angle:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QSlider" name="slider_main_light_visibility_size">
+                    <property name="maximum">
+                     <number>200</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="2">
+                   <widget class="QDoubleSpinBox" name="spinbox_main_light_beta">
+                    <property name="frame">
+                     <bool>true</bool>
+                    </property>
+                    <property name="accelerated">
+                     <bool>true</bool>
+                    </property>
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="minimum">
+                     <double>-100000.000000000000000</double>
+                    </property>
+                    <property name="maximum">
+                     <double>100000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>1.000000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="label_30">
+                    <property name="text">
+                     <string>Soft shadow cone angle:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QSlider" name="slider_main_light_visibility">
+                    <property name="maximum">
+                     <number>200</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_6">
+                    <property name="text">
+                     <string>Visibility:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_7">
+                    <property name="text">
+                     <string>Color:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QSlider" name="slider_main_light_intensity">
+                    <property name="maximum">
+                     <number>200</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QPushButton" name="colorButton_main_light_colour">
+                    <property name="text">
+                     <string>PushButton</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_main_light_position_relative">
+                  <property name="text">
+                   <string>Position relative to the camera</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_2">
+               <property name="title">
+                <string>Custom lights</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_9">
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_4">
+                  <item row="0" column="0">
+                   <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_1">
+                    <property name="title">
+                     <string>Light #1</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_10">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <item>
+                      <layout class="QFormLayout" name="formLayout_coordinates_5">
+                       <property name="fieldGrowthPolicy">
+                        <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                       </property>
+                       <property name="horizontalSpacing">
+                        <number>5</number>
+                       </property>
+                       <property name="verticalSpacing">
+                        <number>1</number>
+                       </property>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="label_21">
+                         <property name="text">
+                          <string>x:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_1_x"/>
+                       </item>
+                       <item row="1" column="0">
+                        <widget class="QLabel" name="label_22">
+                         <property name="text">
+                          <string>y:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_1_y"/>
+                       </item>
+                       <item row="2" column="0">
+                        <widget class="QLabel" name="label_23">
+                         <property name="text">
+                          <string>z:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="2" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_1_z"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_3">
+                       <item>
+                        <widget class="QLabel" name="label_11">
+                         <property name="text">
+                          <string>Intensity:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_1"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <widget class="QSlider" name="logslider_aux_light_predefined_intensity_1">
+                       <property name="minimum">
+                        <number>-1500</number>
+                       </property>
+                       <property name="maximum">
+                        <number>1500</number>
+                       </property>
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_4">
+                       <item>
+                        <widget class="QLabel" name="label_12">
+                         <property name="text">
+                          <string>Color:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_1">
+                         <property name="text">
+                          <string>PushButton</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_2">
+                    <property name="title">
+                     <string>Light #2</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_11">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <item>
+                      <layout class="QFormLayout" name="formLayout_coordinates_6">
+                       <property name="fieldGrowthPolicy">
+                        <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                       </property>
+                       <property name="horizontalSpacing">
+                        <number>5</number>
+                       </property>
+                       <property name="verticalSpacing">
+                        <number>1</number>
+                       </property>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="label_24">
+                         <property name="text">
+                          <string>x:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_2_x"/>
+                       </item>
+                       <item row="1" column="0">
+                        <widget class="QLabel" name="label_25">
+                         <property name="text">
+                          <string>y:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_2_y"/>
+                       </item>
+                       <item row="2" column="0">
+                        <widget class="QLabel" name="label_26">
+                         <property name="text">
+                          <string>z:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="2" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_2_z"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_5">
+                       <item>
+                        <widget class="QLabel" name="label_13">
+                         <property name="text">
+                          <string>Intensity:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_2"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <widget class="QSlider" name="logslider_aux_light_predefined_intensity_2">
+                       <property name="minimum">
+                        <number>-1500</number>
+                       </property>
+                       <property name="maximum">
+                        <number>1500</number>
+                       </property>
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_6">
+                       <item>
+                        <widget class="QLabel" name="label_14">
+                         <property name="text">
+                          <string>Color:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_2">
+                         <property name="text">
+                          <string>PushButton</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_3">
+                    <property name="title">
+                     <string>Light #3</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_15">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <item>
+                      <layout class="QFormLayout" name="formLayout_coordinates_7">
+                       <property name="fieldGrowthPolicy">
+                        <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                       </property>
+                       <property name="horizontalSpacing">
+                        <number>5</number>
+                       </property>
+                       <property name="verticalSpacing">
+                        <number>1</number>
+                       </property>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="label_27">
+                         <property name="text">
+                          <string>x:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_3_x"/>
+                       </item>
+                       <item row="1" column="0">
+                        <widget class="QLabel" name="label_28">
+                         <property name="text">
+                          <string>y:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_3_y"/>
+                       </item>
+                       <item row="2" column="0">
+                        <widget class="QLabel" name="label_29">
+                         <property name="text">
+                          <string>z:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="2" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_3_z"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_7">
+                       <item>
+                        <widget class="QLabel" name="label_31">
+                         <property name="text">
+                          <string>Intensity:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_3"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <widget class="QSlider" name="logslider_aux_light_predefined_intensity_3">
+                       <property name="minimum">
+                        <number>-1500</number>
+                       </property>
+                       <property name="maximum">
+                        <number>1500</number>
+                       </property>
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_8">
+                       <item>
+                        <widget class="QLabel" name="label_32">
+                         <property name="text">
+                          <string>Color:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_3">
+                         <property name="text">
+                          <string>PushButton</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_4">
+                    <property name="title">
+                     <string>Light #4</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_16">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <item>
+                      <layout class="QFormLayout" name="formLayout_coordinates_8">
+                       <property name="fieldGrowthPolicy">
+                        <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                       </property>
+                       <property name="horizontalSpacing">
+                        <number>5</number>
+                       </property>
+                       <property name="verticalSpacing">
+                        <number>1</number>
+                       </property>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="label_33">
+                         <property name="text">
+                          <string>x:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_4_x"/>
+                       </item>
+                       <item row="1" column="0">
+                        <widget class="QLabel" name="label_34">
+                         <property name="text">
+                          <string>y:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_4_y"/>
+                       </item>
+                       <item row="2" column="0">
+                        <widget class="QLabel" name="label_35">
+                         <property name="text">
+                          <string>z:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="2" column="1">
+                        <widget class="QLineEdit" name="vect3_aux_light_predefined_position_4_z"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_9">
+                       <item>
+                        <widget class="QLabel" name="label_36">
+                         <property name="text">
+                          <string>Intensity:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_4"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <widget class="QSlider" name="logslider_aux_light_predefined_intensity_4">
+                       <property name="minimum">
+                        <number>-1500</number>
+                       </property>
+                       <property name="maximum">
+                        <number>1500</number>
+                       </property>
+                       <property name="value">
+                        <number>0</number>
+                       </property>
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_10">
+                       <item>
+                        <widget class="QLabel" name="label_37">
+                         <property name="text">
+                          <string>Color:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_4">
+                         <property name="text">
+                          <string>PushButton</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="groupBox_8">
+                  <property name="title">
+                   <string>Custom lights options</string>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_17">
+                   <item>
+                    <layout class="QGridLayout" name="gridLayout_5">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <item row="2" column="0">
+                      <widget class="QLabel" name="label_38">
+                       <property name="text">
+                        <string>Size:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="1">
+                      <widget class="QSlider" name="logslider_aux_light_visibility_size">
+                       <property name="minimum">
+                        <number>-1500</number>
+                       </property>
+                       <property name="maximum">
+                        <number>300</number>
+                       </property>
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QSlider" name="logslider_aux_light_visibility">
+                       <property name="minimum">
+                        <number>-1500</number>
+                       </property>
+                       <property name="maximum">
+                        <number>1500</number>
+                       </property>
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="2">
+                      <widget class="QLineEdit" name="logedit_aux_light_visibility"/>
+                     </item>
+                     <item row="2" column="2">
+                      <widget class="QLineEdit" name="logedit_aux_light_visibility_size"/>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="label_39">
+                       <property name="text">
+                        <string>Visibility:</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_9">
+               <property name="title">
+                <string>Volumetric lights</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_18">
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_6">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <item row="3" column="1">
+                   <widget class="QSlider" name="logslider_volumetric_light_intensity_1">
+                    <property name="minimum">
+                     <number>-1500</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1500</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="label_40">
+                    <property name="text">
+                     <string>Visibility of light #2:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_41">
+                    <property name="text">
+                     <string>Visibility of light #1:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_42">
+                    <property name="text">
+                     <string>Visibility of main light:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="2">
+                   <widget class="QLineEdit" name="logedit_volumetric_light_intensity_3"/>
+                  </item>
+                  <item row="5" column="2">
+                   <widget class="QLineEdit" name="logedit_volumetric_light_intensity_2"/>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QSlider" name="logslider_volumetric_light_intensity_0">
+                    <property name="minimum">
+                     <number>-1500</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1500</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="2">
+                   <widget class="QLineEdit" name="logedit_volumetric_light_intensity_0"/>
+                  </item>
+                  <item row="3" column="2">
+                   <widget class="QLineEdit" name="logedit_volumetric_light_intensity_1"/>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="label_43">
+                    <property name="text">
+                     <string>Visibility of light #3:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1">
+                   <widget class="QSlider" name="logslider_volumetric_light_intensity_3">
+                    <property name="minimum">
+                     <number>-1500</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1500</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="0">
+                   <widget class="QLabel" name="label_44">
+                    <property name="text">
+                     <string>Visibility of light #4:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="1">
+                   <widget class="QSlider" name="logslider_volumetric_light_intensity_4">
+                    <property name="minimum">
+                     <number>-1500</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1500</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="2">
+                   <widget class="QLineEdit" name="logedit_volumetric_light_intensity_4"/>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QSlider" name="logslider_volumetric_light_intensity_2">
+                    <property name="minimum">
+                     <number>-1500</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1500</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0" colspan="3">
+                   <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_0">
+                    <property name="text">
+                     <string>Main light as volumetric</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0" colspan="3">
+                   <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_1">
+                    <property name="text">
+                     <string>Light #1 as volumetric</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0" colspan="3">
+                   <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_2">
+                    <property name="text">
+                     <string>Light #2 as volumetric</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0" colspan="3">
+                   <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_3">
+                    <property name="text">
+                     <string>Light #3 as volumetric</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="0" colspan="3">
+                   <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_4">
+                    <property name="text">
+                     <string>Light #4 as volumetric</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox">
+               <property name="title">
+                <string>Random lights</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_25">
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_3">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <item row="0" column="2">
+                   <widget class="QSpinBox" name="spinboxInt_aux_light_number">
+                    <property name="maximum">
+                     <number>10000</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QLabel" name="label_50">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>y:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QSlider" name="logslider_aux_light_distribution_radius">
+                    <property name="minimum">
+                     <number>-1500</number>
+                    </property>
+                    <property name="maximum">
+                     <number>300</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_47">
+                    <property name="text">
+                     <string>Distribution radius:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_48">
+                    <property name="text">
+                     <string>Centre of distribution:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_46">
+                    <property name="text">
+                     <string>Number of lights:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QLabel" name="label_49">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>x:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="2">
+                   <widget class="QLineEdit" name="logedit_aux_light_distribution_radius"/>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QLabel" name="label_51">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>z:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="2">
+                   <widget class="QLineEdit" name="vect3_aux_light_random_center_x"/>
+                  </item>
+                  <item row="3" column="2">
+                   <widget class="QLineEdit" name="vect3_aux_light_random_center_y"/>
+                  </item>
+                  <item row="4" column="2">
+                   <widget class="QLineEdit" name="vect3_aux_light_random_center_z"/>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupCheck_fake_lights_enabled">
+               <property name="title">
+                <string>Fake lights based on orbit traps</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_39">
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_17">
+                  <item row="0" column="2">
+                   <widget class="QSpinBox" name="spinboxInt_fake_lights_min_iter">
+                    <property name="maximum">
+                     <number>500</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_94">
+                    <property name="text">
+                     <string>Size:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="2">
+                   <widget class="QSpinBox" name="spinboxInt_fake_lights_max_iter">
+                    <property name="maximum">
+                     <number>500</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="2">
+                   <widget class="QLineEdit" name="logedit_fake_lights_intensity"/>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QSlider" name="sliderInt_fake_lights_max_iter">
+                    <property name="maximum">
+                     <number>50</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1</number>
+                    </property>
+                    <property name="pageStep">
+                     <number>1</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QSlider" name="logslider_fake_lights_intensity">
+                    <property name="minimum">
+                     <number>-1500</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1500</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_60">
+                    <property name="text">
+                     <string>Minimum iteration:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QSlider" name="logslider_fake_lights_visibility">
+                    <property name="minimum">
+                     <number>-1500</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1500</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_92">
+                    <property name="text">
+                     <string>Intensity:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="2">
+                   <widget class="QDoubleSpinBox" name="spinbox_fake_lights_visibility_size">
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="minimum">
+                     <double>0.100000000000000</double>
+                    </property>
+                    <property name="maximum">
+                     <double>10.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.500000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="2">
+                   <widget class="QLineEdit" name="logedit_fake_lights_visibility"/>
+                  </item>
+                  <item row="6" column="1">
+                   <widget class="QLabel" name="label_97">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>y:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_91">
+                    <property name="text">
+                     <string>Maximum iteration:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QSlider" name="slider_fake_lights_visibility_size">
+                    <property name="minimum">
+                     <number>10</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1000</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_93">
+                    <property name="text">
+                     <string>Visibility:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QSlider" name="sliderInt_fake_lights_min_iter">
+                    <property name="maximum">
+                     <number>50</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1</number>
+                    </property>
+                    <property name="pageStep">
+                     <number>1</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="label_95">
+                    <property name="text">
+                     <string>Orbit trap:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QLabel" name="label_96">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>x:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1">
+                   <widget class="QLabel" name="label_98">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>z:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="2">
+                   <widget class="QLineEdit" name="vect3_fake_lights_orbit_trap_x"/>
+                  </item>
+                  <item row="6" column="2">
+                   <widget class="QLineEdit" name="vect3_fake_lights_orbit_trap_y"/>
+                  </item>
+                  <item row="7" column="2">
+                   <widget class="QLineEdit" name="vect3_fake_lights_orbit_trap_z"/>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
           </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_2">
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Fractal</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QVBoxLayout" name="verticalLayout_7">
+     <item>
+      <widget class="QToolBox" name="toolBox_2">
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="page_8">
+        <attribute name="label">
+         <string>Common fractal parameters</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_47">
+         <item>
+          <widget class="QGroupBox" name="groupCheck_julia_mode">
+           <property name="title">
+            <string>Julia mode</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_48">
+            <item>
+             <layout class="QGridLayout" name="gridLayout_22">
+              <item row="1" column="1">
+               <widget class="QLabel" name="label_116">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>y:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_113">
+                <property name="text">
+                 <string>Julia constant (c):</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QLineEdit" name="vect3_julia_c_y"/>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLineEdit" name="vect3_julia_c_x"/>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="label_120">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>z:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="label_115">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>x:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLineEdit" name="vect3_julia_c_z"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_9">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_6">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>381</width>
+          <height>174</height>
+         </rect>
+        </property>
+        <attribute name="label">
+         <string>Formulas</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_21">
+         <item>
+          <widget class="QTabWidget" name="tabWidget">
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <widget class="QWidget" name="tab">
+            <attribute name="title">
+             <string>Formula #1</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayout_49">
+             <item>
+              <widget class="QComboBox" name="comboBox_3">
+               <item>
+                <property name="text">
+                 <string>Mandelbulb</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Mandelbox</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QScrollArea" name="scrollArea_4">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_5">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>349</width>
+                  <height>88</height>
+                 </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_53"/>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="tab_2">
+            <attribute name="title">
+             <string>Formula #2</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayout_50">
+             <item>
+              <widget class="QScrollArea" name="scrollArea_5">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_6">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>364</width>
+                  <height>184</height>
+                 </rect>
+                </property>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="tab_3">
+            <attribute name="title">
+             <string>Formula #3</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayout_51">
+             <item>
+              <widget class="QScrollArea" name="scrollArea_6">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_7">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>364</width>
+                  <height>184</height>
+                 </rect>
+                </property>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="tab_4">
+            <attribute name="title">
+             <string>Formula #4</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayout_52">
+             <item>
+              <widget class="QScrollArea" name="scrollArea_7">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_8">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>364</width>
+                  <height>184</height>
+                 </rect>
+                </property>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_7">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>396</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <attribute name="label">
+         <string>Hybrid fractals settings</string>
+        </attribute>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="windowTitle">
+    <string>Rendering engine</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout_42">
+     <item>
+      <widget class="QScrollArea" name="scrollArea_3">
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_4">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>-83</y>
+          <width>380</width>
+          <height>602</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_46">
+         <item>
+          <widget class="QGroupBox" name="groupBox_4">
+           <property name="title">
+            <string>Common rendering settings</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_43">
+            <item>
+             <layout class="QGridLayout" name="gridLayout_19">
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_103">
+                <property name="text">
+                 <string>Max. fractal iterations:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QSlider" name="sliderInt_N">
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>250</number>
+                </property>
+                <property name="singleStep">
+                 <number>8</number>
+                </property>
+                <property name="pageStep">
+                 <number>64</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="2">
+               <widget class="QLineEdit" name="logedit_view_distance_min">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="0" colspan="3">
+               <widget class="QCheckBox" name="checkBox_iteration_threshold_mode">
+                <property name="text">
+                 <string>Stop at maximum iteration</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QSlider" name="logslider_detail_level">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="sizeIncrement">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>-300</number>
+                </property>
+                <property name="maximum">
+                 <number>300</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="0" colspan="3">
+               <widget class="QCheckBox" name="checkBox_interior_mode">
+                <property name="text">
+                 <string>Interior mode</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="2">
+               <widget class="QLineEdit" name="logedit_DE_factor">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_105">
+                <property name="text">
+                 <string>Raymarching step mult.:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_104">
+                <property name="text">
+                 <string>Detail level:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QSlider" name="logslider_smoothness">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="sizeIncrement">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>-300</number>
+                </property>
+                <property name="maximum">
+                 <number>300</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="label_108">
+                <property name="text">
+                 <string>minimum view distance:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_107">
+                <property name="text">
+                 <string>maximum view distance:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="0" colspan="3">
+               <widget class="QCheckBox" name="checkBox_slow_shading">
+                <property name="text">
+                 <string>Non-DE shading mode (slow)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QSlider" name="logslider_view_distance_max">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="sizeIncrement">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>-1500</number>
+                </property>
+                <property name="maximum">
+                 <number>400</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="label_106">
+                <property name="text">
+                 <string>Smoothness:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="2">
+               <widget class="QLineEdit" name="logedit_smoothness">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="QSlider" name="logslider_view_distance_min">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="sizeIncrement">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>-1500</number>
+                </property>
+                <property name="maximum">
+                 <number>400</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QSpinBox" name="spinboxInt_N">
+                <property name="maximum">
+                 <number>500</number>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLineEdit" name="logedit_detail_level">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QSlider" name="logslider_DE_factor">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="sizeIncrement">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>-300</number>
+                </property>
+                <property name="maximum">
+                 <number>300</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="2">
+               <widget class="QLineEdit" name="logedit_view_distance_max">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="0" colspan="3">
+               <widget class="QGroupBox" name="groupCheck_constant_DE_threshold">
+                <property name="title">
+                 <string>Constant detail size</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_44">
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_20">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_99">
+                     <property name="text">
+                      <string>distance threshold:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QSlider" name="logslider_DE_thresh">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="sizeIncrement">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="minimum">
+                      <number>-1500</number>
+                     </property>
+                     <property name="maximum">
+                      <number>400</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="QLineEdit" name="logedit_DE_thresh">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_6">
+           <property name="title">
+            <string>Limits (box)</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_45">
+            <item>
+             <layout class="QGridLayout" name="gridLayout_21">
+              <item row="0" column="1">
+               <widget class="QLabel" name="label_110">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>x:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="2">
+               <widget class="QLineEdit" name="vect3_limit_max_x"/>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLineEdit" name="vect3_limit_min_z"/>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_109">
+                <property name="text">
+                 <string>bottom left front corner:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QLineEdit" name="vect3_limit_min_y"/>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="label_111">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>y:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="label_112">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>z:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLineEdit" name="vect3_limit_min_x"/>
+              </item>
+              <item row="4" column="2">
+               <widget class="QLineEdit" name="vect3_limit_max_y"/>
+              </item>
+              <item row="5" column="2">
+               <widget class="QLineEdit" name="vect3_limit_max_z"/>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_114">
+                <property name="text">
+                 <string>top right back corner:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLabel" name="label_117">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>x:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLabel" name="label_118">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>y:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QLabel" name="label_119">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>z:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_8">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -3552,8 +4717,7 @@
   <action name="actionSave_as_JPG">
    <property name="icon">
     <iconset theme="document-save-as">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Save as JPG...</string>
@@ -3562,8 +4726,7 @@
   <action name="actionSave_as_PNG">
    <property name="icon">
     <iconset theme="document-save-as">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Save as PNG...</string>
@@ -3572,8 +4735,7 @@
   <action name="actionSave_as_PNG_16_bit">
    <property name="icon">
     <iconset theme="document-save-as">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Save as PNG 16 bit...</string>
@@ -3582,8 +4744,7 @@
   <action name="actionSave_as_PNG_16_bit_with_alpha_channel">
    <property name="icon">
     <iconset theme="document-save-as">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Save as PNG 16 bit with alpha channel</string>
@@ -3592,8 +4753,7 @@
   <action name="actionLoad_settings">
    <property name="icon">
     <iconset theme="document-open">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Load settings...</string>
@@ -3602,8 +4762,7 @@
   <action name="actionSave_settings">
    <property name="icon">
     <iconset theme="document-save">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Save settings</string>
@@ -3612,8 +4771,7 @@
   <action name="actionSave_settings_as">
    <property name="icon">
     <iconset theme="document-save-as">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Save settings as...</string>
@@ -3625,8 +4783,7 @@
   <action name="actionQuit">
    <property name="icon">
     <iconset theme="application-exit">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Quit</string>

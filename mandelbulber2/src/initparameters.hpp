@@ -10,6 +10,6 @@
 
 
 void InitParams(parameters::container *par);
-
+void InitFractalParams(parameters::container *par);
 
 #endif /* INITPARAMETERS_HPP_ */
