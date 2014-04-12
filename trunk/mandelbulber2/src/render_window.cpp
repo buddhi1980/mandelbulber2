@@ -220,6 +220,13 @@ void RenderWindow::slotPresedOnColorButton(void)
 	pushButton->setProperty("selectedColor_b", color.blue() * 256);
 }
 
+void RenderWindow::slotMenuSaveDocksPositions()
+{
+	settings.setValue("mainWindowGeometry", saveGeometry());
+	settings.setValue("mainWindowState", saveState());
+	qDebug() << "settings saved";
+}
+
 //=================== rendered image widget ==================/
 
 RenderedImage::RenderedImage(QWidget *parent)

@@ -10,6 +10,7 @@
 
 #include <QMainWindow>
 #include "../qt/ui_render_window.h"
+#include <QSettings>
 
 namespace Ui
 {
@@ -34,10 +35,13 @@ private slots:
 	void slotIntSliderMoved(int value);
 	void slotLogLineEditChanged(const QString &text);
 	void slotPresedOnColorButton();
+	void slotMenuSaveDocksPositions();
 private:
 	Ui::RenderWindow *ui;
 
 	friend class cInterface;
+
+	QSettings settings;
 };
 
 
