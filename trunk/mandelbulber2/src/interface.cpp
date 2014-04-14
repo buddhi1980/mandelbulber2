@@ -41,8 +41,6 @@ void cInterface::ShowUi(void)
 	mainWindow->ui->scrollAreaWidgetContents->setMinimumSize(1000,1000);
 	renderedImage->show();
 
-
-
 	WriteLog("ConnectSignals()");
 	ConnectSignals();
 }
@@ -81,6 +79,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
+				out << name << " - type: " << type << endl;
 
 				//----- get vectors ------------
 				if (type == QString("vect3"))
@@ -153,6 +152,21 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 					{
 						double value = par->Get<double>(parameterName);
 						lineEdit->setText(QString::number(value));
+					}
+				}
+
+				//----------- get texts ------------
+				else if (type == QString("text"))
+				{
+					if (mode == read)
+					{
+						QString text = lineEdit->text();
+						par->Set(parameterName, text);
+					}
+					else if (mode == write)
+					{
+						QString text = par->Get<QString>(parameterName);
+						lineEdit->setText(text);
 					}
 				}
 			}
