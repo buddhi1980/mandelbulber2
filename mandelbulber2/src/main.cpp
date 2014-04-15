@@ -34,12 +34,16 @@ int main(int argc, char *argv[])
 	}
 
 	//create internal database with parameters
-	InitParams(&gPar);
+	gPar = new parameters::container;
+	gParFractal = new parameters::container[4];
+	InitParams(gPar);
+	for(int i=0; i<4; i++)
+		InitFractalParams(&gParFractal[i]);
 
 	mainInterface->ShowUi();
 
 	//write parameters to ui
-	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, &gPar, cInterface::write);
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
 	//start main Qt loop
 	WriteLog("application->exec()");

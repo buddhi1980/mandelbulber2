@@ -22,6 +22,7 @@ public:
 	void ShowUi(void);
 	void ConnectSignals(void);
 	void SynchronizeInterfaceWindow(QWidget *window, parameters::container *par, enumReadWrite mode);
+	void SynchronizeInterface(parameters::container *par, parameters::container *parFractal, enumReadWrite mode);
 	void ConnectSignalsForSlidersInWindow(QWidget *window);
 	void MakeColorButtonsInWindow(QWidget *window);
 	void GetNameAndType(QString name, QString *parameterName, QString *type);

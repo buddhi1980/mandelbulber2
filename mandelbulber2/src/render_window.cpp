@@ -34,7 +34,7 @@ void RenderWindow::testSlot(void)
 
 	printf("Hello World!\n");
 
-	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, &gPar, cInterface::read);
+	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, gPar, cInterface::read);
 
 	int width = 1000;
 	int height = 1000;

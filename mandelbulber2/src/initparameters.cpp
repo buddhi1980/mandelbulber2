@@ -334,7 +334,7 @@ void InitParams(parameters::container *par)
 //definition of all parameters
 void InitFractalParams(parameters::container *par)
 {
-
+	WriteLog("Fractal parameters initialization started");
 	par->addParam("power", 9.0, true);
 
 	//IFS formula
@@ -393,4 +393,5 @@ void InitFractalParams(parameters::container *par)
 	//FoldingIntPow
 	par->addParam("foldingIntPow_folding_factor", 2.0, true);
 	par->addParam("foldingIntPow_z_factor", 5.0, true);
+	WriteLog("Fractal parameters initialization finished");
 }

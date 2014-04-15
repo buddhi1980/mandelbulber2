@@ -9,6 +9,7 @@
 #include "interface.hpp"
 #include "system.hpp"
 #include <QTextStream>
+#include <QtUiTools/QtUiTools>
 
 cInterface *mainInterface;
 
@@ -41,6 +42,19 @@ void cInterface::ShowUi(void)
 	mainWindow->ui->scrollAreaWidgetContents->setMinimumSize(1000,1000);
 	renderedImage->show();
 
+	//just for testing
+	QUiLoader loader;
+	QString uiFilename = systemData.sharedDir + QDir::separator() + "qt" + QDir::separator() + "fractal_mandelbulb.ui";
+	QFile uiFile(uiFilename);
+	uiFile.open(QFile::ReadOnly);
+
+	QWidget *fractalWidget = loader.load(&uiFile);
+	mainWindow->ui->verticalLayout_fractal_1->addWidget(fractalWidget);
+	mainWindow->ui->verticalLayout_fractal_1->addStretch(1);
+
+	fractalWidget->show();
+	//end of testing
+
 	WriteLog("ConnectSignals()");
 	ConnectSignals();
 }
@@ -55,6 +69,22 @@ void cInterface::ConnectSignals(void)
 }
 
 //Reading ad writing parameters from/to ui to/from parameters container
+void cInterface::SynchronizeInterface(parameters::container *par, parameters::container *parFractal, enumReadWrite mode)
+{
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_image_adjustments, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_rendering_engine, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->page_fractal_common, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->page_fractal_hybrid, par, mode);
+
+	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_1, &parFractal[0], mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_2, &parFractal[1], mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_3, &parFractal[2], mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_4, &parFractal[3], mode);
+}
+
+//Reading ad writing parameters from/to selected widget to/from parameters container
 void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::container *par, enumReadWrite mode)
 {
 	QTextStream out(stdout);

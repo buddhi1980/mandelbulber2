@@ -45,7 +45,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>765</width>
+           <width>792</width>
            <height>1000</height>
           </rect>
          </property>
@@ -216,7 +216,7 @@
    <addaction name="menuView"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QDockWidget" name="dockWidgetLeft">
+  <widget class="QDockWidget" name="dockWidget_image_adjustments">
    <property name="floating">
     <bool>false</bool>
    </property>
@@ -247,7 +247,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>380</width>
+          <width>353</width>
           <height>283</height>
          </rect>
         </property>
@@ -566,7 +566,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidgetRight">
+  <widget class="QDockWidget" name="dockWidget_navigation">
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
@@ -1232,7 +1232,7 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QDockWidget" name="dockWidget_3">
+  <widget class="QDockWidget" name="dockWidget_effects">
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
@@ -1257,7 +1257,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>396</width>
+          <width>369</width>
           <height>230</height>
          </rect>
         </property>
@@ -1274,14 +1274,14 @@
             <enum>QFrame::NoFrame</enum>
            </property>
            <property name="currentIndex">
-            <number>4</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page">
             <property name="geometry">
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>377</width>
+              <width>350</width>
               <height>469</height>
              </rect>
             </property>
@@ -1578,7 +1578,7 @@
                    </widget>
                   </item>
                   <item row="0" column="2">
-                   <widget class="QSpinBox" name="spinBoxInt_ambient_occlusion_quality">
+                   <widget class="QSpinBox" name="spinboxInt_ambient_occlusion_quality">
                     <property name="maximum">
                      <number>30</number>
                     </property>
@@ -1848,7 +1848,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>392</width>
+              <width>365</width>
               <height>131</height>
              </rect>
             </property>
@@ -1920,7 +1920,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>377</width>
+              <width>350</width>
               <height>715</height>
              </rect>
             </property>
@@ -2432,7 +2432,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>377</width>
+              <width>350</width>
               <height>245</height>
              </rect>
             </property>
@@ -2569,7 +2569,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>377</width>
+              <width>350</width>
               <height>1608</height>
              </rect>
             </property>
@@ -3920,7 +3920,7 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget_2">
+  <widget class="QDockWidget" name="dockWidget_fractal">
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
@@ -3933,16 +3933,16 @@
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QVBoxLayout" name="verticalLayout_7">
      <item>
-      <widget class="QToolBox" name="toolBox_2">
+      <widget class="QToolBox" name="toolBox_fractal">
        <property name="currentIndex">
         <number>1</number>
        </property>
-       <widget class="QWidget" name="page_8">
+       <widget class="QWidget" name="page_fractal_common">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>381</width>
+          <width>354</width>
           <height>147</height>
          </rect>
         </property>
@@ -4045,12 +4045,12 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="page_6">
+       <widget class="QWidget" name="page_fractal_formulas">
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>381</width>
+          <y>-1</y>
+          <width>354</width>
           <height>174</height>
          </rect>
         </property>
@@ -4063,13 +4063,13 @@
            <property name="currentIndex">
             <number>0</number>
            </property>
-           <widget class="QWidget" name="tab">
+           <widget class="QWidget" name="tab_fractal_formula_1">
             <attribute name="title">
              <string>Formula #1</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_49">
              <item>
-              <widget class="QComboBox" name="comboBox_3">
+              <widget class="QComboBox" name="comboBox_formula_1">
                <item>
                 <property name="text">
                  <string>Mandelbulb</string>
@@ -4083,92 +4083,104 @@
               </widget>
              </item>
              <item>
-              <widget class="QScrollArea" name="scrollArea_4">
+              <widget class="QScrollArea" name="scrollArea_fractal_1">
                <property name="widgetResizable">
                 <bool>true</bool>
                </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents_5">
+               <widget class="QWidget" name="scrollAreaWidgetContents_fractal_1">
                 <property name="geometry">
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>349</width>
+                  <width>322</width>
                   <height>88</height>
                  </rect>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_53"/>
+                <layout class="QVBoxLayout" name="verticalLayout_fractal_1"/>
                </widget>
               </widget>
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="tab_2">
+           <widget class="QWidget" name="tab_fractal_formula_2">
             <attribute name="title">
              <string>Formula #2</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_50">
              <item>
-              <widget class="QScrollArea" name="scrollArea_5">
+              <widget class="QComboBox" name="comboBox_formula_2"/>
+             </item>
+             <item>
+              <widget class="QScrollArea" name="scrollArea_fractal_2">
                <property name="widgetResizable">
                 <bool>true</bool>
                </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents_6">
+               <widget class="QWidget" name="scrollAreaWidgetContents_fractal_2">
                 <property name="geometry">
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>100</width>
-                  <height>30</height>
+                  <width>322</width>
+                  <height>88</height>
                  </rect>
                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
                </widget>
               </widget>
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="tab_3">
+           <widget class="QWidget" name="tab_fractal_formula_3">
             <attribute name="title">
              <string>Formula #3</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_51">
              <item>
-              <widget class="QScrollArea" name="scrollArea_6">
+              <widget class="QComboBox" name="comboBox_formula_3"/>
+             </item>
+             <item>
+              <widget class="QScrollArea" name="scrollArea_fractal_3">
                <property name="widgetResizable">
                 <bool>true</bool>
                </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents_7">
+               <widget class="QWidget" name="scrollAreaWidgetContents_fractal_3">
                 <property name="geometry">
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>100</width>
-                  <height>30</height>
+                  <width>322</width>
+                  <height>88</height>
                  </rect>
                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
                </widget>
               </widget>
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="tab_4">
+           <widget class="QWidget" name="tab_fractal_formula_4">
             <attribute name="title">
              <string>Formula #4</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_52">
              <item>
-              <widget class="QScrollArea" name="scrollArea_7">
+              <widget class="QComboBox" name="comboBox_formula_4"/>
+             </item>
+             <item>
+              <widget class="QScrollArea" name="scrollArea_fractal_4">
                <property name="widgetResizable">
                 <bool>true</bool>
                </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents_8">
+               <widget class="QWidget" name="scrollAreaWidgetContents_fractal_4">
                 <property name="geometry">
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>100</width>
-                  <height>30</height>
+                  <width>322</width>
+                  <height>88</height>
                  </rect>
                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
                </widget>
               </widget>
              </item>
@@ -4178,25 +4190,30 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="page_7">
+       <widget class="QWidget" name="page_fractal_hybrid">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>396</width>
+          <width>369</width>
           <height>145</height>
          </rect>
         </property>
         <attribute name="label">
          <string>Hybrid fractals settings</string>
         </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_53">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_23"/>
+         </item>
+        </layout>
        </widget>
       </widget>
      </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="dockWidget_rendering_engine">
    <property name="windowTitle">
     <string>Rendering engine</string>
    </property>
@@ -4215,7 +4232,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>380</width>
+          <width>353</width>
           <height>602</height>
          </rect>
         </property>

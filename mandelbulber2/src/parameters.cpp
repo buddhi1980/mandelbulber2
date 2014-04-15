@@ -14,7 +14,8 @@
 
 //#define _PARAM_DEBUG
 
-parameters::container gPar;
+parameters::container *gPar;
+parameters::container *gParFractal;
 
 using namespace parameters;
 
