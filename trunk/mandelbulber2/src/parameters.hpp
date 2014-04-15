@@ -93,5 +93,6 @@ private:
 
 }
 
-extern parameters::container gPar;
+extern parameters::container *gPar;
+extern parameters::container *gParFractal;
 #endif /*SHADERS_HPP_*/
