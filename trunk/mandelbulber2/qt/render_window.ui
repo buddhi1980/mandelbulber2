@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1440</width>
-    <height>1125</height>
+    <width>1532</width>
+    <height>1233</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -45,7 +45,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>792</width>
+           <width>857</width>
            <height>1000</height>
           </rect>
          </property>
@@ -181,7 +181,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1440</width>
+     <width>1532</width>
      <height>21</height>
     </rect>
    </property>
@@ -247,7 +247,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
+          <width>380</width>
           <height>283</height>
          </rect>
         </property>
@@ -686,7 +686,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/go-next.png</normaloff>:/arrows/icons/go-next.png</iconset>
               </property>
               <property name="iconSize">
@@ -715,7 +715,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
               </property>
               <property name="iconSize">
@@ -744,7 +744,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/go-previous.png</normaloff>:/arrows/icons/go-previous.png</iconset>
               </property>
               <property name="iconSize">
@@ -779,7 +779,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/go-up.png</normaloff>:/arrows/icons/go-up.png</iconset>
               </property>
               <property name="iconSize">
@@ -808,7 +808,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/arrow-down-double.png</normaloff>:/arrows/icons/arrow-down-double.png</iconset>
               </property>
               <property name="iconSize">
@@ -849,7 +849,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/arrow-up-double.png</normaloff>:/arrows/icons/arrow-up-double.png</iconset>
               </property>
               <property name="iconSize">
@@ -1004,7 +1004,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/go-previous.png</normaloff>:/arrows/icons/go-previous.png</iconset>
               </property>
               <property name="iconSize">
@@ -1039,7 +1039,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/go-up.png</normaloff>:/arrows/icons/go-up.png</iconset>
               </property>
               <property name="iconSize">
@@ -1068,7 +1068,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/go-next.png</normaloff>:/arrows/icons/go-next.png</iconset>
               </property>
               <property name="iconSize">
@@ -1097,7 +1097,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
               </property>
               <property name="iconSize">
@@ -1126,7 +1126,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/object-rotate-right.png</normaloff>:/arrows/icons/object-rotate-right.png</iconset>
               </property>
               <property name="iconSize">
@@ -1155,7 +1155,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="icons.qrc">
+               <iconset>
                 <normaloff>:/arrows/icons/object-rotate-left.png</normaloff>:/arrows/icons/object-rotate-left.png</iconset>
               </property>
               <property name="iconSize">
@@ -1257,8 +1257,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>369</width>
-          <height>230</height>
+          <width>396</width>
+          <height>264</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1274,14 +1274,14 @@
             <enum>QFrame::NoFrame</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>4</number>
            </property>
            <widget class="QWidget" name="page">
             <property name="geometry">
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>350</width>
+              <width>377</width>
               <height>469</height>
              </rect>
             </property>
@@ -1848,8 +1848,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>365</width>
-              <height>131</height>
+              <width>392</width>
+              <height>165</height>
              </rect>
             </property>
             <attribute name="label">
@@ -1920,8 +1920,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>350</width>
-              <height>715</height>
+              <width>377</width>
+              <height>685</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2225,6 +2225,9 @@
                <layout class="QVBoxLayout" name="verticalLayout_27">
                 <item>
                  <layout class="QGridLayout" name="gridLayout_8">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
                   <item row="4" column="1">
                    <widget class="QPushButton" name="colorButton_iteration_fog_color_1">
                     <property name="text">
@@ -2432,8 +2435,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>350</width>
-              <height>245</height>
+              <width>377</width>
+              <height>230</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2448,6 +2451,9 @@
                <layout class="QVBoxLayout" name="verticalLayout_37">
                 <item>
                  <layout class="QGridLayout" name="gridLayout_15">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
                   <item row="1" column="1">
                    <widget class="QPushButton" name="colorButton_background_color_2">
                     <property name="text">
@@ -2506,6 +2512,9 @@
                <layout class="QVBoxLayout" name="verticalLayout_38">
                 <item>
                  <layout class="QGridLayout" name="gridLayout_16">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
                   <item row="0" column="2">
                    <widget class="QPushButton" name="button_selectBackgroundTexture">
                     <property name="text">
@@ -2569,8 +2578,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>350</width>
-              <height>1608</height>
+              <width>377</width>
+              <height>1543</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2617,6 +2626,9 @@
                 </property>
                 <item>
                  <layout class="QGridLayout" name="gridLayoutMainLightSource">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
                   <item row="6" column="1">
                    <widget class="QSlider" name="slider_shadows_cone_angle">
                     <property name="maximum">
@@ -3679,6 +3691,9 @@
                <layout class="QVBoxLayout" name="verticalLayout_39">
                 <item>
                  <layout class="QGridLayout" name="gridLayout_17">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
                   <item row="0" column="2">
                    <widget class="QSpinBox" name="spinboxInt_fake_lights_min_iter">
                     <property name="maximum">
@@ -3942,8 +3957,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>354</width>
-          <height>147</height>
+          <width>396</width>
+          <height>248</height>
          </rect>
         </property>
         <attribute name="label">
@@ -3961,6 +3976,9 @@
            <layout class="QVBoxLayout" name="verticalLayout_48">
             <item>
              <layout class="QGridLayout" name="gridLayout_22">
+              <property name="spacing">
+               <number>2</number>
+              </property>
               <item row="1" column="1">
                <widget class="QLabel" name="label_116">
                 <property name="sizePolicy">
@@ -4049,9 +4067,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-1</y>
-          <width>354</width>
-          <height>174</height>
+          <y>0</y>
+          <width>396</width>
+          <height>248</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4069,18 +4087,7 @@
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_49">
              <item>
-              <widget class="QComboBox" name="comboBox_formula_1">
-               <item>
-                <property name="text">
-                 <string>Mandelbulb</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Mandelbox</string>
-                </property>
-               </item>
-              </widget>
+              <widget class="QComboBox" name="comboBox_formula_1"/>
              </item>
              <item>
               <widget class="QScrollArea" name="scrollArea_fractal_1">
@@ -4092,8 +4099,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>322</width>
-                  <height>88</height>
+                  <width>364</width>
+                  <height>162</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_1"/>
@@ -4120,8 +4127,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>322</width>
-                  <height>88</height>
+                  <width>364</width>
+                  <height>162</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -4148,8 +4155,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>322</width>
-                  <height>88</height>
+                  <width>364</width>
+                  <height>162</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -4176,8 +4183,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>322</width>
-                  <height>88</height>
+                  <width>364</width>
+                  <height>162</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -4195,8 +4202,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>369</width>
-          <height>145</height>
+          <width>396</width>
+          <height>248</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4232,8 +4239,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>602</height>
+          <width>380</width>
+          <height>532</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -4245,6 +4252,9 @@
            <layout class="QVBoxLayout" name="verticalLayout_43">
             <item>
              <layout class="QGridLayout" name="gridLayout_19">
+              <property name="spacing">
+               <number>2</number>
+              </property>
               <item row="1" column="0">
                <widget class="QLabel" name="label_103">
                 <property name="text">
@@ -4586,6 +4596,9 @@
            <layout class="QVBoxLayout" name="verticalLayout_45">
             <item>
              <layout class="QGridLayout" name="gridLayout_21">
+              <property name="spacing">
+               <number>2</number>
+              </property>
               <item row="0" column="1">
                <widget class="QLabel" name="label_110">
                 <property name="sizePolicy">

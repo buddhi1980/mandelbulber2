@@ -336,6 +336,8 @@ void InitFractalParams(parameters::container *par)
 {
 	WriteLog("Fractal parameters initialization started");
 	par->addParam("power", 9.0, true);
+	par->addParam("alpha_angle_offset", 0.0, true);
+	par->addParam("beta_angle_offset", 0.0, true);
 
 	//IFS formula
 	par->addParam("IFS_scale", 2.0, true);

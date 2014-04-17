@@ -8,8 +8,11 @@
 
 #include "render_window.hpp"
 #include "interface.hpp"
+#include "fractal_list.hpp"
+#include "system.hpp"
 
 #include <QtGui>
+#include <QtUiTools/QtUiTools>
 
 #define _USE_MATH_DEFINES
 #include <cmath>
@@ -19,6 +22,7 @@ RenderWindow::RenderWindow(QWidget *parent) :
     ui(new Ui::RenderWindow)
 {
     ui->setupUi(this);
+  	fractalWidgets = new QWidget*[4];
 }
 
 RenderWindow::~RenderWindow()
@@ -225,6 +229,46 @@ void RenderWindow::slotMenuSaveDocksPositions()
 	settings.setValue("mainWindowGeometry", saveGeometry());
 	settings.setValue("mainWindowState", saveState());
 	qDebug() << "settings saved";
+}
+
+void RenderWindow::slotChangedFractalCombo(int index)
+{
+	QString comboName = this->sender()->objectName();
+	int fractalNumber = comboName.right(1).toInt() - 1;
+
+	if(fractalList[index].internalID > 0)
+	{
+		QString formulaName = fractalList[index].internalNane;
+		QString uiFilename = systemData.sharedDir + QDir::separator() + "qt" + QDir::separator() + "fractal_" + formulaName + ".ui";
+
+		if(fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
+		fractalWidgets[fractalNumber] = NULL;
+
+		QUiLoader loader;
+		QFile uiFile(uiFilename);
+
+		if(uiFile.exists())
+		{
+			uiFile.open(QFile::ReadOnly);
+			fractalWidgets[fractalNumber] = loader.load(&uiFile);
+			QVBoxLayout *layout = qFindChild<QVBoxLayout*>(ui->dockWidget_fractal, "verticalLayout_fractal_" + QString::number(fractalNumber + 1));
+			layout->addWidget(fractalWidgets[fractalNumber]);
+			uiFile.close();
+			fractalWidgets[fractalNumber]->show();
+			mainInterface->ConnectSignalsForSlidersInWindow(fractalWidgets[fractalNumber]);
+			mainInterface->SynchronizeInterfaceWindow(fractalWidgets[fractalNumber], &gParFractal[fractalNumber], cInterface::write);
+		}
+		else
+		{
+			qCritical() << "Can't open file " << uiFilename << " Fractal ui file can't be loaded";
+		}
+	}
+	else
+	{
+		if(fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
+		fractalWidgets[fractalNumber] = NULL;
+	}
+
 }
 
 //=================== rendered image widget ==================/
