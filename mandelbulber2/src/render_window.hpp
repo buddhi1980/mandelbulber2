@@ -36,8 +36,12 @@ private slots:
 	void slotLogLineEditChanged(const QString &text);
 	void slotPresedOnColorButton();
 	void slotMenuSaveDocksPositions();
+	void slotChangedFractalCombo(int index);
 private:
 	Ui::RenderWindow *ui;
+
+	QWidget **fractalWidgets;
+
 
 	friend class cInterface;
 

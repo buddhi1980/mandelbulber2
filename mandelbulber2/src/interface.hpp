@@ -26,6 +26,7 @@ public:
 	void ConnectSignalsForSlidersInWindow(QWidget *window);
 	void MakeColorButtonsInWindow(QWidget *window);
 	void GetNameAndType(QString name, QString *parameterName, QString *type);
+	void InitializeFractalUi(QString &uiFileName);
 
 	QApplication *application;
 	RenderWindow *mainWindow;

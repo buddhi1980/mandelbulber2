@@ -11,6 +11,7 @@
 #include "fractparams.hpp"
 #include "interface.hpp"
 #include "initparameters.hpp"
+#include "fractal_list.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -39,6 +40,9 @@ int main(int argc, char *argv[])
 	InitParams(gPar);
 	for(int i=0; i<4; i++)
 		InitFractalParams(&gParFractal[i]);
+
+	//Define list of fractal formulas
+	DefineFractalList(&fractalList);
 
 	mainInterface->ShowUi();
 

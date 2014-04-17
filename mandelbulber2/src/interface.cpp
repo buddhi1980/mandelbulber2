@@ -10,6 +10,7 @@
 #include "system.hpp"
 #include <QTextStream>
 #include <QtUiTools/QtUiTools>
+#include "fractal_list.hpp"
 
 cInterface *mainInterface;
 
@@ -42,18 +43,9 @@ void cInterface::ShowUi(void)
 	mainWindow->ui->scrollAreaWidgetContents->setMinimumSize(1000,1000);
 	renderedImage->show();
 
-	//just for testing
-	QUiLoader loader;
+	//loading default ui for all fractal components
 	QString uiFilename = systemData.sharedDir + QDir::separator() + "qt" + QDir::separator() + "fractal_mandelbulb.ui";
-	QFile uiFile(uiFilename);
-	uiFile.open(QFile::ReadOnly);
-
-	QWidget *fractalWidget = loader.load(&uiFile);
-	mainWindow->ui->verticalLayout_fractal_1->addWidget(fractalWidget);
-	mainWindow->ui->verticalLayout_fractal_1->addStretch(1);
-
-	fractalWidget->show();
-	//end of testing
+	InitializeFractalUi(uiFilename);
 
 	WriteLog("ConnectSignals()");
 	ConnectSignals();
@@ -64,6 +56,12 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(testSlot()));
 	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveDocksPositions()));
+
+	QApplication::connect(mainWindow->ui->comboBox_formula_1, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_2, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_3, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_4, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
+
 	ConnectSignalsForSlidersInWindow(mainWindow);
 	MakeColorButtonsInWindow(mainWindow);
 }
@@ -478,6 +476,57 @@ void cInterface::GetNameAndType(QString name, QString *parameterName, QString *t
 	size_t firstDashPosition = name.indexOf("_");
 	*type = name.left(firstDashPosition);
 	*parameterName = name.mid(firstDashPosition + 1);
+}
+
+//initialize ui for hybrid fractal components
+void cInterface::InitializeFractalUi(QString &uiFileName)
+{
+	QUiLoader loader;
+	QFile uiFile(uiFileName);
+
+	if(uiFile.exists())
+	{
+		uiFile.open(QFile::ReadOnly);
+		mainWindow->fractalWidgets[0] = loader.load(&uiFile);
+		mainWindow->ui->verticalLayout_fractal_1->addWidget(mainWindow->fractalWidgets[0]);
+		//mainWindow->ui->verticalLayout_fractal_1->addStretch(1);
+		uiFile.seek(0);
+		mainWindow->fractalWidgets[1] = loader.load(&uiFile);
+		mainWindow->ui->verticalLayout_fractal_2->addWidget(mainWindow->fractalWidgets[1]);
+		//mainWindow->ui->verticalLayout_fractal_2->addStretch(1);
+		uiFile.seek(0);
+		mainWindow->fractalWidgets[2] = loader.load(&uiFile);
+		mainWindow->ui->verticalLayout_fractal_3->addWidget(mainWindow->fractalWidgets[2]);
+		//mainWindow->ui->verticalLayout_fractal_3->addStretch(1);
+		uiFile.seek(0);
+		mainWindow->fractalWidgets[3] = loader.load(&uiFile);
+		mainWindow->ui->verticalLayout_fractal_4->addWidget(mainWindow->fractalWidgets[3]);
+		//mainWindow->ui->verticalLayout_fractal_4->addStretch(1);
+		uiFile.close();
+
+		for (int i = 0; i < 4; i++)
+			mainWindow->fractalWidgets[i]->show();
+
+		QStringList fractalNames;
+		for (int i = 0; i < fractalList.size(); i++)
+		{
+			QString name = fractalList[i].nameInComboBox;
+			fractalNames.append(name);
+		}
+
+		mainWindow->ui->comboBox_formula_1->clear();
+		mainWindow->ui->comboBox_formula_1->addItems(fractalNames);
+		mainWindow->ui->comboBox_formula_2->clear();
+		mainWindow->ui->comboBox_formula_2->addItems(fractalNames);
+		mainWindow->ui->comboBox_formula_3->clear();
+		mainWindow->ui->comboBox_formula_3->addItems(fractalNames);
+		mainWindow->ui->comboBox_formula_4->clear();
+		mainWindow->ui->comboBox_formula_4->addItems(fractalNames);
+	}
+	else
+	{
+		qCritical() << "Can't open file " << uiFileName << " Fractal ui files can't be loaded";
+	}
 }
 
 //function to create icons with actual color in ColorButtons

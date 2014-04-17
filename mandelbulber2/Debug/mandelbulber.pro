@@ -19,6 +19,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/fractparams.cpp\
 	    	../src/files.cpp\
 	    	../src/fractal.cpp\
+	    	../src/fractal_list.cpp\
 	    	../src/initparameters.cpp\
 	    	../src/interface.cpp\
 	    	../src/main.cpp\
