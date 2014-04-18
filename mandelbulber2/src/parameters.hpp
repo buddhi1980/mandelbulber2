@@ -15,6 +15,7 @@
 #include <QtCore>
 #include "algebra.hpp"
 #include "cimage.hpp"
+#include "fractparams.hpp"
 
 namespace parameters
 {
@@ -67,6 +68,8 @@ public:
 	void Copy(QString name, container *sourceContainer);
 
 	void DebugPrintf(QString name);
+
+	void PutParamsToStruct(sParamRender *params);
 
 private:
 	varType Assigner(sMultiVal &multi, double val);

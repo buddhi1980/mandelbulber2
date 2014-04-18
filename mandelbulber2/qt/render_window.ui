@@ -45,7 +45,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>857</width>
+           <width>890</width>
            <height>1000</height>
           </rect>
          </property>
@@ -247,7 +247,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>380</width>
+          <width>347</width>
           <height>283</height>
          </rect>
         </property>
@@ -686,7 +686,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/go-next.png</normaloff>:/arrows/icons/go-next.png</iconset>
               </property>
               <property name="iconSize">
@@ -715,7 +715,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
               </property>
               <property name="iconSize">
@@ -744,7 +744,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/go-previous.png</normaloff>:/arrows/icons/go-previous.png</iconset>
               </property>
               <property name="iconSize">
@@ -779,7 +779,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/go-up.png</normaloff>:/arrows/icons/go-up.png</iconset>
               </property>
               <property name="iconSize">
@@ -808,7 +808,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/arrow-down-double.png</normaloff>:/arrows/icons/arrow-down-double.png</iconset>
               </property>
               <property name="iconSize">
@@ -849,7 +849,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/arrow-up-double.png</normaloff>:/arrows/icons/arrow-up-double.png</iconset>
               </property>
               <property name="iconSize">
@@ -1004,7 +1004,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/go-previous.png</normaloff>:/arrows/icons/go-previous.png</iconset>
               </property>
               <property name="iconSize">
@@ -1039,7 +1039,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/go-up.png</normaloff>:/arrows/icons/go-up.png</iconset>
               </property>
               <property name="iconSize">
@@ -1068,7 +1068,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/go-next.png</normaloff>:/arrows/icons/go-next.png</iconset>
               </property>
               <property name="iconSize">
@@ -1097,7 +1097,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
               </property>
               <property name="iconSize">
@@ -1126,7 +1126,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/object-rotate-right.png</normaloff>:/arrows/icons/object-rotate-right.png</iconset>
               </property>
               <property name="iconSize">
@@ -1155,7 +1155,7 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="icons.qrc">
                 <normaloff>:/arrows/icons/object-rotate-left.png</normaloff>:/arrows/icons/object-rotate-left.png</iconset>
               </property>
               <property name="iconSize">
@@ -1257,8 +1257,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>396</width>
-          <height>264</height>
+          <width>363</width>
+          <height>259</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1274,14 +1274,14 @@
             <enum>QFrame::NoFrame</enum>
            </property>
            <property name="currentIndex">
-            <number>4</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page">
             <property name="geometry">
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>377</width>
+              <width>344</width>
               <height>469</height>
              </rect>
             </property>
@@ -1848,8 +1848,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>392</width>
-              <height>165</height>
+              <width>174</width>
+              <height>68</height>
              </rect>
             </property>
             <attribute name="label">
@@ -1920,7 +1920,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>377</width>
+              <width>289</width>
               <height>685</height>
              </rect>
             </property>
@@ -2435,7 +2435,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>377</width>
+              <width>323</width>
               <height>230</height>
              </rect>
             </property>
@@ -2578,7 +2578,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>377</width>
+              <width>327</width>
               <height>1543</height>
              </rect>
             </property>
@@ -3957,8 +3957,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>396</width>
-          <height>248</height>
+          <width>157</width>
+          <height>137</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4068,8 +4068,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>396</width>
-          <height>248</height>
+          <width>348</width>
+          <height>174</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4099,8 +4099,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>364</width>
-                  <height>162</height>
+                  <width>316</width>
+                  <height>88</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_1"/>
@@ -4127,8 +4127,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>364</width>
-                  <height>162</height>
+                  <width>100</width>
+                  <height>30</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -4155,8 +4155,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>364</width>
-                  <height>162</height>
+                  <width>100</width>
+                  <height>30</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -4183,8 +4183,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>364</width>
-                  <height>162</height>
+                  <width>100</width>
+                  <height>30</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -4202,8 +4202,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>396</width>
-          <height>248</height>
+          <width>100</width>
+          <height>30</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4239,7 +4239,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>380</width>
+          <width>347</width>
           <height>532</height>
          </rect>
         </property>

@@ -112,7 +112,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 				//----- get vectors ------------
 				if (type == QString("vect3"))
 				{
-					char lastChar = (parameterName.at(parameterName.length() - 1)).toAscii();
+					char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 					QString nameVect = parameterName.left(parameterName.length() - 2);
 
 					if (mode == read)
@@ -397,7 +397,7 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotSliderMoved(int)));
 
 				QString spinBoxName = QString("spinbox_") + parameterName;
-				QDoubleSpinBox *spinBox = qFindChild<QDoubleSpinBox*>(slider->parent(), spinBoxName);
+				QDoubleSpinBox *spinBox = slider->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
 				if (spinBox)
 				{
 					QApplication::connect(spinBox, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotDoubleSpinBoxChanged(double)));
@@ -412,7 +412,7 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotLogSliderMoved(int)));
 
 				QString editFieldName = QString("logedit_") + parameterName;
-				QLineEdit *lineEdit = qFindChild<QLineEdit*>(slider->parent(), editFieldName);
+				QLineEdit *lineEdit = slider->parent()->findChild<QLineEdit*>(editFieldName);
 				if (lineEdit)
 				{
 					QApplication::connect(lineEdit, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotLogLineEditChanged(const QString&)));
@@ -427,7 +427,7 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotIntSliderMoved(int)));
 
 				QString spinboxName = QString("spinboxInt_") + parameterName;
-				QSpinBox *spinbox = qFindChild<QSpinBox*>(slider->parent(), spinboxName);
+				QSpinBox *spinbox = slider->parent()->findChild<QSpinBox*>(spinboxName);
 				if (spinbox)
 				{
 					QApplication::connect(spinbox, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotIntSpinBoxChanged(int)));

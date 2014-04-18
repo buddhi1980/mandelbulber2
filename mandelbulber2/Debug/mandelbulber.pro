@@ -29,13 +29,13 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/system.cpp\
 	    	../src/texture.cpp
 
-HEADERS  += ../src/render_window.hpp\
+HEADERS  += ../src/render_window.hpp
 
 FORMS    += ../qt/render_window.ui
 
 RESOURCES = ../qt/icons.qrc
 
-UI_HEADERS_DIR = ../qt
+UI_DIR = ../qt
 
 LIBS += -lQtGui
 LIBS += -lQtUiTools

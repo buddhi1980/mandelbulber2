@@ -23,7 +23,7 @@ void InitParams(parameters::container *par)
 	par->addParam("image_width", 800, 32, 1000000, false);
 	par->addParam("image_height", 600, 32, 1000000, false);
 	par->addParam("tiles", 1, 1, 64, false);
-	par->addParam("tile_no", 0, false);
+	par->addParam("tile_number", 0, false);
 	par->addParam("image_proportion", 0, false);
 
 	//animation
@@ -46,6 +46,7 @@ void InitParams(parameters::container *par)
 	//camera
 	par->addParam("view_point", CVector3(0.0, 0.0, 0.0), true);
 	par->addParam("view_angle", CVector3(-20.0, 30.0, 0.0), true);
+	par->addParam("target", CVector3(0.0, 0.0, 0.0), true);
 	par->addParam("zoom", 2.5, 0.0, 1e15, true);
 	par->addParam("fov", 0.5, 0.0, 100.0, true);
 	par->addParam("perspective_type", 0, false);

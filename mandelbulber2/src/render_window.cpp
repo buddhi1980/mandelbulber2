@@ -13,6 +13,7 @@
 
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
+#include <QColorDialog>
 
 #define _USE_MATH_DEFINES
 #include <cmath>
@@ -53,7 +54,7 @@ void RenderWindow::testSlot(void)
 
 	sRGBA *img = new sRGBA[width*height];
 	mainInterface->qimage = new QImage((const uchar*)img, width, height, width*sizeof(sRGBA), QImage::Format_ARGB32);
-	QWidget *scrollAreaWidgetContents = qFindChild<QWidget*>(mainInterface->mainWindow, "scrollAreaWidgetContents");
+	QWidget *scrollAreaWidgetContents = mainInterface->mainWindow->findChild<QWidget*>("scrollAreaWidgetContents");
 
 	for (int index = 0; index < 100; index++)
 	{
@@ -89,7 +90,7 @@ void RenderWindow::slotSliderMoved(int value)
 	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
 	QString spinBoxName = QString("spinbox_") + parameterName;
 
-	QDoubleSpinBox *spinBox = qFindChild<QDoubleSpinBox*>(this->sender()->parent(), spinBoxName);
+	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
 	if(spinBox)
 	{
 		spinBox->setValue(value/100.0);
@@ -108,7 +109,7 @@ void RenderWindow::slotDoubleSpinBoxChanged(double value)
 	mainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
 	QString sliderName = QString("slider_") + parameterName;
 
-	QSlider *slider = qFindChild<QSlider*>(this->sender()->parent(), sliderName);
+	QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
 	if (slider)
 	{
 		slider->setValue(value * 100.0);
@@ -127,7 +128,7 @@ void RenderWindow::slotIntSpinBoxChanged(int value)
 	mainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
 	QString sliderName = QString("sliderInt_") + parameterName;
 
-	QSlider *slider = qFindChild<QSlider*>(this->sender()->parent(), sliderName);
+	QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
 	if (slider)
 	{
 		slider->setValue(value);
@@ -146,7 +147,7 @@ void RenderWindow::slotLogSliderMoved(int value)
 	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
 	QString lineEditName = QString("logedit_") + parameterName;
 
-	QLineEdit *lineEdit = qFindChild<QLineEdit*>(this->sender()->parent(), lineEditName);
+	QLineEdit *lineEdit = this->sender()->parent()->findChild<QLineEdit*>(lineEditName);
 	if(lineEdit)
 	{
 		double dValue = pow(10.0, value/100.0);
@@ -167,7 +168,7 @@ void RenderWindow::slotIntSliderMoved(int value)
 	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
 	QString spinboxName = QString("spinboxInt_") + parameterName;
 
-	QSpinBox *spinbox = qFindChild<QSpinBox*>(this->sender()->parent(), spinboxName);
+	QSpinBox *spinbox = this->sender()->parent()->findChild<QSpinBox*>(spinboxName);
 	if(spinbox)
 	{
 		spinbox->setValue(value);
@@ -186,7 +187,7 @@ void RenderWindow::slotLogLineEditChanged(const QString &text)
 	mainInterface->GetNameAndType(lineEditName, &parameterName, &type);
 	QString sliderName = QString("logslider_") + parameterName;
 
-	QSlider *slider = qFindChild<QSlider*>(this->sender()->parent(), sliderName);
+	QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
 	if (slider)
 	{
 		double value = text.toDouble();
@@ -251,7 +252,7 @@ void RenderWindow::slotChangedFractalCombo(int index)
 		{
 			uiFile.open(QFile::ReadOnly);
 			fractalWidgets[fractalNumber] = loader.load(&uiFile);
-			QVBoxLayout *layout = qFindChild<QVBoxLayout*>(ui->dockWidget_fractal, "verticalLayout_fractal_" + QString::number(fractalNumber + 1));
+			QVBoxLayout *layout = ui->dockWidget_fractal->findChild<QVBoxLayout*>("verticalLayout_fractal_" + QString::number(fractalNumber + 1));
 			layout->addWidget(fractalWidgets[fractalNumber]);
 			uiFile.close();
 			fractalWidgets[fractalNumber]->show();
