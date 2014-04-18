@@ -42,8 +42,8 @@ class sParamRender
 {
 public:
 	sFractal fractal;
-	int image_width; //image width
-	int image_height; //image height
+	int imageWidth; //image width
+	int imageHeight; //image height
 	int globalIlumQuality; //ambient occlusion quality
 	int reflectionsMax;
 	int coloring_seed; //colouring random seed
@@ -55,7 +55,7 @@ public:
 	int framesPerKeyframe;
 	int imageFormat;
 	int noOfTiles;
-	int tileCount;
+	int tileNumber;
 
 	int OpenCLEngine;
 	int OpenCLPixelsPerJob;
@@ -102,7 +102,7 @@ public:
 	double zoom; //zoom
 	double DE_factor; //factor for distance estimation steps
 	double resolution; //resolution of image in fractal coordinates
-	double persp; //perspective factor
+	double fov; //perspective factor
 	double quality; //DE threshold factor
 	double smoothness;
 	double alpha; //rotation of fractal
@@ -143,6 +143,8 @@ public:
 	sImageAdjustments imageAdjustments;
 
 	CVector3 vp; //view point
+	CVector3 viewAngle;
+	CVector3 target;
 	CVector3 auxLightPre[4];
 	CVector3 auxLightRandomCenter;
 

@@ -8,7 +8,8 @@
 #ifndef _RENDER_WINDOW_H
 #define _RENDER_WINDOW_H
 
-#include <QMainWindow>
+#include <QtGui>
+#include <QtCore>
 #include "../qt/ui_render_window.h"
 #include <QSettings>
 
