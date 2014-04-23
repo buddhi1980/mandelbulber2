@@ -40,9 +40,10 @@ int Noise(int seed)
 template<int Mode>
 double Compute(CVector3 z, const sFractal &par, int *iter_count)
 {
+
 	int L;
 	double distance = 0;
-
+/*
 	double w = 0;
 	double constantw = 0;
 
@@ -1444,6 +1445,7 @@ double CalculateDistance(CVector3 point, sFractal &params, bool *max_iter)
 			distance = MAX(distance, limitBoxDist);
 		}
 	}
+*/
 	return distance;
 }
 

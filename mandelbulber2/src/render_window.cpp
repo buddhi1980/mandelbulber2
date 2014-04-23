@@ -10,6 +10,7 @@
 #include "interface.hpp"
 #include "fractal_list.hpp"
 #include "system.hpp"
+#include "initparameters.hpp"
 
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
@@ -40,6 +41,8 @@ void RenderWindow::testSlot(void)
 	printf("Hello World!\n");
 
 	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, gPar, cInterface::read);
+	sParamRender sPar;
+	PutParamsToStruct(gPar, &sPar);
 
 	int width = 1000;
 	int height = 1000;
@@ -280,6 +283,7 @@ RenderedImage::RenderedImage(QWidget *parent)
 
 void RenderedImage::paintEvent(QPaintEvent *event)
 {
+//just for testing
 	QPainter painter(this);
 	painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
@@ -294,6 +298,4 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 		painter.drawImage(QRect(0,0,1000,1000), *mainInterface->qimage, QRect(0,0,1000,1000));
 	}
 }
-
-
 
