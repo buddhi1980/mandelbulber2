@@ -12,7 +12,7 @@
 #ifndef CIMAGE_HPP_
 #define CIMAGE_HPP_
 
-#include <QtGui>
+#include <QtGui/QWidget>
 
 //global variables
 struct sRGB8
@@ -53,38 +53,10 @@ struct sRGB
 
 struct sImageAdjustments
 {
-  double shading;
-  double directLight;
-  double ambient;
-  double specular;
-  double reflect;
-  double globalIlum;
   double brightness;
-  double glow_intensity;
-  double fogVisibility;
-  double coloring_speed;
-  double imageGamma;
-  double paletteOffset;
-  double mainLightIntensity;
   double contrast;
-};
-
-struct sEffectColours
-{
-	sRGB glow_color1;
-	sRGB glow_color2;
-	sRGB fogColor;
-	sRGB mainLightColour;
-};
-
-struct sImageSwitches
-{
-	bool coloringEnabled;
-	bool fogEnabled;
-	bool raytracedReflections;
-	bool volumetricLightEnabled;
-	bool iterFogEnabled;
-	bool hdrEnabled;
+  double imageGamma;
+  bool hdrEnabled;
 };
 
 struct sAllImageData
@@ -131,9 +103,8 @@ public:
   int GetPreviewWidth(void) {return previewWidth;}
   int GetPreviewHeight(void) {return previewHeight;}
   int GetUsedMB(void);
-  void SetImageParameters(sImageAdjustments adjustments, sImageSwitches switches);
+  void SetImageParameters(sImageAdjustments adjustments);
   sImageAdjustments* GetImageAdjustments(void) {return &adj;}
-  sImageSwitches* GetImageSwitches(void) {return &sw;}
 
   unsigned char* ConvertTo8bit(void);
   unsigned char* CreatePreview(double scale);
@@ -172,7 +143,6 @@ private:
 	sRGB8 *preview;
 	sRGB8 *preview2;
 	sImageAdjustments adj;
-	sImageSwitches sw;
 	int width;
 	int height;
 	int *gammaTable;

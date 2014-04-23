@@ -146,7 +146,7 @@ sRGB16 cImage::CalculatePixel(sRGBfloat pixel)
 	//R = sqrt(tanh(R*R));
 	//G = sqrt(tanh(G*G));
 	//B = sqrt(tanh(B*B));
-	if(sw.hdrEnabled)
+	if(adj.hdrEnabled)
 	{
 		R = tanh(R);
 		G = tanh(G);
@@ -228,10 +228,9 @@ int cImage::GetUsedMB(void)
 	return mb;
 }
 
-void cImage::SetImageParameters(sImageAdjustments adjustments, sImageSwitches switches)
+void cImage::SetImageParameters(sImageAdjustments adjustments)
 {
 	adj = adjustments;
-	sw = switches;
 }
 
 unsigned char* cImage::ConvertTo8bit(void)

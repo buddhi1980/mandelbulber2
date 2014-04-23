@@ -11,6 +11,7 @@
 #include <QTextStream>
 #include <QtUiTools/QtUiTools>
 #include "fractal_list.hpp"
+#include <qpainter.h>
 
 cInterface *mainInterface;
 
@@ -118,7 +119,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 					if (mode == read)
 					{
 						double value = lineEdit->text().toDouble();
-						qDebug() << nameVect << " - " << lastChar << " axis = " << value << endl;
+						out << nameVect << " - " << lastChar << " axis = " << value << endl;
 						CVector3 vect = par->Get<CVector3>(nameVect);
 
 						switch (lastChar)

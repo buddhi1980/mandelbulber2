@@ -9,7 +9,6 @@
  /
  ********************************************************/
 #include "parameters.hpp"
-#include "fractparams.hpp"
 #include <QtCore>
 
 //#define _PARAM_DEBUG
@@ -604,21 +603,4 @@ void container::Copy(QString name, container *sourceContainer)
 	}
 }
 
-void container::PutParamsToStruct(sParamRender *params)
-{
-	params->imageWidth = Get<int>("image_width");
-	params->imageHeight = Get<int>("image_height");
-	params->noOfTiles = Get<int>("tiles");
-	params->tileNumber = Get<int>("tile_number");
 
-	params->vp = Get<CVector3>("view_point");
-	params->viewAngle = Get<CVector3>("view_angle");
-	params->target = Get<CVector3>("target");
-	params->zoom = Get<double>("zoom");
-	params->fov = Get<double>("fov");
-	params->perspectiveType = (params::enumPerspectiveType)Get<int>("perspective_type");
-
-	params->fishEyeCut = Get<bool>("fish_eye_180cut");
-
-	//params->formula = Get<int>("tile_number");
-}

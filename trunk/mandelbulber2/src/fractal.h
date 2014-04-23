@@ -165,50 +165,15 @@ struct sFractalMandelbox
 	CRotationMatrix rotinv[MANDELBOX_FOLDS][3];
 };
 
-struct sFractalPrimitives
-{
-	CVector3 planeCentre;
-	CVector3 planeNormal;
-	CVector3 boxCentre;
-	CVector3 boxSize;
-	CVector3 invertedBoxCentre;
-	CVector3 invertedBoxSize;
-	CVector3 sphereCentre;
-	double sphereRadius;
-	CVector3 invertedSphereCentre;
-	double invertedSphereRadius;
-	double waterHeight;
-	double waterAmplitude;
-	double waterLength;
-	double waterRotation;
-	double waterAnimSpeed;
-	bool planeEnable;
-	bool boxEnable;
-	bool invertedBoxEnable;
-	bool sphereEnable;
-	bool invertedSphereEnable;
-	bool waterEnable;
-	bool onlyPlane;
-	int waterIterations;
-};
 
 struct sFractal
 {
-	double N;
-	double amin;  //fractal limits
-	double amax;
-	double bmin;
-	double bmax;
-	double cmin;
-	double cmax;
-	double constantFactor;
 	double FoldingIntPowZfactor;
 	double FoldingIntPowFoldFactor;
 	double foldingLimit; //paramters of TGlad's folding
 	double foldingValue;
 	double foldingSphericalMin;
 	double foldingSphericalFixed;
-	double detailSize;
 	double power;		 //power of fractal formula
 	double cadd;
 	double hybridPower[HYBRID_COUNT];
@@ -216,24 +181,11 @@ struct sFractal
 	double customParameters[15];
 	double deltaDEStep;
 #endif
-	CVector3 julia; // Julia constant
-	CVector3 fakeLightsOrbitTrap;
+
+
 
 	  // maximum number of iterations
-	int minN;	  // minimum number of iterations
 
-	bool limits_enabled; // enable limits (intersections)
-	bool iterThresh;	 //maxiter threshold mode
-	bool analitycDE;	 //analytic DE mode
-	bool juliaMode;				// Julia mode
-	bool tgladFoldingMode;		// Tglad's folding mode
-	bool sphericalFoldingMode;  // spherical folding mode
-	bool interiorMode;
-	bool hybridCyclic;
-	bool linearDEmode;
-	bool constantDEThreshold;
-	bool useCustomOCLFormula;
-	bool normalCalculationMode;
 
 	fractal::enumFractalFormula formula;
 
@@ -248,15 +200,13 @@ struct sFractal
 	sFractalIFS IFS;
 	sFractalMandelbox mandelbox;
 	sFractalGeneralizedFoldBox genFoldBox;
-	sFractalPrimitives primitives;
 
 	int frameNo;
 
 	int itersOut;
 	fractal::enumObjectType objectOut;
 
-	int fakeLightsMinIter;
-	int fakeLightsMaxIter;
+
 };
 
 template <int Mode> double Compute(CVector3 z, const sFractal &par, int *iter_count = NULL);
