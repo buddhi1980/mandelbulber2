@@ -28,7 +28,8 @@ bool InitSystem(void)
 	systemData.homedir = QDir::homePath();
 
 #ifdef WIN32 /* WINDOWS */
-  systemData.sharedDir = (QDir::currentPath() + QDir::separator()).toStdString();
+    //systemData.sharedDir = (QDir::currentPath() + QDir::separator()).toStdString();
+    systemData.sharedDir = (QDir::currentPath() + QDir::separator());
 #else               /*other unix - try sysconf*/
 	systemData.sharedDir = QString(SHARED_DIR) + "/";
 #endif  /* WINDOWS */

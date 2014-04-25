@@ -12,7 +12,8 @@
 #ifndef CIMAGE_HPP_
 #define CIMAGE_HPP_
 
-#include <QtGui/QWidget>
+//#include <QtGui/QWidget>
+#include <QWidget>
 
 //global variables
 struct sRGB8
