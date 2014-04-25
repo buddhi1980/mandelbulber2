@@ -27,7 +27,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/primitives.cpp\
 	    	../src/render_window.cpp\
 	    	../src/system.cpp\
-	    	../src/texture.cpp
+                ../src/texture.cpp
 
 HEADERS  += ../src/render_window.hpp
 
@@ -37,9 +37,26 @@ RESOURCES = ../qt/icons.qrc
 
 UI_DIR = ../qt
 
-LIBS += -lQtGui
-LIBS += -lQtUiTools
-LIBS += -lQtCore
-LIBS += -lQtXml
+#LIBS += -lQtGui
+#LIBS += -lQtUiTools
+greaterThan(QT_MAJOR_VERSION, 4):LIBS += -lQt5UiTools
+else:LIBS += -lQtUiTools
+#LIBS += -lQtCore
+#LIBS += -lQtXml
 LIBS += -lpng
 LIBS += -ljpeg
+win32:LIBS += -lz
+
+
+# rh: ugly absolute paths for libpng and libjpeg on my windows system
+
+#lpng
+win32:greaterThan(QT_MAJOR_VERSION, 4): INCLUDEPATH += "C:/Qt/Tools/mingw48_32/include/libpng16"
+#win32:LIBS += "C:/Qt/Tools/mingw48_32/lib/libpng16"
+#win32:INCLUDEPATH += "C:/Qt/Tools/mingw48_32/include/libpng16"
+
+#ljpeg
+win32:LIBS += -L"C:/libjpeg-turbo-gcc/lib/" -ljpeg
+win32:INCLUDEPATH += "C:/libjpeg-turbo-gcc/include"
+win32:DEPENDPATH += "C:/libjpeg-turbo-gcc/include"
+
