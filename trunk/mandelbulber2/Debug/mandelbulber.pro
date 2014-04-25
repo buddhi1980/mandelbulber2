@@ -27,7 +27,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/primitives.cpp\
 	    	../src/render_window.cpp\
 	    	../src/system.cpp\
-                ../src/texture.cpp
+            ../src/texture.cpp
 
 HEADERS  += ../src/render_window.hpp
 
@@ -37,16 +37,11 @@ RESOURCES = ../qt/icons.qrc
 
 UI_DIR = ../qt
 
-#LIBS += -lQtGui
-#LIBS += -lQtUiTools
 greaterThan(QT_MAJOR_VERSION, 4):LIBS += -lQt5UiTools
 else:LIBS += -lQtUiTools
-#LIBS += -lQtCore
-#LIBS += -lQtXml
 LIBS += -lpng
 LIBS += -ljpeg
 win32:LIBS += -lz
-
 
 # rh: ugly absolute paths for libpng and libjpeg on my windows system
 

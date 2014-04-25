@@ -28,17 +28,16 @@ bool InitSystem(void)
 	systemData.homedir = QDir::homePath();
 
 #ifdef WIN32 /* WINDOWS */
-    //systemData.sharedDir = (QDir::currentPath() + QDir::separator()).toStdString();
     systemData.sharedDir = (QDir::currentPath() + QDir::separator());
-#else               /*other unix - try sysconf*/
+#else
 	systemData.sharedDir = QString(SHARED_DIR) + "/";
 #endif  /* WINDOWS */
 
 	//logfile
 #ifdef WIN32 /* WINDOWS */
-	systemData.logfileName = "log.txt";
+	systemData.logfileName = systemData.homedir + QDir::separator() + "mandelbulber_log.txt";
 #else
-	systemData.logfileName = systemData.homedir + "/.mandelbulber_log.txt";
+	systemData.logfileName = systemData.homedir + QDir::separator() + ".mandelbulber_log.txt";
 #endif
 	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "w");
 	fclose(logfile);
