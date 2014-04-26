@@ -12,6 +12,7 @@
 #ifndef ALGEBRA_H_
 #define ALGEBRA_H_
 
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 /************************* vector 3D **********************/

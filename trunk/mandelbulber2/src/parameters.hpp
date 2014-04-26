@@ -15,7 +15,6 @@
 #include <QtCore>
 #include "algebra.hpp"
 #include "color_structures.hpp"
-#include "fractparams.hpp"
 
 namespace parameters
 {
@@ -57,8 +56,8 @@ public:
 	template <class T> void Set(QString name, T val);
 	template <class T> void Set(QString name, int index, T val);
 
-	template <class T> T Get(QString name);
-	template <class T> T Get(QString name, int index);
+	template <class T> T Get(QString name) const;
+	template <class T> T Get(QString name, int index) const;
 
 	void SetToSave(QString, bool toSave);
 	void SetToSave(QString, int index, bool toSave);
@@ -69,8 +68,6 @@ public:
 
 	void DebugPrintf(QString name);
 
-	void PutParamsToStruct(cParamRender *params);
-
 private:
 	varType Assigner(sMultiVal &multi, double val);
 	varType Assigner(sMultiVal &multi, int val);
@@ -79,14 +76,14 @@ private:
 	varType Assigner(sMultiVal &multi, sRGB val);
 	varType Assigner(sMultiVal &multi, bool val);
 	varType Assigner(sMultiVal &multi, sRGB val[256]);
-	varType Getter(sMultiVal multi, double &val);
-	varType Getter(sMultiVal multi, int &val);
-	varType Getter(sMultiVal multi, QString &val);
-	varType Getter(sMultiVal multi, CVector3 &val);
-	varType Getter(sMultiVal multi, sRGB &val);
-	varType Getter(sMultiVal multi, bool &val);
-	varType Getter(sMultiVal multi, sRGB val[256]);
-	QString nameWithIndex(QString *str, int index);
+	varType Getter(sMultiVal multi, double &val) const;
+	varType Getter(sMultiVal multi, int &val) const;
+	varType Getter(sMultiVal multi, QString &val) const;
+	varType Getter(sMultiVal multi, CVector3 &val) const;
+	varType Getter(sMultiVal multi, sRGB &val) const;
+	varType Getter(sMultiVal multi, bool &val) const;
+	varType Getter(sMultiVal multi, sRGB val[256]) const;
+	QString nameWithIndex(QString *str, int index) const;
 	void clearMultiVal(sMultiVal &multiVal);
 	QString MakePaletteString(sRGB palette[256]);
 

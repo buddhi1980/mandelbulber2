@@ -17,7 +17,7 @@
 #include <QColorDialog>
 
 #define _USE_MATH_DEFINES
-#include <cmath>
+#include <math.h>
 
 RenderWindow::RenderWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -41,8 +41,7 @@ void RenderWindow::testSlot(void)
 	printf("Hello World!\n");
 
 	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, gPar, cInterface::read);
-	cParamRender sPar;
-	PutParamsToStruct(gPar, &sPar);
+	cParamRender sPar(gPar);
 
 	int width = 1000;
 	int height = 1000;

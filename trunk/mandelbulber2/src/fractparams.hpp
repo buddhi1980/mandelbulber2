@@ -12,9 +12,11 @@
 #ifndef FRACTPARAMS_HPP_
 #define FRACTPARAMS_HPP_
 
-#include "fractal.h"
 #include "texture.hpp"
 #include "cimage.hpp"
+#include "algebra.hpp"
+#include "primitives.h"
+#include "parameters.hpp"
 
 namespace params
 {
@@ -41,6 +43,10 @@ enum enumTextureMapType
 class cParamRender
 {
 public:
+
+	//constructor with init
+	cParamRender(const parameters::container *par);
+
 	int ambientOcclusionQuality; //ambient occlusion quality
 	int auxLightNumber;
 	int auxLightRandomSeed;
@@ -121,8 +127,6 @@ public:
 	sRGB glowColor2;
 	sRGB mainLightColour;
 
-
-	double alpha; //rotation of fractal
   double ambient;
   double ambientOcclusion;
 	double ambientOcclusionFastTune;
@@ -131,7 +135,6 @@ public:
 	double auxLightMaxDist;
 	double auxLightPreIntensity[4];
 	double auxLightVisibility;
-	double beta; //
   double coloring_speed;
 	double colourSaturation;
 	double constantFactor;
@@ -150,7 +153,6 @@ public:
 	double volFogDistanceFactor;
   double fogVisibility;
 	double fov; //perspective factor
-	double gamma;
   double glowIntensity;
 	double iterFogOpacity;
 	double iterFogOpacityTrim;
@@ -203,7 +205,6 @@ struct sRenderData
 {
 	sTextures textures;
 	sRGB palette[256];
-	std::vector<fractal::enumFractalFormula> formulaSequence;
 	std::vector<double> hybridPowerSequence;
 };
 
