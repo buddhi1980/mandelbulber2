@@ -9,10 +9,14 @@
 
 cFourFractals::cFourFractals()
 {
-	for (int i=0; i<4; i++)
-	{
-		memset(&fourFractals[i], 0, sizeof(cFractal));
-	}
+	fourFractals = NULL;
 }
 
-
+cFourFractals::cFourFractals(parameters::container *par)
+{
+	fourFractals = new cFractal*[4];
+	for(int i = 0; i < 4; i++)
+	{
+		fourFractals[i] = new cFractal(&par[i]);
+	}
+}

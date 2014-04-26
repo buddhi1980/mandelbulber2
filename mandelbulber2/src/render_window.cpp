@@ -10,7 +10,8 @@
 #include "interface.hpp"
 #include "fractal_list.hpp"
 #include "system.hpp"
-#include "initparameters.hpp"
+#include "four_fractals.hpp"
+#include "fractparams.hpp"
 
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
@@ -42,6 +43,7 @@ void RenderWindow::testSlot(void)
 
 	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, gPar, cInterface::read);
 	cParamRender sPar(gPar);
+	cFourFractals fourFractals(gParFractal);
 
 	int width = 1000;
 	int height = 1000;

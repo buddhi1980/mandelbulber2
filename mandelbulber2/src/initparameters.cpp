@@ -87,6 +87,7 @@ void InitParams(parameters::container *par)
 	par->addParam("spherical_folding_min", 0.5, true);
 	par->addParam("c_add", -1.3, true);
 	par->addParam("IFS_folding_mode", false, true);
+	par->addParam("mandelbox_fold_mode", true, true);
 
 	//image effects
 	par->addParam("brightness", 1.0, 0.0, 1e15, true);
@@ -337,6 +338,7 @@ void InitFractalParams(parameters::container *par)
 	par->addParam("power", 9.0, true);
 	par->addParam("alpha_angle_offset", 0.0, true);
 	par->addParam("beta_angle_offset", 0.0, true);
+	par->addParam("cadd", 0.0, true);
 
 	//IFS formula
 	par->addParam("IFS_scale", 2.0, true);
@@ -380,7 +382,7 @@ void InitFractalParams(parameters::container *par)
 	par->addParam("mandelbox_color_Sp1", 0.2, true);
 	par->addParam("mandelbox_color_Sp2", 0.2, true);
 	par->addParam("mandelbox_rotation_enabled", false, true);
-	par->addParam("mandelbox_fold_mode", true, true);
+
 	par->addParam("mandelbox_solid", 1.0, true);
 	par->addParam("mandelbox_melt", 0.0, true);
 
