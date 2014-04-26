@@ -43,7 +43,6 @@ private:
 
 	QWidget **fractalWidgets;
 
-
 	friend class cInterface;
 
 	QSettings settings;

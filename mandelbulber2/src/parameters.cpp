@@ -246,37 +246,37 @@ varType container::Assigner(sMultiVal &multi, sRGB val[256])
 	return typeBool;
 }
 
-varType container::Getter(sMultiVal multi, double &val)
+varType container::Getter(sMultiVal multi, double &val) const
 {
 	val = multi.dVal[0];
 	return typeDouble;
 }
 
-varType container::Getter(sMultiVal multi, int &val)
+varType container::Getter(sMultiVal multi, int &val) const
 {
 	val = multi.iVal[0];
 	return typeInt;
 }
 
-varType container::Getter(sMultiVal multi, CVector3 &val)
+varType container::Getter(sMultiVal multi, CVector3 &val) const
 {
 	val = CVector3(multi.dVal[0], multi.dVal[1], multi.dVal[2]);
 	return typeVector3;
 }
 
-varType container::Getter(sMultiVal multi, QString &val)
+varType container::Getter(sMultiVal multi, QString &val) const
 {
 	val = multi.sVal;
 	return typeString;
 }
 
-varType container::Getter(sMultiVal multi, sRGB &val)
+varType container::Getter(sMultiVal multi, sRGB &val) const
 {
 	val = sRGB(multi.iVal[0], multi.iVal[1], multi.iVal[2]);
 	return typeRgb;
 }
 
-varType container::Getter(sMultiVal multi, bool &val)
+varType container::Getter(sMultiVal multi, bool &val) const
 {
 	val = multi.iVal[0];
 	return typeBool;
@@ -360,17 +360,17 @@ template void container::Set<bool>(QString name, int index,bool val);
 
 //get parameter value by name
 template<class T>
-T container::Get(QString name)
+T container::Get(QString name) const
 {
-	QMap<QString, sRecord>::iterator it;
+	QMap<QString, sRecord>::const_iterator it;
 	it = myMap.find(name);
-	T val;
+	T val = T();
 	if (it != myMap.end())
 	{
 		sRecord rec = it.value();
 		sMultiVal multi = rec.actualVal;
-		varType type = Getter(multi, val);
 #ifdef _PARAM_DEBUG
+		varType type = Getter(multi, val);
 		if (it->type != type)
 		{
 			qWarning() << "Get(): element '" << name << "' gave value of not default type" << endl;
@@ -384,29 +384,29 @@ T container::Get(QString name)
 	}
 	return val;
 }
-template double container::Get<double>(QString name);
-template int container::Get<int>(QString name);
-template QString container::Get<QString>(QString name);
-template CVector3 container::Get<CVector3>(QString name);
-template sRGB container::Get<sRGB>(QString name);
-template bool container::Get<bool>(QString name);
+template double container::Get<double>(QString name) const;
+template int container::Get<int>(QString name) const;
+template QString container::Get<QString>(QString name) const;
+template CVector3 container::Get<CVector3>(QString name) const;
+template sRGB container::Get<sRGB>(QString name) const;
+template bool container::Get<bool>(QString name) const;
 
 //get parameter value by name and index
 template<class T>
-T container::Get(QString name, int index)
+T container::Get(QString name, int index) const
 {
-	T val;
+	T val = T();
 	if (index >= 0)
 	{
 		QString indexName = nameWithIndex(&name, index);
-		QMap<QString, sRecord>::iterator it;
+		QMap<QString, sRecord>::const_iterator it;
 		it = myMap.find(indexName);
 		if (it != myMap.end())
 		{
 			sRecord rec = it.value();
 			sMultiVal multi = rec.actualVal;
-			varType type = Getter(multi, val);
 #ifdef _PARAM_DEBUG
+			varType type = Getter(multi, val);
 			if (it->type != type)
 			{
 				qWarning() << "Get(): element '" << indexName << "' gave value of not default type" << endl;
@@ -425,12 +425,12 @@ T container::Get(QString name, int index)
 	}
 	return val;
 }
-template double container::Get<double>(QString name, int index);
-template int container::Get<int>(QString name, int index);
-template QString container::Get<QString>(QString name, int index);
-template CVector3 container::Get<CVector3>(QString name, int index);
-template sRGB container::Get<sRGB>(QString name, int index);
-template bool container::Get<bool>(QString name, int index);
+template double container::Get<double>(QString name, int index) const;
+template int container::Get<int>(QString name, int index) const;
+template QString container::Get<QString>(QString name, int index) const;
+template CVector3 container::Get<CVector3>(QString name, int index) const;
+template sRGB container::Get<sRGB>(QString name, int index) const;
+template bool container::Get<bool>(QString name, int index) const;
 
 void container::DebugPrintf(QString name)
 {
@@ -474,7 +474,7 @@ void container::DebugPrintf(QString name)
 	}
 }
 
-QString container::nameWithIndex(QString *str, int index)
+QString container::nameWithIndex(QString *str, int index) const
 {
 	QString name = *str + "_" + QString::number(index);
 	return name;

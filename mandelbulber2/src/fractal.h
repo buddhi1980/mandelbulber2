@@ -12,12 +12,8 @@
 #ifndef FRACTAL_H_
 #define FRACTAL_H_
 
-#include <vector>
-#include <stddef.h>
-#include <string>
 #include "algebra.hpp"
 #include "fractal_list.hpp"
-#include "primitives.h"
 
 const int IFS_VECTOR_COUNT = 9;
 const int HYBRID_COUNT = 5;
@@ -35,10 +31,7 @@ enum enumGeneralizedFoldBoxType
 	foldTet = 0, foldCube = 1, foldOct = 2, foldDodeca = 3, foldOctCube = 4, foldIcosa = 5, foldBox6 = 6, foldBox5 = 7
 };
 
-enum enumObjectType
-{
-	objFractal = 0, objPlane = 1, objWater = 2, objSphere = 3, objSphereInv = 4, objBox = 5, objBoxInv = 6
-};
+
 
 enum enumOCLDEMode
 {

@@ -15,6 +15,14 @@
 #include "algebra.hpp"
 #include "color_structures.hpp"
 
+namespace fractal
+{
+enum enumObjectType
+{
+	objFractal = 0, objPlane = 1, objWater = 2, objSphere = 3, objSphereInv = 4, objBox = 5, objBoxInv = 6
+};
+}
+
 struct sPrimitivePlane
 {
 	bool enable;
