@@ -12,6 +12,36 @@
 #include "fractal.h"
 #include "algebra.hpp"
 
+cFractal::cFractal(const parameters::container *container)
+{
+	formula = (fractal::enumFractalFormula)container->Get<int>("formula");
+
+	bulb.power = container->Get<double>("power");
+	bulb.alphaAngleOffset = container->Get<double>("alpha_angle_offset");
+	bulb.betaAnleOffset = container->Get<double>("beta_angle_offset");
+
+	mandelbox.scale = container->Get<double>("scale");
+	mandelbox.foldingLimit = container->Get<double>("mandelbox_folding_limit");
+	mandelbox.foldingValue = container->Get<double>("mandelbox_folding_value");
+	mandelbox.foldingSphericalMin = container->Get<double>("mandelbox_folding_min_radius");
+	mandelbox.foldingSphericalFixed = container->Get<double>("mandelbox_folding_fixed_radius");
+	mandelbox.sharpness = container->Get<double>("mandelbox_sharpness");
+	mandelbox.offset = container->Get<CVector3>("mandelbox_offset");
+	mandelbox.rotationMain = container->Get<CVector3>("mandelbox_rotation_main");
+
+	for(int i = 1; i <=3; i++)
+	{
+		mandelbox.rotation[0][i] = container->Get<CVector3>("mandelbox_rotation_neg", i);
+		mandelbox.rotation[1][i] = container->Get<CVector3>("mandelbox_rotation_pos", i);
+	}
+
+	mandelbox.colorFactor = container->Get<CVector3>("mandelbox_color");
+	mandelbox.colorFactorR = container->Get<double>("mandelbox_color_R");
+	mandelbox.colorFactorSp1 = container->Get<double>("mandelbox_color_Sp1");
+	mandelbox.colorFactorSp2 = container->Get<double>("mandelbox_color_Sp2");
+	mandelbox.rotationsEnabled = container->Get<double>("mandelbox_rotation_enabled");
+}
+
 void cFractal::RecalculateFractalParams(void)
 {
 	IFS.mainRot.SetRotation(IFS.rotation);

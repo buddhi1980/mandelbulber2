@@ -369,8 +369,8 @@ T container::Get(QString name) const
 	{
 		sRecord rec = it.value();
 		sMultiVal multi = rec.actualVal;
-#ifdef _PARAM_DEBUG
 		varType type = Getter(multi, val);
+#ifdef _PARAM_DEBUG
 		if (it->type != type)
 		{
 			qWarning() << "Get(): element '" << name << "' gave value of not default type" << endl;
@@ -405,8 +405,8 @@ T container::Get(QString name, int index) const
 		{
 			sRecord rec = it.value();
 			sMultiVal multi = rec.actualVal;
-#ifdef _PARAM_DEBUG
 			varType type = Getter(multi, val);
+#ifdef _PARAM_DEBUG
 			if (it->type != type)
 			{
 				qWarning() << "Get(): element '" << indexName << "' gave value of not default type" << endl;

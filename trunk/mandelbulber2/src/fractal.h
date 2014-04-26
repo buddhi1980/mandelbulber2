@@ -14,6 +14,7 @@
 
 #include "algebra.hpp"
 #include "fractal_list.hpp"
+#include "parameters.hpp"
 
 const int IFS_VECTOR_COUNT = 9;
 const int HYBRID_COUNT = 5;
@@ -91,10 +92,8 @@ struct sFractalMandelboxVary4D
 struct sFractalMandelbox
 {
 	CVector3 rotationMain;
-	double rotation[MANDELBOX_FOLDS][3][3];
-	double colorFactorX;
-	double colorFactorY;
-	double colorFactorZ;
+	CVector3 rotation[MANDELBOX_FOLDS][3];
+	CVector3 colorFactor;
 	double colorFactorR;
 	double colorFactorSp1;
 	double colorFactorSp2;
@@ -128,13 +127,25 @@ struct sFractalFoldings
 	double foldingSphericalFixed;
 };
 
+struct sFractalMandelbulb
+{
+	double power;
+	double alphaAngleOffset;
+	double betaAnleOffset;
+};
+
+struct sFractalAexion
+{
+	double cadd;
+};
+
 class cFractal
 {
 public:
-	double power;		 //power of fractal formula
-	double cadd;
-
+	cFractal(const parameters::container *par);
+			 //power of fractal formula
 	fractal::enumFractalFormula formula;
+	sFractalMandelbulb bulb;
 	sFractalIFS IFS;
 	sFractalMandelbox mandelbox;
 	sFractalGeneralizedFoldBox genFoldBox;

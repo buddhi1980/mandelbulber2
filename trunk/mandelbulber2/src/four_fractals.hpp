@@ -13,11 +13,11 @@
 
 class cFourFractals
 {
+public:
 	cFourFractals();
+	cFourFractals(parameters::container *par);
 
-
-	public:
-	cFractal fourFractals[4];
+	cFractal **fourFractals;
 
 };
 
