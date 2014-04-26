@@ -154,6 +154,7 @@ public:
 	double GetGamma() const;
 	void SetRotation(double angles[3]);
 	void SetRotation(double alfa, double beta, double gamma);
+	void SetRotation(CVector3 &rotation);
 	CRotationMatrix Transpose(void) const;
 	CMatrix33 GetMatrix() {return matrix;}
 private:

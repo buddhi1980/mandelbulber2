@@ -12,7 +12,7 @@
 #ifndef TEXTURE_HPP_
 #define TEXTURE_HPP_
 
-#include "cimage.hpp"
+#include "color_structures.hpp"
 
 class cTexture
 {

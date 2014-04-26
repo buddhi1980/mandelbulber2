@@ -41,7 +41,7 @@ void RenderWindow::testSlot(void)
 	printf("Hello World!\n");
 
 	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, gPar, cInterface::read);
-	sParamRender sPar;
+	cParamRender sPar;
 	PutParamsToStruct(gPar, &sPar);
 
 	int width = 1000;
