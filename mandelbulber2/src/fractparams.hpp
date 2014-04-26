@@ -14,6 +14,7 @@
 
 #include "fractal.h"
 #include "texture.hpp"
+#include "cimage.hpp"
 
 namespace params
 {
@@ -37,58 +38,7 @@ enum enumTextureMapType
 
 }
 
-struct sPrimitivePlane
-{
-	bool enable;
-	bool onlyPlane;
-	CVector3 centre;
-	CVector3 normal;
-	double reflect;
-	sRGB colour;
-};
-
-struct sPrimitiveBox
-{
-	bool enable;
-	CVector3 centre;
-	CVector3 size;
-	double reflect;
-	sRGB colour;
-};
-
-struct sPrimitiveSphere
-{
-	bool enable;
-	CVector3 centre;
-	double radius;
-	double reflect;
-	sRGB colour;
-};
-
-struct sPrimitiveWater
-{
-	bool enable;
-	double amplitude;
-	double animSpeed;
-	double level;
-	double length;
-	double reflect;
-	double rotation;
-	int iterations;
-	sRGB colour;
-};
-
-struct sPrimitives
-{
-	sPrimitivePlane plane;
-	sPrimitiveBox box;
-	sPrimitiveBox invertedBox;
-	sPrimitiveSphere sphere;
-	sPrimitiveSphere invertedSphere;
-	sPrimitiveWater water;
-};
-
-class sParamRender
+class cParamRender
 {
 public:
 	int ambientOcclusionQuality; //ambient occlusion quality

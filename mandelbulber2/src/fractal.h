@@ -16,6 +16,8 @@
 #include <stddef.h>
 #include <string>
 #include "algebra.hpp"
+#include "fractal_list.hpp"
+#include "primitives.h"
 
 const int IFS_VECTOR_COUNT = 9;
 const int HYBRID_COUNT = 5;
@@ -23,48 +25,6 @@ const int MANDELBOX_FOLDS = 2;
 
 namespace fractal
 {
-enum enumFractalFormula
-{
-	none = 0,
-	trig_DE = 1,
-	trig_optim = 2,
-	fast_trig = 3,
-	hypercomplex = 4,
-	quaternion = 5,
-	minus_fast_trig = 6,
-	menger_sponge = 7,
-	tglad = 8,
-	kaleidoscopic = 10,
-	xenodreambuie = 11,
-	hybrid = 12,
-	mandelbulb2 = 13,
-	mandelbulb3 = 14,
-	mandelbulb4 = 15,
-	foldingIntPow2 = 16,
-	smoothMandelbox = 17,
-	mandelboxVaryScale4D = 18,
-	aexion = 19,
-	benesi = 20,
-	bristorbrot = 21,
-	invertX = 22,
-	invertY = 23,
-	invertZ = 24,
-	invertR = 25,
-	sphericalFold = 26,
-	powXYZ = 27,
-	scaleX = 28,
-	scaleY = 29,
-	scaleZ = 30,
-	offsetX = 31,
-	offsetY = 32,
-	offsetZ = 33,
-	angleMultiplyX = 34,
-	angleMultiplyY = 35,
-	angleMultiplyZ = 36,
-	generalizedFoldBox = 37,
-	ocl_custom = 38
-};
-
 enum enumCalculationMode
 {
 	normal = 0, colouring = 1, fake_AO = 2, deltaDE1 = 3, deltaDE2 = 4, orbitTrap = 5
@@ -109,25 +69,21 @@ struct sFractalGeneralizedFoldBox
 
 struct sFractalIFS
 {
-	double rotationGamma;
-	double rotationAlfa;
-	double rotationBeta;
-	double scale;
-	double distance[IFS_VECTOR_COUNT];
-	double alfa[IFS_VECTOR_COUNT];
-	double beta[IFS_VECTOR_COUNT];
-	double gamma[IFS_VECTOR_COUNT];
-	double intensity[IFS_VECTOR_COUNT];
-	CVector3 offset;
-	CVector3 direction[IFS_VECTOR_COUNT];
-	CVector3 edge;
 	bool absX, absY, absZ;
-	bool foldingMode; // Kaleidoscopic IFS folding mode
 	bool enabled[IFS_VECTOR_COUNT];
+	bool foldingMode; // Kaleidoscopic IFS folding mode
 	bool mengerSpongeMode;
-	int foldingCount;
 	CRotationMatrix mainRot;
 	CRotationMatrix rot[IFS_VECTOR_COUNT];
+	CVector3 direction[IFS_VECTOR_COUNT];
+	CVector3 edge;
+	CVector3 offset;
+	CVector3 rotations[IFS_VECTOR_COUNT];
+	double distance[IFS_VECTOR_COUNT];
+	double intensity[IFS_VECTOR_COUNT];
+	CVector3 rotation;
+	double scale;
+	int foldingCount;
 };
 
 struct sFractalMandelboxVary4D
@@ -141,7 +97,7 @@ struct sFractalMandelboxVary4D
 
 struct sFractalMandelbox
 {
-	double rotationMain[3];
+	CVector3 rotationMain;
 	double rotation[MANDELBOX_FOLDS][3][3];
 	double colorFactorX;
 	double colorFactorY;
@@ -165,51 +121,47 @@ struct sFractalMandelbox
 	CRotationMatrix rotinv[MANDELBOX_FOLDS][3];
 };
 
-
-struct sFractal
+struct sFractalFoldingIntPow
 {
 	double FoldingIntPowZfactor;
 	double FoldingIntPowFoldFactor;
+};
+
+struct sFractalFoldings
+{
 	double foldingLimit; //paramters of TGlad's folding
 	double foldingValue;
 	double foldingSphericalMin;
 	double foldingSphericalFixed;
+};
+
+class cFractal
+{
+public:
 	double power;		 //power of fractal formula
 	double cadd;
-	double hybridPower[HYBRID_COUNT];
-#ifdef CLSUPPORT
-	double customParameters[15];
-	double deltaDEStep;
-#endif
-
-
-
-	  // maximum number of iterations
-
 
 	fractal::enumFractalFormula formula;
-
-	int hybridIters[HYBRID_COUNT];
-	fractal::enumFractalFormula hybridFormula[HYBRID_COUNT];
-
-	std::vector<fractal::enumFractalFormula> formulaSequence;
-	std::vector<double> hybridPowerSequence;
-	char customOCLFormulaName[100];
-	fractal::enumOCLDEMode customOCLFormulaDEMode;
-
 	sFractalIFS IFS;
 	sFractalMandelbox mandelbox;
 	sFractalGeneralizedFoldBox genFoldBox;
+	sFractalFoldingIntPow foldingIntPow;
+	sFractalMandelboxVary4D mandelboxVary4D;
+	sFractalFoldings foldings;
 
-	int frameNo;
+#ifdef CLSUPPORT
+	double customParameters[15];
+	double deltaDEStep;
+	char customOCLFormulaName[100];
+	fractal::enumOCLDEMode customOCLFormulaDEMode;
+#endif
 
-	int itersOut;
-	fractal::enumObjectType objectOut;
-
-
+	void RecalculateFractalParams(void);
 };
 
-template <int Mode> double Compute(CVector3 z, const sFractal &par, int *iter_count = NULL);
-double CalculateDistance(CVector3 point, sFractal &par, bool *max_iter = NULL);
+
+
+template <int Mode> double Compute(CVector3 z, const cFractal &par, int *iter_count = NULL);
+double CalculateDistance(CVector3 point, cFractal &par, bool *max_iter = NULL);
 
 #endif /* FRACTAL_H_ */

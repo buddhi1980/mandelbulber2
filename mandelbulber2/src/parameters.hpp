@@ -14,7 +14,7 @@
 
 #include <QtCore>
 #include "algebra.hpp"
-#include "cimage.hpp"
+#include "color_structures.hpp"
 #include "fractparams.hpp"
 
 namespace parameters
@@ -69,7 +69,7 @@ public:
 
 	void DebugPrintf(QString name);
 
-	void PutParamsToStruct(sParamRender *params);
+	void PutParamsToStruct(cParamRender *params);
 
 private:
 	varType Assigner(sMultiVal &multi, double val);

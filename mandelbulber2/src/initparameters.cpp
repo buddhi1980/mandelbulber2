@@ -395,7 +395,7 @@ void InitFractalParams(parameters::container *par)
 	WriteLog("Fractal parameters initialization finished");
 }
 
-void PutParamsToStruct(parameters::container *container, sParamRender *params)
+void PutParamsToStruct(parameters::container *container, cParamRender *params)
 {
 	params->analitycDEMode = container->Get<bool>("analityc_DE_mode");
 	params->constantFactor = container->Get<double>("fractal_constant_factor");

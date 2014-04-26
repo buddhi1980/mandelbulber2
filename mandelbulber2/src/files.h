@@ -30,13 +30,7 @@ struct my_error_mgr
 
 typedef struct my_error_mgr * my_error_ptr;
 
-struct sImageRGBA16
-{
-	unsigned short R;
-	unsigned short G;
-	unsigned short B;
-	unsigned short A;
-};
+
 
 extern std::string logfileName;
 
