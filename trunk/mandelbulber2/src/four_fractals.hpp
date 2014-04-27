@@ -15,10 +15,10 @@ class cFourFractals
 {
 public:
 	cFourFractals();
+	~cFourFractals();
 	cFourFractals(parameters::container *par);
-
+	cFractal* GetFractal(int index) {return fourFractals[index];}
 	cFractal **fourFractals;
-
 };
 
 

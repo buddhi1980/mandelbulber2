@@ -333,7 +333,7 @@ void InitFractalParams(parameters::container *par)
 {
 	WriteLog("Fractal parameters initialization started");
 
-	par->addParam("formula", (int)fractal::trig_optim, false);
+	par->addParam("formula", (int)fractal::mandelbulb, false);
 
 	par->addParam("power", 9.0, true);
 	par->addParam("alpha_angle_offset", 0.0, true);

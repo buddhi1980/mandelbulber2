@@ -15,12 +15,14 @@ CONFIG += qt thread debug
 
 SOURCES +=  ../src/algebra.cpp\
 			../src/calculate_distance.cpp\
+			../src/compute_fractal.cpp\
 	    	../src/cimage.cpp\
 	    	../src/common_math.cpp\
 	    	../src/fractparams.cpp\
 	    	../src/files.cpp\
 	    	../src/four_fractals.cpp\
 	    	../src/fractal.cpp\
+	    	../src/fractal_formulas.cpp\
 	    	../src/fractal_list.cpp\
 	    	../src/initparameters.cpp\
 	    	../src/interface.cpp\
