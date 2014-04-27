@@ -15,9 +15,9 @@ namespace fractal
 enum enumFractalFormula
 {
 	none = 0,
-	trig_DE = 1,
-	trig_optim = 2,
-	fast_trig_power2 = 3,
+	fast_mandelbulb = 1,
+	mandelbulb = 2,
+	fast_mandelbulb_power2 = 3,
 	hypercomplex = 4,
 	quaternion = 5,
 	minus_fast_trig = 6,

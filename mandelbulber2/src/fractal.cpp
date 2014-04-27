@@ -40,6 +40,8 @@ cFractal::cFractal(const parameters::container *container)
 	mandelbox.colorFactorSp1 = container->Get<double>("mandelbox_color_Sp1");
 	mandelbox.colorFactorSp2 = container->Get<double>("mandelbox_color_Sp2");
 	mandelbox.rotationsEnabled = container->Get<double>("mandelbox_rotation_enabled");
+
+	RecalculateFractalParams();
 }
 
 void cFractal::RecalculateFractalParams(void)

@@ -12,6 +12,18 @@ cFourFractals::cFourFractals()
 	fourFractals = NULL;
 }
 
+cFourFractals::~cFourFractals()
+{
+	if(fourFractals)
+	{
+		for(int i=0; i<4; i++)
+		{
+			delete fourFractals[i];
+		}
+	}
+	delete[] fourFractals;
+}
+
 cFourFractals::cFourFractals(parameters::container *par)
 {
 	fourFractals = new cFractal*[4];
