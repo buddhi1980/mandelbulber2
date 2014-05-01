@@ -55,6 +55,7 @@ public:
 	int fakeLightsMaxIter;
 	int fakeLightsMinIter;
 	int framesPerKeyframe;
+	int frameNo;
 	int imageFormat;
 	int imageHeight; //image height
 	int imageWidth; //image width

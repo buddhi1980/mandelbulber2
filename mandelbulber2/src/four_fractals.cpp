@@ -10,6 +10,7 @@
 cFourFractals::cFourFractals()
 {
 	fourFractals = NULL;
+	DEType = fractal::deltaDE;
 }
 
 cFourFractals::~cFourFractals()
@@ -31,4 +32,15 @@ cFourFractals::cFourFractals(parameters::container *par)
 	{
 		fourFractals[i] = new cFractal(&par[i]);
 	}
+
+	//temporary assing of DE type
+	fractal::enumFractalFormula formula = fourFractals[0]->formula;
+	for (int i = 0; i < fractalList.size(); i++)
+	{
+		if(fractalList[i].internalID == formula)
+		{
+			DEType = fractalList[i].DEType;
+		}
+	}
+
 }

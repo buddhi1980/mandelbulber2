@@ -16,6 +16,6 @@ struct sMandelbulbAux
 	double r;
 };
 
-void MandelbulbIteration(CVector3 &z, cFractal *fractal, sMandelbulbAux &aux);
+void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

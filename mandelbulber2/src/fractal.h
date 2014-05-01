@@ -32,11 +32,9 @@ enum enumGeneralizedFoldBoxType
 	foldTet = 0, foldCube = 1, foldOct = 2, foldDodeca = 3, foldOctCube = 4, foldIcosa = 5, foldBox6 = 6, foldBox5 = 7
 };
 
-
-
 enum enumOCLDEMode
 {
-	calculated = 0, deltaDE = 1, noDE = 2
+	ocl_DEcalculated = 0, ocl_deltaDE = 1, ocl_noDE = 2
 };
 }
 
@@ -162,10 +160,5 @@ public:
 
 	void RecalculateFractalParams(void);
 };
-
-
-
-template <int Mode> double Compute(CVector3 z, const cFractal &par, int *iter_count = NULL);
-double CalculateDistance(CVector3 point, cFractal &par, bool *max_iter = NULL);
 
 #endif /* FRACTAL_H_ */

@@ -9,15 +9,13 @@
 
 QList<sFractalDescription> fractalList;
 
-
-
 using namespace fractal;
 void DefineFractalList(QList<sFractalDescription> *fractalList)
 {
 	//list of fractal formulas (name visible in UI, internal name, internal ID)
-	fractalList->append(sFractalDescription("None", "", none));
-	fractalList->append(sFractalDescription("Mandelbulb", "mandelbulb", mandelbulb));
-	fractalList->append(sFractalDescription("Mandelbulb Daniel White's", "mandelbulb2", fast_mandelbulb));
-	fractalList->append(sFractalDescription("Mandelbox", "mandelbox", mandelbox));
+	fractalList->append(sFractalDescription("None", "", none, fractal::deltaDE));
+	fractalList->append(sFractalDescription("Mandelbulb", "mandelbulb", mandelbulb, fractal::analitycDE));
+	fractalList->append(sFractalDescription("Mandelbulb Daniel White's", "mandelbulb2", fast_mandelbulb, fractal::analitycDE));
+	fractalList->append(sFractalDescription("Mandelbox", "mandelbox", mandelbox, fractal::analitycDE));
 }
 
