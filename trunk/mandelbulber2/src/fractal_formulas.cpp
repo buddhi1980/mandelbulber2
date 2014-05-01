@@ -8,7 +8,7 @@
 #include "fractal_formulas.hpp"
 #include "fractal.h"
 
-void MandelbulbIteration(CVector3 &z, cFractal *fractal, sMandelbulbAux &aux)
+void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
 {
 	double th0 = asin(z.z / aux.r);
 	double ph0 = atan2(z.y, z.x);

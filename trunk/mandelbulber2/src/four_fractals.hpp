@@ -10,6 +10,7 @@
 
 #include "fractal.h"
 #include "parameters.hpp"
+#include "fractal_list.hpp"
 
 class cFourFractals
 {
@@ -17,8 +18,9 @@ public:
 	cFourFractals();
 	~cFourFractals();
 	cFourFractals(parameters::container *par);
-	cFractal* GetFractal(int index) {return fourFractals[index];}
+	cFractal* GetFractal(int index) const {return fourFractals[index];}
 	cFractal **fourFractals;
+	fractal::enumDEType DEType;
 };
 
 
