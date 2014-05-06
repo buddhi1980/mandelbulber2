@@ -13,6 +13,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 {
 	CVector3 z = in.point;
 	double r = z.Length();
+	CVector3 c = z;
 
 	sMandelbulbAux bulbAux;
 	bulbAux.r_dz = 1.0;
@@ -41,6 +42,8 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				z = CVector3(0.0, 0.0, 0.0);
 				break;
 		}
+
+		z += c;
 
 		//length of z vector
 		r = z.Length();

@@ -16,6 +16,7 @@ struct sDistanceIn
 {
 	CVector3 point;
 	double detailSize;
+	sDistanceIn(CVector3 _point, double _detailSize) : point(_point), detailSize(_detailSize) {};
 };
 
 struct sDistanceOut
@@ -26,5 +27,7 @@ struct sDistanceOut
 	fractal::enumObjectType object;
 	bool maxiter;
 };
+
+double CalculateDistance(const cParamRender &params, const cFourFractals &four, const sDistanceIn &in, sDistanceOut *out);
 
 #endif /* CALCULATE_DISTANCE_HPP_ */

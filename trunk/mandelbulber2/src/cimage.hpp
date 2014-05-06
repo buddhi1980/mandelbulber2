@@ -75,11 +75,11 @@ public:
   sImageAdjustments* GetImageAdjustments(void) {return &adj;}
 
   unsigned char* ConvertTo8bit(void);
-  unsigned char* CreatePreview(double scale);
+  unsigned char* CreatePreview(double scale, QWidget *widget);
   void UpdatePreview(void);
   unsigned char* GetPreviewPtr(void);
   bool IsPreview(void);
-  void RedrawInWidget(QWidget *dareaWidget);
+  void RedrawInWidget(QWidget *qwidget = NULL);
   double GetPreviewScale() {return previewScale;}
   void Squares(int y, int progressiveFactor);
   void CalculateGammaTable(void);
@@ -93,13 +93,13 @@ public:
 	int progressiveFactor;
 
 private:
-  sRGB8 Interpolation(float x, float y);
+  sRGBA8 Interpolation(float x, float y);
 	bool AllocMem(void);
 	inline sRGB16 Black16(void) {return sRGB16(0,0,0);}
 	inline sRGB8 Black8(void) {return sRGB8(0,0,0);}
 	inline sRGBfloat BlackFloat(void) {return sRGBfloat(0,0,0);}
 
-	sRGB8 *image8;
+	sRGBA8 *image8;
 	sRGB16 *image16;
 	sRGBfloat *imageFloat;
 
@@ -108,8 +108,10 @@ private:
 	sRGB8 *colourBuffer;
 	float *zBuffer;
 
-	sRGB8 *preview;
-	sRGB8 *preview2;
+	sRGBA8 *preview;
+	sRGBA8 *preview2;
+	QWidget *imageWidget;
+
 	sImageAdjustments adj;
 	int width;
 	int height;

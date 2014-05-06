@@ -12,6 +12,7 @@
 #include <QtCore>
 #include "../qt/ui_render_window.h"
 #include <QSettings>
+#include "cimage.hpp"
 
 namespace Ui
 {
@@ -46,6 +47,8 @@ private:
 	friend class cInterface;
 
 	QSettings settings;
+
+
 };
 
 

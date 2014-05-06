@@ -12,10 +12,12 @@
 #include "system.hpp"
 #include "four_fractals.hpp"
 #include "fractparams.hpp"
+#include "render_job.hpp"
 
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
 #include <QColorDialog>
+
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -41,9 +43,15 @@ void RenderWindow::testSlot(void)
 
 	printf("Hello World!\n");
 
-	mainInterface->SynchronizeInterfaceWindow(mainInterface->mainWindow, gPar, cInterface::read);
-	cParamRender sPar(gPar);
-	cFourFractals fourFractals(gParFractal);
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, mainInterface->renderedImage);
+	renderJob->Init(cRenderJob::still);
+	renderJob->Execute();
+
+	mainInterface->application->processEvents();
+	mainInterface->mainWindow->update();
+	mainInterface->mainWindow->ui->scrollAreaWidgetContents->update();
 
 	int width = 1000;
 	int height = 1000;
@@ -56,29 +64,7 @@ void RenderWindow::testSlot(void)
 		uchar a;
 	};
 
-	sRGBA *img = new sRGBA[width*height];
-	mainInterface->qimage = new QImage((const uchar*)img, width, height, width*sizeof(sRGBA), QImage::Format_ARGB32);
-	QWidget *scrollAreaWidgetContents = mainInterface->mainWindow->findChild<QWidget*>("scrollAreaWidgetContents");
-
-	for (int index = 0; index < 100; index++)
-	{
-
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
-				img[x + y * width].r = (x*y+index)/3;
-				img[x + y * width].g = y+index/2;
-				img[x + y * width].b = x*y+index;
-				img[x + y * width].a = 255;
-			}
-		}
-
-		mainInterface->application->processEvents();
-		mainInterface->mainWindow->update();
-		scrollAreaWidgetContents->update();
-	}
-
+	delete renderJob;
 }
 
 void RenderWindow::load(void)
@@ -284,19 +270,6 @@ RenderedImage::RenderedImage(QWidget *parent)
 
 void RenderedImage::paintEvent(QPaintEvent *event)
 {
-//just for testing
-	QPainter painter(this);
-	painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-
-	QPen pen(Qt::white, 2, Qt::SolidLine);
-	painter.setPen(pen);
-	painter.drawLine(0, 0, 400, 20);
-
-	printf("paint\n");
-	if(mainInterface->qimage)
-	{
-		printf("paintImage\n");
-		painter.drawImage(QRect(0,0,1000,1000), *mainInterface->qimage, QRect(0,0,1000,1000));
-	}
+  mainInterface->mainImage->RedrawInWidget();
 }
 
