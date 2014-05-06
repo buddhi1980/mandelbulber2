@@ -12,7 +12,6 @@ using namespace std;
 
 double CalculateDistance(const cParamRender &params, const cFourFractals &four, const sDistanceIn &in, sDistanceOut *out)
 {
-	int L;
 	double distance;
 	out->object = fractal::objFractal;
 
@@ -51,7 +50,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 
 			if (distance < 0) distance = 0;
 
-			if (L < params.minN && distance < in.detailSize) distance = in.detailSize;
+			if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
 
 			if (params.interiorMode && !params.normalCalculationMode)
 			{
@@ -123,7 +122,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 				distance = 0;
 			}
 
-			if (L < params.minN && distance < in.detailSize) distance = in.detailSize;
+			if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
 
 			if (params.interiorMode && !params.normalCalculationMode)
 			{

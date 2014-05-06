@@ -202,11 +202,5 @@ struct sTextures
 	cTexture *lightmapTexture;
 };
 
-struct sRenderData
-{
-	sTextures textures;
-	sRGB palette[256];
-	std::vector<double> hybridPowerSequence;
-};
 
 #endif /* FRACTPARAMS_HPP_ */

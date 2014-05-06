@@ -33,6 +33,8 @@ public:
 	QImage *qimage;
 	RenderedImage *renderedImage;
 
+	cImage *mainImage;
+
 private:
 
 };

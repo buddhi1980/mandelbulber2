@@ -20,7 +20,7 @@ cFractal::cFractal(const parameters::container *container)
 	bulb.alphaAngleOffset = container->Get<double>("alpha_angle_offset");
 	bulb.betaAnleOffset = container->Get<double>("beta_angle_offset");
 
-	mandelbox.scale = container->Get<double>("scale");
+	mandelbox.scale = container->Get<double>("mandelbox_scale");
 	mandelbox.foldingLimit = container->Get<double>("mandelbox_folding_limit");
 	mandelbox.foldingValue = container->Get<double>("mandelbox_folding_value");
 	mandelbox.foldingSphericalMin = container->Get<double>("mandelbox_folding_min_radius");

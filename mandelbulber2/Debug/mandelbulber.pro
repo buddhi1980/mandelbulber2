@@ -29,11 +29,15 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/main.cpp\
 	    	../src/parameters.cpp\
 	    	../src/primitives.cpp\
+	    	../src/render_image.cpp\
+	    	../src/render_job.cpp\
 	    	../src/render_window.cpp\
+	    	../src/render_worker.cpp\
 	    	../src/system.cpp\
             ../src/texture.cpp
 
-HEADERS  += ../src/render_window.hpp
+HEADERS  += ../src/render_window.hpp\
+			../src/render_worker.hpp
 
 FORMS    += ../qt/render_window.ui
 

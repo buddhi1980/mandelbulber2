@@ -52,4 +52,14 @@ struct sImageRGBA16
 	unsigned short A;
 };
 
+struct sRGBA8
+{
+	unsigned char B;
+	unsigned char G;
+	unsigned char R;
+	unsigned char A;
+	sRGBA8(unsigned char r, unsigned char g, unsigned char b, unsigned char a) : B(b), G(g), R(r), A(a) {};
+	sRGBA8(){R = 0; G = 0; B = 0; A = 255;}
+};
+
 #endif /* COLOR_STRUCTURES_HPP_ */

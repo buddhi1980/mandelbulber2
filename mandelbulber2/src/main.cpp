@@ -44,6 +44,9 @@ int main(int argc, char *argv[])
 	//Define list of fractal formulas
 	DefineFractalList(&fractalList);
 
+	//setup main image
+	mainInterface->mainImage = new cImage(800,600);
+
 	mainInterface->ShowUi();
 
 	//write parameters to ui

@@ -17,6 +17,7 @@
 
 #include <iostream>
 #include <new>
+#include <QtGui>
 
 cImage::cImage(int w, int h, bool low_mem)
 {
@@ -27,6 +28,7 @@ cImage::cImage(int w, int h, bool low_mem)
 	AllocMem();
 	gammaTable = new int[65536];
 	progressiveFactor = 1;
+	imageWidget = NULL;
 }
 
 cImage::~cImage()
@@ -64,7 +66,7 @@ bool cImage::AllocMem(void)
 		{
 			imageFloat = new sRGBfloat[width * height];
 			image16 = new sRGB16[width * height];
-			image8 = new sRGB8[width * height];
+			image8 = new sRGBA8[width * height];
 			zBuffer = new float[width * height];
 			alphaBuffer = new unsigned short[width * height];
 			opacityBuffer = new unsigned short[width * height];
@@ -240,32 +242,34 @@ unsigned char* cImage::ConvertTo8bit(void)
 		image8[i].R = image16[i].R / 256;
 		image8[i].G = image16[i].G / 256;
 		image8[i].B = image16[i].B / 256;
+		image8[i].A = 255;
 	}
 	unsigned char* ptr = (unsigned char*) image8;
 	return ptr;
 }
 
-sRGB8 cImage::Interpolation(float x, float y)
+sRGBA8 cImage::Interpolation(float x, float y)
 {
-	sRGB8 colour = sRGB8(0, 0, 0);
+	sRGBA8 colour = sRGBA8(0, 0, 0, 255);
 	if (x >= 0 && x < width - 1 && y >= 0 && y < height - 1)
 	{
 		int ix = x;
 		int iy = y;
 		int rx = (x - ix) * 256;
 		int ry = (y - iy) * 256;
-		sRGB8 k1 = image8[iy * width + ix];
-		sRGB8 k2 = image8[iy * width + ix + 1];
-		sRGB8 k3 = image8[(iy + 1) * width + ix];
-		sRGB8 k4 = image8[(iy + 1) * width + ix + 1];
+		sRGBA8 k1 = image8[iy * width + ix];
+		sRGBA8 k2 = image8[iy * width + ix + 1];
+		sRGBA8 k3 = image8[(iy + 1) * width + ix];
+		sRGBA8 k4 = image8[(iy + 1) * width + ix + 1];
 		colour.R = (k1.R * (255 - rx) * (255 - ry) + k2.R * (rx) * (255 - ry) + k3.R * (255 - rx) * ry + k4.R * (rx * ry)) / 65536;
 		colour.G = (k1.G * (255 - rx) * (255 - ry) + k2.G * (rx) * (255 - ry) + k3.G * (255 - rx) * ry + k4.G * (rx * ry)) / 65536;
 		colour.B = (k1.B * (255 - rx) * (255 - ry) + k2.B * (rx) * (255 - ry) + k3.B * (255 - rx) * ry + k4.B * (rx * ry)) / 65536;
+		colour.A = 255;
 	}
 	return colour;
 }
 
-unsigned char* cImage::CreatePreview(double scale)
+unsigned char* cImage::CreatePreview(double scale, QWidget *widget = NULL)
 {
 	int w = width * scale;
 	int h = height * scale;
@@ -274,16 +278,20 @@ unsigned char* cImage::CreatePreview(double scale)
 		delete[] preview;
 		delete[] preview2;
 	}
-	preview = new sRGB8[w * h];
-	preview2 = new sRGB8[w * h];
+	preview = new sRGBA8[w * h];
+	preview2 = new sRGBA8[w * h];
 
-	memset(preview, 0, (unsigned long int)sizeof(sRGB8) * (w * h));
-	memset(preview2, 0, (unsigned long int)sizeof(sRGB8) * (w * h));
+	memset(preview, 0, (unsigned long int)sizeof(sRGBA8) * (w * h));
+	memset(preview2, 0, (unsigned long int)sizeof(sRGBA8) * (w * h));
 	previewAllocated = true;
 	previewWidth = w;
 	previewHeight = h;
 	previewScale = scale;
 	unsigned char* ptr = (unsigned char*) preview;
+
+	if(widget)
+		imageWidget = widget;
+
 	return ptr;
 }
 
@@ -296,7 +304,7 @@ void cImage::UpdatePreview(void)
 
 		if (width == w && height == h)
 		{
-			memcpy(preview, image8, width * height * sizeof(sRGB8));
+			memcpy(preview, image8, width * height * sizeof(sRGBA8));
 		}
 		else
 		{
@@ -326,22 +334,23 @@ void cImage::UpdatePreview(void)
 							float xx = x * scaleX + i * deltaX;
 							if (xx > 0 && xx < width - 1 && yy > 0 && yy < height - 1)
 							{
-								sRGB8 oldPixel = Interpolation(xx, yy);
+								sRGBA8 oldPixel = Interpolation(xx, yy);
 								R += oldPixel.R;
 								G += oldPixel.G;
 								B += oldPixel.B;
 							}
 						}//next i
 					}//next j
-					sRGB8 newpixel;
+					sRGBA8 newpixel;
 					newpixel.R = R / factor;
 					newpixel.G = G / factor;
 					newpixel.B = B / factor;
+					newpixel.A = 255;
 					preview[x + y * w] = newpixel;
 				}//next x
 			}//next y
 		}
-		memcpy(preview2, preview, w * h * sizeof(sRGB8));
+		memcpy(preview2, preview, w * h * sizeof(sRGBA8));
 	}
 	else
 	{
@@ -371,13 +380,29 @@ bool cImage::IsPreview(void)
 	}
 }
 
-void cImage::RedrawInWidget(QWidget *dareaWidget)
+void cImage::RedrawInWidget(QWidget *qwidget)
 {
 	if (IsPreview())
 	{
-		//gdk_draw_rgb_image(dareaWidget->window, dareaWidget->style->fg_gc[GTK_STATE_NORMAL], 0, 0, GetPreviewWidth(), GetPreviewHeight(), GDK_RGB_DITHER_MAX, GetPreviewPtr(),
-		//		GetPreviewWidth() * 3);
-		memcpy(preview2, preview, previewWidth * previewHeight * sizeof(sRGB8));
+		QTextStream out(stdout);
+		out << "Redraw" << endl;
+
+		QWidget *widget;
+		if (qwidget)
+			widget = qwidget;
+		else
+			widget = imageWidget;
+
+		QPainter painter(widget);
+		painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+
+		QPen pen(Qt::white, 2, Qt::SolidLine);
+		painter.setPen(pen);
+		painter.drawLine(0, 0, 400, 20);
+
+		QImage qimage((const uchar*)GetPreviewPtr(), previewWidth, previewHeight, previewWidth*sizeof(sRGBA8), QImage::Format_ARGB32);
+		painter.drawImage(QRect(0,0,previewWidth,previewHeight), qimage, QRect(0,0,previewWidth, previewHeight));
+		memcpy(preview2, preview, previewWidth * previewHeight * sizeof(sRGBA8));
 	}
 }
 
@@ -414,12 +439,12 @@ void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, double opacity, in
 		size_t address = x + y * previewWidth;
 		float zImage = GetPixelZBuffer(x / previewScale, y / previewScale);
 		if (z > zImage) opacity *= 0.03;
-		sRGB8 oldPixel;
+		sRGBA8 oldPixel;
 		if(layer == 0)
 			oldPixel = preview[address];
 		else if (layer == 1)
 			oldPixel = preview2[address];
-		sRGB8 newPixel;
+		sRGBA8 newPixel;
 		newPixel.R = (oldPixel.R * (1.0 - opacity) + color.R * opacity);
 		newPixel.G = (oldPixel.G * (1.0 - opacity) + color.G * opacity);
 		newPixel.B = (oldPixel.B * (1.0 - opacity) + color.B * opacity);
