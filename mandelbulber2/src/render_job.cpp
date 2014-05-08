@@ -48,6 +48,8 @@ int cRenderJob::id = 0;
 cRenderJob::~cRenderJob()
 {
 	id--;
+	delete paramsContainer;
+	delete[] fractalContainer;
 	WriteLog("Job finished and closed");
 }
 
@@ -107,8 +109,9 @@ bool cRenderJob::Execute(void)
 	//aux renderer data
 	sRenderData *data = new sRenderData;
 	data->rendererID = id;
+	data->numberOfThreads = totalNumberOfCPUs;
 
-	//create renderer
+	//create and execute renderer
 	cRenderer *renderer = new cRenderer(params, fourFractals, data, image);
 	bool result = renderer->RenderImage();
 

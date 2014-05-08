@@ -141,7 +141,8 @@ class cFractal
 {
 public:
 	cFractal(const parameters::container *par);
-			 //power of fractal formula
+	void RecalculateFractalParams(void);
+
 	fractal::enumFractalFormula formula;
 	sFractalMandelbulb bulb;
 	sFractalIFS IFS;
@@ -158,7 +159,7 @@ public:
 	fractal::enumOCLDEMode customOCLFormulaDEMode;
 #endif
 
-	void RecalculateFractalParams(void);
+
 };
 
 #endif /* FRACTAL_H_ */

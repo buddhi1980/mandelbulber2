@@ -23,15 +23,23 @@ void cRenderWorker::doWork(void)
 {
 	// here will be rendering thread
 	QTextStream out(stdout);
-	out << "Thread id: " << threadData->id << endl;
+	out << "Thread start confirmed - id: " << threadData->id << endl;
 
 	int width = image->GetWidth();
 	int height = image->GetHeight();
 
-	for (int ys = 0; ys < height; ys++)
+	cScheduler *scheduler = threadData->scheduler;
+
+	scheduler->InitFirstLine(threadData->id, threadData->startLine);
+	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id); ys = scheduler->NextLine(threadData->id, ys))
 	{
+		out << "Thread id: " << threadData->id << ", line number: " << ys << endl;
 		for (int xs = 0; xs < width; xs++)
 		{
+			if(scheduler->ShouldIBreak(threadData->id, ys))
+			{
+				break;
+			}
 			double x = (((double)xs / width) - 0.5) * 2.0;
 			double y = (((double)ys / height) - 0.5) * 2.0;
 
@@ -41,7 +49,7 @@ void cRenderWorker::doWork(void)
 
 			double dist = CalculateDistance(*params, *fractal, in, &out);
 
-			dist = (double)out.iters / params->N;
+			dist = dist * 500.0;
 
 			sRGBfloat color = sRGBfloat(dist, dist, dist);
 
@@ -53,7 +61,7 @@ void cRenderWorker::doWork(void)
 
 	emit finished();
 
-	out << "Signal emited" << endl;;
+	out << "Finished: " << threadData->id << endl;;
 
 	return;
 }
