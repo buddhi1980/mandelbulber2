@@ -94,6 +94,11 @@ bool cRenderJob::InitImage(int w, int h)
 		//temporary set preview scale to 1.0
 		image->CreatePreview(1.0, imageWidget);
 
+		if(hasQWidget)
+		{
+			imageWidget->setMinimumSize(image->GetPreviewWidth(),image->GetPreviewHeight());
+		}
+
 		return true;
 	}
 }

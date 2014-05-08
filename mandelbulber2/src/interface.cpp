@@ -40,8 +40,8 @@ void cInterface::ShowUi(void)
 
 	WriteLog("Prepare RenderedImage class");
 	renderedImage = new RenderedImage(mainWindow);
-	mainWindow->ui->scrollAreaHLayout->addWidget(renderedImage);
-	mainWindow->ui->scrollAreaWidgetContents->setMinimumSize(1000,1000);
+	mainWindow->ui->scrollAreaLayoutRenderedImage->addWidget(renderedImage);
+
 	renderedImage->show();
 
 	//loading default ui for all fractal components
