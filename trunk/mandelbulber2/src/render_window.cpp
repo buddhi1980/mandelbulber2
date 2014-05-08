@@ -49,21 +49,6 @@ void RenderWindow::testSlot(void)
 	renderJob->Init(cRenderJob::still);
 	renderJob->Execute();
 
-	mainInterface->application->processEvents();
-	mainInterface->mainWindow->update();
-	mainInterface->mainWindow->ui->scrollAreaWidgetContents->update();
-
-	int width = 1000;
-	int height = 1000;
-
-	struct sRGBA
-	{
-		uchar b;
-		uchar g;
-		uchar r;
-		uchar a;
-	};
-
 	delete renderJob;
 }
 

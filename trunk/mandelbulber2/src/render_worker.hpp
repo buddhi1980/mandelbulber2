@@ -14,11 +14,13 @@
 #include "fractparams.hpp"
 #include "fractal.h"
 #include "render_image.hpp"
+#include "scheduler.hpp"
 
 struct sThreadData
 {
 	int id;
 	int startLine;
+	cScheduler *scheduler;
 };
 
 class cRenderWorker: public QObject

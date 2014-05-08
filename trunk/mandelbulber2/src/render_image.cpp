@@ -29,35 +29,54 @@ bool cRenderer::RenderImage()
 
 	out << "Start rendering" << endl;
 
-	QThread *thread = new QThread;
-
-	sThreadData threadData;
-	threadData.id = 1;
-	threadData.startLine = 0;
-
+	//prepare multiple threads
+	QThread **thread = new QThread*[data->numberOfThreads];
+	sThreadData *threadData = new sThreadData[data->numberOfThreads];
+	cRenderWorker **worker= new cRenderWorker*[data->numberOfThreads];
 	QEventLoop loop;
+	cScheduler *scheduler = new cScheduler(image->GetHeight());
 
-	cRenderWorker *worker = new cRenderWorker(params, fractal, &threadData, data, image);
-	worker->moveToThread(thread);
-	QObject::connect(worker, SIGNAL(error(const QString)), mainInterface->application, SLOT(errorString(QString)));
-	QObject::connect(thread, SIGNAL(started()), worker, SLOT(doWork()));
-	QObject::connect(worker, SIGNAL(finished()), thread, SLOT(quit()));
-	QObject::connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
-	QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-	QObject::connect(worker, SIGNAL(finished()), &loop, SLOT(quit()));
-	thread->start();
-	out << "Thread started" << endl;
+	for(int i=0; i < data->numberOfThreads; i++)
+	{
+		threadData[i].id = i + 1;
+		threadData[i].startLine = image->GetHeight()/4 * i;
+		threadData[i].scheduler = scheduler;
 
-	loop.exec();
+		thread[i] = new QThread; //Warning! not needed to delete object
+		worker[i] = new cRenderWorker(params, fractal, &threadData[i], data, image); //Warning! not needed to delete object
+		worker[i]->moveToThread(thread[i]);
+		QObject::connect(thread[i], SIGNAL(started()), worker[i], SLOT(doWork()));
+		QObject::connect(worker[i], SIGNAL(finished()), thread[i], SLOT(quit()));
+		QObject::connect(worker[i], SIGNAL(finished()), worker[i], SLOT(deleteLater()));
+		QObject::connect(thread[i], SIGNAL(finished()), thread[i], SLOT(deleteLater()));
+		QObject::connect(worker[i], SIGNAL(finished()), &loop, SLOT(quit()));
+		thread[i]->start();
+		out << "Thread " << i << " started" << endl;
+	}
+
+	while(!scheduler->AllLinesDone())
+	{
+		mainInterface->application->processEvents();
+
+		//get list of last rendered lines
+		QVector<int> list = scheduler->GetLastRenderedLines();
+		qDebug() << "Lines rendered: " << list;
+		image->CompileImage();
+		image->ConvertTo8bit();
+		image->UpdatePreview();
+		image->GetImageWidget()->update();
+	}
 
 	image->CompileImage();
 	image->ConvertTo8bit();
 	image->UpdatePreview();
+	image->GetImageWidget()->update();
 
-	mainInterface->mainWindow->update();
-	//mainInterface->mainWindow->ui->scrollAreaWidgetContents->update();
+	out << "All threads finished" << endl;
 
-	out << "Thread finished";
+	delete[] thread;
+	delete[] threadData;
+	delete[] worker;
 
 	return true;
 }

@@ -185,8 +185,6 @@ void cImage::CompileImage(void)
 {
 	if (!lowMem)
 	{
-		CalculateGammaTable();
-
 		for (int y = 0; y < height; y += progressiveFactor)
 		{
 			for (int x = 0; x < width; x += progressiveFactor)
@@ -233,6 +231,7 @@ int cImage::GetUsedMB(void)
 void cImage::SetImageParameters(sImageAdjustments adjustments)
 {
 	adj = adjustments;
+	CalculateGammaTable();
 }
 
 unsigned char* cImage::ConvertTo8bit(void)

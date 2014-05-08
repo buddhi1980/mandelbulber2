@@ -9,20 +9,25 @@
 
 cFourFractals::cFourFractals()
 {
-	fourFractals = NULL;
+	fourFractals = new cFractal*[4];
+	for(int i=0; i<4; i++)
+		fourFractals[i] = NULL;
 	DEType = fractal::deltaDE;
 }
 
 cFourFractals::~cFourFractals()
 {
-	if(fourFractals)
+	if (fourFractals)
 	{
-		for(int i=0; i<4; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			delete fourFractals[i];
+			if(fourFractals[i])
+			{
+				delete fourFractals[i];
+			}
 		}
+		//delete[] fourFractals;
 	}
-	delete[] fourFractals;
 }
 
 cFourFractals::cFourFractals(parameters::container *par)

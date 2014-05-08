@@ -63,6 +63,7 @@ public:
   sRGB8* GetColorPtr(void) {return colourBuffer;}
   unsigned short* GetOpacityPtr(void) {return opacityBuffer;}
   size_t GetZBufferSize(void) {return sizeof(float) * height * width;}
+  QWidget* GetImageWidget(void) {return imageWidget;};
 
   void CompileImage(void);
 

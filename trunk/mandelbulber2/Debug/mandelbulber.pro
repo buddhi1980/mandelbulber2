@@ -33,6 +33,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/render_job.cpp\
 	    	../src/render_window.cpp\
 	    	../src/render_worker.cpp\
+	    	../src/scheduler.cpp\
 	    	../src/system.cpp\
             ../src/texture.cpp
 

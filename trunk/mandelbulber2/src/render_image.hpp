@@ -15,8 +15,9 @@
 struct sRenderData
 {
 	int rendererID;
-	sTextures textures;
-	sRGB palette[256];
+	int numberOfThreads;
+	//sTextures textures;
+	//sRGB palette[256];
 	//textures...
 };
 
