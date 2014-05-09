@@ -9,6 +9,7 @@
 #include "render_worker.hpp"
 #include <QtCore>
 #include "calculate_distance.hpp"
+#include "region.hpp"
 
 cRenderWorker::cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal, sThreadData *_threadData, const sRenderData *_data, cImage *_image)
 {
@@ -27,6 +28,7 @@ void cRenderWorker::doWork(void)
 
 	int width = image->GetWidth();
 	int height = image->GetHeight();
+	double aspectRatio = (double)height / width;
 
 	cScheduler *scheduler = threadData->scheduler;
 
@@ -34,16 +36,23 @@ void cRenderWorker::doWork(void)
 	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id); ys = scheduler->NextLine(threadData->id, ys))
 	{
 		out << "Thread id: " << threadData->id << ", line number: " << ys << endl;
+		if(ys < data->screenRegion.y1 || ys > data->screenRegion.y2) continue;
+
 		for (int xs = 0; xs < width; xs++)
 		{
 			if(scheduler->ShouldIBreak(threadData->id, ys))
 			{
 				break;
 			}
-			double x = (((double)xs / width) - 0.5) * 2.0;
-			double y = (((double)ys / height) - 0.5) * 2.0;
 
-			CVector3 point(x, y, 0.0);
+			if(xs < data->screenRegion.x1 || xs > data->screenRegion.x2) continue;
+
+			CVector2<int> screenPoint(xs, ys);
+			CVector2<double> imagePoint = data->screenRegion.transpose(data->imageRegion, screenPoint);
+
+			imagePoint.y *= aspectRatio;
+
+			CVector3 point(imagePoint.x, imagePoint.y, 0.0);
 			sDistanceIn in(point, 0.01);
 			sDistanceOut out;
 
@@ -53,7 +62,7 @@ void cRenderWorker::doWork(void)
 
 			sRGBfloat color = sRGBfloat(dist, dist, dist);
 
-			image->PutPixelImage(xs, ys, color);
+			image->PutPixelImage(screenPoint.x, screenPoint.y, color);
 		}
 	}
 
