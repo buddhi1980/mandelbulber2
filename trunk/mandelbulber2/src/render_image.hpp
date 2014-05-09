@@ -11,13 +11,17 @@
 #include "cimage.hpp"
 #include "fractparams.hpp"
 #include "four_fractals.hpp"
+#include "region.hpp"
 
 struct sRenderData
 {
 	int rendererID;
 	int numberOfThreads;
+	cRegion<int> screenRegion;
+	cRegion<double> imageRegion;
 	//sTextures textures;
 	//sRGB palette[256];
+
 	//textures...
 };
 
