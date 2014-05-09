@@ -120,6 +120,73 @@ public:
 	double z;
 };
 
+template <typename T>
+class CVector2
+{
+public:
+	inline CVector2() : x(), y() {};
+	inline CVector2(T x_init, T y_init) : x(x_init), y(y_init) {};
+	inline CVector2(const CVector2<T> &vector)
+	{
+		x = vector.x;
+		y = vector.y;
+	}
+	inline CVector2 operator+(const CVector2 &vector) const
+	{
+		return CVector2(x + vector.x, y + vector.y);
+	}
+	inline CVector2 operator-(const CVector2 &vector) const
+	{
+		return CVector2(x - vector.x, y - vector.y);
+	}
+	inline CVector2 operator*(const double &scalar) const
+	{
+		return CVector2(x * scalar, y * scalar);
+	}
+	inline CVector2& operator=(const CVector2 &vector)
+	{
+		x = vector.x;
+		y = vector.y;
+		return *this;
+	}
+	inline CVector2& operator+=(const CVector2 &vector)
+	{
+		x += vector.x;
+		y += vector.y;
+		return *this;
+	}
+	inline CVector2& operator-=(const CVector2 &vector)
+	{
+		x -= vector.x;
+		y -= vector.y;
+		return *this;
+	}
+	inline CVector2& operator*=(const double &scalar)
+	{
+		x *= scalar;
+		y *= scalar;
+		return *this;
+	}
+	inline double Length() const
+	{
+		return sqrt(x * x + y * y);
+	}
+	inline double Dot(const CVector2& vector) const
+	{
+		return x * vector.x + y * vector.y;
+	}
+	inline double Normalize() //returns normalization factor
+	{
+		double norm = 1.0 / Length();
+		x = x * norm;
+		y = y * norm;
+		return norm;
+	}
+
+	T x;
+	T y;
+};
+
 /************************* matrix 3x3 (fast) *****************/
 class CMatrix33
 {
