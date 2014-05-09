@@ -18,7 +18,6 @@
 
 //global variables
 
-
 struct sImageAdjustments
 {
   double brightness;
@@ -65,7 +64,7 @@ public:
   size_t GetZBufferSize(void) {return sizeof(float) * height * width;}
   QWidget* GetImageWidget(void) {return imageWidget;};
 
-  void CompileImage(void);
+  void CompileImage(QVector<int> *list = NULL);
 
   int GetWidth(void) {return width;}
   int GetHeight(void) {return height;}
@@ -77,7 +76,7 @@ public:
 
   unsigned char* ConvertTo8bit(void);
   unsigned char* CreatePreview(double scale, QWidget *widget);
-  void UpdatePreview(void);
+  void UpdatePreview(QVector<int> *list = NULL);
   unsigned char* GetPreviewPtr(void);
   bool IsPreview(void);
   void RedrawInWidget(QWidget *qwidget = NULL);

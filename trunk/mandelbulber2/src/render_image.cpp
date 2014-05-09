@@ -61,9 +61,9 @@ bool cRenderer::RenderImage()
 		//get list of last rendered lines
 		QVector<int> list = scheduler->GetLastRenderedLines();
 		qDebug() << "Lines rendered: " << list;
-		image->CompileImage();
+		image->CompileImage(&list);
 		image->ConvertTo8bit();
-		image->UpdatePreview();
+		image->UpdatePreview(&list);
 		image->GetImageWidget()->update();
 	}
 
