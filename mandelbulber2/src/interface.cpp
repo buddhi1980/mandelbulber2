@@ -22,6 +22,7 @@ cInterface::cInterface()
 	application = NULL;
 	qimage = NULL;
 	renderedImage = NULL;
+	mainImage = NULL;
 }
 
 void cInterface::ShowUi(void)

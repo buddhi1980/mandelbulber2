@@ -181,33 +181,23 @@ void cImage::CalculateGammaTable(void)
 	}
 }
 
-void cImage::CompileImage(void)
+void cImage::CompileImage(QVector<int> *list)
 {
-	if (!lowMem)
+	int listIndex = 0;
+	for (int y = 0; y < height; y++)
 	{
-		for (int y = 0; y < height; y += progressiveFactor)
+		if(list)
 		{
-			for (int x = 0; x < width; x += progressiveFactor)
-			{
-				unsigned long int address = x + y * width;
-				sRGBfloat pixel = imageFloat[address];
-				sRGB16 newPixel16 = CalculatePixel(pixel);
-				image16[address] = newPixel16;
-			}
-			for (int x = 0; x <= width - progressiveFactor; x += progressiveFactor)
-			{
-				sRGB16 pixel = image16[x + y * width];
-				int alpha2 = alphaBuffer[x + y * width];
-				for (int yy = 0; yy < progressiveFactor; yy++)
-				{
-					for (int xx = 0; xx < progressiveFactor; xx++)
-					{
-						if (xx == 0 && yy == 0) continue;
-						image16[x + xx + (y + yy) * width] = pixel;
-						alphaBuffer[x + xx + (y + yy) * width] = alpha2;
-					}
-				}
-			}
+			if(listIndex >= list->size()) break;
+			y = list->at(listIndex);
+			listIndex++;
+		}
+		for (int x = 0; x < width; x++)
+		{
+			unsigned long int address = x + y * width;
+			sRGBfloat pixel = imageFloat[address];
+			sRGB16 newPixel16 = CalculatePixel(pixel);
+			image16[address] = newPixel16;
 		}
 	}
 }
@@ -294,7 +284,7 @@ unsigned char* cImage::CreatePreview(double scale, QWidget *widget = NULL)
 	return ptr;
 }
 
-void cImage::UpdatePreview(void)
+void cImage::UpdatePreview(QVector<int> *list)
 {
 	if (previewAllocated)
 	{
@@ -318,8 +308,24 @@ void cImage::UpdatePreview(void)
 			float deltaX = scaleX / countX;
 			float deltaY = scaleY / countY;
 
+			int listIndex = 0;
+
 			for (int y = 0; y < h; y++)
 			{
+
+				if(list)
+				{
+					if(listIndex >= list->size()) break;
+
+					if(scaleY * y < list->at(listIndex) - (int)scaleY - 1) continue;
+
+					while(scaleY * y - (int)scaleY - 1> list->at(listIndex))
+					{
+						listIndex++;
+						if(listIndex >= list->size()) break;
+					}
+				}
+
 				for (int x = 0; x < w; x++)
 				{
 					int R = 0;
@@ -328,6 +334,7 @@ void cImage::UpdatePreview(void)
 					for (int j = 0; j < countY; j++)
 					{
 						float yy = y * scaleY + j * deltaY;
+
 						for (int i = 0; i < countX; i++)
 						{
 							float xx = x * scaleX + i * deltaX;
