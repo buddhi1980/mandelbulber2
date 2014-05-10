@@ -21,6 +21,7 @@ protected:
 	void resizeEvent(QResizeEvent *event)
 	{
 		qDebug() << "resize event";
+		QScrollArea::resizeEvent(event);
 		emit resized(width(), height());
 	}
 

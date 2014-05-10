@@ -40,8 +40,11 @@ private slots:
 	void slotMenuSaveDocksPositions();
 	void slotChangedFractalCombo(int index);
 	void slotImageScrolledAreaResized(int width, int height);
+	void slotChangedImageScale(int index);
 
 private:
+	double ImageScaleComboSelection2Double(int index);
+
 	Ui::RenderWindow *ui;
 
 	QWidget **fractalWidgets;

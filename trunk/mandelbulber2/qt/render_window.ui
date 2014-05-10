@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1268</width>
-    <height>941</height>
+    <width>1477</width>
+    <height>935</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -45,8 +45,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>627</width>
-           <height>827</height>
+           <width>836</width>
+           <height>821</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage"/>
@@ -75,13 +75,18 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox">
+         <widget class="QComboBox" name="comboBox_imageScale">
           <property name="editable">
            <bool>true</bool>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>3</number>
           </property>
+          <item>
+           <property name="text">
+            <string>Fit to window</string>
+           </property>
+          </item>
           <item>
            <property name="text">
             <string>400%</string>
@@ -159,7 +164,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1268</width>
+     <width>1477</width>
      <height>21</height>
     </rect>
    </property>
@@ -4181,7 +4186,7 @@
           <x>0</x>
           <y>0</y>
           <width>363</width>
-          <height>103</height>
+          <height>113</height>
          </rect>
         </property>
         <attribute name="label">

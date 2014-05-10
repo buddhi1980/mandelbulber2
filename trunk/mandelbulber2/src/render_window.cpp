@@ -249,13 +249,40 @@ void RenderWindow::slotChangedFractalCombo(int index)
 
 void RenderWindow::slotImageScrolledAreaResized(int width, int height)
 {
-	qDebug() << this->sender()->objectName() << "width" << width << "height" << height;
-	double scale1 = (double)height / mainInterface->mainImage->GetHeight();
-	double scale2 = (double)width / mainInterface->mainImage->GetWidth();
-	double scale = min(scale1, scale2);
+	int selectedScale = ui->comboBox_imageScale->currentIndex();
+
+	if (selectedScale == 0)
+	{
+		double scale1 = (double)height / mainInterface->mainImage->GetHeight();
+		double scale2 = (double)width / mainInterface->mainImage->GetWidth();
+		double scale = min(scale1, scale2);
+		mainInterface->mainImage->CreatePreview(scale, mainInterface->renderedImage);
+		mainInterface->mainImage->UpdatePreview();
+		mainInterface->renderedImage->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(), mainInterface->mainImage->GetPreviewHeight());
+	}
+
+}
+
+void RenderWindow::slotChangedImageScale(int index)
+{
+	double scale = ImageScaleComboSelection2Double(index);
 	mainInterface->mainImage->CreatePreview(scale, mainInterface->renderedImage);
 	mainInterface->mainImage->UpdatePreview();
 	mainInterface->renderedImage->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(), mainInterface->mainImage->GetPreviewHeight());
+}
+
+double RenderWindow::ImageScaleComboSelection2Double(int index)
+{
+	double scales[] = {0.0, 4.0, 2.0, 1.0, 0.5, 0.25, 0.1};
+	if(index < 7)
+	{
+		return scales[index];
+	}
+	else
+	{
+		qCritical() << "Wrong image scale";
+		return -1.0;
+	}
 }
 
 //=================== rendered image widget ==================/
