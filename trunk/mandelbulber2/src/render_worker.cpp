@@ -58,7 +58,7 @@ void cRenderWorker::doWork(void)
 
 			double dist = CalculateDistance(*params, *fractal, in, &out);
 
-			dist = dist * 500.0;
+			dist = dist * width;
 
 			sRGBfloat color = sRGBfloat(dist, dist, dist);
 

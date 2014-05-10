@@ -38,7 +38,8 @@ SOURCES +=  ../src/algebra.cpp\
             ../src/texture.cpp
 
 HEADERS  += ../src/render_window.hpp\
-			../src/render_worker.hpp
+			../src/render_worker.hpp\
+			../qt/myscrolledarea.h
 
 FORMS    += ../qt/render_window.ui
 

@@ -247,6 +247,17 @@ void RenderWindow::slotChangedFractalCombo(int index)
 
 }
 
+void RenderWindow::slotImageScrolledAreaResized(int width, int height)
+{
+	qDebug() << this->sender()->objectName() << "width" << width << "height" << height;
+	double scale1 = (double)height / mainInterface->mainImage->GetHeight();
+	double scale2 = (double)width / mainInterface->mainImage->GetWidth();
+	double scale = min(scale1, scale2);
+	mainInterface->mainImage->CreatePreview(scale, mainInterface->renderedImage);
+	mainInterface->mainImage->UpdatePreview();
+	mainInterface->renderedImage->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(), mainInterface->mainImage->GetPreviewHeight());
+}
+
 //=================== rendered image widget ==================/
 
 RenderedImage::RenderedImage(QWidget *parent)

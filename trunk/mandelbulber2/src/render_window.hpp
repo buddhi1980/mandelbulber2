@@ -39,6 +39,8 @@ private slots:
 	void slotPresedOnColorButton();
 	void slotMenuSaveDocksPositions();
 	void slotChangedFractalCombo(int index);
+	void slotImageScrolledAreaResized(int width, int height);
+
 private:
 	Ui::RenderWindow *ui;
 
@@ -62,6 +64,9 @@ public:
 protected:
 	void paintEvent(QPaintEvent *event);
 };
+
+
+
 
 
 #endif // _RENDER_WINDOW_H
