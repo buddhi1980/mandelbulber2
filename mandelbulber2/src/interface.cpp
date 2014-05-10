@@ -64,6 +64,8 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->comboBox_formula_3, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
 	QApplication::connect(mainWindow->ui->comboBox_formula_4, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
 
+	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow, SLOT(slotImageScrolledAreaResized(int, int)));
+
 	ConnectSignalsForSlidersInWindow(mainWindow);
 	MakeColorButtonsInWindow(mainWindow);
 }
