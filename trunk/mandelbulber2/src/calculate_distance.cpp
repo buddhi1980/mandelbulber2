@@ -35,7 +35,8 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 		}
 	}
 
-	sFractalIn fractIn(in.point, params.juliaC, params.minN, params.N);
+	int N = in.normalCalculationMode ? params.N * 5 : params.N;
+	sFractalIn fractIn(in.point, params.juliaC, params.minN, N);
 	sFractalOut fractOut;
 
 	if(!params.primitives.plane.onlyPlane)
@@ -52,7 +53,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 
 			if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
 
-			if (params.interiorMode && !params.normalCalculationMode)
+			if (params.interiorMode && !in.normalCalculationMode)
 			{
 				if (distance < 0.5 * in.detailSize || fractOut.maxiter)
 				{
@@ -60,7 +61,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 					out->maxiter = false;
 				}
 			}
-			else if(params.interiorMode && params.normalCalculationMode)
+			else if(params.interiorMode && in.normalCalculationMode)
 			{
 				if (distance < 0.9 * in.detailSize)
 				{
@@ -124,7 +125,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 
 			if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
 
-			if (params.interiorMode && !params.normalCalculationMode)
+			if (params.interiorMode && !in.normalCalculationMode)
 			{
 				if (distance < 0.5 * in.detailSize || maxiter)
 				{
@@ -132,7 +133,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 					out->maxiter = false;
 				}
 			}
-			else if(params.interiorMode && params.normalCalculationMode)
+			else if(params.interiorMode && in.normalCalculationMode)
 			{
 				if (distance < 0.9 * in.detailSize)
 				{

@@ -70,8 +70,8 @@ bool cRenderJob::Init(enumMode _mode)
 	}
 
 	//here will be total number of CPU cores in the network
-	totalNumberOfCPUs = systemData.numberOfThreads;
-	//totalNumberOfCPUs = 1;
+	//totalNumberOfCPUs = systemData.numberOfThreads;
+	totalNumberOfCPUs = 1;
 
 	//here will be also preparation of random lights, textures and animation keyframe interpolation
 	ready = true;
@@ -119,6 +119,8 @@ bool cRenderJob::Execute(void)
 	data->numberOfThreads = totalNumberOfCPUs;
 	data->imageRegion.Set(-1.0, -1.0, 1.0, 1.0);
 	data->screenRegion.Set(0, 0, width, height);
+	data->lights.Set(paramsContainer, fractalContainer);
+	params->resolution = 1.0/image->GetWidth();
 
 	//create and execute renderer
 	cRenderer *renderer = new cRenderer(params, fourFractals, data, image);

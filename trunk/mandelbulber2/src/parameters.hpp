@@ -15,6 +15,7 @@
 #include <QtCore>
 #include "algebra.hpp"
 #include "color_structures.hpp"
+#include "color_palette.hpp"
 
 namespace parameters
 {
@@ -75,17 +76,17 @@ private:
 	varType Assigner(sMultiVal &multi, CVector3 val);
 	varType Assigner(sMultiVal &multi, sRGB val);
 	varType Assigner(sMultiVal &multi, bool val);
-	varType Assigner(sMultiVal &multi, sRGB val[256]);
+	varType Assigner(sMultiVal &multi, cColorPalette *val);
 	varType Getter(sMultiVal multi, double &val) const;
 	varType Getter(sMultiVal multi, int &val) const;
 	varType Getter(sMultiVal multi, QString &val) const;
 	varType Getter(sMultiVal multi, CVector3 &val) const;
 	varType Getter(sMultiVal multi, sRGB &val) const;
 	varType Getter(sMultiVal multi, bool &val) const;
-	varType Getter(sMultiVal multi, sRGB val[256]) const;
+	varType Getter(sMultiVal multi, cColorPalette &val) const;
 	QString nameWithIndex(QString *str, int index) const;
 	void clearMultiVal(sMultiVal &multiVal);
-	QString MakePaletteString(sRGB palette[256]);
+	QString MakePaletteString(cColorPalette *palette);
 
 	//std::map contairer
 	QMap<QString, sRecord> myMap;

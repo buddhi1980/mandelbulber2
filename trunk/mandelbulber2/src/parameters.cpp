@@ -57,7 +57,7 @@ template void container::addParam<QString>(QString name, QString defaultVal, boo
 template void container::addParam<CVector3>(QString name, CVector3 defaultVal, bool morphable);
 template void container::addParam<sRGB>(QString name, sRGB defaultVal, bool morphable);
 template void container::addParam<bool>(QString name, bool defaultVal, bool morphable);
-template void container::addParam<sRGB*>(QString name, sRGB *defaultVal, bool morphable);
+template void container::addParam<cColorPalette*>(QString name, cColorPalette *defaultVal, bool morphable);
 
 //defining of params with limits
 template<class T>
@@ -239,10 +239,10 @@ varType container::Assigner(sMultiVal &multi, bool val)
 	return typeBool;
 }
 
-varType container::Assigner(sMultiVal &multi, sRGB val[256])
+varType container::Assigner(sMultiVal &multi, cColorPalette *val)
 {
 	clearMultiVal(multi);
-//	multi.sVal = MakePaletteString(val);
+  multi.sVal = MakePaletteString(val);
 	return typeBool;
 }
 
@@ -493,14 +493,15 @@ void container::clearMultiVal(sMultiVal &multiVal)
 	multiVal.sVal.clear();
 }
 
-QString container::MakePaletteString(sRGB palette[256])
+QString container::MakePaletteString(cColorPalette *palette)
 {
 	int length;
 	int pointer = 0;
 	char *paletteString = new char[257 * 7];
 	for (int i = 0; i < 256; i++)
 	{
-		int colour = palette[i].R * 65536 + palette[i].G * 256 + palette[i].B;
+		sRGB colorRGB = palette->GetColor(i);
+		int colour = colorRGB.R * 65536 + colorRGB.G * 256 + colorRGB.B;
 		colour = colour & 0x00FFFFFF;
 		length = sprintf(&paletteString[pointer], "%x ", colour);
 		pointer += length;

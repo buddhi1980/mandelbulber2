@@ -26,6 +26,7 @@ struct sFractalOut
 	CVector3 z;
 	double distance;
 	double colorIndex;
+	double fakeAO;
 	int iters;
 	bool maxiter;
 };

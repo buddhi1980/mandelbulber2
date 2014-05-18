@@ -82,9 +82,8 @@ public:
 	bool constantDEThreshold;
 	bool continueRecord; //continue recording mode
 	bool DOFEnabled;
+	bool envMappingEnable;
 	bool fakeLightsEnabled;
-	bool fastGlobalIllumination; //enable fake global ilumination
-	bool fishEyeCut;
 	bool fogEnabled;
 	bool glowEnabled;
 	bool hybridCyclic;
@@ -96,7 +95,6 @@ public:
 	bool linearDEmode;
 	bool mainLightEnable;
 	bool mainLightPositionAsRelative;
-	bool normalCalculationMode;
 	bool penetratingLights;
 	bool playMode; //play mode
 	bool quiet;
@@ -105,7 +103,6 @@ public:
 	bool shadow; //enable shadows
 	bool slowShading; //enable fake gradient calculation for shading
 	bool sphericalFoldingMode;  // spherical folding mode
-	bool SSAOEnabled;
 	bool stereoEnabled;
 	bool texturedBackground; //enable testured background
 	bool tgladFoldingMode;		// Tglad's folding mode
@@ -165,7 +162,6 @@ public:
   double mainLightVisibility;
   double mainLightVisibilitySize;
   double paletteOffset;
-
   double reflect;
 	double resolution; //resolution of image in fractal coordinates
 	double shading;
@@ -176,7 +172,7 @@ public:
 	double viewDistanceMax;
 	double viewDistanceMin;
 	double volumetricLightIntensity[5];
-	double zoom; //zoom
+	double cameraDistanceToTarget; //zoom
 
 	sImageAdjustments imageAdjustments;
 
@@ -187,8 +183,8 @@ public:
 	CVector3 limitMin;
 	CVector3 limitMax;
 	CVector3 target;
+	CVector3 camera; //view point
 	CVector3 viewAngle;
-	CVector3 vp; //view point
 
 	double settingsVersion;
 

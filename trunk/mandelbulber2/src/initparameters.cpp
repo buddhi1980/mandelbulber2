@@ -13,6 +13,7 @@
 #include "fractal_list.hpp"
 #include "parameters.hpp"
 #include "system.hpp"
+#include "color_palette.hpp"
 #include <QtCore>
 
 //definition of all parameters
@@ -46,13 +47,12 @@ void InitParams(parameters::container *par)
 	par->SetToSave("continue_record_mode", false);
 
 	//camera
-	par->addParam("view_point", CVector3(0.0, 0.0, 0.0), true);
-	par->addParam("view_angle", CVector3(-20.0, 30.0, 0.0), true);
+	par->addParam("camera", CVector3(-3.0, -3.0, -3.0), true);
 	par->addParam("target", CVector3(0.0, 0.0, 0.0), true);
-	par->addParam("zoom", 2.5, 0.0, 1e15, true);
+	par->addParam("view_angle", CVector3(-20.0, 30.0, 0.0), true);
+	par->addParam("cameraDistanceToTarget", 2.5, 0.0, 1e15, true);
 	par->addParam("fov", 0.5, 0.0, 100.0, true);
 	par->addParam("perspective_type", 0, false);
-	par->addParam("fish_eye_180cut", false, false);
 	par->addParam("stereo_eye_distance", 1.0, true);
 	par->addParam("stereo_enabled", false, false);
 
@@ -111,6 +111,7 @@ void InitParams(parameters::container *par)
 	par->addParam("penetrating_lights", true, true);
 	par->addParam("raytraced_reflections", false, true);
 	par->addParam("reflections_max", 5, 0, 10, false);
+	par->addParam("env_mapping_enable", false, true);
 
 	par->addParam("glow_color", 1, sRGB(40984, 44713, 49490), true);
 	par->addParam("glow_color", 2, sRGB(57192, 60888, 62408), true);
@@ -147,7 +148,6 @@ void InitParams(parameters::container *par)
 	par->addParam("basic_fog_enabled", false, true);
 	par->addParam("basic_fog_visibility", 20.0, true);
 	par->addParam("basic_fog_color", sRGB(59399, 61202, 65535), true);
-	par->addParam("post_SSAO_enabled", true, true);
 	par->addParam("DOF_enabled", false, true);
 	par->addParam("DOF_focus", 166.0, 0.0, 200.0, true);
 	par->addParam("DOF_radius", 10.0, 0.0, 200.0, true);
@@ -270,10 +270,8 @@ void InitParams(parameters::container *par)
 	par->addParam("file_keyframes", QString("keyframes/keyframe"), false);
 
 	//color palette
-	//sRGB palette[256];
-	//srand(par->Get<int>("coloring_random_seed"));
-	//NewPalette(palette, 1.0);
-	//par->addParam("palette", palette, false);
+	cColorPalette palette(par->Get<int>("coloring_random_seed"), 1.0);
+	par->addParam("palette", &palette, false);
 
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), true);

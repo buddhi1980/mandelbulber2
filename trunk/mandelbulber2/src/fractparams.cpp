@@ -17,7 +17,7 @@ cParamRender::cParamRender(const parameters::container *container)
 	constantFactor = container->Get<double>("fractal_constant_factor");
 	DEFactor = container->Get<double>("DE_factor");
 	DEThresh = container->Get<double>("DE_thresh");
-	fishEyeCut = container->Get<bool>("fish_eye_180cut");
+	detailLevel = container->Get<double>("detail_level");
 	fov = container->Get<double>("fov");
 	imageHeight = container->Get<int>("image_height");
 	imageWidth = container->Get<int>("image_width");
@@ -35,11 +35,12 @@ cParamRender::cParamRender(const parameters::container *container)
 	smoothness = container->Get<double>("smoothness");
 	target = container->Get<CVector3>("target");
 	tileNumber = container->Get<int>("tile_number");
-	viewAngle = container->Get<CVector3>("view_angle");
 	viewDistanceMax = container->Get<double>("view_distance_max");
 	viewDistanceMin = container->Get<double>("view_distance_min");
-	vp = container->Get<CVector3>("view_point");
-	zoom = container->Get<double>("zoom");
+	camera = container->Get<CVector3>("camera");
+	target = container->Get<CVector3>("target");
+	viewAngle = container->Get<CVector3>("view_angle");
+	cameraDistanceToTarget = container->Get<double>("cameraDistanceToTarget");
 	interiorMode = container->Get<bool>("limits_enabled");
 	linearDEmode = container->Get<bool>("linear_DE_mode");
 	constantDEThreshold = container->Get<bool>("constant_DE_threshold");
@@ -64,6 +65,7 @@ cParamRender::cParamRender(const parameters::container *container)
 	penetratingLights = container->Get<bool>("penetrating_lights");
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
 	reflectionsMax = container->Get<int>("reflections_max");
+	envMappingEnable = container->Get<bool>("env_mapping_enable");
 	glowColor1 = container->Get<sRGB>("glow_color", 1);
 	glowColor2 = container->Get<sRGB>("glow_color", 2);
 	background_color1 = container->Get<sRGB>("background_color", 1);
@@ -93,7 +95,6 @@ cParamRender::cParamRender(const parameters::container *container)
 	fogEnabled = container->Get<bool>("basic_fog_enabled");
 	fogVisibility = container->Get<double>("basic_fog_visibility");
 	fogColor = container->Get<sRGB>("basic_fog_color");
-	SSAOEnabled = container->Get<bool>("post_SSAO_enabled");
 	DOFEnabled = container->Get<bool>("DOF_enabled");
 	DOFFocus = container->Get<double>("DOF_focus");
 	DOFRadius = container->Get<double>("DOF_radius");
@@ -169,6 +170,13 @@ cParamRender::cParamRender(const parameters::container *container)
 	primitives.water.animSpeed = container->Get<double>("primitive_water_anim_speed");
 	primitives.water.colour = container->Get<sRGB>("primitive_water_colour");
 	primitives.water.reflect = container->Get<double>("primitive_water_reflect");
+
+	auxLightDistributionRadius = container->Get<double>("aux_light_distribution_radius");
+	auxLightIntensity = container->Get<double>("aux_light_intensity");
+	auxLightNumber = container->Get<int>("aux_light_number");
+	auxLightMaxDist = container->Get<double>("aux_light_max_dist");
+	auxLightVisibility = container->Get<double>("aux_light_visibility");
+	auxLightRandomSeed = container->Get<int>("aux_light_random_seed");
 
 	//formula = Get<int>("tile_number");
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1477</width>
-    <height>935</height>
+    <width>1533</width>
+    <height>1087</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -45,8 +45,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>836</width>
-           <height>821</height>
+           <width>868</width>
+           <height>973</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage"/>
@@ -164,7 +164,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1477</width>
+     <width>1533</width>
      <height>21</height>
     </rect>
    </property>
@@ -586,14 +586,11 @@
            <number>2</number>
           </property>
           <item>
-           <widget class="QFrame" name="vect3_view_point">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
+           <widget class="QGroupBox" name="groupBox_cameraPosition">
+            <property name="title">
+             <string>Camera</string>
             </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_14">
+            <layout class="QVBoxLayout" name="verticalLayout_5">
              <property name="spacing">
               <number>2</number>
              </property>
@@ -601,50 +598,216 @@
               <number>2</number>
              </property>
              <item>
-              <layout class="QFormLayout" name="formLayout_coordinates_4">
-               <property name="fieldGrowthPolicy">
-                <enum>QFormLayout::ExpandingFieldsGrow</enum>
+              <widget class="QFrame" name="vect3_camera">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
                </property>
-               <property name="horizontalSpacing">
-                <number>5</number>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
                </property>
-               <property name="verticalSpacing">
-                <number>1</number>
-               </property>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_18">
-                 <property name="text">
-                  <string>x:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLineEdit" name="vect3_view_point_x"/>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_19">
-                 <property name="text">
-                  <string>y:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="vect3_view_point_y"/>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_20">
-                 <property name="text">
-                  <string>z:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="vect3_view_point_z"/>
-               </item>
-              </layout>
+               <layout class="QVBoxLayout" name="verticalLayout_14">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <property name="margin">
+                 <number>2</number>
+                </property>
+                <item>
+                 <layout class="QFormLayout" name="formLayout_coordinates_4">
+                  <property name="fieldGrowthPolicy">
+                   <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                  </property>
+                  <property name="horizontalSpacing">
+                   <number>5</number>
+                  </property>
+                  <property name="verticalSpacing">
+                   <number>1</number>
+                  </property>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_18">
+                    <property name="text">
+                     <string>x:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QLineEdit" name="vect3_camera_x"/>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_19">
+                    <property name="text">
+                     <string>y:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QLineEdit" name="vect3_camera_y"/>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_20">
+                    <property name="text">
+                     <string>z:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QLineEdit" name="vect3_camera_z"/>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
              </item>
             </layout>
            </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_targetPosition">
+            <property name="title">
+             <string>Target</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_54">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="margin">
+              <number>2</number>
+             </property>
+             <item>
+              <widget class="QFrame" name="vect3_target">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_55">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <property name="margin">
+                 <number>2</number>
+                </property>
+                <item>
+                 <layout class="QFormLayout" name="formLayout_coordinates_9">
+                  <property name="fieldGrowthPolicy">
+                   <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                  </property>
+                  <property name="horizontalSpacing">
+                   <number>5</number>
+                  </property>
+                  <property name="verticalSpacing">
+                   <number>1</number>
+                  </property>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_121">
+                    <property name="text">
+                     <string>x:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QLineEdit" name="vect3_target_x"/>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_122">
+                    <property name="text">
+                     <string>y:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QLineEdit" name="vect3_target_y"/>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_123">
+                    <property name="text">
+                     <string>z:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QLineEdit" name="vect3_target_z"/>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_movementMode">
+            <item>
+             <property name="text">
+              <string>Fixed camera-target distance</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Move camera</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Move target</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_24">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_124">
+              <property name="text">
+               <string>Camera distance
+to target:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="logedit_cameraDistanceToTarget">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="2">
+             <widget class="QSlider" name="logslider_cameraDistanceToTarget">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="sizeIncrement">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="minimum">
+               <number>-1500</number>
+              </property>
+              <property name="maximum">
+               <number>300</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
            <layout class="QGridLayout" name="gridLayout_arrows">
@@ -878,17 +1041,17 @@
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="radioButton">
-            <property name="text">
-             <string>absolute step</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_2">
-            <property name="text">
-             <string>relative step</string>
-            </property>
+           <widget class="QComboBox" name="comboBox_">
+            <item>
+             <property name="text">
+              <string>Absolute step mode</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Relative step mode</string>
+             </property>
+            </item>
            </widget>
           </item>
          </layout>
@@ -900,6 +1063,9 @@
           <string>Camera rotation:</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="spacing">
+           <number>2</number>
+          </property>
           <property name="margin">
            <number>2</number>
           </property>
@@ -932,36 +1098,64 @@
                <item row="0" column="0">
                 <widget class="QLabel" name="label_15">
                  <property name="text">
-                  <string>alpha:</string>
+                  <string>yaw:</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QLineEdit" name="vect3_view_angle_x"/>
+                <widget class="QLineEdit" name="vect3_camera_rotaion_x"/>
                </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="label_16">
                  <property name="text">
-                  <string>beta:</string>
+                  <string>pitch:</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QLineEdit" name="vect3_view_angle_y"/>
+                <widget class="QLineEdit" name="vect3_camera_rotaion_y"/>
                </item>
                <item row="2" column="0">
                 <widget class="QLabel" name="label_17">
                  <property name="text">
-                  <string>gamma:</string>
+                  <string>roll:</string>
                  </property>
                 </widget>
                </item>
                <item row="2" column="1">
-                <widget class="QLineEdit" name="vect3_view_angle_z"/>
+                <widget class="QLineEdit" name="vect3_camera_rotaion_z"/>
                </item>
               </layout>
              </item>
             </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_cameraRotationMode">
+            <item>
+             <property name="text">
+              <string>Rotate camera</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Rotate around target</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_cameraRotationMode_2">
+            <item>
+             <property name="text">
+              <string>Fixed roll angle</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Staight rotation</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item>
@@ -1240,8 +1434,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>347</width>
-          <height>186</height>
+          <width>363</width>
+          <height>226</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1264,7 +1458,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>328</width>
+              <width>344</width>
               <height>469</height>
              </rect>
             </property>
@@ -1831,8 +2025,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>343</width>
-              <height>87</height>
+              <width>359</width>
+              <height>127</height>
              </rect>
             </property>
             <attribute name="label">
@@ -1903,7 +2097,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>328</width>
+              <width>344</width>
               <height>685</height>
              </rect>
             </property>
@@ -2418,7 +2612,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>328</width>
+              <width>344</width>
               <height>230</height>
              </rect>
             </property>
@@ -2561,7 +2755,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>328</width>
+              <width>344</width>
               <height>1543</height>
              </rect>
             </property>
@@ -4110,8 +4304,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>100</width>
-                  <height>30</height>
+                  <width>68</width>
+                  <height>16</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -4138,8 +4332,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>100</width>
-                  <height>30</height>
+                  <width>68</width>
+                  <height>16</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -4166,8 +4360,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>100</width>
-                  <height>30</height>
+                  <width>68</width>
+                  <height>16</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -4186,7 +4380,7 @@
           <x>0</x>
           <y>0</y>
           <width>363</width>
-          <height>113</height>
+          <height>133</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4223,7 +4417,7 @@
           <x>0</x>
           <y>0</y>
           <width>347</width>
-          <height>532</height>
+          <height>534</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -4238,13 +4432,6 @@
               <property name="spacing">
                <number>2</number>
               </property>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_103">
-                <property name="text">
-                 <string>Max. fractal iterations:</string>
-                </property>
-               </widget>
-              </item>
               <item row="1" column="1">
                <widget class="QSlider" name="sliderInt_N">
                 <property name="minimum">
@@ -4561,6 +4748,13 @@
                   </layout>
                  </item>
                 </layout>
+               </widget>
+              </item>
+              <item row="0" column="0" rowspan="2">
+               <widget class="QLabel" name="label_103">
+                <property name="text">
+                 <string>Max. fractal iterations:</string>
+                </property>
                </widget>
               </item>
              </layout>
