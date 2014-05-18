@@ -14,6 +14,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	CVector3 z = in.point;
 	double r = z.Length();
 	CVector3 c = z;
+	double minimumR = 1e20;
 
 	sMandelbulbAux bulbAux;
 	bulbAux.r_dz = 1.0;
@@ -68,6 +69,12 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			if (i == in.maxN)
 				break;
 		}
+		else if (Mode == fractal::colouring)
+		{
+			if (r < minimumR) minimumR = r;
+			if (r > 1e15)
+				break;
+		}
 	}
 
 	//final calculations
@@ -84,6 +91,20 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				break;
 		}
 	}
+	//color calculation
+	else if(Mode == fractal::colouring)
+	{
+		switch (defaultFractal->formula)
+		{
+			case fractal::mandelbulb:
+				out->colorIndex = minimumR * 5000.0;
+				break;
+
+			default:
+				out->colorIndex = 0.0;
+				break;
+		}
+	}
 	else
 	{
 		out->distance = 0.0;
@@ -95,6 +116,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 template void Compute<fractal::normal>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
 template void Compute<fractal::deltaDE1>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
 template void Compute<fractal::deltaDE2>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
+template void Compute<fractal::colouring>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
 
 
 //========================= OLD ========================

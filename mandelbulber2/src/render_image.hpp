@@ -12,6 +12,8 @@
 #include "fractparams.hpp"
 #include "four_fractals.hpp"
 #include "region.hpp"
+#include "color_palette.hpp"
+#include "lights.hpp"
 
 struct sRenderData
 {
@@ -19,10 +21,9 @@ struct sRenderData
 	int numberOfThreads;
 	cRegion<int> screenRegion;
 	cRegion<double> imageRegion;
-	//sTextures textures;
-	//sRGB palette[256];
-
-	//textures...
+	sTextures textures;
+	cColorPalette palette;
+	cLights lights;
 };
 
 class cRenderer

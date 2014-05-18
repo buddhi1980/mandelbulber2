@@ -107,7 +107,7 @@ public:
 		z = z * norm;
 		return norm;
 	}
-	inline double GetAlfa() const
+	inline double GetAlpha() const
 	{
 		return atan2(y, x);
 	}

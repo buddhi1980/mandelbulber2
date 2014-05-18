@@ -17,7 +17,7 @@ class cFourFractals
 public:
 	cFourFractals();
 	~cFourFractals();
-	cFourFractals(parameters::container *par);
+	cFourFractals(const parameters::container *par);
 	cFractal* GetFractal(int index) const {return fourFractals[index];}
 	cFractal **fourFractals;
 	fractal::enumDEType DEType;

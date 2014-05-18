@@ -30,7 +30,7 @@ cFourFractals::~cFourFractals()
 	}
 }
 
-cFourFractals::cFourFractals(parameters::container *par)
+cFourFractals::cFourFractals(const parameters::container *par)
 {
 	fourFractals = new cFractal*[4];
 	for(int i = 0; i < 4; i++)

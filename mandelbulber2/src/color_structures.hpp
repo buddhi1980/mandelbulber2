@@ -35,6 +35,16 @@ struct sRGBfloat
 	sRGBfloat(){R = 0.0; G = 0.0; B = 0.0;}
 };
 
+struct sRGBAfloat
+{
+	float R;
+	float G;
+	float B;
+	float A;
+	sRGBAfloat(float r, float g, float b, float a) : R(r), G(g), B(b), A(a) {};
+	sRGBAfloat(){R = 0.0; G = 0.0; B = 0.0; A = 1.0;}
+};
+
 struct sRGB
 {
 	int R;

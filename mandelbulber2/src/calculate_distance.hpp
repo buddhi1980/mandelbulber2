@@ -16,7 +16,9 @@ struct sDistanceIn
 {
 	CVector3 point;
 	double detailSize;
-	sDistanceIn(CVector3 _point, double _detailSize) : point(_point), detailSize(_detailSize) {};
+	bool normalCalculationMode;
+	sDistanceIn(CVector3 _point, double _detailSize, bool _normalCalculationMode) :
+			point(_point), detailSize(_detailSize), normalCalculationMode(_normalCalculationMode) {};
 };
 
 struct sDistanceOut
