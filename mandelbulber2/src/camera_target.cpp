@@ -20,7 +20,7 @@ void cCameraTarget::SetCameraTarget(CVector3 _camera, CVector3 _target, CVector3
 	viewVector = (target - camera);
 	viewVector.Normalize();
 	distance = (target - camera).Length();
-	yaw = viewVector.GetAlpha();
+	yaw = viewVector.GetAlpha() - 0.5*M_PI;
 	pitch = viewVector.GetBeta();
 	roll = _rotation.z;
 }

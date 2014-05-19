@@ -10,6 +10,7 @@
 
 #include "parameters.hpp"
 #include "cimage.hpp"
+#include "render_image.hpp"
 
 class cRenderJob
 {
@@ -32,6 +33,7 @@ private:
 	parameters::container *paramsContainer;
 	parameters::container *fractalContainer;
 	cImage *image;
+	sRenderData *renderData;
 	int width;
 	int height;
 	enumMode mode;
