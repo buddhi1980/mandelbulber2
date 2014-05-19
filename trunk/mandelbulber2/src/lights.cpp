@@ -21,6 +21,20 @@ cLights::cLights()
 
 cLights::cLights(const parameters::container *_params, const parameters::container *_fractal)
 {
+	Set(_params, _fractal);
+}
+
+cLights::~cLights()
+{
+	if(lights)
+	{
+		delete lights;
+		lights = NULL;
+	}
+}
+
+void cLights::Set(const parameters::container *_params, const parameters::container *_fractal)
+{
 	WriteLog("Preparation of lights started");
 	//move parameters from containers to structures
 	const cParamRender *params = new cParamRender(_params);
@@ -108,20 +122,6 @@ cLights::cLights(const parameters::container *_params, const parameters::contain
 	delete fourFractals;
 
 	WriteLog("Preparation of lights finished");
-}
-
-cLights::~cLights()
-{
-	if(lights)
-	{
-		delete lights;
-		lights = NULL;
-	}
-}
-
-void cLights::Set(const parameters::container *_params, const parameters::container *_fractal)
-{
-	cLights(_params, _fractal);
 }
 
 cLights::sLight cLights::GetLight(int index) const

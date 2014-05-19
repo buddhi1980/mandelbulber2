@@ -31,9 +31,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	if (params->mainLightEnable)
 	{
 		shade = MainShading(input);
-		shade.R = params->directLight * ((1.0 - params->shading) + params->shading * shade.R);
-		shade.G = params->directLight * ((1.0 - params->shading) + params->shading * shade.G);
-		shade.B = params->directLight * ((1.0 - params->shading) + params->shading * shade.B);
+		shade.R = params->mainLightIntensity * ((1.0 - params->shading) + params->shading * shade.R);
+		shade.G = params->mainLightIntensity * ((1.0 - params->shading) + params->shading * shade.G);
+		shade.B = params->mainLightIntensity * ((1.0 - params->shading) + params->shading * shade.B);
 	}
 
 	//calculate shadow
@@ -834,7 +834,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 			{
 				sFractalIn fractIn(input.point, params->juliaC, 0, params->N * 10);
 				sFractalOut fractOut;
-				Compute<fractal::normal>(*fractal, fractIn, &fractOut);
+				Compute<fractal::colouring>(*fractal, fractIn, &fractOut);
 				int nrCol = floor(fractOut.colorIndex);
 				nrCol = abs(nrCol) % (248 * 256);
 

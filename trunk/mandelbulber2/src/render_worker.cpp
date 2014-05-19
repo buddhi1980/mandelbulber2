@@ -66,7 +66,8 @@ void cRenderWorker::doWork(void)
 {
 	// here will be rendering thread
 	QTextStream out(stdout);
-	out << "Thread start confirmed - id: " << threadData->id << endl;
+
+	cParamRender par = *params;
 
 	int width = image->GetWidth();
 	int height = image->GetHeight();
@@ -87,7 +88,7 @@ void cRenderWorker::doWork(void)
 	//main loop for y
 	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id); ys = scheduler->NextLine(threadData->id, ys))
 	{
-		out << "Thread id: " << threadData->id << ", line number: " << ys << endl;
+		//out << "Thread id: " << threadData->id << ", line number: " << ys << endl;
 
 		//skip if line is out of region
 		if (ys < data->screenRegion.y1 || ys > data->screenRegion.y2) continue;
@@ -116,7 +117,6 @@ void cRenderWorker::doWork(void)
 
 			//calculate direction of ray-marching
 			CVector3 viewVector = calculateViewVector(imagePoint);
-
 
 			//Ray marching
 			CVector3 point;
@@ -162,6 +162,8 @@ void cRenderWorker::doWork(void)
 				reflectBuff[ray].distThresh = rayMarchingOut.distThresh;
 				reflectBuff[ray].objectType = rayMarchingOut.object;
 				reflectBuff[ray].reflect = ReflectValueForObject(rayMarchingOut.object);
+				reflectBuff[ray].lastDist = rayMarchingOut.lastDist;
+				reflectBuff[ray].found = rayMarchingOut.found;
 
 				rayEnd = ray;
 				if(!reflectBuff[ray].found) break;
@@ -464,6 +466,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		sDistanceIn distanceIn(point, distThresh, false);
 		sDistanceOut distanceOut;
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		out->object = distanceOut.object;
 
 		//printf("Distance = %g\n", dist/distThresh);
 		inOut->stepBuff[i].distance = dist;
@@ -531,6 +534,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			sDistanceIn distanceIn(point, distThresh, false);
 			sDistanceOut distanceOut;
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+			out->object = distanceOut.object;
 
 			if(distanceOut.iters < 256)
 				histogramIters[distanceOut.iters]++;

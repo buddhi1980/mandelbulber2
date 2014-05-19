@@ -104,7 +104,7 @@ int cScheduler::NextLine(int threadId, int actualLine)
 					maxHole = holeSize;
 					//next line should be in the middle of the biggest gap
 					nextLine = (lastFree + firstFree) / 2;
-					out << "Jump Id: " << threadId  << " first: " << firstFree << " last: " << lastFree << endl;
+					//out << "Jump Id: " << threadId  << " first: " << firstFree << " last: " << lastFree << endl;
 				}
 			}
 		}

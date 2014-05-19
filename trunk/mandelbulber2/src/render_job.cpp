@@ -10,7 +10,6 @@
 #include "system.hpp"
 #include "fractparams.hpp"
 #include "four_fractals.hpp"
-#include "render_image.hpp"
 
 
 cRenderJob::cRenderJob(const parameters::container *_params, const parameters::container *_fractal, cImage *_image, QWidget *_qwidget)
@@ -42,6 +41,8 @@ cRenderJob::cRenderJob(const parameters::container *_params, const parameters::c
 	}
 
 	totalNumberOfCPUs = systemData.numberOfThreads;
+	renderData = NULL;
+
 	id++;
 }
 int cRenderJob::id = 0;
@@ -51,6 +52,7 @@ cRenderJob::~cRenderJob()
 	id--;
 	delete paramsContainer;
 	delete[] fractalContainer;
+	if(renderData) delete renderData;
 	WriteLog("Job finished and closed");
 }
 
@@ -70,10 +72,19 @@ bool cRenderJob::Init(enumMode _mode)
 	}
 
 	//here will be total number of CPU cores in the network
-	//totalNumberOfCPUs = systemData.numberOfThreads;
-	totalNumberOfCPUs = 1;
+	totalNumberOfCPUs = systemData.numberOfThreads;
+	//totalNumberOfCPUs = 1;
 
-	//here will be also preparation of random lights, textures and animation keyframe interpolation
+	//aux renderer data
+	if(renderData) delete renderData;
+	renderData = new sRenderData;
+	renderData->rendererID = id;
+	renderData->numberOfThreads = totalNumberOfCPUs;
+	renderData->imageRegion.Set(-1.0, -1.0, 1.0, 1.0);
+	renderData->screenRegion.Set(0, 0, width, height);
+	renderData->lights.Set(paramsContainer, fractalContainer);
+	renderData->palette = cColorPalette(12345, 1.0);
+
 	ready = true;
 	return true;
 }
@@ -113,22 +124,15 @@ bool cRenderJob::Execute(void)
 	cParamRender *params = new cParamRender(paramsContainer);
 	cFourFractals *fourFractals = new cFourFractals(fractalContainer);
 
-	//aux renderer data
-	sRenderData *data = new sRenderData;
-	data->rendererID = id;
-	data->numberOfThreads = totalNumberOfCPUs;
-	data->imageRegion.Set(-1.0, -1.0, 1.0, 1.0);
-	data->screenRegion.Set(0, 0, width, height);
-	data->lights.Set(paramsContainer, fractalContainer);
+	//recalculation of some parameters;
 	params->resolution = 1.0/image->GetWidth();
 
 	//create and execute renderer
-	cRenderer *renderer = new cRenderer(params, fourFractals, data, image);
-	bool result = renderer->RenderImage();
+	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image);
+	renderer->RenderImage();
 
 	delete params;
 	delete fourFractals;
-	delete data;
 	delete renderer;
 	inProgress = false;
 	return true;

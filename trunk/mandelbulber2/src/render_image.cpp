@@ -6,6 +6,8 @@
  */
 
 #include "render_image.hpp"
+
+#include <png.h>
 #include <QtCore>
 
 #include "system.hpp"
@@ -57,6 +59,7 @@ bool cRenderer::RenderImage()
 	while(!scheduler->AllLinesDone())
 	{
 		mainInterface->application->processEvents();
+		usleep(1000000);
 
 		//get list of last rendered lines
 		QVector<int> list = scheduler->GetLastRenderedLines();
