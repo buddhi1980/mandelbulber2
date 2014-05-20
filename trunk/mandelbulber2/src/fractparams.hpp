@@ -125,7 +125,6 @@ public:
 	sRGB glowColor2;
 	sRGB mainLightColour;
 
-  double ambient;
   double ambientOcclusion;
 	double ambientOcclusionFastTune;
 	double auxLightDistributionRadius;

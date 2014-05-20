@@ -378,6 +378,40 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 		}
 	}
 	WriteLog("SynchronizeInterfaceWindow() finished");
+
+	//combo boxes
+	{
+		WriteLog("SynchronizeInterfaceWindow() combo boxes");
+		QList<QComboBox *> widgetListPushButton = window->findChildren<QComboBox*>();
+		QList<QComboBox *>::iterator it;
+		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
+		{
+			QString name = (*it)->objectName();
+			out << "QComboBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QComboBox"))
+			{
+				QComboBox *comboBox = *it;
+
+				QString type, parameterName;
+				GetNameAndType(name, &parameterName, &type);
+
+				if (type == QString("comboBox"))
+				{
+					if (mode == read)
+					{
+						int selection = comboBox->currentIndex();
+						par->Set(parameterName, selection);
+					}
+					else if (mode == write)
+					{
+						int selection = par->Get<int>(parameterName);
+						comboBox->setCurrentIndex(selection);
+					}
+				}
+			}
+		}
+	}
+
 }
 
 //automatic setting of event slots for all sliders

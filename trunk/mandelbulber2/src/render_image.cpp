@@ -59,11 +59,11 @@ bool cRenderer::RenderImage()
 	while(!scheduler->AllLinesDone())
 	{
 		mainInterface->application->processEvents();
-		usleep(1000000);
+		usleep(10000);
 
 		//get list of last rendered lines
 		QVector<int> list = scheduler->GetLastRenderedLines();
-		qDebug() << "Lines rendered: " << list;
+		//qDebug() << "Lines rendered: " << list;
 		image->CompileImage(&list);
 		image->ConvertTo8bit();
 		image->UpdatePreview(&list);

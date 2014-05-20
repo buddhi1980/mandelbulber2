@@ -391,7 +391,7 @@ void cImage::RedrawInWidget(QWidget *qwidget)
 	if (IsPreview())
 	{
 		QTextStream out(stdout);
-		out << "Redraw" << endl;
+		//out << "Redraw" << endl;
 
 		QWidget *widget;
 		if (qwidget)

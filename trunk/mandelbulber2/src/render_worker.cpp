@@ -164,6 +164,7 @@ void cRenderWorker::doWork(void)
 				reflectBuff[ray].reflect = ReflectValueForObject(rayMarchingOut.object);
 				reflectBuff[ray].lastDist = rayMarchingOut.lastDist;
 				reflectBuff[ray].found = rayMarchingOut.found;
+				reflectBuff[ray].depth = rayMarchingOut.depth;
 
 				rayEnd = ray;
 				if(!reflectBuff[ray].found) break;
@@ -451,7 +452,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	double search_limit = 1.0 - search_accuracy;
 	int counter = 0;
 	double step = 0.0;
-	inOut->buffCount = 0;
+	(*inOut->buffCount) = 0;
 	double distThresh;
 
 	for (int i = 0; i < 10000; i++)
@@ -496,7 +497,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			step = (dist - 0.5 * distThresh) * params->DEFactor * (1.0 - Random(1000)/10000.0);;
 		}
 		inOut->stepBuff[i].point = point;
-		inOut->buffCount++;
+		(*inOut->buffCount) = i + 1;
 		scan += step;
 		if (scan > in.maxScan)
 		{
