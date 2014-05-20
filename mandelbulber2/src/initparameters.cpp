@@ -94,7 +94,6 @@ void InitParams(parameters::container *par)
 	par->addParam("contrast", 1.0, 0.0, 1e15, true);
 	par->addParam("gamma", 1.0, 0.0, 1e15, true);
 	par->addParam("hdr", false, true);
-	par->addParam("ambient", 0.0, 0.0, 1e15, true);
 	par->addParam("reflect", 0.0, 0.0, 1e15, true);
 	par->addParam("ambient_occlusion", 1.0, 0.0, 1e15, true);
 	par->addParam("ambient_occlusion_quality", 4, 1, 10, true);

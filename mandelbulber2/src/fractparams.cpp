@@ -48,13 +48,12 @@ cParamRender::cParamRender(const parameters::container *container)
 	imageAdjustments.contrast = container->Get<double>("contrast");
 	imageAdjustments.imageGamma = container->Get<double>("gamma");
 	imageAdjustments.hdrEnabled = container->Get<bool>("hdr");
-	ambient = container->Get<double>("ambient");
 	reflect = container->Get<double>("reflect");
 	ambientOcclusion = container->Get<double>("ambient_occlusion");
 	ambientOcclusionQuality = container->Get<int>("ambient_occlusion_quality");
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");
 	ambientOcclusionEnabled = container->Get<bool>("ambient_occlusion_enabled");
-	ambientOcclusionMode = (params::enumAOMode)container->Get<int>("ambient_occlusion_quality");
+	ambientOcclusionMode = (params::enumAOMode)container->Get<int>("ambient_occlusion_mode");
 	shading = container->Get<double>("shading");
 	specular = container->Get<double>("specular");
 	glowEnabled = container->Get<bool>("glow_enabled");
@@ -110,7 +109,7 @@ cParamRender::cParamRender(const parameters::container *container)
 
 	for(int i = 0; i < 4; ++i)
 	{
-		auxLightPre[i] = container->Get<CVector3>("view_point", i + 1);
+		auxLightPre[i] = container->Get<CVector3>("aux_light_predefined_position", i + 1);
 		auxLightPreIntensity[i] = container->Get<double>("aux_light_predefined_intensity", i + 1);
 		auxLightPreEnabled[i] = container->Get<bool>("aux_light_predefined_enabled", i + 1);
 		auxLightPreColour[i] = container->Get<sRGB>("aux_light_predefined_colour", i + 1);

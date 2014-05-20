@@ -237,11 +237,14 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		totalStep = 0.0;
 
 		//------------------- glow
-		double glowOpacity = glow * step / input.depth;
-		output.R = glowOpacity * glowR + (1.0 - glowOpacity) * output.R;
-		output.G = glowOpacity * glowG + (1.0 - glowOpacity) * output.G;
-		output.B = glowOpacity * glowB + (1.0 - glowOpacity) * output.B;
-		output.A += glowOpacity;
+		if (params->glowEnabled)
+		{
+			double glowOpacity = glow * step / input.depth;
+			output.R = glowOpacity * glowR + (1.0 - glowOpacity) * output.R;
+			output.G = glowOpacity * glowG + (1.0 - glowOpacity) * output.G;
+			output.B = glowOpacity * glowB + (1.0 - glowOpacity) * output.B;
+			output.A += glowOpacity;
+		}
 
 		//------------------ visible light
 		if (params->auxLightVisibility > 0)
@@ -326,7 +329,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		{
 			if (i == 0 && params->volumetricLightEnabled[0])
 			{
-				sRGBAfloat shadowOutputTemp = MainShadow(input);
+				sRGBAfloat shadowOutputTemp = MainShadow(input2);
 				output.R += shadowOutputTemp.R * step * params->volumetricLightIntensity[0] * params->mainLightColour.R / 65536.0;
 				output.G += shadowOutputTemp.G * step * params->volumetricLightIntensity[0] * params->mainLightColour.G / 65536.0;
 				output.B += shadowOutputTemp.B * step * params->volumetricLightIntensity[0] * params->mainLightColour.B / 65536.0;
@@ -342,7 +345,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 					double distance2 = distance * distance;
 					CVector3 lightVectorTemp = d;
 					lightVectorTemp.Normalize();
-					double lightShadow = AuxShadow(input, distance, lightVectorTemp);
+					double lightShadow = AuxShadow(input2, distance, lightVectorTemp);
 					output.R += lightShadow * light.colour.R / 65536.0 * params->volumetricLightIntensity[i] * step / distance2;
 					output.G += lightShadow * light.colour.G / 65536.0 * params->volumetricLightIntensity[i] * step / distance2;
 					output.B += lightShadow * light.colour.B / 65536.0 * params->volumetricLightIntensity[i] * step / distance2;
@@ -364,7 +367,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		}
 
 		//-------------------- volumetric fog
-		if(fogIntensity > 0.0)
+		if(fogIntensity > 0.0 && params->volFogEnabled)
 		{
 			double densityTemp = (step * fogReduce) / (distance * distance + fogReduce * fogReduce);
 
@@ -427,7 +430,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 					{
 						if (params->mainLightEnable && params->mainLightIntensity * params->directLight > 0.0)
 						{
-							sRGBAfloat shadowOutputTemp = MainShadow(input);
+							sRGBAfloat shadowOutputTemp = MainShadow(input2);
 							newColour.R += shadowOutputTemp.R * params->mainLightColour.R / 65536.0 * params->mainLightIntensity
 									* params->directLight;
 							newColour.G += shadowOutputTemp.G * params->mainLightColour.G / 65536.0 * params->mainLightIntensity
@@ -447,7 +450,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 							double distance2 = distance * distance;
 							CVector3 lightVectorTemp = d;
 							lightVectorTemp.Normalize();
-							double lightShadow = AuxShadow(input, distance, lightVectorTemp);
+							double lightShadow = AuxShadow(input2, distance, lightVectorTemp);
 							double intensity = light.intensity * 100.0;
 							newColour.R += lightShadow * light.colour.R / 65536.0 / distance2 * intensity;
 							newColour.G += lightShadow * light.colour.G / 65536.0 / distance2 * intensity;
@@ -459,7 +462,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 
 				if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeMultipeRays)
 				{
-					sRGBAfloat AO = AmbientOcclusion(input);
+					sRGBAfloat AO = AmbientOcclusion(input2);
 					newColour.R += AO.R * params->ambientOcclusion;
 					newColour.G += AO.G * params->ambientOcclusion;
 					newColour.B += AO.B * params->ambientOcclusion;
