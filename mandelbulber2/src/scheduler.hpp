@@ -21,6 +21,7 @@ public:
 	bool AllLinesDone();
 	void InitFirstLine(int threadId, int firstLine);
 	QVector<int> GetLastRenderedLines(void);
+	double PercentDone();
 
 private:
 	int *linePendingThreadId;

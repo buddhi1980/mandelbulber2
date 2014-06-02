@@ -23,6 +23,7 @@ cInterface::cInterface()
 	qimage = NULL;
 	renderedImage = NULL;
 	mainImage = NULL;
+	progressBar = NULL;
 }
 
 void cInterface::ShowUi(void)
@@ -42,6 +43,9 @@ void cInterface::ShowUi(void)
 	WriteLog("Prepare RenderedImage class");
 	renderedImage = new RenderedImage(mainWindow);
 	mainWindow->ui->scrollAreaLayoutRenderedImage->addWidget(renderedImage);
+
+	progressBar = new QProgressBar(mainWindow->ui->statusbar);
+	mainWindow->ui->statusbar->addPermanentWidget(progressBar);
 
 	renderedImage->show();
 
@@ -566,6 +570,14 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 	{
 		qCritical() << "Can't open file " << uiFileName << " Fractal ui files can't be loaded";
 	}
+}
+
+void cInterface::StatusText(QString &text, QString &progressText, double progress)
+{
+	mainWindow->ui->statusbar->showMessage(text, 0);
+	mainInterface->progressBar->setValue(progress * 100.0);
+	mainInterface->progressBar->setTextVisible(true);
+	mainInterface->progressBar->setFormat(progressText);
 }
 
 //function to create icons with actual color in ColorButtons

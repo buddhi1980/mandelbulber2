@@ -27,11 +27,13 @@ public:
 	void MakeColorButtonsInWindow(QWidget *window);
 	void GetNameAndType(QString name, QString *parameterName, QString *type);
 	void InitializeFractalUi(QString &uiFileName);
+	void StatusText(QString &text, QString &progressText, double progress);
 
 	QApplication *application;
 	RenderWindow *mainWindow;
 	QImage *qimage;
 	RenderedImage *renderedImage;
+	QProgressBar *progressBar;
 
 	cImage *mainImage;
 

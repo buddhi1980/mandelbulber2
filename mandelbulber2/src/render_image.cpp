@@ -13,6 +13,7 @@
 #include "system.hpp"
 #include "render_worker.hpp"
 #include "interface.hpp"
+#include "progress_text.hpp"
 
 cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, const sRenderData *_renderData, cImage *_image)
 {
@@ -38,6 +39,9 @@ bool cRenderer::RenderImage()
 	QEventLoop loop;
 	cScheduler *scheduler = new cScheduler(image->GetHeight());
 
+	cProgressText progressText;
+	progressText.ResetTimer();
+
 	for(int i=0; i < data->numberOfThreads; i++)
 	{
 		threadData[i].id = i + 1;
@@ -56,24 +60,51 @@ bool cRenderer::RenderImage()
 		out << "Thread " << i << " started" << endl;
 	}
 
+	QString statusText;
+	QString progressTxt;
+
+	QElapsedTimer timerRefresh;
+	timerRefresh.start();
+	qint64 lastRefreshTime = 0;
+	QVector<int> listToRefresh;
+
 	while(!scheduler->AllLinesDone())
 	{
 		mainInterface->application->processEvents();
-		usleep(10000);
+		usleep(100000);
 
 		//get list of last rendered lines
 		QVector<int> list = scheduler->GetLastRenderedLines();
+		listToRefresh += list;
+
 		//qDebug() << "Lines rendered: " << list;
-		image->CompileImage(&list);
-		image->ConvertTo8bit();
-		image->UpdatePreview(&list);
-		image->GetImageWidget()->update();
+
+		double percentDone = scheduler->PercentDone();
+		statusText = "Rendering image in progress";
+		progressTxt = progressText.getText(percentDone);
+		mainInterface->StatusText(statusText, progressTxt, percentDone);
+
+		if(timerRefresh.elapsed() > lastRefreshTime * 100)
+		{
+			timerRefresh.restart();
+			image->CompileImage(&listToRefresh);
+			image->ConvertTo8bit();
+			image->UpdatePreview(&listToRefresh);
+			image->GetImageWidget()->update();
+			lastRefreshTime = timerRefresh.elapsed();
+			listToRefresh.clear();
+		}
 	}
 
 	image->CompileImage();
 	image->ConvertTo8bit();
 	image->UpdatePreview();
 	image->GetImageWidget()->update();
+
+	double percentDone = scheduler->PercentDone();
+	statusText = "Idle";
+	progressTxt = progressText.getText(percentDone);
+	mainInterface->StatusText(statusText, progressTxt, percentDone);
 
 	out << "All threads finished" << endl;
 
