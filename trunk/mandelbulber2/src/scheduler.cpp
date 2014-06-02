@@ -134,3 +134,14 @@ QVector<int> cScheduler::GetLastRenderedLines(void)
 	}
 	return list;
 }
+
+double cScheduler::PercentDone()
+{
+	int count = 0;
+	for(int i = 0; i < numberOfLines; i++)
+	{
+		if(lineDone[i]) count++;
+	}
+
+	return (double)count / numberOfLines;
+}

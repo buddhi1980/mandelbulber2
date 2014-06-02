@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = mandelbulber2
 TEMPLATE = app
 
-CONFIG += qt thread debug
+CONFIG += qt thread
 
 SOURCES +=  ../src/algebra.cpp\
 			../src/calculate_distance.cpp\
@@ -32,6 +32,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/main.cpp\
 	    	../src/parameters.cpp\
 	    	../src/primitives.cpp\
+	    	../src/progress_text.cpp\
 	    	../src/render_image.cpp\
 	    	../src/render_job.cpp\
 	    	../src/render_window.cpp\
@@ -50,6 +51,8 @@ FORMS    += ../qt/render_window.ui
 RESOURCES = ../qt/icons.qrc
 
 UI_DIR = ../qt
+
+QMAKE_CXXFLAGS += -msse2 -ffast-math
 
 greaterThan(QT_MAJOR_VERSION, 4):LIBS += -lQt5UiTools
 else:LIBS += -lQtUiTools
