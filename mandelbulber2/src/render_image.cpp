@@ -7,9 +7,7 @@
 
 #include "render_image.hpp"
 
-#include <png.h>
 #include <QtCore>
-
 #include "system.hpp"
 #include "render_worker.hpp"
 #include "interface.hpp"
@@ -71,7 +69,7 @@ bool cRenderer::RenderImage()
 	while(!scheduler->AllLinesDone())
 	{
 		mainInterface->application->processEvents();
-		usleep(100000);
+		Wait(100);
 
 		//get list of last rendered lines
 		QVector<int> list = scheduler->GetLastRenderedLines();
@@ -87,6 +85,7 @@ bool cRenderer::RenderImage()
 		if(timerRefresh.elapsed() > lastRefreshTime * 100)
 		{
 			timerRefresh.restart();
+			qSort(listToRefresh);
 			image->CompileImage(&listToRefresh);
 			image->ConvertTo8bit();
 			image->UpdatePreview(&listToRefresh);
