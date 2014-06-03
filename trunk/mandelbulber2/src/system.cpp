@@ -209,3 +209,11 @@ int fcopy(QString source, QString dest)
 	WriteLogString("File copied", dest);
 	return 0;
 }
+
+void Wait(long int time)
+{
+	QMutex dummy;
+	dummy.lock();
+	QWaitCondition waitCondition;
+	waitCondition.wait(&dummy, time);
+}

@@ -55,5 +55,6 @@ int get_cpu_count();
 bool CreateDefaultFolders(void);
 bool CreateDirectory(QString name);
 int fcopy(QString source, QString dest);
+void Wait(long int time);
 
 #endif /* SYSTEM_HPP_ */
