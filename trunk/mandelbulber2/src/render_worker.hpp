@@ -164,6 +164,7 @@ private:
 	int histogramDE[256];
 	int histogramIters[256];
 	int reflectionsMax;
+	bool stopRequest;
 
 	//allocated objects
 	cCameraTarget *cameraTarget;

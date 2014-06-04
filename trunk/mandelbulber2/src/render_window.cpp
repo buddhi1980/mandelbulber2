@@ -36,7 +36,7 @@ RenderWindow::~RenderWindow()
 }
 
 
-void RenderWindow::testSlot(void)
+void RenderWindow::slotStartRender(void)
 {
 	using namespace std;
 	qDebug() << "Object name from slot" << this->sender()->objectName() << endl;
@@ -50,6 +50,11 @@ void RenderWindow::testSlot(void)
 	renderJob->Execute();
 
 	delete renderJob;
+}
+
+void RenderWindow::slotStopRender(void)
+{
+	mainInterface->stopRequest = true;
 }
 
 void RenderWindow::load(void)

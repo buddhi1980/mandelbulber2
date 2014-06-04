@@ -28,7 +28,8 @@ public:
 	~RenderWindow();
 
 private slots:
-	void testSlot();
+	void slotStartRender();
+	void slotStopRender();
 	void load();
 	void slotSliderMoved(int value);
 	void slotDoubleSpinBoxChanged(double value);
