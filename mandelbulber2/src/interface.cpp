@@ -24,6 +24,7 @@ cInterface::cInterface()
 	renderedImage = NULL;
 	mainImage = NULL;
 	progressBar = NULL;
+	stopRequest = false;
 }
 
 void cInterface::ShowUi(void)
@@ -59,7 +60,8 @@ void cInterface::ShowUi(void)
 
 void cInterface::ConnectSignals(void)
 {
-	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(testSlot()));
+	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(slotStartRender()));
+	QApplication::connect(mainWindow->ui->pushButton_stop, SIGNAL(clicked()), mainWindow, SLOT(slotStopRender()));
 	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveDocksPositions()));
 

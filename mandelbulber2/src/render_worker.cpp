@@ -35,6 +35,7 @@ cRenderWorker::cRenderWorker(const cParamRender *_params, const cFourFractals *_
 		histogramIters[i] = 0;
 	}
 	reflectionsMax = 0;
+	stopRequest = false;
 }
 
 cRenderWorker::~cRenderWorker()
@@ -66,8 +67,6 @@ void cRenderWorker::doWork(void)
 {
 	// here will be rendering thread
 	QTextStream out(stdout);
-
-	cParamRender par = *params;
 
 	int width = image->GetWidth();
 	int height = image->GetHeight();
@@ -576,3 +575,4 @@ double cRenderWorker::ReflectValueForObject(fractal::enumObjectType object)
 	}
 	return reflect;
 }
+

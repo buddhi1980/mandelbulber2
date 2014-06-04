@@ -37,6 +37,8 @@ public:
 
 	cImage *mainImage;
 
+	bool stopRequest;
+
 private:
 
 };

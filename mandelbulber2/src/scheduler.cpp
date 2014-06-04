@@ -16,6 +16,7 @@ cScheduler::cScheduler(int _numberOfLines)
 	linePendingThreadId = new int[numberOfLines];
 	lineDone = new bool[numberOfLines];
 	lastLinesDone = new bool[numberOfLines];
+	stopRequest = false;
 
 	memset(linePendingThreadId, 0, sizeof(int) * numberOfLines);
 	memset(lineDone, 0, sizeof(bool) * numberOfLines);
@@ -41,6 +42,9 @@ bool cScheduler::ThereIsStillSomethingToDo(int threadId)
 			break;
 		}
 	}
+
+	if(stopRequest) result = false;
+
 	return result;
 }
 
@@ -55,12 +59,15 @@ bool cScheduler::AllLinesDone(void)
 			break;
 		}
 	}
+
+	if(stopRequest) result = true;
+
 	return result;
 }
 
 bool cScheduler::ShouldIBreak(int threadId, int actualLine)
 {
-	return threadId != linePendingThreadId[actualLine];
+	return threadId != linePendingThreadId[actualLine] || stopRequest;
 }
 
 int cScheduler::NextLine(int threadId, int actualLine)

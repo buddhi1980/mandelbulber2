@@ -22,12 +22,14 @@ public:
 	void InitFirstLine(int threadId, int firstLine);
 	QVector<int> GetLastRenderedLines(void);
 	double PercentDone();
+	void Stop() {stopRequest = true;}
 
 private:
 	int *linePendingThreadId;
 	bool *lineDone;
 	bool *lastLinesDone;
 	int numberOfLines;
+	bool stopRequest;
 };
 
 

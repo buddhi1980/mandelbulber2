@@ -69,19 +69,28 @@ bool cRenderer::RenderImage()
 	while(!scheduler->AllLinesDone())
 	{
 		mainInterface->application->processEvents();
-		Wait(100);
+		if(mainInterface->stopRequest)
+		{
+			scheduler->Stop();
+			mainInterface->stopRequest = false;
+		}
+
+		Wait(100); //wait 100ms
 
 		//get list of last rendered lines
 		QVector<int> list = scheduler->GetLastRenderedLines();
+		//create list of lines for image refresh
 		listToRefresh += list;
 
 		//qDebug() << "Lines rendered: " << list;
 
+		//status bar and progress bar
 		double percentDone = scheduler->PercentDone();
 		statusText = "Rendering image in progress";
 		progressTxt = progressText.getText(percentDone);
 		mainInterface->StatusText(statusText, progressTxt, percentDone);
 
+		//refresh image
 		if(timerRefresh.elapsed() > lastRefreshTime * 100)
 		{
 			timerRefresh.restart();
@@ -95,11 +104,13 @@ bool cRenderer::RenderImage()
 		}
 	}
 
+	//refresh image at end
 	image->CompileImage();
 	image->ConvertTo8bit();
 	image->UpdatePreview();
 	image->GetImageWidget()->update();
 
+	//status bar and progress bar
 	double percentDone = scheduler->PercentDone();
 	statusText = "Idle";
 	progressTxt = progressText.getText(percentDone);
@@ -110,6 +121,7 @@ bool cRenderer::RenderImage()
 	delete[] thread;
 	delete[] threadData;
 	delete[] worker;
+	delete scheduler;
 
 	return true;
 }
