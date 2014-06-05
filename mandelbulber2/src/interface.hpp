@@ -38,6 +38,7 @@ public:
 	cImage *mainImage;
 
 	bool stopRequest;
+	bool repeatRequest;
 
 private:
 

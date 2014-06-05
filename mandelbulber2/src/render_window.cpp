@@ -38,18 +38,26 @@ RenderWindow::~RenderWindow()
 
 void RenderWindow::slotStartRender(void)
 {
-	using namespace std;
-	qDebug() << "Object name from slot" << this->sender()->objectName() << endl;
+	if(mainInterface->mainImage->IsUsed())
+	{
+		mainInterface->stopRequest = true;
+		mainInterface->repeatRequest = true;
+	}
+	else
+	{
+	  do
+	  {
+			mainInterface->repeatRequest = false;
+	  	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
-	printf("Hello World!\n");
+			cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, mainInterface->renderedImage);
+			renderJob->Init(cRenderJob::still);
+			renderJob->Execute();
 
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, mainInterface->renderedImage);
-	renderJob->Init(cRenderJob::still);
-	renderJob->Execute();
-
-	delete renderJob;
+			delete renderJob;
+	  }
+		while(mainInterface->repeatRequest);
+	}
 }
 
 void RenderWindow::slotStopRender(void)

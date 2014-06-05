@@ -42,6 +42,11 @@ public:
 	~cImage();
 	bool ChangeSize(int w, int h);
 	void ClearImage(void);
+
+	bool IsUsed() {return isUsed;}
+	void BlockImage() {isUsed = true;}
+	void ReleaseImage() {isUsed = false;}
+
 	inline void PutPixelImage(int x, int y, sRGBfloat pixel)	{if (x >= 0 && x < width && y >= 0 && y < height) imageFloat[x + y * width] = pixel;}
 	inline void PutPixelImage16(int x, int y, sRGB16 pixel)	{if (x >= 0 && x < width && y >= 0 && y < height) image16[x + y * width] = pixel;}
 	inline void PutPixelColour(int x, int y, sRGB8 pixel)	{if (x >= 0 && x < width && y >= 0 && y < height) colourBuffer[x + y * width] = pixel;}
@@ -121,6 +126,7 @@ private:
 	int previewHeight;
 	double previewScale;
 	bool lowMem;
+	volatile bool isUsed;
 };
 
 sRGB PostRendering_Fog(double z, double min, double max, sRGB fog_color, sRGB color_before);
