@@ -29,6 +29,7 @@ cImage::cImage(int w, int h, bool low_mem)
 	gammaTable = new int[65536];
 	progressiveFactor = 1;
 	imageWidget = NULL;
+	isUsed = false;
 }
 
 cImage::~cImage()

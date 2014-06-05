@@ -29,7 +29,7 @@ private:
 	bool *lineDone;
 	bool *lastLinesDone;
 	int numberOfLines;
-	bool stopRequest;
+	volatile bool stopRequest;
 };
 
 

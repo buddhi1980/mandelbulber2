@@ -25,6 +25,7 @@ cInterface::cInterface()
 	mainImage = NULL;
 	progressBar = NULL;
 	stopRequest = false;
+	repeatRequest = false;
 }
 
 void cInterface::ShowUi(void)

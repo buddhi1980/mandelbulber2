@@ -10,7 +10,7 @@
 #include "system.hpp"
 #include "fractparams.hpp"
 #include "four_fractals.hpp"
-
+#include "interface.hpp"
 
 cRenderJob::cRenderJob(const parameters::container *_params, const parameters::container *_fractal, cImage *_image, QWidget *_qwidget)
 {
@@ -94,6 +94,7 @@ bool cRenderJob::InitImage(int w, int h)
 	WriteLog("cRenderJob::InitImage");
 	QTextStream out(stdout);
 
+
 	if(!image->ChangeSize(w, h))
 	{
 		printf("Cannot allocate memory. Maybe image is too big");
@@ -129,11 +130,15 @@ bool cRenderJob::Execute(void)
 
 	//create and execute renderer
 	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image);
+	image->BlockImage();
 	renderer->RenderImage();
+	image->ReleaseImage();
 
 	delete params;
 	delete fourFractals;
 	delete renderer;
 	inProgress = false;
+	mainInterface->stopRequest = false;
+
 	return true;
 }
