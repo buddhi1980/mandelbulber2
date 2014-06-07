@@ -96,9 +96,12 @@ bool cRenderer::RenderImage()
 			timerRefresh.restart();
 			qSort(listToRefresh);
 			image->CompileImage(&listToRefresh);
-			image->ConvertTo8bit();
-			image->UpdatePreview(&listToRefresh);
-			image->GetImageWidget()->update();
+			if(image->IsPreview())
+			{
+				image->ConvertTo8bit();
+				image->UpdatePreview(&listToRefresh);
+				image->GetImageWidget()->update();
+			}
 			lastRefreshTime = timerRefresh.elapsed();
 			listToRefresh.clear();
 		}
@@ -106,10 +109,12 @@ bool cRenderer::RenderImage()
 
 	//refresh image at end
 	image->CompileImage();
-	image->ConvertTo8bit();
-	image->UpdatePreview();
-	image->GetImageWidget()->update();
-
+	if(image->IsPreview())
+	{
+		image->ConvertTo8bit();
+		image->UpdatePreview();
+		image->GetImageWidget()->update();
+	}
 	//status bar and progress bar
 	double percentDone = scheduler->PercentDone();
 	statusText = "Idle";

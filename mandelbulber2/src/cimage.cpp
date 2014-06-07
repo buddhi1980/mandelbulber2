@@ -30,6 +30,9 @@ cImage::cImage(int w, int h, bool low_mem)
 	progressiveFactor = 1;
 	imageWidget = NULL;
 	isUsed = false;
+	previewScale = 1.0;
+	previewVisibleWidth = 1;
+	previewVisibleHeight = 1;
 }
 
 cImage::~cImage()
@@ -259,10 +262,12 @@ sRGBA8 cImage::Interpolation(float x, float y)
 	return colour;
 }
 
-unsigned char* cImage::CreatePreview(double scale, QWidget *widget = NULL)
+unsigned char* cImage::CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget = NULL)
 {
 	int w = width * scale;
 	int h = height * scale;
+	previewVisibleWidth = visibleWidth;
+	previewVisibleHeight = visibleHeight;
 	if (previewAllocated)
 	{
 		delete[] preview;

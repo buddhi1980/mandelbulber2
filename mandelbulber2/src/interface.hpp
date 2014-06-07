@@ -28,6 +28,8 @@ public:
 	void GetNameAndType(QString name, QString *parameterName, QString *type);
 	void InitializeFractalUi(QString &uiFileName);
 	void StatusText(QString &text, QString &progressText, double progress);
+	double ImageScaleComboSelection2Double(int index);
+	double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image);
 
 	QApplication *application;
 	RenderWindow *mainWindow;

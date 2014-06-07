@@ -75,12 +75,14 @@ public:
   int GetHeight(void) {return height;}
   int GetPreviewWidth(void) {return previewWidth;}
   int GetPreviewHeight(void) {return previewHeight;}
+  int GetPreviewVisibleWidth(void) {return previewVisibleWidth;}
+  int GetPreviewVisibleHeight(void) {return previewVisibleHeight;}
   int GetUsedMB(void);
   void SetImageParameters(sImageAdjustments adjustments);
   sImageAdjustments* GetImageAdjustments(void) {return &adj;}
 
   unsigned char* ConvertTo8bit(void);
-  unsigned char* CreatePreview(double scale, QWidget *widget);
+  unsigned char* CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
   void UpdatePreview(QVector<int> *list = NULL);
   unsigned char* GetPreviewPtr(void);
   bool IsPreview(void);
@@ -125,6 +127,8 @@ private:
 	int previewWidth;
 	int previewHeight;
 	double previewScale;
+	int previewVisibleWidth;
+	int previewVisibleHeight;
 	bool lowMem;
 	volatile bool isUsed;
 };

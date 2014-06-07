@@ -273,13 +273,13 @@ void InitParams(parameters::container *par)
 	par->addParam("palette", &palette, false);
 
 	//----------------------- application parameters ---------------------
-	par->addParam("net_render_client_port", QString("5555"), true);
+	par->addParam("net_render_client_port", QString("5555"), false);
 	par->SetAsAppParam("net_render_client_port", true);
-	par->addParam("net_render_client_IP", QString("10.0.0.4"), true);
+	par->addParam("net_render_client_IP", QString("10.0.0.4"), false);
 	par->SetAsAppParam("net_render_client_IP", true);
-	par->addParam("net_render_server_port", QString("5555"), true);
+	par->addParam("net_render_server_port", QString("5555"), false);
 	par->SetAsAppParam("net_render_server_port", true);
-	par->addParam("light_manual_placement_dist", 0.1, 1e-15, 1e15, true);
+	par->addParam("light_manual_placement_dist", 0.1, 1e-15, 1e15, false);
 	par->SetAsAppParam("light_manual_placement_dist", true);
 	par->addParam("camera_movenent_step_de", 0.5, 1e-15, 1e5, false);
 	par->SetAsAppParam("camera_movenent_step_de", true);
@@ -299,6 +299,8 @@ void InitParams(parameters::container *par)
 	par->SetAsAppParam("auto_save_images", true);
 	par->addParam("save_image_format", 0, false);
 	par->SetAsAppParam("save_image_format", true);
+	par->addParam("image_preview_scale", 3, 0, 6, false);
+	par->SetAsAppParam("image_preview_scale", true);
 
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);

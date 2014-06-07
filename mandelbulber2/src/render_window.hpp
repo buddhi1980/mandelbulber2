@@ -44,7 +44,7 @@ private slots:
 	void slotChangedImageScale(int index);
 
 private:
-	double ImageScaleComboSelection2Double(int index);
+
 
 	Ui::RenderWindow *ui;
 
@@ -53,8 +53,6 @@ private:
 	friend class cInterface;
 
 	QSettings settings;
-
-
 };
 
 

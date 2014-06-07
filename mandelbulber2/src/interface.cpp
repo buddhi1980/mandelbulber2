@@ -72,7 +72,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->comboBox_formula_4, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
 
 	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow, SLOT(slotImageScrolledAreaResized(int, int)));
-	QApplication::connect(mainWindow->ui->comboBox_imageScale, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedImageScale(int)));
+	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedImageScale(int)));
 
 	ConnectSignalsForSlidersInWindow(mainWindow);
 	MakeColorButtonsInWindow(mainWindow);
@@ -87,11 +87,13 @@ void cInterface::SynchronizeInterface(parameters::container *par, parameters::co
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_rendering_engine, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->page_fractal_common, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->page_fractal_hybrid, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_1, &parFractal[0], mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_2, &parFractal[1], mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_3, &parFractal[2], mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_4, &parFractal[3], mode);
+
 }
 
 //Reading ad writing parameters from/to selected widget to/from parameters container
@@ -583,6 +585,36 @@ void cInterface::StatusText(QString &text, QString &progressText, double progres
 	mainInterface->progressBar->setFormat(progressText);
 }
 
+double cInterface::ImageScaleComboSelection2Double(int index)
+{
+	double scales[] = {0.0, 4.0, 2.0, 1.0, 0.5, 0.25, 0.1};
+	if(index < 7)
+	{
+		return scales[index];
+	}
+	else
+	{
+		qCritical() << "Wrong image scale";
+		return -1.0;
+	}
+}
+
+double cInterface::CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image)
+{
+	double scaleOut;
+	if(scale == 0.0)
+	{
+		double scale1 = (double)previewHeight / image->GetHeight();
+		double scale2 = (double)previewWidth / image->GetWidth();
+		scaleOut = min(scale1, scale2);
+	}
+	else
+	{
+		scaleOut = scale;
+	}
+	return scaleOut;
+}
+
 //function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 {
@@ -596,4 +628,6 @@ void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 	pushbutton->setIcon(icon);
 	pushbutton->setIconSize(QSize(w,h));
 }
+
+
 
