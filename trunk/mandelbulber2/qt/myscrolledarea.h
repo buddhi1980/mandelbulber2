@@ -15,14 +15,26 @@ class MyScrolledArea : public QScrollArea
 	Q_OBJECT
 
 public:
-	MyScrolledArea(QWidget *parent = 0)  : QScrollArea(parent) {};
+	MyScrolledArea(QWidget *parent = 0)  : QScrollArea(parent)
+	{
+		visibleAreaWidth = width() - verticalScrollBar()->width();
+		visibleAreaHeight = height() - horizontalScrollBar()->height();
+	};
+	int VisibleAreaWidth() {return visibleAreaWidth;}
+	int VisibleAreaHeight() {return visibleAreaHeight;}
+
+private:
+	int visibleAreaWidth;
+	int visibleAreaHeight;
 
 protected:
 	void resizeEvent(QResizeEvent *event)
 	{
 		qDebug() << "resize event";
 		QScrollArea::resizeEvent(event);
-		emit resized(width(), height());
+		visibleAreaWidth = width() - verticalScrollBar()->width();
+		visibleAreaHeight = height() - horizontalScrollBar()->height();
+		emit resized(visibleAreaWidth, visibleAreaHeight);
 	}
 
 signals:

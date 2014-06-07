@@ -94,7 +94,6 @@ bool cRenderJob::InitImage(int w, int h)
 	WriteLog("cRenderJob::InitImage");
 	QTextStream out(stdout);
 
-
 	if(!image->ChangeSize(w, h))
 	{
 		printf("Cannot allocate memory. Maybe image is too big");
@@ -103,16 +102,16 @@ bool cRenderJob::InitImage(int w, int h)
 	else
 	{
 		WriteLog("complexImage allocated");
-		out << "Memory for image: " << image->GetUsedMB() << " MB" << endl;
-
-		//temporary set preview scale to 1.0
-		image->CreatePreview(1.0, imageWidget);
-
-		if(hasQWidget)
+		if(imageWidget)
 		{
-			imageWidget->setMinimumSize(image->GetPreviewWidth(),image->GetPreviewHeight());
+			double scale = mainInterface->ImageScaleComboSelection2Double(paramsContainer->Get<int>("image_preview_scale"));
+			scale = mainInterface->CalcMainImageScale(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), image);
+			image->CreatePreview(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), imageWidget);
+			image->UpdatePreview();
+			imageWidget->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(), mainInterface->mainImage->GetPreviewHeight());
 		}
 
+		out << "Memory for image: " << image->GetUsedMB() << " MB" << endl;
 		return true;
 	}
 }
