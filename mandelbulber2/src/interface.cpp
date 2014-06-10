@@ -12,6 +12,9 @@
 #include <QtUiTools/QtUiTools>
 #include "fractal_list.hpp"
 #include <qpainter.h>
+#include "render_job.hpp"
+#include "calculate_distance.hpp"
+#include "camera_target.hpp"
 
 cInterface *mainInterface;
 
@@ -74,6 +77,14 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow, SLOT(slotImageScrolledAreaResized(int, int)));
 	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedImageScale(int)));
 
+	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
+	QApplication::connect(mainWindow->ui->bu_move_down, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
+	QApplication::connect(mainWindow->ui->bu_move_left, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
+	QApplication::connect(mainWindow->ui->bu_move_right, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
+	QApplication::connect(mainWindow->ui->bu_move_forward, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
+	QApplication::connect(mainWindow->ui->bu_move_backward, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
+
+
 	ConnectSignalsForSlidersInWindow(mainWindow);
 	MakeColorButtonsInWindow(mainWindow);
 }
@@ -110,18 +121,18 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 
 		for (it = widgetListLineEdit.begin(); it != widgetListLineEdit.end(); ++it)
 		{
-			out << "QLineEdit:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//out << "QLineEdit:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 
 			QString name = (*it)->objectName();
 			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QLineEdit"))
 			{
 				QLineEdit *lineEdit = *it;
 				QString text = lineEdit->text();
-				out << name << " - text: " << text << endl;
+				//out << name << " - text: " << text << endl;
 
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
-				out << name << " - type: " << type << endl;
+				//out << name << " - type: " << type << endl;
 
 				//----- get vectors ------------
 				if (type == QString("vect3"))
@@ -132,7 +143,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 					if (mode == read)
 					{
 						double value = lineEdit->text().toDouble();
-						out << nameVect << " - " << lastChar << " axis = " << value << endl;
+						//out << nameVect << " - " << lastChar << " axis = " << value << endl;
 						CVector3 vect = par->Get<CVector3>(nameVect);
 
 						switch (lastChar)
@@ -163,15 +174,15 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 						switch (lastChar)
 						{
 							case 'x':
-								qtext = QString::number(vect.x);
+								qtext = QString::number(vect.x, 'g', 20);
 								break;
 
 							case 'y':
-								qtext = QString::number(vect.y);
+								qtext = QString::number(vect.y, 'g', 20);
 								break;
 
 							case 'z':
-								qtext = QString::number(vect.z);
+								qtext = QString::number(vect.z, 'g', 20);
 								break;
 
 							default:
@@ -193,7 +204,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 					else if (mode == write)
 					{
 						double value = par->Get<double>(parameterName);
-						lineEdit->setText(QString::number(value));
+						lineEdit->setText(QString::number(value, 'g', 20));
 					}
 				}
 
@@ -223,7 +234,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QDoubleSpinBox"))
 			{
 				QDoubleSpinBox *spinbox = *it;
@@ -256,7 +267,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QSpinBox"))
 			{
 				QSpinBox *spinbox = *it;
@@ -289,7 +300,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			out << "QCheckBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//out << "QCheckBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QCheckBox"))
 			{
 				QCheckBox *checkbox = *it;
@@ -322,7 +333,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			out << "QGroupBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//out << "QGroupBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QGroupBox"))
 			{
 				QGroupBox *groupbox = *it;
@@ -355,7 +366,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QPushButton"))
 			{
 				QPushButton *colorButton = *it;
@@ -396,7 +407,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			out << "QComboBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			//out << "QComboBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QComboBox"))
 			{
 				QComboBox *comboBox = *it;
@@ -614,6 +625,118 @@ double cInterface::CalcMainImageScale(double scale, int previewWidth, int previe
 	}
 	return scaleOut;
 }
+
+void cInterface::StartRender(void)
+{
+	if(mainImage->IsUsed())
+	{
+		stopRequest = true;
+		repeatRequest = true;
+	}
+	else
+	{
+	  do
+	  {
+			repeatRequest = false;
+	  	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+			cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, renderedImage);
+			renderJob->Init(cRenderJob::still);
+			renderJob->Execute();
+
+			delete renderJob;
+	  }
+		while(repeatRequest);
+	}
+}
+
+void cInterface::MoveCamera(QString buttonName)
+{
+	//get data from interface
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	CVector3 camera = gPar->Get<CVector3>("camera");
+	CVector3 target = gPar->Get<CVector3>("target");
+	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	cCameraTarget cameraTarget(camera, target, topVector);
+
+	//get direction vector
+	CVector3 direction;
+	if(buttonName == "bu_move_left")
+		direction = cameraTarget.GetRightVector() * (-1.0);
+	else if(buttonName == "bu_move_right")
+		direction = cameraTarget.GetRightVector() * ( 1.0);
+	else if(buttonName == "bu_move_up")
+		direction = cameraTarget.GetTopVector() * ( 1.0);
+	else if(buttonName == "bu_move_down")
+		direction = cameraTarget.GetTopVector() * (-1.0);
+	else if(buttonName == "bu_move_forward")
+		direction = cameraTarget.GetForwardVector() * (1.0);
+	else if(buttonName == "bu_move_backward")
+		direction = cameraTarget.GetForwardVector() * (-1.0);
+
+	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode)gPar->Get<int>("camera_absolute_distance_mode");
+	enumCameraMovementMode movementMode = (enumCameraMovementMode)gPar->Get<int>("camera_movement_mode");
+
+	//movement step
+	double step;
+	if(stepMode == absolute)
+	{
+		step = gPar->Get<double>("camera_movenent_step");
+	}
+	else
+	{
+		double relativeStep = gPar->Get<double>("camera_movenent_step");
+
+		cParamRender *params = new cParamRender(gPar);
+		cFourFractals *fourFractals = new cFourFractals(gParFractal);
+		sDistanceIn in(camera, 0, false);
+		if(movementMode == moveTarget)
+			in.point = target;
+
+		sDistanceOut out;
+		double distance = CalculateDistance(*params, *fourFractals, in, &out);
+		delete params;
+		delete fourFractals;
+
+		step = relativeStep * distance;
+	}
+
+	//movement
+	if(movementMode == moveCamera)
+		camera += direction * step;
+	else if(movementMode == moveTarget)
+		target += direction * step;
+	else if (movementMode == fixedDistance)
+	{
+		camera += direction * step;
+		target += direction * step;
+	}
+
+	//put data to interface
+	gPar->Set("camera", camera);
+	gPar->Set("target", target);
+
+	//recalculation of camera-target
+
+	//******************************* zrobić wybór trybu ruchu !!!!!!!!! **********
+	if(movementMode == moveCamera)
+		cameraTarget.SetCamera(camera, cCameraTarget::constantTop);
+	else if(movementMode == moveTarget)
+		cameraTarget.SetTarget(target, cCameraTarget::constantTop);
+	else if (movementMode == fixedDistance)
+		cameraTarget.SetCameraTargetTop(camera, target, topVector);
+
+	topVector = cameraTarget.GetTopVector();
+	gPar->Set("camera_top", topVector);
+	CVector3 rotation = cameraTarget.GetRotation();
+	gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+	double dist = cameraTarget.GetDistance();
+	gPar->Set("camera_distance_to_target", dist);
+
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+	StartRender();
+}
+
 
 //function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)

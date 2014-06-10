@@ -102,7 +102,7 @@ bool cRenderJob::InitImage(int w, int h)
 	else
 	{
 		WriteLog("complexImage allocated");
-		if(imageWidget)
+		if(hasQWidget)
 		{
 			double scale = mainInterface->ImageScaleComboSelection2Double(paramsContainer->Get<int>("image_preview_scale"));
 			scale = mainInterface->CalcMainImageScale(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), image);

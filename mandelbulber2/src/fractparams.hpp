@@ -184,6 +184,7 @@ public:
 	CVector3 target;
 	CVector3 camera; //view point
 	CVector3 viewAngle;
+	CVector3 topVector;
 
 	double settingsVersion;
 

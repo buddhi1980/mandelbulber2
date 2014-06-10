@@ -23,8 +23,8 @@ void InitParams(parameters::container *par)
 	WriteLog("Parameters initialization started");
 
 	//image
-	par->addParam("image_width", 800, 32, 1000000, false);
-	par->addParam("image_height", 600, 32, 1000000, false);
+	par->addParam("image_width", 400, 32, 1000000, false);
+	par->addParam("image_height", 300, 32, 1000000, false);
 	par->addParam("tiles", 1, 1, 64, false);
 	par->addParam("tile_number", 0, false);
 	par->addParam("image_proportion", 0, false);
@@ -47,10 +47,12 @@ void InitParams(parameters::container *par)
 	par->SetToSave("continue_record_mode", false);
 
 	//camera
-	par->addParam("camera", CVector3(-3.0, -3.0, -3.0), true);
+
+	par->addParam("camera", CVector3(0.0, -3.0, 0.0), true);
 	par->addParam("target", CVector3(0.0, 0.0, 0.0), true);
-	par->addParam("view_angle", CVector3(-20.0, 30.0, 0.0), true);
-	par->addParam("cameraDistanceToTarget", 2.5, 0.0, 1e15, true);
+	par->addParam("camera_top", CVector3(0.0, 0.0, 1.0), true); //internal vector which represents top direction
+	par->addParam("camera_rotation", CVector3(-20.0, 30.0, 0.0), true);
+	par->addParam("camera_distance_to_target", 2.5, 0.0, 1e15, true);
 	par->addParam("fov", 0.5, 0.0, 100.0, true);
 	par->addParam("perspective_type", 0, false);
 	par->addParam("stereo_eye_distance", 1.0, true);
@@ -281,20 +283,24 @@ void InitParams(parameters::container *par)
 	par->SetAsAppParam("net_render_server_port", true);
 	par->addParam("light_manual_placement_dist", 0.1, 1e-15, 1e15, false);
 	par->SetAsAppParam("light_manual_placement_dist", true);
-	par->addParam("camera_movenent_step_de", 0.5, 1e-15, 1e5, false);
-	par->SetAsAppParam("camera_movenent_step_de", true);
-	par->addParam("camera_movenent_step_absolute", 0.5, 1e-15, 1e15, false);
-	par->SetAsAppParam("camera_movenent_step_absolute", true);
-	par->addParam("camera_rotation_step", 0.5, 1e-15, 360.0, false);
+
+	par->addParam("camera_movenent_step", 0.5, 1e-15, 1e5, false);
+	par->SetAsAppParam("camera_movenent_step", true);
+	par->addParam("camera_rotation_step", 15.0, 1e-15, 360.0, false);
 	par->SetAsAppParam("camera_rotation_step", true);
-	par->addParam("camera_mouse_click_step", 0.5, 1e-15, 1e5, false);
-	par->SetAsAppParam("camera_mouse_click_step", true);
-	par->addParam("camera_straight_rotation", false, false);
+	par->addParam("camera_straight_rotation", 0, false);
 	par->SetAsAppParam("camera_straight_rotation", true);
-	par->addParam("camera_absolute_distance_mode", false, false);
+	par->addParam("camera_absolute_distance_mode", 0, false);
 	par->SetAsAppParam("camera_absolute_distance_mode", true);
-	par->addParam("camera_go_to_surface_mode", false, false);
-	par->SetAsAppParam("camera_go_to_surface_mode", true);
+	par->addParam("camera_movement_mode", 0, false);
+	par->SetAsAppParam("camera_movement_mode", true);
+	par->addParam("camera_rotation_mode", 0, false);
+	par->SetAsAppParam("camera_rotation_mode", true);
+	par->addParam("mouse_click_function", 0, false);
+	par->SetAsAppParam("mouse_click_function", true);
+	par->addParam("show_cursor", false, false);
+	par->SetAsAppParam("show_cursor", true);
+
 	par->addParam("auto_save_images", false, false);
 	par->SetAsAppParam("auto_save_images", true);
 	par->addParam("save_image_format", 0, false);
@@ -331,8 +337,13 @@ void InitParams(parameters::container *par)
 void InitFractalParams(parameters::container *par)
 {
 	WriteLog("Fractal parameters initialization started");
-
 	par->addParam("formula", (int)fractal::mandelbulb, false);
+
+	//fractal formula selections
+	par->addParam("formula", 1, (int)fractal::mandelbulb, false);
+	par->addParam("formula", 2, (int)fractal::none, false);
+	par->addParam("formula", 3, (int)fractal::none, false);
+	par->addParam("formula", 4, (int)fractal::none, false);
 
 	par->addParam("power", 9.0, true);
 	par->addParam("alpha_angle_offset", 0.0, true);

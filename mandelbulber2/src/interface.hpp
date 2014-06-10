@@ -17,6 +17,9 @@ class cInterface
 {
 public:
 	enum enumReadWrite {read, write};
+	enum enumCameraMovementStepMode {absolute, relative};
+	enum enumCameraMovementMode {fixedDistance, moveCamera, moveTarget};
+
 
 	cInterface();
 	void ShowUi(void);
@@ -30,6 +33,8 @@ public:
 	void StatusText(QString &text, QString &progressText, double progress);
 	double ImageScaleComboSelection2Double(int index);
 	double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image);
+	void StartRender(void);
+	void MoveCamera(QString buttonName);
 
 	QApplication *application;
 	RenderWindow *mainWindow;

@@ -42,6 +42,8 @@ private slots:
 	void slotChangedFractalCombo(int index);
 	void slotImageScrolledAreaResized(int width, int height);
 	void slotChangedImageScale(int index);
+	void slotCameraMove();
+	void slotCameraRotation();
 
 private:
 

@@ -10,6 +10,13 @@
  ********************************************************/
 
 #include "algebra.hpp"
+CVector3 CVector3::RotateAroundVectorByAngle(CVector3 axis, double angle)
+{
+	CVector3 vector = *this * cos(angle);
+	vector += (axis.Cross(*this)) * sin(angle);
+	vector += axis * axis.Dot(*this) * (1 - cos(angle));
+	return vector;
+}
 
 /***************** class CMatrix33 ***********************/
 CMatrix33::CMatrix33()

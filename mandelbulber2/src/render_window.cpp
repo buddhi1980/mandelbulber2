@@ -10,14 +10,9 @@
 #include "interface.hpp"
 #include "fractal_list.hpp"
 #include "system.hpp"
-#include "four_fractals.hpp"
-#include "fractparams.hpp"
-#include "render_job.hpp"
-
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
 #include <QColorDialog>
-
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -38,25 +33,7 @@ RenderWindow::~RenderWindow()
 
 void RenderWindow::slotStartRender(void)
 {
-	if(mainInterface->mainImage->IsUsed())
-	{
-		mainInterface->stopRequest = true;
-		mainInterface->repeatRequest = true;
-	}
-	else
-	{
-	  do
-	  {
-			mainInterface->repeatRequest = false;
-	  	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-			cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, mainInterface->renderedImage);
-			renderJob->Init(cRenderJob::still);
-			renderJob->Execute();
-
-			delete renderJob;
-	  }
-		while(mainInterface->repeatRequest);
-	}
+	mainInterface->StartRender();
 }
 
 void RenderWindow::slotStopRender(void)
@@ -290,6 +267,17 @@ void RenderWindow::slotChangedImageScale(int index)
 	}
 }
 
+void RenderWindow::slotCameraMove()
+{
+	QString buttonName = this->sender()->objectName();
+	mainInterface->MoveCamera(buttonName);
+}
+
+void RenderWindow::slotCameraRotation()
+{
+	QString buttonName = this->sender()->objectName();
+	qDebug() << buttonName;
+}
 
 
 //=================== rendered image widget ==================/
