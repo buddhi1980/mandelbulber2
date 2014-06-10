@@ -30,7 +30,7 @@ private:
 protected:
 	void resizeEvent(QResizeEvent *event)
 	{
-		qDebug() << "resize event";
+		//qDebug() << "resize event";
 		QScrollArea::resizeEvent(event);
 		visibleAreaWidth = width() - verticalScrollBar()->width();
 		visibleAreaHeight = height() - horizontalScrollBar()->height();

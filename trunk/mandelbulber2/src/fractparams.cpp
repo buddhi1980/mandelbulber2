@@ -39,8 +39,9 @@ cParamRender::cParamRender(const parameters::container *container)
 	viewDistanceMin = container->Get<double>("view_distance_min");
 	camera = container->Get<CVector3>("camera");
 	target = container->Get<CVector3>("target");
-	viewAngle = container->Get<CVector3>("view_angle");
-	cameraDistanceToTarget = container->Get<double>("cameraDistanceToTarget");
+	viewAngle = container->Get<CVector3>("camera_rotation");
+	topVector = container->Get<CVector3>("camera_top");
+	cameraDistanceToTarget = container->Get<double>("camera_distance_to_target");
 	interiorMode = container->Get<bool>("limits_enabled");
 	linearDEmode = container->Get<bool>("linear_DE_mode");
 	constantDEThreshold = container->Get<bool>("constant_DE_threshold");

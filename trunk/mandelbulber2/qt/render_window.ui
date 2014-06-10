@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1533</width>
-    <height>1087</height>
+    <width>1566</width>
+    <height>1075</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,7 +28,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_window_bottom">
+     <layout class="QVBoxLayout" name="verticalLayout_center">
       <item>
        <widget class="MyScrolledArea" name="scrollAreaForImage">
         <property name="verticalScrollBarPolicy">
@@ -45,8 +45,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>901</width>
-           <height>985</height>
+           <width>932</width>
+           <height>973</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage"/>
@@ -164,7 +164,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1533</width>
+     <width>1566</width>
      <height>17</height>
     </rect>
    </property>
@@ -561,846 +561,1029 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetRightContents">
     <layout class="QVBoxLayout" name="verticalLayout_24">
+     <property name="margin">
+      <number>2</number>
+     </property>
      <item>
-      <layout class="QVBoxLayout" name="vl_side_functions" stretch="0,0,0,0,0,0,0">
-       <property name="spacing">
-        <number>1</number>
+      <widget class="QScrollArea" name="scrollArea_4">
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
        </property>
-       <item>
-        <widget class="QPushButton" name="pushButton_render">
-         <property name="text">
-          <string>RENDER</string>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_5">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>214</width>
+          <height>999</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="leftMargin">
+          <number>0</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_stop">
-         <property name="text">
-          <string>STOP</string>
+         <property name="topMargin">
+          <number>0</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_coordinates">
-         <property name="title">
-          <string>Coordinates:</string>
+         <property name="rightMargin">
+          <number>0</number>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <property name="spacing">
-           <number>1</number>
-          </property>
-          <property name="margin">
-           <number>2</number>
-          </property>
-          <item>
-           <widget class="QGroupBox" name="groupBox_cameraPosition">
-            <property name="title">
-             <string>Camera</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_5">
-             <property name="spacing">
-              <number>2</number>
+         <item>
+          <layout class="QVBoxLayout" name="vl_side_functions" stretch="0,0,0,0,0,0,0">
+           <property name="spacing">
+            <number>1</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="pushButton_render">
+             <property name="text">
+              <string>RENDER</string>
              </property>
-             <property name="margin">
-              <number>2</number>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_stop">
+             <property name="text">
+              <string>STOP</string>
              </property>
-             <item>
-              <widget class="QFrame" name="vect3_camera">
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_14">
-                <property name="spacing">
-                 <number>2</number>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_coordinates">
+             <property name="title">
+              <string>Coordinates:</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <property name="spacing">
+               <number>1</number>
+              </property>
+              <property name="margin">
+               <number>2</number>
+              </property>
+              <item>
+               <widget class="QGroupBox" name="groupBox_cameraPosition">
+                <property name="title">
+                 <string>Camera</string>
                 </property>
-                <property name="margin">
-                 <number>2</number>
+                <layout class="QVBoxLayout" name="verticalLayout_5">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="margin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <widget class="QFrame" name="vect3_camera">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_14">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="margin">
+                     <number>2</number>
+                    </property>
+                    <item>
+                     <layout class="QFormLayout" name="formLayout_coordinates_4">
+                      <property name="fieldGrowthPolicy">
+                       <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                      </property>
+                      <property name="horizontalSpacing">
+                       <number>5</number>
+                      </property>
+                      <property name="verticalSpacing">
+                       <number>1</number>
+                      </property>
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="label_18">
+                        <property name="text">
+                         <string>x:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="1">
+                       <widget class="QLineEdit" name="vect3_camera_x"/>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="label_19">
+                        <property name="text">
+                         <string>y:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QLineEdit" name="vect3_camera_y"/>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="label_20">
+                        <property name="text">
+                         <string>z:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
+                       <widget class="QLineEdit" name="vect3_camera_z"/>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="single_camera_movenent_step_de_2">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_56">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="margin">
+                     <number>2</number>
+                    </property>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_2">
+                      <item>
+                       <widget class="QLabel" name="label_54">
+                        <property name="text">
+                         <string>Field of view:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QDoubleSpinBox" name="spinbox_fov">
+                        <property name="prefix">
+                         <string/>
+                        </property>
+                        <property name="suffix">
+                         <string/>
+                        </property>
+                        <property name="decimals">
+                         <number>2</number>
+                        </property>
+                        <property name="minimum">
+                         <double>0.010000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>5.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.100000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>1.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <widget class="QSlider" name="slider_fov">
+                      <property name="minimum">
+                       <number>10</number>
+                      </property>
+                      <property name="maximum">
+                       <number>200</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>1</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_targetPosition">
+                <property name="title">
+                 <string>Target</string>
                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_54">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="margin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <widget class="QFrame" name="vect3_target">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_55">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="margin">
+                     <number>2</number>
+                    </property>
+                    <item>
+                     <layout class="QFormLayout" name="formLayout_coordinates_9">
+                      <property name="fieldGrowthPolicy">
+                       <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                      </property>
+                      <property name="horizontalSpacing">
+                       <number>5</number>
+                      </property>
+                      <property name="verticalSpacing">
+                       <number>1</number>
+                      </property>
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="label_121">
+                        <property name="text">
+                         <string>x:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="1">
+                       <widget class="QLineEdit" name="vect3_target_x"/>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="label_122">
+                        <property name="text">
+                         <string>y:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QLineEdit" name="vect3_target_y"/>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="label_123">
+                        <property name="text">
+                         <string>z:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
+                       <widget class="QLineEdit" name="vect3_target_z"/>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_camera_movement_mode">
                 <item>
-                 <layout class="QFormLayout" name="formLayout_coordinates_4">
-                  <property name="fieldGrowthPolicy">
-                   <enum>QFormLayout::ExpandingFieldsGrow</enum>
-                  </property>
-                  <property name="horizontalSpacing">
-                   <number>5</number>
-                  </property>
-                  <property name="verticalSpacing">
-                   <number>1</number>
-                  </property>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_18">
-                    <property name="text">
-                     <string>x:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1">
-                   <widget class="QLineEdit" name="vect3_camera_x"/>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="label_19">
-                    <property name="text">
-                     <string>y:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QLineEdit" name="vect3_camera_y"/>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QLabel" name="label_20">
-                    <property name="text">
-                     <string>z:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="1">
-                   <widget class="QLineEdit" name="vect3_camera_z"/>
-                  </item>
-                 </layout>
+                 <property name="text">
+                  <string>Fixed camera-target distance</string>
+                 </property>
                 </item>
-               </layout>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_targetPosition">
-            <property name="title">
-             <string>Target</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_54">
-             <property name="spacing">
-              <number>2</number>
-             </property>
-             <property name="margin">
-              <number>2</number>
-             </property>
-             <item>
-              <widget class="QFrame" name="vect3_target">
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_55">
-                <property name="spacing">
-                 <number>2</number>
-                </property>
-                <property name="margin">
-                 <number>2</number>
-                </property>
                 <item>
-                 <layout class="QFormLayout" name="formLayout_coordinates_9">
-                  <property name="fieldGrowthPolicy">
-                   <enum>QFormLayout::ExpandingFieldsGrow</enum>
-                  </property>
-                  <property name="horizontalSpacing">
-                   <number>5</number>
-                  </property>
-                  <property name="verticalSpacing">
-                   <number>1</number>
-                  </property>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_121">
-                    <property name="text">
-                     <string>x:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1">
-                   <widget class="QLineEdit" name="vect3_target_x"/>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="label_122">
-                    <property name="text">
-                     <string>y:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QLineEdit" name="vect3_target_y"/>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QLabel" name="label_123">
-                    <property name="text">
-                     <string>z:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="1">
-                   <widget class="QLineEdit" name="vect3_target_z"/>
-                  </item>
-                 </layout>
+                 <property name="text">
+                  <string>Move camera</string>
+                 </property>
                 </item>
-               </layout>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox_movementMode">
-            <item>
-             <property name="text">
-              <string>Fixed camera-target distance</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Move camera</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Move target</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <layout class="QGridLayout" name="gridLayout_24">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_124">
-              <property name="text">
-               <string>Camera distance
+                <item>
+                 <property name="text">
+                  <string>Move target</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_24">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_124">
+                  <property name="text">
+                   <string>Camera distance
 to target:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="logedit_cameraDistanceToTarget">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0" colspan="2">
-             <widget class="QSlider" name="logslider_cameraDistanceToTarget">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="sizeIncrement">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="minimum">
-               <number>-1500</number>
-              </property>
-              <property name="maximum">
-               <number>300</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QGridLayout" name="gridLayout_arrows">
-            <property name="spacing">
-             <number>1</number>
-            </property>
-            <item row="2" column="3">
-             <widget class="QPushButton" name="bu_move_right">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/go-next.png</normaloff>:/arrows/icons/go-next.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2">
-             <widget class="QPushButton" name="bu_move_down">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QPushButton" name="bu_move_left">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/go-previous.png</normaloff>:/arrows/icons/go-previous.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QPushButton" name="bu_move_up">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/go-up.png</normaloff>:/arrows/icons/go-up.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QPushButton" name="bu_move_backward">
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="baseSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/arrow-down-double.png</normaloff>:/arrows/icons/arrow-down-double.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="bu_move_forward">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="baseSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/arrow-up-double.png</normaloff>:/arrows/icons/arrow-up-double.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QFrame" name="single_camera_movenent_step_de">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <property name="spacing">
-              <number>2</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="logedit_camera_distance_to_target">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0" colspan="2">
+                 <widget class="QSlider" name="logslider_camera_distance_to_target">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="sizeIncrement">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="minimum">
+                   <number>-1500</number>
+                  </property>
+                  <property name="maximum">
+                   <number>300</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_arrows">
+                <property name="spacing">
+                 <number>1</number>
+                </property>
+                <item row="2" column="3">
+                 <widget class="QPushButton" name="bu_move_right">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/go-next.png</normaloff>:/arrows/icons/go-next.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="2">
+                 <widget class="QPushButton" name="bu_move_down">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QPushButton" name="bu_move_left">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/go-previous.png</normaloff>:/arrows/icons/go-previous.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QPushButton" name="bu_move_up">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/go-up.png</normaloff>:/arrows/icons/go-up.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QPushButton" name="bu_move_backward">
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="baseSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/arrow-down-double.png</normaloff>:/arrows/icons/arrow-down-double.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QPushButton" name="bu_move_forward">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="baseSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/arrow-up-double.png</normaloff>:/arrows/icons/arrow-up-double.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QFrame" name="single_camera_movenent_step_de">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="margin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout">
+                   <item>
+                    <widget class="QLabel" name="label_9">
+                     <property name="text">
+                      <string>step:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="logedit_camera_movenent_step"/>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QSlider" name="logslider_camera_movenent_step">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="sizeIncrement">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="minimum">
+                    <number>-200</number>
+                   </property>
+                   <property name="maximum">
+                    <number>100</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_camera_absolute_distance_mode">
+                <item>
+                 <property name="text">
+                  <string>Absolute step mode</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Relative step mode</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_rotation">
+             <property name="title">
+              <string>Camera rotation:</string>
              </property>
-             <property name="margin">
-              <number>2</number>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <property name="margin">
+               <number>2</number>
+              </property>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_2">
+                <property name="spacing">
+                 <number>1</number>
+                </property>
+                <item row="3" column="1">
+                 <widget class="QPushButton" name="bu_rotate_left">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/go-previous.png</normaloff>:/arrows/icons/go-previous.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QPushButton" name="bu_rotate_up">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/go-up.png</normaloff>:/arrows/icons/go-up.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="3">
+                 <widget class="QPushButton" name="bu_rotate_right">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/go-next.png</normaloff>:/arrows/icons/go-next.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="2">
+                 <widget class="QPushButton" name="bu_rotate_down">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="3">
+                 <widget class="QPushButton" name="bu_rotate_z_right">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/object-rotate-right.png</normaloff>:/arrows/icons/object-rotate-right.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QPushButton" name="bu_rotate_z_left">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/object-rotate-left.png</normaloff>:/arrows/icons/object-rotate-left.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QFrame" name="single_camera_movenent_step_de_3">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_57">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="margin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_11">
+                   <item>
+                    <widget class="QLabel" name="label_125">
+                     <property name="text">
+                      <string>rotation step:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDoubleSpinBox" name="spinbox_camera_rotation_step">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>0.100000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>90.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>5.000000000000000</double>
+                     </property>
+                     <property name="value">
+                      <double>15.000000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_camera_rotation_mode">
+                <item>
+                 <property name="text">
+                  <string>Rotate camera</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Rotate around target</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_camera_straight_rotation">
+                <item>
+                 <property name="text">
+                  <string>Fixed roll angle</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Staight rotation</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QFrame" name="vect3_view_angle">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_13">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="margin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <layout class="QFormLayout" name="formLayout_coordinates">
+                   <property name="fieldGrowthPolicy">
+                    <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                   </property>
+                   <property name="horizontalSpacing">
+                    <number>5</number>
+                   </property>
+                   <property name="verticalSpacing">
+                    <number>1</number>
+                   </property>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_15">
+                     <property name="text">
+                      <string>yaw:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLineEdit" name="vect3_camera_rotation_x"/>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_16">
+                     <property name="text">
+                      <string>pitch:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="vect3_camera_rotation_y"/>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_17">
+                     <property name="text">
+                      <string>roll:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLineEdit" name="vect3_camera_rotation_z"/>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_mouse_click_functions">
+             <property name="text">
+              <string>Mouse click function:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBox_mouse_click_function">
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>0</height>
+              </size>
              </property>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout">
-               <item>
-                <widget class="QLabel" name="label_9">
-                 <property name="text">
-                  <string>step:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="edit_camera_movenent_step_de"/>
-               </item>
-              </layout>
+              <property name="text">
+               <string>Move the camera</string>
+              </property>
              </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox_">
-            <item>
-             <property name="text">
-              <string>Absolute step mode</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Relative step mode</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_rotation">
-         <property name="title">
-          <string>Camera rotation:</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
-          <property name="spacing">
-           <number>2</number>
-          </property>
-          <property name="margin">
-           <number>2</number>
-          </property>
-          <item>
-           <widget class="QFrame" name="vect3_view_angle">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_13">
-             <property name="spacing">
-              <number>2</number>
-             </property>
-             <property name="margin">
-              <number>2</number>
-             </property>
              <item>
-              <layout class="QFormLayout" name="formLayout_coordinates">
-               <property name="fieldGrowthPolicy">
-                <enum>QFormLayout::ExpandingFieldsGrow</enum>
-               </property>
-               <property name="horizontalSpacing">
-                <number>5</number>
-               </property>
-               <property name="verticalSpacing">
-                <number>1</number>
-               </property>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_15">
-                 <property name="text">
-                  <string>yaw:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLineEdit" name="vect3_camera_rotaion_x"/>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_16">
-                 <property name="text">
-                  <string>pitch:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="vect3_camera_rotaion_y"/>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_17">
-                 <property name="text">
-                  <string>roll:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="vect3_camera_rotaion_z"/>
-               </item>
-              </layout>
+              <property name="text">
+               <string>Set front fog distance</string>
+              </property>
              </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox_cameraRotationMode">
-            <item>
-             <property name="text">
-              <string>Rotate camera</string>
+             <item>
+              <property name="text">
+               <string>Set deep fog distance</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Rotate around target</string>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
              </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboBox_cameraRotationMode_2">
-            <item>
-             <property name="text">
-              <string>Fixed roll angle</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Staight rotation</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item>
-           <layout class="QGridLayout" name="gridLayout_2">
-            <property name="spacing">
-             <number>1</number>
-            </property>
-            <item row="3" column="1">
-             <widget class="QPushButton" name="bu_rotate_left">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/go-previous.png</normaloff>:/arrows/icons/go-previous.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QPushButton" name="bu_rotate_up">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/go-up.png</normaloff>:/arrows/icons/go-up.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="3">
-             <widget class="QPushButton" name="bu_rotate_right">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/go-next.png</normaloff>:/arrows/icons/go-next.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="2">
-             <widget class="QPushButton" name="bu_rotate_down">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="3">
-             <widget class="QPushButton" name="bu_rotate_z_right">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/object-rotate-right.png</normaloff>:/arrows/icons/object-rotate-right.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QPushButton" name="bu_rotate_z_left">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="icons.qrc">
-                <normaloff>:/arrows/icons/object-rotate-left.png</normaloff>:/arrows/icons/object-rotate-left.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_mouse_click_functions">
-         <property name="text">
-          <string>Mouse click function:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="comboBox_mouse_click_function">
-         <property name="minimumSize">
-          <size>
-           <width>150</width>
-           <height>0</height>
-          </size>
-         </property>
-         <item>
-          <property name="text">
-           <string>Move the camera</string>
-          </property>
+            </spacer>
+           </item>
+          </layout>
          </item>
-         <item>
-          <property name="text">
-           <string>Set front fog distance</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Set deep fog distance</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
+        </layout>
+       </widget>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -1442,7 +1625,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>345</width>
-          <height>228</height>
+          <height>221</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1458,7 +1641,7 @@ to target:</string>
             <enum>QFrame::NoFrame</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="page">
             <property name="geometry">
@@ -1994,7 +2177,7 @@ to target:</string>
               <x>0</x>
               <y>0</y>
               <width>331</width>
-              <height>99</height>
+              <height>92</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2579,7 +2762,7 @@ to target:</string>
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>0</y>
+              <y>-106</y>
               <width>314</width>
               <height>198</height>
              </rect>
@@ -2685,7 +2868,7 @@ to target:</string>
                    </widget>
                   </item>
                   <item row="1" column="1">
-                   <widget class="QComboBox" name="comboBox_mapEquirectangular">
+                   <widget class="QComboBox" name="comboBox_textured_background_map_type">
                     <item>
                      <property name="text">
                       <string>Equirectangular</string>
@@ -4102,8 +4285,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>122</height>
+          <width>324</width>
+          <height>119</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4348,7 +4531,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>341</width>
-          <height>122</height>
+          <height>117</height>
          </rect>
         </property>
         <attribute name="label">

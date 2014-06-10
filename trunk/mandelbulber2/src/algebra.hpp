@@ -115,6 +115,8 @@ public:
 	{
 		return atan2(z, sqrt(x * x + y * y));
 	}
+	CVector3 RotateAroundVectorByAngle(CVector3 axis, double angle);
+
 	double x;
 	double y;
 	double z;

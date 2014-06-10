@@ -91,19 +91,22 @@ bool cRenderer::RenderImage()
 		mainInterface->StatusText(statusText, progressTxt, percentDone);
 
 		//refresh image
-		if(timerRefresh.elapsed() > lastRefreshTime * 100)
+		if (listToRefresh.size() > 0)
 		{
-			timerRefresh.restart();
-			qSort(listToRefresh);
-			image->CompileImage(&listToRefresh);
-			if(image->IsPreview())
+			if (timerRefresh.elapsed() > lastRefreshTime * 100)
 			{
-				image->ConvertTo8bit();
-				image->UpdatePreview(&listToRefresh);
-				image->GetImageWidget()->update();
+				timerRefresh.restart();
+				qSort(listToRefresh);
+				image->CompileImage(&listToRefresh);
+				if (image->IsPreview())
+				{
+					image->ConvertTo8bit();
+					image->UpdatePreview(&listToRefresh);
+					image->GetImageWidget()->update();
+				}
+				lastRefreshTime = timerRefresh.elapsed() / (listToRefresh.size());
+				listToRefresh.clear();
 			}
-			lastRefreshTime = timerRefresh.elapsed();
-			listToRefresh.clear();
 		}
 	}
 

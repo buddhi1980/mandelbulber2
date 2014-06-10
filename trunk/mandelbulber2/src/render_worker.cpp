@@ -278,7 +278,8 @@ void cRenderWorker::doWork(void)
 //calculation of base vectors
 void cRenderWorker::PrepareMainVectors(void)
 {
-	cameraTarget = new cCameraTarget(params->camera, params->target, params->viewAngle);
+	cameraTarget = new cCameraTarget(params->camera, params->target, params->topVector);
+	//cameraTarget->SetCameraTargetRotation(params->camera, params->target, params->viewAngle);
 	viewAngle = cameraTarget->GetRotation();
 
 	//preparing rotation matrix
