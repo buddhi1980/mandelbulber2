@@ -229,7 +229,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-47</y>
           <width>330</width>
           <height>273</height>
          </rect>
@@ -887,6 +887,9 @@ to target:</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                  </property>
                  </widget>
                 </item>
                 <item row="1" column="0" colspan="2">
@@ -1329,7 +1332,7 @@ to target:</string>
                  </widget>
                 </item>
                 <item row="2" column="3">
-                 <widget class="QPushButton" name="bu_rotate_z_right">
+                 <widget class="QPushButton" name="bu_rotate_roll_right">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1358,7 +1361,7 @@ to target:</string>
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QPushButton" name="bu_rotate_z_left">
+                 <widget class="QPushButton" name="bu_rotate_roll_left">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1625,7 +1628,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>345</width>
-          <height>221</height>
+          <height>225</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1641,13 +1644,13 @@ to target:</string>
             <enum>QFrame::NoFrame</enum>
            </property>
            <property name="currentIndex">
-            <number>3</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="page">
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>0</y>
+              <y>-321</y>
               <width>314</width>
               <height>417</height>
              </rect>
@@ -2177,7 +2180,7 @@ to target:</string>
               <x>0</x>
               <y>0</y>
               <width>331</width>
-              <height>92</height>
+              <height>96</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2284,7 +2287,11 @@ to target:</string>
                    </widget>
                   </item>
                   <item row="0" column="2">
-                   <widget class="QLineEdit" name="logedit_basic_fog_visibility"/>
+                   <widget class="QLineEdit" name="logedit_basic_fog_visibility">
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
                   </item>
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_64">
@@ -2762,7 +2769,7 @@ to target:</string>
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-106</y>
+              <y>0</y>
               <width>314</width>
               <height>198</height>
              </rect>
@@ -4285,7 +4292,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>324</width>
+          <width>341</width>
           <height>119</height>
          </rect>
         </property>
@@ -4531,7 +4538,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>341</width>
-          <height>117</height>
+          <height>119</height>
          </rect>
         </property>
         <attribute name="label">

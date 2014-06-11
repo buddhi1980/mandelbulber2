@@ -80,7 +80,7 @@ bool cRenderJob::Init(enumMode _mode)
 	renderData = new sRenderData;
 	renderData->rendererID = id;
 	renderData->numberOfThreads = totalNumberOfCPUs;
-	renderData->imageRegion.Set(-1.0, -1.0, 1.0, 1.0);
+	renderData->imageRegion.Set(-1.0, 1.0, 1.0, -1.0);
 	renderData->screenRegion.Set(0, 0, width, height);
 	renderData->lights.Set(paramsContainer, fractalContainer);
 	renderData->palette = cColorPalette(12345, 1.0);

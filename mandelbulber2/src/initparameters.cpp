@@ -174,10 +174,10 @@ void InitParams(parameters::container *par)
 	par->addParam("aux_light_visibility", 1.0, true);
 	par->addParam("aux_light_visibility_size", 1.0, true);
 
-	par->addParam("aux_light_predefined_position", 1, CVector3(3.0, -3.0, -3.0), true);
+	par->addParam("aux_light_predefined_position", 1, CVector3(3.0, -3.0, 3.0), true);
 	par->addParam("aux_light_predefined_position", 2, CVector3(-3.0, -3.0, 0.0), true);
-	par->addParam("aux_light_predefined_position", 3, CVector3(-3.0, 3.0, 1.0), true);
-	par->addParam("aux_light_predefined_position", 4, CVector3(0.0, -1.0, 3.0), true);
+	par->addParam("aux_light_predefined_position", 3, CVector3(-3.0, 3.0, -1.0), true);
+	par->addParam("aux_light_predefined_position", 4, CVector3(0.0, -1.0, -3.0), true);
 	par->addParam("aux_light_predefined_intensity", 1, 1.3, true);
 	par->addParam("aux_light_predefined_intensity", 2, 1.0, true);
 	par->addParam("aux_light_predefined_intensity", 3, 3, true);

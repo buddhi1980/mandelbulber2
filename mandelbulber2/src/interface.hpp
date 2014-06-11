@@ -19,7 +19,7 @@ public:
 	enum enumReadWrite {read, write};
 	enum enumCameraMovementStepMode {absolute, relative};
 	enum enumCameraMovementMode {fixedDistance, moveCamera, moveTarget};
-
+	enum enumCameraRotationMode {rotateCamera, rotateAroundTarget};
 
 	cInterface();
 	void ShowUi(void);
@@ -35,6 +35,7 @@ public:
 	double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image);
 	void StartRender(void);
 	void MoveCamera(QString buttonName);
+	void RotateCamera(QString buttonName);
 
 	QApplication *application;
 	RenderWindow *mainWindow;

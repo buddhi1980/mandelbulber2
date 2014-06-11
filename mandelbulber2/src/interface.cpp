@@ -84,6 +84,12 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->bu_move_forward, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
 	QApplication::connect(mainWindow->ui->bu_move_backward, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
 
+	QApplication::connect(mainWindow->ui->bu_rotate_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
+	QApplication::connect(mainWindow->ui->bu_rotate_down, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
+	QApplication::connect(mainWindow->ui->bu_rotate_left, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
+	QApplication::connect(mainWindow->ui->bu_rotate_right, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
+	QApplication::connect(mainWindow->ui->bu_rotate_roll_left, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
+	QApplication::connect(mainWindow->ui->bu_rotate_roll_right, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
 
 	ConnectSignalsForSlidersInWindow(mainWindow);
 	MakeColorButtonsInWindow(mainWindow);
@@ -190,6 +196,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 								break;
 						}
 						lineEdit->setText(qtext);
+						lineEdit->setCursorPosition(0);
 					}
 				}
 
@@ -205,6 +212,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 					{
 						double value = par->Get<double>(parameterName);
 						lineEdit->setText(QString::number(value, 'g', 20));
+						lineEdit->setCursorPosition(0);
 					}
 				}
 
@@ -716,12 +724,11 @@ void cInterface::MoveCamera(QString buttonName)
 	gPar->Set("target", target);
 
 	//recalculation of camera-target
-
-	//******************************* zrobić wybór trybu ruchu !!!!!!!!! **********
+	cCameraTarget::enumRotationMode rollMode = 	(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
 	if(movementMode == moveCamera)
-		cameraTarget.SetCamera(camera, cCameraTarget::constantTop);
+		cameraTarget.SetCamera(camera, rollMode);
 	else if(movementMode == moveTarget)
-		cameraTarget.SetTarget(target, cCameraTarget::constantTop);
+		cameraTarget.SetTarget(target, rollMode);
 	else if (movementMode == fixedDistance)
 		cameraTarget.SetCameraTargetTop(camera, target, topVector);
 
@@ -737,6 +744,84 @@ void cInterface::MoveCamera(QString buttonName)
 	StartRender();
 }
 
+void cInterface::RotateCamera(QString buttonName)
+{
+	//get data from interface
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	CVector3 camera = gPar->Get<CVector3>("camera");
+	CVector3 target = gPar->Get<CVector3>("target");
+	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	cCameraTarget cameraTarget(camera, target, topVector);
+	double distance = cameraTarget.GetDistance();
+
+	enumCameraRotationMode rotationMode = (enumCameraRotationMode)gPar->Get<int>("camera_rotation_mode");
+	cCameraTarget::enumRotationMode rollMode = 	(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
+
+	CVector3 rotationAxis;
+	if(rollMode == cCameraTarget::constantRoll)
+	{
+		if(buttonName == "bu_rotate_left")
+			rotationAxis = CVector3(0.0, 0.0, 1.0);
+		else if(buttonName == "bu_rotate_right")
+			rotationAxis = CVector3(0.0, 0.0, -1.0);
+		else if(buttonName == "bu_rotate_up")
+			rotationAxis = CVector3(1.0, 0.0, 0.0);
+		else if(buttonName == "bu_rotate_down")
+			rotationAxis = CVector3(-1.0, 0.0, 0.0);
+		else if(buttonName == "bu_rotate_roll_left")
+			rotationAxis = CVector3(0.0, -1.0, 0.0);
+		else if(buttonName == "bu_rotate_roll_right")
+			rotationAxis = CVector3(0.0, 1.0, 0.0);
+	}
+	else
+	{
+		if(buttonName == "bu_rotate_left")
+			rotationAxis = cameraTarget.GetTopVector() * ( 1.0);
+		else if(buttonName == "bu_rotate_right")
+			rotationAxis = cameraTarget.GetTopVector() * (-1.0);
+		else if(buttonName == "bu_rotate_up")
+			rotationAxis = cameraTarget.GetRightVector() * (1.0);
+		else if(buttonName == "bu_rotate_down")
+			rotationAxis = cameraTarget.GetRightVector() * (-1.0);
+		else if(buttonName == "bu_rotate_roll_left")
+			rotationAxis = cameraTarget.GetForwardVector() * (-1.0);
+		else if(buttonName == "bu_rotate_roll_right")
+			rotationAxis = cameraTarget.GetForwardVector() * (1.0);
+	}
+
+	if(rotationMode == rotateAroundTarget)
+		rotationAxis *= -1.0;
+
+	//rotation of vectors
+	CVector3 forwardVector = cameraTarget.GetForwardVector();
+	double rotationStep = gPar->Get<double>("camera_rotation_step") * (M_PI / 180.0);
+	forwardVector = forwardVector.RotateAroundVectorByAngle(rotationAxis, rotationStep);
+	topVector = topVector.RotateAroundVectorByAngle(rotationAxis, rotationStep);
+
+	if(rotationMode == rotateCamera)
+	{
+		target = camera + forwardVector * distance;
+	}
+	else
+	{
+		camera = target - forwardVector * distance;
+	}
+
+	//recalculation of camera-target
+	cameraTarget.SetCameraTargetTop(camera, target, topVector);
+
+	gPar->Set("camera", camera);
+	gPar->Set("target", target);
+	gPar->Set("camera_top", topVector);
+	CVector3 rotation = cameraTarget.GetRotation();
+	gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+	double dist = cameraTarget.GetDistance();
+	gPar->Set("camera_distance_to_target", dist);
+
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+	StartRender();
+}
 
 //function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)
