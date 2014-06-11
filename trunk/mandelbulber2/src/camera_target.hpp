@@ -24,7 +24,6 @@ public:
 	void SetCameraTargetTop(CVector3 _camera, CVector3 _target, CVector3 _top);
 	void SetCamera(CVector3 _camera, enumRotationMode mode);
 	void SetTarget(CVector3 _target, enumRotationMode mode);
-	void SetRotation(CVector3 _rot);
 	CVector3 GetCamera() {return camera;}
 	CVector3 GetTarget() {return target;};
 	CVector3 GetRotation() {return CVector3(yaw, pitch, roll);}

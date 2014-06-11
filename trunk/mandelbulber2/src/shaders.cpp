@@ -157,9 +157,11 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 	}
 	else
 	{
-		CVector3 vector(0.0, 0.0, -1.0);
+		CVector3 vector(0.0, 0.0, 1.0);
 		vector.Normalize();
-		double grad = (input.viewVector.Dot(vector)+1.0);
+		CVector3 viewVectorNorm = input.viewVector;
+		viewVectorNorm.Normalize();
+		double grad = (viewVectorNorm.Dot(vector)+1.0);
 		sRGB16 pixel;
 		if(grad < 1)
 		{

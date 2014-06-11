@@ -277,6 +277,7 @@ void RenderWindow::slotCameraRotation()
 {
 	QString buttonName = this->sender()->objectName();
 	qDebug() << buttonName;
+	mainInterface->RotateCamera(buttonName);
 }
 
 
