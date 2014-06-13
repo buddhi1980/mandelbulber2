@@ -44,6 +44,8 @@ private slots:
 	void slotChangedImageScale(int index);
 	void slotCameraMove();
 	void slotCameraRotation();
+	void slotCameraOrTargetEdited();
+	void slotRotationEdited();
 
 private:
 

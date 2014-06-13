@@ -276,10 +276,18 @@ void RenderWindow::slotCameraMove()
 void RenderWindow::slotCameraRotation()
 {
 	QString buttonName = this->sender()->objectName();
-	qDebug() << buttonName;
 	mainInterface->RotateCamera(buttonName);
 }
 
+void RenderWindow::slotCameraOrTargetEdited()
+{
+	mainInterface->CameraOrTargetEdited();
+}
+
+void RenderWindow::slotRotationEdited()
+{
+	mainInterface->RotationEdited();
+}
 
 //=================== rendered image widget ==================/
 
