@@ -91,6 +91,16 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->bu_rotate_roll_left, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
 	QApplication::connect(mainWindow->ui->bu_rotate_roll_right, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
 
+	QApplication::connect(mainWindow->ui->vect3_camera_x, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_camera_y, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_camera_z, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_target_x, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_target_y, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_target_z, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_camera_rotation_x, SIGNAL(editingFinished()), mainWindow, SLOT(slotRotationEdited()));
+	QApplication::connect(mainWindow->ui->vect3_camera_rotation_y, SIGNAL(editingFinished()), mainWindow, SLOT(slotRotationEdited()));
+	QApplication::connect(mainWindow->ui->vect3_camera_rotation_z, SIGNAL(editingFinished()), mainWindow, SLOT(slotRotationEdited()));
+
 	ConnectSignalsForSlidersInWindow(mainWindow);
 	MakeColorButtonsInWindow(mainWindow);
 }
@@ -744,6 +754,34 @@ void cInterface::MoveCamera(QString buttonName)
 	StartRender();
 }
 
+void cInterface::CameraOrTargetEdited(void)
+{
+	//get data from interface before synchronization
+	CVector3 camera = gPar->Get<CVector3>("camera");
+	CVector3 target = gPar->Get<CVector3>("target");
+	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	cCameraTarget cameraTarget(camera, target, topVector);
+
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	camera = gPar->Get<CVector3>("camera");
+	target = gPar->Get<CVector3>("target");
+
+	//recalculation of camera-target
+	cCameraTarget::enumRotationMode rollMode = 	(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
+	cameraTarget.SetCamera(camera, rollMode);
+	cameraTarget.SetTarget(target, rollMode);
+
+	topVector = cameraTarget.GetTopVector();
+	gPar->Set("camera_top", topVector);
+	CVector3 rotation = cameraTarget.GetRotation();
+	gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+	double dist = cameraTarget.GetDistance();
+	gPar->Set("camera_distance_to_target", dist);
+
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+}
+
 void cInterface::RotateCamera(QString buttonName)
 {
 	//get data from interface
@@ -821,6 +859,39 @@ void cInterface::RotateCamera(QString buttonName)
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
 	StartRender();
+}
+
+void cInterface::RotationEdited(void)
+{
+	//get data from interface before synchronization
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	CVector3 camera = gPar->Get<CVector3>("camera");
+	CVector3 target = gPar->Get<CVector3>("target");
+	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	cCameraTarget cameraTarget(camera, target, topVector);
+	double distance = cameraTarget.GetDistance();
+	CVector3 rotation = gPar->Get<CVector3>("camera_rotation") * (M_PI / 180.0);
+
+	enumCameraRotationMode rotationMode = (enumCameraRotationMode)gPar->Get<int>("camera_rotation_mode");
+
+	CVector3 forwardVector(0.0, 1.0, 0.0);
+	forwardVector = forwardVector.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), rotation.z);
+	forwardVector = forwardVector.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), rotation.y);
+	forwardVector = forwardVector.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), rotation.x);
+
+	if(rotationMode == rotateCamera)
+	{
+		target = camera + forwardVector * distance;
+	}
+	else
+	{
+		camera = target - forwardVector * distance;
+	}
+	cameraTarget.SetCameraTargetRotation(camera, target, rotation.z);
+	gPar->Set("camera", camera);
+	gPar->Set("target", target);
+	gPar->Set("camera_top", cameraTarget.GetTopVector());
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 }
 
 //function to create icons with actual color in ColorButtons
