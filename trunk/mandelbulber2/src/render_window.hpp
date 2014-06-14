@@ -46,6 +46,8 @@ private slots:
 	void slotCameraRotation();
 	void slotCameraOrTargetEdited();
 	void slotRotationEdited();
+	void slotCameraDistanceEdited();
+	void slotCameraDistanceSlider(int value);
 
 private:
 

@@ -51,8 +51,8 @@ void InitParams(parameters::container *par)
 	par->addParam("camera", CVector3(0.0, -3.0, 0.0), true);
 	par->addParam("target", CVector3(0.0, 0.0, 0.0), true);
 	par->addParam("camera_top", CVector3(0.0, 0.0, 1.0), true); //internal vector which represents top direction
-	par->addParam("camera_rotation", CVector3(-20.0, 30.0, 0.0), true);
-	par->addParam("camera_distance_to_target", 2.5, 0.0, 1e15, true);
+	par->addParam("camera_rotation", CVector3(0.0, 0.0, 0.0), true);
+	par->addParam("camera_distance_to_target", 3.0, 0.0, 1e15, true);
 	par->addParam("fov", 0.5, 0.0, 100.0, true);
 	par->addParam("perspective_type", 0, false);
 	par->addParam("stereo_eye_distance", 1.0, true);

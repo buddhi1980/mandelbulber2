@@ -77,6 +77,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow, SLOT(slotImageScrolledAreaResized(int, int)));
 	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedImageScale(int)));
 
+	// ------------ camera manipulation -----------
 	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
 	QApplication::connect(mainWindow->ui->bu_move_down, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
 	QApplication::connect(mainWindow->ui->bu_move_left, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
@@ -100,6 +101,10 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->vect3_camera_rotation_x, SIGNAL(editingFinished()), mainWindow, SLOT(slotRotationEdited()));
 	QApplication::connect(mainWindow->ui->vect3_camera_rotation_y, SIGNAL(editingFinished()), mainWindow, SLOT(slotRotationEdited()));
 	QApplication::connect(mainWindow->ui->vect3_camera_rotation_z, SIGNAL(editingFinished()), mainWindow, SLOT(slotRotationEdited()));
+	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraDistanceEdited()));
+	QApplication::connect(mainWindow->ui->logslider_camera_distance_to_target, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotCameraDistanceSlider(int)));
+
+	//------------------------------------------------
 
 	ConnectSignalsForSlidersInWindow(mainWindow);
 	MakeColorButtonsInWindow(mainWindow);
@@ -893,6 +898,36 @@ void cInterface::RotationEdited(void)
 	gPar->Set("camera_top", cameraTarget.GetTopVector());
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 }
+
+void cInterface::CameraDistanceEdited()
+{
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	CVector3 camera = gPar->Get<CVector3>("camera");
+	CVector3 target = gPar->Get<CVector3>("target");
+	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	cCameraTarget cameraTarget(camera, target, topVector);
+	CVector3 forwardVector = cameraTarget.GetForwardVector();
+
+	double distance = gPar->Get<double>("camera_distance_to_target");
+
+	enumCameraMovementMode movementMode = (enumCameraMovementMode)gPar->Get<int>("camera_movement_mode");
+	if(movementMode == moveTarget)
+	{
+		target = camera + forwardVector * distance;
+	}
+	else
+	{
+		camera = target - forwardVector * distance;
+	}
+
+	cameraTarget.SetCameraTargetTop(camera, target, topVector);
+	gPar->Set("camera", camera);
+	gPar->Set("target", target);
+	gPar->Set("camera_top", cameraTarget.GetTopVector());
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+}
+
 
 //function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)

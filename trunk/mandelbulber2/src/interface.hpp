@@ -38,6 +38,7 @@ public:
 	void RotateCamera(QString buttonName);
 	void CameraOrTargetEdited();
 	void RotationEdited();
+	void CameraDistanceEdited();
 
 	QApplication *application;
 	RenderWindow *mainWindow;
