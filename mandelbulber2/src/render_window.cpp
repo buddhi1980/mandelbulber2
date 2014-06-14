@@ -289,6 +289,16 @@ void RenderWindow::slotRotationEdited()
 	mainInterface->RotationEdited();
 }
 
+void RenderWindow::slotCameraDistanceEdited()
+{
+	mainInterface->CameraDistanceEdited();
+}
+
+void RenderWindow::slotCameraDistanceSlider(int value)
+{
+	mainInterface->CameraDistanceEdited();
+}
+
 //=================== rendered image widget ==================/
 
 RenderedImage::RenderedImage(QWidget *parent)
