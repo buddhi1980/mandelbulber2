@@ -11,6 +11,7 @@
 #include "region.hpp"
 #include "common_math.h"
 
+
 cRenderWorker::cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal, sThreadData *_threadData, const sRenderData *_data, cImage *_image)
 {
 	params = _params;
@@ -95,11 +96,13 @@ void cRenderWorker::doWork(void)
 		//main loop for x
 		for (int xs = 0; xs < width; xs++)
 		{
+
 			//break if by coincidence this thread started rendering the same line as some other
 			if (scheduler->ShouldIBreak(threadData->id, ys))
 			{
 				break;
 			}
+			//---------- 1us ------------
 
 			//skip if pixel is out of region;
 			if (xs < data->screenRegion.x1 || xs > data->screenRegion.x2) continue;
@@ -117,6 +120,8 @@ void cRenderWorker::doWork(void)
 			//calculate direction of ray-marching
 			CVector3 viewVector = calculateViewVector(imagePoint);
 
+		  //---------------- 1us -------------
+
 			//Ray marching
 			CVector3 point;
 			CVector3 startRay = start;
@@ -126,6 +131,7 @@ void cRenderWorker::doWork(void)
 
 
 			//raymarching loop (reflections)
+
 			sRayMarchingOut rayMarchingOut;
 			for (int ray = 0; ray <= reflectionsMax; ray++)
 			{
@@ -138,6 +144,7 @@ void cRenderWorker::doWork(void)
 
 				if (!hemisphereCut) //if pixel is inside the circle of hemisphere
 				{
+
 					sRayMarchingIn rayMarchingIn;
 					rayMarchingIn.binaryEnable = true;
 					rayMarchingIn.direction = viewVector;
@@ -150,6 +157,7 @@ void cRenderWorker::doWork(void)
 					rayMarchingInOut.stepBuff = reflectBuff[ray].stepBuff;
 
 					point = RayMarching(rayMarchingIn, &rayMarchingInOut, &rayMarchingOut);
+
 				}
 				else
 				{
@@ -181,6 +189,9 @@ void cRenderWorker::doWork(void)
 				viewVector = viewVector - vn * viewVector.Dot(vn)*2.0;
 				startRay = startRay + viewVector * reflectBuff[ray].distThresh;
 			}
+
+			//----------- 85us for rayMarching loop -------------
+
 
 			for(int ray = rayEnd; ray >= 0; ray--)
 			{
@@ -249,6 +260,9 @@ void cRenderWorker::doWork(void)
 				}
 			}
 
+			//------------------ 61us for shaders --------------------
+
+
 			sRGBfloat pixel2;
 			pixel2.R = resultShader.R;
 			pixel2.G = resultShader.G;
@@ -262,6 +276,8 @@ void cRenderWorker::doWork(void)
 			image->PutPixelImage(screenPoint.x, screenPoint.y, pixel2);
 			image->PutPixelColour(screenPoint.x, screenPoint.y, colour);
 			image->PutPixelZBuffer(screenPoint.x, screenPoint.y, (float) reflectBuff[0].depth);
+
+			//------------ 0.65us for pixels -------------
 
 			pixelCounter++;
 		}
@@ -455,19 +471,21 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	(*inOut->buffCount) = 0;
 	double distThresh;
 
+
 	for (int i = 0; i < 10000; i++)
 	{
 		counter++;
 
 		point = in.start + in.direction * scan;
 
-
 		distThresh = CalcDistThresh(point);
+
 
 		sDistanceIn distanceIn(point, distThresh, false);
 		sDistanceOut distanceOut;
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 		out->object = distanceOut.object;
+		//-------------------- 4.18us for Calculate distance --------------
 
 		//printf("Distance = %g\n", dist/distThresh);
 		inOut->stepBuff[i].distance = dist;
@@ -503,8 +521,8 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		{
 			break;
 		}
-
 	}
+	//------------- 83.2473 us for RayMarching loop -------------------------
 
 	if (found && in.binaryEnable)
 	{
@@ -545,6 +563,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			step *= 0.5;
 		}
 	}
+	//---------- 7.19605us for binary searching ---------------
 
 	DECounter+= counter;
 	//counters for drawing histogram

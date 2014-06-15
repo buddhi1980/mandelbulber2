@@ -8,6 +8,8 @@
 #include "calculate_distance.hpp"
 #include <algorithm>
 
+
+
 using namespace std;
 
 double CalculateDistance(const cParamRender &params, const cFourFractals &four, const sDistanceIn &in, sDistanceOut *out)
@@ -43,12 +45,14 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 	{
 		if (four.DEType == fractal::analitycDE)
 		{
+
 			Compute<fractal::normal>(four, fractIn, &fractOut);
 			distance = fractOut.distance;
 			out->maxiter = fractOut.maxiter;
 			out->iters = fractOut.iters;
 			out->colorIndex = fractOut.colorIndex;
 
+			//---------------- 3587.7 ns for Compute -----------
 			if (distance < 0) distance = 0;
 
 			if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
@@ -77,6 +81,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 					distance = in.detailSize * 1.01;
 				}
 			}
+			// ---------- 75 ns for rest of calculation -------------
 		}
 		else
 		{
@@ -218,6 +223,8 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 	}
 
 	out->distance = distance;
+
+	//-------------- 3936.54 ns for distance calculation -------------
 	return distance;
 }
 
