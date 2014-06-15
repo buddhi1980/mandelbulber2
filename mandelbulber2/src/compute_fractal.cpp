@@ -8,9 +8,24 @@
 #include "compute_fractal.hpp"
 #include "fractal_formulas.hpp"
 
+
+//temporary functions for performance profiling
+long int perf = 0;
+int perfCount = 0;
+inline unsigned long int rdtsc()
+{
+	timespec ts;
+	clock_gettime(CLOCK_REALTIME, &ts);
+	return (unsigned long int)ts.tv_sec * 1000000000LL + (unsigned long int)ts.tv_nsec;
+}
+
 template<fractal::enumCalculationMode Mode>
 void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 {
+	//QTextStream outStream(stdout);
+	//clock_t tim;
+	//tim = rdtsc();
+
 	CVector3 z = in.point;
 	double r = z.Length();
 	CVector3 c = z;
@@ -23,11 +38,15 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	out->maxiter = true;
 
 	const cFractal *defaultFractal = four.GetFractal(0);
+	//------------------- 86.7 ns for preparation ---------------
+
+	double power = defaultFractal->bulb.power;
 
 	//main iteration loop
 	int i;
 	for (i = 0; i < in.maxN; i++)
 	{
+
 		//here will be hybrid fractal sequence. Now it uses only formula #0
 		const cFractal *fractal = four.GetFractal(0);
 
@@ -35,10 +54,14 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		switch (fractal->formula)
 		{
 			case fractal::mandelbulb:
+			{
 				bulbAux.r = r;
 				MandelbulbIteration(z, fractal, bulbAux);
-				break;
+				//-------------- 1456ns for MandelbulbIteration (when in function) -----------------
+				//-------------- 1410ns for MandelbulbIteration (when directly) -----------------
 
+				break;
+			}
 			default:
 				z = CVector3(0.0, 0.0, 0.0);
 				break;
@@ -52,7 +75,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		//escape conditions
 		if (Mode == fractal::normal)
 		{
-			if (r > 1e10)
+			if (r > 1e2)
 			{
 				out->maxiter = false;
 				break;
@@ -75,6 +98,8 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			if (r > 1e15)
 				break;
 		}
+		//---------------- 1680 ns for iteration -------------
+
 	}
 
 	//final calculations
@@ -111,6 +136,8 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	}
 	out->iters = i + 1;
 	out->z = z;
+	//tim = rdtsc() - tim; perf+= tim; perfCount++; outStream << (double)perf/perfCount - 560.0 << endl;
+	//------------- 3249 ns for all calculation  ----------------
 }
 
 template void Compute<fractal::normal>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);

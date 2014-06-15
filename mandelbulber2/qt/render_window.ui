@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1566</width>
-    <height>1075</height>
+    <width>1695</width>
+    <height>1065</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -45,8 +45,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>932</width>
-           <height>973</height>
+           <width>1061</width>
+           <height>963</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage"/>
@@ -164,7 +164,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1566</width>
+     <width>1695</width>
      <height>17</height>
     </rect>
    </property>
@@ -229,9 +229,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-47</y>
+          <y>-44</y>
           <width>330</width>
-          <height>273</height>
+          <height>333</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -526,21 +526,82 @@
               </property>
              </widget>
             </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_5">
+           <property name="title">
+            <string>Camera</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_58">
             <item>
-             <spacer name="verticalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>8</width>
-                <height>8</height>
-               </size>
-              </property>
-             </spacer>
+             <layout class="QGridLayout" name="gridLayout_25">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_54">
+                <property name="text">
+                 <string>Field of view:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QDoubleSpinBox" name="spinbox_fov">
+                <property name="prefix">
+                 <string/>
+                </property>
+                <property name="suffix">
+                 <string/>
+                </property>
+                <property name="decimals">
+                 <number>2</number>
+                </property>
+                <property name="minimum">
+                 <double>0.010000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>5.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.100000000000000</double>
+                </property>
+                <property name="value">
+                 <double>1.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QSlider" name="slider_fov">
+                <property name="minimum">
+                 <number>10</number>
+                </property>
+                <property name="maximum">
+                 <number>200</number>
+                </property>
+                <property name="singleStep">
+                 <number>1</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>8</width>
+             <height>8</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -578,7 +639,7 @@
           <x>0</x>
           <y>0</y>
           <width>214</width>
-          <height>999</height>
+          <height>989</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -592,23 +653,30 @@
           <number>0</number>
          </property>
          <item>
-          <layout class="QVBoxLayout" name="vl_side_functions" stretch="0,0,0,0,0,0,0">
+          <layout class="QVBoxLayout" name="vl_side_functions" stretch="0,0,0,0,0,0">
            <property name="spacing">
             <number>1</number>
            </property>
            <item>
-            <widget class="QPushButton" name="pushButton_render">
-             <property name="text">
-              <string>RENDER</string>
+            <layout class="QGridLayout" name="gridLayout_26">
+             <property name="topMargin">
+              <number>0</number>
              </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_stop">
-             <property name="text">
-              <string>STOP</string>
-             </property>
-            </widget>
+             <item row="0" column="0">
+              <widget class="QPushButton" name="pushButton_render">
+               <property name="text">
+                <string>RENDER</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="pushButton_stop">
+               <property name="text">
+                <string>STOP</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <widget class="QGroupBox" name="groupBox_coordinates">
@@ -691,76 +759,6 @@
                        <widget class="QLineEdit" name="vect3_camera_z"/>
                       </item>
                      </layout>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QFrame" name="single_camera_movenent_step_de_2">
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_56">
-                    <property name="spacing">
-                     <number>2</number>
-                    </property>
-                    <property name="margin">
-                     <number>2</number>
-                    </property>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_2">
-                      <item>
-                       <widget class="QLabel" name="label_54">
-                        <property name="text">
-                         <string>Field of view:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QDoubleSpinBox" name="spinbox_fov">
-                        <property name="prefix">
-                         <string/>
-                        </property>
-                        <property name="suffix">
-                         <string/>
-                        </property>
-                        <property name="decimals">
-                         <number>2</number>
-                        </property>
-                        <property name="minimum">
-                         <double>0.010000000000000</double>
-                        </property>
-                        <property name="maximum">
-                         <double>5.000000000000000</double>
-                        </property>
-                        <property name="singleStep">
-                         <double>0.100000000000000</double>
-                        </property>
-                        <property name="value">
-                         <double>1.000000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="slider_fov">
-                      <property name="minimum">
-                       <number>10</number>
-                      </property>
-                      <property name="maximum">
-                       <number>200</number>
-                      </property>
-                      <property name="singleStep">
-                       <number>1</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -953,35 +951,6 @@ to target:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="2">
-                 <widget class="QPushButton" name="bu_move_down">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>40</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>32</width>
-                    <height>32</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
                 <item row="2" column="1">
                  <widget class="QPushButton" name="bu_move_left">
                   <property name="minimumSize">
@@ -1046,35 +1015,6 @@ to target:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
-                 <widget class="QPushButton" name="bu_move_backward">
-                  <property name="maximumSize">
-                   <size>
-                    <width>40</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="baseSize">
-                   <size>
-                    <width>32</width>
-                    <height>32</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/arrow-down-double.png</normaloff>:/arrows/icons/arrow-down-double.png</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>32</width>
-                    <height>32</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="0">
                  <widget class="QPushButton" name="bu_move_forward">
                   <property name="sizePolicy">
@@ -1107,6 +1047,64 @@ to target:</string>
                   <property name="icon">
                    <iconset resource="icons.qrc">
                     <normaloff>:/arrows/icons/arrow-up-double.png</normaloff>:/arrows/icons/arrow-up-double.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QPushButton" name="bu_move_backward">
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="baseSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/arrow-down-double.png</normaloff>:/arrows/icons/arrow-down-double.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QPushButton" name="bu_move_down">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1302,35 +1300,6 @@ to target:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="2">
-                 <widget class="QPushButton" name="bu_rotate_down">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>40</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>32</width>
-                    <height>32</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
                 <item row="2" column="3">
                  <widget class="QPushButton" name="bu_rotate_roll_right">
                   <property name="minimumSize">
@@ -1380,6 +1349,35 @@ to target:</string>
                   <property name="icon">
                    <iconset resource="icons.qrc">
                     <normaloff>:/arrows/icons/object-rotate-left.png</normaloff>:/arrows/icons/object-rotate-left.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="2">
+                 <widget class="QPushButton" name="bu_rotate_down">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="icons.qrc">
+                    <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1628,7 +1626,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>345</width>
-          <height>225</height>
+          <height>222</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1650,7 +1648,7 @@ to target:</string>
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-321</y>
+              <y>0</y>
               <width>314</width>
               <height>417</height>
              </rect>
@@ -2180,7 +2178,7 @@ to target:</string>
               <x>0</x>
               <y>0</y>
               <width>331</width>
-              <height>96</height>
+              <height>159</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2250,7 +2248,7 @@ to target:</string>
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>0</y>
+              <y>-475</y>
               <width>314</width>
               <height>634</height>
              </rect>
@@ -4293,7 +4291,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>341</width>
-          <height>119</height>
+          <height>167</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4538,7 +4536,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>341</width>
-          <height>119</height>
+          <height>167</height>
          </rect>
         </property>
         <attribute name="label">

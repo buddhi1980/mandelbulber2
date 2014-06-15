@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = mandelbulber2
 TEMPLATE = app
 
-CONFIG += qt thread debug
+CONFIG += qt thread
 
 SOURCES +=  ../src/algebra.cpp\
 			../src/calculate_distance.cpp\
