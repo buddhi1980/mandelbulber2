@@ -10,11 +10,11 @@
     <height>1065</height>
    </rect>
   </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
+  <property name="font">
+   <font>
+    <pointsize>8</pointsize>
+    <stylestrategy>PreferAntialias</stylestrategy>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Mandelbulber main window</string>
@@ -46,7 +46,7 @@
            <x>0</x>
            <y>0</y>
            <width>1061</width>
-           <height>963</height>
+           <height>964</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage"/>
@@ -165,7 +165,7 @@
      <x>0</x>
      <y>0</y>
      <width>1695</width>
-     <height>17</height>
+     <height>16</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -229,9 +229,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-44</y>
+          <y>0</y>
           <width>330</width>
-          <height>333</height>
+          <height>330</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -639,7 +639,7 @@
           <x>0</x>
           <y>0</y>
           <width>214</width>
-          <height>989</height>
+          <height>990</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -1650,7 +1650,7 @@ to target:</string>
               <x>0</x>
               <y>0</y>
               <width>314</width>
-              <height>417</height>
+              <height>416</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2178,7 +2178,7 @@ to target:</string>
               <x>0</x>
               <y>0</y>
               <width>331</width>
-              <height>159</height>
+              <height>98</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2248,9 +2248,9 @@ to target:</string>
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-475</y>
+              <y>0</y>
               <width>314</width>
-              <height>634</height>
+              <height>624</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2769,7 +2769,7 @@ to target:</string>
               <x>0</x>
               <y>0</y>
               <width>314</width>
-              <height>198</height>
+              <height>194</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2912,7 +2912,7 @@ to target:</string>
               <x>0</x>
               <y>0</y>
               <width>314</width>
-              <height>1486</height>
+              <height>1479</height>
              </rect>
             </property>
             <attribute name="label">
@@ -4291,7 +4291,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>341</width>
-          <height>167</height>
+          <height>120</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4402,7 +4402,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>324</width>
-          <height>147</height>
+          <height>146</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4536,7 +4536,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>341</width>
-          <height>167</height>
+          <height>120</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4573,7 +4573,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>330</width>
-          <height>511</height>
+          <height>510</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
