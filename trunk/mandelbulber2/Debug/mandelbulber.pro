@@ -44,7 +44,8 @@ SOURCES +=  ../src/algebra.cpp\
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
-			../qt/myscrolledarea.h
+			../qt/myscrolledarea.h\
+			../qt/mylineedit.h
 
 FORMS    += ../qt/render_window.ui
 
