@@ -165,7 +165,7 @@ void CRotationMatrix::SetRotation(double alfa, double beta, double gamma)
 	RotateX(gamma);
 }
 
-void CRotationMatrix::SetRotation(CVector3 &rotation)
+void CRotationMatrix::SetRotation(CVector3 rotation)
 {
 	Null();
 	RotateZ(rotation.x);

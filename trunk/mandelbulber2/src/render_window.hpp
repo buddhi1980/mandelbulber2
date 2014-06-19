@@ -31,12 +31,22 @@ private slots:
 	void slotStartRender();
 	void slotStopRender();
 	void load();
+
 	void slotSliderMoved(int value);
 	void slotDoubleSpinBoxChanged(double value);
-	void slotIntSpinBoxChanged(int value);
-	void slotLogSliderMoved(int value);
+
 	void slotIntSliderMoved(int value);
+	void slotIntSpinBoxChanged(int value);
+
+	void slotSlider3Moved(int value);
+	void slotSpinBox3Changed(double value);
+
+	void slotDial3Moved(int value);
+	void slotSpinBoxD3Changed(double value);
+
+	void slotLogSliderMoved(int value);
 	void slotLogLineEditChanged(const QString &text);
+
 	void slotPresedOnColorButton();
 	void slotMenuSaveDocksPositions();
 	void slotChangedFractalCombo(int index);

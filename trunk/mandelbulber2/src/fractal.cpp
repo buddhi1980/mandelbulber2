@@ -29,17 +29,18 @@ cFractal::cFractal(const parameters::container *container)
 	mandelbox.offset = container->Get<CVector3>("mandelbox_offset");
 	mandelbox.rotationMain = container->Get<CVector3>("mandelbox_rotation_main");
 
-	for(int i = 1; i <=3; i++)
+	for(int i=1; i<=3; i++)
 	{
-		mandelbox.rotation[0][i] = container->Get<CVector3>("mandelbox_rotation_neg", i);
-		mandelbox.rotation[1][i] = container->Get<CVector3>("mandelbox_rotation_pos", i);
+		mandelbox.rotation[0][i-1] = container->Get<CVector3>("mandelbox_rotation_neg", i);
+		mandelbox.rotation[1][i-1] = container->Get<CVector3>("mandelbox_rotation_pos", i);
 	}
 
 	mandelbox.colorFactor = container->Get<CVector3>("mandelbox_color");
 	mandelbox.colorFactorR = container->Get<double>("mandelbox_color_R");
 	mandelbox.colorFactorSp1 = container->Get<double>("mandelbox_color_Sp1");
 	mandelbox.colorFactorSp2 = container->Get<double>("mandelbox_color_Sp2");
-	mandelbox.rotationsEnabled = container->Get<double>("mandelbox_rotation_enabled");
+	mandelbox.rotationsEnabled = container->Get<double>("mandelbox_rotations_enabled");
+	mandelbox.mainRotationEnabled = container->Get<double>("mandelbox_main_rotation_enabled");
 
 	RecalculateFractalParams();
 }
@@ -54,14 +55,19 @@ void cFractal::RecalculateFractalParams(void)
 		IFS.direction[i].Normalize();
 	}
 
-	mandelbox.mainRot.SetRotation(mandelbox.rotationMain);
+	mandelbox.mainRot.SetRotation(mandelbox.rotationMain * (M_PI / 180.0));
 
 	for (int fold = 0; fold < MANDELBOX_FOLDS; ++fold)
+	{
 		for (int axis = 0; axis < 3; ++axis)
 		{
-			mandelbox.rot[fold][axis].SetRotation(mandelbox.rotation[fold][axis]);
+			mandelbox.rot[fold][axis].SetRotation(mandelbox.rotation[fold][axis] * (M_PI / 180.0));
 			mandelbox.rotinv[fold][axis] = mandelbox.rot[fold][axis].Transpose();
 		}
+	}
+	mandelbox.fR2 = mandelbox.foldingSphericalFixed * mandelbox.foldingSphericalFixed;
+	mandelbox.mR2 = mandelbox.foldingSphericalMin * mandelbox.foldingSphericalMin;
+	mandelbox.mboxFactor1 = mandelbox.fR2 / mandelbox.mR2;
 
 	//Generalized Fold Box precalculated vectors
 	double sqrt_i3 = 1.0/sqrt(3.0);

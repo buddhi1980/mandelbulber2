@@ -36,6 +36,7 @@ cFourFractals::cFourFractals(const parameters::container *par)
 	for(int i = 0; i < 4; i++)
 	{
 		fourFractals[i] = new cFractal(&par[i]);
+		fourFractals[i]->formula = (fractal::enumFractalFormula)par->Get<int>("formula", i + 1);
 	}
 
 	//temporary assing of DE type

@@ -125,7 +125,6 @@ void cInterface::SynchronizeInterface(parameters::container *par, parameters::co
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_2, &parFractal[1], mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_3, &parFractal[2], mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_4, &parFractal[3], mode);
-
 }
 
 //Reading ad writing parameters from/to selected widget to/from parameters container
@@ -275,6 +274,61 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 					else if (mode == write)
 					{
 						double value = par->Get<double>(parameterName);
+						spinbox->setValue(value);
+					}
+				}
+				else if(type == QString("spinbox3") || type == QString("spinboxd3"))
+				{
+					char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
+					QString nameVect = parameterName.left(parameterName.length() - 2);
+					if (mode == read)
+					{
+						double value = spinbox->value();
+						CVector3 vect = par->Get<CVector3>(nameVect);
+
+						switch (lastChar)
+						{
+							case 'x':
+								vect.x = value;
+								break;
+
+							case 'y':
+								vect.y = value;
+								break;
+
+							case 'z':
+								vect.z = value;
+								break;
+
+							default:
+								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+								break;
+						}
+						par->Set(nameVect, vect);
+					}
+					else if (mode == write)
+					{
+						CVector3 vect = par->Get<CVector3>(nameVect);
+						double value = 0;
+
+						switch (lastChar)
+						{
+							case 'x':
+								value = vect.x;
+								break;
+
+							case 'y':
+								value = vect.y;
+								break;
+
+							case 'z':
+								value = vect.z;
+								break;
+
+							default:
+								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+								break;
+						}
 						spinbox->setValue(value);
 					}
 				}
@@ -443,11 +497,27 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, parameters::contain
 					if (mode == read)
 					{
 						int selection = comboBox->currentIndex();
+
+						if(parameterName.left(7) == QString("formula"))
+						{
+							selection = fractalList[selection].internalID;
+						}
 						par->Set(parameterName, selection);
 					}
 					else if (mode == write)
 					{
 						int selection = par->Get<int>(parameterName);
+						if(parameterName.left(7) == QString("formula"))
+						{
+							for(int i=0; i<fractalList.size(); i++)
+							{
+								if(fractalList[i].internalID == selection)
+								{
+									selection = i;
+									break;
+								}
+							}
+						}
 						comboBox->setCurrentIndex(selection);
 					}
 				}
@@ -519,6 +589,49 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxInt " << spinboxName << " doesn't exists" << endl;
 				}
 			}
+			if (type == QString("slider3"))
+			{
+				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotSlider3Moved(int)));
+				QString spinboxName = QString("spinbox3_") + parameterName;
+				QDoubleSpinBox *spinbox = slider->parent()->findChild<QDoubleSpinBox*>(spinboxName);
+				if (spinbox)
+				{
+					QApplication::connect(spinbox, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotSpinBox3Changed(double)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox3 " << spinboxName << " doesn't exists" << endl;
+				}
+			}
+		}
+	}
+
+	QList<QDial *> widgetList2 = window->findChildren<QDial *>();
+	QList<QDial *>::iterator it2;
+	for (it2 = widgetList2.begin(); it2 != widgetList2.end(); ++it2)
+	{
+		QString name = (*it2)->objectName();
+		if (name.length() > 1 && (*it2)->metaObject()->className() == QString("QDial"))
+		{
+			const QDial *dial = *it2;
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			if (type == QString("dial3"))
+			{
+				QApplication::connect(dial, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotDial3Moved(int)));
+
+				QString spinBoxName = QString("spinboxd3_") + parameterName;
+				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
+				if (spinBox)
+				{
+					QApplication::connect(spinBox, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotSpinBoxD3Changed(double)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd3 " << spinBoxName << " doesn't exists" << endl;
+				}
+			}
 		}
 	}
 	WriteLog("ConnectSignalsForSlidersInWindow() finished");
@@ -564,6 +677,8 @@ void cInterface::GetNameAndType(QString name, QString *parameterName, QString *t
 void cInterface::InitializeFractalUi(QString &uiFileName)
 {
 	QUiLoader loader;
+	QString uiPluginPath = systemData.sharedDir + QDir::separator() + "qt";
+	loader.addPluginPath(uiPluginPath);
 	QFile uiFile(uiFileName);
 
 	if(uiFile.exists())
