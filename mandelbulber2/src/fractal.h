@@ -106,9 +106,14 @@ struct sFractalMandelbox
 	CVector3 offset;
 	sFractalMandelboxVary4D vary4D;
 	bool rotationsEnabled;
+	bool mainRotationEnabled;
 	CRotationMatrix mainRot;
 	CRotationMatrix rot[MANDELBOX_FOLDS][3];
 	CRotationMatrix rotinv[MANDELBOX_FOLDS][3];
+
+	double fR2;
+	double mR2;
+	double mboxFactor1;
 };
 
 struct sFractalFoldingIntPow

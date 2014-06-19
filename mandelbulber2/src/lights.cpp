@@ -28,7 +28,7 @@ cLights::~cLights()
 {
 	if(lights)
 	{
-		delete lights;
+		delete[] lights;
 		lights = NULL;
 	}
 }

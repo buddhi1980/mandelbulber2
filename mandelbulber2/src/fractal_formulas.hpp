@@ -16,6 +16,13 @@ struct sMandelbulbAux
 	double r;
 };
 
+struct sMandelboxAux
+{
+	double mboxDE;
+	double mboxColor;
+};
+
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
+void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

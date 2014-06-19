@@ -391,7 +391,8 @@ void InitFractalParams(parameters::container *par)
 	par->addParam("mandelbox_color_R", 0.0, true);
 	par->addParam("mandelbox_color_Sp1", 0.2, true);
 	par->addParam("mandelbox_color_Sp2", 0.2, true);
-	par->addParam("mandelbox_rotation_enabled", false, true);
+	par->addParam("mandelbox_main_rotation_enabled", false, true);
+	par->addParam("mandelbox_rotations_enabled", false, true);
 
 	par->addParam("mandelbox_solid", 1.0, true);
 	par->addParam("mandelbox_melt", 0.0, true);
