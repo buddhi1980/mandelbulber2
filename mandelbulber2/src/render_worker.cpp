@@ -71,7 +71,7 @@ void cRenderWorker::doWork(void)
 
 	int width = image->GetWidth();
 	int height = image->GetHeight();
-	double aspectRatio = (double) height / width;
+	double aspectRatio = (double) width / height;
 
 	PrepareMainVectors();
 	PrepareReflectionBuffer();
@@ -110,7 +110,7 @@ void cRenderWorker::doWork(void)
 			//calculate point in image coordinate system
 			CVector2<int> screenPoint(xs, ys);
 			CVector2<double> imagePoint = data->screenRegion.transpose(data->imageRegion, screenPoint);
-			imagePoint.y *= aspectRatio;
+			imagePoint.x *= aspectRatio;
 
 			//full dome shemisphere cut
 			bool hemisphereCut = false;
