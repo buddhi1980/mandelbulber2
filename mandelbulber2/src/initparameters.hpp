@@ -11,7 +11,7 @@
 #include "fractparams.hpp"
 #include "parameters.hpp"
 
-void InitParams(parameters::container *par);
-void InitFractalParams(parameters::container *par);
+void InitParams(cParameterContainer *par);
+void InitFractalParams(cParameterContainer *par);
 
 #endif /* INITPARAMETERS_HPP_ */

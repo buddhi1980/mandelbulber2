@@ -17,38 +17,11 @@
 #include "color_structures.hpp"
 #include "color_palette.hpp"
 
-namespace parameters
-{
-enum varType
-{
-	typeInt, typeDouble, typeString, typeVector3, typeRgb, typeBool, typeColorPalette
-};
-
-struct sMultiVal
-{
-	double dVal[4];
-	int iVal[4];
-	QString sVal;
-};
-
-struct sRecord
-{
-	varType type;
-	sMultiVal actualVal;
-	sMultiVal defaultVal;
-	sMultiVal minVal;
-	sMultiVal maxVal;
-	bool morphable;
-	bool limitsDefined;
-	bool toSave;
-	bool appParam;
-};
-
-class container
+class cParameterContainer
 {
 public:
-	container();
-	~container();
+	cParameterContainer();
+	~cParameterContainer();
 	template <class T> void addParam(QString name, T defaultVal, bool morphable);
 	template <class T> void addParam(QString name, T defaultVal, T minVal, T maxVal, bool morphable);
 	template <class T> void addParam(QString name, int index, T defaultVal, bool morphable);
@@ -65,11 +38,37 @@ public:
 	void SetAsAppParam(QString name, bool asAppParam);
 	void SetAsAppParam(QString name, int index, bool asAppParam);
 
-	void Copy(QString name, container *sourceContainer);
+	void Copy(QString name, cParameterContainer *sourceContainer);
+	QList<QString> GetListOfParameters(void) const;
 
 	void DebugPrintf(QString name);
 
 private:
+	enum varType
+	{
+		typeInt, typeDouble, typeString, typeVector3, typeRgb, typeBool, typeColorPalette
+	};
+
+	struct sMultiVal
+	{
+		double dVal[4];
+		int iVal[4];
+		QString sVal;
+	};
+
+	struct sRecord
+	{
+		varType type;
+		sMultiVal actualVal;
+		sMultiVal defaultVal;
+		sMultiVal minVal;
+		sMultiVal maxVal;
+		bool morphable;
+		bool limitsDefined;
+		bool toSave;
+		bool appParam;
+	};
+
 	varType Assigner(sMultiVal &multi, double val);
 	varType Assigner(sMultiVal &multi, int val);
 	varType Assigner(sMultiVal &multi, QString val);
@@ -92,8 +91,7 @@ private:
 	QMap<QString, sRecord> myMap;
 };
 
-}
 
-extern parameters::container *gPar;
-extern parameters::container *gParFractal;
+extern cParameterContainer *gPar;
+extern cParameterContainer *gParFractal;
 #endif /*SHADERS_HPP_*/

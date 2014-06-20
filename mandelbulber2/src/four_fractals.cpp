@@ -32,7 +32,7 @@ cFourFractals::~cFourFractals()
 	}
 }
 
-cFourFractals::cFourFractals(const parameters::container *par, const parameters::container *generalPar)
+cFourFractals::cFourFractals(const cParameterContainer *par, const cParameterContainer *generalPar)
 {
 	fourFractals = new cFractal*[4];
 	for (int i = 0; i < 4; i++)
@@ -61,7 +61,7 @@ cFourFractals::cFourFractals(const parameters::container *par, const parameters:
 	}
 }
 
-void cFourFractals::CreateSequence(const parameters::container *par, const parameters::container *generalPar)
+void cFourFractals::CreateSequence(const cParameterContainer *par, const cParameterContainer *generalPar)
 {
 	hybridSequence.clear();
 

@@ -15,7 +15,7 @@
 class cRenderJob
 {
 public:
-	cRenderJob(const parameters::container *_params, const parameters::container *_fractal, cImage *_image, QWidget *_qwidget = NULL);
+	cRenderJob(const cParameterContainer *_params, const cParameterContainer *_fractal, cImage *_image, QWidget *_qwidget = NULL);
 	~cRenderJob();
 
 	enum enumMode
@@ -30,8 +30,8 @@ public:
 
 private:
 	bool InitImage(int w, int h);
-	parameters::container *paramsContainer;
-	parameters::container *fractalContainer;
+	cParameterContainer *paramsContainer;
+	cParameterContainer *fractalContainer;
 	cImage *image;
 	sRenderData *renderData;
 	int width;

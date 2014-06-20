@@ -12,15 +12,15 @@
 #include "four_fractals.hpp"
 #include "interface.hpp"
 
-cRenderJob::cRenderJob(const parameters::container *_params, const parameters::container *_fractal, cImage *_image, QWidget *_qwidget)
+cRenderJob::cRenderJob(const cParameterContainer *_params, const cParameterContainer *_fractal, cImage *_image, QWidget *_qwidget)
 {
 	WriteLog("cRenderJob::cRenderJob");
 	image = _image;
 
 	//create new copy of parameter container
-	paramsContainer = new parameters::container;
+	paramsContainer = new cParameterContainer;
 	*paramsContainer = *_params;
-	fractalContainer = new parameters::container[4];
+	fractalContainer = new cParameterContainer[4];
 	for(int i=0; i < 4; i++)
 		fractalContainer[i] = _fractal[i];
 
