@@ -24,6 +24,7 @@ cParamRender::cParamRender(const parameters::container *container)
 	iterThreshMode = container->Get<bool>("iteration_threshold_mode");
 	juliaC = container->Get<CVector3>("julia_c");
 	juliaMode = container->Get<bool>("julia_mode");
+	hybridFractalEnable = container->Get<bool>("hybrid_fractal_enable");
 	limitMax = container->Get<CVector3>("limit_max");
 	limitMin = container->Get<CVector3>("limit_min");
 	limitsEnabled = container->Get<bool>("limits_enabled");

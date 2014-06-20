@@ -86,7 +86,7 @@ public:
 	bool fakeLightsEnabled;
 	bool fogEnabled;
 	bool glowEnabled;
-	bool hybridCyclic;
+	bool hybridFractalEnable;
 	bool interiorMode;
 	bool iterFogEnabled;
 	bool iterThreshMode;	 //maxiter threshold mode

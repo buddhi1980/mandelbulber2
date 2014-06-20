@@ -35,13 +35,16 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 
 	const cFractal *defaultFractal = four.GetFractal(0);
 
-	sMandelbulbAux bulbAux;
-	bulbAux.r_dz = 1.0;
-	bulbAux.r = r;
-
-	sMandelboxAux mandelboxAux;
-	mandelboxAux.mboxDE = 1.0;
-	mandelboxAux.mboxColor = 1.0;
+	sMandelbulbAux bulbAux[4];
+	sMandelboxAux mandelboxAux[4];
+	int maxFractals = four.IsHybrid() ? 4 : 1;
+	for(int i = 0; i < maxFractals; i++)
+	{
+		bulbAux[i].r_dz = 1.0;
+		bulbAux[i].r = r;
+		mandelboxAux[i].mboxDE = 1.0;
+		mandelboxAux[i].mboxColor = 1.0;
+	}
 
 	//------------------- 86.7 ns for preparation ---------------
 
@@ -49,24 +52,24 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	int i;
 	for (i = 0; i < in.maxN; i++)
 	{
-
 		//here will be hybrid fractal sequence. Now it uses only formula #0
-		const cFractal *fractal = four.GetFractal(0);
+		int sequence = four.GetSequence(i);
+		const cFractal *fractal = four.GetFractal(sequence);
 
 		//calls for fractal formulas
 		switch (fractal->formula)
 		{
 			case fractal::mandelbulb:
 			{
-				bulbAux.r = r;
-				MandelbulbIteration(z, fractal, bulbAux);
+				bulbAux[sequence].r = r;
+				MandelbulbIteration(z, fractal, bulbAux[sequence]);
 				//-------------- 1456ns for MandelbulbIteration (when in function) -----------------
 				//-------------- 1410ns for MandelbulbIteration (when directly) -----------------
 				break;
 			}
 			case fractal::mandelbox:
 			{
-				MandelboxIteration(z, fractal, mandelboxAux);
+				MandelboxIteration(z, fractal, mandelboxAux[sequence]);
 				break;
 			}
 			default:
@@ -91,8 +94,10 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		else if (Mode == fractal::deltaDE1)
 		{
 			if (r > 1e10)
+			{
 				out->maxiter = false;
 				break;
+			}
 		}
 		else if (Mode == fractal::deltaDE2)
 		{
@@ -115,10 +120,10 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		switch (defaultFractal->formula)
 		{
 			case fractal::mandelbulb:
-				out->distance = 0.5 * r * log(r) / bulbAux.r_dz;
+				out->distance = 0.5 * r * log(r) / bulbAux[0].r_dz;
 				break;
 			case fractal::mandelbox:
-				out->distance = r / fabs(mandelboxAux.mboxDE);
+				out->distance = r / fabs(mandelboxAux[0].mboxDE);
 				break;
 
 			default:
@@ -136,7 +141,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				break;
 
 			case fractal::mandelbox:
-				out->colorIndex = mandelboxAux.mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR;
+				out->colorIndex = mandelboxAux[0].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR;
 				break;
 
 			default:

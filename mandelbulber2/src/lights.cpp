@@ -38,7 +38,7 @@ void cLights::Set(const parameters::container *_params, const parameters::contai
 	WriteLog("Preparation of lights started");
 	//move parameters from containers to structures
 	const cParamRender *params = new cParamRender(_params);
-	const cFourFractals *fourFractals = new cFourFractals(_fractal);
+	const cFourFractals *fourFractals = new cFourFractals(_fractal, _params);
 
 	srand(params->auxLightRandomSeed);
 

@@ -77,6 +77,8 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow, SLOT(slotImageScrolledAreaResized(int, int)));
 	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedImageScale(int)));
 
+	QApplication::connect(mainWindow->ui->checkBox_hybrid_fractal_enable, SIGNAL(stateChanged(int)), mainWindow, SLOT(slotCheckBoxHybridFractalChanged(int)));
+
 	// ------------ camera manipulation -----------
 	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
 	QApplication::connect(mainWindow->ui->bu_move_down, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
@@ -825,7 +827,7 @@ void cInterface::MoveCamera(QString buttonName)
 		double relativeStep = gPar->Get<double>("camera_movenent_step");
 
 		cParamRender *params = new cParamRender(gPar);
-		cFourFractals *fourFractals = new cFourFractals(gParFractal);
+		cFourFractals *fourFractals = new cFourFractals(gParFractal, gPar);
 		sDistanceIn in(camera, 0, false);
 		if(movementMode == moveTarget)
 			in.point = target;

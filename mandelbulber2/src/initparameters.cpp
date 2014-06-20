@@ -61,7 +61,7 @@ void InitParams(parameters::container *par)
 	//general fractal and engine
 	par->addParam("julia_mode", false, true);
 	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), true);
-	par->addParam("N", 250, 0, 65536, true);
+	par->addParam("N", 250, 1, 65536, true);
 	par->addParam("minN", 1, 0, 65536, true);
 	par->addParam("fractal_constant_factor", 1.0, true);
 	par->addParam("detail_level", 1.0, true);
@@ -79,6 +79,7 @@ void InitParams(parameters::container *par)
 	par->addParam("interior_mode", false, true);
 	par->addParam("linear_DE_mode", false, true);
 	par->addParam("constant_DE_threshold", false, true);
+	par->addParam("hybrid_fractal_enable", false, true);
 
 	//foldings
 	par->addParam("tglad_folding_mode", false, true);
@@ -344,6 +345,10 @@ void InitFractalParams(parameters::container *par)
 	par->addParam("formula", 2, (int)fractal::none, false);
 	par->addParam("formula", 3, (int)fractal::none, false);
 	par->addParam("formula", 4, (int)fractal::none, false);
+	par->addParam("formula_iterations", 1, 1, 1, 65536, true);
+	par->addParam("formula_iterations", 2, 1, 1, 65536, true);
+	par->addParam("formula_iterations", 3, 1, 1, 65536, true);
+	par->addParam("formula_iterations", 4, 1, 1, 65536, true);
 
 	par->addParam("power", 9.0, true);
 	par->addParam("alpha_angle_offset", 0.0, true);

@@ -375,6 +375,14 @@ void RenderWindow::slotCameraDistanceSlider(int value)
 	mainInterface->CameraDistanceEdited();
 }
 
+void RenderWindow::slotCheckBoxHybridFractalChanged(int state)
+{
+	ui->frame_iterations_formula_1->setEnabled(state);
+	ui->tab_fractal_formula_2->setEnabled(state);
+	ui->tab_fractal_formula_3->setEnabled(state);
+	ui->tab_fractal_formula_4->setEnabled(state);
+}
+
 //=================== rendered image widget ==================/
 
 RenderedImage::RenderedImage(QWidget *parent)

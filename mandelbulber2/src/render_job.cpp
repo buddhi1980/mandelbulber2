@@ -122,7 +122,7 @@ bool cRenderJob::Execute(void)
 
 	//move parameters from containers to structures
 	cParamRender *params = new cParamRender(paramsContainer);
-	cFourFractals *fourFractals = new cFourFractals(fractalContainer);
+	cFourFractals *fourFractals = new cFourFractals(fractalContainer, paramsContainer);
 
 	//recalculation of some parameters;
 	params->resolution = 1.0/image->GetWidth();
