@@ -145,7 +145,7 @@ struct sFractalAexion
 class cFractal
 {
 public:
-	cFractal(const parameters::container *par);
+	cFractal(const cParameterContainer *par);
 	void RecalculateFractalParams(void);
 
 	fractal::enumFractalFormula formula;

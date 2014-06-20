@@ -24,8 +24,8 @@ public:
 
 	cLights();
 	cLights(const cLights& _lights) {Copy(_lights);}
-	cLights(const parameters::container *_params, const parameters::container *_fractal);
-	void Set(const parameters::container *_params, const parameters::container *_fractal);
+	cLights(const cParameterContainer *_params, const cParameterContainer *_fractal);
+	void Set(const cParameterContainer *_params, const cParameterContainer *_fractal);
 	~cLights();
 	sLight GetLight(int index) const;
 	int GetNumberOfLights(void) const {return numberOfLights;}

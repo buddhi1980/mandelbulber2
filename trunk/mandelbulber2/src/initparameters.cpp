@@ -17,7 +17,7 @@
 #include <QtCore>
 
 //definition of all parameters
-void InitParams(parameters::container *par)
+void InitParams(cParameterContainer *par)
 {
 
 	WriteLog("Parameters initialization started");
@@ -335,7 +335,7 @@ void InitParams(parameters::container *par)
 }
 
 //definition of all parameters
-void InitFractalParams(parameters::container *par)
+void InitFractalParams(cParameterContainer *par)
 {
 	WriteLog("Fractal parameters initialization started");
 	par->addParam("formula", (int)fractal::mandelbulb, false);

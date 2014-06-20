@@ -18,7 +18,7 @@ class cFourFractals
 public:
 	cFourFractals();
 	~cFourFractals();
-	cFourFractals(const parameters::container *fractalPar, const parameters::container *generalPar);
+	cFourFractals(const cParameterContainer *fractalPar, const cParameterContainer *generalPar);
 	cFractal* GetFractal(int index) const {return fourFractals[index];}
 	cFractal **fourFractals;
 	fractal::enumDEType DEType;
@@ -27,7 +27,7 @@ public:
 
 private:
 	QVector<int> hybridSequence;
-	void CreateSequence(const parameters::container *par, const parameters::container *generalPar);
+	void CreateSequence(const cParameterContainer *par, const cParameterContainer *generalPar);
 	int maxN;
 	bool isHybrid;
 };

@@ -11,7 +11,7 @@
 
 #include "fractparams.hpp"
 
-cParamRender::cParamRender(const parameters::container *container)
+cParamRender::cParamRender(const cParameterContainer *container)
 {
   analitycDEMode = container->Get<bool>("analityc_DE_mode");
 	constantFactor = container->Get<double>("fractal_constant_factor");

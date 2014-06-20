@@ -35,8 +35,8 @@ int main(int argc, char *argv[])
 	}
 
 	//create internal database with parameters
-	gPar = new parameters::container;
-	gParFractal = new parameters::container[4];
+	gPar = new cParameterContainer;
+	gParFractal = new cParameterContainer[4];
 	InitParams(gPar);
 	for(int i=0; i<4; i++)
 		InitFractalParams(&gParFractal[i]);

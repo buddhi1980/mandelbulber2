@@ -12,7 +12,7 @@
 #include "fractal.h"
 #include "algebra.hpp"
 
-cFractal::cFractal(const parameters::container *container)
+cFractal::cFractal(const cParameterContainer *container)
 {
 	formula = (fractal::enumFractalFormula)container->Get<int>("formula");
 

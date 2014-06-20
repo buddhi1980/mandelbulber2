@@ -45,7 +45,7 @@ class cParamRender
 public:
 
 	//constructor with init
-	cParamRender(const parameters::container *par);
+	cParamRender(const cParameterContainer *par);
 
 	int ambientOcclusionQuality; //ambient occlusion quality
 	int auxLightNumber;
