@@ -925,13 +925,19 @@ void cInterface::RotateCamera(QString buttonName)
 		else if(buttonName == "bu_rotate_right")
 			rotationAxis = CVector3(0.0, 0.0, -1.0);
 		else if(buttonName == "bu_rotate_up")
+		{
 			rotationAxis = CVector3(1.0, 0.0, 0.0);
+			rotationAxis = rotationAxis.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), cameraTarget.GetRotation().x);
+		}
 		else if(buttonName == "bu_rotate_down")
+		{
 			rotationAxis = CVector3(-1.0, 0.0, 0.0);
+			rotationAxis = rotationAxis.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), cameraTarget.GetRotation().x);
+		}
 		else if(buttonName == "bu_rotate_roll_left")
-			rotationAxis = CVector3(0.0, -1.0, 0.0);
+			rotationAxis = cameraTarget.GetForwardVector() * (-1.0);
 		else if(buttonName == "bu_rotate_roll_right")
-			rotationAxis = CVector3(0.0, 1.0, 0.0);
+			rotationAxis = cameraTarget.GetForwardVector() * (1.0);
 	}
 	else
 	{
