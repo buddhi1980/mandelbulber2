@@ -45,7 +45,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1061</width>
+           <width>1098</width>
            <height>964</height>
           </rect>
          </property>
@@ -229,8 +229,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>330</width>
+          <y>-81</y>
+          <width>311</width>
           <height>330</height>
          </rect>
         </property>
@@ -638,7 +638,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>214</width>
+          <width>196</width>
           <height>990</height>
          </rect>
         </property>
@@ -1625,8 +1625,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>345</width>
-          <height>222</height>
+          <width>326</width>
+          <height>219</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1649,7 +1649,7 @@ to target:</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>314</width>
+              <width>295</width>
               <height>416</height>
              </rect>
             </property>
@@ -2177,8 +2177,8 @@ to target:</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>331</width>
-              <height>98</height>
+              <width>312</width>
+              <height>95</height>
              </rect>
             </property>
             <attribute name="label">
@@ -2249,7 +2249,7 @@ to target:</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>314</width>
+              <width>295</width>
               <height>624</height>
              </rect>
             </property>
@@ -2768,7 +2768,7 @@ to target:</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>314</width>
+              <width>296</width>
               <height>194</height>
              </rect>
             </property>
@@ -2911,7 +2911,7 @@ to target:</string>
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>314</width>
+              <width>310</width>
               <height>1479</height>
              </rect>
             </property>
@@ -4283,15 +4283,15 @@ to target:</string>
      <item>
       <widget class="QToolBox" name="toolBox_fractal">
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="page_fractal_common">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>120</height>
+          <width>322</width>
+          <height>133</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4401,8 +4401,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>324</width>
-          <height>146</height>
+          <width>305</width>
+          <height>189</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4411,8 +4411,11 @@ to target:</string>
         <layout class="QVBoxLayout" name="verticalLayout_21">
          <item>
           <widget class="QTabWidget" name="tabWidget">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="tab_fractal_formula_1">
             <attribute name="title">
@@ -4421,6 +4424,64 @@ to target:</string>
             <layout class="QVBoxLayout" name="verticalLayout_49">
              <item>
               <widget class="QComboBox" name="comboBox_formula_1"/>
+             </item>
+             <item>
+              <widget class="QFrame" name="frame_iterations_formula_1">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_56">
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_27">
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_126">
+                    <property name="text">
+                     <string>Iterations:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QSlider" name="sliderInt_formula_iterations_1">
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>250</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>8</number>
+                    </property>
+                    <property name="pageStep">
+                     <number>64</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="QSpinBox" name="spinboxInt_formula_iterations_1">
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>500</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
              </item>
              <item>
               <widget class="QScrollArea" name="scrollArea_fractal_1">
@@ -4432,7 +4493,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>294</width>
+                  <width>275</width>
                   <height>73</height>
                  </rect>
                 </property>
@@ -4443,12 +4504,70 @@ to target:</string>
             </layout>
            </widget>
            <widget class="QWidget" name="tab_fractal_formula_2">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <attribute name="title">
              <string>Formula #2</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_50">
              <item>
               <widget class="QComboBox" name="comboBox_formula_2"/>
+             </item>
+             <item>
+              <widget class="QFrame" name="frame_iterations_formula_2">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_60">
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_29">
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_128">
+                    <property name="text">
+                     <string>Iterations:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QSlider" name="sliderInt_formula_iterations_2">
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>250</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>8</number>
+                    </property>
+                    <property name="pageStep">
+                     <number>64</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="QSpinBox" name="spinboxInt_formula_iterations_2">
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>500</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
              </item>
              <item>
               <widget class="QScrollArea" name="scrollArea_fractal_2">
@@ -4460,8 +4579,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>71</width>
-                  <height>16</height>
+                  <width>275</width>
+                  <height>73</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -4471,12 +4590,70 @@ to target:</string>
             </layout>
            </widget>
            <widget class="QWidget" name="tab_fractal_formula_3">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <attribute name="title">
              <string>Formula #3</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_51">
              <item>
               <widget class="QComboBox" name="comboBox_formula_3"/>
+             </item>
+             <item>
+              <widget class="QFrame" name="frame_iterations_formula_3">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_61">
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_30">
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_129">
+                    <property name="text">
+                     <string>Iterations:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QSlider" name="sliderInt_formula_iterations_3">
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>250</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>8</number>
+                    </property>
+                    <property name="pageStep">
+                     <number>64</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="QSpinBox" name="spinboxInt_formula_iterations_3">
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>500</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
              </item>
              <item>
               <widget class="QScrollArea" name="scrollArea_fractal_3">
@@ -4488,8 +4665,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>71</width>
-                  <height>16</height>
+                  <width>275</width>
+                  <height>73</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -4499,12 +4676,70 @@ to target:</string>
             </layout>
            </widget>
            <widget class="QWidget" name="tab_fractal_formula_4">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <attribute name="title">
              <string>Formula #4</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_52">
              <item>
               <widget class="QComboBox" name="comboBox_formula_4"/>
+             </item>
+             <item>
+              <widget class="QFrame" name="frame_iterations_formula_4">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_62">
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_31">
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_130">
+                    <property name="text">
+                     <string>Iterations:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QSlider" name="sliderInt_formula_iterations_4">
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>250</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>8</number>
+                    </property>
+                    <property name="pageStep">
+                     <number>64</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="QSpinBox" name="spinboxInt_formula_iterations_4">
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>500</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
              </item>
              <item>
               <widget class="QScrollArea" name="scrollArea_fractal_4">
@@ -4516,8 +4751,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>71</width>
-                  <height>16</height>
+                  <width>275</width>
+                  <height>73</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -4535,8 +4770,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>120</height>
+          <width>322</width>
+          <height>133</height>
          </rect>
         </property>
         <attribute name="label">
@@ -4544,7 +4779,32 @@ to target:</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_53">
          <item>
-          <layout class="QGridLayout" name="gridLayout_23"/>
+          <layout class="QGridLayout" name="gridLayout_23">
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="gridLayout_28">
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="checkBox_hybrid_fractal_enable">
+               <property name="text">
+                <string>Enable hybrid fractals</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_10">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -4572,7 +4832,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>330</width>
+          <width>311</width>
           <height>510</height>
          </rect>
         </property>
@@ -4795,6 +5055,9 @@ to target:</string>
               </item>
               <item row="1" column="2">
                <widget class="QSpinBox" name="spinboxInt_N">
+                <property name="minimum">
+                 <number>0</number>
+                </property>
                 <property name="maximum">
                  <number>500</number>
                 </property>

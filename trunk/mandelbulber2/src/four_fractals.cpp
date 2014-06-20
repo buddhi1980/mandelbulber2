@@ -13,6 +13,8 @@ cFourFractals::cFourFractals()
 	for(int i=0; i<4; i++)
 		fourFractals[i] = NULL;
 	DEType = fractal::deltaDE;
+	maxN = 0;
+	isHybrid = false;
 }
 
 cFourFractals::~cFourFractals()
@@ -30,23 +32,88 @@ cFourFractals::~cFourFractals()
 	}
 }
 
-cFourFractals::cFourFractals(const parameters::container *par)
+cFourFractals::cFourFractals(const parameters::container *par, const parameters::container *generalPar)
 {
 	fourFractals = new cFractal*[4];
-	for(int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		fourFractals[i] = new cFractal(&par[i]);
-		fourFractals[i]->formula = (fractal::enumFractalFormula)par->Get<int>("formula", i + 1);
+		fourFractals[i]->formula = (fractal::enumFractalFormula) par[i].Get<int>("formula", i + 1);
 	}
 
-	//temporary assing of DE type
-	fractal::enumFractalFormula formula = fourFractals[0]->formula;
-	for (int i = 0; i < fractalList.size(); i++)
+	maxN = generalPar->Get<int>("N");
+	CreateSequence(par, generalPar);
+
+	if (generalPar->Get<bool>("hybrid_fractal_enable"))
 	{
-		if(fractalList[i].internalID == formula)
+		DEType = fractal::deltaDE;
+	}
+	else
+	{
+		fractal::enumFractalFormula formula = fourFractals[0]->formula;
+		for (int i = 0; i < fractalList.size(); i++)
 		{
-			DEType = fractalList[i].DEType;
+			if (fractalList[i].internalID == formula)
+			{
+				DEType = fractalList[i].DEType;
+			}
 		}
 	}
+}
 
+void cFourFractals::CreateSequence(const parameters::container *par, const parameters::container *generalPar)
+{
+	hybridSequence.clear();
+
+	bool hybridFractalEnabled = generalPar->Get<bool>("hybrid_fractal_enable");
+	if(hybridFractalEnabled) isHybrid = true;
+
+	int fractalNo = 0;
+	int counter = 0;
+
+	int counts[4];
+	for (int i = 0; i < 4; i++)
+	{
+		counts[i] = par[i].Get<int>("formula_iterations", i + 1);
+	}
+
+	for(int i = 0; i < maxN * 5; i++)
+	{
+		if(hybridFractalEnabled)
+		{
+			counter ++;
+
+			int repeatCount = 0;
+			while(fourFractals[fractalNo]->formula == fractal::none && repeatCount < 4)
+			{
+				fractalNo++;
+				fractalNo = fractalNo % 4;
+				repeatCount++;
+			}
+			hybridSequence.append(fractalNo);
+
+			if(counter >= counts[fractalNo])
+			{
+				counter = 0;
+				fractalNo++;
+				fractalNo = fractalNo % 4;
+			}
+		}
+		else
+		{
+			hybridSequence.append(0);
+		}
+	}
+}
+
+int cFourFractals::GetSequence(int i) const
+{
+	if (i < hybridSequence.size())
+	{
+		return hybridSequence[i];
+	}
+	else
+	{
+		return 0;
+	}
 }

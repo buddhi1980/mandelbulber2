@@ -58,6 +58,7 @@ private slots:
 	void slotRotationEdited();
 	void slotCameraDistanceEdited();
 	void slotCameraDistanceSlider(int value);
+	void slotCheckBoxHybridFractalChanged(int state);
 
 private:
 
