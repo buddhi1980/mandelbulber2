@@ -60,6 +60,7 @@ private slots:
 	void slotCameraDistanceSlider(int value);
 	void slotCheckBoxHybridFractalChanged(int state);
 
+	void slotSaveSettings();
 private:
 
 

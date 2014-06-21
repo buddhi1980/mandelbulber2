@@ -20,6 +20,11 @@
 class cParameterContainer
 {
 public:
+	enum varType
+	{
+		null, typeInt, typeDouble, typeString, typeVector3, typeRgb, typeBool, typeColorPalette
+	};
+
 	cParameterContainer();
 	~cParameterContainer();
 	template <class T> void addParam(QString name, T defaultVal, bool morphable);
@@ -38,16 +43,15 @@ public:
 	void SetAsAppParam(QString name, bool asAppParam);
 	void SetAsAppParam(QString name, int index, bool asAppParam);
 
+	varType GetVarType(QString name) const;
+
 	void Copy(QString name, cParameterContainer *sourceContainer);
 	QList<QString> GetListOfParameters(void) const;
 
 	void DebugPrintf(QString name);
 
 private:
-	enum varType
-	{
-		typeInt, typeDouble, typeString, typeVector3, typeRgb, typeBool, typeColorPalette
-	};
+
 
 	struct sMultiVal
 	{

@@ -10,6 +10,8 @@
 #include "interface.hpp"
 #include "fractal_list.hpp"
 #include "system.hpp"
+#include "settings.hpp"
+
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
 #include <QColorDialog>
@@ -381,6 +383,28 @@ void RenderWindow::slotCheckBoxHybridFractalChanged(int state)
 	ui->tab_fractal_formula_2->setEnabled(state);
 	ui->tab_fractal_formula_3->setEnabled(state);
 	ui->tab_fractal_formula_4->setEnabled(state);
+}
+
+void RenderWindow::slotSaveSettings()
+{
+	cSettings parSettings(cSettings::fullText);
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	parSettings.CreateText(gPar);
+
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
+	dialog.selectFile("settings.fract");
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+	}
+
+	QString filename = filenames.first();
+	parSettings.SaveToFile(systemData.dataDirectory + QDir::separator() + "test.fract");
 }
 
 //=================== rendered image widget ==================/
