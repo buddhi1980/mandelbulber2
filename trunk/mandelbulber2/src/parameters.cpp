@@ -607,3 +607,21 @@ QList<QString> cParameterContainer::GetListOfParameters(void) const
 	return myMap.keys();
 }
 
+cParameterContainer::varType cParameterContainer::GetVarType(QString name) const
+{
+	varType type = null;
+
+	QMap<QString, sRecord>::const_iterator it;
+	it = myMap.find(name);
+	if (it != myMap.end())
+	{
+		sRecord rec = it.value();
+		type = rec.type;
+	}
+	else
+	{
+		qWarning() << "GetVarType(): element '" << name << "' doesn't exists" << endl;
+	}
+	return type;
+}
+
