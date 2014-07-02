@@ -17,20 +17,34 @@
 #include "color_structures.hpp"
 #include "color_palette.hpp"
 
+namespace parameterContainer
+{
+enum enumParameterType
+{
+	paramStandard, paramApp, paramNoSave
+};
+
+enum enumMorphType
+{
+	morphNone, morphLinear, morphcatMullRom
+};
+}
+
+using namespace parameterContainer;
 class cParameterContainer
 {
 public:
-	enum varType
+	enum enumVarType
 	{
 		null, typeInt, typeDouble, typeString, typeVector3, typeRgb, typeBool, typeColorPalette
 	};
 
 	cParameterContainer();
 	~cParameterContainer();
-	template <class T> void addParam(QString name, T defaultVal, bool morphable);
-	template <class T> void addParam(QString name, T defaultVal, T minVal, T maxVal, bool morphable);
-	template <class T> void addParam(QString name, int index, T defaultVal, bool morphable);
-	template <class T> void addParam(QString name, int index, T defaultVal, T minVal, T maxVal, bool morphable);
+	template <class T> void addParam(QString name, T defaultVal, enumMorphType morphType, enumParameterType parType);
+	template <class T> void addParam(QString name, T defaultVal, T minVal, T maxVal, enumMorphType morphType, enumParameterType parType);
+	template <class T> void addParam(QString name, int index, T defaultVal, enumMorphType morphType, enumParameterType parType);
+	template <class T> void addParam(QString name, int index, T defaultVal, T minVal, T maxVal, enumMorphType morphType, enumParameterType parType);
 
 	template <class T> void Set(QString name, T val);
 	template <class T> void Set(QString name, int index, T val);
@@ -38,17 +52,16 @@ public:
 	template <class T> T Get(QString name) const;
 	template <class T> T Get(QString name, int index) const;
 
-	void SetToSave(QString, bool toSave);
-	void SetToSave(QString, int index, bool toSave);
-	void SetAsAppParam(QString name, bool asAppParam);
-	void SetAsAppParam(QString name, int index, bool asAppParam);
-
-	varType GetVarType(QString name) const;
+	enumVarType GetVarType(QString name) const;
+	enumParameterType GetParameterType(QString name) const;
+	bool isDefaultValue(QString name) const;
 
 	void Copy(QString name, cParameterContainer *sourceContainer);
 	QList<QString> GetListOfParameters(void) const;
 
 	void DebugPrintf(QString name);
+
+
 
 private:
 
@@ -62,34 +75,42 @@ private:
 
 	struct sRecord
 	{
-		varType type;
+		enumVarType type;
+		enumMorphType morphType;
+		enumParameterType parType;
 		sMultiVal actualVal;
 		sMultiVal defaultVal;
 		sMultiVal minVal;
 		sMultiVal maxVal;
-		bool morphable;
 		bool limitsDefined;
-		bool toSave;
-		bool appParam;
 	};
 
-	varType Assigner(sMultiVal &multi, double val);
-	varType Assigner(sMultiVal &multi, int val);
-	varType Assigner(sMultiVal &multi, QString val);
-	varType Assigner(sMultiVal &multi, CVector3 val);
-	varType Assigner(sMultiVal &multi, sRGB val);
-	varType Assigner(sMultiVal &multi, bool val);
-	varType Assigner(sMultiVal &multi, cColorPalette *val);
-	varType Getter(sMultiVal multi, double &val) const;
-	varType Getter(sMultiVal multi, int &val) const;
-	varType Getter(sMultiVal multi, QString &val) const;
-	varType Getter(sMultiVal multi, CVector3 &val) const;
-	varType Getter(sMultiVal multi, sRGB &val) const;
-	varType Getter(sMultiVal multi, bool &val) const;
-	varType Getter(sMultiVal multi, cColorPalette &val) const;
+	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, double val);
+	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, int val);
+	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, QString val);
+	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, CVector3 val);
+	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, sRGB val);
+	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, bool val);
+	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, cColorPalette *val);
+	enumVarType Getter(sMultiVal multi, double &val) const;
+	enumVarType Getter(sMultiVal multi, int &val) const;
+	enumVarType Getter(sMultiVal multi, QString &val) const;
+	enumVarType Getter(sMultiVal multi, CVector3 &val) const;
+	enumVarType Getter(sMultiVal multi, sRGB &val) const;
+	enumVarType Getter(sMultiVal multi, bool &val) const;
+	enumVarType Getter(sMultiVal multi, cColorPalette &val) const;
 	QString nameWithIndex(QString *str, int index) const;
 	void clearMultiVal(sMultiVal &multiVal);
 	QString MakePaletteString(cColorPalette *palette);
+
+	static bool compareStrings(const QString &p1, const QString &p2)
+	{
+	    if(p1.toLower() < p2.toLower())
+	    		return true;
+	    else
+	        return false;
+	}
+
 
 	//std::map contairer
 	QMap<QString, sRecord> myMap;

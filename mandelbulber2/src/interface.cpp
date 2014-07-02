@@ -69,6 +69,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveDocksPositions()));
 	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotSaveSettings()));
+	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow, SLOT(slotLoadSettings()));
 
 	QApplication::connect(mainWindow->ui->comboBox_formula_1, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
 	QApplication::connect(mainWindow->ui->comboBox_formula_2, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
@@ -120,8 +121,8 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cParameterContai
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_image_adjustments, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_rendering_engine, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->page_fractal_common, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->page_fractal_hybrid, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_common, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_hybrid, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_1, &parFractal[0], mode);

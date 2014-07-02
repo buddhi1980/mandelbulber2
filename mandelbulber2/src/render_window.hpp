@@ -61,6 +61,7 @@ private slots:
 	void slotCheckBoxHybridFractalChanged(int state);
 
 	void slotSaveSettings();
+	void slotLoadSettings();
 private:
 
 

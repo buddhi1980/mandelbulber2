@@ -387,13 +387,13 @@ void RenderWindow::slotCheckBoxHybridFractalChanged(int state)
 
 void RenderWindow::slotSaveSettings()
 {
-	cSettings parSettings(cSettings::fullText);
+	cSettings parSettings(cSettings::formatFullText);
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	parSettings.CreateText(gPar);
+	parSettings.CreateText(gPar, gParFractal);
 
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
-	dialog.setNameFilter(tr("Fractals (*.txt *.fract"));
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
 	dialog.selectFile("settings.fract");
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
@@ -401,10 +401,32 @@ void RenderWindow::slotSaveSettings()
 	if(dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		parSettings.SaveToFile(filename);
+	}
+}
+
+void RenderWindow::slotLoadSettings()
+{
+	cSettings parSettings(cSettings::formatFullText);
+
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
+	dialog.selectFile("settings.fract");
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		parSettings.LoadFromFile(filename);
+		parSettings.Decode(gPar, gParFractal);
+		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 	}
 
-	QString filename = filenames.first();
-	parSettings.SaveToFile(systemData.dataDirectory + QDir::separator() + "test.fract");
+
 }
 
 //=================== rendered image widget ==================/

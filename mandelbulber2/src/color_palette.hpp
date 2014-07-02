@@ -9,18 +9,21 @@
 #define COLOR_PALETTE_HPP_
 
 #include "color_structures.hpp"
+#include <QtCore>
 
 class cColorPalette
 {
 public:
 	cColorPalette();
-	cColorPalette(int randomSeed, double saturation);
+	cColorPalette(int size, int randomSeed, double saturation);
 	sRGB IndexToColour(int index) const;
 	sRGB GetColor(int index) const;
+	int GetSize() {return paletteSize;}
 
 private:
-	sRGB palette[256];
+	QVector<sRGB> palette;
 	bool isIntialized;
+	int paletteSize;
 };
 
 
