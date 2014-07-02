@@ -11,31 +11,31 @@
 
 cColorPalette::cColorPalette()
 {
-	for(int i=0; i<256; i++)
-	{
-		palette[i] = sRGB(0,0,0);
-	}
+	palette.clear();
 	isIntialized = false;
+	paletteSize = 0;
 }
 
-cColorPalette::cColorPalette(int randomSeed, double saturation)
+cColorPalette::cColorPalette(int size, int randomSeed, double saturation)
 {
+	palette.clear();
 	srand(randomSeed);
-	int R, G, B, Y;
-
-	for (int i = 0; i < 255; i++)
+	for (int i = 0; i < size; i++)
 	{
-		Y = (Random(255) - 128) / (1.0 + saturation);
-		palette[i].R = R = Y + 128 + (Random(255) - 128) * saturation;
-		palette[i].G = G = Y + 128 + (Random(255) - 128) * saturation;
-		palette[i].B = B = Y + 128 + (Random(255) - 128) * saturation;
-		if (R < 0) palette[i].R = 0;
-		if (G < 0) palette[i].G = 0;
-		if (B < 0) palette[i].B = 0;
-		if (R > 255) palette[i].R = 255;
-		if (G > 255) palette[i].G = 255;
-		if (B > 255) palette[i].B = 255;
+		int Y = (Random(255) - 128) / (1.0 + saturation);
+		sRGB color;
+		color.R = Y + 128 + (Random(255) - 128) * saturation;
+		color.G = Y + 128 + (Random(255) - 128) * saturation;
+		color.B = Y + 128 + (Random(255) - 128) * saturation;
+		if (color.R < 0) color.R = 0;
+		if (color.G < 0) color.G = 0;
+		if (color.B < 0) color.B = 0;
+		if (color.R > 255) color.R = 255;
+		if (color.G > 255) color.G = 255;
+		if (color.B > 255) color.B = 255;
+		palette.append(color);
 	}
+	paletteSize = palette.size();
 	isIntialized = true;
 }
 
@@ -50,13 +50,13 @@ sRGB cColorPalette::IndexToColour(int index) const
 		int kol, delta;
 		if (index < 0)
 		{
-			colour = palette[255];
+			colour = palette.last();
 		}
 		else
 		{
-			index = index % (255 * 256);
+			index = index % ((paletteSize - 1) * 256);
 			kol = index / 256;
-			if (kol < 255)
+			if (kol < paletteSize - 1)
 			{
 				R1 = palette[kol].R;
 				G1 = palette[kol].G;
@@ -86,7 +86,7 @@ sRGB cColorPalette::GetColor(int index) const
 	sRGB colour(255, 255, 255);
 	if (isIntialized)
 	{
-		if(index >= 0 && index < 256)
+		if(index >= 0 && index < paletteSize)
 		{
 			colour = palette[index];
 		}

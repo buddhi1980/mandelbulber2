@@ -10,6 +10,8 @@
  ********************************************************/
 #include "parameters.hpp"
 #include <QtCore>
+#include <QtAlgorithms>
+#include <algorithm>
 
 //#define _PARAM_DEBUG
 
@@ -28,17 +30,16 @@ cParameterContainer::~cParameterContainer()
 
 //defining of params without limits
 template<class T>
-void cParameterContainer::addParam(QString name, T defaultVal, bool morphable)
+void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType morphType, enumParameterType parType)
 {
 	sRecord newRecord;
 	sMultiVal multi;
-	newRecord.type = Assigner(multi, defaultVal);
+	newRecord.type = Assigner(multi, null, defaultVal);
 	newRecord.actualVal = multi;
 	newRecord.defaultVal = multi;
-	newRecord.morphable = morphable;
+	newRecord.morphType = morphType;
 	newRecord.limitsDefined = false;
-	newRecord.toSave = true;
-	newRecord.appParam = false;
+	newRecord.parType = parType;
 
 	if(myMap.find(name) != myMap.end())
 	{
@@ -49,30 +50,29 @@ void cParameterContainer::addParam(QString name, T defaultVal, bool morphable)
 		myMap.insert(name, newRecord);
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, double defaultVal, bool morphable);
-template void cParameterContainer::addParam<int>(QString name, int defaultVal, bool morphable);
-template void cParameterContainer::addParam<QString>(QString name, QString defaultVal, bool morphable);
-template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal, bool morphable);
-template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, bool morphable);
-template void cParameterContainer::addParam<bool>(QString name, bool defaultVal, bool morphable);
-template void cParameterContainer::addParam<cColorPalette*>(QString name, cColorPalette *defaultVal, bool morphable);
+template void cParameterContainer::addParam<double>(QString name, double defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<int>(QString name, int defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<QString>(QString name, QString defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<bool>(QString name, bool defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<cColorPalette*>(QString name, cColorPalette *defaultVal, enumMorphType morphType, enumParameterType parType);
 
 //defining of params with limits
 template<class T>
-void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVal, bool morphable)
+void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVal, enumMorphType morphType, enumParameterType parType)
 {
 	sRecord newRecord;
 	sMultiVal multi;
-	newRecord.type = Assigner(multi, defaultVal);
+	newRecord.type = Assigner(multi, null, defaultVal);
 	newRecord.actualVal = multi;
 	newRecord.defaultVal = multi;
 
-	Assigner(newRecord.minVal, minVal);
-	Assigner(newRecord.maxVal, maxVal);
-	newRecord.morphable = morphable;
+	Assigner(newRecord.minVal, newRecord.type, minVal);
+	Assigner(newRecord.maxVal, newRecord.type, maxVal);
+	newRecord.morphType = morphType;
 	newRecord.limitsDefined = true;
-	newRecord.toSave = true;
-	newRecord.appParam = false;
+	newRecord.parType = parType;
 
 	if(myMap.find(name) != myMap.end())
 	{
@@ -83,26 +83,25 @@ void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVa
 		myMap.insert(name, newRecord);
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, double defaultVal, double minVal, double maxVal, bool morphable);
-template void cParameterContainer::addParam<int>(QString name, int defaultVal, int minVal, int maxVal, bool morphable);
-template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, bool morphable);
-template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, sRGB minVal, sRGB maxVal, bool morphable);
+template void cParameterContainer::addParam<double>(QString name, double defaultVal, double minVal, double maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<int>(QString name, int defaultVal, int minVal, int maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, sRGB minVal, sRGB maxVal, enumMorphType morphType, enumParameterType parType);
 
 //defining of params without limits and with index
 template<class T>
-void cParameterContainer::addParam(QString name, int index, T defaultVal, bool morphable)
+void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMorphType morphType, enumParameterType parType)
 {
 	if (index >= 0)
 	{
 		sRecord newRecord;
 		sMultiVal multi;
-		newRecord.type = Assigner(multi, defaultVal);
+		newRecord.type = Assigner(multi, null, defaultVal);
 		newRecord.actualVal = multi;
 		newRecord.defaultVal = multi;
-		newRecord.morphable = morphable;
+		newRecord.morphType = morphType;
 		newRecord.limitsDefined = false;
-		newRecord.toSave = true;
-		newRecord.appParam = false;
+		newRecord.parType = parType;
 
 		QString indexName = nameWithIndex(&name, index);
 		if(myMap.find(indexName) != myMap.end())
@@ -119,31 +118,30 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, bool m
 		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")" << endl;
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal, bool morphable);
-template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal, bool morphable);
-template void cParameterContainer::addParam<QString>(QString name, int index, QString defaultVal, bool morphable);
-template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal, bool morphable);
-template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal, bool morphable);
-template void cParameterContainer::addParam<bool>(QString name, int index, bool defaultVal, bool morphable);
+template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<QString>(QString name, int index, QString defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<bool>(QString name, int index, bool defaultVal, enumMorphType morphType, enumParameterType parType);
 
 //defining of params with limits and index
 template<class T>
-void cParameterContainer::addParam(QString name, int index, T defaultVal, T minVal, T maxVal, bool morphable)
+void cParameterContainer::addParam(QString name, int index, T defaultVal, T minVal, T maxVal, enumMorphType morphType, enumParameterType parType)
 {
 	if (index >= 0)
 	{
 		sRecord newRecord;
 		sMultiVal multi;
-		newRecord.type = Assigner(multi, defaultVal);
+		newRecord.type = Assigner(multi, null, defaultVal);
 		newRecord.actualVal = multi;
 		newRecord.defaultVal = multi;
 
-		Assigner(newRecord.minVal, minVal);
-		Assigner(newRecord.maxVal, maxVal);
-		newRecord.morphable = morphable;
+		Assigner(newRecord.minVal, newRecord.type, minVal);
+		Assigner(newRecord.maxVal, newRecord.type, maxVal);
+		newRecord.morphType = morphType;
 		newRecord.limitsDefined = true;
-		newRecord.toSave = true;
-		newRecord.appParam = false;
+		newRecord.parType = parType;
 
 		QString indexName = nameWithIndex(&name, index);
 		if(myMap.find(indexName) != myMap.end())
@@ -160,13 +158,14 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, T minV
 		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")" << endl;
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal, double minVal, double maxVal, bool morphable);
-template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal, int minVal, int maxVal, bool morphable);
-template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, bool morphable);
-template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal, sRGB minVal, sRGB maxVal, bool morphable);
+template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal, double minVal, double maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal, int minVal, int maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal, sRGB minVal, sRGB maxVal, enumMorphType morphType, enumParameterType parType);
 
-cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, double val)
+cParameterContainer::enumVarType cParameterContainer::Assigner(sMultiVal &multi, enumVarType defaultType, double val)
 {
+	(void)defaultType;
 	clearMultiVal(multi);
 	multi.dVal[0] = val;
 	multi.iVal[0] = val;
@@ -176,8 +175,9 @@ cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, dou
 	return typeDouble;
 }
 
-cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, int val)
+cParameterContainer::enumVarType cParameterContainer::Assigner(sMultiVal &multi, enumVarType defaultType, int val)
 {
+	(void)defaultType;
 	clearMultiVal(multi);
 	multi.dVal[0] = val;
 	multi.iVal[0] = val;
@@ -187,17 +187,42 @@ cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, int
 	return typeInt;
 }
 
-cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, QString val)
+cParameterContainer::enumVarType cParameterContainer::Assigner(sMultiVal &multi, enumVarType defaultType, QString val)
 {
 	clearMultiVal(multi);
-	sscanf(val.toUtf8(), "%lf %lf %lf %lf", &multi.dVal[0], &multi.dVal[1], &multi.dVal[2], &multi.dVal[3]);
-	sscanf(val.toUtf8(), "%d %d %d %d", &multi.iVal[0], &multi.iVal[1], &multi.iVal[2], &multi.iVal[3]);
+	switch (defaultType)
+	{
+		case null:
+		case typeVector3:
+		case typeString:
+			sscanf(val.toUtf8(), "%lf %lf %lf %lf", &multi.dVal[0], &multi.dVal[1], &multi.dVal[2], &multi.dVal[3]);
+			sscanf(val.toUtf8(), "%d %d %d %d", &multi.iVal[0], &multi.iVal[1], &multi.iVal[2], &multi.iVal[3]);
+			break;
+
+		case typeInt:
+		case typeDouble:
+		case typeBool:
+			sscanf(val.toUtf8(), "%lf", &multi.dVal[0]);
+			sscanf(val.toUtf8(), "%d", &multi.iVal[0]);
+			break;
+
+		case typeRgb:
+			sscanf(val.toUtf8(), "%x %x %x %x", &multi.dVal[0], &multi.dVal[1], &multi.dVal[2], &multi.dVal[3]);
+			sscanf(val.toUtf8(), "%x %x %x %x", &multi.iVal[0], &multi.iVal[1], &multi.iVal[2], &multi.iVal[3]);
+			break;
+
+		case typeColorPalette:
+			//*********************** to do **********************
+			break;
+	}
 	multi.sVal = val;
 	return typeString;
+
 }
 
-cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, CVector3 val)
+cParameterContainer::enumVarType cParameterContainer::Assigner(sMultiVal &multi, enumVarType defaultType, CVector3 val)
 {
+	(void)defaultType;
 	clearMultiVal(multi);
 	multi.dVal[0] = val.x;
 	multi.dVal[1] = val.y;
@@ -211,8 +236,9 @@ cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, CVe
 	return typeVector3;
 }
 
-cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, sRGB val)
+cParameterContainer::enumVarType cParameterContainer::Assigner(sMultiVal &multi, enumVarType defaultType, sRGB val)
 {
+	(void)defaultType;
 	clearMultiVal(multi);
 	multi.dVal[0] = val.R;
 	multi.dVal[1] = val.G;
@@ -226,8 +252,9 @@ cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, sRG
 	return typeRgb;
 }
 
-cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, bool val)
+cParameterContainer::enumVarType cParameterContainer::Assigner(sMultiVal &multi, enumVarType defaultType, bool val)
 {
+	(void)defaultType;
 	clearMultiVal(multi);
 	multi.dVal[0] = val;
 	multi.iVal[0] = val;
@@ -237,44 +264,45 @@ cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, boo
 	return typeBool;
 }
 
-cParameterContainer::varType cParameterContainer::Assigner(sMultiVal &multi, cColorPalette *val)
+cParameterContainer::enumVarType cParameterContainer::Assigner(sMultiVal &multi, enumVarType defaultType, cColorPalette *val)
 {
+	(void)defaultType;
 	clearMultiVal(multi);
   multi.sVal = MakePaletteString(val);
-	return typeBool;
+	return typeColorPalette;
 }
 
-cParameterContainer::varType cParameterContainer::Getter(sMultiVal multi, double &val) const
+cParameterContainer::enumVarType cParameterContainer::Getter(sMultiVal multi, double &val) const
 {
 	val = multi.dVal[0];
 	return typeDouble;
 }
 
-cParameterContainer::varType cParameterContainer::Getter(sMultiVal multi, int &val) const
+cParameterContainer::enumVarType cParameterContainer::Getter(sMultiVal multi, int &val) const
 {
 	val = multi.iVal[0];
 	return typeInt;
 }
 
-cParameterContainer::varType cParameterContainer::Getter(sMultiVal multi, CVector3 &val) const
+cParameterContainer::enumVarType cParameterContainer::Getter(sMultiVal multi, CVector3 &val) const
 {
 	val = CVector3(multi.dVal[0], multi.dVal[1], multi.dVal[2]);
 	return typeVector3;
 }
 
-cParameterContainer::varType cParameterContainer::Getter(sMultiVal multi, QString &val) const
+cParameterContainer::enumVarType cParameterContainer::Getter(sMultiVal multi, QString &val) const
 {
 	val = multi.sVal;
 	return typeString;
 }
 
-cParameterContainer::varType cParameterContainer::Getter(sMultiVal multi, sRGB &val) const
+cParameterContainer::enumVarType cParameterContainer::Getter(sMultiVal multi, sRGB &val) const
 {
 	val = sRGB(multi.iVal[0], multi.iVal[1], multi.iVal[2]);
 	return typeRgb;
 }
 
-cParameterContainer::varType cParameterContainer::Getter(sMultiVal multi, bool &val) const
+cParameterContainer::enumVarType cParameterContainer::Getter(sMultiVal multi, bool &val) const
 {
 	val = multi.iVal[0];
 	return typeBool;
@@ -289,13 +317,11 @@ void cParameterContainer::Set(QString name, T val)
 	if (it != myMap.end())
 	{
 		sMultiVal multi;
-		varType type = Assigner(multi, val);
-		if (it->type == type)
-		{
-			it->actualVal = multi;
-		}
+		enumVarType type = Assigner(multi, it->type, val);
+		it->actualVal = multi;
+
 #ifdef _PARAM_DEBUG
-		else
+		if (it->type != type)
 		{
 			qWarning() << "Set(): element '" << name << "' got value of not default type" << endl;
 			DebugPrintf(name);
@@ -326,13 +352,11 @@ void cParameterContainer::Set(QString name, int index, T val)
 		if (it != myMap.end())
 		{
 			sMultiVal multi;
-			varType type = Assigner(multi, val);
-			if (it->type == type)
-			{
-				it->actualVal = multi;
-			}
+			enumVarType type = Assigner(multi, it->type, val);
+			it->actualVal = multi;
+
 #ifdef _PARAM_DEBUG
-			else
+			if (it->type != type)
 			{
 				qWarning() << "Set(): element '" << name << "' got value of not default type" << endl;
 				DebugPrintf(name);
@@ -367,7 +391,7 @@ T cParameterContainer::Get(QString name) const
 	{
 		sRecord rec = it.value();
 		sMultiVal multi = rec.actualVal;
-		varType type = Getter(multi, val);
+		enumVarType type = Getter(multi, val);
 #ifdef _PARAM_DEBUG
 		if (it->type != type)
 		{
@@ -403,7 +427,7 @@ T cParameterContainer::Get(QString name, int index) const
 		{
 			sRecord rec = it.value();
 			sMultiVal multi = rec.actualVal;
-			varType type = Getter(multi, val);
+			enumVarType type = Getter(multi, val);
 #ifdef _PARAM_DEBUG
 			if (it->type != type)
 			{
@@ -495,8 +519,8 @@ QString cParameterContainer::MakePaletteString(cColorPalette *palette)
 {
 	int length;
 	int pointer = 0;
-	char *paletteString = new char[257 * 7];
-	for (int i = 0; i < 256; i++)
+	char *paletteString = new char[(palette->GetSize()+2) * 7];
+	for (int i = 0; i < palette->GetSize(); i++)
 	{
 		sRGB colorRGB = palette->GetColor(i);
 		int colour = colorRGB.R * 65536 + colorRGB.G * 256 + colorRGB.B;
@@ -505,79 +529,8 @@ QString cParameterContainer::MakePaletteString(cColorPalette *palette)
 		pointer += length;
 	}
 	QString out(paletteString);
+	delete[] paletteString;
 	return out;
-}
-
-void cParameterContainer::SetToSave(QString name, bool toSave)
-{
-	QMap<QString, sRecord>::iterator it;
-	it = myMap.find(name);
-	if (it != myMap.end())
-	{
-		it->toSave = toSave;
-	}
-	else
-	{
-		qWarning() << "SetToSave(): element '" << name << "' doesn't exists" << endl;
-	}
-}
-
-void cParameterContainer::SetToSave(QString name, int index, bool toSave)
-{
-	if (index >= 0)
-	{
-		QString indexName = nameWithIndex(&name, index);
-		QMap<QString, sRecord>::iterator it;
-		it = myMap.find(indexName);
-		if (it != myMap.end())
-		{
-			it->toSave = toSave;
-		}
-		else
-		{
-			qWarning() << "SetToSave(): element '" << indexName << "' doesn't exists" << endl;
-		}
-	}
-	else
-	{
-		qWarning() << "SetToSave(): element '" << name << "' has negative index (" << index << ")" << endl;
-	}
-}
-
-void cParameterContainer::SetAsAppParam(QString name, bool asAppParam)
-{
-	QMap<QString, sRecord>::iterator it;
-	it = myMap.find(name);
-	if (it != myMap.end())
-	{
-		it->appParam = asAppParam;
-	}
-	else
-	{
-		qWarning() << "SetAsAppParam(): element '" << name << "' doesn't exists" << endl;
-	}
-}
-
-void cParameterContainer::SetAsAppParam(QString name, int index, bool asAppParam)
-{
-	if (index >= 0)
-	{
-		QString indexName = nameWithIndex(&name, index);
-		QMap<QString, sRecord>::iterator it;
-		it = myMap.find(indexName);
-		if (it != myMap.end())
-		{
-			it->appParam = asAppParam;
-		}
-		else
-		{
-			qWarning() << "SetAsAppParam(): element '" << indexName << "' doesn't exists" << endl;
-		}
-	}
-	else
-	{
-		qWarning() << "SetAsAppParam(): element '" << name << "' has negative index (" << index << ")" << endl;
-	}
 }
 
 void cParameterContainer::Copy(QString name, cParameterContainer *sourceContainer)
@@ -604,12 +557,14 @@ void cParameterContainer::Copy(QString name, cParameterContainer *sourceContaine
 
 QList<QString> cParameterContainer::GetListOfParameters(void) const
 {
-	return myMap.keys();
+	QList<QString> list = myMap.keys();
+	std::sort(list.begin(), list.end(), compareStrings);
+	return list;
 }
 
-cParameterContainer::varType cParameterContainer::GetVarType(QString name) const
+cParameterContainer::enumVarType cParameterContainer::GetVarType(QString name) const
 {
-	varType type = null;
+	enumVarType type = null;
 
 	QMap<QString, sRecord>::const_iterator it;
 	it = myMap.find(name);
@@ -623,5 +578,81 @@ cParameterContainer::varType cParameterContainer::GetVarType(QString name) const
 		qWarning() << "GetVarType(): element '" << name << "' doesn't exists" << endl;
 	}
 	return type;
+}
+
+enumParameterType cParameterContainer::GetParameterType(QString name) const
+{
+	enumParameterType type = paramStandard;
+
+	QMap<QString, sRecord>::const_iterator it;
+	it = myMap.find(name);
+	if (it != myMap.end())
+	{
+		sRecord rec = it.value();
+		type = rec.parType;
+	}
+	else
+	{
+		qWarning() << "GetParameterType(): element '" << name << "' doesn't exists" << endl;
+	}
+	return type;
+}
+
+bool cParameterContainer::isDefaultValue(QString name) const
+{
+	enumVarType type = null;
+	bool isDefault = true;
+
+	QMap<QString, sRecord>::const_iterator it;
+	it = myMap.find(name);
+	if (it != myMap.end())
+	{
+		sRecord rec = it.value();
+		type = rec.type;
+		switch (type)
+		{
+			case typeBool:
+			case typeInt:
+			case typeRgb:
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					if (rec.actualVal.iVal[i] != rec.defaultVal.iVal[i])
+					{
+						isDefault = false;
+						break;
+					}
+				}
+				break;
+			}
+			case typeDouble:
+			case typeVector3:
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					if (rec.actualVal.dVal[i] != rec.defaultVal.dVal[i])
+					{
+						isDefault = false;
+						break;
+					}
+				}
+				break;
+			}
+			case typeColorPalette:
+			case typeString:
+			{
+				if (rec.actualVal.sVal != rec.defaultVal.sVal)
+				{
+					isDefault = false;
+				}
+				break;
+			}
+		}
+	}
+	else
+	{
+		qWarning() << "GetVarType(): element '" << name << "' doesn't exists" << endl;
+	}
+	return isDefault;
 }
 
