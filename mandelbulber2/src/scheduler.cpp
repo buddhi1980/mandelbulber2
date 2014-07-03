@@ -10,17 +10,18 @@
 #include <string.h>
 #include <QtCore>
 
-cScheduler::cScheduler(int _numberOfLines)
+cScheduler::cScheduler(int _numberOfLines, int progressive)
 {
 	numberOfLines = _numberOfLines;
 	linePendingThreadId = new int[numberOfLines];
 	lineDone = new bool[numberOfLines];
 	lastLinesDone = new bool[numberOfLines];
 	stopRequest = false;
-
-	memset(linePendingThreadId, 0, sizeof(int) * numberOfLines);
-	memset(lineDone, 0, sizeof(bool) * numberOfLines);
-	memset(lastLinesDone, 0, sizeof(bool) * numberOfLines);
+	progressiveStep = progressive;
+	progressivePass = 1;
+	if(progressive > 1) progressiveEnabled = true;
+	else progressiveEnabled = false;
+	Reset();
 }
 
 cScheduler::~cScheduler()
@@ -28,6 +29,13 @@ cScheduler::~cScheduler()
 	delete[] lineDone;
 	delete[] linePendingThreadId;
 	delete[] lastLinesDone;
+}
+
+void cScheduler::Reset()
+{
+	memset(linePendingThreadId, 0, sizeof(int) * numberOfLines);
+	memset(lineDone, 0, sizeof(bool) * numberOfLines);
+	memset(lastLinesDone, 0, sizeof(bool) * numberOfLines);
 }
 
 //coś wymyslić, żeby nie zostawała jedna linia na koniec - oznaczać linie w toku i zakończone oddzielnie
@@ -80,13 +88,19 @@ int cScheduler::NextLine(int threadId, int actualLine)
 	int maxHole = 0;
 	bool firstFreeFound = false;
 
-	lineDone[actualLine] = true;
-	lastLinesDone[actualLine] = true;
+	for(int i=0; i<progressiveStep; i++)
+	{
+		if(actualLine + i < numberOfLines)
+		{
+			lineDone[actualLine + i] = true;
+			lastLinesDone[actualLine + i] = true;
+		}
+	}
 
 	//next line is not occupied by any thread
-	if(actualLine < numberOfLines - 1 && linePendingThreadId[actualLine + 1] == 0)
+	if(actualLine < numberOfLines - progressiveStep && linePendingThreadId[actualLine + progressiveStep] == 0)
 	{
-		nextLine = actualLine + 1;
+		nextLine = actualLine + progressiveStep;
 	}
 	else
 	//next line is occupied or it's last line. There is needed to find new optimal line for rendering
@@ -111,6 +125,8 @@ int cScheduler::NextLine(int threadId, int actualLine)
 					maxHole = holeSize;
 					//next line should be in the middle of the biggest gap
 					nextLine = (lastFree + firstFree) / 2;
+					nextLine /= progressiveStep;
+					nextLine *= progressiveStep;
 					//out << "Jump Id: " << threadId  << " first: " << firstFree << " last: " << lastFree << endl;
 				}
 			}
@@ -150,5 +166,38 @@ double cScheduler::PercentDone()
 		if(lineDone[i]) count++;
 	}
 
-	return (double)count / numberOfLines;
+	double progressiveDone, percent_done;
+	if(progressivePass == 1) progressiveDone = 0;
+	else progressiveDone = 0.25 / (progressiveStep * progressiveStep);
+
+	if(progressiveEnabled)
+	{
+		percent_done = ((double)count / numberOfLines) * 0.75 / (progressiveStep * progressiveStep) + progressiveDone;
+	}
+	else
+	{
+		percent_done = (double)count / numberOfLines;
+	}
+
+	return percent_done;
+}
+
+bool cScheduler::ProgresiveNextStep()
+{
+	progressiveStep /= 2;
+	progressivePass ++;
+
+	QTextStream out(stdout);
+	out << "step " << progressiveStep << endl;
+
+	if(progressiveStep == 0)
+	{
+		return false;
+	}
+	else
+	{
+		memset(linePendingThreadId, 0, sizeof(int) * numberOfLines);
+		memset(lineDone, 0, sizeof(bool) * numberOfLines);
+		return true;
+	}
 }

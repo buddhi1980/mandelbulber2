@@ -75,16 +75,17 @@ void cRenderWorker::doWork(void)
 
 	PrepareMainVectors();
 	PrepareReflectionBuffer();
-	if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeMultipeRays)
-		PrepareAOVectors();
+	if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeMultipeRays) PrepareAOVectors();
 
 	//init of scheduler
 	cScheduler *scheduler = threadData->scheduler;
-	scheduler->InitFirstLine(threadData->id, threadData->startLine);
+
 
 	//start point for ray-marching
 	CVector3 start = params->camera;
 
+
+	scheduler->InitFirstLine(threadData->id, threadData->startLine);
 	//main loop for y
 	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id); ys = scheduler->NextLine(threadData->id, ys))
 	{
@@ -94,7 +95,7 @@ void cRenderWorker::doWork(void)
 		if (ys < data->screenRegion.y1 || ys > data->screenRegion.y2) continue;
 
 		//main loop for x
-		for (int xs = 0; xs < width; xs++)
+		for (int xs = 0; xs < width; xs += scheduler->GetProgresiveStep())
 		{
 
 			//break if by coincidence this thread started rendering the same line as some other
@@ -103,6 +104,8 @@ void cRenderWorker::doWork(void)
 				break;
 			}
 			//---------- 1us ------------
+
+			if (scheduler->GetProgresivePass() > 1 && xs % (scheduler->GetProgresiveStep() * 2) == 0 && ys % (scheduler->GetProgresiveStep() * 2) == 0) continue;
 
 			//skip if pixel is out of region;
 			if (xs < data->screenRegion.x1 || xs > data->screenRegion.x2) continue;
@@ -114,13 +117,12 @@ void cRenderWorker::doWork(void)
 
 			//full dome shemisphere cut
 			bool hemisphereCut = false;
-			if (params->perspectiveType == params::fishEyeCut && imagePoint.Length() > 0.5 / params->fov)
-					hemisphereCut = true;
+			if (params->perspectiveType == params::fishEyeCut && imagePoint.Length() > 0.5 / params->fov) hemisphereCut = true;
 
 			//calculate direction of ray-marching
 			CVector3 viewVector = calculateViewVector(imagePoint);
 
-		  //---------------- 1us -------------
+			//---------------- 1us -------------
 
 			//Ray marching
 			CVector3 point;
@@ -128,7 +130,6 @@ void cRenderWorker::doWork(void)
 			sRGBAfloat resultShader;
 			sRGBAfloat objectColour;
 			int rayEnd = 0;
-
 
 			//raymarching loop (reflections)
 
@@ -174,8 +175,8 @@ void cRenderWorker::doWork(void)
 				reflectBuff[ray].depth = rayMarchingOut.depth;
 
 				rayEnd = ray;
-				if(!reflectBuff[ray].found) break;
-				if(reflectBuff[ray].reflect == 0) break;
+				if (!reflectBuff[ray].found) break;
+				if (reflectBuff[ray].reflect == 0) break;
 
 				//calculate new ray direction and start point
 				startRay = point;
@@ -186,14 +187,13 @@ void cRenderWorker::doWork(void)
 				shaderInputData.viewVector = viewVector;
 				shaderInputData.delta = CalcDelta(point);
 				CVector3 vn = CalculateNormals(shaderInputData);
-				viewVector = viewVector - vn * viewVector.Dot(vn)*2.0;
+				viewVector = viewVector - vn * viewVector.Dot(vn) * 2.0;
 				startRay = startRay + viewVector * reflectBuff[ray].distThresh;
 			}
 
 			//----------- 85us for rayMarching loop -------------
 
-
-			for(int ray = rayEnd; ray >= 0; ray--)
+			for (int ray = rayEnd; ray >= 0; ray--)
 			{
 
 				sRGBAfloat objectShader;
@@ -255,13 +255,19 @@ void cRenderWorker::doWork(void)
 
 				if (ray == 0)
 				{
-					image->PutPixelOpacity(screenPoint.x, screenPoint.y, (unsigned short) (opacityOut.R * 65535.0));
-					image->PutPixelAlpha(screenPoint.x, screenPoint.y, (unsigned short) (volumetricShader.A * 65535.0));
+					for (int xx = 0; xx < scheduler->GetProgresiveStep(); ++xx)
+					{
+						for (int yy = 0; yy < scheduler->GetProgresiveStep(); ++yy)
+						{
+							image->PutPixelOpacity(screenPoint.x + xx, screenPoint.y + yy, (unsigned short) (opacityOut.R * 65535.0));
+							image->PutPixelAlpha(screenPoint.x + xx, screenPoint.y + yy, (unsigned short) (volumetricShader.A * 65535.0));
+						}
+					}
+
 				}
 			}
 
 			//------------------ 61us for shaders --------------------
-
 
 			sRGBfloat pixel2;
 			pixel2.R = resultShader.R;
@@ -273,15 +279,22 @@ void cRenderWorker::doWork(void)
 			colour.G = objectColour.G * 255;
 			colour.B = objectColour.B * 255;
 
-			image->PutPixelImage(screenPoint.x, screenPoint.y, pixel2);
-			image->PutPixelColour(screenPoint.x, screenPoint.y, colour);
-			image->PutPixelZBuffer(screenPoint.x, screenPoint.y, (float) reflectBuff[0].depth);
+			for (int xx = 0; xx < scheduler->GetProgresiveStep(); ++xx)
+			{
+				for (int yy = 0; yy < scheduler->GetProgresiveStep(); ++yy)
+				{
+					image->PutPixelImage(screenPoint.x + xx, screenPoint.y + yy, pixel2);
+					image->PutPixelColour(screenPoint.x + xx, screenPoint.y + yy, colour);
+					image->PutPixelZBuffer(screenPoint.x + xx, screenPoint.y + yy, (float) reflectBuff[0].depth);
+				}
+			}
 
 			//------------ 0.65us for pixels -------------
 
 			pixelCounter++;
 		}
 	}
+
 
 	out << endl;
 	out << "Finished: " << threadData->id << endl;
