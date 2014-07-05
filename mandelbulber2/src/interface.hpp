@@ -22,6 +22,7 @@ public:
 	enum enumCameraRotationMode {rotateCamera, rotateAroundTarget};
 
 	cInterface();
+	~cInterface();
 	void ShowUi(void);
 	void ConnectSignals(void);
 	void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumReadWrite mode);

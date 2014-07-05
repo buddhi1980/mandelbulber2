@@ -30,6 +30,9 @@ RenderWindow::RenderWindow(QWidget *parent) :
 RenderWindow::~RenderWindow()
 {
     delete ui;
+    for(int i=0; i<4; i++)
+    	delete fractalWidgets[i];
+    delete[] fractalWidgets;
 }
 
 

@@ -31,6 +31,16 @@ cInterface::cInterface()
 	repeatRequest = false;
 }
 
+cInterface::~cInterface()
+{
+	if(renderedImage) delete renderedImage;
+	if(progressBar) delete progressBar;
+	if(qimage) delete qimage;
+	if(mainImage) delete mainImage;
+	if(mainWindow) delete mainWindow;
+	if(application) delete application;
+}
+
 void cInterface::ShowUi(void)
 {
 	WriteLog("Prepare RenderWindow class");
