@@ -56,6 +56,10 @@ int main(int argc, char *argv[])
 
 	//start main Qt loop
 	WriteLog("application->exec()");
-	return mainInterface->application->exec();
+	int result = mainInterface->application->exec();
+	delete mainInterface;
+	delete gPar;
+	delete[] gParFractal;
+	return result;
 }
 
