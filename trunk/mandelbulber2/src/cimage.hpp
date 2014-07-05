@@ -69,7 +69,7 @@ public:
   size_t GetZBufferSize(void) {return sizeof(float) * height * width;}
   QWidget* GetImageWidget(void) {return imageWidget;};
 
-  void CompileImage(QVector<int> *list = NULL);
+  void CompileImage(QList<int> *list = NULL);
 
   int GetWidth(void) {return width;}
   int GetHeight(void) {return height;}
@@ -83,7 +83,7 @@ public:
 
   unsigned char* ConvertTo8bit(void);
   unsigned char* CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
-  void UpdatePreview(QVector<int> *list = NULL);
+  void UpdatePreview(QList<int> *list = NULL);
   unsigned char* GetPreviewPtr(void);
   bool IsPreview(void);
   void RedrawInWidget(QWidget *qwidget = NULL);
