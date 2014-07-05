@@ -185,7 +185,7 @@ void cImage::CalculateGammaTable(void)
 	}
 }
 
-void cImage::CompileImage(QVector<int> *list)
+void cImage::CompileImage(QList<int> *list)
 {
 	int listIndex = 0;
 	for (int y = 0; y < height; y++)
@@ -290,7 +290,7 @@ unsigned char* cImage::CreatePreview(double scale, int visibleWidth, int visible
 	return ptr;
 }
 
-void cImage::UpdatePreview(QVector<int> *list)
+void cImage::UpdatePreview(QList<int> *list)
 {
 	if (previewAllocated)
 	{

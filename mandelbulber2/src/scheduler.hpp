@@ -20,7 +20,7 @@ public:
 	bool ThereIsStillSomethingToDo(int ThreadId);
 	bool AllLinesDone();
 	void InitFirstLine(int threadId, int firstLine);
-	QVector<int> GetLastRenderedLines(void);
+	QList<int> GetLastRenderedLines(void);
 	double PercentDone();
 	void Stop() {stopRequest = true;}
 

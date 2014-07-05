@@ -144,9 +144,9 @@ void cScheduler::InitFirstLine(int threadId, int firstLine)
 	linePendingThreadId[firstLine] = threadId;
 }
 
-QVector<int> cScheduler::GetLastRenderedLines(void)
+QList<int> cScheduler::GetLastRenderedLines(void)
 {
-	QVector<int> list;
+	QList<int> list;
 	for(int i = 0; i < numberOfLines; i++)
 	{
 		if(lastLinesDone[i])

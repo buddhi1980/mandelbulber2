@@ -101,7 +101,7 @@ void cRenderWorker::doWork(void)
 			//break if by coincidence this thread started rendering the same line as some other
 			if (scheduler->ShouldIBreak(threadData->id, ys))
 			{
-				break;
+				//break; //******************* problem need to be fixed !!!!!! (generates black dots) ************
 			}
 			//---------- 1us ------------
 
