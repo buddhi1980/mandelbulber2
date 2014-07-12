@@ -25,19 +25,19 @@ bool InitSystem(void)
 	QTextStream out(stdout);
 	setlocale(LC_ALL, "");
 
-	systemData.homedir = QDir::homePath();
+	systemData.homedir = QDir::homePath() + QDir::separator();
 
 #ifdef WIN32 /* WINDOWS */
     systemData.sharedDir = (QDir::currentPath() + QDir::separator());
 #else
-	systemData.sharedDir = QString(SHARED_DIR) + "/";
+	systemData.sharedDir = QString(SHARED_DIR) + QDir::separator();
 #endif  /* WINDOWS */
 
 	//logfile
 #ifdef WIN32 /* WINDOWS */
-	systemData.logfileName = systemData.homedir + QDir::separator() + "mandelbulber_log.txt";
+	systemData.logfileName = systemData.homedir + "mandelbulber_log.txt";
 #else
-	systemData.logfileName = systemData.homedir + QDir::separator() + ".mandelbulber_log.txt";
+	systemData.logfileName = systemData.homedir + ".mandelbulber_log.txt";
 #endif
 	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "w");
 	fclose(logfile);
@@ -59,12 +59,15 @@ bool InitSystem(void)
 
 	//data directory location
 #ifdef WIN32 /* WINDOWS */
-	systemData.dataDirectory = systemData.homedir + "/mandelbulber";
+	systemData.dataDirectory = systemData.homedir  + "mandelbulber" + QDir::separator();
 #else
-	systemData.dataDirectory = systemData.homedir + "/.mandelbulber";
+	systemData.dataDirectory = systemData.homedir  + ".mandelbulber" + QDir::separator();
 #endif
 	out << "Default data directory: " << systemData.dataDirectory << endl;
 	WriteLogString("Default data directory", systemData.dataDirectory);
+
+	//*********** temporary set to false ************
+	systemData.noGui = false;
 
 	return true;
 }
@@ -77,21 +80,21 @@ int get_cpu_count()
 void WriteLog(QString text)
 {
 	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "a");
-	fprintf(logfile, "%ld: %s\n", (unsigned long int) clock(), text.toUtf8().constData());
+	fprintf(logfile, "PID: %ld, time: %.6lf, %s\n", (unsigned long int)QCoreApplication::applicationPid(), (double)clock()/1.0e6, text.toUtf8().constData());
 	fclose(logfile);
 }
 
 void WriteLogDouble(QString text, double value)
 {
 	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "a");
-	fprintf(logfile, "%ld: %s, value = %g\n", (unsigned long int) clock(), text.toUtf8().constData(), value);
+	fprintf(logfile, "PID: %ld, time: %.6lf, %s, value = %g\n",(unsigned long int)QCoreApplication::applicationPid(), (double)clock()/1.0e6, text.toUtf8().constData(), value);
 	fclose(logfile);
 }
 
 void WriteLogString(QString text, QString value)
 {
 	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "a");
-	fprintf(logfile, "%ld: %s, value = %s\n", (unsigned long int) clock(), text.toUtf8().constData(), value.toUtf8().constData());
+	fprintf(logfile, "PID: %ld, time: %.6lf, %s, value = %s\n",(unsigned long int)QCoreApplication::applicationPid(), (double)clock()/1.0e6, text.toUtf8().constData(), value.toUtf8().constData());
 	fclose(logfile);
 }
 

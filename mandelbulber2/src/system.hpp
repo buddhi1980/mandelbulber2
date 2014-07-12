@@ -34,6 +34,7 @@ struct sSystem
 	QString sharedDir;
 	QString logfileName;
 	unsigned int numberOfThreads;
+	bool noGui;
 };
 
 struct sActualFileNames

@@ -187,9 +187,6 @@ bool cScheduler::ProgresiveNextStep()
 	progressiveStep /= 2;
 	progressivePass ++;
 
-	QTextStream out(stdout);
-	out << "step " << progressiveStep << endl;
-
 	if(progressiveStep == 0)
 	{
 		return false;

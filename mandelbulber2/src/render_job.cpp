@@ -75,6 +75,7 @@ bool cRenderJob::Init(enumMode _mode)
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	//totalNumberOfCPUs = 1;
 
+	WriteLog("Init renderData");
 	//aux renderer data
 	if(renderData) delete renderData;
 	renderData = new sRenderData;
@@ -123,6 +124,8 @@ bool cRenderJob::Execute(void)
 {
 	inProgress = true;
 
+	WriteLog("cRenderJob::Execute(void)");
+
 	//move parameters from containers to structures
 	cParamRender *params = new cParamRender(paramsContainer);
 	cFourFractals *fourFractals = new cFourFractals(fractalContainer, paramsContainer);
@@ -141,6 +144,8 @@ bool cRenderJob::Execute(void)
 	delete renderer;
 	inProgress = false;
 	mainInterface->stopRequest = false;
+
+	WriteLog("cRenderJob::Execute(void): finished");
 
 	return true;
 }

@@ -11,9 +11,11 @@
 
 #include "fractal.h"
 #include "algebra.hpp"
+#include "system.hpp"
 
 cFractal::cFractal(const cParameterContainer *container)
 {
+	WriteLog("cFractal::cFractal(const cParameterContainer *container)");
 	formula = (fractal::enumFractalFormula)container->Get<int>("formula");
 
 	bulb.power = container->Get<double>("power");
@@ -42,6 +44,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelbox.rotationsEnabled = container->Get<double>("mandelbox_rotations_enabled");
 	mandelbox.mainRotationEnabled = container->Get<double>("mandelbox_main_rotation_enabled");
 
+	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();
 }
 

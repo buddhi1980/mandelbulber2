@@ -295,10 +295,6 @@ void cRenderWorker::doWork(void)
 		}
 	}
 
-
-	out << endl;
-	out << "Finished: " << threadData->id << endl;
-
 	//emit signal to main thread when finished
 	emit finished();
 	return;
