@@ -15,6 +15,7 @@
 #include "render_job.hpp"
 #include "calculate_distance.hpp"
 #include "camera_target.hpp"
+#include "error_message.hpp"
 
 cInterface *mainInterface;
 
@@ -59,6 +60,7 @@ void cInterface::ShowUi(void)
 	renderedImage = new RenderedImage(mainWindow);
 	mainWindow->ui->scrollAreaLayoutRenderedImage->addWidget(renderedImage);
 
+	WriteLog("Prepare progress and status bar");
 	progressBar = new QProgressBar(mainWindow->ui->statusbar);
 	mainWindow->ui->statusbar->addPermanentWidget(progressBar);
 
@@ -68,8 +70,9 @@ void cInterface::ShowUi(void)
 	QString uiFilename = systemData.sharedDir + QDir::separator() + "qt" + QDir::separator() + "fractal_mandelbulb.ui";
 	InitializeFractalUi(uiFilename);
 
-	WriteLog("ConnectSignals()");
+	WriteLog("cInterface::ConnectSignals(void)");
 	ConnectSignals();
+	WriteLog("cInterface::ConnectSignals(void) finished");
 }
 
 void cInterface::ConnectSignals(void)
@@ -127,17 +130,28 @@ void cInterface::ConnectSignals(void)
 //Reading ad writing parameters from/to ui to/from parameters container
 void cInterface::SynchronizeInterface(cParameterContainer *par, cParameterContainer *parFractal, enumReadWrite mode)
 {
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_image_adjustments, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_image_adjustments, par, mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, par, mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_rendering_engine, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_rendering_engine, par, mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_common, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_common, par, mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_hybrid, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_hybrid, par, mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_1, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_1, &parFractal[0], mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_2, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_2, &parFractal[1], mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_3, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_3, &parFractal[2], mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_4, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_4, &parFractal[3], mode);
 }
 
@@ -690,9 +704,9 @@ void cInterface::GetNameAndType(QString name, QString *parameterName, QString *t
 //initialize ui for hybrid fractal components
 void cInterface::InitializeFractalUi(QString &uiFileName)
 {
+	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) started");
 	QUiLoader loader;
-	QString uiPluginPath = systemData.sharedDir + QDir::separator() + "qt";
-	loader.addPluginPath(uiPluginPath);
+
 	QFile uiFile(uiFileName);
 
 	if(uiFile.exists())
@@ -736,8 +750,9 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 	}
 	else
 	{
-		qCritical() << "Can't open file " << uiFileName << " Fractal ui files can't be loaded";
+		cErrorMessage::showMessage(QString("Can't open file ") + uiFileName + QString(" Fractal ui files can't be loaded"), cErrorMessage::errorMessage, mainWindow);
 	}
+	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished");
 }
 
 void cInterface::StatusText(QString &text, QString &progressText, double progress)
@@ -780,10 +795,12 @@ double cInterface::CalcMainImageScale(double scale, int previewWidth, int previe
 
 void cInterface::StartRender(void)
 {
+	WriteLog("cInterface::StartRender(void)");
 	if(mainImage->IsUsed())
 	{
 		stopRequest = true;
 		repeatRequest = true;
+		WriteLog("cInterface::StartRender(void): rendering terminate request");
 	}
 	else
 	{
@@ -803,6 +820,7 @@ void cInterface::StartRender(void)
 
 void cInterface::MoveCamera(QString buttonName)
 {
+	WriteLog("cInterface::MoveCamera(QString buttonName): button: " + buttonName);
 	//get data from interface
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
@@ -890,6 +908,8 @@ void cInterface::MoveCamera(QString buttonName)
 
 void cInterface::CameraOrTargetEdited(void)
 {
+	WriteLog("cInterface::CameraOrTargetEdited(void)");
+
 	//get data from interface before synchronization
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
@@ -918,6 +938,8 @@ void cInterface::CameraOrTargetEdited(void)
 
 void cInterface::RotateCamera(QString buttonName)
 {
+	WriteLog("cInterface::RotateCamera(QString buttonName): button: " + buttonName);
+
 	//get data from interface
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
@@ -1003,6 +1025,7 @@ void cInterface::RotateCamera(QString buttonName)
 
 void cInterface::RotationEdited(void)
 {
+	WriteLog("cInterface::RotationEdited(void)");
 	//get data from interface before synchronization
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
@@ -1036,6 +1059,8 @@ void cInterface::RotationEdited(void)
 
 void cInterface::CameraDistanceEdited()
 {
+	WriteLog("cInterface::CameraDistanceEdited()");
+
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");

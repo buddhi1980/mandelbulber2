@@ -7,6 +7,7 @@
 
 #include "settings.hpp"
 #include "system.hpp"
+#include "error_message.hpp"
 
 cSettings::cSettings(enumFormat _format)
 {
@@ -39,8 +40,6 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cParameterCon
 		}
 		parameterListFractal.clear();
 	}
-
-	qDebug() << settingsText;
 
 	textPrepared = true;
 	return settingsText.size();
@@ -107,8 +106,7 @@ bool cSettings::SaveToFile(QString filename)
 	}
 	else
 	{
-		qCritical() << "Error! Settings file not saved. " << qfile.errorString();
-		WriteLogString("Error during saving settings", filename + " error:" + qfile.errorString());
+		cErrorMessage::showMessage(QString("Settings file not saved!\n") + filename + "\n" + qfile.errorString(), cErrorMessage::errorMessage);
 		return false;
 	}
 }
@@ -129,8 +127,7 @@ bool cSettings::LoadFromFile(QString filename)
 	}
 	else
 	{
-		qCritical() << "Error! Settings file not loaded. " << qfile.errorString();
-		WriteLogString("Error during loadingg settings", filename + " error:" + qfile.errorString());
+		cErrorMessage::showMessage(QString("Settings file not loaded!\n") + filename + "\n" + qfile.errorString(), cErrorMessage::errorMessage);
 		return false;
 	}
 }
@@ -188,8 +185,7 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 		}
 		catch (QString &error)
 		{
-			qDebug() << error;
-			WriteLog(error);
+			cErrorMessage::showMessage(error, cErrorMessage::errorMessage);
 			textPrepared = false;
 			return;
 		}
@@ -201,6 +197,8 @@ bool cSettings::Decode(cParameterContainer *par, cParameterContainer *fractPar)
 {
 	QStringList separatedText = settingsText.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
 	DecodeHeader(separatedText);
+
+	int errorCount = 0;
 
 	QString section;
 	if(textPrepared)
@@ -225,7 +223,13 @@ bool cSettings::Decode(cParameterContainer *par, cParameterContainer *fractPar)
 				if (!result)
 				{
 					QString errorMessage = QString("Error in settings file. Line: ") + QString::number(l) + " (" + line + ")";
-					qCritical() << errorMessage;
+					cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage);
+					errorCount++;
+					if(errorCount > 3)
+					{
+						cErrorMessage::showMessage("Too many errors in settings file", cErrorMessage::errorMessage);
+						return false;
+					}
 				}
 
 			}

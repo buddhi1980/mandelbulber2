@@ -12,6 +12,7 @@
 #include "render_worker.hpp"
 #include "interface.hpp"
 #include "progress_text.hpp"
+#include "error_message.hpp"
 
 cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, const sRenderData *_renderData, cImage *_image)
 {
@@ -60,10 +61,13 @@ bool cRenderer::RenderImage()
 	qint64 lastRefreshTime = 0;
 	QList<int> listToRefresh;
 
+	WriteLog("Start rendering");
 	do
 	{
+		WriteLogDouble("Progressive loop", scheduler->GetProgresiveStep());
 		for (int i = 0; i < data->numberOfThreads; i++)
 		{
+			WriteLog(QString("Thread ") + QString::number(i) + " create");
 			thread[i] = new QThread;
 			worker[i] = new cRenderWorker(params, fractal, &threadData[i], data, image); //Warning! not needed to delete object
 			worker[i]->moveToThread(thread[i]);
@@ -72,7 +76,7 @@ bool cRenderer::RenderImage()
 			QObject::connect(worker[i], SIGNAL(finished()), worker[i], SLOT(deleteLater()));
 
 			thread[i]->start();
-			out << "Thread " << i << " started" << endl;
+			WriteLog(QString("Thread ") + QString::number(i) + " started");
 		}
 
 		while (!scheduler->AllLinesDone())
@@ -127,31 +131,39 @@ bool cRenderer::RenderImage()
 			{
 				mainInterface->application->processEvents();
 			};
+			WriteLog(QString("Thread ") + QString::number(i) + " finished");
 			delete thread[i];
 		}
 	}
 	while(scheduler->ProgresiveNextStep());
 
 	//refresh image at end
+	WriteLog("image->CompileImage()");
 	image->CompileImage();
 	if(image->IsPreview())
 	{
+		WriteLog("image->ConvertTo8bit()");
 		image->ConvertTo8bit();
+		WriteLog("image->UpdatePreview()");
 		image->UpdatePreview();
+		WriteLog("image->GetImageWidget()->update()");
 		image->GetImageWidget()->update();
 	}
+
+	WriteLog("Rendering finished");
+
 	//status bar and progress bar
 	double percentDone = scheduler->PercentDone();
 	statusText = "Idle";
 	progressTxt = progressText.getText(percentDone);
 	mainInterface->StatusText(statusText, progressTxt, percentDone);
 
-	out << "All threads finished" << endl;
-
 	delete[] thread;
 	delete[] threadData;
 	delete[] worker;
 	delete scheduler;
+
+	WriteLog("cRenderer::RenderImage(): memory released");
 
 	return true;
 }
