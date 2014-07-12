@@ -15,6 +15,7 @@
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
 #include <QColorDialog>
+#include "my_ui_loader.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -290,7 +291,7 @@ void RenderWindow::slotChangedFractalCombo(int index)
 		if(fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
 		fractalWidgets[fractalNumber] = NULL;
 
-		QUiLoader loader;
+		MyUiLoader loader;
 		QFile uiFile(uiFilename);
 
 		if(uiFile.exists())

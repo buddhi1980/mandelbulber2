@@ -16,6 +16,7 @@
 #include "calculate_distance.hpp"
 #include "camera_target.hpp"
 #include "error_message.hpp"
+#include "my_ui_loader.h"
 
 cInterface *mainInterface;
 
@@ -705,7 +706,7 @@ void cInterface::GetNameAndType(QString name, QString *parameterName, QString *t
 void cInterface::InitializeFractalUi(QString &uiFileName)
 {
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) started");
-	QUiLoader loader;
+	MyUiLoader loader;
 
 	QFile uiFile(uiFileName);
 
