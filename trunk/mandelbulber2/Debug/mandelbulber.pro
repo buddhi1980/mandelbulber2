@@ -31,6 +31,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/interface.cpp\
 	    	../src/lights.cpp\
 	    	../src/main.cpp\
+	    	../src/my_ui_loader.cpp\
 	    	../src/parameters.cpp\
 	    	../src/primitives.cpp\
 	    	../src/progress_text.cpp\
@@ -47,7 +48,8 @@ SOURCES +=  ../src/algebra.cpp\
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
 			../qt/myscrolledarea.h\
-			../qt/mylineedit.h
+			../qt/mylineedit.h\
+			../src/my_ui_loader.h
 
 FORMS    += ../qt/render_window.ui
 
