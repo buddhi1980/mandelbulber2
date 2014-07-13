@@ -116,10 +116,10 @@ struct sFractalMandelbox
 	double mboxFactor1;
 };
 
-struct sFractalFoldingIntPow
+struct sFractalBoxFoldBulbPow2
 {
-	double FoldingIntPowZfactor;
-	double FoldingIntPowFoldFactor;
+	double zFactor;
+	double foldfactor;
 };
 
 struct sFractalFoldings
@@ -134,7 +134,8 @@ struct sFractalMandelbulb
 {
 	double power;
 	double alphaAngleOffset;
-	double betaAnleOffset;
+	double betaAngleOffset;
+	double gammaAngleOffset;
 };
 
 struct sFractalAexion
@@ -153,7 +154,7 @@ public:
 	sFractalIFS IFS;
 	sFractalMandelbox mandelbox;
 	sFractalGeneralizedFoldBox genFoldBox;
-	sFractalFoldingIntPow foldingIntPow;
+	sFractalBoxFoldBulbPow2 foldingIntPow;
 	sFractalMandelboxVary4D mandelboxVary4D;
 	sFractalFoldings foldings;
 

@@ -37,6 +37,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 
 	sMandelbulbAux bulbAux[4];
 	sMandelboxAux mandelboxAux[4];
+	sIFSAux ifsAux[4];
 	int maxFractals = four.IsHybrid() ? 4 : 1;
 	for(int i = 0; i < maxFractals; i++)
 	{
@@ -44,9 +45,8 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		bulbAux[i].r = r;
 		mandelboxAux[i].mboxDE = 1.0;
 		mandelboxAux[i].mboxColor = 1.0;
+		ifsAux[i].ifsDE = 1.0;
 	}
-
-	//------------------- 86.7 ns for preparation ---------------
 
 	//main iteration loop
 	int i;
@@ -63,8 +63,35 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			{
 				bulbAux[sequence].r = r;
 				MandelbulbIteration(z, fractal, bulbAux[sequence]);
-				//-------------- 1456ns for MandelbulbIteration (when in function) -----------------
-				//-------------- 1410ns for MandelbulbIteration (when directly) -----------------
+				break;
+			}
+			case fractal::mandelbulb2:
+			{
+				bulbAux[sequence].r = r;
+				Mandelbulbulb2Iteration(z, fractal, bulbAux[sequence]);
+				break;
+			}
+			case fractal::mandelbulb3:
+			{
+				bulbAux[sequence].r = r;
+				Mandelbulbulb3Iteration(z, fractal, bulbAux[sequence]);
+				break;
+			}
+			case fractal::mandelbulb4:
+			{
+				bulbAux[sequence].r = r;
+				Mandelbulbulb4Iteration(z, fractal, bulbAux[sequence]);
+				break;
+			}
+			case fractal::fast_mandelbulb_power2:
+			{
+				MandelbulbulbPower2Iteration(z, fractal);
+				break;
+			}
+			case fractal::xenodreambuie:
+			{
+				bulbAux[sequence].r = r;
+				XenodreambuieIteration(z, fractal, bulbAux[sequence]);
 				break;
 			}
 			case fractal::mandelbox:
@@ -72,12 +99,30 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				MandelboxIteration(z, fractal, mandelboxAux[sequence]);
 				break;
 			}
+			case fractal::smoothMandelbox:
+			{
+				SmoothMandelboxIteration(z, fractal, mandelboxAux[sequence]);
+				break;
+			}
+			case fractal::boxFoldBulbPow2:
+			{
+				BoxFoldBulbPow2Iteration(z, fractal);
+				break;
+			}
+			case fractal::menger_sponge:
+			{
+				MengerSpongeIteration(z, fractal, ifsAux[sequence]);
+				break;
+			}
 			default:
 				z = CVector3(0.0, 0.0, 0.0);
 				break;
 		}
 
-		z += c;
+		if(fractal->formula != fractal::menger_sponge)
+		{
+			z += c;
+		}
 
 		//length of z vector
 		r = z.Length();
@@ -110,8 +155,6 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			if (r > 1e15)
 				break;
 		}
-		//---------------- 1680 ns for iteration -------------
-
 	}
 
 	//final calculations
@@ -123,9 +166,12 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				out->distance = 0.5 * r * log(r) / bulbAux[0].r_dz;
 				break;
 			case fractal::mandelbox:
+			case fractal::smoothMandelbox:
 				out->distance = r / fabs(mandelboxAux[0].mboxDE);
 				break;
-
+			case fractal::menger_sponge:
+				out->distance = (r - 2.0) / ifsAux[0].ifsDE;
+				break;
 			default:
 				out->distance = -1.0;
 				break;
@@ -137,11 +183,22 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		switch (defaultFractal->formula)
 		{
 			case fractal::mandelbulb:
+			case fractal::mandelbulb2:
+			case fractal::mandelbulb3:
+			case fractal::mandelbulb4:
+			case fractal::xenodreambuie:
+			case fractal::fast_mandelbulb_power2:
+			case fractal::boxFoldBulbPow2:
 				out->colorIndex = minimumR * 5000.0;
 				break;
 
 			case fractal::mandelbox:
+			case fractal::smoothMandelbox:
 				out->colorIndex = mandelboxAux[0].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR;
+				break;
+
+			case fractal::menger_sponge:
+				out->colorIndex = minimumR * 1000.0;
 				break;
 
 			default:
