@@ -15,12 +15,13 @@
 
 cFractal::cFractal(const cParameterContainer *container)
 {
-	WriteLog("cFractal::cFractal(const cParameterContainer *container)");
+	//WriteLog("cFractal::cFractal(const cParameterContainer *container)");
 	formula = (fractal::enumFractalFormula)container->Get<int>("formula");
 
 	bulb.power = container->Get<double>("power");
 	bulb.alphaAngleOffset = container->Get<double>("alpha_angle_offset");
-	bulb.betaAnleOffset = container->Get<double>("beta_angle_offset");
+	bulb.betaAngleOffset = container->Get<double>("beta_angle_offset");
+	bulb.gammaAngleOffset = container->Get<double>("gamma_angle_offset");
 
 	mandelbox.scale = container->Get<double>("mandelbox_scale");
 	mandelbox.foldingLimit = container->Get<double>("mandelbox_folding_limit");
@@ -43,6 +44,9 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelbox.colorFactorSp2 = container->Get<double>("mandelbox_color_Sp2");
 	mandelbox.rotationsEnabled = container->Get<double>("mandelbox_rotations_enabled");
 	mandelbox.mainRotationEnabled = container->Get<double>("mandelbox_main_rotation_enabled");
+
+	foldingIntPow.foldfactor = container->Get<double>("boxfold_bulbpow2_folding_factor");
+	foldingIntPow.zFactor = container->Get<double>("boxfold_bulbpow2_z_factor");
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();
@@ -71,6 +75,9 @@ void cFractal::RecalculateFractalParams(void)
 	mandelbox.fR2 = mandelbox.foldingSphericalFixed * mandelbox.foldingSphericalFixed;
 	mandelbox.mR2 = mandelbox.foldingSphericalMin * mandelbox.foldingSphericalMin;
 	mandelbox.mboxFactor1 = mandelbox.fR2 / mandelbox.mR2;
+
+	bulb.alphaAngleOffset *= M_PI / 180.0;
+	bulb.betaAngleOffset *= M_PI / 180.0;
 
 	//Generalized Fold Box precalculated vectors
 	double sqrt_i3 = 1.0/sqrt(3.0);

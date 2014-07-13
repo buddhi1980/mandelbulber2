@@ -337,6 +337,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("power", 9.0, morphcatMullRom, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphcatMullRom, paramStandard);
 	par->addParam("beta_angle_offset", 0.0, morphcatMullRom, paramStandard);
+	par->addParam("gamma_angle_offset", 0.0, morphcatMullRom, paramStandard);
 	par->addParam("cadd", 0.0, morphLinear, paramStandard);
 
 	//IFS formula
@@ -394,8 +395,8 @@ void InitFractalParams(cParameterContainer *par)
 
 
 	//FoldingIntPow
-	par->addParam("foldingIntPow_folding_factor", 2.0, morphLinear, paramStandard);
-	par->addParam("foldingIntPow_z_factor", 5.0, morphLinear, paramStandard);
+	par->addParam("boxfold_bulbpow2_folding_factor", 2.0, morphLinear, paramStandard);
+	par->addParam("boxfold_bulbpow2_z_factor", 5.0, morphLinear, paramStandard);
 	WriteLog("Fractal parameters initialization finished");
 }
 

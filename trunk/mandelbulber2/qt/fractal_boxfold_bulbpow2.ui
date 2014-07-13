@@ -16,54 +16,13 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="1">
-      <widget class="QSlider" name="slider_beta_angle_offset">
-       <property name="minimum">
-        <number>-36000</number>
-       </property>
-       <property name="maximum">
-        <number>36000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="pageStep">
-        <number>100</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="QDoubleSpinBox" name="spinbox_beta_angle_offset">
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>2</number>
-       </property>
-       <property name="minimum">
-        <double>-36000.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>36000.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="1">
-      <widget class="QSlider" name="slider_alpha_angle_offset">
+      <widget class="QSlider" name="slider_boxfold_bulbpow2_z_factor">
        <property name="minimum">
-        <number>-36000</number>
+        <number>0</number>
        </property>
        <property name="maximum">
-        <number>36000</number>
+        <number>5000</number>
        </property>
        <property name="singleStep">
         <number>1</number>
@@ -79,12 +38,12 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>Alpha angle offset:</string>
+        <string>Z scale:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QDoubleSpinBox" name="spinbox_power">
+      <widget class="QDoubleSpinBox" name="spinbox_boxfold_bulbpow2_folding_factor">
        <property name="prefix">
         <string/>
        </property>
@@ -98,7 +57,7 @@
         <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>1000.000000000000000</double>
+        <double>100.000000000000000</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -106,7 +65,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QDoubleSpinBox" name="spinbox_alpha_angle_offset">
+      <widget class="QDoubleSpinBox" name="spinbox_boxfold_bulbpow2_z_factor">
        <property name="prefix">
         <string/>
        </property>
@@ -117,10 +76,10 @@
         <number>2</number>
        </property>
        <property name="minimum">
-        <double>-36000.000000000000000</double>
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>36000.000000000000000</double>
+        <double>50.000000000000000</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -128,7 +87,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSlider" name="slider_power">
+      <widget class="QSlider" name="slider_boxfold_bulbpow2_folding_factor">
        <property name="maximum">
         <number>2000</number>
        </property>
@@ -143,14 +102,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>Power:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Beta angle offset:</string>
+        <string>Box fold:</string>
        </property>
       </widget>
      </item>

@@ -11,6 +11,7 @@
 #include "fractal_list.hpp"
 #include "system.hpp"
 #include "settings.hpp"
+#include "error_message.hpp"
 
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
@@ -286,7 +287,7 @@ void RenderWindow::slotChangedFractalCombo(int index)
 	if(fractalList[index].internalID > 0)
 	{
 		QString formulaName = fractalList[index].internalNane;
-		QString uiFilename = systemData.sharedDir + QDir::separator() + "qt" + QDir::separator() + "fractal_" + formulaName + ".ui";
+		QString uiFilename = systemData.sharedDir + "qt" + QDir::separator() + "fractal_" + formulaName + ".ui";
 
 		if(fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
 		fractalWidgets[fractalNumber] = NULL;
@@ -307,7 +308,7 @@ void RenderWindow::slotChangedFractalCombo(int index)
 		}
 		else
 		{
-			qCritical() << "Can't open file " << uiFilename << " Fractal ui file can't be loaded";
+			cErrorMessage::showMessage(QString("Can't open file ") + uiFilename + QString("\nFractal ui file can't be loaded"), cErrorMessage::errorMessage, mainInterface->mainWindow);
 		}
 	}
 	else

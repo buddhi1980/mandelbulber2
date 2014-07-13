@@ -36,7 +36,7 @@ void cCameraTarget::SetCameraTargetRotation(CVector3 _camera, CVector3 _target, 
 	topVector = topVector.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), pitch);
 	//qDebug() << "top2" << topVector.x << topVector.y << topVector.z;
 	topVector = topVector.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), yaw);
-	qDebug() << "top3" << topVector.x << topVector.y << topVector.z;
+	//qDebug() << "top3" << topVector.x << topVector.y << topVector.z;
 
 	rightVector = forwardVector.Cross(topVector);
 }

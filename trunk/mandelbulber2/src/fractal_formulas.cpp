@@ -7,11 +7,12 @@
 
 #include "fractal_formulas.hpp"
 #include "fractal.h"
+#include "common_math.h"
 
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
 {
-	double th0 = asin(z.z / aux.r);
-	double ph0 = atan2(z.y, z.x);
+	double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
+	double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
 	double th = th0 * fractal->bulb.power;
 	double ph = ph0 * fractal->bulb.power;
@@ -141,4 +142,225 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux
 	z = z * fractal->mandelbox.scale;
 	aux.mboxDE = aux.mboxDE * fabs(fractal->mandelbox.scale) + 1.0;
 
+}
+
+void Mandelbulbulb2Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
+{
+	double temp, tempR;
+	tempR = sqrt(z.x * z.x + z.y * z.y);
+	z *= (1.0 / tempR);
+	temp = z.x * z.x - z.y * z.y;
+	z.y = 2.0 * z.x * z.y;
+	z.x = temp;
+	z *= tempR;
+
+	tempR = sqrt(z.y * z.y + z.z * z.z);
+	z *= (1.0 / tempR);
+	temp = z.y * z.y - z.z * z.z;
+	z.z = 2.0 * z.y * z.z;
+	z.y = temp;
+	z *= tempR;
+
+	tempR = sqrt(z.x * z.x + z.z * z.z);
+	z *= (1.0 / tempR);
+	temp = z.x * z.x - z.z * z.z;
+	z.z = 2.0 * z.x * z.z;
+	z.x = temp;
+	z *= tempR;
+
+	z = z * aux.r;
+}
+
+void Mandelbulbulb3Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
+{
+	double temp, tempR;
+
+	double sign = 1.0;
+	double sign2 = 1.0;
+
+	if (z.x < 0) sign2 = -1.0;
+	tempR = sqrt(z.x * z.x + z.y * z.y);
+	z *= (1.0 / tempR);
+	temp = z.x * z.x - z.y * z.y;
+	z.y = 2.0 * z.x * z.y;
+	z.x = temp;
+	z *= tempR;
+
+	if (z.x < 0) sign = -1.0;
+	tempR = sqrt(z.x * z.x + z.z * z.z);
+	z *= (1.0 / tempR);
+	temp = z.x * z.x - z.z * z.z;
+	z.z = 2.0 * z.x * z.z * sign2;
+	z.x = temp * sign;
+	z *= tempR;
+
+	z = z * aux.r;
+}
+
+void Mandelbulbulb4Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
+{
+	double rp = pow(aux.r, fractal->bulb.power - 1);
+
+	double angZ = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
+	double angY = atan2(z.z, z.x) + fractal->bulb.betaAngleOffset;
+	double angX = atan2(z.z, z.y) + fractal->bulb.gammaAngleOffset;
+
+	CRotationMatrix rotM;
+	rotM.RotateX(angX * (fractal->bulb.power - 1));
+	rotM.RotateY(angY * (fractal->bulb.power - 1));
+	rotM.RotateZ(angZ * (fractal->bulb.power - 1));
+
+	z = rotM.RotateVector(z) * rp;
+}
+
+void MandelbulbulbPower2Iteration(CVector3 &z, const cFractal *fractal)
+{
+	double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+	double temp = 1.0 - z2 / (x2 + y2);
+	double newx = (x2 - y2) * temp;
+	double newy = 2.0 * z.x * z.y * temp;
+	double newz = -2.0 * z.z * sqrt(x2 + y2);
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
+}
+
+void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
+{
+	double rp = pow(aux.r, fractal->bulb.power);
+	double th = atan2(z.y, z.x) + fractal->bulb.betaAngleOffset;
+	double ph = acos(z.z / aux.r) + fractal->bulb.alphaAngleOffset;
+	if (ph > 0.5 * M_PI)
+	{
+		ph = M_PI - ph;
+	}
+	else if (ph < -0.5 * M_PI)
+	{
+		ph = -M_PI - ph;
+	}
+	z.x = rp * cos(th * fractal->bulb.power) * sin(ph * fractal->bulb.power);
+	z.y = rp * sin(th * fractal->bulb.power) * sin(ph * fractal->bulb.power);
+	z.z = rp * cos(ph * fractal->bulb.power);
+}
+
+void MengerSpongeIteration(CVector3 &z, const cFractal *fractal, sIFSAux &aux)
+{
+	double temp;
+	z.x = fabs(z.x);
+	z.y = fabs(z.y);
+	z.z = fabs(z.z);
+	if (z.x - z.y < 0)
+	{
+		temp = z.y;
+		z.y = z.x;
+		z.x = temp;
+	}
+	if (z.x - z.z < 0)
+	{
+		temp = z.z;
+		z.z = z.x;
+		z.x = temp;
+	}
+	if (z.y - z.z < 0)
+	{
+		temp = z.z;
+		z.z = z.y;
+		z.y = temp;
+	}
+
+	z *= 3.0;
+
+	z.x -= 2.0;
+	z.y -= 2.0;
+	if (z.z > 1.0) z.z -= 2.0;
+
+	aux.ifsDE *= 3.0;
+
+}
+
+void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux)
+{
+	double sm = fractal->mandelbox.sharpness;
+
+	double zk1 = SmoothConditionAGreaterB(z.x, fractal->mandelbox.foldingLimit, sm);
+	double zk2 = SmoothConditionALessB(z.x, -fractal->mandelbox.foldingLimit, sm);
+	z.x = z.x * (1.0 - zk1) + (fractal->mandelbox.foldingValue - z.x) * zk1;
+	z.x = z.x * (1.0 - zk2) + (-fractal->mandelbox.foldingValue - z.x) * zk2;
+	aux.mboxColor += (zk1 + zk2) * fractal->mandelbox.colorFactor.x;
+
+	double zk3 = SmoothConditionAGreaterB(z.y, fractal->mandelbox.foldingLimit, sm);
+	double zk4 = SmoothConditionALessB(z.y, -fractal->mandelbox.foldingLimit, sm);
+	z.y = z.y * (1.0 - zk3) + (fractal->mandelbox.foldingValue - z.y) * zk3;
+	z.y = z.y * (1.0 - zk4) + (-fractal->mandelbox.foldingValue - z.y) * zk4;
+	aux.mboxColor += (zk3 + zk4) * fractal->mandelbox.colorFactor.y;
+
+	double zk5 = SmoothConditionAGreaterB(z.z, fractal->mandelbox.foldingLimit, sm);
+	double zk6 = SmoothConditionALessB(z.z, -fractal->mandelbox.foldingLimit, sm);
+	z.z = z.z * (1.0 - zk5) + (fractal->mandelbox.foldingValue - z.z) * zk5;
+	z.z = z.z * (1.0 - zk6) + (-fractal->mandelbox.foldingValue - z.z) * zk6;
+	aux.mboxColor += (zk5 + zk6) * fractal->mandelbox.colorFactor.z;
+
+	double r = z.Length();
+	double r2 = r * r;
+	double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+	double rk1 = SmoothConditionALessB(r2, fractal->mandelbox.mR2, sm);
+	double rk2 = SmoothConditionALessB(r2, fractal->mandelbox.fR2, sm);
+	double rk21 = (1.0 - rk1) * rk2;
+
+	z = z * (1.0 - rk1) + z * (fractal->mandelbox.mboxFactor1 * rk1);
+	z = z * (1.0 - rk21) + z * (tglad_factor2 * rk21);
+	aux.mboxDE = aux.mboxDE * (1.0 - rk1) + aux.mboxDE * (fractal->mandelbox.mboxFactor1 * rk1);
+	aux.mboxDE = aux.mboxDE * (1.0 - rk21) + aux.mboxDE * (tglad_factor2 * rk21);
+	aux.mboxColor += rk1 * fractal->mandelbox.colorFactorSp1;
+	aux.mboxColor += rk21 * fractal->mandelbox.colorFactorSp2;
+
+	z = fractal->mandelbox.mainRot.RotateVector(z);
+	z = z * fractal->mandelbox.scale;
+
+	aux.mboxDE = aux.mboxDE * fabs(fractal->mandelbox.scale) + 1.0;
+}
+
+void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal)
+{
+	if (z.x > fractal->foldingIntPow.foldfactor) z.x = fractal->foldingIntPow.foldfactor * 2.0 - z.x;
+	else if (z.x < -fractal->foldingIntPow.foldfactor) z.x = -fractal->foldingIntPow.foldfactor * 2.0 - z.x;
+
+	if (z.y > fractal->foldingIntPow.foldfactor) z.y = fractal->foldingIntPow.foldfactor * 2.0 - z.y;
+	else if (z.y < -fractal->foldingIntPow.foldfactor) z.y = -fractal->foldingIntPow.foldfactor * 2.0 - z.y;
+
+	if (z.z > fractal->foldingIntPow.foldfactor) z.z = fractal->foldingIntPow.foldfactor * 2.0 - z.z;
+	else if (z.z < -fractal->foldingIntPow.foldfactor) z.z = -fractal->foldingIntPow.foldfactor * 2.0 - z.z;
+
+	double r = z.Length();
+
+	double fR2_2 = 1.0;
+	double mR2_2 = 0.25;
+	double r2_2 = r * r;
+	double tglad_factor1_2 = fR2_2 / mR2_2;
+
+	if (r2_2 < mR2_2)
+	{
+		z = z * tglad_factor1_2;
+	}
+	else if (r2_2 < fR2_2)
+	{
+		double tglad_factor2_2 = fR2_2 / r2_2;
+		z = z * tglad_factor2_2;
+	}
+
+	z = z * 2.0;
+	double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+	double temp = 1.0 - z2 / (x2 + y2);
+	CVector3 zTemp;
+	zTemp.x = (x2 - y2) * temp;
+	zTemp.y = 2.0 * z.x * z.y * temp;
+	zTemp.z = -2.0 * z.z * sqrt(x2 + y2);
+	z = zTemp;
+	z.z *= fractal->foldingIntPow.zFactor;
+
+	//INFO remark: changed sequence of operation. adding of C constant was before multiplying by z-factor
 }
