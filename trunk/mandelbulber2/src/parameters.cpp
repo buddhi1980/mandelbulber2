@@ -207,8 +207,11 @@ cParameterContainer::enumVarType cParameterContainer::Assigner(sMultiVal &multi,
 			break;
 
 		case typeRgb:
-			sscanf(val.toUtf8(), "%x %x %x %x", &multi.dVal[0], &multi.dVal[1], &multi.dVal[2], &multi.dVal[3]);
 			sscanf(val.toUtf8(), "%x %x %x %x", &multi.iVal[0], &multi.iVal[1], &multi.iVal[2], &multi.iVal[3]);
+			multi.dVal[0] = multi.iVal[0];
+			multi.dVal[1] = multi.iVal[1];
+			multi.dVal[2] = multi.iVal[2];
+			multi.dVal[3] = multi.iVal[3];
 			break;
 
 		case typeColorPalette:
@@ -326,6 +329,8 @@ void cParameterContainer::Set(QString name, T val)
 			qWarning() << "Set(): element '" << name << "' got value of not default type" << endl;
 			DebugPrintf(name);
 		}
+#else
+		(void)type;
 #endif
 	}
 	else
@@ -361,6 +366,8 @@ void cParameterContainer::Set(QString name, int index, T val)
 				qWarning() << "Set(): element '" << name << "' got value of not default type" << endl;
 				DebugPrintf(name);
 			}
+#else
+		(void)type;
 #endif
 		}
 		else
@@ -398,6 +405,8 @@ T cParameterContainer::Get(QString name) const
 			qWarning() << "Get(): element '" << name << "' gave value of not default type" << endl;
 			DebugPrintf(name);
 		}
+#else
+		(void)type;
 #endif
 	}
 	else
@@ -434,6 +443,8 @@ T cParameterContainer::Get(QString name, int index) const
 				qWarning() << "Get(): element '" << indexName << "' gave value of not default type" << endl;
 				DebugPrintf(indexName);
 			}
+#else
+		(void)type;
 #endif
 		}
 		else
@@ -488,6 +499,8 @@ void cParameterContainer::DebugPrintf(QString name)
 			case typeColorPalette:
 				printf("variable type 'colorPalette'\n");
 				break;
+			case null:
+				printf("undefined type\n");
 		}
 	}
 	else
@@ -645,6 +658,11 @@ bool cParameterContainer::isDefaultValue(QString name) const
 				{
 					isDefault = false;
 				}
+				break;
+			}
+			case null:
+			{
+				qCritical() << "cParameterContainer::isDefaultValue(QString name): undefined type of variable";
 				break;
 			}
 		}

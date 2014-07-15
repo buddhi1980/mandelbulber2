@@ -48,6 +48,24 @@ cFractal::cFractal(const cParameterContainer *container)
 	foldingIntPow.foldfactor = container->Get<double>("boxfold_bulbpow2_folding_factor");
 	foldingIntPow.zFactor = container->Get<double>("boxfold_bulbpow2_z_factor");
 
+	IFS.scale = container->Get<double>("IFS_scale");
+	IFS.rotation = container->Get<CVector3>("IFS_rotation");
+	IFS.offset = container->Get<CVector3>("IFS_offset");
+	IFS.edge = container->Get<CVector3>("IFS_edge");
+	IFS.absX = container->Get<bool>("IFS_abs_X");
+	IFS.absY = container->Get<bool>("IFS_abs_Y");
+	IFS.absZ = container->Get<bool>("IFS_abs_Z");
+	IFS.mengerSpongeMode = container->Get<bool>("IFS_menger_sponge_mode");
+
+	for(int i = 0; i < IFS_VECTOR_COUNT; i++)
+	{
+		IFS.direction[i] = container->Get<CVector3>("IFS_direction", i);
+		IFS.rotations[i] = container->Get<CVector3>("IFS_rotations", i);
+		IFS.distance[i] = container->Get<double>("IFS_distance", i);
+		IFS.intensity[i] = container->Get<double>("IFS_intensity", i);
+		IFS.enabled[i] = container->Get<bool>("IFS_enabled", i);
+	}
+
 	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();
 }

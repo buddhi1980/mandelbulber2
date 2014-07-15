@@ -51,23 +51,20 @@ public:
 	int auxLightNumber;
 	int auxLightRandomSeed;
 	int coloring_seed; //colouring random seed
-	int endFrame;
 	int fakeLightsMaxIter;
 	int fakeLightsMinIter;
-	int framesPerKeyframe;
 	int frameNo;
-	int imageFormat;
 	int imageHeight; //image height
 	int imageWidth; //image width
 	int minN;	  // minimum number of iterations
 	int N;
-	int noOfTiles;
+	int reflectionsMax;
+
+#ifdef CLSUPPORT
 	int OpenCLDOFMethod;
 	int OpenCLEngine;
 	int OpenCLPixelsPerJob;
-	int reflectionsMax;
-	int startFrame;
-	int tileNumber;
+#endif
 
 	params::enumPerspectiveType perspectiveType;
 	params::enumAOMode ambientOcclusionMode;
@@ -75,12 +72,9 @@ public:
 
 	bool ambientOcclusionEnabled; //enable global ilumination
 	bool analitycDEMode;	 //analytic DE mode
-	bool animMode; //animation mode
 	bool auxLightPreEnabled[4];
-	bool background_as_fulldome;
 	bool coloringEnabled;
 	bool constantDEThreshold;
-	bool continueRecord; //continue recording mode
 	bool DOFEnabled;
 	bool envMappingEnable;
 	bool fakeLightsEnabled;
@@ -96,19 +90,18 @@ public:
 	bool mainLightEnable;
 	bool mainLightPositionAsRelative;
 	bool penetratingLights;
-	bool playMode; //play mode
-	bool quiet;
 	bool raytracedReflections;
-	bool recordMode; //path recording mode
 	bool shadow; //enable shadows
 	bool slowShading; //enable fake gradient calculation for shading
 	bool sphericalFoldingMode;  // spherical folding mode
-	bool stereoEnabled;
 	bool texturedBackground; //enable testured background
 	bool tgladFoldingMode;		// Tglad's folding mode
-	bool useCustomOCLFormula;
 	bool volumetricLightEnabled[5];
 	bool volFogEnabled;
+
+#ifdef CLSUPPORT
+	bool useCustomOCLFormula;
+#endif
 
 	sRGB auxLightPreColour[4];
 	sRGB background_color1; //background colour
@@ -138,7 +131,6 @@ public:
 	double DEFactor; //factor for distance estimation steps
 	double detailLevel; //DE threshold factor
 	double DEThresh;
-  double directLight;
 	double DOFFocus;
 	double DOFRadius;
 	double fakeLightsIntensity;
@@ -167,7 +159,6 @@ public:
 	double shadowConeAngle;
 	double smoothness;
   double specular;
-	double stereoEyeDistance;
 	double viewDistanceMax;
 	double viewDistanceMin;
 	double volumetricLightIntensity[5];
@@ -185,8 +176,6 @@ public:
 	CVector3 camera; //view point
 	CVector3 viewAngle;
 	CVector3 topVector;
-
-	double settingsVersion;
 
 	sPrimitives primitives;
 };

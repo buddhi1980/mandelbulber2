@@ -342,9 +342,7 @@ void InitFractalParams(cParameterContainer *par)
 
 	//IFS formula
 	par->addParam("IFS_scale", 2.0, morphcatMullRom, paramStandard);
-	par->addParam("IFS_rot_alpha", 0.0, morphcatMullRom, paramStandard);
-	par->addParam("IFS_rot_beta", 0.0, morphcatMullRom, paramStandard);
-	par->addParam("IFS_rot_gamma", 0.0, morphcatMullRom, paramStandard);
+	par->addParam("IFS_rotation", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
 	par->addParam("IFS_offset", CVector3(1.0, 0.0, 0.0), morphcatMullRom, paramStandard);
 	par->addParam("IFS_edge", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
 	par->addParam("IFS_abs_X", false, morphLinear, paramStandard);
@@ -355,9 +353,7 @@ void InitFractalParams(cParameterContainer *par)
 	for(int i = 0; i < IFS_VECTOR_COUNT; i++)
 	{
 		par->addParam("IFS_direction", i, CVector3(1.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-		par->addParam("IFS_alpha", i, 0.0, morphcatMullRom, paramStandard);
-		par->addParam("IFS_beta", i, 0.0, morphcatMullRom, paramStandard);
-		par->addParam("IFS_gamma", i, 0.0, morphcatMullRom, paramStandard);
+		par->addParam("IFS_rotations", i, CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
 		par->addParam("IFS_distance", i, 0.0, morphcatMullRom, paramStandard);
 		par->addParam("IFS_intensity", i, 1.0, morphcatMullRom, paramStandard);
 		par->addParam("IFS_enabled", i, false, morphLinear, paramStandard);

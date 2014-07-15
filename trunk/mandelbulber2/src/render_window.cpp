@@ -379,6 +379,7 @@ void RenderWindow::slotCameraDistanceEdited()
 
 void RenderWindow::slotCameraDistanceSlider(int value)
 {
+	(void)value;
 	mainInterface->CameraDistanceEdited();
 }
 
@@ -442,6 +443,7 @@ RenderedImage::RenderedImage(QWidget *parent)
 
 void RenderedImage::paintEvent(QPaintEvent *event)
 {
-  mainInterface->mainImage->RedrawInWidget();
+  (void)event;
+	mainInterface->mainImage->RedrawInWidget();
 }
 

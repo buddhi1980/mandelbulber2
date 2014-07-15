@@ -144,7 +144,7 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux
 
 }
 
-void Mandelbulbulb2Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
+void Mandelbulbulb2Iteration(CVector3 &z, sMandelbulbAux &aux)
 {
 	double temp, tempR;
 	tempR = sqrt(z.x * z.x + z.y * z.y);
@@ -171,7 +171,7 @@ void Mandelbulbulb2Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAu
 	z = z * aux.r;
 }
 
-void Mandelbulbulb3Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
+void Mandelbulbulb3Iteration(CVector3 &z, sMandelbulbAux &aux)
 {
 	double temp, tempR;
 
@@ -213,7 +213,7 @@ void Mandelbulbulb4Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAu
 	z = rotM.RotateVector(z) * rp;
 }
 
-void MandelbulbulbPower2Iteration(CVector3 &z, const cFractal *fractal)
+void MandelbulbulbPower2Iteration(CVector3 &z)
 {
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
@@ -245,7 +245,7 @@ void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux
 	z.z = rp * cos(ph * fractal->bulb.power);
 }
 
-void MengerSpongeIteration(CVector3 &z, const cFractal *fractal, sIFSAux &aux)
+void MengerSpongeIteration(CVector3 &z, sIFSAux &aux)
 {
 	double temp;
 	z.x = fabs(z.x);
@@ -363,4 +363,45 @@ void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal)
 	z.z *= fractal->foldingIntPow.zFactor;
 
 	//INFO remark: changed sequence of operation. adding of C constant was before multiplying by z-factor
+}
+
+void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sIFSAux &aux)
+{
+	if (fractal->IFS.absX) z.x = fabs(z.x);
+	if (fractal->IFS.absY) z.y = fabs(z.y);
+	if (fractal->IFS.absZ) z.z = fabs(z.z);
+
+	for (int i = 0; i < IFS_VECTOR_COUNT; i++)
+	{
+		if (fractal->IFS.enabled[i])
+		{
+			z = fractal->IFS.rot[i].RotateVector(z);
+			double length = z.Dot(fractal->IFS.direction[i]);
+
+			if (length < fractal->IFS.distance[i])
+			{
+				z -= fractal->IFS.direction[i] * (2.0 * (length - fractal->IFS.distance[i]) * fractal->IFS.intensity[i]);
+			}
+
+		}
+	}
+	z = fractal->IFS.mainRot.RotateVector(z - fractal->IFS.offset) + fractal->IFS.offset;
+
+	if (fractal->IFS.edge.x > 0) z.x = fractal->IFS.edge.x - fabs(fractal->IFS.edge.x - z.x);
+	if (fractal->IFS.edge.y > 0) z.y = fractal->IFS.edge.y - fabs(fractal->IFS.edge.y - z.y);
+	if (fractal->IFS.edge.z > 0) z.z = fractal->IFS.edge.z - fabs(fractal->IFS.edge.z - z.z);
+
+	z *= fractal->IFS.scale;
+	if (fractal->IFS.mengerSpongeMode)
+	{
+		z.x -= fractal->IFS.offset.x * (fractal->IFS.scale - 1.0);
+		z.y -= fractal->IFS.offset.y * (fractal->IFS.scale - 1.0);
+		if (z.z > 0.5 * fractal->IFS.offset.z * (fractal->IFS.scale - 1.0)) z.z -= fractal->IFS.offset.z * (fractal->IFS.scale - 1.0);
+	}
+	else
+	{
+		z -= fractal->IFS.offset * (fractal->IFS.scale - 1.0);
+	}
+
+	aux.ifsDE *= fractal->IFS.scale;
 }
