@@ -30,12 +30,10 @@ cParamRender::cParamRender(const cParameterContainer *container)
 	limitsEnabled = container->Get<bool>("limits_enabled");
 	minN = container->Get<int>("minN");
 	N = container->Get<int>("N");
-	noOfTiles = container->Get<int>("tiles");
 	perspectiveType = (params::enumPerspectiveType)container->Get<int>("perspective_type");
 	slowShading = container->Get<bool>("slow_shading");
 	smoothness = container->Get<double>("smoothness");
 	target = container->Get<CVector3>("target");
-	tileNumber = container->Get<int>("tile_number");
 	viewDistanceMax = container->Get<double>("view_distance_max");
 	viewDistanceMin = container->Get<double>("view_distance_min");
 	camera = container->Get<CVector3>("camera");
@@ -108,6 +106,7 @@ cParamRender::cParamRender(const cParameterContainer *container)
 	shadowConeAngle = container->Get<double>("shadows_cone_angle");
 	mainLightEnable = container->Get<bool>("main_light_enable");
 	mainLightPositionAsRelative = container->Get<bool>("main_light_position_relative");
+	resolution = 0.0;
 
 	for(int i = 0; i < 4; ++i)
 	{
@@ -130,6 +129,8 @@ cParamRender::cParamRender(const cParameterContainer *container)
 	fakeLightsOrbitTrap = container->Get<CVector3>("fake_lights_orbit_trap");
 	fakeLightsMinIter = container->Get<double>("fake_lights_min_iter");
 	fakeLightsMaxIter = container->Get<double>("fake_lights_max_iter");
+
+	frameNo = container->Get<int>("frame_no");
 
 	primitives.plane.onlyPlane = container->Get<bool>("primitive_only_plane");
 	primitives.plane.enable = container->Get<bool>("primitive_plane_enabled");

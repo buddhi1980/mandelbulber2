@@ -68,13 +68,13 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			case fractal::mandelbulb2:
 			{
 				bulbAux[sequence].r = r;
-				Mandelbulbulb2Iteration(z, fractal, bulbAux[sequence]);
+				Mandelbulbulb2Iteration(z, bulbAux[sequence]);
 				break;
 			}
 			case fractal::mandelbulb3:
 			{
 				bulbAux[sequence].r = r;
-				Mandelbulbulb3Iteration(z, fractal, bulbAux[sequence]);
+				Mandelbulbulb3Iteration(z, bulbAux[sequence]);
 				break;
 			}
 			case fractal::mandelbulb4:
@@ -85,7 +85,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			}
 			case fractal::fast_mandelbulb_power2:
 			{
-				MandelbulbulbPower2Iteration(z, fractal);
+				MandelbulbulbPower2Iteration(z);
 				break;
 			}
 			case fractal::xenodreambuie:
@@ -111,7 +111,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			}
 			case fractal::menger_sponge:
 			{
-				MengerSpongeIteration(z, fractal, ifsAux[sequence]);
+				MengerSpongeIteration(z, ifsAux[sequence]);
 				break;
 			}
 			default:

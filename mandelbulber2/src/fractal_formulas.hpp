@@ -28,14 +28,15 @@ struct sIFSAux
 };
 
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
-void Mandelbulbulb2Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
-void Mandelbulbulb3Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
+void Mandelbulbulb2Iteration(CVector3 &z, sMandelbulbAux &aux);
+void Mandelbulbulb3Iteration(CVector3 &z, sMandelbulbAux &aux);
 void Mandelbulbulb4Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
-void MandelbulbulbPower2Iteration(CVector3 &z, const cFractal *fractal);
+void MandelbulbulbPower2Iteration(CVector3 &z);
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
 void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux);
 void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux);
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
-void MengerSpongeIteration(CVector3 &z, const cFractal *fractal, sIFSAux &aux);
+void MengerSpongeIteration(CVector3 &z, sIFSAux &aux);
+void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sIFSAux &aux);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

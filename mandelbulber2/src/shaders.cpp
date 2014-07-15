@@ -120,7 +120,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 
 	if (params->texturedBackground)
 	{
-		if(params->background_as_fulldome)
+		if(params->texturedBackgroundMapType == params::mapDoubleHemisphere)
 		{
 			double alfaTexture = input.viewVector.GetAlpha();
 			double betaTexture = input.viewVector.GetBeta();
@@ -430,15 +430,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 				{
 					if (i == 0)
 					{
-						if (params->mainLightEnable && params->mainLightIntensity * params->directLight > 0.0)
+						if (params->mainLightEnable && params->mainLightIntensity > 0.0)
 						{
 							sRGBAfloat shadowOutputTemp = MainShadow(input2);
-							newColour.R += shadowOutputTemp.R * params->mainLightColour.R / 65536.0 * params->mainLightIntensity
-									* params->directLight;
-							newColour.G += shadowOutputTemp.G * params->mainLightColour.G / 65536.0 * params->mainLightIntensity
-									* params->directLight;
-							newColour.B += shadowOutputTemp.B * params->mainLightColour.B / 65536.0 * params->mainLightIntensity
-									* params->directLight;
+							newColour.R += shadowOutputTemp.R * params->mainLightColour.R / 65536.0 * params->mainLightIntensity;
+							newColour.G += shadowOutputTemp.G * params->mainLightColour.G / 65536.0 * params->mainLightIntensity;
+							newColour.B += shadowOutputTemp.B * params->mainLightColour.B / 65536.0 * params->mainLightIntensity;
 						}
 					}
 
@@ -606,7 +603,6 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 {
 	sRGBAfloat AO (0, 0, 0, 1.0);
 
-	bool max_iter;
 	double start_dist = input.delta;
 	double end_dist = input.delta / params->resolution;
 	double intense = 0;
@@ -647,7 +643,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 			else
 				dist_thresh = input.distThresh;
 
-			if (dist < dist_thresh || max_iter || shadowTemp < 0.0)
+			if (dist < dist_thresh || distanceOut.maxiter || shadowTemp < 0.0)
 			{
 				shadowTemp -= (end_dist - r) / end_dist;
 				if (shadowTemp < 0.0) shadowTemp = 0.0;
@@ -704,7 +700,6 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 	//calculating normal vector based on average value of binary central difference
 	else
 	{
-		double result2;
 		CVector3 point2;
 		CVector3 point3;
 		double delta = input.delta * params->smoothness;
