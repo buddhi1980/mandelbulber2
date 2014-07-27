@@ -338,7 +338,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("alpha_angle_offset", 0.0, morphcatMullRom, paramStandard);
 	par->addParam("beta_angle_offset", 0.0, morphcatMullRom, paramStandard);
 	par->addParam("gamma_angle_offset", 0.0, morphcatMullRom, paramStandard);
-	par->addParam("cadd", 0.0, morphLinear, paramStandard);
+	par->addParam("cadd", -1.3, morphLinear, paramStandard);
 
 	//IFS formula
 	par->addParam("IFS_scale", 2.0, morphcatMullRom, paramStandard);

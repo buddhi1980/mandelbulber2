@@ -433,3 +433,34 @@ void MandelboxVaryScale4DIteration(CVector3 &z, double &w, const cFractal *fract
 	w = w * m + fractal->mandelboxVary4D.wadd;
 	aux.mboxDE = aux.mboxDE * fabs(m) + 1.0;
 }
+
+void AexionIteration(CVector3 &z, double &w, const cFractal *fractal, sAexionAux &aux)
+{
+	if(aux.iterNo == 0)
+	{
+		double cx = fabs(aux.c.x + aux.c.y + aux.c.z) + fractal->aexion.cadd;
+		double cy = fabs(-aux.c.x - aux.c.y + aux.c.z) + fractal->aexion.cadd;
+		double cz = fabs(-aux.c.x + aux.c.y - aux.c.z) + fractal->aexion.cadd;
+		double cw = fabs(aux.c.x - aux.c.y - aux.c.z) + fractal->aexion.cadd;
+		aux.c.x = cx;
+		aux.c.y = cy;
+		aux.c.z = cz;
+		aux.cw = cw;
+		double tempx = fabs(z.x + z.y + z.z) + fractal->aexion.cadd;
+		double tempy = fabs(-z.x - z.y + z.z) + fractal->aexion.cadd;
+		double tempz = fabs(-z.x + z.y - z.z) + fractal->aexion.cadd;
+		double tempw = fabs(z.x - z.y - z.z) + fractal->aexion.cadd;
+		z.x = tempx;
+		z.y = tempy;
+		z.z = tempz;
+		w = tempw;
+	}
+	double tempx = z.x * z.x - z.y * z.y + 2.0 * w * z.z + aux.c.x;
+	double tempy = z.y * z.y - z.x * z.x + 2.0 * w * z.z + aux.c.y;
+	double tempz = z.z * z.z - w * w + 2.0 * z.x * z.y + aux.c.z;
+	double tempw = w * w - z.z * z.z + 2.0 * z.x * z.y + aux.cw;
+	z.x = tempx;
+	z.y = tempy;
+	z.z = tempz;
+	w = tempw;
+}
