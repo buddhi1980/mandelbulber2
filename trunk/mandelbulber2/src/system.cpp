@@ -219,4 +219,5 @@ void Wait(long int time)
 	dummy.lock();
 	QWaitCondition waitCondition;
 	waitCondition.wait(&dummy, time);
+	dummy.unlock();
 }
