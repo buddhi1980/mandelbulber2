@@ -76,6 +76,8 @@ cFractal::cFractal(const cParameterContainer *container)
 		IFS.direction[i].Normalize();
 	}
 
+	aexion.cadd = container->Get<double>("cadd");
+
 	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();
 }

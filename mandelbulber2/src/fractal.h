@@ -157,6 +157,7 @@ public:
 	sFractalGeneralizedFoldBox genFoldBox;
 	sFractalBoxFoldBulbPow2 foldingIntPow;
 	sFractalMandelboxVary4D mandelboxVary4D;
+	sFractalAexion aexion;
 	sFractalFoldings foldings;
 
 #ifdef CLSUPPORT

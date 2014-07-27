@@ -28,5 +28,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	//fractalList->append(sFractalDescription("generalized Fold Box", "generalozed_fold_box", generalizedFoldBox, fractal::analitycDE));
 	fractalList->append(sFractalDescription("Menger sponge", "menger_sponge", menger_sponge, fractal::analitycDE));
 	fractalList->append(sFractalDescription("Kaleidoscopic IFS", "ifs", kaleidoscopicIFS, fractal::analitycDE));
+	fractalList->append(sFractalDescription("Aexion's formula", "aexion", aexion, fractal::deltaDE));
 }
 

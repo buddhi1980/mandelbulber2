@@ -39,6 +39,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	sMandelbulbAux bulbAux[4];
 	sMandelboxAux mandelboxAux[4];
 	sIFSAux ifsAux[4];
+	sAexionAux aexionAux[4];
 	int maxFractals = four.IsHybrid() ? 4 : 1;
 	for(int i = 0; i < maxFractals; i++)
 	{
@@ -48,6 +49,8 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		mandelboxAux[i].mboxColor = 1.0;
 		mandelboxAux[i].actualScale = four.GetFractal(i)->mandelbox.scale;
 		ifsAux[i].ifsDE = 1.0;
+		aexionAux[i].c = c;
+		aexionAux[i].cw = 0;
 	}
 
 	//main iteration loop
@@ -126,12 +129,18 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				KaleidoscopicIFSIteration(z, fractal, ifsAux[sequence]);
 				break;
 			}
+			case fractal::aexion:
+			{
+				aexionAux[sequence].iterNo = i;
+				AexionIteration(z, w, fractal, aexionAux[sequence]);
+				break;
+			}
 			default:
 				z = CVector3(0.0, 0.0, 0.0);
 				break;
 		}
 
-		if(fractal->formula != fractal::menger_sponge && fractal->formula != fractal::kaleidoscopicIFS)
+		if(fractal->formula != fractal::menger_sponge && fractal->formula != fractal::kaleidoscopicIFS && fractal->formula != fractal::aexion)
 		{
 			z += c;
 		}
@@ -139,7 +148,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		//length of z vector
 		r = z.Length();
 
-		if(fractal->formula == fractal::mandelboxVaryScale4D)
+		if(fractal->formula == fractal::mandelboxVaryScale4D || fractal->formula == fractal::aexion)
 		{
 			r = sqrt(r * r + w * w);
 		}
@@ -208,6 +217,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			case fractal::xenodreambuie:
 			case fractal::fast_mandelbulb_power2:
 			case fractal::boxFoldBulbPow2:
+			case fractal::aexion:
 				out->colorIndex = minimumR * 5000.0;
 				break;
 
