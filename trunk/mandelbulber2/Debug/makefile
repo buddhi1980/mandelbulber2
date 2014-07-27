@@ -403,6 +403,7 @@ qrc_icons.cpp: ../qt/icons.qrc \
 		../qt/icons/go-previous.png \
 		../qt/icons/go-up.png \
 		../qt/icons/go-next.png \
+		../qt/icons/mandelbulber.png \
 		../qt/icons/object-rotate-left.png \
 		../qt/icons/arrow-up-double.png \
 		../qt/icons/edit-undo.png \
