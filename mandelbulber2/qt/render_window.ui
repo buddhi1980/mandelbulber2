@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>Mandelbulber main window</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="icons.qrc">
+    <normaloff>:/arrows/icons/mandelbulber.png</normaloff>:/arrows/icons/mandelbulber.png</iconset>
+  </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
   </property>
@@ -182,6 +186,7 @@
      <string>File</string>
     </property>
     <addaction name="actionLoad_settings"/>
+    <addaction name="separator"/>
     <addaction name="actionSave_settings"/>
     <addaction name="actionSave_settings_as"/>
     <addaction name="separator"/>

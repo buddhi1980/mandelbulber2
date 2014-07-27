@@ -67,6 +67,9 @@ private slots:
 
 	void slotSaveSettings();
 	void slotLoadSettings();
+
+	void slotAboutQt();
+	void slotAboutMandelbulber();
 private:
 
 

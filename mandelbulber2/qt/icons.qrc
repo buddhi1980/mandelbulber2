@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="arrows">
+    <file>icons/mandelbulber.png</file>
     <file>icons/edit-undo.png</file>
     <file>icons/object-rotate-left.png</file>
     <file>icons/object-rotate-right.png</file>

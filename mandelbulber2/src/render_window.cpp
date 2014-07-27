@@ -18,6 +18,7 @@
 #include <QDial>
 #include <QFileDialog>
 #include <QColorDialog>
+#include <QMessageBox>
 #include "my_ui_loader.h"
 
 #define _USE_MATH_DEFINES
@@ -487,6 +488,26 @@ void RenderWindow::slotIFSDefaultsReset()
 	mainInterface->SynchronizeInterfaceWindow(ui->tabWidget_fractals->currentWidget(), &gParFractal[index], cInterface::read);
 	mainInterface->IFSDefaultsReset(&gParFractal[index]);
 	mainInterface->SynchronizeInterfaceWindow(ui->tabWidget_fractals->currentWidget(), &gParFractal[index], cInterface::write);
+}
+
+void RenderWindow::slotAboutQt()
+{
+	QMessageBox::aboutQt(this);
+}
+
+void RenderWindow::slotAboutMandelbulber()
+{
+	QString text = "Mandelbulber\n";
+	text += "version: " + QString(MANDELBULBER_VERSION_STRING) + ", build date: " + QString(__DATE__) + QString("\n");
+	text += "\n";
+	text += "Licence: GNU GPL version 3.0\n";
+	text += "Copyright Ⓒ 2014 Krzysztof Marczak\n";
+	text += "\n";
+	text += "Thanks to many frieds from www.fractalforums.com for help\n";
+	text += "\n";
+	text += "www.mandelbulber.com";
+
+	QMessageBox::about(this, "About Mandelbulber", text);
 }
 
 //=================== rendered image widget ==================/
