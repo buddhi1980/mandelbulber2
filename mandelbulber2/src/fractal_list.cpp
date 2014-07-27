@@ -22,6 +22,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Xenodreambuie's formula", "xenodreambuie", xenodreambuie, fractal::deltaDE));
 	fractalList->append(sFractalDescription("Mandelbox", "mandelbox", mandelbox, fractal::analitycDE));
 	fractalList->append(sFractalDescription("Smooth Mandelbox", "smooth_mandelbox", smoothMandelbox, fractal::analitycDE));
+	fractalList->append(sFractalDescription("Mandelbox Vary Scale 4D", "mandelbox_vary_scale_4d", mandelboxVaryScale4D, fractal::analitycDE));
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", "boxfold_bulbpow2", boxFoldBulbPow2, fractal::deltaDE));
 	// TODO Generazlized fold box formula
 	//fractalList->append(sFractalDescription("generalized Fold Box", "generalozed_fold_box", generalizedFoldBox, fractal::analitycDE));

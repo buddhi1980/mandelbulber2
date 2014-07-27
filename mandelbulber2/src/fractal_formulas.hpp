@@ -20,6 +20,7 @@ struct sMandelboxAux
 {
 	double mboxDE;
 	double mboxColor;
+	double actualScale;
 };
 
 struct sIFSAux
@@ -38,5 +39,6 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAu
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
 void MengerSpongeIteration(CVector3 &z, sIFSAux &aux);
 void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sIFSAux &aux);
+void MandelboxVaryScale4DIteration(CVector3 &z, double &w, const cFractal *fractal, sMandelboxAux &aux);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */
