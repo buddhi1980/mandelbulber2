@@ -47,7 +47,6 @@ void RenderWindow::slotStartRender(void)
 
 void RenderWindow::slotStopRender(void)
 {
-	//FIXME stop request works wrong when pressed in idle state
 	mainInterface->stopRequest = true;
 }
 

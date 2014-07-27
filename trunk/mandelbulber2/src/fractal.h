@@ -106,7 +106,6 @@ struct sFractalMandelbox
 	double solid;
 	double melt;
 	CVector3 offset;
-	sFractalMandelboxVary4D vary4D;
 	bool rotationsEnabled;
 	bool mainRotationEnabled;
 	CRotationMatrix mainRot;

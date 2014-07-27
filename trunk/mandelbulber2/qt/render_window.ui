@@ -194,9 +194,17 @@
     <addaction name="actionSave_docks_positions"/>
     <addaction name="actionDefault_docks_positions"/>
    </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionAbout_Mandelbulber"/>
+    <addaction name="actionAbout_Qt"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuImage"/>
    <addaction name="menuView"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="dockWidget_image_adjustments">
@@ -1787,7 +1795,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-9</y>
+                  <y>0</y>
                   <width>364</width>
                   <height>465</height>
                  </rect>
@@ -5690,6 +5698,16 @@ to target:</string>
   <action name="actionDefault_docks_positions">
    <property name="text">
     <string>Default docks positions</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+  <action name="actionAbout_Mandelbulber">
+   <property name="text">
+    <string>About Mandelbulber</string>
    </property>
   </action>
  </widget>

@@ -30,6 +30,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	double r = z.Length();
 	CVector3 c = z;
 	double minimumR = 1e20;
+	double w = 0.0;
 
 	out->maxiter = true;
 
@@ -45,6 +46,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		bulbAux[i].r = r;
 		mandelboxAux[i].mboxDE = 1.0;
 		mandelboxAux[i].mboxColor = 1.0;
+		mandelboxAux[i].actualScale = four.GetFractal(i)->mandelbox.scale;
 		ifsAux[i].ifsDE = 1.0;
 	}
 
@@ -99,6 +101,11 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				MandelboxIteration(z, fractal, mandelboxAux[sequence]);
 				break;
 			}
+			case fractal::mandelboxVaryScale4D:
+			{
+				MandelboxVaryScale4DIteration(z, w, fractal, mandelboxAux[sequence]);
+				break;
+			}
 			case fractal::smoothMandelbox:
 			{
 				SmoothMandelboxIteration(z, fractal, mandelboxAux[sequence]);
@@ -131,6 +138,11 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 
 		//length of z vector
 		r = z.Length();
+
+		if(fractal->formula == fractal::mandelboxVaryScale4D)
+		{
+			r = sqrt(r * r + w * w);
+		}
 
 		//escape conditions
 		if (Mode == fractal::normal)
@@ -172,6 +184,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				break;
 			case fractal::mandelbox:
 			case fractal::smoothMandelbox:
+			case fractal::mandelboxVaryScale4D:
 				out->distance = r / fabs(mandelboxAux[0].mboxDE);
 				break;
 			case fractal::menger_sponge:
@@ -200,6 +213,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 
 			case fractal::mandelbox:
 			case fractal::smoothMandelbox:
+			case fractal::mandelboxVaryScale4D:
 				out->colorIndex = mandelboxAux[0].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR;
 				break;
 

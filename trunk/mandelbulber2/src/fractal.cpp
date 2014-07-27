@@ -45,6 +45,12 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelbox.rotationsEnabled = container->Get<double>("mandelbox_rotations_enabled");
 	mandelbox.mainRotationEnabled = container->Get<double>("mandelbox_main_rotation_enabled");
 
+	mandelboxVary4D.fold = container->Get<double>("mandelbox_vary_fold");
+	mandelboxVary4D.minR = container->Get<double>("mandelbox_vary_minr");
+	mandelboxVary4D.rPower = container->Get<double>("mandelbox_vary_rpower");
+	mandelboxVary4D.scaleVary = container->Get<double>("mandelbox_vary_scale_vary");
+	mandelboxVary4D.wadd = container->Get<double>("mandelbox_vary_wadd");
+
 	foldingIntPow.foldfactor = container->Get<double>("boxfold_bulbpow2_folding_factor");
 	foldingIntPow.zFactor = container->Get<double>("boxfold_bulbpow2_z_factor");
 
@@ -76,11 +82,11 @@ cFractal::cFractal(const cParameterContainer *container)
 
 void cFractal::RecalculateFractalParams(void)
 {
-	IFS.mainRot.SetRotation(IFS.rotation);
+	IFS.mainRot.SetRotation(IFS.rotation * (M_PI / 180.0));
 
 	for (int i = 0; i < IFS_VECTOR_COUNT; i++)
 	{
-		IFS.rot[i].SetRotation(IFS.rotations[i]);
+		IFS.rot[i].SetRotation(IFS.rotations[i] * (M_PI / 180.0));
 		IFS.direction[i].Normalize();
 	}
 

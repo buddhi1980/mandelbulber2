@@ -405,3 +405,31 @@ void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sIFSAux &au
 
 	aux.ifsDE *= fractal->IFS.scale;
 }
+
+void MandelboxVaryScale4DIteration(CVector3 &z, double &w, const cFractal *fractal, sMandelboxAux &aux)
+{
+	aux.actualScale = aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+	CVector3 oldz = z;
+	z.x = fabs(z.x + fractal->mandelboxVary4D.fold) - fabs(z.x - fractal->mandelboxVary4D.fold) - z.x;
+	z.y = fabs(z.y + fractal->mandelboxVary4D.fold) - fabs(z.y - fractal->mandelboxVary4D.fold) - z.y;
+	z.z = fabs(z.z + fractal->mandelboxVary4D.fold) - fabs(z.z - fractal->mandelboxVary4D.fold) - z.z;
+	w = fabs(w + fractal->mandelboxVary4D.fold) - fabs(w - fractal->mandelboxVary4D.fold) - w;
+	if (z.x != oldz.x) aux.mboxColor += fractal->mandelbox.colorFactor.x;
+	if (z.y != oldz.y) aux.mboxColor += fractal->mandelbox.colorFactor.y;
+	if (z.z != oldz.z) aux.mboxColor += fractal->mandelbox.colorFactor.z;
+	double rr = pow(z.x * z.x + z.y * z.y + z.z * z.z + w * w, fractal->mandelboxVary4D.rPower);
+	double m = aux.actualScale;
+	if (rr < fractal->mandelboxVary4D.minR * fractal->mandelboxVary4D.minR)
+	{
+		m = aux.actualScale / (fractal->mandelboxVary4D.minR * fractal->mandelboxVary4D.minR);
+		aux.mboxColor += fractal->mandelbox.colorFactorSp1;
+	}
+	else if (rr < 1.0)
+	{
+		m = aux.actualScale / rr;
+		aux.mboxColor += fractal->mandelbox.colorFactorSp2;
+	}
+	z = z * m;
+	w = w * m + fractal->mandelboxVary4D.wadd;
+	aux.mboxDE = aux.mboxDE * fabs(m) + 1.0;
+}
