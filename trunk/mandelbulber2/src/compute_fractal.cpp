@@ -114,12 +114,17 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				MengerSpongeIteration(z, ifsAux[sequence]);
 				break;
 			}
+			case fractal::kaleidoscopicIFS:
+			{
+				KaleidoscopicIFSIteration(z, fractal, ifsAux[sequence]);
+				break;
+			}
 			default:
 				z = CVector3(0.0, 0.0, 0.0);
 				break;
 		}
 
-		if(fractal->formula != fractal::menger_sponge)
+		if(fractal->formula != fractal::menger_sponge && fractal->formula != fractal::kaleidoscopicIFS)
 		{
 			z += c;
 		}
@@ -170,6 +175,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				out->distance = r / fabs(mandelboxAux[0].mboxDE);
 				break;
 			case fractal::menger_sponge:
+			case fractal::kaleidoscopicIFS:
 				out->distance = (r - 2.0) / ifsAux[0].ifsDE;
 				break;
 			default:
@@ -198,6 +204,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				break;
 
 			case fractal::menger_sponge:
+			case fractal::kaleidoscopicIFS:
 				out->colorIndex = minimumR * 1000.0;
 				break;
 

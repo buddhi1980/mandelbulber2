@@ -10,6 +10,7 @@
 
 #include "parameters.hpp"
 #include "render_window.hpp"
+#include <QProgressBar>
 
 //class for main user interface
 
@@ -40,6 +41,11 @@ public:
 	void CameraOrTargetEdited();
 	void RotationEdited();
 	void CameraDistanceEdited();
+	void IFSDefaultsDodecahedron(cParameterContainer *parFractal);
+	void IFSDefaultsIcosahedron(cParameterContainer *parFractal);
+	void IFSDefaultsOctahedron(cParameterContainer *parFractal);
+	void IFSDefaultsMengerSponge(cParameterContainer *parFractal);
+	void IFSDefaultsReset(cParameterContainer *parFractal);
 
 	QApplication *application;
 	RenderWindow *mainWindow;

@@ -9,6 +9,8 @@
 #define MYLINEEDIT_HPP_
 
 #include <QtGui>
+#include <QtCore>
+#include <QLineEdit>
 
 class MyLineEdit : public QLineEdit
 {

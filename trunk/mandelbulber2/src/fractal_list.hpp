@@ -23,7 +23,7 @@ enum enumFractalFormula
 	minus_fast_trig = 6,
 	menger_sponge = 7,
 	mandelbox = 8,
-	kaleidoscopic = 10,
+	kaleidoscopicIFS = 10,
 	xenodreambuie = 11,
 	hybrid = 12,
 	mandelbulb2 = 13,
@@ -65,7 +65,7 @@ struct sFractalDescription
 {
 	QString nameInComboBox;
 	QString internalNane;
-	int internalID;
+	fractal::enumFractalFormula internalID;
 	fractal::enumDEType DEType;
 	sFractalDescription(QString _nameInComboBox, QString _internalNane, fractal::enumFractalFormula _internalID, fractal::enumDEType _DEType) : nameInComboBox(_nameInComboBox), internalNane(_internalNane), internalID(_internalID), DEType(_DEType) {};
 };

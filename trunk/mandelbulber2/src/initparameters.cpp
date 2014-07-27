@@ -343,11 +343,13 @@ void InitFractalParams(cParameterContainer *par)
 	//IFS formula
 	par->addParam("IFS_scale", 2.0, morphcatMullRom, paramStandard);
 	par->addParam("IFS_rotation", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
+	par->addParam("IFS_rotation_enabled", false, morphLinear, paramStandard);
 	par->addParam("IFS_offset", CVector3(1.0, 0.0, 0.0), morphcatMullRom, paramStandard);
 	par->addParam("IFS_edge", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("IFS_abs_X", false, morphLinear, paramStandard);
-	par->addParam("IFS_abs_Y", false, morphLinear, paramStandard);
-	par->addParam("IFS_abs_Z", false, morphLinear, paramStandard);
+	par->addParam("IFS_edge_enabled", false, morphLinear, paramStandard);
+	par->addParam("IFS_abs_x", false, morphLinear, paramStandard);
+	par->addParam("IFS_abs_y", false, morphLinear, paramStandard);
+	par->addParam("IFS_abs_z", false, morphLinear, paramStandard);
 	par->addParam("IFS_menger_sponge_mode", false, morphLinear, paramStandard);
 
 	for(int i = 0; i < IFS_VECTOR_COUNT; i++)
