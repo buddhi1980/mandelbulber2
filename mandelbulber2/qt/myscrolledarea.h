@@ -9,6 +9,8 @@
 #define MYSCROLLEDAREA_HPP_
 
 #include <QtGui>
+#include <QScrollBar>
+#include <QScrollArea>
 
 class MyScrolledArea : public QScrollArea
 {

@@ -50,11 +50,14 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	IFS.scale = container->Get<double>("IFS_scale");
 	IFS.rotation = container->Get<CVector3>("IFS_rotation");
+	IFS.rotationEnabled =  container->Get<bool>("IFS_rotation_enabled");
 	IFS.offset = container->Get<CVector3>("IFS_offset");
 	IFS.edge = container->Get<CVector3>("IFS_edge");
-	IFS.absX = container->Get<bool>("IFS_abs_X");
-	IFS.absY = container->Get<bool>("IFS_abs_Y");
-	IFS.absZ = container->Get<bool>("IFS_abs_Z");
+	IFS.edgeEnabled = container->Get<bool>("IFS_edge_enabled");
+
+	IFS.absX = container->Get<bool>("IFS_abs_x");
+	IFS.absY = container->Get<bool>("IFS_abs_y");
+	IFS.absZ = container->Get<bool>("IFS_abs_z");
 	IFS.mengerSpongeMode = container->Get<bool>("IFS_menger_sponge_mode");
 
 	for(int i = 0; i < IFS_VECTOR_COUNT; i++)
@@ -64,6 +67,7 @@ cFractal::cFractal(const cParameterContainer *container)
 		IFS.distance[i] = container->Get<double>("IFS_distance", i);
 		IFS.intensity[i] = container->Get<double>("IFS_intensity", i);
 		IFS.enabled[i] = container->Get<bool>("IFS_enabled", i);
+		IFS.direction[i].Normalize();
 	}
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");

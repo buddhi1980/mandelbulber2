@@ -17,6 +17,7 @@
 #include "camera_target.hpp"
 #include "error_message.hpp"
 #include "my_ui_loader.h"
+#include <QDial>
 
 cInterface *mainInterface;
 
@@ -635,7 +636,7 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 		}
 	}
 
-	QList<QDial *> widgetList2 = window->findChildren<QDial *>();
+	QList<QDial *> widgetList2 = window->findChildren<QDial *>(QString());
 	QList<QDial *>::iterator it2;
 	for (it2 = widgetList2.begin(); it2 != widgetList2.end(); ++it2)
 	{
@@ -1089,6 +1090,91 @@ void cInterface::CameraDistanceEdited()
 
 }
 
+void cInterface::IFSDefaultsDodecahedron(cParameterContainer *parFractal)
+{
+	double phi = (1 + sqrt(5.0))/2.0;
+	parFractal->Set("IFS_scale", phi * phi);
+	parFractal->Set("IFS_direction_0", CVector3(phi * phi, 1.0, -phi));
+	parFractal->Set("IFS_direction_1", CVector3(-phi, phi * phi, 1.0));
+	parFractal->Set("IFS_direction_2", CVector3(1.0, -phi, phi * phi));
+	parFractal->Set("IFS_enabled_0", true);
+	parFractal->Set("IFS_enabled_1", true);
+	parFractal->Set("IFS_enabled_2", true);
+	parFractal->Set("IFS_offset", CVector3(1.0, 1.0, 1.0));
+	parFractal->Set("IFS_abs_x", true);
+	parFractal->Set("IFS_abs_y", true);
+	parFractal->Set("IFS_abs_z", true);
+	parFractal->Set("IFS_menger_sponge_mode", false);
+}
+
+void cInterface::IFSDefaultsIcosahedron(cParameterContainer *parFractal)
+{
+	double phi = (1 + sqrt(5.0))/2.0;
+	parFractal->Set("IFS_scale", 2.0);
+	parFractal->Set("IFS_direction_3", CVector3(-phi * phi, 1.0, phi));
+	parFractal->Set("IFS_direction_4", CVector3(phi, -phi * phi, 1.0));
+	parFractal->Set("IFS_enabled_3", true);
+	parFractal->Set("IFS_enabled_4", true);
+	parFractal->Set("IFS_offset", CVector3(1.0, 0.0, phi));
+	parFractal->Set("IFS_abs_x", true);
+	parFractal->Set("IFS_abs_y", true);
+	parFractal->Set("IFS_abs_z", true);
+	parFractal->Set("IFS_menger_sponge_mode", false);
+}
+
+void cInterface::IFSDefaultsOctahedron(cParameterContainer *parFractal)
+{
+	parFractal->Set("IFS_scale", 2.0);
+	parFractal->Set("IFS_direction_5", CVector3(1.0, -1.0, 0));
+	parFractal->Set("IFS_direction_6", CVector3(1.0, 0.0, -1.0));
+	parFractal->Set("IFS_direction_7", CVector3(0.0, 1.0, -1.0));
+	parFractal->Set("IFS_enabled_5", true);
+	parFractal->Set("IFS_enabled_6", true);
+	parFractal->Set("IFS_enabled_7", true);
+	parFractal->Set("IFS_offset", CVector3(1.0, 0.0, 0.0));
+	parFractal->Set("IFS_abs_x", true);
+	parFractal->Set("IFS_abs_y", true);
+	parFractal->Set("IFS_abs_z", true);
+	parFractal->Set("IFS_menger_sponge_mode", false);
+}
+
+void cInterface::IFSDefaultsMengerSponge(cParameterContainer *parFractal)
+{
+	parFractal->Set("IFS_scale", 3.0);
+	parFractal->Set("IFS_direction_5", CVector3(1.0, -1.0, 0));
+	parFractal->Set("IFS_direction_6", CVector3(1.0, 0.0, -1.0));
+	parFractal->Set("IFS_direction_7", CVector3(0.0, 1.0, -1.0));
+	parFractal->Set("IFS_enabled_5", true);
+	parFractal->Set("IFS_enabled_6", true);
+	parFractal->Set("IFS_enabled_7", true);
+	parFractal->Set("IFS_offset", CVector3(1.0, 1.0, 1.0));
+	parFractal->Set("IFS_abs_x", true);
+	parFractal->Set("IFS_abs_y", true);
+	parFractal->Set("IFS_abs_z", true);
+	parFractal->Set("IFS_menger_sponge_mode", true);
+}
+
+void cInterface::IFSDefaultsReset(cParameterContainer *parFractal)
+{
+	for(int i=0; i<9; i++)
+	{
+		parFractal->Set("IFS_direction", i, CVector3(1.0, 0.0, 0.0));
+		parFractal->Set("IFS_rotations", i, CVector3(0.0, 0.0, 0.0));
+		parFractal->Set("IFS_distance", i, 0.0);
+		parFractal->Set("IFS_enabled", i, false);
+		parFractal->Set("IFS_intensity", i, 1.0);
+	}
+	parFractal->Set("IFS_offset", CVector3(1.0, 0.0, 0.0));
+	parFractal->Set("IFS_abs_x", false);
+	parFractal->Set("IFS_abs_y", false);
+	parFractal->Set("IFS_abs_z", false);
+	parFractal->Set("IFS_menger_sponge_mode", false);
+	parFractal->Set("IFS_scale", 2.0);
+	parFractal->Set("IFS_rotation", CVector3(0.0, 0.0, 0.0));
+	parFractal->Set("IFS_rotation_enabled", false);
+	parFractal->Set("IFS_edge", CVector3(0.0, 0.0, 0.0));
+	parFractal->Set("IFS_edge_enabled", false);
+}
 
 //function to create icons with actual color in ColorButtons
 void MakeIconForButton(QColor &color, QPushButton *pushbutton)

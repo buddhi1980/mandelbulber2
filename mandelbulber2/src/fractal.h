@@ -65,6 +65,8 @@ struct sFractalIFS
 	bool enabled[IFS_VECTOR_COUNT];
 	bool foldingMode; // Kaleidoscopic IFS folding mode
 	bool mengerSpongeMode;
+	bool rotationEnabled;
+	bool edgeEnabled;
 	CRotationMatrix mainRot;
 	CRotationMatrix rot[IFS_VECTOR_COUNT];
 	CVector3 direction[IFS_VECTOR_COUNT];

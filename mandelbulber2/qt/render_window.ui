@@ -45,8 +45,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1114</width>
-           <height>1169</height>
+           <width>1075</width>
+           <height>1149</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage"/>
@@ -200,6 +200,11 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="dockWidget_image_adjustments">
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
    <property name="floating">
     <bool>false</bool>
    </property>
@@ -230,15 +235,24 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>372</width>
-          <height>333</height>
+          <width>414</width>
+          <height>353</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
          <property name="spacing">
           <number>2</number>
          </property>
-         <property name="margin">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
           <number>2</number>
          </property>
          <item>
@@ -611,6 +625,11 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockWidget_navigation">
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
@@ -622,7 +641,16 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetRightContents">
     <layout class="QVBoxLayout" name="verticalLayout_24">
-     <property name="margin">
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
       <number>2</number>
      </property>
      <item>
@@ -638,8 +666,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>184</width>
-          <height>1195</height>
+          <width>183</width>
+          <height>1190</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -687,7 +715,16 @@
               <property name="spacing">
                <number>1</number>
               </property>
-              <property name="margin">
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
                <number>2</number>
               </property>
               <item>
@@ -699,7 +736,16 @@
                  <property name="spacing">
                   <number>2</number>
                  </property>
-                 <property name="margin">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
                   <number>2</number>
                  </property>
                  <item>
@@ -714,7 +760,16 @@
                     <property name="spacing">
                      <number>2</number>
                     </property>
-                    <property name="margin">
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
                      <number>2</number>
                     </property>
                     <item>
@@ -775,7 +830,16 @@
                  <property name="spacing">
                   <number>2</number>
                  </property>
-                 <property name="margin">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
                   <number>2</number>
                  </property>
                  <item>
@@ -790,7 +854,16 @@
                     <property name="spacing">
                      <number>2</number>
                     </property>
-                    <property name="margin">
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
                      <number>2</number>
                     </property>
                     <item>
@@ -1128,7 +1201,16 @@ to target:</string>
                  <property name="spacing">
                   <number>2</number>
                  </property>
-                 <property name="margin">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
                   <number>2</number>
                  </property>
                  <item>
@@ -1199,7 +1281,16 @@ to target:</string>
               <property name="spacing">
                <number>2</number>
               </property>
-              <property name="margin">
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
                <number>2</number>
               </property>
               <item>
@@ -1401,7 +1492,16 @@ to target:</string>
                  <property name="spacing">
                   <number>2</number>
                  </property>
-                 <property name="margin">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
                   <number>2</number>
                  </property>
                  <item>
@@ -1483,7 +1583,16 @@ to target:</string>
                  <property name="spacing">
                   <number>2</number>
                  </property>
-                 <property name="margin">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
                   <number>2</number>
                  </property>
                  <item>
@@ -1601,6 +1710,11 @@ to target:</string>
    </attribute>
   </widget>
   <widget class="QDockWidget" name="dockWidget_effects">
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
@@ -1625,15 +1739,24 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>387</width>
-          <height>281</height>
+          <width>428</width>
+          <height>273</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
          <property name="spacing">
           <number>2</number>
          </property>
-         <property name="margin">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
           <number>2</number>
          </property>
          <item>
@@ -1642,7 +1765,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>4</number>
+            <number>0</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -1664,9 +1787,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-125</y>
-                  <width>328</width>
-                  <height>438</height>
+                  <y>-9</y>
+                  <width>364</width>
+                  <height>465</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -2048,7 +2171,7 @@ to target:</string>
                          <double>0.000000000000000</double>
                         </property>
                         <property name="maximum">
-                         <double>256.000000000000000</double>
+                         <double>1000.000000000000000</double>
                         </property>
                         <property name="singleStep">
                          <double>0.010000000000000</double>
@@ -2076,7 +2199,7 @@ to target:</string>
                          <double>0.000000000000000</double>
                         </property>
                         <property name="maximum">
-                         <double>256.000000000000000</double>
+                         <double>1000.000000000000000</double>
                         </property>
                         <property name="singleStep">
                          <double>0.010000000000000</double>
@@ -2132,7 +2255,7 @@ to target:</string>
                          <number>0</number>
                         </property>
                         <property name="maximum">
-                         <number>25600</number>
+                         <number>1000</number>
                         </property>
                         <property name="singleStep">
                          <number>1</number>
@@ -2148,7 +2271,7 @@ to target:</string>
                          <number>0</number>
                         </property>
                         <property name="maximum">
-                         <number>25600</number>
+                         <number>1000</number>
                         </property>
                         <property name="singleStep">
                          <number>1</number>
@@ -2227,8 +2350,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>156</width>
-                  <height>60</height>
+                  <width>378</width>
+                  <height>245</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2310,8 +2433,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>251</width>
-                  <height>634</height>
+                  <width>364</width>
+                  <height>669</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2840,8 +2963,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>270</width>
-                  <height>198</height>
+                  <width>378</width>
+                  <height>245</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2994,8 +3117,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>328</width>
-                  <height>1486</height>
+                  <width>364</width>
+                  <height>1525</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -4353,6 +4476,11 @@ to target:</string>
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockWidget_fractal">
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
@@ -4374,8 +4502,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>387</width>
-          <height>222</height>
+          <width>414</width>
+          <height>235</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -4399,7 +4527,7 @@ to target:</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_21">
              <item>
-              <widget class="QTabWidget" name="tabWidget">
+              <widget class="QTabWidget" name="tabWidget_fractals">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -4412,7 +4540,11 @@ to target:</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_49">
                  <item>
-                  <widget class="QComboBox" name="comboBox_formula_1"/>
+                  <widget class="QComboBox" name="comboBox_formula_1">
+                   <property name="maxVisibleItems">
+                    <number>50</number>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <widget class="QFrame" name="frame_iterations_formula_1">
@@ -4482,8 +4614,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>323</width>
-                      <height>89</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1"/>
@@ -4501,7 +4633,11 @@ to target:</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_50">
                  <item>
-                  <widget class="QComboBox" name="comboBox_formula_2"/>
+                  <widget class="QComboBox" name="comboBox_formula_2">
+                   <property name="maxVisibleItems">
+                    <number>50</number>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <widget class="QFrame" name="frame_iterations_formula_2">
@@ -4568,8 +4704,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>71</width>
-                      <height>16</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -4587,7 +4723,11 @@ to target:</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_51">
                  <item>
-                  <widget class="QComboBox" name="comboBox_formula_3"/>
+                  <widget class="QComboBox" name="comboBox_formula_3">
+                   <property name="maxVisibleItems">
+                    <number>50</number>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <widget class="QFrame" name="frame_iterations_formula_3">
@@ -4654,8 +4794,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>71</width>
-                      <height>16</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -4673,7 +4813,11 @@ to target:</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_52">
                  <item>
-                  <widget class="QComboBox" name="comboBox_formula_4"/>
+                  <widget class="QComboBox" name="comboBox_formula_4">
+                   <property name="maxVisibleItems">
+                    <number>50</number>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <widget class="QFrame" name="frame_iterations_formula_4">
@@ -4740,8 +4884,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>71</width>
-                      <height>16</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -4769,8 +4913,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>127</width>
-                  <height>119</height>
+                  <width>350</width>
+                  <height>193</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -4921,6 +5065,11 @@ to target:</string>
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockWidget_rendering_engine">
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
@@ -4942,8 +5091,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>372</width>
-          <height>511</height>
+          <width>414</width>
+          <height>530</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -5714,7 +5863,7 @@ to target:</string>
   <tabstop>vect3_julia_c_x</tabstop>
   <tabstop>vect3_julia_c_y</tabstop>
   <tabstop>vect3_julia_c_z</tabstop>
-  <tabstop>tabWidget</tabstop>
+  <tabstop>tabWidget_fractals</tabstop>
   <tabstop>comboBox_formula_2</tabstop>
   <tabstop>sliderInt_formula_iterations_2</tabstop>
   <tabstop>spinboxInt_formula_iterations_2</tabstop>

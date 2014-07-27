@@ -26,6 +26,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	// TODO Generazlized fold box formula
 	//fractalList->append(sFractalDescription("generalized Fold Box", "generalozed_fold_box", generalizedFoldBox, fractal::analitycDE));
 	fractalList->append(sFractalDescription("Menger sponge", "menger_sponge", menger_sponge, fractal::analitycDE));
-
+	fractalList->append(sFractalDescription("Kaleidoscopic IFS", "ifs", kaleidoscopicIFS, fractal::analitycDE));
 }
 

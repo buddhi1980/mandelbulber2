@@ -59,6 +59,11 @@ private slots:
 	void slotCameraDistanceEdited();
 	void slotCameraDistanceSlider(int value);
 	void slotCheckBoxHybridFractalChanged(int state);
+	void slotIFSDefaultsDodecahedron();
+	void slotIFSDefaultsIcosahedron();
+	void slotIFSDefaultsOctahedron();
+	void slotIFSDefaultsMengerSponge();
+	void slotIFSDefaultsReset();
 
 	void slotSaveSettings();
 	void slotLoadSettings();
