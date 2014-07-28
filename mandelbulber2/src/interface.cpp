@@ -149,14 +149,24 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cParameterContai
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_1, par, mode)");
-	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_1, &parFractal[0], mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_2, par, mode)");
-	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_2, &parFractal[1], mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_3, par, mode)");
-	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_3, &parFractal[2], mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_4, par, mode)");
-	SynchronizeInterfaceWindow(mainWindow->ui->tab_fractal_formula_4, &parFractal[3], mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[0], &parFractal[0], mode)");
+	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[0], &parFractal[0], mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[1], &parFractal[1], mode)");
+	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[1], &parFractal[1], mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[2], &parFractal[2], mode)");
+	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[2], &parFractal[2], mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[3], &parFractal[3], mode)");
+	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[3], &parFractal[3], mode);
+
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_1, par, mode)");
+	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_1, par, mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_2, par, mode)");
+	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_2, par, mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_3, par, mode)");
+	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_3, par, mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_4, par, mode)");
+	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_4, par, mode);
+
 }
 
 //Reading ad writing parameters from/to selected widget to/from parameters container
@@ -718,23 +728,11 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 		uiFile.open(QFile::ReadOnly);
 		mainWindow->fractalWidgets[0] = loader.load(&uiFile);
 		mainWindow->ui->verticalLayout_fractal_1->addWidget(mainWindow->fractalWidgets[0]);
-		//mainWindow->ui->verticalLayout_fractal_1->addStretch(1);
-		uiFile.seek(0);
-		mainWindow->fractalWidgets[1] = loader.load(&uiFile);
-		mainWindow->ui->verticalLayout_fractal_2->addWidget(mainWindow->fractalWidgets[1]);
-		//mainWindow->ui->verticalLayout_fractal_2->addStretch(1);
-		uiFile.seek(0);
-		mainWindow->fractalWidgets[2] = loader.load(&uiFile);
-		mainWindow->ui->verticalLayout_fractal_3->addWidget(mainWindow->fractalWidgets[2]);
-		//mainWindow->ui->verticalLayout_fractal_3->addStretch(1);
-		uiFile.seek(0);
-		mainWindow->fractalWidgets[3] = loader.load(&uiFile);
-		mainWindow->ui->verticalLayout_fractal_4->addWidget(mainWindow->fractalWidgets[3]);
-		//mainWindow->ui->verticalLayout_fractal_4->addStretch(1);
-		uiFile.close();
+		mainWindow->fractalWidgets[0]->show();
 
-		for (int i = 0; i < 4; i++)
-			mainWindow->fractalWidgets[i]->show();
+		mainWindow->fractalWidgets[1] = NULL;
+		mainWindow->fractalWidgets[2] = NULL;
+		mainWindow->fractalWidgets[3] = NULL;
 
 		QStringList fractalNames;
 		for (int i = 0; i < fractalList.size(); i++)

@@ -38,7 +38,7 @@ cFourFractals::cFourFractals(const cParameterContainer *par, const cParameterCon
 	for (int i = 0; i < 4; i++)
 	{
 		fourFractals[i] = new cFractal(&par[i]);
-		fourFractals[i]->formula = (fractal::enumFractalFormula) par[i].Get<int>("formula", i + 1);
+		fourFractals[i]->formula = (fractal::enumFractalFormula) generalPar->Get<int>("formula", i + 1);
 	}
 
 	maxN = generalPar->Get<int>("N");
@@ -74,7 +74,7 @@ void cFourFractals::CreateSequence(const cParameterContainer *par, const cParame
 	int counts[4];
 	for (int i = 0; i < 4; i++)
 	{
-		counts[i] = par[i].Get<int>("formula_iterations", i + 1);
+		counts[i] = generalPar->Get<int>("formula_iterations", i + 1);
 	}
 
 	for(int i = 0; i < maxN * 5; i++)

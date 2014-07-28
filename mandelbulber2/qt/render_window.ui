@@ -31,6 +31,21 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0">
+    <property name="spacing">
+     <number>2</number>
+    </property>
+    <property name="leftMargin">
+     <number>2</number>
+    </property>
+    <property name="topMargin">
+     <number>2</number>
+    </property>
+    <property name="rightMargin">
+     <number>2</number>
+    </property>
+    <property name="bottomMargin">
+     <number>2</number>
+    </property>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_center">
       <item>
@@ -49,8 +64,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1075</width>
-           <height>1149</height>
+           <width>1089</width>
+           <height>1163</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage"/>
@@ -4541,9 +4556,6 @@ to target:</string>
             <layout class="QVBoxLayout" name="verticalLayout_21">
              <item>
               <widget class="QTabWidget" name="tabWidget_fractals">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
                <property name="currentIndex">
                 <number>0</number>
                </property>
@@ -4553,17 +4565,7 @@ to target:</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_49">
                  <item>
-                  <widget class="QComboBox" name="comboBox_formula_1">
-                   <property name="maxVisibleItems">
-                    <number>50</number>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <widget class="QFrame" name="frame_iterations_formula_1">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -4576,14 +4578,14 @@ to target:</string>
                       <property name="topMargin">
                        <number>0</number>
                       </property>
-                      <item row="0" column="0">
-                       <widget class="QLabel" name="label_126">
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="label_formula_iterations_1">
                         <property name="text">
                          <string>Iterations:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="0" column="1">
+                      <item row="1" column="1">
                        <widget class="QSlider" name="sliderInt_formula_iterations_1">
                         <property name="minimum">
                          <number>1</number>
@@ -4602,13 +4604,20 @@ to target:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="0" column="2">
+                      <item row="1" column="2">
                        <widget class="QSpinBox" name="spinboxInt_formula_iterations_1">
                         <property name="minimum">
                          <number>1</number>
                         </property>
                         <property name="maximum">
                          <number>500</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0" colspan="3">
+                       <widget class="QComboBox" name="comboBox_formula_1">
+                        <property name="maxVisibleItems">
+                         <number>50</number>
                         </property>
                        </widget>
                       </item>
@@ -4638,22 +4647,15 @@ to target:</string>
                 </layout>
                </widget>
                <widget class="QWidget" name="tab_fractal_formula_2">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
                 <attribute name="title">
                  <string>Formula #2</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_50">
                  <item>
-                  <widget class="QComboBox" name="comboBox_formula_2">
-                   <property name="maxVisibleItems">
-                    <number>50</number>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <widget class="QFrame" name="frame_iterations_formula_2">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -4666,14 +4668,14 @@ to target:</string>
                       <property name="topMargin">
                        <number>0</number>
                       </property>
-                      <item row="0" column="0">
+                      <item row="1" column="0">
                        <widget class="QLabel" name="label_128">
                         <property name="text">
                          <string>Iterations:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="0" column="1">
+                      <item row="1" column="1">
                        <widget class="QSlider" name="sliderInt_formula_iterations_2">
                         <property name="minimum">
                          <number>1</number>
@@ -4692,13 +4694,20 @@ to target:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="0" column="2">
+                      <item row="1" column="2">
                        <widget class="QSpinBox" name="spinboxInt_formula_iterations_2">
                         <property name="minimum">
                          <number>1</number>
                         </property>
                         <property name="maximum">
                          <number>500</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0" colspan="3">
+                       <widget class="QComboBox" name="comboBox_formula_2">
+                        <property name="maxVisibleItems">
+                         <number>50</number>
                         </property>
                        </widget>
                       </item>
@@ -4709,6 +4718,9 @@ to target:</string>
                  </item>
                  <item>
                   <widget class="QScrollArea" name="scrollArea_fractal_2">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="widgetResizable">
                     <bool>true</bool>
                    </property>
@@ -4728,22 +4740,15 @@ to target:</string>
                 </layout>
                </widget>
                <widget class="QWidget" name="tab_fractal_formula_3">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
                 <attribute name="title">
                  <string>Formula #3</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_51">
                  <item>
-                  <widget class="QComboBox" name="comboBox_formula_3">
-                   <property name="maxVisibleItems">
-                    <number>50</number>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <widget class="QFrame" name="frame_iterations_formula_3">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -4756,14 +4761,7 @@ to target:</string>
                       <property name="topMargin">
                        <number>0</number>
                       </property>
-                      <item row="0" column="0">
-                       <widget class="QLabel" name="label_129">
-                        <property name="text">
-                         <string>Iterations:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="1">
+                      <item row="1" column="1">
                        <widget class="QSlider" name="sliderInt_formula_iterations_3">
                         <property name="minimum">
                          <number>1</number>
@@ -4782,13 +4780,27 @@ to target:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="0" column="2">
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="label_129">
+                        <property name="text">
+                         <string>Iterations:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="2">
                        <widget class="QSpinBox" name="spinboxInt_formula_iterations_3">
                         <property name="minimum">
-                         <number>0</number>
+                         <number>1</number>
                         </property>
                         <property name="maximum">
                          <number>500</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0" colspan="3">
+                       <widget class="QComboBox" name="comboBox_formula_3">
+                        <property name="maxVisibleItems">
+                         <number>50</number>
                         </property>
                        </widget>
                       </item>
@@ -4799,6 +4811,9 @@ to target:</string>
                  </item>
                  <item>
                   <widget class="QScrollArea" name="scrollArea_fractal_3">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="widgetResizable">
                     <bool>true</bool>
                    </property>
@@ -4818,22 +4833,15 @@ to target:</string>
                 </layout>
                </widget>
                <widget class="QWidget" name="tab_fractal_formula_4">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
                 <attribute name="title">
                  <string>Formula #4</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_52">
                  <item>
-                  <widget class="QComboBox" name="comboBox_formula_4">
-                   <property name="maxVisibleItems">
-                    <number>50</number>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <widget class="QFrame" name="frame_iterations_formula_4">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -4846,14 +4854,14 @@ to target:</string>
                       <property name="topMargin">
                        <number>0</number>
                       </property>
-                      <item row="0" column="0">
+                      <item row="1" column="0">
                        <widget class="QLabel" name="label_130">
                         <property name="text">
                          <string>Iterations:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="0" column="1">
+                      <item row="1" column="1">
                        <widget class="QSlider" name="sliderInt_formula_iterations_4">
                         <property name="minimum">
                          <number>1</number>
@@ -4872,13 +4880,20 @@ to target:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="0" column="2">
+                      <item row="1" column="2">
                        <widget class="QSpinBox" name="spinboxInt_formula_iterations_4">
                         <property name="minimum">
                          <number>1</number>
                         </property>
                         <property name="maximum">
                          <number>500</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0" colspan="3">
+                       <widget class="QComboBox" name="comboBox_formula_4">
+                        <property name="maxVisibleItems">
+                         <number>50</number>
                         </property>
                        </widget>
                       </item>
@@ -4889,6 +4904,9 @@ to target:</string>
                  </item>
                  <item>
                   <widget class="QScrollArea" name="scrollArea_fractal_4">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="widgetResizable">
                     <bool>true</bool>
                    </property>
@@ -5103,7 +5121,7 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-245</y>
+          <y>0</y>
           <width>414</width>
           <height>530</height>
          </rect>
@@ -5887,7 +5905,6 @@ to target:</string>
   <tabstop>vect3_julia_c_y</tabstop>
   <tabstop>vect3_julia_c_z</tabstop>
   <tabstop>tabWidget_fractals</tabstop>
-  <tabstop>comboBox_formula_2</tabstop>
   <tabstop>sliderInt_formula_iterations_2</tabstop>
   <tabstop>spinboxInt_formula_iterations_2</tabstop>
   <tabstop>scrollArea_fractal_2</tabstop>
@@ -5954,16 +5971,13 @@ to target:</string>
   <tabstop>sliderInt_formula_iterations_3</tabstop>
   <tabstop>scrollAreaForImage</tabstop>
   <tabstop>scrollArea_4</tabstop>
-  <tabstop>comboBox_formula_4</tabstop>
   <tabstop>scrollArea_fractal_4</tabstop>
   <tabstop>groupCheck_constant_DE_threshold</tabstop>
   <tabstop>sliderInt_formula_iterations_1</tabstop>
   <tabstop>spinboxInt_formula_iterations_3</tabstop>
   <tabstop>groupCheck_limits_enabled</tabstop>
   <tabstop>scrollArea_fractal_3</tabstop>
-  <tabstop>comboBox_formula_1</tabstop>
   <tabstop>spinboxInt_formula_iterations_1</tabstop>
-  <tabstop>comboBox_formula_3</tabstop>
   <tabstop>sliderInt_formula_iterations_4</tabstop>
   <tabstop>spinboxInt_formula_iterations_4</tabstop>
   <tabstop>scrollArea</tabstop>

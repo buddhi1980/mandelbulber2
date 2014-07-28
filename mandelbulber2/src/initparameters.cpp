@@ -54,6 +54,16 @@ using namespace parameterContainer;
 	par->addParam("stereo_eye_distance", 1.0, morphcatMullRom, paramStandard);
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
 
+	//fractal formula selections
+	par->addParam("formula", 1, (int)fractal::mandelbulb, morphNone, paramStandard);
+	par->addParam("formula", 2, (int)fractal::none, morphNone, paramStandard);
+	par->addParam("formula", 3, (int)fractal::none, morphNone, paramStandard);
+	par->addParam("formula", 4, (int)fractal::none, morphNone, paramStandard);
+	par->addParam("formula_iterations", 1, 1, 1, 65536, morphNone, paramStandard);
+	par->addParam("formula_iterations", 2, 1, 1, 65536, morphNone, paramStandard);
+	par->addParam("formula_iterations", 3, 1, 1, 65536, morphNone, paramStandard);
+	par->addParam("formula_iterations", 4, 1, 1, 65536, morphNone, paramStandard);
+
 	//general fractal and engine
 	par->addParam("julia_mode", false, morphLinear, paramStandard);
 	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
@@ -320,19 +330,6 @@ using namespace parameterContainer;
 void InitFractalParams(cParameterContainer *par)
 {
 	WriteLog("Fractal parameters initialization started");
-	par->addParam("formula", (int)fractal::mandelbulb, morphNone, paramStandard);
-
-	//***************************** NEEDED PARAMETER for iteration number for only this formula !!! ******************
-
-	//fractal formula selections
-	par->addParam("formula", 1, (int)fractal::mandelbulb, morphNone, paramNoSave);
-	par->addParam("formula", 2, (int)fractal::none, morphNone, paramNoSave);
-	par->addParam("formula", 3, (int)fractal::none, morphNone, paramNoSave);
-	par->addParam("formula", 4, (int)fractal::none, morphNone, paramNoSave);
-	par->addParam("formula_iterations", 1, 1, 1, 65536, morphNone, paramNoSave);
-	par->addParam("formula_iterations", 2, 1, 1, 65536, morphNone, paramNoSave);
-	par->addParam("formula_iterations", 3, 1, 1, 65536, morphNone, paramNoSave);
-	par->addParam("formula_iterations", 4, 1, 1, 65536, morphNone, paramNoSave);
 
 	par->addParam("power", 9.0, morphcatMullRom, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphcatMullRom, paramStandard);
