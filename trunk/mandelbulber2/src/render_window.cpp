@@ -402,15 +402,20 @@ void RenderWindow::slotCameraDistanceSlider(int value)
 
 void RenderWindow::slotCheckBoxHybridFractalChanged(int state)
 {
-	ui->frame_iterations_formula_1->setEnabled(state);
-	ui->tab_fractal_formula_2->setEnabled(state);
-	ui->tab_fractal_formula_3->setEnabled(state);
-	ui->tab_fractal_formula_4->setEnabled(state);
+	ui->label_formula_iterations_1->setEnabled(state);
+	ui->spinboxInt_formula_iterations_1->setEnabled(state);
+	ui->sliderInt_formula_iterations_1->setEnabled(state);
+	ui->frame_iterations_formula_2->setEnabled(state);
+	ui->frame_iterations_formula_3->setEnabled(state);
+	ui->frame_iterations_formula_4->setEnabled(state);
+	ui->scrollArea_fractal_2->setEnabled(state);
+	ui->scrollArea_fractal_3->setEnabled(state);
+	ui->scrollArea_fractal_4->setEnabled(state);
 }
 
 void RenderWindow::slotSaveSettings()
 {
-	cSettings parSettings(cSettings::formatFullText);
+	cSettings parSettings(cSettings::formatCondensedText);
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	parSettings.CreateText(gPar, gParFractal);
 

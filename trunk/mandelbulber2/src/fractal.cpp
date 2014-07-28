@@ -16,7 +16,6 @@
 cFractal::cFractal(const cParameterContainer *container)
 {
 	//WriteLog("cFractal::cFractal(const cParameterContainer *container)");
-	formula = (fractal::enumFractalFormula)container->Get<int>("formula");
 
 	bulb.power = container->Get<double>("power");
 	bulb.alphaAngleOffset = container->Get<double>("alpha_angle_offset");
