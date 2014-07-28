@@ -10,6 +10,7 @@
 
 
 //temporary functions for performance profiling
+/*
 long int perf = 0;
 int perfCount = 0;
 inline unsigned long int rdtsc()
@@ -18,6 +19,7 @@ inline unsigned long int rdtsc()
 	clock_gettime(CLOCK_REALTIME, &ts);
 	return (unsigned long int)ts.tv_sec * 1000000000LL + (unsigned long int)ts.tv_nsec;
 }
+*/
 
 using namespace fractal;
 
