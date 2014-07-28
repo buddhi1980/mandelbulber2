@@ -19,6 +19,8 @@ inline unsigned long int rdtsc()
 	return (unsigned long int)ts.tv_sec * 1000000000LL + (unsigned long int)ts.tv_nsec;
 }
 
+using namespace fractal;
+
 template<fractal::enumCalculationMode Mode>
 void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 {
@@ -64,75 +66,95 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		//calls for fractal formulas
 		switch (fractal->formula)
 		{
-			case fractal::mandelbulb:
+			case mandelbulb:
 			{
 				bulbAux[sequence].r = r;
 				MandelbulbIteration(z, fractal, bulbAux[sequence]);
 				break;
 			}
-			case fractal::mandelbulb2:
+			case mandelbulb2:
 			{
 				bulbAux[sequence].r = r;
 				Mandelbulbulb2Iteration(z, bulbAux[sequence]);
 				break;
 			}
-			case fractal::mandelbulb3:
+			case mandelbulb3:
 			{
 				bulbAux[sequence].r = r;
 				Mandelbulbulb3Iteration(z, bulbAux[sequence]);
 				break;
 			}
-			case fractal::mandelbulb4:
+			case mandelbulb4:
 			{
 				bulbAux[sequence].r = r;
 				Mandelbulbulb4Iteration(z, fractal, bulbAux[sequence]);
 				break;
 			}
-			case fractal::fast_mandelbulb_power2:
+			case fast_mandelbulb_power2:
 			{
 				MandelbulbulbPower2Iteration(z);
 				break;
 			}
-			case fractal::xenodreambuie:
+			case xenodreambuie:
 			{
 				bulbAux[sequence].r = r;
 				XenodreambuieIteration(z, fractal, bulbAux[sequence]);
 				break;
 			}
-			case fractal::mandelbox:
+			case mandelbox:
 			{
 				MandelboxIteration(z, fractal, mandelboxAux[sequence]);
 				break;
 			}
-			case fractal::mandelboxVaryScale4D:
+			case mandelboxVaryScale4D:
 			{
 				MandelboxVaryScale4DIteration(z, w, fractal, mandelboxAux[sequence]);
 				break;
 			}
-			case fractal::smoothMandelbox:
+			case smoothMandelbox:
 			{
 				SmoothMandelboxIteration(z, fractal, mandelboxAux[sequence]);
 				break;
 			}
-			case fractal::boxFoldBulbPow2:
+			case boxFoldBulbPow2:
 			{
 				BoxFoldBulbPow2Iteration(z, fractal);
 				break;
 			}
-			case fractal::menger_sponge:
+			case menger_sponge:
 			{
 				MengerSpongeIteration(z, ifsAux[sequence]);
 				break;
 			}
-			case fractal::kaleidoscopicIFS:
+			case kaleidoscopicIFS:
 			{
 				KaleidoscopicIFSIteration(z, fractal, ifsAux[sequence]);
 				break;
 			}
-			case fractal::aexion:
+			case aexion:
 			{
 				aexionAux[sequence].iterNo = i;
 				AexionIteration(z, w, fractal, aexionAux[sequence]);
+				break;
+			}
+			case hypercomplex:
+			{
+				HypercomplexIteration(z, w);
+				break;
+			}
+			case quaternion:
+			{
+				QuaternionIteration(z, w);
+				break;
+			}
+			case benesi:
+			{
+				BenesiIteration(z, c);
+				break;
+			}
+			case bristorbrot:
+			{
+				BristorbrotIteration(z);
 				break;
 			}
 			default:
@@ -140,21 +162,27 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				break;
 		}
 
-		if(fractal->formula != fractal::menger_sponge && fractal->formula != fractal::kaleidoscopicIFS && fractal->formula != fractal::aexion)
+		//addition of constant
+		switch(fractal->formula)
 		{
-			z += c;
+			case menger_sponge:
+			case kaleidoscopicIFS:
+			case aexion:
+			{
+				break;
+			}
+			default:
+			{
+				z += c;
+				break;
+			}
 		}
 
-		//length of z vector
-		r = z.Length();
-
-		if(fractal->formula == fractal::mandelboxVaryScale4D || fractal->formula == fractal::aexion)
-		{
-			r = sqrt(r * r + w * w);
-		}
+		//r calculation
+		r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 
 		//escape conditions
-		if (Mode == fractal::normal)
+		if (Mode == normal)
 		{
 			if (r > 1e2)
 			{
@@ -162,7 +190,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				break;
 			}
 		}
-		else if (Mode == fractal::deltaDE1)
+		else if (Mode == deltaDE1)
 		{
 			if (r > 1e10)
 			{
@@ -170,12 +198,12 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				break;
 			}
 		}
-		else if (Mode == fractal::deltaDE2)
+		else if (Mode == deltaDE2)
 		{
 			if (i == in.maxN)
 				break;
 		}
-		else if (Mode == fractal::colouring)
+		else if (Mode == colouring)
 		{
 			if (r < minimumR) minimumR = r;
 			if (r > 1e15)
@@ -184,20 +212,20 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	}
 
 	//final calculations
-	if(Mode == fractal::normal)
+	if(Mode == normal)
 	{
 		switch (defaultFractal->formula)
 		{
-			case fractal::mandelbulb:
+			case mandelbulb:
 				out->distance = 0.5 * r * log(r) / bulbAux[0].r_dz;
 				break;
-			case fractal::mandelbox:
-			case fractal::smoothMandelbox:
-			case fractal::mandelboxVaryScale4D:
+			case mandelbox:
+			case smoothMandelbox:
+			case mandelboxVaryScale4D:
 				out->distance = r / fabs(mandelboxAux[0].mboxDE);
 				break;
-			case fractal::menger_sponge:
-			case fractal::kaleidoscopicIFS:
+			case menger_sponge:
+			case kaleidoscopicIFS:
 				out->distance = (r - 2.0) / ifsAux[0].ifsDE;
 				break;
 			default:
@@ -206,34 +234,23 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		}
 	}
 	//color calculation
-	else if(Mode == fractal::colouring)
+	else if(Mode == colouring)
 	{
 		switch (defaultFractal->formula)
 		{
-			case fractal::mandelbulb:
-			case fractal::mandelbulb2:
-			case fractal::mandelbulb3:
-			case fractal::mandelbulb4:
-			case fractal::xenodreambuie:
-			case fractal::fast_mandelbulb_power2:
-			case fractal::boxFoldBulbPow2:
-			case fractal::aexion:
-				out->colorIndex = minimumR * 5000.0;
-				break;
-
-			case fractal::mandelbox:
-			case fractal::smoothMandelbox:
-			case fractal::mandelboxVaryScale4D:
+			case mandelbox:
+			case smoothMandelbox:
+			case mandelboxVaryScale4D:
 				out->colorIndex = mandelboxAux[0].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR;
 				break;
 
-			case fractal::menger_sponge:
-			case fractal::kaleidoscopicIFS:
+			case menger_sponge:
+			case kaleidoscopicIFS:
 				out->colorIndex = minimumR * 1000.0;
 				break;
 
 			default:
-				out->colorIndex = 0.0;
+				out->colorIndex = minimumR * 5000.0;
 				break;
 		}
 	}
@@ -247,10 +264,10 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	//------------- 3249 ns for all calculation  ----------------
 }
 
-template void Compute<fractal::normal>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
-template void Compute<fractal::deltaDE1>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
-template void Compute<fractal::deltaDE2>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
-template void Compute<fractal::colouring>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
+template void Compute<normal>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
+template void Compute<deltaDE1>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
+template void Compute<deltaDE2>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
+template void Compute<colouring>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
 
 
 //========================= OLD ========================

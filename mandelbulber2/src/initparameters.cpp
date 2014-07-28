@@ -44,7 +44,7 @@ using namespace parameterContainer;
 
 	//camera
 
-	par->addParam("camera", CVector3(0.0, 6.0, 0.0), morphcatMullRom, paramStandard);
+	par->addParam("camera", CVector3(0.0, -6.0, 0.0), morphcatMullRom, paramStandard);
 	par->addParam("target", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
 	par->addParam("camera_top", CVector3(0.0, 0.0, 1.0), morphcatMullRom, paramStandard); //internal vector which represents top direction
 	par->addParam("camera_rotation", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
@@ -61,7 +61,7 @@ using namespace parameterContainer;
 	par->addParam("minN", 1, 0, 65536, morphLinear, paramStandard);
 	par->addParam("fractal_constant_factor", 1.0, morphLinear, paramStandard);
 	par->addParam("detail_level", 1.0, morphLinear, paramStandard);
-	par->addParam("DE_thresh", 1.0, morphLinear, paramStandard); //old name was 'quality'
+	par->addParam("DE_thresh", 0.01, morphLinear, paramStandard); //old name was 'quality'
 	par->addParam("smoothness", 1.0, morphLinear, paramStandard);
 	par->addParam("iteration_threshold_mode", false, morphNone, paramStandard);
 	par->addParam("analityc_DE_mode", true, morphNone, paramStandard);
