@@ -48,5 +48,9 @@ void MengerSpongeIteration(CVector3 &z, sIFSAux &aux);
 void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sIFSAux &aux);
 void MandelboxVaryScale4DIteration(CVector3 &z, double &w, const cFractal *fractal, sMandelboxAux &aux);
 void AexionIteration(CVector3 &z, double &w, const cFractal *fractal, sAexionAux &aux);
+void HypercomplexIteration(CVector3 &z, double &w);
+void QuaternionIteration(CVector3 &z, double &w);
+void BenesiIteration(CVector3 &z, CVector3 &c);
+void BristorbrotIteration(CVector3 &z);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

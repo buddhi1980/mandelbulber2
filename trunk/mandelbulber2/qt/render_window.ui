@@ -5103,7 +5103,7 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-245</y>
           <width>414</width>
           <height>530</height>
          </rect>
@@ -5454,7 +5454,7 @@ to target:</string>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_6">
+          <widget class="QGroupBox" name="groupCheck_limits_enabled">
            <property name="title">
             <string>Limits (box)</string>
            </property>
@@ -5959,7 +5959,7 @@ to target:</string>
   <tabstop>groupCheck_constant_DE_threshold</tabstop>
   <tabstop>sliderInt_formula_iterations_1</tabstop>
   <tabstop>spinboxInt_formula_iterations_3</tabstop>
-  <tabstop>groupBox_6</tabstop>
+  <tabstop>groupCheck_limits_enabled</tabstop>
   <tabstop>scrollArea_fractal_3</tabstop>
   <tabstop>comboBox_formula_1</tabstop>
   <tabstop>spinboxInt_formula_iterations_1</tabstop>

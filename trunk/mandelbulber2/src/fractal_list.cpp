@@ -13,21 +13,25 @@ using namespace fractal;
 void DefineFractalList(QList<sFractalDescription> *fractalList)
 {
 	//list of fractal formulas (name visible in UI, internal name, internal ID)
-	fractalList->append(sFractalDescription("None", "", none, fractal::deltaDE));
-	fractalList->append(sFractalDescription("Mandelbulb", "mandelbulb", mandelbulb, fractal::analitycDE));
-	fractalList->append(sFractalDescription("Mandelbulb 2", "mandelbulb2", mandelbulb2, fractal::deltaDE));
-	fractalList->append(sFractalDescription("Mandelbulb 3", "mandelbulb3", mandelbulb3, fractal::deltaDE));
-	fractalList->append(sFractalDescription("Mandelbulb 4", "mandelbulb4", mandelbulb4, fractal::deltaDE));
-	fractalList->append(sFractalDescription("Mandelbulb Classic Power 2", "mandelbulb_power_2", fast_mandelbulb_power2, fractal::deltaDE));
-	fractalList->append(sFractalDescription("Xenodreambuie's formula", "xenodreambuie", xenodreambuie, fractal::deltaDE));
-	fractalList->append(sFractalDescription("Mandelbox", "mandelbox", mandelbox, fractal::analitycDE));
-	fractalList->append(sFractalDescription("Smooth Mandelbox", "smooth_mandelbox", smoothMandelbox, fractal::analitycDE));
-	fractalList->append(sFractalDescription("Mandelbox Vary Scale 4D", "mandelbox_vary_scale_4d", mandelboxVaryScale4D, fractal::analitycDE));
-	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", "boxfold_bulbpow2", boxFoldBulbPow2, fractal::deltaDE));
+	fractalList->append(sFractalDescription("None", "", none, deltaDE));
+	fractalList->append(sFractalDescription("Mandelbulb", "mandelbulb", mandelbulb, analitycDE));
+	fractalList->append(sFractalDescription("Mandelbulb 2", "mandelbulb2", mandelbulb2, deltaDE));
+	fractalList->append(sFractalDescription("Mandelbulb 3", "mandelbulb3", mandelbulb3, deltaDE));
+	fractalList->append(sFractalDescription("Mandelbulb 4", "mandelbulb4", mandelbulb4, deltaDE));
+	fractalList->append(sFractalDescription("Mandelbulb Classic Power 2", "mandelbulb_power_2", fast_mandelbulb_power2, deltaDE));
+	fractalList->append(sFractalDescription("Xenodreambuie's formula", "xenodreambuie", xenodreambuie, deltaDE));
+	fractalList->append(sFractalDescription("Mandelbox", "mandelbox", mandelbox, analitycDE));
+	fractalList->append(sFractalDescription("Smooth Mandelbox", "smooth_mandelbox", smoothMandelbox, analitycDE));
+	fractalList->append(sFractalDescription("Mandelbox Vary Scale 4D", "mandelbox_vary_scale_4d", mandelboxVaryScale4D, analitycDE));
+	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", "boxfold_bulbpow2", boxFoldBulbPow2, deltaDE));
 	// TODO Generazlized fold box formula
-	//fractalList->append(sFractalDescription("generalized Fold Box", "generalozed_fold_box", generalizedFoldBox, fractal::analitycDE));
-	fractalList->append(sFractalDescription("Menger sponge", "menger_sponge", menger_sponge, fractal::analitycDE));
-	fractalList->append(sFractalDescription("Kaleidoscopic IFS", "ifs", kaleidoscopicIFS, fractal::analitycDE));
-	fractalList->append(sFractalDescription("Aexion's formula", "aexion", aexion, fractal::deltaDE));
+	//fractalList->append(sFractalDescription("generalized Fold Box", "generalozed_fold_box", generalizedFoldBox, analitycDE));
+	fractalList->append(sFractalDescription("Menger sponge", "menger_sponge", menger_sponge, analitycDE));
+	fractalList->append(sFractalDescription("Kaleidoscopic IFS", "ifs", kaleidoscopicIFS, analitycDE));
+	fractalList->append(sFractalDescription("Hypercomplex", "hypercomplex", hypercomplex, deltaDE));
+	fractalList->append(sFractalDescription("Quaternion", "quaternion", quaternion, deltaDE));
+	fractalList->append(sFractalDescription("Aexion", "aexion", aexion, deltaDE));
+	fractalList->append(sFractalDescription("Benesi", "benesi", benesi, deltaDE));
+	fractalList->append(sFractalDescription("Bristorbrot", "bristorbrot", bristorbrot, deltaDE));
 }
 

@@ -503,7 +503,7 @@ void RenderWindow::slotAboutMandelbulber()
 	text += "Licence: GNU GPL version 3.0\n";
 	text += "Copyright Ⓒ 2014 Krzysztof Marczak\n";
 	text += "\n";
-	text += "Thanks to many frieds from www.fractalforums.com for help\n";
+	text += "Thanks to many friends from www.fractalforums.com for help\n";
 	text += "\n";
 	text += "www.mandelbulber.com";
 

@@ -464,3 +464,50 @@ void AexionIteration(CVector3 &z, double &w, const cFractal *fractal, sAexionAux
 	z.z = tempz;
 	w = tempw;
 }
+
+void HypercomplexIteration(CVector3 &z, double &w)
+{
+	CVector3 newz(z.x * z.x - z.y * z.y - z.z * z.z - w * w, 2.0 * z.x * z.y - 2.0 * w * z.z, 2.0 * z.x * z.z - 2.0 * z.y * w);
+	double neww = 2.0 * z.x * w - 2.0 * z.y * z.z;
+	z = newz;
+	w = neww;
+}
+
+void QuaternionIteration(CVector3 &z, double &w)
+{
+	CVector3 newz(z.x * z.x - z.y * z.y - z.z * z.z - w * w, 2.0 * z.x * z.y, 2.0 * z.x * z.z);
+	double neww = 2.0 * z.x * w;
+	z = newz;
+	w = neww;
+}
+
+void BenesiIteration(CVector3 &z, CVector3 &c)
+{
+	double r1 = z.y*z.y + z.z*z.z;
+	double newx = 0;
+	if(c.x < 0 || z.x < sqrt(r1))
+	{
+		newx = z.x*z.x - r1;
+	}
+	else
+	{
+		newx = -z.x*z.x + r1;
+	}
+	r1 = - 1.0/sqrt(r1) * 2.0 * fabs(z.x);
+	double newy = r1 * (z.y*z.y - z.z*z.z);
+	double newz = r1 * 2.0 * z.y * z.z;
+
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
+}
+
+void BristorbrotIteration(CVector3 &z)
+{
+	double newx = z.x*z.x - z.y*z.y - z.z*z.z;
+	double newy = z.y * (2.0 * z.x - z.z);
+	double newz = z.z * (2.0 * z.x + z.y);
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
+}
