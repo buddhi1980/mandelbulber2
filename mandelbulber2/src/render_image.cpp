@@ -105,7 +105,7 @@ bool cRenderer::RenderImage()
 			//refresh image
 			if (listToRefresh.size() > 0)
 			{
-				if (timerRefresh.elapsed() > lastRefreshTime * 100)
+				if (timerRefresh.elapsed() > lastRefreshTime)
 				{
 					timerRefresh.restart();
 					QSet<int> set_listTorefresh = listToRefresh.toSet(); //removing duplicates
@@ -119,7 +119,8 @@ bool cRenderer::RenderImage()
 						image->UpdatePreview(&listToRefresh);
 						image->GetImageWidget()->update();
 					}
-					lastRefreshTime = timerRefresh.elapsed() / (listToRefresh.size());
+
+					lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
 					timerRefresh.restart();
 					listToRefresh.clear();
 				}

@@ -12,6 +12,7 @@
 #include "system.hpp"
 #include "settings.hpp"
 #include "error_message.hpp"
+#include "files.h"
 
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
@@ -423,14 +424,18 @@ void RenderWindow::slotSaveSettings()
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
-	dialog.selectFile("settings.fract");
+	dialog.selectFile(systemData.lastSettingsFile);
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle("Save settings...");
+	dialog.setDefaultSuffix("fract");
 	QStringList filenames;
 	if(dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
 		parSettings.SaveToFile(filename);
+		systemData.lastSettingsFile = filename;
+		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
 	}
 }
 
@@ -442,8 +447,9 @@ void RenderWindow::slotLoadSettings()
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
-	dialog.selectFile("settings.fract");
+	dialog.selectFile(systemData.lastSettingsFile);
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle("Load settings...");
 	QStringList filenames;
 	if(dialog.exec())
 	{
@@ -452,6 +458,8 @@ void RenderWindow::slotLoadSettings()
 		parSettings.LoadFromFile(filename);
 		parSettings.Decode(gPar, gParFractal);
 		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		systemData.lastSettingsFile = filename;
+		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
 	}
 }
 
@@ -513,6 +521,86 @@ void RenderWindow::slotAboutMandelbulber()
 	text += "www.mandelbulber.com";
 
 	QMessageBox::about(this, "About Mandelbulber", text);
+}
+
+void RenderWindow::slotSaveImageJPEG()
+{
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("JPEG images (*.jpg *.jpeg)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "images" + QDir::separator());
+	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle("Save image to JPEG file...");
+	dialog.setDefaultSuffix("jpeg");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
+		systemData.lastImageFile = filename;
+	}
+}
+
+void RenderWindow::slotSaveImagePNG8()
+{
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("PNG images (*.png)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "images" + QDir::separator());
+	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle("Save image to 8-bit PNG file...");
+	dialog.setDefaultSuffix("png");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		SavePNG(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->ConvertTo8bit());
+		systemData.lastImageFile = filename;
+	}
+}
+
+void RenderWindow::slotSaveImagePNG16()
+{
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("PNG images (*.png)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "images" + QDir::separator());
+	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle("Save image to 16-bit PNG file...");
+	dialog.setDefaultSuffix("png");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		SavePNG16(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->GetImage16Ptr());
+		systemData.lastImageFile = filename;
+	}
+}
+
+void RenderWindow::slotSaveImagePNG16Alpha()
+{
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("PNG images (*.png)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "images" + QDir::separator());
+	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle("Save image to 16-bit + alpha channel PNG file...");
+	dialog.setDefaultSuffix("png");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		SavePNG16Alpha(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage);
+		systemData.lastImageFile = filename;
+	}
 }
 
 //=================== rendered image widget ==================/

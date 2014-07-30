@@ -14,6 +14,7 @@
 #define PNG_DEBUG 3
 //#include <jpeglib.h>
 #include "files.h"
+#include "error_message.hpp"
 
 using namespace std;
 
@@ -186,13 +187,13 @@ void SaveJPEG(const char *filename, int quality, int width, int height, JSAMPLE 
 	jpeg_destroy_compress(&cinfo);
 }
 
-void SavePNG(const char *filename, int /*quality*/, int width, int height, png_byte *image)
+void SavePNG(QString filename, int width, int height, png_byte *image)
 {
 	/* create file */
-	FILE *fp = fopen(filename, "wb");
+	FILE *fp = fopen(filename.toUtf8().constData(), "wb");
 	if (!fp)
 	{
-		fprintf(stderr, "[write_png_file] File %s could not be opened for writing", filename);
+		fprintf(stderr, "[write_png_file] File %s could not be opened for writing", filename.toUtf8().constData());
 		return;
 	}
 	/* initialize stuff */
@@ -382,13 +383,13 @@ void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles)
 	fclose(fp);
 }
 
-void SavePNG16(const char *filename, int /*quality*/, int width, int height, sRGB16* image16)
+void SavePNG16(QString filename, int width, int height, sRGB16* image16)
 {
 	/* create file */
-	FILE *fp = fopen(filename, "wb");
+	FILE *fp = fopen(filename.toUtf8().constData(), "wb");
 	if (!fp)
 	{
-	 fprintf(stderr, "[write_png_file] File %s could not be opened for writing", filename);
+	 fprintf(stderr, "[write_png_file] File %s could not be opened for writing", filename.toUtf8().constData());
 	  return;
 	}
 
@@ -464,13 +465,13 @@ void SavePNG16(const char *filename, int /*quality*/, int width, int height, sRG
 	fclose(fp);
 }
 
-void SavePNG16Alpha(const char *filename, int /*quality*/, int width, int height, cImage *image)
+void SavePNG16Alpha(QString filename, int width, int height, cImage *image)
 {
 	/* create file */
-	FILE *fp = fopen(filename, "wb");
+	FILE *fp = fopen(filename.toUtf8().constData(), "wb");
 	if (!fp)
 	{
-	   	fprintf(stderr, "[write_png_file] File %s could not be opened for writing", filename);
+	   	fprintf(stderr, "[write_png_file] File %s could not be opened for writing", filename.toUtf8().constData());
 		return;
 	}
 	/* initialize stuff */
@@ -788,4 +789,20 @@ string removeFileExtension(const string &filename)
     		return filename;
     	}
     }
+}
+
+bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality)
+{
+	QImage *qimage = new QImage(image, width, height, QImage::Format_RGB888);
+
+	QFile file(filename);
+	file.open(QIODevice::WriteOnly);
+	bool result = qimage->save(&file, "JPEG", quality);
+	if (!result)
+	{
+		cErrorMessage::showMessage(QString("Can't save image to JPEG pile!\n") + filename + "\n" + file.errorString(), cErrorMessage::errorMessage);
+	}
+	file.close();
+	delete qimage;
+	return result;
 }
