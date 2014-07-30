@@ -64,6 +64,7 @@ void cInterface::ShowUi(void)
 
 	WriteLog("Prepare progress and status bar");
 	progressBar = new QProgressBar(mainWindow->ui->statusbar);
+	progressBar->setMaximum(1000);
 	mainWindow->ui->statusbar->addPermanentWidget(progressBar);
 
 	renderedImage->show();
@@ -85,6 +86,10 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveDocksPositions()));
 	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotSaveSettings()));
 	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow, SLOT(slotLoadSettings()));
+	QApplication::connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow, SLOT(slotSaveImageJPEG()));
+	QApplication::connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow, SLOT(slotSaveImagePNG8()));
+	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit, SIGNAL(triggered()), mainWindow, SLOT(slotSaveImagePNG16()));
+	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel, SIGNAL(triggered()), mainWindow, SLOT(slotSaveImagePNG16Alpha()));
 	QApplication::connect(mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotAboutQt()));
 	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow, SLOT(slotAboutMandelbulber()));
 
@@ -760,7 +765,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 void cInterface::StatusText(QString &text, QString &progressText, double progress)
 {
 	mainWindow->ui->statusbar->showMessage(text, 0);
-	mainInterface->progressBar->setValue(progress * 100.0);
+	mainInterface->progressBar->setValue(progress * 1000.0);
 	mainInterface->progressBar->setTextVisible(true);
 	mainInterface->progressBar->setFormat(progressText);
 }

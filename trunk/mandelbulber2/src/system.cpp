@@ -69,6 +69,9 @@ bool InitSystem(void)
 	//*********** temporary set to false ************
 	systemData.noGui = false;
 
+	systemData.lastSettingsFile = QString("settings.fract");
+	systemData.lastImageFile = "image.jpg";
+
 	return true;
 }
 

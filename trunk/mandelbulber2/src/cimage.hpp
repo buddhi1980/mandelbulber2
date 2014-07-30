@@ -100,13 +100,13 @@ public:
 	int progressiveFactor;
 
 private:
-  sRGBA8 Interpolation(float x, float y);
+  sRGB8 Interpolation(float x, float y);
 	bool AllocMem(void);
 	inline sRGB16 Black16(void) {return sRGB16(0,0,0);}
 	inline sRGB8 Black8(void) {return sRGB8(0,0,0);}
 	inline sRGBfloat BlackFloat(void) {return sRGBfloat(0,0,0);}
 
-	sRGBA8 *image8;
+	sRGB8 *image8;
 	sRGB16 *image16;
 	sRGBfloat *imageFloat;
 
@@ -115,8 +115,8 @@ private:
 	sRGB8 *colourBuffer;
 	float *zBuffer;
 
-	sRGBA8 *preview;
-	sRGBA8 *preview2;
+	sRGB8 *preview;
+	sRGB8 *preview2;
 	QWidget *imageWidget;
 
 	sImageAdjustments adj;

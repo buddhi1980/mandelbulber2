@@ -197,6 +197,7 @@ void cRenderWorker::doWork(void)
 			{
 
 				sRGBAfloat objectShader;
+				objectShader.A = 0.0;
 				sRGBAfloat backgroudShader;
 				sRGBAfloat volumetricShader;
 				sRGBAfloat specular;
@@ -247,6 +248,7 @@ void cRenderWorker::doWork(void)
 				}
 
 				pixel.A = objectShader.A + backgroudShader.A;
+
 				sRGBAfloat opacityOut;
 				volumetricShader = VolumetricShader(shaderInputData, pixel, &opacityOut);
 				resultShader.R = volumetricShader.R;

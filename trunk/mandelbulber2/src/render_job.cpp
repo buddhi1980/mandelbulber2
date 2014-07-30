@@ -132,7 +132,7 @@ bool cRenderJob::Execute(void)
 	cFourFractals *fourFractals = new cFourFractals(fractalContainer, paramsContainer);
 
 	//recalculation of some parameters;
-	params->resolution = 1.0/image->GetWidth();
+	params->resolution = 1.0/max(image->GetWidth(), image->GetHeight());
 
 	//create and execute renderer
 	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image);

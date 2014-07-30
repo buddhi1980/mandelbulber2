@@ -33,6 +33,8 @@ struct sSystem
 	QString dataDirectory;
 	QString sharedDir;
 	QString logfileName;
+	QString lastSettingsFile;
+	QString lastImageFile;
 	unsigned int numberOfThreads;
 	bool noGui;
 };

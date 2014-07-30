@@ -67,6 +67,10 @@ private slots:
 
 	void slotSaveSettings();
 	void slotLoadSettings();
+	void slotSaveImageJPEG();
+	void slotSaveImagePNG8();
+	void slotSaveImagePNG16();
+	void slotSaveImagePNG16Alpha();
 
 	void slotAboutQt();
 	void slotAboutMandelbulber();

@@ -19,8 +19,17 @@ extern "C"
 #include <jpeglib.h>
 }
 
+
+/**********************************************************/
+//sources of libraries:
+//libpng: http://www.libpng.org/pub/png/libpng.html
+//libjpeg" http://libjpeg.sourceforge.net/
+/**********************************************************/
+
 #include <string>
 #include "cimage.hpp"
+#include "system.hpp"
+#include <QtCore>
 
 struct my_error_mgr
 {
@@ -39,9 +48,9 @@ std::string IndexFilename(const char* filename, const char* extension, int numbe
 int LoadJPEG(const char *filename, JSAMPLE *image);
 bool CheckJPEGsize(const char *filename, int *width, int *height);
 void SaveJPEG(const char *filename, int quality, int width, int height, JSAMPLE *image);
-void SavePNG(const char *filename, int quality, int width, int height, png_byte *image);
-void SavePNG16(const char *filename, int quality, int width, int height, sRGB16* image16);
-void SavePNG16Alpha(const char *filename, int quality, int width, int height, cImage *image);
+void SavePNG(QString filename, int width, int height, png_byte *image);
+void SavePNG16(QString filename, int width, int height, sRGB16* image16);
+void SavePNG16Alpha(QString filename, int width, int height, cImage *image);
 void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
 bool FileIfExists(const char *filename);
 void WriteLog(const char *text);
@@ -50,4 +59,7 @@ int fcopy(const char *source, const char *dest);
 void BufferNormalize16(sRGB16 *buffer, unsigned int size);
 //void SaveAllImageLayers(const char *filename, cImage *image);
 std::string removeFileExtension(const std::string &filename);
+
+bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality);
+
 #endif /* FILES_H_ */
