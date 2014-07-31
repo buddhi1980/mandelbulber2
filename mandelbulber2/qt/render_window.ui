@@ -1784,7 +1784,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>428</width>
-          <height>273</height>
+          <height>434</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1809,7 +1809,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>3</number>
+            <number>0</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -1831,9 +1831,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-66</y>
                   <width>364</width>
-                  <height>465</height>
+                  <height>620</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -2076,7 +2076,7 @@ to target:</string>
                         </item>
                         <item>
                          <property name="text">
-                          <string>Multiple rays</string>
+                          <string>Multiple rays with light map</string>
                          </property>
                         </item>
                         <item>
@@ -2116,6 +2116,52 @@ to target:</string>
                        </widget>
                       </item>
                      </layout>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="frame_lightmap_texture">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_69">
+                       <item>
+                        <layout class="QGridLayout" name="gridLayout_34">
+                         <property name="spacing">
+                          <number>2</number>
+                         </property>
+                         <item row="0" column="2">
+                          <widget class="QPushButton" name="button_selectLightMapTexture">
+                           <property name="text">
+                            <string>Select file</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QLineEdit" name="text_file_lightmap"/>
+                         </item>
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="label_133">
+                           <property name="text">
+                            <string>Light map texture:</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_lightmapTextureView">
+                         <property name="text">
+                          <string/>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -2373,6 +2419,49 @@ to target:</string>
                    </layout>
                   </widget>
                  </item>
+                 <item>
+                  <widget class="QGroupBox" name="groupCheck_env_mapping_enable">
+                   <property name="title">
+                    <string>Environment mappring</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>true</bool>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_70">
+                    <item>
+                     <layout class="QGridLayout" name="gridLayout_33">
+                      <property name="spacing">
+                       <number>2</number>
+                      </property>
+                      <item row="0" column="2">
+                       <widget class="QPushButton" name="button_selectEnvMapTexture">
+                        <property name="text">
+                         <string>Select file</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="1">
+                       <widget class="QLineEdit" name="text_file_envmap"/>
+                      </item>
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="label_132">
+                        <property name="text">
+                         <string>Texture path:</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_envmapTextureView">
+                      <property name="text">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
                 </layout>
                </widget>
               </widget>
@@ -2395,7 +2484,7 @@ to target:</string>
                   <x>0</x>
                   <y>0</y>
                   <width>378</width>
-                  <height>245</height>
+                  <height>406</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2476,7 +2565,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-263</y>
                   <width>364</width>
                   <height>669</height>
                  </rect>
@@ -3008,7 +3097,7 @@ to target:</string>
                   <x>0</x>
                   <y>0</y>
                   <width>378</width>
-                  <height>245</height>
+                  <height>406</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -4552,7 +4641,7 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-7</y>
           <width>414</width>
           <height>235</height>
          </rect>
