@@ -71,7 +71,6 @@ bool cRenderJob::Init(enumMode _mode)
 		return false;
 	}
 
-	//here will be total number of CPU cores in the network
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	//totalNumberOfCPUs = 1;
 
@@ -89,7 +88,10 @@ bool cRenderJob::Init(enumMode _mode)
 			paramsContainer->Get<int>("coloring_random_seed"),
 			paramsContainer->Get<double>("coloring_saturation"));
 
+	//textures are deleted with destruction of renderData
 	renderData->textures.backgroundTexture = new cTexture(paramsContainer->Get<QString>("file_background"));
+	renderData->textures.envmapTexture = new cTexture(paramsContainer->Get<QString>("file_envmap"));
+	renderData->textures.lightmapTexture = new cTexture(paramsContainer->Get<QString>("file_lightmap"));
 
 	ready = true;
 	return true;

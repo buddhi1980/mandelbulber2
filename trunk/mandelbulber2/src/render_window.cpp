@@ -13,6 +13,7 @@
 #include "settings.hpp"
 #include "error_message.hpp"
 #include "files.h"
+#include "fractparams.hpp"
 
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
@@ -611,7 +612,7 @@ void RenderWindow::slotSelectBackgroundTexture()
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
 	dialog.selectFile(gPar->Get<QString>("file_background"));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
-	dialog.setWindowTitle("Load background texture...");
+	dialog.setWindowTitle("Select background texture...");
 	QStringList filenames;
 	if(dialog.exec())
 	{
@@ -622,9 +623,69 @@ void RenderWindow::slotSelectBackgroundTexture()
 		mainInterface->ShowImageInLabel(ui->label_backgroundTextureView, filename);
 	}
 }
+
+void RenderWindow::slotSelectEnvMapTexture()
+{
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
+	dialog.selectFile(gPar->Get<QString>("file_envmap"));
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle("Select texture for environment mapping effect...");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		gPar->Set("file_envmap", filename);
+		ui->text_file_envmap->setText(filename);
+		mainInterface->ShowImageInLabel(ui->label_envmapTextureView, filename);
+	}
+}
+
+void RenderWindow::slotSelectLightMapTexture()
+{
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
+	dialog.selectFile(gPar->Get<QString>("file_lightmap"));
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle("Select texture for ambient occlussion light map...");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		gPar->Set("file_lightmap", filename);
+		ui->text_file_lightmap->setText(filename);
+		mainInterface->ShowImageInLabel(ui->label_lightmapTextureView, filename);
+	}
+}
+
 void RenderWindow::slotLineEditBackgroundTextureEdited(const QString &text)
 {
 	mainInterface->ShowImageInLabel(ui->label_backgroundTextureView, text);
+}
+
+void RenderWindow::slotLineEditEnvMapTextureEdited(const QString &text)
+{
+	mainInterface->ShowImageInLabel(ui->label_envmapTextureView, text);
+}
+
+void RenderWindow::slotLineEditLightMapTextureEdited(const QString &text)
+{
+	mainInterface->ShowImageInLabel(ui->label_lightmapTextureView, text);
+}
+
+void RenderWindow::slotChangedComboAmbientOcclussionMode(int index)
+{
+	bool enabled = index == params::AOmodeMultipeRays ? true : false;
+	ui->frame_lightmap_texture->setEnabled(enabled);
+	enabled = index == params::AOmodeFast ? true : false;
+	ui->slider_ambient_occlusion_fast_tune->setEnabled(enabled);
+	ui->spinbox_ambient_occlusion_fast_tune->setEnabled(enabled);
 }
 
 //=================== rendered image widget ==================/

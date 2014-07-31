@@ -56,7 +56,7 @@ QString cSettings::CreateHeader()
 			header += "# all parameters\n";
 			break;
 		case formatCondensedText:
-			header += "# only used parameters\n";
+			header += "# only modified parameters\n";
 			break;
 		case formatCsv:
 			header += "# column separated format\n";
@@ -169,7 +169,7 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 			{
 				format = formatFullText;
 			}
-			else if(thirdLine.contains("only used parameters"))
+			else if(thirdLine.contains("only modified parameters"))
 			{
 				format = formatCondensedText;
 			}

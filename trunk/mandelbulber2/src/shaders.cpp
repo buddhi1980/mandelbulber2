@@ -97,9 +97,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	}
 
 	//total shader
-	output.R = envMapping.R * ambient.R + (ambient2.R + mainLight.R * shade.R * shadow.R) * colour.R;
-	output.G = envMapping.G * ambient.G + (ambient2.G + mainLight.G * shade.G * shadow.G) * colour.G;
-	output.B = envMapping.B * ambient.B + (ambient2.B + mainLight.B * shade.B * shadow.B) * colour.B;
+	output.R = envMapping.R + (ambient2.R + mainLight.R * shade.R * shadow.R) * colour.R;
+	output.G = envMapping.G + (ambient2.G + mainLight.G * shade.G * shadow.G) * colour.G;
+	output.B = envMapping.B + (ambient2.B + mainLight.B * shade.B * shadow.B) * colour.B;
 
 	output.R += (auxLights.R + fakeLights.R) * colour.R;
 	output.G += (auxLights.G + fakeLights.G) * colour.G;
