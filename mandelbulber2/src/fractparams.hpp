@@ -185,6 +185,13 @@ struct sTextures
 	cTexture *backgroundTexture;
 	cTexture *envmapTexture;
 	cTexture *lightmapTexture;
+	sTextures() {backgroundTexture = NULL; envmapTexture = NULL; lightmapTexture = NULL;}
+	~sTextures()
+	{
+		if(backgroundTexture) delete backgroundTexture;
+		if(envmapTexture) delete envmapTexture;
+		if(lightmapTexture) delete lightmapTexture;
+	}
 };
 
 

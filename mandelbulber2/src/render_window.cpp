@@ -603,6 +603,30 @@ void RenderWindow::slotSaveImagePNG16Alpha()
 	}
 }
 
+void RenderWindow::slotSelectBackgroundTexture()
+{
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
+	dialog.selectFile(gPar->Get<QString>("file_background"));
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle("Load background texture...");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		gPar->Set("file_background", filename);
+		ui->text_file_background->setText(filename);
+		mainInterface->ShowImageInLabel(ui->label_backgroundTextureView, filename);
+	}
+}
+void RenderWindow::slotLineEditBackgroundTextureEdited(const QString &text)
+{
+	mainInterface->ShowImageInLabel(ui->label_backgroundTextureView, text);
+}
+
 //=================== rendered image widget ==================/
 
 RenderedImage::RenderedImage(QWidget *parent)
