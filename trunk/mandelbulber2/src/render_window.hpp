@@ -71,6 +71,8 @@ private slots:
 	void slotSaveImagePNG8();
 	void slotSaveImagePNG16();
 	void slotSaveImagePNG16Alpha();
+	void slotSelectBackgroundTexture();
+	void slotLineEditBackgroundTextureEdited(const QString &text);
 
 	void slotAboutQt();
 	void slotAboutMandelbulber();

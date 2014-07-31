@@ -82,6 +82,8 @@ void cInterface::ConnectSignals(void)
 {
 	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(slotStartRender()));
 	QApplication::connect(mainWindow->ui->pushButton_stop, SIGNAL(clicked()), mainWindow, SLOT(slotStopRender()));
+	QApplication::connect(mainWindow->ui->button_selectBackgroundTexture, SIGNAL(clicked()), mainWindow, SLOT(slotSelectBackgroundTexture()));
+	QApplication::connect(mainWindow->ui->text_file_background, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotLineEditBackgroundTextureEdited(const QString&)));
 	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveDocksPositions()));
 	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotSaveSettings()));
@@ -1179,6 +1181,20 @@ void cInterface::IFSDefaultsReset(cParameterContainer *parFractal)
 	parFractal->Set("IFS_rotation_enabled", false);
 	parFractal->Set("IFS_edge", CVector3(0.0, 0.0, 0.0));
 	parFractal->Set("IFS_edge_enabled", false);
+}
+
+void cInterface::ShowImageInLabel(QLabel *label, const QString &filename)
+{
+  QPixmap pixmap(filename);
+  if(pixmap.isNull())
+  {
+  	label->setText("Error: Texture cannot be loaded");
+  }
+  else
+  {
+    pixmap = pixmap.scaledToWidth(label->width()*0.7, Qt::SmoothTransformation);
+  	label->setPixmap(pixmap);
+  }
 }
 
 //function to create icons with actual color in ColorButtons

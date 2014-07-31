@@ -806,3 +806,4 @@ bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, i
 	delete qimage;
 	return result;
 }
+

@@ -13,49 +13,26 @@
 #include <cstring>
 #include "texture.hpp"
 #include "files.h"
+#include "system.hpp"
+#include "error_message.hpp"
 
 //constructor
-cTexture::cTexture(const char *filename)
+cTexture::cTexture(QString filename)
 {
 	bitmap = NULL;
-	if (CheckJPEGsize(filename, &width, &height))
+	qimage.load(filename);
+	qimage = qimage.convertToFormat(QImage::Format_RGB888);
+
+	if (!qimage.isNull())
 	{
-
-		JSAMPLE *jbitmap = new JSAMPLE[width * height * 3];
-		bitmap = new sRGB8[width * height];
-
-		if (!LoadJPEG(filename, jbitmap))
-		{
-			printf("Error during JPEG loading: %s\n", filename);
-			loaded = false;
-		}
-		else
-		{
-			printf("Image %s loaded\n", filename);
-			printf("Width = %d, Height = %d\n", width, height);
-			if (width > 0 && height > 0)
-			{
-				for (int i = 0; i < width * height; i++)
-				{
-					int adres = 3 * i;
-					bitmap[i].R = jbitmap[adres];
-					bitmap[i].G = jbitmap[adres + 1];
-					bitmap[i].B = jbitmap[adres + 2];
-				}
-				loaded = true;
-			}
-			else
-			{
-				loaded = false;
-			}
-		}
-
-		delete[] jbitmap;
-
+		bitmap = (sRGB8*)(qimage.bits());
+		width = qimage.width();
+		height = qimage.height();
+		loaded = true;
 	}
 	else
 	{
-		printf("Can't load texture: %s\n", filename);
+		cErrorMessage::showMessage(QString("Can't load texture!\n") + filename, cErrorMessage::errorMessage);
 		width = 100;
 		height = 100;
 		loaded = false;
@@ -76,7 +53,6 @@ cTexture::cTexture(void)
 //destructor
 cTexture::~cTexture(void)
 {
-	if (bitmap) delete[] bitmap;
 }
 
 //read pixel

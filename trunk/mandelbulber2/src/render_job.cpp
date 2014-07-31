@@ -89,6 +89,8 @@ bool cRenderJob::Init(enumMode _mode)
 			paramsContainer->Get<int>("coloring_random_seed"),
 			paramsContainer->Get<double>("coloring_saturation"));
 
+	renderData->textures.backgroundTexture = new cTexture(paramsContainer->Get<QString>("file_background"));
+
 	ready = true;
 	return true;
 }
@@ -132,7 +134,7 @@ bool cRenderJob::Execute(void)
 	cFourFractals *fourFractals = new cFourFractals(fractalContainer, paramsContainer);
 
 	//recalculation of some parameters;
-	params->resolution = 1.0/max(image->GetWidth(), image->GetHeight());
+	params->resolution = 1.0/image->GetHeight();
 
 	//create and execute renderer
 	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image);

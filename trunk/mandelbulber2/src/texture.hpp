@@ -13,11 +13,13 @@
 #define TEXTURE_HPP_
 
 #include "color_structures.hpp"
+#include <QtCore>
+#include <QImage>
 
 class cTexture
 {
 public:
-	cTexture(const char *filename);
+	cTexture(QString filename);
 	cTexture();
 	~cTexture(void);
 	int Height(void) {return height;}
@@ -31,6 +33,7 @@ private:
 	int width;
 	int height;
 	bool loaded;
+	QImage qimage;
 };
 
 #endif /* TEXTURE_HPP_ */
