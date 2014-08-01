@@ -6,8 +6,6 @@
 
 QT       += core gui uitools widgets
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
 TARGET = mandelbulber2
 TEMPLATE = app
 
@@ -59,10 +57,7 @@ UI_DIR = ../qt
 
 QMAKE_CXXFLAGS += -msse2 -ffast-math
 
-greaterThan(QT_MAJOR_VERSION, 4):LIBS += -lQt5UiTools
-else:LIBS += -lQtUiTools
 LIBS += -lpng
-LIBS += -ljpeg
 win32:LIBS += -lz
 
 # rh: ugly absolute paths for libpng and libjpeg on my windows system
@@ -72,8 +67,4 @@ win32:greaterThan(QT_MAJOR_VERSION, 4): INCLUDEPATH += "C:/Qt/Tools/mingw48_32/i
 #win32:LIBS += "C:/Qt/Tools/mingw48_32/lib/libpng16"
 #win32:INCLUDEPATH += "C:/Qt/Tools/mingw48_32/include/libpng16"
 
-#ljpeg
-win32:LIBS += -L"C:/libjpeg-turbo-gcc/lib/" -ljpeg
-win32:INCLUDEPATH += "C:/libjpeg-turbo-gcc/include"
-win32:DEPENDPATH += "C:/libjpeg-turbo-gcc/include"
 
