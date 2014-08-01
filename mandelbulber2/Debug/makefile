@@ -18,7 +18,7 @@ CXXFLAGS      = -m64 -pipe -msse2 -ffast-math -g -D_REENTRANT -Wall -W -fPIE $(D
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtUiTools -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I../qt
 LINK          = g++
 LFLAGS        = -m64
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lpng -ljpeg -lQt5UiTools -lQt5Widgets -lQt5Gui -lQt5Core -lpthread -lGL 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lpng -lQt5UiTools -lQt5Widgets -lQt5Gui -lQt5Core -lpthread -lGL 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
@@ -297,10 +297,10 @@ makefile: mandelbulber.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qm
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		mandelbulber.pro \
 		../qt/icons.qrc \
-		/usr/lib/x86_64-linux-gnu/libQt5UiTools.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
-		/usr/lib/x86_64-linux-gnu/libQt5Core.prl
+		/usr/lib/x86_64-linux-gnu/libQt5Core.prl \
+		/usr/lib/x86_64-linux-gnu/libQt5UiTools.prl
 	$(QMAKE) -o makefile mandelbulber.pro
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf:
@@ -361,10 +361,10 @@ makefile: mandelbulber.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qm
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
 mandelbulber.pro:
 ../qt/icons.qrc:
-/usr/lib/x86_64-linux-gnu/libQt5UiTools.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
+/usr/lib/x86_64-linux-gnu/libQt5UiTools.prl:
 qmake: FORCE
 	@$(QMAKE) -o makefile mandelbulber.pro
 
@@ -543,7 +543,9 @@ fractparams.o: ../src/fractparams.cpp ../src/fractparams.hpp \
 
 files.o: ../src/files.cpp ../src/files.h \
 		../src/cimage.hpp \
-		../src/color_structures.hpp
+		../src/color_structures.hpp \
+		../src/system.hpp \
+		../src/error_message.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o files.o ../src/files.cpp
 
 four_fractals.o: ../src/four_fractals.cpp ../src/four_fractals.hpp \
@@ -737,6 +739,10 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/system.hpp \
 		../src/settings.hpp \
 		../src/error_message.hpp \
+		../src/files.h \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/primitives.h \
 		../src/my_ui_loader.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_window.o ../src/render_window.cpp
 
@@ -801,7 +807,9 @@ system.o: ../src/system.cpp ../src/system.hpp
 texture.o: ../src/texture.cpp ../src/texture.hpp \
 		../src/color_structures.hpp \
 		../src/files.h \
-		../src/cimage.hpp
+		../src/cimage.hpp \
+		../src/system.hpp \
+		../src/error_message.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o texture.o ../src/texture.cpp
 
 qrc_icons.o: qrc_icons.cpp 

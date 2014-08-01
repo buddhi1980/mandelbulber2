@@ -736,7 +736,7 @@ void RenderWindow::slotChangedComboImageProportion(int index)
 
 void RenderWindow::slotPressedResolutionPresset()
 {
-	int width, height;
+	int width = 0, height = 0;
 	enumImageProporton proportion;
 	QString buttonName = this->sender()->objectName();
 	if(buttonName == QString("pushButton_resolution_preset_480"))
