@@ -64,7 +64,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1089</width>
+           <width>1120</width>
            <height>1163</height>
           </rect>
          </property>
@@ -279,8 +279,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>414</width>
-          <height>353</height>
+          <width>383</width>
+          <height>474</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -435,6 +435,85 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_6">
+              <property name="title">
+               <string>Presets</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_71">
+               <item>
+                <layout class="QGridLayout" name="gridLayout_32">
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <item row="1" column="1">
+                  <widget class="QPushButton" name="pushButton_resolution_preset_2160">
+                   <property name="text">
+                    <string>4096×2160</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QPushButton" name="pushButton_resolution_preset_720">
+                   <property name="text">
+                    <string>1280x720</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="2">
+                  <widget class="QPushButton" name="pushButton_resolution_preset_1080">
+                   <property name="text">
+                    <string>1920x1080</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QPushButton" name="pushButton_resolution_preset_4320">
+                   <property name="text">
+                    <string>7680×4320</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QPushButton" name="pushButton_resolution_preset_480">
+                   <property name="text">
+                    <string>720x480</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QPushButton" name="pushButton_resolution_preset_1440">
+                   <property name="text">
+                    <string>2560x1440</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QPushButton" name="pushButton_resolution_preset_240">
+                   <property name="text">
+                    <string>320x240</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QPushButton" name="pushButton_resolution_preset_600">
+                   <property name="text">
+                    <string>800x600</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="2">
+                  <widget class="QPushButton" name="pushButton_resolution_preset_1200">
+                   <property name="text">
+                    <string>1600x1200</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -1783,8 +1862,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>428</width>
-          <height>434</height>
+          <width>397</width>
+          <height>273</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1831,8 +1910,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-66</y>
-                  <width>364</width>
+                  <y>0</y>
+                  <width>333</width>
                   <height>620</height>
                  </rect>
                 </property>
@@ -2483,8 +2562,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>378</width>
-                  <height>406</height>
+                  <width>347</width>
+                  <height>245</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2565,8 +2644,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-263</y>
-                  <width>364</width>
+                  <y>0</y>
+                  <width>333</width>
                   <height>669</height>
                  </rect>
                 </property>
@@ -3096,8 +3175,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>378</width>
-                  <height>406</height>
+                  <width>347</width>
+                  <height>245</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3257,7 +3336,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>364</width>
+                  <width>333</width>
                   <height>1525</height>
                  </rect>
                 </property>
@@ -4641,8 +4720,8 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-7</y>
-          <width>414</width>
+          <y>0</y>
+          <width>383</width>
           <height>235</height>
          </rect>
         </property>
@@ -4748,7 +4827,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
+                      <width>297</width>
                       <height>70</height>
                      </rect>
                     </property>
@@ -4841,7 +4920,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
+                      <width>297</width>
                       <height>70</height>
                      </rect>
                     </property>
@@ -4934,7 +5013,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
+                      <width>297</width>
                       <height>70</height>
                      </rect>
                     </property>
@@ -5027,7 +5106,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
+                      <width>297</width>
                       <height>70</height>
                      </rect>
                     </property>
@@ -5056,7 +5135,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>350</width>
+                  <width>319</width>
                   <height>193</height>
                  </rect>
                 </property>
@@ -5234,7 +5313,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>414</width>
+          <width>383</width>
           <height>530</height>
          </rect>
         </property>

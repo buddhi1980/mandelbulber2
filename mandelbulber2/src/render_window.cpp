@@ -688,6 +688,106 @@ void RenderWindow::slotChangedComboAmbientOcclussionMode(int index)
 	ui->spinbox_ambient_occlusion_fast_tune->setEnabled(enabled);
 }
 
+void RenderWindow::slotChangedComboImageProportion(int index)
+{
+	bool enableSlider = false;
+	double ratio = 1.0;
+	enumImageProporton proportionSelection = (enumImageProporton)index;
+
+	switch(proportionSelection)
+	{
+		case proportionFree:
+			enableSlider = true;
+			break;
+		case proportion1_1:
+			ratio = 1.0;
+			break;
+		case proportion4_3:
+			ratio = 4.0 / 3.0;
+			break;
+		case proportion3_2:
+			ratio = 3.0 / 2.0;
+			break;
+		case proportion16_9:
+			ratio = 16.0 / 9.0;
+			break;
+		case proportion16_10:
+			ratio = 16.0 / 10.0;
+			break;
+		case proportion2_1:
+			ratio = 2.0 / 1.0;
+			break;
+		default:
+			ratio = 1.0;
+			break;
+	}
+
+	ui->sliderInt_image_width->setEnabled(enableSlider);
+	ui->spinboxInt_image_width->setEnabled(enableSlider);
+
+	int height = ui->spinboxInt_image_height->value();
+	int width = height * ratio;
+
+	if(!enableSlider)
+	{
+		ui->spinboxInt_image_width->setValue(width);
+	}
+}
+
+void RenderWindow::slotPressedResolutionPresset()
+{
+	int width, height;
+	enumImageProporton proportion;
+	QString buttonName = this->sender()->objectName();
+	if(buttonName == QString("pushButton_resolution_preset_480"))
+	{
+		width = 720; 		height = 480;		proportion = proportion3_2;
+	}
+	else if(buttonName == QString("pushButton_resolution_preset_720"))
+	{
+		width = 1280;		height = 720;		proportion = proportion16_9;
+	}
+	else if(buttonName == QString("pushButton_resolution_preset_1080"))
+	{
+		width = 1920;		height = 1080;		proportion = proportion16_9;
+	}
+	else if(buttonName == QString("pushButton_resolution_preset_1440"))
+	{
+		width = 2560;		height = 1440;		proportion = proportion16_9;
+	}
+	else if(buttonName == QString("pushButton_resolution_preset_2160"))
+	{
+		width = 4096;		height = 2160;		proportion = proportionFree;
+	}
+	else if(buttonName == QString("pushButton_resolution_preset_4320"))
+	{
+		width = 7680;		height = 4320;		proportion = proportion16_9;
+	}
+	else if(buttonName == QString("pushButton_resolution_preset_240"))
+	{
+		width = 320;		height = 240;		proportion = proportion4_3;
+	}
+	else if(buttonName == QString("pushButton_resolution_preset_600"))
+	{
+		width = 800;		height = 600;		proportion = proportion4_3;
+	}
+	else if(buttonName == QString("pushButton_resolution_preset_1200"))
+	{
+		width = 1600;		height = 1200;		proportion = proportion4_3;
+	}
+
+	ui->spinboxInt_image_width->setValue(width);
+	ui->spinboxInt_image_height->setValue(height);
+	ui->comboBox_image_proportion->setCurrentIndex(proportion);
+}
+
+void RenderWindow::slotImageHeightChanged(int value)
+{
+	(void)value;
+	int index = ui->comboBox_image_proportion->currentIndex();
+	slotChangedComboImageProportion(index);
+}
+
 //=================== rendered image widget ==================/
 
 RenderedImage::RenderedImage(QWidget *parent)

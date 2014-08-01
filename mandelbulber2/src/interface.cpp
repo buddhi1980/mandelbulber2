@@ -90,6 +90,17 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->text_file_lightmap, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotLineEditLightMapTextureEdited(const QString&)));
 	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboAmbientOcclussionMode(int)));
 
+	QApplication::connect(mainWindow->ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageProportion(int)));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1080, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1200, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1440, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_2160, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_240, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_4320, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_480, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_600, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_720, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
+	QApplication::connect(mainWindow->ui->spinboxInt_image_height, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotImageHeightChanged(int)));
 
 	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveDocksPositions()));
