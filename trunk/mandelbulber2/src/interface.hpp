@@ -47,6 +47,7 @@ public:
 	void IFSDefaultsMengerSponge(cParameterContainer *parFractal);
 	void IFSDefaultsReset(cParameterContainer *parFractal);
 	void ShowImageInLabel(QLabel *label, const QString &filename);
+	void RefreshMainImage();
 
 	QApplication *application;
 	RenderWindow *mainWindow;

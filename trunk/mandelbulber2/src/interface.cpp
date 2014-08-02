@@ -89,6 +89,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->button_selectLightMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotSelectLightMapTexture()));
 	QApplication::connect(mainWindow->ui->text_file_lightmap, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotLineEditLightMapTextureEdited(const QString&)));
 	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboAmbientOcclussionMode(int)));
+	QApplication::connect(mainWindow->ui->pushButton_apply_image_changes, SIGNAL(clicked()), mainWindow, SLOT(slotPressedImageApplyButton()));
 
 	QApplication::connect(mainWindow->ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageProportion(int)));
 	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1080, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
@@ -1213,6 +1214,21 @@ void cInterface::ShowImageInLabel(QLabel *label, const QString &filename)
     pixmap = pixmap.scaledToWidth(label->width()*0.7, Qt::SmoothTransformation);
   	label->setPixmap(pixmap);
   }
+}
+
+void cInterface::RefreshMainImage()
+{
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	sImageAdjustments imageAdjustments;
+	imageAdjustments.brightness = gPar->Get<double>("brightness");
+	imageAdjustments.contrast = gPar->Get<double>("contrast");
+	imageAdjustments.imageGamma = gPar->Get<double>("gamma");
+	imageAdjustments.hdrEnabled = gPar->Get<bool>("hdr");
+	mainImage->SetImageParameters(imageAdjustments);
+	mainImage->CompileImage();
+	mainImage->ConvertTo8bit();
+	mainImage->UpdatePreview();
+	mainImage->GetImageWidget()->update();
 }
 
 //function to create icons with actual color in ColorButtons

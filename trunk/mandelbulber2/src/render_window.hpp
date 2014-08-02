@@ -49,6 +49,7 @@ private slots:
 	void slotChangedFractalCombo(int index);
 	void slotImageScrolledAreaResized(int width, int height);
 	void slotChangedImageScale(int index);
+	void slotPressedImageApplyButton();
 
 	//camera
 	void slotCameraMove();
@@ -92,6 +93,7 @@ private slots:
 	void slotChangedComboImageProportion(int index);
 	void slotPressedResolutionPresset();
 	void slotImageHeightChanged(int value);
+
 
 private:
 	Ui::RenderWindow *ui;

@@ -64,7 +64,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1120</width>
+           <width>1089</width>
            <height>1163</height>
           </rect>
          </property>
@@ -278,8 +278,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>383</width>
+          <y>-202</y>
+          <width>414</width>
           <height>474</height>
          </rect>
         </property>
@@ -653,7 +653,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="pushButton_apply_image_changes">
               <property name="text">
                <string>Apply changes</string>
               </property>
@@ -1862,7 +1862,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>397</width>
+          <width>428</width>
           <height>273</height>
          </rect>
         </property>
@@ -1911,7 +1911,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>333</width>
+                  <width>364</width>
                   <height>620</height>
                  </rect>
                 </property>
@@ -2562,8 +2562,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>347</width>
-                  <height>245</height>
+                  <width>154</width>
+                  <height>69</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2645,7 +2645,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>333</width>
+                  <width>289</width>
                   <height>669</height>
                  </rect>
                 </property>
@@ -3175,8 +3175,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>347</width>
-                  <height>245</height>
+                  <width>302</width>
+                  <height>243</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3336,7 +3336,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>333</width>
+                  <width>327</width>
                   <height>1525</height>
                  </rect>
                 </property>
@@ -4721,7 +4721,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>383</width>
+          <width>414</width>
           <height>235</height>
          </rect>
         </property>
@@ -4827,7 +4827,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>297</width>
+                      <width>328</width>
                       <height>70</height>
                      </rect>
                     </property>
@@ -4920,8 +4920,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>297</width>
-                      <height>70</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5013,8 +5013,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>297</width>
-                      <height>70</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5106,8 +5106,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>297</width>
-                      <height>70</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5135,8 +5135,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>319</width>
-                  <height>193</height>
+                  <width>143</width>
+                  <height>137</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -5313,7 +5313,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>383</width>
+          <width>414</width>
           <height>530</height>
          </rect>
         </property>
@@ -5946,7 +5946,7 @@ to target:</string>
   <tabstop>slider_gamma</tabstop>
   <tabstop>spinbox_gamma</tabstop>
   <tabstop>checkBox_hdr</tabstop>
-  <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_apply_image_changes</tabstop>
   <tabstop>slider_fov</tabstop>
   <tabstop>spinbox_fov</tabstop>
   <tabstop>slider_shading</tabstop>
