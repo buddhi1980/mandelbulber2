@@ -22,6 +22,7 @@
 #include <QColorDialog>
 #include <QMessageBox>
 #include "my_ui_loader.h"
+#include "preview_file_dialog.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -606,7 +607,7 @@ void RenderWindow::slotSaveImagePNG16Alpha()
 
 void RenderWindow::slotSelectBackgroundTexture()
 {
-	QFileDialog dialog(this);
+	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
@@ -626,7 +627,7 @@ void RenderWindow::slotSelectBackgroundTexture()
 
 void RenderWindow::slotSelectEnvMapTexture()
 {
-	QFileDialog dialog(this);
+	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
@@ -646,7 +647,7 @@ void RenderWindow::slotSelectEnvMapTexture()
 
 void RenderWindow::slotSelectLightMapTexture()
 {
-	QFileDialog dialog(this);
+	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());

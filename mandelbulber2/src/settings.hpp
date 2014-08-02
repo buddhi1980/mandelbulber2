@@ -41,7 +41,7 @@ private:
 	bool textPrepared;
 	double appVersion;
 	double fileVersion;
-
+	QByteArray hash;
 };
 
 

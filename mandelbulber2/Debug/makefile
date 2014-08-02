@@ -67,6 +67,7 @@ SOURCES       = ../src/algebra.cpp \
 		../src/parameters.cpp \
 		../src/primitives.cpp \
 		../src/progress_text.cpp \
+		../src/preview_file_dialog.cpp \
 		../src/render_image.cpp \
 		../src/render_job.cpp \
 		../src/render_window.cpp \
@@ -80,7 +81,8 @@ SOURCES       = ../src/algebra.cpp \
 		moc_render_worker.cpp \
 		moc_myscrolledarea.cpp \
 		moc_mylineedit.cpp \
-		moc_my_ui_loader.cpp
+		moc_my_ui_loader.cpp \
+		moc_preview_file_dialog.cpp
 OBJECTS       = algebra.o \
 		calculate_distance.o \
 		camera_target.o \
@@ -103,6 +105,7 @@ OBJECTS       = algebra.o \
 		parameters.o \
 		primitives.o \
 		progress_text.o \
+		preview_file_dialog.o \
 		render_image.o \
 		render_job.o \
 		render_window.o \
@@ -117,7 +120,8 @@ OBJECTS       = algebra.o \
 		moc_render_worker.o \
 		moc_myscrolledarea.o \
 		moc_mylineedit.o \
-		moc_my_ui_loader.o
+		moc_my_ui_loader.o \
+		moc_preview_file_dialog.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -197,6 +201,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../src/parameters.cpp \
 		../src/primitives.cpp \
 		../src/progress_text.cpp \
+		../src/preview_file_dialog.cpp \
 		../src/render_image.cpp \
 		../src/render_job.cpp \
 		../src/render_window.cpp \
@@ -372,7 +377,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/mandelbulber21.0.0 || mkdir -p .tmp/mandelbulber21.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../src/my_ui_loader.h .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/render_image.cpp ../src/render_job.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/texture.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../src/my_ui_loader.h ../src/preview_file_dialog.h .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/render_image.cpp ../src/render_job.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/texture.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
 
 
 clean:compiler_clean 
@@ -410,9 +415,9 @@ qrc_icons.cpp: ../qt/icons.qrc \
 		../qt/icons/object-rotate-right.png
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name icons ../qt/icons.qrc -o qrc_icons.cpp
 
-compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp
+compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp
+	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp
 moc_render_window.cpp: ../qt/ui_render_window.h \
 		../qt/myscrolledarea.h \
 		../src/cimage.hpp \
@@ -447,6 +452,9 @@ moc_mylineedit.cpp: ../qt/mylineedit.h
 
 moc_my_ui_loader.cpp: ../src/my_ui_loader.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/my_ui_loader.h -o moc_my_ui_loader.cpp
+
+moc_preview_file_dialog.cpp: ../src/preview_file_dialog.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/preview_file_dialog.h -o moc_preview_file_dialog.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -678,6 +686,9 @@ primitives.o: ../src/primitives.cpp ../src/primitives.h \
 progress_text.o: ../src/progress_text.cpp ../src/progress_text.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o progress_text.o ../src/progress_text.cpp
 
+preview_file_dialog.o: ../src/preview_file_dialog.cpp ../src/preview_file_dialog.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o preview_file_dialog.o ../src/preview_file_dialog.cpp
+
 render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../src/cimage.hpp \
 		../src/color_structures.hpp \
@@ -829,6 +840,9 @@ moc_mylineedit.o: moc_mylineedit.cpp
 
 moc_my_ui_loader.o: moc_my_ui_loader.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_my_ui_loader.o moc_my_ui_loader.cpp
+
+moc_preview_file_dialog.o: moc_preview_file_dialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_preview_file_dialog.o moc_preview_file_dialog.cpp
 
 ####### Install
 

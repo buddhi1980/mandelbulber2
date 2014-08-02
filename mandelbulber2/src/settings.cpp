@@ -8,6 +8,7 @@
 #include "settings.hpp"
 #include "system.hpp"
 #include "error_message.hpp"
+#include <QCryptographicHash>
 
 cSettings::cSettings(enumFormat _format)
 {
@@ -42,6 +43,12 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cParameterCon
 	}
 
 	textPrepared = true;
+
+	//hash code will be needed for generating thumbnails
+	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
+	hashCrypt.addData(settingsText.toUtf8());
+	hash = hashCrypt.result();
+	qDebug() << "hash" << hash.toHex();
 	return settingsText.size();
 }
 
