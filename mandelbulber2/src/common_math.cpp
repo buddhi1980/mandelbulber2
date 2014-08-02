@@ -95,7 +95,7 @@ CVector3 Projection3D(CVector3 point, CVector3 vp, CRotationMatrix mRot, params:
 	double perspFactor = 1.0 + point.y * fov;
 	CVector3 vector1, vector2;
 
-	if (perspectiveType == params::fishEye)
+	if (perspectiveType == params::perspFishEye)
 	{
 		double r = sqrt(point.x * point.x + point.z * point.z);
 
@@ -117,7 +117,7 @@ CVector3 Projection3D(CVector3 point, CVector3 vp, CRotationMatrix mRot, params:
 		//vector1.y = cos(fov * point.x) * cos(fov * point.z) * point.y;
 
 	}
-	else if(perspectiveType == params::equirectangular)
+	else if(perspectiveType == params::perspEquirectangular)
 	{
 		vector1.x = sin(fov * point.x) * cos(fov * point.z) * point.y;
 		vector1.z = sin(fov * point.z) * point.y;
@@ -144,7 +144,7 @@ CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, p
 	double aspectRatio = (double) imgWidth / imgHeight;
 
 	CVector3 start;
-	if (perspectiveType == params::fishEye || perspectiveType == params::equirectangular)
+	if (perspectiveType == params::perspFishEye || perspectiveType == params::perspEquirectangular)
 	{
 		start = vp;
 	}
@@ -156,7 +156,7 @@ CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, p
 	viewVector = mRotInv.RotateVector(viewVector);
 
 	double x, y, z;
-	if (perspectiveType == params::fishEye)
+	if (perspectiveType == params::perspFishEye)
 	{
 		z = viewVector.Length();
 		if(viewVector.y < 0) z = -z;

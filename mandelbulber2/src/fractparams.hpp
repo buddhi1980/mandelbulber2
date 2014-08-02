@@ -22,7 +22,7 @@ namespace params
 {
 enum enumPerspectiveType
 {
-	threePoint = 0, fishEye = 1, equirectangular = 2, fishEyeCut = 3
+	perspThreePoint = 0, perspFishEye = 1, perspEquirectangular = 2, perspFishEyeCut = 3
 };
 
 enum enumAOMode

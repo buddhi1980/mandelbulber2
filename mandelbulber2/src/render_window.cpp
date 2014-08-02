@@ -794,6 +794,21 @@ void RenderWindow::slotPressedImageApplyButton()
 	mainInterface->RefreshMainImage();
 }
 
+void RenderWindow::slotChangedPerspectiveTypeCombo(int index)
+{
+	params::enumPerspectiveType perspType = (params::enumPerspectiveType)index;
+	if(perspType == params::perspFishEyeCut)
+	{
+		ui->comboBox_image_proportion->setCurrentIndex(proportion1_1);
+		ui->spinbox_fov->setValue(1.0);
+	}
+	else if(perspType == params::perspEquirectangular)
+	{
+		ui->comboBox_image_proportion->setCurrentIndex(proportion2_1);
+		ui->spinbox_fov->setValue(1.0);
+	}
+}
+
 //=================== rendered image widget ==================/
 
 RenderedImage::RenderedImage(QWidget *parent)

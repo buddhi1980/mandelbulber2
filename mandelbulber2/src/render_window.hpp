@@ -50,6 +50,7 @@ private slots:
 	void slotImageScrolledAreaResized(int width, int height);
 	void slotChangedImageScale(int index);
 	void slotPressedImageApplyButton();
+	void slotChangedPerspectiveTypeCombo(int index);
 
 	//camera
 	void slotCameraMove();
