@@ -789,6 +789,11 @@ void RenderWindow::slotImageHeightChanged(int value)
 	slotChangedComboImageProportion(index);
 }
 
+void RenderWindow::slotPressedImageApplyButton()
+{
+	mainInterface->RefreshMainImage();
+}
+
 //=================== rendered image widget ==================/
 
 RenderedImage::RenderedImage(QWidget *parent)
