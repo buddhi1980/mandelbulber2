@@ -89,8 +89,6 @@ void cRenderWorker::doWork(void)
 	//main loop for y
 	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id); ys = scheduler->NextLine(threadData->id, ys))
 	{
-		//out << "Thread id: " << threadData->id << ", line number: " << ys << endl;
-
 		//skip if line is out of region
 		if (ys < data->screenRegion.y1 || ys > data->screenRegion.y2) continue;
 
@@ -103,7 +101,6 @@ void cRenderWorker::doWork(void)
 			{
 				//break; //******************* problem need to be fixed !!!!!! (generates black dots) ************
 			}
-			//---------- 1us ------------
 
 			if (scheduler->GetProgresivePass() > 1 && xs % (scheduler->GetProgresiveStep() * 2) == 0 && ys % (scheduler->GetProgresiveStep() * 2) == 0) continue;
 
@@ -117,7 +114,7 @@ void cRenderWorker::doWork(void)
 
 			//full dome shemisphere cut
 			bool hemisphereCut = false;
-			if (params->perspectiveType == params::fishEyeCut && imagePoint.Length() > 0.5 / params->fov) hemisphereCut = true;
+			if (params->perspectiveType == params::perspFishEyeCut && imagePoint.Length() > 0.5 / params->fov) hemisphereCut = true;
 
 			//calculate direction of ray-marching
 			CVector3 viewVector = calculateViewVector(imagePoint);
@@ -133,18 +130,17 @@ void cRenderWorker::doWork(void)
 
 			//raymarching loop (reflections)
 
-			sRayMarchingOut rayMarchingOut;
-			for (int ray = 0; ray <= reflectionsMax; ray++)
+			if (!hemisphereCut) //in fulldome mode, will not render pixels out of the fuldome
 			{
-				reflectBuff[ray].start = startRay;
-				reflectBuff[ray].viewVector = viewVector;
-				reflectBuff[ray].found = false;
-				reflectBuff[ray].buffCount = 0;
-
-				double minScan = ray == 0 ? params->viewDistanceMin : 0.0;
-
-				if (!hemisphereCut) //if pixel is inside the circle of hemisphere
+				sRayMarchingOut rayMarchingOut;
+				for (int ray = 0; ray <= reflectionsMax; ray++)
 				{
+					reflectBuff[ray].start = startRay;
+					reflectBuff[ray].viewVector = viewVector;
+					reflectBuff[ray].found = false;
+					reflectBuff[ray].buffCount = 0;
+
+					double minScan = ray == 0 ? params->viewDistanceMin : 0.0;
 
 					sRayMarchingIn rayMarchingIn;
 					rayMarchingIn.binaryEnable = true;
@@ -159,117 +155,109 @@ void cRenderWorker::doWork(void)
 
 					point = RayMarching(rayMarchingIn, &rayMarchingInOut, &rayMarchingOut);
 
-				}
-				else
-				{
-					reflectBuff[ray].found = false;
-					rayMarchingOut.distThresh = 1.0;
-					rayMarchingOut.object = fractal::objNone;
-				}
-				reflectBuff[ray].point = point;
-				reflectBuff[ray].distThresh = rayMarchingOut.distThresh;
-				reflectBuff[ray].objectType = rayMarchingOut.object;
-				reflectBuff[ray].reflect = ReflectValueForObject(rayMarchingOut.object);
-				reflectBuff[ray].lastDist = rayMarchingOut.lastDist;
-				reflectBuff[ray].found = rayMarchingOut.found;
-				reflectBuff[ray].depth = rayMarchingOut.depth;
+					reflectBuff[ray].point = point;
+					reflectBuff[ray].distThresh = rayMarchingOut.distThresh;
+					reflectBuff[ray].objectType = rayMarchingOut.object;
+					reflectBuff[ray].reflect = ReflectValueForObject(rayMarchingOut.object);
+					reflectBuff[ray].lastDist = rayMarchingOut.lastDist;
+					reflectBuff[ray].found = rayMarchingOut.found;
+					reflectBuff[ray].depth = rayMarchingOut.depth;
 
-				rayEnd = ray;
-				if (!reflectBuff[ray].found) break;
-				if (reflectBuff[ray].reflect == 0) break;
+					rayEnd = ray;
+					if (!reflectBuff[ray].found) break;
+					if (reflectBuff[ray].reflect == 0) break;
 
-				//calculate new ray direction and start point
-				startRay = point;
-				sShaderInputData shaderInputData;
-				shaderInputData.distThresh = reflectBuff[ray].distThresh;
-				shaderInputData.lightVect = shadowVector;
-				shaderInputData.point = point;
-				shaderInputData.viewVector = viewVector;
-				shaderInputData.delta = CalcDelta(point);
-				CVector3 vn = CalculateNormals(shaderInputData);
-				viewVector = viewVector - vn * viewVector.Dot(vn) * 2.0;
-				startRay = startRay + viewVector * reflectBuff[ray].distThresh;
-			}
-
-			//----------- 85us for rayMarching loop -------------
-
-			for (int ray = rayEnd; ray >= 0; ray--)
-			{
-
-				sRGBAfloat objectShader;
-				objectShader.A = 0.0;
-				sRGBAfloat backgroudShader;
-				sRGBAfloat volumetricShader;
-				sRGBAfloat specular;
-
-				CVector3 lightVector = shadowVector;
-
-				sShaderInputData shaderInputData;
-				shaderInputData.distThresh = reflectBuff[ray].distThresh;
-				shaderInputData.delta = CalcDelta(reflectBuff[ray].point);
-				shaderInputData.lightVect = lightVector;
-				shaderInputData.point = reflectBuff[ray].point;
-				shaderInputData.viewVector = reflectBuff[ray].viewVector;
-				shaderInputData.lastDist = reflectBuff[ray].lastDist;
-				shaderInputData.depth = reflectBuff[ray].depth;
-				shaderInputData.stepCount = reflectBuff[ray].buffCount;
-				shaderInputData.stepBuff = reflectBuff[ray].stepBuff;
-				shaderInputData.objectType = reflectBuff[ray].objectType;
-
-				//if fractal surface was found
-				if (reflectBuff[ray].found)
-				{
-					objectShader = ObjectShader(shaderInputData, &objectColour, &specular);
-
-				} //end if found
-				else
-				{
-					backgroudShader = BackgroundShader(shaderInputData);
-					reflectBuff[ray].depth = 1e20;
+					//calculate new ray direction and start point
+					startRay = point;
+					sShaderInputData shaderInputData;
+					shaderInputData.distThresh = reflectBuff[ray].distThresh;
+					shaderInputData.lightVect = shadowVector;
+					shaderInputData.point = point;
+					shaderInputData.viewVector = viewVector;
+					shaderInputData.delta = CalcDelta(point);
+					CVector3 vn = CalculateNormals(shaderInputData);
+					viewVector = viewVector - vn * viewVector.Dot(vn) * 2.0;
+					startRay = startRay + viewVector * reflectBuff[ray].distThresh;
 				}
 
-				double reflect = reflectBuff[ray].reflect;
-
-				sRGBAfloat pixel;
-
-				if (reflectionsMax > 0 && rayEnd > 0 && ray != rayEnd)
+				for (int ray = rayEnd; ray >= 0; ray--)
 				{
 
-					pixel.R = resultShader.R * reflect + (1.0 - reflect) * (objectShader.R + backgroudShader.R) + specular.R;
-					pixel.G = resultShader.G * reflect + (1.0 - reflect) * (objectShader.G + backgroudShader.G) + specular.G;
-					pixel.B = resultShader.B * reflect + (1.0 - reflect) * (objectShader.B + backgroudShader.B) + specular.B;
+					sRGBAfloat objectShader;
+					objectShader.A = 0.0;
+					sRGBAfloat backgroudShader;
+					sRGBAfloat volumetricShader;
+					sRGBAfloat specular;
 
-				}
-				else
-				{
-					pixel.R = objectShader.R + backgroudShader.R + specular.R;
-					pixel.G = objectShader.G + backgroudShader.G + specular.G;
-					pixel.B = objectShader.B + backgroudShader.B + specular.B;
-				}
+					CVector3 lightVector = shadowVector;
 
-				pixel.A = objectShader.A + backgroudShader.A;
+					sShaderInputData shaderInputData;
+					shaderInputData.distThresh = reflectBuff[ray].distThresh;
+					shaderInputData.delta = CalcDelta(reflectBuff[ray].point);
+					shaderInputData.lightVect = lightVector;
+					shaderInputData.point = reflectBuff[ray].point;
+					shaderInputData.viewVector = reflectBuff[ray].viewVector;
+					shaderInputData.lastDist = reflectBuff[ray].lastDist;
+					shaderInputData.depth = reflectBuff[ray].depth;
+					shaderInputData.stepCount = reflectBuff[ray].buffCount;
+					shaderInputData.stepBuff = reflectBuff[ray].stepBuff;
+					shaderInputData.objectType = reflectBuff[ray].objectType;
 
-				sRGBAfloat opacityOut;
-				volumetricShader = VolumetricShader(shaderInputData, pixel, &opacityOut);
-				resultShader.R = volumetricShader.R;
-				resultShader.G = volumetricShader.G;
-				resultShader.B = volumetricShader.B;
-
-				if (ray == 0)
-				{
-					for (int xx = 0; xx < scheduler->GetProgresiveStep(); ++xx)
+					//if fractal surface was found
+					if (reflectBuff[ray].found)
 					{
-						for (int yy = 0; yy < scheduler->GetProgresiveStep(); ++yy)
-						{
-							image->PutPixelOpacity(screenPoint.x + xx, screenPoint.y + yy, (unsigned short) (opacityOut.R * 65535.0));
-							image->PutPixelAlpha(screenPoint.x + xx, screenPoint.y + yy, (unsigned short) (volumetricShader.A * 65535.0));
-						}
+						objectShader = ObjectShader(shaderInputData, &objectColour, &specular);
+
+					} //end if found
+					else
+					{
+						backgroudShader = BackgroundShader(shaderInputData);
+						reflectBuff[ray].depth = 1e20;
 					}
 
+					double reflect = reflectBuff[ray].reflect;
+
+					sRGBAfloat pixel;
+
+					if (reflectionsMax > 0 && rayEnd > 0 && ray != rayEnd)
+					{
+
+						pixel.R = resultShader.R * reflect + (1.0 - reflect) * (objectShader.R + backgroudShader.R) + specular.R;
+						pixel.G = resultShader.G * reflect + (1.0 - reflect) * (objectShader.G + backgroudShader.G) + specular.G;
+						pixel.B = resultShader.B * reflect + (1.0 - reflect) * (objectShader.B + backgroudShader.B) + specular.B;
+
+					}
+					else
+					{
+						pixel.R = objectShader.R + backgroudShader.R + specular.R;
+						pixel.G = objectShader.G + backgroudShader.G + specular.G;
+						pixel.B = objectShader.B + backgroudShader.B + specular.B;
+					}
+
+					pixel.A = objectShader.A + backgroudShader.A;
+
+					sRGBAfloat opacityOut;
+
+					volumetricShader = VolumetricShader(shaderInputData, pixel, &opacityOut);
+
+					resultShader.R = volumetricShader.R;
+					resultShader.G = volumetricShader.G;
+					resultShader.B = volumetricShader.B;
+
+					if (ray == 0)
+					{
+						for (int xx = 0; xx < scheduler->GetProgresiveStep(); ++xx)
+						{
+							for (int yy = 0; yy < scheduler->GetProgresiveStep(); ++yy)
+							{
+								image->PutPixelOpacity(screenPoint.x + xx, screenPoint.y + yy, (unsigned short) (opacityOut.R * 65535.0));
+								image->PutPixelAlpha(screenPoint.x + xx, screenPoint.y + yy, (unsigned short) (volumetricShader.A * 65535.0));
+							}
+						}
+
+					}
 				}
 			}
-
-			//------------------ 61us for shaders --------------------
 
 			sRGBfloat pixel2;
 			pixel2.R = resultShader.R;
@@ -290,8 +278,6 @@ void cRenderWorker::doWork(void)
 					image->PutPixelZBuffer(screenPoint.x + xx, screenPoint.y + yy, (float) reflectBuff[0].depth);
 				}
 			}
-
-			//------------ 0.65us for pixels -------------
 
 			pixelCounter++;
 		}
@@ -406,7 +392,7 @@ CVector3 cRenderWorker::calculateViewVector(CVector2<double> imagePoint)
 
 	switch(params->perspectiveType)
 	{
-		case  params::fishEye: case params::fishEyeCut:
+		case  params::perspFishEye: case params::perspFishEyeCut:
 		{
 			CVector2<double> v = imagePoint * M_PI;
 			double r = v.Length();
@@ -425,7 +411,7 @@ CVector3 cRenderWorker::calculateViewVector(CVector2<double> imagePoint)
 			viewVector.Normalize();
 			break;
 		}
-		case params::equirectangular:
+		case params::perspEquirectangular:
 		{
 			CVector2<double> v = imagePoint * M_PI;
 			viewVector.x = sin(fov * v.x) * cos(fov * v.y);
@@ -434,7 +420,7 @@ CVector3 cRenderWorker::calculateViewVector(CVector2<double> imagePoint)
 			viewVector.Normalize();
 			break;
 		}
-		case params::threePoint:
+		case params::perspThreePoint:
 		{
 			viewVector.x = imagePoint.x * fov;
 			viewVector.y = 1.0;
@@ -455,7 +441,7 @@ double cRenderWorker::CalcDistThresh(CVector3 point)
 		distThresh = params->DEThresh;
 	else
 		distThresh = (params->camera - point).Length() * params->resolution * params->fov / params->detailLevel;
-	if(params->perspectiveType == params::equirectangular || params->perspectiveType == params::fishEye || params->perspectiveType == params::fishEyeCut) distThresh *= M_PI;
+	if(params->perspectiveType == params::perspEquirectangular || params->perspectiveType == params::perspFishEye || params->perspectiveType == params::perspFishEyeCut) distThresh *= M_PI;
 	return distThresh;
 }
 
@@ -464,7 +450,7 @@ double cRenderWorker::CalcDelta(CVector3 point)
 {
 	double delta;
 	delta = (params->camera - point).Length() * params->resolution * params->fov;
-	if(params->perspectiveType == params::equirectangular || params->perspectiveType == params::fishEye || params->perspectiveType == params::fishEyeCut) delta *= M_PI;
+	if(params->perspectiveType == params::perspEquirectangular || params->perspectiveType == params::perspFishEye || params->perspectiveType == params::perspFishEyeCut) delta *= M_PI;
 	return delta;
 }
 
