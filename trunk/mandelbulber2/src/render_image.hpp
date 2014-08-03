@@ -11,20 +11,7 @@
 #include "cimage.hpp"
 #include "fractparams.hpp"
 #include "four_fractals.hpp"
-#include "region.hpp"
-#include "color_palette.hpp"
-#include "lights.hpp"
-
-struct sRenderData
-{
-	int rendererID;
-	int numberOfThreads;
-	cRegion<int> screenRegion;
-	cRegion<double> imageRegion;
-	sTextures textures;
-	cColorPalette palette;
-	cLights lights;
-};
+#include "render_data.hpp"
 
 class cRenderer
 {

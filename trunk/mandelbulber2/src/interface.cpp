@@ -18,6 +18,7 @@
 #include "error_message.hpp"
 #include "my_ui_loader.h"
 #include <QDial>
+#include "render_ssao.h"
 
 cInterface *mainInterface;
 
@@ -1228,6 +1229,16 @@ void cInterface::RefreshMainImage()
 	imageAdjustments.hdrEnabled = gPar->Get<bool>("hdr");
 	mainImage->SetImageParameters(imageAdjustments);
 	mainImage->CompileImage();
+
+	if(gPar->Get<bool>("ambient_occlusion_enabled") && gPar->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace)
+	{
+		cParamRender params(gPar);
+		sRenderData data;
+		data.numberOfThreads = systemData.numberOfThreads;
+		cRenderSSAO rendererSSAO(&params, &data, mainImage);
+		rendererSSAO.RenderSSAO();
+	}
+
 	mainImage->ConvertTo8bit();
 	mainImage->UpdatePreview();
 	mainImage->GetImageWidget()->update();

@@ -27,7 +27,7 @@ public:
 
 private:
 	QVector<int> hybridSequence;
-	void CreateSequence(const cParameterContainer *par, const cParameterContainer *generalPar);
+	void CreateSequence(const cParameterContainer *generalPar);
 	int maxN;
 	bool isHybrid;
 };

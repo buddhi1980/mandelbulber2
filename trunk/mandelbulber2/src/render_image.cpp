@@ -13,6 +13,7 @@
 #include "interface.hpp"
 #include "progress_text.hpp"
 #include "error_message.hpp"
+#include "render_ssao.h"
 
 cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, const sRenderData *_renderData, cImage *_image)
 {
@@ -38,7 +39,7 @@ bool cRenderer::RenderImage()
 
 	//prepare multiple threads
 	QThread **thread = new QThread*[data->numberOfThreads];
-	sThreadData *threadData = new sThreadData[data->numberOfThreads];
+	cRenderWorker::sThreadData *threadData = new cRenderWorker::sThreadData[data->numberOfThreads];
 	cRenderWorker **worker= new cRenderWorker*[data->numberOfThreads];
 
 	cScheduler *scheduler = new cScheduler(image->GetHeight(), progressive);
@@ -85,7 +86,7 @@ bool cRenderer::RenderImage()
 			if (mainInterface->stopRequest)
 			{
 				scheduler->Stop();
-				mainInterface->stopRequest = false;
+
 			}
 
 			Wait(100); //wait 100ms
@@ -105,7 +106,7 @@ bool cRenderer::RenderImage()
 			//refresh image
 			if (listToRefresh.size() > 0)
 			{
-				if (timerRefresh.elapsed() > lastRefreshTime)
+				if (timerRefresh.elapsed() > lastRefreshTime && scheduler->GetProgresivePass() > 1)
 				{
 					timerRefresh.restart();
 					QSet<int> set_listTorefresh = listToRefresh.toSet(); //removing duplicates
@@ -113,6 +114,14 @@ bool cRenderer::RenderImage()
 					qSort(listToRefresh);
 
 					image->CompileImage(&listToRefresh);
+
+					if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+					{
+						cRenderSSAO rendererSSAO(params, data, image);
+						rendererSSAO.setProgressive(scheduler->GetProgresiveStep());
+						rendererSSAO.RenderSSAO(&listToRefresh);
+					}
+
 					if (image->IsPreview())
 					{
 						image->ConvertTo8bit();
@@ -141,6 +150,13 @@ bool cRenderer::RenderImage()
 	//refresh image at end
 	WriteLog("image->CompileImage()");
 	image->CompileImage();
+
+	if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+	{
+		cRenderSSAO rendererSSAO(params, data, image);
+		rendererSSAO.RenderSSAO();
+	}
+
 	if(image->IsPreview())
 	{
 		WriteLog("image->ConvertTo8bit()");
@@ -154,7 +170,7 @@ bool cRenderer::RenderImage()
 	WriteLog("Rendering finished");
 
 	//status bar and progress bar
-	double percentDone = scheduler->PercentDone();
+	double percentDone = 1.0;
 	statusText = "Idle";
 	progressTxt = progressText.getText(percentDone);
 	mainInterface->StatusText(statusText, progressTxt, percentDone);
@@ -163,6 +179,8 @@ bool cRenderer::RenderImage()
 	delete[] threadData;
 	delete[] worker;
 	delete scheduler;
+
+	mainInterface->stopRequest = false;
 
 	WriteLog("cRenderer::RenderImage(): memory released");
 

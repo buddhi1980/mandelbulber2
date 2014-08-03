@@ -42,7 +42,7 @@ cFourFractals::cFourFractals(const cParameterContainer *par, const cParameterCon
 	}
 
 	maxN = generalPar->Get<int>("N");
-	CreateSequence(par, generalPar);
+	CreateSequence(generalPar);
 
 	if (generalPar->Get<bool>("hybrid_fractal_enable"))
 	{
@@ -61,7 +61,7 @@ cFourFractals::cFourFractals(const cParameterContainer *par, const cParameterCon
 	}
 }
 
-void cFourFractals::CreateSequence(const cParameterContainer *par, const cParameterContainer *generalPar)
+void cFourFractals::CreateSequence(const cParameterContainer *generalPar)
 {
 	hybridSequence.clear();
 
