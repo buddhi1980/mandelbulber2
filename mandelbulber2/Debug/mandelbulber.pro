@@ -36,12 +36,14 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/preview_file_dialog.cpp\
 	    	../src/render_image.cpp\
 	    	../src/render_job.cpp\
+	    	../src/render_ssao.cpp\
 	    	../src/render_window.cpp\
 	    	../src/render_worker.cpp\
 	    	../src/scheduler.cpp\
 	    	../src/settings.cpp\
 	    	../src/shaders.cpp\
 	    	../src/system.cpp\
+	    	../src/ssao_worker.cpp\
             ../src/texture.cpp
 
 HEADERS  += ../src/render_window.hpp\
@@ -49,7 +51,8 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/myscrolledarea.h\
 			../qt/mylineedit.h\
 			../src/my_ui_loader.h\
-			../src/preview_file_dialog.h
+			../src/preview_file_dialog.h\
+			../src/ssao_worker.h
 
 FORMS    += ../qt/render_window.ui
 

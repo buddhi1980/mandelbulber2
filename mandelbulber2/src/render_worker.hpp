@@ -17,18 +17,19 @@
 #include "scheduler.hpp"
 #include "camera_target.hpp"
 
-struct sThreadData
-{
-	int id;
-	int startLine;
-	cScheduler *scheduler;
-};
-
 class cRenderWorker: public QObject
 {
 Q_OBJECT
 
 public:
+
+	struct sThreadData
+	{
+		int id;
+		int startLine;
+		cScheduler *scheduler;
+	};
+
 	cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal, sThreadData *_threadData, const sRenderData *_data, cImage *_image);
 	~cRenderWorker();
 

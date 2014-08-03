@@ -108,7 +108,7 @@ using namespace parameterContainer;
 	par->addParam("ambient_occlusion_quality", 4, 1, 10, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_fast_tune", 1.0, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_enabled", false, morphLinear, paramStandard);
-	par->addParam("ambient_occlusion_mode", (int)params::AOmodeFast, morphLinear, paramStandard);
+	par->addParam("ambient_occlusion_mode", (int)params::AOmodeScreenSpace, morphLinear, paramStandard);
 	par->addParam("shading", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("specular", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("glow_enabled", true, morphLinear, paramStandard);

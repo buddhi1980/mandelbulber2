@@ -242,7 +242,16 @@
    <addaction name="menuView"/>
    <addaction name="menuAbout"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+  </widget>
   <widget class="QDockWidget" name="dockWidget_image_adjustments">
    <property name="font">
     <font>
@@ -278,7 +287,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-230</y>
+          <y>0</y>
           <width>414</width>
           <height>502</height>
          </rect>
