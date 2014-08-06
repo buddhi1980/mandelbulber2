@@ -51,6 +51,11 @@ private slots:
 	void slotChangedImageScale(int index);
 	void slotPressedImageApplyButton();
 	void slotChangedPerspectiveTypeCombo(int index);
+	void slotSpinBoxPaletteOffsetChanged(double value);
+	void slotRandomizeButtonPressed();
+	void slotSpinBoxPaletteSizeChanged(int value);
+	void slotNewRandomPalettePressed();
+	void slotGetPaletteFromImagePressed();
 
 	//camera
 	void slotCameraMove();

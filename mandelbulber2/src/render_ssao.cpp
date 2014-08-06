@@ -37,9 +37,6 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	cProgressText progressText;
 	progressText.ResetTimer();
 
-	int quality = params->ambientOcclusion * params->ambientOcclusion / qualityFactor;
-	if (quality < 1) quality = 1;
-
 	QList<int> *lists = NULL;
 	if(list)
 	{
@@ -52,7 +49,6 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		}
 	}
 
-
 	double qualityFactor;
 	if(progressive > 0)
 	{
@@ -62,12 +58,14 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	{
 		qualityFactor = 1.0;
 	}
+	int quality = params->ambientOcclusionQuality * params->ambientOcclusionQuality * qualityFactor;
+	if (quality < 3) quality = 3;
 
 	for(int i=0; i < data->numberOfThreads; i++)
 	{
 		threadData[i].startLine = i;
 		threadData[i].noOfThreads = data->numberOfThreads;
-		threadData[i].quality = params->ambientOcclusionQuality * params->ambientOcclusionQuality * qualityFactor;
+		threadData[i].quality = quality;
 		threadData[i].done = 0;
 		threadData[i].progressive = progressive;
 		threadData[i].stopRequest = false;

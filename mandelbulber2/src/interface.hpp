@@ -48,6 +48,7 @@ public:
 	void IFSDefaultsReset(cParameterContainer *parFractal);
 	void ShowImageInLabel(QLabel *label, const QString &filename);
 	void RefreshMainImage();
+	cColorPalette GetPaletteFromImage(const QString &filename);
 
 	QApplication *application;
 	RenderWindow *mainWindow;

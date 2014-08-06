@@ -56,7 +56,7 @@ template void cParameterContainer::addParam<QString>(QString name, QString defau
 template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<bool>(QString name, bool defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<cColorPalette*>(QString name, cColorPalette *defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<cColorPalette>(QString name, cColorPalette defaultVal, enumMorphType morphType, enumParameterType parType);
 
 //defining of params with limits
 template<class T>
@@ -267,7 +267,7 @@ cParameterContainer::enumVarType cParameterContainer::Assigner(sMultiVal &multi,
 	return typeBool;
 }
 
-cParameterContainer::enumVarType cParameterContainer::Assigner(sMultiVal &multi, enumVarType defaultType, cColorPalette *val)
+cParameterContainer::enumVarType cParameterContainer::Assigner(sMultiVal &multi, enumVarType defaultType, cColorPalette val)
 {
 	(void)defaultType;
 	clearMultiVal(multi);
@@ -311,6 +311,12 @@ cParameterContainer::enumVarType cParameterContainer::Getter(sMultiVal multi, bo
 	return typeBool;
 }
 
+cParameterContainer::enumVarType cParameterContainer::Getter(sMultiVal multi, cColorPalette &val) const
+{
+	val = GetPaletteFromString(multi.sVal);
+	return typeColorPalette;
+}
+
 //set parameter value by name
 template<class T>
 void cParameterContainer::Set(QString name, T val)
@@ -344,6 +350,7 @@ template void cParameterContainer::Set<QString>(QString name, QString val);
 template void cParameterContainer::Set<CVector3>(QString name, CVector3 val);
 template void cParameterContainer::Set<sRGB>(QString name, sRGB val);
 template void cParameterContainer::Set<bool>(QString name, bool val);
+template void cParameterContainer::Set<cColorPalette>(QString name, cColorPalette val);
 
 //set parameter value by name and index
 template<class T>
@@ -380,12 +387,12 @@ void cParameterContainer::Set(QString name, int index, T val)
 		qWarning() << "Set(): element '" << name << "' has negative index (" << index << ")" << endl;
 	}
 }
-template void cParameterContainer::Set<double>(QString name, int index,double val);
-template void cParameterContainer::Set<int>(QString name, int index,int val);
-template void cParameterContainer::Set<QString>(QString name, int index,QString val);
-template void cParameterContainer::Set<CVector3>(QString name, int index,CVector3 val);
-template void cParameterContainer::Set<sRGB>(QString name, int index,sRGB val);
-template void cParameterContainer::Set<bool>(QString name, int index,bool val);
+template void cParameterContainer::Set<double>(QString name, int index, double val);
+template void cParameterContainer::Set<int>(QString name, int index, int val);
+template void cParameterContainer::Set<QString>(QString name, int index, QString val);
+template void cParameterContainer::Set<CVector3>(QString name, int index, CVector3 val);
+template void cParameterContainer::Set<sRGB>(QString name, int index, sRGB val);
+template void cParameterContainer::Set<bool>(QString name, int index, bool val);
 
 //get parameter value by name
 template<class T>
@@ -421,6 +428,7 @@ template QString cParameterContainer::Get<QString>(QString name) const;
 template CVector3 cParameterContainer::Get<CVector3>(QString name) const;
 template sRGB cParameterContainer::Get<sRGB>(QString name) const;
 template bool cParameterContainer::Get<bool>(QString name) const;
+template cColorPalette cParameterContainer::Get<cColorPalette>(QString name) const;
 
 //get parameter value by name and index
 template<class T>
@@ -528,14 +536,14 @@ void cParameterContainer::clearMultiVal(sMultiVal &multiVal)
 	multiVal.sVal.clear();
 }
 
-QString cParameterContainer::MakePaletteString(cColorPalette *palette)
+QString cParameterContainer::MakePaletteString(cColorPalette &palette)
 {
 	int length;
 	int pointer = 0;
-	char *paletteString = new char[(palette->GetSize()+2) * 7];
-	for (int i = 0; i < palette->GetSize(); i++)
+	char *paletteString = new char[(palette.GetSize()+2) * 7];
+	for (int i = 0; i < palette.GetSize(); i++)
 	{
-		sRGB colorRGB = palette->GetColor(i);
+		sRGB colorRGB = palette.GetColor(i);
 		int colour = colorRGB.R * 65536 + colorRGB.G * 256 + colorRGB.B;
 		colour = colour & 0x00FFFFFF;
 		length = sprintf(&paletteString[pointer], "%x ", colour);
@@ -544,6 +552,27 @@ QString cParameterContainer::MakePaletteString(cColorPalette *palette)
 	QString out(paletteString);
 	delete[] paletteString;
 	return out;
+}
+
+cColorPalette cParameterContainer::GetPaletteFromString(const QString &paletteString) const
+{
+	cColorPalette colorPalette;
+
+	for (int i = 0; i < paletteString.length(); i++)
+	{
+		unsigned int colour = 0;
+		sscanf(&paletteString.toLocal8Bit().constData()[i], "%x", &colour);
+		sRGB rgbColour;
+		rgbColour.R = colour / 65536;
+		rgbColour.G = (colour / 256) % 256;
+		rgbColour.B = colour % 256;
+		colorPalette.AppendColor(rgbColour);
+		while (i < paletteString.length() && paletteString[i] != ' ')
+		{
+			i++;
+		}
+	}
+	return colorPalette;
 }
 
 void cParameterContainer::Copy(QString name, cParameterContainer *sourceContainer)

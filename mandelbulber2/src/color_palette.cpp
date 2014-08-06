@@ -16,6 +16,25 @@ cColorPalette::cColorPalette()
 	paletteSize = 0;
 }
 
+void cColorPalette::AppendColor(const sRGB &color)
+{
+	palette.append(color);
+	isIntialized = true;
+	paletteSize = palette.size();
+}
+
+void cColorPalette::ChangeColor(int index, const sRGB &color)
+{
+	if (index < paletteSize && index >= 0)
+	{
+		palette[index] = color;
+	}
+	else
+	{
+		qCritical() << "cColorPalette::ChangeColor(int index, const sRGB &color): wrong color index:" << index;
+	}
+}
+
 cColorPalette::cColorPalette(int size, int randomSeed, double saturation)
 {
 	palette.clear();
@@ -54,16 +73,16 @@ sRGB cColorPalette::IndexToColour(int index) const
 		}
 		else
 		{
-			index = index % ((paletteSize - 1) * 256);
-			kol = index / 256;
-			if (kol < paletteSize - 1)
+			kol = (index / 256) % paletteSize;
+			int kolplus1 = (kol + 1) % paletteSize;
+			if (kol < paletteSize)
 			{
 				R1 = palette[kol].R;
 				G1 = palette[kol].G;
 				B1 = palette[kol].B;
-				R2 = palette[kol + 1].R;
-				G2 = palette[kol + 1].G;
-				B2 = palette[kol + 1].B;
+				R2 = palette[kolplus1].R;
+				G2 = palette[kolplus1].G;
+				B2 = palette[kolplus1].B;
 				RK = (R2 - R1) / 256.0;
 				GK = (G2 - G1) / 256.0;
 				BK = (B2 - B1) / 256.0;
