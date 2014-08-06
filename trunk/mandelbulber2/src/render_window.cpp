@@ -21,6 +21,8 @@
 #include <QFileDialog>
 #include <QColorDialog>
 #include <QMessageBox>
+
+#include "common_math.h"
 #include "my_ui_loader.h"
 #include "preview_file_dialog.h"
 
@@ -530,7 +532,7 @@ void RenderWindow::slotSaveImageJPEG()
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("JPEG images (*.jpg *.jpeg)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "images" + QDir::separator());
+	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
 	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle("Save image to JPEG file...");
@@ -550,7 +552,7 @@ void RenderWindow::slotSaveImagePNG8()
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "images" + QDir::separator());
+	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
 	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle("Save image to 8-bit PNG file...");
@@ -570,7 +572,7 @@ void RenderWindow::slotSaveImagePNG16()
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "images" + QDir::separator());
+	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
 	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle("Save image to 16-bit PNG file...");
@@ -590,7 +592,7 @@ void RenderWindow::slotSaveImagePNG16Alpha()
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "images" + QDir::separator());
+	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
 	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle("Save image to 16-bit + alpha channel PNG file...");
@@ -662,6 +664,26 @@ void RenderWindow::slotSelectLightMapTexture()
 		gPar->Set("file_lightmap", filename);
 		ui->text_file_lightmap->setText(filename);
 		mainInterface->ShowImageInLabel(ui->label_lightmapTextureView, filename);
+	}
+}
+
+void RenderWindow::slotGetPaletteFromImagePressed()
+{
+	PreviewFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
+	dialog.selectFile(systemData.lastImagePaletteFile);
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle("Select image to grab colors...");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		cColorPalette palette = mainInterface->GetPaletteFromImage(filename);
+		ui->colorpalette_surface_color_palette->SetPalette(palette);
+		systemData.lastImagePaletteFile = filename;
 	}
 }
 
@@ -807,6 +829,32 @@ void RenderWindow::slotChangedPerspectiveTypeCombo(int index)
 		ui->comboBox_image_proportion->setCurrentIndex(proportion2_1);
 		ui->spinbox_fov->setValue(1.0);
 	}
+}
+
+void RenderWindow::slotSpinBoxPaletteOffsetChanged(double value)
+{
+	ui->colorpalette_surface_color_palette->SetOffset(value);
+}
+
+void RenderWindow::slotRandomizeButtonPressed()
+{
+	srand((unsigned int)clock());
+	int seed = Random(999999);
+	ui->spinboxInt_coloring_random_seed->setValue(seed);
+	slotRandomizeButtonPressed();
+}
+
+void RenderWindow::slotNewRandomPalettePressed()
+{
+	mainInterface->SynchronizeInterfaceWindow(ui->groupCheck_fractal_color, gPar, cInterface::read);
+	cColorPalette palette(gPar->Get<int>("coloring_palette_size"), gPar->Get<int>("coloring_random_seed"), gPar->Get<double>("coloring_saturation"));
+	ui->colorpalette_surface_color_palette->SetPalette(palette);
+}
+
+
+void RenderWindow::slotSpinBoxPaletteSizeChanged(int value)
+{
+	ui->slider_coloring_palette_offset->setMaximum(value * 100);
 }
 
 //=================== rendered image widget ==================/

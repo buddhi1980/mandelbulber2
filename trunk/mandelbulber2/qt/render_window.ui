@@ -1950,9 +1950,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-295</y>
                   <width>364</width>
-                  <height>620</height>
+                  <height>642</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -2295,17 +2295,10 @@ to target:</string>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_32">
                     <item>
-                     <layout class="QGridLayout" name="gridLayout_12" rowstretch="0,0,0,0,0,0,0">
+                     <layout class="QGridLayout" name="gridLayout_12" rowstretch="0,0,0,0,0,0,0,0">
                       <property name="spacing">
                        <number>2</number>
                       </property>
-                      <item row="5" column="1">
-                       <widget class="QPushButton" name="pushButton_randomPalette">
-                        <property name="text">
-                         <string>Random palette</string>
-                        </property>
-                       </widget>
-                      </item>
                       <item row="4" column="0">
                        <widget class="QLabel" name="label_75">
                         <property name="text">
@@ -2317,34 +2310,6 @@ to target:</string>
                        <widget class="QSpinBox" name="spinboxInt_coloring_random_seed">
                         <property name="maximum">
                          <number>999999</number>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_coloring_palette_offset">
-                        <property name="accelerated">
-                         <bool>false</bool>
-                        </property>
-                        <property name="prefix">
-                         <string/>
-                        </property>
-                        <property name="suffix">
-                         <string/>
-                        </property>
-                        <property name="decimals">
-                         <number>2</number>
-                        </property>
-                        <property name="minimum">
-                         <double>0.000000000000000</double>
-                        </property>
-                        <property name="maximum">
-                         <double>256.000000000000000</double>
-                        </property>
-                        <property name="singleStep">
-                         <double>0.010000000000000</double>
-                        </property>
-                        <property name="value">
-                         <double>0.000000000000000</double>
                         </property>
                        </widget>
                       </item>
@@ -2390,6 +2355,16 @@ to target:</string>
                         </property>
                        </widget>
                       </item>
+                      <item row="0" column="1" colspan="2">
+                       <widget class="ColorPaletteWidget" name="colorpalette_surface_color_palette" native="true">
+                        <property name="minimumSize">
+                         <size>
+                          <width>0</width>
+                          <height>30</height>
+                         </size>
+                        </property>
+                       </widget>
+                      </item>
                       <item row="4" column="2">
                        <widget class="QDoubleSpinBox" name="spinbox_coloring_speed">
                         <property name="accelerated">
@@ -2418,59 +2393,10 @@ to target:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="6" column="0" colspan="3">
+                      <item row="7" column="0" colspan="3">
                        <widget class="QPushButton" name="pushButton_getPaletteFromImage">
                         <property name="text">
-                         <string>Get palette from image...</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="1" colspan="2">
-                       <widget class="QWidget" name="palette_widget" native="true">
-                        <property name="minimumSize">
-                         <size>
-                          <width>0</width>
-                          <height>30</height>
-                         </size>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="1">
-                       <widget class="QSlider" name="slider_coloring_palette_offset">
-                        <property name="minimum">
-                         <number>0</number>
-                        </property>
-                        <property name="maximum">
-                         <number>25600</number>
-                        </property>
-                        <property name="singleStep">
-                         <number>1</number>
-                        </property>
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="0">
-                       <widget class="QLabel" name="label_72">
-                        <property name="text">
-                         <string>Palette offset:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="3" column="1">
-                       <widget class="QSlider" name="slider_coloring_saturation">
-                        <property name="minimum">
-                         <number>0</number>
-                        </property>
-                        <property name="maximum">
-                         <number>1000</number>
-                        </property>
-                        <property name="singleStep">
-                         <number>1</number>
-                        </property>
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
+                         <string>Grab colors from image...</string>
                         </property>
                        </widget>
                       </item>
@@ -2490,21 +2416,38 @@ to target:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="0" column="0">
-                       <widget class="QLabel" name="label_71">
-                        <property name="text">
-                         <string>Palette:</string>
+                      <item row="3" column="1">
+                       <widget class="QSlider" name="slider_coloring_saturation">
+                        <property name="minimum">
+                         <number>0</number>
+                        </property>
+                        <property name="maximum">
+                         <number>1000</number>
+                        </property>
+                        <property name="singleStep">
+                         <number>1</number>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
                         </property>
                        </widget>
                       </item>
-                      <item row="1" column="0">
+                      <item row="2" column="0">
                        <widget class="QLabel" name="label_127">
                         <property name="text">
                          <string>Palette size:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="1" column="1">
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="label_71">
+                        <property name="text">
+                         <string>Palette:
+(click to edit)</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
                        <widget class="QSlider" name="sliderInt_coloring_palette_size">
                         <property name="minimum">
                          <number>1</number>
@@ -2523,13 +2466,78 @@ to target:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="1" column="2">
+                      <item row="2" column="2">
                        <widget class="QSpinBox" name="spinboxInt_coloring_palette_size">
                         <property name="minimum">
                          <number>1</number>
                         </property>
                         <property name="maximum">
                          <number>255</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="label_72">
+                        <property name="text">
+                         <string>Palette offset:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QSlider" name="slider_coloring_palette_offset">
+                        <property name="minimum">
+                         <number>0</number>
+                        </property>
+                        <property name="maximum">
+                         <number>1000</number>
+                        </property>
+                        <property name="singleStep">
+                         <number>1</number>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="2">
+                       <widget class="QDoubleSpinBox" name="spinbox_coloring_palette_offset">
+                        <property name="accelerated">
+                         <bool>false</bool>
+                        </property>
+                        <property name="prefix">
+                         <string/>
+                        </property>
+                        <property name="suffix">
+                         <string/>
+                        </property>
+                        <property name="decimals">
+                         <number>2</number>
+                        </property>
+                        <property name="minimum">
+                         <double>0.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>256.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.010000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>0.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="6" column="0" colspan="3">
+                       <widget class="QPushButton" name="pushButton_randomPalette">
+                        <property name="text">
+                         <string>Generate new random palette</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="5" column="1">
+                       <widget class="QPushButton" name="pushButton_randomize">
+                        <property name="text">
+                         <string>Randomize</string>
                         </property>
                        </widget>
                       </item>
@@ -3112,10 +3120,10 @@ to target:</string>
                       <item row="0" column="1">
                        <widget class="QSlider" name="logslider_iteration_fog_opacity">
                         <property name="minimum">
-                         <number>-1500</number>
+                         <number>-1000</number>
                         </property>
                         <property name="maximum">
-                         <number>500</number>
+                         <number>1000</number>
                         </property>
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
@@ -5972,6 +5980,12 @@ to target:</string>
    <header>myscrolledarea.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>ColorPaletteWidget</class>
+   <extends>QWidget</extends>
+   <header>color_palette_widget.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>sliderInt_image_width</tabstop>
@@ -6002,13 +6016,10 @@ to target:</string>
   <tabstop>slider_ambient_occlusion_fast_tune</tabstop>
   <tabstop>spinbox_ambient_occlusion_fast_tune</tabstop>
   <tabstop>comboBox_ambient_occlusion_mode</tabstop>
-  <tabstop>slider_coloring_palette_offset</tabstop>
-  <tabstop>spinbox_coloring_palette_offset</tabstop>
   <tabstop>slider_coloring_saturation</tabstop>
   <tabstop>spinbox_coloring_saturation</tabstop>
   <tabstop>slider_coloring_speed</tabstop>
   <tabstop>spinbox_coloring_speed</tabstop>
-  <tabstop>pushButton_randomPalette</tabstop>
   <tabstop>spinboxInt_coloring_random_seed</tabstop>
   <tabstop>pushButton_getPaletteFromImage</tabstop>
   <tabstop>checkBox_raytraced_reflections</tabstop>

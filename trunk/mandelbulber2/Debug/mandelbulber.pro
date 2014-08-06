@@ -52,7 +52,8 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/mylineedit.h\
 			../src/my_ui_loader.h\
 			../src/preview_file_dialog.h\
-			../src/ssao_worker.h
+			../src/ssao_worker.h\
+			../qt/color_palette_widget.h
 
 FORMS    += ../qt/render_window.ui
 

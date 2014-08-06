@@ -69,8 +69,9 @@ bool InitSystem(void)
 	//*********** temporary set to false ************
 	systemData.noGui = false;
 
-	systemData.lastSettingsFile = QString("settings.fract");
-	systemData.lastImageFile = "image.jpg";
+	systemData.lastSettingsFile = systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator() + QString("settings.fract");
+	systemData.lastImageFile = systemData.dataDirectory + QDir::separator() + "images" + QDir::separator() + QString("image.jpg");
+	systemData.lastImagePaletteFile = systemData.sharedDir + QDir::separator() + "textures" + QDir::separator() + QString("colour palette.jpg");
 
 	return true;
 }

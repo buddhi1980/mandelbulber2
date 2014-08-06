@@ -35,6 +35,7 @@ struct sSystem
 	QString logfileName;
 	QString lastSettingsFile;
 	QString lastImageFile;
+	QString lastImagePaletteFile;
 	unsigned int numberOfThreads;
 	bool noGui;
 };

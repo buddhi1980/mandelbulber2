@@ -83,12 +83,10 @@ bool cRenderJob::Init(enumMode _mode)
 	renderData->imageRegion.Set(-0.5, 0.5, 0.5, -0.5);
 	renderData->screenRegion.Set(0, 0, width, height);
 	renderData->lights.Set(paramsContainer, fractalContainer);
-	renderData->palette = cColorPalette(
-			paramsContainer->Get<int>("coloring_palette_size"),
-			paramsContainer->Get<int>("coloring_random_seed"),
-			paramsContainer->Get<double>("coloring_saturation"));
+	renderData->palette = paramsContainer->Get<cColorPalette>("surface_color_palette");
 
 	//textures are deleted with destruction of renderData
+	//TODO selective loading of textures;
 	renderData->textures.backgroundTexture = new cTexture(paramsContainer->Get<QString>("file_background"));
 	renderData->textures.envmapTexture = new cTexture(paramsContainer->Get<QString>("file_envmap"));
 	renderData->textures.lightmapTexture = new cTexture(paramsContainer->Get<QString>("file_lightmap"));

@@ -271,16 +271,16 @@ using namespace parameterContainer;
 #endif
 
 	//files
-	par->addParam("file_destination", QString("images/image"), morphNone, paramStandard);
-	par->addParam("file_background", (QString(systemData.sharedDir)+"textures/background.jpg"), morphNone, paramStandard);
-	par->addParam("file_envmap", (QString(systemData.sharedDir)+"textures/envmap.jpg"), morphNone, paramStandard);
-	par->addParam("file_lightmap", (QString(systemData.sharedDir)+"textures/lightmap.jpg"), morphNone, paramStandard);
-	par->addParam("file_animation_path", QString("paths/path.txt"), morphNone, paramStandard);
-	par->addParam("file_keyframes", QString("keyframes/keyframe"), morphNone, paramStandard);
+	par->addParam("file_destination", systemData.dataDirectory + "images" + QDir::separator() + "image", morphNone, paramStandard);
+	par->addParam("file_background", systemData.sharedDir + "textures" + QDir::separator() + "background.jpg", morphNone, paramStandard);
+	par->addParam("file_envmap", systemData.sharedDir + "textures" + QDir::separator() + "envmap.jpg", morphNone, paramStandard);
+	par->addParam("file_lightmap", systemData.sharedDir + "textures" + QDir::separator() + "lightmap.jpg", morphNone, paramStandard);
+	par->addParam("file_animation_path", systemData.dataDirectory + "paths" + QDir::separator() + "path.txt", morphNone, paramStandard);
+	par->addParam("file_keyframes", systemData.dataDirectory + "keyframes" + QDir::separator() + "keyframe", morphNone, paramStandard);
 
 	//color palette
 	cColorPalette palette(par->Get<int>("coloring_palette_size"), par->Get<int>("coloring_random_seed"), 1.0);
-	par->addParam("palette", &palette, morphLinear, paramStandard);
+	par->addParam("surface_color_palette", palette, morphLinear, paramStandard);
 
 	//----------------------- application parameters ---------------------
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);

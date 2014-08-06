@@ -85,7 +85,8 @@ SOURCES       = ../src/algebra.cpp \
 		moc_mylineedit.cpp \
 		moc_my_ui_loader.cpp \
 		moc_preview_file_dialog.cpp \
-		moc_ssao_worker.cpp
+		moc_ssao_worker.cpp \
+		moc_color_palette_widget.cpp
 OBJECTS       = algebra.o \
 		calculate_distance.o \
 		camera_target.o \
@@ -127,7 +128,8 @@ OBJECTS       = algebra.o \
 		moc_mylineedit.o \
 		moc_my_ui_loader.o \
 		moc_preview_file_dialog.o \
-		moc_ssao_worker.o
+		moc_ssao_worker.o \
+		moc_color_palette_widget.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -385,7 +387,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/mandelbulber21.0.0 || mkdir -p .tmp/mandelbulber21.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/render_image.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/render_image.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
 
 
 clean:compiler_clean 
@@ -423,9 +425,9 @@ qrc_icons.cpp: ../qt/icons.qrc \
 		../qt/icons/object-rotate-right.png
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name icons ../qt/icons.qrc -o qrc_icons.cpp
 
-compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp
+compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp
+	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp
 moc_render_window.cpp: ../qt/ui_render_window.h \
 		../qt/myscrolledarea.h \
 		../src/cimage.hpp \
@@ -445,8 +447,9 @@ moc_render_worker.cpp: ../src/cimage.hpp \
 		../src/fractal_list.hpp \
 		../src/render_image.hpp \
 		../src/four_fractals.hpp \
-		../src/region.hpp \
+		../src/render_data.hpp \
 		../src/lights.hpp \
+		../src/region.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
 		../src/render_worker.hpp
@@ -472,8 +475,16 @@ moc_ssao_worker.cpp: ../src/fractparams.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
 		../src/ssao_worker.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/ssao_worker.h -o moc_ssao_worker.cpp
+
+moc_color_palette_widget.cpp: ../src/color_palette.hpp \
+		../src/color_structures.hpp \
+		../qt/color_palette_widget.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/color_palette_widget.h -o moc_color_palette_widget.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -481,7 +492,10 @@ compiler_uic_make_all: ../qt/ui_render_window.h
 compiler_uic_clean:
 	-$(DEL_FILE) ../qt/ui_render_window.h
 ../qt/ui_render_window.h: ../qt/render_window.ui \
-		../qt/myscrolledarea.h
+		../qt/myscrolledarea.h \
+		../qt/color_palette_widget.h \
+		../src/color_palette.hpp \
+		../src/color_structures.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../qt/render_window.ui -o ../qt/ui_render_window.h
 
 compiler_yacc_decl_make_all:
@@ -642,13 +656,15 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/primitives.h \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
-		../src/region.hpp \
+		../src/render_data.hpp \
 		../src/lights.hpp \
+		../src/region.hpp \
 		../src/calculate_distance.hpp \
 		../src/compute_fractal.hpp \
 		../src/camera_target.hpp \
 		../src/error_message.hpp \
-		../src/my_ui_loader.h
+		../src/my_ui_loader.h \
+		../src/render_ssao.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interface.o ../src/interface.cpp
 
 lights.o: ../src/lights.cpp ../src/lights.hpp \
@@ -720,8 +736,9 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
-		../src/region.hpp \
+		../src/render_data.hpp \
 		../src/lights.hpp \
+		../src/region.hpp \
 		../src/system.hpp \
 		../src/render_worker.hpp \
 		../src/scheduler.hpp \
@@ -731,7 +748,8 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../qt/ui_render_window.h \
 		../qt/myscrolledarea.h \
 		../src/progress_text.hpp \
-		../src/error_message.hpp
+		../src/error_message.hpp \
+		../src/render_ssao.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_image.o ../src/render_image.cpp
 
 render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
@@ -747,8 +765,9 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
-		../src/region.hpp \
+		../src/render_data.hpp \
 		../src/lights.hpp \
+		../src/region.hpp \
 		../src/system.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
@@ -756,7 +775,25 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../qt/myscrolledarea.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_job.o ../src/render_job.cpp
 
-render_ssao.o: ../src/render_ssao.cpp 
+render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/color_structures.hpp \
+		../src/cimage.hpp \
+		../src/algebra.hpp \
+		../src/primitives.h \
+		../src/parameters.hpp \
+		../src/color_palette.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/progress_text.hpp \
+		../src/ssao_worker.h \
+		../src/interface.hpp \
+		../src/render_window.hpp \
+		../qt/ui_render_window.h \
+		../qt/myscrolledarea.h \
+		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_ssao.o ../src/render_ssao.cpp
 
 render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
@@ -793,8 +830,9 @@ render_worker.o: ../src/render_worker.cpp ../src/render_worker.hpp \
 		../src/fractal_list.hpp \
 		../src/render_image.hpp \
 		../src/four_fractals.hpp \
-		../src/region.hpp \
+		../src/render_data.hpp \
 		../src/lights.hpp \
+		../src/region.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
 		../src/calculate_distance.hpp \
@@ -827,8 +865,9 @@ shaders.o: ../src/shaders.cpp ../src/render_worker.hpp \
 		../src/fractal_list.hpp \
 		../src/render_image.hpp \
 		../src/four_fractals.hpp \
-		../src/region.hpp \
+		../src/render_data.hpp \
 		../src/lights.hpp \
+		../src/region.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
 		../src/calculate_distance.hpp \
@@ -846,7 +885,10 @@ ssao_worker.o: ../src/ssao_worker.cpp ../src/ssao_worker.h \
 		../src/algebra.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
-		../src/color_palette.hpp
+		../src/color_palette.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ssao_worker.o ../src/ssao_worker.cpp
 
 texture.o: ../src/texture.cpp ../src/texture.hpp \
@@ -880,6 +922,9 @@ moc_preview_file_dialog.o: moc_preview_file_dialog.cpp
 
 moc_ssao_worker.o: moc_ssao_worker.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ssao_worker.o moc_ssao_worker.cpp
+
+moc_color_palette_widget.o: moc_color_palette_widget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_color_palette_widget.o moc_color_palette_widget.cpp
 
 ####### Install
 

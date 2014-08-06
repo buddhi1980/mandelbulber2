@@ -197,9 +197,6 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 	output.B = oldPixel.B;
 	output.A = oldPixel.A;
 
-	//basic fog init
-  double fogVisibility = pow(10.0, params->fogVisibility / 10 - 16.0);
-
   //volumetric fog init
 	double colourThresh = params->volFogColour1Distance;
 	double colourThresh2 = params->volFogColour2Distance;
@@ -359,7 +356,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		//----------------------- basic fog
 		if(params->fogEnabled)
 		{
-			double fogDensity = step / fogVisibility;
+			double fogDensity = step / params->fogVisibility;
 			if(fogDensity > 1.0) fogDensity = 1.0;
 			output.R = fogDensity * params->fogColor.R / 65536.0 + (1.0 - fogDensity) * output.R;
 			output.G = fogDensity * params->fogColor.G / 65536.0 + (1.0 - fogDensity) * output.G;

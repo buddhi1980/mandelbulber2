@@ -91,7 +91,7 @@ private:
 	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, CVector3 val);
 	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, sRGB val);
 	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, bool val);
-	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, cColorPalette *val);
+	enumVarType Assigner(sMultiVal &multi, enumVarType defaultType, cColorPalette val);
 	enumVarType Getter(sMultiVal multi, double &val) const;
 	enumVarType Getter(sMultiVal multi, int &val) const;
 	enumVarType Getter(sMultiVal multi, QString &val) const;
@@ -101,7 +101,8 @@ private:
 	enumVarType Getter(sMultiVal multi, cColorPalette &val) const;
 	QString nameWithIndex(QString *str, int index) const;
 	void clearMultiVal(sMultiVal &multiVal);
-	QString MakePaletteString(cColorPalette *palette);
+	QString MakePaletteString(cColorPalette &palette);
+	cColorPalette GetPaletteFromString(const QString &paletteString) const;
 
 	static bool compareStrings(const QString &p1, const QString &p2)
 	{

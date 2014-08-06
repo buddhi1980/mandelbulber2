@@ -92,7 +92,11 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboAmbientOcclussionMode(int)));
 	QApplication::connect(mainWindow->ui->pushButton_apply_image_changes, SIGNAL(clicked()), mainWindow, SLOT(slotPressedImageApplyButton()));
 	QApplication::connect(mainWindow->ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedPerspectiveTypeCombo(int)));
-
+	QApplication::connect(mainWindow->ui->spinbox_coloring_palette_offset, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotSpinBoxPaletteOffsetChanged(double)));
+	QApplication::connect(mainWindow->ui->pushButton_randomize, SIGNAL(clicked()), mainWindow, SLOT(slotRandomizeButtonPressed()));
+	QApplication::connect(mainWindow->ui->pushButton_randomPalette, SIGNAL(clicked()), mainWindow, SLOT(slotNewRandomPalettePressed()));
+	QApplication::connect(mainWindow->ui->spinboxInt_coloring_palette_size, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotSpinBoxPaletteSizeChanged(int)));
+	QApplication::connect(mainWindow->ui->pushButton_getPaletteFromImage, SIGNAL(clicked()), mainWindow, SLOT(slotGetPaletteFromImagePressed()));
 
 	QApplication::connect(mainWindow->ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageProportion(int)));
 	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1080, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
@@ -195,7 +199,6 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cParameterContai
 	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_3, par, mode);
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_4, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_4, par, mode);
-
 }
 
 //Reading ad writing parameters from/to selected widget to/from parameters container
@@ -547,6 +550,39 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 	}
 	WriteLog("SynchronizeInterfaceWindow() finished");
 
+	//---------- colorpalette -----------
+	{
+		WriteLog("SynchronizeInterfaceWindow() colorpalette");
+		QList<ColorPaletteWidget *> widgetListColorPalette = window->findChildren<ColorPaletteWidget*>();
+		QList<ColorPaletteWidget *>::iterator it;
+		for (it = widgetListColorPalette.begin(); it != widgetListColorPalette.end(); ++it)
+		{
+			QString name = (*it)->objectName();
+			//out << "ColorPalette:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
+			if (name.length() > 1 && (*it)->metaObject()->className() == QString("ColorPaletteWidget"))
+			{
+				ColorPaletteWidget *colorPaletteWidget = *it;
+
+				QString type, parameterName;
+				GetNameAndType(name, &parameterName, &type);
+
+				if (type == QString("colorpalette"))
+				{
+					if (mode == read)
+					{
+						cColorPalette palette = colorPaletteWidget->GetPalette();
+						par->Set(parameterName, palette);
+					}
+					else if (mode == write)
+					{
+						cColorPalette palette = par->Get<cColorPalette>(parameterName);
+						colorPaletteWidget->SetPalette(palette);
+					}
+				}
+			}
+		}
+	}
+
 	//combo boxes
 	{
 		WriteLog("SynchronizeInterfaceWindow() combo boxes");
@@ -595,7 +631,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 			}
 		}
 	}
-
+	WriteLog("SynchronizeInterfaceWindow() finished");
 }
 
 //automatic setting of event slots for all sliders
@@ -1242,6 +1278,33 @@ void cInterface::RefreshMainImage()
 	mainImage->ConvertTo8bit();
 	mainImage->UpdatePreview();
 	mainImage->GetImageWidget()->update();
+}
+
+cColorPalette cInterface::GetPaletteFromImage(const QString &filename)
+{
+	cColorPalette palette;
+	QImage imagePalette(filename);
+
+	mainInterface->SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_fractal_color, gPar, cInterface::read);
+	int paletteSize = gPar->Get<int>("coloring_palette_size");
+
+	if(!imagePalette.isNull())
+	{
+		int width = imagePalette.width();
+		int height = imagePalette.height();
+
+		for (int i = 0; i < paletteSize; i++)
+		{
+			double angle = (double)i / paletteSize * M_PI * 2.0;
+			double x = width / 2 + cos(angle) * width * 0.4;
+			double y = height / 2 + sin(angle) * height * 0.4;
+			QRgb pixel = imagePalette.pixel(x, y);
+			sRGB pixelRGB(qRed(pixel), qGreen(pixel), qBlue(pixel));
+			palette.AppendColor(pixelRGB);
+		}
+
+	}
+	return palette;
 }
 
 //function to create icons with actual color in ColorButtons

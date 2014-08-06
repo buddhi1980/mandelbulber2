@@ -48,8 +48,8 @@ void PreviewFileDialog::OnCurredbtChanged(const QString & filename)
 	pixmap.load(filename);
 	if(pixmap.isNull() || !checkbox->isChecked())
 	{
-		preview->setText("");
-		info->setText("");
+		preview->setText(" ");
+		info->setText(" ");
 	}
 	else
 	{

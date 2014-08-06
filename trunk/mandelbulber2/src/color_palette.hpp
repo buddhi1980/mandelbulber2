@@ -16,9 +16,12 @@ class cColorPalette
 public:
 	cColorPalette();
 	cColorPalette(int size, int randomSeed, double saturation);
+	void AppendColor(const sRGB &color);
+	void ChangeColor(int index, const sRGB &color);
 	sRGB IndexToColour(int index) const;
 	sRGB GetColor(int index) const;
 	int GetSize() {return paletteSize;}
+	bool IsInitialized() {return isIntialized;}
 
 private:
 	QVector<sRGB> palette;
