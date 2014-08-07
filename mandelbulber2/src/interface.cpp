@@ -338,7 +338,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
 
-				if (type == QString("spinbox"))
+				if (type == QString("spinbox") || type == QString("spinboxd"))
 				{
 					if (mode == read)
 					{
@@ -737,6 +737,21 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd3 " << spinBoxName << " doesn't exists" << endl;
+				}
+			}
+			if (type == QString("dial"))
+			{
+				QApplication::connect(dial, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotDialMoved(int)));
+
+				QString spinBoxName = QString("spinboxd_") + parameterName;
+				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
+				if (spinBox)
+				{
+					QApplication::connect(spinBox, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotSpinBoxDChanged(double)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd " << spinBoxName << " doesn't exists" << endl;
 				}
 			}
 		}

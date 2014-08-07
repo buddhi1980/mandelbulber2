@@ -16,27 +16,8 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="1">
-      <widget class="QSlider" name="slider_beta_angle_offset">
-       <property name="minimum">
-        <number>-36000</number>
-       </property>
-       <property name="maximum">
-        <number>36000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="pageStep">
-        <number>100</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="2">
-      <widget class="QDoubleSpinBox" name="spinbox_beta_angle_offset">
+      <widget class="QDoubleSpinBox" name="spinboxd_beta_angle_offset">
        <property name="prefix">
         <string/>
        </property>
@@ -54,25 +35,6 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QSlider" name="slider_alpha_angle_offset">
-       <property name="minimum">
-        <number>-36000</number>
-       </property>
-       <property name="maximum">
-        <number>36000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="pageStep">
-        <number>100</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -106,7 +68,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QDoubleSpinBox" name="spinbox_alpha_angle_offset">
+      <widget class="QDoubleSpinBox" name="spinboxd_alpha_angle_offset">
        <property name="prefix">
         <string/>
        </property>
@@ -151,6 +113,32 @@
       <widget class="QLabel" name="label_9">
        <property name="text">
         <string>Beta angle offset:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QDial" name="dial_alpha_angle_offset">
+       <property name="minimum">
+        <number>-18000</number>
+       </property>
+       <property name="maximum">
+        <number>18000</number>
+       </property>
+       <property name="wrapping">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QDial" name="dial_beta_angle_offset">
+       <property name="minimum">
+        <number>-18000</number>
+       </property>
+       <property name="maximum">
+        <number>18000</number>
+       </property>
+       <property name="wrapping">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
