@@ -879,7 +879,7 @@ void RenderWindow::slotRandomizeButtonPressed()
 	srand((unsigned int)clock());
 	int seed = Random(999999);
 	ui->spinboxInt_coloring_random_seed->setValue(seed);
-	slotRandomizeButtonPressed();
+	slotNewRandomPalettePressed();
 }
 
 void RenderWindow::slotNewRandomPalettePressed()

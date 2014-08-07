@@ -84,8 +84,8 @@ cParamRender::cParamRender(const cParameterContainer *container)
 	iterFogColor1Maxiter = container->Get<double>("iteration_fog_color_1_maxiter");
 	iterFogColor2Maxiter = container->Get<double>("iteration_fog_color_2_maxiter");
 	iterFogColour1 = container->Get<sRGB>("iteration_fog_color", 1);
-	iterFogColour1 = container->Get<sRGB>("iteration_fog_color", 2);
-	iterFogColour1 = container->Get<sRGB>("iteration_fog_color", 3);
+	iterFogColour2 = container->Get<sRGB>("iteration_fog_color", 2);
+	iterFogColour3 = container->Get<sRGB>("iteration_fog_color", 3);
 	coloringEnabled = container->Get<bool>("fractal_color");
 	coloring_seed = container->Get<int>("coloring_random_seed");
 	colourSaturation = container->Get<double>("coloring_saturation");
