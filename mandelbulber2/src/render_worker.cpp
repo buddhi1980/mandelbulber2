@@ -99,7 +99,7 @@ void cRenderWorker::doWork(void)
 			//break if by coincidence this thread started rendering the same line as some other
 			if (scheduler->ShouldIBreak(threadData->id, ys))
 			{
-				//break; //******************* problem need to be fixed !!!!!! (generates black dots) ************
+				break;
 			}
 
 			if (scheduler->GetProgresivePass() > 1 && xs % (scheduler->GetProgresiveStep() * 2) == 0 && ys % (scheduler->GetProgresiveStep() * 2) == 0) continue;

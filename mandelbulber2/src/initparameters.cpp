@@ -126,7 +126,7 @@ using namespace parameterContainer;
 	par->addParam("background_color", 1, sRGB(0, 38306, 65535), morphLinear, paramStandard);
 	par->addParam("background_color", 2, sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("background_color", 3, sRGB(0, 10000, 500), morphLinear, paramStandard);
-	par->addParam("fog_color", 1, sRGB(20000, 20000, 20000), morphLinear, paramStandard);
+	par->addParam("fog_color", 1, sRGB(30000, 30000, 30000), morphLinear, paramStandard);
 	par->addParam("fog_color", 2, sRGB(0, 30000, 65535), morphLinear, paramStandard);
 	par->addParam("fog_color", 3, sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 

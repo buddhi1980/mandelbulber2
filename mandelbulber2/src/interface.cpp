@@ -97,6 +97,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->pushButton_randomPalette, SIGNAL(clicked()), mainWindow, SLOT(slotNewRandomPalettePressed()));
 	QApplication::connect(mainWindow->ui->spinboxInt_coloring_palette_size, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotSpinBoxPaletteSizeChanged(int)));
 	QApplication::connect(mainWindow->ui->pushButton_getPaletteFromImage, SIGNAL(clicked()), mainWindow, SLOT(slotGetPaletteFromImagePressed()));
+	QApplication::connect(mainWindow->ui->button_calculateFog, SIGNAL(clicked()), mainWindow, SLOT(slotAutoFogPressed()));
 
 	QApplication::connect(mainWindow->ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageProportion(int)));
 	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1080, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
@@ -938,16 +939,13 @@ void cInterface::MoveCamera(QString buttonName)
 	{
 		double relativeStep = gPar->Get<double>("camera_movenent_step");
 
-		cParamRender *params = new cParamRender(gPar);
-		cFourFractals *fourFractals = new cFourFractals(gParFractal, gPar);
-		sDistanceIn in(camera, 0, false);
+		CVector3 point;
 		if(movementMode == moveTarget)
-			in.point = target;
+			point = target;
+		else
+			point = camera;
 
-		sDistanceOut out;
-		double distance = CalculateDistance(*params, *fourFractals, in, &out);
-		delete params;
-		delete fourFractals;
+		double distance = GetDistanceForPoint(point, gPar, gParFractal);
 
 		step = relativeStep * distance;
 	}
@@ -1320,6 +1318,40 @@ cColorPalette cInterface::GetPaletteFromImage(const QString &filename)
 
 	}
 	return palette;
+}
+
+void cInterface::AutoFog()
+{
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
+	double fogDensity = 0.5;
+	double fogDistanceFactor = distance;
+	double fogColour1Distance = distance * 0.5;
+	double fogColour2Distance = distance;
+	gPar->Set("volumetric_fog_distance_factor", fogDistanceFactor);
+	gPar->Set("volumetric_fog_colour_1_distance", fogColour1Distance);
+	gPar->Set("volumetric_fog_colour_2_distance", fogColour2Distance);
+	gPar->Set("volumetric_fog_density", fogDensity);
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+}
+
+double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par, cParameterContainer *parFractal)
+{
+	cParamRender *params = new cParamRender(par);
+	cFourFractals *fourFractals = new cFourFractals(parFractal, par);
+	sDistanceIn in(point, 0, false);
+	sDistanceOut out;
+	double distance = CalculateDistance(*params, *fourFractals, in, &out);
+	delete params;
+	delete fourFractals;
+	return distance;
+}
+
+double cInterface::GetDistanceForPoint(CVector3 point)
+{
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	double distance = GetDistanceForPoint(point, gPar, gParFractal);
+	return distance;
 }
 
 //function to create icons with actual color in ColorButtons

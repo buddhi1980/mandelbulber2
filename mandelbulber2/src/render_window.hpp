@@ -58,6 +58,7 @@ private slots:
 	void slotSpinBoxPaletteSizeChanged(int value);
 	void slotNewRandomPalettePressed();
 	void slotGetPaletteFromImagePressed();
+	void slotAutoFogPressed();
 
 	//camera
 	void slotCameraMove();
