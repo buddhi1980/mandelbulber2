@@ -406,8 +406,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			if (opacity > 0)
 			{
 				//fog colour
-				double iterFactor = (double) 2.0 * (L - params->iterFogOpacityTrim) / (params->N - params->iterFogOpacityTrim);
-				double k = iterFactor;
+				double iterFactor1 = (double) (L - params->iterFogOpacityTrim) / (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
+				double k = iterFactor1;
 				if (k > 1.0) k = 1.0;
 				if (k < 0.0) k = 0.0;
 				double kn = 1.0 - k;
@@ -415,7 +415,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 				double fogColG = (params->iterFogColour1.G * kn + params->iterFogColour2.G * k);
 				double fogColB = (params->iterFogColour1.B * kn + params->iterFogColour2.B * k);
 
-				double k2 = iterFactor - 1.0;
+				double iterFactor2 = (double) (L - params->iterFogColor1Maxiter) / (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
+				double k2 = iterFactor2;
 				if (k2 < 0.0) k2 = 0.0;
 				if (k2 > 1.0) k2 = 1.0;
 				kn = 1.0 - k2;
