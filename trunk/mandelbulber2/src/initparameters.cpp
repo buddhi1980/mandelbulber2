@@ -44,14 +44,14 @@ using namespace parameterContainer;
 
 	//camera
 
-	par->addParam("camera", CVector3(0.0, -6.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("target", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("camera_top", CVector3(0.0, 0.0, 1.0), morphcatMullRom, paramStandard); //internal vector which represents top direction
-	par->addParam("camera_rotation", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("camera_distance_to_target", 3.0, 0.0, 1e15, morphcatMullRom, paramStandard);
-	par->addParam("fov", 0.5, 0.0, 100.0, morphcatMullRom, paramStandard);
+	par->addParam("camera", CVector3(0.0, -6.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("target", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("camera_top", CVector3(0.0, 0.0, 1.0), morphCatMullRom, paramStandard); //internal vector which represents top direction
+	par->addParam("camera_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
+	par->addParam("camera_distance_to_target", 3.0, 0.0, 1e15, morphCatMullRom, paramStandard);
+	par->addParam("fov", 0.5, 0.0, 100.0, morphCatMullRom, paramStandard);
 	par->addParam("perspective_type", 0, morphLinear, paramStandard);
-	par->addParam("stereo_eye_distance", 1.0, morphcatMullRom, paramStandard);
+	par->addParam("stereo_eye_distance", 1.0, morphCatMullRom, paramStandard);
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
 
 	//fractal formula selections
@@ -66,7 +66,7 @@ using namespace parameterContainer;
 
 	//general fractal and engine
 	par->addParam("julia_mode", false, morphLinear, paramStandard);
-	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
+	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
 	par->addParam("N", 250, 1, 65536, morphLinear, paramStandard);
 	par->addParam("minN", 1, 0, 65536, morphLinear, paramStandard);
 	par->addParam("fractal_constant_factor", 1.0, morphLinear, paramStandard);
@@ -165,8 +165,8 @@ using namespace parameterContainer;
 	par->addParam("main_light_intensity", 1.0, morphLinear, paramStandard);
 	par->addParam("main_light_visibility", 1.0, morphLinear, paramStandard);
 	par->addParam("main_light_visibility_size", 1.0, morphLinear, paramStandard);
-	par->addParam("main_light_alpha", -45.0, morphcatMullRom, paramStandard);
-	par->addParam("main_light_beta", 45.0,  morphcatMullRom, paramStandard);
+	par->addParam("main_light_alpha", -45.0, morphCatMullRomAngle, paramStandard);
+	par->addParam("main_light_beta", 45.0,  morphCatMullRomAngle, paramStandard);
 	par->addParam("main_light_colour", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("shadows_cone_angle", 1.0, 0.0, 180.0, morphLinear, paramStandard);
 	par->addParam("main_light_enable", true, morphLinear, paramStandard);
@@ -182,10 +182,10 @@ using namespace parameterContainer;
 	par->addParam("aux_light_visibility", 1.0, morphLinear, paramStandard);
 	par->addParam("aux_light_visibility_size", 1.0, morphLinear, paramStandard);
 
-	par->addParam("aux_light_predefined_position", 1, CVector3(3.0, -3.0, 3.0), morphcatMullRom, paramStandard);
-	par->addParam("aux_light_predefined_position", 2, CVector3(-3.0, -3.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("aux_light_predefined_position", 3, CVector3(-3.0, 3.0, -1.0), morphcatMullRom, paramStandard);
-	par->addParam("aux_light_predefined_position", 4, CVector3(0.0, -1.0, -3.0), morphcatMullRom, paramStandard);
+	par->addParam("aux_light_predefined_position", 1, CVector3(3.0, -3.0, 3.0), morphCatMullRom, paramStandard);
+	par->addParam("aux_light_predefined_position", 2, CVector3(-3.0, -3.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("aux_light_predefined_position", 3, CVector3(-3.0, 3.0, -1.0), morphCatMullRom, paramStandard);
+	par->addParam("aux_light_predefined_position", 4, CVector3(0.0, -1.0, -3.0), morphCatMullRom, paramStandard);
 	par->addParam("aux_light_predefined_intensity", 1, 1.3, morphLinear, paramStandard);
 	par->addParam("aux_light_predefined_intensity", 2, 1.0, morphLinear, paramStandard);
 	par->addParam("aux_light_predefined_intensity", 3, 3, morphLinear, paramStandard);
@@ -218,32 +218,32 @@ using namespace parameterContainer;
 	par->addParam("primitive_only_plane", false, morphNone, paramStandard);
 
 	par->addParam("primitive_plane_enabled", false, morphLinear, paramStandard);
-	par->addParam("primitive_plane_centre", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("primitive_plane_normal", CVector3(0.0, 0.0, -1.0), morphcatMullRom, paramStandard);
+	par->addParam("primitive_plane_centre", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("primitive_plane_normal", CVector3(0.0, 0.0, -1.0), morphCatMullRom, paramStandard);
 	par->addParam("primitive_plane_colour", sRGB(20000, 20000, 20000), morphLinear, paramStandard);
 	par->addParam("primitive_plane_reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
 
 	par->addParam("primitive_box_enabled", false, morphLinear, paramStandard);
-	par->addParam("primitive_box_centre", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("primitive_box_size", CVector3(2.0, 2.0, 2.0), morphcatMullRom, paramStandard);
+	par->addParam("primitive_box_centre", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("primitive_box_size", CVector3(2.0, 2.0, 2.0), morphCatMullRom, paramStandard);
 	par->addParam("primitive_box_colour", sRGB(20000, 20000, 20000), morphLinear, paramStandard);
 	par->addParam("primitive_box_reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
 
 	par->addParam("primitive_invertedBox_enabled", false, morphLinear, paramStandard);
-	par->addParam("primitive_invertedBox_centre", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("primitive_invertedBox_size", CVector3(10.0, 10.0, 10.0), morphcatMullRom, paramStandard);
+	par->addParam("primitive_invertedBox_centre", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("primitive_invertedBox_size", CVector3(10.0, 10.0, 10.0), morphCatMullRom, paramStandard);
 	par->addParam("primitive_invertedBox_colour", sRGB(20000, 20000, 20000), morphLinear, paramStandard);
 	par->addParam("primitive_invertedBox_reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
 
 	par->addParam("primitive_sphere_enabled", false, morphLinear, paramStandard);
-	par->addParam("primitive_sphere_centre", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("primitive_sphere_radius", 1.5, morphcatMullRom, paramStandard);
+	par->addParam("primitive_sphere_centre", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("primitive_sphere_radius", 1.5, morphCatMullRom, paramStandard);
 	par->addParam("primitive_sphere_colour", sRGB(20000, 20000, 20000), morphLinear, paramStandard);
 	par->addParam("primitive_sphere_reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
 
 	par->addParam("primitive_invertedSphere_enabled", false, morphLinear, paramStandard);
-	par->addParam("primitive_invertedSphere_centre", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("primitive_invertedSphere_radius", 5.0, morphcatMullRom, paramStandard);
+	par->addParam("primitive_invertedSphere_centre", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("primitive_invertedSphere_radius", 5.0, morphCatMullRom, paramStandard);
 	par->addParam("primitive_invertedSphere_colour", sRGB(20000, 20000, 20000), morphLinear, paramStandard);
 	par->addParam("primitive_invertedSphere_reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
 
@@ -252,7 +252,7 @@ using namespace parameterContainer;
 	par->addParam("primitive_water_amplitude", 0.02, morphLinear, paramStandard);
 	par->addParam("primitive_water_length", 0.2, morphLinear, paramStandard);
 	par->addParam("primitive_water_iterations", 5, 1, 250, morphLinear, paramStandard);
-	par->addParam("primitive_water_rotation", 0.0, morphLinear, paramStandard);
+	par->addParam("primitive_water_rotation", 0.0, morphCatMullRomAngle, paramStandard);
 	par->addParam("primitive_water_anim_speed", 0.1, morphLinear, paramStandard);
 	par->addParam("primitive_water_colour", sRGB(0, 5000, 10000), morphLinear, paramStandard);
 	par->addParam("primitive_water_reflect", 0.7, 0.0, 1e15, morphLinear, paramStandard);
@@ -331,18 +331,18 @@ void InitFractalParams(cParameterContainer *par)
 {
 	WriteLog("Fractal parameters initialization started");
 
-	par->addParam("power", 9.0, morphcatMullRom, paramStandard);
-	par->addParam("alpha_angle_offset", 0.0, morphcatMullRom, paramStandard);
-	par->addParam("beta_angle_offset", 0.0, morphcatMullRom, paramStandard);
-	par->addParam("gamma_angle_offset", 0.0, morphcatMullRom, paramStandard);
+	par->addParam("power", 9.0, morphCatMullRom, paramStandard);
+	par->addParam("alpha_angle_offset", 0.0, morphCatMullRomAngle, paramStandard);
+	par->addParam("beta_angle_offset", 0.0, morphCatMullRomAngle, paramStandard);
+	par->addParam("gamma_angle_offset", 0.0, morphCatMullRom, paramStandard);
 	par->addParam("cadd", -1.3, morphLinear, paramStandard);
 
 	//IFS formula
-	par->addParam("IFS_scale", 2.0, morphcatMullRom, paramStandard);
-	par->addParam("IFS_rotation", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
+	par->addParam("IFS_scale", 2.0, morphCatMullRom, paramStandard);
+	par->addParam("IFS_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
 	par->addParam("IFS_rotation_enabled", false, morphLinear, paramStandard);
-	par->addParam("IFS_offset", CVector3(1.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("IFS_edge", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
+	par->addParam("IFS_offset", CVector3(1.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("IFS_edge", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
 	par->addParam("IFS_edge_enabled", false, morphLinear, paramStandard);
 	par->addParam("IFS_abs_x", false, morphLinear, paramStandard);
 	par->addParam("IFS_abs_y", false, morphLinear, paramStandard);
@@ -351,26 +351,26 @@ void InitFractalParams(cParameterContainer *par)
 
 	for(int i = 0; i < IFS_VECTOR_COUNT; i++)
 	{
-		par->addParam("IFS_direction", i, CVector3(1.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-		par->addParam("IFS_rotations", i, CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-		par->addParam("IFS_distance", i, 0.0, morphcatMullRom, paramStandard);
-		par->addParam("IFS_intensity", i, 1.0, morphcatMullRom, paramStandard);
+		par->addParam("IFS_direction", i, CVector3(1.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+		par->addParam("IFS_rotations", i, CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
+		par->addParam("IFS_distance", i, 0.0, morphCatMullRom, paramStandard);
+		par->addParam("IFS_intensity", i, 1.0, morphCatMullRom, paramStandard);
 		par->addParam("IFS_enabled", i, false, morphLinear, paramStandard);
 	}
 
 	//Mandelbox
-	par->addParam("mandelbox_scale", 2.0, morphcatMullRom, paramStandard);
-	par->addParam("mandelbox_folding_limit", 1.0, morphcatMullRom, paramStandard);
-	par->addParam("mandelbox_folding_value", 2.0, morphcatMullRom, paramStandard);
-	par->addParam("mandelbox_folding_min_radius", 0.5, morphcatMullRom, paramStandard);
-	par->addParam("mandelbox_folding_fixed_radius", 1.0, morphcatMullRom, paramStandard);
-	par->addParam("mandelbox_sharpness", 3.0, morphcatMullRom, paramStandard);
-	par->addParam("mandelbox_offset", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-	par->addParam("mandelbox_rotation_main", CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
+	par->addParam("mandelbox_scale", 2.0, morphCatMullRom, paramStandard);
+	par->addParam("mandelbox_folding_limit", 1.0, morphCatMullRom, paramStandard);
+	par->addParam("mandelbox_folding_value", 2.0, morphCatMullRom, paramStandard);
+	par->addParam("mandelbox_folding_min_radius", 0.5, morphCatMullRom, paramStandard);
+	par->addParam("mandelbox_folding_fixed_radius", 1.0, morphCatMullRom, paramStandard);
+	par->addParam("mandelbox_sharpness", 3.0, morphCatMullRom, paramStandard);
+	par->addParam("mandelbox_offset", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("mandelbox_rotation_main", CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
 	for(int i = 1; i<=3; i++)
 	{
-		par->addParam("mandelbox_rotation_neg", i, CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
-		par->addParam("mandelbox_rotation_pos", i, CVector3(0.0, 0.0, 0.0), morphcatMullRom, paramStandard);
+		par->addParam("mandelbox_rotation_neg", i, CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
+		par->addParam("mandelbox_rotation_pos", i, CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
 	}
 	par->addParam("mandelbox_color", CVector3(0.03, 0.05, 0.07), morphLinear, paramStandard);
 	par->addParam("mandelbox_color_R", 0.0, morphLinear, paramStandard);

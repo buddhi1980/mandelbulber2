@@ -307,9 +307,11 @@ void cRenderWorker::PrepareMainVectors(void)
 	baseZ = mRot.RotateVector(baseZ);
 
 	//main shadow direction vector
-	vector.x = cos(params->mainLightAlpha - 0.5 * M_PI) * cos(params->mainLightBeta);
-	vector.y = sin(params->mainLightAlpha - 0.5 * M_PI) * cos(params->mainLightBeta);
-	vector.z = sin(params->mainLightBeta);
+	double alpha = params->mainLightAlpha / 180.0 * M_PI;
+	double beta = params->mainLightBeta / 180.0 * M_PI;
+	vector.x = cos(alpha - 0.5 * M_PI) * cos(beta);
+	vector.y = sin(alpha - 0.5 * M_PI) * cos(beta);
+	vector.z = sin(beta);
 
 	if (params->mainLightPositionAsRelative)
 	{

@@ -41,6 +41,8 @@ private slots:
 	void slotSpinBox3Changed(double value);
   void slotDial3Moved(int value);
 	void slotSpinBoxD3Changed(double value);
+  void slotDialMoved(int value);
+	void slotSpinBoxDChanged(double value);
 	void slotLogSliderMoved(int value);
 	void slotLogLineEditChanged(const QString &text);
 

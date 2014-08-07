@@ -165,6 +165,25 @@ void RenderWindow::slotSpinBoxD3Changed(double value)
 	}
 }
 
+void RenderWindow::slotSpinBoxDChanged(double value)
+{
+	using namespace std;
+	QString spinBoxName = this->sender()->objectName();
+	QString type, parameterName;
+	mainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+	QString dialName = QString("dial_") + parameterName;
+
+	QDial *dial = this->sender()->parent()->findChild<QDial*>(dialName);
+	if (dial)
+	{
+		dial->setValue(value * 100.0);
+	}
+	else
+	{
+		qWarning() << "slotSpinBoxChanged() error: slider " << dialName << " doesn't exists" << endl;
+	}
+}
+
 void RenderWindow::slotSliderMoved(int value)
 {
 	using namespace std;
@@ -259,6 +278,25 @@ void RenderWindow::slotDial3Moved(int value)
 	else
 	{
 		qWarning() << "slotDial3Moved() error: spinbox " << spinBoxName << " doesn't exists" << endl;
+	}
+}
+
+void RenderWindow::slotDialMoved(int value)
+{
+	using namespace std;
+	QString sliderName = this->sender()->objectName();
+	QString type, parameterName;
+	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
+	QString spinBoxName = QString("spinboxd_") + parameterName;
+
+	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
+	if(spinBox)
+	{
+		spinBox->setValue(value/100.0);
+	}
+	else
+	{
+		qWarning() << "slotDialMoved() error: spinbox " << spinBoxName << " doesn't exists" << endl;
 	}
 }
 

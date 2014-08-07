@@ -25,6 +25,10 @@ void cCameraTarget::SetCameraTargetRotation(CVector3 _camera, CVector3 _target, 
 	pitch = forwardVector.GetBeta();
 	roll = _roll;
 
+	yaw = CorrectAngle(yaw);
+	pitch = CorrectAngle(pitch);
+	roll = CorrectAngle(roll);
+
 	//qDebug() << "yaw:" << yaw * 180.0/M_PI;
 	//qDebug() << "pitch:" << pitch * 180.0/M_PI;
 	//qDebug() << "roll:" << roll * 180.0/M_PI;
@@ -52,6 +56,8 @@ void cCameraTarget::SetCameraTargetTop(CVector3 _camera, CVector3 _target, CVect
 	yaw = forwardVector.GetAlpha() - 0.5*M_PI;
 	pitch = forwardVector.GetBeta();
 
+
+
 	CVector3 topVectorTemp = _top;
 	topVectorTemp.Normalize();
 	topVectorTemp = topVectorTemp.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), -yaw);
@@ -59,6 +65,10 @@ void cCameraTarget::SetCameraTargetTop(CVector3 _camera, CVector3 _target, CVect
 	topVectorTemp = topVectorTemp.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), -pitch);
 	//qDebug() << "temp2" << topVectorTemp.x << topVectorTemp.y << topVectorTemp.z;
 	roll = -atan2(topVectorTemp.z, topVectorTemp.x) + 0.5 * M_PI;
+
+	yaw = CorrectAngle(yaw);
+	pitch = CorrectAngle(pitch);
+	roll = CorrectAngle(roll);
 
 	//qDebug() << "yaw:" << yaw * 180.0/M_PI;
 	//qDebug() << "pitch:" << pitch * 180.0/M_PI;

@@ -287,7 +287,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-230</y>
           <width>414</width>
           <height>502</height>
          </rect>
@@ -1928,7 +1928,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>4</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -1950,7 +1950,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-295</y>
+                  <y>-47</y>
                   <width>364</width>
                   <height>642</height>
                  </rect>
@@ -3383,9 +3383,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-126</y>
                   <width>364</width>
-                  <height>1525</height>
+                  <height>1579</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -3449,19 +3449,6 @@ to target:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="5" column="1">
-                       <widget class="QSlider" name="slider_main_light_beta">
-                        <property name="minimum">
-                         <number>-36000</number>
-                        </property>
-                        <property name="maximum">
-                         <number>36000</number>
-                        </property>
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
                       <item row="0" column="0">
                        <widget class="QLabel" name="label_2">
                         <property name="text">
@@ -3470,7 +3457,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="4" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_main_light_alpha">
+                       <widget class="QDoubleSpinBox" name="spinboxd_main_light_alpha">
                         <property name="accelerated">
                          <bool>true</bool>
                         </property>
@@ -3484,10 +3471,10 @@ to target:</string>
                          <number>2</number>
                         </property>
                         <property name="minimum">
-                         <double>-100000.000000000000000</double>
+                         <double>-180.000000000000000</double>
                         </property>
                         <property name="maximum">
-                         <double>100000.000000000000000</double>
+                         <double>180.000000000000000</double>
                         </property>
                         <property name="singleStep">
                          <double>1.000000000000000</double>
@@ -3551,19 +3538,6 @@ to target:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="4" column="1">
-                       <widget class="QSlider" name="slider_main_light_alpha">
-                        <property name="minimum">
-                         <number>-36000</number>
-                        </property>
-                        <property name="maximum">
-                         <number>36000</number>
-                        </property>
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
                       <item row="2" column="0">
                        <widget class="QLabel" name="label_5">
                         <property name="text">
@@ -3617,7 +3591,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="5" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_main_light_beta">
+                       <widget class="QDoubleSpinBox" name="spinboxd_main_light_beta">
                         <property name="frame">
                          <bool>true</bool>
                         </property>
@@ -3692,6 +3666,32 @@ to target:</string>
                        <widget class="QPushButton" name="colorButton_main_light_colour">
                         <property name="text">
                          <string>PushButton</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="4" column="1">
+                       <widget class="QDial" name="dial_main_light_alpha">
+                        <property name="minimum">
+                         <number>-18000</number>
+                        </property>
+                        <property name="maximum">
+                         <number>18000</number>
+                        </property>
+                        <property name="wrapping">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="5" column="1">
+                       <widget class="QDial" name="dial_main_light_beta">
+                        <property name="minimum">
+                         <number>-18000</number>
+                        </property>
+                        <property name="maximum">
+                         <number>18000</number>
+                        </property>
+                        <property name="wrapping">
+                         <bool>true</bool>
                         </property>
                        </widget>
                       </item>
@@ -6070,10 +6070,8 @@ to target:</string>
   <tabstop>slider_main_light_visibility_size</tabstop>
   <tabstop>spinbox_main_light_visibility_size</tabstop>
   <tabstop>colorButton_main_light_colour</tabstop>
-  <tabstop>slider_main_light_alpha</tabstop>
-  <tabstop>spinbox_main_light_alpha</tabstop>
-  <tabstop>slider_main_light_beta</tabstop>
-  <tabstop>spinbox_main_light_beta</tabstop>
+  <tabstop>spinboxd_main_light_alpha</tabstop>
+  <tabstop>spinboxd_main_light_beta</tabstop>
   <tabstop>slider_shadows_cone_angle</tabstop>
   <tabstop>spinbox_shadows_cone_angle</tabstop>
   <tabstop>checkBox_main_light_position_relative</tabstop>

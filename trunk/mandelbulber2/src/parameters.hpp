@@ -26,7 +26,7 @@ enum enumParameterType
 
 enum enumMorphType
 {
-	morphNone, morphLinear, morphcatMullRom
+	morphNone, morphLinear, morphCatMullRom, morphCatMullRomAngle
 };
 }
 
