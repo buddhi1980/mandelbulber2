@@ -895,6 +895,11 @@ void RenderWindow::slotSpinBoxPaletteSizeChanged(int value)
 	ui->slider_coloring_palette_offset->setMaximum(value * 100);
 }
 
+void RenderWindow::slotAutoFogPressed()
+{
+	mainInterface->AutoFog();
+}
+
 //=================== rendered image widget ==================/
 
 RenderedImage::RenderedImage(QWidget *parent)

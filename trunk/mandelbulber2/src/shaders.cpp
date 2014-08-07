@@ -239,6 +239,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		if (params->glowEnabled)
 		{
 			double glowOpacity = glow * step / input.depth;
+			if(glowOpacity > 1.0) glowOpacity = 1.0;
 			output.R = glowOpacity * glowR + (1.0 - glowOpacity) * output.R;
 			output.G = glowOpacity * glowG + (1.0 - glowOpacity) * output.G;
 			output.B = glowOpacity * glowB + (1.0 - glowOpacity) * output.B;
