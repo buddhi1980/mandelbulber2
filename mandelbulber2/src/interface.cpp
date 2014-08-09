@@ -838,7 +838,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished");
 }
 
-void cInterface::StatusText(QString &text, QString &progressText, double progress)
+void cInterface::StatusText(const QString &text, const QString &progressText, double progress)
 {
 	mainWindow->ui->statusbar->showMessage(text, 0);
 	mainInterface->progressBar->setValue(progress * 1000.0);

@@ -61,7 +61,13 @@ RESOURCES = ../qt/icons.qrc
 
 UI_DIR = ../qt
 
+QMAKE_CXXFLAGS_RELEASE -= -O2
+QMAKE_CXXFLAGS_RELEASE += -O3
+ 
+QMAKE_LFLAGS_RELEASE -= -O1
+
 QMAKE_CXXFLAGS += -msse2 -ffast-math
+
 
 LIBS += -lpng
 win32:LIBS += -lz

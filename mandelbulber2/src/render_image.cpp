@@ -103,6 +103,7 @@ bool cRenderer::RenderImage()
 			progressTxt = progressText.getText(percentDone);
 			mainInterface->StatusText(statusText, progressTxt, percentDone);
 
+
 			//refresh image
 			if (listToRefresh.size() > 0)
 			{
