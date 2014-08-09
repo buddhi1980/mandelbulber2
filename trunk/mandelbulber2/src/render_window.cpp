@@ -580,7 +580,11 @@ void RenderWindow::slotSaveImageJPEG()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
+		mainInterface->StatusText(QString("Saving JPG image"), QString("Saving image started"), 0.0);
+		mainInterface->application->processEvents();
 		SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
+		mainInterface->StatusText(QString("Saving JPG image"), QString("Saving image finished"), 1.0);
+		mainInterface->application->processEvents();
 		systemData.lastImageFile = filename;
 	}
 }
@@ -600,7 +604,11 @@ void RenderWindow::slotSaveImagePNG8()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
+		mainInterface->StatusText(QString("Saving PNG image"), QString("Saving PNG image started"), 0.0);
+		mainInterface->application->processEvents();
 		SavePNG(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->ConvertTo8bit());
+		mainInterface->StatusText(QString("Saving PNG image"), QString("Saving PNG image finished"), 1.0);
+		mainInterface->application->processEvents();
 		systemData.lastImageFile = filename;
 	}
 }
@@ -620,7 +628,11 @@ void RenderWindow::slotSaveImagePNG16()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
+		mainInterface->StatusText(QString("Saving PNG 16-bit image"), QString("Saving PNG image started"), 0.0);
+		mainInterface->application->processEvents();
 		SavePNG16(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->GetImage16Ptr());
+		mainInterface->StatusText(QString("Saving PNG 16-bit image"), QString("Saving PNG image finished"), 1.0);
+		mainInterface->application->processEvents();
 		systemData.lastImageFile = filename;
 	}
 }
@@ -640,7 +652,11 @@ void RenderWindow::slotSaveImagePNG16Alpha()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
+		mainInterface->StatusText(QString("Saving image to PNG 16-bit with alpha channel"), QString("Saving PNG image started"), 0.0);
+		mainInterface->application->processEvents();
 		SavePNG16Alpha(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage);
+		mainInterface->StatusText(QString("Saving image to PNG 16-bit with alpha channel"), QString("Saving PNG image finished"), 1.0);
+		mainInterface->application->processEvents();
 		systemData.lastImageFile = filename;
 	}
 }

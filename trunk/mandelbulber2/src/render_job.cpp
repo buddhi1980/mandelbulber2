@@ -65,6 +65,9 @@ bool cRenderJob::Init(enumMode _mode)
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 
+	mainInterface->StatusText(QString("Initialization"), QString("Setting up image buffers"), 0.0);
+	mainInterface->application->processEvents();
+
 	if(!InitImage(width, height))
 	{
 		ready = false;
@@ -86,10 +89,18 @@ bool cRenderJob::Init(enumMode _mode)
 	renderData->palette = paramsContainer->Get<cColorPalette>("surface_color_palette");
 
 	//textures are deleted with destruction of renderData
-	//TODO selective loading of textures;
-	renderData->textures.backgroundTexture = new cTexture(paramsContainer->Get<QString>("file_background"));
-	renderData->textures.envmapTexture = new cTexture(paramsContainer->Get<QString>("file_envmap"));
-	renderData->textures.lightmapTexture = new cTexture(paramsContainer->Get<QString>("file_lightmap"));
+
+	mainInterface->StatusText(QString("Initialization"), QString("Loading textures"), 0.0);
+	mainInterface->application->processEvents();
+
+	if(paramsContainer->Get<bool>("textured_background"))
+		renderData->textures.backgroundTexture = new cTexture(paramsContainer->Get<QString>("file_background"));
+
+	if(paramsContainer->Get<bool>("env_mapping_enable"))
+		renderData->textures.envmapTexture = new cTexture(paramsContainer->Get<QString>("file_envmap"));
+
+	if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
+		renderData->textures.lightmapTexture = new cTexture(paramsContainer->Get<QString>("file_lightmap"));
 
 	ready = true;
 	return true;

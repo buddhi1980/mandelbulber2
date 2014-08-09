@@ -429,9 +429,11 @@ compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_my
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp
 moc_render_window.cpp: ../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../src/color_palette.hpp \
+		../src/color_structures.hpp \
 		../qt/myscrolledarea.h \
 		../src/cimage.hpp \
-		../src/color_structures.hpp \
 		../src/render_window.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_window.hpp -o moc_render_window.cpp
 
@@ -645,6 +647,7 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/color_palette.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
 		../qt/myscrolledarea.h \
 		../src/cimage.hpp \
 		../src/system.hpp \
@@ -698,6 +701,7 @@ main.o: ../src/main.cpp ../src/main.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
 		../qt/myscrolledarea.h \
 		../src/initparameters.hpp \
 		../src/fractal_list.hpp
@@ -746,6 +750,7 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
 		../qt/myscrolledarea.h \
 		../src/progress_text.hpp \
 		../src/error_message.hpp \
@@ -772,6 +777,7 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
 		../qt/myscrolledarea.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_job.o ../src/render_job.cpp
 
@@ -792,19 +798,21 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
 		../qt/myscrolledarea.h \
 		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_ssao.o ../src/render_ssao.cpp
 
 render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../src/color_palette.hpp \
+		../src/color_structures.hpp \
 		../qt/myscrolledarea.h \
 		../src/cimage.hpp \
-		../src/color_structures.hpp \
 		../src/interface.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
-		../src/color_palette.hpp \
 		../src/fractal_list.hpp \
 		../src/system.hpp \
 		../src/settings.hpp \
@@ -813,6 +821,7 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/fractparams.hpp \
 		../src/texture.hpp \
 		../src/primitives.h \
+		../src/common_math.h \
 		../src/my_ui_loader.h \
 		../src/preview_file_dialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_window.o ../src/render_window.cpp
