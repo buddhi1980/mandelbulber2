@@ -184,6 +184,15 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 		pixel2.B = pixel.B/65536.0;
 		pixel2.A = 0.0;
 	}
+
+	CVector3 viewVectorNorm = input.viewVector;
+	viewVectorNorm.Normalize();
+	double light = (viewVectorNorm.Dot(input.lightVect) - 1.0) * 360.0 / params->mainLightVisibilitySize;
+	light = 1.0 / (1.0 + pow(light, 6.0)) * params->mainLightVisibility * params->mainLightIntensity;
+	pixel2.R += light * params->mainLightColour.R / 65536.0;
+	pixel2.G += light * params->mainLightColour.G / 65536.0;
+	pixel2.B += light * params->mainLightColour.B / 65536.0;
+
 	return pixel2;
 }
 

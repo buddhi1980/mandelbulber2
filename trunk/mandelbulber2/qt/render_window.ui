@@ -287,7 +287,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-230</y>
+          <y>0</y>
           <width>414</width>
           <height>502</height>
          </rect>
@@ -1950,7 +1950,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-47</y>
+                  <y>0</y>
                   <width>364</width>
                   <height>642</height>
                  </rect>
@@ -3383,7 +3383,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-126</y>
+                  <y>0</y>
                   <width>364</width>
                   <height>1579</height>
                  </rect>
@@ -3493,7 +3493,7 @@ to target:</string>
                          <number>2</number>
                         </property>
                         <property name="maximum">
-                         <double>1000.000000000000000</double>
+                         <double>18000.000000000000000</double>
                         </property>
                         <property name="singleStep">
                          <double>0.100000000000000</double>
@@ -3531,7 +3531,7 @@ to target:</string>
                          <number>2</number>
                         </property>
                         <property name="maximum">
-                         <double>1000.000000000000000</double>
+                         <double>10000.000000000000000</double>
                         </property>
                         <property name="singleStep">
                          <double>0.100000000000000</double>
@@ -3583,7 +3583,7 @@ to target:</string>
                       <item row="2" column="1">
                        <widget class="QSlider" name="slider_main_light_visibility_size">
                         <property name="maximum">
-                         <number>200</number>
+                         <number>5000</number>
                         </property>
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
@@ -3628,7 +3628,7 @@ to target:</string>
                       <item row="1" column="1">
                        <widget class="QSlider" name="slider_main_light_visibility">
                         <property name="maximum">
-                         <number>200</number>
+                         <number>2000</number>
                         </property>
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
