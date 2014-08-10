@@ -227,7 +227,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
   double totalStep = 0.0;
 
   sShaderInputData input2 = input;
-  for(int index = input.stepCount-1; index >0; index--)
+  for(int index = input.stepCount - 1; index > 0; index--)
 	{
 		double step = input.stepBuff[index].step;
 		double distance = input.stepBuff[index].distance;
@@ -254,60 +254,51 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			output.B = glowOpacity * glowB + (1.0 - glowOpacity) * output.B;
 			output.A += glowOpacity;
 		}
-
+		//qDebug() << "step" << step;
 		//------------------ visible light
 		if (params->auxLightVisibility > 0)
 		{
-			double lowestLightSize = 1e10;
-			double lowestLightDist = 1e10;
-			for (int i = 0; i < numberOfLights; ++i)
+			double miniStep = 0.0;
+			for(double miniSteps = 0.0; miniSteps < step; miniSteps += miniStep)
 			{
-				cLights::sLight light = data->lights.GetLight(i);
-				if (light.enabled)
+				double lowestLightSize = 1e10;
+				double lowestLightDist = 1e10;
+				for (int i = 0; i < numberOfLights; ++i)
 				{
-					CVector3 lightDistVect = point - light.position;
-					double lightDist = lightDistVect.Length();
-					double lightSize = light.intensity * params->auxLightIntensity * params->auxLightVisibility;
-					double r2 = lightDist / lightSize;
-					if (r2 < lowestLightSize)
+					cLights::sLight light = data->lights.GetLight(i);
+					if (light.enabled)
 					{
-							lowestLightSize = r2;
-							lowestLightDist = lightDist;
+						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light.position;
+						double lightDist = lightDistVect.Length();
+						double lightSize = sqrt(light.intensity) * params->auxLightVisibilitySize;
+						double distToLightSurface = lightDist - lightSize;
+						if (distToLightSurface < 0.0) distToLightSurface = 0.0;
+						if (distToLightSurface <= lowestLightDist)
+						{
+							if (lightSize < lowestLightSize)
+							{
+								lowestLightSize = lightSize;
+							}
+							lowestLightDist = distToLightSurface;
+						}
 					}
 				}
-			}
 
-			//small steps close to light source to improve accuracy
-			int smallSteps = 0;
-			int smallStep_start = 0;
-			int smallStep_end = 1;
-			double step2 = step;
-
-			smallSteps = 10.0 * step / (lowestLightDist + 1.0e-20);
-			if(smallSteps > 50) smallSteps = 50;
-			if (smallSteps > 0)
-			{
-				smallStep_start = 1;
-				smallStep_end = smallSteps + 1;
-				step2 = step / (smallSteps + 1.0);
-			}
-
-			for (int smallStep = smallStep_start; smallStep < smallStep_end; smallStep++)
-			{
-				CVector3 point2 = point - input.viewVector * step2 * smallStep;
+				miniStep = 0.1 * (lowestLightDist + 0.1 * lowestLightSize);
+				if(miniStep > step - miniSteps) miniStep = step - miniSteps;
+				//qDebug() << "ministeps" << miniSteps << "ministep" << miniStep;
 
 				for (int i = 0; i < numberOfLights; ++i)
 				{
 					cLights::sLight light = data->lights.GetLight(i);
 					if (light.enabled)
 					{
-						CVector3 lightDistVect = point2 - light.position;
+						CVector3 lightDistVect = (point - input.viewVector * miniSteps) - light.position;
 						double lightDist = lightDistVect.Length();
-						double lightSize = light.intensity * params->auxLightIntensity * params->auxLightVisibility;
+						double lightSize = sqrt(light.intensity) * params->auxLightVisibilitySize;
 						double r2 = lightDist / lightSize;
-						if (r2 > 1.0) r2 = 1.0;
-						double bellFunction = (cos(r2 * M_PI) + 1.0) / (r2 * r2 + 0.02) * 0.3;
-						double lightDensity = step2 * bellFunction / lightSize;
+						double bellFunction = 1.0 / (1.0 + pow(r2, 4.0));
+						double lightDensity = miniStep * bellFunction * params->auxLightVisibility / lightSize;
 
 						output.R += lightDensity * light.colour.R / 65536.0;
 						output.G += lightDensity * light.colour.G / 65536.0;
@@ -928,7 +919,7 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, cLights::s
 	CVector3 lightVector = d;
 	lightVector.Normalize();
 
-	double intensity = params->auxLightIntensity * 100.0 * light.intensity / (distance * distance) / number;
+	double intensity = 100.0 * light.intensity / (distance * distance) / number;
 	double shade = input.normal.Dot(lightVector);
 	if (shade < 0) shade = 0;
 	shade = shade * intensity;

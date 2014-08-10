@@ -121,10 +121,10 @@ public:
   double ambientOcclusion;
 	double ambientOcclusionFastTune;
 	double auxLightDistributionRadius;
-	double auxLightIntensity;
 	double auxLightMaxDist;
 	double auxLightPreIntensity[4];
 	double auxLightVisibility;
+	double auxLightVisibilitySize;
   double coloring_speed;
 	double colourSaturation;
 	double constantFactor;

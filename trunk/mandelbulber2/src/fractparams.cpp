@@ -174,11 +174,11 @@ cParamRender::cParamRender(const cParameterContainer *container)
 	primitives.water.reflect = container->Get<double>("primitive_water_reflect");
 
 	auxLightDistributionRadius = container->Get<double>("aux_light_distribution_radius");
-	auxLightIntensity = container->Get<double>("aux_light_intensity");
 	auxLightNumber = container->Get<int>("aux_light_number");
 	auxLightMaxDist = container->Get<double>("aux_light_max_dist");
 	auxLightVisibility = container->Get<double>("aux_light_visibility");
 	auxLightRandomSeed = container->Get<int>("aux_light_random_seed");
+	auxLightVisibilitySize = container->Get<double>("aux_light_visibility_size");
 
 	//formula = Get<int>("tile_number");
 }
