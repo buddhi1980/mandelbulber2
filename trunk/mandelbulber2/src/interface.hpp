@@ -11,6 +11,7 @@
 #include "parameters.hpp"
 #include "render_window.hpp"
 #include <QProgressBar>
+#include "rendered_image_widget.hpp"
 
 //class for main user interface
 
