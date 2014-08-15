@@ -53,10 +53,14 @@ int main(int argc, char *argv[])
 	mainInterface->mainImage = new cImage(gPar->Get<int>("image_width"),gPar->Get<int>("image_height"));
 	mainInterface->mainImage->CreatePreview(1.0, 800, 600, mainInterface->renderedImage);
 	mainInterface->renderedImage->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(),mainInterface->mainImage->GetPreviewHeight());
+	mainInterface->renderedImage->AssignImage(mainInterface->mainImage);
+	mainInterface->renderedImage->AssignParameters(gPar);
 
 	//start main Qt loop
 	WriteLog("application->exec()");
 	int result = mainInterface->application->exec();
+
+	//clean objects when exit
 	delete mainInterface;
 	delete gPar;
 	delete[] gParFractal;

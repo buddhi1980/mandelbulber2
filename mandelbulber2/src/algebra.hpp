@@ -55,6 +55,10 @@ public:
 	{
 		return CVector3(x * scalar, y * scalar, z * scalar);
 	}
+	inline CVector3 operator/(const double &scalar) const
+	{
+		return CVector3(x / scalar, y / scalar, z / scalar);
+	}
 	inline CVector3& operator=(const CVector3 &vector)
 	{
 		x = vector.x;
@@ -81,6 +85,13 @@ public:
 		x *= scalar;
 		y *= scalar;
 		z *= scalar;
+		return *this;
+	}
+	inline CVector3& operator/=(const double &scalar)
+	{
+		x /= scalar;
+		y /= scalar;
+		z /= scalar;
 		return *this;
 	}
 	inline double Length() const
@@ -145,6 +156,10 @@ public:
 	{
 		return CVector2(x * scalar, y * scalar);
 	}
+	inline CVector2 operator/(const double &scalar) const
+	{
+		return CVector2(x / scalar, y / scalar);
+	}
 	inline CVector2& operator=(const CVector2 &vector)
 	{
 		x = vector.x;
@@ -167,6 +182,12 @@ public:
 	{
 		x *= scalar;
 		y *= scalar;
+		return *this;
+	}
+	inline CVector2& operator/=(const double &scalar)
+	{
+		x /= scalar;
+		y /= scalar;
 		return *this;
 	}
 	inline double Length() const

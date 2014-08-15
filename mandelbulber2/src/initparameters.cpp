@@ -181,6 +181,7 @@ using namespace parameterContainer;
 	par->addParam("aux_light_random_center", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("aux_light_visibility", 1.0, morphLinear, paramStandard);
 	par->addParam("aux_light_visibility_size", 1.0, morphLinear, paramStandard);
+	par->addParam("aux_light_random_enabled", false, morphLinear, paramStandard);
 
 	par->addParam("aux_light_predefined_position", 1, CVector3(3.0, -3.0, 3.0), morphCatMullRom, paramStandard);
 	par->addParam("aux_light_predefined_position", 2, CVector3(-3.0, -3.0, 0.0), morphCatMullRom, paramStandard);

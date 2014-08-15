@@ -132,6 +132,8 @@ void cInterface::ConnectSignals(void)
 
 	QApplication::connect(mainWindow->ui->checkBox_hybrid_fractal_enable, SIGNAL(stateChanged(int)), mainWindow, SLOT(slotCheckBoxHybridFractalChanged(int)));
 
+	QApplication::connect(renderedImage, SIGNAL(mouseMoved(int, int)), mainWindow, SLOT(slotMouseMovedOnImage(int, int)));
+
 	// ------------ camera manipulation -----------
 	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
 	QApplication::connect(mainWindow->ui->bu_move_down, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));

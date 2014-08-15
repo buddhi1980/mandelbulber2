@@ -35,6 +35,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/progress_text.cpp\
 	    	../src/preview_file_dialog.cpp\
 	    	../src/render_image.cpp\
+	    	../src/rendered_image_widget.cpp\
 	    	../src/render_job.cpp\
 	    	../src/render_ssao.cpp\
 	    	../src/render_window.cpp\
@@ -53,7 +54,8 @@ HEADERS  += ../src/render_window.hpp\
 			../src/my_ui_loader.h\
 			../src/preview_file_dialog.h\
 			../src/ssao_worker.h\
-			../qt/color_palette_widget.h
+			../qt/color_palette_widget.h\
+			../src/rendered_image_widget.hpp
 
 FORMS    += ../qt/render_window.ui
 

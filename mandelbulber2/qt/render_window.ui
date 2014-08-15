@@ -1829,12 +1829,7 @@ to target:</string>
              </item>
              <item>
               <property name="text">
-               <string>Set front fog distance</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Set deep fog distance</string>
+               <string>Set fog visibility</string>
               </property>
              </item>
             </widget>
@@ -4364,7 +4359,7 @@ to target:</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupBox">
+                  <widget class="QGroupBox" name="groupCheck_aux_light_random_enabled">
                    <property name="title">
                     <string>Random lights</string>
                    </property>

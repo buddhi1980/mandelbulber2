@@ -103,6 +103,7 @@ private slots:
 	void slotPressedResolutionPresset();
 	void slotImageHeightChanged(int value);
 
+	void slotMouseMovedOnImage(int x, int y);
 
 private:
 	Ui::RenderWindow *ui;
@@ -123,16 +124,6 @@ private:
 };
 
 
-class RenderedImage: public QWidget
-{
-Q_OBJECT
-
-public:
-	RenderedImage(QWidget *parent = 0);
-
-protected:
-	void paintEvent(QPaintEvent *event);
-};
 
 
 

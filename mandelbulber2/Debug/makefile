@@ -69,6 +69,7 @@ SOURCES       = ../src/algebra.cpp \
 		../src/progress_text.cpp \
 		../src/preview_file_dialog.cpp \
 		../src/render_image.cpp \
+		../src/rendered_image_widget.cpp \
 		../src/render_job.cpp \
 		../src/render_ssao.cpp \
 		../src/render_window.cpp \
@@ -86,7 +87,8 @@ SOURCES       = ../src/algebra.cpp \
 		moc_my_ui_loader.cpp \
 		moc_preview_file_dialog.cpp \
 		moc_ssao_worker.cpp \
-		moc_color_palette_widget.cpp
+		moc_color_palette_widget.cpp \
+		moc_rendered_image_widget.cpp
 OBJECTS       = algebra.o \
 		calculate_distance.o \
 		camera_target.o \
@@ -111,6 +113,7 @@ OBJECTS       = algebra.o \
 		progress_text.o \
 		preview_file_dialog.o \
 		render_image.o \
+		rendered_image_widget.o \
 		render_job.o \
 		render_ssao.o \
 		render_window.o \
@@ -129,7 +132,8 @@ OBJECTS       = algebra.o \
 		moc_my_ui_loader.o \
 		moc_preview_file_dialog.o \
 		moc_ssao_worker.o \
-		moc_color_palette_widget.o
+		moc_color_palette_widget.o \
+		moc_rendered_image_widget.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -211,6 +215,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../src/progress_text.cpp \
 		../src/preview_file_dialog.cpp \
 		../src/render_image.cpp \
+		../src/rendered_image_widget.cpp \
 		../src/render_job.cpp \
 		../src/render_ssao.cpp \
 		../src/render_window.cpp \
@@ -387,7 +392,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/mandelbulber21.0.0 || mkdir -p .tmp/mandelbulber21.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/render_image.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
 
 
 clean:compiler_clean 
@@ -425,9 +430,9 @@ qrc_icons.cpp: ../qt/icons.qrc \
 		../qt/icons/object-rotate-right.png
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name icons ../qt/icons.qrc -o qrc_icons.cpp
 
-compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp
+compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp
+	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp
 moc_render_window.cpp: ../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
 		../src/color_palette.hpp \
@@ -487,6 +492,11 @@ moc_color_palette_widget.cpp: ../src/color_palette.hpp \
 		../src/color_structures.hpp \
 		../qt/color_palette_widget.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/color_palette_widget.h -o moc_color_palette_widget.cpp
+
+moc_rendered_image_widget.cpp: ../src/cimage.hpp \
+		../src/color_structures.hpp \
+		../src/rendered_image_widget.hpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/rendered_image_widget.hpp -o moc_rendered_image_widget.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -650,6 +660,7 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../qt/color_palette_widget.h \
 		../qt/myscrolledarea.h \
 		../src/cimage.hpp \
+		../src/rendered_image_widget.hpp \
 		../src/system.hpp \
 		../src/fractal_list.hpp \
 		../src/render_job.hpp \
@@ -703,6 +714,7 @@ main.o: ../src/main.cpp ../src/main.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
 		../qt/myscrolledarea.h \
+		../src/rendered_image_widget.hpp \
 		../src/initparameters.hpp \
 		../src/fractal_list.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
@@ -752,10 +764,16 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
 		../qt/myscrolledarea.h \
+		../src/rendered_image_widget.hpp \
 		../src/progress_text.hpp \
 		../src/error_message.hpp \
 		../src/render_ssao.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_image.o ../src/render_image.cpp
+
+rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_widget.hpp \
+		../src/cimage.hpp \
+		../src/color_structures.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rendered_image_widget.o ../src/rendered_image_widget.cpp
 
 render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../src/parameters.hpp \
@@ -778,7 +796,8 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
-		../qt/myscrolledarea.h
+		../qt/myscrolledarea.h \
+		../src/rendered_image_widget.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_job.o ../src/render_job.cpp
 
 render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
@@ -800,6 +819,7 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
 		../qt/myscrolledarea.h \
+		../src/rendered_image_widget.hpp \
 		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_ssao.o ../src/render_ssao.cpp
 
@@ -813,6 +833,7 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/interface.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
+		../src/rendered_image_widget.hpp \
 		../src/fractal_list.hpp \
 		../src/system.hpp \
 		../src/settings.hpp \
@@ -934,6 +955,9 @@ moc_ssao_worker.o: moc_ssao_worker.cpp
 
 moc_color_palette_widget.o: moc_color_palette_widget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_color_palette_widget.o moc_color_palette_widget.cpp
+
+moc_rendered_image_widget.o: moc_rendered_image_widget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_rendered_image_widget.o moc_rendered_image_widget.cpp
 
 ####### Install
 

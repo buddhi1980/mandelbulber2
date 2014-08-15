@@ -916,15 +916,11 @@ void RenderWindow::slotAutoFogPressed()
 	mainInterface->AutoFog();
 }
 
-//=================== rendered image widget ==================/
-
-RenderedImage::RenderedImage(QWidget *parent)
-    : QWidget(parent)
-{ }
-
-void RenderedImage::paintEvent(QPaintEvent *event)
+void RenderWindow::slotMouseMovedOnImage(int x, int y)
 {
-  (void)event;
-	mainInterface->mainImage->RedrawInWidget();
+	//qDebug() << "mouse move event";
+	//CVector2<int> point(x, y);
 }
+
+
 
