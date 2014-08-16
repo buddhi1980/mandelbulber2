@@ -290,6 +290,7 @@ using namespace parameterContainer;
 	par->addParam("light_manual_placement_dist", 0.1, 1e-15, 1e15, morphNone, paramApp);
 
 	par->addParam("camera_movenent_step", 0.5, 1e-15, 1e5, morphNone, paramApp);
+	//TODO recalculation of movement step when modde is changed
 	par->addParam("camera_rotation_step", 15.0, 1e-15, 360.0, morphNone, paramApp);
 	par->addParam("camera_straight_rotation", 0, morphNone, paramApp);
 	par->addParam("camera_absolute_distance_mode", 0, morphNone, paramApp);

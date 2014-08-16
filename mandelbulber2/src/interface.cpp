@@ -133,6 +133,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->checkBox_hybrid_fractal_enable, SIGNAL(stateChanged(int)), mainWindow, SLOT(slotCheckBoxHybridFractalChanged(int)));
 
 	QApplication::connect(renderedImage, SIGNAL(mouseMoved(int, int)), mainWindow, SLOT(slotMouseMovedOnImage(int, int)));
+	QApplication::connect(renderedImage, SIGNAL(singleClick(int, int, Qt::MouseButton)), mainWindow, SLOT(slotMouceClickOnImage(int, int, Qt::MouseButton)));
 
 	// ------------ camera manipulation -----------
 	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
@@ -1354,6 +1355,156 @@ double cInterface::GetDistanceForPoint(CVector3 point)
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	double distance = GetDistanceForPoint(point, gPar, gParFractal);
 	return distance;
+}
+
+void cInterface::MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button)
+{
+	WriteLog("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: " + button);
+	//get data from interface
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	CVector3 camera = gPar->Get<CVector3>("camera");
+	CVector3 target = gPar->Get<CVector3>("target");
+	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	cCameraTarget cameraTarget(camera, target, topVector);
+
+	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode)gPar->Get<int>("camera_absolute_distance_mode");
+	enumCameraMovementMode movementMode = (enumCameraMovementMode)gPar->Get<int>("camera_movement_mode");
+	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)gPar->Get<int>("mouse_click_function");
+	params::enumPerspectiveType perspType = (params::enumPerspectiveType)gPar->Get<int>("perspective_type");
+	cCameraTarget::enumRotationMode rollMode = 	(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
+	double movementStep =  gPar->Get<double>("camera_movenent_step");
+	double fov = gPar->Get<double>("fov");
+
+	CVector2<double> imagePoint;
+	imagePoint = screenPoint / mainImage->GetPreviewScale();
+
+	int width = mainImage->GetWidth();
+	int height = mainImage->GetHeight();
+
+	if(imagePoint.x >= 0 && imagePoint.x < mainImage->GetWidth() && imagePoint.y >= 0 && imagePoint.y < mainImage->GetHeight())
+	{
+		double depth = mainImage->GetPixelZBuffer(imagePoint.x, imagePoint.y);
+
+		CVector3 viewVector;
+		double x2, z2;
+		double aspectRatio = (double) width / height;
+
+		CVector3 angles = cameraTarget.GetRotation();
+		CRotationMatrix mRot;
+		mRot.SetRotation(angles);
+
+		switch(perspType)
+		{
+			case params::perspThreePoint:
+			{
+				x2 = ((double) imagePoint.x / width - 0.5) * aspectRatio;
+				z2 = ((double) imagePoint.y / height - 0.5) * (-1.0);
+				viewVector.x = x2 * fov;
+				viewVector.y = 1.0;
+				viewVector.z = z2 * fov;
+				break;
+			}
+
+			case params::perspFishEye:
+			case params::perspFishEyeCut:
+			{
+				x2 = M_PI * ((double) imagePoint.x / width - 0.5) * aspectRatio;
+				z2 = M_PI * ((double) imagePoint.y / height - 0.5) * (-1.0);
+
+				double r = sqrt(x2 * x2 + z2 * z2);
+
+				if(r == 0)
+				{
+					viewVector.x = 0.0;
+					viewVector.z = 0.0;
+					viewVector.y = 1.0;
+				}
+				else
+				{
+					viewVector.x = x2 / r * sin(r * fov);
+					viewVector.z = z2 / r * sin(r * fov);
+					viewVector.y = cos(r * fov);
+				}
+				viewVector.Normalize();
+				break;
+			}
+
+			case params::perspEquirectangular:
+			{
+				x2 = M_PI * ((double) imagePoint.x / width - 0.5) * aspectRatio; // --------- do sprawdzenia
+				z2 = M_PI * ((double) imagePoint.y / height - 0.5) * (-1.0);
+				viewVector.x = sin(fov * x2) * cos(fov * z2);
+				viewVector.z = sin(fov * z2);
+				viewVector.y = cos(fov * x2) * cos(fov * z2);
+				viewVector.Normalize();
+				break;
+			}
+		}
+
+		viewVector = mRot.RotateVector(viewVector);
+
+		CVector3 point = camera + viewVector * depth;
+
+		switch(clickMode)
+		{
+			case RenderedImage::clickMoveCamera:
+			{
+				double distance = (camera - point).Length();
+				double moveDistance = (stepMode == absolute) ? movementStep : distance * movementStep;
+
+				switch (movementMode)
+				{
+					case moveTarget:
+						target = point;
+						break;
+
+					case moveCamera:
+						camera += viewVector * moveDistance;
+						break;
+
+					case fixedDistance:
+						camera += viewVector * moveDistance;
+						target = point;
+						break;
+				}
+
+				//recalculation of camera-target
+				if(movementMode == moveCamera)
+					cameraTarget.SetCamera(camera, rollMode);
+				else if(movementMode == moveTarget)
+					cameraTarget.SetTarget(target, rollMode);
+				else if (movementMode == fixedDistance)
+					cameraTarget.SetCameraTargetTop(camera, target, topVector);
+
+				if(rollMode == cCameraTarget::constantRoll)
+				{
+					cameraTarget.SetCameraTargetRotation(camera, target, angles.z);
+				}
+
+				gPar->Set("camera", camera);
+				gPar->Set("target", target);
+
+				topVector = cameraTarget.GetTopVector();
+				gPar->Set("camera_top", topVector);
+				CVector3 rotation = cameraTarget.GetRotation();
+				gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+				double dist = cameraTarget.GetDistance();
+				gPar->Set("camera_distance_to_target", dist);
+
+				SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+				renderedImage->setNewZ(depth - moveDistance);
+
+				StartRender();
+
+				break;
+			}
+			case RenderedImage::clickFogVisibility:
+			{
+				break;
+			}
+		}
+	}
 }
 
 //function to create icons with actual color in ColorButtons

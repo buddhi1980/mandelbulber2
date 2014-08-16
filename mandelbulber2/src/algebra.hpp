@@ -14,6 +14,7 @@
 
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <QString>
 
 /************************* vector 3D **********************/
 class CVector3
@@ -127,6 +128,10 @@ public:
 		return atan2(z, sqrt(x * x + y * y));
 	}
 	CVector3 RotateAroundVectorByAngle(CVector3 axis, double angle);
+	QString Debug()
+	{
+		return QString("[") + QString::number(x) + QString(", ") + QString::number(y) + QString(", ") + QString::number(z)+ QString("]");
+	}
 
 	double x;
 	double y;
@@ -205,6 +210,10 @@ public:
 		y = y * norm;
 		return norm;
 	}
+	QString Debug()
+	{
+		return QString("[") + QString::number(x) + QString(", ") + QString::number(y) + QString("]");
+	}
 
 	T x;
 	T y;
@@ -248,6 +257,7 @@ public:
 	void SetRotation(CVector3 rotation);
 	CRotationMatrix Transpose(void) const;
 	CMatrix33 GetMatrix() {return matrix;}
+
 private:
 	CMatrix33 matrix;
 	bool zero;

@@ -922,5 +922,10 @@ void RenderWindow::slotMouseMovedOnImage(int x, int y)
 	//CVector2<int> point(x, y);
 }
 
+void RenderWindow::slotMouceClickOnImage(int x, int y, Qt::MouseButton button)
+{
+	mainInterface->MoveCameraByMouse(CVector2<double>(x, y), button);
+}
+
 
 

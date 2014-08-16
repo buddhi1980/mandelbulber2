@@ -53,6 +53,7 @@ public:
 	void AutoFog();
 	double GetDistanceForPoint(CVector3 point);
 	double GetDistanceForPoint(CVector3 point, cParameterContainer *par, cParameterContainer *parFractal);
+	void MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button);
 
 	QApplication *application;
 	RenderWindow *mainWindow;

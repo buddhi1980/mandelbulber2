@@ -104,6 +104,7 @@ private slots:
 	void slotImageHeightChanged(int value);
 
 	void slotMouseMovedOnImage(int x, int y);
+	void slotMouceClickOnImage(int x, int y, Qt::MouseButton button);
 
 private:
 	Ui::RenderWindow *ui;
