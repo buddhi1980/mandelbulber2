@@ -29,6 +29,7 @@ enum enumClickMode
 	RenderedImage(QWidget *parent = 0);
 	void AssignImage(cImage *_image) {image = _image;}
 	void AssignParameters(cParameterContainer *_mainParams) {params = _mainParams;}
+	void setNewZ(double z) {smoothLastZMouse = z;}
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -46,7 +47,7 @@ private:
 
 signals:
 	void mouseMoved(int x, int y);
-	void singleClick(int x, int y, MouseButton button);
+	void singleClick(int x, int y, Qt::MouseButton button);
 };
 
 

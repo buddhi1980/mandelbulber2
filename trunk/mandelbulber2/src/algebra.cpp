@@ -152,25 +152,25 @@ void CRotationMatrix::RotateZ(double angle)
 void CRotationMatrix::SetRotation(double angles[3])
 {
 	Null();
-	RotateZ(angles[2]);
-	RotateY(angles[1]);
-	RotateX(angles[0]);
+	RotateZ(angles[0]);
+	RotateX(angles[1]);
+	RotateY(angles[2]);
 }
 
 void CRotationMatrix::SetRotation(double alfa, double beta, double gamma)
 {
 	Null();
 	RotateZ(alfa);
-	RotateY(beta);
-	RotateX(gamma);
+	RotateX(beta);
+	RotateY(gamma);
 }
 
 void CRotationMatrix::SetRotation(CVector3 rotation)
 {
 	Null();
 	RotateZ(rotation.x);
-	RotateY(rotation.y);
-	RotateX(rotation.z);
+	RotateX(rotation.y);
+	RotateY(rotation.z);
 }
 
 CVector3 CRotationMatrix::RotateVector(const CVector3& vector) const
