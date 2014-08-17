@@ -67,6 +67,7 @@ private slots:
 	void slotRotationEdited();
 	void slotCameraDistanceEdited();
 	void slotCameraDistanceSlider(int value);
+	void slotMovementStepModeChanged(int index);
 
 	void slotCheckBoxHybridFractalChanged(int state);
 

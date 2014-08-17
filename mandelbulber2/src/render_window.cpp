@@ -927,5 +927,10 @@ void RenderWindow::slotMouceClickOnImage(int x, int y, Qt::MouseButton button)
 	mainInterface->MoveCameraByMouse(CVector2<double>(x, y), button);
 }
 
+void RenderWindow::slotMovementStepModeChanged(int index)
+{
+	mainInterface->MovementStepModeChanged(index);
+}
+
 
 
