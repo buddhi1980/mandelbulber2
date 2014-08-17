@@ -104,7 +104,7 @@ void RenderedImage::mouseMoveEvent(QMouseEvent * event)
 							R = G = B = 255;
 							opacity = 1.0;
 						}
-						image->AntiAliasedLine(xx1, yy1, xx1, yy2, z - iz * boxDepth2, z - iz * boxDepth2, (sRGB8 ) { R, G, B }, opacity, 1);
+						image->AntiAliasedLine(xx1, yy1, xx1, yy2, z - iz * boxDepth2, z - iz * boxDepth2, sRGB8(R, G, B), opacity, 1);
 					}
 
 					double xx1 = ((p.x + n * boxWidth) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
@@ -123,7 +123,7 @@ void RenderedImage::mouseMoveEvent(QMouseEvent * event)
 							opacity = 1.0;
 						}
 
-						image->AntiAliasedLine(xx1, yy1, xx2, yy1, z - iz * boxDepth2, z - iz * boxDepth2, (sRGB8 ) { R, G, B }, opacity, 1);
+						image->AntiAliasedLine(xx1, yy1, xx2, yy1, z - iz * boxDepth2, z - iz * boxDepth2, sRGB8(R, G, B), opacity, 1);
 					}
 
 					if (iz < n)
@@ -148,14 +148,14 @@ void RenderedImage::mouseMoveEvent(QMouseEvent * event)
 									opacity = 1.0;
 								}
 
-								image->AntiAliasedLine(xx1, yy1, xx2, yy2, z - iz * boxDepth2, z - (iz + 1) * boxDepth2, (sRGB8 ) { R, G, B }, opacity, 1);
+								image->AntiAliasedLine(xx1, yy1, xx2, yy2, z - iz * boxDepth2, z - (iz + 1) * boxDepth2, sRGB8(R, G, B), opacity, 1);
 							}
 						}
 					}
 					if (iz == 0)
 					{
-						image->AntiAliasedLine(screenPoint.x - sw * 0.3, screenPoint.y, screenPoint.x + sw * 0.3, screenPoint.y, z, z, (sRGB8 ) { 255, 255, 255 }, 1.0, 1);
-						image->AntiAliasedLine(screenPoint.x, screenPoint.y - sh * 0.3, screenPoint.x, screenPoint.y + sh * 0.3, z, z, (sRGB8 ) { 255, 255, 255 }, 1.0, 1);
+						image->AntiAliasedLine(screenPoint.x - sw * 0.3, screenPoint.y, screenPoint.x + sw * 0.3, screenPoint.y, z, z, sRGB8(255, 255, 255), 1.0, 1);
+						image->AntiAliasedLine(screenPoint.x, screenPoint.y - sh * 0.3, screenPoint.x, screenPoint.y + sh * 0.3, z, z, sRGB8(255, 255, 255), 1.0, 1);
 
 						/*
 						if (mode >= 5 && mode < 10)

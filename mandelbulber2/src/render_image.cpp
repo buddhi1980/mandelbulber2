@@ -32,9 +32,9 @@ bool cRenderer::RenderImage()
 
 	out << "Start rendering" << endl;
 
-	int progressiveSteps = (int)(log(max(image->GetWidth(), image->GetHeight())) / log(2))-3;
+	int progressiveSteps = (int)(log((double)max(image->GetWidth(), image->GetHeight())) / log(2.0))-3;
 	if(progressiveSteps < 0) progressiveSteps = 0;
-	int progressive = pow(2, progressiveSteps - 1);
+	int progressive = pow(2.0, (double)progressiveSteps - 1);
 	if (progressive == 0) progressive = 1;
 
 	//prepare multiple threads

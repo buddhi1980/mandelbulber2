@@ -1422,12 +1422,12 @@ to target:</string>
                <widget class="QComboBox" name="comboBox_camera_absolute_distance_mode">
                 <item>
                  <property name="text">
-                  <string>Absolute step mode</string>
+                  <string>Relative step mode</string>
                  </property>
                 </item>
                 <item>
                  <property name="text">
-                  <string>Relative step mode</string>
+                  <string>Absolute step mode</string>
                  </property>
                 </item>
                </widget>
@@ -1946,7 +1946,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>364</width>
                   <height>642</height>
                  </rect>
                 </property>
@@ -2605,8 +2605,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>154</width>
-                  <height>69</height>
+                  <width>378</width>
+                  <height>245</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2688,7 +2688,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>364</width>
                   <height>669</height>
                  </rect>
                 </property>
@@ -3218,8 +3218,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>302</width>
-                  <height>243</height>
+                  <width>378</width>
+                  <height>245</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -4963,8 +4963,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5056,8 +5056,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5149,8 +5149,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5178,8 +5178,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>143</width>
-                  <height>137</height>
+                  <width>350</width>
+                  <height>193</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
