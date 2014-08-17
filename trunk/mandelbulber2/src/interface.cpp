@@ -161,6 +161,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->vect3_camera_rotation_z, SIGNAL(editingFinished()), mainWindow, SLOT(slotRotationEdited()));
 	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraDistanceEdited()));
 	QApplication::connect(mainWindow->ui->logslider_camera_distance_to_target, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotCameraDistanceSlider(int)));
+	QApplication::connect(mainWindow->ui->comboBox_camera_absolute_distance_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotMovementStepModeChanged(int)));
 
 	//------------------------------------------------
 
@@ -844,9 +845,9 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 void cInterface::StatusText(const QString &text, const QString &progressText, double progress)
 {
 	mainWindow->ui->statusbar->showMessage(text, 0);
-	mainInterface->progressBar->setValue(progress * 1000.0);
-	mainInterface->progressBar->setTextVisible(true);
-	mainInterface->progressBar->setFormat(progressText);
+	progressBar->setValue(progress * 1000.0);
+	progressBar->setTextVisible(true);
+	progressBar->setFormat(progressText);
 }
 
 double cInterface::ImageScaleComboSelection2Double(int index)
@@ -908,7 +909,7 @@ void cInterface::MoveCamera(QString buttonName)
 {
 	WriteLog("cInterface::MoveCamera(QString buttonName): button: " + buttonName);
 	//get data from interface
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -984,7 +985,7 @@ void cInterface::MoveCamera(QString buttonName)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
 	StartRender();
 }
@@ -999,7 +1000,7 @@ void cInterface::CameraOrTargetEdited(void)
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	camera = gPar->Get<CVector3>("camera");
 	target = gPar->Get<CVector3>("target");
 
@@ -1015,7 +1016,7 @@ void cInterface::CameraOrTargetEdited(void)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
 }
 
@@ -1024,7 +1025,7 @@ void cInterface::RotateCamera(QString buttonName)
 	WriteLog("cInterface::RotateCamera(QString buttonName): button: " + buttonName);
 
 	//get data from interface
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -1101,7 +1102,7 @@ void cInterface::RotateCamera(QString buttonName)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
 	StartRender();
 }
@@ -1110,7 +1111,7 @@ void cInterface::RotationEdited(void)
 {
 	WriteLog("cInterface::RotationEdited(void)");
 	//get data from interface before synchronization
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -1137,14 +1138,14 @@ void cInterface::RotationEdited(void)
 	gPar->Set("camera", camera);
 	gPar->Set("target", target);
 	gPar->Set("camera_top", cameraTarget.GetTopVector());
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, cInterface::write);
 }
 
 void cInterface::CameraDistanceEdited()
 {
 	WriteLog("cInterface::CameraDistanceEdited()");
 
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -1167,7 +1168,7 @@ void cInterface::CameraDistanceEdited()
 	gPar->Set("camera", camera);
 	gPar->Set("target", target);
 	gPar->Set("camera_top", cameraTarget.GetTopVector());
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
 }
 
@@ -1273,7 +1274,7 @@ void cInterface::ShowImageInLabel(QLabel *label, const QString &filename)
 
 void cInterface::RefreshMainImage()
 {
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	sImageAdjustments imageAdjustments;
 	imageAdjustments.brightness = gPar->Get<double>("brightness");
 	imageAdjustments.contrast = gPar->Get<double>("contrast");
@@ -1301,7 +1302,7 @@ cColorPalette cInterface::GetPaletteFromImage(const QString &filename)
 	cColorPalette palette;
 	QImage imagePalette(filename);
 
-	mainInterface->SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_fractal_color, gPar, cInterface::read);
+	SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_fractal_color, gPar, cInterface::read);
 	int paletteSize = gPar->Get<int>("coloring_palette_size");
 
 	if(!imagePalette.isNull())
@@ -1325,7 +1326,7 @@ cColorPalette cInterface::GetPaletteFromImage(const QString &filename)
 
 void cInterface::AutoFog()
 {
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
 	double fogDensity = 0.5;
 	double fogDistanceFactor = distance;
@@ -1335,7 +1336,7 @@ void cInterface::AutoFog()
 	gPar->Set("volumetric_fog_colour_1_distance", fogColour1Distance);
 	gPar->Set("volumetric_fog_colour_2_distance", fogColour2Distance);
 	gPar->Set("volumetric_fog_density", fogDensity);
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	SynchronizeInterface(gPar, gParFractal, cInterface::write);
 }
 
 double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par, cParameterContainer *parFractal)
@@ -1352,7 +1353,7 @@ double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par,
 
 double cInterface::GetDistanceForPoint(CVector3 point)
 {
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	double distance = GetDistanceForPoint(point, gPar, gParFractal);
 	return distance;
 }
@@ -1451,6 +1452,15 @@ void cInterface::MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton
 			{
 				double distance = (camera - point).Length();
 				double moveDistance = (stepMode == absolute) ? movementStep : distance * movementStep;
+				if(stepMode == relative)
+				{
+					if(moveDistance > depth * 0.99) moveDistance = depth * 0.99;
+				}
+
+				if(button == Qt::RightButton)
+				{
+					moveDistance *= -1.0;
+				}
 
 				switch (movementMode)
 				{
@@ -1505,6 +1515,25 @@ void cInterface::MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton
 			}
 		}
 	}
+}
+
+void cInterface::MovementStepModeChanged(int mode)
+{
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode)mode;
+	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
+	double oldStep = gPar->Get<double>("camera_movenent_step");
+	double newStep;
+	if(stepMode == absolute)
+	{
+		newStep = oldStep * distance;
+	}
+	else
+	{
+		newStep = oldStep / distance;
+	}
+	gPar->Set("camera_movenent_step", newStep);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, cInterface::write);
 }
 
 //function to create icons with actual color in ColorButtons
