@@ -10,6 +10,8 @@
 
 PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 {
+	setOption(QFileDialog::DontUseNativeDialog);
+
 	preview = NULL;
 	vboxlayout = new QVBoxLayout();
 

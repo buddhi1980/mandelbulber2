@@ -9,7 +9,7 @@ QT       += core gui uitools widgets
 TARGET = mandelbulber2
 TEMPLATE = app
 
-CONFIG += qt thread debug
+CONFIG += qt thread
 
 SOURCES +=  ../src/algebra.cpp\
 			../src/calculate_distance.cpp\

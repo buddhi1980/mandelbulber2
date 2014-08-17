@@ -12,12 +12,12 @@ MAKEFILE      = makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_WIDGETS_LIB -DQT_UITOOLS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
-CFLAGS        = -m64 -pipe -g -D_REENTRANT -Wall -W -fPIE $(DEFINES)
-CXXFLAGS      = -m64 -pipe -msse2 -ffast-math -g -D_REENTRANT -Wall -W -fPIE $(DEFINES)
+DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_UITOOLS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+CFLAGS        = -m64 -pipe -O2 -D_REENTRANT -Wall -W -fPIE $(DEFINES)
+CXXFLAGS      = -m64 -pipe -msse2 -ffast-math -O3 -D_REENTRANT -Wall -W -fPIE $(DEFINES)
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtUiTools -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I../qt
 LINK          = g++
-LFLAGS        = -m64
+LFLAGS        = -m64 -Wl,-O1
 LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lpng -lQt5UiTools -lQt5Widgets -lQt5Gui -lQt5Core -lpthread -lGL 
 AR            = ar cqs
 RANLIB        = 
@@ -495,6 +495,9 @@ moc_color_palette_widget.cpp: ../src/color_palette.hpp \
 
 moc_rendered_image_widget.cpp: ../src/cimage.hpp \
 		../src/color_structures.hpp \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_palette.hpp \
 		../src/rendered_image_widget.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/rendered_image_widget.hpp -o moc_rendered_image_widget.cpp
 
@@ -772,7 +775,10 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 
 rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_widget.hpp \
 		../src/cimage.hpp \
-		../src/color_structures.hpp
+		../src/color_structures.hpp \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_palette.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rendered_image_widget.o ../src/rendered_image_widget.cpp
 
 render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
