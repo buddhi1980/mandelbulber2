@@ -66,6 +66,7 @@ void cInterface::ShowUi(void)
 	WriteLog("Prepare progress and status bar");
 	progressBar = new QProgressBar(mainWindow->ui->statusbar);
 	progressBar->setMaximum(1000);
+	progressBar->setAlignment(Qt::AlignCenter);
 	mainWindow->ui->statusbar->addPermanentWidget(progressBar);
 
 	renderedImage->show();
@@ -1145,7 +1146,7 @@ void cInterface::CameraDistanceEdited()
 {
 	WriteLog("cInterface::CameraDistanceEdited()");
 
-	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, cInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -1168,8 +1169,7 @@ void cInterface::CameraDistanceEdited()
 	gPar->Set("camera", camera);
 	gPar->Set("target", target);
 	gPar->Set("camera_top", cameraTarget.GetTopVector());
-	SynchronizeInterface(gPar, gParFractal, cInterface::write);
-
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, cInterface::write);
 }
 
 void cInterface::IFSDefaultsDodecahedron(cParameterContainer *parFractal)
