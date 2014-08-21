@@ -67,6 +67,7 @@ void cFourFractals::CreateSequence(const cParameterContainer *generalPar)
 
 	bool hybridFractalEnabled = generalPar->Get<bool>("hybrid_fractal_enable");
 	if(hybridFractalEnabled) isHybrid = true;
+	else isHybrid = false;
 
 	int fractalNo = 0;
 	int counter = 0;
