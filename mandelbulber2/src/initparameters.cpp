@@ -158,7 +158,7 @@ using namespace parameterContainer;
 	par->addParam("basic_fog_visibility", 20.0, morphLinear, paramStandard);
 	par->addParam("basic_fog_color", sRGB(59399, 61202, 65535), morphLinear, paramStandard);
 	par->addParam("DOF_enabled", false, morphLinear, paramStandard);
-	par->addParam("DOF_focus", 166.0, 0.0, 200.0, morphLinear, paramStandard);
+	par->addParam("DOF_focus", 6.0, 0.0, 200.0, morphLinear, paramStandard);
 	par->addParam("DOF_radius", 10.0, 0.0, 200.0, morphLinear, paramStandard);
 
 	//main light

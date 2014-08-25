@@ -8,6 +8,8 @@
 #include "render_image.hpp"
 
 #include <QtCore>
+
+#include "dof.hpp"
 #include "system.hpp"
 #include "render_worker.hpp"
 #include "interface.hpp"
@@ -105,7 +107,7 @@ bool cRenderer::RenderImage()
 
 
 			//refresh image
-			if (listToRefresh.size() > 0)
+			if (image->IsPreview() && listToRefresh.size() > 0)
 			{
 				if (timerRefresh.elapsed() > lastRefreshTime && scheduler->GetProgresivePass() > 1)
 				{
@@ -116,19 +118,16 @@ bool cRenderer::RenderImage()
 
 					image->CompileImage(&listToRefresh);
 
-					if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+					if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 					{
 						cRenderSSAO rendererSSAO(params, data, image);
 						rendererSSAO.setProgressive(scheduler->GetProgresiveStep());
 						rendererSSAO.RenderSSAO(&listToRefresh);
 					}
 
-					if (image->IsPreview())
-					{
-						image->ConvertTo8bit();
-						image->UpdatePreview(&listToRefresh);
-						image->GetImageWidget()->update();
-					}
+					image->ConvertTo8bit();
+					image->UpdatePreview(&listToRefresh);
+					image->GetImageWidget()->update();
 
 					lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
 					timerRefresh.restart();
@@ -156,6 +155,10 @@ bool cRenderer::RenderImage()
 	{
 		cRenderSSAO rendererSSAO(params, data, image);
 		rendererSSAO.RenderSSAO();
+	}
+	if(params->DOFEnabled && !mainInterface->stopRequest)
+	{
+		PostRendering_DOF(image, params->DOFRadius * (image->GetWidth() + image->GetPreviewHeight()) / 2000.0, params->DOFFocus);
 	}
 
 	if(image->IsPreview())

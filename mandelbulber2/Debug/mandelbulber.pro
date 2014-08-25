@@ -18,6 +18,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/color_palette.cpp\
 	    	../src/cimage.cpp\
 	    	../src/common_math.cpp\
+	    	../src/dof.cpp\
 	    	../src/error_message.cpp\
 	    	../src/fractparams.cpp\
 	    	../src/files.cpp\

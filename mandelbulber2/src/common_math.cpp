@@ -56,39 +56,7 @@ double dMin(double a, double b, double c)
 	return c;
 }
 
-template <class T>
-void QuickSortZBuffer(sSortZ<T> *dane, int l, int p)
-{
-  int i,j; //robocze indeksy
-  sSortZ<T> x,y; //robocze zmienne typu sortowany obiekt
 
-  i=l;           //{ i : = minimalny klucz }
-  j=p;           //{ j : = maksymalny klucz }
-  x=dane[(l+p)/2];  //{ x - wyraz srodkowy sortowanej tablicy }
-  do
-  {             //{ cala historie bedziemy powtarzac tak dlugo jak . . . }
-	while(dane[i].z < x.z)              //{ dopoki jestesmy na lewo od srodkowego }
-	{
-	  i++;                       //{ ...powiekszamy indeks i }
-	}
-	while(x.z < dane[j].z)                  //{ dopoki na prawo od srodkowego }
-	{
-	  j--;                       //{ ...zmniejszamy indeks j }
-	}
-	if(i<=j)                        //{ jezeli i <= j wtedy : }
-	{                               //{ zamieniamy miejscami wyrazy i, j }
-	  y=dane[i];                      //{ podstawienie do zmiennej roboczej }
-	  dane[i]=dane[j];                    //{ pierwszy etap zamiany }
-	  dane[j]=y;                      //{ drugi etap zamiany }
-	  i++;                       //{ zwiekszenie indeksu i }
-	  j--;                       //{ zmniejszenie indeksu j }
-	}
-  }
-  while(i<=j);      //{ nie zostanie spelniony warunek i>j }
-  if(l<j) QuickSortZBuffer(dane, l, j);
-  if(i<p) QuickSortZBuffer(dane, i, p);
-}
-template void QuickSortZBuffer<double>(sSortZ<double> *dane, int l, int p);
 
 CVector3 Projection3D(CVector3 point, CVector3 vp, CRotationMatrix mRot, params::enumPerspectiveType perspectiveType, double fov, double zoom)
 {
