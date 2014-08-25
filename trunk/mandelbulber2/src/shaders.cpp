@@ -1107,5 +1107,3 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	return fakeLights;
 }
 
-
-

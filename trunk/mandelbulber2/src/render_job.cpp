@@ -99,7 +99,7 @@ bool cRenderJob::Init(enumMode _mode)
 	if(paramsContainer->Get<bool>("env_mapping_enable"))
 		renderData->textures.envmapTexture = new cTexture(paramsContainer->Get<QString>("file_envmap"));
 
-	if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
+	if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
 		renderData->textures.lightmapTexture = new cTexture(paramsContainer->Get<QString>("file_lightmap"));
 
 	ready = true;
