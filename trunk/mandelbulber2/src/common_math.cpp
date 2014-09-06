@@ -17,6 +17,7 @@
  */
 #include "common_math.h"
 #include <cstdlib>
+#include "fractparams.hpp"
 
 #ifdef __sgi
 #include <stdlib.h>
@@ -56,53 +57,53 @@ double dMin(double a, double b, double c)
 	return c;
 }
 
-
-
-CVector3 Projection3D(CVector3 point, CVector3 vp, CRotationMatrix mRot, params::enumPerspectiveType perspectiveType, double fov, double zoom)
+CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov, params::enumPerspectiveType perspType, const CRotationMatrix &mRot)
 {
-	double perspFactor = 1.0 + point.y * fov;
-	CVector3 vector1, vector2;
+	CVector3 viewVector;
 
-	if (perspectiveType == params::perspFishEye)
+	switch(perspType)
 	{
-		double r = sqrt(point.x * point.x + point.z * point.z);
-
-		if(r == 0)
+		case  params::perspFishEye: case params::perspFishEyeCut:
 		{
-			vector1.x = 0.0;
-			vector1.z = 0.0;
-			vector1.y = point.y;
+			CVector2<double> v = normalizedPoint * M_PI;
+			double r = v.Length();
+			if(r == 0.0)
+			{
+				viewVector.x = 0.0;
+				viewVector.z = 0.0;
+				viewVector.y = 1.0;
+			}
+			else
+			{
+				viewVector.x = v.x / r * sin(r * fov);
+				viewVector.z = v.y / r * sin(r * fov);
+				viewVector.y = cos(r * fov);
+			}
+			viewVector.Normalize();
+			break;
 		}
-		else
+		case params::perspEquirectangular:
 		{
-			vector1.x = point.x / r * sin(r*fov) * point.y;
-			vector1.z = point.z / r * sin(r*fov) * point.y;
-			vector1.y = cos(r*fov) * point.y;
+			CVector2<double> v = normalizedPoint * M_PI;
+			viewVector.x = sin(fov * v.x) * cos(fov * v.y);
+			viewVector.z = sin(fov * v.y);
+			viewVector.y = cos(fov * v.y) * cos(fov * v.y);
+			viewVector.Normalize();
+			break;
 		}
-
-		//vector1.x = sin(fov * point.x) * point.y;
-		//vector1.z = sin(fov * point.z) * point.y;
-		//vector1.y = cos(fov * point.x) * cos(fov * point.z) * point.y;
-
+		case params::perspThreePoint:
+		{
+			viewVector.x = normalizedPoint.x * fov;
+			viewVector.y = 1.0;
+			viewVector.z = normalizedPoint.y * fov;
+			break;
+		}
 	}
-	else if(perspectiveType == params::perspEquirectangular)
-	{
-		vector1.x = sin(fov * point.x) * cos(fov * point.z) * point.y;
-		vector1.z = sin(fov * point.z) * point.y;
-		vector1.y = cos(fov * point.x) * cos(fov * point.z) * point.y;
-	}
-	else //tree-point perspective
-	{
-		vector1.x = point.x * perspFactor;
-		vector1.y = point.y * zoom;
-		vector1.z = point.z * perspFactor;
-	}
+	viewVector = mRot.RotateVector(viewVector);
 
-	vector2 = mRot.RotateVector(vector1);
-
-	CVector3 result = vector2 + vp;
-	return result;
+	return viewVector;
 }
+
 
 CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, params::enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth, double imgHeight)
 {

@@ -45,6 +45,9 @@ protected:
 	void leaveEvent(QEvent * event);
 
 private:
+	void DisplayCoordinates();
+	void Display3DCursor(CVector2<int> screenPoint, double z);
+
 	cImage *image;
 	enumClickMode clickMode;
 	cParameterContainer *params;
@@ -52,7 +55,10 @@ private:
 	double smoothLastZMouse;
 	bool redrawed;
 	CVector2<int> lastMousePosition;
+	CVector3 lastCoordinates;
+	double lastDepth;
 	bool isFocus;
+	bool isOnObject;
 
 signals:
 	void mouseMoved(int x, int y);

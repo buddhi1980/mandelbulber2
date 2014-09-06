@@ -117,7 +117,7 @@ void cRenderWorker::doWork(void)
 			if (params->perspectiveType == params::perspFishEyeCut && imagePoint.Length() > 0.5 / params->fov) hemisphereCut = true;
 
 			//calculate direction of ray-marching
-			CVector3 viewVector = calculateViewVector(imagePoint);
+			CVector3 viewVector = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
 
 			//---------------- 1us -------------
 
@@ -384,55 +384,6 @@ void cRenderWorker::PrepareAOVectors(void)
 		AOvectorsAround[0].B = 0;
 	}
 	AOvectorsCount = counter;
-}
-
-//calculation of direction of ray-marching
-CVector3 cRenderWorker::calculateViewVector(CVector2<double> imagePoint)
-{
-	CVector3 viewVector;
-	double fov = params->fov;
-
-	switch(params->perspectiveType)
-	{
-		case  params::perspFishEye: case params::perspFishEyeCut:
-		{
-			CVector2<double> v = imagePoint * M_PI;
-			double r = v.Length();
-			if(r == 0.0)
-			{
-				viewVector.x = 0.0;
-				viewVector.z = 0.0;
-				viewVector.y = 1.0;
-			}
-			else
-			{
-				viewVector.x = v.x / r * sin(r * fov);
-				viewVector.z = v.y / r * sin(r * fov);
-				viewVector.y = cos(r * fov);
-			}
-			viewVector.Normalize();
-			break;
-		}
-		case params::perspEquirectangular:
-		{
-			CVector2<double> v = imagePoint * M_PI;
-			viewVector.x = sin(fov * v.x) * cos(fov * v.y);
-			viewVector.z = sin(fov * v.y);
-			viewVector.y = cos(fov * v.y) * cos(fov * v.y);
-			viewVector.Normalize();
-			break;
-		}
-		case params::perspThreePoint:
-		{
-			viewVector.x = imagePoint.x * fov;
-			viewVector.y = 1.0;
-			viewVector.z = imagePoint.y * fov;
-			break;
-		}
-	}
-	viewVector = mRot.RotateVector(viewVector);
-
-	return viewVector;
 }
 
 //calculation of distance where ray-marching stops
