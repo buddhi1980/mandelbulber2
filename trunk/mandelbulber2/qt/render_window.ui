@@ -1832,6 +1832,11 @@ to target:</string>
                <string>Set fog visibility</string>
               </property>
              </item>
+             <item>
+              <property name="text">
+               <string>Set DOF focus</string>
+              </property>
+             </item>
             </widget>
            </item>
            <item>
@@ -1923,7 +1928,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>2</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -2765,6 +2770,20 @@ to target:</string>
                       </item>
                      </layout>
                     </item>
+                    <item>
+                     <widget class="QPushButton" name="pushButton_DOF_update">
+                      <property name="text">
+                       <string>Update image</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pushButton_DOF_set_focus">
+                      <property name="text">
+                       <string>Set focus distance by mouse</string>
+                      </property>
+                     </widget>
+                    </item>
                    </layout>
                   </widget>
                  </item>
@@ -2803,7 +2822,7 @@ to target:</string>
                   <x>0</x>
                   <y>0</y>
                   <width>364</width>
-                  <height>669</height>
+                  <height>695</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2863,6 +2882,13 @@ to target:</string>
                        </widget>
                       </item>
                      </layout>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pushButton_set_fog_by_mouse">
+                      <property name="text">
+                       <string>Set visibility distance by mouse</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -3332,8 +3358,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>378</width>
-                  <height>245</height>
+                  <width>302</width>
+                  <height>243</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3493,7 +3519,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>364</width>
+                  <width>327</width>
                   <height>1579</height>
                  </rect>
                 </property>
@@ -5077,8 +5103,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
-                      <height>70</height>
+                      <width>66</width>
+                      <height>18</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5170,8 +5196,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
-                      <height>70</height>
+                      <width>66</width>
+                      <height>18</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5263,8 +5289,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
-                      <height>70</height>
+                      <width>66</width>
+                      <height>18</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5292,8 +5318,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>350</width>
-                  <height>193</height>
+                  <width>143</width>
+                  <height>137</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -5469,7 +5495,7 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-22</y>
+          <y>0</y>
           <width>414</width>
           <height>530</height>
          </rect>

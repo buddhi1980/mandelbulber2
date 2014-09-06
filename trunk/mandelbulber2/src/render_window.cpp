@@ -300,7 +300,7 @@ void RenderWindow::slotDialMoved(int value)
 	}
 }
 
-void RenderWindow::slotPresedOnColorButton(void)
+void RenderWindow::slotPresedColorButton(void)
 {
 	QPushButton *pushButton = qobject_cast<QPushButton*>(this->sender());
 	QString pushButtonName = pushButton->objectName();
@@ -325,7 +325,7 @@ void RenderWindow::slotMenuSaveDocksPositions()
 	qDebug() << "settings saved";
 }
 
-void RenderWindow::slotChangedFractalCombo(int index)
+void RenderWindow::slotChangedComboFractal(int index)
 {
 	QString comboName = this->sender()->objectName();
 	int fractalNumber = comboName.right(1).toInt() - 1;
@@ -355,15 +355,15 @@ void RenderWindow::slotChangedFractalCombo(int index)
 			if(fractalList[index].internalID == fractal::kaleidoscopicIFS)
 			{
 				QWidget *pushButton_preset_dodecahedron = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_dodecahedron");
-				QApplication::connect(pushButton_preset_dodecahedron, SIGNAL(clicked()), this, SLOT(slotIFSDefaultsDodecahedron()));
+				QApplication::connect(pushButton_preset_dodecahedron, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsDodecahedron()));
 				QWidget *pushButton_preset_icosahedron = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_icosahedron");
-				QApplication::connect(pushButton_preset_icosahedron, SIGNAL(clicked()), this, SLOT(slotIFSDefaultsIcosahedron()));
+				QApplication::connect(pushButton_preset_icosahedron, SIGNAL(clicked()), this, SLOT(slotReessedButtonIFSDefaultsIcosahedron()));
 				QWidget *pushButton_preset_octahedron = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_octahedron");
-				QApplication::connect(pushButton_preset_octahedron, SIGNAL(clicked()), this, SLOT(slotIFSDefaultsOctahedron()));
+				QApplication::connect(pushButton_preset_octahedron, SIGNAL(clicked()), this, SLOT(slotPressedButtobIFSDefaultsOctahedron()));
 				QWidget *pushButton_preset_menger_sponge = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_menger_sponge");
-				QApplication::connect(pushButton_preset_menger_sponge, SIGNAL(clicked()), this, SLOT(slotIFSDefaultsMengerSponge()));
+				QApplication::connect(pushButton_preset_menger_sponge, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsMengerSponge()));
 				QWidget *pushButton_preset_reset = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_reset");
-				QApplication::connect(pushButton_preset_reset, SIGNAL(clicked()), this, SLOT(slotIFSDefaultsReset()));
+				QApplication::connect(pushButton_preset_reset, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsReset()));
 			}
 		}
 		else
@@ -379,7 +379,7 @@ void RenderWindow::slotChangedFractalCombo(int index)
 
 }
 
-void RenderWindow::slotImageScrolledAreaResized(int width, int height)
+void RenderWindow::slotResizedScrolledAreaImage(int width, int height)
 {
 	if (mainInterface->mainImage)
 	{
@@ -395,7 +395,7 @@ void RenderWindow::slotImageScrolledAreaResized(int width, int height)
 	}
 }
 
-void RenderWindow::slotChangedImageScale(int index)
+void RenderWindow::slotChangedComboImageScale(int index)
 {
 	if (mainInterface->mainImage)
 	{
@@ -443,7 +443,7 @@ void RenderWindow::slotCameraDistanceSlider(int value)
 	mainInterface->CameraDistanceEdited();
 }
 
-void RenderWindow::slotCheckBoxHybridFractalChanged(int state)
+void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 {
 	ui->label_formula_iterations_1->setEnabled(state);
 	ui->spinboxInt_formula_iterations_1->setEnabled(state);
@@ -456,7 +456,7 @@ void RenderWindow::slotCheckBoxHybridFractalChanged(int state)
 	ui->scrollArea_fractal_4->setEnabled(state);
 }
 
-void RenderWindow::slotSaveSettings()
+void RenderWindow::slotMenuSaveSettings()
 {
 	cSettings parSettings(cSettings::formatCondensedText);
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
@@ -481,7 +481,7 @@ void RenderWindow::slotSaveSettings()
 	}
 }
 
-void RenderWindow::slotLoadSettings()
+void RenderWindow::slotMenuLoadSettings()
 {
 	cSettings parSettings(cSettings::formatFullText);
 
@@ -505,7 +505,7 @@ void RenderWindow::slotLoadSettings()
 	}
 }
 
-void RenderWindow::slotIFSDefaultsDodecahedron()
+void RenderWindow::slotPressedButtonIFSDefaultsDodecahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
 	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::read);
@@ -513,7 +513,7 @@ void RenderWindow::slotIFSDefaultsDodecahedron()
 	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::write);
 }
 
-void RenderWindow::slotIFSDefaultsIcosahedron()
+void RenderWindow::slotPressedButtonIFSDefaultsIcosahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
 	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::read);
@@ -521,7 +521,7 @@ void RenderWindow::slotIFSDefaultsIcosahedron()
 	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::write);
 }
 
-void RenderWindow::slotIFSDefaultsOctahedron()
+void RenderWindow::slotPressedButtonIFSDefaultsOctahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
 	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::read);
@@ -529,7 +529,7 @@ void RenderWindow::slotIFSDefaultsOctahedron()
 	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::write);
 }
 
-void RenderWindow::slotIFSDefaultsMengerSponge()
+void RenderWindow::slotPressedButtonIFSDefaultsMengerSponge()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
 	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::read);
@@ -537,7 +537,7 @@ void RenderWindow::slotIFSDefaultsMengerSponge()
 	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::write);
 }
 
-void RenderWindow::slotIFSDefaultsReset()
+void RenderWindow::slotPressedButtonIFSDefaultsReset()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
 	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::read);
@@ -545,12 +545,12 @@ void RenderWindow::slotIFSDefaultsReset()
 	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::write);
 }
 
-void RenderWindow::slotAboutQt()
+void RenderWindow::slotMenuAboutQt()
 {
 	QMessageBox::aboutQt(this);
 }
 
-void RenderWindow::slotAboutMandelbulber()
+void RenderWindow::slotMenuAboutMandelbulber()
 {
 	QString text = "Mandelbulber\n";
 	text += "version: " + QString(MANDELBULBER_VERSION_STRING) + ", build date: " + QString(__DATE__) + QString("\n");
@@ -565,7 +565,7 @@ void RenderWindow::slotAboutMandelbulber()
 	QMessageBox::about(this, "About Mandelbulber", text);
 }
 
-void RenderWindow::slotSaveImageJPEG()
+void RenderWindow::slotMenuSaveImageJPEG()
 {
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
@@ -589,7 +589,7 @@ void RenderWindow::slotSaveImageJPEG()
 	}
 }
 
-void RenderWindow::slotSaveImagePNG8()
+void RenderWindow::slotMenuSaveImagePNG8()
 {
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
@@ -613,7 +613,7 @@ void RenderWindow::slotSaveImagePNG8()
 	}
 }
 
-void RenderWindow::slotSaveImagePNG16()
+void RenderWindow::slotMenuSaveImagePNG16()
 {
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
@@ -637,7 +637,7 @@ void RenderWindow::slotSaveImagePNG16()
 	}
 }
 
-void RenderWindow::slotSaveImagePNG16Alpha()
+void RenderWindow::slotMenuSaveImagePNG16Alpha()
 {
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
@@ -661,7 +661,7 @@ void RenderWindow::slotSaveImagePNG16Alpha()
 	}
 }
 
-void RenderWindow::slotSelectBackgroundTexture()
+void RenderWindow::slotPressedButtonSelectBackgroundTexture()
 {
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
@@ -681,7 +681,7 @@ void RenderWindow::slotSelectBackgroundTexture()
 	}
 }
 
-void RenderWindow::slotSelectEnvMapTexture()
+void RenderWindow::slotPressedButtonSelectEnvMapTexture()
 {
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
@@ -701,7 +701,7 @@ void RenderWindow::slotSelectEnvMapTexture()
 	}
 }
 
-void RenderWindow::slotSelectLightMapTexture()
+void RenderWindow::slotPressedButtonSelectLightMapTexture()
 {
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
@@ -721,7 +721,7 @@ void RenderWindow::slotSelectLightMapTexture()
 	}
 }
 
-void RenderWindow::slotGetPaletteFromImagePressed()
+void RenderWindow::slotPressedButtonGetPaletteFromImage()
 {
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
@@ -741,17 +741,17 @@ void RenderWindow::slotGetPaletteFromImagePressed()
 	}
 }
 
-void RenderWindow::slotLineEditBackgroundTextureEdited(const QString &text)
+void RenderWindow::slotEditedLineEditBackgroundTexture(const QString &text)
 {
 	mainInterface->ShowImageInLabel(ui->label_backgroundTextureView, text);
 }
 
-void RenderWindow::slotLineEditEnvMapTextureEdited(const QString &text)
+void RenderWindow::slotEditedLineEditEnvMapTexture(const QString &text)
 {
 	mainInterface->ShowImageInLabel(ui->label_envmapTextureView, text);
 }
 
-void RenderWindow::slotLineEditLightMapTextureEdited(const QString &text)
+void RenderWindow::slotEditedLineEditLightMapTexture(const QString &text)
 {
 	mainInterface->ShowImageInLabel(ui->label_lightmapTextureView, text);
 }
@@ -865,12 +865,17 @@ void RenderWindow::slotImageHeightChanged(int value)
 	slotChangedComboImageProportion(index);
 }
 
-void RenderWindow::slotPressedImageApplyButton()
+void RenderWindow::slotPressedButtonImageApply()
 {
 	mainInterface->RefreshMainImage();
 }
 
-void RenderWindow::slotChangedPerspectiveTypeCombo(int index)
+void RenderWindow::slotPressedButtonDOFUpdate()
+{
+	mainInterface->RefreshMainImage();
+}
+
+void RenderWindow::slotChangedComboPerspectiveType(int index)
 {
 	params::enumPerspectiveType perspType = (params::enumPerspectiveType)index;
 	if(perspType == params::perspFishEyeCut)
@@ -885,20 +890,20 @@ void RenderWindow::slotChangedPerspectiveTypeCombo(int index)
 	}
 }
 
-void RenderWindow::slotSpinBoxPaletteOffsetChanged(double value)
+void RenderWindow::slotChangedSpinBoxPaletteOffset(double value)
 {
 	ui->colorpalette_surface_color_palette->SetOffset(value);
 }
 
-void RenderWindow::slotRandomizeButtonPressed()
+void RenderWindow::slotPressedButtonRandomize()
 {
 	srand((unsigned int)clock());
 	int seed = Random(999999);
 	ui->spinboxInt_coloring_random_seed->setValue(seed);
-	slotNewRandomPalettePressed();
+	slotPressedButtonNewRandomPalette();
 }
 
-void RenderWindow::slotNewRandomPalettePressed()
+void RenderWindow::slotPressedButtonNewRandomPalette()
 {
 	mainInterface->SynchronizeInterfaceWindow(ui->groupCheck_fractal_color, gPar, cInterface::read);
 	cColorPalette palette(gPar->Get<int>("coloring_palette_size"), gPar->Get<int>("coloring_random_seed"), gPar->Get<double>("coloring_saturation"));
@@ -906,12 +911,12 @@ void RenderWindow::slotNewRandomPalettePressed()
 }
 
 
-void RenderWindow::slotSpinBoxPaletteSizeChanged(int value)
+void RenderWindow::slotChangedSpinBoxPaletteSize(int value)
 {
 	ui->slider_coloring_palette_offset->setMaximum(value * 100);
 }
 
-void RenderWindow::slotAutoFogPressed()
+void RenderWindow::slotPressedButtonAutoFog()
 {
 	mainInterface->AutoFog();
 }
@@ -924,7 +929,18 @@ void RenderWindow::slotMouseMovedOnImage(int x, int y)
 
 void RenderWindow::slotMouceClickOnImage(int x, int y, Qt::MouseButton button)
 {
-	mainInterface->MoveCameraByMouse(CVector2<double>(x, y), button);
+	enum RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)ui->comboBox_mouse_click_function->currentIndex();
+	switch(clickMode)
+	{
+		case RenderedImage::clickMoveCamera:
+		case RenderedImage::clickFogVisibility:
+		case RenderedImage::clickDOFFocus:
+		{
+			mainInterface->SetByMouse(CVector2<double>(x, y), button, clickMode);
+			break;
+		}
+	}
+
 }
 
 void RenderWindow::slotMovementStepModeChanged(int index)
@@ -932,5 +948,20 @@ void RenderWindow::slotMovementStepModeChanged(int index)
 	mainInterface->MovementStepModeChanged(index);
 }
 
+void RenderWindow::slotPressedButtonSetDOFByMouse()
+{
+	ui->comboBox_mouse_click_function->setCurrentIndex(RenderedImage::clickDOFFocus);
+	mainInterface->renderedImage->setClickMode(RenderedImage::clickDOFFocus);
+}
 
+void RenderWindow::slotPressedButtonSetFogByMouse()
+{
+	ui->comboBox_mouse_click_function->setCurrentIndex(RenderedImage::clickFogVisibility);
+	mainInterface->renderedImage->setClickMode(RenderedImage::clickFogVisibility);
+}
+
+void RenderWindow::slotChangedComboMouseClickFunction(int index)
+{
+	mainInterface->renderedImage->setClickMode((RenderedImage::enumClickMode)index);
+}
 

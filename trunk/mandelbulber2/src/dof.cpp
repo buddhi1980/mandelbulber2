@@ -16,7 +16,6 @@
 
 void PostRendering_DOF(cImage *image, double deep, double neutral)
 {
-	//TODO button for DOF refresh
 	int width = image->GetWidth();
 	int height = image->GetHeight();
 
@@ -48,7 +47,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral)
 
 	//Randomize Z-buffer
 	int imgSize = height*width;
-	for(int i=imgSize-1; i>=0; i--)
+	for (int i = imgSize - 1; i >= 0; i--)
 	{
 		if (mainInterface->stopRequest)
 		{
@@ -71,7 +70,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral)
 			double z2 = temp2.z;
 			double size2 = (z2 - neutral) / z2 * deep;
 
-			if(size1 == 0 && size2 ==0) done = true;
+			if (size1 == 0 && size2 == 0) done = true;
 
 			if (size1 * size2 > 0)
 			{
@@ -85,7 +84,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral)
 					sizeCompare = size1 / size2;
 				}
 
-				if (sizeCompare > 0.7)
+				if (sizeCompare > 0.9) //originaly was 0.7, but 0.9 will give better quality
 				{
 					done = true;
 				}
@@ -98,11 +97,10 @@ void PostRendering_DOF(cImage *image, double deep, double neutral)
 			{
 				done = false;
 			}
-			randomStep = randomStep * 0.7 - 1;
+			randomStep = randomStep * 0.7 - 1.0;
 
-			if(randomStep <= 0) done = true;
-		}
-		while(!done);
+			if (randomStep <= 0) done = true;
+		} while (!done);
 		temp_sort[i] = temp_sort[ii];
 		temp_sort[ii] = temp;
 	}
