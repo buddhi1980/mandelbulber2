@@ -7,10 +7,10 @@
 
 #include "rendered_image_widget.hpp"
 #include <QtCore>
-#include "algebra.hpp"
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QApplication>
+#include <QPainter>
 
 using namespace Qt;
 
@@ -36,7 +36,40 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 	if (image)
 	{
 		image->RedrawInWidget();
-		redrawed = true;
+
+		if(cursorVisible && isFocus)
+		{
+			QPainter painter(this);
+			painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+
+			QString text;
+			switch (clickMode)
+			{
+				case clickMoveCamera:
+					text = QString("Move camera");
+					break;
+
+				case clickFogVisibility:
+					text = QString("Change fog visibility");
+					break;
+
+				case clickDOFFocus:
+					text = QString("Change DOF focus");
+					break;
+			}
+			QRect textRect = painter.boundingRect(QRect(), Qt::AlignLeft, text);
+			textRect.setHeight(textRect.height() + 2);
+			textRect.moveBottomLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y - 3));
+
+			QPen pen(Qt::white, 1, Qt::SolidLine);
+			QBrush brush(Qt::gray);
+			painter.setOpacity(0.5);
+			painter.setPen(pen);
+			painter.setBrush(brush);
+			painter.drawRoundedRect(textRect, 3, 3);
+			painter.drawText(QPoint(lastMousePosition.x + 30, lastMousePosition.y - 4), text);
+			redrawed = true;
+		}
 	}
 	else
 	{
@@ -50,9 +83,12 @@ void RenderedImage::mouseMoveEvent(QMouseEvent * event)
 	//TODO add displaying of coordinates by the cursor
 	CVector2<int> screenPoint(event->x(), event->y());
 
+	//remember last mouse position
+	lastMousePosition = screenPoint;
+
 	if(params)
 	{
-		if(cursorVisible && redrawed)
+		if(cursorVisible && isFocus && redrawed)
 		{
 			CVector2<int> point = screenPoint / image->GetPreviewScale();
 			double z = image->GetPixelZBuffer(point.x, point.y);
@@ -194,17 +230,24 @@ void RenderedImage::mouseReleaseEvent(QMouseEvent * event)
 {
 }
 
-void RenderedImage::enterEvent ( QEvent * event )
+void RenderedImage::enterEvent(QEvent * event)
 {
-    setFocus();
+	setFocus();
+	isFocus = true;
+}
+
+void RenderedImage::leaveEvent(QEvent * event)
+{
+	isFocus = false;
+	update();
 }
 
 void RenderedImage::keyPressEvent(QKeyEvent * event)
 {
-    emit keyPress((Qt::Key) event->key());
+	emit keyPress((Qt::Key) event->key());
 }
 
 void RenderedImage::keyReleaseEvent(QKeyEvent * event)
 {
-    emit keyRelease((Qt::Key) event->key());
+	emit keyRelease((Qt::Key) event->key());
 }

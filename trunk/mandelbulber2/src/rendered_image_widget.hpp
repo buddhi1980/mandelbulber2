@@ -11,6 +11,7 @@
 #include <QWidget>
 #include "cimage.hpp"
 #include "parameters.hpp"
+#include "algebra.hpp"
 
 using namespace Qt;
 
@@ -41,6 +42,7 @@ protected:
 	void keyPressEvent(QKeyEvent * event);
 	void keyReleaseEvent(QKeyEvent * event);
 	void enterEvent(QEvent * event);
+	void leaveEvent(QEvent * event);
 
 private:
 	cImage *image;
@@ -49,6 +51,8 @@ private:
 	bool cursorVisible;
 	double smoothLastZMouse;
 	bool redrawed;
+	CVector2<int> lastMousePosition;
+	bool isFocus;
 
 signals:
 	void mouseMoved(int x, int y);
