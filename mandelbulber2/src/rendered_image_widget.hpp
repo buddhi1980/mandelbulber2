@@ -38,6 +38,9 @@ protected:
 	void mouseMoveEvent(QMouseEvent * event);
 	void mousePressEvent(QMouseEvent * event);
 	void mouseReleaseEvent(QMouseEvent * event);
+	void keyPressEvent(QKeyEvent * event);
+	void keyReleaseEvent(QKeyEvent * event);
+	void enterEvent(QEvent * event);
 
 private:
 	cImage *image;
@@ -50,6 +53,8 @@ private:
 signals:
 	void mouseMoved(int x, int y);
 	void singleClick(int x, int y, Qt::MouseButton button);
+	void keyPress(Qt::Key key);
+	void keyRelease(Qt::Key key);
 };
 
 
