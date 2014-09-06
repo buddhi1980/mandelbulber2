@@ -119,7 +119,6 @@ private:
 	void PrepareMainVectors(void);
 	void PrepareReflectionBuffer(void);
 	void PrepareAOVectors(void);
-	CVector3 calculateViewVector(CVector2<double> imagePoint);
 	CVector3 RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out);
 	double ReflectValueForObject(fractal::enumObjectType object);
 	double CalcDistThresh(CVector3 point);

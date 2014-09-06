@@ -47,9 +47,10 @@ int Random(int max);
 double dMax(double a, double b, double c);
 double dMin(double a, double b, double c);
 
-CVector3 Projection3D(CVector3 point, CVector3 vp, CRotationMatrix mRot, params::enumPerspectiveType perspectiveType, double fov, double zoom);
 inline double SmoothConditionAGreaterB(double a, double b, double sharpness) {return 1.0 / (1.0 + exp(sharpness * (b - a)));}
 inline double SmoothConditionALessB(double a, double b, double sharpness) {return 1.0 / (1.0 + exp(sharpness * (a - b)));}
 CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, params::enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth, double imgHeight);
+CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov, params::enumPerspectiveType perspType, const CRotationMatrix &mRot);
+
 
 #endif /* COMMON_MATH_H_ */

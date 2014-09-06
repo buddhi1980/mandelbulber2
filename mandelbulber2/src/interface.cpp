@@ -20,6 +20,7 @@
 #include <QDial>
 #include "render_ssao.h"
 #include "dof.hpp"
+#include "common_math.h"
 
 cInterface *mainInterface;
 
@@ -1411,55 +1412,11 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 		CRotationMatrix mRot;
 		mRot.SetRotation(angles);
 
-		switch(perspType)
-		{
-			case params::perspThreePoint:
-			{
-				x2 = ((double) imagePoint.x / width - 0.5) * aspectRatio;
-				z2 = ((double) imagePoint.y / height - 0.5) * (-1.0);
-				viewVector.x = x2 * fov;
-				viewVector.y = 1.0;
-				viewVector.z = z2 * fov;
-				break;
-			}
+		CVector2<double> normalizedPoint;
+		normalizedPoint.x = ((double) imagePoint.x / width - 0.5) * aspectRatio;
+		normalizedPoint.y = ((double) imagePoint.y / height - 0.5) * (-1.0);
 
-			case params::perspFishEye:
-			case params::perspFishEyeCut:
-			{
-				x2 = M_PI * ((double) imagePoint.x / width - 0.5) * aspectRatio;
-				z2 = M_PI * ((double) imagePoint.y / height - 0.5) * (-1.0);
-
-				double r = sqrt(x2 * x2 + z2 * z2);
-
-				if(r == 0)
-				{
-					viewVector.x = 0.0;
-					viewVector.z = 0.0;
-					viewVector.y = 1.0;
-				}
-				else
-				{
-					viewVector.x = x2 / r * sin(r * fov);
-					viewVector.z = z2 / r * sin(r * fov);
-					viewVector.y = cos(r * fov);
-				}
-				viewVector.Normalize();
-				break;
-			}
-
-			case params::perspEquirectangular:
-			{
-				x2 = M_PI * ((double) imagePoint.x / width - 0.5) * aspectRatio; // --------- do sprawdzenia
-				z2 = M_PI * ((double) imagePoint.y / height - 0.5) * (-1.0);
-				viewVector.x = sin(fov * x2) * cos(fov * z2);
-				viewVector.z = sin(fov * z2);
-				viewVector.y = cos(fov * x2) * cos(fov * z2);
-				viewVector.Normalize();
-				break;
-			}
-		}
-
-		viewVector = mRot.RotateVector(viewVector);
+		viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
 
 		CVector3 point = camera + viewVector * depth;
 
