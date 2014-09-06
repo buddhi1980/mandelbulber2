@@ -32,7 +32,7 @@ private slots:
 	void slotStopRender();
 	void load();
 
-	//sliders
+	//automated sliders, dials, buttons
 	void slotSliderMoved(int value);
 	void slotDoubleSpinBoxChanged(double value);
 	void slotIntSliderMoved(int value);
@@ -45,20 +45,24 @@ private slots:
 	void slotSpinBoxDChanged(double value);
 	void slotLogSliderMoved(int value);
 	void slotLogLineEditChanged(const QString &text);
+	void slotPresedColorButton();
 
-	void slotPresedOnColorButton();
-	void slotMenuSaveDocksPositions();
-	void slotChangedFractalCombo(int index);
-	void slotImageScrolledAreaResized(int width, int height);
-	void slotChangedImageScale(int index);
-	void slotPressedImageApplyButton();
-	void slotChangedPerspectiveTypeCombo(int index);
-	void slotSpinBoxPaletteOffsetChanged(double value);
-	void slotRandomizeButtonPressed();
-	void slotSpinBoxPaletteSizeChanged(int value);
-	void slotNewRandomPalettePressed();
-	void slotGetPaletteFromImagePressed();
-	void slotAutoFogPressed();
+	//other
+	void slotChangedComboFractal(int index);
+	void slotChangedComboImageScale(int index);
+	void slotChangedComboMouseClickFunction(int index);
+	void slotChangedComboPerspectiveType(int index);
+	void slotChangedSpinBoxPaletteOffset(double value);
+	void slotChangedSpinBoxPaletteSize(int value);
+	void slotPressedButtonAutoFog();
+	void slotPressedButtonDOFUpdate();
+	void slotPressedButtonGetPaletteFromImage();
+	void slotPressedButtonImageApply();
+	void slotPressedButtonNewRandomPalette();
+	void slotPressedButtonRandomize();
+	void slotPressedButtonSetDOFByMouse();
+	void slotPressedButtonSetFogByMouse();
+	void slotResizedScrolledAreaImage(int width, int height);
 
 	//camera
 	void slotCameraMove();
@@ -69,35 +73,34 @@ private slots:
 	void slotCameraDistanceSlider(int value);
 	void slotMovementStepModeChanged(int index);
 
-	void slotCheckBoxHybridFractalChanged(int state);
+	void slotChangedCheckBoxHybridFractal(int state);
 
 	//IFS
-	void slotIFSDefaultsDodecahedron();
-	void slotIFSDefaultsIcosahedron();
-	void slotIFSDefaultsOctahedron();
-	void slotIFSDefaultsMengerSponge();
-	void slotIFSDefaultsReset();
+	void slotPressedButtonIFSDefaultsDodecahedron();
+	void slotPressedButtonIFSDefaultsIcosahedron();
+	void slotPressedButtonIFSDefaultsOctahedron();
+	void slotPressedButtonIFSDefaultsMengerSponge();
+	void slotPressedButtonIFSDefaultsReset();
 
-	//load save
-	void slotSaveSettings();
-	void slotLoadSettings();
-	void slotSaveImageJPEG();
-	void slotSaveImagePNG8();
-	void slotSaveImagePNG16();
-	void slotSaveImagePNG16Alpha();
+	//pull down menu
+	void slotMenuAboutMandelbulber();
+	void slotMenuAboutQt();
+	void slotMenuLoadSettings();
+	void slotMenuSaveDocksPositions();
+	void slotMenuSaveImageJPEG();
+	void slotMenuSaveImagePNG16();
+	void slotMenuSaveImagePNG16Alpha();
+	void slotMenuSaveImagePNG8();
+	void slotMenuSaveSettings();
 
 	//textures
-	void slotSelectBackgroundTexture();
-	void slotSelectEnvMapTexture();
-	void slotSelectLightMapTexture();
-	void slotLineEditBackgroundTextureEdited(const QString &text);
-	void slotLineEditEnvMapTextureEdited(const QString &text);
-	void slotLineEditLightMapTextureEdited(const QString &text);
+	void slotPressedButtonSelectBackgroundTexture();
+	void slotPressedButtonSelectEnvMapTexture();
+	void slotPressedButtonSelectLightMapTexture();
+	void slotEditedLineEditBackgroundTexture(const QString &text);
+	void slotEditedLineEditEnvMapTexture(const QString &text);
+	void slotEditedLineEditLightMapTexture(const QString &text);
 	void slotChangedComboAmbientOcclussionMode(int index);
-
-	//about
-	void slotAboutQt();
-	void slotAboutMandelbulber();
 
 	//resolution
 	void slotChangedComboImageProportion(int index);

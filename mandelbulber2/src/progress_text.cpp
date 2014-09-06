@@ -26,6 +26,9 @@ QString cProgressText::getText(double progress)
 	if(progress > 1.0) progressLim = 1.0;
 
 	qint64 time = timer.elapsed();
+
+	//TODO better calculation of estamined time to end
+
 	qint64 timeToEnd;
 	if(progressLim > 0.0)
 		timeToEnd = (1.0 - progressLim) * time / progressLim;

@@ -19,6 +19,7 @@
 #include "my_ui_loader.h"
 #include <QDial>
 #include "render_ssao.h"
+#include "dof.hpp"
 
 cInterface *mainInterface;
 
@@ -82,24 +83,30 @@ void cInterface::ShowUi(void)
 
 void cInterface::ConnectSignals(void)
 {
-	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(slotStartRender()));
-	QApplication::connect(mainWindow->ui->pushButton_stop, SIGNAL(clicked()), mainWindow, SLOT(slotStopRender()));
-	QApplication::connect(mainWindow->ui->button_selectBackgroundTexture, SIGNAL(clicked()), mainWindow, SLOT(slotSelectBackgroundTexture()));
-	QApplication::connect(mainWindow->ui->text_file_background, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotLineEditBackgroundTextureEdited(const QString&)));
-	QApplication::connect(mainWindow->ui->button_selectEnvMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotSelectEnvMapTexture()));
-	QApplication::connect(mainWindow->ui->text_file_envmap, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotLineEditEnvMapTextureEdited(const QString&)));
-	QApplication::connect(mainWindow->ui->button_selectLightMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotSelectLightMapTexture()));
-	QApplication::connect(mainWindow->ui->text_file_lightmap, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotLineEditLightMapTextureEdited(const QString&)));
+	//other
+	QApplication::connect(mainWindow->ui->button_calculateFog, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonAutoFog()));
+	QApplication::connect(mainWindow->ui->button_selectBackgroundTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectBackgroundTexture()));
+	QApplication::connect(mainWindow->ui->button_selectEnvMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectEnvMapTexture()));
+	QApplication::connect(mainWindow->ui->button_selectLightMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectLightMapTexture()));
 	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboAmbientOcclussionMode(int)));
-	QApplication::connect(mainWindow->ui->pushButton_apply_image_changes, SIGNAL(clicked()), mainWindow, SLOT(slotPressedImageApplyButton()));
-	QApplication::connect(mainWindow->ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedPerspectiveTypeCombo(int)));
-	QApplication::connect(mainWindow->ui->spinbox_coloring_palette_offset, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotSpinBoxPaletteOffsetChanged(double)));
-	QApplication::connect(mainWindow->ui->pushButton_randomize, SIGNAL(clicked()), mainWindow, SLOT(slotRandomizeButtonPressed()));
-	QApplication::connect(mainWindow->ui->pushButton_randomPalette, SIGNAL(clicked()), mainWindow, SLOT(slotNewRandomPalettePressed()));
-	QApplication::connect(mainWindow->ui->spinboxInt_coloring_palette_size, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotSpinBoxPaletteSizeChanged(int)));
-	QApplication::connect(mainWindow->ui->pushButton_getPaletteFromImage, SIGNAL(clicked()), mainWindow, SLOT(slotGetPaletteFromImagePressed()));
-	QApplication::connect(mainWindow->ui->button_calculateFog, SIGNAL(clicked()), mainWindow, SLOT(slotAutoFogPressed()));
+	QApplication::connect(mainWindow->ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboPerspectiveType(int)));
+	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
+	QApplication::connect(mainWindow->ui->pushButton_apply_image_changes, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonImageApply()));
+	QApplication::connect(mainWindow->ui->pushButton_DOF_set_focus, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetDOFByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_DOF_update, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDOFUpdate()));
+	QApplication::connect(mainWindow->ui->pushButton_getPaletteFromImage, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonGetPaletteFromImage()));
+	QApplication::connect(mainWindow->ui->pushButton_randomize, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonRandomize()));
+	QApplication::connect(mainWindow->ui->pushButton_randomPalette, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewRandomPalette()));
+	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(slotStartRender()));
+	QApplication::connect(mainWindow->ui->pushButton_set_fog_by_mouse, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetFogByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_stop, SIGNAL(clicked()), mainWindow, SLOT(slotStopRender()));
+	QApplication::connect(mainWindow->ui->spinbox_coloring_palette_offset, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotChangedSpinBoxPaletteOffset(double)));
+	QApplication::connect(mainWindow->ui->spinboxInt_coloring_palette_size, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotChangedSpinBoxPaletteSize(int)));
+	QApplication::connect(mainWindow->ui->text_file_background, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditBackgroundTexture(const QString&)));
+	QApplication::connect(mainWindow->ui->text_file_envmap, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditEnvMapTexture(const QString&)));
+	QApplication::connect(mainWindow->ui->text_file_lightmap, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditLightMapTexture(const QString&)));
 
+	//image resolution
 	QApplication::connect(mainWindow->ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageProportion(int)));
 	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1080, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
 	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1200, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
@@ -112,27 +119,29 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_720, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
 	QApplication::connect(mainWindow->ui->spinboxInt_image_height, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotImageHeightChanged(int)));
 
+	//menu actions
 	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveDocksPositions()));
-	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotSaveSettings()));
-	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow, SLOT(slotLoadSettings()));
-	QApplication::connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow, SLOT(slotSaveImageJPEG()));
-	QApplication::connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow, SLOT(slotSaveImagePNG8()));
-	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit, SIGNAL(triggered()), mainWindow, SLOT(slotSaveImagePNG16()));
-	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel, SIGNAL(triggered()), mainWindow, SLOT(slotSaveImagePNG16Alpha()));
-	QApplication::connect(mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotAboutQt()));
-	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow, SLOT(slotAboutMandelbulber()));
+	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveSettings()));
+	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadSettings()));
+	QApplication::connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImageJPEG()));
+	QApplication::connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG8()));
+	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG16()));
+	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG16Alpha()));
+	QApplication::connect(mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
+	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutMandelbulber()));
 
-	QApplication::connect(mainWindow->ui->comboBox_formula_1, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_2, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_3, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_4, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedFractalCombo(int)));
+	//formulas
+	QApplication::connect(mainWindow->ui->comboBox_formula_1, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_2, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_3, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_4, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->checkBox_hybrid_fractal_enable, SIGNAL(stateChanged(int)), mainWindow, SLOT(slotChangedCheckBoxHybridFractal(int)));
 
-	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow, SLOT(slotImageScrolledAreaResized(int, int)));
-	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedImageScale(int)));
+	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow, SLOT(slotResizedScrolledAreaImage(int, int)));
+	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageScale(int)));
 
-	QApplication::connect(mainWindow->ui->checkBox_hybrid_fractal_enable, SIGNAL(stateChanged(int)), mainWindow, SLOT(slotCheckBoxHybridFractalChanged(int)));
-
+	//rendered image widget
 	QApplication::connect(renderedImage, SIGNAL(mouseMoved(int, int)), mainWindow, SLOT(slotMouseMovedOnImage(int, int)));
 	QApplication::connect(renderedImage, SIGNAL(singleClick(int, int, Qt::MouseButton)), mainWindow, SLOT(slotMouceClickOnImage(int, int, Qt::MouseButton)));
 
@@ -786,7 +795,7 @@ void cInterface::MakeColorButtonsInWindow(QWidget *window)
 				pushButton->setText("");
 				QColor color(255,255,255);
 				MakeIconForButton(color, pushButton);
-				QApplication::connect(pushButton, SIGNAL(clicked()), mainWindow, SLOT(slotPresedOnColorButton()));
+				QApplication::connect(pushButton, SIGNAL(clicked()), mainWindow, SLOT(slotPresedColorButton()));
 			}
 		}
 	}
@@ -1283,6 +1292,7 @@ void cInterface::RefreshMainImage()
 	mainImage->SetImageParameters(imageAdjustments);
 	mainImage->CompileImage();
 
+	mainInterface->stopRequest = false;
 	if(gPar->Get<bool>("ambient_occlusion_enabled") && gPar->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace)
 	{
 		cParamRender params(gPar);
@@ -1290,6 +1300,12 @@ void cInterface::RefreshMainImage()
 		data.numberOfThreads = systemData.numberOfThreads;
 		cRenderSSAO rendererSSAO(&params, &data, mainImage);
 		rendererSSAO.RenderSSAO();
+	}
+
+	if(gPar->Get<bool>("DOF_enabled"))
+	{
+		cParamRender params(gPar);
+		PostRendering_DOF(mainImage, params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0, params.DOFFocus);
 	}
 
 	mainImage->ConvertTo8bit();
@@ -1358,7 +1374,7 @@ double cInterface::GetDistanceForPoint(CVector3 point)
 	return distance;
 }
 
-void cInterface::MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button)
+void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button, RenderedImage::enumClickMode clickMode)
 {
 	WriteLog("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: " + button);
 	//get data from interface
@@ -1370,7 +1386,6 @@ void cInterface::MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton
 
 	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode)gPar->Get<int>("camera_absolute_distance_mode");
 	enumCameraMovementMode movementMode = (enumCameraMovementMode)gPar->Get<int>("camera_movement_mode");
-	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)gPar->Get<int>("mouse_click_function");
 	params::enumPerspectiveType perspType = (params::enumPerspectiveType)gPar->Get<int>("perspective_type");
 	cCameraTarget::enumRotationMode rollMode = 	(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
 	double movementStep =  gPar->Get<double>("camera_movenent_step");
@@ -1511,6 +1526,18 @@ void cInterface::MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton
 			}
 			case RenderedImage::clickFogVisibility:
 			{
+				double fogDepth = depth;
+				gPar->Set("basic_fog_visibility", fogDepth);
+				SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_basic_fog_enabled, gPar, cInterface::write);
+				StartRender();
+				break;
+			}
+			case RenderedImage::clickDOFFocus:
+			{
+				double DOF = depth;
+				gPar->Set("DOF_focus", DOF);
+				SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_DOF_enabled, gPar, cInterface::write);
+				RefreshMainImage();
 				break;
 			}
 		}

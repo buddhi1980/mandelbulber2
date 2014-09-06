@@ -18,7 +18,7 @@ RenderedImage::RenderedImage(QWidget *parent) :
 {
 	image = NULL;
 	params = NULL;
-	cursorVisible = true;
+	cursorVisible = true; //TODO changing cursor visibility
 	setMouseTracking(true);
 	clickMode = clickMoveCamera;
 	smoothLastZMouse = 0.0;
@@ -43,8 +43,8 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 
 void RenderedImage::mouseMoveEvent(QMouseEvent * event)
 {
+	//TODO add displaying of coordinates by the cursor
 	CVector2<int> screenPoint(event->x(), event->y());
-
 
 	if(params)
 	{

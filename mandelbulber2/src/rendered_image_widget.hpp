@@ -23,13 +23,15 @@ public:
 enum enumClickMode
 {
 	clickMoveCamera = 0,
-	clickFogVisibility = 1
+	clickFogVisibility = 1,
+	clickDOFFocus = 2
 };
 
 	RenderedImage(QWidget *parent = 0);
 	void AssignImage(cImage *_image) {image = _image;}
 	void AssignParameters(cParameterContainer *_mainParams) {params = _mainParams;}
 	void setNewZ(double z) {smoothLastZMouse = z;}
+	void setClickMode(enumClickMode _clickMode) {clickMode = _clickMode;}
 
 protected:
 	void paintEvent(QPaintEvent *event);

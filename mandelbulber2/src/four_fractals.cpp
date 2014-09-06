@@ -28,7 +28,7 @@ cFourFractals::~cFourFractals()
 				delete fourFractals[i];
 			}
 		}
-		//delete[] fourFractals;
+		delete[] fourFractals;
 	}
 }
 
