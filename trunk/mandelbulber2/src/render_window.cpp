@@ -965,3 +965,35 @@ void RenderWindow::slotChangedComboMouseClickFunction(int index)
 	mainInterface->renderedImage->setClickMode((RenderedImage::enumClickMode)index);
 }
 
+void RenderWindow::slotKeyPressOnImage(Qt::Key key)
+{
+
+	switch (key)
+	{
+		case Qt::Key_W:
+			mainInterface->MoveCamera("bu_move_up");
+			break;
+		case Qt::Key_S:
+			mainInterface->MoveCamera("bu_move_down");
+			break;
+		case Qt::Key_A:
+			mainInterface->MoveCamera("bu_move_left");
+			break;
+		case Qt::Key_D:
+			mainInterface->MoveCamera("bu_move_right");
+			break;
+		case Qt::Key_Up:
+			mainInterface->MoveCamera("bu_move_forward");
+			break;
+		case Qt::Key_Down:
+			mainInterface->MoveCamera("bu_move_backward");
+			break;
+		default:
+			break;
+	}
+}
+
+void RenderWindow::slotKeyReleaseOnImage(Qt::Key key)
+{
+
+}

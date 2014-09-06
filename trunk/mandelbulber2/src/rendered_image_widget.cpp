@@ -9,6 +9,7 @@
 #include <QtCore>
 #include "algebra.hpp"
 #include <QMouseEvent>
+#include <QKeyEvent>
 #include <QApplication>
 
 using namespace Qt;
@@ -16,6 +17,9 @@ using namespace Qt;
 RenderedImage::RenderedImage(QWidget *parent) :
 		QWidget(parent)
 {
+	// makes RenderedImage focusable to catch keyboard events
+	setFocusPolicy(Qt::StrongFocus);
+
 	image = NULL;
 	params = NULL;
 	cursorVisible = true; //TODO changing cursor visibility
@@ -188,4 +192,19 @@ void RenderedImage::mousePressEvent(QMouseEvent * event)
 
 void RenderedImage::mouseReleaseEvent(QMouseEvent * event)
 {
+}
+
+void RenderedImage::enterEvent ( QEvent * event )
+{
+    setFocus();
+}
+
+void RenderedImage::keyPressEvent(QKeyEvent * event)
+{
+    emit keyPress((Qt::Key) event->key());
+}
+
+void RenderedImage::keyReleaseEvent(QKeyEvent * event)
+{
+    emit keyRelease((Qt::Key) event->key());
 }

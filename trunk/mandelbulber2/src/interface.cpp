@@ -144,6 +144,8 @@ void cInterface::ConnectSignals(void)
 	//rendered image widget
 	QApplication::connect(renderedImage, SIGNAL(mouseMoved(int, int)), mainWindow, SLOT(slotMouseMovedOnImage(int, int)));
 	QApplication::connect(renderedImage, SIGNAL(singleClick(int, int, Qt::MouseButton)), mainWindow, SLOT(slotMouceClickOnImage(int, int, Qt::MouseButton)));
+	QApplication::connect(renderedImage, SIGNAL(keyPress(Qt::Key)), mainWindow, SLOT(slotKeyPressOnImage(Qt::Key)));
+	QApplication::connect(renderedImage, SIGNAL(keyRelease(Qt::Key)), mainWindow, SLOT(slotKeyReleaseOnImage(Qt::Key)));
 
 	// ------------ camera manipulation -----------
 	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));

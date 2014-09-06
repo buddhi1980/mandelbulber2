@@ -107,8 +107,11 @@ private slots:
 	void slotPressedResolutionPresset();
 	void slotImageHeightChanged(int value);
 
+	//rendered image widget
 	void slotMouseMovedOnImage(int x, int y);
 	void slotMouceClickOnImage(int x, int y, Qt::MouseButton button);
+	void slotKeyPressOnImage(Qt::Key key);
+	void slotKeyReleaseOnImage(Qt::Key key);
 
 private:
 	Ui::RenderWindow *ui;
