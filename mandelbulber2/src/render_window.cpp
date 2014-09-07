@@ -357,9 +357,9 @@ void RenderWindow::slotChangedComboFractal(int index)
 				QWidget *pushButton_preset_dodecahedron = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_dodecahedron");
 				QApplication::connect(pushButton_preset_dodecahedron, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsDodecahedron()));
 				QWidget *pushButton_preset_icosahedron = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_icosahedron");
-				QApplication::connect(pushButton_preset_icosahedron, SIGNAL(clicked()), this, SLOT(slotReessedButtonIFSDefaultsIcosahedron()));
+				QApplication::connect(pushButton_preset_icosahedron, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsIcosahedron()));
 				QWidget *pushButton_preset_octahedron = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_octahedron");
-				QApplication::connect(pushButton_preset_octahedron, SIGNAL(clicked()), this, SLOT(slotPressedButtobIFSDefaultsOctahedron()));
+				QApplication::connect(pushButton_preset_octahedron, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsOctahedron()));
 				QWidget *pushButton_preset_menger_sponge = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_menger_sponge");
 				QApplication::connect(pushButton_preset_menger_sponge, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsMengerSponge()));
 				QWidget *pushButton_preset_reset = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_reset");
@@ -935,6 +935,10 @@ void RenderWindow::slotMouceClickOnImage(int x, int y, Qt::MouseButton button)
 		case RenderedImage::clickMoveCamera:
 		case RenderedImage::clickFogVisibility:
 		case RenderedImage::clickDOFFocus:
+		case RenderedImage::clickPlaceLight1:
+		case RenderedImage::clickPlaceLight2:
+		case RenderedImage::clickPlaceLight3:
+		case RenderedImage::clickPlaceLight4:
 		{
 			mainInterface->SetByMouse(CVector2<double>(x, y), button, clickMode);
 			break;

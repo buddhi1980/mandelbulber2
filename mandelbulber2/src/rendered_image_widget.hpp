@@ -25,7 +25,11 @@ enum enumClickMode
 {
 	clickMoveCamera = 0,
 	clickFogVisibility = 1,
-	clickDOFFocus = 2
+	clickDOFFocus = 2,
+	clickPlaceLight1 = 3,
+	clickPlaceLight2 = 4,
+	clickPlaceLight3 = 5,
+	clickPlaceLight4 = 6
 };
 
 	RenderedImage(QWidget *parent = 0);
