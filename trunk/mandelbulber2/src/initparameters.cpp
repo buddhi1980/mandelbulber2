@@ -44,12 +44,12 @@ using namespace parameterContainer;
 
 	//camera
 
-	par->addParam("camera", CVector3(0.0, -6.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("camera", CVector3(3.0, -6.0, 2.0), morphCatMullRom, paramStandard);
 	par->addParam("target", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("camera_top", CVector3(0.0, 0.0, 1.0), morphCatMullRom, paramStandard); //internal vector which represents top direction
-	par->addParam("camera_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
-	par->addParam("camera_distance_to_target", 3.0, 0.0, 1e15, morphCatMullRom, paramStandard);
-	par->addParam("fov", 0.5, 0.0, 100.0, morphCatMullRom, paramStandard);
+	par->addParam("camera_top", CVector3(-0.1277753, 0.2555506, 0.958314), morphCatMullRom, paramStandard); //internal vector which represents top direction
+	par->addParam("camera_rotation", CVector3(26.5650, -16.60154, 0.0), morphCatMullRomAngle, paramStandard);
+	par->addParam("camera_distance_to_target", 7.0, 0.0, 1e15, morphCatMullRom, paramStandard);
+	par->addParam("fov", 1.0, 0.0, 100.0, morphCatMullRom, paramStandard);
 	par->addParam("perspective_type", 0, morphLinear, paramStandard);
 	par->addParam("stereo_eye_distance", 1.0, morphCatMullRom, paramStandard);
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);

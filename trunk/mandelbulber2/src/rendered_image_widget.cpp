@@ -207,14 +207,14 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 			image->AntiAliasedLine(screenPoint.x - sw * 0.3, screenPoint.y, screenPoint.x + sw * 0.3, screenPoint.y, z, z, sRGB8(255, 255, 255), 1.0, 1);
 			image->AntiAliasedLine(screenPoint.x, screenPoint.y - sh * 0.3, screenPoint.x, screenPoint.y + sh * 0.3, z, z, sRGB8(255, 255, 255), 1.0, 1);
 
-			/*
-			if (mode >= 5 && mode < 10)
+
+			if (clickMode == clickPlaceLight1 || clickMode == clickPlaceLight2 || clickMode == clickPlaceLight3 || clickMode ==  clickPlaceLight4)
 			{
 				double r = 1.5 * (boxWidth * n / aspectRatio);
 				if (r > 1.0) r = 1.0;
 				image->CircleBorder(screenPoint.x, screenPoint.y, z, r * sw, (sRGB8 ) { 0, 100, 255 }, r * 0.1 * sw, 1.0, 1);
 			}
-			*/
+
 		}
 	}
 
