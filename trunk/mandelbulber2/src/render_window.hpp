@@ -54,6 +54,7 @@ private slots:
 	void slotChangedComboPerspectiveType(int index);
 	void slotChangedSpinBoxPaletteOffset(double value);
 	void slotChangedSpinBoxPaletteSize(int value);
+	void slotEditedLineEditManualLightPlacementDistance(const QString &text);
 	void slotPressedButtonAutoFog();
 	void slotPressedButtonDOFUpdate();
 	void slotPressedButtonGetPaletteFromImage();
@@ -62,7 +63,12 @@ private slots:
 	void slotPressedButtonRandomize();
 	void slotPressedButtonSetDOFByMouse();
 	void slotPressedButtonSetFogByMouse();
+	void slotPressedButtonSetLight1ByMouse();
+	void slotPressedButtonSetLight2ByMouse();
+	void slotPressedButtonSetLight3ByMouse();
+	void slotPressedButtonSetLight4ByMouse();
 	void slotResizedScrolledAreaImage(int width, int height);
+	void slotSliderMovedEditManualLightPlacementDistance(int value);
 
 	//camera
 	void slotCameraMove();
@@ -112,6 +118,7 @@ private slots:
 	void slotMouceClickOnImage(int x, int y, Qt::MouseButton button);
 	void slotKeyPressOnImage(Qt::Key key);
 	void slotKeyReleaseOnImage(Qt::Key key);
+	void slotMouseWheelRotatedonImage(int delta);
 
 private:
 	Ui::RenderWindow *ui;

@@ -90,12 +90,19 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->button_selectEnvMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectEnvMapTexture()));
 	QApplication::connect(mainWindow->ui->button_selectLightMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectLightMapTexture()));
 	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboAmbientOcclussionMode(int)));
-	QApplication::connect(mainWindow->ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboPerspectiveType(int)));
 	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
+	QApplication::connect(mainWindow->ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboPerspectiveType(int)));
+	QApplication::connect(mainWindow->ui->logedit_aux_light_manual_placement_dist, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditManualLightPlacementDistance(const QString&)));
+	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraDistanceEdited()));
+	QApplication::connect(mainWindow->ui->logslider_aux_light_manual_placement_dist, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotSliderMovedEditManualLightPlacementDistance(int)));
 	QApplication::connect(mainWindow->ui->pushButton_apply_image_changes, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonImageApply()));
 	QApplication::connect(mainWindow->ui->pushButton_DOF_set_focus, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetDOFByMouse()));
 	QApplication::connect(mainWindow->ui->pushButton_DOF_update, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDOFUpdate()));
 	QApplication::connect(mainWindow->ui->pushButton_getPaletteFromImage, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonGetPaletteFromImage()));
+	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_1, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight1ByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_2, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight2ByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_3, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight3ByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_4, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight4ByMouse()));
 	QApplication::connect(mainWindow->ui->pushButton_randomize, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonRandomize()));
 	QApplication::connect(mainWindow->ui->pushButton_randomPalette, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewRandomPalette()));
 	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(slotStartRender()));
@@ -147,6 +154,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(renderedImage, SIGNAL(singleClick(int, int, Qt::MouseButton)), mainWindow, SLOT(slotMouceClickOnImage(int, int, Qt::MouseButton)));
 	QApplication::connect(renderedImage, SIGNAL(keyPress(Qt::Key)), mainWindow, SLOT(slotKeyPressOnImage(Qt::Key)));
 	QApplication::connect(renderedImage, SIGNAL(keyRelease(Qt::Key)), mainWindow, SLOT(slotKeyReleaseOnImage(Qt::Key)));
+	QApplication::connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow, SLOT(slotMouseWheelRotatedonImage(int)));
 
 	// ------------ camera manipulation -----------
 	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
@@ -1405,7 +1413,6 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 		double depth = mainImage->GetPixelZBuffer(imagePoint.x, imagePoint.y);
 
 		CVector3 viewVector;
-		double x2, z2;
 		double aspectRatio = (double) width / height;
 
 		CVector3 angles = cameraTarget.GetRotation();
@@ -1499,6 +1506,27 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				RefreshMainImage();
 				break;
 			}
+			case RenderedImage::clickPlaceLight1:
+			case RenderedImage::clickPlaceLight2:
+			case RenderedImage::clickPlaceLight3:
+			case RenderedImage::clickPlaceLight4:
+			{
+				double frontDist = gPar->Get<double>("aux_light_manual_placement_dist");
+				CVector3 pointCorrected = point - viewVector * frontDist;
+				double estDistance = GetDistanceForPoint(pointCorrected, gPar, gParFractal);
+				double intensity = estDistance * estDistance;
+				int lightNumber = 0;
+				if(clickMode == RenderedImage::clickPlaceLight1) lightNumber = 1;
+				if(clickMode == RenderedImage::clickPlaceLight2) lightNumber = 2;
+				if(clickMode == RenderedImage::clickPlaceLight3) lightNumber = 3;
+				if(clickMode == RenderedImage::clickPlaceLight4) lightNumber = 4;
+				gPar->Set("aux_light_predefined_position", lightNumber, pointCorrected);
+				gPar->Set("aux_light_predefined_intensity", lightNumber, intensity);
+				SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, cInterface::write);
+				RefreshMainImage();
+				break;
+			}
+
 		}
 	}
 }

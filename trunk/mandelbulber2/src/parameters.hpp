@@ -61,7 +61,7 @@ public:
 
 	void DebugPrintf(QString name);
 
-
+	//FIXME needed set all to default function (necesary for load settings)
 
 private:
 
