@@ -703,3 +703,13 @@ bool cParameterContainer::isDefaultValue(QString name) const
 	return isDefault;
 }
 
+void cParameterContainer::ResetAllToDefault(void)
+{
+	QMap<QString, sRecord>::iterator it = myMap.begin();
+	while (it != myMap.end())
+	{
+		sRecord record = it.value();
+		if(record.parType != paramApp)	it.value().actualVal = record.defaultVal;
+		++it;
+	}
+}

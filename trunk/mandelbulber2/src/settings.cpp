@@ -202,6 +202,11 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 
 bool cSettings::Decode(cParameterContainer *par, cParameterContainer *fractPar)
 {
+	//clear settings
+	par->ResetAllToDefault();
+	for(int i=0; i<4; i++)
+		fractPar[i].ResetAllToDefault();
+
 	QStringList separatedText = settingsText.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
 	DecodeHeader(separatedText);
 
