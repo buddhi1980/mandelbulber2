@@ -287,7 +287,7 @@ using namespace parameterContainer;
 	par->addParam("net_render_client_port", QString("5555"), morphNone, paramApp);
 	par->addParam("net_render_client_IP", QString("10.0.0.4"), morphNone, paramApp);
 	par->addParam("net_render_server_port", QString("5555"), morphNone, paramApp);
-	par->addParam("light_manual_placement_dist", 0.1, 1e-15, 1e15, morphNone, paramApp);
+	par->addParam("aux_light_manual_placement_dist", 0.1, 1e-15, 1e15, morphNone, paramApp);
 
 	par->addParam("camera_movenent_step", 0.5, 1e-15, 1e5, morphNone, paramApp);
 	par->addParam("camera_rotation_step", 15.0, 1e-15, 360.0, morphNone, paramApp);

@@ -37,6 +37,7 @@ enum enumClickMode
 	void AssignParameters(cParameterContainer *_mainParams) {params = _mainParams;}
 	void setNewZ(double z) {smoothLastZMouse = z;}
 	void setClickMode(enumClickMode _clickMode) {clickMode = _clickMode;}
+	void SetFrontDist(double dist) {frontDist = dist;}
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -47,6 +48,7 @@ protected:
 	void keyReleaseEvent(QKeyEvent * event);
 	void enterEvent(QEvent * event);
 	void leaveEvent(QEvent * event);
+	void wheelEvent(QWheelEvent * event);
 
 private:
 	void DisplayCoordinates();
@@ -63,12 +65,14 @@ private:
 	double lastDepth;
 	bool isFocus;
 	bool isOnObject;
+	double frontDist;
 
 signals:
 	void mouseMoved(int x, int y);
 	void singleClick(int x, int y, Qt::MouseButton button);
 	void keyPress(Qt::Key key);
 	void keyRelease(Qt::Key key);
+	void mouseWheelRotated(int delta);
 };
 
 

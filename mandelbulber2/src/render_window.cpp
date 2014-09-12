@@ -910,7 +910,6 @@ void RenderWindow::slotPressedButtonNewRandomPalette()
 	ui->colorpalette_surface_color_palette->SetPalette(palette);
 }
 
-
 void RenderWindow::slotChangedSpinBoxPaletteSize(int value)
 {
 	ui->slider_coloring_palette_offset->setMaximum(value * 100);
@@ -1001,3 +1000,59 @@ void RenderWindow::slotKeyReleaseOnImage(Qt::Key key)
 {
 
 }
+
+void RenderWindow::slotMouseWheelRotatedonImage(int delta)
+{
+	enum RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)ui->comboBox_mouse_click_function->currentIndex();
+	switch(clickMode)
+	{
+		case RenderedImage::clickPlaceLight1:
+		case RenderedImage::clickPlaceLight2:
+		case RenderedImage::clickPlaceLight3:
+		case RenderedImage::clickPlaceLight4:
+		{
+			double deltaLog = exp(delta * 0.001);
+			double dist = ui->logedit_aux_light_manual_placement_dist->text().toDouble();
+			dist *= deltaLog;
+			ui->logedit_aux_light_manual_placement_dist->setText(QString::number(dist));
+			break;
+		}
+		default:
+			break;
+	}
+}
+
+void RenderWindow::slotEditedLineEditManualLightPlacementDistance(const QString &text)
+{
+	mainInterface->renderedImage->SetFrontDist(text.toDouble());
+}
+
+void RenderWindow::slotSliderMovedEditManualLightPlacementDistance(int value)
+{
+	mainInterface->renderedImage->SetFrontDist(pow(10.0, value/100.0));
+}
+
+void RenderWindow::slotPressedButtonSetLight1ByMouse()
+{
+	ui->comboBox_mouse_click_function->setCurrentIndex(RenderedImage::clickPlaceLight1);
+	mainInterface->renderedImage->setClickMode(RenderedImage::clickPlaceLight1);
+}
+
+void RenderWindow::slotPressedButtonSetLight2ByMouse()
+{
+	ui->comboBox_mouse_click_function->setCurrentIndex(RenderedImage::clickPlaceLight2);
+	mainInterface->renderedImage->setClickMode(RenderedImage::clickPlaceLight2);
+}
+
+void RenderWindow::slotPressedButtonSetLight3ByMouse()
+{
+	ui->comboBox_mouse_click_function->setCurrentIndex(RenderedImage::clickPlaceLight3);
+	mainInterface->renderedImage->setClickMode(RenderedImage::clickPlaceLight3);
+}
+
+void RenderWindow::slotPressedButtonSetLight4ByMouse()
+{
+	ui->comboBox_mouse_click_function->setCurrentIndex(RenderedImage::clickPlaceLight4);
+	mainInterface->renderedImage->setClickMode(RenderedImage::clickPlaceLight4);
+}
+
