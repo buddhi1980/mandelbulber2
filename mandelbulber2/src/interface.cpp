@@ -89,6 +89,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->button_selectBackgroundTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectBackgroundTexture()));
 	QApplication::connect(mainWindow->ui->button_selectEnvMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectEnvMapTexture()));
 	QApplication::connect(mainWindow->ui->button_selectLightMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectLightMapTexture()));
+	QApplication::connect(mainWindow->ui->checkBox_show_cursor, SIGNAL(stateChanged(int)), mainWindow, SLOT(slotChangedCheckBoxCursorVisibility(int)));
 	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboAmbientOcclussionMode(int)));
 	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
 	QApplication::connect(mainWindow->ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboPerspectiveType(int)));

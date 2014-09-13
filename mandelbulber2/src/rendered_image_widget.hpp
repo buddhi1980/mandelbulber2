@@ -23,13 +23,14 @@ public:
 
 enum enumClickMode
 {
-	clickMoveCamera = 0,
-	clickFogVisibility = 1,
-	clickDOFFocus = 2,
-	clickPlaceLight1 = 3,
-	clickPlaceLight2 = 4,
-	clickPlaceLight3 = 5,
-	clickPlaceLight4 = 6
+	clickDoNothing = 0,
+	clickMoveCamera = 1,
+	clickFogVisibility = 3,
+	clickDOFFocus = 4,
+	clickPlaceLight1 = 5,
+	clickPlaceLight2 = 6,
+	clickPlaceLight3 = 7,
+	clickPlaceLight4 = 8
 };
 
 	RenderedImage(QWidget *parent = 0);
@@ -38,6 +39,7 @@ enum enumClickMode
 	void setNewZ(double z) {smoothLastZMouse = z;}
 	void setClickMode(enumClickMode _clickMode) {clickMode = _clickMode;}
 	void SetFrontDist(double dist) {frontDist = dist;}
+	void SetCursorVisibility(bool enable) {cursorVisible = enable;};
 
 protected:
 	void paintEvent(QPaintEvent *event);

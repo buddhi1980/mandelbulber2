@@ -48,6 +48,7 @@ private slots:
 	void slotPresedColorButton();
 
 	//other
+	void slotChangedCheckBoxCursorVisibility(int state);
 	void slotChangedComboFractal(int index);
 	void slotChangedComboImageScale(int index);
 	void slotChangedComboMouseClickFunction(int index);
