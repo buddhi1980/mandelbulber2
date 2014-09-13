@@ -1056,3 +1056,7 @@ void RenderWindow::slotPressedButtonSetLight4ByMouse()
 	mainInterface->renderedImage->setClickMode(RenderedImage::clickPlaceLight4);
 }
 
+void RenderWindow::slotChangedCheckBoxCursorVisibility(int state)
+{
+	mainInterface->renderedImage->SetCursorVisibility(state);
+}

@@ -1824,6 +1824,11 @@ to target:</string>
              </property>
              <item>
               <property name="text">
+               <string>No action</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
                <string>Move the camera</string>
               </property>
              </item>
@@ -3538,7 +3543,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-281</y>
+                  <y>0</y>
                   <width>364</width>
                   <height>1648</height>
                  </rect>
