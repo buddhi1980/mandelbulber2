@@ -20,6 +20,11 @@ public:
 private:
 	QElapsedTimer timer;
 	QString TimeString(qint64 time);
+	qint64 lastTimeForETA;
+	double lastProgressForETA;
+	double renderingSpeed;
+	double lastSpeed;
+	double renderingAcceleration;
 };
 
 

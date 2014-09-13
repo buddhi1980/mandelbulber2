@@ -10,6 +10,11 @@
 cProgressText::cProgressText()
 {
 	timer.start();
+	lastTimeForETA = 0;
+	lastProgressForETA = 0;
+	renderingSpeed = 0.0;
+	lastSpeed = 0.0;
+	renderingAcceleration = 0.0;
 }
 
 void cProgressText::ResetTimer()
@@ -27,15 +32,31 @@ QString cProgressText::getText(double progress)
 
 	qint64 time = timer.elapsed();
 
-	//TODO better calculation of estamined time to end
+	if ((time > lastTimeForETA * 1.1L || time - lastTimeForETA > 600000) && progress > lastProgressForETA)
+	{
+		double renderingSpeedNew = (progress - lastProgressForETA) / (time - lastTimeForETA);
+		if(renderingSpeed > 0)
+		{
+			renderingSpeed = renderingSpeed + (renderingSpeedNew - renderingSpeed) * 0.1;
+		}
+		else
+		{
+			renderingSpeed = renderingSpeedNew;
+		}
+		renderingAcceleration = (renderingSpeed - lastSpeed) / (time - lastTimeForETA);
+		lastProgressForETA = progress;
+		lastTimeForETA = time;
+		lastSpeed = renderingSpeed;
+	}
 
 	qint64 timeToEnd;
-	if(progressLim > 0.0)
-		timeToEnd = (1.0 - progressLim) * time / progressLim;
-	else
-		timeToEnd = -1;
+	if (progressLim > 0.0 && renderingSpeed > 0)
+	{
+		timeToEnd = (1.0 - progressLim) / renderingSpeed;
+	}
+	else timeToEnd = -1;
 
-	if(progressLim < 1.0)
+	if (progressLim < 1.0)
 	{
 		text = "Done " + QString::number(progressLim * 100.0, 'f', 2) + " %, elapsed: " + TimeString(time) + ", estamined to end: " + TimeString(timeToEnd);
 	}
@@ -43,6 +64,7 @@ QString cProgressText::getText(double progress)
 	{
 		text = QString("100% Done, ") + QString("total time: ") + TimeString(time);
 	}
+
 	return text;
 }
 

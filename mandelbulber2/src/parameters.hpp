@@ -64,8 +64,6 @@ public:
 
 	void ResetAllToDefault(void);
 
-	//FIXME needed set all to default function (necesary for load settings)
-
 private:
 
 
