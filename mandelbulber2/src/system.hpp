@@ -36,6 +36,7 @@ struct sSystem
 	QString lastSettingsFile;
 	QString lastImageFile;
 	QString lastImagePaletteFile;
+	QString thumbnailDir;
 	unsigned int numberOfThreads;
 	bool noGui;
 };

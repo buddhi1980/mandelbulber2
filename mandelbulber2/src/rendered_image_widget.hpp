@@ -23,14 +23,15 @@ public:
 
 enum enumClickMode
 {
+//FIXME there is something wrong with enumeration!
 	clickDoNothing = 0,
 	clickMoveCamera = 1,
-	clickFogVisibility = 3,
-	clickDOFFocus = 4,
-	clickPlaceLight1 = 5,
-	clickPlaceLight2 = 6,
-	clickPlaceLight3 = 7,
-	clickPlaceLight4 = 8
+	clickFogVisibility = 2,
+	clickDOFFocus = 3,
+	clickPlaceLight1 = 4,
+	clickPlaceLight2 = 5,
+	clickPlaceLight3 = 6,
+	clickPlaceLight4 = 7
 };
 
 	RenderedImage(QWidget *parent = 0);

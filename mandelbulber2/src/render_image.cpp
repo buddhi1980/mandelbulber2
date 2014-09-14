@@ -158,7 +158,7 @@ bool cRenderer::RenderImage()
 	}
 	if(params->DOFEnabled && !mainInterface->stopRequest)
 	{
-		PostRendering_DOF(image, params->DOFRadius * (image->GetWidth() + image->GetPreviewHeight()) / 2000.0, params->DOFFocus);
+		PostRendering_DOF(image, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus);
 	}
 
 	if(image->IsPreview())

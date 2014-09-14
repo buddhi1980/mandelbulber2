@@ -43,6 +43,8 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cParameterConta
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	renderData = NULL;
 
+	useSizeFromImage = false;
+
 	id++;
 }
 int cRenderJob::id = 0;
@@ -62,6 +64,11 @@ bool cRenderJob::Init(enumMode _mode)
 
 	mode = _mode;
 
+	if(useSizeFromImage)
+	{
+		paramsContainer->Set("image_width", image->GetWidth());
+		paramsContainer->Set("image_height", image->GetHeight());
+	}
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 

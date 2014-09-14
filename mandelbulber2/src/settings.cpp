@@ -48,7 +48,6 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cParameterCon
 	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
 	hashCrypt.addData(settingsText.toUtf8());
 	hash = hashCrypt.result();
-	qDebug() << "hash" << hash.toHex();
 	return settingsText.size();
 }
 
