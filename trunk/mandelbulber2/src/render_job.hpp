@@ -27,21 +27,23 @@ public:
 	bool Execute();
 	cImage* GetImagePtr() {return image;}
 	int GetNumberOfCPUs() {return totalNumberOfCPUs;};
+	void UseSizeFromImage(bool mode) {useSizeFromImage = mode;}
 
 private:
-	bool InitImage(int w, int h);
-	cParameterContainer *paramsContainer;
-	cParameterContainer *fractalContainer;
-	cImage *image;
-	sRenderData *renderData;
-	int width;
-	int height;
-	enumMode mode;
-	bool ready;
-	bool inProgress;
 	bool hasQWidget;
-	QWidget *imageWidget;
+	bool InitImage(int w, int h);
+	bool inProgress;
+	bool ready;
+	bool useSizeFromImage;
+	cImage *image;
+	cParameterContainer *fractalContainer;
+	cParameterContainer *paramsContainer;
+	enumMode mode;
+	int height;
 	int totalNumberOfCPUs;
+	int width;
+	QWidget *imageWidget;
+	sRenderData *renderData;
 	static int id; //global identifier of actual rendering job
 };
 

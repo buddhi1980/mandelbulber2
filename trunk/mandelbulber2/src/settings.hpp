@@ -27,6 +27,7 @@ public:
 	bool SaveToFile(QString filename);
 	bool LoadFromFile(QString filename);
 	bool Decode(cParameterContainer *par, cParameterContainer *fractPar);
+	QString GetHashCode() {return hash.toHex();}
 
 private:
 	QString CreateHeader(void);

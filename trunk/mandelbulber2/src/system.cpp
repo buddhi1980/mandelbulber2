@@ -62,6 +62,7 @@ bool InitSystem(void)
 	systemData.dataDirectory = systemData.homedir  + "mandelbulber" + QDir::separator();
 #else
 	systemData.dataDirectory = systemData.homedir  + ".mandelbulber" + QDir::separator();
+	systemData.thumbnailDir = systemData.dataDirectory + QDir::separator() + "thumbnails" + QDir::separator();
 #endif
 	out << "Default data directory: " << systemData.dataDirectory << endl;
 	WriteLogString("Default data directory", systemData.dataDirectory);
@@ -113,6 +114,7 @@ bool CreateDefaultFolders(void)
 		result &= CreateDirectory(systemData.dataDirectory + "/paths");
 		result &= CreateDirectory(systemData.dataDirectory + "/undo");
 		result &= CreateDirectory(systemData.dataDirectory + "/paths");
+		result &= CreateDirectory(systemData.dataDirectory + "/thumbnails");
 
 #ifdef CLSUPPORT
 		string oclDir = systemData.dataDirectory + "/custom_ocl_formulas";

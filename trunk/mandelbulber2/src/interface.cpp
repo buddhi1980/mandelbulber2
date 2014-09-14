@@ -1524,7 +1524,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				gPar->Set("aux_light_predefined_position", lightNumber, pointCorrected);
 				gPar->Set("aux_light_predefined_intensity", lightNumber, intensity);
 				SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, cInterface::write);
-				RefreshMainImage();
+				StartRender();
 				break;
 			}
 

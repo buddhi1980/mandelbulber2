@@ -14,6 +14,7 @@
 #include "error_message.hpp"
 #include "files.h"
 #include "fractparams.hpp"
+#include "thumbnail.hpp"
 
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
@@ -478,6 +479,11 @@ void RenderWindow::slotMenuSaveSettings()
 		parSettings.SaveToFile(filename);
 		systemData.lastSettingsFile = filename;
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
+
+		//QString hash = parSettings.GetHashCode();
+		//cThumbnail thumbnail(gPar, gParFractal, 200, 200);
+		//thumbnail.Render();
+		//thumbnail.Save(systemData.thumbnailDir + hash);
 	}
 }
 

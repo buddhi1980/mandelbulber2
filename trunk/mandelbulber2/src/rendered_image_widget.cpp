@@ -25,7 +25,7 @@ RenderedImage::RenderedImage(QWidget *parent) :
 
 	image = NULL;
 	params = NULL;
-	cursorVisible = true; //TODO changing cursor visibility
+	cursorVisible = true;
 	clickMode = clickMoveCamera;
 	smoothLastZMouse = 0.0;
 	redrawed = true;
@@ -87,15 +87,12 @@ void RenderedImage::DisplayCoordinates()
 		case clickMoveCamera:
 			text = QString("Move camera");
 			break;
-
 		case clickFogVisibility:
 			text = QString("Change fog visibility");
 			break;
-
 		case clickDOFFocus:
 			text = QString("Change DOF focus");
 			break;
-
 		case clickPlaceLight1:
 			text = QString("Place light #1");
 			break;
@@ -108,16 +105,23 @@ void RenderedImage::DisplayCoordinates()
 		case clickPlaceLight4:
 			text = QString("Place light #4");
 			break;
+		case clickDoNothing:
+			text  = QString();
+			break;
 	}
-	QRect textRect = painter.boundingRect(QRect(), Qt::AlignLeft, text);
-	textRect.setHeight(textRect.height() + 2);
-	textRect.moveBottomLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y - 3));
 
-	painter.setOpacity(0.5);
-	painter.setPen(penWhite);
-	painter.setBrush(brushBrown);
-	painter.drawRoundedRect(textRect, 3, 3);
-	painter.drawText(QPoint(lastMousePosition.x + 30, lastMousePosition.y - 4), text);
+	if(clickMode != clickDoNothing)
+	{
+		QRect textRect = painter.boundingRect(QRect(), Qt::AlignLeft, text);
+		textRect.setHeight(textRect.height() + 2);
+		textRect.moveBottomLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y - 3));
+
+		painter.setOpacity(0.5);
+		painter.setPen(penWhite);
+		painter.setBrush(brushBrown);
+		painter.drawRoundedRect(textRect, 3, 3);
+		painter.drawText(QPoint(lastMousePosition.x + 30, lastMousePosition.y - 4), text);
+	}
 
 	QString textCoordinates;
 	textCoordinates += "x: " + QString::number(lastCoordinates.x, 'g', 15);
