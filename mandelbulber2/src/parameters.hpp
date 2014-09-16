@@ -52,17 +52,18 @@ public:
 
 	template <class T> T Get(QString name) const;
 	template <class T> T Get(QString name, int index) const;
+	template <class T> T GetDefault(QString name) const;
+	template <class T> T GetDefault(QString name, int index) const;
 
 	enumVarType GetVarType(QString name) const;
 	enumParameterType GetParameterType(QString name) const;
 	bool isDefaultValue(QString name) const;
-
 	void Copy(QString name, cParameterContainer *sourceContainer);
 	QList<QString> GetListOfParameters(void) const;
-
 	void DebugPrintf(QString name);
-
 	void ResetAllToDefault(void);
+	void SetContainerName(QString name) {containerName = name;}
+	QString GetContainerName(void) {return containerName;}
 
 private:
 
@@ -116,6 +117,7 @@ private:
 
 	//std::map contairer
 	QMap<QString, sRecord> myMap;
+	QString containerName;
 };
 
 

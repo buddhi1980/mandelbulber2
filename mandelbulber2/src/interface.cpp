@@ -245,7 +245,8 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 			//out << "QLineEdit:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 
 			QString name = (*it)->objectName();
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QLineEdit"))
+			QString className = (*it)->metaObject()->className();
+			if (name.length() > 1 && (className == QString("QLineEdit") || className == QString("MyLineEdit")))
 			{
 				QLineEdit *lineEdit = *it;
 				QString text = lineEdit->text();
@@ -254,6 +255,14 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
 				//out << name << " - type: " << type << endl;
+
+				if(className == QString("MyLineEdit"))
+				{
+					MyLineEdit *mylineedit = (MyLineEdit*)*it;
+					mylineedit->AssignParameterContainer(par);
+					mylineedit->AssingParameterName(parameterName);
+				}
+
 
 				//----- get vectors ------------
 				if (type == QString("vect3"))

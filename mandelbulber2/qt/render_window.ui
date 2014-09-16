@@ -954,7 +954,7 @@
                        </widget>
                       </item>
                       <item row="0" column="1">
-                       <widget class="QLineEdit" name="vect3_camera_x"/>
+                       <widget class="MyLineEdit" name="vect3_camera_x"/>
                       </item>
                       <item row="1" column="0">
                        <widget class="QLabel" name="label_19">
@@ -964,7 +964,7 @@
                        </widget>
                       </item>
                       <item row="1" column="1">
-                       <widget class="QLineEdit" name="vect3_camera_y"/>
+                       <widget class="MyLineEdit" name="vect3_camera_y"/>
                       </item>
                       <item row="2" column="0">
                        <widget class="QLabel" name="label_20">
@@ -974,7 +974,7 @@
                        </widget>
                       </item>
                       <item row="2" column="1">
-                       <widget class="QLineEdit" name="vect3_camera_z"/>
+                       <widget class="MyLineEdit" name="vect3_camera_z"/>
                       </item>
                      </layout>
                     </item>
@@ -1114,7 +1114,7 @@ to target:</string>
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QLineEdit" name="logedit_camera_distance_to_target">
+                 <widget class="MyLineEdit" name="logedit_camera_distance_to_target">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1386,7 +1386,7 @@ to target:</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="logedit_camera_movenent_step"/>
+                    <widget class="MyLineEdit" name="logedit_camera_movenent_step"/>
                    </item>
                   </layout>
                  </item>
@@ -1777,7 +1777,7 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLineEdit" name="vect3_camera_rotation_x"/>
+                    <widget class="MyLineEdit" name="vect3_camera_rotation_x"/>
                    </item>
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_16">
@@ -1787,7 +1787,7 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="vect3_camera_rotation_y"/>
+                    <widget class="MyLineEdit" name="vect3_camera_rotation_y"/>
                    </item>
                    <item row="2" column="0">
                     <widget class="QLabel" name="label_17">
@@ -1797,7 +1797,7 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QLineEdit" name="vect3_camera_rotation_z"/>
+                    <widget class="MyLineEdit" name="vect3_camera_rotation_z"/>
                    </item>
                   </layout>
                  </item>
@@ -1976,8 +1976,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
-                  <height>642</height>
+                  <width>364</width>
+                  <height>720</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -2286,7 +2286,7 @@ to target:</string>
                           </widget>
                          </item>
                          <item row="0" column="1">
-                          <widget class="QLineEdit" name="text_file_lightmap"/>
+                          <widget class="MyLineEdit" name="text_file_lightmap"/>
                          </item>
                          <item row="0" column="0">
                           <widget class="QLabel" name="label_133">
@@ -2299,6 +2299,12 @@ to target:</string>
                        </item>
                        <item>
                         <widget class="QLabel" name="label_lightmapTextureView">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>50</height>
+                          </size>
+                         </property>
                          <property name="text">
                           <string/>
                          </property>
@@ -2593,7 +2599,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="1">
-                       <widget class="QLineEdit" name="text_file_envmap"/>
+                       <widget class="MyLineEdit" name="text_file_envmap"/>
                       </item>
                       <item row="0" column="0">
                        <widget class="QLabel" name="label_132">
@@ -2606,6 +2612,12 @@ to target:</string>
                     </item>
                     <item>
                      <widget class="QLabel" name="label_envmapTextureView">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>50</height>
+                       </size>
+                      </property>
                       <property name="text">
                        <string/>
                       </property>
@@ -2635,8 +2647,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>194</width>
-                  <height>238</height>
+                  <width>378</width>
+                  <height>245</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2743,7 +2755,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="2">
-                       <widget class="QLineEdit" name="logedit_DOF_focus">
+                       <widget class="MyLineEdit" name="logedit_DOF_focus">
                         <property name="sizePolicy">
                          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                           <horstretch>0</horstretch>
@@ -2845,8 +2857,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>289</width>
+                  <y>-255</y>
+                  <width>364</width>
                   <height>695</height>
                  </rect>
                 </property>
@@ -2879,7 +2891,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="2">
-                       <widget class="QLineEdit" name="logedit_basic_fog_visibility">
+                       <widget class="MyLineEdit" name="logedit_basic_fog_visibility">
                         <property name="alignment">
                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                         </property>
@@ -2981,7 +2993,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="2">
-                       <widget class="QLineEdit" name="logedit_glow_intensity"/>
+                       <widget class="MyLineEdit" name="logedit_glow_intensity"/>
                       </item>
                      </layout>
                     </item>
@@ -3003,7 +3015,7 @@ to target:</string>
                        <number>2</number>
                       </property>
                       <item row="1" column="2">
-                       <widget class="QLineEdit" name="logedit_volumetric_fog_density"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_fog_density"/>
                       </item>
                       <item row="4" column="0">
                        <widget class="QLabel" name="label_77">
@@ -3040,7 +3052,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="3" column="2">
-                       <widget class="QLineEdit" name="logedit_volumetric_fog_colour_2_distance"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_2_distance"/>
                       </item>
                       <item row="5" column="1">
                        <widget class="QPushButton" name="colorButton_fog_color_1">
@@ -3063,7 +3075,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="2" column="2">
-                       <widget class="QLineEdit" name="logedit_volumetric_fog_colour_1_distance"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_1_distance"/>
                       </item>
                       <item row="2" column="1">
                        <widget class="QSlider" name="logslider_volumetric_fog_colour_1_distance">
@@ -3114,7 +3126,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="4" column="2">
-                       <widget class="QLineEdit" name="logedit_volumetric_fog_distance_factor"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_factor"/>
                       </item>
                       <item row="1" column="1">
                        <widget class="QSlider" name="logslider_volumetric_fog_density">
@@ -3215,7 +3227,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="2">
-                       <widget class="QLineEdit" name="logedit_iteration_fog_opacity"/>
+                       <widget class="MyLineEdit" name="logedit_iteration_fog_opacity"/>
                       </item>
                       <item row="6" column="1">
                        <widget class="QPushButton" name="colorButton_iteration_fog_color_3">
@@ -3383,8 +3395,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>302</width>
-                  <height>243</height>
+                  <width>364</width>
+                  <height>282</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3468,7 +3480,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="1">
-                       <widget class="QLineEdit" name="text_file_background"/>
+                       <widget class="MyLineEdit" name="text_file_background"/>
                       </item>
                       <item row="0" column="0">
                        <widget class="QLabel" name="label_61">
@@ -3502,6 +3514,12 @@ to target:</string>
                     </item>
                     <item>
                      <widget class="QLabel" name="label_backgroundTextureView">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>50</height>
+                       </size>
+                      </property>
                       <property name="text">
                        <string/>
                       </property>
@@ -3543,7 +3561,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-1403</y>
                   <width>364</width>
                   <height>1648</height>
                  </rect>
@@ -3906,7 +3924,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="0" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_1_x"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_1_x"/>
                            </item>
                            <item row="1" column="0">
                             <widget class="QLabel" name="label_22">
@@ -3916,7 +3934,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="1" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_1_y"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_1_y"/>
                            </item>
                            <item row="2" column="0">
                             <widget class="QLabel" name="label_23">
@@ -3926,7 +3944,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="2" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_1_z"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_1_z"/>
                            </item>
                           </layout>
                          </item>
@@ -3940,7 +3958,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_1"/>
+                            <widget class="MyLineEdit" name="logedit_aux_light_predefined_intensity_1"/>
                            </item>
                           </layout>
                          </item>
@@ -4016,7 +4034,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="0" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_2_x"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_2_x"/>
                            </item>
                            <item row="1" column="0">
                             <widget class="QLabel" name="label_25">
@@ -4026,7 +4044,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="1" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_2_y"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_2_y"/>
                            </item>
                            <item row="2" column="0">
                             <widget class="QLabel" name="label_26">
@@ -4036,7 +4054,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="2" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_2_z"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_2_z"/>
                            </item>
                           </layout>
                          </item>
@@ -4050,7 +4068,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_2"/>
+                            <widget class="MyLineEdit" name="logedit_aux_light_predefined_intensity_2"/>
                            </item>
                           </layout>
                          </item>
@@ -4126,7 +4144,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="0" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_3_x"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_3_x"/>
                            </item>
                            <item row="1" column="0">
                             <widget class="QLabel" name="label_28">
@@ -4136,7 +4154,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="1" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_3_y"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_3_y"/>
                            </item>
                            <item row="2" column="0">
                             <widget class="QLabel" name="label_29">
@@ -4146,7 +4164,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="2" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_3_z"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_3_z"/>
                            </item>
                           </layout>
                          </item>
@@ -4160,7 +4178,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_3"/>
+                            <widget class="MyLineEdit" name="logedit_aux_light_predefined_intensity_3"/>
                            </item>
                           </layout>
                          </item>
@@ -4236,7 +4254,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="0" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_4_x"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_4_x"/>
                            </item>
                            <item row="1" column="0">
                             <widget class="QLabel" name="label_34">
@@ -4246,7 +4264,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="1" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_4_y"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_4_y"/>
                            </item>
                            <item row="2" column="0">
                             <widget class="QLabel" name="label_35">
@@ -4256,7 +4274,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="2" column="1">
-                            <widget class="QLineEdit" name="vect3_aux_light_predefined_position_4_z"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_4_z"/>
                            </item>
                           </layout>
                          </item>
@@ -4270,7 +4288,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLineEdit" name="logedit_aux_light_predefined_intensity_4"/>
+                            <widget class="MyLineEdit" name="logedit_aux_light_predefined_intensity_4"/>
                            </item>
                           </layout>
                          </item>
@@ -4365,10 +4383,10 @@ to target:</string>
                           </widget>
                          </item>
                          <item row="1" column="2">
-                          <widget class="QLineEdit" name="logedit_aux_light_visibility"/>
+                          <widget class="MyLineEdit" name="logedit_aux_light_visibility"/>
                          </item>
                          <item row="2" column="2">
-                          <widget class="QLineEdit" name="logedit_aux_light_visibility_size"/>
+                          <widget class="MyLineEdit" name="logedit_aux_light_visibility_size"/>
                          </item>
                          <item row="1" column="0">
                           <widget class="QLabel" name="label_39">
@@ -4399,7 +4417,7 @@ to target:</string>
                           </widget>
                          </item>
                          <item row="3" column="2">
-                          <widget class="QLineEdit" name="logedit_aux_light_manual_placement_dist"/>
+                          <widget class="MyLineEdit" name="logedit_aux_light_manual_placement_dist"/>
                          </item>
                         </layout>
                        </item>
@@ -4455,10 +4473,10 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="7" column="2">
-                       <widget class="QLineEdit" name="logedit_volumetric_light_intensity_3"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_light_intensity_3"/>
                       </item>
                       <item row="5" column="2">
-                       <widget class="QLineEdit" name="logedit_volumetric_light_intensity_2"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_light_intensity_2"/>
                       </item>
                       <item row="1" column="1">
                        <widget class="QSlider" name="logslider_volumetric_light_intensity_0">
@@ -4474,10 +4492,10 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QLineEdit" name="logedit_volumetric_light_intensity_0"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_light_intensity_0"/>
                       </item>
                       <item row="3" column="2">
-                       <widget class="QLineEdit" name="logedit_volumetric_light_intensity_1"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_light_intensity_1"/>
                       </item>
                       <item row="7" column="0">
                        <widget class="QLabel" name="label_43">
@@ -4520,7 +4538,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="9" column="2">
-                       <widget class="QLineEdit" name="logedit_volumetric_light_intensity_4"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_light_intensity_4"/>
                       </item>
                       <item row="5" column="1">
                        <widget class="QSlider" name="logslider_volumetric_light_intensity_2">
@@ -4663,7 +4681,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QLineEdit" name="logedit_aux_light_distribution_radius"/>
+                       <widget class="MyLineEdit" name="logedit_aux_light_distribution_radius"/>
                       </item>
                       <item row="4" column="1">
                        <widget class="QLabel" name="label_51">
@@ -4682,13 +4700,13 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="2" column="2">
-                       <widget class="QLineEdit" name="vect3_aux_light_random_center_x"/>
+                       <widget class="MyLineEdit" name="vect3_aux_light_random_center_x"/>
                       </item>
                       <item row="3" column="2">
-                       <widget class="QLineEdit" name="vect3_aux_light_random_center_y"/>
+                       <widget class="MyLineEdit" name="vect3_aux_light_random_center_y"/>
                       </item>
                       <item row="4" column="2">
-                       <widget class="QLineEdit" name="vect3_aux_light_random_center_z"/>
+                       <widget class="MyLineEdit" name="vect3_aux_light_random_center_z"/>
                       </item>
                      </layout>
                     </item>
@@ -4731,7 +4749,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="2" column="2">
-                       <widget class="QLineEdit" name="logedit_fake_lights_intensity"/>
+                       <widget class="MyLineEdit" name="logedit_fake_lights_intensity"/>
                       </item>
                       <item row="1" column="1">
                        <widget class="QSlider" name="sliderInt_fake_lights_max_iter">
@@ -4812,7 +4830,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="3" column="2">
-                       <widget class="QLineEdit" name="logedit_fake_lights_visibility"/>
+                       <widget class="MyLineEdit" name="logedit_fake_lights_visibility"/>
                       </item>
                       <item row="6" column="1">
                        <widget class="QLabel" name="label_97">
@@ -4913,13 +4931,13 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="5" column="2">
-                       <widget class="QLineEdit" name="vect3_fake_lights_orbit_trap_x"/>
+                       <widget class="MyLineEdit" name="vect3_fake_lights_orbit_trap_x"/>
                       </item>
                       <item row="6" column="2">
-                       <widget class="QLineEdit" name="vect3_fake_lights_orbit_trap_y"/>
+                       <widget class="MyLineEdit" name="vect3_fake_lights_orbit_trap_y"/>
                       </item>
                       <item row="7" column="2">
-                       <widget class="QLineEdit" name="vect3_fake_lights_orbit_trap_z"/>
+                       <widget class="MyLineEdit" name="vect3_fake_lights_orbit_trap_z"/>
                       </item>
                      </layout>
                     </item>
@@ -5087,8 +5105,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1"/>
@@ -5395,8 +5413,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>143</width>
-                  <height>137</height>
+                  <width>350</width>
+                  <height>193</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -5438,10 +5456,10 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QLineEdit" name="vect3_julia_c_y"/>
+                       <widget class="MyLineEdit" name="vect3_julia_c_y"/>
                       </item>
                       <item row="0" column="2">
-                       <widget class="QLineEdit" name="vect3_julia_c_x"/>
+                       <widget class="MyLineEdit" name="vect3_julia_c_x"/>
                       </item>
                       <item row="2" column="1">
                        <widget class="QLabel" name="label_120">
@@ -5476,7 +5494,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="2" column="2">
-                       <widget class="QLineEdit" name="vect3_julia_c_z"/>
+                       <widget class="MyLineEdit" name="vect3_julia_c_z"/>
                       </item>
                      </layout>
                     </item>
@@ -5623,7 +5641,7 @@ to target:</string>
                </widget>
               </item>
               <item row="6" column="2">
-               <widget class="QLineEdit" name="logedit_view_distance_min">
+               <widget class="MyLineEdit" name="logedit_view_distance_min">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -5672,7 +5690,7 @@ to target:</string>
                </widget>
               </item>
               <item row="3" column="2">
-               <widget class="QLineEdit" name="logedit_DE_factor">
+               <widget class="MyLineEdit" name="logedit_DE_factor">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -5774,7 +5792,7 @@ to target:</string>
                </widget>
               </item>
               <item row="4" column="2">
-               <widget class="QLineEdit" name="logedit_smoothness">
+               <widget class="MyLineEdit" name="logedit_smoothness">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -5794,7 +5812,7 @@ to target:</string>
                </widget>
               </item>
               <item row="2" column="2">
-               <widget class="QLineEdit" name="logedit_detail_level">
+               <widget class="MyLineEdit" name="logedit_detail_level">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -5829,7 +5847,7 @@ to target:</string>
                </widget>
               </item>
               <item row="5" column="2">
-               <widget class="QLineEdit" name="logedit_view_distance_max">
+               <widget class="MyLineEdit" name="logedit_view_distance_max">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -5910,7 +5928,7 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="0" column="2">
-                    <widget class="QLineEdit" name="logedit_DE_thresh">
+                    <widget class="MyLineEdit" name="logedit_DE_thresh">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -5960,10 +5978,10 @@ to target:</string>
                </widget>
               </item>
               <item row="3" column="2">
-               <widget class="QLineEdit" name="vect3_limit_max_x"/>
+               <widget class="MyLineEdit" name="vect3_limit_max_x"/>
               </item>
               <item row="2" column="2">
-               <widget class="QLineEdit" name="vect3_limit_min_z"/>
+               <widget class="MyLineEdit" name="vect3_limit_min_z"/>
               </item>
               <item row="0" column="0">
                <widget class="QLabel" name="label_109">
@@ -5973,7 +5991,7 @@ to target:</string>
                </widget>
               </item>
               <item row="1" column="2">
-               <widget class="QLineEdit" name="vect3_limit_min_y"/>
+               <widget class="MyLineEdit" name="vect3_limit_min_y"/>
               </item>
               <item row="1" column="1">
                <widget class="QLabel" name="label_111">
@@ -6008,13 +6026,13 @@ to target:</string>
                </widget>
               </item>
               <item row="0" column="2">
-               <widget class="QLineEdit" name="vect3_limit_min_x"/>
+               <widget class="MyLineEdit" name="vect3_limit_min_x"/>
               </item>
               <item row="4" column="2">
-               <widget class="QLineEdit" name="vect3_limit_max_y"/>
+               <widget class="MyLineEdit" name="vect3_limit_max_y"/>
               </item>
               <item row="5" column="2">
-               <widget class="QLineEdit" name="vect3_limit_max_z"/>
+               <widget class="MyLineEdit" name="vect3_limit_max_z"/>
               </item>
               <item row="3" column="0">
                <widget class="QLabel" name="label_114">
@@ -6204,6 +6222,11 @@ to target:</string>
    <extends>QWidget</extends>
    <header>color_palette_widget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mylineedit.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -202,7 +202,7 @@ using namespace parameterContainer;
 
 	for(int i=0; i<5; i++)
 	{
-		par->addParam("volumetric_light_intensity", i, 100.0, morphLinear, paramStandard);
+		par->addParam("volumetric_light_intensity", i, 1.0, morphLinear, paramStandard);
 		par->addParam("volumetric_light_enabled", i, false, morphLinear, paramStandard);
 	}
 

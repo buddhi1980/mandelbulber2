@@ -23,7 +23,6 @@ public:
 
 enum enumClickMode
 {
-//FIXME there is something wrong with enumeration!
 	clickDoNothing = 0,
 	clickMoveCamera = 1,
 	clickFogVisibility = 2,

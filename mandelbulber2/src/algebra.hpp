@@ -133,6 +133,8 @@ public:
 		return QString("[") + QString::number(x) + QString(", ") + QString::number(y) + QString(", ") + QString::number(z)+ QString("]");
 	}
 
+	double itemByName(char item);
+
 	double x;
 	double y;
 	double z;

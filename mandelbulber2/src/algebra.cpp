@@ -18,6 +18,25 @@ CVector3 CVector3::RotateAroundVectorByAngle(CVector3 axis, double angle)
 	return vector;
 }
 
+double CVector3::itemByName(char item)
+{
+	switch(item)
+	{
+		case 'x':
+			return x;
+			break;
+		case 'y':
+			return y;
+			break;
+		case 'z':
+			return z;
+			break;
+		default:
+			return 0.0;
+			break;
+	}
+}
+
 /***************** class CMatrix33 ***********************/
 CMatrix33::CMatrix33()
 {
