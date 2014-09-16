@@ -38,9 +38,12 @@ int main(int argc, char *argv[])
 	gPar = new cParameterContainer;
 	gParFractal = new cParameterContainer[4];
 	InitParams(gPar);
+	gPar->SetContainerName("main");
 	for(int i=0; i<4; i++)
+	{
 		InitFractalParams(&gParFractal[i]);
-
+		gParFractal[i].SetContainerName(QString("fractal") + QString::number(i));
+	}
 	//Define list of fractal formulas
 	DefineFractalList(&fractalList);
 

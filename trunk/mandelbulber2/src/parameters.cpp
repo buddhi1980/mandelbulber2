@@ -473,6 +473,86 @@ template CVector3 cParameterContainer::Get<CVector3>(QString name, int index) co
 template sRGB cParameterContainer::Get<sRGB>(QString name, int index) const;
 template bool cParameterContainer::Get<bool>(QString name, int index) const;
 
+//get parameter default value by name
+template<class T>
+T cParameterContainer::GetDefault(QString name) const
+{
+	QMap<QString, sRecord>::const_iterator it;
+	it = myMap.find(name);
+	T val = T();
+	if (it != myMap.end())
+	{
+		sRecord rec = it.value();
+		sMultiVal multi = rec.defaultVal;
+		enumVarType type = Getter(multi, val);
+#ifdef _PARAM_DEBUG
+		if (it->type != type)
+		{
+			qWarning() << "GetDefault(): element '" << name << "' gave value of not default type" << endl;
+			DebugPrintf(name);
+		}
+#else
+		(void)type;
+#endif
+	}
+	else
+	{
+		qWarning() << "GetDefault(): element '" << name << "' doesn't exists" << endl;
+	}
+	return val;
+}
+template double cParameterContainer::GetDefault<double>(QString name) const;
+template int cParameterContainer::GetDefault<int>(QString name) const;
+template QString cParameterContainer::GetDefault<QString>(QString name) const;
+template CVector3 cParameterContainer::GetDefault<CVector3>(QString name) const;
+template sRGB cParameterContainer::GetDefault<sRGB>(QString name) const;
+template bool cParameterContainer::GetDefault<bool>(QString name) const;
+template cColorPalette cParameterContainer::GetDefault<cColorPalette>(QString name) const;
+
+//get parameter value by name and index
+template<class T>
+T cParameterContainer::GetDefault(QString name, int index) const
+{
+	T val = T();
+	if (index >= 0)
+	{
+		QString indexName = nameWithIndex(&name, index);
+		QMap<QString, sRecord>::const_iterator it;
+		it = myMap.find(indexName);
+		if (it != myMap.end())
+		{
+			sRecord rec = it.value();
+			sMultiVal multi = rec.defaultVal;
+			enumVarType type = Getter(multi, val);
+#ifdef _PARAM_DEBUG
+			if (it->type != type)
+			{
+				qWarning() << "GetDefault(): element '" << indexName << "' gave value of not default type" << endl;
+				DebugPrintf(indexName);
+			}
+#else
+		(void)type;
+#endif
+		}
+		else
+		{
+			qWarning() << "GetDefault(): element '" << indexName << "' doesn't exists" << endl;
+		}
+	}
+	else
+	{
+		qWarning() << "GetDefault(): element '" << name << "' has negative index (" << index << ")" << endl;
+	}
+	return val;
+}
+template double cParameterContainer::GetDefault<double>(QString name, int index) const;
+template int cParameterContainer::GetDefault<int>(QString name, int index) const;
+template QString cParameterContainer::GetDefault<QString>(QString name, int index) const;
+template CVector3 cParameterContainer::GetDefault<CVector3>(QString name, int index) const;
+template sRGB cParameterContainer::GetDefault<sRGB>(QString name, int index) const;
+template bool cParameterContainer::GetDefault<bool>(QString name, int index) const;
+
+
 void cParameterContainer::DebugPrintf(QString name)
 {
 	QMap<QString, sRecord>::iterator it;

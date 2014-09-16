@@ -46,7 +46,9 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/shaders.cpp\
 	    	../src/system.cpp\
 	    	../src/ssao_worker.cpp\
-            ../src/texture.cpp
+            ../src/texture.cpp\
+            ../src/thumbnail.cpp\
+            ../qt/mylineedit.cpp
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\

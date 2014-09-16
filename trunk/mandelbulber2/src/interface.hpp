@@ -69,6 +69,8 @@ public:
 
 private:
 
+	//TODO add Reset Camera button
+	//TODO add Undo and Redo in menu
 };
 
 extern cInterface *mainInterface;
