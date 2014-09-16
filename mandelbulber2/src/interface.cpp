@@ -455,12 +455,19 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		{
 			QString name = (*it)->objectName();
 			//out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QSpinBox"))
+			QString className = (*it)->metaObject()->className();
+			if (name.length() > 1 && (className == QString("QSpinBox") || className == QString("MySpinBox")))
 			{
 				QSpinBox *spinbox = *it;
-
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
+
+				if(className == QString("MySpinBox"))
+				{
+					MySpinBox *myspinbox = (MySpinBox*)*it;
+					myspinbox->AssignParameterContainer(par);
+					myspinbox->AssingParameterName(parameterName);
+				}
 
 				if (type == QString("spinboxInt"))
 				{

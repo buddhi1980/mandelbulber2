@@ -320,7 +320,7 @@
                <number>2</number>
               </property>
               <item row="1" column="2">
-               <widget class="QSpinBox" name="spinboxInt_image_height">
+               <widget class="MySpinBox" name="spinboxInt_image_height">
                 <property name="minimum">
                  <number>32</number>
                 </property>
@@ -385,7 +385,7 @@
                </widget>
               </item>
               <item row="0" column="2">
-               <widget class="QSpinBox" name="spinboxInt_image_width">
+               <widget class="MySpinBox" name="spinboxInt_image_width">
                 <property name="minimum">
                  <number>32</number>
                 </property>
@@ -1953,7 +1953,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>4</number>
+            <number>0</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -2231,7 +2231,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="2">
-                       <widget class="QSpinBox" name="spinboxInt_ambient_occlusion_quality">
+                       <widget class="MySpinBox" name="spinboxInt_ambient_occlusion_quality">
                         <property name="maximum">
                          <number>30</number>
                         </property>
@@ -2338,7 +2338,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="5" column="2">
-                       <widget class="QSpinBox" name="spinboxInt_coloring_random_seed">
+                       <widget class="MySpinBox" name="spinboxInt_coloring_random_seed">
                         <property name="maximum">
                          <number>999999</number>
                         </property>
@@ -2498,7 +2498,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="2" column="2">
-                       <widget class="QSpinBox" name="spinboxInt_coloring_palette_size">
+                       <widget class="MySpinBox" name="spinboxInt_coloring_palette_size">
                         <property name="minimum">
                          <number>1</number>
                         </property>
@@ -2667,7 +2667,7 @@ to target:</string>
                        <number>2</number>
                       </property>
                       <item row="0" column="2">
-                       <widget class="QSpinBox" name="spinboxInt_reflections_max">
+                       <widget class="MySpinBox" name="spinboxInt_reflections_max">
                         <property name="maximum">
                          <number>9</number>
                         </property>
@@ -2857,7 +2857,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-255</y>
+                  <y>0</y>
                   <width>364</width>
                   <height>695</height>
                  </rect>
@@ -3394,7 +3394,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-37</y>
                   <width>364</width>
                   <height>282</height>
                  </rect>
@@ -4608,7 +4608,7 @@ to target:</string>
                        <number>2</number>
                       </property>
                       <item row="0" column="2">
-                       <widget class="QSpinBox" name="spinboxInt_aux_light_number">
+                       <widget class="MySpinBox" name="spinboxInt_aux_light_number">
                         <property name="maximum">
                          <number>10000</number>
                         </property>
@@ -4728,7 +4728,7 @@ to target:</string>
                        <number>2</number>
                       </property>
                       <item row="0" column="2">
-                       <widget class="QSpinBox" name="spinboxInt_fake_lights_min_iter">
+                       <widget class="MySpinBox" name="spinboxInt_fake_lights_min_iter">
                         <property name="maximum">
                          <number>500</number>
                         </property>
@@ -4742,7 +4742,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QSpinBox" name="spinboxInt_fake_lights_max_iter">
+                       <widget class="MySpinBox" name="spinboxInt_fake_lights_max_iter">
                         <property name="maximum">
                          <number>500</number>
                         </property>
@@ -5010,7 +5010,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>0</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -5074,7 +5074,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QSpinBox" name="spinboxInt_formula_iterations_1">
+                       <widget class="MySpinBox" name="spinboxInt_formula_iterations_1">
                         <property name="minimum">
                          <number>1</number>
                         </property>
@@ -5164,7 +5164,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QSpinBox" name="spinboxInt_formula_iterations_2">
+                       <widget class="MySpinBox" name="spinboxInt_formula_iterations_2">
                         <property name="minimum">
                          <number>1</number>
                         </property>
@@ -5198,8 +5198,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5257,7 +5257,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QSpinBox" name="spinboxInt_formula_iterations_3">
+                       <widget class="MySpinBox" name="spinboxInt_formula_iterations_3">
                         <property name="minimum">
                          <number>1</number>
                         </property>
@@ -5291,8 +5291,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5350,7 +5350,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QSpinBox" name="spinboxInt_formula_iterations_4">
+                       <widget class="MySpinBox" name="spinboxInt_formula_iterations_4">
                         <property name="minimum">
                          <number>1</number>
                         </property>
@@ -5384,8 +5384,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5802,7 +5802,7 @@ to target:</string>
                </widget>
               </item>
               <item row="1" column="2">
-               <widget class="QSpinBox" name="spinboxInt_N">
+               <widget class="MySpinBox" name="spinboxInt_N">
                 <property name="minimum">
                  <number>1</number>
                 </property>
@@ -6227,6 +6227,11 @@ to target:</string>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>mylineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>myspinbox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

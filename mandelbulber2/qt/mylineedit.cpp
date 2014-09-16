@@ -33,8 +33,6 @@ void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
   			setText(val);
   		}
   		emit editingFinished();
-
-  		//TODO handling of vector type;
   	}
   }
   delete menu;

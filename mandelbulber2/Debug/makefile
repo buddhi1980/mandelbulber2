@@ -80,11 +80,15 @@ SOURCES       = ../src/algebra.cpp \
 		../src/shaders.cpp \
 		../src/system.cpp \
 		../src/ssao_worker.cpp \
-		../src/texture.cpp qrc_icons.cpp \
+		../src/texture.cpp \
+		../src/thumbnail.cpp \
+		../qt/mylineedit.cpp \
+		../qt/myspinbox.cpp qrc_icons.cpp \
 		moc_render_window.cpp \
 		moc_render_worker.cpp \
 		moc_myscrolledarea.cpp \
 		moc_mylineedit.cpp \
+		moc_myspinbox.cpp \
 		moc_my_ui_loader.cpp \
 		moc_preview_file_dialog.cpp \
 		moc_ssao_worker.cpp \
@@ -126,11 +130,15 @@ OBJECTS       = algebra.o \
 		system.o \
 		ssao_worker.o \
 		texture.o \
+		thumbnail.o \
+		mylineedit.o \
+		myspinbox.o \
 		qrc_icons.o \
 		moc_render_window.o \
 		moc_render_worker.o \
 		moc_myscrolledarea.o \
 		moc_mylineedit.o \
+		moc_myspinbox.o \
 		moc_my_ui_loader.o \
 		moc_preview_file_dialog.o \
 		moc_ssao_worker.o \
@@ -228,7 +236,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../src/shaders.cpp \
 		../src/system.cpp \
 		../src/ssao_worker.cpp \
-		../src/texture.cpp
+		../src/texture.cpp \
+		../src/thumbnail.cpp \
+		../qt/mylineedit.cpp \
+		../qt/myspinbox.cpp
 QMAKE_TARGET  = mandelbulber2
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = mandelbulber2
@@ -395,7 +406,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/mandelbulber21.0.0 || mkdir -p .tmp/mandelbulber21.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../qt/myspinbox.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp ../src/thumbnail.cpp ../qt/mylineedit.cpp ../qt/myspinbox.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
 
 
 clean:compiler_clean 
@@ -433,13 +444,16 @@ qrc_icons.cpp: ../qt/icons.qrc \
 		../qt/icons/object-rotate-right.png
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name icons ../qt/icons.qrc -o qrc_icons.cpp
 
-compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp
+compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp
+	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp
 moc_render_window.cpp: ../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
 		../src/color_palette.hpp \
 		../src/color_structures.hpp \
+		../qt/mylineedit.h \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
 		../qt/myscrolledarea.h \
 		../src/cimage.hpp \
 		../src/render_window.hpp
@@ -468,8 +482,19 @@ moc_render_worker.cpp: ../src/cimage.hpp \
 moc_myscrolledarea.cpp: ../qt/myscrolledarea.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/myscrolledarea.h -o moc_myscrolledarea.cpp
 
-moc_mylineedit.cpp: ../qt/mylineedit.h
+moc_mylineedit.cpp: ../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_structures.hpp \
+		../src/color_palette.hpp \
+		../qt/mylineedit.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mylineedit.h -o moc_mylineedit.cpp
+
+moc_myspinbox.cpp: ../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_structures.hpp \
+		../src/color_palette.hpp \
+		../qt/myspinbox.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/myspinbox.h -o moc_myspinbox.cpp
 
 moc_my_ui_loader.cpp: ../src/my_ui_loader.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/my_ui_loader.h -o moc_my_ui_loader.cpp
@@ -512,8 +537,13 @@ compiler_uic_clean:
 ../qt/ui_render_window.h: ../qt/render_window.ui \
 		../qt/myscrolledarea.h \
 		../qt/color_palette_widget.h \
+		../qt/mylineedit.h \
 		../src/color_palette.hpp \
-		../src/color_structures.hpp
+		../src/color_structures.hpp \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_structures.hpp \
+		../src/color_palette.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../qt/render_window.ui -o ../qt/ui_render_window.h
 
 compiler_yacc_decl_make_all:
@@ -586,7 +616,24 @@ common_math.o: ../src/common_math.cpp ../src/common_math.h \
 		../src/color_palette.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o common_math.o ../src/common_math.cpp
 
-dof.o: ../src/dof.cpp ../src/dof.hpp
+dof.o: ../src/dof.cpp ../src/dof.hpp \
+		../src/cimage.hpp \
+		../src/color_structures.hpp \
+		../src/common_math.h \
+		../src/algebra.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/primitives.h \
+		../src/parameters.hpp \
+		../src/color_palette.hpp \
+		../src/progress_text.hpp \
+		../src/interface.hpp \
+		../src/render_window.hpp \
+		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/mylineedit.h \
+		../qt/myscrolledarea.h \
+		../src/rendered_image_widget.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dof.o ../src/dof.cpp
 
 error_message.o: ../src/error_message.cpp ../src/error_message.hpp \
@@ -667,6 +714,7 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
+		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
@@ -687,7 +735,9 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/camera_target.hpp \
 		../src/error_message.hpp \
 		../src/my_ui_loader.h \
-		../src/render_ssao.h
+		../src/render_ssao.h \
+		../src/dof.hpp \
+		../src/common_math.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interface.o ../src/interface.cpp
 
 lights.o: ../src/lights.cpp ../src/lights.hpp \
@@ -722,6 +772,7 @@ main.o: ../src/main.cpp ../src/main.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
+		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
 		../src/rendered_image_widget.hpp \
 		../src/initparameters.hpp \
@@ -729,7 +780,11 @@ main.o: ../src/main.cpp ../src/main.hpp \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 my_ui_loader.o: ../src/my_ui_loader.cpp ../src/my_ui_loader.h \
-		../qt/mylineedit.h
+		../qt/mylineedit.h \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_structures.hpp \
+		../src/color_palette.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o my_ui_loader.o ../src/my_ui_loader.cpp
 
 parameters.o: ../src/parameters.cpp ../src/parameters.hpp \
@@ -764,6 +819,7 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
+		../src/dof.hpp \
 		../src/system.hpp \
 		../src/render_worker.hpp \
 		../src/scheduler.hpp \
@@ -772,6 +828,7 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
+		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
 		../src/rendered_image_widget.hpp \
 		../src/progress_text.hpp \
@@ -784,7 +841,11 @@ rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_
 		../src/color_structures.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
-		../src/color_palette.hpp
+		../src/color_palette.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/primitives.h \
+		../src/common_math.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rendered_image_widget.o ../src/rendered_image_widget.cpp
 
 render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
@@ -808,6 +869,7 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
+		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
 		../src/rendered_image_widget.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_job.o ../src/render_job.cpp
@@ -830,6 +892,7 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
+		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
 		../src/rendered_image_widget.hpp \
 		../src/system.hpp
@@ -840,11 +903,12 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../qt/color_palette_widget.h \
 		../src/color_palette.hpp \
 		../src/color_structures.hpp \
+		../qt/mylineedit.h \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
 		../qt/myscrolledarea.h \
 		../src/cimage.hpp \
 		../src/interface.hpp \
-		../src/parameters.hpp \
-		../src/algebra.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/fractal_list.hpp \
 		../src/system.hpp \
@@ -854,6 +918,14 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/fractparams.hpp \
 		../src/texture.hpp \
 		../src/primitives.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
 		../src/common_math.h \
 		../src/my_ui_loader.h \
 		../src/preview_file_dialog.h
@@ -941,6 +1013,41 @@ texture.o: ../src/texture.cpp ../src/texture.hpp \
 		../src/error_message.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o texture.o ../src/texture.cpp
 
+thumbnail.o: ../src/thumbnail.cpp ../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_structures.hpp \
+		../src/color_palette.hpp \
+		../src/cimage.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/primitives.h \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/files.h \
+		../src/system.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o thumbnail.o ../src/thumbnail.cpp
+
+mylineedit.o: ../qt/mylineedit.cpp ../qt/mylineedit.h \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_structures.hpp \
+		../src/color_palette.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mylineedit.o ../qt/mylineedit.cpp
+
+myspinbox.o: ../qt/myspinbox.cpp ../qt/myspinbox.h \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_structures.hpp \
+		../src/color_palette.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o myspinbox.o ../qt/myspinbox.cpp
+
 qrc_icons.o: qrc_icons.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_icons.o qrc_icons.cpp
 
@@ -955,6 +1062,9 @@ moc_myscrolledarea.o: moc_myscrolledarea.cpp
 
 moc_mylineedit.o: moc_mylineedit.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mylineedit.o moc_mylineedit.cpp
+
+moc_myspinbox.o: moc_myspinbox.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_myspinbox.o moc_myspinbox.cpp
 
 moc_my_ui_loader.o: moc_my_ui_loader.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_my_ui_loader.o moc_my_ui_loader.cpp

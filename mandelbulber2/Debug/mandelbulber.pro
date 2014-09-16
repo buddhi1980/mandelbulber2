@@ -48,12 +48,14 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/ssao_worker.cpp\
             ../src/texture.cpp\
             ../src/thumbnail.cpp\
-            ../qt/mylineedit.cpp
+            ../qt/mylineedit.cpp\
+            ../qt/myspinbox.cpp
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
 			../qt/myscrolledarea.h\
 			../qt/mylineedit.h\
+			../qt/myspinbox.h\
 			../src/my_ui_loader.h\
 			../src/preview_file_dialog.h\
 			../src/ssao_worker.h\
