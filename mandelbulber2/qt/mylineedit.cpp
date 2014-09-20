@@ -65,7 +65,7 @@ QString MyLineEdit::GetDefault()
 			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 			QString nameVect = parameterName.left(parameterName.length() - 2);
 			CVector3 val = parameterContainer->GetDefault<CVector3>(nameVect);
-			QString valS = QString::number(val.itemByName(lastChar), 'g', 20);
+			QString valS = QString::number(val.itemByName(lastChar), 'g', 16);
 			defaultText = valS;
 			gotDefault = true;
 		}
@@ -75,6 +75,11 @@ QString MyLineEdit::GetDefault()
 			defaultText = val;
 			gotDefault = true;
 		}
+
+		QString toolTipText;
+		toolTipText += "Name: " + parameterName + "\n";
+		toolTipText += "Default: " + defaultText;
+		setToolTip(toolTipText);
 	}
 	return defaultText;
 }

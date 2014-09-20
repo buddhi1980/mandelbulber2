@@ -74,6 +74,11 @@ double MyDoubleSpinBox::GetDefault()
 			defaultValue = parameterContainer->GetDefault<double>(parameterName);
 			gotDefault = true;
 		}
+
+		QString toolTipText;
+		toolTipText += "Name: " + parameterName + "\n";
+		toolTipText += "Default: " + QString::number(defaultValue, 'g', 16);
+		setToolTip(toolTipText);
 	}
 	return defaultValue;
 }
