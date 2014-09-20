@@ -287,7 +287,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-230</y>
           <width>414</width>
           <height>502</height>
          </rect>
@@ -542,7 +542,7 @@
                <number>2</number>
               </property>
               <item row="1" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_contrast">
+               <widget class="MyDoubleSpinBox" name="spinbox_contrast">
                 <property name="prefix">
                  <string/>
                 </property>
@@ -561,7 +561,7 @@
                </widget>
               </item>
               <item row="2" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_gamma">
+               <widget class="MyDoubleSpinBox" name="spinbox_gamma">
                 <property name="prefix">
                  <string/>
                 </property>
@@ -587,7 +587,7 @@
                </widget>
               </item>
               <item row="0" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_brightness">
+               <widget class="MyDoubleSpinBox" name="spinbox_brightness">
                 <property name="prefix">
                  <string/>
                 </property>
@@ -691,7 +691,7 @@
                </widget>
               </item>
               <item row="0" column="2">
-               <widget class="QDoubleSpinBox" name="spinbox_fov">
+               <widget class="MyDoubleSpinBox" name="spinbox_fov">
                 <property name="prefix">
                  <string/>
                 </property>
@@ -711,7 +711,7 @@
                  <double>0.100000000000000</double>
                 </property>
                 <property name="value">
-                 <double>1.000000000000000</double>
+                 <double>0.010000000000000</double>
                 </property>
                </widget>
               </item>
@@ -1048,7 +1048,7 @@
                        </widget>
                       </item>
                       <item row="0" column="1">
-                       <widget class="QLineEdit" name="vect3_target_x"/>
+                       <widget class="MyLineEdit" name="vect3_target_x"/>
                       </item>
                       <item row="1" column="0">
                        <widget class="QLabel" name="label_122">
@@ -1058,7 +1058,7 @@
                        </widget>
                       </item>
                       <item row="1" column="1">
-                       <widget class="QLineEdit" name="vect3_target_y"/>
+                       <widget class="MyLineEdit" name="vect3_target_y"/>
                       </item>
                       <item row="2" column="0">
                        <widget class="QLabel" name="label_123">
@@ -1068,7 +1068,7 @@
                        </widget>
                       </item>
                       <item row="2" column="1">
-                       <widget class="QLineEdit" name="vect3_target_z"/>
+                       <widget class="MyLineEdit" name="vect3_target_z"/>
                       </item>
                      </layout>
                     </item>
@@ -1677,7 +1677,7 @@ to target:</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QDoubleSpinBox" name="spinbox_camera_rotation_step">
+                    <widget class="MyDoubleSpinBox" name="spinbox_camera_rotation_step">
                      <property name="prefix">
                       <string/>
                      </property>
@@ -1987,7 +1987,7 @@ to target:</string>
                     <number>2</number>
                    </property>
                    <item row="2" column="2">
-                    <widget class="QDoubleSpinBox" name="spinbox_ambient_occlusion">
+                    <widget class="MyDoubleSpinBox" name="spinbox_ambient_occlusion">
                      <property name="prefix">
                       <string/>
                      </property>
@@ -2006,7 +2006,7 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="3" column="2">
-                    <widget class="QDoubleSpinBox" name="spinbox_reflect">
+                    <widget class="MyDoubleSpinBox" name="spinbox_reflect">
                      <property name="prefix">
                       <string/>
                      </property>
@@ -2078,7 +2078,7 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="0" column="2">
-                    <widget class="QDoubleSpinBox" name="spinbox_shading">
+                    <widget class="MyDoubleSpinBox" name="spinbox_shading">
                      <property name="prefix">
                       <string/>
                      </property>
@@ -2097,7 +2097,7 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="1" column="2">
-                    <widget class="QDoubleSpinBox" name="spinbox_specular">
+                    <widget class="MyDoubleSpinBox" name="spinbox_specular">
                      <property name="prefix">
                       <string/>
                      </property>
@@ -2238,7 +2238,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_ambient_occlusion_fast_tune">
+                       <widget class="MyDoubleSpinBox" name="spinbox_ambient_occlusion_fast_tune">
                         <property name="prefix">
                          <string/>
                         </property>
@@ -2359,7 +2359,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="3" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_coloring_saturation">
+                       <widget class="MyDoubleSpinBox" name="spinbox_coloring_saturation">
                         <property name="accelerated">
                          <bool>false</bool>
                         </property>
@@ -2397,7 +2397,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="4" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_coloring_speed">
+                       <widget class="MyDoubleSpinBox" name="spinbox_coloring_speed">
                         <property name="accelerated">
                          <bool>false</bool>
                         </property>
@@ -2531,7 +2531,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_coloring_palette_offset">
+                       <widget class="MyDoubleSpinBox" name="spinbox_coloring_palette_offset">
                         <property name="accelerated">
                          <bool>false</bool>
                         </property>
@@ -2781,7 +2781,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_DOF_radius">
+                       <widget class="MyDoubleSpinBox" name="spinbox_DOF_radius">
                         <property name="prefix">
                          <string/>
                         </property>
@@ -2857,7 +2857,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-440</y>
                   <width>364</width>
                   <height>695</height>
                  </rect>
@@ -3182,7 +3182,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_iteration_fog_opacity_trim">
+                       <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_opacity_trim">
                         <property name="prefix">
                          <string/>
                         </property>
@@ -3208,7 +3208,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="2" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_iteration_fog_color_1_maxiter">
+                       <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_color_1_maxiter">
                         <property name="prefix">
                          <string/>
                         </property>
@@ -3303,7 +3303,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="3" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_iteration_fog_color_2_maxiter">
+                       <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_color_2_maxiter">
                         <property name="prefix">
                          <string/>
                         </property>
@@ -3394,7 +3394,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-37</y>
+                  <y>0</y>
                   <width>364</width>
                   <height>282</height>
                  </rect>
@@ -3635,7 +3635,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="4" column="2">
-                       <widget class="QDoubleSpinBox" name="spinboxd_main_light_alpha">
+                       <widget class="MyDoubleSpinBox" name="spinboxd_main_light_alpha">
                         <property name="accelerated">
                          <bool>true</bool>
                         </property>
@@ -3660,7 +3660,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="2" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_main_light_visibility_size">
+                       <widget class="MyDoubleSpinBox" name="spinbox_main_light_visibility_size">
                         <property name="prefix">
                          <string/>
                         </property>
@@ -3679,7 +3679,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_main_light_intensity">
+                       <widget class="MyDoubleSpinBox" name="spinbox_main_light_intensity">
                         <property name="prefix">
                          <string/>
                         </property>
@@ -3698,7 +3698,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_main_light_visibility">
+                       <widget class="MyDoubleSpinBox" name="spinbox_main_light_visibility">
                         <property name="prefix">
                          <string/>
                         </property>
@@ -3724,7 +3724,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="6" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_shadows_cone_angle">
+                       <widget class="MyDoubleSpinBox" name="spinbox_shadows_cone_angle">
                         <property name="frame">
                          <bool>true</bool>
                         </property>
@@ -3769,7 +3769,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="5" column="2">
-                       <widget class="QDoubleSpinBox" name="spinboxd_main_light_beta">
+                       <widget class="MyDoubleSpinBox" name="spinboxd_main_light_beta">
                         <property name="frame">
                          <bool>true</bool>
                         </property>
@@ -4808,7 +4808,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="4" column="2">
-                       <widget class="QDoubleSpinBox" name="spinbox_fake_lights_visibility_size">
+                       <widget class="MyDoubleSpinBox" name="spinbox_fake_lights_visibility_size">
                         <property name="prefix">
                          <string/>
                         </property>
@@ -6232,6 +6232,11 @@ to target:</string>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>myspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>mydoublespinbox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

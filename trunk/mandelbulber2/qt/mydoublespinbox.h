@@ -5,21 +5,21 @@
  *      Author: krzysztof
  */
 
-#ifndef MYSPINBOX_HPP_
-#define MYSPINBOX_HPP_
+#ifndef MYDOUBLESPINBOX_HPP_
+#define MYDOUBLESPINBOX_HPP_
 
 #include <QtGui>
 #include <QtCore>
-#include <QSpinBox>
+#include <QDoubleSpinBox>
 #include <QMenu>
 #include "../src/parameters.hpp"
 
-class MySpinBox : public QSpinBox
+class MyDoubleSpinBox : public QDoubleSpinBox
 {
 	Q_OBJECT
 
 public:
-	MySpinBox(QWidget *parent = 0)  : QSpinBox(parent)
+	MyDoubleSpinBox(QWidget *parent = 0)  : QDoubleSpinBox(parent)
 	{
 		actionResetToDefault = NULL;
 		parameterContainer = NULL;
@@ -36,8 +36,8 @@ private:
 	cParameterContainer *parameterContainer;
 	QString parameterName;
 
-	int GetDefault();
-	int defaultValue;
+	double GetDefault();
+	double defaultValue;
 	bool gotDefault;
 
 protected:
@@ -47,4 +47,4 @@ protected:
 
 
 
-#endif /* MYSPINBOX_HPP_ */
+#endif /* MYDOUBLESPINBOX_HPP_ */

@@ -19,11 +19,43 @@ void MySpinBox::contextMenuEvent(QContextMenuEvent *event)
 	{
 		if (selectedItem == actionResetToDefault)
 		{
-			int val = parameterContainer->GetDefault<int>(parameterName);
-			setValue(val);
-			emit valueChanged(val);
+			if (parameterContainer)
+			{
+				setValue(defaultValue);
+				emit valueChanged(defaultValue);
+			}
+			else
+			{
+				qCritical() << "MySpinBox::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
+			}
 		}
 	}
 	delete menu;
 }
 
+void MySpinBox::paintEvent(QPaintEvent *event)
+{
+	if (value() != GetDefault())
+	{
+		QFont f = font();
+		f.setBold(true);
+		setFont(f);
+	}
+	else
+	{
+		QFont f = font();
+		f.setBold(false);
+		setFont(f);
+	}
+	QSpinBox::paintEvent(event);
+}
+
+int MySpinBox::GetDefault()
+{
+	if (parameterContainer && !gotDefault)
+	{
+		int val = parameterContainer->GetDefault<int>(parameterName);
+		defaultValue = val;
+	}
+	return defaultValue;
+}

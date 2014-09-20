@@ -17,7 +17,7 @@
    <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="2" column="2">
-      <widget class="QDoubleSpinBox" name="spinboxd_beta_angle_offset">
+      <widget class="MyDoubleSpinBox" name="spinboxd_beta_angle_offset">
        <property name="prefix">
         <string/>
        </property>
@@ -46,7 +46,7 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QDoubleSpinBox" name="spinbox_power">
+      <widget class="MyDoubleSpinBox" name="spinbox_power">
        <property name="prefix">
         <string/>
        </property>
@@ -68,7 +68,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QDoubleSpinBox" name="spinboxd_alpha_angle_offset">
+      <widget class="MyDoubleSpinBox" name="spinboxd_alpha_angle_offset">
        <property name="prefix">
         <string/>
        </property>
@@ -159,6 +159,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>mydoublespinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -5,12 +5,13 @@
  *      Author: krzysztof
  */
 
-#include "mylineedit.h"
+#include "mydoublespinbox.h"
 #include "../src/parameters.hpp"
+#include <QLineEdit>
 
-void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
+void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
 {
-	QMenu *menu = createStandardContextMenu();
+	QMenu *menu = lineEdit()->createStandardContextMenu();
 	menu->addSeparator();
 	actionResetToDefault = menu->addAction(tr("Reset to default"));
 	QAction *selectedItem = menu->exec(event->globalPos());
@@ -20,27 +21,21 @@ void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
 		{
 			if (parameterContainer)
 			{
-				setText(defaultText);
-				emit editingFinished();
+				setValue(defaultValue);
+				emit valueChanged(defaultValue);
 			}
 			else
 			{
-				qCritical() << "MyLineEdit::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
+				qCritical() << "MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
 			}
 		}
 	}
 	delete menu;
 }
 
-QString MyLineEdit::GetType(const QString &name)
+void MyDoubleSpinBox::paintEvent(QPaintEvent *event)
 {
-	size_t firstDashPosition = name.indexOf("_");
-	return name.left(firstDashPosition);
-}
-
-void MyLineEdit::paintEvent(QPaintEvent *event)
-{
-	if (text() != GetDefault())
+	if (value() != GetDefault())
 	{
 		QFont f = font();
 		f.setBold(true);
@@ -52,10 +47,16 @@ void MyLineEdit::paintEvent(QPaintEvent *event)
 		f.setBold(false);
 		setFont(f);
 	}
-	QLineEdit::paintEvent(event);
+	QDoubleSpinBox::paintEvent(event);
 }
 
-QString MyLineEdit::GetDefault()
+QString MyDoubleSpinBox::GetType(const QString &name)
+{
+	size_t firstDashPosition = name.indexOf("_");
+	return name.left(firstDashPosition);
+}
+
+double MyDoubleSpinBox::GetDefault()
 {
 	if (parameterContainer && !gotDefault)
 	{
@@ -65,16 +66,14 @@ QString MyLineEdit::GetDefault()
 			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 			QString nameVect = parameterName.left(parameterName.length() - 2);
 			CVector3 val = parameterContainer->GetDefault<CVector3>(nameVect);
-			QString valS = QString::number(val.itemByName(lastChar), 'g', 20);
-			defaultText = valS;
+			defaultValue = val.itemByName(lastChar);
 			gotDefault = true;
 		}
 		else
 		{
-			QString val = parameterContainer->GetDefault<QString>(parameterName);
-			defaultText = val;
+			defaultValue = parameterContainer->GetDefault<double>(parameterName);
 			gotDefault = true;
 		}
 	}
-	return defaultText;
+	return defaultValue;
 }
