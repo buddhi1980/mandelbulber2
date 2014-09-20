@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>1353</height>
+    <width>668</width>
+    <height>1447</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -100,7 +100,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_scale">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_scale">
           <property name="prefix">
            <string/>
           </property>
@@ -177,7 +177,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_offset_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_offset_y">
           <property name="prefix">
            <string/>
           </property>
@@ -199,7 +199,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_offset_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_offset_x">
           <property name="prefix">
            <string/>
           </property>
@@ -251,7 +251,7 @@
          </widget>
         </item>
         <item row="3" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_offset_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_offset_z">
           <property name="prefix">
            <string/>
           </property>
@@ -380,7 +380,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotation_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotation_x">
           <property name="prefix">
            <string/>
           </property>
@@ -435,7 +435,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotation_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotation_y">
           <property name="prefix">
            <string/>
           </property>
@@ -457,7 +457,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotation_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotation_z">
           <property name="prefix">
            <string/>
           </property>
@@ -495,7 +495,7 @@
       <item>
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_edge_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_edge_x">
           <property name="prefix">
            <string/>
           </property>
@@ -581,7 +581,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_edge_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_edge_y">
           <property name="prefix">
            <string/>
           </property>
@@ -603,7 +603,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_edge_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_edge_z">
           <property name="prefix">
            <string/>
           </property>
@@ -715,7 +715,7 @@
          </widget>
         </item>
         <item row="8" column="7">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_3_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_3_y">
           <property name="prefix">
            <string/>
           </property>
@@ -773,7 +773,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_0_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_0_z">
           <property name="prefix">
            <string/>
           </property>
@@ -843,7 +843,7 @@
          </widget>
         </item>
         <item row="2" column="7">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_0_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_0_y">
           <property name="prefix">
            <string/>
           </property>
@@ -891,7 +891,7 @@
          </widget>
         </item>
         <item row="6" column="6">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_2_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_2_x">
           <property name="prefix">
            <string/>
           </property>
@@ -929,7 +929,7 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_1_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_1_x">
           <property name="prefix">
            <string/>
           </property>
@@ -951,7 +951,7 @@
          </widget>
         </item>
         <item row="8" column="8">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_3_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_3_z">
           <property name="prefix">
            <string/>
           </property>
@@ -1034,7 +1034,7 @@
          </widget>
         </item>
         <item row="10" column="1">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_4_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_4_x">
           <property name="prefix">
            <string/>
           </property>
@@ -1162,7 +1162,7 @@
          </widget>
         </item>
         <item row="6" column="4">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_distance_2">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_2">
           <property name="prefix">
            <string/>
           </property>
@@ -1194,7 +1194,7 @@
          </widget>
         </item>
         <item row="10" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_4_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_4_z">
           <property name="prefix">
            <string/>
           </property>
@@ -1235,7 +1235,7 @@
          </widget>
         </item>
         <item row="10" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_4_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_4_y">
           <property name="prefix">
            <string/>
           </property>
@@ -1286,7 +1286,7 @@
          </widget>
         </item>
         <item row="6" column="1">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_2_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_2_x">
           <property name="prefix">
            <string/>
           </property>
@@ -1337,7 +1337,7 @@
          </widget>
         </item>
         <item row="4" column="4">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_distance_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_1">
           <property name="prefix">
            <string/>
           </property>
@@ -1359,7 +1359,7 @@
          </widget>
         </item>
         <item row="12" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_5_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_5_y">
           <property name="prefix">
            <string/>
           </property>
@@ -1410,7 +1410,7 @@
          </widget>
         </item>
         <item row="12" column="6">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_5_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_5_x">
           <property name="prefix">
            <string/>
           </property>
@@ -1513,7 +1513,7 @@
          </widget>
         </item>
         <item row="18" column="1">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_8_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_8_x">
           <property name="prefix">
            <string/>
           </property>
@@ -1535,7 +1535,7 @@
          </widget>
         </item>
         <item row="18" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_8_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_8_y">
           <property name="prefix">
            <string/>
           </property>
@@ -1557,7 +1557,7 @@
          </widget>
         </item>
         <item row="18" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_8_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_8_z">
           <property name="prefix">
            <string/>
           </property>
@@ -1579,7 +1579,7 @@
          </widget>
         </item>
         <item row="18" column="4">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_distance_8">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_8">
           <property name="prefix">
            <string/>
           </property>
@@ -1601,7 +1601,7 @@
          </widget>
         </item>
         <item row="6" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_2_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_2_y">
           <property name="prefix">
            <string/>
           </property>
@@ -1623,7 +1623,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_0_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_0_y">
           <property name="prefix">
            <string/>
           </property>
@@ -1696,7 +1696,7 @@
          </widget>
         </item>
         <item row="14" column="8">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_6_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_6_z">
           <property name="prefix">
            <string/>
           </property>
@@ -1741,7 +1741,7 @@
          </widget>
         </item>
         <item row="14" column="4">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_distance_6">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_6">
           <property name="prefix">
            <string/>
           </property>
@@ -1763,7 +1763,7 @@
          </widget>
         </item>
         <item row="18" column="5">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_intensity_8">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_8">
           <property name="prefix">
            <string/>
           </property>
@@ -1785,7 +1785,7 @@
          </widget>
         </item>
         <item row="18" column="6">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_8_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_8_x">
           <property name="prefix">
            <string/>
           </property>
@@ -1807,7 +1807,7 @@
          </widget>
         </item>
         <item row="18" column="7">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_8_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_8_y">
           <property name="prefix">
            <string/>
           </property>
@@ -1829,7 +1829,7 @@
          </widget>
         </item>
         <item row="18" column="8">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_8_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_8_z">
           <property name="prefix">
            <string/>
           </property>
@@ -1987,7 +1987,7 @@
          </widget>
         </item>
         <item row="6" column="8">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_2_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_2_z">
           <property name="prefix">
            <string/>
           </property>
@@ -2009,7 +2009,7 @@
          </widget>
         </item>
         <item row="8" column="6">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_3_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_3_x">
           <property name="prefix">
            <string/>
           </property>
@@ -2041,7 +2041,7 @@
          </widget>
         </item>
         <item row="12" column="4">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_distance_5">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_5">
           <property name="prefix">
            <string/>
           </property>
@@ -2095,7 +2095,7 @@
          </widget>
         </item>
         <item row="10" column="8">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_4_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_4_z">
           <property name="prefix">
            <string/>
           </property>
@@ -2117,7 +2117,7 @@
          </widget>
         </item>
         <item row="2" column="4">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_distance_0">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_0">
           <property name="prefix">
            <string/>
           </property>
@@ -2149,7 +2149,7 @@
          </widget>
         </item>
         <item row="14" column="1">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_6_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_6_x">
           <property name="prefix">
            <string/>
           </property>
@@ -2171,7 +2171,7 @@
          </widget>
         </item>
         <item row="8" column="1">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_3_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_3_x">
           <property name="prefix">
            <string/>
           </property>
@@ -2193,7 +2193,7 @@
          </widget>
         </item>
         <item row="14" column="6">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_6_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_6_x">
           <property name="prefix">
            <string/>
           </property>
@@ -2270,7 +2270,7 @@
          </widget>
         </item>
         <item row="12" column="5">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_intensity_5">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_5">
           <property name="prefix">
            <string/>
           </property>
@@ -2292,7 +2292,7 @@
          </widget>
         </item>
         <item row="14" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_6_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_6_y">
           <property name="prefix">
            <string/>
           </property>
@@ -2314,7 +2314,7 @@
          </widget>
         </item>
         <item row="14" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_6_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_6_z">
           <property name="prefix">
            <string/>
           </property>
@@ -2437,7 +2437,7 @@
          </widget>
         </item>
         <item row="8" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_3_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_3_z">
           <property name="prefix">
            <string/>
           </property>
@@ -2459,7 +2459,7 @@
          </widget>
         </item>
         <item row="10" column="7">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_4_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_4_y">
           <property name="prefix">
            <string/>
           </property>
@@ -2510,7 +2510,7 @@
          </widget>
         </item>
         <item row="12" column="1">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_5_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_5_x">
           <property name="prefix">
            <string/>
           </property>
@@ -2548,7 +2548,7 @@
          </widget>
         </item>
         <item row="10" column="4">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_distance_4">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_4">
           <property name="prefix">
            <string/>
           </property>
@@ -2570,7 +2570,7 @@
          </widget>
         </item>
         <item row="12" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_5_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_5_z">
           <property name="prefix">
            <string/>
           </property>
@@ -2599,7 +2599,7 @@
          </widget>
         </item>
         <item row="2" column="6">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_0_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_0_x">
           <property name="prefix">
            <string/>
           </property>
@@ -2685,7 +2685,7 @@
          </widget>
         </item>
         <item row="6" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_2_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_2_z">
           <property name="prefix">
            <string/>
           </property>
@@ -2817,7 +2817,7 @@
          </widget>
         </item>
         <item row="2" column="8">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_0_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_0_z">
           <property name="prefix">
            <string/>
           </property>
@@ -2855,7 +2855,7 @@
          </widget>
         </item>
         <item row="6" column="5">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_intensity_2">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_2">
           <property name="prefix">
            <string/>
           </property>
@@ -2877,7 +2877,7 @@
          </widget>
         </item>
         <item row="16" column="4">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_distance_7">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_7">
           <property name="prefix">
            <string/>
           </property>
@@ -2899,7 +2899,7 @@
          </widget>
         </item>
         <item row="16" column="5">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_intensity_7">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_7">
           <property name="prefix">
            <string/>
           </property>
@@ -2937,7 +2937,7 @@
          </widget>
         </item>
         <item row="16" column="6">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_7_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_7_x">
           <property name="prefix">
            <string/>
           </property>
@@ -2959,7 +2959,7 @@
          </widget>
         </item>
         <item row="16" column="7">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_7_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_7_y">
           <property name="prefix">
            <string/>
           </property>
@@ -2981,7 +2981,7 @@
          </widget>
         </item>
         <item row="16" column="8">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_7_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_7_z">
           <property name="prefix">
            <string/>
           </property>
@@ -3035,7 +3035,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_0_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_0_x">
           <property name="prefix">
            <string/>
           </property>
@@ -3057,7 +3057,7 @@
          </widget>
         </item>
         <item row="4" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_1_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_1_z">
           <property name="prefix">
            <string/>
           </property>
@@ -3095,7 +3095,7 @@
          </widget>
         </item>
         <item row="6" column="7">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_2_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_2_y">
           <property name="prefix">
            <string/>
           </property>
@@ -3133,7 +3133,7 @@
          </widget>
         </item>
         <item row="16" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_7_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_7_y">
           <property name="prefix">
            <string/>
           </property>
@@ -3155,7 +3155,7 @@
          </widget>
         </item>
         <item row="14" column="5">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_intensity_6">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_6">
           <property name="prefix">
            <string/>
           </property>
@@ -3187,7 +3187,7 @@
          </widget>
         </item>
         <item row="14" column="7">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_6_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_6_y">
           <property name="prefix">
            <string/>
           </property>
@@ -3219,7 +3219,7 @@
          </widget>
         </item>
         <item row="2" column="5">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_intensity_0">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_0">
           <property name="prefix">
            <string/>
           </property>
@@ -3241,7 +3241,7 @@
          </widget>
         </item>
         <item row="16" column="1">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_7_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_7_x">
           <property name="prefix">
            <string/>
           </property>
@@ -3263,7 +3263,7 @@
          </widget>
         </item>
         <item row="16" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_7_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_7_z">
           <property name="prefix">
            <string/>
           </property>
@@ -3285,7 +3285,7 @@
          </widget>
         </item>
         <item row="8" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_3_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_3_y">
           <property name="prefix">
            <string/>
           </property>
@@ -3307,7 +3307,7 @@
          </widget>
         </item>
         <item row="12" column="8">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_5_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_5_z">
           <property name="prefix">
            <string/>
           </property>
@@ -3342,7 +3342,7 @@
          </widget>
         </item>
         <item row="8" column="4">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_distance_3">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_3">
           <property name="prefix">
            <string/>
           </property>
@@ -3387,7 +3387,7 @@
          </widget>
         </item>
         <item row="10" column="5">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_intensity_4">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_4">
           <property name="prefix">
            <string/>
           </property>
@@ -3422,7 +3422,7 @@
          </widget>
         </item>
         <item row="4" column="7">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_1_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_1_y">
           <property name="prefix">
            <string/>
           </property>
@@ -3444,7 +3444,7 @@
          </widget>
         </item>
         <item row="8" column="5">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_intensity_3">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_3">
           <property name="prefix">
            <string/>
           </property>
@@ -3489,7 +3489,7 @@
          </widget>
         </item>
         <item row="10" column="6">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_4_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_4_x">
           <property name="prefix">
            <string/>
           </property>
@@ -3521,7 +3521,7 @@
          </widget>
         </item>
         <item row="4" column="6">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_1_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_1_x">
           <property name="prefix">
            <string/>
           </property>
@@ -3543,7 +3543,7 @@
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_IFS_direction_1_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_1_y">
           <property name="prefix">
            <string/>
           </property>
@@ -3565,7 +3565,7 @@
          </widget>
         </item>
         <item row="4" column="5">
-         <widget class="QDoubleSpinBox" name="spinbox_IFS_intensity_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_1">
           <property name="prefix">
            <string/>
           </property>
@@ -3587,7 +3587,7 @@
          </widget>
         </item>
         <item row="12" column="7">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_5_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_5_y">
           <property name="prefix">
            <string/>
           </property>
@@ -3651,7 +3651,7 @@
          </widget>
         </item>
         <item row="4" column="8">
-         <widget class="QDoubleSpinBox" name="spinboxd3_IFS_rotations_1_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_1_z">
           <property name="prefix">
            <string/>
           </property>
@@ -3679,6 +3679,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>mydoublespinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

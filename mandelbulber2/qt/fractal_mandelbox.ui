@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>473</width>
-    <height>1090</height>
+    <width>539</width>
+    <height>1183</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,7 +33,7 @@
          </widget>
         </item>
         <item row="7" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_mandelbox_offset_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_offset_z">
           <property name="prefix">
            <string/>
           </property>
@@ -102,7 +102,7 @@ fixed radius:</string>
          </widget>
         </item>
         <item row="6" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_mandelbox_offset_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_offset_y">
           <property name="prefix">
            <string/>
           </property>
@@ -124,7 +124,7 @@ fixed radius:</string>
          </widget>
         </item>
         <item row="5" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox3_mandelbox_offset_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_offset_x">
           <property name="prefix">
            <string/>
           </property>
@@ -153,7 +153,7 @@ fixed radius:</string>
          </widget>
         </item>
         <item row="4" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_folding_min_radius">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_folding_min_radius">
           <property name="prefix">
            <string/>
           </property>
@@ -172,7 +172,7 @@ fixed radius:</string>
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_folding_limit">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_folding_limit">
           <property name="prefix">
            <string/>
           </property>
@@ -194,7 +194,7 @@ fixed radius:</string>
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_folding_value">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_folding_value">
           <property name="prefix">
            <string/>
           </property>
@@ -216,7 +216,7 @@ fixed radius:</string>
          </widget>
         </item>
         <item row="3" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_folding_fixed_radius">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_folding_fixed_radius">
           <property name="prefix">
            <string/>
           </property>
@@ -267,7 +267,7 @@ offset:</string>
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_scale">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_scale">
           <property name="prefix">
            <string/>
           </property>
@@ -469,7 +469,7 @@ offset:</string>
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_x">
           <property name="prefix">
            <string/>
           </property>
@@ -524,7 +524,7 @@ offset:</string>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_y">
           <property name="prefix">
            <string/>
           </property>
@@ -546,7 +546,7 @@ offset:</string>
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_z">
           <property name="prefix">
            <string/>
           </property>
@@ -590,7 +590,7 @@ offset:</string>
          <item>
           <layout class="QGridLayout" name="gridLayout_3">
            <item row="3" column="5">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_y">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_y">
              <property name="prefix">
               <string/>
              </property>
@@ -612,7 +612,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="6">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_z">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_z">
              <property name="prefix">
               <string/>
              </property>
@@ -634,7 +634,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="4">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_x">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_x">
              <property name="prefix">
               <string/>
              </property>
@@ -656,7 +656,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_1_y">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_1_y">
              <property name="prefix">
               <string/>
              </property>
@@ -678,7 +678,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="2">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_1_z">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_1_z">
              <property name="prefix">
               <string/>
              </property>
@@ -779,7 +779,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_1_x">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_1_x">
              <property name="prefix">
               <string/>
              </property>
@@ -906,7 +906,7 @@ offset:</string>
          <item>
           <layout class="QGridLayout" name="gridLayout_6">
            <item row="3" column="0">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_2_x">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_2_x">
              <property name="prefix">
               <string/>
              </property>
@@ -1072,7 +1072,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="5">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_2_y">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_2_y">
              <property name="prefix">
               <string/>
              </property>
@@ -1094,7 +1094,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="6">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_2_z">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_2_z">
              <property name="prefix">
               <string/>
              </property>
@@ -1116,7 +1116,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="4">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_2_x">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_2_x">
              <property name="prefix">
               <string/>
              </property>
@@ -1138,7 +1138,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_2_y">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_2_y">
              <property name="prefix">
               <string/>
              </property>
@@ -1160,7 +1160,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="2">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_2_z">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_2_z">
              <property name="prefix">
               <string/>
              </property>
@@ -1232,7 +1232,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="5">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_y">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_y">
              <property name="prefix">
               <string/>
              </property>
@@ -1369,7 +1369,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="6">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_z">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_z">
              <property name="prefix">
               <string/>
              </property>
@@ -1391,7 +1391,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="4">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_x">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_x">
              <property name="prefix">
               <string/>
              </property>
@@ -1413,7 +1413,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_3_y">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_3_y">
              <property name="prefix">
               <string/>
              </property>
@@ -1435,7 +1435,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="2">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_3_z">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_3_z">
              <property name="prefix">
               <string/>
              </property>
@@ -1477,7 +1477,7 @@ offset:</string>
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_3_x">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_3_x">
              <property name="prefix">
               <string/>
              </property>
@@ -1571,7 +1571,7 @@ offset:</string>
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_mandelbox_color_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_x">
           <property name="prefix">
            <string/>
           </property>
@@ -1593,7 +1593,7 @@ offset:</string>
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_mandelbox_color_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_z">
           <property name="prefix">
            <string/>
           </property>
@@ -1661,7 +1661,7 @@ offset:</string>
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_color_R">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_R">
           <property name="prefix">
            <string/>
           </property>
@@ -1706,7 +1706,7 @@ offset:</string>
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_mandelbox_color_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_y">
           <property name="prefix">
            <string/>
           </property>
@@ -1767,7 +1767,7 @@ offset:</string>
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_color_Sp1">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp1">
           <property name="prefix">
            <string/>
           </property>
@@ -1789,7 +1789,7 @@ offset:</string>
          </widget>
         </item>
         <item row="5" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_color_Sp2">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp2">
           <property name="prefix">
            <string/>
           </property>
@@ -1830,6 +1830,13 @@ offset:</string>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>mydoublespinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

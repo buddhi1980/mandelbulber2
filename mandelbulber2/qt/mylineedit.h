@@ -23,6 +23,7 @@ public:
 	{
 		actionResetToDefault = NULL;
 		parameterContainer = NULL;
+		gotDefault = false;
 	};
 
 	void AssignParameterContainer(cParameterContainer *container) {parameterContainer = container;}
@@ -34,8 +35,13 @@ private:
 	cParameterContainer *parameterContainer;
 	QString parameterName;
 
+	QString GetDefault();
+	QString defaultText;
+	bool gotDefault;
+
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
+	void paintEvent(QPaintEvent *event);
 };
 
 

@@ -134,7 +134,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_vary_fold">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_fold">
           <property name="prefix">
            <string/>
           </property>
@@ -156,7 +156,7 @@
          </widget>
         </item>
         <item row="3" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_vary_minr">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_minr">
           <property name="prefix">
            <string/>
           </property>
@@ -178,7 +178,7 @@
          </widget>
         </item>
         <item row="4" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_vary_rpower">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_rpower">
           <property name="prefix">
            <string/>
           </property>
@@ -207,7 +207,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_scale">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_scale">
           <property name="prefix">
            <string/>
           </property>
@@ -229,7 +229,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_vary_scale_vary">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_scale_vary">
           <property name="prefix">
            <string/>
           </property>
@@ -274,7 +274,7 @@
          </widget>
         </item>
         <item row="5" column="3">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_vary_wadd">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_wadd">
           <property name="prefix">
            <string/>
           </property>
@@ -339,7 +339,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_mandelbox_color_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_x">
           <property name="prefix">
            <string/>
           </property>
@@ -361,7 +361,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_mandelbox_color_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_z">
           <property name="prefix">
            <string/>
           </property>
@@ -429,7 +429,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_color_R">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_R">
           <property name="prefix">
            <string/>
           </property>
@@ -474,7 +474,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox3_mandelbox_color_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_y">
           <property name="prefix">
            <string/>
           </property>
@@ -535,7 +535,7 @@
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_color_Sp1">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp1">
           <property name="prefix">
            <string/>
           </property>
@@ -557,7 +557,7 @@
          </widget>
         </item>
         <item row="5" column="2">
-         <widget class="QDoubleSpinBox" name="spinbox_mandelbox_color_Sp2">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp2">
           <property name="prefix">
            <string/>
           </property>
@@ -598,6 +598,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>mydoublespinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
