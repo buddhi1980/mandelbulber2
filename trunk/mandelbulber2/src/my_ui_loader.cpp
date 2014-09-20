@@ -7,6 +7,8 @@
 
 #include "my_ui_loader.h"
 #include "../qt/mylineedit.h"
+#include "../qt/myspinbox.h"
+#include "../qt/mydoublespinbox.h"
 
 MyUiLoader::~MyUiLoader()
 {
@@ -22,6 +24,16 @@ QWidget* MyUiLoader::createWidget(const QString &className, QWidget *parent, con
   if(className == QString("MyLineEdit"))
   {
   	widget = new MyLineEdit(parent);
+  	widget->setObjectName(name);
+  }
+  else if(className == QString("MySpinBox"))
+  {
+  	widget = new MySpinBox(parent);
+  	widget->setObjectName(name);
+  }
+  else if(className == QString("MyDoubleSpinBox"))
+  {
+  	widget = new MyDoubleSpinBox(parent);
   	widget->setObjectName(name);
   }
   else

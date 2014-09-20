@@ -304,15 +304,15 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 						switch (lastChar)
 						{
 							case 'x':
-								qtext = QString::number(vect.x, 'g', 20);
+								qtext = QString::number(vect.x, 'g', 16);
 								break;
 
 							case 'y':
-								qtext = QString::number(vect.y, 'g', 20);
+								qtext = QString::number(vect.y, 'g', 16);
 								break;
 
 							case 'z':
-								qtext = QString::number(vect.z, 'g', 20);
+								qtext = QString::number(vect.z, 'g', 16);
 								break;
 
 							default:
@@ -335,7 +335,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 					else if (mode == write)
 					{
 						double value = par->Get<double>(parameterName);
-						lineEdit->setText(QString::number(value, 'g', 20));
+						lineEdit->setText(QString::number(value, 'g', 16));
 						lineEdit->setCursorPosition(0);
 					}
 				}
@@ -367,12 +367,20 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		{
 			QString name = (*it)->objectName();
 			//out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QDoubleSpinBox"))
+			QString className = (*it)->metaObject()->className();
+			if (name.length() > 1 && (className == QString("QDoubleSpinBox") || className == QString("MyDoubleSpinBox")))
 			{
 				QDoubleSpinBox *spinbox = *it;
 
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
+
+				if(className == QString("MyDoubleSpinBox"))
+				{
+					MyDoubleSpinBox *mydoublespinbox = (MyDoubleSpinBox*)*it;
+					mydoublespinbox->AssignParameterContainer(par);
+					mydoublespinbox->AssingParameterName(parameterName);
+				}
 
 				if (type == QString("spinbox") || type == QString("spinboxd"))
 				{
@@ -975,11 +983,11 @@ void cInterface::MoveCamera(QString buttonName)
 	double step;
 	if(stepMode == absolute)
 	{
-		step = gPar->Get<double>("camera_movenent_step");
+		step = gPar->Get<double>("camera_movement_step");
 	}
 	else
 	{
-		double relativeStep = gPar->Get<double>("camera_movenent_step");
+		double relativeStep = gPar->Get<double>("camera_movement_step");
 
 		CVector3 point;
 		if(movementMode == moveTarget)
@@ -1416,7 +1424,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 	enumCameraMovementMode movementMode = (enumCameraMovementMode)gPar->Get<int>("camera_movement_mode");
 	params::enumPerspectiveType perspType = (params::enumPerspectiveType)gPar->Get<int>("perspective_type");
 	cCameraTarget::enumRotationMode rollMode = 	(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
-	double movementStep =  gPar->Get<double>("camera_movenent_step");
+	double movementStep =  gPar->Get<double>("camera_movement_step");
 	double fov = gPar->Get<double>("fov");
 
 	CVector2<double> imagePoint;
@@ -1553,7 +1561,7 @@ void cInterface::MovementStepModeChanged(int mode)
 	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode)mode;
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
-	double oldStep = gPar->Get<double>("camera_movenent_step");
+	double oldStep = gPar->Get<double>("camera_movement_step");
 	double newStep;
 	if(stepMode == absolute)
 	{
@@ -1563,7 +1571,7 @@ void cInterface::MovementStepModeChanged(int mode)
 	{
 		newStep = oldStep / distance;
 	}
-	gPar->Set("camera_movenent_step", newStep);
+	gPar->Set("camera_movement_step", newStep);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, cInterface::write);
 }
 

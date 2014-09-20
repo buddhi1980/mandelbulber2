@@ -287,7 +287,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-230</y>
+          <y>0</y>
           <width>414</width>
           <height>502</height>
          </rect>
@@ -1386,12 +1386,12 @@ to target:</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="MyLineEdit" name="logedit_camera_movenent_step"/>
+                    <widget class="MyLineEdit" name="logedit_camera_movement_step"/>
                    </item>
                   </layout>
                  </item>
                  <item>
-                  <widget class="QSlider" name="logslider_camera_movenent_step">
+                  <widget class="QSlider" name="logslider_camera_movement_step">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
@@ -2647,8 +2647,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>378</width>
-                  <height>245</height>
+                  <width>194</width>
+                  <height>238</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2857,8 +2857,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-440</y>
-                  <width>364</width>
+                  <y>0</y>
+                  <width>289</width>
                   <height>695</height>
                  </rect>
                 </property>
@@ -3395,7 +3395,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>364</width>
+                  <width>302</width>
                   <height>282</height>
                  </rect>
                 </property>
@@ -3561,8 +3561,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-1403</y>
-                  <width>364</width>
+                  <y>0</y>
+                  <width>327</width>
                   <height>1648</height>
                  </rect>
                 </property>
@@ -5198,8 +5198,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
-                      <height>70</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5291,8 +5291,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
-                      <height>70</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5384,8 +5384,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
-                      <height>70</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5413,8 +5413,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>350</width>
-                  <height>193</height>
+                  <width>143</width>
+                  <height>137</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -6440,8 +6440,8 @@ to target:</string>
   <tabstop>bu_move_left</tabstop>
   <tabstop>bu_move_down</tabstop>
   <tabstop>bu_move_right</tabstop>
-  <tabstop>logedit_camera_movenent_step</tabstop>
-  <tabstop>logslider_camera_movenent_step</tabstop>
+  <tabstop>logedit_camera_movement_step</tabstop>
+  <tabstop>logslider_camera_movement_step</tabstop>
   <tabstop>comboBox_camera_absolute_distance_mode</tabstop>
   <tabstop>bu_rotate_roll_left</tabstop>
   <tabstop>bu_rotate_up</tabstop>
