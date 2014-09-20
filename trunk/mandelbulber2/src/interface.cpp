@@ -503,12 +503,20 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		{
 			QString name = (*it)->objectName();
 			//out << "QCheckBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QCheckBox"))
+			QString className = (*it)->metaObject()->className();
+			if (name.length() > 1 && (className  == QString("QCheckBox") || className == QString("MyCheckBox")))
 			{
 				QCheckBox *checkbox = *it;
 
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
+
+				if(className == QString("MyCheckBox"))
+				{
+					MyCheckBox *mycheckbox = (MyCheckBox*)*it;
+					mycheckbox->AssignParameterContainer(par);
+					mycheckbox->AssingParameterName(parameterName);
+				}
 
 				if (type == QString("checkBox"))
 				{
