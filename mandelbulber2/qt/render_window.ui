@@ -162,7 +162,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_show_cursor">
+         <widget class="MyCheckBox" name="checkBox_show_cursor">
           <property name="text">
            <string>Show cursor</string>
           </property>
@@ -287,7 +287,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-230</y>
           <width>414</width>
           <height>502</height>
          </rect>
@@ -655,7 +655,7 @@
              </layout>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_hdr">
+             <widget class="MyCheckBox" name="checkBox_hdr">
               <property name="text">
                <string>High Dynamic Range (HDR)</string>
               </property>
@@ -1975,7 +1975,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-475</y>
                   <width>364</width>
                   <height>720</height>
                  </rect>
@@ -2647,8 +2647,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>194</width>
-                  <height>238</height>
+                  <width>378</width>
+                  <height>245</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2857,8 +2857,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>289</width>
+                  <y>-450</y>
+                  <width>364</width>
                   <height>695</height>
                  </rect>
                 </property>
@@ -3394,8 +3394,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>302</width>
+                  <y>-37</y>
+                  <width>364</width>
                   <height>282</height>
                  </rect>
                 </property>
@@ -3561,8 +3561,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>327</width>
+                  <y>-1403</y>
+                  <width>364</width>
                   <height>1648</height>
                  </rect>
                 </property>
@@ -3577,14 +3577,14 @@ to target:</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_shadows_enabled">
+                     <widget class="MyCheckBox" name="checkBox_shadows_enabled">
                       <property name="text">
                        <string>Cast shadows</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_penetrating_lights">
+                     <widget class="MyCheckBox" name="checkBox_penetrating_lights">
                       <property name="text">
                        <string>Penetrating lights</string>
                       </property>
@@ -3876,7 +3876,7 @@ to target:</string>
                      </layout>
                     </item>
                     <item>
-                     <widget class="QCheckBox" name="checkBox_main_light_position_relative">
+                     <widget class="MyCheckBox" name="checkBox_main_light_position_relative">
                       <property name="text">
                        <string>Position relative to the camera</string>
                       </property>
@@ -4554,7 +4554,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="0" colspan="3">
-                       <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_0">
+                       <widget class="MyCheckBox" name="checkBox_volumetric_light_enabled_0">
                         <property name="text">
                          <string>Main light as volumetric</string>
                         </property>
@@ -5198,8 +5198,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>80</width>
+                      <height>18</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5291,8 +5291,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>80</width>
+                      <height>18</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5384,8 +5384,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>80</width>
+                      <height>18</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5413,8 +5413,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>143</width>
-                  <height>137</height>
+                  <width>350</width>
+                  <height>193</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -5526,24 +5526,20 @@ to target:</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_53">
              <item>
-              <layout class="QGridLayout" name="gridLayout_23">
+              <layout class="QGridLayout" name="gridLayout_28">
                <item row="0" column="0">
-                <layout class="QGridLayout" name="gridLayout_28">
-                 <item row="0" column="0">
-                  <widget class="QCheckBox" name="checkBox_hybrid_fractal_enable">
-                   <property name="text">
-                    <string>Enable hybrid fractals</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QCheckBox" name="checkBox_linear_DE_mode">
-                   <property name="text">
-                    <string>Linear distance estimation (good for Mandelbox or IFS)</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                <widget class="MyCheckBox" name="checkBox_hybrid_fractal_enable">
+                 <property name="text">
+                  <string>Enable hybrid fractals</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="MyCheckBox" name="checkBox_linear_DE_mode">
+                 <property name="text">
+                  <string>Linear distance estimation (good for Mandelbox or IFS)</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -5651,7 +5647,7 @@ to target:</string>
                </widget>
               </item>
               <item row="8" column="0" colspan="3">
-               <widget class="QCheckBox" name="checkBox_iteration_threshold_mode">
+               <widget class="MyCheckBox" name="checkBox_iteration_threshold_mode">
                 <property name="text">
                  <string>Stop at maximum iteration</string>
                 </property>
@@ -5683,7 +5679,7 @@ to target:</string>
                </widget>
               </item>
               <item row="9" column="0" colspan="3">
-               <widget class="QCheckBox" name="checkBox_interior_mode">
+               <widget class="MyCheckBox" name="checkBox_interior_mode">
                 <property name="text">
                  <string>Interior mode</string>
                 </property>
@@ -5760,7 +5756,7 @@ to target:</string>
                </widget>
               </item>
               <item row="10" column="0" colspan="3">
-               <widget class="QCheckBox" name="checkBox_slow_shading">
+               <widget class="MyCheckBox" name="checkBox_slow_shading">
                 <property name="text">
                  <string>Non-DE shading mode (slow)</string>
                 </property>
@@ -6237,6 +6233,11 @@ to target:</string>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>mydoublespinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>mycheckbox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

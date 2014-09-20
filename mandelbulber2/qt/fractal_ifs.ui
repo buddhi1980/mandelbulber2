@@ -86,14 +86,14 @@
          <number>2</number>
         </property>
         <item row="4" column="0" colspan="4">
-         <widget class="QCheckBox" name="checkBox_IFS_abs_x">
+         <widget class="MyCheckBox" name="checkBox_IFS_abs_x">
           <property name="text">
            <string>abs (x)</string>
           </property>
          </widget>
         </item>
         <item row="6" column="0" colspan="4">
-         <widget class="QCheckBox" name="checkBox_IFS_abs_z">
+         <widget class="MyCheckBox" name="checkBox_IFS_abs_z">
           <property name="text">
            <string>abs (z)</string>
           </property>
@@ -244,7 +244,7 @@
          </widget>
         </item>
         <item row="5" column="0" colspan="4">
-         <widget class="QCheckBox" name="checkBox_IFS_abs_y">
+         <widget class="MyCheckBox" name="checkBox_IFS_abs_y">
           <property name="text">
            <string>abs (y)</string>
           </property>
@@ -321,7 +321,7 @@
          </widget>
         </item>
         <item row="7" column="0" colspan="4">
-         <widget class="QCheckBox" name="checkBox_IFS_menger_sponge_mode">
+         <widget class="MyCheckBox" name="checkBox_IFS_menger_sponge_mode">
           <property name="text">
            <string>Menger Sponge mode</string>
           </property>
@@ -766,7 +766,7 @@
          </widget>
         </item>
         <item row="15" column="0">
-         <widget class="QCheckBox" name="checkBox_IFS_enabled_6">
+         <widget class="MyCheckBox" name="checkBox_IFS_enabled_6">
           <property name="text">
            <string/>
           </property>
@@ -1734,7 +1734,7 @@
          </widget>
         </item>
         <item row="17" column="0">
-         <widget class="QCheckBox" name="checkBox_IFS_enabled_7">
+         <widget class="MyCheckBox" name="checkBox_IFS_enabled_7">
           <property name="text">
            <string/>
           </property>
@@ -1851,7 +1851,7 @@
          </widget>
         </item>
         <item row="19" column="0">
-         <widget class="QCheckBox" name="checkBox_IFS_enabled_8">
+         <widget class="MyCheckBox" name="checkBox_IFS_enabled_8">
           <property name="text">
            <string/>
           </property>
@@ -1980,7 +1980,7 @@
          </widget>
         </item>
         <item row="7" column="0">
-         <widget class="QCheckBox" name="checkBox_IFS_enabled_2">
+         <widget class="MyCheckBox" name="checkBox_IFS_enabled_2">
           <property name="text">
            <string/>
           </property>
@@ -2336,14 +2336,14 @@
          </widget>
         </item>
         <item row="9" column="0">
-         <widget class="QCheckBox" name="checkBox_IFS_enabled_3">
+         <widget class="MyCheckBox" name="checkBox_IFS_enabled_3">
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
         <item row="11" column="0">
-         <widget class="QCheckBox" name="checkBox_IFS_enabled_4">
+         <widget class="MyCheckBox" name="checkBox_IFS_enabled_4">
           <property name="text">
            <string/>
           </property>
@@ -2592,7 +2592,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QCheckBox" name="checkBox_IFS_enabled_0">
+         <widget class="MyCheckBox" name="checkBox_IFS_enabled_0">
           <property name="text">
            <string/>
           </property>
@@ -2749,7 +2749,7 @@
          </widget>
         </item>
         <item row="5" column="0">
-         <widget class="QCheckBox" name="checkBox_IFS_enabled_1">
+         <widget class="MyCheckBox" name="checkBox_IFS_enabled_1">
           <property name="text">
            <string/>
           </property>
@@ -3482,7 +3482,7 @@
          </widget>
         </item>
         <item row="13" column="0">
-         <widget class="QCheckBox" name="checkBox_IFS_enabled_5">
+         <widget class="MyCheckBox" name="checkBox_IFS_enabled_5">
           <property name="text">
            <string/>
           </property>
@@ -3684,6 +3684,11 @@
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>mydoublespinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>mycheckbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

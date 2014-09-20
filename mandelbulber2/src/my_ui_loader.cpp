@@ -9,6 +9,7 @@
 #include "../qt/mylineedit.h"
 #include "../qt/myspinbox.h"
 #include "../qt/mydoublespinbox.h"
+#include "../qt/mycheckbox.h"
 
 MyUiLoader::~MyUiLoader()
 {
@@ -34,6 +35,11 @@ QWidget* MyUiLoader::createWidget(const QString &className, QWidget *parent, con
   else if(className == QString("MyDoubleSpinBox"))
   {
   	widget = new MyDoubleSpinBox(parent);
+  	widget->setObjectName(name);
+  }
+  else if(className == QString("MyCheckBox"))
+  {
+  	widget = new MyCheckBox(parent);
   	widget->setObjectName(name);
   }
   else
