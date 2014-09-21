@@ -20,8 +20,6 @@ QWidget* MyUiLoader::createWidget(const QString &className, QWidget *parent, con
 {
   QWidget* widget = NULL;
 
-  //TODO more different custom widgets
-
   if(className == QString("MyLineEdit"))
   {
   	widget = new MyLineEdit(parent);
@@ -38,6 +36,11 @@ QWidget* MyUiLoader::createWidget(const QString &className, QWidget *parent, con
   	widget->setObjectName(name);
   }
   else if(className == QString("MyCheckBox"))
+  {
+  	widget = new MyCheckBox(parent);
+  	widget->setObjectName(name);
+  }
+  else if(className == QString("MyGroupBox"))
   {
   	widget = new MyCheckBox(parent);
   	widget->setObjectName(name);

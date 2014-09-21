@@ -23,8 +23,6 @@ private:
 	qint64 lastTimeForETA;
 	double lastProgressForETA;
 	double renderingSpeed;
-	double lastSpeed;
-	double renderingAcceleration;
 };
 
 
