@@ -5,14 +5,13 @@
  *      Author: krzysztof
  */
 
-#include "myspinbox.h"
+#include "mygroupbox.h"
 #include "../src/parameters.hpp"
 #include <QLineEdit>
 
-void MySpinBox::contextMenuEvent(QContextMenuEvent *event)
+void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 {
-	QMenu *menu = lineEdit()->createStandardContextMenu();
-	menu->addSeparator();
+	QMenu *menu = new QMenu;
 	actionResetToDefault = menu->addAction(tr("Reset to default"));
 	QAction *selectedItem = menu->exec(event->globalPos());
 	if (selectedItem)
@@ -21,36 +20,33 @@ void MySpinBox::contextMenuEvent(QContextMenuEvent *event)
 		{
 			if (parameterContainer)
 			{
-				setValue(defaultValue);
-				emit valueChanged(defaultValue);
+				setChecked(defaultValue);
+				emit toggled(defaultValue);
 			}
 			else
 			{
-				qCritical() << "MySpinBox::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
+				qCritical() << " MyGroupBox::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
 			}
 		}
 	}
 	delete menu;
 }
 
-void MySpinBox::paintEvent(QPaintEvent *event)
+void MyGroupBox::paintEvent(QPaintEvent *event)
 {
-	if (value() != GetDefault())
+	if (isChecked() != GetDefault())
 	{
-		QFont f = font();
-		f.setBold(true);
-		setFont(f);
+		setTitle(originalText + " *");
 	}
 	else
 	{
-		QFont f = font();
-		f.setBold(false);
-		setFont(f);
+		setTitle(originalText);
 	}
-	QSpinBox::paintEvent(event);
+	QGroupBox::paintEvent(event);
+
 }
 
-int MySpinBox::GetDefault()
+bool MyGroupBox::GetDefault()
 {
 	if (parameterContainer && !gotDefault)
 	{
@@ -60,8 +56,10 @@ int MySpinBox::GetDefault()
 
 		QString toolTipText;
 		toolTipText += "Name: " + parameterName + "\n";
-		toolTipText += "Default: " + QString::number(defaultValue);
+		toolTipText += "Default: " + ((defaultValue) ? QString("true") : QString("false"));
 		setToolTip(toolTipText);
+
+		originalText = title();
 	}
 	return defaultValue;
 }

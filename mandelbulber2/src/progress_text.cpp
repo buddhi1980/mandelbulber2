@@ -13,8 +13,6 @@ cProgressText::cProgressText()
 	lastTimeForETA = 0;
 	lastProgressForETA = 0;
 	renderingSpeed = 0.0;
-	lastSpeed = 0.0;
-	renderingAcceleration = 0.0;
 }
 
 void cProgressText::ResetTimer()
@@ -34,19 +32,15 @@ QString cProgressText::getText(double progress)
 
 	if ((time > lastTimeForETA * 1.1L || time - lastTimeForETA > 600000) && progress > lastProgressForETA)
 	{
+		bool filter = true;
 		double renderingSpeedNew = (progress - lastProgressForETA) / (time - lastTimeForETA);
-		if(renderingSpeed > 0)
-		{
+		if(renderingSpeed > 0 && filter)
 			renderingSpeed = renderingSpeed + (renderingSpeedNew - renderingSpeed) * 0.1;
-		}
 		else
-		{
 			renderingSpeed = renderingSpeedNew;
-		}
-		renderingAcceleration = (renderingSpeed - lastSpeed) / (time - lastTimeForETA);
+
 		lastProgressForETA = progress;
 		lastTimeForETA = time;
-		lastSpeed = renderingSpeed;
 	}
 
 	qint64 timeToEnd;

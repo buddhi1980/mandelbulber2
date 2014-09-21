@@ -544,12 +544,20 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 		{
 			QString name = (*it)->objectName();
 			//out << "QGroupBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QGroupBox"))
+			QString className = (*it)->metaObject()->className();
+			if (name.length() > 1 && (className == QString("QGroupBox") || className == QString("MyGroupBox")))
 			{
 				QGroupBox *groupbox = *it;
 
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
+
+				if(className == QString("MyGroupBox"))
+				{
+					MyGroupBox *mygroupbox = (MyGroupBox*)*it;
+					mygroupbox->AssignParameterContainer(par);
+					mygroupbox->AssingParameterName(parameterName);
+				}
 
 				if (type == QString("groupCheck"))
 				{

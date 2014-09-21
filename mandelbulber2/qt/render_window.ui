@@ -1953,7 +1953,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>4</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -2145,7 +2145,7 @@ to target:</string>
                   </layout>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_ambient_occlusion_enabled">
+                  <widget class="MyGroupBox" name="groupCheck_ambient_occlusion_enabled">
                    <property name="title">
                     <string>Ambient occlusion</string>
                    </property>
@@ -2317,7 +2317,7 @@ to target:</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_fractal_color">
+                  <widget class="MyGroupBox" name="groupCheck_fractal_color">
                    <property name="title">
                     <string>Surface color</string>
                    </property>
@@ -2578,7 +2578,7 @@ to target:</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_env_mapping_enable">
+                  <widget class="MyGroupBox" name="groupCheck_env_mapping_enable">
                    <property name="title">
                     <string>Environment mappring</string>
                    </property>
@@ -2653,7 +2653,7 @@ to target:</string>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_raytraced_reflections">
+                  <widget class="MyGroupBox" name="groupCheck_raytraced_reflections">
                    <property name="title">
                     <string>Ray-traced reflections</string>
                    </property>
@@ -2702,7 +2702,7 @@ to target:</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_DOF_enabled">
+                  <widget class="MyGroupBox" name="groupCheck_DOF_enabled">
                    <property name="title">
                     <string>Depth of field</string>
                    </property>
@@ -2864,7 +2864,7 @@ to target:</string>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_basic_fog_enabled">
+                  <widget class="MyGroupBox" name="groupCheck_basic_fog_enabled">
                    <property name="title">
                     <string>Basic fog</string>
                    </property>
@@ -2931,7 +2931,7 @@ to target:</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_glow_enabled">
+                  <widget class="MyGroupBox" name="groupCheck_glow_enabled">
                    <property name="title">
                     <string>Glow</string>
                    </property>
@@ -3001,7 +3001,7 @@ to target:</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_volumetric_fog_enabled">
+                  <widget class="MyGroupBox" name="groupCheck_volumetric_fog_enabled">
                    <property name="title">
                     <string>Fog based on distance</string>
                    </property>
@@ -3161,7 +3161,7 @@ to target:</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_iteration_fog_enable">
+                  <widget class="MyGroupBox" name="groupCheck_iteration_fog_enable">
                    <property name="title">
                     <string>Fog based on iteration count</string>
                    </property>
@@ -3459,7 +3459,7 @@ to target:</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_textured_background">
+                  <widget class="MyGroupBox" name="groupCheck_textured_background">
                    <property name="title">
                     <string>Textured background</string>
                    </property>
@@ -3594,7 +3594,7 @@ to target:</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_main_light_enable">
+                  <widget class="MyGroupBox" name="groupCheck_main_light_enable">
                    <property name="title">
                     <string>Main light source</string>
                    </property>
@@ -3894,7 +3894,7 @@ to target:</string>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_4">
                       <item row="0" column="0">
-                       <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_1">
+                       <widget class="MyGroupBox" name="groupCheck_aux_light_predefined_enabled_1">
                         <property name="title">
                          <string>Light #1</string>
                         </property>
@@ -4004,7 +4004,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="1">
-                       <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_2">
+                       <widget class="MyGroupBox" name="groupCheck_aux_light_predefined_enabled_2">
                         <property name="title">
                          <string>Light #2</string>
                         </property>
@@ -4114,7 +4114,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="0">
-                       <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_3">
+                       <widget class="MyGroupBox" name="groupCheck_aux_light_predefined_enabled_3">
                         <property name="title">
                          <string>Light #3</string>
                         </property>
@@ -4224,7 +4224,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="1">
-                       <widget class="QGroupBox" name="groupCheck_aux_light_predefined_enabled_4">
+                       <widget class="MyGroupBox" name="groupCheck_aux_light_predefined_enabled_4">
                         <property name="title">
                          <string>Light #4</string>
                         </property>
@@ -4594,7 +4594,7 @@ to target:</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_aux_light_random_enabled">
+                  <widget class="MyGroupBox" name="groupCheck_aux_light_random_enabled">
                    <property name="title">
                     <string>Random lights</string>
                    </property>
@@ -4714,7 +4714,7 @@ to target:</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_fake_lights_enabled">
+                  <widget class="MyGroupBox" name="groupCheck_fake_lights_enabled">
                    <property name="title">
                     <string>Fake lights based on orbit traps</string>
                    </property>
@@ -4998,7 +4998,7 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-11</y>
           <width>414</width>
           <height>235</height>
          </rect>
@@ -5198,8 +5198,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>80</width>
-                      <height>18</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5291,8 +5291,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>80</width>
-                      <height>18</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5384,8 +5384,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>80</width>
-                      <height>18</height>
+                      <width>328</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5419,7 +5419,7 @@ to target:</string>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
                  <item>
-                  <widget class="QGroupBox" name="groupCheck_julia_mode">
+                  <widget class="MyGroupBox" name="groupCheck_julia_mode">
                    <property name="title">
                     <string>Julia mode</string>
                    </property>
@@ -5944,7 +5944,7 @@ to target:</string>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupCheck_limits_enabled">
+          <widget class="MyGroupBox" name="groupCheck_limits_enabled">
            <property name="title">
             <string>Limits (box)</string>
            </property>
@@ -6238,6 +6238,12 @@ to target:</string>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>mycheckbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>mygroupbox.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

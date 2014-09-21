@@ -55,6 +55,7 @@ bool MyCheckBox::GetDefault()
 	{
 		int val = parameterContainer->GetDefault<int>(parameterName);
 		defaultValue = val;
+		gotDefault = true;
 
 		QString toolTipText;
 		toolTipText += "Name: " + parameterName + "\n";
