@@ -226,6 +226,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 
   double totalStep = 0.0;
 
+  //qDebug() << "Start volumetric shader &&&&&&&&&&&&&&&&&&&&";
+
   sShaderInputData input2 = input;
   for(int index = input.stepCount - 1; index > 0; index--)
 	{
@@ -237,7 +239,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		input2.point = point;
 		input2.distThresh = input.stepBuff[index].distThresh;
 
-		if(totalStep < input.delta)
+		//qDebug() << "i" << index << "dist" << distance << "iters" << input.stepBuff[index].iters << "distThresh" << input2.distThresh << "step" << step << "point" << point.Debug();
+
+		if(totalStep < CalcDelta(point))
 		{
 			continue;
 		}
@@ -247,7 +251,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		//------------------- glow
 		if (params->glowEnabled)
 		{
-			double glowOpacity = glow * step / input.depth;
+			double glowOpacity = glow / input.stepCount;
 			if(glowOpacity > 1.0) glowOpacity = 1.0;
 			output.R = glowOpacity * glowR + (1.0 - glowOpacity) * output.R;
 			output.G = glowOpacity * glowG + (1.0 - glowOpacity) * output.G;
@@ -391,6 +395,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			output.R = fogDensity * fogRtemp / 65536.0 + (1.0 - fogDensity) * output.R;
 			output.G = fogDensity * fogGtemp / 65536.0 + (1.0 - fogDensity) * output.G;
 			output.B = fogDensity * fogBtemp / 65536.0 + (1.0 - fogDensity) * output.B;
+			//qDebug() << "densityTemp " << densityTemp << "k" << k << "k2" << k2 << "fogTempR" << fogRtemp << "fogDensity" << fogDensity << "output.R" << output.R;
 
 			totalOpacity = fogDensity + (1.0 - fogDensity) * totalOpacity;
 			output.A = fogDensity + (1.0 - fogDensity) * output.A;

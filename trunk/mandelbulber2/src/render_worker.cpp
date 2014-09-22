@@ -421,7 +421,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	(*inOut->buffCount) = 0;
 	double distThresh;
 
-
+	//qDebug() << "Start ************************";
 	for (int i = 0; i < 10000; i++)
 	{
 		counter++;
@@ -465,6 +465,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			step = (dist - 0.5 * distThresh) * params->DEFactor * (1.0 - Random(1000)/10000.0);;
 		}
 		inOut->stepBuff[i].point = point;
+		//qDebug() << "i" << i << "dist" << inOut->stepBuff[i].distance << "iters" << inOut->stepBuff[i].iters << "distThresh" << inOut->stepBuff[i].distThresh << "step" << inOut->stepBuff[i].step << "point" << inOut->stepBuff[i].point.Debug();
 		(*inOut->buffCount) = i + 1;
 		scan += step;
 		if (scan > in.maxScan)
