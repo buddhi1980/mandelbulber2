@@ -61,7 +61,7 @@ double MyDoubleSpinBox::GetDefault()
 	if (parameterContainer && !gotDefault)
 	{
 		QString type = GetType(objectName());
-		if (type == QString("vect3"))
+		if (type == QString("spinbox3") || type == QString("spinboxd3"))
 		{
 			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 			QString nameVect = parameterName.left(parameterName.length() - 2);
