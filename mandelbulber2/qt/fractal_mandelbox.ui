@@ -422,7 +422,7 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupCheck_mandelbox_main_rotation_enabled">
+    <widget class="MyGroupBox" name="groupCheck_mandelbox_main_rotation_enabled">
      <property name="title">
       <string>Main rotation</string>
      </property>
@@ -573,7 +573,7 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupCheck_mandelbox_rotations_enabled">
+    <widget class="MyGroupBox" name="groupCheck_mandelbox_rotations_enabled">
      <property name="title">
       <string>Rotation of separate planes</string>
      </property>
@@ -1835,6 +1835,12 @@ offset:</string>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>mydoublespinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>mygroupbox.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

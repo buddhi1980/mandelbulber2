@@ -333,7 +333,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupCheck_IFS_rotation_enabled">
+    <widget class="MyGroupBox" name="groupCheck_IFS_rotation_enabled">
      <property name="title">
       <string>Main rotation</string>
      </property>
@@ -484,7 +484,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupCheck_IFS_edge_enabled">
+    <widget class="MyGroupBox" name="groupCheck_IFS_edge_enabled">
      <property name="title">
       <string>Box folding</string>
      </property>
@@ -3689,6 +3689,12 @@
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>mycheckbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>mygroupbox.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
