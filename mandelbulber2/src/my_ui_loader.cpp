@@ -10,6 +10,7 @@
 #include "../qt/myspinbox.h"
 #include "../qt/mydoublespinbox.h"
 #include "../qt/mycheckbox.h"
+#include "../qt/mygroupbox.h"
 
 MyUiLoader::~MyUiLoader()
 {
@@ -42,7 +43,7 @@ QWidget* MyUiLoader::createWidget(const QString &className, QWidget *parent, con
   }
   else if(className == QString("MyGroupBox"))
   {
-  	widget = new MyCheckBox(parent);
+  	widget = new MyGroupBox(parent);
   	widget->setObjectName(name);
   }
   else
