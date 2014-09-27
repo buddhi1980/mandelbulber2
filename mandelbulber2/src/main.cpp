@@ -12,6 +12,7 @@
 #include "interface.hpp"
 #include "initparameters.hpp"
 #include "fractal_list.hpp"
+#include "undo.h"
 
 int main(int argc, char *argv[])
 {

@@ -15,6 +15,7 @@
 #include "files.h"
 #include "fractparams.hpp"
 #include "thumbnail.hpp"
+#include "undo.h"
 
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
@@ -49,6 +50,8 @@ RenderWindow::~RenderWindow()
 
 void RenderWindow::slotStartRender(void)
 {
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gUndo.Store(gPar, gParFractal);
 	mainInterface->StartRender();
 }
 
@@ -1065,4 +1068,14 @@ void RenderWindow::slotPressedButtonSetLight4ByMouse()
 void RenderWindow::slotChangedCheckBoxCursorVisibility(int state)
 {
 	mainInterface->renderedImage->SetCursorVisibility(state);
+}
+
+void RenderWindow::slotMenuUndo()
+{
+	mainInterface->Undo();
+}
+
+void RenderWindow::slotMenuRedo()
+{
+	mainInterface->Redo();
 }
