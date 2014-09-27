@@ -175,7 +175,14 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			}
 			default:
 			{
-				z += c;
+				if(in.juliaMode)
+				{
+					z += in.c;
+				}
+				else
+				{
+					z += c;
+				}
 				break;
 			}
 		}

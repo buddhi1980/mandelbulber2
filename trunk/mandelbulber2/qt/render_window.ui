@@ -1877,6 +1877,11 @@ to target:</string>
                <string>Place light #4</string>
               </property>
              </item>
+             <item>
+              <property name="text">
+               <string>Get Julia constant</string>
+              </property>
+             </item>
             </widget>
            </item>
            <item>
@@ -1943,7 +1948,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>430</width>
-          <height>238</height>
+          <height>273</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2662,8 +2667,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
-                  <height>238</height>
+                  <width>380</width>
+                  <height>245</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -5014,8 +5019,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>430</width>
-          <height>266</height>
+          <width>416</width>
+          <height>235</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -5025,7 +5030,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -5120,8 +5125,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>344</width>
-                      <height>101</height>
+                      <width>330</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1"/>
@@ -5213,8 +5218,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>344</width>
-                      <height>101</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5306,8 +5311,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>344</width>
-                      <height>101</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5399,8 +5404,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>344</width>
-                      <height>101</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5428,8 +5433,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
-                  <height>224</height>
+                  <width>352</width>
+                  <height>193</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -5512,6 +5517,13 @@ to target:</string>
                        <widget class="MyLineEdit" name="vect3_julia_c_z"/>
                       </item>
                      </layout>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pushButton_get_julia_constant">
+                      <property name="text">
+                       <string>Get Julia constant by mouse pointer</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>

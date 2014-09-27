@@ -18,7 +18,9 @@ struct sFractalIn
 	CVector3 c;
 	int minN;
 	int maxN;
-	sFractalIn(CVector3 _point, CVector3 _c, int _minN, int _maxN) : point(_point), c(_c), minN(_minN), maxN(_maxN) {};
+	bool juliaMode;
+	sFractalIn(CVector3 _point, CVector3 _c, int _minN, int _maxN, bool _julia)
+		: point(_point), c(_c), minN(_minN), maxN(_maxN), juliaMode(_julia) {};
 };
 
 struct sFractalOut

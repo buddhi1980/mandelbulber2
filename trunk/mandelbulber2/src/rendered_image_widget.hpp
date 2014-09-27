@@ -30,7 +30,8 @@ enum enumClickMode
 	clickPlaceLight1 = 4,
 	clickPlaceLight2 = 5,
 	clickPlaceLight3 = 6,
-	clickPlaceLight4 = 7
+	clickPlaceLight4 = 7,
+	clickGetJuliaConstant = 8
 };
 
 	RenderedImage(QWidget *parent = 0);
