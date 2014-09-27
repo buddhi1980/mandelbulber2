@@ -57,6 +57,7 @@ public:
 	void MovementStepModeChanged(int mode);
 	void Undo();
 	void Redo();
+	void ResetView();
 
 	QApplication *application;
 	RenderWindow *mainWindow;

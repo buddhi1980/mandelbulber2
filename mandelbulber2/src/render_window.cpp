@@ -1079,3 +1079,8 @@ void RenderWindow::slotMenuRedo()
 {
 	mainInterface->Redo();
 }
+
+void RenderWindow::slotPressedButtonResetView()
+{
+	mainInterface->ResetView();
+}
