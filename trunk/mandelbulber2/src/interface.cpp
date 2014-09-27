@@ -21,6 +21,7 @@
 #include "render_ssao.h"
 #include "dof.hpp"
 #include "common_math.h"
+#include "undo.h"
 
 cInterface *mainInterface;
 
@@ -74,7 +75,7 @@ void cInterface::ShowUi(void)
 	renderedImage->show();
 
 	//loading default ui for all fractal components
-	QString uiFilename = systemData.sharedDir + QDir::separator() + "qt" + QDir::separator() + "fractal_mandelbulb.ui";
+	QString uiFilename = systemData.sharedDir + "qt" + QDir::separator() + "fractal_mandelbulb.ui";
 	InitializeFractalUi(uiFilename);
 
 	WriteLog("cInterface::ConnectSignals(void)");
@@ -139,6 +140,8 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG16Alpha()));
 	QApplication::connect(mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
 	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutMandelbulber()));
+	QApplication::connect(mainWindow->ui->actionUndo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuUndo()));
+	QApplication::connect(mainWindow->ui->actionRedo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuRedo()));
 
 	//formulas
 	QApplication::connect(mainWindow->ui->comboBox_formula_1, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
@@ -957,6 +960,7 @@ void cInterface::StartRender(void)
 	  {
 			repeatRequest = false;
 	  	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
 			cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, renderedImage);
 			renderJob->Init(cRenderJob::still);
 			renderJob->Execute();
@@ -1048,6 +1052,8 @@ void cInterface::MoveCamera(QString buttonName)
 	gPar->Set("camera_distance_to_target", dist);
 
 	SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+	gUndo.Store(gPar, gParFractal);
 
 	StartRender();
 }
@@ -1165,6 +1171,8 @@ void cInterface::RotateCamera(QString buttonName)
 	gPar->Set("camera_distance_to_target", dist);
 
 	SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+	gUndo.Store(gPar, gParFractal);
 
 	StartRender();
 }
@@ -1524,7 +1532,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				gPar->Set("camera_distance_to_target", dist);
 
 				SynchronizeInterface(gPar, gParFractal, cInterface::write);
-
+				gUndo.Store(gPar, gParFractal);
 				renderedImage->setNewZ(depth - moveDistance);
 
 				StartRender();
@@ -1536,6 +1544,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				double fogDepth = depth;
 				gPar->Set("basic_fog_visibility", fogDepth);
 				SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_basic_fog_enabled, gPar, cInterface::write);
+				gUndo.Store(gPar, gParFractal);
 				StartRender();
 				break;
 			}
@@ -1544,6 +1553,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				double DOF = depth;
 				gPar->Set("DOF_focus", DOF);
 				SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_DOF_enabled, gPar, cInterface::write);
+				gUndo.Store(gPar, gParFractal);
 				RefreshMainImage();
 				break;
 			}
@@ -1564,6 +1574,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				gPar->Set("aux_light_predefined_position", lightNumber, pointCorrected);
 				gPar->Set("aux_light_predefined_intensity", lightNumber, intensity);
 				SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, cInterface::write);
+				gUndo.Store(gPar, gParFractal);
 				StartRender();
 				break;
 			}
@@ -1605,5 +1616,20 @@ void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 	pushbutton->setIconSize(QSize(w,h));
 }
 
+void cInterface::Undo()
+{
+	if(gUndo.Undo(gPar, gParFractal))
+	{
+		SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		StartRender();
+	}
+}
 
-
+void cInterface::Redo()
+{
+	if(gUndo.Redo(gPar, gParFractal))
+	{
+		SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		StartRender();
+	}
+}

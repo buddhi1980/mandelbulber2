@@ -55,6 +55,8 @@ public:
 	double GetDistanceForPoint(CVector3 point, cParameterContainer *par, cParameterContainer *parFractal);
 	void SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button, RenderedImage::enumClickMode clickMode);
 	void MovementStepModeChanged(int mode);
+	void Undo();
+	void Redo();
 
 	QApplication *application;
 	RenderWindow *mainWindow;

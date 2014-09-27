@@ -48,11 +48,12 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/ssao_worker.cpp\
             ../src/texture.cpp\
             ../src/thumbnail.cpp\
+            ../src/undo.cpp
+            ../qt/mygroupbox.cpp\
             ../qt/mylineedit.cpp\
             ../qt/myspinbox.cpp\
             ../qt/mydoublespinbox.cpp\
-            ../qt/mycheckbox.cpp\
-            ../qt/mygroupbox.cpp
+            ../qt/mycheckbox.cpp
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\

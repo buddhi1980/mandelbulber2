@@ -237,7 +237,15 @@
     <addaction name="actionAbout_Mandelbulber"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
    <addaction name="menuImage"/>
    <addaction name="menuView"/>
    <addaction name="menuAbout"/>
@@ -287,7 +295,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-230</y>
+          <y>0</y>
           <width>414</width>
           <height>502</height>
          </rect>
@@ -1975,8 +1983,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-475</y>
-                  <width>364</width>
+                  <y>0</y>
+                  <width>320</width>
                   <height>720</height>
                  </rect>
                 </property>
@@ -2857,8 +2865,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-450</y>
-                  <width>364</width>
+                  <y>0</y>
+                  <width>289</width>
                   <height>695</height>
                  </rect>
                 </property>
@@ -3394,8 +3402,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-37</y>
-                  <width>364</width>
+                  <y>0</y>
+                  <width>302</width>
                   <height>282</height>
                  </rect>
                 </property>
@@ -3562,7 +3570,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>364</width>
+                  <width>327</width>
                   <height>1648</height>
                  </rect>
                 </property>
@@ -4998,7 +5006,7 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-11</y>
+          <y>0</y>
           <width>414</width>
           <height>235</height>
          </rect>
@@ -5198,8 +5206,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
-                      <height>70</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5291,8 +5299,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
-                      <height>70</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5384,8 +5392,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>328</width>
-                      <height>70</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5413,8 +5421,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>350</width>
-                  <height>193</height>
+                  <width>143</width>
+                  <height>137</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -6203,6 +6211,22 @@ to target:</string>
   <action name="actionAbout_Mandelbulber">
    <property name="text">
     <string>About Mandelbulber</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
    </property>
   </action>
  </widget>

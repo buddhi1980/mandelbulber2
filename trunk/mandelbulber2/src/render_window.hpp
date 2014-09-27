@@ -99,6 +99,8 @@ private slots:
 	void slotMenuSaveImagePNG16Alpha();
 	void slotMenuSaveImagePNG8();
 	void slotMenuSaveSettings();
+	void slotMenuUndo();
+	void slotMenuRedo();
 
 	//textures
 	void slotPressedButtonSelectBackgroundTexture();
