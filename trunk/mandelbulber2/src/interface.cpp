@@ -110,6 +110,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(slotStartRender()));
 	QApplication::connect(mainWindow->ui->pushButton_set_fog_by_mouse, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetFogByMouse()));
 	QApplication::connect(mainWindow->ui->pushButton_stop, SIGNAL(clicked()), mainWindow, SLOT(slotStopRender()));
+	QApplication::connect(mainWindow->ui->pushButton_reset_view, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonResetView()));
 	QApplication::connect(mainWindow->ui->spinbox_coloring_palette_offset, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotChangedSpinBoxPaletteOffset(double)));
 	QApplication::connect(mainWindow->ui->spinboxInt_coloring_palette_size, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotChangedSpinBoxPaletteSize(int)));
 	QApplication::connect(mainWindow->ui->text_file_background, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditBackgroundTexture(const QString&)));
@@ -1632,4 +1633,59 @@ void cInterface::Redo()
 		SynchronizeInterface(gPar, gParFractal, cInterface::write);
 		StartRender();
 	}
+}
+
+void cInterface::ResetView()
+{
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
+	CVector3 camera = gPar->Get<CVector3>("camera");
+	CVector3 target = gPar->Get<CVector3>("target");
+	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	cCameraTarget cameraTarget(camera, target, topVector);
+	CVector3 forwardVector = cameraTarget.GetForwardVector();
+	double fov = gPar->Get<double>("fov");
+	params::enumPerspectiveType perspType = (params::enumPerspectiveType)gPar->Get<int>("perspective_type");
+
+	cParameterContainer parTemp = *gPar;
+	parTemp.Set("limits_enabled", false);
+	parTemp.Set("interior_mode", false);
+
+	//calculate size of the fractal in random directions
+	double maxDist = 0.0;
+	for(int i = 0; i<50; i++)
+	{
+		CVector3 direction(Random(1000)/500.0-1.0, Random(1000)/500.0-1.0, Random(1000)/500.0-1.0);
+		direction.Normalize();
+		double distStep = 0.0;
+		double scan;
+		for (scan = 100.0; scan > 0; scan -= distStep)
+		{
+			CVector3 point = direction * scan;
+			double dist = GetDistanceForPoint(point, &parTemp, gParFractal);
+			if (dist < 0.1)
+			{
+				break;
+			}
+			distStep = dist;
+			if(distStep > 5.0) distStep = 5.0;
+			//qDebug() << "i" << i << "scan" << scan << "direction" << direction.Debug();
+		}
+		if (scan > maxDist) maxDist = scan;
+	}
+
+	double newCameraDist = maxDist / fov * 2.0 * sqrt(2);
+	if(perspType == params::perspFishEye || perspType == params::perspFishEyeCut || perspType == params::perspEquirectangular)
+		newCameraDist /= M_PI;
+
+	if(newCameraDist < 0.1) newCameraDist = 0.1;
+
+	gPar->Set("target", CVector3(0.0,0.0,0.0));
+	CVector3 newCamera = forwardVector * newCameraDist * (-1.0);
+	gPar->Set("camera", newCamera);
+	gPar->Set("camera_distance_to_target", newCameraDist);
+	gPar->Set("view_distance_max", newCameraDist + maxDist);
+	SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	gUndo.Store(gPar, gParFractal);
+	StartRender();
 }

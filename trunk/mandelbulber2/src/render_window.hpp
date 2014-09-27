@@ -68,6 +68,7 @@ private slots:
 	void slotPressedButtonSetLight2ByMouse();
 	void slotPressedButtonSetLight3ByMouse();
 	void slotPressedButtonSetLight4ByMouse();
+	void slotPressedButtonResetView();
 	void slotResizedScrolledAreaImage(int width, int height);
 	void slotSliderMovedEditManualLightPlacementDistance(int value);
 

@@ -38,12 +38,10 @@ void cUndo::Store(cParameterContainer *par, cParameterContainer *parFractal)
 
 	undoBuffer.append(record);
 	level++;
-	qDebug() << "Undo level" << level << "size" << undoBuffer.size();
 }
 
 bool cUndo::Undo(cParameterContainer *par, cParameterContainer *parFractal)
 {
-	qDebug() << "Undo level" << level << "size" << undoBuffer.size();
 	if(level > 1)
 	{
 		sUndoRecord record;
