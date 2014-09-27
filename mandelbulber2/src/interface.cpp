@@ -100,6 +100,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->pushButton_apply_image_changes, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonImageApply()));
 	QApplication::connect(mainWindow->ui->pushButton_DOF_set_focus, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetDOFByMouse()));
 	QApplication::connect(mainWindow->ui->pushButton_DOF_update, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDOFUpdate()));
+	QApplication::connect(mainWindow->ui->pushButton_get_julia_constant, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonGetJuliaConstant()));
 	QApplication::connect(mainWindow->ui->pushButton_getPaletteFromImage, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonGetPaletteFromImage()));
 	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_1, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight1ByMouse()));
 	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_2, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight2ByMouse()));
@@ -1579,7 +1580,12 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				StartRender();
 				break;
 			}
-
+			case RenderedImage::clickGetJuliaConstant:
+			{
+				gPar->Set("julia_c", point);
+				SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_julia_mode, gPar, cInterface::write);
+				break;
+			}
 		}
 	}
 }
@@ -1653,8 +1659,12 @@ void cInterface::ResetView()
 
 	//calculate size of the fractal in random directions
 	double maxDist = 0.0;
+
+	StatusText("Reseting view", "Fractal size calculation", 0.0);
+
 	for(int i = 0; i<50; i++)
 	{
+		StatusText("Reseting view", "Fractal size calculation", i / 50.0);
 		CVector3 direction(Random(1000)/500.0-1.0, Random(1000)/500.0-1.0, Random(1000)/500.0-1.0);
 		direction.Normalize();
 		double distStep = 0.0;
@@ -1673,6 +1683,7 @@ void cInterface::ResetView()
 		}
 		if (scan > maxDist) maxDist = scan;
 	}
+	StatusText("Reseting view", "Done", 100.0);
 
 	double newCameraDist = maxDist / fov * 2.0 * sqrt(2);
 	if(perspType == params::perspFishEye || perspType == params::perspFishEyeCut || perspType == params::perspEquirectangular)

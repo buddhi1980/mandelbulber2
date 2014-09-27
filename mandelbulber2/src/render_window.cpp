@@ -947,6 +947,7 @@ void RenderWindow::slotMouceClickOnImage(int x, int y, Qt::MouseButton button)
 		case RenderedImage::clickPlaceLight2:
 		case RenderedImage::clickPlaceLight3:
 		case RenderedImage::clickPlaceLight4:
+		case RenderedImage::clickGetJuliaConstant:
 		{
 			mainInterface->SetByMouse(CVector2<double>(x, y), button, clickMode);
 			break;
@@ -1063,6 +1064,12 @@ void RenderWindow::slotPressedButtonSetLight4ByMouse()
 {
 	ui->comboBox_mouse_click_function->setCurrentIndex(RenderedImage::clickPlaceLight4);
 	mainInterface->renderedImage->setClickMode(RenderedImage::clickPlaceLight4);
+}
+
+void RenderWindow::slotPressedButtonGetJuliaConstant()
+{
+	ui->comboBox_mouse_click_function->setCurrentIndex(RenderedImage::clickGetJuliaConstant);
+	mainInterface->renderedImage->setClickMode(RenderedImage::clickGetJuliaConstant);
 }
 
 void RenderWindow::slotChangedCheckBoxCursorVisibility(int state)

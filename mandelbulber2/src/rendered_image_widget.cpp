@@ -105,6 +105,9 @@ void RenderedImage::DisplayCoordinates()
 		case clickPlaceLight4:
 			text = QString("Place light #4");
 			break;
+		case clickGetJuliaConstant:
+			text = QString("Get Julia constant");
+			break;
 		case clickDoNothing:
 			text  = QString();
 			break;

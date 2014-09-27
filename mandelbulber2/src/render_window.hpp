@@ -58,6 +58,7 @@ private slots:
 	void slotEditedLineEditManualLightPlacementDistance(const QString &text);
 	void slotPressedButtonAutoFog();
 	void slotPressedButtonDOFUpdate();
+	void slotPressedButtonGetJuliaConstant();
 	void slotPressedButtonGetPaletteFromImage();
 	void slotPressedButtonImageApply();
 	void slotPressedButtonNewRandomPalette();
