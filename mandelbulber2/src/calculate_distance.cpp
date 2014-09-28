@@ -38,7 +38,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 	}
 
 	int N = in.normalCalculationMode ? params.N * 5 : params.N;
-	sFractalIn fractIn(in.point, params.juliaC, params.minN, N, params.juliaMode);
+	sFractalIn fractIn(in.point, params.minN, N, params.common);
 	sFractalOut fractOut;
 
 	if(!params.primitives.plane.onlyPlane)

@@ -22,8 +22,8 @@ cParamRender::cParamRender(const cParameterContainer *container)
 	imageHeight = container->Get<int>("image_height");
 	imageWidth = container->Get<int>("image_width");
 	iterThreshMode = container->Get<bool>("iteration_threshold_mode");
-	juliaC = container->Get<CVector3>("julia_c");
-	juliaMode = container->Get<bool>("julia_mode");
+	common.juliaC = container->Get<CVector3>("julia_c");
+	common.juliaMode = container->Get<bool>("julia_mode");
 	hybridFractalEnable = container->Get<bool>("hybrid_fractal_enable");
 	limitMax = container->Get<CVector3>("limit_max");
 	limitMin = container->Get<CVector3>("limit_min");
@@ -126,9 +126,9 @@ cParamRender::cParamRender(const cParameterContainer *container)
 	fakeLightsIntensity = container->Get<double>("fake_lights_intensity");
 	fakeLightsVisibility = container->Get<double>("fake_lights_visibility");
 	fakeLightsVisibilitySize = container->Get<double>("fake_lights_visibility_size");
-	fakeLightsOrbitTrap = container->Get<CVector3>("fake_lights_orbit_trap");
-	fakeLightsMinIter = container->Get<double>("fake_lights_min_iter");
-	fakeLightsMaxIter = container->Get<double>("fake_lights_max_iter");
+	common.fakeLightsOrbitTrap = container->Get<CVector3>("fake_lights_orbit_trap");
+	common.fakeLightsMinIter = container->Get<double>("fake_lights_min_iter");
+	common.fakeLightsMaxIter = container->Get<double>("fake_lights_max_iter");
 
 	frameNo = container->Get<int>("frame_no");
 

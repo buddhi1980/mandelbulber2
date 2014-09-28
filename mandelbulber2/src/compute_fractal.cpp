@@ -35,6 +35,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	CVector3 c = z;
 	double minimumR = 1e20;
 	double w = 0.0;
+	double orbitTrapTotal = 0.0;
 
 	out->maxiter = true;
 
@@ -175,9 +176,9 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			}
 			default:
 			{
-				if(in.juliaMode)
+				if(in.common.juliaMode)
 				{
-					z += in.c;
+					z += in.common.juliaC;
 				}
 				else
 				{
@@ -217,6 +218,17 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			if (r < minimumR) minimumR = r;
 			if (r > 1e15)
 				break;
+		}
+		else if (Mode == orbitTrap)
+		{
+			CVector3 delta = z - in.common.fakeLightsOrbitTrap;
+			double distance = delta.Length();
+			if (i >= in.common.fakeLightsMinIter && i <= in.common.fakeLightsMaxIter) orbitTrapTotal += (1.0f / (distance * distance));
+			if (distance > 1000)
+			{
+				out->orbitTrapR = orbitTrapTotal;
+				break;
+			}
 		}
 	}
 
@@ -277,7 +289,7 @@ template void Compute<normal>(const cFourFractals &four, const sFractalIn &in, s
 template void Compute<deltaDE1>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
 template void Compute<deltaDE2>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
 template void Compute<colouring>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
-
+template void Compute<orbitTrap>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
 
 //========================= OLD ========================
 

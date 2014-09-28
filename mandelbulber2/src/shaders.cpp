@@ -316,15 +316,17 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		//fake lights (orbit trap)
 		if(params->fakeLightsEnabled)
 		{
-			/*
-			double r = Compute<orbitTrap>(point, *input.calcParam);
+			sFractalIn fractIn(point, params->minN, params->N, params->common);
+			sFractalOut fractOut;
+			Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
+			double r = fractOut.orbitTrapR;
 			r = sqrt(1.0f/(r + 1.0e-30f));
 			double fakeLight = 1.0 / (pow(r, 10.0 / params->fakeLightsVisibilitySize) * pow(10.0, 10.0 / params->fakeLightsVisibilitySize) + 1e-100);
 			output.R += fakeLight * step * params->fakeLightsVisibility;
 			output.G += fakeLight * step * params->fakeLightsVisibility;
 			output.B += fakeLight * step * params->fakeLightsVisibility;
-			output.alpha += fakeLight * step * params->fakeLightsVisibility;
-			*/
+			output.A += fakeLight * step * params->fakeLightsVisibility;
+
 		}
 
 		//---------------------- volumetric lights with shadows in fog
@@ -836,7 +838,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 			sRGB colour (256, 256, 256);
 			if (params->coloringEnabled)
 			{
-				sFractalIn fractIn(input.point, params->juliaC, 0, params->N * 10, params->juliaMode);
+				sFractalIn fractIn(input.point, 0, params->N * 10, params->common);
 				sFractalOut fractOut;
 				Compute<fractal::colouring>(*fractal, fractIn, &fractOut);
 				int nrCol = floor(fractOut.colorIndex);
@@ -1064,18 +1066,32 @@ double cRenderWorker::IterOpacity(const double step, double iters, double maxN, 
 sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *fakeSpec)
 {
 	sRGBAfloat fakeLights;
-	/*
+
 	double delta = input.distThresh * params->smoothness;
-	double rr = Compute<orbitTrap>(input.point, *input.calcParam);
+
+	sFractalIn fractIn(input.point, params->minN, params->N, params->common);
+	sFractalOut fractOut;
+	Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
+	double rr = fractOut.orbitTrapR;
+
 	double fakeLight = params->fakeLightsIntensity/rr;
 	double r = 1.0/(rr + 1e-30);
 
 	CVector3 deltax(delta, 0.0, 0.0);
-	double rx = 1.0/(Compute<orbitTrap>(input.point + deltax, *input.calcParam) + 1e-30);
 	CVector3 deltay(0.0, delta, 0.0);
-	double ry = 1.0/(Compute<orbitTrap>(input.point + deltay, *input.calcParam) + 1e-30);
 	CVector3 deltaz(0.0, 0.0, delta);
-	double rz = 1.0/(Compute<orbitTrap>(input.point + deltaz, *input.calcParam) + 1e-30);
+
+	fractIn.point = input.point + deltax;
+	Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
+	double rx = 1.0/(fractOut.orbitTrapR + 1e-30);
+
+	fractIn.point = input.point + deltay;
+	Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
+	double ry = 1.0/(fractOut.orbitTrapR + 1e-30);
+
+	fractIn.point = input.point + deltaz;
+	Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
+	double rz = 1.0/(fractOut.orbitTrapR + 1e-30);
 
 	CVector3 fakeLightNormal;
 	fakeLightNormal.x = r - rx;
@@ -1106,7 +1122,6 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	fakeSpec->R = fakeSpecular;
 	fakeSpec->G = fakeSpecular;
 	fakeSpec->B = fakeSpecular;
-*/
 
 	*fakeSpec = sRGBAfloat();
 	return fakeLights;
