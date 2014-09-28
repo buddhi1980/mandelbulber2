@@ -1446,11 +1446,11 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 
-	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode)gPar->Get<int>("camera_absolute_distance_mode");
-	enumCameraMovementMode movementMode = (enumCameraMovementMode)gPar->Get<int>("camera_movement_mode");
-	params::enumPerspectiveType perspType = (params::enumPerspectiveType)gPar->Get<int>("perspective_type");
-	cCameraTarget::enumRotationMode rollMode = 	(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
-	double movementStep =  gPar->Get<double>("camera_movement_step");
+	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode) gPar->Get<int>("camera_absolute_distance_mode");
+	enumCameraMovementMode movementMode = (enumCameraMovementMode) gPar->Get<int>("camera_movement_mode");
+	params::enumPerspectiveType perspType = (params::enumPerspectiveType) gPar->Get<int>("perspective_type");
+	cCameraTarget::enumRotationMode rollMode = (cCameraTarget::enumRotationMode) gPar->Get<int>("camera_straight_rotation");
+	double movementStep = gPar->Get<double>("camera_movement_step");
 	double fov = gPar->Get<double>("fov");
 
 	CVector2<double> imagePoint;
@@ -1459,132 +1459,131 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 	int width = mainImage->GetWidth();
 	int height = mainImage->GetHeight();
 
-	if(imagePoint.x >= 0 && imagePoint.x < mainImage->GetWidth() && imagePoint.y >= 0 && imagePoint.y < mainImage->GetHeight())
+	if (imagePoint.x >= 0 && imagePoint.x < mainImage->GetWidth() && imagePoint.y >= 0 && imagePoint.y < mainImage->GetHeight())
 	{
 		double depth = mainImage->GetPixelZBuffer(imagePoint.x, imagePoint.y);
-
-		CVector3 viewVector;
-		double aspectRatio = (double) width / height;
-
-		CVector3 angles = cameraTarget.GetRotation();
-		CRotationMatrix mRot;
-		mRot.SetRotation(angles);
-
-		CVector2<double> normalizedPoint;
-		normalizedPoint.x = ((double) imagePoint.x / width - 0.5) * aspectRatio;
-		normalizedPoint.y = ((double) imagePoint.y / height - 0.5) * (-1.0);
-
-		viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
-
-		CVector3 point = camera + viewVector * depth;
-
-		switch(clickMode)
+		if (depth < 1e10)
 		{
-			case RenderedImage::clickMoveCamera:
+			CVector3 viewVector;
+			double aspectRatio = (double) width / height;
+
+			CVector3 angles = cameraTarget.GetRotation();
+			CRotationMatrix mRot;
+			mRot.SetRotation(angles);
+
+			CVector2<double> normalizedPoint;
+			normalizedPoint.x = ((double) imagePoint.x / width - 0.5) * aspectRatio;
+			normalizedPoint.y = ((double) imagePoint.y / height - 0.5) * (-1.0);
+
+			viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
+
+			CVector3 point = camera + viewVector * depth;
+
+			switch (clickMode)
 			{
-				double distance = (camera - point).Length();
-				double moveDistance = (stepMode == absolute) ? movementStep : distance * movementStep;
-				if(stepMode == relative)
+				case RenderedImage::clickMoveCamera:
 				{
-					if(moveDistance > depth * 0.99) moveDistance = depth * 0.99;
-				}
+					double distance = (camera - point).Length();
+					double moveDistance = (stepMode == absolute) ? movementStep : distance * movementStep;
+					if (stepMode == relative)
+					{
+						if (moveDistance > depth * 0.99) moveDistance = depth * 0.99;
+					}
 
-				if(button == Qt::RightButton)
+					if (button == Qt::RightButton)
+					{
+						moveDistance *= -1.0;
+					}
+
+					switch (movementMode)
+					{
+						case moveTarget:
+							target = point;
+							break;
+
+						case moveCamera:
+							camera += viewVector * moveDistance;
+							break;
+
+						case fixedDistance:
+							camera += viewVector * moveDistance;
+							target = point;
+							break;
+					}
+
+					//recalculation of camera-target
+					if (movementMode == moveCamera) cameraTarget.SetCamera(camera, rollMode);
+					else if (movementMode == moveTarget) cameraTarget.SetTarget(target, rollMode);
+					else if (movementMode == fixedDistance) cameraTarget.SetCameraTargetTop(camera, target, topVector);
+
+					if (rollMode == cCameraTarget::constantRoll)
+					{
+						cameraTarget.SetCameraTargetRotation(camera, target, angles.z);
+					}
+
+					gPar->Set("camera", camera);
+					gPar->Set("target", target);
+
+					topVector = cameraTarget.GetTopVector();
+					gPar->Set("camera_top", topVector);
+					CVector3 rotation = cameraTarget.GetRotation();
+					gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+					double dist = cameraTarget.GetDistance();
+					gPar->Set("camera_distance_to_target", dist);
+
+					SynchronizeInterface(gPar, gParFractal, cInterface::write);
+					gUndo.Store(gPar, gParFractal);
+					renderedImage->setNewZ(depth - moveDistance);
+
+					StartRender();
+
+					break;
+				}
+				case RenderedImage::clickFogVisibility:
 				{
-					moveDistance *= -1.0;
+					double fogDepth = depth;
+					gPar->Set("basic_fog_visibility", fogDepth);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_basic_fog_enabled, gPar, cInterface::write);
+					gUndo.Store(gPar, gParFractal);
+					StartRender();
+					break;
 				}
-
-				switch (movementMode)
+				case RenderedImage::clickDOFFocus:
 				{
-					case moveTarget:
-						target = point;
-						break;
-
-					case moveCamera:
-						camera += viewVector * moveDistance;
-						break;
-
-					case fixedDistance:
-						camera += viewVector * moveDistance;
-						target = point;
-						break;
+					double DOF = depth;
+					gPar->Set("DOF_focus", DOF);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_DOF_enabled, gPar, cInterface::write);
+					gUndo.Store(gPar, gParFractal);
+					RefreshMainImage();
+					break;
 				}
-
-				//recalculation of camera-target
-				if(movementMode == moveCamera)
-					cameraTarget.SetCamera(camera, rollMode);
-				else if(movementMode == moveTarget)
-					cameraTarget.SetTarget(target, rollMode);
-				else if (movementMode == fixedDistance)
-					cameraTarget.SetCameraTargetTop(camera, target, topVector);
-
-				if(rollMode == cCameraTarget::constantRoll)
+				case RenderedImage::clickPlaceLight1:
+				case RenderedImage::clickPlaceLight2:
+				case RenderedImage::clickPlaceLight3:
+				case RenderedImage::clickPlaceLight4:
 				{
-					cameraTarget.SetCameraTargetRotation(camera, target, angles.z);
+					double frontDist = gPar->Get<double>("aux_light_manual_placement_dist");
+					CVector3 pointCorrected = point - viewVector * frontDist;
+					double estDistance = GetDistanceForPoint(pointCorrected, gPar, gParFractal);
+					double intensity = estDistance * estDistance;
+					int lightNumber = 0;
+					if (clickMode == RenderedImage::clickPlaceLight1) lightNumber = 1;
+					if (clickMode == RenderedImage::clickPlaceLight2) lightNumber = 2;
+					if (clickMode == RenderedImage::clickPlaceLight3) lightNumber = 3;
+					if (clickMode == RenderedImage::clickPlaceLight4) lightNumber = 4;
+					gPar->Set("aux_light_predefined_position", lightNumber, pointCorrected);
+					gPar->Set("aux_light_predefined_intensity", lightNumber, intensity);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, cInterface::write);
+					gUndo.Store(gPar, gParFractal);
+					StartRender();
+					break;
 				}
-
-				gPar->Set("camera", camera);
-				gPar->Set("target", target);
-
-				topVector = cameraTarget.GetTopVector();
-				gPar->Set("camera_top", topVector);
-				CVector3 rotation = cameraTarget.GetRotation();
-				gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
-				double dist = cameraTarget.GetDistance();
-				gPar->Set("camera_distance_to_target", dist);
-
-				SynchronizeInterface(gPar, gParFractal, cInterface::write);
-				gUndo.Store(gPar, gParFractal);
-				renderedImage->setNewZ(depth - moveDistance);
-
-				StartRender();
-
-				break;
-			}
-			case RenderedImage::clickFogVisibility:
-			{
-				double fogDepth = depth;
-				gPar->Set("basic_fog_visibility", fogDepth);
-				SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_basic_fog_enabled, gPar, cInterface::write);
-				gUndo.Store(gPar, gParFractal);
-				StartRender();
-				break;
-			}
-			case RenderedImage::clickDOFFocus:
-			{
-				double DOF = depth;
-				gPar->Set("DOF_focus", DOF);
-				SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_DOF_enabled, gPar, cInterface::write);
-				gUndo.Store(gPar, gParFractal);
-				RefreshMainImage();
-				break;
-			}
-			case RenderedImage::clickPlaceLight1:
-			case RenderedImage::clickPlaceLight2:
-			case RenderedImage::clickPlaceLight3:
-			case RenderedImage::clickPlaceLight4:
-			{
-				double frontDist = gPar->Get<double>("aux_light_manual_placement_dist");
-				CVector3 pointCorrected = point - viewVector * frontDist;
-				double estDistance = GetDistanceForPoint(pointCorrected, gPar, gParFractal);
-				double intensity = estDistance * estDistance;
-				int lightNumber = 0;
-				if(clickMode == RenderedImage::clickPlaceLight1) lightNumber = 1;
-				if(clickMode == RenderedImage::clickPlaceLight2) lightNumber = 2;
-				if(clickMode == RenderedImage::clickPlaceLight3) lightNumber = 3;
-				if(clickMode == RenderedImage::clickPlaceLight4) lightNumber = 4;
-				gPar->Set("aux_light_predefined_position", lightNumber, pointCorrected);
-				gPar->Set("aux_light_predefined_intensity", lightNumber, intensity);
-				SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, cInterface::write);
-				gUndo.Store(gPar, gParFractal);
-				StartRender();
-				break;
-			}
-			case RenderedImage::clickGetJuliaConstant:
-			{
-				gPar->Set("julia_c", point);
-				SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_julia_mode, gPar, cInterface::write);
-				break;
+				case RenderedImage::clickGetJuliaConstant:
+				{
+					gPar->Set("julia_c", point);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_julia_mode, gPar, cInterface::write);
+					break;
+				}
 			}
 		}
 	}
