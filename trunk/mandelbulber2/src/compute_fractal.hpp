@@ -11,16 +11,16 @@
 #include "algebra.hpp"
 #include "primitives.h"
 #include "four_fractals.hpp"
+#include "commonparams.hpp"
 
 struct sFractalIn
 {
 	CVector3 point;
-	CVector3 c;
 	int minN;
 	int maxN;
-	bool juliaMode;
-	sFractalIn(CVector3 _point, CVector3 _c, int _minN, int _maxN, bool _julia)
-		: point(_point), c(_c), minN(_minN), maxN(_maxN), juliaMode(_julia) {};
+	sCommonParams common;
+	sFractalIn(CVector3 _point, int _minN, int _maxN, sCommonParams _common)
+		: point(_point), minN(_minN), maxN(_maxN), common(_common) {};
 };
 
 struct sFractalOut
@@ -29,6 +29,7 @@ struct sFractalOut
 	double distance;
 	double colorIndex;
 	double fakeAO;
+	double orbitTrapR;
 	int iters;
 	bool maxiter;
 };

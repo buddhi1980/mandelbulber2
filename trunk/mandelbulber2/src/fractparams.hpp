@@ -17,6 +17,7 @@
 #include "algebra.hpp"
 #include "primitives.h"
 #include "parameters.hpp"
+#include "commonparams.hpp"
 
 namespace params
 {
@@ -51,8 +52,6 @@ public:
 	int auxLightNumber;
 	int auxLightRandomSeed;
 	int coloring_seed; //colouring random seed
-	int fakeLightsMaxIter;
-	int fakeLightsMinIter;
 	int frameNo;
 	int imageHeight; //image height
 	int imageWidth; //image width
@@ -84,7 +83,6 @@ public:
 	bool interiorMode;
 	bool iterFogEnabled;
 	bool iterThreshMode;	 //maxiter threshold mode
-	bool juliaMode;
 	bool limitsEnabled; // enable limits (intersections)
 	bool linearDEmode;
 	bool mainLightEnable;
@@ -125,6 +123,7 @@ public:
 	double auxLightPreIntensity[4];
 	double auxLightVisibility;
 	double auxLightVisibilitySize;
+	double cameraDistanceToTarget; //zoom
   double coloring_speed;
 	double colourSaturation;
 	double constantFactor;
@@ -136,17 +135,13 @@ public:
 	double fakeLightsIntensity;
 	double fakeLightsVisibility;
 	double fakeLightsVisibilitySize;
-	double volFogColour1Distance;
-	double volFogColour2Distance;
-	double volFogDensity;
-	double volFogDistanceFactor;
   double fogVisibility;
 	double fov; //perspective factor
   double glowIntensity;
-	double iterFogOpacity;
-	double iterFogOpacityTrim;
 	double iterFogColor1Maxiter;
 	double iterFogColor2Maxiter;
+	double iterFogOpacity;
+	double iterFogOpacityTrim;
 	double mainLightAlpha;
 	double mainLightBeta;
   double mainLightIntensity;
@@ -161,15 +156,16 @@ public:
   double specular;
 	double viewDistanceMax;
 	double viewDistanceMin;
+	double volFogColour1Distance;
+	double volFogColour2Distance;
+	double volFogDensity;
+	double volFogDistanceFactor;
 	double volumetricLightIntensity[5];
-	double cameraDistanceToTarget; //zoom
 
 	sImageAdjustments imageAdjustments;
 
 	CVector3 auxLightPre[4];
 	CVector3 auxLightRandomCenter;
-	CVector3 fakeLightsOrbitTrap;
-	CVector3 juliaC; // Julia constant
 	CVector3 limitMin;
 	CVector3 limitMax;
 	CVector3 target;
@@ -178,6 +174,8 @@ public:
 	CVector3 topVector;
 
 	sPrimitives primitives;
+
+	sCommonParams common;
 };
 
 struct sTextures
