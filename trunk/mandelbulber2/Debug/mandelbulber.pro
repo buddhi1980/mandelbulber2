@@ -48,7 +48,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/ssao_worker.cpp\
             ../src/texture.cpp\
             ../src/thumbnail.cpp\
-            ../src/undo.cpp
+            ../src/undo.cpp\
             ../qt/mygroupbox.cpp\
             ../qt/mylineedit.cpp\
             ../qt/myspinbox.cpp\
@@ -81,7 +81,6 @@ QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_LFLAGS_RELEASE -= -O1
 
 QMAKE_CXXFLAGS += -msse2 -ffast-math
-
 
 LIBS += -lpng
 win32:LIBS += -lz
