@@ -494,7 +494,7 @@ void RenderWindow::slotMenuLoadSettings()
 {
 	cSettings parSettings(cSettings::formatFullText);
 
-	QFileDialog dialog(this);
+	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());

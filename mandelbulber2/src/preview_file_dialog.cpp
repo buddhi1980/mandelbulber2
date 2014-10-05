@@ -7,6 +7,10 @@
 
 #include "preview_file_dialog.h"
 #include <QGridLayout>
+#include "parameters.hpp"
+#include "thumbnail.hpp"
+#include "settings.hpp"
+#include "initparameters.hpp"
 
 PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 {
@@ -33,7 +37,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	QGridLayout *gridlayout = (QGridLayout*)this->layout();
 	gridlayout->addLayout(vboxlayout, 1, 3, 3, 1);
 
-	connect(this, SIGNAL(currentChanged(const QString&)), this, SLOT(OnCurredbtChanged(const QString&)));
+	connect(this, SIGNAL(currentChanged(const QString&)), this, SLOT(OnCurrentChanged(const QString&)));
 
 }
 
@@ -44,20 +48,39 @@ PreviewFileDialog::~PreviewFileDialog()
 	delete info;
 }
 
-void PreviewFileDialog::OnCurredbtChanged(const QString & filename)
+void PreviewFileDialog::OnCurrentChanged(const QString & filename)
 {
 	QPixmap pixmap;
-	pixmap.load(filename);
-	if(pixmap.isNull() || !checkbox->isChecked())
+	if (QFileInfo(filename).suffix() == QString("fract"))
 	{
-		preview->setText(" ");
-		info->setText(" ");
+		cSettings parSettings(cSettings::formatFullText);
+		if (parSettings.LoadFromFile(filename))
+		{
+			cParameterContainer *par = new cParameterContainer;
+			cParameterContainer *parFractal = new cParameterContainer[4];
+			InitParams(par);
+			for(int i=0; i<4; i++)
+				InitFractalParams(&parFractal[i]);
+			parSettings.Decode(par, parFractal);
+			cThumbnail thumbnail(par, parFractal, 200, 200, parSettings.GetHashCode());
+			pixmap = thumbnail.Render();
+			preview->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+		}
 	}
 	else
 	{
-		preview->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-		QString text = QString::number(pixmap.width()) + QString(" x ") + QString::number(pixmap.height());
-		info->setText(text);
+		pixmap.load(filename);
+		if(pixmap.isNull() || !checkbox->isChecked())
+		{
+			preview->setText(" ");
+			info->setText(" ");
+		}
+		else
+		{
+			preview->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+			QString text = QString::number(pixmap.width()) + QString(" x ") + QString::number(pixmap.height());
+			info->setText(text);
+		}
 	}
 }
 

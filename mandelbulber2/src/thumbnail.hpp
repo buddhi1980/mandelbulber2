@@ -14,10 +14,10 @@
 class cThumbnail
 {
 public:
-	cThumbnail(const cParameterContainer *_params, const cParameterContainer *_fractal, int _width, int _height);
+	cThumbnail(const cParameterContainer *_params, const cParameterContainer *_fractal, int _width, int _height, const QString &_hash);
 	~cThumbnail();
 	void AssignWidget(QWidget *widget) {qwidget = widget;}
-	void Render();
+	QPixmap Render();
 	void Save(QString filename);
 
 private:
@@ -27,6 +27,7 @@ private:
 	QWidget *qwidget;
 	const int width;
 	const int height;
+	QString hash;
 };
 
 #endif /* THUMBNAIL_HPP_ */
