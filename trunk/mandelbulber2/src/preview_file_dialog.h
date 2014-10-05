@@ -20,7 +20,7 @@ public:
 	PreviewFileDialog(QWidget *parent);
 	~PreviewFileDialog();
 protected slots:
-	void OnCurredbtChanged(const QString & filename);
+	void OnCurrentChanged(const QString & filename);
 
 private:
 	QVBoxLayout* vboxlayout;

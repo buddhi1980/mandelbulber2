@@ -28,6 +28,7 @@ public:
 	bool LoadFromFile(QString filename);
 	bool Decode(cParameterContainer *par, cParameterContainer *fractPar);
 	QString GetHashCode() {return hash.toHex();}
+	void BeQuiet(bool _quiet) {quiet = _quiet;}
 
 private:
 	QString CreateHeader(void);
@@ -40,6 +41,7 @@ private:
 	QString settingsText;
 
 	bool textPrepared;
+	bool quiet;
 	double appVersion;
 	double fileVersion;
 	QByteArray hash;

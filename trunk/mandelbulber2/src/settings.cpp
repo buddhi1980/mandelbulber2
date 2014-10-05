@@ -48,6 +48,8 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cParameterCon
 	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
 	hashCrypt.addData(settingsText.toUtf8());
 	hash = hashCrypt.result();
+	//qDebug() << "hash code" << hash.toHex();
+
 	return settingsText.size();
 }
 
@@ -129,11 +131,21 @@ bool cSettings::LoadFromFile(QString filename)
 		settingsText.append(instream.readAll());
 		qfile.close();
 		textPrepared = true;
+
+		//hash code will be needed for generating thumbnails
+		QCryptographicHash hashCrypt(QCryptographicHash::Md4);
+		hashCrypt.addData(settingsText.toUtf8());
+		hash = hashCrypt.result();
+		//qDebug() << "hash code" << hash.toHex();
+
 		return true;
 	}
 	else
 	{
-		cErrorMessage::showMessage(QString("Settings file not loaded!\n") + filename + "\n" + qfile.errorString(), cErrorMessage::errorMessage);
+		if(!quiet)
+		{
+			cErrorMessage::showMessage(QString("Settings file not loaded!\n") + filename + "\n" + qfile.errorString(), cErrorMessage::errorMessage);
+		}
 		return false;
 	}
 }
