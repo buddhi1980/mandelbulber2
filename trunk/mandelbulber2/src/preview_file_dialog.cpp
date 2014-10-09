@@ -54,6 +54,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString & filename)
 	if (QFileInfo(filename).suffix() == QString("fract"))
 	{
 		cSettings parSettings(cSettings::formatFullText);
+		parSettings.BeQuiet(true);
 		if (parSettings.LoadFromFile(filename))
 		{
 			cParameterContainer *par = new cParameterContainer;

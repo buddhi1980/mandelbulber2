@@ -95,6 +95,8 @@ private slots:
 	void slotMenuAboutMandelbulber();
 	void slotMenuAboutQt();
 	void slotMenuLoadSettings();
+	void slotMenuRedo();
+	void slotMenuResetDocksPositions();
 	void slotMenuSaveDocksPositions();
 	void slotMenuSaveImageJPEG();
 	void slotMenuSaveImagePNG16();
@@ -102,7 +104,6 @@ private slots:
 	void slotMenuSaveImagePNG8();
 	void slotMenuSaveSettings();
 	void slotMenuUndo();
-	void slotMenuRedo();
 
 	//textures
 	void slotPressedButtonSelectBackgroundTexture();
@@ -130,6 +131,8 @@ private:
 	QWidget **fractalWidgets;
 	friend class cInterface;
 	QSettings settings;
+	QByteArray defaultGeometry;
+	QByteArray defaultState;
 
 	enum enumImageProporton
 	{
