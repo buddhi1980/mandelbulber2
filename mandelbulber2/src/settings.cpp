@@ -274,6 +274,19 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1);
 
 	cParameterContainer::enumVarType varType = par->GetVarType(parameterName);
+
+	if (varType != cParameterContainer::typeString)
+	{
+		if (systemData.decimalPoint == '.')
+		{
+			value = value.replace(',', '.');
+		}
+		else
+		{
+			value = value.replace('.', ',');
+		}
+	}
+
 	if(varType == cParameterContainer::null)
 	{
 		return false;

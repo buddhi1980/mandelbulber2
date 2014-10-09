@@ -22,13 +22,14 @@ sActualFileNames actualFileNames;
 
 bool InitSystem(void)
 {
-	QTextStream out(stdout);
 	setlocale(LC_ALL, "");
+
+	QTextStream out(stdout);
 
 	systemData.homedir = QDir::homePath() + QDir::separator();
 
 #ifdef WIN32 /* WINDOWS */
-    systemData.sharedDir = (QDir::currentPath() + QDir::separator());
+  systemData.sharedDir = (QDir::currentPath() + QDir::separator());
 #else
 	systemData.sharedDir = QString(SHARED_DIR) + QDir::separator();
 #endif  /* WINDOWS */
@@ -62,10 +63,11 @@ bool InitSystem(void)
 	systemData.dataDirectory = systemData.homedir  + "mandelbulber" + QDir::separator();
 #else
 	systemData.dataDirectory = systemData.homedir  + ".mandelbulber" + QDir::separator();
-	systemData.thumbnailDir = systemData.dataDirectory + QDir::separator() + "thumbnails" + QDir::separator();
 #endif
 	out << "Default data directory: " << systemData.dataDirectory << endl;
 	WriteLogString("Default data directory", systemData.dataDirectory);
+
+	systemData.thumbnailDir = systemData.dataDirectory + QDir::separator() + "thumbnails" + QDir::separator();
 
 	//*********** temporary set to false ************
 	systemData.noGui = false;
@@ -73,6 +75,10 @@ bool InitSystem(void)
 	systemData.lastSettingsFile = systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator() + QString("settings.fract");
 	systemData.lastImageFile = systemData.dataDirectory + QDir::separator() + "images" + QDir::separator() + QString("image.jpg");
 	systemData.lastImagePaletteFile = systemData.sharedDir + QDir::separator() + "textures" + QDir::separator() + QString("colour palette.jpg");
+
+	QLocale systemLocale = QLocale::system();
+	systemData.decimalPoint = systemLocale.decimalPoint();
+	WriteLogString("Decimal point", QString(systemData.decimalPoint));
 
 	return true;
 }
@@ -109,12 +115,12 @@ bool CreateDefaultFolders(void)
 		bool result = true;
 
 		result &= CreateDirectory(systemData.dataDirectory);
-		result &= CreateDirectory(systemData.dataDirectory + "/images");
-		result &= CreateDirectory(systemData.dataDirectory + "/keyframes");
-		result &= CreateDirectory(systemData.dataDirectory + "/paths");
-		result &= CreateDirectory(systemData.dataDirectory + "/undo");
-		result &= CreateDirectory(systemData.dataDirectory + "/paths");
-		result &= CreateDirectory(systemData.dataDirectory + "/thumbnails");
+		result &= CreateDirectory(systemData.dataDirectory + "images");
+		result &= CreateDirectory(systemData.dataDirectory + "keyframes");
+		result &= CreateDirectory(systemData.dataDirectory + "paths");
+		result &= CreateDirectory(systemData.dataDirectory + "undo");
+		result &= CreateDirectory(systemData.dataDirectory + "paths");
+		result &= CreateDirectory(systemData.dataDirectory + "thumbnails");
 
 #ifdef CLSUPPORT
 		string oclDir = systemData.dataDirectory + "/custom_ocl_formulas";
@@ -134,9 +140,9 @@ bool CreateDefaultFolders(void)
 		}
 #endif
 
-		actualFileNames.actualFilenameSettings = "settings/default.fract";
-		actualFileNames.actualFilenameImage = "images/image.jpg";
-		actualFileNames.actualFilenamePalette = systemData.sharedDir +"textures/colour palette.jpg";
+		actualFileNames.actualFilenameSettings = QString("settings") + QDir::separator() + "default.fract";
+		actualFileNames.actualFilenameImage = QString("images") + QDir::separator() + "image.jpg";
+		actualFileNames.actualFilenamePalette = systemData.sharedDir + "textures" + QDir::separator() + "colour palette.jpg";
 
 		return result;
 }
