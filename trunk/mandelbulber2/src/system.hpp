@@ -39,6 +39,7 @@ struct sSystem
 	QString thumbnailDir;
 	unsigned int numberOfThreads;
 	bool noGui;
+	QChar decimalPoint;
 };
 
 struct sActualFileNames
