@@ -1585,6 +1585,9 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_julia_mode, gPar, cInterface::write);
 					break;
 				}
+				case RenderedImage::clickDoNothing:
+					//nothing
+					break;
 			}
 		}
 	}

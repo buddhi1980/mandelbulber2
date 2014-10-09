@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if [ -f makefiles/mandelbulber2 ] ; then
+  sudo install makefiles/mandelbulber2 /usr/bin
+elif [ -f usr/bin/mandelbulber2 ] ; then
+  sudo install usr/bin/mandelbulber2 /usr/bin
+else
+  echo Executable file not found. Program not compilled.
+  echo To compile the program you need Qt development packages installed in your system
+  echo Do you want to compile program now? [y/n]
+  read answer
+  if [ "$answer" = "y" ] ; then
+    cd makefiles/
+	qmake mandelbulber.pro
+	make all
+	make clean
+	cd ..
+	mv makefiles/mandelbulber2 usr/bin/mandelbulber2
+  fi
+fi
+
+if [ -f usr/bin/mandelbulber2 ] ; then
+	echo The program will be installed. There could be needed superuser password
+
+	echo Installing program file
+	sudo install usr/bin/mandelbulber2 /usr/bin
+
+	echo Copying files
+	sudo cp -ra usr/share/ /usr/
+
+	echo Installing menu shortcut
+	sudo desktop-file-install mandelbulber2.desktop
+
+	echo Installation finished 
+	echo To run application please type \"mandelbulber2\" or select from system menu
+else
+	echo Executable file does not exist. Probably the program was not compiled properly.
+fi

@@ -1948,7 +1948,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>430</width>
-          <height>273</height>
+          <height>270</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1973,7 +1973,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -2668,7 +2668,7 @@ to target:</string>
                   <x>0</x>
                   <y>0</y>
                   <width>380</width>
-                  <height>245</height>
+                  <height>242</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2878,7 +2878,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
+                  <width>288</width>
                   <height>695</height>
                  </rect>
                 </property>
@@ -3415,7 +3415,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
+                  <width>301</width>
                   <height>282</height>
                  </rect>
                 </property>
@@ -3582,7 +3582,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
+                  <width>326</width>
                   <height>1648</height>
                  </rect>
                 </property>
@@ -5030,7 +5030,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>

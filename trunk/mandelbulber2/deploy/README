@@ -1,0 +1,51 @@
+MANDELBULBER 2.01
+
+project leader: Krzysztof Marczak
+project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
+
+contact: buddhi1980@gmail.com
+www: http://www.mandelbulber.com
+download site: http://sourceforge.net/projects/mandelbulber/
+SVN: http://code.google.com/p/mandelbulber/
+
+LICENCE: GNU GPL v3.0
+
+1. REQUIREMENTS
+
+- Linux OS with installed Qt 5 libraries (version >5.3) and libjpeg
+- very fast CPU (recomended 2GHz, 4 cores)
+- 2GB RAM
+
+2. COMPILING
+
+packages needed to run: libqt5gui5
+packages nneded to compile: qt5-default, libjpeg8
+
+On Ubuntu or Debian:
+sudo apt-get install libqt5gui5, qt5-default, libjpeg8-dev
+
+Then:
+
+cd makefiles
+qmake mandelbulber.pro
+make all
+cd ..
+
+3. INSTALLATION
+
+please type:
+./install
+
+(instalation script will do compilation also)
+
+4. TESTED ON:
+
+- Debian Jessy x64
+- gcc 4.9
+- Qt 5.3.2
+
+5. USAGE
+
+Please visit: http://wiki.mandelbulber.com/index.php?title=Main_Page
+
+Actually there is only avaliable documentation for old Mandelbulber (v1)

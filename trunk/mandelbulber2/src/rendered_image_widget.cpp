@@ -178,8 +178,6 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		double boxHeight = 10.0 / sw * scale;
 		double boxDepth = 10.0 / sw * scale;
 
-		double boxWidth2 = boxWidth * z * fov;
-		double boxHeigth2 = boxHeight * z * fov;
 		double boxDepth2 = boxHeight * z * fov;
 
 		double n = 3.0;
@@ -302,16 +300,19 @@ void RenderedImage::mousePressEvent(QMouseEvent * event)
 
 void RenderedImage::mouseReleaseEvent(QMouseEvent * event)
 {
+	(void)event;
 }
 
 void RenderedImage::enterEvent(QEvent * event)
 {
+	(void)event;
 	setFocus();
 	isFocus = true;
 }
 
 void RenderedImage::leaveEvent(QEvent * event)
 {
+	(void)event;
 	isFocus = false;
 	update();
 }

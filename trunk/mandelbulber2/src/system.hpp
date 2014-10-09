@@ -8,8 +8,8 @@
 #ifndef SYSTEM_HPP_
 #define SYSTEM_HPP_
 
-#define MANDELBULBER_VERSION 2.0
-#define MANDELBULBER_VERSION_STRING "2.0"
+#define MANDELBULBER_VERSION 2.01
+#define MANDELBULBER_VERSION_STRING "2.01"
 #define TO_STRING(a)	#a
 
 #ifdef WIN32 /* WINDOWS */
@@ -19,7 +19,7 @@
 
 #ifndef SHARED_DIR
 	#ifndef WIN32
-		#define SHARED_DIR "/usr/share/mandelbulber"
+		#define SHARED_DIR "/usr/share/mandelbulber2"
 	#endif
 #endif
 
