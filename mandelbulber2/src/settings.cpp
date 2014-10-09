@@ -17,6 +17,7 @@ cSettings::cSettings(enumFormat _format)
 	textPrepared = false;
 	appVersion = MANDELBULBER_VERSION;
 	fileVersion = 0;
+	quiet = false;
 }
 
 size_t cSettings::CreateText(const cParameterContainer *par, const cParameterContainer *fractPar)

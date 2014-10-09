@@ -37,6 +37,10 @@ RenderWindow::RenderWindow(QWidget *parent) :
 {
     ui->setupUi(this);
   	fractalWidgets = new QWidget*[4];
+
+  	//store defauly geometry and state
+  	defaultGeometry = saveGeometry();
+  	defaultState = saveState();
 }
 
 RenderWindow::~RenderWindow()
@@ -327,6 +331,12 @@ void RenderWindow::slotMenuSaveDocksPositions()
 	settings.setValue("mainWindowGeometry", saveGeometry());
 	settings.setValue("mainWindowState", saveState());
 	qDebug() << "settings saved";
+}
+
+void RenderWindow::slotMenuResetDocksPositions()
+{
+	restoreGeometry(defaultGeometry);
+	restoreState(defaultState);
 }
 
 void RenderWindow::slotChangedComboFractal(int index)
