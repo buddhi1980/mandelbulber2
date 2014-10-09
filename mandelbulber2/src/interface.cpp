@@ -75,7 +75,7 @@ void cInterface::ShowUi(void)
 	renderedImage->show();
 
 	//loading default ui for all fractal components
-	QString uiFilename = systemData.sharedDir + "qt" + QDir::separator() + "fractal_mandelbulb.ui";
+	QString uiFilename = systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_mandelbulb.ui";
 	InitializeFractalUi(uiFilename);
 
 	WriteLog("cInterface::ConnectSignals(void)");
