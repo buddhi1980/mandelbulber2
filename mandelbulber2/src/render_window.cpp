@@ -833,7 +833,7 @@ void RenderWindow::slotChangedComboImageProportion(int index)
 void RenderWindow::slotPressedResolutionPresset()
 {
 	int width = 0, height = 0;
-	enumImageProporton proportion;
+	enumImageProporton proportion = proportionFree;
 	QString buttonName = this->sender()->objectName();
 	if(buttonName == QString("pushButton_resolution_preset_480"))
 	{
@@ -941,6 +941,8 @@ void RenderWindow::slotPressedButtonAutoFog()
 
 void RenderWindow::slotMouseMovedOnImage(int x, int y)
 {
+	(void)x;
+	(void)y;
 	//qDebug() << "mouse move event";
 	//CVector2<int> point(x, y);
 }
@@ -962,6 +964,9 @@ void RenderWindow::slotMouceClickOnImage(int x, int y, Qt::MouseButton button)
 			mainInterface->SetByMouse(CVector2<double>(x, y), button, clickMode);
 			break;
 		}
+		case RenderedImage::clickDoNothing:
+			//nothing
+			break;
 	}
 
 }
@@ -1018,7 +1023,7 @@ void RenderWindow::slotKeyPressOnImage(Qt::Key key)
 
 void RenderWindow::slotKeyReleaseOnImage(Qt::Key key)
 {
-
+	(void)key;
 }
 
 void RenderWindow::slotMouseWheelRotatedonImage(int delta)

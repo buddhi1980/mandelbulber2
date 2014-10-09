@@ -70,6 +70,9 @@ QString cSettings::CreateHeader()
 		case formatCsv:
 			header += "# column separated format\n";
 			break;
+		case formatAppSettings:
+			//TODO cSettings::CreateHeader() for AppSettings
+			break;
 	}
 	return header;
 }
