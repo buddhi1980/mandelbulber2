@@ -347,7 +347,7 @@ void RenderWindow::slotChangedComboFractal(int index)
 	if(fractalList[index].internalID > 0)
 	{
 		QString formulaName = fractalList[index].internalNane;
-		QString uiFilename = systemData.sharedDir + "qt" + QDir::separator() + "fractal_" + formulaName + ".ui";
+		QString uiFilename = systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_" + formulaName + ".ui";
 
 		if(fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
 		fractalWidgets[fractalNumber] = NULL;
