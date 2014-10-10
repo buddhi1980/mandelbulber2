@@ -6,7 +6,7 @@ project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Eple
 contact: buddhi1980@gmail.com
 www: http://www.mandelbulber.com
 download site: http://sourceforge.net/projects/mandelbulber/
-SVN: http://code.google.com/p/mandelbulber/
+SVN: http://code.google.com/p/mandelbulber2/
 
 LICENCE: GNU GPL v3.0
 
