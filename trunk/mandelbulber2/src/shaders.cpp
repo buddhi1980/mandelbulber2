@@ -231,7 +231,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
   double glow = input.stepCount * params->glowIntensity / 512.0 * params->DEFactor;
   double glowN = 1.0 - glow;
   if (glowN < 0.0) glowN = 0.0;
-  double glowR = (params->glowColor1.R * glowN + params->glowColor1.R * glow) / 65536.0;
+  double glowR = (params->glowColor1.R * glowN + params->glowColor2.R * glow) / 65536.0;
   double glowG = (params->glowColor1.G * glowN + params->glowColor2.G * glow) / 65536.0;
   double glowB = (params->glowColor1.B * glowN + params->glowColor2.B * glow) / 65536.0;
 
