@@ -109,6 +109,7 @@ private slots:
 	//pull down menu
 	void slotMenuAboutMandelbulber();
 	void slotMenuAboutQt();
+	void slotImportOldSettings();
 	void slotMenuLoadSettings();
 	void slotMenuRedo();
 	void slotMenuResetDocksPositions();

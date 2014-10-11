@@ -197,7 +197,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				}
 				else
 				{
-					z += c;
+					z += c * in.common.constantMultiplier;
 				}
 				break;
 			}
