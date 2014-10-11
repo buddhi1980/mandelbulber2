@@ -121,17 +121,23 @@ cParamRender::cParamRender(const cParameterContainer *container)
 
 	for(int i = 0; i < 4; ++i)
 	{
-		auxLightPre[i] = container->Get<CVector3>("aux_light_predefined_position", i + 1);
-		auxLightPreIntensity[i] = container->Get<double>("aux_light_predefined_intensity", i + 1);
-		auxLightPreEnabled[i] = container->Get<bool>("aux_light_predefined_enabled", i + 1);
-		auxLightPreColour[i] = container->Get<sRGB>("aux_light_predefined_colour", i + 1);
+		auxLightPre[i] = container->Get<CVector3>("aux_light_position", i + 1);
+		auxLightPreIntensity[i] = container->Get<double>("aux_light_intensity", i + 1);
+		auxLightPreEnabled[i] = container->Get<bool>("aux_light_enabled", i + 1);
+		auxLightPreColour[i] = container->Get<sRGB>("aux_light_colour", i + 1);
 	}
 
-	for(int i = 0; i < 5; i++)
+	volumetricLightIntensity[0] = container->Get<double>("main_light_volumetric_intensity");
+	volumetricLightEnabled[0] = container->Get<double>("main_light_volumetric_enabled");
+	for(int i = 1; i <= 4; i++)
 	{
-		volumetricLightIntensity[i] = container->Get<double>("volumetric_light_intensity", i);
-		volumetricLightEnabled[i] = container->Get<double>("volumetric_light_enabled", i);
+		volumetricLightIntensity[i] = container->Get<double>("aux_light_volumetric_intensity", i);
+		volumetricLightEnabled[i] = container->Get<double>("aux_light_volumetric_enabled", i);
 	}
+
+	auxLightNumber = 0;
+	auxLightVisibility = container->Get<double>("aux_light_visibility");
+	auxLightVisibilitySize = container->Get<double>("aux_light_visibility_size");
 
 	fakeLightsEnabled = container->Get<double>("fake_lights_enabled");
 	fakeLightsIntensity = container->Get<double>("fake_lights_intensity");
@@ -183,13 +189,6 @@ cParamRender::cParamRender(const cParameterContainer *container)
 	primitives.water.animSpeed = container->Get<double>("primitive_water_anim_speed");
 	primitives.water.colour = container->Get<sRGB>("primitive_water_colour");
 	primitives.water.reflect = container->Get<double>("primitive_water_reflect");
-
-	auxLightDistributionRadius = container->Get<double>("aux_light_distribution_radius");
-	auxLightNumber = container->Get<int>("aux_light_number");
-	auxLightMaxDist = container->Get<double>("aux_light_max_dist");
-	auxLightVisibility = container->Get<double>("aux_light_visibility");
-	auxLightRandomSeed = container->Get<int>("aux_light_random_seed");
-	auxLightVisibilitySize = container->Get<double>("aux_light_visibility_size");
 
 	//formula = Get<int>("tile_number");
 }
