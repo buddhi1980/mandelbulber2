@@ -191,5 +191,7 @@ cParamRender::cParamRender(const cParameterContainer *container)
 	primitives.water.colour = container->Get<sRGB>("primitive_water_colour");
 	primitives.water.reflect = container->Get<double>("primitive_water_reflect");
 
+	legacyCoordinateSystem = container->Get<bool>("legacy_coordinate_system");
+
 	//formula = Get<int>("tile_number");
 }

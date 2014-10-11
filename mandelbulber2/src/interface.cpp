@@ -999,6 +999,9 @@ void cInterface::MoveCamera(QString buttonName)
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 
+	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
+	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
+
 	//get direction vector
 	CVector3 direction;
 	if(buttonName == "bu_move_left")
@@ -1006,9 +1009,9 @@ void cInterface::MoveCamera(QString buttonName)
 	else if(buttonName == "bu_move_right")
 		direction = cameraTarget.GetRightVector() * ( 1.0);
 	else if(buttonName == "bu_move_up")
-		direction = cameraTarget.GetTopVector() * ( 1.0);
+		direction = cameraTarget.GetTopVector() * ( 1.0) * reverse;
 	else if(buttonName == "bu_move_down")
-		direction = cameraTarget.GetTopVector() * (-1.0);
+		direction = cameraTarget.GetTopVector() * (-1.0) * reverse;
 	else if(buttonName == "bu_move_forward")
 		direction = cameraTarget.GetForwardVector() * (1.0);
 	else if(buttonName == "bu_move_backward")
@@ -1121,6 +1124,9 @@ void cInterface::RotateCamera(QString buttonName)
 	enumCameraRotationMode rotationMode = (enumCameraRotationMode)gPar->Get<int>("camera_rotation_mode");
 	cCameraTarget::enumRotationMode rollMode = 	(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
 
+	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
+	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
+
 	CVector3 rotationAxis;
 	if(rollMode == cCameraTarget::constantRoll)
 	{
@@ -1130,18 +1136,18 @@ void cInterface::RotateCamera(QString buttonName)
 			rotationAxis = CVector3(0.0, 0.0, -1.0);
 		else if(buttonName == "bu_rotate_up")
 		{
-			rotationAxis = CVector3(1.0, 0.0, 0.0);
+			rotationAxis = CVector3(1.0 * reverse, 0.0, 0.0);
 			rotationAxis = rotationAxis.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), cameraTarget.GetRotation().x);
 		}
 		else if(buttonName == "bu_rotate_down")
 		{
-			rotationAxis = CVector3(-1.0, 0.0, 0.0);
+			rotationAxis = CVector3(-1.0 * reverse, 0.0, 0.0);
 			rotationAxis = rotationAxis.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), cameraTarget.GetRotation().x);
 		}
 		else if(buttonName == "bu_rotate_roll_left")
-			rotationAxis = cameraTarget.GetForwardVector() * (-1.0);
+			rotationAxis = cameraTarget.GetForwardVector() * (-1.0) * reverse;
 		else if(buttonName == "bu_rotate_roll_right")
-			rotationAxis = cameraTarget.GetForwardVector() * (1.0);
+			rotationAxis = cameraTarget.GetForwardVector() * (1.0) * reverse;
 	}
 	else
 	{
@@ -1150,13 +1156,13 @@ void cInterface::RotateCamera(QString buttonName)
 		else if(buttonName == "bu_rotate_right")
 			rotationAxis = cameraTarget.GetTopVector() * (-1.0);
 		else if(buttonName == "bu_rotate_up")
-			rotationAxis = cameraTarget.GetRightVector() * (1.0);
+			rotationAxis = cameraTarget.GetRightVector() * (1.0) * reverse;
 		else if(buttonName == "bu_rotate_down")
-			rotationAxis = cameraTarget.GetRightVector() * (-1.0);
+			rotationAxis = cameraTarget.GetRightVector() * (-1.0) * reverse;
 		else if(buttonName == "bu_rotate_roll_left")
-			rotationAxis = cameraTarget.GetForwardVector() * (-1.0);
+			rotationAxis = cameraTarget.GetForwardVector() * (-1.0) * reverse;
 		else if(buttonName == "bu_rotate_roll_right")
-			rotationAxis = cameraTarget.GetForwardVector() * (1.0);
+			rotationAxis = cameraTarget.GetForwardVector() * (1.0) * reverse;
 	}
 
 	if(rotationMode == rotateAroundTarget)
@@ -1468,6 +1474,8 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 	cCameraTarget::enumRotationMode rollMode = (cCameraTarget::enumRotationMode) gPar->Get<int>("camera_straight_rotation");
 	double movementStep = gPar->Get<double>("camera_movement_step");
 	double fov = gPar->Get<double>("fov");
+	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
+	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
 
 	CVector2<double> imagePoint;
 	imagePoint = screenPoint / mainImage->GetPreviewScale();
@@ -1489,7 +1497,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 
 			CVector2<double> normalizedPoint;
 			normalizedPoint.x = ((double) imagePoint.x / width - 0.5) * aspectRatio;
-			normalizedPoint.y = ((double) imagePoint.y / height - 0.5) * (-1.0);
+			normalizedPoint.y = ((double) imagePoint.y / height - 0.5) * (-1.0) * reverse;
 
 			viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
 

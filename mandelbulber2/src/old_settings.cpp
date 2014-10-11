@@ -616,6 +616,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cParameterCon
 	for(int i=0; i<4; i++)
 		fractal[i].ResetAllToDefault();
 
+	par->Set("legacy_coordinate_system", true);
+
 	par->Set("image_width", oldData->image_width);
 	par->Set("image_height", oldData->image_height);
 
@@ -639,7 +641,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cParameterCon
 		target = vp + forwardVector * (1.0 / oldData->doubles.persp * oldData->doubles.zoom);
 	}
 	cCameraTarget cameraTarget(camera, target, CVector3(1.0, 0.0, 0.0));
-	cameraTarget.SetCameraTargetRotation(camera, target, cameraRotation.z + M_PI);
+	cameraTarget.SetCameraTargetRotation(camera, target, cameraRotation.z);
 
 	par->Set("camera", camera);
 	par->Set("target", target);
@@ -743,8 +745,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cParameterCon
 	par->Set("DOF_radius", oldData->doubles.DOFRadius);
 
 	par->Set("main_light_intensity", oldData->doubles.imageAdjustments.directLight * oldData->doubles.imageAdjustments.mainLightIntensity);
-	par->Set("main_light_alpha", -oldData->doubles.mainLightAlpha * 180.0 / M_PI);
-	par->Set("main_light_beta", oldData->doubles.mainLightBeta * 180.0 / M_PI);
+	par->Set("main_light_alpha", oldData->doubles.mainLightAlpha * 180.0 / M_PI);
+	par->Set("main_light_beta", -oldData->doubles.mainLightBeta * 180.0 / M_PI);
 	par->Set("main_light_colour", oldData->effectColours.mainLightColour);
 	par->Set("shadows_cone_angle", oldData->doubles.shadowConeAngle);
 	par->Set("main_light_enable", (oldData->doubles.imageAdjustments.mainLightIntensity > 0.0) ? true : false);

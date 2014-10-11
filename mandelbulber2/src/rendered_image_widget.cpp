@@ -168,6 +168,8 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 	if (z > 0)
 	{
+		bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
+		double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
 
 		//preparing rotation matrix
 		CVector3 rotation = params->Get<CVector3>("camera_rotation") / 180.0 * M_PI;
@@ -276,7 +278,7 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 			}
 		}
 
-		p.y *= -1.0;
+		p.y *= -1.0 * reverse;
 		params::enumPerspectiveType perspType = (params::enumPerspectiveType) params->Get<int>("perspective_type");
 		CVector3 camera = params->Get<CVector3>("camera");
 		CVector3 viewVector = CalculateViewVector(p, fov, perspType, mRot);

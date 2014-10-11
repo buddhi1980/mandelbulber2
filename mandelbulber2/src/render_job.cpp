@@ -105,7 +105,16 @@ bool cRenderJob::Init(enumMode _mode)
 	renderData = new sRenderData;
 	renderData->rendererID = id;
 	renderData->numberOfThreads = totalNumberOfCPUs;
-	renderData->imageRegion.Set(-0.5, 0.5, 0.5, -0.5);
+
+	if(paramsContainer->Get<bool>("legacy_coordinate_system"))
+	{
+		renderData->imageRegion.Set(-0.5, -0.5, 0.5, 0.5);
+	}
+	else
+	{
+		renderData->imageRegion.Set(-0.5, 0.5, 0.5, -0.5);
+	}
+
 	renderData->screenRegion.Set(0, 0, width, height);
 	renderData->lights.Set(paramsContainer, fractalContainer);
 	renderData->palette = paramsContainer->Get<cColorPalette>("surface_color_palette");
