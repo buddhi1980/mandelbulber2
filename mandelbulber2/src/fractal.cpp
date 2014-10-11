@@ -94,21 +94,21 @@ cFractal::cFractal(const cParameterContainer *container)
 
 void cFractal::RecalculateFractalParams(void)
 {
-	IFS.mainRot.SetRotation(IFS.rotation * (M_PI / 180.0));
+	IFS.mainRot.SetRotation3(IFS.rotation * (M_PI / 180.0));
 
 	for (int i = 0; i < IFS_VECTOR_COUNT; i++)
 	{
-		IFS.rot[i].SetRotation(IFS.rotations[i] * (M_PI / 180.0));
+		IFS.rot[i].SetRotation3(IFS.rotations[i] * (M_PI / 180.0));
 		IFS.direction[i].Normalize();
 	}
 
-	mandelbox.mainRot.SetRotation(mandelbox.rotationMain * (M_PI / 180.0));
+	mandelbox.mainRot.SetRotation2(mandelbox.rotationMain * (M_PI / 180.0));
 
 	for (int fold = 0; fold < MANDELBOX_FOLDS; ++fold)
 	{
 		for (int axis = 0; axis < 3; ++axis)
 		{
-			mandelbox.rot[fold][axis].SetRotation(mandelbox.rotation[fold][axis] * (M_PI / 180.0));
+			mandelbox.rot[fold][axis].SetRotation2(mandelbox.rotation[fold][axis] * (M_PI / 180.0));
 			mandelbox.rotinv[fold][axis] = mandelbox.rot[fold][axis].Transpose();
 		}
 	}

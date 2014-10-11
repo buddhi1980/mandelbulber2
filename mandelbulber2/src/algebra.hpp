@@ -55,6 +55,12 @@ public:
 		y = vector.y;
 		z = vector.z;
 	}
+	inline CVector3(const double vector[3])
+	{
+		x = vector[0];
+		y = vector[1];
+		z = vector[2];
+	}
 	inline CVector3 operator+(const CVector3 &vector) const
 	{
 		return CVector3(x + vector.x, y + vector.y, z + vector.z);
@@ -268,6 +274,8 @@ public:
 	void SetRotation(double angles[3]);
 	void SetRotation(double alfa, double beta, double gamma);
 	void SetRotation(CVector3 rotation);
+	void SetRotation2(CVector3 rotation);
+	void SetRotation3(CVector3 rotation);
 	CRotationMatrix Transpose(void) const;
 	CMatrix33 GetMatrix() {return matrix;}
 

@@ -31,6 +31,7 @@
 #include "fractparams.hpp"
 #include "thumbnail.hpp"
 #include "undo.h"
+#include "old_settings.hpp"
 
 #include <QtGui>
 #include <QtUiTools/QtUiTools>
@@ -538,6 +539,33 @@ void RenderWindow::slotMenuLoadSettings()
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
 	}
 }
+
+void RenderWindow::slotImportOldSettings()
+{
+	cSettings parSettings(cSettings::formatFullText);
+
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
+	dialog.selectFile(systemData.lastSettingsFile);
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle("Import settings from old Mandelbulber (v1.21)...");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		oldSettings::cOldSettings oldSettings;
+		oldSettings.LoadSettings(filename);
+		oldSettings.ConvertToNewContainer(gPar, gParFractal);
+
+		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		systemData.lastSettingsFile = filename;
+		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
+	}
+}
+
 
 void RenderWindow::slotPressedButtonIFSDefaultsDodecahedron()
 {

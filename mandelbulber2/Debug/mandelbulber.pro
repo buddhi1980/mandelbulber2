@@ -31,6 +31,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/lights.cpp\
 	    	../src/main.cpp\
 	    	../src/my_ui_loader.cpp\
+	    	../src/old_settings.cpp\
 	    	../src/parameters.cpp\
 	    	../src/primitives.cpp\
 	    	../src/progress_text.cpp\

@@ -30,6 +30,8 @@ struct sCommonParams
 	CVector3 fakeLightsOrbitTrap;
 	CVector3 juliaC;
 
+	double constantMultiplier;
+
 	int fakeLightsMaxIter;
 	int fakeLightsMinIter;
 
