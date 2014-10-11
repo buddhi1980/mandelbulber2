@@ -221,6 +221,8 @@
     <addaction name="actionSave_settings"/>
     <addaction name="actionSave_settings_as"/>
     <addaction name="separator"/>
+    <addaction name="actionImport_settings_from_old_Mandelbulber"/>
+    <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -1973,7 +1975,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>4</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -2878,7 +2880,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>288</width>
+                  <width>366</width>
                   <height>695</height>
                  </rect>
                 </property>
@@ -3415,7 +3417,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>301</width>
+                  <width>366</width>
                   <height>282</height>
                  </rect>
                 </property>
@@ -3581,9 +3583,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>326</width>
-                  <height>1648</height>
+                  <y>-949</y>
+                  <width>366</width>
+                  <height>1480</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -3914,7 +3916,7 @@ to target:</string>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_4">
                       <item row="0" column="0">
-                       <widget class="MyGroupBox" name="groupCheck_aux_light_predefined_enabled_1">
+                       <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_1">
                         <property name="title">
                          <string>Light #1</string>
                         </property>
@@ -3944,7 +3946,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="0" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_1_x"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_1_x"/>
                            </item>
                            <item row="1" column="0">
                             <widget class="QLabel" name="label_22">
@@ -3954,7 +3956,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="1" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_1_y"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_1_y"/>
                            </item>
                            <item row="2" column="0">
                             <widget class="QLabel" name="label_23">
@@ -3964,7 +3966,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="2" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_1_z"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_1_z"/>
                            </item>
                           </layout>
                          </item>
@@ -3978,12 +3980,12 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="MyLineEdit" name="logedit_aux_light_predefined_intensity_1"/>
+                            <widget class="MyLineEdit" name="logedit_aux_light_intensity_1"/>
                            </item>
                           </layout>
                          </item>
                          <item>
-                          <widget class="QSlider" name="logslider_aux_light_predefined_intensity_1">
+                          <widget class="QSlider" name="logslider_aux_light_intensity_1">
                            <property name="minimum">
                             <number>-1500</number>
                            </property>
@@ -4005,7 +4007,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_1">
+                            <widget class="QPushButton" name="colorButton_aux_light_colour_1">
                              <property name="text">
                               <string>PushButton</string>
                              </property>
@@ -4024,7 +4026,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="1">
-                       <widget class="MyGroupBox" name="groupCheck_aux_light_predefined_enabled_2">
+                       <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_2">
                         <property name="title">
                          <string>Light #2</string>
                         </property>
@@ -4054,7 +4056,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="0" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_2_x"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_2_x"/>
                            </item>
                            <item row="1" column="0">
                             <widget class="QLabel" name="label_25">
@@ -4064,7 +4066,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="1" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_2_y"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_2_y"/>
                            </item>
                            <item row="2" column="0">
                             <widget class="QLabel" name="label_26">
@@ -4074,7 +4076,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="2" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_2_z"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_2_z"/>
                            </item>
                           </layout>
                          </item>
@@ -4088,12 +4090,12 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="MyLineEdit" name="logedit_aux_light_predefined_intensity_2"/>
+                            <widget class="MyLineEdit" name="logedit_aux_light_intensity_2"/>
                            </item>
                           </layout>
                          </item>
                          <item>
-                          <widget class="QSlider" name="logslider_aux_light_predefined_intensity_2">
+                          <widget class="QSlider" name="logslider_aux_light_intensity_2">
                            <property name="minimum">
                             <number>-1500</number>
                            </property>
@@ -4115,7 +4117,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_2">
+                            <widget class="QPushButton" name="colorButton_aux_light_colour_2">
                              <property name="text">
                               <string>PushButton</string>
                              </property>
@@ -4134,7 +4136,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="0">
-                       <widget class="MyGroupBox" name="groupCheck_aux_light_predefined_enabled_3">
+                       <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_3">
                         <property name="title">
                          <string>Light #3</string>
                         </property>
@@ -4164,7 +4166,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="0" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_3_x"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_3_x"/>
                            </item>
                            <item row="1" column="0">
                             <widget class="QLabel" name="label_28">
@@ -4174,7 +4176,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="1" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_3_y"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_3_y"/>
                            </item>
                            <item row="2" column="0">
                             <widget class="QLabel" name="label_29">
@@ -4184,7 +4186,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="2" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_3_z"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_3_z"/>
                            </item>
                           </layout>
                          </item>
@@ -4198,12 +4200,12 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="MyLineEdit" name="logedit_aux_light_predefined_intensity_3"/>
+                            <widget class="MyLineEdit" name="logedit_aux_light_intensity_3"/>
                            </item>
                           </layout>
                          </item>
                          <item>
-                          <widget class="QSlider" name="logslider_aux_light_predefined_intensity_3">
+                          <widget class="QSlider" name="logslider_aux_light_intensity_3">
                            <property name="minimum">
                             <number>-1500</number>
                            </property>
@@ -4225,7 +4227,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_3">
+                            <widget class="QPushButton" name="colorButton_aux_light_colour_3">
                              <property name="text">
                               <string>PushButton</string>
                              </property>
@@ -4244,7 +4246,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="1">
-                       <widget class="MyGroupBox" name="groupCheck_aux_light_predefined_enabled_4">
+                       <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_4">
                         <property name="title">
                          <string>Light #4</string>
                         </property>
@@ -4274,7 +4276,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="0" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_4_x"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_4_x"/>
                            </item>
                            <item row="1" column="0">
                             <widget class="QLabel" name="label_34">
@@ -4284,7 +4286,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="1" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_4_y"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_4_y"/>
                            </item>
                            <item row="2" column="0">
                             <widget class="QLabel" name="label_35">
@@ -4294,7 +4296,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item row="2" column="1">
-                            <widget class="MyLineEdit" name="vect3_aux_light_predefined_position_4_z"/>
+                            <widget class="MyLineEdit" name="vect3_aux_light_position_4_z"/>
                            </item>
                           </layout>
                          </item>
@@ -4308,12 +4310,12 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="MyLineEdit" name="logedit_aux_light_predefined_intensity_4"/>
+                            <widget class="MyLineEdit" name="logedit_aux_light_intensity_4"/>
                            </item>
                           </layout>
                          </item>
                          <item>
-                          <widget class="QSlider" name="logslider_aux_light_predefined_intensity_4">
+                          <widget class="QSlider" name="logslider_aux_light_intensity_4">
                            <property name="minimum">
                             <number>-1500</number>
                            </property>
@@ -4338,7 +4340,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QPushButton" name="colorButton_aux_light_predefined_colour_4">
+                            <widget class="QPushButton" name="colorButton_aux_light_colour_4">
                              <property name="text">
                               <string>PushButton</string>
                              </property>
@@ -4459,7 +4461,7 @@ to target:</string>
                        <number>2</number>
                       </property>
                       <item row="3" column="1">
-                       <widget class="QSlider" name="logslider_volumetric_light_intensity_1">
+                       <widget class="QSlider" name="logslider_aux_light_volumetric_intensity_1">
                         <property name="minimum">
                          <number>-1500</number>
                         </property>
@@ -4493,13 +4495,13 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="7" column="2">
-                       <widget class="MyLineEdit" name="logedit_volumetric_light_intensity_3"/>
+                       <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_3"/>
                       </item>
                       <item row="5" column="2">
-                       <widget class="MyLineEdit" name="logedit_volumetric_light_intensity_2"/>
+                       <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_2"/>
                       </item>
                       <item row="1" column="1">
-                       <widget class="QSlider" name="logslider_volumetric_light_intensity_0">
+                       <widget class="QSlider" name="logslider_main_light_volumetric_intensity">
                         <property name="minimum">
                          <number>-1500</number>
                         </property>
@@ -4512,10 +4514,10 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="2">
-                       <widget class="MyLineEdit" name="logedit_volumetric_light_intensity_0"/>
+                       <widget class="MyLineEdit" name="logedit_main_light_volumetric_intensity"/>
                       </item>
                       <item row="3" column="2">
-                       <widget class="MyLineEdit" name="logedit_volumetric_light_intensity_1"/>
+                       <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_1"/>
                       </item>
                       <item row="7" column="0">
                        <widget class="QLabel" name="label_43">
@@ -4525,7 +4527,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="7" column="1">
-                       <widget class="QSlider" name="logslider_volumetric_light_intensity_3">
+                       <widget class="QSlider" name="logslider_aux_light_volumetric_intensity_3">
                         <property name="minimum">
                          <number>-1500</number>
                         </property>
@@ -4545,7 +4547,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="9" column="1">
-                       <widget class="QSlider" name="logslider_volumetric_light_intensity_4">
+                       <widget class="QSlider" name="logslider_aux_light_volumetric_intensity_4">
                         <property name="minimum">
                          <number>-1500</number>
                         </property>
@@ -4558,10 +4560,10 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="9" column="2">
-                       <widget class="MyLineEdit" name="logedit_volumetric_light_intensity_4"/>
+                       <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_4"/>
                       </item>
                       <item row="5" column="1">
-                       <widget class="QSlider" name="logslider_volumetric_light_intensity_2">
+                       <widget class="QSlider" name="logslider_aux_light_volumetric_intensity_2">
                         <property name="minimum">
                          <number>-1500</number>
                         </property>
@@ -4574,159 +4576,39 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="0" colspan="3">
-                       <widget class="MyCheckBox" name="checkBox_volumetric_light_enabled_0">
+                       <widget class="MyCheckBox" name="checkBox_main_light_volumetric_enabled">
                         <property name="text">
                          <string>Main light as volumetric</string>
                         </property>
                        </widget>
                       </item>
                       <item row="2" column="0" colspan="3">
-                       <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_1">
+                       <widget class="QCheckBox" name="checkBox_aux_light_volumetric_enabled_1">
                         <property name="text">
                          <string>Light #1 as volumetric</string>
                         </property>
                        </widget>
                       </item>
                       <item row="4" column="0" colspan="3">
-                       <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_2">
+                       <widget class="QCheckBox" name="checkBox_aux_light_volumetric_enabled_2">
                         <property name="text">
                          <string>Light #2 as volumetric</string>
                         </property>
                        </widget>
                       </item>
                       <item row="6" column="0" colspan="3">
-                       <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_3">
+                       <widget class="QCheckBox" name="checkBox_aux_light_volumetric_enabled_3">
                         <property name="text">
                          <string>Light #3 as volumetric</string>
                         </property>
                        </widget>
                       </item>
                       <item row="8" column="0" colspan="3">
-                       <widget class="QCheckBox" name="checkBox_volumetric_light_enabled_4">
+                       <widget class="QCheckBox" name="checkBox_aux_light_volumetric_enabled_4">
                         <property name="text">
                          <string>Light #4 as volumetric</string>
                         </property>
                        </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="MyGroupBox" name="groupCheck_aux_light_random_enabled">
-                   <property name="title">
-                    <string>Random lights</string>
-                   </property>
-                   <property name="checkable">
-                    <bool>true</bool>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_25">
-                    <item>
-                     <layout class="QGridLayout" name="gridLayout_3">
-                      <property name="spacing">
-                       <number>2</number>
-                      </property>
-                      <item row="0" column="2">
-                       <widget class="MySpinBox" name="spinboxInt_aux_light_number">
-                        <property name="maximum">
-                         <number>10000</number>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="3" column="1">
-                       <widget class="QLabel" name="label_50">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>y:</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="1">
-                       <widget class="QSlider" name="logslider_aux_light_distribution_radius">
-                        <property name="minimum">
-                         <number>-1500</number>
-                        </property>
-                        <property name="maximum">
-                         <number>300</number>
-                        </property>
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="0">
-                       <widget class="QLabel" name="label_47">
-                        <property name="text">
-                         <string>Distribution radius:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="0">
-                       <widget class="QLabel" name="label_48">
-                        <property name="text">
-                         <string>Centre of distribution:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="0">
-                       <widget class="QLabel" name="label_46">
-                        <property name="text">
-                         <string>Number of lights:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="1">
-                       <widget class="QLabel" name="label_49">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>x:</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="2">
-                       <widget class="MyLineEdit" name="logedit_aux_light_distribution_radius"/>
-                      </item>
-                      <item row="4" column="1">
-                       <widget class="QLabel" name="label_51">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>z:</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="2">
-                       <widget class="MyLineEdit" name="vect3_aux_light_random_center_x"/>
-                      </item>
-                      <item row="3" column="2">
-                       <widget class="MyLineEdit" name="vect3_aux_light_random_center_y"/>
-                      </item>
-                      <item row="4" column="2">
-                       <widget class="MyLineEdit" name="vect3_aux_light_random_center_z"/>
                       </item>
                      </layout>
                     </item>
@@ -5218,8 +5100,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>330</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5311,8 +5193,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>330</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5404,8 +5286,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>330</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -6248,6 +6130,16 @@ to target:</string>
     <string>Ctrl+Y</string>
    </property>
   </action>
+  <action name="actionImport_settings_from_old_Mandelbulber">
+   <property name="icon">
+    <iconset theme="document-open">
+     <normaloff/>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Import settings from old Mandelbulber (v1.21)...</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -6376,59 +6268,53 @@ to target:</string>
   <tabstop>slider_shadows_cone_angle</tabstop>
   <tabstop>spinbox_shadows_cone_angle</tabstop>
   <tabstop>checkBox_main_light_position_relative</tabstop>
-  <tabstop>groupCheck_aux_light_predefined_enabled_1</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_1_x</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_1_y</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_1_z</tabstop>
-  <tabstop>logedit_aux_light_predefined_intensity_1</tabstop>
-  <tabstop>logslider_aux_light_predefined_intensity_1</tabstop>
-  <tabstop>colorButton_aux_light_predefined_colour_1</tabstop>
-  <tabstop>groupCheck_aux_light_predefined_enabled_2</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_2_x</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_2_y</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_2_z</tabstop>
-  <tabstop>logedit_aux_light_predefined_intensity_2</tabstop>
-  <tabstop>logslider_aux_light_predefined_intensity_2</tabstop>
-  <tabstop>colorButton_aux_light_predefined_colour_2</tabstop>
-  <tabstop>groupCheck_aux_light_predefined_enabled_3</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_3_x</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_3_y</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_3_z</tabstop>
-  <tabstop>logedit_aux_light_predefined_intensity_3</tabstop>
-  <tabstop>logslider_aux_light_predefined_intensity_3</tabstop>
-  <tabstop>colorButton_aux_light_predefined_colour_3</tabstop>
-  <tabstop>groupCheck_aux_light_predefined_enabled_4</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_4_x</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_4_y</tabstop>
-  <tabstop>vect3_aux_light_predefined_position_4_z</tabstop>
-  <tabstop>logedit_aux_light_predefined_intensity_4</tabstop>
-  <tabstop>logslider_aux_light_predefined_intensity_4</tabstop>
-  <tabstop>colorButton_aux_light_predefined_colour_4</tabstop>
+  <tabstop>groupCheck_aux_light_enabled_1</tabstop>
+  <tabstop>vect3_aux_light_position_1_x</tabstop>
+  <tabstop>vect3_aux_light_position_1_y</tabstop>
+  <tabstop>vect3_aux_light_position_1_z</tabstop>
+  <tabstop>logedit_aux_light_intensity_1</tabstop>
+  <tabstop>logslider_aux_light_intensity_1</tabstop>
+  <tabstop>colorButton_aux_light_colour_1</tabstop>
+  <tabstop>groupCheck_aux_light_enabled_2</tabstop>
+  <tabstop>vect3_aux_light_position_2_x</tabstop>
+  <tabstop>vect3_aux_light_position_2_y</tabstop>
+  <tabstop>vect3_aux_light_position_2_z</tabstop>
+  <tabstop>logedit_aux_light_intensity_2</tabstop>
+  <tabstop>logslider_aux_light_intensity_2</tabstop>
+  <tabstop>colorButton_aux_light_colour_2</tabstop>
+  <tabstop>groupCheck_aux_light_enabled_3</tabstop>
+  <tabstop>vect3_aux_light_position_3_x</tabstop>
+  <tabstop>vect3_aux_light_position_3_y</tabstop>
+  <tabstop>vect3_aux_light_position_3_z</tabstop>
+  <tabstop>logedit_aux_light_intensity_3</tabstop>
+  <tabstop>logslider_aux_light_intensity_3</tabstop>
+  <tabstop>colorButton_aux_light_colour_3</tabstop>
+  <tabstop>groupCheck_aux_light_enabled_4</tabstop>
+  <tabstop>vect3_aux_light_position_4_x</tabstop>
+  <tabstop>vect3_aux_light_position_4_y</tabstop>
+  <tabstop>vect3_aux_light_position_4_z</tabstop>
+  <tabstop>logedit_aux_light_intensity_4</tabstop>
+  <tabstop>logslider_aux_light_intensity_4</tabstop>
+  <tabstop>colorButton_aux_light_colour_4</tabstop>
   <tabstop>logslider_aux_light_visibility</tabstop>
   <tabstop>logedit_aux_light_visibility</tabstop>
   <tabstop>logslider_aux_light_visibility_size</tabstop>
   <tabstop>logedit_aux_light_visibility_size</tabstop>
-  <tabstop>checkBox_volumetric_light_enabled_0</tabstop>
-  <tabstop>logslider_volumetric_light_intensity_0</tabstop>
-  <tabstop>logedit_volumetric_light_intensity_0</tabstop>
-  <tabstop>checkBox_volumetric_light_enabled_1</tabstop>
-  <tabstop>logslider_volumetric_light_intensity_1</tabstop>
-  <tabstop>logedit_volumetric_light_intensity_1</tabstop>
-  <tabstop>checkBox_volumetric_light_enabled_2</tabstop>
-  <tabstop>logslider_volumetric_light_intensity_2</tabstop>
-  <tabstop>logedit_volumetric_light_intensity_2</tabstop>
-  <tabstop>checkBox_volumetric_light_enabled_3</tabstop>
-  <tabstop>logslider_volumetric_light_intensity_3</tabstop>
-  <tabstop>logedit_volumetric_light_intensity_3</tabstop>
-  <tabstop>checkBox_volumetric_light_enabled_4</tabstop>
-  <tabstop>logslider_volumetric_light_intensity_4</tabstop>
-  <tabstop>logedit_volumetric_light_intensity_4</tabstop>
-  <tabstop>spinboxInt_aux_light_number</tabstop>
-  <tabstop>logslider_aux_light_distribution_radius</tabstop>
-  <tabstop>logedit_aux_light_distribution_radius</tabstop>
-  <tabstop>vect3_aux_light_random_center_x</tabstop>
-  <tabstop>vect3_aux_light_random_center_y</tabstop>
-  <tabstop>vect3_aux_light_random_center_z</tabstop>
+  <tabstop>checkBox_main_light_volumetric_enabled</tabstop>
+  <tabstop>logslider_main_light_volumetric_intensity</tabstop>
+  <tabstop>logedit_main_light_volumetric_intensity</tabstop>
+  <tabstop>checkBox_aux_light_volumetric_enabled_1</tabstop>
+  <tabstop>logslider_aux_light_volumetric_intensity_1</tabstop>
+  <tabstop>logedit_aux_light_volumetric_intensity_1</tabstop>
+  <tabstop>checkBox_aux_light_volumetric_enabled_2</tabstop>
+  <tabstop>logslider_aux_light_volumetric_intensity_2</tabstop>
+  <tabstop>logedit_aux_light_volumetric_intensity_2</tabstop>
+  <tabstop>checkBox_aux_light_volumetric_enabled_3</tabstop>
+  <tabstop>logslider_aux_light_volumetric_intensity_3</tabstop>
+  <tabstop>logedit_aux_light_volumetric_intensity_3</tabstop>
+  <tabstop>checkBox_aux_light_volumetric_enabled_4</tabstop>
+  <tabstop>logslider_aux_light_volumetric_intensity_4</tabstop>
+  <tabstop>logedit_aux_light_volumetric_intensity_4</tabstop>
   <tabstop>sliderInt_fake_lights_min_iter</tabstop>
   <tabstop>spinboxInt_fake_lights_min_iter</tabstop>
   <tabstop>sliderInt_fake_lights_max_iter</tabstop>

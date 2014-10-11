@@ -100,6 +100,7 @@ using namespace parameterContainer;
 	par->addParam("hybrid_fractal_enable", false, morphNone, paramStandard);
 
 	//foldings
+	//TODO folding modes
 	par->addParam("tglad_folding_mode", false, morphLinear, paramStandard);
 	par->addParam("folding_limit", 1.0, morphLinear, paramStandard);
 	par->addParam("folding_value", 2.0, morphLinear, paramStandard);
@@ -183,39 +184,35 @@ using namespace parameterContainer;
 	par->addParam("shadows_cone_angle", 1.0, 0.0, 180.0, morphLinear, paramStandard);
 	par->addParam("main_light_enable", true, morphLinear, paramStandard);
 	par->addParam("main_light_position_relative", true, morphLinear, paramStandard);
+	par->addParam("main_light_volumetric_intensity", 1.0, morphLinear, paramStandard);
+	par->addParam("main_light_volumetric_enabled", false, morphLinear, paramStandard);
 
 	//aux lights
 	par->addParam("aux_light_intensity", 1.0, morphLinear, paramStandard);
-	par->addParam("aux_light_random_seed", 1234, morphNone, paramStandard);
-	par->addParam("aux_light_number", 0, 0, 9999, morphNone, paramStandard);
-	par->addParam("aux_light_max_dist", 0.1, 0.0, 1e15, morphNone, paramStandard);
-	par->addParam("aux_light_distribution_radius", 3.0, 0.0, 1e15, morphNone, paramStandard);
-	par->addParam("aux_light_random_center", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("aux_light_visibility", 1.0, morphLinear, paramStandard);
 	par->addParam("aux_light_visibility_size", 1.0, morphLinear, paramStandard);
-	par->addParam("aux_light_random_enabled", false, morphLinear, paramStandard);
 
-	par->addParam("aux_light_predefined_position", 1, CVector3(3.0, -3.0, 3.0), morphCatMullRom, paramStandard);
-	par->addParam("aux_light_predefined_position", 2, CVector3(-3.0, -3.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("aux_light_predefined_position", 3, CVector3(-3.0, 3.0, -1.0), morphCatMullRom, paramStandard);
-	par->addParam("aux_light_predefined_position", 4, CVector3(0.0, -1.0, -3.0), morphCatMullRom, paramStandard);
-	par->addParam("aux_light_predefined_intensity", 1, 1.3, morphLinear, paramStandard);
-	par->addParam("aux_light_predefined_intensity", 2, 1.0, morphLinear, paramStandard);
-	par->addParam("aux_light_predefined_intensity", 3, 3, morphLinear, paramStandard);
-	par->addParam("aux_light_predefined_intensity", 4, 2, morphLinear, paramStandard);
-	par->addParam("aux_light_predefined_enabled", 1, false, morphLinear, paramStandard);
-	par->addParam("aux_light_predefined_enabled", 2, false, morphLinear, paramStandard);
-	par->addParam("aux_light_predefined_enabled", 3, false, morphLinear, paramStandard);
-	par->addParam("aux_light_predefined_enabled", 4, false, morphLinear, paramStandard);
-	par->addParam("aux_light_predefined_colour", 1, sRGB(45761, 53633, 59498), morphLinear, paramStandard);
-	par->addParam("aux_light_predefined_colour", 2, sRGB(62875, 55818, 50083), morphLinear, paramStandard);
-	par->addParam("aux_light_predefined_colour", 3, sRGB(64884, 64928, 48848), morphLinear, paramStandard);
-	par->addParam("aux_light_predefined_colour", 4, sRGB(52704, 62492, 45654), morphLinear, paramStandard);
+	par->addParam("aux_light_position", 1, CVector3(3.0, -3.0, 3.0), morphCatMullRom, paramStandard);
+	par->addParam("aux_light_position", 2, CVector3(-3.0, -3.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("aux_light_position", 3, CVector3(-3.0, 3.0, -1.0), morphCatMullRom, paramStandard);
+	par->addParam("aux_light_position", 4, CVector3(0.0, -1.0, -3.0), morphCatMullRom, paramStandard);
+	par->addParam("aux_light_intensity", 1, 1.3, morphLinear, paramStandard);
+	par->addParam("aux_light_intensity", 2, 1.0, morphLinear, paramStandard);
+	par->addParam("aux_light_intensity", 3, 3, morphLinear, paramStandard);
+	par->addParam("aux_light_intensity", 4, 2, morphLinear, paramStandard);
+	par->addParam("aux_light_enabled", 1, false, morphLinear, paramStandard);
+	par->addParam("aux_light_enabled", 2, false, morphLinear, paramStandard);
+	par->addParam("aux_light_enabled", 3, false, morphLinear, paramStandard);
+	par->addParam("aux_light_enabled", 4, false, morphLinear, paramStandard);
+	par->addParam("aux_light_colour", 1, sRGB(45761, 53633, 59498), morphLinear, paramStandard);
+	par->addParam("aux_light_colour", 2, sRGB(62875, 55818, 50083), morphLinear, paramStandard);
+	par->addParam("aux_light_colour", 3, sRGB(64884, 64928, 48848), morphLinear, paramStandard);
+	par->addParam("aux_light_colour", 4, sRGB(52704, 62492, 45654), morphLinear, paramStandard);
 
-	for(int i=0; i<5; i++)
+	for(int i=1; i<=4; i++)
 	{
-		par->addParam("volumetric_light_intensity", i, 1.0, morphLinear, paramStandard);
-		par->addParam("volumetric_light_enabled", i, false, morphLinear, paramStandard);
+		par->addParam("aux_light_volumetric_intensity", i, 1.0, morphLinear, paramStandard);
+		par->addParam("aux_light_volumetric_enabled", i, false, morphLinear, paramStandard);
 	}
 
 	//fake lights
