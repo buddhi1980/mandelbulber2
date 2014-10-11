@@ -55,7 +55,6 @@ using namespace parameterContainer;
 	par->addParam("continue_record_mode", false, morphNone, paramNoSave);
 
 	//camera
-
 	par->addParam("camera", CVector3(3.0, -6.0, 2.0), morphCatMullRom, paramStandard);
 	par->addParam("target", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
 	par->addParam("camera_top", CVector3(-0.1277753, 0.2555506, 0.958314), morphCatMullRom, paramStandard); //internal vector which represents top direction
@@ -65,6 +64,7 @@ using namespace parameterContainer;
 	par->addParam("perspective_type", 0, morphLinear, paramStandard);
 	par->addParam("stereo_eye_distance", 1.0, morphCatMullRom, paramStandard);
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
+	par->addParam("legacy_coordinate_system", false, morphNone, paramStandard);
 
 	//fractal formula selections
 	par->addParam("formula", 1, (int)fractal::mandelbulb, morphNone, paramStandard);

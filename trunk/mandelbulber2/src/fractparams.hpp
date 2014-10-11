@@ -94,6 +94,7 @@ public:
 	bool interiorMode;
 	bool iterFogEnabled;
 	bool iterThreshMode;	 //maxiter threshold mode
+	bool legacyCoordinateSystem;
 	bool limitsEnabled; // enable limits (intersections)
 	bool linearDEmode;
 	bool mainLightEnable;
