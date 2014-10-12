@@ -25,14 +25,23 @@
 
 #include "algebra.hpp"
 #include "color_structures.hpp"
+#include "QtCore"
 
 namespace fractal
 {
 enum enumObjectType
 {
-	objNone = -1, objFractal = 0, objPlane = 1, objWater = 2, objSphere = 3, objSphereInv = 4, objBox = 5, objBoxInv = 6
+	objNone = -1, objFractal = 0, objPlane = 1, objWater = 2, objSphere = 3, objSphereInv = 4, objBox = 5, objBoxInv = 6,
+	objRectangle = 7, objCircle = 8, objCone = 9, objCylinder = 10
 };
 }
+
+struct sPrimitiveItem
+{
+	sPrimitiveItem(fractal::enumObjectType _type, int _id) : type(_type), id(_id) {};
+	fractal::enumObjectType type;
+	int id;
+};
 
 struct sPrimitivePlane
 {
@@ -91,5 +100,9 @@ double PrimitiveBox(CVector3 point, CVector3 center, CVector3 size);
 double PrimitiveSphere(CVector3 point, CVector3 center, double radius);
 double PrimitiveInvertedSphere(CVector3 point, CVector3 center, double radius);
 double PrimitiveWater(CVector3 point, double height, double amplitude, double length, double rotation, int iterations, double animSpeed, int frame);
+
+QString PrimitiveNames(fractal::enumObjectType primitiveType);
+
+fractal::enumObjectType PrimitiveNameToEnum(const QString &primitiveType);
 
 #endif /* PRIMITIVES_HPP_ */

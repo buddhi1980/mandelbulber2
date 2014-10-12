@@ -405,4 +405,47 @@ void InitFractalParams(cParameterContainer *par)
 	WriteLog("Fractal parameters initialization finished");
 }
 
+void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par)
+{
+	par->addParam(QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam(QString(primitiveName) + "_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam(QString(primitiveName) + "_color", sRGB(32000, 32000, 32000), morphCatMullRom, paramStandard);
+	par->addParam(QString(primitiveName) + "_reflection", 0.0, 0.0, 1.0, morphCatMullRom, paramStandard);
+	par->addParam(QString(primitiveName) + "_enabled", false, morphCatMullRom, paramStandard);
 
+	switch (objectType)
+	{
+		case fractal::objBox:
+			par->addParam(QString(primitiveName) + "_size", CVector3(1.0, 1.0, 1.0), morphCatMullRom, paramStandard);
+			break;
+		case fractal::objCircle:
+			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
+			break;
+		case fractal::objCylinder:
+			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_height", 1.0, morphCatMullRom, paramStandard);
+			break;
+		case fractal::objCone:
+			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_height", 1.0, morphCatMullRom, paramStandard);
+			break;
+		case fractal::objPlane:
+			break;
+		case fractal::objRectangle:
+			par->addParam(QString(primitiveName) + "_width", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_height", 1.0, morphCatMullRom, paramStandard);
+			break;
+		case fractal::objSphere:
+			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
+			break;
+		case fractal::objWater:
+			par->addParam(QString(primitiveName) + "_amplitude", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_length", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_anim_speed", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_iterations", 5, morphCatMullRom, paramStandard);
+			break;
+
+		default:
+			break;
+	}
+}

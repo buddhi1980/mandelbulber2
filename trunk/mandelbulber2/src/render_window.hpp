@@ -76,6 +76,7 @@ private slots:
 	void slotPressedButtonGetJuliaConstant();
 	void slotPressedButtonGetPaletteFromImage();
 	void slotPressedButtonImageApply();
+	void slotPressedButtonNewPrimitive();
 	void slotPressedButtonNewRandomPalette();
 	void slotPressedButtonRandomize();
 	void slotPressedButtonSetDOFByMouse();

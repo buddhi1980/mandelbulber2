@@ -26,6 +26,7 @@
 #include "render_window.hpp"
 #include <QProgressBar>
 #include "rendered_image_widget.hpp"
+#include "primitives.h"
 
 class cInterface
 {
@@ -70,6 +71,8 @@ public:
 	void Undo();
 	void Redo();
 	void ResetView();
+	void NewPrimitive(const QString &primitiveType);
+
 
 	QApplication *application;
 	RenderWindow *mainWindow;
@@ -78,6 +81,7 @@ public:
 	QProgressBar *progressBar;
 
 	cImage *mainImage;
+	QList<sPrimitiveItem> listOfPrimitives;
 
 	bool stopRequest;
 	bool repeatRequest;

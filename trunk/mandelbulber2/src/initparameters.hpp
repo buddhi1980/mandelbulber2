@@ -25,8 +25,10 @@
 
 #include "fractparams.hpp"
 #include "parameters.hpp"
+#include "primitives.h"
 
 void InitParams(cParameterContainer *par);
 void InitFractalParams(cParameterContainer *par);
+void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par);
 
 #endif /* INITPARAMETERS_HPP_ */

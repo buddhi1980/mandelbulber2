@@ -1149,3 +1149,10 @@ void RenderWindow::slotPressedButtonResetView()
 {
 	mainInterface->ResetView();
 }
+
+void RenderWindow::slotPressedButtonNewPrimitive()
+{
+	QString buttonName = this->sender()->objectName();
+	QString primitiveName = buttonName.mid(buttonName.lastIndexOf('_') + 1);
+	mainInterface->NewPrimitive(primitiveName);
+}
