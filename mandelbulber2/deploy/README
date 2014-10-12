@@ -19,7 +19,7 @@ LICENCE: GNU GPL v3.0
 2. COMPILING
 
 packages needed to run: libqt5gui5
-packages nneded to compile: qt5-default, libjpeg8
+packages nneded to compile: qt5-default, qttools5-dev, libjpeg8
 
 On Ubuntu or Debian:
 sudo apt-get install libqt5gui5, qt5-default, libjpeg8-dev

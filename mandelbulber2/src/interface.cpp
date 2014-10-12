@@ -36,6 +36,7 @@
 #include "dof.hpp"
 #include "common_math.h"
 #include "undo.h"
+#include "initparameters.hpp"
 
 cInterface *mainInterface;
 
@@ -120,6 +121,15 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_2, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight2ByMouse()));
 	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_3, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight3ByMouse()));
 	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_4, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight4ByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_box, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_circle, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_cone, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_cylinder, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_plane, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_rectangle, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_sphere, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_water, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
+
 	QApplication::connect(mainWindow->ui->pushButton_randomize, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonRandomize()));
 	QApplication::connect(mainWindow->ui->pushButton_randomPalette, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewRandomPalette()));
 	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(slotStartRender()));
@@ -227,6 +237,8 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cParameterContai
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_common, par, mode);
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_hybrid, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_hybrid, par, mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tab_primitives, par, mode)");
+	SynchronizeInterfaceWindow(mainWindow->ui->tab_primitives, par, mode);
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 
@@ -1726,3 +1738,79 @@ void cInterface::ResetView()
 	gUndo.Store(gPar, gParFractal);
 	StartRender();
 }
+
+void cInterface::NewPrimitive(const QString &primitiveType)
+{
+	QString primitiveName = QString("primitive_") + primitiveType;
+	QString uiFileName = systemData.sharedDir + "qt_data" + QDir::separator() + primitiveName + ".ui";
+	fractal::enumObjectType objectType = PrimitiveNameToEnum(primitiveType);
+	qDebug() << uiFileName;
+
+	//look for the lowest free id
+	int newId = 1;
+	for(int i=0; i<listOfPrimitives.size(); i++)
+	{
+		if(objectType == listOfPrimitives.at(i).type && newId == listOfPrimitives.at(i).id)
+			newId++;
+	}
+	qDebug() << "new id:" << newId;
+	sPrimitiveItem newItem(objectType, newId);
+	listOfPrimitives.append(newItem);
+
+	//name for new primitive
+	QString primitiveFullName = primitiveName + "_" + QString::number(newId);
+	qDebug() << primitiveFullName;
+
+	//main widget for primitive
+	QWidget *mainWidget = new QWidget(mainWindow->ui->scrollAreaWidgetContents_primitives);
+	mainWidget->setObjectName(QString("widgetmain_") + primitiveFullName);
+	QVBoxLayout *layout = new QVBoxLayout();
+	mainWidget->setLayout(layout);
+
+	QPushButton *deleteButton = new QPushButton(QString("Delete ") + primitiveType + " # " + QString::number(newId), mainWidget);
+	deleteButton->setObjectName(QString("deleteButton_") + primitiveFullName);
+	layout->addWidget(deleteButton);
+
+	MyGroupBox *groupBox = new MyGroupBox(mainWidget);
+	groupBox->setObjectName(QString("groupCheck_") + primitiveFullName + "_enabled");
+	groupBox->setCheckable(true);
+	groupBox->setTitle(primitiveType + " # " + QString::number(newId));
+	layout->addWidget(groupBox);
+
+	QVBoxLayout *layoutGroupBox = new QVBoxLayout();
+	groupBox->setLayout(layoutGroupBox);
+
+	//load ui
+	MyUiLoader loader;
+	QFile uiFile(uiFileName);
+	uiFile.open(QFile::ReadOnly);
+	QWidget *primitiveWidget = loader.load(&uiFile);
+	uiFile.close();
+	primitiveWidget->setObjectName(QString("widgetui_") + primitiveFullName);
+	layoutGroupBox->addWidget(primitiveWidget);
+
+	//put widget into layuot
+	QVBoxLayout *primitivesLayout = mainWindow->ui->verticalLayout_primitives;
+	primitivesLayout->addWidget(mainWidget);
+
+	//rename widgets
+	QList<QWidget*> listOfWidgets = primitiveWidget->findChildren<QWidget*>();
+	for(int i=0; i<listOfWidgets.size(); i++)
+	{
+		QString name = listOfWidgets[i]->objectName();
+		int firstDash = name.indexOf('_');
+		QString newName = name.insert(firstDash + 1, primitiveFullName + "_");
+		listOfWidgets[i]->setObjectName(newName);
+	}
+
+	//adding parameters
+	InitPrimitiveParams(objectType, primitiveFullName, gPar);
+
+	mainInterface->ConnectSignalsForSlidersInWindow(mainWidget);
+	mainInterface->MakeColorButtonsInWindow(primitiveWidget);
+	mainInterface->SynchronizeInterfaceWindow(mainWidget, gPar, cInterface::write);
+
+}
+
+
+

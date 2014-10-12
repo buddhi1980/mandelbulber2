@@ -129,3 +129,75 @@ double PrimitiveWater(CVector3 point, double height, double amplitude, double le
 
 	return planeDistance;
 }
+
+using namespace fractal;
+
+QString PrimitiveNames(enumObjectType primitiveType)
+{
+	QString name;
+	switch (primitiveType) {
+		case objPlane:
+			name = "plane";
+			break;
+		case objWater:
+			name = "water";
+			break;
+		case objSphere:
+			name = "sphere";
+			break;
+		case objSphereInv:
+			name = "sphereinv";
+			break;
+		case objBox:
+			name = "box";
+			break;
+		case objBoxInv:
+			name = "boxinv";
+			break;
+		case objRectangle:
+			name = "rectangle";
+			break;
+		case objCircle:
+			name = "circle";
+			break;
+		case objCone:
+			name = "cone";
+			break;
+		case objCylinder:
+			name = "cylinder";
+			break;
+
+		default:
+			break;
+	}
+	return name;
+}
+
+enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
+{
+	enumObjectType type = objNone;
+	if(primitiveType == QString("plane"))
+		type = objPlane;
+	else if(primitiveType == QString("water"))
+		type = objWater;
+	else if(primitiveType == QString("sphere"))
+		type = objSphere;
+	else if(primitiveType == QString("sphereinv"))
+		type = objSphereInv;
+	else if(primitiveType == QString("box"))
+		type = objBox;
+	else if(primitiveType == QString("boxinv"))
+		type = objBoxInv;
+	else if(primitiveType == QString("rectangle"))
+		type = objRectangle;
+	else if(primitiveType == QString("circle"))
+		type = objCircle;
+	else if(primitiveType == QString("cone"))
+		type = objCone;
+	else if(primitiveType == QString("cylinder"))
+		type = objCylinder;
+	else
+		qCritical() << "Wrong primitive name: " << primitiveType;
+
+	return type;
+}
