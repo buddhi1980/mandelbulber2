@@ -93,7 +93,7 @@ CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov, param
 			CVector2<double> v = normalizedPoint * M_PI;
 			viewVector.x = sin(fov * v.x) * cos(fov * v.y);
 			viewVector.z = sin(fov * v.y);
-			viewVector.y = cos(fov * v.y) * cos(fov * v.y);
+			viewVector.y = cos(fov * v.x) * cos(fov * v.y);
 			viewVector.Normalize();
 			break;
 		}
