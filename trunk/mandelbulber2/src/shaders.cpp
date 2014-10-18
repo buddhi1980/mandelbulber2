@@ -133,7 +133,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 	{
 		if(params->texturedBackgroundMapType == params::mapDoubleHemisphere)
 		{
-			double alfaTexture = input.viewVector.GetAlpha();
+			double alphaTexture = input.viewVector.GetAlpha();
 			double betaTexture = input.viewVector.GetBeta();
 			int texWidth = data->textures.backgroundTexture->Width()*0.5;
 			int texHeight = data->textures.backgroundTexture->Height();
@@ -142,11 +142,11 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 			if(betaTexture < 0)
 			{
 				betaTexture = -betaTexture;
-				alfaTexture += M_PI;
+				alphaTexture += M_PI;
 				offset = texWidth;
 			}
-			double texX = 0.5 * texWidth + cos(alfaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texWidth * 0.5 + offset;
-			double texY = 0.5 * texHeight + sin(alfaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texHeight * 0.5;
+			double texX = 0.5 * texWidth + cos(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texWidth * 0.5 + offset;
+			double texY = 0.5 * texHeight + sin(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texHeight * 0.5;
 			sRGB8 pixel = data->textures.backgroundTexture->Pixel(texX, texY);
 			pixel2.R = pixel.R / 256.0;
 			pixel2.G = pixel.G / 256.0;
@@ -154,11 +154,11 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 		}
 		else
 		{
-			double alfaTexture = fmod(input.viewVector.GetAlpha() + 2.5 * M_PI, 2 * M_PI);
+			double alphaTexture = fmod(input.viewVector.GetAlpha() + 2.5 * M_PI, 2 * M_PI);
 			double betaTexture = input.viewVector.GetBeta();
 			if (betaTexture > 0.5 * M_PI) betaTexture = 0.5 * M_PI - betaTexture;
 			if (betaTexture < -0.5 * M_PI) betaTexture = -0.5 * M_PI + betaTexture;
-			double texX = alfaTexture / (2.0 * M_PI) * data->textures.backgroundTexture->Width();
+			double texX = alphaTexture / (2.0 * M_PI) * data->textures.backgroundTexture->Width();
 			double texY = (betaTexture / (M_PI) + 0.5) * data->textures.backgroundTexture->Height();
 			sRGB8 pixel = data->textures.backgroundTexture->Pixel(texX, texY);
 			pixel2.R = pixel.R/256.0;
@@ -783,7 +783,7 @@ sRGBAfloat cRenderWorker::EnvMapping(const sShaderInputData &input)
 	double dot = -input.viewVector.Dot(input.normal);
 	reflect = input.normal * 2.0 * dot + input.viewVector;
 
-	double alfaTexture = reflect.GetAlpha() + M_PI;
+	double alphaTexture = reflect.GetAlpha() + M_PI;
 	double betaTexture = reflect.GetBeta();
 	double texWidth = data->textures.envmapTexture->Width();
 	double texHeight = data->textures.envmapTexture->Height();
@@ -792,7 +792,7 @@ sRGBAfloat cRenderWorker::EnvMapping(const sShaderInputData &input)
 
 	if (betaTexture < -0.5 * M_PI) betaTexture = -0.5 * M_PI + betaTexture;
 
-	double dtx = (alfaTexture / (2.0 * M_PI)) * texWidth + texWidth * 8.25;
+	double dtx = (alphaTexture / (2.0 * M_PI)) * texWidth + texWidth * 8.25;
 	double dty = (betaTexture / (M_PI) + 0.5) * texHeight + texHeight * 8.0;
 	dtx = fmod(dtx, texWidth);
 	dty = fmod(dty, texHeight);
@@ -874,44 +874,44 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 		}
 		case fractal::objWater:
 		{
-			out.R = params->primitives.water.colour.R / 65536.0;
-			out.G = params->primitives.water.colour.G / 65536.0;
-			out.B = params->primitives.water.colour.B / 65536.0;
+			out.R = params->primitives.water.color.R / 65536.0;
+			out.G = params->primitives.water.color.G / 65536.0;
+			out.B = params->primitives.water.color.B / 65536.0;
 			break;
 		}
 		case fractal::objBox:
 		{
-			out.R = params->primitives.box.colour.R / 65536.0;
-			out.G = params->primitives.box.colour.G / 65536.0;
-			out.B = params->primitives.box.colour.B / 65536.0;
+			out.R = params->primitives.box.color.R / 65536.0;
+			out.G = params->primitives.box.color.G / 65536.0;
+			out.B = params->primitives.box.color.B / 65536.0;
 			break;
 		}
 		case fractal::objBoxInv:
 		{
-			out.R = params->primitives.invertedBox.colour.R / 65536.0;
-			out.G = params->primitives.invertedBox.colour.G / 65536.0;
-			out.B = params->primitives.invertedBox.colour.B / 65536.0;
+			out.R = params->primitives.invertedBox.color.R / 65536.0;
+			out.G = params->primitives.invertedBox.color.G / 65536.0;
+			out.B = params->primitives.invertedBox.color.B / 65536.0;
 			break;
 		}
 		case fractal::objSphere:
 		{
-			out.R = params->primitives.sphere.colour.R / 65536.0;
-			out.G = params->primitives.sphere.colour.G / 65536.0;
-			out.B = params->primitives.sphere.colour.B / 65536.0;
+			out.R = params->primitives.sphere.color.R / 65536.0;
+			out.G = params->primitives.sphere.color.G / 65536.0;
+			out.B = params->primitives.sphere.color.B / 65536.0;
 			break;
 		}
 		case fractal::objSphereInv:
 		{
-			out.R = params->primitives.invertedSphere.colour.R / 65536.0;
-			out.G = params->primitives.invertedSphere.colour.G / 65536.0;
-			out.B = params->primitives.invertedSphere.colour.B / 65536.0;
+			out.R = params->primitives.invertedSphere.color.R / 65536.0;
+			out.G = params->primitives.invertedSphere.color.G / 65536.0;
+			out.B = params->primitives.invertedSphere.color.B / 65536.0;
 			break;
 		}
 		case fractal::objPlane:
 		{
-			out.R = params->primitives.plane.colour.R / 65536.0;
-			out.G = params->primitives.plane.colour.G / 65536.0;
-			out.B = params->primitives.plane.colour.B / 65536.0;
+			out.R = params->primitives.plane.color.R / 65536.0;
+			out.G = params->primitives.plane.color.G / 65536.0;
+			out.B = params->primitives.plane.color.B / 65536.0;
 			break;
 		}
 		case fractal::objNone:
