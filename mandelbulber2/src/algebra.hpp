@@ -43,10 +43,10 @@ public:
 		y = y_init;
 		z = z_init;
 	}
-	inline CVector3(double alfa, double beta)
+	inline CVector3(double alpha, double beta)
 	{
-		x = cos(beta) * cos(alfa);
-		y = cos(beta) * sin(alfa);
+		x = cos(beta) * cos(alpha);
+		y = cos(beta) * sin(alpha);
 		z = sin(beta);
 	}
 	inline CVector3(const CVector3 &vector)
@@ -272,7 +272,7 @@ public:
 	double GetBeta() const;
 	double GetGamma() const;
 	void SetRotation(double angles[3]);
-	void SetRotation(double alfa, double beta, double gamma);
+	void SetRotation(double alpha, double beta, double gamma);
 	void SetRotation(CVector3 rotation);
 	void SetRotation2(CVector3 rotation);
 	void SetRotation3(CVector3 rotation);

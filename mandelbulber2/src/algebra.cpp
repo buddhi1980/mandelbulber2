@@ -188,10 +188,10 @@ void CRotationMatrix::SetRotation(double angles[3])
 	RotateY(angles[2]);
 }
 
-void CRotationMatrix::SetRotation(double alfa, double beta, double gamma)
+void CRotationMatrix::SetRotation(double alpha, double beta, double gamma)
 {
 	Null();
-	RotateZ(alfa);
+	RotateZ(alpha);
 	RotateX(beta);
 	RotateY(gamma);
 }
