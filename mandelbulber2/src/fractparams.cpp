@@ -22,7 +22,7 @@
 
 #include "fractparams.hpp"
 
-cParamRender::cParamRender(const cParameterContainer *container)
+cParamRender::cParamRender(const cParameterContainer *container) : primitives(container)
 {
   analitycDEMode = container->Get<bool>("analityc_DE_mode");
 	constantFactor = container->Get<double>("fractal_constant_factor");
@@ -149,47 +149,6 @@ cParamRender::cParamRender(const cParameterContainer *container)
 	common.fakeLightsMaxIter = container->Get<double>("fake_lights_max_iter");
 
 	frameNo = container->Get<int>("frame_no");
-
-	primitives.plane.onlyPlane = container->Get<bool>("primitive_only_plane");
-	primitives.plane.enable = container->Get<bool>("primitive_plane_enabled");
-	primitives.plane.centre = container->Get<CVector3>("primitive_plane_centre");
-	primitives.plane.normal = container->Get<CVector3>("primitive_plane_normal");
-	primitives.plane.colour = container->Get<sRGB>("primitive_plane_colour");
-	primitives.plane.reflect = container->Get<double>("primitive_plane_reflect");
-
-	primitives.box.enable = container->Get<bool>("primitive_box_enabled");
-	primitives.box.centre = container->Get<CVector3>("primitive_box_centre");
-	primitives.box.size = container->Get<CVector3>("primitive_box_size");
-	primitives.box.colour = container->Get<sRGB>("primitive_box_colour");
-	primitives.box.reflect = container->Get<double>("primitive_box_reflect");
-
-	primitives.invertedBox.enable = container->Get<bool>("primitive_invertedBox_enabled");
-	primitives.invertedBox.centre = container->Get<CVector3>("primitive_invertedBox_centre");
-	primitives.invertedBox.size = container->Get<CVector3>("primitive_invertedBox_size");
-	primitives.invertedBox.colour = container->Get<sRGB>("primitive_invertedBox_colour");
-	primitives.invertedBox.reflect = container->Get<double>("primitive_invertedBox_reflect");
-
-	primitives.sphere.enable = container->Get<bool>("primitive_sphere_enabled");
-	primitives.sphere.centre = container->Get<CVector3>("primitive_sphere_centre");
-	primitives.sphere.radius = container->Get<double>("primitive_sphere_radius");
-	primitives.sphere.colour = container->Get<sRGB>("primitive_sphere_colour");
-	primitives.sphere.reflect = container->Get<double>("primitive_sphere_reflect");
-
-	primitives.invertedSphere.enable = container->Get<bool>("primitive_invertedSphere_enabled");
-	primitives.invertedSphere.centre = container->Get<CVector3>("primitive_invertedSphere_centre");
-	primitives.invertedSphere.radius = container->Get<double>("primitive_invertedSphere_radius");
-	primitives.invertedSphere.colour = container->Get<sRGB>("primitive_invertedSphere_colour");
-	primitives.invertedSphere.reflect = container->Get<double>("primitive_invertedSphere_reflect");
-
-	primitives.water.enable = container->Get<bool>("primitive_water_enabled");
-	primitives.water.level = container->Get<double>("primitive_water_level");
-	primitives.water.amplitude = container->Get<double>("primitive_water_amplitude");
-	primitives.water.length = container->Get<double>("primitive_water_length");
-	primitives.water.iterations = container->Get<int>("primitive_water_iterations");
-	primitives.water.rotation = container->Get<double>("primitive_water_rotation");
-	primitives.water.animSpeed = container->Get<double>("primitive_water_anim_speed");
-	primitives.water.colour = container->Get<sRGB>("primitive_water_colour");
-	primitives.water.reflect = container->Get<double>("primitive_water_reflect");
 
 	legacyCoordinateSystem = container->Get<bool>("legacy_coordinate_system");
 

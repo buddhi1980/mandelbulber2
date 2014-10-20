@@ -416,10 +416,6 @@ void cImage::RedrawInWidget(QWidget *qwidget)
 		QPainter painter(widget);
 		painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
-		QPen pen(Qt::white, 2, Qt::SolidLine);
-		painter.setPen(pen);
-		painter.drawLine(0, 0, 400, 20);
-
 		QImage qimage((const uchar*)GetPreviewPtr(), previewWidth, previewHeight, previewWidth*sizeof(sRGB8), QImage::Format_RGB888);
 		painter.drawImage(QRect(0,0,previewWidth,previewHeight), qimage, QRect(0,0,previewWidth, previewHeight));
 		memcpy(preview2, preview, previewWidth * previewHeight * sizeof(sRGB8));

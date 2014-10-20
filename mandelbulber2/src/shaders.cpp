@@ -872,46 +872,19 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 			out.B = colour.B / 256.0;
 			break;
 		}
-		case fractal::objWater:
-		{
-			out.R = params->primitives.water.color.R / 65536.0;
-			out.G = params->primitives.water.color.G / 65536.0;
-			out.B = params->primitives.water.color.B / 65536.0;
-			break;
-		}
-		case fractal::objBox:
-		{
-			out.R = params->primitives.box.color.R / 65536.0;
-			out.G = params->primitives.box.color.G / 65536.0;
-			out.B = params->primitives.box.color.B / 65536.0;
-			break;
-		}
-		case fractal::objBoxInv:
-		{
-			out.R = params->primitives.invertedBox.color.R / 65536.0;
-			out.G = params->primitives.invertedBox.color.G / 65536.0;
-			out.B = params->primitives.invertedBox.color.B / 65536.0;
-			break;
-		}
-		case fractal::objSphere:
-		{
-			out.R = params->primitives.sphere.color.R / 65536.0;
-			out.G = params->primitives.sphere.color.G / 65536.0;
-			out.B = params->primitives.sphere.color.B / 65536.0;
-			break;
-		}
-		case fractal::objSphereInv:
-		{
-			out.R = params->primitives.invertedSphere.color.R / 65536.0;
-			out.G = params->primitives.invertedSphere.color.G / 65536.0;
-			out.B = params->primitives.invertedSphere.color.B / 65536.0;
-			break;
-		}
+
 		case fractal::objPlane:
+		case fractal::objWater:
+		case fractal::objSphere:
+		case fractal::objBox:
+		case fractal::objRectangle:
+		case fractal::objCircle:
+		case fractal::objCone:
+		case fractal::objCylinder:
 		{
-			out.R = params->primitives.plane.color.R / 65536.0;
-			out.G = params->primitives.plane.color.G / 65536.0;
-			out.B = params->primitives.plane.color.B / 65536.0;
+			out.R = input.objectColor.R / 65536.0;
+			out.G = input.objectColor.G / 65536.0;
+			out.B = input.objectColor.B / 65536.0;
 			break;
 		}
 		case fractal::objNone:

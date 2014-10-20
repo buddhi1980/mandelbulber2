@@ -76,6 +76,7 @@ private:
 		bool found;
 		double distThresh;
 		fractal::enumObjectType objectType;
+		sRGB objectColor;
 		double reflect;
 	};
 
@@ -112,6 +113,8 @@ private:
 		double depth;
 		double distThresh;
 		fractal::enumObjectType object;
+		sRGB objectColor;
+		double objectReflect;
 		bool found;
 	};
 
@@ -128,6 +131,8 @@ private:
 		sStep *stepBuff;
 		int stepCount;
 		fractal::enumObjectType objectType;
+		sRGB objectColor;
+		double objectReflect;
 	};
 
 	//functions
@@ -135,7 +140,6 @@ private:
 	void PrepareReflectionBuffer(void);
 	void PrepareAOVectors(void);
 	CVector3 RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out);
-	double ReflectValueForObject(fractal::enumObjectType object);
 	double CalcDistThresh(CVector3 point);
 	double CalcDelta(CVector3 point);
 	double IterOpacity(double step, double iters, double maxN, double trim, double opacitySp);

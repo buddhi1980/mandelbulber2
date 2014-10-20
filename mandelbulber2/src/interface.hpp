@@ -72,7 +72,7 @@ public:
 	void Redo();
 	void ResetView();
 	void NewPrimitive(const QString &primitiveType);
-
+	void DeletePrimitive(const QString &primitiveName);
 
 	QApplication *application;
 	RenderWindow *mainWindow;

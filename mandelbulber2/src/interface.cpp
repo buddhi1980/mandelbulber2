@@ -1607,8 +1607,8 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					if (clickMode == RenderedImage::clickPlaceLight2) lightNumber = 2;
 					if (clickMode == RenderedImage::clickPlaceLight3) lightNumber = 3;
 					if (clickMode == RenderedImage::clickPlaceLight4) lightNumber = 4;
-					gPar->Set("aux_light_predefined_position", lightNumber, pointCorrected);
-					gPar->Set("aux_light_predefined_intensity", lightNumber, intensity);
+					gPar->Set("aux_light_position", lightNumber, pointCorrected);
+					gPar->Set("aux_light_intensity", lightNumber, intensity);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, cInterface::write);
 					gUndo.Store(gPar, gParFractal);
 					StartRender();
@@ -1744,22 +1744,26 @@ void cInterface::NewPrimitive(const QString &primitiveType)
 	QString primitiveName = QString("primitive_") + primitiveType;
 	QString uiFileName = systemData.sharedDir + "qt_data" + QDir::separator() + primitiveName + ".ui";
 	fractal::enumObjectType objectType = PrimitiveNameToEnum(primitiveType);
-	qDebug() << uiFileName;
 
 	//look for the lowest free id
-	int newId = 1;
-	for(int i=0; i<listOfPrimitives.size(); i++)
+	bool occupied = true;
+	int newId = 0;
+	while(occupied)
 	{
-		if(objectType == listOfPrimitives.at(i).type && newId == listOfPrimitives.at(i).id)
-			newId++;
+		newId++;
+		occupied = false;
+		for(int i=0; i<listOfPrimitives.size(); i++)
+		{
+			if(objectType == listOfPrimitives.at(i).type && newId == listOfPrimitives.at(i).id)
+				occupied = true;
+		}
 	}
-	qDebug() << "new id:" << newId;
-	sPrimitiveItem newItem(objectType, newId);
-	listOfPrimitives.append(newItem);
 
 	//name for new primitive
 	QString primitiveFullName = primitiveName + "_" + QString::number(newId);
-	qDebug() << primitiveFullName;
+
+	sPrimitiveItem newItem(objectType, newId, primitiveFullName);
+	listOfPrimitives.append(newItem);
 
 	//main widget for primitive
 	QWidget *mainWidget = new QWidget(mainWindow->ui->scrollAreaWidgetContents_primitives);
@@ -1803,6 +1807,8 @@ void cInterface::NewPrimitive(const QString &primitiveType)
 		listOfWidgets[i]->setObjectName(newName);
 	}
 
+	QApplication::connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
+
 	//adding parameters
 	InitPrimitiveParams(objectType, primitiveFullName, gPar);
 
@@ -1812,5 +1818,25 @@ void cInterface::NewPrimitive(const QString &primitiveType)
 
 }
 
+void cInterface::DeletePrimitive(const QString &primitiveName)
+{
+	QString primitiveWidgetName = QString("widgetmain_") + primitiveName;
+	fractal::enumObjectType objectType = fractal::objNone;
 
+	//delete widget
+	QWidget *primitiveWidget = mainWindow->ui->scrollAreaWidgetContents_primitives->findChild<QWidget*>(primitiveWidgetName);
+	delete primitiveWidget;
+
+	//remove item from list
+	for(int i=0; i < listOfPrimitives.size(); i++)
+	{
+		if(primitiveName == listOfPrimitives.at(i).name)
+		{
+			objectType = listOfPrimitives.at(i).type;
+			mainInterface->listOfPrimitives.removeAt(i);
+		}
+	}
+
+	DeletePrimitiveParams(objectType, primitiveName, gPar);
+}
 

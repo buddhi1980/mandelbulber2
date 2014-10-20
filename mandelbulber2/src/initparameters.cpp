@@ -224,49 +224,6 @@ using namespace parameterContainer;
 	par->addParam("fake_lights_min_iter", 1, 0, 250, morphLinear, paramStandard);
 	par->addParam("fake_lights_max_iter", 2, 0, 250, morphLinear, paramStandard);
 
-	//primitives
-	par->addParam("primitive_only_plane", false, morphNone, paramStandard);
-
-	par->addParam("primitive_plane_enabled", false, morphLinear, paramStandard);
-	par->addParam("primitive_plane_centre", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("primitive_plane_normal", CVector3(0.0, 0.0, -1.0), morphCatMullRom, paramStandard);
-	par->addParam("primitive_plane_colour", sRGB(20000, 20000, 20000), morphLinear, paramStandard);
-	par->addParam("primitive_plane_reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
-
-	par->addParam("primitive_box_enabled", false, morphLinear, paramStandard);
-	par->addParam("primitive_box_centre", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("primitive_box_size", CVector3(2.0, 2.0, 2.0), morphCatMullRom, paramStandard);
-	par->addParam("primitive_box_colour", sRGB(20000, 20000, 20000), morphLinear, paramStandard);
-	par->addParam("primitive_box_reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
-
-	par->addParam("primitive_invertedBox_enabled", false, morphLinear, paramStandard);
-	par->addParam("primitive_invertedBox_centre", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("primitive_invertedBox_size", CVector3(10.0, 10.0, 10.0), morphCatMullRom, paramStandard);
-	par->addParam("primitive_invertedBox_colour", sRGB(20000, 20000, 20000), morphLinear, paramStandard);
-	par->addParam("primitive_invertedBox_reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
-
-	par->addParam("primitive_sphere_enabled", false, morphLinear, paramStandard);
-	par->addParam("primitive_sphere_centre", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("primitive_sphere_radius", 1.5, morphCatMullRom, paramStandard);
-	par->addParam("primitive_sphere_colour", sRGB(20000, 20000, 20000), morphLinear, paramStandard);
-	par->addParam("primitive_sphere_reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
-
-	par->addParam("primitive_invertedSphere_enabled", false, morphLinear, paramStandard);
-	par->addParam("primitive_invertedSphere_centre", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("primitive_invertedSphere_radius", 5.0, morphCatMullRom, paramStandard);
-	par->addParam("primitive_invertedSphere_colour", sRGB(20000, 20000, 20000), morphLinear, paramStandard);
-	par->addParam("primitive_invertedSphere_reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
-
-	par->addParam("primitive_water_enabled", false, morphLinear, paramStandard);
-	par->addParam("primitive_water_level", 0.0, morphLinear, paramStandard);
-	par->addParam("primitive_water_amplitude", 0.02, morphLinear, paramStandard);
-	par->addParam("primitive_water_length", 0.2, morphLinear, paramStandard);
-	par->addParam("primitive_water_iterations", 5, 1, 250, morphLinear, paramStandard);
-	par->addParam("primitive_water_rotation", 0.0, morphCatMullRomAngle, paramStandard);
-	par->addParam("primitive_water_anim_speed", 0.1, morphLinear, paramStandard);
-	par->addParam("primitive_water_colour", sRGB(0, 5000, 10000), morphLinear, paramStandard);
-	par->addParam("primitive_water_reflect", 0.7, 0.0, 1e15, morphLinear, paramStandard);
-
 	//OpenCL Support
 #ifdef CLSUPPORT
 	par->addParam("ocl_custom_DE_mode", false, false);
@@ -417,6 +374,7 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 	{
 		case fractal::objBox:
 			par->addParam(QString(primitiveName) + "_size", CVector3(1.0, 1.0, 1.0), morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_rounding", 1e-15, morphCatMullRom, paramStandard);
 			break;
 		case fractal::objCircle:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
@@ -439,10 +397,56 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
 			break;
 		case fractal::objWater:
-			par->addParam(QString(primitiveName) + "_amplitude", 1.0, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_length", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_amplitude", 0.05, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_length", 0.1, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_anim_speed", 1.0, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_iterations", 5, morphCatMullRom, paramStandard);
+			break;
+
+		default:
+			break;
+	}
+}
+
+void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par)
+{
+	par->DeleteParameter(QString(primitiveName) + "_position");
+	par->DeleteParameter(QString(primitiveName) + "_rotation");
+	par->DeleteParameter(QString(primitiveName) + "_color");
+	par->DeleteParameter(QString(primitiveName) + "_reflection");
+	par->DeleteParameter(QString(primitiveName) + "_enabled");
+
+	switch (objectType)
+	{
+		case fractal::objBox:
+			par->DeleteParameter(QString(primitiveName) + "_size");
+			par->DeleteParameter(QString(primitiveName) + "_rounding");
+			break;
+		case fractal::objCircle:
+			par->DeleteParameter(QString(primitiveName) + "_radius");
+			break;
+		case fractal::objCylinder:
+			par->DeleteParameter(QString(primitiveName) + "_radius");
+			par->DeleteParameter(QString(primitiveName) + "_height");
+			break;
+		case fractal::objCone:
+			par->DeleteParameter(QString(primitiveName) + "_radius");
+			par->DeleteParameter(QString(primitiveName) + "_height");
+			break;
+		case fractal::objPlane:
+			break;
+		case fractal::objRectangle:
+			par->DeleteParameter(QString(primitiveName) + "_width");
+			par->DeleteParameter(QString(primitiveName) + "_height");
+			break;
+		case fractal::objSphere:
+			par->DeleteParameter(QString(primitiveName) + "_radius");
+			break;
+		case fractal::objWater:
+			par->DeleteParameter(QString(primitiveName) + "_amplitude");
+			par->DeleteParameter(QString(primitiveName) + "_length");
+			par->DeleteParameter(QString(primitiveName) + "_anim_speed");
+			par->DeleteParameter(QString(primitiveName) + "_iterations");
 			break;
 
 		default:

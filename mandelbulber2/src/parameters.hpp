@@ -75,6 +75,8 @@ public:
 	void ResetAllToDefault(void);
 	void SetContainerName(QString name) {containerName = name;}
 	QString GetContainerName(void) {return containerName;}
+	bool IfExists(const QString &name) const;
+	void DeleteParameter(const QString &name);
 
 private:
 

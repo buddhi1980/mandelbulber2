@@ -72,6 +72,7 @@ private slots:
 	void slotChangedSpinBoxPaletteSize(int value);
 	void slotEditedLineEditManualLightPlacementDistance(const QString &text);
 	void slotPressedButtonAutoFog();
+	void slotPressedButtonDeletePrimitive();
 	void slotPressedButtonDOFUpdate();
 	void slotPressedButtonGetJuliaConstant();
 	void slotPressedButtonGetPaletteFromImage();

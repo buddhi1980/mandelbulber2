@@ -56,7 +56,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 	sFractalIn fractIn(in.point, params.minN, N, params.common);
 	sFractalOut fractOut;
 
-	if(!params.primitives.plane.onlyPlane)
+	if(true) //TODO !params.primitives.plane.onlyPlane
 	{
 		if (four.DEType == fractal::analitycDE)
 		{
@@ -178,6 +178,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 		out->maxiter = false;
 	}
 
+	/*
 	//plane
 	if (params.primitives.plane.enable)
 	{
@@ -227,7 +228,9 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 		if(waterDistance < distance) 	out->object = fractal::objWater;
 		distance = (waterDistance < distance) ? waterDistance : distance;
 	}
+	*/
 
+	distance = min(distance, params.primitives.TotalDistance(in.point, distance, &out->object, &out->objectColor, &out->objectReflect));
 
 	if (params.limitsEnabled)
 	{
