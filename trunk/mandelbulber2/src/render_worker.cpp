@@ -173,10 +173,11 @@ void cRenderWorker::doWork(void)
 					reflectBuff[ray].point = point;
 					reflectBuff[ray].distThresh = rayMarchingOut.distThresh;
 					reflectBuff[ray].objectType = rayMarchingOut.object;
-					reflectBuff[ray].reflect = ReflectValueForObject(rayMarchingOut.object);
 					reflectBuff[ray].lastDist = rayMarchingOut.lastDist;
 					reflectBuff[ray].found = rayMarchingOut.found;
 					reflectBuff[ray].depth = rayMarchingOut.depth;
+					reflectBuff[ray].objectColor = rayMarchingOut.objectColor;
+					reflectBuff[ray].reflect = rayMarchingOut.objectReflect;
 
 					rayEnd = ray;
 					if (!reflectBuff[ray].found) break;
@@ -217,6 +218,7 @@ void cRenderWorker::doWork(void)
 					shaderInputData.stepCount = reflectBuff[ray].buffCount;
 					shaderInputData.stepBuff = reflectBuff[ray].stepBuff;
 					shaderInputData.objectType = reflectBuff[ray].objectType;
+					shaderInputData.objectColor = reflectBuff[ray].objectColor;
 
 					//if fractal surface was found
 					if (reflectBuff[ray].found)
@@ -450,6 +452,17 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		sDistanceOut distanceOut;
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 		out->object = distanceOut.object;
+		if(out->object == fractal::objFractal)
+		{
+			out->objectReflect = params->reflect;
+			out->objectColor = sRGB(0,0,0);
+		}
+		else
+		{
+			out->objectReflect = distanceOut.objectReflect;
+			out->objectColor = distanceOut.objectColor;
+		}
+
 		//-------------------- 4.18us for Calculate distance --------------
 
 		//printf("Distance = %g\n", dist/distThresh);
@@ -482,7 +495,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		inOut->stepBuff[i].point = point;
 		//qDebug() << "i" << i << "dist" << inOut->stepBuff[i].distance << "iters" << inOut->stepBuff[i].iters << "distThresh" << inOut->stepBuff[i].distThresh << "step" << inOut->stepBuff[i].step << "point" << inOut->stepBuff[i].point.Debug();
 		(*inOut->buffCount) = i + 1;
-		scan += step;
+		scan += step / in.direction.Length(); //divided by length of vieVector to elimitate overstepping when fov is big
 		if (scan > in.maxScan)
 		{
 			break;
@@ -521,6 +534,17 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 			out->object = distanceOut.object;
 
+			if(out->object == fractal::objFractal)
+			{
+				out->objectReflect = params->reflect;
+				out->objectColor = sRGB(0,0,0);
+			}
+			else
+			{
+				out->objectReflect = distanceOut.objectReflect;
+				out->objectColor = distanceOut.objectColor;
+			}
+
 			if(distanceOut.iters < 256)
 				histogramIters[distanceOut.iters]++;
 			else
@@ -544,21 +568,4 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	return point;
 }
 
-//gives reflection ratio according to object selection
-double cRenderWorker::ReflectValueForObject(fractal::enumObjectType object)
-{
-	double reflect = 0.0;
-	switch(object)
-	{
-		case fractal::objFractal: reflect = params->reflect; break;
-		case fractal::objWater: reflect = params->primitives.water.reflect; break;
-		case fractal::objPlane: reflect = params->primitives.plane.reflect; break;
-		case fractal::objBox: reflect = params->primitives.box.reflect; break;
-		case fractal::objBoxInv: reflect = params->primitives.invertedBox.reflect; break;
-		case fractal::objSphere: reflect = params->primitives.sphere.reflect; break;
-		case fractal::objSphereInv: reflect = params->primitives.invertedSphere.reflect; break;
-		default: reflect = 0.0;	break;
-	}
-	return reflect;
-}
 

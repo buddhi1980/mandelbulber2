@@ -213,35 +213,49 @@ void PostRendering_DOF(cImage *image, double deep, double neutral)
 }
 
 template <class T>
-void QuickSortZBuffer(sSortZ<T> *dane, int l, int p)
+void QuickSortZBuffer(sSortZ<T> *buffer, int l, int r)
 {
-  int i,j; //robocze indeksy
-  sSortZ<T> x,y; //robocze zmienne typu sortowany obiekt
+    int i, j;
+    // Operating buffer typed variables
+    sSortZ<T> pivot, swap;
+    i = l;
+    j = r;
+    // set pivot to center of buffer
+    pivot = buffer[(l + r) / 2];
+    do
+    {
+        while(buffer[i].z < pivot.z)
+        {
+            i++;
+        }
+        while(pivot.z < buffer[j].z)
+        {
+            j--;
+        }
+        if(i <= j)
+        {
+            /* buffer[i] is to the left of pivot but greater
+            *  buffer[j] is to the right of pivot but smaller
+            * -> swap values of buffer[i] <> buffer[j] */
+            swap = buffer[i];
+            buffer[i] = buffer[j];
+            buffer[j] = swap;
+            i++;
+            j--;
+        }
+    }
+    while(i <= j);
 
-  i=l;           //{ i : = minimalny klucz }
-  j=p;           //{ j : = maksymalny klucz }
-  x=dane[(l+p)/2];  //{ x - wyraz srodkowy sortowanej tablicy }
-  do
-  {             //{ cala historie bedziemy powtarzac tak dlugo jak . . . }
-	while(dane[i].z < x.z)              //{ dopoki jestesmy na lewo od srodkowego }
-	{
-	  i++;                       //{ ...powiekszamy indeks i }
-	}
-	while(x.z < dane[j].z)                  //{ dopoki na prawo od srodkowego }
-	{
-	  j--;                       //{ ...zmniejszamy indeks j }
-	}
-	if(i<=j)                        //{ jezeli i <= j wtedy : }
-	{                               //{ zamieniamy miejscami wyrazy i, j }
-	  y=dane[i];                      //{ podstawienie do zmiennej roboczej }
-	  dane[i]=dane[j];                    //{ pierwszy etap zamiany }
-	  dane[j]=y;                      //{ drugi etap zamiany }
-	  i++;                       //{ zwiekszenie indeksu i }
-	  j--;                       //{ zmniejszenie indeksu j }
-	}
-  }
-  while(i<=j);      //{ nie zostanie spelniony warunek i>j }
-  if(l<j) QuickSortZBuffer(dane, l, j);
-  if(i<p) QuickSortZBuffer(dane, i, p);
+    // sort left side of pivot element
+    if(l < j)
+    {
+        QuickSortZBuffer(buffer, l, j);
+    }
+
+    // sort right side of pivot element
+    if(i < r)
+    {
+        QuickSortZBuffer(buffer, i, r);
+    }
 }
 template void QuickSortZBuffer<double>(sSortZ<double> *dane, int l, int p);

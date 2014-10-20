@@ -583,15 +583,13 @@ compiler_uic_make_all: ../qt/ui_render_window.h
 compiler_uic_clean:
 	-$(DEL_FILE) ../qt/ui_render_window.h
 ../qt/ui_render_window.h: ../qt/render_window.ui \
+		../qt/mylineedit.h \
+		../qt/mydoublespinbox.h \
 		../qt/myscrolledarea.h \
 		../qt/color_palette_widget.h \
-		../qt/mylineedit.h \
 		../qt/myspinbox.h \
-		../qt/mydoublespinbox.h \
 		../qt/mycheckbox.h \
 		../qt/mygroupbox.h \
-		../src/color_palette.hpp \
-		../src/color_structures.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
@@ -600,6 +598,8 @@ compiler_uic_clean:
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/color_palette.hpp \
+		../src/color_structures.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
@@ -632,11 +632,11 @@ calculate_distance.o: ../src/calculate_distance.cpp ../src/calculate_distance.hp
 		../src/algebra.hpp \
 		../src/primitives.h \
 		../src/color_structures.hpp \
+		../src/parameters.hpp \
+		../src/color_palette.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
-		../src/parameters.hpp \
-		../src/color_palette.hpp \
 		../src/commonparams.hpp \
 		../src/fractparams.hpp \
 		../src/texture.hpp \
@@ -651,11 +651,11 @@ compute_fractal.o: ../src/compute_fractal.cpp ../src/compute_fractal.hpp \
 		../src/algebra.hpp \
 		../src/primitives.h \
 		../src/color_structures.hpp \
+		../src/parameters.hpp \
+		../src/color_palette.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
-		../src/parameters.hpp \
-		../src/color_palette.hpp \
 		../src/commonparams.hpp \
 		../src/fractal_formulas.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o compute_fractal.o ../src/compute_fractal.cpp
@@ -802,13 +802,13 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
+		../src/primitives.h \
 		../src/system.hpp \
 		../src/fractal_list.hpp \
 		../src/render_job.hpp \
 		../src/render_image.hpp \
 		../src/fractparams.hpp \
 		../src/texture.hpp \
-		../src/primitives.h \
 		../src/commonparams.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
@@ -823,7 +823,8 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/render_ssao.h \
 		../src/dof.hpp \
 		../src/common_math.h \
-		../src/undo.h
+		../src/undo.h \
+		../src/initparameters.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interface.o ../src/interface.cpp
 
 lights.o: ../src/lights.cpp ../src/lights.hpp \
@@ -890,7 +891,14 @@ old_settings.o: ../src/old_settings.cpp ../src/old_settings.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
 		../src/system.hpp \
-		../src/error_message.hpp
+		../src/error_message.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/cimage.hpp \
+		../src/primitives.h \
+		../src/commonparams.hpp \
+		../src/camera_target.hpp \
+		../src/fractal_list.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o old_settings.o ../src/old_settings.cpp
 
 parameters.o: ../src/parameters.cpp ../src/parameters.hpp \
@@ -901,7 +909,10 @@ parameters.o: ../src/parameters.cpp ../src/parameters.hpp \
 
 primitives.o: ../src/primitives.cpp ../src/primitives.h \
 		../src/algebra.hpp \
-		../src/color_structures.hpp
+		../src/color_structures.hpp \
+		../src/parameters.hpp \
+		../src/color_palette.hpp \
+		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o primitives.o ../src/primitives.cpp
 
 progress_text.o: ../src/progress_text.cpp ../src/progress_text.hpp
@@ -1056,6 +1067,7 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/cimage.hpp \
 		../src/interface.hpp \
 		../src/rendered_image_widget.hpp \
+		../src/primitives.h \
 		../src/fractal_list.hpp \
 		../src/system.hpp \
 		../src/settings.hpp \
@@ -1063,7 +1075,6 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/files.h \
 		../src/fractparams.hpp \
 		../src/texture.hpp \
-		../src/primitives.h \
 		../src/commonparams.hpp \
 		../src/thumbnail.hpp \
 		../src/render_job.hpp \

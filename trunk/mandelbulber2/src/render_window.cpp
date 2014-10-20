@@ -1156,3 +1156,12 @@ void RenderWindow::slotPressedButtonNewPrimitive()
 	QString primitiveName = buttonName.mid(buttonName.lastIndexOf('_') + 1);
 	mainInterface->NewPrimitive(primitiveName);
 }
+
+void RenderWindow::slotPressedButtonDeletePrimitive()
+{
+	QString buttonName = this->sender()->objectName();
+	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
+	mainInterface->DeletePrimitive(primitiveName);
+
+
+}

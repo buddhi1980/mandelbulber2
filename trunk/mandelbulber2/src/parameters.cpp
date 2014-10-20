@@ -805,3 +805,31 @@ void cParameterContainer::ResetAllToDefault(void)
 		++it;
 	}
 }
+
+bool cParameterContainer::IfExists(const QString &name) const
+{
+	QMap<QString, sRecord>::const_iterator it;
+	it = myMap.find(name);
+	if (it != myMap.end())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void cParameterContainer::DeleteParameter(const QString &name)
+{
+	QMap<QString, sRecord>::iterator it;
+	it = myMap.find(name);
+	if (it != myMap.end())
+	{
+		myMap.remove(name);
+	}
+	else
+	{
+		qWarning() << "DeleteParameter(): element '" << name << "' doesn't exists" << endl;
+	}
+}

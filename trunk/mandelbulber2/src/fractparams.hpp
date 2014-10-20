@@ -185,7 +185,7 @@ public:
 	CVector3 viewAngle;
 	CVector3 topVector;
 
-	sPrimitives primitives;
+	cPrimitives primitives;
 
 	sCommonParams common;
 };
