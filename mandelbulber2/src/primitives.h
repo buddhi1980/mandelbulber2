@@ -48,6 +48,7 @@ struct sPrimitiveItem
 struct sPrimitivePlane
 {
 	bool enable;
+	bool empty;
 	CVector3 position;
 	CVector3 rotation;
 	CRotationMatrix rotationMatrix;
@@ -58,6 +59,7 @@ struct sPrimitivePlane
 struct sPrimitiveBox
 {
 	bool enable;
+	bool empty;
 	CVector3 position;
 	CVector3 size;
 	double rounding;
@@ -70,6 +72,7 @@ struct sPrimitiveBox
 struct sPrimitiveSphere
 {
 	bool enable;
+	bool empty;
 	CVector3 position;
 	double radius;
 	double reflect;
@@ -81,6 +84,7 @@ struct sPrimitiveSphere
 struct sPrimitiveWater
 {
 	bool enable;
+	bool empty;
 	CVector3 position;
 	double amplitude;
 	double animSpeed;
@@ -96,6 +100,7 @@ struct sPrimitiveWater
 struct sPrimitiveCone
 {
 	bool enable;
+	bool empty;
 	CVector3 position;
 	double radius;
 	double height;
@@ -109,6 +114,7 @@ struct sPrimitiveCone
 struct sPrimitiveCylinder
 {
 	bool enable;
+	bool empty;
 	CVector3 position;
 	double radius;
 	double height;
@@ -144,6 +150,7 @@ struct sPrimitiveRectangle
 struct sPrimitiveTorus
 {
 	bool enable;
+	bool empty;
 	CVector3 position;
 	double radius;
 	double tube_radius;

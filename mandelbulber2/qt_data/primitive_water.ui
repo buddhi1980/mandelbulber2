@@ -16,28 +16,48 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="6" column="2">
-      <widget class="MySpinBox" name="spinboxInt_iterations">
+     <item row="6" column="1">
+      <widget class="QSlider" name="sliderInt_iterations">
+       <property name="minimum">
+        <number>1</number>
+       </property>
        <property name="maximum">
         <number>30</number>
        </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QDial" name="dial3_rotation_z">
-       <property name="minimum">
-        <number>-18000</number>
+       <property name="singleStep">
+        <number>1</number>
        </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
-     <item row="9" column="2">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_13">
+       <property name="text">
+        <string>z:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0">
+      <widget class="QLabel" name="label_18">
+       <property name="text">
+        <string>Color:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Y-axis rotation:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_y">
        <property name="prefix">
         <string/>
        </property>
@@ -58,61 +78,42 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_17">
-       <property name="text">
-        <string>Iterations:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="0">
-      <widget class="QLabel" name="label_18">
-       <property name="text">
-        <string>Color:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_15">
-       <property name="text">
-        <string>Z-axis rotation:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="MyLineEdit" name="vect3_position_x"/>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>X-axis rotation:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_10">
-       <property name="text">
-        <string>Position:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QDial" name="dial3_rotation_y">
+     <item row="11" column="1">
+      <widget class="QSlider" name="slider_reflection">
        <property name="minimum">
-        <number>-18000</number>
+        <number>0</number>
        </property>
        <property name="maximum">
-        <number>18000</number>
+        <number>100</number>
        </property>
-       <property name="wrapping">
-        <bool>true</bool>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_14">
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_20">
        <property name="text">
-        <string>Wave amplitude:</string>
+        <string>Wave speed (anim.):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QSlider" name="slider_anim_speed">
+       <property name="minimum">
+        <number>5</number>
+       </property>
+       <property name="maximum">
+        <number>500</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -141,41 +142,121 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="label_13">
-       <property name="text">
-        <string>z:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Y-axis rotation:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="1">
-      <widget class="QSlider" name="slider_reflection">
+     <item row="8" column="1">
+      <widget class="QDial" name="dial3_rotation_y">
        <property name="minimum">
-        <number>0</number>
+        <number>-18000</number>
        </property>
        <property name="maximum">
-        <number>100</number>
+        <number>18000</number>
        </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+       <property name="wrapping">
+        <bool>true</bool>
        </property>
       </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="MyLineEdit" name="logedit_length">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="MyLineEdit" name="vect3_position_z"/>
      </item>
      <item row="1" column="2">
       <widget class="MyLineEdit" name="vect3_position_y"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_14">
+       <property name="text">
+        <string>Wave amplitude:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>Position:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="MyLineEdit" name="vect3_position_x"/>
+     </item>
+     <item row="9" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>-36000.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>36000.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QDial" name="dial3_rotation_z">
+       <property name="minimum">
+        <number>-18000</number>
+       </property>
+       <property name="maximum">
+        <number>18000</number>
+       </property>
+       <property name="wrapping">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox_anim_speed">
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>0.010000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>10.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QDial" name="dial3_rotation_x">
+       <property name="minimum">
+        <number>-18000</number>
+       </property>
+       <property name="maximum">
+        <number>18000</number>
+       </property>
+       <property name="wrapping">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
      <item row="11" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_reflection">
@@ -206,25 +287,10 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="2">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_x">
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>2</number>
-       </property>
-       <property name="minimum">
-        <double>-36000.000000000000000</double>
-       </property>
+     <item row="6" column="2">
+      <widget class="MySpinBox" name="spinboxInt_iterations">
        <property name="maximum">
-        <double>36000.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
+        <number>30</number>
        </property>
       </widget>
      </item>
@@ -238,43 +304,6 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_16">
-       <property name="text">
-        <string>Wave length:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_11">
-       <property name="text">
-        <string>x:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QDial" name="dial3_rotation_x">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="2">
-      <widget class="QPushButton" name="colorButton_color">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_12">
        <property name="text">
@@ -285,30 +314,12 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="2">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_y">
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>2</number>
-       </property>
-       <property name="minimum">
-        <double>-36000.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>36000.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
+     <item row="10" column="2">
+      <widget class="QPushButton" name="colorButton_color">
+       <property name="text">
+        <string>PushButton</string>
        </property>
       </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="MyLineEdit" name="vect3_position_z"/>
      </item>
      <item row="4" column="1">
       <widget class="QSlider" name="logslider_length">
@@ -335,50 +346,46 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="2">
-      <widget class="MyLineEdit" name="logedit_length">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>x:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QSlider" name="sliderInt_iterations">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>30</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>X-axis rotation:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QSlider" name="slider_anim_speed">
-       <property name="minimum">
-        <number>5</number>
-       </property>
-       <property name="maximum">
-        <number>500</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_15">
+       <property name="text">
+        <string>Z-axis rotation:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_anim_speed">
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_16">
+       <property name="text">
+        <string>Wave length:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_17">
+       <property name="text">
+        <string>Iterations:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_x">
        <property name="prefix">
         <string/>
        </property>
@@ -389,20 +396,20 @@
         <number>2</number>
        </property>
        <property name="minimum">
-        <double>0.010000000000000</double>
+        <double>-36000.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>10.000000000000000</double>
+        <double>36000.000000000000000</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_20">
+     <item row="12" column="0" colspan="2">
+      <widget class="MyCheckBox" name="checkBox_empty">
        <property name="text">
-        <string>Wave speed (anim.):</string>
+        <string>Empty inside</string>
        </property>
       </widget>
      </item>
@@ -438,6 +445,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>myspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>mycheckbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
