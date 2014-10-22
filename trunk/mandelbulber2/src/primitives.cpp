@@ -156,6 +156,9 @@ QString PrimitiveNames(enumObjectType primitiveType)
 		case objCylinder:
 			name = "cylinder";
 			break;
+		case objTorus:
+			name = "torus";
+			break;
 
 		default:
 			break;
@@ -182,6 +185,8 @@ enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
 		type = objCone;
 	else if(primitiveType == QString("cylinder"))
 		type = objCylinder;
+	else if(primitiveType == QString("torus"))
+		type = objTorus;
 	else
 		qCritical() << "Wrong primitive name: " << primitiveType;
 
@@ -192,6 +197,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 {
 	//TODO add inverted objects and caps on/off
 	//TODO add placement of objects by mouse
+	//TODO position and rotation of all primitives as a group of objects
 
 	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) started");
 	QList<QString> listOfParameters = par->GetListOfParameters();
@@ -284,6 +290,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.length = par->Get<double>(item.name + "_length");
 				object.animSpeed = par->Get<double>(item.name + "_anim_speed");
 				object.iterations = par->Get<int>(item.name + "_iterations");
+				object.animFrame = par->Get<int>("frame_no");
 				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
 				waters.append(object);
 				break;
@@ -343,6 +350,20 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.color = par->Get<sRGB>(item.name + "_color");
 				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
 				rectangles.append(object);
+				break;
+			}
+			case objTorus:
+			{
+				sPrimitiveTorus object;
+				object.enable = par->Get<bool>(item.name + "_enabled");
+				object.position = par->Get<CVector3>(item.name + "_position");
+				object.radius = par->Get<double>(item.name + "_radius");
+				object.tube_radius = par->Get<double>(item.name + "_tube_radius");
+				object.rotation = par->Get<CVector3>(item.name + "_rotation");
+				object.reflect = par->Get<double>(item.name + "_reflection");
+				object.color = par->Get<sRGB>(item.name + "_color");
+				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
+				toruses.append(object);
 				break;
 			}
 			default:
@@ -421,6 +442,50 @@ double cPrimitives::PrimitiveCone(CVector3 _point, const sPrimitiveCone &cone) c
   double distTemp = cone.wallNormal.Dot(vect);
   distTemp = max(-point.z - cone.height, distTemp);
   return distTemp;
+}
+
+double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water) const
+{
+	CVector3 relativePoint = _point - water.position;
+	CVector3 point = water.rotationMatrix.RotateVector(relativePoint);
+
+	double planeDistance = _point.z - water.position.z;
+	if(planeDistance < water.amplitude * 10.0)
+	{
+		double phase = water.animSpeed * water.animFrame;
+		double k=0.23;
+		double waveXtemp = point.x;
+		double waveYtemp = point.y;
+		double waveX = 0;
+		double waveY = 0;
+		double p = 1.0;
+		double p2 = 0.05;
+		for(int i=1; i<=water.iterations; i++)
+		{
+			float p3 = p * p2;
+			double shift = phase / (i/3.0 + 1.0);
+			waveXtemp = sin(i + 0.4*(waveX)*p3 + sin(k* point.y / water.length*p3) + point.x/water.length*p3 + shift)/p;
+			waveYtemp = cos(i + 0.4*(waveY)*p3 + sin(point.x / water.length*p3) + k*point.y/water.length*p3 + shift*0.23)/p;
+			waveX+=waveXtemp;
+			waveY+=waveYtemp;
+			p2 = p2 + (1.0 - p2) * 0.7;
+			p *= 1.872;
+		}
+
+		planeDistance += (waveX + waveY) * water.amplitude;
+	}
+
+	return planeDistance;
+}
+
+double cPrimitives::PrimitiveTorus(CVector3 _point, const sPrimitiveTorus &torus) const
+{
+	CVector3 relativePoint = _point - torus.position;
+	CVector3 point = torus.rotationMatrix.RotateVector(relativePoint);
+
+	double d1 = sqrt(point.x * point.x + point.y * point.y) - torus.radius;
+	return sqrt(d1 * d1 + point.z * point.z) - torus.tube_radius;
+
 }
 
 double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fractal::enumObjectType *closestObjectType, sRGB *objectColor, double *objectReflect) const
@@ -538,6 +603,38 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 				closestObject = objPlane;
 				color = cone.color;
 				reflect = cone.reflect;
+			}
+			distance = min(distance, distTemp);
+		}
+	}
+
+	for(int i=0; i<waters.size(); i++)
+	{
+		const sPrimitiveWater &water = waters.at(i);
+		if(water.enable)
+		{
+			double distTemp = PrimitiveWater(point, water);
+			if(distTemp < distance)
+			{
+				closestObject = objPlane;
+				color = water.color;
+				reflect = water.reflect;
+			}
+			distance = min(distance, distTemp);
+		}
+	}
+
+	for(int i=0; i<toruses.size(); i++)
+	{
+		const sPrimitiveTorus &torus = toruses.at(i);
+		if(torus.enable)
+		{
+			double distTemp = PrimitiveTorus(point, torus);
+			if(distTemp < distance)
+			{
+				closestObject = objPlane;
+				color = torus.color;
+				reflect = torus.reflect;
 			}
 			distance = min(distance, distTemp);
 		}

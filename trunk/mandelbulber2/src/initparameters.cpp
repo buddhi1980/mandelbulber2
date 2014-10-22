@@ -402,6 +402,10 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 			par->addParam(QString(primitiveName) + "_anim_speed", 1.0, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_iterations", 5, morphCatMullRom, paramStandard);
 			break;
+		case fractal::objTorus:
+			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_tube_radius", 0.2, morphCatMullRom, paramStandard);
+			break;
 
 		default:
 			break;

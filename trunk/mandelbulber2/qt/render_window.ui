@@ -5107,7 +5107,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>66</width>
+                      <width>80</width>
                       <height>18</height>
                      </rect>
                     </property>
@@ -5200,7 +5200,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>66</width>
+                      <width>80</width>
                       <height>18</height>
                      </rect>
                     </property>
@@ -5293,7 +5293,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>66</width>
+                      <width>80</width>
                       <height>18</height>
                      </rect>
                     </property>
@@ -5652,6 +5652,19 @@ to target:</string>
                      </property>
                      <property name="text">
                       <string>Add circle</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QPushButton" name="pushButton_add_primitive_torus">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>1</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Add torus</string>
                      </property>
                     </widget>
                    </item>
