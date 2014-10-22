@@ -33,7 +33,7 @@ namespace fractal
 enum enumObjectType
 {
 	objNone = -1, objFractal = 0, objPlane = 1, objWater = 2, objSphere = 3, objBox = 4,
-	objRectangle = 5, objCircle = 6, objCone = 7, objCylinder = 8
+	objRectangle = 5, objCircle = 6, objCone = 7, objCylinder = 8, objTorus = 9
 };
 }
 
@@ -89,6 +89,7 @@ struct sPrimitiveWater
 	CVector3 rotation;
 	CRotationMatrix rotationMatrix;
 	int iterations;
+	int animFrame;
 	sRGB color;
 };
 
@@ -140,15 +141,18 @@ struct sPrimitiveRectangle
 	sRGB color;
 };
 
-struct sPrimitives
+struct sPrimitiveTorus
 {
-	sPrimitivePlane plane;
-	sPrimitiveBox box;
-	sPrimitiveBox invertedBox;
-	sPrimitiveSphere sphere;
-	sPrimitiveSphere invertedSphere;
-	sPrimitiveWater water;
+	bool enable;
+	CVector3 position;
+	double radius;
+	double tube_radius;
+	double reflect;
+	CVector3 rotation;
+	CRotationMatrix rotationMatrix;
+	sRGB color;
 };
+
 
 double PrimitivePlane(CVector3 point, CVector3 centre, CVector3 normal);
 double PrimitiveInvertedBox(CVector3 point, CVector3 center, CVector3 size);
@@ -178,6 +182,7 @@ private:
 	QVector<sPrimitiveRectangle> rectangles;
 	QVector<sPrimitiveSphere> spheres;
 	QVector<sPrimitiveWater> waters;
+	QVector<sPrimitiveTorus> toruses;
 
 	double PrimitiveBox(CVector3 point, const sPrimitiveBox &box) const;
 	double PrimitivePlane(CVector3 point, const sPrimitivePlane &plane) const;
@@ -186,6 +191,8 @@ private:
 	double PrimitiveCylinder(CVector3 point, const sPrimitiveCylinder &cylinder) const;
 	double PrimitiveCircle(CVector3 point, const sPrimitiveCircle &circle) const;
 	double PrimitiveCone(CVector3 point, const sPrimitiveCone &cone) const;
+	double PrimitiveWater(CVector3 point, const sPrimitiveWater &water) const;
+	double PrimitiveTorus(CVector3 point, const sPrimitiveTorus &torus) const;
 
 	inline double Plane(CVector3 point, CVector3 position,  CVector3 normal) const
 	{
