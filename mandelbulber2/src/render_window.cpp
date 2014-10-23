@@ -518,6 +518,7 @@ void RenderWindow::slotMenuSaveSettings()
 
 void RenderWindow::slotMenuLoadSettings()
 {
+	//TODO rebuild of interface for primitives
 	cSettings parSettings(cSettings::formatFullText);
 
 	PreviewFileDialog dialog(this);
