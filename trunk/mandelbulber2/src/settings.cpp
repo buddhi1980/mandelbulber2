@@ -24,6 +24,8 @@
 #include "system.hpp"
 #include "error_message.hpp"
 #include <QCryptographicHash>
+#include "primitives.h"
+#include "initparameters.hpp"
 
 cSettings::cSettings(enumFormat _format)
 {
@@ -232,7 +234,6 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 
 bool cSettings::Decode(cParameterContainer *par, cParameterContainer *fractPar)
 {
-	//TODO load settings with primitives
 	//TODO load settings with old names of light sources
 
 	//clear settings
@@ -293,6 +294,17 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 	int semicolon = line.indexOf(';');
 	QString parameterName = line.left(firstSpace);
 	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1);
+
+	if(parameterName.left(parameterName.indexOf('_')) == "primitive")
+	{
+		if(!par->IfExists(parameterName))
+		{
+			QStringList split = parameterName.split('_');
+			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
+			fractal::enumObjectType objectType = PrimitiveNameToEnum(split.at(1));
+			InitPrimitiveParams(objectType, primitiveName, par);
+		}
+	}
 
 	cParameterContainer::enumVarType varType = par->GetVarType(parameterName);
 
