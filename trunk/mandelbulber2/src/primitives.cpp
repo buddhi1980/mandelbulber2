@@ -332,9 +332,7 @@ double cPrimitives::PrimitiveCylinder(CVector3 _point, const sPrimitiveCylinder 
 {
 	CVector3 relativePoint = _point - cylinder.position;
 	CVector3 point = cylinder.rotationMatrix.RotateVector(relativePoint);
-	CVector2<double> cylTemp;
-	cylTemp.x = point.x - cylinder.position.x;
-	cylTemp.y = point.y - cylinder.position.y;
+	CVector2<double> cylTemp(point.x, point.y);
 	double dist = cylTemp.Length() - cylinder.radius;
 	if(!cylinder.caps) dist = fabs(dist);
 	dist = max(fabs(point.z) - cylinder.height*0.5, dist);
@@ -345,9 +343,7 @@ double cPrimitives::PrimitiveCircle(CVector3 _point, const sPrimitiveCircle &cir
 {
 	CVector3 relativePoint = _point - circle.position;
 	CVector3 point = circle.rotationMatrix.RotateVector(relativePoint);
-	CVector2<double> cylTemp;
-	cylTemp.x = point.x - circle.position.x;
-	cylTemp.y = point.y - circle.position.y;
+	CVector2<double> cylTemp(point.x, point.y);
 	double distTemp = cylTemp.Length() - circle.radius;
 	distTemp = max(fabs(point.z), distTemp);
 	return distTemp;
@@ -371,7 +367,7 @@ double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water
 	CVector3 relativePoint = _point - water.position;
 	CVector3 point = water.rotationMatrix.RotateVector(relativePoint);
 
-	double planeDistance = _point.z - water.position.z;
+	double planeDistance = point.z;
 	if(planeDistance < water.amplitude * 10.0)
 	{
 		double phase = water.animSpeed * water.animFrame;
