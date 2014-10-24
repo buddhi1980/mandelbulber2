@@ -1871,7 +1871,6 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 		{
 			QStringList split = parameterName.split('_');
 			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
-			fractal::enumObjectType objectType = PrimitiveNameToEnum(split.at(1));
 			QString objectTypeString = split.at(1);
 			int index = split.at(2).toInt();
 

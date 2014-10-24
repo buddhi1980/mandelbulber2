@@ -880,6 +880,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 		case fractal::objRectangle:
 		case fractal::objCircle:
 		case fractal::objCone:
+		case fractal::objTorus:
 		case fractal::objCylinder:
 		{
 			out.R = input.objectColor.R / 65536.0;
