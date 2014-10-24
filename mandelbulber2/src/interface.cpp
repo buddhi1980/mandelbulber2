@@ -1740,24 +1740,32 @@ void cInterface::ResetView()
 	StartRender();
 }
 
-void cInterface::NewPrimitive(const QString &primitiveType)
+void cInterface::NewPrimitive(const QString &primitiveType, int index)
 {
 	QString primitiveName = QString("primitive_") + primitiveType;
 	QString uiFileName = systemData.sharedDir + "qt_data" + QDir::separator() + primitiveName + ".ui";
 	fractal::enumObjectType objectType = PrimitiveNameToEnum(primitiveType);
 
-	//look for the lowest free id
-	bool occupied = true;
 	int newId = 0;
-	while(occupied)
+	if(index == 0)
 	{
-		newId++;
-		occupied = false;
-		for(int i=0; i<listOfPrimitives.size(); i++)
+		//look for the lowest free id
+		bool occupied = true;
+
+		while(occupied)
 		{
-			if(objectType == listOfPrimitives.at(i).type && newId == listOfPrimitives.at(i).id)
-				occupied = true;
+			newId++;
+			occupied = false;
+			for(int i=0; i<listOfPrimitives.size(); i++)
+			{
+				if(objectType == listOfPrimitives.at(i).type && newId == listOfPrimitives.at(i).id)
+					occupied = true;
+			}
 		}
+	}
+	else
+	{
+		newId = index; //use given index
 	}
 
 	//name for new primitive
@@ -1811,7 +1819,10 @@ void cInterface::NewPrimitive(const QString &primitiveType)
 	QApplication::connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
 
 	//adding parameters
-	InitPrimitiveParams(objectType, primitiveFullName, gPar);
+	if(index == 0) //for only new primitive
+	{
+		InitPrimitiveParams(objectType, primitiveFullName, gPar);
+	}
 
 	mainInterface->ConnectSignalsForSlidersInWindow(mainWidget);
 	mainInterface->MakeColorButtonsInWindow(primitiveWidget);
@@ -1840,4 +1851,48 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 
 	DeletePrimitiveParams(objectType, primitiveName, gPar);
 }
+
+void cInterface::RebuildPrimitives(cParameterContainer *par)
+{
+	//clear all widgets
+	for(int i=0; i<listOfPrimitives.size(); i++)
+	{
+		QString widgetName = QString("widgetmain_") + listOfPrimitives.at(i).name;
+		QWidget *widget = mainWindow->ui->scrollAreaWidgetContents_primitives->findChild<QWidget*>(widgetName);
+		delete widget;
+	}
+	listOfPrimitives.clear();
+
+	QList<QString> listOfParameters = par->GetListOfParameters();
+	for(int i=0; i<listOfParameters.size(); i++)
+	{
+		QString parameterName = listOfParameters.at(i);
+		if(parameterName.left(parameterName.indexOf('_')) == "primitive")
+		{
+			QStringList split = parameterName.split('_');
+			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
+			fractal::enumObjectType objectType = PrimitiveNameToEnum(split.at(1));
+			QString objectTypeString = split.at(1);
+			int index = split.at(2).toInt();
+
+			bool found = false;
+			for(int l = 0; l < listOfPrimitives.size(); l++)
+			{
+				if(listOfPrimitives.at(l).name == primitiveName)
+				{
+					found = true;
+					break;
+				}
+			}
+
+			if(!found)
+			{
+				NewPrimitive(objectTypeString, index);
+			}
+		}
+	}
+
+}
+
+
 

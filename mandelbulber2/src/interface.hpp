@@ -71,8 +71,9 @@ public:
 	void Undo();
 	void Redo();
 	void ResetView();
-	void NewPrimitive(const QString &primitiveType);
+	void NewPrimitive(const QString &primitiveType, int index = 0);
 	void DeletePrimitive(const QString &primitiveName);
+	void RebuildPrimitives(cParameterContainer *par);
 
 	QApplication *application;
 	RenderWindow *mainWindow;
