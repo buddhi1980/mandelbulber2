@@ -535,6 +535,7 @@ void RenderWindow::slotMenuLoadSettings()
 		QString filename = filenames.first();
 		parSettings.LoadFromFile(filename);
 		parSettings.Decode(gPar, gParFractal);
+		mainInterface->RebuildPrimitives(gPar);
 		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 		systemData.lastSettingsFile = filename;
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
