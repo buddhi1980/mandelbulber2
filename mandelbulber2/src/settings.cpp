@@ -201,7 +201,7 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 				throw QString("It's not valid Mandelbulber settings file. Wrong file version number");
 
 			if (fileVersion > appVersion)
-				throw QString("File was saved in new version of Mandelbulber\nFile version: ") + QString::number(fileVersion);
+				throw QString("File was saved in newer version of Mandelbulber\nFile version: ") + QString::number(fileVersion);
 
 			QString thirdLine = separatedText[2];
 			if(thirdLine.contains("all parameters"))
@@ -295,6 +295,8 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 	QString parameterName = line.left(firstSpace);
 	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1);
 
+	parameterName = Compatibility(parameterName);
+
 	if(parameterName.left(parameterName.indexOf('_')) == "primitive")
 	{
 		if(!par->IfExists(parameterName))
@@ -343,5 +345,31 @@ bool cSettings::CheckSection(QString text, QString &section)
 		return true;
 	}
 	return false;
+}
+
+QString cSettings::Compatibility(const QString &old)
+{
+	QString newName = old;
+	if (fileVersion <= 2.01)
+	{
+		if (old.indexOf("aux_light_predefined") >= 0)
+		{
+			newName.replace("aux_light_predefined", "aux_light");
+		}
+
+		if (old == QString("volumetric_light_intensity_0"))
+		{
+			newName = QString("main_light_volumetric_intensity");
+		}
+		else if(old == QString("volumetric_light_enabled_0"))
+		{
+			newName = QString("main_light_volumetric_enabled");
+		}
+		else if(old.indexOf("volumetric_light") >= 0)
+		{
+			newName.replace("volumetric_light", "aux_light_volumetric");
+		}
+	}
+	return newName;
 }
 

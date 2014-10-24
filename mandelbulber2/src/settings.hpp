@@ -51,6 +51,7 @@ private:
 	QString CreateOneLine(const cParameterContainer *par, QString name);
 	bool DecodeOneLine(cParameterContainer *par, QString line);
 	bool CheckSection(QString text, QString &section);
+	QString Compatibility(const QString &old);
 
 	enumFormat format;
 	QString settingsText;
