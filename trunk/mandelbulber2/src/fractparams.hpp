@@ -61,7 +61,6 @@ public:
 
 	int ambientOcclusionQuality; //ambient occlusion quality
 	int auxLightNumber;
-	int auxLightRandomSeed;
 	int coloring_seed; //colouring random seed
 	int frameNo;
 	int imageHeight; //image height
@@ -130,8 +129,6 @@ public:
 
   double ambientOcclusion;
 	double ambientOcclusionFastTune;
-	double auxLightDistributionRadius;
-	double auxLightMaxDist;
 	double auxLightPreIntensity[4];
 	double auxLightVisibility;
 	double auxLightVisibilitySize;

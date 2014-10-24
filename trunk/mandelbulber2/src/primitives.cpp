@@ -25,107 +25,6 @@
 #include <math.h>
 #include "system.hpp"
 
-
-/*
-double PrimitiveInvertedBox(CVector3 point, CVector3 center, CVector3 size)
-{
-	double distance, planeDistance;
-	CVector3 corner1(center.x - 0.5*size.x, center.y - 0.5*size.y, center.z - 0.5*size.z);
-	CVector3 corner2(center.x + 0.5*size.x, center.y + 0.5*size.y, center.z + 0.5*size.z);
-
-	planeDistance = PrimitivePlane(point, corner1, CVector3(1,0,0));
-	distance = planeDistance;
-	planeDistance = PrimitivePlane(point, corner2, CVector3(-1,0,0));
-	distance = (planeDistance < distance) ? planeDistance : distance;
-
-	planeDistance = PrimitivePlane(point, corner1, CVector3(0,1,0));
-	distance = (planeDistance < distance) ? planeDistance : distance;
-	planeDistance = PrimitivePlane(point, corner2, CVector3(0,-1,0));
-	distance = (planeDistance < distance) ? planeDistance : distance;
-
-	planeDistance = PrimitivePlane(point, corner1, CVector3(0,0,1));
-	distance = (planeDistance < distance) ? planeDistance : distance;
-	planeDistance = PrimitivePlane(point, corner2, CVector3(0,0,-1));
-	distance = (planeDistance < distance) ? planeDistance : distance;
-
-	return distance;
-}
-
-double PrimitiveBox(CVector3 point, CVector3 center, CVector3 size)
-{
-	double distance, planeDistance;
-	CVector3 corner1(center.x - 0.5*size.x, center.y - 0.5*size.y, center.z - 0.5*size.z);
-	CVector3 corner2(center.x + 0.5*size.x, center.y + 0.5*size.y, center.z + 0.5*size.z);
-
-	planeDistance = PrimitivePlane(point, corner1, CVector3(-1,0,0));
-	distance = planeDistance;
-	planeDistance = PrimitivePlane(point, corner2, CVector3(1,0,0));
-	distance = (planeDistance > distance) ? planeDistance : distance;
-
-	planeDistance = PrimitivePlane(point, corner1, CVector3(0,-1,0));
-	distance = (planeDistance > distance) ? planeDistance : distance;
-	planeDistance = PrimitivePlane(point, corner2, CVector3(0,1,0));
-	distance = (planeDistance > distance) ? planeDistance : distance;
-
-	planeDistance = PrimitivePlane(point, corner1, CVector3(0,0,-1));
-	distance = (planeDistance > distance) ? planeDistance : distance;
-	planeDistance = PrimitivePlane(point, corner2, CVector3(0,0,1));
-	distance = (planeDistance > distance) ? planeDistance : distance;
-
-	return distance;
-}
-
-double PrimitiveSphere(CVector3 point, CVector3 center, double radius)
-{
-	double distance = (point - center).Length() - radius;
-	return distance;
-}
-
-double PrimitiveInvertedSphere(CVector3 point, CVector3 center, double radius)
-{
-	double distance = radius - (point - center).Length();
-	return distance;
-}
-
-double PrimitiveWater(CVector3 point, double height, double amplitude, double length, double rotation, int iterations, double animSpeed, int frame)
-{
-	CVector3 plane(0,0,-1);
-	CVector3 centre(0,0,height);
-	plane.Normalize();
-	double planeDistance = plane.Dot(point - centre);
-	if(planeDistance < amplitude * 10.0)
-	{
-		CRotationMatrix rotMatrix;
-		rotMatrix.RotateZ(rotation/180*M_PI);
-		point = rotMatrix.RotateVector(point);
-
-		double phase = animSpeed * frame;
-		double k=0.23;
-		double waveXtemp = point.x;
-		double waveYtemp = point.y;
-		double waveX = 0;
-		double waveY = 0;
-		double p = 1.0;
-		double p2 = 0.05;
-		for(int i=1; i<=iterations; i++)
-		{
-			float p3 = p * p2;
-			double shift = phase / (i/3.0 + 1.0);
-			waveXtemp = sin(i + 0.4*(waveX)*p3 + sin(k* point.y / length*p3) + point.x/length*p3 + shift)/p;
-			waveYtemp = cos(i + 0.4*(waveY)*p3 + sin(point.x / length*p3) + k*point.y/length*p3 + shift*0.23)/p;
-			waveX+=waveXtemp;
-			waveY+=waveYtemp;
-			p2 = p2 + (1.0 - p2) * 0.7;
-			p *= 1.872;
-		}
-
-		planeDistance += (waveX + waveY) * amplitude;
-	}
-
-	return planeDistance;
-}
-*/
-
 using namespace fractal;
 
 QString PrimitiveNames(enumObjectType primitiveType)
@@ -195,7 +94,6 @@ enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
 
 cPrimitives::cPrimitives(const cParameterContainer *par)
 {
-	//TODO add caps on/off
 	//TODO add placement of objects by mouse
 	//TODO position and rotation of all primitives as a group of objects
 
@@ -303,6 +201,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 			{
 				sPrimitiveCone object;
 				object.enable = par->Get<bool>(item.name + "_enabled");
+				object.caps = par->Get<bool>(item.name + "_caps");
 				object.empty = par->Get<bool>(item.name + "_empty");
 				object.position = par->Get<CVector3>(item.name + "_position");
 				object.radius = par->Get<double>(item.name + "_radius");
@@ -320,6 +219,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 			{
 				sPrimitiveCylinder object;
 				object.enable = par->Get<bool>(item.name + "_enabled");
+				object.caps = par->Get<bool>(item.name + "_caps");
 				object.empty = par->Get<bool>(item.name + "_empty");
 				object.position = par->Get<CVector3>(item.name + "_position");
 				object.radius = par->Get<double>(item.name + "_radius");
@@ -436,6 +336,7 @@ double cPrimitives::PrimitiveCylinder(CVector3 _point, const sPrimitiveCylinder 
 	cylTemp.x = point.x - cylinder.position.x;
 	cylTemp.y = point.y - cylinder.position.y;
 	double dist = cylTemp.Length() - cylinder.radius;
+	if(!cylinder.caps) dist = fabs(dist);
 	dist = max(fabs(point.z) - cylinder.height*0.5, dist);
 	return cylinder.empty ? fabs(dist) : dist;
 }
@@ -460,6 +361,7 @@ double cPrimitives::PrimitiveCone(CVector3 _point, const sPrimitiveCone &cone) c
 	float q = sqrt(point.x * point.x + point.y * point.y);
   CVector2<double> vect(q, point.z);
   double dist = cone.wallNormal.Dot(vect);
+	if(!cone.caps) dist = fabs(dist);
   dist = max(-point.z - cone.height, dist);
   return cone.empty ? fabs(dist) : dist;
 }

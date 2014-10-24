@@ -101,6 +101,7 @@ struct sPrimitiveCone
 {
 	bool enable;
 	bool empty;
+	bool caps;
 	CVector3 position;
 	double radius;
 	double height;
@@ -115,6 +116,7 @@ struct sPrimitiveCylinder
 {
 	bool enable;
 	bool empty;
+	bool caps;
 	CVector3 position;
 	double radius;
 	double height;

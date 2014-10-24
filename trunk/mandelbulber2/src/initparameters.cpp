@@ -383,11 +383,13 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 		case fractal::objCylinder:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_height", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_caps", true, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
 			break;
 		case fractal::objCone:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_height", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_caps", true, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
 			break;
 		case fractal::objPlane:
