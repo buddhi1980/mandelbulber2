@@ -442,11 +442,13 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 		case fractal::objCylinder:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
 			par->DeleteParameter(QString(primitiveName) + "_height");
+			par->DeleteParameter(QString(primitiveName) + "_caps");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
 			break;
 		case fractal::objCone:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
 			par->DeleteParameter(QString(primitiveName) + "_height");
+			par->DeleteParameter(QString(primitiveName) + "_caps");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
 			break;
 		case fractal::objPlane:

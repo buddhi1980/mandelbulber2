@@ -234,8 +234,6 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 
 bool cSettings::Decode(cParameterContainer *par, cParameterContainer *fractPar)
 {
-	//TODO load settings with old names of light sources
-
 	//clear settings
 	par->ResetAllToDefault();
 	for(int i=0; i<4; i++)
