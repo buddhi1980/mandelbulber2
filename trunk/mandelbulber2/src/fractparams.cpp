@@ -152,5 +152,9 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 
 	legacyCoordinateSystem = container->Get<bool>("legacy_coordinate_system");
 
+	fractalPosition = container->Get<CVector3>("fractal_position");
+	fractalRotation = container->Get<CVector3>("fractal_rotation");
+	mRotFractalRotation.SetRotation2(fractalRotation / 180.0 * M_PI);
+
 	//formula = Get<int>("tile_number");
 }

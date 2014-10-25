@@ -53,7 +53,9 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 	}
 
 	int N = in.normalCalculationMode ? params.N * 5 : params.N;
-	sFractalIn fractIn(in.point, params.minN, N, params.common);
+	CVector3 point2 = in.point - params.fractalPosition;
+	point2 = params.mRotFractalRotation.RotateVector(point2);
+	sFractalIn fractIn(point2, params.minN, N, params.common);
 	sFractalOut fractOut;
 
 	if(true) //TODO !params.primitives.plane.onlyPlane
@@ -177,58 +179,6 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 		distance = 10.0;
 		out->maxiter = false;
 	}
-
-	/*
-	//plane
-	if (params.primitives.plane.enable)
-	{
-		double planeDistance = PrimitivePlane(in.point, params.primitives.plane.centre, params.primitives.plane.normal);
-		if(!params.primitives.plane.onlyPlane && planeDistance < distance) 	out->object = fractal::objPlane;
-		distance = (planeDistance < distance) ? planeDistance : distance;
-
-	}
-
-	//box
-	if (params.primitives.box.enable)
-	{
-		double boxDistance = PrimitiveBox(in.point, params.primitives.box.centre, params.primitives.box.size);
-		if(boxDistance < distance) 	out->object = fractal::objBox;
-		distance = (boxDistance < distance) ? boxDistance : distance;
-	}
-
-	//inverted box
-	if (params.primitives.invertedBox.enable)
-	{
-		double boxDistance = PrimitiveInvertedBox(in.point, params.primitives.invertedBox.centre, params.primitives.invertedBox.size);
-		if(boxDistance < distance) 	out->object = fractal::objBoxInv;
-		distance = (boxDistance < distance) ? boxDistance : distance;
-	}
-
-	//sphere
-	if (params.primitives.sphere.enable)
-	{
-		double sphereDistance = PrimitiveSphere(in.point, params.primitives.sphere.centre, params.primitives.sphere.radius);
-		if(sphereDistance < distance) 	out->object = fractal::objSphere;
-		distance = (sphereDistance < distance) ? sphereDistance : distance;
-	}
-
-	//invertedSphere
-	if (params.primitives.invertedSphere.enable)
-	{
-		double sphereDistance = PrimitiveInvertedSphere(in.point, params.primitives.invertedSphere.centre, params.primitives.invertedSphere.radius);
-		if(sphereDistance < distance) out->object = fractal::objSphereInv;
-		distance = (sphereDistance < distance) ? sphereDistance : distance;
-	}
-
-	//water
-	if (params.primitives.water.enable)
-	{
-		double waterDistance = PrimitiveWater(in.point, params.primitives.water.level, params.primitives.water.amplitude,
-				params.primitives.water.length, params.primitives.water.rotation, params.primitives.water.iterations, params.primitives.water.animSpeed, params.frameNo);
-		if(waterDistance < distance) 	out->object = fractal::objWater;
-		distance = (waterDistance < distance) ? waterDistance : distance;
-	}
-	*/
 
 	distance = min(distance, params.primitives.TotalDistance(in.point, distance, &out->object, &out->objectColor, &out->objectReflect));
 

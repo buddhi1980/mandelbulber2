@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1760</width>
-    <height>1271</height>
+    <height>1407</height>
    </rect>
   </property>
   <property name="font">
@@ -65,7 +65,7 @@
            <x>0</x>
            <y>0</y>
            <width>1086</width>
-           <height>1163</height>
+           <height>1299</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -847,7 +847,7 @@
           <x>0</x>
           <y>0</y>
           <width>184</width>
-          <height>1190</height>
+          <height>1326</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -1957,7 +1957,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>430</width>
-          <height>262</height>
+          <height>301</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2004,7 +2004,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-446</y>
                   <width>366</width>
                   <height>720</height>
                  </rect>
@@ -2676,8 +2676,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
-                  <height>238</height>
+                  <width>380</width>
+                  <height>273</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -4909,7 +4909,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>430</width>
-          <height>253</height>
+          <height>268</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -5015,7 +5015,7 @@ to target:</string>
                       <x>0</x>
                       <y>0</y>
                       <width>344</width>
-                      <height>88</height>
+                      <height>103</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1"/>
@@ -5107,8 +5107,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>80</width>
-                      <height>18</height>
+                      <width>344</width>
+                      <height>88</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5200,8 +5200,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>80</width>
-                      <height>18</height>
+                      <width>344</width>
+                      <height>88</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5293,8 +5293,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>80</width>
-                      <height>18</height>
+                      <width>344</width>
+                      <height>88</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5321,9 +5321,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>366</width>
-                  <height>211</height>
+                  <y>-126</y>
+                  <width>352</width>
+                  <height>428</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -5473,6 +5473,203 @@ to target:</string>
                   </layout>
                  </item>
                  <item>
+                  <layout class="QGridLayout" name="gridLayout_36">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                   <item row="2" column="2">
+                    <widget class="MyLineEdit" name="vect3_fractal_position_z"/>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLabel" name="label_139">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>z:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLabel" name="label_140">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>x:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="2">
+                    <widget class="MyLineEdit" name="vect3_fractal_position_y"/>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_46">
+                     <property name="text">
+                      <string>X-axis rotation:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_138">
+                     <property name="text">
+                      <string>fractal position:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLabel" name="label_137">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>y:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="MyLineEdit" name="vect3_fractal_position_x"/>
+                   </item>
+                   <item row="4" column="1">
+                    <widget class="QDial" name="dial3_fractal_rotation_y">
+                     <property name="minimum">
+                      <number>-18000</number>
+                     </property>
+                     <property name="maximum">
+                      <number>18000</number>
+                     </property>
+                     <property name="wrapping">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QDial" name="dial3_fractal_rotation_x">
+                     <property name="minimum">
+                      <number>-18000</number>
+                     </property>
+                     <property name="maximum">
+                      <number>18000</number>
+                     </property>
+                     <property name="wrapping">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinboxd3_fractal_rotation_x">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-36000.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>36000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinboxd3_fractal_rotation_y">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-36000.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>36000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="1">
+                    <widget class="QDial" name="dial3_fractal_rotation_z">
+                     <property name="minimum">
+                      <number>-18000</number>
+                     </property>
+                     <property name="maximum">
+                      <number>18000</number>
+                     </property>
+                     <property name="wrapping">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinboxd3_fractal_rotation_z">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-36000.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>36000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_47">
+                     <property name="text">
+                      <string>Y-axis rotation:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="label_48">
+                     <property name="text">
+                      <string>Z-axis rotation:</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
                   <spacer name="verticalSpacer_7">
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
@@ -5543,27 +5740,14 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>366</width>
-                  <height>211</height>
+                  <y>-63</y>
+                  <width>352</width>
+                  <height>394</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
                  <item>
                   <layout class="QGridLayout" name="gridLayout_23">
-                   <item row="3" column="0">
-                    <widget class="QPushButton" name="pushButton_add_primitive_plane">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>1</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="text">
-                      <string>Add plane</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="2" column="0">
                     <widget class="QPushButton" name="pushButton_add_primitive_cylinder">
                      <property name="sizePolicy">
@@ -5573,33 +5757,17 @@ to target:</string>
                       </sizepolicy>
                      </property>
                      <property name="text">
-                      <string>Add cylinder</string>
+                      <string/>
                      </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="1">
-                    <widget class="QPushButton" name="pushButton_add_primitive_water">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>1</verstretch>
-                      </sizepolicy>
+                     <property name="icon">
+                      <iconset resource="icons.qrc">
+                       <normaloff>:/arrows/icons/cylinder.png</normaloff>:/arrows/icons/cylinder.png</iconset>
                      </property>
-                     <property name="text">
-                      <string>Add water</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QPushButton" name="pushButton_add_primitive_sphere">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>1</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="text">
-                      <string>Add sphere</string>
+                     <property name="iconSize">
+                      <size>
+                       <width>32</width>
+                       <height>32</height>
+                      </size>
                      </property>
                     </widget>
                    </item>
@@ -5612,20 +5780,17 @@ to target:</string>
                       </sizepolicy>
                      </property>
                      <property name="text">
-                      <string>Add cone</string>
+                      <string/>
                      </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QPushButton" name="pushButton_add_primitive_box">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>1</verstretch>
-                      </sizepolicy>
+                     <property name="icon">
+                      <iconset resource="icons.qrc">
+                       <normaloff>:/arrows/icons/cone.png</normaloff>:/arrows/icons/cone.png</iconset>
                      </property>
-                     <property name="text">
-                      <string>Add box</string>
+                     <property name="iconSize">
+                      <size>
+                       <width>32</width>
+                       <height>32</height>
+                      </size>
                      </property>
                     </widget>
                    </item>
@@ -5638,7 +5803,17 @@ to target:</string>
                       </sizepolicy>
                      </property>
                      <property name="text">
-                      <string>Add rectangle</string>
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="icons.qrc">
+                       <normaloff>:/arrows/icons/rectangle.png</normaloff>:/arrows/icons/rectangle.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>32</width>
+                       <height>32</height>
+                      </size>
                      </property>
                     </widget>
                    </item>
@@ -5651,11 +5826,90 @@ to target:</string>
                       </sizepolicy>
                      </property>
                      <property name="text">
-                      <string>Add circle</string>
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="icons.qrc">
+                       <normaloff>:/arrows/icons/circle.png</normaloff>:/arrows/icons/circle.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>32</width>
+                       <height>32</height>
+                      </size>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="0">
+                   <item row="0" column="2">
+                    <widget class="QPushButton" name="pushButton_add_primitive_box">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>1</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="icons.qrc">
+                       <normaloff>:/arrows/icons/box.png</normaloff>:/arrows/icons/box.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>32</width>
+                       <height>32</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="2">
+                    <widget class="QPushButton" name="pushButton_add_primitive_water">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>1</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="icons.qrc">
+                       <normaloff>:/arrows/icons/water.png</normaloff>:/arrows/icons/water.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>32</width>
+                       <height>32</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QPushButton" name="pushButton_add_primitive_plane">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>1</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="icons.qrc">
+                       <normaloff>:/arrows/icons/plane.png</normaloff>:/arrows/icons/plane.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>32</width>
+                       <height>32</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
                     <widget class="QPushButton" name="pushButton_add_primitive_torus">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -5664,7 +5918,240 @@ to target:</string>
                       </sizepolicy>
                      </property>
                      <property name="text">
-                      <string>Add torus</string>
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="icons.qrc">
+                       <normaloff>:/arrows/icons/torus.png</normaloff>:/arrows/icons/torus.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>32</width>
+                       <height>32</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="2">
+                    <widget class="QPushButton" name="pushButton_add_primitive_sphere">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>1</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="icons.qrc">
+                       <normaloff>:/arrows/icons/sphere.png</normaloff>:/arrows/icons/sphere.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>32</width>
+                       <height>32</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_37">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                   <item row="2" column="2">
+                    <widget class="MyLineEdit" name="vect3_all_primitives_position_z"/>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLabel" name="label_141">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>z:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLabel" name="label_142">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>x:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="2">
+                    <widget class="MyLineEdit" name="vect3_all_primitives_position_y"/>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_49">
+                     <property name="text">
+                      <string>X-axis rotation:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLabel" name="label_144">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>y:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="MyLineEdit" name="vect3_all_primitives_position_x"/>
+                   </item>
+                   <item row="4" column="1">
+                    <widget class="QDial" name="dial3_all_primitives_rotation_y">
+                     <property name="minimum">
+                      <number>-18000</number>
+                     </property>
+                     <property name="maximum">
+                      <number>18000</number>
+                     </property>
+                     <property name="wrapping">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QDial" name="dial3_all_primitives_rotation_x">
+                     <property name="minimum">
+                      <number>-18000</number>
+                     </property>
+                     <property name="maximum">
+                      <number>18000</number>
+                     </property>
+                     <property name="wrapping">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinboxd3_all_primitives_rotation_x">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-36000.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>36000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinboxd3_all_primitives_rotation_y">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-36000.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>36000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="1">
+                    <widget class="QDial" name="dial3_all_primitives_rotation_z">
+                     <property name="minimum">
+                      <number>-18000</number>
+                     </property>
+                     <property name="maximum">
+                      <number>18000</number>
+                     </property>
+                     <property name="wrapping">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinboxd3_all_primitives_rotation_z">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-36000.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>36000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_50">
+                     <property name="text">
+                      <string>Y-axis rotation:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="label_51">
+                     <property name="text">
+                      <string>Z-axis rotation:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0" rowspan="3">
+                    <widget class="QLabel" name="label_143">
+                     <property name="text">
+                      <string>all primitives
+position
+(except plane
+and water):</string>
                      </property>
                     </widget>
                    </item>
@@ -5727,7 +6214,7 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-61</y>
           <width>416</width>
           <height>530</height>
          </rect>

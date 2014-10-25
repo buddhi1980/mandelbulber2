@@ -208,6 +208,10 @@ private:
 		return (normal.Dot(point - position));
 	}
 
+	CVector3 allPrimitivesPosition;
+	CVector3 allPrimitivesRotation;
+	CRotationMatrix mRotAllPrimitivesRotation;
+	bool isAnyPrimitive;
 };
 
 #endif /* PRIMITIVES_HPP_ */

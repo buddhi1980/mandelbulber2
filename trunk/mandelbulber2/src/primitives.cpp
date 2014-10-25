@@ -95,9 +95,11 @@ enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
 cPrimitives::cPrimitives(const cParameterContainer *par)
 {
 	//TODO add placement of objects by mouse
-	//TODO position and rotation of all primitives as a group of objects
 
 	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) started");
+
+	isAnyPrimitive = false;
+
 	QList<QString> listOfParameters = par->GetListOfParameters();
 	QList<sPrimitiveItem> listOfPrimitives;
 
@@ -107,6 +109,8 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 		QString parameterName = listOfParameters.at(i);
 		if(parameterName.left(9) == "primitive")
 		{
+			isAnyPrimitive = true;
+
 			QString primitiveName = parameterName.left(parameterName.lastIndexOf('_'));
 			QStringList split = parameterName.split('_');
 			QString typeName = split.at(1);
@@ -278,6 +282,10 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 		}
 	}
 
+	allPrimitivesPosition = par->Get<CVector3>("all_primitives_position");
+	allPrimitivesRotation = par->Get<CVector3>("all_primitives_rotation");
+	mRotAllPrimitivesRotation.SetRotation2(allPrimitivesRotation / 180.0 * M_PI);
+
 	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) finished");
 }
 
@@ -409,153 +417,160 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 {
 	using namespace fractal;
 	enumObjectType closestObject = objFractal;
-	sRGB color = sRGB(0,0,0);
+	sRGB color = sRGB(0, 0, 0);
 	double reflect = 0.0;
 	double distance = fractalDistance;
 
-	for(int i=0; i<planes.size(); i++)
+	if (isAnyPrimitive)
 	{
-		const sPrimitivePlane &plane = planes.at(i);
-		if(plane.enable)
-		{
-			double distTemp = PrimitivePlane(point, plane);
-			if(distTemp < distance)
-			{
-				closestObject = objPlane;
-				color = plane.color;
-				reflect = plane.reflect;
-			}
-			distance = min(distance, distTemp);
-		}
-	}
 
-	for(int i=0; i<boxes.size(); i++)
-	{
-		const sPrimitiveBox &box = boxes.at(i);
-		if(box.enable)
-		{
-			double distTemp = PrimitiveBox(point, box);
-			if(distTemp < distance)
-			{
-				closestObject = objPlane;
-				color = box.color;
-				reflect = box.reflect;
-			}
-			distance = min(distance, distTemp);
-		}
-	}
+		CVector3 point2 = point - allPrimitivesPosition;
+		point2 = mRotAllPrimitivesRotation.RotateVector(point2);
 
-	for(int i=0; i<rectangles.size(); i++)
-	{
-		const sPrimitiveRectangle &rectangle = rectangles.at(i);
-		if(rectangle.enable)
+		for (int i = 0; i < planes.size(); i++)
 		{
-			double distTemp = PrimitiveRectangle(point, rectangle);
-			if(distTemp < distance)
+			const sPrimitivePlane &plane = planes.at(i);
+			if (plane.enable)
 			{
-				closestObject = objPlane;
-				color = rectangle.color;
-				reflect = rectangle.reflect;
+				double distTemp = PrimitivePlane(point, plane);
+				if (distTemp < distance)
+				{
+					closestObject = objPlane;
+					color = plane.color;
+					reflect = plane.reflect;
+				}
+				distance = min(distance, distTemp);
 			}
-			distance = min(distance, distTemp);
 		}
-	}
 
-	for(int i=0; i<spheres.size(); i++)
-	{
-		const sPrimitiveSphere &sphere = spheres.at(i);
-		if(sphere.enable)
+		for (int i = 0; i < boxes.size(); i++)
 		{
-			double distTemp = PrimitiveSphere(point, sphere);
-			if(distTemp < distance)
+			const sPrimitiveBox &box = boxes.at(i);
+			if (box.enable)
 			{
-				closestObject = objPlane;
-				color = sphere.color;
-				reflect = sphere.reflect;
+				double distTemp = PrimitiveBox(point2, box);
+				if (distTemp < distance)
+				{
+					closestObject = objPlane;
+					color = box.color;
+					reflect = box.reflect;
+				}
+				distance = min(distance, distTemp);
 			}
-			distance = min(distance, distTemp);
 		}
-	}
 
-	for(int i=0; i<cylinders.size(); i++)
-	{
-		const sPrimitiveCylinder &cylinder = cylinders.at(i);
-		if(cylinder.enable)
+		for (int i = 0; i < rectangles.size(); i++)
 		{
-			double distTemp = PrimitiveCylinder(point, cylinder);
-			if(distTemp < distance)
+			const sPrimitiveRectangle &rectangle = rectangles.at(i);
+			if (rectangle.enable)
 			{
-				closestObject = objPlane;
-				color = cylinder.color;
-				reflect = cylinder.reflect;
+				double distTemp = PrimitiveRectangle(point2, rectangle);
+				if (distTemp < distance)
+				{
+					closestObject = objPlane;
+					color = rectangle.color;
+					reflect = rectangle.reflect;
+				}
+				distance = min(distance, distTemp);
 			}
-			distance = min(distance, distTemp);
 		}
-	}
 
-	for(int i=0; i<circles.size(); i++)
-	{
-		const sPrimitiveCircle &circle = circles.at(i);
-		if(circle.enable)
+		for (int i = 0; i < spheres.size(); i++)
 		{
-			double distTemp = PrimitiveCircle(point, circle);
-			if(distTemp < distance)
+			const sPrimitiveSphere &sphere = spheres.at(i);
+			if (sphere.enable)
 			{
-				closestObject = objPlane;
-				color = circle.color;
-				reflect = circle.reflect;
+				double distTemp = PrimitiveSphere(point2, sphere);
+				if (distTemp < distance)
+				{
+					closestObject = objPlane;
+					color = sphere.color;
+					reflect = sphere.reflect;
+				}
+				distance = min(distance, distTemp);
 			}
-			distance = min(distance, distTemp);
 		}
-	}
 
-	for(int i=0; i<cones.size(); i++)
-	{
-		const sPrimitiveCone &cone = cones.at(i);
-		if(cone.enable)
+		for (int i = 0; i < cylinders.size(); i++)
 		{
-			double distTemp = PrimitiveCone(point, cone);
-			if(distTemp < distance)
+			const sPrimitiveCylinder &cylinder = cylinders.at(i);
+			if (cylinder.enable)
 			{
-				closestObject = objPlane;
-				color = cone.color;
-				reflect = cone.reflect;
+				double distTemp = PrimitiveCylinder(point2, cylinder);
+				if (distTemp < distance)
+				{
+					closestObject = objPlane;
+					color = cylinder.color;
+					reflect = cylinder.reflect;
+				}
+				distance = min(distance, distTemp);
 			}
-			distance = min(distance, distTemp);
 		}
-	}
 
-	for(int i=0; i<waters.size(); i++)
-	{
-		const sPrimitiveWater &water = waters.at(i);
-		if(water.enable)
+		for (int i = 0; i < circles.size(); i++)
 		{
-			double distTemp = PrimitiveWater(point, water);
-			if(distTemp < distance)
+			const sPrimitiveCircle &circle = circles.at(i);
+			if (circle.enable)
 			{
-				closestObject = objPlane;
-				color = water.color;
-				reflect = water.reflect;
+				double distTemp = PrimitiveCircle(point2, circle);
+				if (distTemp < distance)
+				{
+					closestObject = objPlane;
+					color = circle.color;
+					reflect = circle.reflect;
+				}
+				distance = min(distance, distTemp);
 			}
-			distance = min(distance, distTemp);
 		}
-	}
 
-	for(int i=0; i<toruses.size(); i++)
-	{
-		const sPrimitiveTorus &torus = toruses.at(i);
-		if(torus.enable)
+		for (int i = 0; i < cones.size(); i++)
 		{
-			double distTemp = PrimitiveTorus(point, torus);
-			if(distTemp < distance)
+			const sPrimitiveCone &cone = cones.at(i);
+			if (cone.enable)
 			{
-				closestObject = objPlane;
-				color = torus.color;
-				reflect = torus.reflect;
+				double distTemp = PrimitiveCone(point2, cone);
+				if (distTemp < distance)
+				{
+					closestObject = objPlane;
+					color = cone.color;
+					reflect = cone.reflect;
+				}
+				distance = min(distance, distTemp);
 			}
-			distance = min(distance, distTemp);
 		}
-	}
+
+		for (int i = 0; i < waters.size(); i++)
+		{
+			const sPrimitiveWater &water = waters.at(i);
+			if (water.enable)
+			{
+				double distTemp = PrimitiveWater(point, water);
+				if (distTemp < distance)
+				{
+					closestObject = objPlane;
+					color = water.color;
+					reflect = water.reflect;
+				}
+				distance = min(distance, distTemp);
+			}
+		}
+
+		for (int i = 0; i < toruses.size(); i++)
+		{
+			const sPrimitiveTorus &torus = toruses.at(i);
+			if (torus.enable)
+			{
+				double distTemp = PrimitiveTorus(point2, torus);
+				if (distTemp < distance)
+				{
+					closestObject = objPlane;
+					color = torus.color;
+					reflect = torus.reflect;
+				}
+				distance = min(distance, distTemp);
+			}
+		}
+	}//if is any primitive
 
 	*closestObjectType = closestObject;
 	*objectColor = color;
