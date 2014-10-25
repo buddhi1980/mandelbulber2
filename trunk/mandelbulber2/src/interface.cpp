@@ -1796,38 +1796,44 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	//load ui
 	MyUiLoader loader;
 	QFile uiFile(uiFileName);
-	uiFile.open(QFile::ReadOnly);
-	QWidget *primitiveWidget = loader.load(&uiFile);
-	uiFile.close();
-	primitiveWidget->setObjectName(QString("widgetui_") + primitiveFullName);
-	layoutGroupBox->addWidget(primitiveWidget);
-
-	//put widget into layuot
-	QVBoxLayout *primitivesLayout = mainWindow->ui->verticalLayout_primitives;
-	primitivesLayout->addWidget(mainWidget);
-
-	//rename widgets
-	QList<QWidget*> listOfWidgets = primitiveWidget->findChildren<QWidget*>();
-	for(int i=0; i<listOfWidgets.size(); i++)
+	if(uiFile.exists())
 	{
-		QString name = listOfWidgets[i]->objectName();
-		int firstDash = name.indexOf('_');
-		QString newName = name.insert(firstDash + 1, primitiveFullName + "_");
-		listOfWidgets[i]->setObjectName(newName);
+		uiFile.open(QFile::ReadOnly);
+		QWidget *primitiveWidget = loader.load(&uiFile);
+		uiFile.close();
+		primitiveWidget->setObjectName(QString("widgetui_") + primitiveFullName);
+		layoutGroupBox->addWidget(primitiveWidget);
+
+		//put widget into layuot
+		QVBoxLayout *primitivesLayout = mainWindow->ui->verticalLayout_primitives;
+		primitivesLayout->addWidget(mainWidget);
+
+		//rename widgets
+		QList<QWidget*> listOfWidgets = primitiveWidget->findChildren<QWidget*>();
+		for(int i=0; i<listOfWidgets.size(); i++)
+		{
+			QString name = listOfWidgets[i]->objectName();
+			int firstDash = name.indexOf('_');
+			QString newName = name.insert(firstDash + 1, primitiveFullName + "_");
+			listOfWidgets[i]->setObjectName(newName);
+		}
+
+		QApplication::connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
+
+		//adding parameters
+		if(index == 0) //for only new primitive
+		{
+			InitPrimitiveParams(objectType, primitiveFullName, gPar);
+		}
+
+		mainInterface->ConnectSignalsForSlidersInWindow(mainWidget);
+		mainInterface->MakeColorButtonsInWindow(primitiveWidget);
+		mainInterface->SynchronizeInterfaceWindow(mainWidget, gPar, cInterface::write);
 	}
-
-	QApplication::connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
-
-	//adding parameters
-	if(index == 0) //for only new primitive
+	else
 	{
-		InitPrimitiveParams(objectType, primitiveFullName, gPar);
+		cErrorMessage::showMessage(QString("Can't open file ") + uiFileName + QString(" Primitive object ui file can't be loaded"), cErrorMessage::errorMessage, mainWindow);
 	}
-
-	mainInterface->ConnectSignalsForSlidersInWindow(mainWidget);
-	mainInterface->MakeColorButtonsInWindow(primitiveWidget);
-	mainInterface->SynchronizeInterfaceWindow(mainWidget, gPar, cInterface::write);
-
 }
 
 void cInterface::DeletePrimitive(const QString &primitiveName)
