@@ -224,6 +224,11 @@ using namespace parameterContainer;
 	par->addParam("fake_lights_min_iter", 1, 0, 250, morphLinear, paramStandard);
 	par->addParam("fake_lights_max_iter", 2, 0, 250, morphLinear, paramStandard);
 
+	par->addParam("all_primitives_position", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("all_primitives_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("fractal_position", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("fractal_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+
 	//OpenCL Support
 #ifdef CLSUPPORT
 	par->addParam("ocl_custom_DE_mode", false, false);
@@ -460,6 +465,11 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			break;
 		case fractal::objSphere:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
+			par->DeleteParameter(QString(primitiveName) + "_empty");
+			break;
+		case fractal::objTorus:
+			par->DeleteParameter(QString(primitiveName) + "_radius");
+			par->DeleteParameter(QString(primitiveName) + "_tube_radius");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
 			break;
 		case fractal::objWater:

@@ -452,17 +452,26 @@ compiler_rcc_make_all: qrc_icons.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_icons.cpp
 qrc_icons.cpp: ../qt/icons.qrc \
-		../qt/icons/edit-redo.png \
-		../qt/icons/go-down.png \
-		../qt/icons/arrow-down-double.png \
-		../qt/icons/go-previous.png \
-		../qt/icons/go-up.png \
+		../qt/icons/box.png \
+		../qt/icons/cone.png \
+		../qt/icons/circle.png \
 		../qt/icons/go-next.png \
+		../qt/icons/go-up.png \
 		../qt/icons/mandelbulber.png \
-		../qt/icons/object-rotate-left.png \
+		../qt/icons/water.png \
+		../qt/icons/arrow-down-double.png \
 		../qt/icons/arrow-up-double.png \
+		../qt/icons/cylinder.png \
+		../qt/icons/object-rotate-left.png \
+		../qt/icons/rectangle.png \
+		../qt/icons/torus.png \
+		../qt/icons/object-rotate-right.png \
+		../qt/icons/edit-redo.png \
+		../qt/icons/plane.png \
+		../qt/icons/sphere.png \
 		../qt/icons/edit-undo.png \
-		../qt/icons/object-rotate-right.png
+		../qt/icons/go-down.png \
+		../qt/icons/go-previous.png
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name icons ../qt/icons.qrc -o qrc_icons.cpp
 
 compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_mydoublespinbox.cpp moc_mycheckbox.cpp moc_mygroupbox.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp
@@ -1124,7 +1133,13 @@ settings.o: ../src/settings.cpp ../src/settings.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
 		../src/system.hpp \
-		../src/error_message.hpp
+		../src/error_message.hpp \
+		../src/primitives.h \
+		../src/initparameters.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/cimage.hpp \
+		../src/commonparams.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o settings.o ../src/settings.cpp
 
 shaders.o: ../src/shaders.cpp ../src/render_worker.hpp \
