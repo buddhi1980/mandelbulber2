@@ -46,7 +46,7 @@ cOldSettings::~cOldSettings()
 
 bool cOldSettings::LoadSettings(const QString &filename)
 {
-	QString defaultsFilename = systemData.sharedDir + "data" + QDir::separator() + "mandelbulber_2.21_defaults.fract";
+	QString defaultsFilename = systemData.sharedDir + "data" + QDir::separator() + "mandelbulber_1.21_defaults.fract";
 
 	if (QFileInfo::exists(defaultsFilename))
 	{
