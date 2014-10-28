@@ -215,6 +215,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral)
 template <class T>
 void QuickSortZBuffer(sSortZ<T> *buffer, int l, int r)
 {
+    // Sorts buffer by value of z asc
     int i, j;
     // Operating buffer typed variables
     sSortZ<T> pivot, swap;
