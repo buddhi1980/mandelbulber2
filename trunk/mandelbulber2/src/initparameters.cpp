@@ -409,7 +409,7 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
 			break;
 		case fractal::objWater:
-			par->addParam(QString(primitiveName) + "_amplitude", 0.05, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_amplitude", 0.02, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_length", 0.1, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_anim_speed", 1.0, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_iterations", 5, morphCatMullRom, paramStandard);

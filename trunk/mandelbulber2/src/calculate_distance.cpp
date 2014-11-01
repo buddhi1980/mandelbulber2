@@ -22,8 +22,7 @@
 
 #include "calculate_distance.hpp"
 #include <algorithm>
-
-
+#include "common_math.h"
 
 using namespace std;
 
@@ -53,9 +52,8 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 	}
 
 	int N = in.normalCalculationMode ? params.N * 5 : params.N;
-	CVector3 point2 = in.point - params.fractalPosition;
-	point2 = params.mRotFractalRotation.RotateVector(point2);
-	sFractalIn fractIn(point2, params.minN, N, params.common);
+
+	sFractalIn fractIn(in.point, params.minN, N, params.common);
 	sFractalOut fractOut;
 
 	if(true) //TODO !params.primitives.plane.onlyPlane

@@ -64,8 +64,8 @@ void cLights::Set(const cParameterContainer *_params, const cParameterContainer 
 
 	sDistanceOut distanceOut;
 
-	int trial_number = 0;
-	double radius_multiplier = 1.0;
+	//int trial_number = 0;
+	//double radius_multiplier = 1.0;
 
 	//TODO substitute random lights with unlimited predefined lights
 	if (params->auxLightNumber > 4)
