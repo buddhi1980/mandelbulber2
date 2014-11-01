@@ -182,10 +182,6 @@ public:
 	CVector3 viewAngle;
 	CVector3 topVector;
 
-	CVector3 fractalPosition;
-	CVector3 fractalRotation;
-	CRotationMatrix mRotFractalRotation;
-
 	cPrimitives primitives;
 
 	sCommonParams common;

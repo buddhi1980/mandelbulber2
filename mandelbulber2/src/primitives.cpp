@@ -24,6 +24,7 @@
 #include "primitives.h"
 #include <math.h>
 #include "system.hpp"
+#include "common_math.h"
 
 using namespace fractal;
 

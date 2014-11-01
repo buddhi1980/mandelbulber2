@@ -36,6 +36,10 @@ struct sCommonParams
 	int fakeLightsMinIter;
 
 	bool juliaMode;
+
+	CVector3 fractalPosition;
+	CVector3 fractalRotation;
+	CRotationMatrix mRotFractalRotation;
 };
 
 
