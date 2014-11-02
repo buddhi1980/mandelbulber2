@@ -536,6 +536,7 @@ void RenderWindow::slotMenuLoadSettings()
 		parSettings.Decode(gPar, gParFractal);
 		mainInterface->RebuildPrimitives(gPar);
 		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		mainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = filename;
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
 	}
@@ -1004,6 +1005,7 @@ void RenderWindow::slotMouceClickOnImage(int x, int y, Qt::MouseButton button)
 		case RenderedImage::clickDOFFocus:
 		case RenderedImage::clickPlaceLight:
 		case RenderedImage::clickGetJuliaConstant:
+		case RenderedImage::clickPlacePrimitive:
 		{
 			mainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
 			break;
@@ -1160,6 +1162,21 @@ void RenderWindow::slotChangedCheckBoxCursorVisibility(int state)
 	mainInterface->renderedImage->SetCursorVisibility(state);
 }
 
+void RenderWindow::slotPressedButtonSetPositionPrimitive()
+{
+	QString buttonName = this->sender()->objectName();
+	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
+	QStringList split = primitiveName.split('_');
+	QList<QVariant> item;
+	item.append((int)RenderedImage::clickPlacePrimitive);
+	item.append((int)PrimitiveNameToEnum(split.at(1)));
+	item.append(split.at(2).toInt());
+	item.append(primitiveName); //light number
+	int index = ui->comboBox_mouse_click_function->findData(item);
+	ui->comboBox_mouse_click_function->setCurrentIndex(index);
+	mainInterface->renderedImage->setClickMode(item);
+}
+
 void RenderWindow::slotMenuUndo()
 {
 	mainInterface->Undo();
@@ -1189,9 +1206,3 @@ void RenderWindow::slotPressedButtonDeletePrimitive()
 	mainInterface->DeletePrimitive(primitiveName);
 }
 
-void RenderWindow::slotPressedButtonSetPositionPrimitive()
-{
-	QString buttonName = this->sender()->objectName();
-	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
-	mainInterface->SetPositionPrimitive(primitiveName);
-}

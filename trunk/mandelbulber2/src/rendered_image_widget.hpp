@@ -44,6 +44,7 @@ enum enumClickMode
 	clickDOFFocus = 3,
 	clickGetJuliaConstant = 4,
 	clickPlaceLight = 5,
+	clickPlacePrimitive = 6
 };
 
 	RenderedImage(QWidget *parent = 0);

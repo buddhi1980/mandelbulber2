@@ -115,6 +115,9 @@ void RenderedImage::DisplayCoordinates()
 		case clickPlaceLight:
 			text = QString("Place light #") + QString::number(clickModeData.at(1).toInt());
 			break;
+		case clickPlacePrimitive:
+			text = QString("Place ") + PrimitiveNames((fractal::enumObjectType)clickModeData.at(1).toInt()) + QString(" #")+ QString::number(clickModeData.at(2).toInt());
+			break;
 		case clickGetJuliaConstant:
 			text = QString("Get Julia constant");
 			break;
