@@ -238,6 +238,7 @@ bool cSettings::Decode(cParameterContainer *par, cParameterContainer *fractPar)
 	par->ResetAllToDefault();
 	for(int i=0; i<4; i++)
 		fractPar[i].ResetAllToDefault();
+	DeleteAllPrimitiveParams(par);
 
 	QStringList separatedText = settingsText.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
 	DecodeHeader(separatedText);
