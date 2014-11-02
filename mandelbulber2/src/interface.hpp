@@ -73,7 +73,6 @@ public:
 	void ResetView();
 	void NewPrimitive(const QString &primitiveType, int index = 0);
 	void DeletePrimitive(const QString &primitiveName);
-	void SetPositionPrimitive(const QString &primitiveName);
 	void RebuildPrimitives(cParameterContainer *par);
 	void ComboMouseClickUpdate();
 

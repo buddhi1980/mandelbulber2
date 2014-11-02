@@ -1619,6 +1619,13 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_julia_mode, gPar, cInterface::write);
 					break;
 				}
+				case RenderedImage::clickPlacePrimitive:
+				{
+					QString parameterName = mode.at(3).toString() + "_position";
+					gPar->Set(parameterName, point);
+					SynchronizeInterfaceWindow(mainWindow->ui->scrollArea_primitives, gPar, cInterface::write);
+					break;
+				}
 				case RenderedImage::clickDoNothing:
 					//nothing
 					break;
@@ -1832,9 +1839,13 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 			InitPrimitiveParams(objectType, primitiveFullName, gPar);
 		}
 
+		gPar->Set(primitiveFullName + "_enabled", true);
+
 		mainInterface->ConnectSignalsForSlidersInWindow(mainWidget);
 		mainInterface->MakeColorButtonsInWindow(primitiveWidget);
 		mainInterface->SynchronizeInterfaceWindow(mainWidget, gPar, cInterface::write);
+
+		ComboMouseClickUpdate();
 	}
 	else
 	{
@@ -1904,14 +1915,11 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 	}
 }
 
-void cInterface::SetPositionPrimitive(const QString &primitiveName)
-{
-	qDebug() << primitiveName;
-}
-
 void cInterface::ComboMouseClickUpdate()
 {
 	QComboBox *combo = mainWindow->ui->comboBox_mouse_click_function;
+	int lastIndex = combo->currentIndex();
+
 	combo->clear();
 	QList<QVariant> item;
 
@@ -1941,4 +1949,25 @@ void cInterface::ComboMouseClickUpdate()
 
 	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(4);
 	combo->addItem("Place light #4", item);
+
+	if(listOfPrimitives.size() > 0)
+	{
+		for(int i=0; i<listOfPrimitives.size(); i++)
+		{
+			QString primitiveName = PrimitiveNames(listOfPrimitives.at(i).type);
+			int index = listOfPrimitives.at(i).id;
+			QString comboItemString = QString("Place ") + primitiveName + QString(" #") + QString::number(index);
+			item.clear();
+			item.append((int)RenderedImage::clickPlacePrimitive);
+			item.append((int)listOfPrimitives.at(i).type);
+			item.append(listOfPrimitives.at(i).id);
+			item.append(listOfPrimitives.at(i).name);
+			combo->addItem(comboItemString, item);
+		}
+	}
+
+	if(lastIndex < combo->count())
+	{
+		combo->setCurrentIndex(lastIndex);
+	}
 }
