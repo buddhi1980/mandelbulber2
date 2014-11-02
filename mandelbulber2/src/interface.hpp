@@ -66,14 +66,16 @@ public:
 	void AutoFog();
 	double GetDistanceForPoint(CVector3 point);
 	double GetDistanceForPoint(CVector3 point, cParameterContainer *par, cParameterContainer *parFractal);
-	void SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button, RenderedImage::enumClickMode clickMode);
+	void SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode);
 	void MovementStepModeChanged(int mode);
 	void Undo();
 	void Redo();
 	void ResetView();
 	void NewPrimitive(const QString &primitiveType, int index = 0);
 	void DeletePrimitive(const QString &primitiveName);
+	void SetPositionPrimitive(const QString &primitiveName);
 	void RebuildPrimitives(cParameterContainer *par);
+	void ComboMouseClickUpdate();
 
 	QApplication *application;
 	RenderWindow *mainWindow;

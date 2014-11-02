@@ -25,6 +25,7 @@
 
 #include "algebra.hpp"
 #include "fractparams.hpp"
+#include <QtCore>
 
 #undef	MAX
 #define MAX(a, b)  (((a) > (b)) ? (a) : (b))
@@ -51,7 +52,25 @@ struct sVector
 };
 
 
+inline double dmix(double a, double b, double x)
+{
+	return a * (1.0 - x) + b * x;
+}
 
+template<typename T>
+inline T clamp(T x, T min, T max)
+{
+	return (((x >= min) ? x : min) <= max) ? x : max;
+}
+
+// polynomial smooth min;
+//reference: http://www.iquilezles.org/www/articles/smin/smin.htm
+inline double dsmin(double a, double b, double k = 1)
+{
+	double ta = pow( a, k );
+	double tb = pow( b, k );
+	return pow( (ta*tb)/(ta+tb), 1.0/k );
+}
 
 //int abs(int v);
 int Random(int max);

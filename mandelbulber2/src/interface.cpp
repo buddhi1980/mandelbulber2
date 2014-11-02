@@ -93,6 +93,8 @@ void cInterface::ShowUi(void)
 	QString uiFilename = systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_mandelbulb.ui";
 	InitializeFractalUi(uiFilename);
 
+	ComboMouseClickUpdate();
+
 	WriteLog("cInterface::ConnectSignals(void)");
 	ConnectSignals();
 	WriteLog("cInterface::ConnectSignals(void) finished");
@@ -1471,10 +1473,13 @@ double cInterface::GetDistanceForPoint(CVector3 point)
 	return distance;
 }
 
-void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button, RenderedImage::enumClickMode clickMode)
+void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode)
 {
 	WriteLog("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: " + button);
 	//get data from interface
+
+	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)mode.at(0).toInt();
+
 	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
@@ -1594,20 +1599,13 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					RefreshMainImage();
 					break;
 				}
-				case RenderedImage::clickPlaceLight1:
-				case RenderedImage::clickPlaceLight2:
-				case RenderedImage::clickPlaceLight3:
-				case RenderedImage::clickPlaceLight4:
+				case RenderedImage::clickPlaceLight:
 				{
 					double frontDist = gPar->Get<double>("aux_light_manual_placement_dist");
 					CVector3 pointCorrected = point - viewVector * frontDist;
 					double estDistance = GetDistanceForPoint(pointCorrected, gPar, gParFractal);
 					double intensity = estDistance * estDistance;
-					int lightNumber = 0;
-					if (clickMode == RenderedImage::clickPlaceLight1) lightNumber = 1;
-					if (clickMode == RenderedImage::clickPlaceLight2) lightNumber = 2;
-					if (clickMode == RenderedImage::clickPlaceLight3) lightNumber = 3;
-					if (clickMode == RenderedImage::clickPlaceLight4) lightNumber = 4;
+					int lightNumber = mode.at(1).toInt();
 					gPar->Set("aux_light_position", lightNumber, pointCorrected);
 					gPar->Set("aux_light_intensity", lightNumber, intensity);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, cInterface::write);
@@ -1780,9 +1778,16 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	QVBoxLayout *layout = new QVBoxLayout();
 	mainWidget->setLayout(layout);
 
+	QHBoxLayout *buttonsLayout = new QHBoxLayout();
+	layout->addLayout(buttonsLayout);
+
+	QPushButton *setPositionButton = new QPushButton(QString("Set position of ") + primitiveType + " # " + QString::number(newId), mainWidget);
+	setPositionButton->setObjectName(QString("setPositionButton_") + primitiveFullName);
+	buttonsLayout->addWidget(setPositionButton);
+
 	QPushButton *deleteButton = new QPushButton(QString("Delete ") + primitiveType + " # " + QString::number(newId), mainWidget);
 	deleteButton->setObjectName(QString("deleteButton_") + primitiveFullName);
-	layout->addWidget(deleteButton);
+	buttonsLayout->addWidget(deleteButton);
 
 	MyGroupBox *groupBox = new MyGroupBox(mainWidget);
 	groupBox->setObjectName(QString("groupCheck_") + primitiveFullName + "_enabled");
@@ -1819,6 +1824,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		}
 
 		QApplication::connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
+		QApplication::connect(setPositionButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetPositionPrimitive()));
 
 		//adding parameters
 		if(index == 0) //for only new primitive
@@ -1896,8 +1902,43 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 			}
 		}
 	}
-
 }
 
+void cInterface::SetPositionPrimitive(const QString &primitiveName)
+{
+	qDebug() << primitiveName;
+}
 
+void cInterface::ComboMouseClickUpdate()
+{
+	QComboBox *combo = mainWindow->ui->comboBox_mouse_click_function;
+	combo->clear();
+	QList<QVariant> item;
 
+	item.clear(); item.append((int)RenderedImage::clickDoNothing);
+	combo->addItem("No action", item);
+
+	item.clear(); item.append((int)RenderedImage::clickMoveCamera);
+	combo->addItem("Move the camera", item);
+
+	item.clear(); item.append((int)RenderedImage::clickFogVisibility);
+	combo->addItem("Set fog visibility", item);
+
+	item.clear(); item.append((int)RenderedImage::clickDOFFocus);
+	combo->addItem("Set DOF focus", item);
+
+	item.clear(); item.append((int)RenderedImage::clickGetJuliaConstant);
+	combo->addItem("Get Julia constant", item);
+
+	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(1);
+	combo->addItem("Place light #1", item);
+
+	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(2);
+	combo->addItem("Place light #2", item);
+
+	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(3);
+	combo->addItem("Place light #3", item);
+
+	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(4);
+	combo->addItem("Place light #4", item);
+}
