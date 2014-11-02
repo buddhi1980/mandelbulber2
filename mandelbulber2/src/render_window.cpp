@@ -561,8 +561,9 @@ void RenderWindow::slotImportOldSettings()
 		oldSettings::cOldSettings oldSettings;
 		oldSettings.LoadSettings(filename);
 		oldSettings.ConvertToNewContainer(gPar, gParFractal);
-
+		mainInterface->RebuildPrimitives(gPar);
 		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		mainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = filename;
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
 	}

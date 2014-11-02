@@ -484,3 +484,16 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			break;
 	}
 }
+
+void DeleteAllPrimitiveParams(cParameterContainer *par)
+{
+	QList<QString> list = par->GetListOfParameters();
+	for(int i=0; i<list.size(); i++)
+	{
+		QString parameterName = list.at(i);
+		if(parameterName.left(parameterName.indexOf('_')) == "primitive")
+		{
+			par->DeleteParameter(parameterName);
+		}
+	}
+}

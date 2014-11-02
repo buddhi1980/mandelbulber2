@@ -219,7 +219,6 @@
     <addaction name="actionLoad_settings"/>
     <addaction name="separator"/>
     <addaction name="actionSave_settings"/>
-    <addaction name="actionSave_settings_as"/>
     <addaction name="separator"/>
     <addaction name="actionImport_settings_from_old_Mandelbulber"/>
     <addaction name="separator"/>
@@ -2636,8 +2635,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>380</width>
-                  <height>267</height>
+                  <width>194</width>
+                  <height>238</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2847,7 +2846,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
+                  <width>288</width>
                   <height>695</height>
                  </rect>
                 </property>
@@ -3384,7 +3383,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
+                  <width>301</width>
                   <height>282</height>
                  </rect>
                 </property>
@@ -3551,7 +3550,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
+                  <width>326</width>
                   <height>1480</height>
                  </rect>
                 </property>
@@ -4974,8 +4973,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>344</width>
-                      <height>129</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1"/>
@@ -5282,7 +5281,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>352</width>
+                  <width>222</width>
                   <height>428</height>
                  </rect>
                 </property>

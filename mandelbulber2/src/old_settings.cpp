@@ -26,6 +26,7 @@
 #include "fractparams.hpp"
 #include "camera_target.hpp"
 #include "fractal_list.hpp"
+#include "initparameters.hpp"
 
 namespace oldSettings
 {
@@ -615,6 +616,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cParameterCon
 	par->ResetAllToDefault();
 	for(int i=0; i<4; i++)
 		fractal[i].ResetAllToDefault();
+	DeleteAllPrimitiveParams(par);
 
 	par->Set("legacy_coordinate_system", true);
 
@@ -779,6 +781,76 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cParameterCon
 		palette.AppendColor(oldData->palette[i]);
 	par->Set("surface_color_palette", palette);
 
+	if (oldData->fractal.primitives.boxEnable)
+	{
+		InitPrimitiveParams(fractal::objBox, "primitive_box_1", par);
+		par->Set("primitive_box_1_position", oldData->fractal.doubles.primitives.boxCentre);
+		par->Set("primitive_box_1_color", oldData->primitiveBoxColour);
+		par->Set("primitive_box_1_reflection", oldData->doubles.primitiveBoxReflect);
+		par->Set("primitive_box_1_enabled", oldData->fractal.primitives.boxEnable);
+		par->Set("primitive_box_1_size", oldData->fractal.doubles.primitives.boxSize);
+	}
+
+	if (oldData->fractal.primitives.invertedBoxEnable)
+	{
+		InitPrimitiveParams(fractal::objBox, "primitive_box_2", par);
+		par->Set("primitive_box_2_position", oldData->fractal.doubles.primitives.invertedBoxCentre);
+		par->Set("primitive_box_2_color", oldData->primitiveInvertedBoxColour);
+		par->Set("primitive_box_2_reflection", oldData->doubles.primitiveInvertedBoxReflect);
+		par->Set("primitive_box_2_enabled", oldData->fractal.primitives.invertedBoxEnable);
+		par->Set("primitive_box_2_size", oldData->fractal.doubles.primitives.invertedBoxSize);
+		par->Set("primitive_box_2_empty", true);
+	}
+
+	if (oldData->fractal.primitives.sphereEnable)
+	{
+		InitPrimitiveParams(fractal::objSphere, "primitive_sphere_1", par);
+		par->Set("primitive_sphere_1_position", oldData->fractal.doubles.primitives.sphereCentre);
+		par->Set("primitive_sphere_1_color", oldData->primitiveSphereColour);
+		par->Set("primitive_sphere_1_reflection", oldData->doubles.primitiveSphereReflect);
+		par->Set("primitive_sphere_1_enabled", oldData->fractal.primitives.sphereEnable);
+		par->Set("primitive_sphere_1_radius", oldData->fractal.doubles.primitives.sphereRadius);
+	}
+
+	if (oldData->fractal.primitives.invertedSphereEnable)
+	{
+		InitPrimitiveParams(fractal::objSphere, "primitive_sphere_2", par);
+		par->Set("primitive_sphere_2_position", oldData->fractal.doubles.primitives.invertedSphereCentre);
+		par->Set("primitive_sphere_2_color", oldData->primitiveInvertedSphereColour);
+		par->Set("primitive_sphere_2_reflection", oldData->doubles.primitiveInvertedSphereReflect);
+		par->Set("primitive_sphere_2_enabled", oldData->fractal.primitives.invertedSphereEnable);
+		par->Set("primitive_sphere_2_radius", oldData->fractal.doubles.primitives.invertedSphereRadius);
+		par->Set("primitive_sphere_2_empty", true);
+	}
+
+	if (oldData->fractal.primitives.planeEnable)
+	{
+		InitPrimitiveParams(fractal::objPlane, "primitive_plane_1", par);
+		par->Set("primitive_plane_1_position", oldData->fractal.doubles.primitives.planeCentre);
+		par->Set("primitive_plane_1_color", oldData->primitivePlaneColour);
+		par->Set("primitive_plane_1_reflection", oldData->doubles.primitivePlaneReflect);
+		par->Set("primitive_plane_1_enabled", oldData->fractal.primitives.planeEnable);
+		CVector3 rotation;
+		CVector3 normal = oldData->fractal.doubles.primitives.planeNormal;
+		rotation.x = atan2(normal.y, normal.z) * 180.0 / M_PI;
+		rotation.y = -atan2(normal.x, sqrt(normal.y * normal.y + normal.z * normal.z)) * 180.0 / M_PI;
+		rotation.z = 0;
+		par->Set("primitive_plane_1_rotation", rotation);
+	}
+
+	if (oldData->fractal.primitives.waterEnable)
+	{
+		InitPrimitiveParams(fractal::objWater, "primitive_water_1", par);
+		par->Set("primitive_water_1_position", CVector3(0, 0, oldData->fractal.doubles.primitives.waterHeight));
+		par->Set("primitive_water_1_color", oldData->primitiveWaterColour);
+		par->Set("primitive_water_1_reflection", oldData->doubles.primitiveWaterReflect);
+		par->Set("primitive_water_1_enabled", oldData->fractal.primitives.waterEnable);
+		par->Set("primitive_water_1_amplitude", oldData->fractal.doubles.primitives.waterAmplitude);
+		par->Set("primitive_water_1_length", oldData->fractal.doubles.primitives.waterLength);
+		par->Set("primitive_water_1_iterations", oldData->fractal.primitives.waterIterations);
+		par->Set("primitive_water_1_rotation", CVector3(180.0, 0, -oldData->fractal.doubles.primitives.waterRotation));
+	}
+
 	//fractal parameters
 
 	if(oldData->fractal.formula == trig_DE)
@@ -838,7 +910,6 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cParameterCon
 	fractal[0].Set("mandelbox_vary_minr", oldData->fractal.mandelbox.doubles.vary4D.minR);
 	fractal[0].Set("mandelbox_vary_rpower", oldData->fractal.mandelbox.doubles.vary4D.rPower);
 	fractal[0].Set("mandelbox_vary_wadd", oldData->fractal.mandelbox.doubles.vary4D.wadd);
-
 
 	fractal[0].Set("boxfold_bulbpow2_folding_factor", oldData->fractal.doubles.FoldingIntPowFoldFactor);
 	fractal[0].Set("boxfold_bulbpow2_z_factor", oldData->fractal.doubles.FoldingIntPowZfactor);
