@@ -42,18 +42,15 @@ enum enumClickMode
 	clickMoveCamera = 1,
 	clickFogVisibility = 2,
 	clickDOFFocus = 3,
-	clickPlaceLight1 = 4,
-	clickPlaceLight2 = 5,
-	clickPlaceLight3 = 6,
-	clickPlaceLight4 = 7,
-	clickGetJuliaConstant = 8
+	clickGetJuliaConstant = 4,
+	clickPlaceLight = 5,
 };
 
 	RenderedImage(QWidget *parent = 0);
 	void AssignImage(cImage *_image) {image = _image;}
 	void AssignParameters(cParameterContainer *_mainParams) {params = _mainParams;}
 	void setNewZ(double z) {smoothLastZMouse = z;}
-	void setClickMode(enumClickMode _clickMode) {clickMode = _clickMode;}
+	void setClickMode(QList<QVariant> _clickMode) {clickModeData = _clickMode;}
 	void SetFrontDist(double dist) {frontDist = dist;}
 	void SetCursorVisibility(bool enable) {cursorVisible = enable;};
 
@@ -73,7 +70,7 @@ private:
 	void Display3DCursor(CVector2<int> screenPoint, double z);
 
 	cImage *image;
-	enumClickMode clickMode;
+	QList<QVariant> clickModeData;
 	cParameterContainer *params;
 	bool cursorVisible;
 	double smoothLastZMouse;

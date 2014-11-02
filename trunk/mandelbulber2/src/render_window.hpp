@@ -80,13 +80,14 @@ private slots:
 	void slotPressedButtonNewPrimitive();
 	void slotPressedButtonNewRandomPalette();
 	void slotPressedButtonRandomize();
+	void slotPressedButtonResetView();
 	void slotPressedButtonSetDOFByMouse();
 	void slotPressedButtonSetFogByMouse();
 	void slotPressedButtonSetLight1ByMouse();
 	void slotPressedButtonSetLight2ByMouse();
 	void slotPressedButtonSetLight3ByMouse();
 	void slotPressedButtonSetLight4ByMouse();
-	void slotPressedButtonResetView();
+	void slotPressedButtonSetPositionPrimitive();
 	void slotResizedScrolledAreaImage(int width, int height);
 	void slotSliderMovedEditManualLightPlacementDistance(int value);
 

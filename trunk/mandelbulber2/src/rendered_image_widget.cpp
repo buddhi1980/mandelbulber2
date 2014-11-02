@@ -41,13 +41,16 @@ RenderedImage::RenderedImage(QWidget *parent) :
 	image = NULL;
 	params = NULL;
 	cursorVisible = true;
-	clickMode = clickMoveCamera;
 	smoothLastZMouse = 0.0;
 	redrawed = true;
 	isFocus = false;
 	isOnObject = false;
 	lastDepth = 0.0;
 	frontDist = 0.0;
+
+	QList<QVariant> mode;
+	mode.append((int)RenderedImage::clickPlaceLight);
+	clickModeData = mode;
 }
 
 void RenderedImage::paintEvent(QPaintEvent *event)
@@ -97,6 +100,7 @@ void RenderedImage::DisplayCoordinates()
 	QBrush brushDarkBlue(QColor(0, 0, 100));
 
 	QString text;
+	enumClickMode clickMode = (enumClickMode)clickModeData.at(0).toInt();
 	switch (clickMode)
 	{
 		case clickMoveCamera:
@@ -108,17 +112,8 @@ void RenderedImage::DisplayCoordinates()
 		case clickDOFFocus:
 			text = QString("Change DOF focus");
 			break;
-		case clickPlaceLight1:
-			text = QString("Place light #1");
-			break;
-		case clickPlaceLight2:
-			text = QString("Place light #2");
-			break;
-		case clickPlaceLight3:
-			text = QString("Place light #3");
-			break;
-		case clickPlaceLight4:
-			text = QString("Place light #4");
+		case clickPlaceLight:
+			text = QString("Place light #") + QString::number(clickModeData.at(1).toInt());
 			break;
 		case clickGetJuliaConstant:
 			text = QString("Get Julia constant");
@@ -159,7 +154,8 @@ void RenderedImage::DisplayCoordinates()
 
 void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 {
-	if (clickMode == clickPlaceLight1 || clickMode == clickPlaceLight2 || clickMode == clickPlaceLight3 || clickMode == clickPlaceLight4)
+	enumClickMode clickMode = (enumClickMode)clickModeData.at(0).toInt();
+	if (clickMode == clickPlaceLight)
 	{
 		z -= frontDist;
 	}
@@ -268,7 +264,7 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 				image->AntiAliasedLine(screenPoint.x - sw * 0.3, screenPoint.y, screenPoint.x + sw * 0.3, screenPoint.y, z, z, sRGB8(255, 255, 255), 1.0, 1);
 				image->AntiAliasedLine(screenPoint.x, screenPoint.y - sh * 0.3, screenPoint.x, screenPoint.y + sh * 0.3, z, z, sRGB8(255, 255, 255), 1.0, 1);
 
-				if (clickMode == clickPlaceLight1 || clickMode == clickPlaceLight2 || clickMode == clickPlaceLight3 || clickMode == clickPlaceLight4)
+				if (clickMode == clickPlaceLight)
 				{
 					double r = 1.5 * (boxWidth * n / aspectRatio);
 					if (r > 1.0) r = 1.0;
