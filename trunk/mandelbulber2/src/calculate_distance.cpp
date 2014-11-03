@@ -67,6 +67,8 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 			out->iters = fractOut.iters;
 			out->colorIndex = fractOut.colorIndex;
 
+			if(out->maxiter) distance = 0.0;
+
 			//---------------- 3587.7 ns for Compute -----------
 			if (distance < 0) distance = 0;
 
