@@ -1083,7 +1083,9 @@ void RenderWindow::slotKeyReleaseOnImage(Qt::Key key)
 
 void RenderWindow::slotMouseWheelRotatedonImage(int delta)
 {
-	enum RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)ui->comboBox_mouse_click_function->currentIndex();
+	int index = ui->comboBox_mouse_click_function->currentIndex();
+	QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
+	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)mode.at(0).toInt();
 	switch(clickMode)
 	{
 		case RenderedImage::clickPlaceLight:
