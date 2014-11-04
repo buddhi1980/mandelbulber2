@@ -45,7 +45,7 @@ QString cProgressText::getText(double progress)
 
 	qint64 time = timer.elapsed();
 
-	if ((time > lastTimeForETA * 1.1L || time - lastTimeForETA > 600000) && progress > lastProgressForETA)
+	if ((time > lastTimeForETA * 1.1L || time - lastTimeForETA > 60000) && progress > lastProgressForETA)
 	{
 		bool filter = true;
 		double renderingSpeedNew = (progress - lastProgressForETA) / (time - lastTimeForETA);

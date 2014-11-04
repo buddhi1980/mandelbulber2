@@ -81,7 +81,6 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	int i;
 	for (i = 0; i < in.maxN; i++)
 	{
-		//here will be hybrid fractal sequence. Now it uses only formula #0
 		int sequence = four.GetSequence(i);
 		const cFractal *fractal = four.GetFractal(sequence);
 
@@ -234,7 +233,10 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		}
 		else if (Mode == colouring)
 		{
-			if (r < minimumR) minimumR = r;
+			if (fractal->formula != mandelbox)
+			{
+				if (r < minimumR) minimumR = r;
+			}
 			if (r > 1e15)
 				break;
 		}
@@ -274,30 +276,55 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		}
 	}
 	//color calculation
-	else if(Mode == colouring)
+	else if (Mode == colouring)
 	{
-		switch (defaultFractal->formula)
+		if (four.IsHybrid())
 		{
-			case mandelbox:
-			case smoothMandelbox:
-			case mandelboxVaryScale4D:
-				out->colorIndex = mandelboxAux[0].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR;
-				break;
+			if (minimumR > 100) minimumR = 100;
 
-			case menger_sponge:
-			case kaleidoscopicIFS:
-				out->colorIndex = minimumR * 1000.0;
-				break;
 
-			default:
-				out->colorIndex = minimumR * 5000.0;
-				break;
+			double mboxColor = 0.0;
+			double mboxDE = 1.0;
+			for (int h = 0; h < 4; h++)
+			{
+				mboxColor += mandelboxAux[h].mboxColor;
+				mboxDE *= mandelboxAux[h].mboxDE;
+			}
+
+			double r2 = r / fabs(mboxDE);
+			if(r2 > 20) r2 = 20;
+
+			if (mboxColor > 1000) mboxColor = 1000;
+
+			out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
+		}
+		else
+		{
+			switch (defaultFractal->formula)
+			{
+				case mandelbox:
+				case smoothMandelbox:
+				case mandelboxVaryScale4D:
+					out->colorIndex = mandelboxAux[0].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR;
+					break;
+
+				case menger_sponge:
+				case kaleidoscopicIFS:
+					out->colorIndex = minimumR * 1000.0;
+					break;
+
+				default:
+					out->colorIndex = minimumR * 5000.0;
+					break;
+			}
+
 		}
 	}
 	else
 	{
 		out->distance = 0.0;
 	}
+
 	out->iters = i + 1;
 	out->z = z;
 	//tim = rdtsc() - tim; perf+= tim; perfCount++; outStream << (double)perf/perfCount - 560.0 << endl;
