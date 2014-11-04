@@ -77,10 +77,17 @@ void PreviewFileDialog::OnCurrentChanged(const QString & filename)
 			InitParams(par);
 			for(int i=0; i<4; i++)
 				InitFractalParams(&parFractal[i]);
-			parSettings.Decode(par, parFractal);
-			cThumbnail thumbnail(par, parFractal, 200, 200, parSettings.GetHashCode());
-			pixmap = thumbnail.Render();
-			preview->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+			if(parSettings.Decode(par, parFractal))
+			{
+				cThumbnail thumbnail(par, parFractal, 200, 200, parSettings.GetHashCode());
+				pixmap = thumbnail.Render();
+				preview->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+			}
+			else
+			{
+				preview->setText(" ");
+				info->setText(" ");
+			}
 		}
 	}
 	else
