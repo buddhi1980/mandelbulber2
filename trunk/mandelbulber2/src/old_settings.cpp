@@ -712,8 +712,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cParameterCon
 	par->Set("glow_color", 1, oldData->effectColours.glow_color1);
 	par->Set("glow_color", 2, oldData->effectColours.glow_color2);
 	par->Set("background_color", 1, oldData->background_color1);
-	par->Set("background_color", 2, oldData->background_color1);
-	par->Set("background_color", 3, oldData->background_color1);
+	par->Set("background_color", 2, oldData->background_color2);
+	par->Set("background_color", 3, oldData->background_color3);
 	par->Set("fog_color", 1, oldData->fogColour1);
 	par->Set("fog_color", 2, oldData->fogColour2);
 	par->Set("fog_color", 3, oldData->fogColour3);
@@ -913,6 +913,98 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cParameterCon
 
 	fractal[0].Set("boxfold_bulbpow2_folding_factor", oldData->fractal.doubles.FoldingIntPowFoldFactor);
 	fractal[0].Set("boxfold_bulbpow2_z_factor", oldData->fractal.doubles.FoldingIntPowZfactor);
+
+	fractal[1] = fractal[2] = fractal[3] = fractal[0];
+
+	//converting hybrid fractals
+	if(oldData->fractal.formula == hybrid)
+	{
+		QList<int> fractalsListTemp;
+		for(int i=0; i<HYBRID_COUNT; i++)
+		{
+			if((fractal::enumFractalFormula)oldData->fractal.hybridFormula[i] != fractal::none)
+			{
+				fractalsListTemp.append(i);
+			}
+		}
+		bool result = true;
+		if(fractalsListTemp.size() <= 4)
+		{
+			for(int i=0; i<fractalsListTemp.size(); i++)
+			{
+				enumFractalFormula formula = oldData->fractal.hybridFormula[fractalsListTemp.at(i)];
+				bool found = false;
+				for(int l = 0; l < fractalList.size(); l++)
+				{
+					if (formula == (enumFractalFormula)fractalList.at(l).internalID)
+					{
+							found = true;
+							break;
+					}
+				}
+				if(found)
+				{
+					par->Set("formula", i+1, (int)oldData->fractal.hybridFormula[fractalsListTemp.at(i)]);
+					if(formula == trig_DE)
+					{
+						par->Set("formula", 1, (int)fractal::mandelbulb);
+						fractal[i].Set("alpha_angle_offset", 180.0 / oldData->fractal.doubles.power);
+						fractal[i].Set("beta_angle_offset", 180.0 / oldData->fractal.doubles.power);
+					}
+					par->Set("formula_iterations", i+1, oldData->fractal.hybridIters[fractalsListTemp.at(i)]);
+					switch(formula)
+					{
+						case trig_DE:
+						case trig_optim:
+						case xenodreambuie:
+						case mandelbulb2:
+						case mandelbulb3:
+						case mandelbulb4:
+						case benesi:
+						case bristorbrot:
+						{
+							fractal[i].Set("power", oldData->fractal.doubles.hybridPower[fractalsListTemp.at(i)]);
+							break;
+						}
+
+						case smoothMandelbox:
+						case mandelboxVaryScale4D:
+						case tglad:
+						{
+							fractal[i].Set("mandelbox_scale", oldData->fractal.doubles.hybridPower[fractalsListTemp.at(i)]);
+							break;
+						}
+
+						default:
+							break;
+					}
+
+					if(!oldData->fractal.hybridCyclic && i == fractalsListTemp.size() - 1)
+					{
+						par->Set("formula_iterations", i+1, (int)oldData->fractal.doubles.N);
+					}
+				}
+				else
+				{
+					result = false;
+					break;
+				}
+			}
+		}
+		else
+		{
+			result = false;
+		}
+
+		if (!result)
+		{
+			cErrorMessage::showMessage("Hybrid fractal can't be converted", cErrorMessage::errorMessage);
+		}
+		else
+		{
+			par->Set("hybrid_fractal_enable", true);
+		}
+	}
 }
 
 } /* namespace oldSettings */
