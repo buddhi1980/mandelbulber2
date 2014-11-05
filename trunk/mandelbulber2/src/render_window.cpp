@@ -621,7 +621,10 @@ void RenderWindow::slotMenuAboutMandelbulber()
 	text += "version: " + QString(MANDELBULBER_VERSION_STRING) + ", build date: " + QString(__DATE__) + QString("\n");
 	text += "\n";
 	text += "Licence: GNU GPL version 3.0\n";
-	text += "Copyright Ⓒ 2014 Krzysztof Marczak\n";
+	text += "Copyright Ⓒ 2014\n";
+	text += "project leader: Krzysztof Marczak\n";
+	text += "commiters:n";
+	text +=	"Sebastian Jennen\n";
 	text += "\n";
 	text += "Thanks to many friends from www.fractalforums.com for help\n";
 	text += "\n";

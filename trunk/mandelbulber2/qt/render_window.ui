@@ -4973,8 +4973,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>66</width>
+                      <height>18</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1"/>
@@ -5066,8 +5066,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>66</width>
+                      <height>18</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5159,8 +5159,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>66</width>
+                      <height>18</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5252,8 +5252,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>66</width>
+                      <height>18</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5699,9 +5699,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-190</y>
                   <width>352</width>
-                  <height>394</height>
+                  <height>466</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -5924,6 +5924,26 @@ to target:</string>
                    <item row="2" column="2">
                     <widget class="MyLineEdit" name="vect3_all_primitives_position_z"/>
                    </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_50">
+                     <property name="text">
+                      <string>Y-axis rotation:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="1">
+                    <widget class="QDial" name="dial3_all_primitives_rotation_z">
+                     <property name="minimum">
+                      <number>-18000</number>
+                     </property>
+                     <property name="maximum">
+                      <number>18000</number>
+                     </property>
+                     <property name="wrapping">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="2" column="1">
                     <widget class="QLabel" name="label_141">
                      <property name="sizePolicy">
@@ -5966,6 +5986,9 @@ to target:</string>
                      </property>
                     </widget>
                    </item>
+                   <item row="0" column="2">
+                    <widget class="MyLineEdit" name="vect3_all_primitives_position_x"/>
+                   </item>
                    <item row="1" column="1">
                     <widget class="QLabel" name="label_144">
                      <property name="sizePolicy">
@@ -5981,9 +6004,6 @@ to target:</string>
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                      </property>
                     </widget>
-                   </item>
-                   <item row="0" column="2">
-                    <widget class="MyLineEdit" name="vect3_all_primitives_position_x"/>
                    </item>
                    <item row="4" column="1">
                     <widget class="QDial" name="dial3_all_primitives_rotation_y">
@@ -6055,19 +6075,6 @@ to target:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="1">
-                    <widget class="QDial" name="dial3_all_primitives_rotation_z">
-                     <property name="minimum">
-                      <number>-18000</number>
-                     </property>
-                     <property name="maximum">
-                      <number>18000</number>
-                     </property>
-                     <property name="wrapping">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="5" column="2">
                     <widget class="MyDoubleSpinBox" name="spinboxd3_all_primitives_rotation_z">
                      <property name="prefix">
@@ -6090,10 +6097,13 @@ to target:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="0">
-                    <widget class="QLabel" name="label_50">
+                   <item row="0" column="0" rowspan="3">
+                    <widget class="QLabel" name="label_143">
                      <property name="text">
-                      <string>Y-axis rotation:</string>
+                      <string>all primitives
+position
+(except plane
+and water):</string>
                      </property>
                     </widget>
                    </item>
@@ -6104,13 +6114,49 @@ to target:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="0" rowspan="3">
-                    <widget class="QLabel" name="label_143">
+                   <item row="6" column="0">
+                    <widget class="QLabel" name="label_145">
                      <property name="text">
-                      <string>all primitives
-position
-(except plane
-and water):</string>
+                      <string>Repeat</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="2">
+                    <widget class="MyLineEdit" name="vect3_repeat_x"/>
+                   </item>
+                   <item row="7" column="2">
+                    <widget class="MyLineEdit" name="vect3_repeat_y"/>
+                   </item>
+                   <item row="8" column="2">
+                    <widget class="MyLineEdit" name="vect3_repeat_z"/>
+                   </item>
+                   <item row="6" column="1">
+                    <widget class="QLabel" name="label_repeat_x_2">
+                     <property name="text">
+                      <string>x:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="1">
+                    <widget class="QLabel" name="label_repeat_y_2">
+                     <property name="text">
+                      <string>y:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="1">
+                    <widget class="QLabel" name="label_repeat_z_2">
+                     <property name="text">
+                      <string>z:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
