@@ -58,7 +58,7 @@ struct sPrimitivePlane
 
 struct sPrimitiveBox
 {
-	bool enable;
+    	bool enable;
 	bool empty;
 	CVector3 position;
 	CVector3 size;
@@ -67,6 +67,7 @@ struct sPrimitiveBox
 	CVector3 rotation;
 	CRotationMatrix rotationMatrix;
 	sRGB color;
+	CVector3 repeat;
 };
 
 struct sPrimitiveSphere
@@ -79,6 +80,7 @@ struct sPrimitiveSphere
 	CVector3 rotation;
 	CRotationMatrix rotationMatrix;
 	sRGB color;
+    	CVector3 repeat;
 };
 
 struct sPrimitiveWater
@@ -110,6 +112,7 @@ struct sPrimitiveCone
 	CVector3 rotation;
 	CRotationMatrix rotationMatrix;
 	sRGB color;
+    	CVector3 repeat;
 };
 
 struct sPrimitiveCylinder
@@ -124,6 +127,7 @@ struct sPrimitiveCylinder
 	CVector3 rotation;
 	CRotationMatrix rotationMatrix;
 	sRGB color;
+    	CVector3 repeat;
 };
 
 struct sPrimitiveCircle
@@ -160,6 +164,7 @@ struct sPrimitiveTorus
 	CVector3 rotation;
 	CRotationMatrix rotationMatrix;
 	sRGB color;
+    	CVector3 repeat;
 };
 
 

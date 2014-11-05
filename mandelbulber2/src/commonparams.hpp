@@ -37,8 +37,9 @@ struct sCommonParams
 
 	bool juliaMode;
 
-	CVector3 fractalPosition;
-	CVector3 fractalRotation;
+    CVector3 fractalPosition;
+    CVector3 fractalRotation;
+    CVector3 repeat;
 	CRotationMatrix mRotFractalRotation;
 };
 

@@ -166,6 +166,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.rotation = par->Get<CVector3>(item.name + "_rotation");
 				object.reflect = par->Get<double>(item.name + "_reflection");
 				object.color = par->Get<sRGB>(item.name + "_color");
+                object.repeat = par->Get<CVector3>(item.name + "_repeat");
 				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
 				boxes.append(object);
 				break;
@@ -180,6 +181,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.rotation = par->Get<CVector3>(item.name + "_rotation");
 				object.reflect = par->Get<double>(item.name + "_reflection");
 				object.color = par->Get<sRGB>(item.name + "_color");
+                object.repeat = par->Get<CVector3>(item.name + "_repeat");
 				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
 				spheres.append(object);
 				break;
@@ -214,6 +216,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.rotation = par->Get<CVector3>(item.name + "_rotation");
 				object.reflect = par->Get<double>(item.name + "_reflection");
 				object.color = par->Get<sRGB>(item.name + "_color");
+                object.repeat = par->Get<CVector3>(item.name + "_repeat");
 				object.wallNormal = CVector2<double>(1.0, object.radius/object.height);
 				object.wallNormal.Normalize();
 				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
@@ -232,6 +235,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.rotation = par->Get<CVector3>(item.name + "_rotation");
 				object.reflect = par->Get<double>(item.name + "_reflection");
 				object.color = par->Get<sRGB>(item.name + "_color");
+                object.repeat = par->Get<CVector3>(item.name + "_repeat");
 				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
 				cylinders.append(object);
 				break;
@@ -274,6 +278,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.rotation = par->Get<CVector3>(item.name + "_rotation");
 				object.reflect = par->Get<double>(item.name + "_reflection");
 				object.color = par->Get<sRGB>(item.name + "_color");
+                object.repeat = par->Get<CVector3>(item.name + "_repeat");
 				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
 				toruses.append(object);
 				break;
@@ -300,7 +305,7 @@ double cPrimitives::PrimitivePlane(CVector3 _point, const sPrimitivePlane &plane
 
 double cPrimitives::PrimitiveBox(CVector3 _point, const sPrimitiveBox &box) const
 {
-	CVector3 relativePoint = _point - box.position;
+    CVector3 relativePoint = _point.mod(box.repeat) - box.position;
 	CVector3 point = box.rotationMatrix.RotateVector(relativePoint);
 	if(box.empty)
 	{
@@ -320,9 +325,9 @@ double cPrimitives::PrimitiveBox(CVector3 _point, const sPrimitiveBox &box) cons
 	}
 }
 
-double cPrimitives::PrimitiveSphere(CVector3 point, const sPrimitiveSphere &sphere) const
+double cPrimitives::PrimitiveSphere(CVector3 _point, const sPrimitiveSphere &sphere) const
 {
-	double dist = (point - sphere.position).Length() - sphere.radius;
+    double dist = (_point.mod(sphere.repeat) - sphere.position).Length() - sphere.radius;
 	return sphere.empty ? fabs(dist) : dist;
 }
 
@@ -339,7 +344,7 @@ double cPrimitives::PrimitiveRectangle(CVector3 _point, const sPrimitiveRectangl
 
 double cPrimitives::PrimitiveCylinder(CVector3 _point, const sPrimitiveCylinder &cylinder) const
 {
-	CVector3 relativePoint = _point - cylinder.position;
+    CVector3 relativePoint = _point.mod(cylinder.repeat) - cylinder.position;
 	CVector3 point = cylinder.rotationMatrix.RotateVector(relativePoint);
 	CVector2<double> cylTemp(point.x, point.y);
 	double dist = cylTemp.Length() - cylinder.radius;
@@ -360,7 +365,7 @@ double cPrimitives::PrimitiveCircle(CVector3 _point, const sPrimitiveCircle &cir
 
 double cPrimitives::PrimitiveCone(CVector3 _point, const sPrimitiveCone &cone) const
 {
-	CVector3 relativePoint = _point - cone.position;
+    CVector3 relativePoint = _point.mod(cone.repeat) - cone.position;
 	CVector3 point = cone.rotationMatrix.RotateVector(relativePoint);
 	point.z -= cone.height;
 	float q = sqrt(point.x * point.x + point.y * point.y);
@@ -406,7 +411,7 @@ double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water
 
 double cPrimitives::PrimitiveTorus(CVector3 _point, const sPrimitiveTorus &torus) const
 {
-	CVector3 relativePoint = _point - torus.position;
+    CVector3 relativePoint = _point.mod(torus.repeat) - torus.position;
 	CVector3 point = torus.rotationMatrix.RotateVector(relativePoint);
 
 	double d1 = sqrt(point.x * point.x + point.y * point.y) - torus.radius;
@@ -461,7 +466,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 		}
 
 		for (int i = 0; i < rectangles.size(); i++)
-		{
+        {
 			const sPrimitiveRectangle &rectangle = rectangles.at(i);
 			if (rectangle.enable)
 			{
@@ -481,7 +486,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 			const sPrimitiveSphere &sphere = spheres.at(i);
 			if (sphere.enable)
 			{
-				double distTemp = PrimitiveSphere(point2, sphere);
+                double distTemp = PrimitiveSphere(point2, sphere);
 				if (distTemp < distance)
 				{
 					closestObject = objPlane;
