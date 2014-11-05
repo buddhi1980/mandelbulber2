@@ -45,8 +45,8 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	//clock_t tim;
 	//tim = rdtsc();
 
-	//move and rotate
-	CVector3 point2 = in.point - in.common.fractalPosition;
+    //repeat, move and rotate
+    CVector3 point2 = in.point.mod(in.common.repeat) - in.common.fractalPosition;
 	point2 = in.common.mRotFractalRotation.RotateVector(point2);
 
 	CVector3 z = point2;

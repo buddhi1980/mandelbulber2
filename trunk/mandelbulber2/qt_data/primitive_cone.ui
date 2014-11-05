@@ -351,6 +351,45 @@
        </property>
       </widget>
      </item>
+ 
+     <!-- Repeat Start -->
+     <item row="12" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Repeat</string>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_repeat_x"/>
+     </item>
+     <item row="13" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_repeat_y"/>
+     </item>
+     <item row="14" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_repeat_z"/>
+     </item>
+     <item row="12" column="1">
+      <widget class="QLabel" name="label_repeat_x">
+       <property name="text"><string>x:</string></property>
+       <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
+      </widget>
+     </item>
+     <item row="13" column="1">
+      <widget class="QLabel" name="label_repeat_y">
+       <property name="text"><string>y:</string></property>
+       <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
+      </widget>
+     </item>
+     <item row="14" column="1">
+      <widget class="QLabel" name="label_repeat_z">
+       <property name="text"><string>z:</string></property>
+       <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
+      </widget>
+     </item>
+     <!-- Repeat End -->
+
+
     </layout>
    </item>
    <item>

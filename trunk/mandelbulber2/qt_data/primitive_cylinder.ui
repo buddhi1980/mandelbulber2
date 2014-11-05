@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>538</width>
-    <height>470</height>
+    <height>481</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,16 +61,25 @@
      <item row="2" column="2">
       <widget class="MyLineEdit" name="vect3_position_z"/>
      </item>
-     <item row="5" column="1">
-      <widget class="QDial" name="dial3_rotation_x">
+     <item row="7" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>2</number>
+       </property>
        <property name="minimum">
-        <number>-18000</number>
+        <double>-36000.000000000000000</double>
        </property>
        <property name="maximum">
-        <number>18000</number>
+        <double>36000.000000000000000</double>
        </property>
-       <property name="wrapping">
-        <bool>true</bool>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
@@ -96,25 +105,16 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="2">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>2</number>
-       </property>
+     <item row="5" column="1">
+      <widget class="QDial" name="dial3_rotation_x">
        <property name="minimum">
-        <double>-36000.000000000000000</double>
+        <number>-18000</number>
        </property>
        <property name="maximum">
-        <double>36000.000000000000000</double>
+        <number>18000</number>
        </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
+       <property name="wrapping">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -154,6 +154,13 @@
        </property>
       </widget>
      </item>
+     <item row="8" column="2">
+      <widget class="QPushButton" name="colorButton_color">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
      <item row="6" column="1">
       <widget class="QDial" name="dial3_rotation_y">
        <property name="minimum">
@@ -167,10 +174,10 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="2">
-      <widget class="QPushButton" name="colorButton_color">
+     <item row="10" column="0" colspan="2">
+      <widget class="MyCheckBox" name="checkBox_caps">
        <property name="text">
-        <string>PushButton</string>
+        <string>Caps</string>
        </property>
       </widget>
      </item>
@@ -191,16 +198,6 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_11">
-       <property name="text">
-        <string>x:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_8">
        <property name="text">
@@ -212,6 +209,16 @@
       <widget class="QLabel" name="label_10">
        <property name="text">
         <string>Position:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>x:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -267,6 +274,13 @@
        </property>
       </widget>
      </item>
+     <item row="11" column="0" colspan="2">
+      <widget class="MyCheckBox" name="checkBox_empty">
+       <property name="text">
+        <string>Empty inside</string>
+       </property>
+      </widget>
+     </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_14">
        <property name="text">
@@ -284,13 +298,6 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="0" colspan="2">
-      <widget class="MyCheckBox" name="checkBox_empty">
-       <property name="text">
-        <string>Empty inside</string>
        </property>
       </widget>
      </item>
@@ -344,13 +351,44 @@
        </property>
       </widget>
      </item>
-     <item row="10" column="0" colspan="2">
-      <widget class="MyCheckBox" name="checkBox_caps">
+   
+     <!-- Repeat Start -->
+     <item row="12" column="0">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Caps</string>
+        <string>Repeat</string>
        </property>
       </widget>
      </item>
+     <item row="12" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_repeat_x"/>
+     </item>
+     <item row="13" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_repeat_y"/>
+     </item>
+     <item row="14" column="2">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_repeat_z"/>
+     </item>
+     <item row="12" column="1">
+      <widget class="QLabel" name="label_repeat_x">
+       <property name="text"><string>x:</string></property>
+       <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
+      </widget>
+     </item>
+     <item row="13" column="1">
+      <widget class="QLabel" name="label_repeat_y">
+      <property name="text"><string>y:</string></property>
+       <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
+      </widget>
+     </item>
+     <item row="14" column="1">
+      <widget class="QLabel" name="label_repeat_z">
+       <property name="text"><string>z:</string></property>
+       <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
+      </widget>
+     </item>
+     <!-- Repeat End -->
+
     </layout>
    </item>
    <item>

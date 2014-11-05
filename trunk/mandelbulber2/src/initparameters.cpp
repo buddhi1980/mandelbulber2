@@ -228,6 +228,7 @@ using namespace parameterContainer;
 	par->addParam("all_primitives_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
 	par->addParam("fractal_position", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
 	par->addParam("fractal_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+    par->addParam("repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 
 	//OpenCL Support
 #ifdef CLSUPPORT
@@ -363,8 +364,9 @@ void InitFractalParams(cParameterContainer *par)
 
 	//FoldingIntPow
 	par->addParam("boxfold_bulbpow2_folding_factor", 2.0, morphLinear, paramStandard);
-	par->addParam("boxfold_bulbpow2_z_factor", 5.0, morphLinear, paramStandard);
-	WriteLog("Fractal parameters initialization finished");
+    par->addParam("boxfold_bulbpow2_z_factor", 5.0, morphLinear, paramStandard);
+
+    WriteLog("Fractal parameters initialization finished");
 }
 
 void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par)
@@ -374,6 +376,9 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 	par->addParam(QString(primitiveName) + "_color", sRGB(32000, 32000, 32000), morphCatMullRom, paramStandard);
 	par->addParam(QString(primitiveName) + "_reflection", 0.0, 0.0, 1.0, morphCatMullRom, paramStandard);
 	par->addParam(QString(primitiveName) + "_enabled", false, morphCatMullRom, paramStandard);
+
+    // repeat parameter
+    par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 
 	switch (objectType)
 	{
@@ -434,7 +439,10 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 	par->DeleteParameter(QString(primitiveName) + "_reflection");
 	par->DeleteParameter(QString(primitiveName) + "_enabled");
 
-	switch (objectType)
+    // repeat parameter
+    par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
+
+    switch (objectType)
 	{
 		case fractal::objBox:
 			par->DeleteParameter(QString(primitiveName) + "_size");
