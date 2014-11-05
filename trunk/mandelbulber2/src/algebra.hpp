@@ -76,7 +76,7 @@ public:
 	inline CVector3 mod(const CVector3 &vector) const
 	{
 		if (vector.Length() == 0.0) return *this;
-		return (*this % vector + vector) % vector - vector * 0.5;
+		return (((*this - vector * 0.5) % vector) + vector) % vector - vector * 0.5;
 	}
 	inline CVector3 operator*(const double &scalar) const
 	{
