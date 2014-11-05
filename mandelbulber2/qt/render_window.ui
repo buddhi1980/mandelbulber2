@@ -2635,8 +2635,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>194</width>
-                  <height>238</height>
+                  <width>380</width>
+                  <height>267</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2846,7 +2846,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>288</width>
+                  <width>366</width>
                   <height>695</height>
                  </rect>
                 </property>
@@ -3383,7 +3383,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>301</width>
+                  <width>366</width>
                   <height>282</height>
                  </rect>
                 </property>
@@ -3550,7 +3550,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>326</width>
+                  <width>366</width>
                   <height>1480</height>
                  </rect>
                 </property>
@@ -4878,7 +4878,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>3</number>
+            <number>0</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -4973,8 +4973,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>66</width>
-                      <height>18</height>
+                      <width>344</width>
+                      <height>129</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1"/>
@@ -5280,9 +5280,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>222</width>
-                  <height>428</height>
+                  <y>-248</y>
+                  <width>352</width>
+                  <height>500</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -5481,6 +5481,9 @@ to target:</string>
                      </property>
                     </widget>
                    </item>
+                   <item row="0" column="2">
+                    <widget class="MyLineEdit" name="vect3_fractal_position_x"/>
+                   </item>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_138">
                      <property name="text">
@@ -5503,9 +5506,6 @@ to target:</string>
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                      </property>
                     </widget>
-                   </item>
-                   <item row="0" column="2">
-                    <widget class="MyLineEdit" name="vect3_fractal_position_x"/>
                    </item>
                    <item row="4" column="1">
                     <widget class="QDial" name="dial3_fractal_rotation_y">
@@ -5612,6 +5612,13 @@ to target:</string>
                      </property>
                     </widget>
                    </item>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="label_48">
+                     <property name="text">
+                      <string>Z-axis rotation:</string>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="4" column="0">
                     <widget class="QLabel" name="label_47">
                      <property name="text">
@@ -5619,10 +5626,49 @@ to target:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="0">
-                    <widget class="QLabel" name="label_48">
+                   <item row="6" column="2">
+                    <widget class="MyLineEdit" name="vect3_repeat_x"/>
+                   </item>
+                   <item row="7" column="2">
+                    <widget class="MyLineEdit" name="vect3_repeat_y"/>
+                   </item>
+                   <item row="8" column="2">
+                    <widget class="MyLineEdit" name="vect3_repeat_z"/>
+                   </item>
+                   <item row="6" column="1">
+                    <widget class="QLabel" name="label_repeat_x_2">
                      <property name="text">
-                      <string>Z-axis rotation:</string>
+                      <string>x:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="1">
+                    <widget class="QLabel" name="label_repeat_y_2">
+                     <property name="text">
+                      <string>y:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="1">
+                    <widget class="QLabel" name="label_repeat_z_2">
+                     <property name="text">
+                      <string>z:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="0">
+                    <widget class="QLabel" name="label_145">
+                     <property name="text">
+                      <string>Repeat</string>
                      </property>
                     </widget>
                    </item>
@@ -5699,9 +5745,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-190</y>
+                  <y>-117</y>
                   <width>352</width>
-                  <height>466</height>
+                  <height>394</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -5924,6 +5970,28 @@ to target:</string>
                    <item row="2" column="2">
                     <widget class="MyLineEdit" name="vect3_all_primitives_position_z"/>
                    </item>
+                   <item row="3" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinboxd3_all_primitives_rotation_x">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-36000.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>36000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="4" column="0">
                     <widget class="QLabel" name="label_50">
                      <property name="text">
@@ -5976,6 +6044,9 @@ to target:</string>
                      </property>
                     </widget>
                    </item>
+                   <item row="0" column="2">
+                    <widget class="MyLineEdit" name="vect3_all_primitives_position_x"/>
+                   </item>
                    <item row="1" column="2">
                     <widget class="MyLineEdit" name="vect3_all_primitives_position_y"/>
                    </item>
@@ -5985,9 +6056,6 @@ to target:</string>
                       <string>X-axis rotation:</string>
                      </property>
                     </widget>
-                   </item>
-                   <item row="0" column="2">
-                    <widget class="MyLineEdit" name="vect3_all_primitives_position_x"/>
                    </item>
                    <item row="1" column="1">
                     <widget class="QLabel" name="label_144">
@@ -6028,28 +6096,6 @@ to target:</string>
                      </property>
                      <property name="wrapping">
                       <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="2">
-                    <widget class="MyDoubleSpinBox" name="spinboxd3_all_primitives_rotation_x">
-                     <property name="prefix">
-                      <string/>
-                     </property>
-                     <property name="suffix">
-                      <string/>
-                     </property>
-                     <property name="decimals">
-                      <number>2</number>
-                     </property>
-                     <property name="minimum">
-                      <double>-36000.000000000000000</double>
-                     </property>
-                     <property name="maximum">
-                      <double>36000.000000000000000</double>
-                     </property>
-                     <property name="singleStep">
-                      <double>0.100000000000000</double>
                      </property>
                     </widget>
                    </item>
@@ -6097,16 +6143,6 @@ to target:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="0" rowspan="3">
-                    <widget class="QLabel" name="label_143">
-                     <property name="text">
-                      <string>all primitives
-position
-(except plane
-and water):</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="5" column="0">
                     <widget class="QLabel" name="label_51">
                      <property name="text">
@@ -6114,49 +6150,13 @@ and water):</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="6" column="0">
-                    <widget class="QLabel" name="label_145">
+                   <item row="0" column="0" rowspan="3">
+                    <widget class="QLabel" name="label_143">
                      <property name="text">
-                      <string>Repeat</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="6" column="2">
-                    <widget class="MyLineEdit" name="vect3_repeat_x"/>
-                   </item>
-                   <item row="7" column="2">
-                    <widget class="MyLineEdit" name="vect3_repeat_y"/>
-                   </item>
-                   <item row="8" column="2">
-                    <widget class="MyLineEdit" name="vect3_repeat_z"/>
-                   </item>
-                   <item row="6" column="1">
-                    <widget class="QLabel" name="label_repeat_x_2">
-                     <property name="text">
-                      <string>x:</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="7" column="1">
-                    <widget class="QLabel" name="label_repeat_y_2">
-                     <property name="text">
-                      <string>y:</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="8" column="1">
-                    <widget class="QLabel" name="label_repeat_z_2">
-                     <property name="text">
-                      <string>z:</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <string>all primitives
+position
+(except plane
+and water):</string>
                      </property>
                     </widget>
                    </item>
@@ -6272,14 +6272,14 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="8" column="0" colspan="3">
+              <item row="7" column="0" colspan="3">
                <widget class="MyCheckBox" name="checkBox_iteration_threshold_mode">
                 <property name="text">
                  <string>Stop at maximum iteration</string>
                 </property>
                </widget>
               </item>
-              <item row="9" column="0" colspan="3">
+              <item row="8" column="0" colspan="3">
                <widget class="MyCheckBox" name="checkBox_interior_mode">
                 <property name="text">
                  <string>Interior mode</string>
@@ -6356,10 +6356,30 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="10" column="0" colspan="3">
+              <item row="9" column="0" colspan="3">
                <widget class="MyCheckBox" name="checkBox_slow_shading">
                 <property name="text">
                  <string>Non-DE shading mode (slow)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="MySpinBox" name="spinboxInt_N">
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>500</number>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="2">
+               <widget class="MyLineEdit" name="logedit_smoothness">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                </widget>
               </item>
@@ -6388,8 +6408,8 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="4" column="2">
-               <widget class="MyLineEdit" name="logedit_smoothness">
+              <item row="2" column="2">
+               <widget class="MyLineEdit" name="logedit_detail_level">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -6398,18 +6418,8 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="2">
-               <widget class="MySpinBox" name="spinboxInt_N">
-                <property name="minimum">
-                 <number>1</number>
-                </property>
-                <property name="maximum">
-                 <number>500</number>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="MyLineEdit" name="logedit_detail_level">
+              <item row="5" column="2">
+               <widget class="MyLineEdit" name="logedit_view_distance_max">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -6443,16 +6453,6 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="2">
-               <widget class="MyLineEdit" name="logedit_view_distance_max">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-               </widget>
-              </item>
               <item row="3" column="1">
                <widget class="QSlider" name="logslider_DE_factor">
                 <property name="sizePolicy">
@@ -6478,7 +6478,7 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="11" column="0" colspan="3">
+              <item row="10" column="0" colspan="3">
                <widget class="QGroupBox" name="groupCheck_constant_DE_threshold">
                 <property name="title">
                  <string>Constant detail size</string>
