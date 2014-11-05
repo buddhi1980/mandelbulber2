@@ -177,7 +177,7 @@ public:
 	CVector3 auxLightRandomCenter;
 	CVector3 limitMin;
 	CVector3 limitMax;
-    CVector3 repeat;
+	CVector3 repeat;
 	CVector3 target;
 	CVector3 camera; //view point
 	CVector3 viewAngle;

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>538</width>
-    <height>470</height>
+    <height>553</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,7 +58,20 @@
      <item row="2" column="2">
       <widget class="MyLineEdit" name="vect3_position_z"/>
      </item>
-     <item row="11" column="1">
+     <item row="6" column="2">
+      <widget class="MyLineEdit" name="logedit_rounding">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="MyLineEdit" name="vect3_size_x"/>
+     </item>
+     <item row="14" column="1">
       <widget class="QSlider" name="slider_reflection">
        <property name="minimum">
         <number>0</number>
@@ -71,19 +84,6 @@
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="MyLineEdit" name="vect3_size_x"/>
-     </item>
-     <item row="6" column="2">
-      <widget class="MyLineEdit" name="logedit_rounding">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
        </property>
       </widget>
      </item>
@@ -164,7 +164,20 @@
        </property>
       </widget>
      </item>
-     <item row="11" column="2">
+     <item row="7" column="1">
+      <widget class="QDial" name="dial3_rotation_x">
+       <property name="minimum">
+        <number>-18000</number>
+       </property>
+       <property name="maximum">
+        <number>18000</number>
+       </property>
+       <property name="wrapping">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_reflection">
        <property name="prefix">
         <string/>
@@ -186,19 +199,22 @@
        </property>
       </widget>
      </item>
-     <item row="10" column="0">
+     <item row="13" column="2">
+      <widget class="QPushButton" name="colorButton_color">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="0">
       <widget class="QLabel" name="label_18">
        <property name="text">
         <string>Color:</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="2">
-      <widget class="QPushButton" name="colorButton_color">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
+     <item row="0" column="2">
+      <widget class="MyLineEdit" name="vect3_position_x"/>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_13">
@@ -210,8 +226,8 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="MyLineEdit" name="vect3_position_x"/>
+     <item row="5" column="2">
+      <widget class="MyLineEdit" name="vect3_size_z"/>
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="label_11">
@@ -233,8 +249,8 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="2">
-      <widget class="MyLineEdit" name="vect3_size_z"/>
+     <item row="1" column="2">
+      <widget class="MyLineEdit" name="vect3_position_y"/>
      </item>
      <item row="9" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
@@ -258,8 +274,12 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
-      <widget class="MyLineEdit" name="vect3_position_y"/>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Size:</string>
+       </property>
+      </widget>
      </item>
      <item row="4" column="1">
       <widget class="QLabel" name="label_16">
@@ -275,23 +295,6 @@
       <widget class="QLabel" name="label_17">
        <property name="text">
         <string>height (z):</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>Size:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLabel" name="label_14">
-       <property name="text">
-        <string>width (x):</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -318,72 +321,77 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
-      <widget class="QDial" name="dial3_rotation_x">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="0">
-      <widget class="QLabel" name="label_19">
+     <item row="3" column="1">
+      <widget class="QLabel" name="label_14">
        <property name="text">
-        <string>Reflection:</string>
+        <string>width (x):</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
-     <item row="12" column="0" colspan="2">
+     <item row="15" column="0" colspan="2">
       <widget class="MyCheckBox" name="checkBox_empty">
        <property name="text">
         <string>Empty inside</string>
        </property>
       </widget>
      </item>
-    
-
-	<!-- Repeat Start -->
-     <item row="13" column="0">
+     <item row="14" column="0">
+      <widget class="QLabel" name="label_19">
+       <property name="text">
+        <string>Reflection:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="2">
+      <widget class="MyLineEdit" name="vect3_repeat_y"/>
+     </item>
+     <item row="12" column="2">
+      <widget class="MyLineEdit" name="vect3_repeat_z"/>
+     </item>
+     <item row="10" column="1">
+      <widget class="QLabel" name="label_repeat_x">
+       <property name="text">
+        <string>x:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
         <string>Repeat</string>
        </property>
       </widget>
      </item>
-     <item row="13" column="2">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_repeat_x"/>
-     </item>
-     <item row="14" column="2">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_repeat_y"/>
-     </item>
-     <item row="15" column="2">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_repeat_z"/>
-     </item>
-     <item row="13" column="1">
-      <widget class="QLabel" name="label_repeat_x">
-        <property name="text"><string>x:</string></property>
-       <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
-      </widget>
-     </item>
-     <item row="14" column="1">
+     <item row="11" column="1">
       <widget class="QLabel" name="label_repeat_y">
-        <property name="text"><string>y:</string></property>
-       <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
+       <property name="text">
+        <string>y:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
-     <item row="15" column="1">
+     <item row="12" column="1">
       <widget class="QLabel" name="label_repeat_z">
-        <property name="text"><string>z:</string></property>
-       <property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property>
+       <property name="text">
+        <string>z:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
-     <!-- Repeat End -->
-</layout>
+     <item row="10" column="2">
+      <widget class="MyLineEdit" name="vect3_repeat_x"/>
+     </item>
+    </layout>
    </item>
    <item>
     <spacer name="verticalSpacer">

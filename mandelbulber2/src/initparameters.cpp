@@ -228,7 +228,7 @@ using namespace parameterContainer;
 	par->addParam("all_primitives_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
 	par->addParam("fractal_position", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
 	par->addParam("fractal_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-    par->addParam("repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
+  par->addParam("repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 
 	//OpenCL Support
 #ifdef CLSUPPORT
@@ -364,9 +364,9 @@ void InitFractalParams(cParameterContainer *par)
 
 	//FoldingIntPow
 	par->addParam("boxfold_bulbpow2_folding_factor", 2.0, morphLinear, paramStandard);
-    par->addParam("boxfold_bulbpow2_z_factor", 5.0, morphLinear, paramStandard);
+	par->addParam("boxfold_bulbpow2_z_factor", 5.0, morphLinear, paramStandard);
 
-    WriteLog("Fractal parameters initialization finished");
+	WriteLog("Fractal parameters initialization finished");
 }
 
 void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par)
@@ -377,15 +377,13 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 	par->addParam(QString(primitiveName) + "_reflection", 0.0, 0.0, 1.0, morphCatMullRom, paramStandard);
 	par->addParam(QString(primitiveName) + "_enabled", false, morphCatMullRom, paramStandard);
 
-    // repeat parameter
-    par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
-
 	switch (objectType)
 	{
 		case fractal::objBox:
 			par->addParam(QString(primitiveName) + "_size", CVector3(1.0, 1.0, 1.0), morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_rounding", 1e-15, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 			break;
 		case fractal::objCircle:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
@@ -395,12 +393,14 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 			par->addParam(QString(primitiveName) + "_height", 1.0, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_caps", true, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 			break;
 		case fractal::objCone:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_height", 1.0, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_caps", true, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 			break;
 		case fractal::objPlane:
 			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
@@ -412,6 +412,7 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 		case fractal::objSphere:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 			break;
 		case fractal::objWater:
 			par->addParam(QString(primitiveName) + "_amplitude", 0.02, morphCatMullRom, paramStandard);
@@ -424,6 +425,7 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_tube_radius", 0.2, morphCatMullRom, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 			break;
 
 		default:
@@ -439,15 +441,13 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 	par->DeleteParameter(QString(primitiveName) + "_reflection");
 	par->DeleteParameter(QString(primitiveName) + "_enabled");
 
-    // repeat parameter
-    par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
-
-    switch (objectType)
+  switch (objectType)
 	{
 		case fractal::objBox:
 			par->DeleteParameter(QString(primitiveName) + "_size");
 			par->DeleteParameter(QString(primitiveName) + "_rounding");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_repeat");
 			break;
 		case fractal::objCircle:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
@@ -457,12 +457,14 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 			par->DeleteParameter(QString(primitiveName) + "_height");
 			par->DeleteParameter(QString(primitiveName) + "_caps");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_repeat");
 			break;
 		case fractal::objCone:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
 			par->DeleteParameter(QString(primitiveName) + "_height");
 			par->DeleteParameter(QString(primitiveName) + "_caps");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_repeat");
 			break;
 		case fractal::objPlane:
 			par->DeleteParameter(QString(primitiveName) + "_empty");
@@ -474,11 +476,13 @@ void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString pri
 		case fractal::objSphere:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_repeat");
 			break;
 		case fractal::objTorus:
 			par->DeleteParameter(QString(primitiveName) + "_radius");
 			par->DeleteParameter(QString(primitiveName) + "_tube_radius");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_repeat");
 			break;
 		case fractal::objWater:
 			par->DeleteParameter(QString(primitiveName) + "_amplitude");

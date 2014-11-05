@@ -38,8 +38,8 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 	common.constantMultiplier = container->Get<double>("fractal_constant_factor");
 	hybridFractalEnable = container->Get<bool>("hybrid_fractal_enable");
 	limitMax = container->Get<CVector3>("limit_max");
-    limitMin = container->Get<CVector3>("limit_min");
-    limitsEnabled = container->Get<bool>("limits_enabled");
+	limitMin = container->Get<CVector3>("limit_min");
+	limitsEnabled = container->Get<bool>("limits_enabled");
 	minN = container->Get<int>("minN");
 	N = container->Get<int>("N");
 	perspectiveType = (params::enumPerspectiveType)container->Get<int>("perspective_type");
@@ -147,7 +147,7 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 	common.fakeLightsOrbitTrap = container->Get<CVector3>("fake_lights_orbit_trap");
 	common.fakeLightsMinIter = container->Get<double>("fake_lights_min_iter");
 	common.fakeLightsMaxIter = container->Get<double>("fake_lights_max_iter");
-    common.repeat = container->Get<CVector3>("repeat");
+	common.repeat = container->Get<CVector3>("repeat");
 
 	frameNo = container->Get<int>("frame_no");
 
