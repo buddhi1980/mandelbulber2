@@ -1871,8 +1871,9 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 			mainInterface->listOfPrimitives.removeAt(i);
 		}
 	}
-
+	
 	DeletePrimitiveParams(objectType, primitiveName, gPar);
+	ComboMouseClickUpdate();
 }
 
 void cInterface::RebuildPrimitives(cParameterContainer *par)
