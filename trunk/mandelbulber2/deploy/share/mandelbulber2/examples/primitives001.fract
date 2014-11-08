@@ -1,0 +1,81 @@
+# Mandelbulber settings file
+# version 2.02
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 0;
+ambient_occlusion_quality 10;
+aux_light_colour_1 e800 6400 2200;
+aux_light_colour_2 bf00 ee00 7400;
+aux_light_colour_3 3000 6700 ff00;
+aux_light_enabled_1 true;
+aux_light_enabled_2 true;
+aux_light_enabled_3 true;
+aux_light_intensity_1 0.194984;
+aux_light_intensity_2 0.0851138;
+aux_light_intensity_3 0.2;
+aux_light_position_1 1.396663870973832 -0.2772540909635683 -0.6277420859834059;
+aux_light_position_2 0.5266147294447028 -1.775110010166946 -0.298665784036362;
+aux_light_position_3 0 0 0.3;
+aux_light_visibility 10;
+aux_light_visibility_size 0.158489;
+basic_fog_color 8100 7200 3e00;
+basic_fog_enabled true;
+basic_fog_visibility 32.3594;
+camera 1.197885685563986 -2.311252442590193 0.7657140359558972;
+camera_distance_to_target 2.284231178226022;
+camera_rotation 27.53260679671403 -32.43308742033273 0;
+camera_top -0.2479130687837305 0.4755755775381513 0.8440183531034661;
+gamma 0.77;
+hdr true;
+image_height 1080;
+image_width 1920;
+limit_max 100 100 0;
+limit_min -100 -100 -100;
+limits_enabled true;
+main_light_alpha -126.87;
+main_light_beta 10.78;
+main_light_position_relative false;
+N 12;
+penetrating_lights false;
+primitive_box_1_color 8200 8a00 9d00;
+primitive_box_1_enabled true;
+primitive_box_1_position 0 0 -1.3;
+primitive_box_1_reflection 0.84;
+primitive_box_1_rounding 0.1;
+primitive_box_1_size 2 2 0.4;
+primitive_sphere_1_color 7d00 2800 5100;
+primitive_sphere_1_empty true;
+primitive_sphere_1_enabled true;
+primitive_sphere_1_radius 1.3;
+primitive_sphere_1_reflection 0.79;
+primitive_sphere_2_color d500 b800 3300;
+primitive_sphere_2_enabled true;
+primitive_sphere_2_position 0.9 -0.9 -0.8;
+primitive_sphere_2_radius 0.2;
+primitive_sphere_2_reflection 0.72;
+primitive_sphere_3_color d500 b800 3300;
+primitive_sphere_3_enabled true;
+primitive_sphere_3_position -0.9 -0.9 -0.8;
+primitive_sphere_3_radius 0.2;
+primitive_sphere_3_reflection 0.73;
+primitive_torus_1_color ff00 9700 1700;
+primitive_torus_1_empty true;
+primitive_torus_1_enabled true;
+primitive_torus_1_position 0 0 -0.05;
+primitive_torus_1_radius 1.35;
+primitive_torus_1_reflection 0.79;
+primitive_torus_1_tube_radius 0.05;
+primitive_water_1_amplitude 0.01;
+primitive_water_1_color 3500 3000 7a00;
+primitive_water_1_enabled true;
+primitive_water_1_position 0 0 -1.35;
+primitive_water_1_reflection 0.22;
+primitive_water_1_rotation 0 0 66.61;
+raytraced_reflections true;
+shadows_cone_angle 4.05;
+target 0.3066922138840549 -0.6016618507277436 -0.4593517907776339;
+[fractal_1]
+[fractal_2]
+[fractal_3]
+[fractal_4]
