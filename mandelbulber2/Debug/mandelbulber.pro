@@ -50,6 +50,7 @@ SOURCES +=  ../src/algebra.cpp\
             ../src/texture.cpp\
             ../src/thumbnail.cpp\
             ../src/undo.cpp\
+            ../src/random.cpp\
             ../qt/mygroupbox.cpp\
             ../qt/mylineedit.cpp\
             ../qt/myspinbox.cpp\
@@ -83,7 +84,7 @@ QMAKE_LFLAGS_RELEASE -= -O1
 
 QMAKE_CXXFLAGS += -msse2 -ffast-math
 
-LIBS += -lpng
+LIBS += -lpng -lgsl -lgslcblas
 win32:LIBS += -lz
 
 # rh: ugly absolute paths for libpng and libjpeg on my windows system

@@ -23,6 +23,7 @@
 #include "color_palette.hpp"
 #include <QtCore>
 #include "common_math.h"
+#include "random.hpp"
 
 cColorPalette::cColorPalette()
 {
@@ -53,14 +54,16 @@ void cColorPalette::ChangeColor(int index, const sRGB &color)
 cColorPalette::cColorPalette(int size, int randomSeed, double saturation)
 {
 	palette.clear();
-	srand(randomSeed);
+	cRandom *random = new cRandom();
+	random->Initialize(randomSeed);
+
 	for (int i = 0; i < size; i++)
 	{
-		int Y = (Random(255) - 128) / (1.0 + saturation);
+		int Y = (random->Random(255) - 128) / (1.0 + saturation);
 		sRGB color;
-		color.R = Y + 128 + (Random(255) - 128) * saturation;
-		color.G = Y + 128 + (Random(255) - 128) * saturation;
-		color.B = Y + 128 + (Random(255) - 128) * saturation;
+		color.R = Y + 128 + (random->Random(255) - 128) * saturation;
+		color.G = Y + 128 + (random->Random(255) - 128) * saturation;
+		color.B = Y + 128 + (random->Random(255) - 128) * saturation;
 		if (color.R < 0) color.R = 0;
 		if (color.G < 0) color.G = 0;
 		if (color.B < 0) color.B = 0;
