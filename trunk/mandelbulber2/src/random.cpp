@@ -35,7 +35,7 @@ void cRandom::Initialize(int seed)
 
 int cRandom::Random(int max)
 {
-	gsl_rng_uniform_int(gBaseRand, max + 1);
+	return gsl_rng_uniform_int(gBaseRand, max + 1);
 }
 
 double cRandom::Random(double min, double max, double resolution)
