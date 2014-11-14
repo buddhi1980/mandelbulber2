@@ -160,7 +160,7 @@ using namespace parameterContainer;
 
 	//coloring
 	par->addParam("fractal_color", true, morphLinear, paramStandard);
-	par->addParam("coloring_random_seed", 123456, morphLinear, paramStandard);
+	par->addParam("coloring_random_seed", 269259, morphLinear, paramStandard);
 	par->addParam("coloring_saturation", 1.0, morphLinear, paramStandard);
 	par->addParam("coloring_speed", 1.0, morphLinear, paramStandard);
 	par->addParam("coloring_palette_size", 10, 1, 255, morphLinear, paramStandard);
