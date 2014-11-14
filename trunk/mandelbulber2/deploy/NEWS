@@ -1,5 +1,20 @@
 Version history
 
+v2.02
+- added importing of settings from old Mandelbulber (v1.21). It works in 95% cases.
+- added 'legacy_coordinate_system' parameter to provide compatibility with old coordinate system (upside down)
+- added primitive objects: box, sphere, plane, cylinder, torus, circle, rectangle, water. There is no limit for number of objects. All objects can be rotated around 3 axes and placed using mouse pointer
+- added 'repeat' operator for all primitive objects and fractal
+- added setting for position and rotation of the fractal
+- added example setting files and 'Load example...' option
+- added crossplatform consistent random number generator based on the gsl library. See the README for new dependencies.
+- fixed bug: 'fractal_constant_factor' parameter was ignored
+- fixed bug: glow effect used wrong color
+- fixed bug: there was error in calculation of equirectangular projection
+- fixed bug: corrected and updated list of required system packages
+- fixed bug: there was wrong calculation of distance if "Iteration threshold mode" was enabled.
+- fixed bug: preview was displayed even if settings weren't loaded successfully
+
 v2.01
 - migrated to Qt 5 - program in 99% rewriten from scratch
 remarks: program still under development. Not available yet: NetRender, animation, OpenCL, and many other small features
