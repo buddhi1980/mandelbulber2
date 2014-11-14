@@ -18,7 +18,7 @@ CXXFLAGS      = -m64 -pipe -msse2 -ffast-math -g -D_REENTRANT -Wall -W -fPIE $(D
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtUiTools -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I../qt
 LINK          = g++
 LFLAGS        = -m64
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lpng -lQt5UiTools -lQt5Widgets -lQt5Gui -lQt5Core -lpthread -lGL 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lpng -lgsl -lgslcblas -lQt5UiTools -lQt5Widgets -lQt5Gui -lQt5Core -lpthread -lGL 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
@@ -84,6 +84,7 @@ SOURCES       = ../src/algebra.cpp \
 		../src/texture.cpp \
 		../src/thumbnail.cpp \
 		../src/undo.cpp \
+		../src/random.cpp \
 		../qt/mygroupbox.cpp \
 		../qt/mylineedit.cpp \
 		../qt/myspinbox.cpp \
@@ -141,6 +142,7 @@ OBJECTS       = algebra.o \
 		texture.o \
 		thumbnail.o \
 		undo.o \
+		random.o \
 		mygroupbox.o \
 		mylineedit.o \
 		myspinbox.o \
@@ -256,6 +258,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../src/texture.cpp \
 		../src/thumbnail.cpp \
 		../src/undo.cpp \
+		../src/random.cpp \
 		../qt/mygroupbox.cpp \
 		../qt/mylineedit.cpp \
 		../qt/myspinbox.cpp \
@@ -427,7 +430,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/mandelbulber21.0.0 || mkdir -p .tmp/mandelbulber21.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../qt/myspinbox.h ../qt/mydoublespinbox.h ../qt/mycheckbox.h ../qt/mygroupbox.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/old_settings.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp ../src/thumbnail.cpp ../src/undo.cpp ../qt/mygroupbox.cpp ../qt/mylineedit.cpp ../qt/myspinbox.cpp ../qt/mydoublespinbox.cpp ../qt/mycheckbox.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../qt/myspinbox.h ../qt/mydoublespinbox.h ../qt/mycheckbox.h ../qt/mygroupbox.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/old_settings.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp ../src/thumbnail.cpp ../src/undo.cpp ../src/random.cpp ../qt/mygroupbox.cpp ../qt/mylineedit.cpp ../qt/myspinbox.cpp ../qt/mydoublespinbox.cpp ../qt/mycheckbox.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
 
 
 clean:compiler_clean 
@@ -649,7 +652,8 @@ calculate_distance.o: ../src/calculate_distance.cpp ../src/calculate_distance.hp
 		../src/commonparams.hpp \
 		../src/fractparams.hpp \
 		../src/texture.hpp \
-		../src/cimage.hpp
+		../src/cimage.hpp \
+		../src/common_math.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculate_distance.o ../src/calculate_distance.cpp
 
 camera_target.o: ../src/camera_target.cpp ../src/camera_target.hpp \
@@ -678,7 +682,8 @@ color_palette.o: ../src/color_palette.cpp ../src/color_palette.hpp \
 		../src/cimage.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
-		../src/commonparams.hpp
+		../src/commonparams.hpp \
+		../src/random.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o color_palette.o ../src/color_palette.cpp
 
 cimage.o: ../src/cimage.cpp ../src/cimage.hpp \
@@ -907,7 +912,8 @@ old_settings.o: ../src/old_settings.cpp ../src/old_settings.hpp \
 		../src/primitives.h \
 		../src/commonparams.hpp \
 		../src/camera_target.hpp \
-		../src/fractal_list.hpp
+		../src/fractal_list.hpp \
+		../src/initparameters.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o old_settings.o ../src/old_settings.cpp
 
 parameters.o: ../src/parameters.cpp ../src/parameters.hpp \
@@ -921,7 +927,12 @@ primitives.o: ../src/primitives.cpp ../src/primitives.h \
 		../src/color_structures.hpp \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
-		../src/system.hpp
+		../src/system.hpp \
+		../src/common_math.h \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/cimage.hpp \
+		../src/commonparams.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o primitives.o ../src/primitives.cpp
 
 progress_text.o: ../src/progress_text.cpp ../src/progress_text.hpp
@@ -1221,6 +1232,9 @@ undo.o: ../src/undo.cpp ../src/undo.h \
 		../src/error_message.hpp \
 		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o undo.o ../src/undo.cpp
+
+random.o: ../src/random.cpp ../src/random.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o random.o ../src/random.cpp
 
 mygroupbox.o: ../qt/mygroupbox.cpp ../qt/mygroupbox.h \
 		../src/parameters.hpp \
