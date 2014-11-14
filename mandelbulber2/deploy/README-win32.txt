@@ -1,7 +1,7 @@
-MANDELBULBER 2.01
+MANDELBULBER 2.02
 
 project leader: Krzysztof Marczak
-project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
+project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa, Sebastian Jennen
 
 contact: buddhi1980@gmail.com
 www: http://www.mandelbulber.com
@@ -18,7 +18,9 @@ LICENCE: GNU GPL v3.0
 
 2. INSTALLATION
 
-Copy this folder somwhere and run Mandelbulber2.exe
+Copy this folder somwhere and run Mandelbulber2.exe or run Mandelbulber v2-2.xx-Setup.exe if it is provided.
+
+3. Mandelbulber v2 is also available for Linux
 
 4. TESTED ON:
 
