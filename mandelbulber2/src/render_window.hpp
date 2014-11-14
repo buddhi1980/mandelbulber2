@@ -114,6 +114,7 @@ private slots:
 	void slotMenuAboutQt();
 	void slotImportOldSettings();
 	void slotMenuLoadSettings();
+	void slotMenuLoadExample();
 	void slotMenuRedo();
 	void slotMenuResetDocksPositions();
 	void slotMenuSaveDocksPositions();

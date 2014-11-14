@@ -542,6 +542,32 @@ void RenderWindow::slotMenuLoadSettings()
 	}
 }
 
+void RenderWindow::slotMenuLoadExample()
+{
+	cSettings parSettings(cSettings::formatFullText);
+
+	PreviewFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+	dialog.setDirectory(systemData.sharedDir + QDir::separator() + "examples" + QDir::separator());
+	dialog.selectFile(QFileInfo(systemData.lastSettingsFile).fileName());
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle("Load example settings...");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		parSettings.LoadFromFile(filename);
+		parSettings.Decode(gPar, gParFractal);
+		mainInterface->RebuildPrimitives(gPar);
+		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		mainInterface->ComboMouseClickUpdate();
+		systemData.lastSettingsFile = systemData.dataDirectory + "settings" + QDir::separator() + QFileInfo(filename).fileName();
+		this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
+	}
+}
+
 void RenderWindow::slotImportOldSettings()
 {
 	cSettings parSettings(cSettings::formatFullText);

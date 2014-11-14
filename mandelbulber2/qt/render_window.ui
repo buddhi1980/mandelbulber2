@@ -217,6 +217,7 @@
      <string>File</string>
     </property>
     <addaction name="actionLoad_settings"/>
+    <addaction name="actionLoad_example"/>
     <addaction name="separator"/>
     <addaction name="actionSave_settings"/>
     <addaction name="separator"/>
@@ -2635,8 +2636,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>380</width>
-                  <height>267</height>
+                  <width>194</width>
+                  <height>238</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2846,7 +2847,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
+                  <width>288</width>
                   <height>695</height>
                  </rect>
                 </property>
@@ -3383,7 +3384,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
+                  <width>301</width>
                   <height>282</height>
                  </rect>
                 </property>
@@ -3550,7 +3551,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
+                  <width>326</width>
                   <height>1480</height>
                  </rect>
                 </property>
@@ -5066,8 +5067,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>66</width>
-                      <height>18</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
@@ -5159,8 +5160,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>66</width>
-                      <height>18</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
@@ -5252,8 +5253,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>66</width>
-                      <height>18</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
@@ -5280,8 +5281,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-248</y>
-                  <width>352</width>
+                  <y>0</y>
+                  <width>222</width>
                   <height>500</height>
                  </rect>
                 </property>
@@ -5745,8 +5746,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-117</y>
-                  <width>352</width>
+                  <y>0</y>
+                  <width>221</width>
                   <height>394</height>
                  </rect>
                 </property>
@@ -6855,6 +6856,14 @@ and water):</string>
    </property>
    <property name="text">
     <string>Import settings from old Mandelbulber (v1.21)...</string>
+   </property>
+  </action>
+  <action name="actionLoad_example">
+   <property name="icon">
+    <iconset theme="document-open"/>
+   </property>
+   <property name="text">
+    <string>Load example...</string>
    </property>
   </action>
  </widget>
