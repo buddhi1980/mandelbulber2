@@ -49,15 +49,15 @@ void PostRendering_DOF(cImage *image, double deep, double neutral)
 		}
 	}
 
-	QString statusText = QString("Rendering Depth Of Field effect");
+	QString statusText = QObject::tr("Rendering Depth Of Field effect");
 	QString progressTxt;
 
-	mainInterface->StatusText(statusText, "Sorting zBuffer", 0.0);
+	mainInterface->StatusText(statusText, QObject::tr("Sorting zBuffer"), 0.0);
 	mainInterface->application->processEvents();
 
 	QuickSortZBuffer(temp_sort, 1, height * width - 1);
 
-	mainInterface->StatusText(statusText, "Randomizing zBuffer", 0.0);
+	mainInterface->StatusText(statusText, QObject::tr("Randomizing zBuffer"), 0.0);
 	mainInterface->application->processEvents();
 
 	//Randomize Z-buffer

@@ -67,11 +67,14 @@ QString cProgressText::getText(double progress)
 
 	if (progressLim < 1.0)
 	{
-		text = "Done " + QString::number(progressLim * 100.0, 'f', 2) + " %, elapsed: " + TimeString(time) + ", estamined to end: " + TimeString(timeToEnd);
+		text = QObject::tr("Done %1%, elapsed: %2, estamined to end: %3")
+				.arg(QString::number(progressLim * 100.0, 'f', 2))
+				.arg(TimeString(time))
+				.arg(TimeString(timeToEnd));
 	}
 	else
 	{
-		text = QString("100% Done, ") + QString("total time: ") + TimeString(time);
+		text = QObject::tr("100% Done, total time: %3").arg(TimeString(time));
 	}
 
 	return text;

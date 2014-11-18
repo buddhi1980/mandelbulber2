@@ -116,7 +116,7 @@ bool cRenderer::RenderImage()
 
 			//status bar and progress bar
 			double percentDone = scheduler->PercentDone();
-			statusText = "Rendering image in progress";
+			statusText = QObject::tr("Rendering image in progress");
 			progressTxt = progressText.getText(percentDone);
 			mainInterface->StatusText(statusText, progressTxt, percentDone);
 
@@ -190,7 +190,7 @@ bool cRenderer::RenderImage()
 
 	//status bar and progress bar
 	double percentDone = 1.0;
-	statusText = "Idle";
+	statusText = QObject::tr("Idle");
 	progressTxt = progressText.getText(percentDone);
 	mainInterface->StatusText(statusText, progressTxt, percentDone);
 

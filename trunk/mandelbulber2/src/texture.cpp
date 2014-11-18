@@ -43,7 +43,7 @@ cTexture::cTexture(QString filename)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QString("Can't load texture!\n") + filename, cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("Can't load texture!\n") + filename, cErrorMessage::errorMessage);
 		width = 100;
 		height = 100;
 		loaded = false;

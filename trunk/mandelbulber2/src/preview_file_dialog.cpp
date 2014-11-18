@@ -34,7 +34,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	preview = NULL;
 	vboxlayout = new QVBoxLayout();
 
-	checkbox = new QCheckBox("Preview");
+	checkbox = new QCheckBox(tr("Preview"));
 	checkbox->setChecked(true);
 
 	preview = new QLabel("", this);

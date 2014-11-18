@@ -104,25 +104,25 @@ void RenderedImage::DisplayCoordinates()
 	switch (clickMode)
 	{
 		case clickMoveCamera:
-			text = QString("Move camera");
+			text = tr("Move camera");
 			break;
 		case clickFogVisibility:
-			text = QString("Change fog visibility");
+			text = tr("Change fog visibility");
 			break;
 		case clickDOFFocus:
-			text = QString("Change DOF focus");
+			text = tr("Change DOF focus");
 			break;
 		case clickPlaceLight:
-			text = QString("Place light #") + QString::number(clickModeData.at(1).toInt());
+			text = tr("Place light #") + QString::number(clickModeData.at(1).toInt());
 			break;
 		case clickPlacePrimitive:
-			text = QString("Place ") + PrimitiveNames((fractal::enumObjectType)clickModeData.at(1).toInt()) + QString(" #")+ QString::number(clickModeData.at(2).toInt());
+			text = tr("Place ") + PrimitiveNames((fractal::enumObjectType)clickModeData.at(1).toInt()) + QString(" #")+ QString::number(clickModeData.at(2).toInt());
 			break;
 		case clickGetJuliaConstant:
-			text = QString("Get Julia constant");
+			text = tr("Get Julia constant");
 			break;
 		case clickDoNothing:
-			text  = QString();
+			text  = "";
 			break;
 	}
 
@@ -202,7 +202,7 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		{
 			double yy1 = ((p.y + n * boxHeight) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
 			double yy2 = ((p.y - n * boxHeight) / (1.0 - boxDepth * iz * fov) + 0.5) * sh;
-			for (int ix = -3.0; ix <= 3.0; ix++)
+			for (int ix = -n; ix <= n; ix++)
 			{
 				double xx1 = ((p.x + boxWidth * ix) / (1.0 - boxDepth * iz * fov) / aspectRatio + 0.5) * sw;
 				unsigned char R = 128 + iz * 40;

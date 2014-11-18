@@ -74,7 +74,7 @@ bool cUndo::Undo(cParameterContainer *par, cParameterContainer *parFractal)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QString("No more undo"), cErrorMessage::warningMessage);
+		cErrorMessage::showMessage(QObject::tr("No more undo"), cErrorMessage::warningMessage);
 		return false;
 	}
 }
@@ -95,7 +95,7 @@ bool cUndo::Redo(cParameterContainer *par, cParameterContainer *parFractal)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QString("No more redo"), cErrorMessage::warningMessage);
+		cErrorMessage::showMessage(QObject::tr("No more redo"), cErrorMessage::warningMessage);
 		return false;
 	}
 }

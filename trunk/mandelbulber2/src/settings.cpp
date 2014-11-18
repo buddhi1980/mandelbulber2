@@ -179,18 +179,18 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 		{
 			int size = separatedText.size();
 			if (size < 3)
-				throw QString("It's not valid Mandelbulber settings file. No header");
+				throw QObject::tr("It's not valid Mandelbulber settings file. No header");
 
 			QString firstLine = separatedText[0];
 
 			if (!firstLine.contains("Mandelbulber settings file"))
-				throw QString("It's not valid Mandelbulber settings file. Wrong header");
+				throw QObject::tr("It's not valid Mandelbulber settings file. Wrong header");
 
 			QString secondLine = separatedText[1];
 			int versionPos = secondLine.lastIndexOf("version");
 
 			if (versionPos < 0)
-				throw QString("It's not valid Mandelbulber settings file. No information about version of file");
+				throw QObject::tr("It's not valid Mandelbulber settings file. No information about version of file");
 
 			int numberPos = versionPos + QString("version").length();
 
@@ -198,10 +198,10 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 			fileVersion = secondLine.mid(numberPos).toDouble(&ok);
 
 			if(!ok)
-				throw QString("It's not valid Mandelbulber settings file. Wrong file version number");
+				throw QObject::tr("It's not valid Mandelbulber settings file. Wrong file version number");
 
 			if (fileVersion > appVersion)
-				throw QString("File was saved in newer version of Mandelbulber\nFile version: ") + QString::number(fileVersion);
+				throw QObject::tr("File was saved in newer version of Mandelbulber\nFile version: ") + QString::number(fileVersion);
 
 			QString thirdLine = separatedText[2];
 			if(thirdLine.contains("all parameters"))
@@ -218,7 +218,7 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 			}
 			else
 			{
-				throw QString("It's not valid Mandelbulber settings file. Format not specified in the header");
+				throw QObject::tr("It's not valid Mandelbulber settings file. Format not specified in the header");
 			}
 
 		}
@@ -267,12 +267,12 @@ bool cSettings::Decode(cParameterContainer *par, cParameterContainer *fractPar)
 
 				if (!result)
 				{
-					QString errorMessage = QString("Error in settings file. Line: ") + QString::number(l) + " (" + line + ")";
+					QString errorMessage = QObject::tr("Error in settings file. Line: ") + QString::number(l) + " (" + line + ")";
 					cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage);
 					errorCount++;
 					if(errorCount > 3)
 					{
-						cErrorMessage::showMessage("Too many errors in settings file", cErrorMessage::errorMessage);
+						cErrorMessage::showMessage(QObject::tr("Too many errors in settings file"), cErrorMessage::errorMessage);
 						return false;
 					}
 				}

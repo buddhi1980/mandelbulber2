@@ -936,7 +936,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QString("Can't open file ") + uiFileName + QString(" Fractal ui files can't be loaded"), cErrorMessage::errorMessage, mainWindow);
+		cErrorMessage::showMessage(QObject::tr("Can't open file ") + uiFileName + QObject::tr(" Fractal ui files can't be loaded"), cErrorMessage::errorMessage, mainWindow);
 	}
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished");
 }
@@ -1789,11 +1789,11 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	QHBoxLayout *buttonsLayout = new QHBoxLayout();
 	layout->addLayout(buttonsLayout);
 
-	QPushButton *setPositionButton = new QPushButton(QString("Set position of ") + primitiveType + " # " + QString::number(newId), mainWidget);
+	QPushButton *setPositionButton = new QPushButton(QObject::tr("Set position of ") + primitiveType + " # " + QString::number(newId), mainWidget);
 	setPositionButton->setObjectName(QString("setPositionButton_") + primitiveFullName);
 	buttonsLayout->addWidget(setPositionButton);
 
-	QPushButton *deleteButton = new QPushButton(QString("Delete ") + primitiveType + " # " + QString::number(newId), mainWidget);
+	QPushButton *deleteButton = new QPushButton(QObject::tr("Delete ") + primitiveType + " # " + QString::number(newId), mainWidget);
 	deleteButton->setObjectName(QString("deleteButton_") + primitiveFullName);
 	buttonsLayout->addWidget(deleteButton);
 
@@ -1850,7 +1850,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QString("Can't open file ") + uiFileName + QString(" Primitive object ui file can't be loaded"), cErrorMessage::errorMessage, mainWindow);
+		cErrorMessage::showMessage(QObject::tr("Can't open file ") + uiFileName + QObject::tr(" Primitive object ui file can't be loaded"), cErrorMessage::errorMessage, mainWindow);
 	}
 }
 

@@ -201,7 +201,7 @@ void cRenderWorker::doWork(void)
 
 					sRGBAfloat objectShader;
 					objectShader.A = 0.0;
-					sRGBAfloat backgroudShader;
+					sRGBAfloat backgroundShader;
 					sRGBAfloat volumetricShader;
 					sRGBAfloat specular;
 
@@ -228,7 +228,7 @@ void cRenderWorker::doWork(void)
 					} //end if found
 					else
 					{
-						backgroudShader = BackgroundShader(shaderInputData);
+						backgroundShader = BackgroundShader(shaderInputData);
 						reflectBuff[ray].depth = 1e20;
 					}
 
@@ -239,19 +239,19 @@ void cRenderWorker::doWork(void)
 					if (reflectionsMax > 0 && rayEnd > 0 && ray != rayEnd)
 					{
 
-						pixel.R = resultShader.R * reflect + (1.0 - reflect) * (objectShader.R + backgroudShader.R) + specular.R;
-						pixel.G = resultShader.G * reflect + (1.0 - reflect) * (objectShader.G + backgroudShader.G) + specular.G;
-						pixel.B = resultShader.B * reflect + (1.0 - reflect) * (objectShader.B + backgroudShader.B) + specular.B;
+						pixel.R = resultShader.R * reflect + (1.0 - reflect) * (objectShader.R + backgroundShader.R) + specular.R;
+						pixel.G = resultShader.G * reflect + (1.0 - reflect) * (objectShader.G + backgroundShader.G) + specular.G;
+						pixel.B = resultShader.B * reflect + (1.0 - reflect) * (objectShader.B + backgroundShader.B) + specular.B;
 
 					}
 					else
 					{
-						pixel.R = objectShader.R + backgroudShader.R + specular.R;
-						pixel.G = objectShader.G + backgroudShader.G + specular.G;
-						pixel.B = objectShader.B + backgroudShader.B + specular.B;
+						pixel.R = objectShader.R + backgroundShader.R + specular.R;
+						pixel.G = objectShader.G + backgroundShader.G + specular.G;
+						pixel.B = objectShader.B + backgroundShader.B + specular.B;
 					}
 
-					pixel.A = objectShader.A + backgroudShader.A;
+					pixel.A = objectShader.A + backgroundShader.A;
 
 					sRGBAfloat opacityOut;
 
@@ -495,7 +495,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		inOut->stepBuff[i].point = point;
 		//qDebug() << "i" << i << "dist" << inOut->stepBuff[i].distance << "iters" << inOut->stepBuff[i].iters << "distThresh" << inOut->stepBuff[i].distThresh << "step" << inOut->stepBuff[i].step << "point" << inOut->stepBuff[i].point.Debug();
 		(*inOut->buffCount) = i + 1;
-		scan += step / in.direction.Length(); //divided by length of vieVector to elimitate overstepping when fov is big
+		scan += step / in.direction.Length(); //divided by length of view Vector to elimitate overstepping when fov is big
 		if (scan > in.maxScan)
 		{
 			break;

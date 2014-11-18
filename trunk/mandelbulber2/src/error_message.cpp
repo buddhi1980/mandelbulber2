@@ -29,10 +29,11 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 	QTextStream outErr(stderr);
 
 	QString messageText;
-	if (messageType == warningMessage) messageText = "Warning: ";
-	else if (messageType == errorMessage) messageText = "Error: ";
-	else if (messageType == infoMessage) messageText = "Note:";
+	if (messageType == warningMessage) messageText = QObject::tr("Warning");
+	else if (messageType == errorMessage) messageText = QObject::tr("Error");
+	else if (messageType == infoMessage) messageText = QObject::tr("Note");
 
+	messageText += ": ";
 	messageText += text;
 
 	WriteLog(messageText);
@@ -48,17 +49,17 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 
 		if (messageType == warningMessage)
 		{
-			messageBox->setWindowTitle(QString("Mandelbulber warning"));
+			messageBox->setWindowTitle(QObject::tr("Mandelbulber warning"));
 			messageBox->setIcon(QMessageBox::Warning);
 		}
 		else if (messageType == errorMessage)
 		{
-			messageBox->setWindowTitle(QString("Mandelbulber error"));
+			messageBox->setWindowTitle(QObject::tr("Mandelbulber error"));
 			messageBox->setIcon(QMessageBox::Critical);
 		}
 		else if (messageType == infoMessage)
 		{
-			messageBox->setWindowTitle(QString("Mandelbulber information"));
+			messageBox->setWindowTitle(QObject::tr("Mandelbulber information"));
 			messageBox->setIcon(QMessageBox::Information);
 		}
 		messageBox->exec();
