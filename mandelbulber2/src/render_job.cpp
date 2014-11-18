@@ -87,7 +87,7 @@ bool cRenderJob::Init(enumMode _mode)
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 
-	mainInterface->StatusText(QString("Initialization"), QString("Setting up image buffers"), 0.0);
+	mainInterface->StatusText(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
 	mainInterface->application->processEvents();
 
 	if(!InitImage(width, height))
@@ -121,7 +121,7 @@ bool cRenderJob::Init(enumMode _mode)
 
 	//textures are deleted with destruction of renderData
 
-	mainInterface->StatusText(QString("Initialization"), QString("Loading textures"), 0.0);
+	mainInterface->StatusText(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
 	mainInterface->application->processEvents();
 
 	if(paramsContainer->Get<bool>("textured_background"))

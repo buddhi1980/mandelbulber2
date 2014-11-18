@@ -64,6 +64,6 @@ QWidget* MyUiLoader::createWidget(const QString &className, QWidget *parent, con
   else
   {
   	widget = QUiLoader::createWidget(className, parent, name);
-  }
+	}
   return widget;
 }

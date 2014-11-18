@@ -77,6 +77,9 @@ RESOURCES = ../qt/icons.qrc
 
 UI_DIR = ../qt
 
+TRANSLATIONS = ../language/en.ts \
+               ../language/de.ts
+
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3
  

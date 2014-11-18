@@ -147,7 +147,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		}
 
 		double percentDone = (double) totalDone / toDo;
-		statusText = "Rendering SSAO effect in progress";
+		statusText = QObject::tr("Rendering SSAO effect in progress");
 		progressTxt = progressText.getText(percentDone);
 		if(!quiet)
 		{
@@ -167,7 +167,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 
 	//status bar and progress bar
 	double percentDone = 1.0;
-	statusText = "Idle";
+	statusText = QObject::tr("Idle");
 	progressTxt = progressText.getText(percentDone);
 	if(!quiet)
 	{

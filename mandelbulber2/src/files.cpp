@@ -659,7 +659,7 @@ bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, i
 	bool result = qimage->save(&file, "JPEG", quality);
 	if (!result)
 	{
-		cErrorMessage::showMessage(QString("Can't save image to JPEG pile!\n") + filename + "\n" + file.errorString(), cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("Can't save image to JPEG file!\n") + filename + "\n" + file.errorString(), cErrorMessage::errorMessage);
 	}
 	file.close();
 	delete qimage;

@@ -55,7 +55,7 @@ bool cOldSettings::LoadSettings(const QString &filename)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QString("Can't import old settings\n") + QString("File with efault values desn't exist\n") + defaultsFilename, cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("Can't import old settings\n") + QObject::tr("File with default values desn't exist\n") + defaultsFilename, cErrorMessage::errorMessage);
 		return false;
 	}
 	return LoadSettings2(filename);
@@ -998,7 +998,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cParameterCon
 
 		if (!result)
 		{
-			cErrorMessage::showMessage("Hybrid fractal can't be converted", cErrorMessage::errorMessage);
+			cErrorMessage::showMessage(QObject::tr("Hybrid fractal can't be converted"), cErrorMessage::errorMessage);
 		}
 		else
 		{
