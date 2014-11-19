@@ -46,9 +46,9 @@ int main(int argc, char *argv[])
 	QTranslator main_translator;
 	QTranslator qt_data_translator;
 	QString locale = QLocale::system().name();
-
-	main_translator.load(locale, QString("../language"));
-	qt_data_translator.load("qt_data_" + locale, QString("../language"));
+	WriteLogString("locale", locale);
+	main_translator.load(locale, systemData.sharedDir + QDir::separator() + "language");
+	qt_data_translator.load("qt_data_" + locale, systemData.sharedDir + QDir::separator() + "language");
 
 	mainInterface->application->installTranslator(&main_translator);
 	mainInterface->application->installTranslator(&qt_data_translator);
