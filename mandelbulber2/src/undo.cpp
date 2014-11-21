@@ -34,14 +34,11 @@ cUndo::~cUndo()
 {
 }
 
-void cUndo::Store(cParameterContainer *par, cParameterContainer *parFractal)
+void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal)
 {
 	sUndoRecord record;
 	record.mainParams = *par;
-	for(int i=0; i<4; i++)
-	{
-		record.fractParams[i] = parFractal[i];
-	}
+	record.fractParams = *parFractal;
 
 	if(undoBuffer.size() > level)
 	{
@@ -55,7 +52,7 @@ void cUndo::Store(cParameterContainer *par, cParameterContainer *parFractal)
 	level++;
 }
 
-bool cUndo::Undo(cParameterContainer *par, cParameterContainer *parFractal)
+bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal)
 {
 	if(level > 1)
 	{
@@ -65,10 +62,8 @@ bool cUndo::Undo(cParameterContainer *par, cParameterContainer *parFractal)
 			level--;
 			record = undoBuffer.at(level-1);
 			*par = record.mainParams;
-			for(int i=0; i<4; i++)
-			{
-				parFractal[i] = record.fractParams[i];
-			}
+			*parFractal = record.fractParams;
+
 		}
 		return true;
 	}
@@ -79,7 +74,7 @@ bool cUndo::Undo(cParameterContainer *par, cParameterContainer *parFractal)
 	}
 }
 
-bool cUndo::Redo(cParameterContainer *par, cParameterContainer *parFractal)
+bool cUndo::Redo(cParameterContainer *par, cFractalContainer *parFractal)
 {
 	if (level < undoBuffer.size())
 	{
@@ -87,10 +82,7 @@ bool cUndo::Redo(cParameterContainer *par, cParameterContainer *parFractal)
 		record = undoBuffer.at(level);
 		level++;
 		*par = record.mainParams;
-		for (int i = 0; i < 4; i++)
-		{
-			parFractal[i] = record.fractParams[i];
-		}
+		*parFractal = record.fractParams;
 		return true;
 	}
 	else

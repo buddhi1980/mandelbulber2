@@ -24,7 +24,7 @@
 #include "files.h"
 #include <QFileInfo>
 
-cThumbnail::cThumbnail(const cParameterContainer *_params, const cParameterContainer *_fractal, int _width, int _height, const QString &_hash = QString())
+cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal, int _width, int _height, const QString &_hash = QString())
 	: params(_params), fractal(_fractal), width(_width), height(_height), hash(_hash)
 {
 	image = NULL;

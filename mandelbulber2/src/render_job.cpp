@@ -27,7 +27,7 @@
 #include "four_fractals.hpp"
 #include "interface.hpp"
 
-cRenderJob::cRenderJob(const cParameterContainer *_params, const cParameterContainer *_fractal, cImage *_image, QWidget *_qwidget)
+cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, QWidget *_qwidget)
 {
 	WriteLog("cRenderJob::cRenderJob");
 	image = _image;
@@ -35,9 +35,8 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cParameterConta
 	//create new copy of parameter container
 	paramsContainer = new cParameterContainer;
 	*paramsContainer = *_params;
-	fractalContainer = new cParameterContainer[4];
-	for(int i=0; i < 4; i++)
-		fractalContainer[i] = _fractal[i];
+	fractalContainer = new cFractalContainer;
+	*fractalContainer = *_fractal;
 
 	width = 0;
 	height = 0;
@@ -68,7 +67,7 @@ cRenderJob::~cRenderJob()
 {
 	id--;
 	delete paramsContainer;
-	delete[] fractalContainer;
+	delete fractalContainer;
 	if(renderData) delete renderData;
 	WriteLog("Job finished and closed");
 }

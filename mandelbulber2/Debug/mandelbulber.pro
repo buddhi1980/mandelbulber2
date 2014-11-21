@@ -24,8 +24,10 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/files.cpp\
 	    	../src/four_fractals.cpp\
 	    	../src/fractal.cpp\
+	    	../src/fractal_container.cpp\
 	    	../src/fractal_formulas.cpp\
 	    	../src/fractal_list.cpp\
+	    	../src/global_data.cpp\
 	    	../src/initparameters.cpp\
 	    	../src/interface.cpp\
 	    	../src/lights.cpp\
@@ -77,8 +79,9 @@ RESOURCES = ../qt/icons.qrc
 
 UI_DIR = ../qt
 
-TRANSLATIONS = ../language/en.ts \
-               ../language/de.ts
+TRANSLATIONS = ../language/en.ts\
+               ../language/de.ts\
+               ../language/pl.ts
 
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3

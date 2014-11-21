@@ -43,6 +43,7 @@
 #include "common_math.h"
 #include "my_ui_loader.h"
 #include "preview_file_dialog.h"
+#include "global_data.hpp"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -62,7 +63,7 @@ RenderWindow::RenderWindow(QWidget *parent) :
 RenderWindow::~RenderWindow()
 {
     delete ui;
-    for(int i=0; i<4; i++)
+    for(int i=0; i<NUMBER_OF_FRACTALS; i++)
     	delete fractalWidgets[i];
     delete[] fractalWidgets;
 }
@@ -380,7 +381,7 @@ void RenderWindow::slotChangedComboFractal(int index)
 			uiFile.close();
 			fractalWidgets[fractalNumber]->show();
 			mainInterface->ConnectSignalsForSlidersInWindow(fractalWidgets[fractalNumber]);
-			mainInterface->SynchronizeInterfaceWindow(fractalWidgets[fractalNumber], &gParFractal[fractalNumber], cInterface::write);
+			mainInterface->SynchronizeInterfaceWindow(fractalWidgets[fractalNumber], &gParFractal->at(fractalNumber), cInterface::write);
 
 			if(fractalList[index].internalID == fractal::kaleidoscopicIFS)
 			{
@@ -599,41 +600,41 @@ void RenderWindow::slotImportOldSettings()
 void RenderWindow::slotPressedButtonIFSDefaultsDodecahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::read);
-	mainInterface->IFSDefaultsDodecahedron(&gParFractal[index]);
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::write);
+	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	mainInterface->IFSDefaultsDodecahedron(&gParFractal->at(index));
+	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsIcosahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::read);
-	mainInterface->IFSDefaultsIcosahedron(&gParFractal[index]);
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::write);
+	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	mainInterface->IFSDefaultsIcosahedron(&gParFractal->at(index));
+	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsOctahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::read);
-	mainInterface->IFSDefaultsOctahedron(&gParFractal[index]);
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::write);
+	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	mainInterface->IFSDefaultsOctahedron(&gParFractal->at(index));
+	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsMengerSponge()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::read);
-	mainInterface->IFSDefaultsMengerSponge(&gParFractal[index]);
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::write);
+	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	mainInterface->IFSDefaultsMengerSponge(&gParFractal->at(index));
+	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsReset()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::read);
-	mainInterface->IFSDefaultsReset(&gParFractal[index]);
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal[index], cInterface::write);
+	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	mainInterface->IFSDefaultsReset(&gParFractal->at(index));
+	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
 }
 
 void RenderWindow::slotMenuAboutQt()

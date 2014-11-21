@@ -37,6 +37,7 @@
 #include "common_math.h"
 #include "undo.h"
 #include "initparameters.hpp"
+#include "global_data.hpp"
 
 cInterface *mainInterface;
 
@@ -227,7 +228,7 @@ void cInterface::ConnectSignals(void)
 }
 
 //Reading ad writing parameters from/to ui to/from parameters container
-void cInterface::SynchronizeInterface(cParameterContainer *par, cParameterContainer *parFractal, enumReadWrite mode)
+void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode)
 {
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode);
@@ -247,13 +248,13 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cParameterContai
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[0], &parFractal[0], mode)");
-	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[0], &parFractal[0], mode);
+	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[0], &parFractal->at(0), mode);
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[1], &parFractal[1], mode)");
-	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[1], &parFractal[1], mode);
+	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[1], &parFractal->at(1), mode);
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[2], &parFractal[2], mode)");
-	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[2], &parFractal[2], mode);
+	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[2], &parFractal->at(2), mode);
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[3], &parFractal[3], mode)");
-	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[3], &parFractal[3], mode);
+	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[3], &parFractal->at(3), mode);
 
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_1, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_1, par, mode);
@@ -1455,7 +1456,7 @@ void cInterface::AutoFog()
 	SynchronizeInterface(gPar, gParFractal, cInterface::write);
 }
 
-double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par, cParameterContainer *parFractal)
+double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par, cFractalContainer *parFractal)
 {
 	cParamRender *params = new cParamRender(par);
 	cFourFractals *fourFractals = new cFourFractals(parFractal, par);

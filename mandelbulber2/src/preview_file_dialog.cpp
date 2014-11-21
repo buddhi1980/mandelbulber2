@@ -73,10 +73,10 @@ void PreviewFileDialog::OnCurrentChanged(const QString & filename)
 		if (parSettings.LoadFromFile(filename))
 		{
 			cParameterContainer *par = new cParameterContainer;
-			cParameterContainer *parFractal = new cParameterContainer[4];
+			cFractalContainer *parFractal = new cFractalContainer;
 			InitParams(par);
-			for(int i=0; i<4; i++)
-				InitFractalParams(&parFractal[i]);
+			for(int i=0; i<NUMBER_OF_FRACTALS; i++)
+				InitFractalParams(&parFractal->at(i));
 			if(parSettings.Decode(par, parFractal))
 			{
 				cThumbnail thumbnail(par, parFractal, 200, 200, parSettings.GetHashCode());

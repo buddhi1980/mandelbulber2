@@ -34,7 +34,7 @@ cLights::cLights()
 	lightsReady = false;
 }
 
-cLights::cLights(const cParameterContainer *_params, const cParameterContainer *_fractal)
+cLights::cLights(const cParameterContainer *_params, const cFractalContainer *_fractal)
 {
 	Set(_params, _fractal);
 }
@@ -48,7 +48,7 @@ cLights::~cLights()
 	}
 }
 
-void cLights::Set(const cParameterContainer *_params, const cParameterContainer *_fractal)
+void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_fractal)
 {
 	WriteLog("Preparation of lights started");
 	//move parameters from containers to structures
