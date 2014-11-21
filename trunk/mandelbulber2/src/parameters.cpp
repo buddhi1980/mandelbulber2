@@ -27,9 +27,6 @@
 
 //#define _PARAM_DEBUG
 
-cParameterContainer *gPar;
-cParameterContainer *gParFractal;
-
 cParameterContainer::cParameterContainer()
 {
 	myMap.clear();

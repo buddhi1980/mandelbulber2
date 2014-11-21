@@ -25,6 +25,7 @@
 
 #include "fractal.h"
 #include "parameters.hpp"
+#include "fractal_container.hpp"
 #include "fractal_list.hpp"
 #include <QtCore>
 
@@ -33,7 +34,7 @@ class cFourFractals
 public:
 	cFourFractals();
 	~cFourFractals();
-	cFourFractals(const cParameterContainer *fractalPar, const cParameterContainer *generalPar);
+	cFourFractals(const cFractalContainer *fractalPar, const cParameterContainer *generalPar);
 	cFractal* GetFractal(int index) const {return fourFractals[index];}
 	cFractal **fourFractals;
 	fractal::enumDEType DEType;

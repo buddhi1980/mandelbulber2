@@ -134,6 +134,5 @@ private:
 };
 
 
-extern cParameterContainer *gPar;
-extern cParameterContainer *gParFractal;
+
 #endif /*SHADERS_HPP_*/

@@ -25,6 +25,7 @@
 
 #include <QtCore>
 #include "parameters.hpp"
+#include "fractal_container.hpp"
 
 #define MAX_UNDO_LEVELS 100
 
@@ -33,15 +34,15 @@ class cUndo
 public:
 	cUndo();
 	~cUndo();
-	void Store(cParameterContainer *par, cParameterContainer *parFractal);
-	bool Undo(cParameterContainer *par, cParameterContainer *parFractal);
-	bool Redo(cParameterContainer *par, cParameterContainer *parFractal);
+	void Store(cParameterContainer *par, cFractalContainer *parFractal);
+	bool Undo(cParameterContainer *par, cFractalContainer *parFractal);
+	bool Redo(cParameterContainer *par, cFractalContainer *parFractal);
 
 private:
 	struct sUndoRecord
 	{
 		cParameterContainer mainParams;
-		cParameterContainer fractParams[4];
+		cFractalContainer fractParams;
 	};
 
 	QList<sUndoRecord> undoBuffer;

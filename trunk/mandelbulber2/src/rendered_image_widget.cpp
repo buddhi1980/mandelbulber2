@@ -28,6 +28,7 @@
 #include <QPainter>
 #include "fractparams.hpp"
 #include "common_math.h"
+#include "global_data.hpp"
 
 using namespace Qt;
 

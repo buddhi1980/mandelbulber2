@@ -24,6 +24,7 @@
 #define SETTINGS_HPP_
 
 #include "parameters.hpp"
+#include "fractal_container.hpp"
 #include <QtCore>
 
 class cSettings
@@ -38,10 +39,10 @@ public:
 	};
 
 	cSettings(enumFormat _format);
-	size_t CreateText(const cParameterContainer *par, const cParameterContainer *fractPar);
+	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar);
 	bool SaveToFile(QString filename);
 	bool LoadFromFile(QString filename);
-	bool Decode(cParameterContainer *par, cParameterContainer *fractPar);
+	bool Decode(cParameterContainer *par, cFractalContainer *fractPar);
 	QString GetHashCode() {return hash.toHex();}
 	void BeQuiet(bool _quiet) {quiet = _quiet;}
 

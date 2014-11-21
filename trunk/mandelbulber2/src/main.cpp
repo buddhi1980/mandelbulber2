@@ -22,12 +22,12 @@
 
 #include "main.hpp"
 #include "system.hpp"
-#include "parameters.hpp"
 #include "fractparams.hpp"
 #include "interface.hpp"
 #include "initparameters.hpp"
 #include "fractal_list.hpp"
 #include "undo.h"
+#include "global_data.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -63,13 +63,13 @@ int main(int argc, char *argv[])
 
 	//create internal database with parameters
 	gPar = new cParameterContainer;
-	gParFractal = new cParameterContainer[4];
+	gParFractal = new cFractalContainer;
 	InitParams(gPar);
 	gPar->SetContainerName("main");
-	for(int i=0; i<4; i++)
+	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
 	{
-		InitFractalParams(&gParFractal[i]);
-		gParFractal[i].SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(&gParFractal->at(i));
+		gParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
 	}
 	//Define list of fractal formulas
 	DefineFractalList(&fractalList);
@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 	//clean objects when exit
 	delete mainInterface;
 	delete gPar;
-	delete[] gParFractal;
+	delete gParFractal;
 	return result;
 }
 

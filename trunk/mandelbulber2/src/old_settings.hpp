@@ -24,6 +24,7 @@
 #define OLD_SETTINGS_HPP_
 
 #include "parameters.hpp"
+#include "fractal_container.hpp"
 
 namespace oldSettings
 {
@@ -474,7 +475,7 @@ public:
 	cOldSettings();
 	~cOldSettings();
 	bool LoadSettings(const QString &filename);
-	void ConvertToNewContainer(cParameterContainer *params, cParameterContainer *fractal);
+	void ConvertToNewContainer(cParameterContainer *params, cFractalContainer *fractal);
 
 private:
 	bool LoadSettings2(const QString &filename);

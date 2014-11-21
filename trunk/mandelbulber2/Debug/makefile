@@ -58,8 +58,10 @@ SOURCES       = ../src/algebra.cpp \
 		../src/files.cpp \
 		../src/four_fractals.cpp \
 		../src/fractal.cpp \
+		../src/fractal_container.cpp \
 		../src/fractal_formulas.cpp \
 		../src/fractal_list.cpp \
+		../src/global_data.cpp \
 		../src/initparameters.cpp \
 		../src/interface.cpp \
 		../src/lights.cpp \
@@ -116,8 +118,10 @@ OBJECTS       = algebra.o \
 		files.o \
 		four_fractals.o \
 		fractal.o \
+		fractal_container.o \
 		fractal_formulas.o \
 		fractal_list.o \
+		global_data.o \
 		initparameters.o \
 		interface.o \
 		lights.o \
@@ -232,8 +236,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../src/files.cpp \
 		../src/four_fractals.cpp \
 		../src/fractal.cpp \
+		../src/fractal_container.cpp \
 		../src/fractal_formulas.cpp \
 		../src/fractal_list.cpp \
+		../src/global_data.cpp \
 		../src/initparameters.cpp \
 		../src/interface.cpp \
 		../src/lights.cpp \
@@ -430,7 +436,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/mandelbulber21.0.0 || mkdir -p .tmp/mandelbulber21.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../qt/myspinbox.h ../qt/mydoublespinbox.h ../qt/mycheckbox.h ../qt/mygroupbox.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/old_settings.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp ../src/thumbnail.cpp ../src/undo.cpp ../src/random.cpp ../qt/mygroupbox.cpp ../qt/mylineedit.cpp ../qt/myspinbox.cpp ../qt/mydoublespinbox.cpp ../qt/mycheckbox.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../qt/myspinbox.h ../qt/mydoublespinbox.h ../qt/mycheckbox.h ../qt/mygroupbox.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_container.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/global_data.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/old_settings.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp ../src/thumbnail.cpp ../src/undo.cpp ../src/random.cpp ../qt/mygroupbox.cpp ../qt/mylineedit.cpp ../qt/myspinbox.cpp ../qt/mydoublespinbox.cpp ../qt/mycheckbox.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../language/en.ts ../language/de.ts ../language/pl.ts .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
 
 
 clean:compiler_clean 
@@ -509,6 +515,7 @@ moc_render_worker.cpp: ../src/cimage.hpp \
 		../src/fractal_list.hpp \
 		../src/render_image.hpp \
 		../src/four_fractals.hpp \
+		../src/fractal_container.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
@@ -572,6 +579,7 @@ moc_ssao_worker.cpp: ../src/fractparams.hpp \
 		../src/commonparams.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
+		../src/fractal_container.hpp \
 		../src/region.hpp \
 		../src/ssao_worker.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/ssao_worker.h -o moc_ssao_worker.cpp
@@ -649,6 +657,7 @@ calculate_distance.o: ../src/calculate_distance.cpp ../src/calculate_distance.hp
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
+		../src/fractal_container.hpp \
 		../src/commonparams.hpp \
 		../src/fractparams.hpp \
 		../src/texture.hpp \
@@ -669,6 +678,7 @@ compute_fractal.o: ../src/compute_fractal.cpp ../src/compute_fractal.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
+		../src/fractal_container.hpp \
 		../src/commonparams.hpp \
 		../src/fractal_formulas.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o compute_fractal.o ../src/compute_fractal.cpp
@@ -715,6 +725,7 @@ dof.o: ../src/dof.cpp ../src/dof.hpp \
 		../src/commonparams.hpp \
 		../src/progress_text.hpp \
 		../src/interface.hpp \
+		../src/fractal_container.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
@@ -755,7 +766,8 @@ four_fractals.o: ../src/four_fractals.cpp ../src/four_fractals.hpp \
 		../src/fractal_list.hpp \
 		../src/parameters.hpp \
 		../src/color_structures.hpp \
-		../src/color_palette.hpp
+		../src/color_palette.hpp \
+		../src/fractal_container.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o four_fractals.o ../src/four_fractals.cpp
 
 fractal.o: ../src/fractal.cpp ../src/fractal.h \
@@ -767,6 +779,13 @@ fractal.o: ../src/fractal.cpp ../src/fractal.h \
 		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fractal.o ../src/fractal.cpp
 
+fractal_container.o: ../src/fractal_container.cpp ../src/fractal_container.hpp \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_structures.hpp \
+		../src/color_palette.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fractal_container.o ../src/fractal_container.cpp
+
 fractal_formulas.o: ../src/fractal_formulas.cpp ../src/fractal_formulas.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
@@ -775,6 +794,7 @@ fractal_formulas.o: ../src/fractal_formulas.cpp ../src/fractal_formulas.hpp \
 		../src/parameters.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/fractal_container.hpp \
 		../src/common_math.h \
 		../src/fractparams.hpp \
 		../src/texture.hpp \
@@ -785,6 +805,14 @@ fractal_formulas.o: ../src/fractal_formulas.cpp ../src/fractal_formulas.hpp \
 
 fractal_list.o: ../src/fractal_list.cpp ../src/fractal_list.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fractal_list.o ../src/fractal_list.cpp
+
+global_data.o: ../src/global_data.cpp ../src/global_data.hpp \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_structures.hpp \
+		../src/color_palette.hpp \
+		../src/fractal_container.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o global_data.o ../src/global_data.cpp
 
 initparameters.o: ../src/initparameters.cpp ../src/fractparams.hpp \
 		../src/texture.hpp \
@@ -805,6 +833,7 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/fractal_container.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
@@ -838,7 +867,8 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/dof.hpp \
 		../src/common_math.h \
 		../src/undo.h \
-		../src/initparameters.hpp
+		../src/initparameters.hpp \
+		../src/global_data.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interface.o ../src/interface.cpp
 
 lights.o: ../src/lights.cpp ../src/lights.hpp \
@@ -846,6 +876,7 @@ lights.o: ../src/lights.cpp ../src/lights.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/fractal_container.hpp \
 		../src/calculate_distance.hpp \
 		../src/compute_fractal.hpp \
 		../src/primitives.h \
@@ -862,16 +893,17 @@ lights.o: ../src/lights.cpp ../src/lights.hpp \
 
 main.o: ../src/main.cpp ../src/main.hpp \
 		../src/system.hpp \
-		../src/parameters.hpp \
-		../src/algebra.hpp \
-		../src/color_structures.hpp \
-		../src/color_palette.hpp \
 		../src/fractparams.hpp \
 		../src/texture.hpp \
+		../src/color_structures.hpp \
 		../src/cimage.hpp \
+		../src/algebra.hpp \
 		../src/primitives.h \
+		../src/parameters.hpp \
+		../src/color_palette.hpp \
 		../src/commonparams.hpp \
 		../src/interface.hpp \
+		../src/fractal_container.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
@@ -884,7 +916,8 @@ main.o: ../src/main.cpp ../src/main.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/initparameters.hpp \
 		../src/fractal_list.hpp \
-		../src/undo.h
+		../src/undo.h \
+		../src/global_data.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 my_ui_loader.o: ../src/my_ui_loader.cpp ../src/my_ui_loader.h \
@@ -904,6 +937,7 @@ old_settings.o: ../src/old_settings.cpp ../src/old_settings.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/fractal_container.hpp \
 		../src/system.hpp \
 		../src/error_message.hpp \
 		../src/fractparams.hpp \
@@ -954,6 +988,7 @@ preview_file_dialog.o: ../src/preview_file_dialog.cpp ../src/preview_file_dialog
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
+		../src/fractal_container.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
@@ -974,6 +1009,7 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
+		../src/fractal_container.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
@@ -1008,7 +1044,9 @@ rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_
 		../src/texture.hpp \
 		../src/primitives.h \
 		../src/commonparams.hpp \
-		../src/common_math.h
+		../src/common_math.h \
+		../src/global_data.hpp \
+		../src/fractal_container.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rendered_image_widget.o ../src/rendered_image_widget.cpp
 
 render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
@@ -1025,6 +1063,7 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
+		../src/fractal_container.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
@@ -1054,6 +1093,7 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../src/commonparams.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
+		../src/fractal_container.hpp \
 		../src/region.hpp \
 		../src/progress_text.hpp \
 		../src/ssao_worker.h \
@@ -1086,6 +1126,7 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/interface.hpp \
+		../src/fractal_container.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/primitives.h \
 		../src/fractal_list.hpp \
@@ -1108,7 +1149,8 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/old_settings.hpp \
 		../src/common_math.h \
 		../src/my_ui_loader.h \
-		../src/preview_file_dialog.h
+		../src/preview_file_dialog.h \
+		../src/global_data.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_window.o ../src/render_window.cpp
 
 render_worker.o: ../src/render_worker.cpp ../src/render_worker.hpp \
@@ -1125,6 +1167,7 @@ render_worker.o: ../src/render_worker.cpp ../src/render_worker.hpp \
 		../src/fractal_list.hpp \
 		../src/render_image.hpp \
 		../src/four_fractals.hpp \
+		../src/fractal_container.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
@@ -1143,6 +1186,7 @@ settings.o: ../src/settings.cpp ../src/settings.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/fractal_container.hpp \
 		../src/system.hpp \
 		../src/error_message.hpp \
 		../src/primitives.h \
@@ -1167,6 +1211,7 @@ shaders.o: ../src/shaders.cpp ../src/render_worker.hpp \
 		../src/fractal_list.hpp \
 		../src/render_image.hpp \
 		../src/four_fractals.hpp \
+		../src/fractal_container.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
@@ -1191,6 +1236,7 @@ ssao_worker.o: ../src/ssao_worker.cpp ../src/ssao_worker.h \
 		../src/commonparams.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
+		../src/fractal_container.hpp \
 		../src/region.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ssao_worker.o ../src/ssao_worker.cpp
 
@@ -1217,6 +1263,7 @@ thumbnail.o: ../src/thumbnail.cpp ../src/thumbnail.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
+		../src/fractal_container.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
@@ -1229,6 +1276,7 @@ undo.o: ../src/undo.cpp ../src/undo.h \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/fractal_container.hpp \
 		../src/error_message.hpp \
 		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o undo.o ../src/undo.cpp

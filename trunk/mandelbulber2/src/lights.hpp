@@ -24,6 +24,7 @@
 #define LIGHTS_HPP_
 
 #include "parameters.hpp"
+#include "fractal_container.hpp"
 
 class cLights
 {
@@ -39,8 +40,8 @@ public:
 
 	cLights();
 	cLights(const cLights& _lights) {Copy(_lights);}
-	cLights(const cParameterContainer *_params, const cParameterContainer *_fractal);
-	void Set(const cParameterContainer *_params, const cParameterContainer *_fractal);
+	cLights(const cParameterContainer *_params, const cFractalContainer *_fractal);
+	void Set(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	~cLights();
 	sLight GetLight(int index) const;
 	int GetNumberOfLights(void) const {return numberOfLights;}

@@ -23,6 +23,7 @@
 #define INTERFACE_HPP_
 
 #include "parameters.hpp"
+#include "fractal_container.hpp"
 #include "render_window.hpp"
 #include <QProgressBar>
 #include "rendered_image_widget.hpp"
@@ -41,7 +42,7 @@ public:
 	void ShowUi(void);
 	void ConnectSignals(void);
 	void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumReadWrite mode);
-	void SynchronizeInterface(cParameterContainer *par, cParameterContainer *parFractal, enumReadWrite mode);
+	void SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode);
 	void ConnectSignalsForSlidersInWindow(QWidget *window);
 	void MakeColorButtonsInWindow(QWidget *window);
 	void GetNameAndType(QString name, QString *parameterName, QString *type);
@@ -65,7 +66,7 @@ public:
 	cColorPalette GetPaletteFromImage(const QString &filename);
 	void AutoFog();
 	double GetDistanceForPoint(CVector3 point);
-	double GetDistanceForPoint(CVector3 point, cParameterContainer *par, cParameterContainer *parFractal);
+	double GetDistanceForPoint(CVector3 point, cParameterContainer *par, cFractalContainer *parFractal);
 	void SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode);
 	void MovementStepModeChanged(int mode);
 	void Undo();

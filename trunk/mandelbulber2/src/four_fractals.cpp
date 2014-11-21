@@ -24,8 +24,8 @@
 
 cFourFractals::cFourFractals()
 {
-	fourFractals = new cFractal*[4];
-	for(int i=0; i<4; i++)
+	fourFractals = new cFractal*[NUMBER_OF_FRACTALS];
+	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
 		fourFractals[i] = NULL;
 	DEType = fractal::deltaDE;
 	maxN = 0;
@@ -36,7 +36,7 @@ cFourFractals::~cFourFractals()
 {
 	if (fourFractals)
 	{
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 		{
 			if(fourFractals[i])
 			{
@@ -47,12 +47,12 @@ cFourFractals::~cFourFractals()
 	}
 }
 
-cFourFractals::cFourFractals(const cParameterContainer *par, const cParameterContainer *generalPar)
+cFourFractals::cFourFractals(const cFractalContainer *par, const cParameterContainer *generalPar)
 {
-	fourFractals = new cFractal*[4];
-	for (int i = 0; i < 4; i++)
+	fourFractals = new cFractal*[NUMBER_OF_FRACTALS];
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		fourFractals[i] = new cFractal(&par[i]);
+		fourFractals[i] = new cFractal(&par->at(i));
 		fourFractals[i]->formula = (fractal::enumFractalFormula) generalPar->Get<int>("formula", i + 1);
 	}
 
@@ -87,8 +87,8 @@ void cFourFractals::CreateSequence(const cParameterContainer *generalPar)
 	int fractalNo = 0;
 	int counter = 0;
 
-	int counts[4];
-	for (int i = 0; i < 4; i++)
+	int counts[NUMBER_OF_FRACTALS];
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		counts[i] = generalPar->Get<int>("formula_iterations", i + 1);
 	}
@@ -100,10 +100,10 @@ void cFourFractals::CreateSequence(const cParameterContainer *generalPar)
 			counter ++;
 
 			int repeatCount = 0;
-			while(fourFractals[fractalNo]->formula == fractal::none && repeatCount < 4)
+			while(fourFractals[fractalNo]->formula == fractal::none && repeatCount < NUMBER_OF_FRACTALS)
 			{
 				fractalNo++;
-				fractalNo = fractalNo % 4;
+				fractalNo = fractalNo % NUMBER_OF_FRACTALS;
 				repeatCount++;
 			}
 			hybridSequence.append(fractalNo);
@@ -112,7 +112,7 @@ void cFourFractals::CreateSequence(const cParameterContainer *generalPar)
 			{
 				counter = 0;
 				fractalNo++;
-				fractalNo = fractalNo % 4;
+				fractalNo = fractalNo % NUMBER_OF_FRACTALS;
 			}
 		}
 		else

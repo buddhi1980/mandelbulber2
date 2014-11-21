@@ -37,7 +37,7 @@ cSettings::cSettings(enumFormat _format)
 	quiet = false;
 }
 
-size_t cSettings::CreateText(const cParameterContainer *par, const cParameterContainer *fractPar)
+size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar)
 {
 	settingsText.clear();
 	settingsText += CreateHeader();
@@ -49,13 +49,13 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cParameterCon
 		settingsText += CreateOneLine(par, parameterList[i]);
 	}
 
-	for (int f = 0; f < 4; f++)
+	for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 	{
 		settingsText += "[fractal_" + QString::number(f + 1) + "]\n";
-		QList<QString> parameterListFractal = fractPar[f].GetListOfParameters();
+		QList<QString> parameterListFractal = fractPar->at(f).GetListOfParameters();
 		for (int i = 0; i < parameterListFractal.size(); i++)
 		{
-			settingsText += CreateOneLine(&fractPar[f], parameterListFractal[i]);
+			settingsText += CreateOneLine(&fractPar->at(f), parameterListFractal[i]);
 		}
 		parameterListFractal.clear();
 	}
@@ -232,12 +232,12 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 }
 
 
-bool cSettings::Decode(cParameterContainer *par, cParameterContainer *fractPar)
+bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar)
 {
 	//clear settings
 	par->ResetAllToDefault();
-	for(int i=0; i<4; i++)
-		fractPar[i].ResetAllToDefault();
+	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
+		fractPar->at(i).ResetAllToDefault();
 	DeleteAllPrimitiveParams(par);
 
 	QStringList separatedText = settingsText.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
@@ -262,7 +262,7 @@ bool cSettings::Decode(cParameterContainer *par, cParameterContainer *fractPar)
 				else if(section.contains("fractal"))
 				{
 					int i = section.right(1).toInt() - 1;
-					result = DecodeOneLine(&fractPar[i], line);
+					result = DecodeOneLine(&fractPar->at(i), line);
 				}
 
 				if (!result)
