@@ -54,195 +54,197 @@
     <message>
         <location filename="../src/dof.cpp" line="52"/>
         <source>Rendering Depth Of Field effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderowanie efektu głębi ostrości</translation>
     </message>
     <message>
         <location filename="../src/dof.cpp" line="55"/>
         <source>Sorting zBuffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortowanie bufora Z</translation>
     </message>
     <message>
         <location filename="../src/dof.cpp" line="60"/>
         <source>Randomizing zBuffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Randomizacja bufora Z</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="32"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostrzeżenie</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="33"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="34"/>
         <source>Note</source>
-        <translation type="unfinished"></translation>
+        <translation>Uwaga</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="52"/>
         <source>Mandelbulber warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostrzeżenie Mandelbulbera</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="57"/>
         <source>Mandelbulber error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd Mandelbulbera</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="62"/>
         <source>Mandelbulber information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacja Mandelbulbera</translation>
     </message>
     <message>
         <location filename="../src/files.cpp" line="662"/>
         <source>Can&apos;t save image to JPEG file!
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można zapisać do pliki JPEG!
+</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="939"/>
         <location filename="../src/interface.cpp" line="1853"/>
         <source>Can&apos;t open file </source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można otworzyć pliku</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="939"/>
         <source> Fractal ui files can&apos;t be loaded</source>
-        <translation type="unfinished"></translation>
+        <translation> Plik ui nie może zostać załadowany</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1792"/>
         <source>Set position of </source>
-        <translation type="unfinished"></translation>
+        <translation>Ustaw pozycję </translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1796"/>
         <source>Delete </source>
-        <translation type="unfinished"></translation>
+        <translation>Skasuj </translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1853"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
-        <translation type="unfinished"></translation>
+        <translation> Plik ui prymitiwu nie może zostać załadowany</translation>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="58"/>
         <source>Can&apos;t import old settings
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można zaimportować starych ustawień</translation>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="58"/>
         <source>File with default values desn&apos;t exist
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Plik z domyślnymi wartościami nie istnienie</translation>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="1001"/>
         <source>Hybrid fractal can&apos;t be converted</source>
-        <translation type="unfinished"></translation>
+        <translation>Fraktal hybrydowy nie może zostać skonwertowany</translation>
     </message>
     <message>
         <location filename="../src/progress_text.cpp" line="70"/>
         <source>Done %1%, elapsed: %2, estamined to end: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Gotowe %1%, upłynęło: %2, czas do końca: %3</translation>
     </message>
     <message>
         <location filename="../src/progress_text.cpp" line="77"/>
         <source>100% Done, total time: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>100% gotowe, czałkowity czas: %3</translation>
     </message>
     <message>
         <location filename="../src/render_image.cpp" line="119"/>
         <source>Rendering image in progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderowanie obrazu w trakcie</translation>
     </message>
     <message>
         <location filename="../src/render_image.cpp" line="193"/>
         <location filename="../src/render_ssao.cpp" line="170"/>
         <source>Idle</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezczynność</translation>
     </message>
     <message>
         <location filename="../src/render_job.cpp" line="90"/>
         <location filename="../src/render_job.cpp" line="124"/>
         <source>Initialization</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicjowanie</translation>
     </message>
     <message>
         <location filename="../src/render_job.cpp" line="90"/>
         <source>Setting up image buffers</source>
-        <translation type="unfinished"></translation>
+        <translation>Przygotowywanie buforów dla obrazu</translation>
     </message>
     <message>
         <location filename="../src/render_job.cpp" line="124"/>
         <source>Loading textures</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytywanie tekstur</translation>
     </message>
     <message>
         <location filename="../src/render_ssao.cpp" line="150"/>
         <source>Rendering SSAO effect in progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderowanie efektu SSAO w toku</translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="182"/>
         <source>It&apos;s not valid Mandelbulber settings file. No header</source>
-        <translation type="unfinished"></translation>
+        <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Brak nagłówka</translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="187"/>
         <source>It&apos;s not valid Mandelbulber settings file. Wrong header</source>
-        <translation type="unfinished"></translation>
+        <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Niewłaściwy nagłówek</translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="193"/>
         <source>It&apos;s not valid Mandelbulber settings file. No information about version of file</source>
-        <translation type="unfinished"></translation>
+        <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Brak inforacji o numerze wersji</translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="201"/>
         <source>It&apos;s not valid Mandelbulber settings file. Wrong file version number</source>
-        <translation type="unfinished"></translation>
+        <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Niewłaściwy numer wersji</translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="204"/>
         <source>File was saved in newer version of Mandelbulber
 File version: </source>
-        <translation type="unfinished"></translation>
+        <translation>Plik został zapisany w nowszej wersji Mandelbulbera
+Wersja pliku: </translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="221"/>
         <source>It&apos;s not valid Mandelbulber settings file. Format not specified in the header</source>
-        <translation type="unfinished"></translation>
+        <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Format nie został wyspecyfikowany w nagłówku</translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="270"/>
         <source>Error in settings file. Line: </source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd w pliku z ustawieniami. Linia: </translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="275"/>
         <source>Too many errors in settings file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbyt dużo błędów w pliku z ustawieniami</translation>
     </message>
     <message>
         <location filename="../src/texture.cpp" line="46"/>
         <source>Can&apos;t load texture!
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można wczytać tekstury!</translation>
     </message>
     <message>
         <location filename="../src/undo.cpp" line="77"/>
         <source>No more undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie ma więcej cofnięć</translation>
     </message>
     <message>
         <location filename="../src/undo.cpp" line="98"/>
         <source>No more redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie ma więcej przywróceń</translation>
     </message>
 </context>
 <context>
@@ -1144,87 +1146,87 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="4446"/>
         <source>Visibility of light #2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Widoczność światła #2:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4453"/>
         <source>Visibility of light #1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Widoczność światła #1:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4460"/>
         <source>Visibility of main light:</source>
-        <translation type="unfinished"></translation>
+        <translation>Widoczność głównego światła:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4492"/>
         <source>Visibility of light #3:</source>
-        <translation type="unfinished"></translation>
+        <translation>Widoczność światła #3:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4512"/>
         <source>Visibility of light #4:</source>
-        <translation type="unfinished"></translation>
+        <translation>Widoczność światła #4:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4548"/>
         <source>Main light as volumetric</source>
-        <translation type="unfinished"></translation>
+        <translation>Główne światło jako objętościowe</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4555"/>
         <source>Light #1 as volumetric</source>
-        <translation type="unfinished"></translation>
+        <translation>Światło #1 jako objętościowe</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4562"/>
         <source>Light #2 as volumetric</source>
-        <translation type="unfinished"></translation>
+        <translation>Światło #2 jako objętościowe</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4569"/>
         <source>Light #3 as volumetric</source>
-        <translation type="unfinished"></translation>
+        <translation>Światło #3 jako objętościowe</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4576"/>
         <source>Light #4 as volumetric</source>
-        <translation type="unfinished"></translation>
+        <translation>Światło #4 jako objętościowe</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4588"/>
         <source>Fake lights based on orbit traps</source>
-        <translation type="unfinished"></translation>
+        <translation>Udawane światła na podstawie pułapek orbit</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4655"/>
         <source>Minimum iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimalna iteracja:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4723"/>
         <source>Maximum iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksymalna iteracja:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4766"/>
         <source>Orbit trap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pułapka orbity:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4854"/>
         <source>Fractal</source>
-        <translation type="unfinished"></translation>
+        <translation>Fraktal</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4892"/>
         <source>Formulas</source>
-        <translation type="unfinished"></translation>
+        <translation>Formuły</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4902"/>
         <source>Formula #1</source>
-        <translation type="unfinished"></translation>
+        <translation>Formuła #1</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4922"/>
@@ -1232,95 +1234,95 @@ kamery od celu:</translation>
         <location filename="../qt/render_window.ui" line="5124"/>
         <location filename="../qt/render_window.ui" line="5198"/>
         <source>Iterations:</source>
-        <translation type="unfinished"></translation>
+        <translation>Iteracje:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4989"/>
         <source>Formula #2</source>
-        <translation type="unfinished"></translation>
+        <translation>Formuła #2</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5082"/>
         <source>Formula #3</source>
-        <translation type="unfinished"></translation>
+        <translation>Formuła #3</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5175"/>
         <source>Formula #4</source>
-        <translation type="unfinished"></translation>
+        <translation>Formuła #4</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5272"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcje</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5293"/>
         <source>Julia mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryb Julia</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5323"/>
         <source>Julia constant (c):</source>
-        <translation type="unfinished"></translation>
+        <translation>Stała Julia (c):</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5373"/>
         <source>Get Julia constant by mouse pointer</source>
-        <translation type="unfinished"></translation>
+        <translation>Pobierz stałą Julia wskaźnikiem myszy</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5391"/>
         <source>Constant multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik stałej C:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5481"/>
         <location filename="../qt/render_window.ui" line="6057"/>
         <source>X-axis rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Obród oś-X:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5491"/>
         <source>fractal position:</source>
-        <translation type="unfinished"></translation>
+        <translation>pozycja fraktala:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5619"/>
         <location filename="../qt/render_window.ui" line="6150"/>
         <source>Z-axis rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Obród oś-Z:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5626"/>
         <location filename="../qt/render_window.ui" line="5999"/>
         <source>Y-axis rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Obród oś-Y:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5672"/>
         <source>Repeat</source>
-        <translation type="unfinished"></translation>
+        <translation>Powtórzenie</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5699"/>
         <source>Hybrid</source>
-        <translation type="unfinished"></translation>
+        <translation>Hybrydowe</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5707"/>
         <source>Enable hybrid fractals</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktywacja fraktali hybrydowych</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5714"/>
         <source>Linear distance estimation (good for Mandelbox or IFS)</source>
-        <translation type="unfinished"></translation>
+        <translation>Liniowa estymacja dystansu (dobra dla Mandelbox lub IFS)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5737"/>
         <source>Primitives</source>
-        <translation type="unfinished"></translation>
+        <translation>Prymitywy</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6157"/>
@@ -1328,184 +1330,187 @@ kamery od celu:</translation>
 position
 (except plane
 and water):</source>
-        <translation type="unfinished"></translation>
+        <translation>pozycja wszytkich 
+prymitiwów
+(za wyjątkiem
+płaszcyzny i wody):</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6207"/>
         <source>Rendering engine</source>
-        <translation type="unfinished"></translation>
+        <translation>Silnik renderowania</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6232"/>
         <source>Common rendering settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Wspólne ustawienia renderowania</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6243"/>
         <source>Max. fractal iterations:</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksymalna ilość ieracji:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6279"/>
         <source>Stop at maximum iteration</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatrzymanie na maksymalnej iteracji</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6286"/>
         <source>Interior mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryb wnętrz</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6303"/>
         <source>Raymarching step mult.:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnożnik kroku śledzenia promieni:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6310"/>
         <source>Detail level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ilośc detali:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6342"/>
         <source>minimum view distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimalny zasięg widoczności:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6349"/>
         <source>maximum view distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksymalny zasięg widoczności:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6356"/>
         <source>Smoothness:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wygładzenie:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6363"/>
         <source>Non-DE shading mode (slow)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cieniowanie bez estymacji odległości (powolne)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6485"/>
         <source>Constant detail size</source>
-        <translation type="unfinished"></translation>
+        <translation>Stała wielkość detali</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6499"/>
         <source>distance threshold:</source>
-        <translation type="unfinished"></translation>
+        <translation>Próg dystansu:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6576"/>
         <source>Limits (box)</source>
-        <translation type="unfinished"></translation>
+        <translation>Granice (sześcian)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6612"/>
         <source>bottom left front corner:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lewy przedni róg:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6663"/>
         <source>top right back corner:</source>
-        <translation type="unfinished"></translation>
+        <translation>Prawy górny róg:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6746"/>
         <source>Save as JPG...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako JPG...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6755"/>
         <source>Save as PNG...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako PNG...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6764"/>
         <source>Save as PNG 16 bit...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako PNG 16-bit...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6773"/>
         <source>Save as PNG 16 bit with alpha channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako PNG 16-bit z kanałem alfa</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6782"/>
         <location filename="../src/render_window.cpp" line="529"/>
         <source>Load settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytaj ustawienia...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6791"/>
         <source>Save settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz ustawienia</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6800"/>
         <source>Save settings as...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz ustawienia jako...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6803"/>
         <source>Save settings in selected file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapis ustawień w wybranym pliku</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6812"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyjdź</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6817"/>
         <source>Save window state</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz układ okna</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6822"/>
         <source>Default docks positions</source>
-        <translation type="unfinished"></translation>
+        <translation>Domyślne ustawienie doków</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6827"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>O Qt...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6832"/>
         <source>About Mandelbulber</source>
-        <translation type="unfinished"></translation>
+        <translation>O Mandelbulber...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6837"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Wróć</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6840"/>
         <source>Ctrl+Z</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6845"/>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Powtórz</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6848"/>
         <source>Ctrl+Y</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6858"/>
         <location filename="../src/render_window.cpp" line="581"/>
         <source>Import settings from old Mandelbulber (v1.21)...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaimportuj ustawienia ze starego Mandelbulber (v1.21)...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6866"/>
         <source>Load example...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytaj przykład...</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="497"/>
@@ -1513,22 +1518,22 @@ and water):</source>
         <location filename="../src/render_window.cpp" line="551"/>
         <location filename="../src/render_window.cpp" line="577"/>
         <source>Fractals (*.txt *.fract)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="501"/>
         <source>Save settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz ustawienia...</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="555"/>
         <source>Load example settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytaj przykładowe ustawienia...</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="666"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazy JPEG(*.jpg *.jpeg) </translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="670"/>
@@ -1536,7 +1541,7 @@ and water):</source>
         <location filename="../src/render_window.cpp" line="718"/>
         <location filename="../src/render_window.cpp" line="742"/>
         <source>Save image to %1 file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz obraz do pliku %1...</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="677"/>
@@ -1546,24 +1551,24 @@ and water):</source>
         <location filename="../src/render_window.cpp" line="725"/>
         <location filename="../src/render_window.cpp" line="728"/>
         <source>Saving %1 image</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapis obrazu %1</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="677"/>
         <source>Saving image started</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozpoczęte zapisywanie obrazu</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="680"/>
         <source>Saving image finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisywanie obrazu zakończone</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="690"/>
         <location filename="../src/render_window.cpp" line="714"/>
         <location filename="../src/render_window.cpp" line="738"/>
         <source>PNG images (*.png)</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazy PNG (*.png)</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="701"/>
@@ -1571,19 +1576,19 @@ and water):</source>
         <location filename="../src/render_window.cpp" line="749"/>
         <location filename="../src/render_window.cpp" line="752"/>
         <source>Saving PNG image started</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapis obrazu PNG rozpoczęty</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="704"/>
         <location filename="../src/render_window.cpp" line="728"/>
         <source>Saving PNG image finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapis obrazu PNG zakończony</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="749"/>
         <location filename="../src/render_window.cpp" line="752"/>
         <source>Saving image to %1 ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz obraz do pliku %1...</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="762"/>
@@ -1591,27 +1596,27 @@ and water):</source>
         <location filename="../src/render_window.cpp" line="802"/>
         <location filename="../src/render_window.cpp" line="822"/>
         <source>Images (*.jpg *.jpeg *.png *.bmp)</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazy (*.jpg *.jpeg *.png *.bmp)</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="766"/>
         <source>Select background texture...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz teksturę tła...</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="786"/>
         <source>Select texture for environment mapping effect...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz teksturę dla mapowania środowiskowego...</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="806"/>
         <source>Select texture for ambient occlussion light map...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz teksturę dla mapy koloru efektu światła rozproszonego...</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="826"/>
         <source>Select image to grab colors...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz obraz do pobrania kolorów...</translation>
     </message>
 </context>
 <context>
@@ -1619,32 +1624,32 @@ and water):</source>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="107"/>
         <source>Move camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesuń kamerę</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="110"/>
         <source>Change fog visibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmień widoczność mgły</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="113"/>
         <source>Change DOF focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmień głębię ostrości</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="116"/>
         <source>Place light #</source>
-        <translation type="unfinished"></translation>
+        <translation>Umieść światło #</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="119"/>
         <source>Place </source>
-        <translation type="unfinished"></translation>
+        <translation>Umieść </translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="122"/>
         <source>Get Julia constant</source>
-        <translation type="unfinished"></translation>
+        <translation>Pobierz stałą Julia</translation>
     </message>
 </context>
 </TS>
