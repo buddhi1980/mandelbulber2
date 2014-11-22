@@ -1927,31 +1927,31 @@ void cInterface::ComboMouseClickUpdate()
 	QList<QVariant> item;
 
 	item.clear(); item.append((int)RenderedImage::clickDoNothing);
-	combo->addItem("No action", item);
+	combo->addItem(QObject::tr("No action"), item);
 
 	item.clear(); item.append((int)RenderedImage::clickMoveCamera);
-	combo->addItem("Move the camera", item);
+	combo->addItem(QObject::tr("Move the camera"), item);
 
 	item.clear(); item.append((int)RenderedImage::clickFogVisibility);
-	combo->addItem("Set fog visibility", item);
+	combo->addItem(QObject::tr("Set fog visibility"), item);
 
 	item.clear(); item.append((int)RenderedImage::clickDOFFocus);
-	combo->addItem("Set DOF focus", item);
+	combo->addItem(QObject::tr("Set DOF focus"), item);
 
 	item.clear(); item.append((int)RenderedImage::clickGetJuliaConstant);
-	combo->addItem("Get Julia constant", item);
+	combo->addItem(QObject::tr("Get Julia constant"), item);
 
 	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(1);
-	combo->addItem("Place light #1", item);
+	combo->addItem(QObject::tr("Place light #1"), item);
 
 	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(2);
-	combo->addItem("Place light #2", item);
+	combo->addItem(QObject::tr("Place light #2"), item);
 
 	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(3);
-	combo->addItem("Place light #3", item);
+	combo->addItem(QObject::tr("Place light #3"), item);
 
 	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(4);
-	combo->addItem("Place light #4", item);
+	combo->addItem(QObject::tr("Place light #4"), item);
 
 	if(listOfPrimitives.size() > 0)
 	{
@@ -1959,7 +1959,7 @@ void cInterface::ComboMouseClickUpdate()
 		{
 			QString primitiveName = PrimitiveNames(listOfPrimitives.at(i).type);
 			int index = listOfPrimitives.at(i).id;
-			QString comboItemString = QString("Place ") + primitiveName + QString(" #") + QString::number(index);
+			QString comboItemString = QString(QObject::tr("Place ")) + primitiveName + QString(" #") + QString::number(index);
 			item.clear();
 			item.append((int)RenderedImage::clickPlacePrimitive);
 			item.append((int)listOfPrimitives.at(i).type);

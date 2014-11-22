@@ -104,30 +104,80 @@
 </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="939"/>
-        <location filename="../src/interface.cpp" line="1853"/>
+        <location filename="../src/interface.cpp" line="940"/>
+        <location filename="../src/interface.cpp" line="1854"/>
         <source>Can&apos;t open file </source>
         <translation>Nie można otworzyć pliku</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="939"/>
+        <location filename="../src/interface.cpp" line="940"/>
         <source> Fractal ui files can&apos;t be loaded</source>
         <translation> Plik ui nie może zostać załadowany</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1792"/>
+        <location filename="../src/interface.cpp" line="1793"/>
         <source>Set position of </source>
         <translation>Ustaw pozycję </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1796"/>
+        <location filename="../src/interface.cpp" line="1797"/>
         <source>Delete </source>
         <translation>Skasuj </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1853"/>
+        <location filename="../src/interface.cpp" line="1854"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
         <translation> Plik ui prymitiwu nie może zostać załadowany</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1930"/>
+        <source>No action</source>
+        <translation>Brak akcji</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1933"/>
+        <source>Move the camera</source>
+        <translation>Przesuń kamerę</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1936"/>
+        <source>Set fog visibility</source>
+        <translation>Ustaw widoczność mgły</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1939"/>
+        <source>Set DOF focus</source>
+        <translation>Ustaw głębię ostrości</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1942"/>
+        <source>Get Julia constant</source>
+        <translation>Pobierz stałą Julia</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1945"/>
+        <source>Place light #1</source>
+        <translation>Umieść światło #1</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1948"/>
+        <source>Place light #2</source>
+        <translation>Umieść światło #2</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1951"/>
+        <source>Place light #3</source>
+        <translation>Umieść światło #3</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1954"/>
+        <source>Place light #4</source>
+        <translation>Umieść światło #4</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="1962"/>
+        <source>Place </source>
+        <translation>Umieść </translation>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="58"/>
@@ -168,18 +218,18 @@
         <translation>Bezczynność</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="90"/>
-        <location filename="../src/render_job.cpp" line="124"/>
+        <location filename="../src/render_job.cpp" line="89"/>
+        <location filename="../src/render_job.cpp" line="123"/>
         <source>Initialization</source>
         <translation>Inicjowanie</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="90"/>
+        <location filename="../src/render_job.cpp" line="89"/>
         <source>Setting up image buffers</source>
         <translation>Przygotowywanie buforów dla obrazu</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="124"/>
+        <location filename="../src/render_job.cpp" line="123"/>
         <source>Loading textures</source>
         <translation>Wczytywanie tekstur</translation>
     </message>
@@ -237,12 +287,12 @@ Wersja pliku: </translation>
         <translation>Nie można wczytać tekstury!</translation>
     </message>
     <message>
-        <location filename="../src/undo.cpp" line="77"/>
+        <location filename="../src/undo.cpp" line="72"/>
         <source>No more undo</source>
         <translation>Nie ma więcej cofnięć</translation>
     </message>
     <message>
-        <location filename="../src/undo.cpp" line="98"/>
+        <location filename="../src/undo.cpp" line="90"/>
         <source>No more redo</source>
         <translation>Nie ma więcej przywróceń</translation>
     </message>
@@ -1437,7 +1487,7 @@ płaszcyzny i wody):</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6782"/>
-        <location filename="../src/render_window.cpp" line="529"/>
+        <location filename="../src/render_window.cpp" line="530"/>
         <source>Load settings...</source>
         <translation>Wczytaj ustawienia...</translation>
     </message>
@@ -1503,7 +1553,7 @@ płaszcyzny i wody):</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6858"/>
-        <location filename="../src/render_window.cpp" line="581"/>
+        <location filename="../src/render_window.cpp" line="582"/>
         <source>Import settings from old Mandelbulber (v1.21)...</source>
         <translation>Zaimportuj ustawienia ze starego Mandelbulber (v1.21)...</translation>
     </message>
@@ -1513,108 +1563,108 @@ płaszcyzny i wody):</translation>
         <translation>Wczytaj przykład...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="497"/>
-        <location filename="../src/render_window.cpp" line="525"/>
-        <location filename="../src/render_window.cpp" line="551"/>
-        <location filename="../src/render_window.cpp" line="577"/>
+        <location filename="../src/render_window.cpp" line="498"/>
+        <location filename="../src/render_window.cpp" line="526"/>
+        <location filename="../src/render_window.cpp" line="552"/>
+        <location filename="../src/render_window.cpp" line="578"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="501"/>
+        <location filename="../src/render_window.cpp" line="502"/>
         <source>Save settings...</source>
         <translation>Zapisz ustawienia...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="555"/>
+        <location filename="../src/render_window.cpp" line="556"/>
         <source>Load example settings...</source>
         <translation>Wczytaj przykładowe ustawienia...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="666"/>
+        <location filename="../src/render_window.cpp" line="667"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
         <translation>Obrazy JPEG(*.jpg *.jpeg) </translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="670"/>
-        <location filename="../src/render_window.cpp" line="694"/>
-        <location filename="../src/render_window.cpp" line="718"/>
-        <location filename="../src/render_window.cpp" line="742"/>
+        <location filename="../src/render_window.cpp" line="671"/>
+        <location filename="../src/render_window.cpp" line="695"/>
+        <location filename="../src/render_window.cpp" line="719"/>
+        <location filename="../src/render_window.cpp" line="743"/>
         <source>Save image to %1 file...</source>
         <translation>Zapisz obraz do pliku %1...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="677"/>
-        <location filename="../src/render_window.cpp" line="680"/>
-        <location filename="../src/render_window.cpp" line="701"/>
-        <location filename="../src/render_window.cpp" line="704"/>
-        <location filename="../src/render_window.cpp" line="725"/>
-        <location filename="../src/render_window.cpp" line="728"/>
+        <location filename="../src/render_window.cpp" line="678"/>
+        <location filename="../src/render_window.cpp" line="681"/>
+        <location filename="../src/render_window.cpp" line="702"/>
+        <location filename="../src/render_window.cpp" line="705"/>
+        <location filename="../src/render_window.cpp" line="726"/>
+        <location filename="../src/render_window.cpp" line="729"/>
         <source>Saving %1 image</source>
         <translation>Zapis obrazu %1</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="677"/>
+        <location filename="../src/render_window.cpp" line="678"/>
         <source>Saving image started</source>
         <translation>Rozpoczęte zapisywanie obrazu</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="680"/>
+        <location filename="../src/render_window.cpp" line="681"/>
         <source>Saving image finished</source>
         <translation>Zapisywanie obrazu zakończone</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="690"/>
-        <location filename="../src/render_window.cpp" line="714"/>
-        <location filename="../src/render_window.cpp" line="738"/>
+        <location filename="../src/render_window.cpp" line="691"/>
+        <location filename="../src/render_window.cpp" line="715"/>
+        <location filename="../src/render_window.cpp" line="739"/>
         <source>PNG images (*.png)</source>
         <translation>Obrazy PNG (*.png)</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="701"/>
-        <location filename="../src/render_window.cpp" line="725"/>
-        <location filename="../src/render_window.cpp" line="749"/>
-        <location filename="../src/render_window.cpp" line="752"/>
+        <location filename="../src/render_window.cpp" line="702"/>
+        <location filename="../src/render_window.cpp" line="726"/>
+        <location filename="../src/render_window.cpp" line="750"/>
+        <location filename="../src/render_window.cpp" line="753"/>
         <source>Saving PNG image started</source>
         <translation>Zapis obrazu PNG rozpoczęty</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="704"/>
-        <location filename="../src/render_window.cpp" line="728"/>
+        <location filename="../src/render_window.cpp" line="705"/>
+        <location filename="../src/render_window.cpp" line="729"/>
         <source>Saving PNG image finished</source>
         <translation>Zapis obrazu PNG zakończony</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="749"/>
-        <location filename="../src/render_window.cpp" line="752"/>
+        <location filename="../src/render_window.cpp" line="750"/>
+        <location filename="../src/render_window.cpp" line="753"/>
         <source>Saving image to %1 ...</source>
         <translation>Zapisz obraz do pliku %1...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="762"/>
-        <location filename="../src/render_window.cpp" line="782"/>
-        <location filename="../src/render_window.cpp" line="802"/>
-        <location filename="../src/render_window.cpp" line="822"/>
+        <location filename="../src/render_window.cpp" line="763"/>
+        <location filename="../src/render_window.cpp" line="783"/>
+        <location filename="../src/render_window.cpp" line="803"/>
+        <location filename="../src/render_window.cpp" line="823"/>
         <source>Images (*.jpg *.jpeg *.png *.bmp)</source>
         <translation>Obrazy (*.jpg *.jpeg *.png *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="766"/>
+        <location filename="../src/render_window.cpp" line="767"/>
         <source>Select background texture...</source>
         <translation>Wybierz teksturę tła...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="786"/>
+        <location filename="../src/render_window.cpp" line="787"/>
         <source>Select texture for environment mapping effect...</source>
         <translation>Wybierz teksturę dla mapowania środowiskowego...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="806"/>
+        <location filename="../src/render_window.cpp" line="807"/>
         <source>Select texture for ambient occlussion light map...</source>
         <translation>Wybierz teksturę dla mapy koloru efektu światła rozproszonego...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="826"/>
+        <location filename="../src/render_window.cpp" line="827"/>
         <source>Select image to grab colors...</source>
         <translation>Wybierz obraz do pobrania kolorów...</translation>
     </message>
@@ -1622,32 +1672,32 @@ płaszcyzny i wody):</translation>
 <context>
     <name>RenderedImage</name>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="107"/>
+        <location filename="../src/rendered_image_widget.cpp" line="108"/>
         <source>Move camera</source>
         <translation>Przesuń kamerę</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="110"/>
+        <location filename="../src/rendered_image_widget.cpp" line="111"/>
         <source>Change fog visibility</source>
         <translation>Zmień widoczność mgły</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="113"/>
+        <location filename="../src/rendered_image_widget.cpp" line="114"/>
         <source>Change DOF focus</source>
         <translation>Zmień głębię ostrości</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="116"/>
+        <location filename="../src/rendered_image_widget.cpp" line="117"/>
         <source>Place light #</source>
         <translation>Umieść światło #</translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="119"/>
+        <location filename="../src/rendered_image_widget.cpp" line="120"/>
         <source>Place </source>
         <translation>Umieść </translation>
     </message>
     <message>
-        <location filename="../src/rendered_image_widget.cpp" line="122"/>
+        <location filename="../src/rendered_image_widget.cpp" line="123"/>
         <source>Get Julia constant</source>
         <translation>Pobierz stałą Julia</translation>
     </message>
