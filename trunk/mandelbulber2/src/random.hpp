@@ -32,11 +32,12 @@ class cRandom
 
 public:
 	cRandom();
+	~cRandom();
 	void Initialize(int seed);
 	int Random(int max);
 	double Random(double min, double max, double resolution);
 private:
-	const gsl_rng *gBaseRand;
+	gsl_rng *gBaseRand;
 };
 
 #endif /* RANDOM_HPP_ */
