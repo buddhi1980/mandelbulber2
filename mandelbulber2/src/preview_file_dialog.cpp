@@ -88,6 +88,8 @@ void PreviewFileDialog::OnCurrentChanged(const QString & filename)
 				preview->setText(" ");
 				info->setText(" ");
 			}
+			delete par;
+			delete parFractal;
 		}
 	}
 	else

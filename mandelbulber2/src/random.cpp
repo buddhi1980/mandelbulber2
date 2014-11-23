@@ -27,6 +27,11 @@ cRandom::cRandom()
 	gBaseRand = gsl_rng_alloc(gsl_rng_mt19937);
 }
 
+cRandom::~cRandom()
+{
+	gsl_rng_free(gBaseRand);
+}
+
 void cRandom::Initialize(int seed)
 {
 	gsl_rng_set(gBaseRand, seed);
