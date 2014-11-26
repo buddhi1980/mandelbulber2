@@ -9,5 +9,6 @@
 
 cParameterContainer *gPar;
 cFractalContainer *gParFractal;
+cAnimationFrames *gAnimFrames;
 
 

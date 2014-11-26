@@ -10,8 +10,10 @@
 
 #include "parameters.hpp"
 #include "fractal_container.hpp"
+#include "animation_frames.hpp"
 
 extern cParameterContainer *gPar;
 extern cFractalContainer *gParFractal;
+extern cAnimationFrames *gAnimFrames;
 
 #endif /* SRC_GLOBAL_DATA_HPP_ */

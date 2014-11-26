@@ -127,7 +127,7 @@
     <message>
         <location filename="../src/interface.cpp" line="1854"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
-        <translation> Plik ui prymitiwu nie może zostać załadowany</translation>
+        <translation> Plik ui prymitywu nie może zostać załadowany</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1930"/>
@@ -1381,7 +1381,7 @@ position
 (except plane
 and water):</source>
         <translation>pozycja wszytkich 
-prymitiwów
+prymitywów
 (za wyjątkiem
 płaszcyzny i wody):</translation>
     </message>

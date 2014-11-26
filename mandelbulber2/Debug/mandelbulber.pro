@@ -12,6 +12,7 @@ TEMPLATE = app
 CONFIG += qt thread debug
 
 SOURCES +=  ../src/algebra.cpp\
+			../src/animation_frames.cpp\
 			../src/calculate_distance.cpp\
 			../src/camera_target.cpp\
 			../src/compute_fractal.cpp\
@@ -38,6 +39,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/primitives.cpp\
 	    	../src/progress_text.cpp\
 	    	../src/preview_file_dialog.cpp\
+	    	../src/random.cpp\
 	    	../src/render_image.cpp\
 	    	../src/rendered_image_widget.cpp\
 	    	../src/render_job.cpp\
@@ -52,7 +54,6 @@ SOURCES +=  ../src/algebra.cpp\
             ../src/texture.cpp\
             ../src/thumbnail.cpp\
             ../src/undo.cpp\
-            ../src/random.cpp\
             ../qt/mygroupbox.cpp\
             ../qt/mylineedit.cpp\
             ../qt/myspinbox.cpp\

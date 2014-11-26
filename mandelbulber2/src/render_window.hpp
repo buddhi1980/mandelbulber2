@@ -110,11 +110,11 @@ private slots:
 	void slotPressedButtonIFSDefaultsReset();
 
 	//pull down menu
+	void slotImportOldSettings();
 	void slotMenuAboutMandelbulber();
 	void slotMenuAboutQt();
-	void slotImportOldSettings();
-	void slotMenuLoadSettings();
 	void slotMenuLoadExample();
+	void slotMenuLoadSettings();
 	void slotMenuRedo();
 	void slotMenuResetDocksPositions();
 	void slotMenuSaveDocksPositions();
@@ -124,6 +124,8 @@ private slots:
 	void slotMenuSaveImagePNG8();
 	void slotMenuSaveSettings();
 	void slotMenuUndo();
+	void slotShowAnimationDock();
+	void slotStackAllDocks();
 
 	//textures
 	void slotPressedButtonSelectBackgroundTexture();

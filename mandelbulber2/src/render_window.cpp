@@ -1239,3 +1239,18 @@ void RenderWindow::slotPressedButtonDeletePrimitive()
 	mainInterface->DeletePrimitive(primitiveName);
 }
 
+void RenderWindow::slotStackAllDocks()
+{
+	tabifyDockWidget(ui->dockWidget_effects, ui->dockWidget_image_adjustments);
+	tabifyDockWidget(ui->dockWidget_image_adjustments, ui->dockWidget_rendering_engine);
+	tabifyDockWidget(ui->dockWidget_rendering_engine, ui->dockWidget_fractal);
+}
+
+void RenderWindow::slotShowAnimationDock()
+{
+	addDockWidget(Qt::BottomDockWidgetArea, ui->dockWidget_animation);
+	ui->dockWidget_animation->show();
+}
+
+
+
