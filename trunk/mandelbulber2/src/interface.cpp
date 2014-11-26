@@ -73,7 +73,13 @@ void cInterface::ShowUi(void)
 	mainWindow->restoreGeometry(mainWindow->settings.value("mainWindowGeometry").toByteArray());
 
 	WriteLog("Restoring window state");
-	mainWindow->restoreState(mainWindow->settings.value("mainWindowState").toByteArray());
+	if (!mainWindow->restoreState(mainWindow->settings.value("mainWindowState").toByteArray()))
+	{
+		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_effects, mainWindow->ui->dockWidget_image_adjustments);
+		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_image_adjustments, mainWindow->ui->dockWidget_rendering_engine);
+		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_rendering_engine, mainWindow->ui->dockWidget_fractal);
+		mainWindow->ui->dockWidget_animation->hide();
+	}
 
 	WriteLog("mainWindow->show()");
 	mainWindow->show();
