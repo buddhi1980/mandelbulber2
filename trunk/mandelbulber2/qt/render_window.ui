@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1760</width>
-    <height>1407</height>
+    <width>1744</width>
+    <height>1228</height>
    </rect>
   </property>
   <property name="font">
@@ -30,7 +30,7 @@
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0">
+   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
     <property name="spacing">
      <number>2</number>
     </property>
@@ -48,6 +48,9 @@
     </property>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_center">
+      <property name="spacing">
+       <number>2</number>
+      </property>
       <item>
        <widget class="MyScrolledArea" name="scrollAreaForImage">
         <property name="verticalScrollBarPolicy">
@@ -64,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1086</width>
-           <height>1299</height>
+           <width>1165</width>
+           <height>1049</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -90,6 +93,9 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="hl_zoom" stretch="0,0,0,0,0,0">
+        <property name="spacing">
+         <number>2</number>
+        </property>
         <item>
          <widget class="QLabel" name="label">
           <property name="sizePolicy">
@@ -199,7 +205,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1760</width>
+     <width>1744</width>
      <height>17</height>
     </rect>
    </property>
@@ -231,6 +237,10 @@
     </property>
     <addaction name="actionSave_docks_positions"/>
     <addaction name="actionDefault_docks_positions"/>
+    <addaction name="actionStack_all_docks"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionShow_animation_dock"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -282,6 +292,21 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetLeftContents">
     <layout class="QVBoxLayout" name="verticalLayout_23">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
      <item>
       <widget class="QScrollArea" name="scrollArea">
        <property name="verticalScrollBarPolicy">
@@ -298,8 +323,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>416</width>
-          <height>526</height>
+          <width>339</width>
+          <height>454</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -324,6 +349,21 @@
             <string>Image resolution</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_40">
+            <property name="spacing">
+             <number>2</number>
+            </property>
+            <property name="leftMargin">
+             <number>2</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
+            </property>
+            <property name="rightMargin">
+             <number>2</number>
+            </property>
+            <property name="bottomMargin">
+             <number>2</number>
+            </property>
             <item>
              <layout class="QGridLayout" name="gridLayout_18">
               <property name="spacing">
@@ -461,10 +501,28 @@
                <string>Presets</string>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_71">
+               <property name="spacing">
+                <number>2</number>
+               </property>
+               <property name="leftMargin">
+                <number>2</number>
+               </property>
+               <property name="topMargin">
+                <number>2</number>
+               </property>
+               <property name="rightMargin">
+                <number>2</number>
+               </property>
+               <property name="bottomMargin">
+                <number>2</number>
+               </property>
                <item>
                 <layout class="QGridLayout" name="gridLayout_32">
                  <property name="topMargin">
                   <number>0</number>
+                 </property>
+                 <property name="spacing">
+                  <number>2</number>
                  </property>
                  <item row="1" column="1">
                   <widget class="QPushButton" name="pushButton_resolution_preset_2160">
@@ -544,6 +602,18 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_20">
             <property name="spacing">
+             <number>2</number>
+            </property>
+            <property name="leftMargin">
+             <number>2</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
+            </property>
+            <property name="rightMargin">
+             <number>2</number>
+            </property>
+            <property name="bottomMargin">
              <number>2</number>
             </property>
             <item>
@@ -691,8 +761,23 @@
             <string>Camera</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_58">
+            <property name="leftMargin">
+             <number>2</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
+            </property>
+            <property name="rightMargin">
+             <number>2</number>
+            </property>
+            <property name="bottomMargin">
+             <number>2</number>
+            </property>
             <item>
              <layout class="QGridLayout" name="gridLayout_25">
+              <property name="spacing">
+               <number>2</number>
+              </property>
               <item row="0" column="0">
                <widget class="QLabel" name="label_54">
                 <property name="text">
@@ -821,6 +906,9 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetRightContents">
     <layout class="QVBoxLayout" name="verticalLayout_24">
+     <property name="spacing">
+      <number>2</number>
+     </property>
      <property name="leftMargin">
       <number>2</number>
      </property>
@@ -834,6 +922,30 @@
       <number>2</number>
      </property>
      <item>
+      <layout class="QGridLayout" name="gridLayout_26">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="horizontalSpacing">
+        <number>2</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pushButton_render">
+         <property name="text">
+          <string>RENDER</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushButton_stop">
+         <property name="text">
+          <string>STOP</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
       <widget class="QScrollArea" name="scrollArea_4">
        <property name="horizontalScrollBarPolicy">
         <enum>Qt::ScrollBarAsNeeded</enum>
@@ -846,11 +958,14 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>184</width>
-          <height>1326</height>
+          <width>180</width>
+          <height>1048</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -860,32 +975,14 @@
          <property name="rightMargin">
           <number>0</number>
          </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
          <item>
-          <layout class="QVBoxLayout" name="vl_side_functions" stretch="0,0,0,0,0,0">
+          <layout class="QVBoxLayout" name="vl_side_functions" stretch="0,0,0,0,0">
            <property name="spacing">
             <number>1</number>
            </property>
-           <item>
-            <layout class="QGridLayout" name="gridLayout_26">
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <item row="0" column="0">
-              <widget class="QPushButton" name="pushButton_render">
-               <property name="text">
-                <string>RENDER</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QPushButton" name="pushButton_stop">
-               <property name="text">
-                <string>STOP</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
            <item>
             <widget class="QGroupBox" name="groupBox_coordinates">
              <property name="title">
@@ -958,7 +1055,7 @@
                        <enum>QFormLayout::ExpandingFieldsGrow</enum>
                       </property>
                       <property name="horizontalSpacing">
-                       <number>5</number>
+                       <number>2</number>
                       </property>
                       <property name="verticalSpacing">
                        <number>1</number>
@@ -1052,7 +1149,7 @@
                        <enum>QFormLayout::ExpandingFieldsGrow</enum>
                       </property>
                       <property name="horizontalSpacing">
-                       <number>5</number>
+                       <number>2</number>
                       </property>
                       <property name="verticalSpacing">
                        <number>1</number>
@@ -1128,6 +1225,9 @@
                 </property>
                 <property name="topMargin">
                  <number>0</number>
+                </property>
+                <property name="spacing">
+                 <number>2</number>
                 </property>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_124">
@@ -1402,6 +1502,9 @@ to target:</string>
                  </property>
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
                    <item>
                     <widget class="QLabel" name="label_9">
                      <property name="text">
@@ -1693,6 +1796,9 @@ to target:</string>
                  </property>
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_11">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
                    <item>
                     <widget class="QLabel" name="label_125">
                      <property name="text">
@@ -1788,7 +1894,7 @@ to target:</string>
                     <enum>QFormLayout::ExpandingFieldsGrow</enum>
                    </property>
                    <property name="horizontalSpacing">
-                    <number>5</number>
+                    <number>2</number>
                    </property>
                    <property name="verticalSpacing">
                     <number>1</number>
@@ -1903,6 +2009,21 @@ to target:</string>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_3">
     <layout class="QVBoxLayout" name="verticalLayout_6">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
      <item>
       <widget class="QScrollArea" name="scrollArea_2">
        <property name="horizontalScrollBarPolicy">
@@ -1916,8 +2037,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>430</width>
-          <height>295</height>
+          <width>353</width>
+          <height>171</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1955,6 +2076,21 @@ to target:</string>
              <string>Surface</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_63">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
              <item>
               <widget class="QScrollArea" name="scrollArea_6">
                <property name="widgetResizable">
@@ -1965,11 +2101,26 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
-                  <height>720</height>
+                  <width>303</width>
+                  <height>626</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <layout class="QGridLayout" name="gridLayout_7">
                    <property name="spacing">
@@ -2142,6 +2293,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_31">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_11">
                       <property name="spacing">
@@ -2262,6 +2428,21 @@ to target:</string>
                        <enum>QFrame::Raised</enum>
                       </property>
                       <layout class="QVBoxLayout" name="verticalLayout_69">
+                       <property name="spacing">
+                        <number>2</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>2</number>
+                       </property>
                        <item>
                         <layout class="QGridLayout" name="gridLayout_34">
                          <property name="spacing">
@@ -2314,6 +2495,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_32">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_12" rowstretch="0,0,0,0,0,0,0,0">
                       <property name="spacing">
@@ -2575,6 +2771,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_70">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_33">
                       <property name="spacing">
@@ -2626,6 +2837,21 @@ to target:</string>
              <string>Ray-tracing</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_64">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
              <item>
               <widget class="QScrollArea" name="scrollArea_7">
                <property name="widgetResizable">
@@ -2636,11 +2862,26 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>194</width>
-                  <height>238</height>
+                  <width>303</width>
+                  <height>180</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_raytraced_reflections">
                    <property name="title">
@@ -2650,6 +2891,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_72">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_9">
                       <property name="spacing">
@@ -2699,6 +2955,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_73">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_35">
                       <property name="spacing">
@@ -2837,6 +3108,21 @@ to target:</string>
              <string>Volumetric</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_65">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
              <item>
               <widget class="QScrollArea" name="scrollArea_8">
                <property name="widgetResizable">
@@ -2847,11 +3133,26 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>288</width>
-                  <height>695</height>
+                  <width>303</width>
+                  <height>605</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_basic_fog_enabled">
                    <property name="title">
@@ -2861,6 +3162,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_30">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_10">
                       <property name="spacing">
@@ -2928,6 +3244,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_28">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_14">
                       <property name="spacing">
@@ -2998,6 +3329,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_33">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_13">
                       <property name="spacing">
@@ -3158,6 +3504,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_27">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_8">
                       <property name="spacing">
@@ -3373,7 +3734,22 @@ to target:</string>
             <attribute name="title">
              <string>Background</string>
             </attribute>
-            <layout class="QVBoxLayout" name="verticalLayout_66">
+            <layout class="QVBoxLayout" name="verticalLayout_66" stretch="0">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
              <item>
               <widget class="QScrollArea" name="scrollArea_9">
                <property name="widgetResizable">
@@ -3384,17 +3760,47 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>301</width>
-                  <height>282</height>
+                  <width>303</width>
+                  <height>228</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <widget class="QGroupBox" name="groupBox_14">
                    <property name="title">
                     <string>Colored background</string>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_37">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_15">
                       <property name="spacing">
@@ -3456,6 +3862,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_38">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_16">
                       <property name="spacing">
@@ -3541,6 +3962,21 @@ to target:</string>
              <string>Lights</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_67">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
              <item>
               <widget class="QScrollArea" name="scrollArea_10">
                <property name="widgetResizable">
@@ -3551,11 +3987,26 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>326</width>
-                  <height>1480</height>
+                  <width>303</width>
+                  <height>1326</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <widget class="QGroupBox" name="groupBox_7">
                    <property name="title">
@@ -3563,6 +4014,18 @@ to target:</string>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_12">
                     <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
                      <number>2</number>
                     </property>
                     <item>
@@ -3592,6 +4055,18 @@ to target:</string>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_8">
                     <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
                      <number>2</number>
                     </property>
                     <item>
@@ -3880,8 +4355,26 @@ to target:</string>
                     <string>Custom lights</string>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_9">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_4">
+                      <property name="spacing">
+                       <number>2</number>
+                      </property>
                       <item row="0" column="0">
                        <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_1">
                         <property name="title">
@@ -3894,13 +4387,25 @@ to target:</string>
                          <property name="spacing">
                           <number>2</number>
                          </property>
+                         <property name="leftMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>2</number>
+                         </property>
                          <item>
                           <layout class="QFormLayout" name="formLayout_coordinates_5">
                            <property name="fieldGrowthPolicy">
                             <enum>QFormLayout::ExpandingFieldsGrow</enum>
                            </property>
                            <property name="horizontalSpacing">
-                            <number>5</number>
+                            <number>2</number>
                            </property>
                            <property name="verticalSpacing">
                             <number>1</number>
@@ -3939,6 +4444,9 @@ to target:</string>
                          </item>
                          <item>
                           <layout class="QHBoxLayout" name="horizontalLayout_3">
+                           <property name="spacing">
+                            <number>2</number>
+                           </property>
                            <item>
                             <widget class="QLabel" name="label_11">
                              <property name="text">
@@ -3966,6 +4474,9 @@ to target:</string>
                          </item>
                          <item>
                           <layout class="QHBoxLayout" name="horizontalLayout_4">
+                           <property name="spacing">
+                            <number>2</number>
+                           </property>
                            <item>
                             <widget class="QLabel" name="label_12">
                              <property name="text">
@@ -4004,13 +4515,25 @@ to target:</string>
                          <property name="spacing">
                           <number>2</number>
                          </property>
+                         <property name="leftMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>2</number>
+                         </property>
                          <item>
                           <layout class="QFormLayout" name="formLayout_coordinates_6">
                            <property name="fieldGrowthPolicy">
                             <enum>QFormLayout::ExpandingFieldsGrow</enum>
                            </property>
                            <property name="horizontalSpacing">
-                            <number>5</number>
+                            <number>2</number>
                            </property>
                            <property name="verticalSpacing">
                             <number>1</number>
@@ -4049,6 +4572,9 @@ to target:</string>
                          </item>
                          <item>
                           <layout class="QHBoxLayout" name="horizontalLayout_5">
+                           <property name="spacing">
+                            <number>2</number>
+                           </property>
                            <item>
                             <widget class="QLabel" name="label_13">
                              <property name="text">
@@ -4076,6 +4602,9 @@ to target:</string>
                          </item>
                          <item>
                           <layout class="QHBoxLayout" name="horizontalLayout_6">
+                           <property name="spacing">
+                            <number>2</number>
+                           </property>
                            <item>
                             <widget class="QLabel" name="label_14">
                              <property name="text">
@@ -4114,13 +4643,25 @@ to target:</string>
                          <property name="spacing">
                           <number>2</number>
                          </property>
+                         <property name="leftMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>2</number>
+                         </property>
                          <item>
                           <layout class="QFormLayout" name="formLayout_coordinates_7">
                            <property name="fieldGrowthPolicy">
                             <enum>QFormLayout::ExpandingFieldsGrow</enum>
                            </property>
                            <property name="horizontalSpacing">
-                            <number>5</number>
+                            <number>2</number>
                            </property>
                            <property name="verticalSpacing">
                             <number>1</number>
@@ -4159,6 +4700,9 @@ to target:</string>
                          </item>
                          <item>
                           <layout class="QHBoxLayout" name="horizontalLayout_7">
+                           <property name="spacing">
+                            <number>2</number>
+                           </property>
                            <item>
                             <widget class="QLabel" name="label_31">
                              <property name="text">
@@ -4186,6 +4730,9 @@ to target:</string>
                          </item>
                          <item>
                           <layout class="QHBoxLayout" name="horizontalLayout_8">
+                           <property name="spacing">
+                            <number>2</number>
+                           </property>
                            <item>
                             <widget class="QLabel" name="label_32">
                              <property name="text">
@@ -4224,13 +4771,25 @@ to target:</string>
                          <property name="spacing">
                           <number>2</number>
                          </property>
+                         <property name="leftMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="topMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="rightMargin">
+                          <number>2</number>
+                         </property>
+                         <property name="bottomMargin">
+                          <number>2</number>
+                         </property>
                          <item>
                           <layout class="QFormLayout" name="formLayout_coordinates_8">
                            <property name="fieldGrowthPolicy">
                             <enum>QFormLayout::ExpandingFieldsGrow</enum>
                            </property>
                            <property name="horizontalSpacing">
-                            <number>5</number>
+                            <number>2</number>
                            </property>
                            <property name="verticalSpacing">
                             <number>1</number>
@@ -4269,6 +4828,9 @@ to target:</string>
                          </item>
                          <item>
                           <layout class="QHBoxLayout" name="horizontalLayout_9">
+                           <property name="spacing">
+                            <number>2</number>
+                           </property>
                            <item>
                             <widget class="QLabel" name="label_36">
                              <property name="text">
@@ -4299,6 +4861,9 @@ to target:</string>
                          </item>
                          <item>
                           <layout class="QHBoxLayout" name="horizontalLayout_10">
+                           <property name="spacing">
+                            <number>2</number>
+                           </property>
                            <item>
                             <widget class="QLabel" name="label_37">
                              <property name="text">
@@ -4333,6 +4898,21 @@ to target:</string>
                        <string>Custom lights options</string>
                       </property>
                       <layout class="QVBoxLayout" name="verticalLayout_17">
+                       <property name="spacing">
+                        <number>2</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>2</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>2</number>
+                       </property>
                        <item>
                         <layout class="QGridLayout" name="gridLayout_5">
                          <property name="spacing">
@@ -4422,6 +5002,21 @@ to target:</string>
                     <string>Volumetric lights</string>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_18">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_6">
                       <property name="spacing">
@@ -4591,6 +5186,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_39">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_17">
                       <property name="spacing">
@@ -4858,6 +5468,21 @@ to target:</string>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QVBoxLayout" name="verticalLayout_7">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
      <item>
       <widget class="QScrollArea" name="scrollArea_5">
        <property name="widgetResizable">
@@ -4868,11 +5493,26 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>430</width>
-          <height>294</height>
+          <width>353</width>
+          <height>278</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QTabWidget" name="tabWidget_fractal">
            <property name="tabPosition">
@@ -4892,16 +5532,46 @@ to target:</string>
              <string>Formulas</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_21">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
              <item>
               <widget class="QTabWidget" name="tabWidget_fractals">
                <property name="currentIndex">
-                <number>0</number>
+                <number>3</number>
                </property>
                <widget class="QWidget" name="tab_fractal_formula_1">
                 <attribute name="title">
                  <string>Formula #1</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_49">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <widget class="QFrame" name="frame_iterations_formula_1">
                    <property name="frameShape">
@@ -4911,10 +5581,28 @@ to target:</string>
                     <enum>QFrame::Raised</enum>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_56">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_27">
                       <property name="topMargin">
                        <number>0</number>
+                      </property>
+                      <property name="spacing">
+                       <number>2</number>
                       </property>
                       <item row="1" column="0">
                        <widget class="QLabel" name="label_formula_iterations_1">
@@ -4974,11 +5662,27 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>344</width>
-                      <height>129</height>
+                      <width>309</width>
+                      <height>177</height>
                      </rect>
                     </property>
-                    <layout class="QVBoxLayout" name="verticalLayout_fractal_1"/>
+                    <layout class="QVBoxLayout" name="verticalLayout_fractal_1">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>2</number>
+                     </property>
+                    </layout>
                    </widget>
                   </widget>
                  </item>
@@ -4989,6 +5693,21 @@ to target:</string>
                  <string>Formula #2</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_50">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <widget class="QFrame" name="frame_iterations_formula_2">
                    <property name="enabled">
@@ -5001,10 +5720,28 @@ to target:</string>
                     <enum>QFrame::Raised</enum>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_60">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_29">
                       <property name="topMargin">
                        <number>0</number>
+                      </property>
+                      <property name="spacing">
+                       <number>2</number>
                       </property>
                       <item row="1" column="0">
                        <widget class="QLabel" name="label_128">
@@ -5067,11 +5804,27 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>309</width>
+                      <height>177</height>
                      </rect>
                     </property>
-                    <layout class="QVBoxLayout" name="verticalLayout_fractal_2"/>
+                    <layout class="QVBoxLayout" name="verticalLayout_fractal_2">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>2</number>
+                     </property>
+                    </layout>
                    </widget>
                   </widget>
                  </item>
@@ -5082,6 +5835,21 @@ to target:</string>
                  <string>Formula #3</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_51">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <widget class="QFrame" name="frame_iterations_formula_3">
                    <property name="enabled">
@@ -5094,10 +5862,28 @@ to target:</string>
                     <enum>QFrame::Raised</enum>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_61">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_30">
                       <property name="topMargin">
                        <number>0</number>
+                      </property>
+                      <property name="spacing">
+                       <number>2</number>
                       </property>
                       <item row="1" column="1">
                        <widget class="QSlider" name="sliderInt_formula_iterations_3">
@@ -5160,11 +5946,27 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>309</width>
+                      <height>177</height>
                      </rect>
                     </property>
-                    <layout class="QVBoxLayout" name="verticalLayout_fractal_3"/>
+                    <layout class="QVBoxLayout" name="verticalLayout_fractal_3">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>2</number>
+                     </property>
+                    </layout>
                    </widget>
                   </widget>
                  </item>
@@ -5175,6 +5977,21 @@ to target:</string>
                  <string>Formula #4</string>
                 </attribute>
                 <layout class="QVBoxLayout" name="verticalLayout_52">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <widget class="QFrame" name="frame_iterations_formula_4">
                    <property name="enabled">
@@ -5187,10 +6004,28 @@ to target:</string>
                     <enum>QFrame::Raised</enum>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_62">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_31">
                       <property name="topMargin">
                        <number>0</number>
+                      </property>
+                      <property name="spacing">
+                       <number>2</number>
                       </property>
                       <item row="1" column="0">
                        <widget class="QLabel" name="label_130">
@@ -5253,11 +6088,27 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>309</width>
+                      <height>177</height>
                      </rect>
                     </property>
-                    <layout class="QVBoxLayout" name="verticalLayout_fractal_4"/>
+                    <layout class="QVBoxLayout" name="verticalLayout_fractal_4">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>2</number>
+                     </property>
+                    </layout>
                    </widget>
                   </widget>
                  </item>
@@ -5272,6 +6123,21 @@ to target:</string>
              <string>Options</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_47">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
              <item>
               <widget class="QScrollArea" name="scrollArea_11">
                <property name="widgetResizable">
@@ -5282,11 +6148,26 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>222</width>
-                  <height>500</height>
+                  <width>303</width>
+                  <height>456</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_julia_mode">
                    <property name="title">
@@ -5296,6 +6177,21 @@ to target:</string>
                     <bool>true</bool>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_48">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
                     <item>
                      <layout class="QGridLayout" name="gridLayout_22">
                       <property name="spacing">
@@ -5384,6 +6280,9 @@ to target:</string>
                    </property>
                    <property name="topMargin">
                     <number>0</number>
+                   </property>
+                   <property name="spacing">
+                    <number>2</number>
                    </property>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_135">
@@ -5699,8 +6598,26 @@ to target:</string>
              <string>Hybrid</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_53">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
              <item>
               <layout class="QGridLayout" name="gridLayout_28">
+               <property name="spacing">
+                <number>2</number>
+               </property>
                <item row="0" column="0">
                 <widget class="MyCheckBox" name="checkBox_hybrid_fractal_enable">
                  <property name="text">
@@ -5737,6 +6654,21 @@ to target:</string>
              <string>Primitives</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_25">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
              <item>
               <widget class="QScrollArea" name="scrollArea_primitives">
                <property name="widgetResizable">
@@ -5747,13 +6679,31 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>221</width>
-                  <height>394</height>
+                  <width>303</width>
+                  <height>360</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <layout class="QGridLayout" name="gridLayout_23">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
                    <item row="2" column="0">
                     <widget class="QPushButton" name="pushButton_add_primitive_cylinder">
                      <property name="sizePolicy">
@@ -6164,7 +7114,11 @@ and water):</string>
                   </layout>
                  </item>
                  <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_primitives"/>
+                  <layout class="QVBoxLayout" name="verticalLayout_primitives">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                  </layout>
                  </item>
                  <item>
                   <spacer name="verticalSpacer_9">
@@ -6211,6 +7165,21 @@ and water):</string>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout_42">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
      <item>
       <widget class="QScrollArea" name="scrollArea_3">
        <property name="widgetResizable">
@@ -6221,17 +7190,47 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>416</width>
-          <height>530</height>
+          <width>339</width>
+          <height>466</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QGroupBox" name="groupBox_4">
            <property name="title">
             <string>Common rendering settings</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_43">
+            <property name="spacing">
+             <number>2</number>
+            </property>
+            <property name="leftMargin">
+             <number>2</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
+            </property>
+            <property name="rightMargin">
+             <number>2</number>
+            </property>
+            <property name="bottomMargin">
+             <number>2</number>
+            </property>
             <item>
              <layout class="QGridLayout" name="gridLayout_19">
               <property name="spacing">
@@ -6491,8 +7490,26 @@ and water):</string>
                  <bool>true</bool>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_44">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
                  <item>
                   <layout class="QGridLayout" name="gridLayout_20">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_99">
                      <property name="text">
@@ -6579,6 +7596,21 @@ and water):</string>
             <bool>true</bool>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_45">
+            <property name="spacing">
+             <number>2</number>
+            </property>
+            <property name="leftMargin">
+             <number>2</number>
+            </property>
+            <property name="topMargin">
+             <number>2</number>
+            </property>
+            <property name="rightMargin">
+             <number>2</number>
+            </property>
+            <property name="bottomMargin">
+             <number>2</number>
+            </property>
             <item>
              <layout class="QGridLayout" name="gridLayout_21">
               <property name="spacing">
@@ -6737,6 +7769,61 @@ and water):</string>
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dockWidget_animation">
+   <property name="windowTitle">
+    <string>Animation</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_5">
+    <layout class="QHBoxLayout" name="horizontalLayout_13">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_22">
+       <property name="spacing">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QTabWidget" name="tabWidget">
+         <widget class="QWidget" name="tab_6">
+          <attribute name="title">
+           <string>Tab 1</string>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="tab_7">
+          <attribute name="title">
+           <string>Tab 2</string>
+          </attribute>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_75">
+       <property name="spacing">
+        <number>2</number>
+       </property>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionSave_as_JPG">
    <property name="icon">
     <iconset theme="document-save-as">
@@ -6860,13 +7947,32 @@ and water):</string>
   </action>
   <action name="actionLoad_example">
    <property name="icon">
-    <iconset theme="document-open"/>
+    <iconset theme="document-open">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Load example...</string>
    </property>
   </action>
+  <action name="actionShow_animation_dock">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show animation dock</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionStack_all_docks">
+   <property name="text">
+    <string>Stack all docks</string>
+   </property>
+  </action>
  </widget>
+ <layoutdefault spacing="2" margin="2"/>
  <customwidgets>
   <customwidget>
    <class>MyLineEdit</class>

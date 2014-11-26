@@ -74,6 +74,9 @@ int main(int argc, char *argv[])
 	//Define list of fractal formulas
 	DefineFractalList(&fractalList);
 
+	//Alocate container for animation frames
+	gAnimFrames = new cAnimationFrames;
+
 	mainInterface->ShowUi();
 
 	//write parameters to ui
@@ -94,6 +97,7 @@ int main(int argc, char *argv[])
 	delete mainInterface;
 	delete gPar;
 	delete gParFractal;
+	delete gAnimFrames;
 	return result;
 }
 
