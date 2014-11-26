@@ -2038,7 +2038,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>171</height>
+          <height>245</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2862,7 +2862,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>166</width>
                   <height>180</height>
                  </rect>
                 </property>
@@ -3133,7 +3133,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>260</width>
                   <height>605</height>
                  </rect>
                 </property>
@@ -3760,7 +3760,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>273</width>
                   <height>228</height>
                  </rect>
                 </property>
@@ -3987,7 +3987,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>295</width>
                   <height>1326</height>
                  </rect>
                 </property>
@@ -5494,7 +5494,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>278</height>
+          <height>244</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -5550,7 +5550,7 @@ to target:</string>
              <item>
               <widget class="QTabWidget" name="tabWidget_fractals">
                <property name="currentIndex">
-                <number>3</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="tab_fractal_formula_1">
                 <attribute name="title">
@@ -5663,7 +5663,7 @@ to target:</string>
                       <x>0</x>
                       <y>0</y>
                       <width>309</width>
-                      <height>177</height>
+                      <height>143</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1">
@@ -5804,8 +5804,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>309</width>
-                      <height>177</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2">
@@ -5946,8 +5946,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>309</width>
-                      <height>177</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3">
@@ -6089,7 +6089,7 @@ to target:</string>
                       <x>0</x>
                       <y>0</y>
                       <width>309</width>
-                      <height>177</height>
+                      <height>143</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4">
@@ -6148,7 +6148,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>208</width>
                   <height>456</height>
                  </rect>
                 </property>
@@ -6679,7 +6679,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>207</width>
                   <height>360</height>
                  </rect>
                 </property>
