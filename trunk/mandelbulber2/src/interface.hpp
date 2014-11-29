@@ -47,8 +47,6 @@ public:
 	void MakeColorButtonsInWindow(QWidget *window);
 	void GetNameAndType(QString name, QString *parameterName, QString *type);
 	void InitializeFractalUi(QString &uiFileName);
-	double ImageScaleComboSelection2Double(int index);
-	double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image);
 	void StartRender(void);
 	void MoveCamera(QString buttonName);
 	void RotateCamera(QString buttonName);
@@ -85,14 +83,14 @@ public:
 	QList<sPrimitiveItem> listOfPrimitives;
 
 	bool stopRequest;
-	bool repeatRequest;
+	bool repeatRequest; //request to repeat start loop
 
 private:
 
 };
 
-
-
+double ImageScaleComboSelection2Double(int index);
+double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image);
 void MakeIconForButton(QColor &color, QPushButton *pushbutton);
 
 #endif /* INTERFACE_HPP_ */

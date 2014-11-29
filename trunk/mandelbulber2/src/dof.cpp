@@ -29,7 +29,7 @@
 #include "progress_text.hpp"
 #include "global_data.hpp"
 
-void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *statusBar, QProgressBar *progressBar)
+void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *statusBar, QProgressBar *progressBar, bool *stopRequest)
 {
 	int width = image->GetWidth();
 	int height = image->GetHeight();
@@ -65,7 +65,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *s
 	int imgSize = height*width;
 	for (int i = imgSize - 1; i >= 0; i--)
 	{
-		if (mainInterface->stopRequest)
+		if (*stopRequest)
 		{
 			return;
 		}
@@ -137,7 +137,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *s
 
 	for (int i = 0; i < height * width; i++)
 	{
-		if (mainInterface->stopRequest)
+		if (*stopRequest)
 		{
 			return;
 		}

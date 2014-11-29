@@ -420,7 +420,7 @@ void RenderWindow::slotResizedScrolledAreaImage(int width, int height)
 
 		if (selectedScale == 0)
 		{
-			double scale = mainInterface->CalcMainImageScale(0.0, width, height, mainInterface->mainImage);
+			double scale = CalcMainImageScale(0.0, width, height, mainInterface->mainImage);
 			mainInterface->mainImage->CreatePreview(scale, width, height, mainInterface->renderedImage);
 			mainInterface->mainImage->UpdatePreview();
 			mainInterface->renderedImage->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(), mainInterface->mainImage->GetPreviewHeight());
@@ -432,10 +432,10 @@ void RenderWindow::slotChangedComboImageScale(int index)
 {
 	if (mainInterface->mainImage)
 	{
-		double scale = mainInterface->ImageScaleComboSelection2Double(index);
+		double scale = ImageScaleComboSelection2Double(index);
 		int areaWidth = ui->scrollAreaForImage->VisibleAreaWidth();
 		int areaHeight = ui->scrollAreaForImage->VisibleAreaHeight();
-		scale = mainInterface->CalcMainImageScale(scale, areaWidth, areaHeight, mainInterface->mainImage);
+		scale = CalcMainImageScale(scale, areaWidth, areaHeight, mainInterface->mainImage);
 
 		mainInterface->mainImage->CreatePreview(scale, areaWidth, areaHeight, mainInterface->renderedImage);
 		mainInterface->mainImage->UpdatePreview();

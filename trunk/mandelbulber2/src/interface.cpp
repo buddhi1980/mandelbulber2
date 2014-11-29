@@ -949,36 +949,6 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished");
 }
 
-double cInterface::ImageScaleComboSelection2Double(int index)
-{
-	double scales[] = {0.0, 4.0, 2.0, 1.0, 0.5, 0.25, 0.1};
-	if(index < 7)
-	{
-		return scales[index];
-	}
-	else
-	{
-		qCritical() << "Wrong image scale";
-		return -1.0;
-	}
-}
-
-double cInterface::CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image)
-{
-	double scaleOut;
-	if(scale == 0.0)
-	{
-		double scale1 = (double)previewHeight / image->GetHeight();
-		double scale2 = (double)previewWidth / image->GetWidth();
-		scaleOut = min(scale1, scale2);
-	}
-	else
-	{
-		scaleOut = scale;
-	}
-	return scaleOut;
-}
-
 void cInterface::StartRender(void)
 {
 	WriteLog("cInterface::StartRender(void)");
@@ -995,7 +965,7 @@ void cInterface::StartRender(void)
 			repeatRequest = false;
 	  	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
-			cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, renderedImage);
+			cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage);
 			renderJob->AssingStatusAndProgessBar(mainWindow->ui->statusbar, progressBar);
 			renderJob->Init(cRenderJob::still);
 			renderJob->Execute();
@@ -1393,7 +1363,7 @@ void cInterface::RefreshMainImage()
 	mainImage->SetImageParameters(imageAdjustments);
 	mainImage->CompileImage();
 
-	mainInterface->stopRequest = false;
+	stopRequest = false;
 	if(gPar->Get<bool>("ambient_occlusion_enabled") && gPar->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace)
 	{
 		cParamRender params(gPar);
@@ -1406,7 +1376,7 @@ void cInterface::RefreshMainImage()
 	if(gPar->Get<bool>("DOF_enabled"))
 	{
 		cParamRender params(gPar);
-		PostRendering_DOF(mainImage, params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0, params.DOFFocus, mainWindow->ui->statusbar, progressBar);
+		PostRendering_DOF(mainImage, params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0, params.DOFFocus, mainWindow->ui->statusbar, progressBar, &stopRequest);
 	}
 
 	mainImage->ConvertTo8bit();
@@ -1655,19 +1625,6 @@ void cInterface::MovementStepModeChanged(int mode)
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, cInterface::write);
 }
 
-//function to create icons with actual color in ColorButtons
-void MakeIconForButton(QColor &color, QPushButton *pushbutton)
-{
-	const int w = 40;
-	const int h = 15;
-	QPixmap pix(w,h);
-	QPainter painter(&pix);
-	painter.fillRect(QRect(0,0,w,h), color);
-	painter.drawRect(0,0,w-1,h-1);
-	QIcon icon(pix);
-	pushbutton->setIcon(icon);
-	pushbutton->setIconSize(QSize(w,h));
-}
 
 void cInterface::Undo()
 {
@@ -1870,7 +1827,7 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 		if(primitiveName == listOfPrimitives.at(i).name)
 		{
 			objectType = listOfPrimitives.at(i).type;
-			mainInterface->listOfPrimitives.removeAt(i);
+			listOfPrimitives.removeAt(i);
 		}
 	}
 	
@@ -1974,3 +1931,50 @@ void cInterface::ComboMouseClickUpdate()
 		combo->setCurrentIndex(lastIndex);
 	}
 }
+
+//----------- functions outside cInterface class -------------
+
+double ImageScaleComboSelection2Double(int index)
+{
+	double scales[] = {0.0, 4.0, 2.0, 1.0, 0.5, 0.25, 0.1};
+	if(index < 7)
+	{
+		return scales[index];
+	}
+	else
+	{
+		qCritical() << "Wrong image scale";
+		return -1.0;
+	}
+}
+
+double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image)
+{
+	double scaleOut;
+	if(scale == 0.0)
+	{
+		double scale1 = (double)previewHeight / image->GetHeight();
+		double scale2 = (double)previewWidth / image->GetWidth();
+		scaleOut = min(scale1, scale2);
+	}
+	else
+	{
+		scaleOut = scale;
+	}
+	return scaleOut;
+}
+
+//function to create icons with actual color in ColorButtons
+void MakeIconForButton(QColor &color, QPushButton *pushbutton)
+{
+	const int w = 40;
+	const int h = 15;
+	QPixmap pix(w,h);
+	QPainter painter(&pix);
+	painter.fillRect(QRect(0,0,w,h), color);
+	painter.drawRect(0,0,w-1,h-1);
+	QIcon icon(pix);
+	pushbutton->setIcon(icon);
+	pushbutton->setIconSize(QSize(w,h));
+}
+
