@@ -91,7 +91,7 @@ bool cRenderJob::Init(enumMode _mode)
 	height = paramsContainer->Get<int>("image_height");
 
 	ProgressStatusText(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0, statusBar, progressBar);
-	mainInterface->application->processEvents();
+	application->processEvents();
 
 	if(!InitImage(width, height))
 	{
@@ -125,7 +125,7 @@ bool cRenderJob::Init(enumMode _mode)
 	//textures are deleted with destruction of renderData
 
 	ProgressStatusText(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0, statusBar, progressBar);
-	mainInterface->application->processEvents();
+	application->processEvents();
 
 	if(paramsContainer->Get<bool>("textured_background"))
 		renderData->textures.backgroundTexture = new cTexture(paramsContainer->Get<QString>("file_background"));
@@ -162,7 +162,7 @@ bool cRenderJob::InitImage(int w, int h)
 			scale = mainInterface->CalcMainImageScale(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), image);
 			image->CreatePreview(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), imageWidget);
 			image->UpdatePreview();
-			imageWidget->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(), mainInterface->mainImage->GetPreviewHeight());
+			imageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 		}
 
 		out << "Memory for image: " << image->GetUsedMB() << " MB" << endl;

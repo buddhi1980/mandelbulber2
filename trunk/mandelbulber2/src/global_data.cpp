@@ -27,4 +27,5 @@ cFractalContainer *gParFractal;
 cAnimationFrames *gAnimFrames;
 cInterface *mainInterface;
 cFlightAnimation *flightAnimation;
+QApplication *application;
 
