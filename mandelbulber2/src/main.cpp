@@ -38,9 +38,9 @@ int main(int argc, char *argv[])
 	mainInterface = new cInterface;
 
 	WriteLog("Prepare QApplication");
-	mainInterface->application = new QApplication(argc, argv);
-	mainInterface->application->setOrganizationName("Mandelbulber");
-	mainInterface->application->setApplicationName("Mandelbulber");
+	application = new QApplication(argc, argv);
+	application->setOrganizationName("Mandelbulber");
+	application->setApplicationName("Mandelbulber");
 
 	// Set language from locale
 	QTranslator main_translator;
@@ -50,8 +50,8 @@ int main(int argc, char *argv[])
 	main_translator.load(locale, systemData.sharedDir + QDir::separator() + "language");
 	qt_data_translator.load("qt_data_" + locale, systemData.sharedDir + QDir::separator() + "language");
 
-	mainInterface->application->installTranslator(&main_translator);
-	mainInterface->application->installTranslator(&qt_data_translator);
+	application->installTranslator(&main_translator);
+	application->installTranslator(&qt_data_translator);
 
 	//Create default directiories and copy all needed files
 	WriteLog("CreateDefaultFolders()");
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
 
 	//start main Qt loop
 	WriteLog("application->exec()");
-	int result = mainInterface->application->exec();
+	int result = application->exec();
 
 	//clean objects when exit
 	delete mainInterface;
@@ -100,6 +100,7 @@ int main(int argc, char *argv[])
 	delete gParFractal;
 	delete gAnimFrames;
 	delete flightAnimation;
+	delete application;
 	return result;
 }
 

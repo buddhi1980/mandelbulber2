@@ -44,7 +44,6 @@
 cInterface::cInterface()
 {
 	mainWindow = NULL;
-	application = NULL;
 	qimage = NULL;
 	renderedImage = NULL;
 	mainImage = NULL;
@@ -60,7 +59,6 @@ cInterface::~cInterface()
 	if(qimage) delete qimage;
 	if(mainImage) delete mainImage;
 	if(mainWindow) delete mainWindow;
-	if(application) delete application;
 }
 
 void cInterface::ShowUi(void)
@@ -1845,9 +1843,9 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 
 		gPar->Set(primitiveFullName + "_enabled", true);
 
-		mainInterface->ConnectSignalsForSlidersInWindow(mainWidget);
-		mainInterface->MakeColorButtonsInWindow(primitiveWidget);
-		mainInterface->SynchronizeInterfaceWindow(mainWidget, gPar, cInterface::write);
+		ConnectSignalsForSlidersInWindow(mainWidget);
+		MakeColorButtonsInWindow(primitiveWidget);
+		SynchronizeInterfaceWindow(mainWidget, gPar, cInterface::write);
 
 		ComboMouseClickUpdate();
 	}

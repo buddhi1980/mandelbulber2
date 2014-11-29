@@ -76,7 +76,6 @@ public:
 	void RebuildPrimitives(cParameterContainer *par);
 	void ComboMouseClickUpdate();
 
-	QApplication *application;
 	RenderWindow *mainWindow;
 	QImage *qimage;
 	RenderedImage *renderedImage;

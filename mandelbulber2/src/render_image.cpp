@@ -99,7 +99,7 @@ bool cRenderer::RenderImage()
 
 		while (!scheduler->AllLinesDone())
 		{
-			mainInterface->application->processEvents();
+			application->processEvents();
 			if (mainInterface->stopRequest)
 			{
 				scheduler->Stop();
@@ -153,7 +153,7 @@ bool cRenderer::RenderImage()
 		{
 			while(thread[i]->isRunning())
 			{
-				mainInterface->application->processEvents();
+				application->processEvents();
 			};
 			WriteLog(QString("Thread ") + QString::number(i) + " finished");
 			delete thread[i];

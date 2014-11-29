@@ -53,12 +53,12 @@ void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *s
 	QString progressTxt;
 
 	ProgressStatusText(statusText, QObject::tr("Sorting zBuffer"), 0.0, statusBar, progressBar);
-	mainInterface->application->processEvents();
+	application->processEvents();
 
 	QuickSortZBuffer(temp_sort, 1, height * width - 1);
 
 	ProgressStatusText(statusText, QObject::tr("Randomizing zBuffer"), 0.0, statusBar, progressBar);
-	mainInterface->application->processEvents();
+	application->processEvents();
 
 
 	//Randomize Z-buffer
@@ -126,7 +126,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *s
 	double percentDone = 0.0;
 
 	ProgressStatusText(statusText, progressText.getText(0.0), 0.0, statusBar, progressBar);
-	mainInterface->application->processEvents();
+	application->processEvents();
 
 	QElapsedTimer timerRefresh;
 	timerRefresh.start();
@@ -190,7 +190,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *s
 			progressTxt = progressText.getText(percentDone);
 
 			ProgressStatusText(statusText, progressTxt, percentDone, statusBar, progressBar);
-			mainInterface->application->processEvents();
+			application->processEvents();
 
 		}
 
