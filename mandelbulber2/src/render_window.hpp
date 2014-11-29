@@ -151,7 +151,7 @@ private slots:
 private:
 	Ui::RenderWindow *ui;
 	QWidget **fractalWidgets;
-	friend class cInterface;
+
 	QSettings settings;
 	QByteArray defaultGeometry;
 	QByteArray defaultState;
@@ -166,6 +166,9 @@ private:
 		proportion16_10 = 5,
 		proportion2_1 = 6
 	};
+
+	friend class cInterface;
+	friend class cFlightAnimation;
 };
 
 

@@ -74,10 +74,11 @@ int main(int argc, char *argv[])
 	//Define list of fractal formulas
 	DefineFractalList(&fractalList);
 
+	mainInterface->ShowUi();
+
 	//Alocate container for animation frames
 	gAnimFrames = new cAnimationFrames;
-
-	mainInterface->ShowUi();
+	flightAnimation = new cFlightAnimation(mainInterface, mainInterface->mainWindow);
 
 	//write parameters to ui
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
@@ -98,6 +99,7 @@ int main(int argc, char *argv[])
 	delete gPar;
 	delete gParFractal;
 	delete gAnimFrames;
+	delete flightAnimation;
 	return result;
 }
 

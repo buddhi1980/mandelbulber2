@@ -38,8 +38,7 @@
 #include "undo.h"
 #include "initparameters.hpp"
 #include "global_data.hpp"
-
-cInterface *mainInterface;
+#include "progress_text.hpp"
 
 //constructor of interface (loading of ui files)
 cInterface::cInterface()
@@ -101,6 +100,8 @@ void cInterface::ShowUi(void)
 	InitializeFractalUi(uiFilename);
 
 	ComboMouseClickUpdate();
+
+
 
 	WriteLog("cInterface::ConnectSignals(void)");
 	ConnectSignals();
@@ -950,14 +951,6 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished");
 }
 
-void cInterface::StatusText(const QString &text, const QString &progressText, double progress)
-{
-	mainWindow->ui->statusbar->showMessage(text, 0);
-	progressBar->setValue(progress * 1000.0);
-	progressBar->setTextVisible(true);
-	progressBar->setFormat(progressText);
-}
-
 double cInterface::ImageScaleComboSelection2Double(int index)
 {
 	double scales[] = {0.0, 4.0, 2.0, 1.0, 0.5, 0.25, 0.1};
@@ -1005,6 +998,7 @@ void cInterface::StartRender(void)
 	  	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
 			cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, renderedImage);
+			renderJob->AssingStatusAndProgessBar(mainWindow->ui->statusbar, progressBar);
 			renderJob->Init(cRenderJob::still);
 			renderJob->Execute();
 
@@ -1414,7 +1408,7 @@ void cInterface::RefreshMainImage()
 	if(gPar->Get<bool>("DOF_enabled"))
 	{
 		cParamRender params(gPar);
-		PostRendering_DOF(mainImage, params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0, params.DOFFocus);
+		PostRendering_DOF(mainImage, params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0, params.DOFFocus, mainWindow->ui->statusbar, progressBar);
 	}
 
 	mainImage->ConvertTo8bit();
@@ -1714,11 +1708,11 @@ void cInterface::ResetView()
 	//calculate size of the fractal in random directions
 	double maxDist = 0.0;
 
-	StatusText("Reseting view", "Fractal size calculation", 0.0);
+	ProgressStatusText("Reseting view", "Fractal size calculation", 0.0, mainWindow->ui->statusbar, progressBar);
 
 	for(int i = 0; i<50; i++)
 	{
-		StatusText("Reseting view", "Fractal size calculation", i / 50.0);
+		ProgressStatusText("Reseting view", "Fractal size calculation", i / 50.0, mainWindow->ui->statusbar, progressBar);
 		CVector3 direction(Random(1000)/500.0-1.0, Random(1000)/500.0-1.0, Random(1000)/500.0-1.0);
 		direction.Normalize();
 		double distStep = 0.0;
@@ -1737,7 +1731,7 @@ void cInterface::ResetView()
 		}
 		if (scan > maxDist) maxDist = scan;
 	}
-	StatusText("Reseting view", "Done", 100.0);
+	ProgressStatusText("Reseting view", "Done", 100.0, mainWindow->ui->statusbar, progressBar);
 
 	double newCameraDist = maxDist / fov * 2.0 * sqrt(2);
 	if(perspType == params::perspFishEye || perspType == params::perspFishEyeCut || perspType == params::perspEquirectangular)

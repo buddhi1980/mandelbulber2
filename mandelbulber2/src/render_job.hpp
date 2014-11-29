@@ -26,6 +26,8 @@
 #include "parameters.hpp"
 #include "cimage.hpp"
 #include "render_image.hpp"
+#include <QProgressBar>
+#include <QStatusBar>
 
 class cRenderJob
 {
@@ -43,6 +45,7 @@ public:
 	cImage* GetImagePtr() {return image;}
 	int GetNumberOfCPUs() {return totalNumberOfCPUs;};
 	void UseSizeFromImage(bool mode) {useSizeFromImage = mode;}
+	void AssingStatusAndProgessBar(QStatusBar *_statusBar, QProgressBar *_progressBar) {statusBar = _statusBar; progressBar = _progressBar;}
 
 private:
 	bool hasQWidget;
@@ -53,12 +56,15 @@ private:
 	cImage *image;
 	cFractalContainer *fractalContainer;
 	cParameterContainer *paramsContainer;
+
 	enumMode mode;
 	int height;
 	int totalNumberOfCPUs;
 	int width;
 	QWidget *imageWidget;
 	sRenderData *renderData;
+	QStatusBar *statusBar;
+	QProgressBar *progressBar;
 	static int id; //global identifier of actual rendering job
 };
 

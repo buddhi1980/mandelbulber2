@@ -657,8 +657,6 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 
 	par->Set("formula", 1, (int)oldData->fractal.formula);
 
-	//TODO conversion of old hybrid fractals
-
 	par->Set("julia_mode", oldData->fractal.juliaMode);
 	par->Set("julia_c", oldData->fractal.doubles.julia);
 	par->Set("N", oldData->fractal.doubles.N);
@@ -679,7 +677,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("interior_mode", oldData->fractal.interiorMode);
 	par->Set("linear_DE_mode", oldData->fractal.linearDEmode);
 	par->Set("constant_DE_threshold", oldData->fractal.constantDEThreshold);
-	par->Set("hybrid_fractal_enable", false); 	//TODO conversion of old hybrid fractals
+	par->Set("hybrid_fractal_enable", false);
 
 	par->Set("brightness", oldData->doubles.imageAdjustments.brightness);
 	par->Set("contrast", oldData->doubles.imageAdjustments.contrast);

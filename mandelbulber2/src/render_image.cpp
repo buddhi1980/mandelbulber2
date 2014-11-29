@@ -27,10 +27,10 @@
 #include "dof.hpp"
 #include "system.hpp"
 #include "render_worker.hpp"
-#include "interface.hpp"
 #include "progress_text.hpp"
 #include "error_message.hpp"
 #include "render_ssao.h"
+#include "global_data.hpp"
 
 cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, const sRenderData *_renderData, cImage *_image)
 {
@@ -118,8 +118,7 @@ bool cRenderer::RenderImage()
 			double percentDone = scheduler->PercentDone();
 			statusText = QObject::tr("Rendering image in progress");
 			progressTxt = progressText.getText(percentDone);
-			mainInterface->StatusText(statusText, progressTxt, percentDone);
-
+			ProgressStatusText(statusText, progressTxt, percentDone, data->statusBar, data->progressBar);
 
 			//refresh image
 			if (image->IsPreview() && listToRefresh.size() > 0)
@@ -173,7 +172,7 @@ bool cRenderer::RenderImage()
 	}
 	if(params->DOFEnabled && !mainInterface->stopRequest)
 	{
-		PostRendering_DOF(image, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus);
+		PostRendering_DOF(image, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->statusBar, data->progressBar);
 	}
 
 	if(image->IsPreview())
@@ -192,7 +191,7 @@ bool cRenderer::RenderImage()
 	double percentDone = 1.0;
 	statusText = QObject::tr("Idle");
 	progressTxt = progressText.getText(percentDone);
-	mainInterface->StatusText(statusText, progressTxt, percentDone);
+	ProgressStatusText(statusText, progressTxt, percentDone, data->statusBar, data->progressBar);
 
 	delete[] thread;
 	delete[] threadData;

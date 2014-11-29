@@ -27,9 +27,9 @@
 #include <math.h>
 
 #include "progress_text.hpp"
-#include "interface.hpp"
+#include "global_data.hpp"
 
-void PostRendering_DOF(cImage *image, double deep, double neutral)
+void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *statusBar, QProgressBar *progressBar)
 {
 	int width = image->GetWidth();
 	int height = image->GetHeight();
@@ -52,13 +52,14 @@ void PostRendering_DOF(cImage *image, double deep, double neutral)
 	QString statusText = QObject::tr("Rendering Depth Of Field effect");
 	QString progressTxt;
 
-	mainInterface->StatusText(statusText, QObject::tr("Sorting zBuffer"), 0.0);
+	ProgressStatusText(statusText, QObject::tr("Sorting zBuffer"), 0.0, statusBar, progressBar);
 	mainInterface->application->processEvents();
 
 	QuickSortZBuffer(temp_sort, 1, height * width - 1);
 
-	mainInterface->StatusText(statusText, QObject::tr("Randomizing zBuffer"), 0.0);
+	ProgressStatusText(statusText, QObject::tr("Randomizing zBuffer"), 0.0, statusBar, progressBar);
 	mainInterface->application->processEvents();
+
 
 	//Randomize Z-buffer
 	int imgSize = height*width;
@@ -124,7 +125,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral)
 	progressText.ResetTimer();
 	double percentDone = 0.0;
 
-	mainInterface->StatusText(statusText, progressText.getText(0.0), 0.0);
+	ProgressStatusText(statusText, progressText.getText(0.0), 0.0, statusBar, progressBar);
 	mainInterface->application->processEvents();
 
 	QElapsedTimer timerRefresh;
@@ -187,8 +188,10 @@ void PostRendering_DOF(cImage *image, double deep, double neutral)
 
 			percentDone = (double)i / (height * width);
 			progressTxt = progressText.getText(percentDone);
-			mainInterface->StatusText(statusText, progressTxt, percentDone);
+
+			ProgressStatusText(statusText, progressTxt, percentDone, statusBar, progressBar);
 			mainInterface->application->processEvents();
+
 		}
 
 		if (timerRefresh.elapsed() > lastRefreshTime && image->IsPreview())
@@ -204,7 +207,8 @@ void PostRendering_DOF(cImage *image, double deep, double neutral)
 			timerRefresh.restart();
 		}
 	}
-	mainInterface->StatusText(statusText, "Finished", 1.0);
+
+	ProgressStatusText(statusText, "Finished", 1.0, statusBar, progressBar);
 
 	delete[] temp_image;
 	delete[] temp_alpha;

@@ -26,6 +26,8 @@
 #include "lights.hpp"
 #include "color_palette.hpp"
 #include "region.hpp"
+#include <QProgressBar>
+#include <QStatusBar>
 
 struct sRenderData
 {
@@ -36,6 +38,8 @@ struct sRenderData
 	sTextures textures;
 	cColorPalette palette;
 	cLights lights;
+	QStatusBar *statusBar;
+	QProgressBar *progressBar;
 };
 
 #endif /* RENDER_DATA_HPP_ */

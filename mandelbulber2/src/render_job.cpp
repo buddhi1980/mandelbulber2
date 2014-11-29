@@ -25,7 +25,8 @@
 #include "system.hpp"
 #include "fractparams.hpp"
 #include "four_fractals.hpp"
-#include "interface.hpp"
+#include "global_data.hpp"
+#include "progress_text.hpp"
 
 cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, QWidget *_qwidget)
 {
@@ -59,6 +60,9 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 
 	useSizeFromImage = false;
 
+	statusBar = NULL;
+	progressBar = NULL;
+
 	id++;
 }
 int cRenderJob::id = 0;
@@ -86,7 +90,7 @@ bool cRenderJob::Init(enumMode _mode)
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 
-	mainInterface->StatusText(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
+	ProgressStatusText(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0, statusBar, progressBar);
 	mainInterface->application->processEvents();
 
 	if(!InitImage(width, height))
@@ -120,7 +124,7 @@ bool cRenderJob::Init(enumMode _mode)
 
 	//textures are deleted with destruction of renderData
 
-	mainInterface->StatusText(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
+	ProgressStatusText(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0, statusBar, progressBar);
 	mainInterface->application->processEvents();
 
 	if(paramsContainer->Get<bool>("textured_background"))
@@ -131,6 +135,9 @@ bool cRenderJob::Init(enumMode _mode)
 
 	if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
 		renderData->textures.lightmapTexture = new cTexture(paramsContainer->Get<QString>("file_lightmap"));
+
+	renderData->statusBar = statusBar;
+	renderData->progressBar = progressBar;
 
 	ready = true;
 	return true;

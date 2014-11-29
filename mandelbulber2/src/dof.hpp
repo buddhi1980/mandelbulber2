@@ -24,6 +24,8 @@
 #define DOF_HPP_
 
 #include "cimage.hpp"
+#include <QProgressBar>
+#include <QStatusBar>
 
 template <class TYPE>
 struct sSortZ
@@ -32,7 +34,7 @@ struct sSortZ
 	int i;
 };
 
-void PostRendering_DOF(cImage *image, double deep, double neutral);
+void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *statusBar, QProgressBar *progressBar);
 template <class T> void QuickSortZBuffer(sSortZ<T> *dane, int l, int p);
 
 #endif /* DOF_HPP_ */

@@ -24,6 +24,8 @@
 #define PROGRESS_TEXT_HPP_
 
 #include <QtCore>
+#include <QProgressBar>
+#include <QStatusBar>
 
 class cProgressText
 {
@@ -39,6 +41,9 @@ private:
 	double lastProgressForETA;
 	double renderingSpeed;
 };
+
+void ProgressStatusText(const QString &text, const QString &progressText, double progress, QStatusBar *statusBar, QProgressBar *progressBar);
+
 
 
 

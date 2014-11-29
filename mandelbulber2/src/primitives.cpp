@@ -95,8 +95,6 @@ enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
 
 cPrimitives::cPrimitives(const cParameterContainer *par)
 {
-	//TODO add placement of objects by mouse
-
 	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) started");
 
 	isAnyPrimitive = false;

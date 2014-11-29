@@ -45,6 +45,8 @@
 #include "preview_file_dialog.h"
 #include "global_data.hpp"
 
+#include "progress_text.hpp"
+
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -675,10 +677,10 @@ void RenderWindow::slotMenuSaveImageJPEG()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		mainInterface->StatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image started"), 0.0);
+		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image started"), 0.0, ui->statusbar, mainInterface->progressBar);
 		mainInterface->application->processEvents();
 		SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
-		mainInterface->StatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image finished"), 1.0);
+		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image finished"), 1.0, ui->statusbar, mainInterface->progressBar);
 		mainInterface->application->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -699,10 +701,10 @@ void RenderWindow::slotMenuSaveImagePNG8()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		mainInterface->StatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image started"), 0.0);
+		ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image started"), 0.0, ui->statusbar, mainInterface->progressBar);
 		mainInterface->application->processEvents();
 		SavePNG(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->ConvertTo8bit());
-		mainInterface->StatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image finished"), 1.0);
+		ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image finished"), 1.0, ui->statusbar, mainInterface->progressBar);
 		mainInterface->application->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -723,10 +725,10 @@ void RenderWindow::slotMenuSaveImagePNG16()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		mainInterface->StatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving PNG image started"), 0.0);
+		ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving PNG image started"), 0.0, ui->statusbar, mainInterface->progressBar);
 		mainInterface->application->processEvents();
 		SavePNG16(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->GetImage16Ptr());
-		mainInterface->StatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving PNG image finished"), 1.0);
+		ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving PNG image finished"), 1.0, ui->statusbar, mainInterface->progressBar);
 		mainInterface->application->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -747,10 +749,10 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		mainInterface->StatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 0.0);
+		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 0.0, ui->statusbar, mainInterface->progressBar);
 		mainInterface->application->processEvents();
 		SavePNG16Alpha(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage);
-		mainInterface->StatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 1.0);
+		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 1.0, ui->statusbar, mainInterface->progressBar);
 		mainInterface->application->processEvents();
 		systemData.lastImageFile = filename;
 	}

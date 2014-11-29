@@ -13,6 +13,7 @@ CONFIG += qt thread debug
 
 SOURCES +=  ../src/algebra.cpp\
 			../src/animation_frames.cpp\
+			../src/animation_flight.cpp\
 			../src/calculate_distance.cpp\
 			../src/camera_target.cpp\
 			../src/compute_fractal.cpp\
@@ -72,7 +73,8 @@ HEADERS  += ../src/render_window.hpp\
 			../src/preview_file_dialog.h\
 			../src/ssao_worker.h\
 			../qt/color_palette_widget.h\
-			../src/rendered_image_widget.hpp
+			../src/rendered_image_widget.hpp\
+			../src/animation_flight.hpp
 
 FORMS    += ../qt/render_window.ui
 
