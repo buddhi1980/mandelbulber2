@@ -49,7 +49,8 @@ QPixmap cThumbnail::Render()
 	}
 	else
 	{
-		cRenderJob *renderJob = new cRenderJob(params, fractal, image, qwidget);
+		bool stopRequest = false; //TODO stop request for thumbnail rendering
+		cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, qwidget);
 		renderJob->UseSizeFromImage(true);
 		renderJob->Init(cRenderJob::still);
 		renderJob->Execute();

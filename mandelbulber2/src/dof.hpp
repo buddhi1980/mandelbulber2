@@ -34,7 +34,7 @@ struct sSortZ
 	int i;
 };
 
-void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *statusBar, QProgressBar *progressBar);
+void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *statusBar, QProgressBar *progressBar, bool *stopRequest);
 template <class T> void QuickSortZBuffer(sSortZ<T> *dane, int l, int p);
 
 #endif /* DOF_HPP_ */

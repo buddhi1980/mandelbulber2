@@ -31,6 +31,7 @@
 
 struct sRenderData
 {
+	sRenderData() : rendererID(0), numberOfThreads(0), statusBar(NULL), progressBar(NULL), stopRequest(NULL) {};
 	int rendererID;
 	int numberOfThreads;
 	cRegion<int> screenRegion;
@@ -40,6 +41,7 @@ struct sRenderData
 	cLights lights;
 	QStatusBar *statusBar;
 	QProgressBar *progressBar;
+	bool *stopRequest;
 };
 
 #endif /* RENDER_DATA_HPP_ */

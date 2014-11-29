@@ -28,7 +28,7 @@
 #include "global_data.hpp"
 #include "progress_text.hpp"
 
-cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, QWidget *_qwidget)
+cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QWidget *_qwidget)
 {
 	WriteLog("cRenderJob::cRenderJob");
 	image = _image;
@@ -62,6 +62,8 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 
 	statusBar = NULL;
 	progressBar = NULL;
+
+	stopRequest = _stopRequest;
 
 	id++;
 }
@@ -138,6 +140,7 @@ bool cRenderJob::Init(enumMode _mode)
 
 	renderData->statusBar = statusBar;
 	renderData->progressBar = progressBar;
+	renderData->stopRequest = stopRequest;
 
 	ready = true;
 	return true;
@@ -158,8 +161,8 @@ bool cRenderJob::InitImage(int w, int h)
 		WriteLog("complexImage allocated");
 		if(hasQWidget)
 		{
-			double scale = mainInterface->ImageScaleComboSelection2Double(paramsContainer->Get<int>("image_preview_scale"));
-			scale = mainInterface->CalcMainImageScale(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), image);
+			double scale = ImageScaleComboSelection2Double(paramsContainer->Get<int>("image_preview_scale"));
+			scale = CalcMainImageScale(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), image);
 			image->CreatePreview(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), imageWidget);
 			image->UpdatePreview();
 			imageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
@@ -173,7 +176,7 @@ bool cRenderJob::InitImage(int w, int h)
 bool cRenderJob::Execute(void)
 {
 	inProgress = true;
-	mainInterface->stopRequest = false;
+	*renderData->stopRequest = false;
 
 	WriteLog("cRenderJob::Execute(void)");
 
@@ -194,7 +197,7 @@ bool cRenderJob::Execute(void)
 	delete fourFractals;
 	delete renderer;
 	inProgress = false;
-	mainInterface->stopRequest = false;
+	*renderData->stopRequest = false;
 
 	WriteLog("cRenderJob::Execute(void): finished");
 

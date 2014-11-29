@@ -32,7 +32,7 @@
 class cRenderJob
 {
 public:
-	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, QWidget *_qwidget = NULL);
+	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QWidget *_qwidget = NULL);
 	~cRenderJob();
 
 	enum enumMode
@@ -65,6 +65,7 @@ private:
 	sRenderData *renderData;
 	QStatusBar *statusBar;
 	QProgressBar *progressBar;
+	bool *stopRequest;
 	static int id; //global identifier of actual rendering job
 };
 

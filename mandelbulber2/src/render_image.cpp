@@ -100,10 +100,9 @@ bool cRenderer::RenderImage()
 		while (!scheduler->AllLinesDone())
 		{
 			application->processEvents();
-			if (mainInterface->stopRequest)
+			if (*data->stopRequest)
 			{
 				scheduler->Stop();
-
 			}
 
 			Wait(100); //wait 100ms
@@ -170,9 +169,9 @@ bool cRenderer::RenderImage()
 		cRenderSSAO rendererSSAO(params, data, image);
 		rendererSSAO.RenderSSAO();
 	}
-	if(params->DOFEnabled && !mainInterface->stopRequest)
+	if(params->DOFEnabled && !*data->stopRequest)
 	{
-		PostRendering_DOF(image, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->statusBar, data->progressBar);
+		PostRendering_DOF(image, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->statusBar, data->progressBar, data->stopRequest);
 	}
 
 	if(image->IsPreview())
@@ -198,7 +197,7 @@ bool cRenderer::RenderImage()
 	delete[] worker;
 	delete scheduler;
 
-	mainInterface->stopRequest = false;
+	*data->stopRequest = false;
 
 	WriteLog("cRenderer::RenderImage(): memory released");
 
