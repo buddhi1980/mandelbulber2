@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>1165</width>
-           <height>1049</height>
+           <height>1017</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -959,7 +959,7 @@
           <x>0</x>
           <y>0</y>
           <width>180</width>
-          <height>1048</height>
+          <height>1016</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -2038,7 +2038,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>245</height>
+          <height>238</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2862,8 +2862,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>166</width>
-                  <height>180</height>
+                  <width>317</width>
+                  <height>230</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -3133,7 +3133,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>260</width>
+                  <width>303</width>
                   <height>605</height>
                  </rect>
                 </property>
@@ -3760,8 +3760,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>273</width>
-                  <height>228</height>
+                  <width>317</width>
+                  <height>230</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3987,7 +3987,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>295</width>
+                  <width>303</width>
                   <height>1326</height>
                  </rect>
                 </property>
@@ -5494,7 +5494,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>244</height>
+          <height>234</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -5663,7 +5663,7 @@ to target:</string>
                       <x>0</x>
                       <y>0</y>
                       <width>309</width>
-                      <height>143</height>
+                      <height>133</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1">
@@ -5804,8 +5804,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>309</width>
+                      <height>138</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2">
@@ -5946,8 +5946,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>309</width>
+                      <height>138</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3">
@@ -6089,7 +6089,7 @@ to target:</string>
                       <x>0</x>
                       <y>0</y>
                       <width>309</width>
-                      <height>143</height>
+                      <height>138</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4">
@@ -6148,7 +6148,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>208</width>
+                  <width>303</width>
                   <height>456</height>
                  </rect>
                 </property>
@@ -6679,7 +6679,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
+                  <width>303</width>
                   <height>360</height>
                  </rect>
                 </property>
@@ -7189,7 +7189,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-212</y>
           <width>339</width>
           <height>466</height>
          </rect>
@@ -7776,7 +7776,7 @@ and water):</string>
    <attribute name="dockWidgetArea">
     <number>8</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_5">
+   <widget class="QWidget" name="dockWidgetContents_animation">
     <layout class="QHBoxLayout" name="horizontalLayout_13">
      <property name="spacing">
       <number>2</number>
@@ -7800,14 +7800,62 @@ and water):</string>
        </property>
        <item>
         <widget class="QTabWidget" name="tabWidget">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
          <widget class="QWidget" name="tab_6">
           <attribute name="title">
-           <string>Tab 1</string>
+           <string>Flight animation</string>
           </attribute>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <property name="spacing">
+            <number>2</number>
+           </property>
+           <property name="leftMargin">
+            <number>2</number>
+           </property>
+           <property name="topMargin">
+            <number>2</number>
+           </property>
+           <property name="rightMargin">
+            <number>2</number>
+           </property>
+           <property name="bottomMargin">
+            <number>2</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_76">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="pushButton_record_flight">
+               <property name="text">
+                <string>Record flight path</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_render_flight">
+               <property name="text">
+                <string>Render flight animation</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_77" stretch="">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+            </layout>
+           </item>
+          </layout>
          </widget>
          <widget class="QWidget" name="tab_7">
           <attribute name="title">
-           <string>Tab 2</string>
+           <string>Keyframe animation</string>
           </attribute>
          </widget>
         </widget>

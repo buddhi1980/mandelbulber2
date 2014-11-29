@@ -47,6 +47,7 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../src/algebra.cpp \
 		../src/animation_frames.cpp \
+		../src/animation_flight.cpp \
 		../src/calculate_distance.cpp \
 		../src/camera_target.cpp \
 		../src/compute_fractal.cpp \
@@ -105,9 +106,11 @@ SOURCES       = ../src/algebra.cpp \
 		moc_preview_file_dialog.cpp \
 		moc_ssao_worker.cpp \
 		moc_color_palette_widget.cpp \
-		moc_rendered_image_widget.cpp
+		moc_rendered_image_widget.cpp \
+		moc_animation_flight.cpp
 OBJECTS       = algebra.o \
 		animation_frames.o \
+		animation_flight.o \
 		calculate_distance.o \
 		camera_target.o \
 		compute_fractal.o \
@@ -167,7 +170,8 @@ OBJECTS       = algebra.o \
 		moc_preview_file_dialog.o \
 		moc_ssao_worker.o \
 		moc_color_palette_widget.o \
-		moc_rendered_image_widget.o
+		moc_rendered_image_widget.o \
+		moc_animation_flight.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -227,6 +231,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		mandelbulber.pro ../src/algebra.cpp \
 		../src/animation_frames.cpp \
+		../src/animation_flight.cpp \
 		../src/calculate_distance.cpp \
 		../src/camera_target.cpp \
 		../src/compute_fractal.cpp \
@@ -439,7 +444,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/mandelbulber21.0.0 || mkdir -p .tmp/mandelbulber21.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../qt/myspinbox.h ../qt/mydoublespinbox.h ../qt/mycheckbox.h ../qt/mygroupbox.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/animation_frames.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_container.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/global_data.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/old_settings.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/random.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp ../src/thumbnail.cpp ../src/undo.cpp ../qt/mygroupbox.cpp ../qt/mylineedit.cpp ../qt/myspinbox.cpp ../qt/mydoublespinbox.cpp ../qt/mycheckbox.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../language/en.ts ../language/de.ts ../language/pl.ts .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../qt/myspinbox.h ../qt/mydoublespinbox.h ../qt/mycheckbox.h ../qt/mygroupbox.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp ../src/animation_flight.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/animation_frames.cpp ../src/animation_flight.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_container.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/global_data.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/old_settings.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/random.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp ../src/thumbnail.cpp ../src/undo.cpp ../qt/mygroupbox.cpp ../qt/mylineedit.cpp ../qt/myspinbox.cpp ../qt/mydoublespinbox.cpp ../qt/mycheckbox.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../language/en.ts ../language/de.ts ../language/pl.ts .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
 
 
 clean:compiler_clean 
@@ -486,9 +491,9 @@ qrc_icons.cpp: ../qt/icons.qrc \
 		../qt/icons/go-previous.png
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name icons ../qt/icons.qrc -o qrc_icons.cpp
 
-compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_mydoublespinbox.cpp moc_mycheckbox.cpp moc_mygroupbox.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp
+compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_mydoublespinbox.cpp moc_mycheckbox.cpp moc_mygroupbox.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp moc_animation_flight.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_mydoublespinbox.cpp moc_mycheckbox.cpp moc_mygroupbox.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp
+	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_mydoublespinbox.cpp moc_mycheckbox.cpp moc_mygroupbox.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp moc_animation_flight.cpp
 moc_render_window.cpp: ../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
 		../src/color_palette.hpp \
@@ -600,6 +605,15 @@ moc_rendered_image_widget.cpp: ../src/cimage.hpp \
 		../src/rendered_image_widget.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/rendered_image_widget.hpp -o moc_rendered_image_widget.cpp
 
+moc_animation_flight.cpp: ../src/animation_frames.hpp \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_structures.hpp \
+		../src/color_palette.hpp \
+		../src/fractal_container.hpp \
+		../src/animation_flight.hpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/animation_flight.hpp -o moc_animation_flight.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all: ../qt/ui_render_window.h
@@ -657,6 +671,15 @@ animation_frames.o: ../src/animation_frames.cpp ../src/animation_frames.hpp \
 		../src/color_palette.hpp \
 		../src/fractal_container.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animation_frames.o ../src/animation_frames.cpp
+
+animation_flight.o: ../src/animation_flight.cpp ../src/animation_flight.hpp \
+		../src/animation_frames.hpp \
+		../src/parameters.hpp \
+		../src/algebra.hpp \
+		../src/color_structures.hpp \
+		../src/color_palette.hpp \
+		../src/fractal_container.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animation_flight.o ../src/animation_flight.cpp
 
 calculate_distance.o: ../src/calculate_distance.cpp ../src/calculate_distance.hpp \
 		../src/compute_fractal.hpp \
@@ -746,7 +769,9 @@ dof.o: ../src/dof.cpp ../src/dof.hpp \
 		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
-		../src/rendered_image_widget.hpp
+		../src/rendered_image_widget.hpp \
+		../src/animation_flight.hpp \
+		../src/animation_frames.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dof.o ../src/dof.cpp
 
 error_message.o: ../src/error_message.cpp ../src/error_message.hpp \
@@ -858,6 +883,8 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/primitives.h \
+		../src/animation_flight.hpp \
+		../src/animation_frames.hpp \
 		../src/system.hpp \
 		../src/fractal_list.hpp \
 		../src/render_job.hpp \
@@ -880,8 +907,7 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/common_math.h \
 		../src/undo.h \
 		../src/initparameters.hpp \
-		../src/global_data.hpp \
-		../src/animation_frames.hpp
+		../src/global_data.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interface.o ../src/interface.cpp
 
 lights.o: ../src/lights.cpp ../src/lights.hpp \
@@ -927,11 +953,12 @@ main.o: ../src/main.cpp ../src/main.hpp \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
+		../src/animation_flight.hpp \
+		../src/animation_frames.hpp \
 		../src/initparameters.hpp \
 		../src/fractal_list.hpp \
 		../src/undo.h \
-		../src/global_data.hpp \
-		../src/animation_frames.hpp
+		../src/global_data.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 my_ui_loader.o: ../src/my_ui_loader.cpp ../src/my_ui_loader.h \
@@ -1046,6 +1073,8 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
+		../src/animation_flight.hpp \
+		../src/animation_frames.hpp \
 		../src/progress_text.hpp \
 		../src/error_message.hpp \
 		../src/render_ssao.h
@@ -1096,7 +1125,9 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
-		../src/rendered_image_widget.hpp
+		../src/rendered_image_widget.hpp \
+		../src/animation_flight.hpp \
+		../src/animation_frames.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_job.o ../src/render_job.cpp
 
 render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
@@ -1126,6 +1157,8 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
+		../src/animation_flight.hpp \
+		../src/animation_frames.hpp \
 		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_ssao.o ../src/render_ssao.cpp
 
@@ -1147,6 +1180,8 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/fractal_container.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/primitives.h \
+		../src/animation_flight.hpp \
+		../src/animation_frames.hpp \
 		../src/fractal_list.hpp \
 		../src/system.hpp \
 		../src/settings.hpp \
@@ -1168,8 +1203,7 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/common_math.h \
 		../src/my_ui_loader.h \
 		../src/preview_file_dialog.h \
-		../src/global_data.hpp \
-		../src/animation_frames.hpp
+		../src/global_data.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_window.o ../src/render_window.cpp
 
 render_worker.o: ../src/render_worker.cpp ../src/render_worker.hpp \
@@ -1376,6 +1410,9 @@ moc_color_palette_widget.o: moc_color_palette_widget.cpp
 
 moc_rendered_image_widget.o: moc_rendered_image_widget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_rendered_image_widget.o moc_rendered_image_widget.cpp
+
+moc_animation_flight.o: moc_animation_flight.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_animation_flight.o moc_animation_flight.cpp
 
 ####### Install
 

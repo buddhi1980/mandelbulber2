@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * Class to store settings for animation frames
+ * Functions for flight animation.
  *
  * Copyright (C) 2014 Krzysztof Marczak
  *
@@ -20,29 +20,15 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-#ifndef SRC_ANIMATION_FRAMES_HPP_
-#define SRC_ANIMATION_FRAMES_HPP_
+#include "animation_flight.hpp"
 
-#include "parameters.hpp"
-#include "fractal_container.hpp"
-
-class cAnimationFrames
+cFlightAnimation::cFlightAnimation(cInterface *_interface, QObject *parent) : QObject(parent), interface(_interface)
 {
-public:
-	cAnimationFrames();
-	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal);
-	bool GetFrame(int index, cParameterContainer *params, cFractalContainer *fractal);
-	int GetNumberOfFrames();
-	void Clear();
+	ui = interface->mainWindow->ui;
+	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFilght()));
+}
 
-	template<class T>
-	void SubstituteValueForAll(QString parameterName, T value);
-
-	QStringList GetListOfUsedParameters();
-
-private:
-	QList<cParameterContainer> listPar;
-	QList<cFractalContainer> listFract;
-};
-
-#endif /* SRC_ANIMATION_FRAMES_HPP_ */
+void cFlightAnimation::slotRecordFilght()
+{
+	qDebug() << "record flight animation";
+}

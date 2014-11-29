@@ -24,7 +24,7 @@
 #include "render_ssao.h"
 #include "progress_text.hpp"
 #include "ssao_worker.h"
-#include "interface.hpp"
+#include "global_data.hpp"
 #include "system.hpp"
 
 cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image)
@@ -151,7 +151,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		progressTxt = progressText.getText(percentDone);
 		if(!quiet)
 		{
-			mainInterface->StatusText(statusText, progressTxt, percentDone);
+			ProgressStatusText(statusText, progressTxt, percentDone, data->statusBar, data->progressBar);
 		}
 	}
 
@@ -171,7 +171,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	progressTxt = progressText.getText(percentDone);
 	if(!quiet)
 	{
-		mainInterface->StatusText(statusText, progressTxt, percentDone);
+		ProgressStatusText(statusText, progressTxt, percentDone, data->statusBar, data->progressBar);
 	}
 	delete[] thread;
 	delete[] threadData;

@@ -44,6 +44,8 @@ private:
 protected:
 	QLabel *preview;
 	QLabel *info;
+
+	//TODO add progress bar for rendering previews
 };
 
 #endif /* PREVIEWFILEDIALOG_H_ */

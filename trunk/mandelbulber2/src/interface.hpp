@@ -47,7 +47,6 @@ public:
 	void MakeColorButtonsInWindow(QWidget *window);
 	void GetNameAndType(QString name, QString *parameterName, QString *type);
 	void InitializeFractalUi(QString &uiFileName);
-	void StatusText(const QString &text, const QString &progressText, double progress);
 	double ImageScaleComboSelection2Double(int index);
 	double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image);
 	void StartRender(void);
@@ -93,7 +92,7 @@ private:
 
 };
 
-extern cInterface *mainInterface;
+
 
 void MakeIconForButton(QColor &color, QPushButton *pushbutton);
 
