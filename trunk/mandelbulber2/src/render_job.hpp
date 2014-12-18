@@ -28,6 +28,7 @@
 #include "render_image.hpp"
 #include <QProgressBar>
 #include <QStatusBar>
+#include "camera_target.hpp"
 
 class cRenderJob
 {
@@ -46,6 +47,8 @@ public:
 	int GetNumberOfCPUs() {return totalNumberOfCPUs;};
 	void UseSizeFromImage(bool mode) {useSizeFromImage = mode;}
 	void AssingStatusAndProgessBar(QStatusBar *_statusBar, QProgressBar *_progressBar) {statusBar = _statusBar; progressBar = _progressBar;}
+	void ChangeCameraTargetPosition(cCameraTarget cameraTarget);
+	void SetMaxRenderTime(double time);
 
 private:
 	bool hasQWidget;

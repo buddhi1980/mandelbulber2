@@ -65,10 +65,13 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 			CVector2<int> point = lastMousePosition / image->GetPreviewScale();
 			double z = image->GetPixelZBuffer(point.x, point.y);
 
+			DisplayCrosshair();
+
 			if(z < 1e10)
 			{
 				redrawed = false;
 				isOnObject = true;
+
 				Display3DCursor(lastMousePosition, z);
 			}
 			else
@@ -358,4 +361,18 @@ void RenderedImage::wheelEvent(QWheelEvent * event)
 	{
 		qCritical() << "RenderedImage::mouseMoveEvent(QMouseEvent * event): parameters not assigned";
 	}
+}
+
+CVector2<double> RenderedImage::GetLastMousePositionScaled(void)
+{
+	CVector2<double> position;
+	position.x = ((double)lastMousePosition.x / image->GetPreviewWidth() - 0.5) * 2.0;
+	position.y = ((double)lastMousePosition.y / image->GetPreviewHeight() - 0.5) * 2.0;
+	return position;
+}
+
+void RenderedImage::DisplayCrosshair()
+{
+	image->AntiAliasedLine(image->GetPreviewWidth()/2, 0, image->GetPreviewWidth()/2, image->GetPreviewHeight(), -1, -1, sRGB8(255,255,255), 0.3, 1);
+	image->AntiAliasedLine(0, image->GetPreviewHeight()/2, image->GetPreviewWidth(), image->GetPreviewHeight()/2, -1, -1, sRGB8(255,255,255), 0.3, 1);
 }

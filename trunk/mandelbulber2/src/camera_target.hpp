@@ -46,9 +46,10 @@ public:
 	CVector3 GetTopVector() {return topVector;}
 	CVector3 GetRightVector() {return rightVector;}
 	double GetDistance() {return distance;}
-	double CorrectAngle(double angle) {return fmod(angle + 3 * M_PI, 2 * M_PI) - M_PI;}
 
 private:
+	double CorrectAngle(double angle) {return fmod(angle + 3 * M_PI, 2 * M_PI) - M_PI;}
+
 	CVector3 camera;
 	CVector3 target;
 
