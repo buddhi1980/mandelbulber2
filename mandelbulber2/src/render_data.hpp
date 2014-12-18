@@ -31,7 +31,9 @@
 
 struct sRenderData
 {
-	sRenderData() : rendererID(0), numberOfThreads(0), statusBar(NULL), progressBar(NULL), stopRequest(NULL) {};
+	sRenderData() :
+			rendererID(0), numberOfThreads(0), statusBar(NULL), progressBar(NULL), stopRequest(NULL), maxRenderTime(1e50), doNotRefresh(false){};
+
 	int rendererID;
 	int numberOfThreads;
 	cRegion<int> screenRegion;
@@ -42,6 +44,8 @@ struct sRenderData
 	QStatusBar *statusBar;
 	QProgressBar *progressBar;
 	bool *stopRequest;
+	double maxRenderTime;
+	bool doNotRefresh;
 };
 
 #endif /* RENDER_DATA_HPP_ */

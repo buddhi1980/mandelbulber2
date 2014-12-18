@@ -142,6 +142,7 @@ bool cRenderJob::Init(enumMode _mode)
 	renderData->progressBar = progressBar;
 	renderData->stopRequest = stopRequest;
 
+	if(mode == flightAnimRecord) renderData->doNotRefresh = true;
 	ready = true;
 	return true;
 }
@@ -197,9 +198,29 @@ bool cRenderJob::Execute(void)
 	delete fourFractals;
 	delete renderer;
 	inProgress = false;
-	*renderData->stopRequest = false;
 
 	WriteLog("cRenderJob::Execute(void): finished");
 
 	return true;
+}
+
+void cRenderJob::ChangeCameraTargetPosition(cCameraTarget cameraTarget)
+{
+	paramsContainer->Set("camera", cameraTarget.GetCamera());
+	paramsContainer->Set("target", cameraTarget.GetTarget());
+	paramsContainer->Set("camera_top", cameraTarget.GetTopVector());
+	paramsContainer->Set("camera_rotation", cameraTarget.GetRotation());
+	paramsContainer->Set("camera_distance_to_target", cameraTarget.GetDistance());
+}
+
+void cRenderJob::SetMaxRenderTime(double time)
+{
+	if(renderData)
+	{
+		renderData->maxRenderTime = time;
+	}
+	else
+	{
+		qCritical() << "cRenderJob::SetMaxRenderTime(double time): renderData not set";
+	}
 }

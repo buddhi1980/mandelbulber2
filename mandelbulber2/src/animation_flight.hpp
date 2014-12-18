@@ -26,12 +26,12 @@
 #include "animation_frames.hpp"
 #include "interface.hpp"
 
-class cFlightAnimation: public QObject
+class cFlightAnimation : public QObject
 {
  Q_OBJECT
 public:
 	cFlightAnimation(cInterface *_interface, QObject *parent = 0);
-	void RecordFlight();
+	void RecordFlight(cAnimationFrames *frames);
 
 private slots:
 void slotRecordFilght();
@@ -39,6 +39,7 @@ void slotRecordFilght();
 private:
 	cInterface *interface;
 	Ui::RenderWindow *ui;
+	cAnimationFrames *frames;
 };
 
 

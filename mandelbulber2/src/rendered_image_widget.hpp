@@ -54,6 +54,7 @@ enum enumClickMode
 	void setClickMode(QList<QVariant> _clickMode) {clickModeData = _clickMode;}
 	void SetFrontDist(double dist) {frontDist = dist;}
 	void SetCursorVisibility(bool enable) {cursorVisible = enable;};
+	CVector2<double> GetLastMousePositionScaled(void);
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -69,6 +70,7 @@ protected:
 private:
 	void DisplayCoordinates();
 	void Display3DCursor(CVector2<int> screenPoint, double z);
+	void DisplayCrosshair();
 
 	cImage *image;
 	QList<QVariant> clickModeData;

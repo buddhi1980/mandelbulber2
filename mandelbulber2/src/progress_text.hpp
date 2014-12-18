@@ -33,6 +33,7 @@ public:
 	cProgressText();
 	void ResetTimer();
 	QString getText(double progress);
+	double getTime() {return timer.elapsed()/1000.0;};
 
 private:
 	QElapsedTimer timer;
