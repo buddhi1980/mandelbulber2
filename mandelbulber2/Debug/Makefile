@@ -68,7 +68,9 @@ SOURCES       = ../src/algebra.cpp \
 		../src/interface.cpp \
 		../src/lights.cpp \
 		../src/main.cpp \
+		../src/multi_val.cpp \
 		../src/my_ui_loader.cpp \
+		../src/one_parameter.cpp \
 		../src/old_settings.cpp \
 		../src/parameters.cpp \
 		../src/primitives.cpp \
@@ -131,7 +133,9 @@ OBJECTS       = algebra.o \
 		interface.o \
 		lights.o \
 		main.o \
+		multi_val.o \
 		my_ui_loader.o \
+		one_parameter.o \
 		old_settings.o \
 		parameters.o \
 		primitives.o \
@@ -252,7 +256,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../src/interface.cpp \
 		../src/lights.cpp \
 		../src/main.cpp \
+		../src/multi_val.cpp \
 		../src/my_ui_loader.cpp \
+		../src/one_parameter.cpp \
 		../src/old_settings.cpp \
 		../src/parameters.cpp \
 		../src/primitives.cpp \
@@ -444,7 +450,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/mandelbulber21.0.0 || mkdir -p .tmp/mandelbulber21.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../qt/myspinbox.h ../qt/mydoublespinbox.h ../qt/mycheckbox.h ../qt/mygroupbox.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp ../src/animation_flight.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/animation_frames.cpp ../src/animation_flight.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_container.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/global_data.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/my_ui_loader.cpp ../src/old_settings.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/random.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp ../src/thumbnail.cpp ../src/undo.cpp ../qt/mygroupbox.cpp ../qt/mylineedit.cpp ../qt/myspinbox.cpp ../qt/mydoublespinbox.cpp ../qt/mycheckbox.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../language/en.ts ../language/de.ts ../language/pl.ts .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../qt/myspinbox.h ../qt/mydoublespinbox.h ../qt/mycheckbox.h ../qt/mygroupbox.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp ../src/animation_flight.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/animation_frames.cpp ../src/animation_flight.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_container.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/global_data.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/lights.cpp ../src/main.cpp ../src/multi_val.cpp ../src/my_ui_loader.cpp ../src/one_parameter.cpp ../src/old_settings.cpp ../src/parameters.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/random.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp ../src/thumbnail.cpp ../src/undo.cpp ../qt/mygroupbox.cpp ../qt/mylineedit.cpp ../qt/myspinbox.cpp ../qt/mydoublespinbox.cpp ../qt/mycheckbox.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../language/en.ts ../language/de.ts ../language/pl.ts .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
 
 
 clean:compiler_clean 
@@ -501,6 +507,8 @@ moc_render_window.cpp: ../qt/ui_render_window.h \
 		../qt/mycheckbox.h \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -518,6 +526,8 @@ moc_render_worker.cpp: ../src/cimage.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
@@ -539,6 +549,8 @@ moc_mylineedit.cpp: ../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../qt/mylineedit.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mylineedit.h -o moc_mylineedit.cpp
 
@@ -546,6 +558,8 @@ moc_myspinbox.cpp: ../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../qt/myspinbox.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/myspinbox.h -o moc_myspinbox.cpp
 
@@ -553,6 +567,8 @@ moc_mydoublespinbox.cpp: ../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../qt/mydoublespinbox.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mydoublespinbox.h -o moc_mydoublespinbox.cpp
 
@@ -560,6 +576,8 @@ moc_mycheckbox.cpp: ../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../qt/mycheckbox.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mycheckbox.h -o moc_mycheckbox.cpp
 
@@ -567,6 +585,8 @@ moc_mygroupbox.cpp: ../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../qt/mygroupbox.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mygroupbox.h -o moc_mygroupbox.cpp
 
@@ -584,6 +604,8 @@ moc_ssao_worker.cpp: ../src/fractparams.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
@@ -602,6 +624,8 @@ moc_rendered_image_widget.cpp: ../src/cimage.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/rendered_image_widget.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/rendered_image_widget.hpp -o moc_rendered_image_widget.cpp
 
@@ -610,7 +634,22 @@ moc_animation_flight.cpp: ../src/animation_frames.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/fractal_container.hpp \
+		../src/interface.hpp \
+		../src/render_window.hpp \
+		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/mycheckbox.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/mylineedit.h \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
+		../src/cimage.hpp \
+		../src/rendered_image_widget.hpp \
+		../src/primitives.h \
 		../src/animation_flight.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/animation_flight.hpp -o moc_animation_flight.cpp
 
@@ -631,24 +670,34 @@ compiler_uic_clean:
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/color_palette.hpp \
 		../src/color_structures.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
-		../src/color_palette.hpp
+		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic ../qt/render_window.ui -o ../qt/ui_render_window.h
 
 compiler_yacc_decl_make_all:
@@ -669,6 +718,8 @@ animation_frames.o: ../src/animation_frames.cpp ../src/animation_frames.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/fractal_container.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animation_frames.o ../src/animation_frames.cpp
 
@@ -678,7 +729,37 @@ animation_flight.o: ../src/animation_flight.cpp ../src/animation_flight.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
-		../src/fractal_container.hpp
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
+		../src/fractal_container.hpp \
+		../src/interface.hpp \
+		../src/render_window.hpp \
+		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/mycheckbox.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/mylineedit.h \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
+		../src/cimage.hpp \
+		../src/rendered_image_widget.hpp \
+		../src/primitives.h \
+		../src/global_data.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp \
+		../src/system.hpp \
+		../src/files.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animation_flight.o ../src/animation_flight.cpp
 
 calculate_distance.o: ../src/calculate_distance.cpp ../src/calculate_distance.hpp \
@@ -688,6 +769,8 @@ calculate_distance.o: ../src/calculate_distance.cpp ../src/calculate_distance.hp
 		../src/color_structures.hpp \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
@@ -709,6 +792,8 @@ compute_fractal.o: ../src/compute_fractal.cpp ../src/compute_fractal.hpp \
 		../src/color_structures.hpp \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
@@ -726,6 +811,8 @@ color_palette.o: ../src/color_palette.cpp ../src/color_palette.hpp \
 		../src/cimage.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp \
 		../src/random.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o color_palette.o ../src/color_palette.cpp
@@ -743,6 +830,8 @@ common_math.o: ../src/common_math.cpp ../src/common_math.h \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o common_math.o ../src/common_math.cpp
 
@@ -756,10 +845,15 @@ dof.o: ../src/dof.cpp ../src/dof.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp \
 		../src/progress_text.hpp \
-		../src/interface.hpp \
+		../src/global_data.hpp \
 		../src/fractal_container.hpp \
+		../src/animation_frames.hpp \
+		../src/animation_flight.hpp \
+		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
@@ -769,9 +863,7 @@ dof.o: ../src/dof.cpp ../src/dof.hpp \
 		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
-		../src/rendered_image_widget.hpp \
-		../src/animation_flight.hpp \
-		../src/animation_frames.hpp
+		../src/rendered_image_widget.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dof.o ../src/dof.cpp
 
 error_message.o: ../src/error_message.cpp ../src/error_message.hpp \
@@ -786,6 +878,8 @@ fractparams.o: ../src/fractparams.cpp ../src/fractparams.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fractparams.o ../src/fractparams.cpp
 
@@ -803,6 +897,8 @@ four_fractals.o: ../src/four_fractals.cpp ../src/four_fractals.hpp \
 		../src/parameters.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/fractal_container.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o four_fractals.o ../src/four_fractals.cpp
 
@@ -812,6 +908,8 @@ fractal.o: ../src/fractal.cpp ../src/fractal.h \
 		../src/parameters.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fractal.o ../src/fractal.cpp
 
@@ -819,7 +917,9 @@ fractal_container.o: ../src/fractal_container.cpp ../src/fractal_container.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
-		../src/color_palette.hpp
+		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fractal_container.o ../src/fractal_container.cpp
 
 fractal_formulas.o: ../src/fractal_formulas.cpp ../src/fractal_formulas.hpp \
@@ -830,6 +930,8 @@ fractal_formulas.o: ../src/fractal_formulas.cpp ../src/fractal_formulas.hpp \
 		../src/parameters.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/fractal_container.hpp \
 		../src/common_math.h \
 		../src/fractparams.hpp \
@@ -847,8 +949,24 @@ global_data.o: ../src/global_data.cpp ../src/global_data.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/fractal_container.hpp \
-		../src/animation_frames.hpp
+		../src/animation_frames.hpp \
+		../src/animation_flight.hpp \
+		../src/interface.hpp \
+		../src/render_window.hpp \
+		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/mycheckbox.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/mylineedit.h \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
+		../src/cimage.hpp \
+		../src/rendered_image_widget.hpp \
+		../src/primitives.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o global_data.o ../src/global_data.cpp
 
 initparameters.o: ../src/initparameters.cpp ../src/fractparams.hpp \
@@ -859,6 +977,8 @@ initparameters.o: ../src/initparameters.cpp ../src/fractparams.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
@@ -870,6 +990,8 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/fractal_container.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
@@ -883,8 +1005,6 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/primitives.h \
-		../src/animation_flight.hpp \
-		../src/animation_frames.hpp \
 		../src/system.hpp \
 		../src/fractal_list.hpp \
 		../src/render_job.hpp \
@@ -897,9 +1017,9 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
+		../src/camera_target.hpp \
 		../src/calculate_distance.hpp \
 		../src/compute_fractal.hpp \
-		../src/camera_target.hpp \
 		../src/error_message.hpp \
 		../src/my_ui_loader.h \
 		../src/render_ssao.h \
@@ -907,7 +1027,10 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/common_math.h \
 		../src/undo.h \
 		../src/initparameters.hpp \
-		../src/global_data.hpp
+		../src/global_data.hpp \
+		../src/animation_frames.hpp \
+		../src/animation_flight.hpp \
+		../src/progress_text.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interface.o ../src/interface.cpp
 
 lights.o: ../src/lights.cpp ../src/lights.hpp \
@@ -915,6 +1038,8 @@ lights.o: ../src/lights.cpp ../src/lights.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/fractal_container.hpp \
 		../src/calculate_distance.hpp \
 		../src/compute_fractal.hpp \
@@ -940,6 +1065,8 @@ main.o: ../src/main.cpp ../src/main.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp \
 		../src/interface.hpp \
 		../src/fractal_container.hpp \
@@ -953,13 +1080,16 @@ main.o: ../src/main.cpp ../src/main.hpp \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
-		../src/animation_flight.hpp \
-		../src/animation_frames.hpp \
 		../src/initparameters.hpp \
 		../src/fractal_list.hpp \
 		../src/undo.h \
-		../src/global_data.hpp
+		../src/global_data.hpp \
+		../src/animation_frames.hpp \
+		../src/animation_flight.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
+
+multi_val.o: ../src/multi_val.cpp ../src/multi_val.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o multi_val.o ../src/multi_val.cpp
 
 my_ui_loader.o: ../src/my_ui_loader.cpp ../src/my_ui_loader.h \
 		../qt/mylineedit.h \
@@ -967,17 +1097,25 @@ my_ui_loader.o: ../src/my_ui_loader.cpp ../src/my_ui_loader.h \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../qt/myspinbox.h \
 		../qt/mydoublespinbox.h \
 		../qt/mycheckbox.h \
 		../qt/mygroupbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o my_ui_loader.o ../src/my_ui_loader.cpp
 
+one_parameter.o: ../src/one_parameter.cpp ../src/one_parameter.hpp \
+		../src/multi_val.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o one_parameter.o ../src/one_parameter.cpp
+
 old_settings.o: ../src/old_settings.cpp ../src/old_settings.hpp \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/fractal_container.hpp \
 		../src/system.hpp \
 		../src/error_message.hpp \
@@ -994,7 +1132,9 @@ old_settings.o: ../src/old_settings.cpp ../src/old_settings.hpp \
 parameters.o: ../src/parameters.cpp ../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
-		../src/color_palette.hpp
+		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parameters.o ../src/parameters.cpp
 
 primitives.o: ../src/primitives.cpp ../src/primitives.h \
@@ -1002,6 +1142,8 @@ primitives.o: ../src/primitives.cpp ../src/primitives.h \
 		../src/color_structures.hpp \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/system.hpp \
 		../src/common_math.h \
 		../src/fractparams.hpp \
@@ -1018,6 +1160,8 @@ preview_file_dialog.o: ../src/preview_file_dialog.cpp ../src/preview_file_dialog
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/thumbnail.hpp \
 		../src/render_job.hpp \
 		../src/cimage.hpp \
@@ -1033,6 +1177,7 @@ preview_file_dialog.o: ../src/preview_file_dialog.cpp ../src/preview_file_dialog
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
+		../src/camera_target.hpp \
 		../src/settings.hpp \
 		../src/initparameters.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o preview_file_dialog.o ../src/preview_file_dialog.cpp
@@ -1049,6 +1194,8 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp \
 		../src/four_fractals.hpp \
 		../src/fractal.h \
@@ -1062,6 +1209,12 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../src/render_worker.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/progress_text.hpp \
+		../src/error_message.hpp \
+		../src/render_ssao.h \
+		../src/global_data.hpp \
+		../src/animation_frames.hpp \
+		../src/animation_flight.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
@@ -1072,12 +1225,7 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
-		../src/rendered_image_widget.hpp \
-		../src/animation_flight.hpp \
-		../src/animation_frames.hpp \
-		../src/progress_text.hpp \
-		../src/error_message.hpp \
-		../src/render_ssao.h
+		../src/rendered_image_widget.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_image.o ../src/render_image.cpp
 
 rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_widget.hpp \
@@ -1086,6 +1234,8 @@ rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/fractparams.hpp \
 		../src/texture.hpp \
 		../src/primitives.h \
@@ -1093,7 +1243,18 @@ rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_
 		../src/common_math.h \
 		../src/global_data.hpp \
 		../src/fractal_container.hpp \
-		../src/animation_frames.hpp
+		../src/animation_frames.hpp \
+		../src/animation_flight.hpp \
+		../src/interface.hpp \
+		../src/render_window.hpp \
+		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/mycheckbox.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/mylineedit.h \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rendered_image_widget.o ../src/rendered_image_widget.cpp
 
 render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
@@ -1101,6 +1262,8 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/cimage.hpp \
 		../src/render_image.hpp \
 		../src/fractparams.hpp \
@@ -1114,7 +1277,11 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
+		../src/camera_target.hpp \
 		../src/system.hpp \
+		../src/global_data.hpp \
+		../src/animation_frames.hpp \
+		../src/animation_flight.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
@@ -1126,8 +1293,7 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
-		../src/animation_flight.hpp \
-		../src/animation_frames.hpp
+		../src/progress_text.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_job.o ../src/render_job.cpp
 
 render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
@@ -1139,6 +1305,8 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
@@ -1146,6 +1314,9 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../src/region.hpp \
 		../src/progress_text.hpp \
 		../src/ssao_worker.h \
+		../src/global_data.hpp \
+		../src/animation_frames.hpp \
+		../src/animation_flight.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
@@ -1157,8 +1328,6 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
-		../src/animation_flight.hpp \
-		../src/animation_frames.hpp \
 		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_ssao.o ../src/render_ssao.cpp
 
@@ -1170,6 +1339,8 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../qt/mycheckbox.h \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1180,8 +1351,6 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/fractal_container.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/primitives.h \
-		../src/animation_flight.hpp \
-		../src/animation_frames.hpp \
 		../src/fractal_list.hpp \
 		../src/system.hpp \
 		../src/settings.hpp \
@@ -1198,12 +1367,16 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
+		../src/camera_target.hpp \
 		../src/undo.h \
 		../src/old_settings.hpp \
 		../src/common_math.h \
 		../src/my_ui_loader.h \
 		../src/preview_file_dialog.h \
-		../src/global_data.hpp
+		../src/global_data.hpp \
+		../src/animation_frames.hpp \
+		../src/animation_flight.hpp \
+		../src/progress_text.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_window.o ../src/render_window.cpp
 
 render_worker.o: ../src/render_worker.cpp ../src/render_worker.hpp \
@@ -1215,6 +1388,8 @@ render_worker.o: ../src/render_worker.cpp ../src/render_worker.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
@@ -1239,6 +1414,8 @@ settings.o: ../src/settings.cpp ../src/settings.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/fractal_container.hpp \
 		../src/system.hpp \
 		../src/error_message.hpp \
@@ -1259,6 +1436,8 @@ shaders.o: ../src/shaders.cpp ../src/render_worker.hpp \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp \
 		../src/fractal.h \
 		../src/fractal_list.hpp \
@@ -1286,6 +1465,8 @@ ssao_worker.o: ../src/ssao_worker.cpp ../src/ssao_worker.h \
 		../src/primitives.h \
 		../src/parameters.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/commonparams.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
@@ -1307,6 +1488,8 @@ thumbnail.o: ../src/thumbnail.cpp ../src/thumbnail.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/cimage.hpp \
 		../src/render_image.hpp \
 		../src/fractparams.hpp \
@@ -1320,8 +1503,10 @@ thumbnail.o: ../src/thumbnail.cpp ../src/thumbnail.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
+		../src/camera_target.hpp \
 		../src/files.h \
-		../src/system.hpp
+		../src/system.hpp \
+		../src/settings.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o thumbnail.o ../src/thumbnail.cpp
 
 undo.o: ../src/undo.cpp ../src/undo.h \
@@ -1329,6 +1514,8 @@ undo.o: ../src/undo.cpp ../src/undo.h \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
 		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
 		../src/fractal_container.hpp \
 		../src/error_message.hpp \
 		../src/system.hpp
@@ -1338,35 +1525,45 @@ mygroupbox.o: ../qt/mygroupbox.cpp ../qt/mygroupbox.h \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
-		../src/color_palette.hpp
+		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mygroupbox.o ../qt/mygroupbox.cpp
 
 mylineedit.o: ../qt/mylineedit.cpp ../qt/mylineedit.h \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
-		../src/color_palette.hpp
+		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mylineedit.o ../qt/mylineedit.cpp
 
 myspinbox.o: ../qt/myspinbox.cpp ../qt/myspinbox.h \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
-		../src/color_palette.hpp
+		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o myspinbox.o ../qt/myspinbox.cpp
 
 mydoublespinbox.o: ../qt/mydoublespinbox.cpp ../qt/mydoublespinbox.h \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
-		../src/color_palette.hpp
+		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mydoublespinbox.o ../qt/mydoublespinbox.cpp
 
 mycheckbox.o: ../qt/mycheckbox.cpp ../qt/mycheckbox.h \
 		../src/parameters.hpp \
 		../src/algebra.hpp \
 		../src/color_structures.hpp \
-		../src/color_palette.hpp
+		../src/color_palette.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mycheckbox.o ../qt/mycheckbox.cpp
 
 qrc_icons.o: qrc_icons.cpp 

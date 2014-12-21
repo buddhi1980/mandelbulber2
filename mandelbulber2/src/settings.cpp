@@ -102,10 +102,10 @@ QString cSettings::CreateOneLine(const cParameterContainer *par, QString name)
 		if (format == formatFullText || format == formatCondensedText)
 		{
 			QString value;
-			cParameterContainer::enumVarType type = par->GetVarType(name);
+			enumVarType type = par->GetVarType(name);
 			if (!par->isDefaultValue(name) || format == formatFullText)
 			{
-				if (type == cParameterContainer::typeBool)
+				if (type == typeBool)
 				{
 					bool bValue = par->Get<bool>(name);
 					value = bValue ? "true" : "false";
@@ -307,9 +307,9 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 		}
 	}
 
-	cParameterContainer::enumVarType varType = par->GetVarType(parameterName);
+	enumVarType varType = par->GetVarType(parameterName);
 
-	if (varType != cParameterContainer::typeString)
+	if (varType != typeString)
 	{
 		if (systemData.decimalPoint == '.')
 		{
@@ -321,13 +321,13 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 		}
 	}
 
-	if(varType == cParameterContainer::null)
+	if(varType == typeNull)
 	{
 		return false;
 	}
 	else
 	{
-		if(varType == cParameterContainer::typeBool)
+		if(varType == typeBool)
 		{
 			value = (value == QString("true")) ? "1" : "0";
 		}

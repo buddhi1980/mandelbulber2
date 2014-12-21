@@ -34,7 +34,9 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/interface.cpp\
 	    	../src/lights.cpp\
 	    	../src/main.cpp\
+	    	../src/multi_val.cpp\
 	    	../src/my_ui_loader.cpp\
+	    	../src/one_parameter.cpp\
 	    	../src/old_settings.cpp\
 	    	../src/parameters.cpp\
 	    	../src/primitives.cpp\

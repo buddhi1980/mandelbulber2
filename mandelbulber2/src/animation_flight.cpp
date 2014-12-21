@@ -85,6 +85,9 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *frames)
 	double inertia = 10.0;
 	int index = 0;
 
+	QTableWidget *table = ui->tableWidget_flightAnimation;
+	PrepareTable(table);
+
 	while(!interface->stopRequest)
 	{
 		CVector2<double> mousePosition = interface->renderedImage->GetLastMousePositionScaled();
@@ -118,7 +121,23 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *frames)
 
 		frames->AddFrame(*gPar, *gParFractal);
 
+		int newColumn = table->columnCount();
+		table->insertColumn(newColumn);
+
+		table->setItem(1, newColumn, new QTableWidgetItem(QString::number(cameraPosition.x, 'g', 16)));
+		table->setItem(2, newColumn, new QTableWidgetItem(QString::number(cameraPosition.y, 'g', 16)));
+		table->setItem(3, newColumn, new QTableWidgetItem(QString::number(cameraPosition.z, 'g', 16)));
+		table->setItem(4, newColumn, new QTableWidgetItem(QString::number(cameraTarget.GetRotation().x * 180.0 / M_PI, 'g', 16)));
+		table->setItem(5, newColumn, new QTableWidgetItem(QString::number(cameraTarget.GetRotation().y * 180.0 / M_PI, 'g', 16)));
+		table->setItem(6, newColumn, new QTableWidgetItem(QString::number(cameraTarget.GetRotation().z * 180.0 / M_PI, 'g', 16)));
+
 		renderJob->Execute();
+
+		QImage qimage((const uchar*)interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), interface->mainImage->GetWidth()*sizeof(sRGB8), QImage::Format_RGB888);
+		QPixmap pixmap;
+		pixmap.convertFromImage(qimage);
+		QIcon icon(pixmap.scaled(QSize(100, 70), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+		table->setItem(0, newColumn, new QTableWidgetItem(icon, QString()));
 
 		//TODO now is temporarysaving of images
 		QString filename = systemData.dataDirectory + "images/image" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
@@ -127,4 +146,28 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *frames)
 	}
 
 	delete renderJob;
+}
+
+void cFlightAnimation::PrepareTable(QTableWidget *table)
+{
+	table->clear();
+	table->setRowCount(0);
+	table->setColumnCount(0);
+	table->setIconSize(QSize(100, 70));
+
+	table->insertRow(0);
+	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("preview")));
+	table->insertRow(1);
+	table->setVerticalHeaderItem(1, new QTableWidgetItem(tr("pos X")));
+	table->insertRow(2);
+	table->setVerticalHeaderItem(2, new QTableWidgetItem(tr("pos Y")));
+	table->insertRow(3);
+	table->setVerticalHeaderItem(3, new QTableWidgetItem(tr("pos Z")));
+	table->insertRow(4);
+	table->setVerticalHeaderItem(4, new QTableWidgetItem(tr("yaw")));
+	table->insertRow(5);
+	table->setVerticalHeaderItem(5, new QTableWidgetItem(tr("pitch")));
+	table->insertRow(6);
+	table->setVerticalHeaderItem(6, new QTableWidgetItem(tr("roll")));
+	table->setRowHeight(0, 70);
 }
