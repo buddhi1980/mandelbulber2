@@ -37,6 +37,8 @@ private slots:
 void slotRecordFilght();
 
 private:
+	void PrepareTable(QTableWidget *table);
+	void SetRowNamesInTable(QTableWidget *table);
 	cInterface *interface;
 	Ui::RenderWindow *ui;
 	cAnimationFrames *frames;

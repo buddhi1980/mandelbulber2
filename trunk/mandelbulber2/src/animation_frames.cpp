@@ -24,37 +24,40 @@
 
 cAnimationFrames::cAnimationFrames()
 {
-	listPar.clear();
-	listFract.clear();
+	list.clear();
 }
 
 void cAnimationFrames::AddFrame(const cParameterContainer &params, const cFractalContainer &fractal)
 {
-	listPar.append(params);
-	listFract.append(fractal);
+	sAnimationFrame frame;
+	frame.fract = fractal;
+	frame.par = params;
+	list.append(frame);
 }
 
 bool cAnimationFrames::GetFrame(int index, cParameterContainer *params, cFractalContainer *fractal)
 {
-	int count = listPar.count();
+	int count = list.count();
 	if(index < count)
 	{
-		*params = listPar.at(index);
+		*params = list.at(index).par;
+		*fractal = list.at(index).fract;
 		return true;
 	}
 	else
 	{
-		*fractal = listFract.at(index);
 		return false;
 	}
 }
 
 int cAnimationFrames::GetNumberOfFrames()
 {
-	return listPar.count();
+	return list.count();
 }
 
 void cAnimationFrames::Clear()
 {
 	cAnimationFrames();
 }
+
+

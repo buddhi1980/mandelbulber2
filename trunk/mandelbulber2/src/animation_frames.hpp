@@ -25,15 +25,24 @@
 
 #include "parameters.hpp"
 #include "fractal_container.hpp"
+#include <QPixmap>
 
 class cAnimationFrames
 {
+	struct sAnimationFrame
+	{
+		cParameterContainer par;
+		cFractalContainer fract;
+		QPixmap thumnail;
+	};
+
 public:
 	cAnimationFrames();
 	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal);
 	bool GetFrame(int index, cParameterContainer *params, cFractalContainer *fractal);
 	int GetNumberOfFrames();
 	void Clear();
+	void AddAnimagedParameter(QString parameterName);
 
 	template<class T>
 	void SubstituteValueForAll(QString parameterName, T value);
@@ -41,8 +50,8 @@ public:
 	QStringList GetListOfUsedParameters();
 
 private:
-	QList<cParameterContainer> listPar;
-	QList<cFractalContainer> listFract;
+	QList<sAnimationFrame> list;
+	QStringList animatedParameters;
 };
 
 #endif /* SRC_ANIMATION_FRAMES_HPP_ */

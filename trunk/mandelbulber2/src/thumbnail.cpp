@@ -23,6 +23,7 @@
 #include "thumbnail.hpp"
 #include "files.h"
 #include <QFileInfo>
+#include "settings.hpp"
 
 cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal, int _width, int _height, const QString &_hash = QString())
 	: params(_params), fractal(_fractal), width(_width), height(_height), hash(_hash)
@@ -41,6 +42,15 @@ cThumbnail::~cThumbnail()
 QPixmap cThumbnail::Render()
 {
 	QPixmap pixmap;
+
+	//TODO background rendering
+
+	if(hash.isEmpty())
+	{
+		cSettings tempSettings(cSettings::formatCondensedText);
+		tempSettings.CreateText(params, fractal);
+		hash = tempSettings.GetHashCode();
+	}
 
 	QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
 	if(QFileInfo::exists(thumbnailFileName))
