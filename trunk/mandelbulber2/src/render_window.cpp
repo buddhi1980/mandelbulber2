@@ -493,7 +493,7 @@ void RenderWindow::slotMenuSaveSettings()
 {
 	cSettings parSettings(cSettings::formatCondensedText);
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	parSettings.CreateText(gPar, gParFractal);
+	parSettings.CreateText(gPar, gParFractal, gAnimFrames);
 
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);

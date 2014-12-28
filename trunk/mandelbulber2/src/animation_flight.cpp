@@ -31,11 +31,11 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, QObject *parent) : QO
 	ui = interface->mainWindow->ui;
 	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFilght()));
 	frames = NULL;
+	table = ui->tableWidget_flightAnimation;
 }
 
 void cFlightAnimation::slotRecordFilght()
 {
-	qDebug() << "record flight animation";
 	if(gAnimFrames)
 	{
 		RecordFlight(gAnimFrames);
@@ -46,20 +46,23 @@ void cFlightAnimation::slotRecordFilght()
 	}
 }
 
-void cFlightAnimation::RecordFlight(cAnimationFrames *frames)
+void cFlightAnimation::RecordFlight(cAnimationFrames *_frames)
 {
 	//TODO displaying of frames as thumbnails or table
 	//TODO saving of all frames into csv file
 
+	frames = _frames;
 	frames->Clear();
+
+	PrepareTable();
+
+
 
 	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, interface->mainImage, &interface->stopRequest, interface->renderedImage);
 	renderJob->AssingStatusAndProgessBar(ui->statusbar, interface->progressBar);
-
 	renderJob->Init(cRenderJob::flightAnimRecord);
-
 	interface->stopRequest = false;
 
 	CVector3 cameraSpeed;
@@ -68,7 +71,6 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *frames)
 	CVector3 cameraAngularSpeed;
 	CVector3 cameraAngularAcceleration;
 	CVector3 cameraRotation;
-
 	CVector3 cameraPosition = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 top = gPar->Get<CVector3>("camera_top");
@@ -80,22 +82,25 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *frames)
 	renderJob->SetMaxRenderTime(maxRenderTime);
 
 	//TODO variable speed depending on distance to fractal surface
-	double linearSpeed = 0.01;
+	double linearSpeed = gPar->Get<double>("flight_speed");
 	double rotationSpeed = 0.1;
-	double inertia = 10.0;
+	double inertia = gPar->Get<double>("flight_inertia");
 	int index = 0;
-
-	QTableWidget *table = ui->tableWidget_flightAnimation;
-	PrepareTable(table);
 
 	while(!interface->stopRequest)
 	{
 		CVector2<double> mousePosition = interface->renderedImage->GetLastMousePositionScaled();
 
+		//speed
+		double distanceToSurface = mainInterface->GetDistanceForPoint(cameraPosition, gPar, gParFractal);
+		linearSpeed = distanceToSurface * 0.05;
+
+		//integrator for position
 		cameraAcceleration = (cameraTarget.GetForwardVector() * linearSpeed - cameraSpeed)/(inertia + 1.0);
 		cameraSpeed += cameraAcceleration;
 		cameraPosition += cameraSpeed;
 
+		//rotation
 		cameraAngularAcceleration.x = (mousePosition.x * rotationSpeed - cameraAngularSpeed.x) / (inertia + 1.0);
 		cameraAngularAcceleration.y = (mousePosition.y * rotationSpeed - cameraAngularSpeed.y) / (inertia + 1.0);
 		cameraAngularSpeed += cameraAngularAcceleration;
@@ -107,32 +112,29 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *frames)
 		top = cameraTarget.GetTopVector();
 		top = top.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), -cameraAngularSpeed.y);
 
+		//update position and rotation
 		target = cameraPosition + forwardVector * cameraSpeed.Length();
 		cameraTarget.SetCameraTargetTop(cameraPosition, target, top);
 
+		//update parameters
 		gPar->Set("camera", cameraPosition);
-		gPar->Set("target", cameraPosition);
+		gPar->Set("target", target);
 		gPar->Set("camera_top", top);
 		gPar->Set("camera_rotation", cameraTarget.GetRotation()*180.0 / M_PI);
 		gPar->Set("camera_distance_to_target", cameraTarget.GetDistance());
 		interface->SynchronizeInterfaceWindow(ui->dockWidget_navigation, gPar, cInterface::write);
-
 		renderJob->ChangeCameraTargetPosition(cameraTarget);
 
+		//add new frame to container
 		frames->AddFrame(*gPar, *gParFractal);
 
-		int newColumn = table->columnCount();
-		table->insertColumn(newColumn);
+		//add column to table
+		int newColumn = AddColumn(frames->GetFrame(frames->GetNumberOfFrames() - 1));
 
-		table->setItem(1, newColumn, new QTableWidgetItem(QString::number(cameraPosition.x, 'g', 16)));
-		table->setItem(2, newColumn, new QTableWidgetItem(QString::number(cameraPosition.y, 'g', 16)));
-		table->setItem(3, newColumn, new QTableWidgetItem(QString::number(cameraPosition.z, 'g', 16)));
-		table->setItem(4, newColumn, new QTableWidgetItem(QString::number(cameraTarget.GetRotation().x * 180.0 / M_PI, 'g', 16)));
-		table->setItem(5, newColumn, new QTableWidgetItem(QString::number(cameraTarget.GetRotation().y * 180.0 / M_PI, 'g', 16)));
-		table->setItem(6, newColumn, new QTableWidgetItem(QString::number(cameraTarget.GetRotation().z * 180.0 / M_PI, 'g', 16)));
-
+		//render frame
 		renderJob->Execute();
 
+		//create thumbnail
 		QImage qimage((const uchar*)interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), interface->mainImage->GetWidth()*sizeof(sRGB8), QImage::Format_RGB888);
 		QPixmap pixmap;
 		pixmap.convertFromImage(qimage);
@@ -148,26 +150,93 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *frames)
 	delete renderJob;
 }
 
-void cFlightAnimation::PrepareTable(QTableWidget *table)
+void cFlightAnimation::PrepareTable()
 {
 	table->clear();
+	CreateRowsInTable();
+}
+
+void cFlightAnimation::CreateRowsInTable()
+{
+	QList<cAnimationFrames::sParameterDescription> parList = frames->GetListOfUsedParameters();
+	tableRowNames.clear();
 	table->setRowCount(0);
 	table->setColumnCount(0);
 	table->setIconSize(QSize(100, 70));
 
 	table->insertRow(0);
 	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("preview")));
-	table->insertRow(1);
-	table->setVerticalHeaderItem(1, new QTableWidgetItem(tr("pos X")));
-	table->insertRow(2);
-	table->setVerticalHeaderItem(2, new QTableWidgetItem(tr("pos Y")));
-	table->insertRow(3);
-	table->setVerticalHeaderItem(3, new QTableWidgetItem(tr("pos Z")));
-	table->insertRow(4);
-	table->setVerticalHeaderItem(4, new QTableWidgetItem(tr("yaw")));
-	table->insertRow(5);
-	table->setVerticalHeaderItem(5, new QTableWidgetItem(tr("pitch")));
-	table->insertRow(6);
-	table->setVerticalHeaderItem(6, new QTableWidgetItem(tr("roll")));
 	table->setRowHeight(0, 70);
+	tableRowNames.append(tr("preview"));
+
+	parameterRows.clear();
+	for (int i = 0; i < parList.size(); ++i)
+	{
+		int row = AddVariableToTable(parList[i]);
+		parameterRows.append(row);
+	}
+}
+
+int cFlightAnimation::AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription)
+{
+	using namespace parameterContainer;
+	enumVarType type = parameterDescription.varType;
+	int row = table->rowCount();
+	if (type == typeVector3)
+	{
+		QString varName;
+		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
+		tableRowNames.append(varName);
+		table->insertRow(row);
+		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
+		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_y";
+		tableRowNames.append(varName);
+		table->insertRow(row + 1);
+		table->setVerticalHeaderItem(row + 1, new QTableWidgetItem(varName));
+		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_z";
+		tableRowNames.append(varName);
+		table->insertRow(row + 2);
+		table->setVerticalHeaderItem(row + 2, new QTableWidgetItem(varName));
+	}
+	else
+	{
+		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName;
+		tableRowNames.append(varName);
+		table->insertRow(table->rowCount());
+		table->setVerticalHeaderItem(table->rowCount() - 1, new QTableWidgetItem(varName));
+	}
+	//TODO other parameter types
+	return row;
+}
+
+int cFlightAnimation::AddColumn(const cParameterContainer &params)
+{
+	int newColumn = table->columnCount();
+	table->insertColumn(newColumn);
+
+	QList<cAnimationFrames::sParameterDescription> parList = frames->GetListOfUsedParameters();
+
+	using namespace parameterContainer;
+	for(int i=0; i<parList.size(); ++i)
+	{
+		QString parameterName = parList[i].containerName + "_" + parList[i].parameterName;
+		enumVarType type = parList[i].varType;
+		int row = parameterRows[i];
+
+		if (type == typeVector3)
+		{
+			CVector3 val = params.Get<CVector3>(parameterName);
+			table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.x, 'g', 16)));
+			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.y, 'g', 16)));
+			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.z, 'g', 16)));
+		}
+		else
+		{
+			QString val = params.Get<QString>(parameterName);
+			table->setItem(row, newColumn, new QTableWidgetItem(val));
+		}
+		//TODO other parameter types
+	}
+
+	return newColumn;
 }

@@ -26,6 +26,7 @@
 #include <QCryptographicHash>
 #include "primitives.h"
 #include "initparameters.hpp"
+#include "animation_frames.hpp"
 
 cSettings::cSettings(enumFormat _format)
 {
@@ -37,12 +38,13 @@ cSettings::cSettings(enumFormat _format)
 	quiet = false;
 }
 
-size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar)
+size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames)
 {
 	settingsText.clear();
 	settingsText += CreateHeader();
 	settingsText += "[main_parameters]\n";
 
+	//standard parameters
 	QList<QString> parameterList = par->GetListOfParameters();
 	for(int i = 0; i < parameterList.size(); i++)
 	{
@@ -60,6 +62,62 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 		parameterListFractal.clear();
 	}
 
+	//animation
+	if (frames)
+	{
+		if (frames->GetNumberOfFrames() > 0)
+		{
+			settingsText += "[frames]\n";
+			QList<cAnimationFrames::sParameterDescription> parameterList = frames->GetListOfUsedParameters();
+			//header
+			settingsText += "frame;";
+			for (int i = 0; i < parameterList.size(); ++i)
+			{
+				if(parameterList[i].varType == parameterContainer::typeVector3)
+				{
+					settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_x;";
+					settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_y;";
+					settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_z";
+				}
+				else
+				{
+					settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName;
+				}
+				//TODO other parameter types
+
+				if (i != parameterList.size() - 1)
+				{
+					settingsText += ";";
+				}
+			}
+			settingsText += "\n";
+			for (int f = 0; f < frames->GetNumberOfFrames(); ++f)
+			{
+				settingsText += QString::number(f) + ";";
+				for (int i = 0; i < parameterList.size(); ++i)
+				{
+					if(parameterList[i].varType == parameterContainer::typeVector3)
+					{
+						CVector3 val = frames->GetFrame(f).Get<CVector3>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						settingsText += QString::number(val.x, 'g', 16) + ";";
+						settingsText += QString::number(val.y, 'g', 16) + ";";
+						settingsText += QString::number(val.z, 'g', 16);
+					}
+					else
+					{
+						settingsText += frames->GetFrame(f).Get<QString>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+					}
+					//TODO other parameter types
+
+					if (i != parameterList.size() - 1)
+					{
+						settingsText += ";";
+					}
+				}
+				settingsText += "\n";
+			}
+		}
+	}
 	textPrepared = true;
 
 	//hash code will be needed for generating thumbnails
@@ -83,9 +141,6 @@ QString cSettings::CreateHeader()
 			break;
 		case formatCondensedText:
 			header += "# only modified parameters\n";
-			break;
-		case formatCsv:
-			header += "# column separated format\n";
 			break;
 		case formatAppSettings:
 			//TODO cSettings::CreateHeader() for AppSettings
@@ -211,10 +266,6 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 			else if(thirdLine.contains("only modified parameters"))
 			{
 				format = formatCondensedText;
-			}
-			else if(thirdLine.contains("column separated format"))
-			{
-				format = formatCsv;
 			}
 			else
 			{

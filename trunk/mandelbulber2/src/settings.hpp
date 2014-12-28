@@ -25,6 +25,7 @@
 
 #include "parameters.hpp"
 #include "fractal_container.hpp"
+#include "animation_frames.hpp"
 #include <QtCore>
 
 class cSettings
@@ -34,12 +35,11 @@ public:
 	{
 		formatFullText,
 		formatCondensedText,
-		formatCsv,
 		formatAppSettings
 	};
 
 	cSettings(enumFormat _format);
-	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar);
+	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames = NULL);
 	bool SaveToFile(QString filename);
 	bool LoadFromFile(QString filename);
 	bool Decode(cParameterContainer *par, cFractalContainer *fractPar);

@@ -49,6 +49,7 @@ void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType mor
 	newRecord.Set(defaultVal, valueActual);
 	newRecord.SetMorphType(morphType);
 	newRecord.SetParameterType(parType);
+	newRecord.SetOriginalContainerName(containerName);
 
 	if(myMap.find(name) != myMap.end())
 	{
@@ -78,6 +79,7 @@ void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVa
 	newRecord.Set(maxVal, valueMax);
 	newRecord.SetMorphType(morphType);
 	newRecord.SetParameterType(parType);
+	newRecord.SetOriginalContainerName(containerName);
 
 	if(myMap.find(name) != myMap.end())
 	{
@@ -104,6 +106,7 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMo
 		newRecord.Set(defaultVal, valueActual);
 		newRecord.SetMorphType(morphType);
 		newRecord.SetParameterType(parType);
+		newRecord.SetOriginalContainerName(containerName);
 
 		QString indexName = nameWithIndex(&name, index);
 		if(myMap.find(indexName) != myMap.end())
@@ -140,6 +143,7 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, T minV
 		newRecord.Set(maxVal, valueMax);
 		newRecord.SetMorphType(morphType);
 		newRecord.SetParameterType(parType);
+		newRecord.SetOriginalContainerName(containerName);
 
 		QString indexName = nameWithIndex(&name, index);
 		if(myMap.find(indexName) != myMap.end())
@@ -336,13 +340,14 @@ QString cParameterContainer::nameWithIndex(QString *str, int index) const
 }
 
 
-void cParameterContainer::Copy(QString name, cParameterContainer *sourceContainer)
+void cParameterContainer::Copy(QString name, const cParameterContainer &sourceContainer)
 {
-	QMap<QString, cOneParameter>::iterator itSource, itDest;
+	QMap<QString, cOneParameter>::const_iterator itSource;
+	QMap<QString, cOneParameter>::iterator itDest;
 	itDest = myMap.find(name);
 	if (itDest != myMap.end())
 	{
-		itSource = sourceContainer->myMap.find(name);
+		itSource = sourceContainer.myMap.find(name);
 		if (itSource != myMap.end())
 		{
 			itDest.value() = itSource.value();
@@ -452,5 +457,47 @@ void cParameterContainer::DeleteParameter(const QString &name)
 	else
 	{
 		qWarning() << "DeleteParameter(): element '" << name << "' doesn't exists" << endl;
+	}
+}
+
+cOneParameter cParameterContainer::GetAsOneParameter(QString name) const
+{
+	QMap<QString, cOneParameter>::const_iterator it;
+	it = myMap.find(name);
+	cOneParameter val;
+	if (it != myMap.end())
+	{
+		val = it.value();
+	}
+	else
+	{
+		qWarning() << "cParameterContainer::GetAsOneParameter(QString name): element '" << name << "' doesn't exists" << endl;
+	}
+	return val;
+}
+
+void cParameterContainer::SetFromOneParameter(QString name, const cOneParameter &parameter)
+{
+	QMap<QString, cOneParameter>::iterator it;
+	it = myMap.find(name);
+	if (it != myMap.end())
+	{
+		it.value() = parameter;
+	}
+	else
+	{
+		qWarning() << "cParameterContainer::SetFromOneParameter(QString name, const cOneParameter &parameter): element '" << name << "' doesn't exists" << endl;
+	}
+}
+
+void cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter &parameter)
+{
+	if(myMap.find(name) != myMap.end())
+	{
+		qWarning() << "cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter &parameter): element '" << name << "' already existed" << endl;
+	}
+	else
+	{
+		myMap.insert(name, parameter);
 	}
 }

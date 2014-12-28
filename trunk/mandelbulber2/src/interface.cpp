@@ -253,6 +253,8 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_primitives, par, mode);
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
+	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode)");
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidgetContents_animation, par, mode);
 
 	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[0], &parFractal[0], mode)");
 	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[0], &parFractal->at(0), mode);

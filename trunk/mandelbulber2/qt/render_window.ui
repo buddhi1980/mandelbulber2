@@ -30,7 +30,7 @@
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
+   <layout class="QVBoxLayout" name="verticalLayout_78" stretch="0">
     <property name="spacing">
      <number>2</number>
     </property>
@@ -7794,20 +7794,20 @@ and water):</string>
       <number>2</number>
      </property>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_22">
+      <layout class="QVBoxLayout" name="verticalLayoutAnimation">
        <property name="spacing">
         <number>2</number>
        </property>
        <item>
-        <widget class="QTabWidget" name="tabWidget">
+        <widget class="QTabWidget" name="tabWidgetFlightKeyframe">
          <property name="currentIndex">
           <number>0</number>
          </property>
-         <widget class="QWidget" name="tab_6">
+         <widget class="QWidget" name="tab_flight_animation">
           <attribute name="title">
            <string>Flight animation</string>
           </attribute>
-          <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,3">
            <property name="spacing">
             <number>2</number>
            </property>
@@ -7824,7 +7824,7 @@ and water):</string>
             <number>2</number>
            </property>
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_76">
+            <layout class="QVBoxLayout" name="verticalLayout_flight_animtion">
              <property name="spacing">
               <number>2</number>
              </property>
@@ -7842,15 +7842,174 @@ and water):</string>
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QScrollArea" name="scrollArea_flyght_animation_parameters">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_flightAnimationParameters">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>427</width>
+                  <height>148</height>
+                 </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_79">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_38">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_146">
+                     <property name="text">
+                      <string>speed:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_147">
+                     <property name="text">
+                      <string>inertia:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_148">
+                     <property name="text">
+                      <string>speed control:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QComboBox" name="comboBox_flight_speed_control">
+                     <item>
+                      <property name="text">
+                       <string>Relative to distance</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Constant</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="MyLineEdit" name="logedit_flight_speed">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>1</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QSlider" name="logslider_flight_speed">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>2</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="sizeIncrement">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="minimum">
+                      <number>-300</number>
+                     </property>
+                     <property name="maximum">
+                      <number>300</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QSlider" name="slider_flight_inertia">
+                     <property name="maximum">
+                      <number>5000</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinbox_flight_inertia">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="maximum">
+                      <double>1000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_11">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
+             </item>
             </layout>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_77">
+            <layout class="QVBoxLayout" name="verticalLayout_table" stretch="0">
              <property name="spacing">
               <number>2</number>
              </property>
              <item>
               <widget class="QTableWidget" name="tableWidget_flightAnimation">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>3</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <attribute name="verticalHeaderDefaultSectionSize">
                 <number>15</number>
                </attribute>

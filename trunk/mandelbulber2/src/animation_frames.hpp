@@ -29,29 +29,42 @@
 
 class cAnimationFrames
 {
+public:
+
 	struct sAnimationFrame
 	{
 		cParameterContainer par;
-		cFractalContainer fract;
 		QPixmap thumnail;
 	};
 
-public:
+	struct sParameterDescription
+	{
+		sParameterDescription(QString _parameterName, QString _containerName, parameterContainer::enumVarType _varType)
+			: parameterName(_parameterName), containerName(_containerName), varType(_varType) {};
+		QString parameterName;
+		QString containerName;
+		parameterContainer::enumVarType varType;
+	};
+
 	cAnimationFrames();
 	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal);
-	bool GetFrame(int index, cParameterContainer *params, cFractalContainer *fractal);
+	//TODO void GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
+	cParameterContainer GetFrame(int index);
 	int GetNumberOfFrames();
 	void Clear();
-	void AddAnimagedParameter(QString parameterName);
-
-	template<class T>
-	void SubstituteValueForAll(QString parameterName, T value);
-
-	QStringList GetListOfUsedParameters();
+	void AddAnimagedParameter(const QString &parameterName, const cOneParameter &defaultValue);
+	//TODO void RemoveAnimagedParameter(QString parameterName);
+	//template<class T>
+	//TODO void SubstituteValueForAll(QString parameterName, T value);
+	QList<sParameterDescription> GetListOfUsedParameters() {return listOfParameters;}
 
 private:
-	QList<sAnimationFrame> list;
-	QStringList animatedParameters;
+	int IndexOnList(QString parameterName, QString containerName);
+	const cParameterContainer* ContainerSelector(QString containerName, const cParameterContainer *params, const cFractalContainer *fractal) const;
+
+	QList<sAnimationFrame> frames;
+	QList<sParameterDescription> listOfParameters;
+
 };
 
 #endif /* SRC_ANIMATION_FRAMES_HPP_ */
