@@ -108,6 +108,33 @@ const cParameterContainer* cAnimationFrames::ContainerSelector(QString container
 	return container;
 }
 
+cParameterContainer* cAnimationFrames::ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal) const
+{
+	cParameterContainer *container;
+	if(containerName == "main")
+	{
+		container = params;
+	}
+	else if(containerName.indexOf("fractal") >=0 )
+	{
+		int index = containerName.right(1).toInt();
+		if(index < 4)
+		{
+			container = &fractal->at(index);
+		}
+		else
+		{
+			qWarning() << "cAnimationFrames::ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal): wrong fracta container index" << containerName << index;
+		}
+	}
+	else
+	{
+		qWarning() << "cAnimationFrames::ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal): wrong container name" << containerName;
+	}
+
+	return container;
+}
+
 cParameterContainer cAnimationFrames::GetFrame(int index)
 {
 	if(index >= 0 && index < frames.count())
@@ -118,5 +145,26 @@ cParameterContainer cAnimationFrames::GetFrame(int index)
 	{
 		qWarning() << "cAnimationFrames::GetFrame(int index): wrong index" << index;
 		return cParameterContainer();
+	}
+}
+
+void cAnimationFrames::GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal)
+{
+	if(index >= 0 && index < frames.count())
+	{
+		cParameterContainer frame = frames.at(index).par;
+
+		for(int i=0; i < listOfParameters.size(); ++i)
+		{
+			cParameterContainer *container = ContainerSelector(listOfParameters[i].containerName, params, fractal);
+			QString parameterName = listOfParameters[i].parameterName;
+			cOneParameter oneParameter = frames[index].par.GetAsOneParameter(listOfParameters[i].containerName + "_" + parameterName);
+			container->SetFromOneParameter(parameterName, oneParameter);
+		}
+
+	}
+	else
+	{
+		qWarning() << "cAnimationFrames::GetFrame(int index): wrong index" << index;
 	}
 }

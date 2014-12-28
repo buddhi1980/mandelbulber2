@@ -48,11 +48,15 @@ public:
 	void UseSizeFromImage(bool mode) {useSizeFromImage = mode;}
 	void AssingStatusAndProgessBar(QStatusBar *_statusBar, QProgressBar *_progressBar) {statusBar = _statusBar; progressBar = _progressBar;}
 	void ChangeCameraTargetPosition(cCameraTarget cameraTarget);
+
+	void UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	void SetMaxRenderTime(double time);
 
 private:
-	bool hasQWidget;
 	bool InitImage(int w, int h);
+	void ReduceDetail();
+
+	bool hasQWidget;
 	bool inProgress;
 	bool ready;
 	bool useSizeFromImage;

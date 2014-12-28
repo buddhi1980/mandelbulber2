@@ -32,7 +32,7 @@
 #include "render_ssao.h"
 #include "global_data.hpp"
 
-cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, const sRenderData *_renderData, cImage *_image)
+cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image)
 {
 	params = _params;
 	fractal = _fractal;
@@ -46,7 +46,13 @@ bool cRenderer::RenderImage()
 	WriteLog("cRenderer::RenderImage()");
 
 	image->SetImageParameters(params->imageAdjustments);
-	int progressiveSteps = (int)(log((double)max(image->GetWidth(), image->GetHeight())) / log(2.0))-3;
+
+	int progressiveSteps;
+	if(data->doNotRefresh && data->maxRenderTime > 1e10)
+			progressiveSteps = 0;
+	else
+		progressiveSteps = (int)(log((double)max(image->GetWidth(), image->GetHeight())) / log(2.0))-3;
+
 	if(progressiveSteps < 0) progressiveSteps = 0;
 	int progressive = pow(2.0, (double)progressiveSteps - 1);
 	if (progressive == 0) progressive = 1;
@@ -109,45 +115,45 @@ bool cRenderer::RenderImage()
 			{
 				//get list of last rendered lines
 				QList<int> list = scheduler->GetLastRenderedLines();
-
 				//create list of lines for image refresh
 				listToRefresh += list;
+			}
 
-				//status bar and progress bar
-				double percentDone = scheduler->PercentDone();
-				statusText = QObject::tr("Rendering image in progress");
-				progressTxt = progressText.getText(percentDone);
-				ProgressStatusText(statusText, progressTxt, percentDone, data->statusBar, data->progressBar);
+			//status bar and progress bar
+			double percentDone = scheduler->PercentDone();
+			data->lastPercentage = percentDone;
+			statusText = QObject::tr("Rendering image in progress");
+			progressTxt = progressText.getText(percentDone);
+			ProgressStatusText(statusText, progressTxt, percentDone, data->statusBar, data->progressBar);
 
-				//refresh image
-				if (image->IsPreview() && listToRefresh.size() > 0)
+			//refresh image
+			if (!data->doNotRefresh && image->IsPreview() && listToRefresh.size() > 0)
+			{
+				if (timerRefresh.elapsed() > lastRefreshTime && scheduler->GetProgresivePass() > 1)
 				{
-					if (timerRefresh.elapsed() > lastRefreshTime && scheduler->GetProgresivePass() > 1)
+					timerRefresh.restart();
+					QSet<int> set_listTorefresh = listToRefresh.toSet(); //removing duplicates
+					listToRefresh = set_listTorefresh.toList();
+					qSort(listToRefresh);
+
+					image->CompileImage(&listToRefresh);
+
+					if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 					{
-						timerRefresh.restart();
-						QSet<int> set_listTorefresh = listToRefresh.toSet(); //removing duplicates
-						listToRefresh = set_listTorefresh.toList();
-						qSort(listToRefresh);
+						cRenderSSAO rendererSSAO(params, data, image);
+						rendererSSAO.setProgressive(scheduler->GetProgresiveStep());
+						rendererSSAO.RenderSSAO(&listToRefresh);
+					}
 
-						image->CompileImage(&listToRefresh);
+					image->ConvertTo8bit();
+					image->UpdatePreview(&listToRefresh);
+					image->GetImageWidget()->update();
 
-						if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
-						{
-							cRenderSSAO rendererSSAO(params, data, image);
-							rendererSSAO.setProgressive(scheduler->GetProgresiveStep());
-							rendererSSAO.RenderSSAO(&listToRefresh);
-						}
-
-						image->ConvertTo8bit();
-						image->UpdatePreview(&listToRefresh);
-						image->GetImageWidget()->update();
-
-						lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
-						timerRefresh.restart();
-						listToRefresh.clear();
-					}//timerRefresh
-				}//isPreview
-			}//doNotRefresh
+					lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
+					timerRefresh.restart();
+					listToRefresh.clear();
+				} //timerRefresh
+			} //isPreview
 		}//while scheduler
 		for (int i = 0; i < data->numberOfThreads; i++)
 		{

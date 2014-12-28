@@ -142,7 +142,7 @@ bool cRenderJob::Init(enumMode _mode)
 	renderData->progressBar = progressBar;
 	renderData->stopRequest = stopRequest;
 
-	if(mode == flightAnimRecord) renderData->doNotRefresh = true;
+	if(mode == flightAnimRecord || mode == flightAnim) renderData->doNotRefresh = true;
 	ready = true;
 	return true;
 }
@@ -187,6 +187,7 @@ bool cRenderJob::Execute(void)
 
 	//recalculation of some parameters;
 	params->resolution = 1.0/image->GetHeight();
+	ReduceDetail();
 
 	//create and execute renderer
 	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image);
@@ -213,6 +214,12 @@ void cRenderJob::ChangeCameraTargetPosition(cCameraTarget cameraTarget)
 	paramsContainer->Set("camera_distance_to_target", cameraTarget.GetDistance());
 }
 
+void cRenderJob::UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal)
+{
+	*paramsContainer = *_params;
+	*fractalContainer = *_fractal;
+}
+
 void cRenderJob::SetMaxRenderTime(double time)
 {
 	if(renderData)
@@ -222,5 +229,18 @@ void cRenderJob::SetMaxRenderTime(double time)
 	else
 	{
 		qCritical() << "cRenderJob::SetMaxRenderTime(double time): renderData not set";
+	}
+}
+
+void cRenderJob::ReduceDetail()
+{
+	if(mode == flightAnimRecord)
+	{
+		renderData->reduceDetail = sqrt(renderData->lastPercentage);
+		if(renderData->reduceDetail < 0.1) renderData->reduceDetail = 0.1;
+	}
+	else
+	{
+		renderData->reduceDetail = 1.0;
 	}
 }

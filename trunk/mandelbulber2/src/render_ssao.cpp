@@ -135,7 +135,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 				threadData[i].stopRequest = true;
 			if(!list)
 			{
-				*data->stopRequest = false;
+				//*data->stopRequest = false;
 			}
 			break;
 		}
