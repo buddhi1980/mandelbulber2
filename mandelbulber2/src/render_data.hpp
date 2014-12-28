@@ -32,7 +32,9 @@
 struct sRenderData
 {
 	sRenderData() :
-			rendererID(0), numberOfThreads(0), statusBar(NULL), progressBar(NULL), stopRequest(NULL), maxRenderTime(1e50), doNotRefresh(false){};
+			rendererID(0), numberOfThreads(0), statusBar(NULL), progressBar(NULL), stopRequest(NULL),
+			maxRenderTime(1e50), doNotRefresh(false), lastPercentage(1.0), reduceDetail(1.0)
+	{};
 
 	int rendererID;
 	int numberOfThreads;
@@ -46,6 +48,8 @@ struct sRenderData
 	bool *stopRequest;
 	double maxRenderTime;
 	bool doNotRefresh;
+	double lastPercentage;
+	double reduceDetail;
 };
 
 #endif /* RENDER_DATA_HPP_ */

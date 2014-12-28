@@ -48,7 +48,7 @@ public:
 
 	cAnimationFrames();
 	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal);
-	//TODO void GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
+	void GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
 	cParameterContainer GetFrame(int index);
 	int GetNumberOfFrames();
 	void Clear();
@@ -61,6 +61,7 @@ public:
 private:
 	int IndexOnList(QString parameterName, QString containerName);
 	const cParameterContainer* ContainerSelector(QString containerName, const cParameterContainer *params, const cFractalContainer *fractal) const;
+	cParameterContainer* ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal) const;
 
 	QList<sAnimationFrame> frames;
 	QList<sParameterDescription> listOfParameters;

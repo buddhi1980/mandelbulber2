@@ -32,9 +32,11 @@ class cFlightAnimation : public QObject
 public:
 	cFlightAnimation(cInterface *_interface, QObject *parent = 0);
 	void RecordFlight(cAnimationFrames *frames);
+	void RenderFlight();
 
 private slots:
-void slotRecordFilght();
+void slotRecordFlight();
+void slotRenderFlight();
 
 private:
 	void PrepareTable();

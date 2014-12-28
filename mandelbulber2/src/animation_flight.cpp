@@ -25,20 +25,42 @@
 #include "render_job.hpp"
 #include "system.hpp"
 #include "files.h"
+#include "error_message.hpp"
 
 cFlightAnimation::cFlightAnimation(cInterface *_interface, QObject *parent) : QObject(parent), interface(_interface)
 {
 	ui = interface->mainWindow->ui;
-	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFilght()));
+	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
+	QApplication::connect(ui->pushButton_render_flight, SIGNAL(clicked()), this, SLOT(slotRenderFlight()));
 	frames = NULL;
 	table = ui->tableWidget_flightAnimation;
 }
 
-void cFlightAnimation::slotRecordFilght()
+void cFlightAnimation::slotRecordFlight()
 {
 	if(gAnimFrames)
 	{
 		RecordFlight(gAnimFrames);
+	}
+	else
+	{
+		qCritical() << "gAnimFrames not allocated";
+	}
+}
+
+void cFlightAnimation::slotRenderFlight()
+{
+	if(gAnimFrames)
+	{
+		if(gAnimFrames->GetNumberOfFrames() > 0)
+		{
+			RenderFlight();
+		}
+		else
+		{
+			cErrorMessage::showMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage, ui->centralwidget);
+		}
+
 	}
 	else
 	{
@@ -55,8 +77,6 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *_frames)
 	frames->Clear();
 
 	PrepareTable();
-
-
 
 	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
@@ -78,13 +98,16 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *_frames)
 	cCameraTarget cameraTarget(cameraPosition, target, top);
 
 	//TODO setting of max render time
-	double maxRenderTime = 0.5;
+	double maxRenderTime = gPar->Get<double>("flight_sec_per_frame");;
 	renderJob->SetMaxRenderTime(maxRenderTime);
 
 	//TODO variable speed depending on distance to fractal surface
 	double linearSpeed = gPar->Get<double>("flight_speed");
 	double rotationSpeed = 0.1;
 	double inertia = gPar->Get<double>("flight_inertia");
+
+	QString framesDir = gPar->Get<QString>("anim_flight_dir");
+
 	int index = 0;
 
 	while(!interface->stopRequest)
@@ -142,7 +165,7 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *_frames)
 		table->setItem(0, newColumn, new QTableWidgetItem(icon, QString()));
 
 		//TODO now is temporarysaving of images
-		QString filename = systemData.dataDirectory + "images/image" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
+		QString filename = framesDir + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 90);
 		index++;
 	}
@@ -239,4 +262,28 @@ int cFlightAnimation::AddColumn(const cParameterContainer &params)
 	}
 
 	return newColumn;
+}
+
+void cFlightAnimation::RenderFlight()
+{
+	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, interface->mainImage, &interface->stopRequest, interface->renderedImage);
+	renderJob->AssingStatusAndProgessBar(ui->statusbar, interface->progressBar);
+	renderJob->Init(cRenderJob::flightAnim);
+	interface->stopRequest = false;
+
+	QString framesDir = gPar->Get<QString>("anim_flight_dir");
+
+	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
+	{
+		if(interface->stopRequest) break;
+		frames->GetFrameAndConsolidate(index, gPar, gParFractal);
+		interface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		renderJob->UpdateParameters(gPar, gParFractal);
+		renderJob->Execute();
+
+		QString filename = framesDir + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
+		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 90);
+	}
 }

@@ -32,13 +32,13 @@
 class cRenderer
 {
 public:
-	cRenderer(const cParamRender *_params, const cFourFractals *_fractal, const sRenderData *_renderData, cImage *_image);
+	cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image);
 	bool RenderImage();
 
 private:
 	const cParamRender *params;
 	const cFourFractals *fractal;
-	const sRenderData *data;
+	sRenderData *data;
 	cImage *image;
 
 };

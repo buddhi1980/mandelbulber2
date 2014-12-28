@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
 	gAnimFrames = new cAnimationFrames;
 	gAnimFrames->AddAnimagedParameter("camera", gPar->GetAsOneParameter("camera"));
 	gAnimFrames->AddAnimagedParameter("target", gPar->GetAsOneParameter("target"));
-	gAnimFrames->AddAnimagedParameter("camera_rotation", gPar->GetAsOneParameter("camera_rotation"));
+	gAnimFrames->AddAnimagedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
 
 	flightAnimation = new cFlightAnimation(mainInterface, mainInterface->mainWindow);
 

@@ -2100,7 +2100,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-138</y>
                   <width>303</width>
                   <height>626</height>
                  </rect>
@@ -7874,10 +7874,10 @@ and water):</string>
                    <property name="spacing">
                     <number>2</number>
                    </property>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_146">
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_150">
                      <property name="text">
-                      <string>speed:</string>
+                      <string>Path for images:</string>
                      </property>
                     </widget>
                    </item>
@@ -7885,6 +7885,13 @@ and water):</string>
                     <widget class="QLabel" name="label_147">
                      <property name="text">
                       <string>inertia:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_146">
+                     <property name="text">
+                      <string>speed:</string>
                      </property>
                     </widget>
                    </item>
@@ -7909,15 +7916,15 @@ and water):</string>
                      </item>
                     </widget>
                    </item>
-                   <item row="0" column="2">
-                    <widget class="MyLineEdit" name="logedit_flight_speed">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                       <horstretch>1</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
+                   <item row="4" column="2">
+                    <widget class="QPushButton" name="button_selectAnimFlightImageDir">
+                     <property name="text">
+                      <string>Select file</string>
                      </property>
                     </widget>
+                   </item>
+                   <item row="4" column="1">
+                    <widget class="MyLineEdit" name="text_anim_flight_dir"/>
                    </item>
                    <item row="0" column="1">
                     <widget class="QSlider" name="logslider_flight_speed">
@@ -7941,6 +7948,16 @@ and water):</string>
                      </property>
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="MyLineEdit" name="logedit_flight_speed">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>1</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
                      </property>
                     </widget>
                    </item>
@@ -7970,6 +7987,51 @@ and water):</string>
                      </property>
                      <property name="maximum">
                       <double>1000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_151">
+                     <property name="text">
+                      <string>seconds per frame:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QSlider" name="slider_flight_sec_per_frame">
+                     <property name="minimum">
+                      <number>1</number>
+                     </property>
+                     <property name="maximum">
+                      <number>5000</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinbox_flight_sec_per_frame">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>0.010000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>100.000000000000000</double>
                      </property>
                      <property name="singleStep">
                       <double>0.100000000000000</double>
@@ -8028,6 +8090,19 @@ and water):</string>
           <attribute name="title">
            <string>Keyframe animation</string>
           </attribute>
+          <widget class="QLabel" name="label_149">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>171</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Comming soon</string>
+           </property>
+          </widget>
          </widget>
         </widget>
        </item>

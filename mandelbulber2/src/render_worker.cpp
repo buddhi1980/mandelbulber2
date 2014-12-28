@@ -412,6 +412,7 @@ double cRenderWorker::CalcDistThresh(CVector3 point)
 	else
 		distThresh = (params->camera - point).Length() * params->resolution * params->fov / params->detailLevel;
 	if(params->perspectiveType == params::perspEquirectangular || params->perspectiveType == params::perspFishEye || params->perspectiveType == params::perspFishEyeCut) distThresh *= M_PI;
+	distThresh /= data->reduceDetail;
 	return distThresh;
 }
 
