@@ -64,12 +64,12 @@ int main(int argc, char *argv[])
 	//create internal database with parameters
 	gPar = new cParameterContainer;
 	gParFractal = new cFractalContainer;
-	InitParams(gPar);
 	gPar->SetContainerName("main");
+	InitParams(gPar);
 	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
 	{
-		InitFractalParams(&gParFractal->at(i));
 		gParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(&gParFractal->at(i));
 	}
 	//Define list of fractal formulas
 	DefineFractalList(&fractalList);
@@ -78,6 +78,10 @@ int main(int argc, char *argv[])
 
 	//Alocate container for animation frames
 	gAnimFrames = new cAnimationFrames;
+	gAnimFrames->AddAnimagedParameter("camera", gPar->GetAsOneParameter("camera"));
+	gAnimFrames->AddAnimagedParameter("target", gPar->GetAsOneParameter("target"));
+	gAnimFrames->AddAnimagedParameter("camera_rotation", gPar->GetAsOneParameter("camera_rotation"));
+
 	flightAnimation = new cFlightAnimation(mainInterface, mainInterface->mainWindow);
 
 	//write parameters to ui

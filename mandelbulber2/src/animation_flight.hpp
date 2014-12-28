@@ -37,11 +37,16 @@ private slots:
 void slotRecordFilght();
 
 private:
-	void PrepareTable(QTableWidget *table);
-	void SetRowNamesInTable(QTableWidget *table);
+	void PrepareTable();
+	void CreateRowsInTable();
+	int AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription);
+	int AddColumn(const cParameterContainer &params);
 	cInterface *interface;
 	Ui::RenderWindow *ui;
 	cAnimationFrames *frames;
+	QStringList tableRowNames;
+	QVector<int> parameterRows; //position of parameter in table
+	QTableWidget *table;
 };
 
 
