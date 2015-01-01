@@ -72,7 +72,6 @@ void cFlightAnimation::RecordFlight()
 	//TODO switching between constant flight speed and releative
 	//TODO Editing of table with animation frames
 	//TODO context menu for table
-	//TODO adding parameters to animation
 	//TODO keyboard shorcuts for animation
 	//TODO progress bar for animation
 	//TODO dysplaying of flight parameters (speed, distance, no of frames)

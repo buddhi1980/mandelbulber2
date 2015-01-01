@@ -37,6 +37,7 @@ public:
 	MySpinBox(QWidget *parent = 0)  : QSpinBox(parent)
 	{
 		actionResetToDefault = NULL;
+		actionAddToFlightAnimation = NULL;
 		parameterContainer = NULL;
 		gotDefault = false;
 		defaultValue = 0;
@@ -47,6 +48,7 @@ public:
 
 private:
 	QAction *actionResetToDefault;
+	QAction *actionAddToFlightAnimation;
 	QString GetType(const QString &name);
 	cParameterContainer *parameterContainer;
 	QString parameterName;

@@ -23,12 +23,14 @@
 #include "mydoublespinbox.h"
 #include "../src/parameters.hpp"
 #include <QLineEdit>
+#include "../src/global_data.hpp"
 
 void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu *menu = lineEdit()->createStandardContextMenu();
 	menu->addSeparator();
 	actionResetToDefault = menu->addAction(tr("Reset to default"));
+	actionAddToFlightAnimation = menu->addAction(tr("Add to flight animation"));
 	QAction *selectedItem = menu->exec(event->globalPos());
 	if (selectedItem)
 	{
@@ -42,6 +44,19 @@ void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
 			else
 			{
 				qCritical() << "MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
+			}
+		}
+		else if (selectedItem == actionAddToFlightAnimation)
+		{
+			if (parameterContainer)
+			{
+				QString parName = parameterName;
+				QString type = GetType(objectName());
+				if (type == QString("spinbox3") || type == QString("spinboxd3"))
+					parName = parameterName.left(parameterName.length() - 2);
+
+				gAnimFrames->AddAnimagedParameter(parName, parameterContainer->GetAsOneParameter(parName));
+				gFlightAnimation->RefreshTable();
 			}
 		}
 	}

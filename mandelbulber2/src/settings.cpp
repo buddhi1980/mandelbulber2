@@ -531,7 +531,7 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 					}
 					else
 					{
-						QString val = lineSplit[i];
+						QString val = lineSplit[column];
 						container->Set(parameterName, val);
 					}
 					//TODO other types of variables
