@@ -37,6 +37,7 @@ public:
 	MyLineEdit(QWidget *parent = 0)  : QLineEdit(parent)
 	{
 		actionResetToDefault = NULL;
+		actionAddToFlightAnimation = NULL;
 		parameterContainer = NULL;
 		gotDefault = false;
 	};
@@ -46,6 +47,7 @@ public:
 
 private:
 	QAction *actionResetToDefault;
+	QAction *actionAddToFlightAnimation;
 	QString GetType(const QString &name);
 	cParameterContainer *parameterContainer;
 	QString parameterName;

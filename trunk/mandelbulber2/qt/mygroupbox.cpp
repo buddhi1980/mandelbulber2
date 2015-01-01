@@ -23,11 +23,13 @@
 #include "mygroupbox.h"
 #include "../src/parameters.hpp"
 #include <QLineEdit>
+#include "../src/global_data.hpp"
 
 void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu *menu = new QMenu;
 	actionResetToDefault = menu->addAction(tr("Reset to default"));
+	actionAddToFlightAnimation = menu->addAction(tr("Add to flight animation"));
 	QAction *selectedItem = menu->exec(event->globalPos());
 	if (selectedItem)
 	{
@@ -41,6 +43,14 @@ void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 			else
 			{
 				qCritical() << " MyGroupBox::contextMenuEvent(QContextMenuEvent *event): parameter container not assigned. Object:" << objectName();
+			}
+		}
+		else if (selectedItem == actionAddToFlightAnimation)
+		{
+			if (parameterContainer)
+			{
+				gAnimFrames->AddAnimagedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
+				gFlightAnimation->RefreshTable();
 			}
 		}
 	}
