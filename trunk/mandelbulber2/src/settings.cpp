@@ -283,18 +283,26 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 }
 
 
-bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar)
+bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)
 {
+	//TODO decode animation frames
+
 	//clear settings
 	par->ResetAllToDefault();
 	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
 		fractPar->at(i).ResetAllToDefault();
 	DeleteAllPrimitiveParams(par);
 
+	if(frames) frames->ClearAll();
+	//temporary containers to decode frames
+	cParameterContainer parTemp = *par;
+	cFractalContainer fractTemp = *fractPar;
+
 	QStringList separatedText = settingsText.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
 	DecodeHeader(separatedText);
 
 	int errorCount = 0;
+	int csvLine = 0;
 
 	QString section;
 	if(textPrepared)
@@ -314,6 +322,26 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar)
 				{
 					int i = section.right(1).toInt() - 1;
 					result = DecodeOneLine(&fractPar->at(i), line);
+				}
+				else if(section == QString("frames"))
+				{
+					if(frames)
+					{
+						if(csvLine == 0)
+						{
+							result = DecodeFramesHeader(line, par, fractPar, frames);
+							csvLine++;
+						}
+						else
+						{
+							result = DecodeFramesLine(line, &parTemp, &fractTemp, frames);
+							csvLine++;
+						}
+					}
+					else
+					{
+						result = true;
+					}
 				}
 
 				if (!result)
@@ -374,6 +402,7 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 
 	if(varType == typeNull)
 	{
+		cErrorMessage::showMessage(QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
 		return false;
 	}
 	else
@@ -421,5 +450,113 @@ QString cSettings::Compatibility(const QString &old)
 		}
 	}
 	return newName;
+}
+
+bool cSettings::DecodeFramesHeader(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)
+{
+	QStringList lineSplit = line.split(';');
+	try
+	{
+		if(lineSplit.size() > 0)
+		{
+			if(lineSplit[0] != "frame")
+			{
+				throw QObject::tr("Missing column 'frame' in list of animation frames");
+			}
+			for(int i = 1; i < lineSplit.size(); ++i)
+			{
+				QString fullParameterName = lineSplit[i];
+				if(fullParameterName.length() > 2)
+				{
+					QString lastTwo = fullParameterName.right(2);
+					if(lastTwo == "_x" || lastTwo == "_y" || lastTwo == "_z")
+					{
+						fullParameterName = fullParameterName.left(fullParameterName.length() -2);
+						i+= 2;
+					}
+				}
+
+				bool result = frames->AddAnimagedParameter(fullParameterName, par, fractPar);
+				if(!result)
+				{
+					throw QObject::tr("Unknown parameter in animation frames: ") + fullParameterName;
+				}
+			}
+		}
+		else
+		{
+			throw QObject::tr("No valid list of parameters for animation frames");
+		}
+	}
+	catch (QString &error)
+	{
+		cErrorMessage::showMessage(error, cErrorMessage::errorMessage);
+		return false;
+	}
+
+	csvNoOfColumns = lineSplit.size();
+	return true;
+}
+
+bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)
+{
+	QStringList lineSplit = line.split(';');
+	QList<cAnimationFrames::sParameterDescription> parameterList = frames->GetListOfUsedParameters();
+	int column = 0;
+
+	try
+	{
+		if(lineSplit.size() == csvNoOfColumns)
+		{
+			int frameCount = lineSplit[0].toInt();
+			if(frameCount == frames->GetNumberOfFrames())
+			{
+				column++;
+				for(int i = 0; i < parameterList.size(); ++i)
+				{
+					using namespace parameterContainer;
+					enumVarType type = parameterList[i].varType;
+					QString containerName = parameterList[i].containerName;
+					QString parameterName = parameterList[i].parameterName;
+					cParameterContainer *container = frames->ContainerSelector(containerName, par, fractPar);
+
+					if(type == typeVector3)
+					{
+						CVector3 vect;
+						vect.x = lineSplit[column].toDouble();
+						vect.y = lineSplit[column + 1].toDouble();
+						vect.z = lineSplit[column + 2].toDouble();
+						column += 2;
+						container->Set(parameterName, vect);
+					}
+					else
+					{
+						QString val = lineSplit[i];
+						container->Set(parameterName, val);
+					}
+					//TODO other types of variables
+					column++;
+				}
+			}
+			else
+			{
+				throw QObject::tr("Missing frame no ") + QString::number(frames->GetNumberOfFrames());
+			}
+		}
+		else
+		{
+			throw QObject::tr("Wrong number of columns");
+		}
+
+	}
+	catch (QString &error)
+	{
+		cErrorMessage::showMessage(error, cErrorMessage::errorMessage);
+		return false;
+	}
+
+	frames->AddFrame(*par, *fractPar);
+
+	return true;
 }
 

@@ -42,7 +42,7 @@ public:
 	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames = NULL);
 	bool SaveToFile(QString filename);
 	bool LoadFromFile(QString filename);
-	bool Decode(cParameterContainer *par, cFractalContainer *fractPar);
+	bool Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames = NULL);
 	QString GetHashCode() {return hash.toHex();}
 	void BeQuiet(bool _quiet) {quiet = _quiet;}
 
@@ -54,6 +54,9 @@ private:
 	bool CheckSection(QString text, QString &section);
 	QString Compatibility(const QString &old);
 
+	bool DecodeFramesHeader(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
+	bool DecodeFramesLine(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
+
 	enumFormat format;
 	QString settingsText;
 
@@ -62,6 +65,7 @@ private:
 	double appVersion;
 	double fileVersion;
 	QByteArray hash;
+	int csvNoOfColumns;
 };
 
 

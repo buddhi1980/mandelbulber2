@@ -536,12 +536,13 @@ void RenderWindow::slotMenuLoadSettings()
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
 		parSettings.LoadFromFile(filename);
-		parSettings.Decode(gPar, gParFractal);
+		parSettings.Decode(gPar, gParFractal, gAnimFrames);
 		mainInterface->RebuildPrimitives(gPar);
 		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 		mainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = filename;
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
+		gFlightAnimation->RefreshTable();
 	}
 }
 
@@ -562,7 +563,7 @@ void RenderWindow::slotMenuLoadExample()
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
 		parSettings.LoadFromFile(filename);
-		parSettings.Decode(gPar, gParFractal);
+		parSettings.Decode(gPar, gParFractal, gAnimFrames);
 		mainInterface->RebuildPrimitives(gPar);
 		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 		mainInterface->ComboMouseClickUpdate();

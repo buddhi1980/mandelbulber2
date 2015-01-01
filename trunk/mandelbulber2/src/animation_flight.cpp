@@ -27,20 +27,19 @@
 #include "files.h"
 #include "error_message.hpp"
 
-cFlightAnimation::cFlightAnimation(cInterface *_interface, QObject *parent) : QObject(parent), interface(_interface)
+cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent) : QObject(parent), interface(_interface), frames(_frames)
 {
 	ui = interface->mainWindow->ui;
 	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
 	QApplication::connect(ui->pushButton_render_flight, SIGNAL(clicked()), this, SLOT(slotRenderFlight()));
-	frames = NULL;
 	table = ui->tableWidget_flightAnimation;
 }
 
 void cFlightAnimation::slotRecordFlight()
 {
-	if(gAnimFrames)
+	if(frames)
 	{
-		RecordFlight(gAnimFrames);
+		RecordFlight();
 	}
 	else
 	{
@@ -50,9 +49,9 @@ void cFlightAnimation::slotRecordFlight()
 
 void cFlightAnimation::slotRenderFlight()
 {
-	if(gAnimFrames)
+	if(frames)
 	{
-		if(gAnimFrames->GetNumberOfFrames() > 0)
+		if(frames->GetNumberOfFrames() > 0)
 		{
 			RenderFlight();
 		}
@@ -68,12 +67,21 @@ void cFlightAnimation::slotRenderFlight()
 	}
 }
 
-void cFlightAnimation::RecordFlight(cAnimationFrames *_frames)
+void cFlightAnimation::RecordFlight()
 {
-	//TODO displaying of frames as thumbnails or table
-	//TODO saving of all frames into csv file
+	//TODO switching between constant flight speed and releative
+	//TODO Editing of table with animation frames
+	//TODO context menu for table
+	//TODO adding parameters to animation
+	//TODO keyboard shorcuts for animation
+	//TODO progress bar for animation
+	//TODO dysplaying of flight parameters (speed, distance, no of frames)
+	//TODO speed control by lmb/rmb
+	//TODO HUD
+	//TODO button to delete all images
+	//TODO skip already rendered frames
+	//TODO play animation from rendered frames (in separate window)
 
-	frames = _frames;
 	frames->Clear();
 
 	PrepareTable();
@@ -97,11 +105,9 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *_frames)
 
 	cCameraTarget cameraTarget(cameraPosition, target, top);
 
-	//TODO setting of max render time
 	double maxRenderTime = gPar->Get<double>("flight_sec_per_frame");;
 	renderJob->SetMaxRenderTime(maxRenderTime);
 
-	//TODO variable speed depending on distance to fractal surface
 	double linearSpeed = gPar->Get<double>("flight_speed");
 	double rotationSpeed = 0.1;
 	double inertia = gPar->Get<double>("flight_inertia");
@@ -164,7 +170,7 @@ void cFlightAnimation::RecordFlight(cAnimationFrames *_frames)
 		QIcon icon(pixmap.scaled(QSize(100, 70), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
 		table->setItem(0, newColumn, new QTableWidgetItem(icon, QString()));
 
-		//TODO now is temporarysaving of images
+		//TODO now is temporary saving of images
 		QString filename = framesDir + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 90);
 		index++;
@@ -283,7 +289,19 @@ void cFlightAnimation::RenderFlight()
 		renderJob->UpdateParameters(gPar, gParFractal);
 		renderJob->Execute();
 
+		//TODO selection of images path
 		QString filename = framesDir + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 90);
+	}
+}
+
+void cFlightAnimation::RefreshTable()
+{
+	PrepareTable();
+	int noOfFrames = frames->GetNumberOfFrames();
+
+	for(int i=0; i < noOfFrames; i++)
+	{
+		int newColumn = AddColumn(frames->GetFrame(i));
 	}
 }
