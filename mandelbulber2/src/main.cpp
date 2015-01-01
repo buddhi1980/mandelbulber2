@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 	gAnimFrames->AddAnimagedParameter("target", gPar->GetAsOneParameter("target"));
 	gAnimFrames->AddAnimagedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
 
-	flightAnimation = new cFlightAnimation(mainInterface, mainInterface->mainWindow);
+	gFlightAnimation = new cFlightAnimation(mainInterface, gAnimFrames, mainInterface->mainWindow);
 
 	//write parameters to ui
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 	delete gPar;
 	delete gParFractal;
 	delete gAnimFrames;
-	delete flightAnimation;
+	delete gFlightAnimation;
 	delete application;
 	return result;
 }

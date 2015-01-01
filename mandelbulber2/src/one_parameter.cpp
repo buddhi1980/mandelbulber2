@@ -14,6 +14,7 @@ cOneParameter::cOneParameter()
 	morphType = morphNone;
 	parType = paramStandard;
 	limitsDefined = false;
+	isEmpty = true;
 }
 
 cOneParameter::~cOneParameter()
@@ -41,6 +42,7 @@ void cOneParameter::Set(T val, enumValueSelection selection)
 			limitsDefined = true;
 			break;
 	}
+	isEmpty = false;
 }
 template void cOneParameter::Set<double>(double val, enumValueSelection selection);
 template void cOneParameter::Set<int>(int val, enumValueSelection selection);
@@ -120,4 +122,5 @@ void cOneParameter::SetMultival(cMultiVal multi, enumValueSelection selection)
 			maxVal = multi;
 			break;
 	}
+	isEmpty = false;
 }

@@ -44,6 +44,7 @@ public:
 	bool isDefaultValue() const;
 	cMultiVal GetMultival(enumValueSelection selection);
 	void SetMultival(cMultiVal multi, enumValueSelection selection);
+	bool IsEmpty() {return isEmpty;}
 
 	template <class T> void Set(T val, enumValueSelection selection);
 	template <class T> T Get(enumValueSelection selection) const;
@@ -58,6 +59,7 @@ private:
 	cMultiVal maxVal;
 	QString originalContainer;
 	bool limitsDefined;
+	bool isEmpty;
 };
 
 #endif /* SRC_ONE_PARAMETER_HPP_ */

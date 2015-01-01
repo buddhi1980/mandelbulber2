@@ -33,8 +33,15 @@ void cAnimationFrames::AddFrame(const cParameterContainer &params, const cFracta
 	for(int i=0; i < listOfParameters.size(); ++i)
 	{
 		const cParameterContainer *container = ContainerSelector(listOfParameters[i].containerName, &params, &fractal);
-		QString parameterName = listOfParameters[i].parameterName;
-		frame.par.AddParamFromOneParameter(container->GetContainerName() + "_" + parameterName, container->GetAsOneParameter(parameterName));
+		if(container)
+		{
+			QString parameterName = listOfParameters[i].parameterName;
+			frame.par.AddParamFromOneParameter(container->GetContainerName() + "_" + parameterName, container->GetAsOneParameter(parameterName));
+		}
+		else
+		{
+			qCritical() << "cAnimationFrames::AddFrame(const cParameterContainer &params, const cFractalContainer &fractal): Wrong container name: " << listOfParameters[i].containerName;
+		}
 	}
 	frames.append(frame);
 }
@@ -56,6 +63,34 @@ void cAnimationFrames::AddAnimagedParameter(const QString &parameterName, const 
 	}
 }
 
+bool cAnimationFrames::AddAnimagedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal)
+{
+	int firstUnderscore = fullParameterName.indexOf('_');
+	QString containerName = fullParameterName.left(firstUnderscore);
+	QString parameterName = fullParameterName.mid(firstUnderscore + 1);
+
+	const cParameterContainer *container = ContainerSelector(containerName, param, fractal);
+	if(container)
+	{
+		cOneParameter parameter = container->GetAsOneParameter(parameterName);
+		if(parameter.IsEmpty())
+		{
+			qWarning() << "cAnimationFrames::AddAnimagedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal): unknown parameter" << fullParameterName;
+			return false;
+		}
+		else
+		{
+			AddAnimagedParameter(parameterName, container->GetAsOneParameter(parameterName));
+			return true;
+		}
+	}
+	else
+	{
+		qCritical() << "cAnimationFrames::AddAnimagedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal): Wrong container name: " << containerName;
+		return false;
+	}
+}
+
 int cAnimationFrames::GetNumberOfFrames()
 {
 	return frames.count();
@@ -65,6 +100,13 @@ void cAnimationFrames::Clear()
 {
 	frames.clear();
 }
+
+void cAnimationFrames::ClearAll()
+{
+	frames.clear();
+	listOfParameters.clear();
+}
+
 
 int cAnimationFrames::IndexOnList(QString parameterName, QString containerName)
 {
@@ -82,7 +124,7 @@ int cAnimationFrames::IndexOnList(QString parameterName, QString containerName)
 
 const cParameterContainer* cAnimationFrames::ContainerSelector(QString containerName, const cParameterContainer *params, const cFractalContainer *fractal) const
 {
-	const cParameterContainer *container;
+	const cParameterContainer *container = NULL;
 	if(containerName == "main")
 	{
 		container = params;
@@ -110,7 +152,7 @@ const cParameterContainer* cAnimationFrames::ContainerSelector(QString container
 
 cParameterContainer* cAnimationFrames::ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal) const
 {
-	cParameterContainer *container;
+	cParameterContainer *container = NULL;
 	if(containerName == "main")
 	{
 		container = params;

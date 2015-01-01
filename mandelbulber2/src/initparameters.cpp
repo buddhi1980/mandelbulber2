@@ -52,12 +52,6 @@ using namespace parameterContainer;
   par->addParam("flight_sec_per_frame", 1.0, morphNone, paramApp);
   par->addParam("anim_flight_dir", systemData.dataDirectory + "images" + QDir::separator() + "image", morphNone, paramApp);
 
-	//render control
-	par->addParam("play_mode", false, morphNone, paramNoSave);
-	par->addParam("anim_mode", false, morphNone, paramNoSave);
-	par->addParam("record_mode", false, morphNone, paramNoSave);
-	par->addParam("continue_record_mode", false, morphNone, paramNoSave);
-
 	//camera
 	par->addParam("camera", CVector3(3.0, -6.0, 2.0), morphCatMullRom, paramStandard);
 	par->addParam("target", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
