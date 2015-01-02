@@ -99,11 +99,11 @@ int main(int argc, char *argv[])
 	int result = application->exec();
 
 	//clean objects when exit
-	delete mainInterface;
 	delete gPar;
 	delete gParFractal;
-	delete gAnimFrames;
 	delete gFlightAnimation;
+	delete gAnimFrames;
+	delete mainInterface;
 	delete application;
 	return result;
 }

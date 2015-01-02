@@ -61,7 +61,8 @@ SOURCES +=  ../src/algebra.cpp\
             ../qt/mylineedit.cpp\
             ../qt/myspinbox.cpp\
             ../qt/mydoublespinbox.cpp\
-            ../qt/mycheckbox.cpp
+            ../qt/mycheckbox.cpp\
+            ../qt/my_table_widget_anim.cpp\
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
@@ -71,6 +72,7 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/mydoublespinbox.h\
 			../qt/mycheckbox.h\
 			../qt/mygroupbox.h\
+			../qt/my_table_widget_anim.hpp\
 			../src/my_ui_loader.h\
 			../src/preview_file_dialog.h\
 			../src/ssao_worker.h\

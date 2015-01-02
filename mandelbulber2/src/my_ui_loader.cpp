@@ -29,7 +29,6 @@
 
 MyUiLoader::~MyUiLoader()
 {
-	// TODO Destructor for MyUiLoader
 }
 
 QWidget* MyUiLoader::createWidget(const QString &className, QWidget *parent, const QString &name)

@@ -69,9 +69,7 @@ void cFlightAnimation::slotRenderFlight()
 
 void cFlightAnimation::RecordFlight()
 {
-	//TODO switching between constant flight speed and releative
 	//TODO Editing of table with animation frames
-	//TODO context menu for table
 	//TODO keyboard shorcuts for animation
 	//TODO progress bar for animation
 	//TODO dysplaying of flight parameters (speed, distance, no of frames)
@@ -80,6 +78,12 @@ void cFlightAnimation::RecordFlight()
 	//TODO button to delete all images
 	//TODO skip already rendered frames
 	//TODO play animation from rendered frames (in separate window)
+
+	if(interface->mainImage->IsUsed())
+	{
+		cErrorMessage::showMessage(QObject::tr("Rendering engine is bussy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
+		return;
+	}
 
 	frames->Clear();
 
@@ -98,6 +102,7 @@ void cFlightAnimation::RecordFlight()
 	CVector3 cameraAngularSpeed;
 	CVector3 cameraAngularAcceleration;
 	CVector3 cameraRotation;
+
 	CVector3 cameraPosition = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 top = gPar->Get<CVector3>("camera_top");
@@ -107,7 +112,8 @@ void cFlightAnimation::RecordFlight()
 	double maxRenderTime = gPar->Get<double>("flight_sec_per_frame");;
 	renderJob->SetMaxRenderTime(maxRenderTime);
 
-	double linearSpeed = gPar->Get<double>("flight_speed");
+	double linearSpeedSp = gPar->Get<double>("flight_speed");
+	enumSpeedMode speedMode = (enumSpeedMode)gPar->Get<double>("flight_speed_control");
 	double rotationSpeed = 0.1;
 	double inertia = gPar->Get<double>("flight_inertia");
 
@@ -120,8 +126,16 @@ void cFlightAnimation::RecordFlight()
 		CVector2<double> mousePosition = interface->renderedImage->GetLastMousePositionScaled();
 
 		//speed
-		double distanceToSurface = mainInterface->GetDistanceForPoint(cameraPosition, gPar, gParFractal);
-		linearSpeed = distanceToSurface * 0.05;
+		double linearSpeed;
+		if(speedMode == speedRelative)
+		{
+			double distanceToSurface = mainInterface->GetDistanceForPoint(cameraPosition, gPar, gParFractal);
+			linearSpeed = distanceToSurface * linearSpeedSp;
+		}
+		else
+		{
+			linearSpeed = linearSpeedSp;
+		}
 
 		//integrator for position
 		cameraAcceleration = (cameraTarget.GetForwardVector() * linearSpeed - cameraSpeed)/(inertia + 1.0);
@@ -160,14 +174,11 @@ void cFlightAnimation::RecordFlight()
 		int newColumn = AddColumn(frames->GetFrame(frames->GetNumberOfFrames() - 1));
 
 		//render frame
-		renderJob->Execute();
+		bool result = renderJob->Execute();
+		if(!result) break;
 
 		//create thumbnail
-		QImage qimage((const uchar*)interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), interface->mainImage->GetWidth()*sizeof(sRGB8), QImage::Format_RGB888);
-		QPixmap pixmap;
-		pixmap.convertFromImage(qimage);
-		QIcon icon(pixmap.scaled(QSize(100, 70), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
-		table->setItem(0, newColumn, new QTableWidgetItem(icon, QString()));
+		UpdateThumbnailFromImage(newColumn);
 
 		//TODO now is temporary saving of images
 		QString filename = framesDir + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
@@ -176,6 +187,15 @@ void cFlightAnimation::RecordFlight()
 	}
 
 	delete renderJob;
+}
+
+void cFlightAnimation::UpdateThumbnailFromImage(int index)
+{
+	QImage qimage((const uchar*)interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), interface->mainImage->GetWidth()*sizeof(sRGB8), QImage::Format_RGB888);
+	QPixmap pixmap;
+	pixmap.convertFromImage(qimage);
+	QIcon icon(pixmap.scaled(QSize(100, 70), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+	table->setItem(0, index, new QTableWidgetItem(icon, QString()));
 }
 
 void cFlightAnimation::PrepareTable()
@@ -196,16 +216,17 @@ void cFlightAnimation::CreateRowsInTable()
 	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("preview")));
 	table->setRowHeight(0, 70);
 	tableRowNames.append(tr("preview"));
+	rowParameter.append(-1);
 
 	parameterRows.clear();
 	for (int i = 0; i < parList.size(); ++i)
 	{
-		int row = AddVariableToTable(parList[i]);
+		int row = AddVariableToTable(parList[i], i);
 		parameterRows.append(row);
 	}
 }
 
-int cFlightAnimation::AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription)
+int cFlightAnimation::AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription, int index)
 {
 	using namespace parameterContainer;
 	enumVarType type = parameterDescription.varType;
@@ -217,14 +238,19 @@ int cFlightAnimation::AddVariableToTable(const cAnimationFrames::sParameterDescr
 		tableRowNames.append(varName);
 		table->insertRow(row);
 		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
+		rowParameter.append(index);
+
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_y";
 		tableRowNames.append(varName);
 		table->insertRow(row + 1);
 		table->setVerticalHeaderItem(row + 1, new QTableWidgetItem(varName));
+		rowParameter.append(index);
+
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_z";
 		tableRowNames.append(varName);
 		table->insertRow(row + 2);
 		table->setVerticalHeaderItem(row + 2, new QTableWidgetItem(varName));
+		rowParameter.append(index);
 	}
 	else
 	{
@@ -232,6 +258,7 @@ int cFlightAnimation::AddVariableToTable(const cAnimationFrames::sParameterDescr
 		tableRowNames.append(varName);
 		table->insertRow(table->rowCount());
 		table->setVerticalHeaderItem(table->rowCount() - 1, new QTableWidgetItem(varName));
+		rowParameter.append(index);
 	}
 	//TODO other parameter types
 	return row;
@@ -271,6 +298,12 @@ int cFlightAnimation::AddColumn(const cParameterContainer &params)
 
 void cFlightAnimation::RenderFlight()
 {
+	if(interface->mainImage->IsUsed())
+	{
+		cErrorMessage::showMessage(QObject::tr("Rendering engine is bussy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
+		return;
+	}
+
 	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, interface->mainImage, &interface->stopRequest, interface->renderedImage);
@@ -286,7 +319,8 @@ void cFlightAnimation::RenderFlight()
 		frames->GetFrameAndConsolidate(index, gPar, gParFractal);
 		interface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 		renderJob->UpdateParameters(gPar, gParFractal);
-		renderJob->Execute();
+		int result = renderJob->Execute();
+		if(!result) break;
 
 		//TODO selection of images path
 		QString filename = framesDir + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
@@ -301,6 +335,46 @@ void cFlightAnimation::RefreshTable()
 
 	for(int i=0; i < noOfFrames; i++)
 	{
-		int newColumn = AddColumn(frames->GetFrame(i));
+		AddColumn(frames->GetFrame(i));
 	}
 }
+
+QString cFlightAnimation::GetParameterName(int rowNumber)
+{
+	int parameterNumber = rowParameter[rowNumber];
+
+	QString fullParameterName;
+	QList<cAnimationFrames::sParameterDescription> list = frames->GetListOfUsedParameters();
+	if(parameterNumber >= 0)
+	{
+		fullParameterName = list[parameterNumber].containerName + "_" + list[parameterNumber].parameterName;
+	}
+	else
+	{
+		qCritical() << "cFlightAnimation::GetParameterNumber(int rowNumber): row not found";
+	}
+	return fullParameterName;
+}
+
+void cFlightAnimation::RenderFrame(int index)
+{
+	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	frames->GetFrameAndConsolidate(index, gPar, gParFractal);
+	interface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+	interface->StartRender();
+	UpdateThumbnailFromImage(index);
+}
+
+void cFlightAnimation::DeleteFramesFrom(int index)
+{
+	frames->DeleteFrames(index, frames->GetNumberOfFrames() - 1);
+	RefreshTable();
+}
+void cFlightAnimation::DeleteFramesTo(int index)
+{
+	frames->DeleteFrames(0, index);
+	RefreshTable();
+}
+
+
