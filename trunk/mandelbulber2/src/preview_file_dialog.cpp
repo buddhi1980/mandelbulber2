@@ -43,9 +43,15 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 
 	info = new QLabel("");
 
+	progressBar = new QProgressBar(this);
+	progressBar->setMaximum(1000);
+	progressBar->setAlignment(Qt::AlignCenter);
+
 	vboxlayout->addWidget(checkbox);
 	vboxlayout->addWidget(preview);
 	vboxlayout->addWidget(info);
+	vboxlayout->addWidget(progressBar);
+	progressBar->hide();
 	vboxlayout -> addStretch();
 
 	//add to existing layout
@@ -61,6 +67,7 @@ PreviewFileDialog::~PreviewFileDialog()
 	delete vboxlayout;
 	delete preview;
 	delete info;
+	delete progressBar;
 }
 
 void PreviewFileDialog::OnCurrentChanged(const QString & filename)
@@ -80,8 +87,11 @@ void PreviewFileDialog::OnCurrentChanged(const QString & filename)
 			if(parSettings.Decode(par, parFractal))
 			{
 				cThumbnail thumbnail(par, parFractal, 200, 200, parSettings.GetHashCode());
+				thumbnail.AssignProgressBar(progressBar);
+				progressBar->show();
 				pixmap = thumbnail.Render();
 				preview->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+				progressBar->hide();
 			}
 			else
 			{

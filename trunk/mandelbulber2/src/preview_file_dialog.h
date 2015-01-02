@@ -28,6 +28,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QCheckBox>
+#include <QProgressBar>
 
 class PreviewFileDialog: public QFileDialog
 {
@@ -44,8 +45,7 @@ private:
 protected:
 	QLabel *preview;
 	QLabel *info;
-
-	//TODO add progress bar for rendering previews
+	QProgressBar *progressBar;
 };
 
 #endif /* PREVIEWFILEDIALOG_H_ */

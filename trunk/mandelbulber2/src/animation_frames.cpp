@@ -210,3 +210,28 @@ void cAnimationFrames::GetFrameAndConsolidate(int index, cParameterContainer *pa
 		qWarning() << "cAnimationFrames::GetFrame(int index): wrong index" << index;
 	}
 }
+
+void cAnimationFrames::RemoveAnimagedParameter(const QString &fullParameterName)
+{
+	for(int i = 0; i<frames.size(); ++i)
+	{
+		frames[i].par.DeleteParameter(fullParameterName);
+	}
+
+	for(int i=0; i<listOfParameters.size(); ++i)
+	{
+		if(listOfParameters[i].containerName + "_" + listOfParameters[i].parameterName == fullParameterName)
+		{
+			listOfParameters.removeAt(i);
+			break;
+		}
+	}
+}
+
+void cAnimationFrames::DeleteFrames(int begin, int end)
+{
+	for(int i = end; i >= begin; i--)
+	{
+		frames.removeAt(i);
+	}
+}

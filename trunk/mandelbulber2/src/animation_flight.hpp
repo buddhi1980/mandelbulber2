@@ -29,11 +29,24 @@
 class cFlightAnimation : public QObject
 {
  Q_OBJECT
+
 public:
+ enum enumSpeedMode
+ {
+	 speedRelative,
+	 speedConstant
+ };
+
+
 	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent = 0);
 	void RecordFlight();
 	void RenderFlight();
+	void RenderFrame(int index);
 	void RefreshTable();
+	QString GetParameterName(int rowNumber);
+	void DeleteFramesFrom(int index);
+	void DeleteFramesTo(int index);
+	void UpdateThumbnailFromImage(int index);
 
 private slots:
 void slotRecordFlight();
@@ -42,14 +55,15 @@ void slotRenderFlight();
 private:
 	void PrepareTable();
 	void CreateRowsInTable();
-	int AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription);
+	int AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription, int index);
 	int AddColumn(const cParameterContainer &params);
 	cInterface *interface;
 	Ui::RenderWindow *ui;
 	cAnimationFrames *frames;
 	QStringList tableRowNames;
 	QVector<int> parameterRows; //position of parameter in table
-	QTableWidget *table;
+	QVector<int> rowParameter; //index of parameter in row
+	MyTableWidgetAnim *table;
 };
 
 

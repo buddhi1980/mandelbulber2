@@ -953,6 +953,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 
 void cInterface::StartRender(void)
 {
+	//FIXME instead of repeat loop there must me something to stop previous rendering
 	WriteLog("cInterface::StartRender(void)");
 	if(mainImage->IsUsed())
 	{

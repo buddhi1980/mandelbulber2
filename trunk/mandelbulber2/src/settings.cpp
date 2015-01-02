@@ -285,8 +285,6 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 
 bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)
 {
-	//TODO decode animation frames
-
 	//clear settings
 	par->ResetAllToDefault();
 	for(int i=0; i<NUMBER_OF_FRACTALS; i++)

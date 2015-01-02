@@ -27,6 +27,7 @@
 #include "four_fractals.hpp"
 #include "global_data.hpp"
 #include "progress_text.hpp"
+#include "error_message.hpp"
 
 cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QWidget *_qwidget)
 {
@@ -176,6 +177,12 @@ bool cRenderJob::InitImage(int w, int h)
 
 bool cRenderJob::Execute(void)
 {
+	if(image->IsUsed())
+	{
+		cErrorMessage::showMessage(QObject::tr("Rendering engine is bussy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
+		return false;
+	}
+
 	inProgress = true;
 	*renderData->stopRequest = false;
 

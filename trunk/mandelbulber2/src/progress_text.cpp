@@ -108,9 +108,13 @@ QString cProgressText::TimeString(qint64 time)
 
 void ProgressStatusText(const QString &text, const QString &progressText, double progress, QStatusBar *statusBar, QProgressBar *progressBar)
 {
-	if(statusBar && progressBar)
+	if(statusBar)
 	{
 		statusBar->showMessage(text, 0);
+	}
+
+	if(progressBar)
+	{
 		progressBar->setValue(progress * 1000.0);
 		progressBar->setTextVisible(true);
 		progressBar->setFormat(progressText);
