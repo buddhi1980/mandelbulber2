@@ -26,6 +26,7 @@
 #include "system.hpp"
 #include "files.h"
 #include "error_message.hpp"
+#include "progress_text.hpp"
 
 cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent) : QObject(parent), interface(_interface), frames(_frames)
 {
@@ -71,7 +72,7 @@ void cFlightAnimation::RecordFlight()
 {
 	//TODO Editing of table with animation frames
 	//TODO keyboard shorcuts for animation
-	//TODO progress bar for animation
+	//TODO progress bar for animation (timer for frame rendering)
 	//TODO dysplaying of flight parameters (speed, distance, no of frames)
 	//TODO speed control by lmb/rmb
 	//TODO HUD
@@ -313,8 +314,14 @@ void cFlightAnimation::RenderFlight()
 
 	QString framesDir = gPar->Get<QString>("anim_flight_dir");
 
+	interface->progressBarAnimation->show();
 	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
 	{
+		ProgressStatusText(QObject::tr("Animation start"),
+			QObject::tr("Rendering Frame %1 of %2").arg((index+1)).arg(frames->GetNumberOfFrames()),
+			(index + 1.0) / frames->GetNumberOfFrames(),
+			ui->statusbar, interface->progressBarAnimation);
+
 		if(interface->stopRequest) break;
 		frames->GetFrameAndConsolidate(index, gPar, gParFractal);
 		interface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
