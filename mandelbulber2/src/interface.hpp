@@ -79,7 +79,7 @@ public:
 	QImage *qimage;
 	RenderedImage *renderedImage;
 	QProgressBar *progressBar;
-
+	QProgressBar *progressBarAnimation;
 	cImage *mainImage;
 	QList<sPrimitiveItem> listOfPrimitives;
 
