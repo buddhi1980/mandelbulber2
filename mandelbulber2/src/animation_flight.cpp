@@ -72,7 +72,6 @@ void cFlightAnimation::RecordFlight()
 {
 	//TODO Editing of table with animation frames
 	//TODO keyboard shorcuts for animation
-	//TODO progress bar for animation (timer for frame rendering)
 	//TODO dysplaying of flight parameters (speed, distance, no of frames)
 	//TODO speed control by lmb/rmb
 	//TODO HUD
@@ -315,11 +314,17 @@ void cFlightAnimation::RenderFlight()
 	QString framesDir = gPar->Get<QString>("anim_flight_dir");
 
 	interface->progressBarAnimation->show();
+	cProgressText progressText;
+	progressText.ResetTimer();
+
 	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
 	{
+		double percentDoneFrame = (index * 1.0) / frames->GetNumberOfFrames();
+		QString progressTxt = progressText.getText(percentDoneFrame);
+
 		ProgressStatusText(QObject::tr("Animation start"),
-			QObject::tr("Rendering Frame %1 of %2").arg((index+1)).arg(frames->GetNumberOfFrames()),
-			(index + 1.0) / frames->GetNumberOfFrames(),
+			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
+			percentDoneFrame,
 			ui->statusbar, interface->progressBarAnimation);
 
 		if(interface->stopRequest) break;
@@ -333,6 +338,7 @@ void cFlightAnimation::RenderFlight()
 		QString filename = framesDir + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 90);
 	}
+	ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, interface->progressBarAnimation);
 }
 
 void cFlightAnimation::RefreshTable()
