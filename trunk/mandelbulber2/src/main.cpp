@@ -74,6 +74,8 @@ int main(int argc, char *argv[])
 	//Define list of fractal formulas
 	DefineFractalList(&fractalList);
 
+
+
 	mainInterface->ShowUi();
 
 	//Alocate container for animation frames
@@ -86,13 +88,6 @@ int main(int argc, char *argv[])
 
 	//write parameters to ui
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-
-	//setup main image
-	mainInterface->mainImage = new cImage(gPar->Get<int>("image_width"),gPar->Get<int>("image_height"));
-	mainInterface->mainImage->CreatePreview(1.0, 800, 600, mainInterface->renderedImage);
-	mainInterface->renderedImage->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(),mainInterface->mainImage->GetPreviewHeight());
-	mainInterface->renderedImage->AssignImage(mainInterface->mainImage);
-	mainInterface->renderedImage->AssignParameters(gPar);
 
 	//start main Qt loop
 	WriteLog("application->exec()");

@@ -90,6 +90,7 @@ private slots:
 	void slotPressedButtonSetPositionPrimitive();
 	void slotResizedScrolledAreaImage(int width, int height);
 	void slotSliderMovedEditManualLightPlacementDistance(int value);
+	void slotMenuLoadPreset(QString filename);
 
 	//camera
 	void slotCameraMove();

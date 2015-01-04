@@ -39,6 +39,8 @@
 #include "initparameters.hpp"
 #include "global_data.hpp"
 #include "progress_text.hpp"
+#include "settings.hpp"
+#include "thumbnail.hpp"
 
 //constructor of interface (loading of ui files)
 cInterface::cInterface()
@@ -85,6 +87,13 @@ void cInterface::ShowUi(void)
 	renderedImage = new RenderedImage(mainWindow);
 	mainWindow->ui->scrollAreaLayoutRenderedImage->addWidget(renderedImage);
 
+	//setup main image
+	mainImage = new cImage(gPar->Get<int>("image_width"),gPar->Get<int>("image_height"));
+	mainImage->CreatePreview(1.0, 800, 600, mainInterface->renderedImage);
+	renderedImage->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(),mainInterface->mainImage->GetPreviewHeight());
+	renderedImage->AssignImage(mainInterface->mainImage);
+	renderedImage->AssignParameters(gPar);
+
 	WriteLog("Prepare progress and status bar");
 	progressBar = new QProgressBar(mainWindow->ui->statusbar);
 	progressBar->setMaximum(1000);
@@ -99,7 +108,7 @@ void cInterface::ShowUi(void)
 
 	ComboMouseClickUpdate();
 
-
+	PopulateToolbar(mainWindow, mainWindow->ui->toolBar);
 
 	WriteLog("cInterface::ConnectSignals(void)");
 	ConnectSignals();
@@ -1932,6 +1941,51 @@ void cInterface::ComboMouseClickUpdate()
 	if(lastIndex < combo->count())
 	{
 		combo->setCurrentIndex(lastIndex);
+	}
+}
+
+//adds dynamic actions to the toolbar (example settings)
+void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
+{
+	QDirIterator exampleFiles(systemData.sharedDir + QDir::separator() + "examples");
+	QSignalMapper *mapPresetsFromExamples = new QSignalMapper(window);
+	toolBar->setIconSize(QSize(40,40));
+
+	while (exampleFiles.hasNext()) {
+		QString filename = exampleFiles.next();
+		if(exampleFiles.fileName() == "." || exampleFiles.fileName() == "..") continue;
+		QPixmap pixmap;
+		QIcon icon;
+
+		if (QFileInfo(filename).suffix() == QString("fract"))
+		{
+			cSettings parSettings(cSettings::formatFullText);
+			parSettings.BeQuiet(true);
+			if (parSettings.LoadFromFile(filename))
+			{
+				cParameterContainer *par = new cParameterContainer;
+				cFractalContainer *parFractal = new cFractalContainer;
+				InitParams(par);
+				for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
+					InitFractalParams(&parFractal->at(i));
+				if(parSettings.Decode(par, parFractal))
+				{
+					cThumbnail thumbnail(par, parFractal, 40, 40, parSettings.GetHashCode());
+					pixmap = thumbnail.Render();
+					icon.addPixmap(pixmap.scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+				}
+			}
+		}
+
+		QAction *action = new QAction("Example settings: " + filename, window);
+		action->setIcon(icon);
+		toolBar->addAction(action);
+
+		mapPresetsFromExamples->setMapping(action, filename);
+		QApplication::connect(action, SIGNAL(triggered()), mapPresetsFromExamples, SLOT (map()));
+		QApplication::connect(mapPresetsFromExamples, SIGNAL(mapped(QString)), window, SLOT(slotMenuLoadPreset(QString)));
+
+		application->processEvents();
 	}
 }
 
