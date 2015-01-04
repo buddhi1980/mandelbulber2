@@ -73,6 +73,7 @@ public:
 	void DeletePrimitive(const QString &primitiveName);
 	void RebuildPrimitives(cParameterContainer *par);
 	void ComboMouseClickUpdate();
+	void PopulateToolbar(QWidget *window, QToolBar *toolBar);
 
 	RenderWindow *mainWindow;
 	QImage *qimage;

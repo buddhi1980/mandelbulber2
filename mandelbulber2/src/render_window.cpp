@@ -1255,5 +1255,16 @@ void RenderWindow::slotShowAnimationDock()
 	ui->dockWidget_animation->show();
 }
 
+void RenderWindow::slotMenuLoadPreset(QString filename)
+{
+	cSettings parSettings(cSettings::formatFullText);
 
+	parSettings.LoadFromFile(filename);
+	parSettings.Decode(gPar, gParFractal);
+	mainInterface->RebuildPrimitives(gPar);
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	mainInterface->ComboMouseClickUpdate();
+	systemData.lastSettingsFile = systemData.dataDirectory + "settings" + QDir::separator() + QFileInfo(filename).fileName();
+	this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
+}
 
