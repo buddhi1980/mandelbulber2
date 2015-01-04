@@ -95,6 +95,13 @@ void cInterface::ShowUi(void)
 	renderedImage->AssignParameters(gPar);
 
 	WriteLog("Prepare progress and status bar");
+
+	progressBarAnimation = new QProgressBar(mainWindow->ui->statusbar);
+	progressBarAnimation->setMaximum(1000);
+	progressBarAnimation->setAlignment(Qt::AlignCenter);
+	progressBarAnimation->hide();
+	mainWindow->ui->statusbar->addPermanentWidget(progressBarAnimation);
+
 	progressBar = new QProgressBar(mainWindow->ui->statusbar);
 	progressBar->setMaximum(1000);
 	progressBar->setAlignment(Qt::AlignCenter);
@@ -238,7 +245,6 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->comboBox_camera_absolute_distance_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotMovementStepModeChanged(int)));
 
 	//------------------------------------------------
-
 	ConnectSignalsForSlidersInWindow(mainWindow);
 	MakeColorButtonsInWindow(mainWindow);
 }
@@ -975,6 +981,7 @@ void cInterface::StartRender(void)
 	  do
 	  {
 			repeatRequest = false;
+			progressBarAnimation->hide();
 	  	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
 			cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage);
@@ -2034,4 +2041,3 @@ void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 	pushbutton->setIcon(icon);
 	pushbutton->setIconSize(QSize(w,h));
 }
-
