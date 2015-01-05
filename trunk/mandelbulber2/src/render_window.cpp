@@ -1045,6 +1045,7 @@ void RenderWindow::slotMouceClickOnImage(int x, int y, Qt::MouseButton button)
 			break;
 		}
 		case RenderedImage::clickDoNothing:
+		case RenderedImage::clickFlightSpeedControl:
 			//nothing
 			break;
 	}

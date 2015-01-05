@@ -227,6 +227,10 @@ void cFlightAnimation::RecordFlight()
 		index++;
 	}
 
+	//retrieve original click mode
+	QList<QVariant> item = ui->comboBox_mouse_click_function->itemData(ui->comboBox_mouse_click_function->currentIndex()).toList();
+	mainInterface->renderedImage->setClickMode(item);
+
 	delete renderJob;
 }
 

@@ -50,6 +50,7 @@ cInterface::cInterface()
 	renderedImage = NULL;
 	mainImage = NULL;
 	progressBar = NULL;
+	progressBarAnimation = NULL;
 	stopRequest = false;
 	repeatRequest = false;
 }
@@ -1618,6 +1619,9 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					break;
 				}
 				case RenderedImage::clickDoNothing:
+					//nothing
+					break;
+				case RenderedImage::clickFlightSpeedControl:
 					//nothing
 					break;
 			}
