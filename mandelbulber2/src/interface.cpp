@@ -1977,7 +1977,7 @@ void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
 					InitFractalParams(&parFractal->at(i));
 				if(parSettings.Decode(par, parFractal))
 				{
-					cThumbnail thumbnail(par, parFractal, 40, 40, parSettings.GetHashCode());
+					cThumbnail thumbnail(par, parFractal, 80, 80, parSettings.GetHashCode());
 					pixmap = thumbnail.Render();
 					icon.addPixmap(pixmap.scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 				}
