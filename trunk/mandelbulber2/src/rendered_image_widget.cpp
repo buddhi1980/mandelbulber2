@@ -125,6 +125,11 @@ void RenderedImage::DisplayCoordinates()
 		case clickGetJuliaConstant:
 			text = tr("Get Julia constant");
 			break;
+		case clickFlightSpeedControl:
+			text = tr("LMB - increase speed");
+			text += tr("\nRMB - decrease speed");
+			text += tr("\narrow keys - strafe");
+			break;
 		case clickDoNothing:
 			text  = "";
 			break;
@@ -132,7 +137,7 @@ void RenderedImage::DisplayCoordinates()
 
 	if(clickMode != clickDoNothing)
 	{
-		QRect textRect = painter.boundingRect(QRect(), Qt::AlignLeft, text);
+		QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop || Qt::AlignLeft, text);
 		textRect.setHeight(textRect.height() + 2);
 		textRect.moveBottomLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y - 3));
 
@@ -140,23 +145,26 @@ void RenderedImage::DisplayCoordinates()
 		painter.setPen(penWhite);
 		painter.setBrush(brushBrown);
 		painter.drawRoundedRect(textRect, 3, 3);
-		painter.drawText(QPoint(lastMousePosition.x + 30, lastMousePosition.y - 4), text);
+		painter.drawText(textRect, Qt::AlignTop || Qt::AlignLeft, text);
 	}
 
-	QString textCoordinates;
-	textCoordinates += "x: " + QString::number(lastCoordinates.x, 'g', 15);
-	textCoordinates += "\ny: " + QString::number(lastCoordinates.y, 'g', 15);
-	textCoordinates += "\nz: " + QString::number(lastCoordinates.z, 'g', 15);
-	textCoordinates += "\ndist: " + QString::number(lastDepth, 'g', 15);
+	if(clickMode != clickFlightSpeedControl)
+	{
+		QString textCoordinates;
+		textCoordinates += "x: " + QString::number(lastCoordinates.x, 'g', 15);
+		textCoordinates += "\ny: " + QString::number(lastCoordinates.y, 'g', 15);
+		textCoordinates += "\nz: " + QString::number(lastCoordinates.z, 'g', 15);
+		textCoordinates += "\ndist: " + QString::number(lastDepth, 'g', 15);
 
-	QRect textRect2 = painter.boundingRect(QRect(), Qt::AlignTop || Qt::AlignLeft, textCoordinates);
-	textRect2.setHeight(textRect2.height() + 2);
-	textRect2.moveTopLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y + 3));
-	painter.setOpacity(0.5);
-	painter.setPen(penWhite);
-	painter.setBrush(brushDarkBlue);
-	painter.drawRoundedRect(textRect2, 3, 3);
-	painter.drawText(textRect2, Qt::AlignTop || Qt::AlignLeft, textCoordinates);
+		QRect textRect2 = painter.boundingRect(QRect(), Qt::AlignTop || Qt::AlignLeft, textCoordinates);
+		textRect2.setHeight(textRect2.height() + 2);
+		textRect2.moveTopLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y + 3));
+		painter.setOpacity(0.5);
+		painter.setPen(penWhite);
+		painter.setBrush(brushDarkBlue);
+		painter.drawRoundedRect(textRect2, 3, 3);
+		painter.drawText(textRect2, Qt::AlignTop || Qt::AlignLeft, textCoordinates);
+	}
 }
 
 void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
@@ -169,7 +177,7 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 	smoothLastZMouse = smoothLastZMouse + (z - smoothLastZMouse) * 0.01;
 
-	if (z > 0)
+	if (z > 0 && clickMode != clickFlightSpeedControl)
 	{
 		bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
 		double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
@@ -315,7 +323,22 @@ void RenderedImage::mouseMoveEvent(QMouseEvent * event)
 
 void RenderedImage::mousePressEvent(QMouseEvent * event)
 {
-	emit singleClick(event->x(), event->y(), event->button());
+	if((enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl)
+	{
+		if(event->button() == Qt::LeftButton)
+		{
+			emit flightSpeedIncease();
+		}
+		else if(event->button() == Qt::RightButton)
+		{
+			emit flightSpeedDecrease();
+		}
+	}
+	else
+	{
+		emit singleClick(event->x(), event->y(), event->button());
+	}
+
 }
 
 void RenderedImage::mouseReleaseEvent(QMouseEvent * event)
@@ -339,12 +362,80 @@ void RenderedImage::leaveEvent(QEvent * event)
 
 void RenderedImage::keyPressEvent(QKeyEvent * event)
 {
-	emit keyPress((Qt::Key) event->key());
+	if(event->isAutoRepeat())
+	{
+		event->ignore();
+	}
+	else
+	{
+		if((enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl)
+		{
+			Qt::Key key = (Qt::Key) event->key();
+			if(key == Qt::Key_Up)
+			{
+				keyArrows.y += 1;
+				emit(flightStrafe(keyArrows));
+			}
+			else if(key == Qt::Key_Down)
+			{
+				keyArrows.y -= 1;
+				emit(flightStrafe(keyArrows));
+			}
+			else if(key == Qt::Key_Left)
+			{
+				keyArrows.x -= 1;
+				emit(flightStrafe(keyArrows));
+			}
+			else if(key == Qt::Key_Right)
+			{
+				keyArrows.x += 1;
+				emit(flightStrafe(keyArrows));
+			}
+		}
+		else
+		{
+			emit keyPress((Qt::Key) event->key());
+		}
+	}
 }
 
 void RenderedImage::keyReleaseEvent(QKeyEvent * event)
 {
-	emit keyRelease((Qt::Key) event->key());
+	if(event->isAutoRepeat())
+	{
+		event->ignore();
+	}
+	else
+	{
+		if((enumClickMode)clickModeData.at(0).toInt() == clickFlightSpeedControl)
+		{
+			Qt::Key key = (Qt::Key) event->key();
+			if(key == Qt::Key_Up)
+			{
+				keyArrows.y -= 1;
+				emit(flightStrafe(keyArrows));
+			}
+			else if(key == Qt::Key_Down)
+			{
+				keyArrows.y += 1;
+				emit(flightStrafe(keyArrows));
+			}
+			else if(key == Qt::Key_Left)
+			{
+				keyArrows.x += 1;
+				emit(flightStrafe(keyArrows));
+			}
+			else if(key == Qt::Key_Right)
+			{
+				keyArrows.x -= 1;
+				emit(flightStrafe(keyArrows));
+			}
+		}
+		else
+		{
+			emit keyRelease((Qt::Key) event->key());
+		}
+	}
 }
 
 void RenderedImage::wheelEvent(QWheelEvent * event)

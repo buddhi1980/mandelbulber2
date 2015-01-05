@@ -51,6 +51,9 @@ public:
 private slots:
 void slotRecordFlight();
 void slotRenderFlight();
+void slotIncreaseSpeed();
+void slotDecreaseSpeed();
+void slotFlightStrafe(CVector2<int> strafe);
 
 private:
 	void PrepareTable();
@@ -64,6 +67,8 @@ private:
 	QVector<int> parameterRows; //position of parameter in table
 	QVector<int> rowParameter; //index of parameter in row
 	MyTableWidgetAnim *table;
+	CVector2<int> strafe;
+	double linearSpeedSp;
 };
 
 

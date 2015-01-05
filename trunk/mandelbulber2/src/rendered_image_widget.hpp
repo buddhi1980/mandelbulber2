@@ -44,7 +44,23 @@ enum enumClickMode
 	clickDOFFocus = 3,
 	clickGetJuliaConstant = 4,
 	clickPlaceLight = 5,
-	clickPlacePrimitive = 6
+	clickPlacePrimitive = 6,
+	clickFlightSpeedControl = 7
+};
+
+struct sFlightData
+{
+	//numbers
+	CVector3 camera;
+	double speed;
+	double distance;
+	double speedSp;
+
+	//HUD
+	CVector3 rotation;
+	CVector3 speedVector;
+	CVector3 forwardVector;
+	CVector3 topVector;
 };
 
 	RenderedImage(QWidget *parent = 0);
@@ -84,6 +100,8 @@ private:
 	bool isFocus;
 	bool isOnObject;
 	double frontDist;
+	sFlightData flightData;
+	CVector2<int> keyArrows;
 
 signals:
 	void mouseMoved(int x, int y);
@@ -91,6 +109,9 @@ signals:
 	void keyPress(Qt::Key key);
 	void keyRelease(Qt::Key key);
 	void mouseWheelRotated(int delta);
+	void flightSpeedIncease();
+	void flightSpeedDecrease();
+	void flightStrafe(CVector2<int> arrows);
 };
 
 

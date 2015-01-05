@@ -33,7 +33,11 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	ui = interface->mainWindow->ui;
 	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
 	QApplication::connect(ui->pushButton_render_flight, SIGNAL(clicked()), this, SLOT(slotRenderFlight()));
+	QApplication::connect(interface->renderedImage, SIGNAL(flightStrafe(CVector2<int>)), this, SLOT(slotFlightStrafe(CVector2<int>)));
+	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedIncease()), this, SLOT(slotIncreaseSpeed()));
+	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedDecrease()), this, SLOT(slotDecreaseSpeed()));
 	table = ui->tableWidget_flightAnimation;
+	linearSpeedSp = 0.0;
 }
 
 void cFlightAnimation::slotRecordFlight()
@@ -71,9 +75,7 @@ void cFlightAnimation::slotRenderFlight()
 void cFlightAnimation::RecordFlight()
 {
 	//TODO Editing of table with animation frames
-	//TODO keyboard shorcuts for animation
 	//TODO dysplaying of flight parameters (speed, distance, no of frames)
-	//TODO speed control by lmb/rmb
 	//TODO HUD
 	//TODO button to delete all images
 	//TODO skip already rendered frames
@@ -85,17 +87,28 @@ void cFlightAnimation::RecordFlight()
 		return;
 	}
 
+	ProgressStatusText(QObject::tr("Redordning flight path"), tr("waiting 3 seconds"), 0.0, ui->statusbar, interface->progressBar);
+	application->processEvents();
+	Wait(3000);
+
 	frames->Clear();
 
 	PrepareTable();
 
 	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
+	//setup cursor mode for renderedImage widget
+	QList<QVariant> clickMode;
+	clickMode.append((int)RenderedImage::clickFlightSpeedControl);
+	interface->renderedImage->setClickMode(clickMode);
+
+	//setup of rendering engine
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, interface->mainImage, &interface->stopRequest, interface->renderedImage);
 	renderJob->AssingStatusAndProgessBar(ui->statusbar, interface->progressBar);
 	renderJob->Init(cRenderJob::flightAnimRecord);
 	interface->stopRequest = false;
 
+	//vector for speed and rotation control
 	CVector3 cameraSpeed;
 	CVector3 cameraAcceleration;
 	CVector3 cameraAccelerationRotation;
@@ -112,7 +125,7 @@ void cFlightAnimation::RecordFlight()
 	double maxRenderTime = gPar->Get<double>("flight_sec_per_frame");;
 	renderJob->SetMaxRenderTime(maxRenderTime);
 
-	double linearSpeedSp = gPar->Get<double>("flight_speed");
+	linearSpeedSp = gPar->Get<double>("flight_speed");
 	enumSpeedMode speedMode = (enumSpeedMode)gPar->Get<double>("flight_speed_control");
 	double rotationSpeed = 0.1;
 	double inertia = gPar->Get<double>("flight_inertia");
@@ -138,7 +151,23 @@ void cFlightAnimation::RecordFlight()
 		}
 
 		//integrator for position
-		cameraAcceleration = (cameraTarget.GetForwardVector() * linearSpeed - cameraSpeed)/(inertia + 1.0);
+		if(strafe.Length() == 0)
+		{
+			cameraAcceleration = (cameraTarget.GetForwardVector() * linearSpeed - cameraSpeed)/(inertia + 1.0);
+		}
+		else
+		{
+			CVector3 direction;
+			if(strafe.x != 0)
+			{
+				direction += cameraTarget.GetRightVector() * strafe.x;
+			}
+			if(strafe.y != 0)
+			{
+				direction += cameraTarget.GetTopVector() * strafe.y;
+			}
+			cameraAcceleration = (direction * linearSpeed - cameraSpeed)/(inertia + 1.0);
+		}
 		cameraSpeed += cameraAcceleration;
 		cameraPosition += cameraSpeed;
 
@@ -390,4 +419,23 @@ void cFlightAnimation::DeleteFramesTo(int index)
 	RefreshTable();
 }
 
+void cFlightAnimation::slotFlightStrafe(CVector2<int> _strafe)
+{
+	strafe = _strafe;
+}
 
+void cFlightAnimation::slotIncreaseSpeed()
+{
+	interface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::read);
+	linearSpeedSp = gPar->Get<double>("flight_speed") * 1.1;
+	gPar->Set("flight_speed", linearSpeedSp);
+	interface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::write);
+}
+
+void cFlightAnimation::slotDecreaseSpeed()
+{
+	interface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::read);
+	linearSpeedSp = gPar->Get<double>("flight_speed") * 0.9;
+	gPar->Set("flight_speed", linearSpeedSp);
+	interface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::write);
+}
