@@ -74,8 +74,6 @@ int main(int argc, char *argv[])
 	//Define list of fractal formulas
 	DefineFractalList(&fractalList);
 
-
-
 	mainInterface->ShowUi();
 
 	//Alocate container for animation frames
@@ -92,6 +90,8 @@ int main(int argc, char *argv[])
 	//start main Qt loop
 	WriteLog("application->exec()");
 	int result = application->exec();
+
+	//TODO when quit then ask (message) and stop all renderings
 
 	//clean objects when exit
 	delete gPar;

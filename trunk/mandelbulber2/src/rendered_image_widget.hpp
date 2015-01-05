@@ -51,6 +51,7 @@ enum enumClickMode
 struct sFlightData
 {
 	//numbers
+	int frame;
 	CVector3 camera;
 	double speed;
 	double distance;
@@ -70,6 +71,7 @@ struct sFlightData
 	void setClickMode(QList<QVariant> _clickMode) {clickModeData = _clickMode;}
 	void SetFrontDist(double dist) {frontDist = dist;}
 	void SetCursorVisibility(bool enable) {cursorVisible = enable;};
+	void SetFlightData(const sFlightData &fData) {flightData = fData;}
 	CVector2<double> GetLastMousePositionScaled(void);
 
 protected:
@@ -87,6 +89,8 @@ private:
 	void DisplayCoordinates();
 	void Display3DCursor(CVector2<int> screenPoint, double z);
 	void DisplayCrosshair();
+	void DrawHud(CVector3 rotation);
+	CVector3 CalcPointPersp(const CVector3 &point, const CRotationMatrix &rot, double persp);
 
 	cImage *image;
 	QList<QVariant> clickModeData;

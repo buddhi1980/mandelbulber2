@@ -75,11 +75,10 @@ void cFlightAnimation::slotRenderFlight()
 void cFlightAnimation::RecordFlight()
 {
 	//TODO Editing of table with animation frames
-	//TODO dysplaying of flight parameters (speed, distance, no of frames)
-	//TODO HUD
 	//TODO button to delete all images
 	//TODO skip already rendered frames
 	//TODO play animation from rendered frames (in separate window)
+	//TODO control of roll rotation (by keyboard shortbuts)
 
 	if(interface->mainImage->IsUsed())
 	{
@@ -140,9 +139,9 @@ void cFlightAnimation::RecordFlight()
 
 		//speed
 		double linearSpeed;
+		double distanceToSurface = mainInterface->GetDistanceForPoint(cameraPosition, gPar, gParFractal);
 		if(speedMode == speedRelative)
 		{
-			double distanceToSurface = mainInterface->GetDistanceForPoint(cameraPosition, gPar, gParFractal);
 			linearSpeed = distanceToSurface * linearSpeedSp;
 		}
 		else
@@ -201,6 +200,19 @@ void cFlightAnimation::RecordFlight()
 
 		//add column to table
 		int newColumn = AddColumn(frames->GetFrame(frames->GetNumberOfFrames() - 1));
+
+		//update HUD
+		RenderedImage::sFlightData flightData;
+		flightData.frame = frames->GetNumberOfFrames();
+		flightData.camera = cameraPosition;
+		flightData.speed = cameraSpeed.Length();
+		flightData.speedSp = linearSpeed;
+		flightData.distance = distanceToSurface;
+		flightData.rotation = cameraTarget.GetRotation();
+		flightData.speedVector = cameraSpeed;
+		flightData.forwardVector = forwardVector;
+		flightData.topVector = top;
+		interface->renderedImage->SetFlightData(flightData);
 
 		//render frame
 		bool result = renderJob->Execute();
