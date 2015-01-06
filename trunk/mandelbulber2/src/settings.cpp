@@ -530,6 +530,19 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 					else
 					{
 						QString val = lineSplit[column];
+
+						if (type != typeString)
+						{
+							if (systemData.decimalPoint == '.')
+							{
+								val = val.replace(',', '.');
+							}
+							else
+							{
+								val = val.replace('.', ',');
+							}
+						}
+
 						container->Set(parameterName, val);
 					}
 					//TODO other types of variables
