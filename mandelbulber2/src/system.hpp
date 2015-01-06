@@ -38,6 +38,9 @@
 #endif
 
 #include <QtCore>
+#include <stdio.h>
+#include <stdlib.h>
+#include <qapplication.h>
 
 using namespace std;
 
@@ -76,5 +79,6 @@ bool CreateDefaultFolders(void);
 bool CreateDirectory(QString name);
 int fcopy(QString source, QString dest);
 void Wait(long int time);
+void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 
 #endif /* SYSTEM_HPP_ */
