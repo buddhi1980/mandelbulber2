@@ -55,6 +55,7 @@ void slotIncreaseSpeed();
 void slotDecreaseSpeed();
 void slotFlightStrafe(CVector2<int> strafe);
 void slotFlightRotation(int direction);
+void slotSelectAnimFlightImageDir();
 
 private:
 	void PrepareTable();
