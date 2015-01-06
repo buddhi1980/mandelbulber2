@@ -122,8 +122,6 @@ bool cRenderJob::Init(enumMode _mode)
 	}
 
 	renderData->screenRegion.Set(0, 0, width, height);
-	renderData->lights.Set(paramsContainer, fractalContainer);
-	renderData->palette = paramsContainer->Get<cColorPalette>("surface_color_palette");
 
 	//textures are deleted with destruction of renderData
 
@@ -187,6 +185,9 @@ bool cRenderJob::Execute(void)
 	*renderData->stopRequest = false;
 
 	WriteLog("cRenderJob::Execute(void)");
+
+	renderData->lights.Set(paramsContainer, fractalContainer);
+	renderData->palette = paramsContainer->Get<cColorPalette>("surface_color_palette");
 
 	//move parameters from containers to structures
 	cParamRender *params = new cParamRender(paramsContainer);

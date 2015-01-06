@@ -36,8 +36,11 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	QApplication::connect(interface->renderedImage, SIGNAL(flightStrafe(CVector2<int>)), this, SLOT(slotFlightStrafe(CVector2<int>)));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedIncease()), this, SLOT(slotIncreaseSpeed()));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedDecrease()), this, SLOT(slotDecreaseSpeed()));
+	QApplication::connect(interface->renderedImage, SIGNAL(flightRotation(int)), this, SLOT(slotFlightRotation(int)));
+
 	table = ui->tableWidget_flightAnimation;
 	linearSpeedSp = 0.0;
+	rotationDirection = 0;
 }
 
 void cFlightAnimation::slotRecordFlight()
@@ -78,7 +81,6 @@ void cFlightAnimation::RecordFlight()
 	//TODO button to delete all images
 	//TODO skip already rendered frames
 	//TODO play animation from rendered frames (in separate window)
-	//TODO control of roll rotation (by keyboard shortbuts)
 
 	if(interface->mainImage->IsUsed())
 	{
@@ -173,14 +175,17 @@ void cFlightAnimation::RecordFlight()
 		//rotation
 		cameraAngularAcceleration.x = (mousePosition.x * rotationSpeed - cameraAngularSpeed.x) / (inertia + 1.0);
 		cameraAngularAcceleration.y = (mousePosition.y * rotationSpeed - cameraAngularSpeed.y) / (inertia + 1.0);
+		cameraAngularAcceleration.z = (rotationDirection * 0.01 - cameraAngularSpeed.z) / (inertia + 1.0);
 		cameraAngularSpeed += cameraAngularAcceleration;
 
 		//TODO other modes of rotation
 		CVector3 forwardVector = cameraTarget.GetForwardVector();
 		forwardVector = forwardVector.RotateAroundVectorByAngle(cameraTarget.GetTopVector(), -cameraAngularSpeed.x);
 		forwardVector = forwardVector.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), -cameraAngularSpeed.y);
+
 		top = cameraTarget.GetTopVector();
 		top = top.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), -cameraAngularSpeed.y);
+		top = top.RotateAroundVectorByAngle(cameraTarget.GetForwardVector(), -cameraAngularSpeed.z);
 
 		//update position and rotation
 		target = cameraPosition + forwardVector * cameraSpeed.Length();
@@ -454,4 +459,9 @@ void cFlightAnimation::slotDecreaseSpeed()
 	linearSpeedSp = gPar->Get<double>("flight_speed") * 0.9;
 	gPar->Set("flight_speed", linearSpeedSp);
 	interface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::write);
+}
+
+void cFlightAnimation::slotFlightRotation(int direction)
+{
+	rotationDirection = direction;
 }

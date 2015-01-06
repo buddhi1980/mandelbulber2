@@ -248,3 +248,29 @@ void Wait(long int time)
 	waitCondition.wait(&dummy, time);
 	dummy.unlock();
 }
+
+void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    QByteArray localMsg = msg.toLocal8Bit();
+    QString text;
+    switch (type) {
+    case QtDebugMsg:
+        fprintf(stderr, "Debug: %s\n", localMsg.constData());
+        text = QString("Debug: ") + QString(localMsg.constData());
+        break;
+    case QtWarningMsg:
+        fprintf(stderr, "Warning: %s\n(%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        text = QString("Warning: ") + QString(localMsg.constData()) + " (" + context.file + ":" + QString::number(context.line) + ", " + context.function;
+        break;
+    case QtCriticalMsg:
+        fprintf(stderr, "Critical: %s\n(%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        text = QString("Critical: ") + QString(localMsg.constData()) + " (" + context.file + ":" + QString::number(context.line) + ", " + context.function;
+        break;
+    case QtFatalMsg:
+        fprintf(stderr, "Fatal: %s\n(%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        text = QString("Fatal: ") + QString(localMsg.constData()) + " (" + context.file + ":" + QString::number(context.line) + ", " + context.function;
+        abort();
+    }
+
+    WriteLog(text);
+}

@@ -54,6 +54,7 @@ void slotRenderFlight();
 void slotIncreaseSpeed();
 void slotDecreaseSpeed();
 void slotFlightStrafe(CVector2<int> strafe);
+void slotFlightRotation(int direction);
 
 private:
 	void PrepareTable();
@@ -68,6 +69,7 @@ private:
 	QVector<int> rowParameter; //index of parameter in row
 	MyTableWidgetAnim *table;
 	CVector2<int> strafe;
+	int rotationDirection;
 	double linearSpeedSp;
 };
 

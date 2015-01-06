@@ -48,6 +48,7 @@ RenderedImage::RenderedImage(QWidget *parent) :
 	isOnObject = false;
 	lastDepth = 0.0;
 	frontDist = 0.0;
+	flightRotationDirection = 0;
 
 	QList<QVariant> mode;
 	mode.append((int)RenderedImage::clickPlaceLight);
@@ -129,6 +130,7 @@ void RenderedImage::DisplayCoordinates()
 			text = tr("LMB - increase speed");
 			text += tr("\nRMB - decrease speed");
 			text += tr("\narrow keys - strafe");
+			text += tr("\nz, x keys - roll");
 			break;
 		case clickDoNothing:
 			text  = "";
@@ -410,6 +412,17 @@ void RenderedImage::keyPressEvent(QKeyEvent * event)
 				keyArrows.x += 1;
 				emit(flightStrafe(keyArrows));
 			}
+			else if(key == Qt::Key_Z)
+			{
+				flightRotationDirection = 1;
+				emit(flightRotation(flightRotationDirection));
+			}
+			else if(key == Qt::Key_X)
+			{
+				flightRotationDirection = -1;
+				emit(flightRotation(flightRotationDirection));
+			}
+
 		}
 		else
 		{
@@ -449,6 +462,17 @@ void RenderedImage::keyReleaseEvent(QKeyEvent * event)
 				keyArrows.x -= 1;
 				emit(flightStrafe(keyArrows));
 			}
+			else if(key == Qt::Key_Z)
+			{
+				flightRotationDirection = 0;
+				emit(flightRotation(flightRotationDirection));
+			}
+			else if(key == Qt::Key_X)
+			{
+				flightRotationDirection = 0;
+				emit(flightRotation(flightRotationDirection));
+			}
+
 		}
 		else
 		{

@@ -106,6 +106,7 @@ private:
 	double frontDist;
 	sFlightData flightData;
 	CVector2<int> keyArrows;
+	int flightRotationDirection;
 
 signals:
 	void mouseMoved(int x, int y);
@@ -116,6 +117,7 @@ signals:
 	void flightSpeedIncease();
 	void flightSpeedDecrease();
 	void flightStrafe(CVector2<int> arrows);
+	void flightRotation(int direction);
 };
 
 

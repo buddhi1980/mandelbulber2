@@ -28,11 +28,15 @@
 #include "fractal_list.hpp"
 #include "undo.h"
 #include "global_data.hpp"
+#include <qapplication.h>
 
 int main(int argc, char *argv[])
 {
 	//Initialization of system functions
 	InitSystem();
+
+	//configure debug output
+	qInstallMessageHandler(myMessageOutput);
 
 	//class for interface windows
 	mainInterface = new cInterface;
