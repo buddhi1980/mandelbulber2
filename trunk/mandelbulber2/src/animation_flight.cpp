@@ -27,12 +27,14 @@
 #include "files.h"
 #include "error_message.hpp"
 #include "progress_text.hpp"
+#include <QFileDialog>
 
 cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent) : QObject(parent), interface(_interface), frames(_frames)
 {
 	ui = interface->mainWindow->ui;
 	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
 	QApplication::connect(ui->pushButton_render_flight, SIGNAL(clicked()), this, SLOT(slotRenderFlight()));
+	QApplication::connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this, SLOT(slotSelectAnimFlightImageDir()));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightStrafe(CVector2<int>)), this, SLOT(slotFlightStrafe(CVector2<int>)));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedIncease()), this, SLOT(slotIncreaseSpeed()));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedDecrease()), this, SLOT(slotDecreaseSpeed()));
@@ -217,6 +219,7 @@ void cFlightAnimation::RecordFlight()
 		flightData.speedVector = cameraSpeed;
 		flightData.forwardVector = forwardVector;
 		flightData.topVector = top;
+
 		interface->renderedImage->SetFlightData(flightData);
 
 		//render frame
@@ -464,4 +467,25 @@ void cFlightAnimation::slotDecreaseSpeed()
 void cFlightAnimation::slotFlightRotation(int direction)
 {
 	rotationDirection = direction;
+}
+
+void cFlightAnimation::slotSelectAnimFlightImageDir()
+{
+	QFileDialog* dialog = new QFileDialog();
+	dialog->setFileMode(QFileDialog::DirectoryOnly);
+	dialog->setNameFilter(QObject::tr("Animation Image Folder"));
+	dialog->setDirectory(gPar->Get<QString>("anim_flight_dir"));
+	dialog->setAcceptMode(QFileDialog::AcceptOpen);
+	dialog->setWindowTitle(QObject::tr("Choose Animation Image Folder"));
+	dialog->setOption(QFileDialog::ShowDirsOnly);
+	QStringList filenames;
+
+	if(dialog->exec())
+	{
+		filenames = dialog->selectedFiles();
+		qDebug() << filenames.first();
+		QString filename = filenames.first() + "/";
+		ui->text_anim_flight_dir->setText(filename);
+		gPar->Set("anim_flight_dir", filename);
+	}
 }
