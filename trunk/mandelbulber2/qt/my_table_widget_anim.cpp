@@ -103,7 +103,7 @@ void MyTableWidgetAnim::rowContextMenuRequest(QPoint point)
 		QAction *actionDeleteParameter;
 
 		QString name = gFlightAnimation->GetParameterName(row);
-		actionDeleteParameter = menu->addAction(tr("Remove '") + name + tr("' from animation"));
+		actionDeleteParameter = menu->addAction(tr("Remove '%1' from animation").arg(name));
 
 		QAction *selectedItem = menu->exec(verticalHeader()->viewport()->mapToGlobal(point));
 

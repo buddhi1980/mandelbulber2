@@ -86,11 +86,11 @@ void cFlightAnimation::RecordFlight()
 
 	if(interface->mainImage->IsUsed())
 	{
-		cErrorMessage::showMessage(QObject::tr("Rendering engine is bussy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
 		return;
 	}
 
-	ProgressStatusText(QObject::tr("Redordning flight path"), tr("waiting 3 seconds"), 0.0, ui->statusbar, interface->progressBar);
+	ProgressStatusText(QObject::tr("Recordning flight path"), tr("waiting 3 seconds"), 0.0, ui->statusbar, interface->progressBar);
 	application->processEvents();
 	Wait(3000);
 
@@ -353,7 +353,7 @@ void cFlightAnimation::RenderFlight()
 {
 	if(interface->mainImage->IsUsed())
 	{
-		cErrorMessage::showMessage(QObject::tr("Rendering engine is bussy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
 		return;
 	}
 

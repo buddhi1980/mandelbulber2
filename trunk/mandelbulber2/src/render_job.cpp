@@ -177,7 +177,7 @@ bool cRenderJob::Execute(void)
 {
 	if(image->IsUsed())
 	{
-		cErrorMessage::showMessage(QObject::tr("Rendering engine is bussy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
 		return false;
 	}
 
