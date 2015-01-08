@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastain Jennen
  */
 
 #ifndef COLOR_STRUCTURES_HPP_
@@ -36,7 +36,7 @@ struct tsRGBA
 {
 		T R, G, B, A;
 		tsRGBA(T r, T g, T b, T a) : R(r), G(g), B(b), A(a) {}
-		tsRGBA();
+		tsRGBA() {R = 0; G = 0; B = 0; A = 0;}
 };
 
 // explicitly define contructor for rgba with regards to max value of Opacity
