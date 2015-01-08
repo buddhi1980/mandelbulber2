@@ -382,7 +382,7 @@ void SavePNG16Alpha(QString filename, int width, int height, cImage *image)
 	}
 
 	png_bytep *row_pointers = new png_bytep[height];
-	sImageRGBA16 *image16 = new sImageRGBA16[(unsigned long int)width * height];
+	sRGBA16 *image16 = new sRGBA16[(unsigned long int)width * height];
 
 	for (int y = 0; y < height; y++)
 	{
