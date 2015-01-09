@@ -136,6 +136,20 @@ bool CreateDefaultFolders(void)
 		result &= CreateDirectory(systemData.dataDirectory + "undo");
 		result &= CreateDirectory(systemData.dataDirectory + "paths");
 		result &= CreateDirectory(systemData.dataDirectory + "thumbnails");
+		result &= CreateDirectory(systemData.dataDirectory + "toolbar");
+
+		// if(!QFileInfo(systemData.dataDirectory + "toolbar/default.fract").exists())
+		if(QDir(systemData.dataDirectory + "toolbar").entryInfoList(QDir::NoDotAndDotDot|QDir::AllEntries).count() == 0)
+		{
+			// first run of program (or all toolbar items deleted) -> copy toolbar presets to working folder
+			QDirIterator toolbarFiles(systemData.sharedDir + "toolbar");
+			while (toolbarFiles.hasNext())
+			{
+				toolbarFiles.next();
+				if(toolbarFiles.fileName() == "." || toolbarFiles.fileName() == "..") continue;
+				fcopy(toolbarFiles.filePath(), systemData.dataDirectory + "toolbar/" + toolbarFiles.fileName());
+			}
+		}
 
 #ifdef CLSUPPORT
 		string oclDir = systemData.dataDirectory + "/custom_ocl_formulas";

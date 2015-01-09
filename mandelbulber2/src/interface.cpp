@@ -1958,13 +1958,13 @@ void cInterface::ComboMouseClickUpdate()
 //adds dynamic actions to the toolbar (example settings)
 void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
 {
-	QDirIterator exampleFiles(systemData.sharedDir + QDir::separator() + "examples");
+	QDirIterator toolbarFiles(systemData.dataDirectory + QDir::separator() + "toolbar");
 	QSignalMapper *mapPresetsFromExamples = new QSignalMapper(window);
 	toolBar->setIconSize(QSize(40,40));
 
-	while (exampleFiles.hasNext()) {
-		QString filename = exampleFiles.next();
-		if(exampleFiles.fileName() == "." || exampleFiles.fileName() == "..") continue;
+	while (toolbarFiles.hasNext()) {
+		QString filename = toolbarFiles.next();
+		if(toolbarFiles.fileName() == "." || toolbarFiles.fileName() == "..") continue;
 		QPixmap pixmap;
 		QIcon icon;
 
