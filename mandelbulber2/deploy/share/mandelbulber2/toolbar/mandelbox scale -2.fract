@@ -9,10 +9,7 @@ camera_top -0.1461477750368559 0.2531353717769811 0.9563280354601689;
 formula_1 8;
 view_distance_max 13.01353988658613;
 [fractal_1]
-alpha_angle_offset 90;
-beta_angle_offset 90;
 mandelbox_scale -2;
-power 2;
 [fractal_2]
 [fractal_3]
 [fractal_4]

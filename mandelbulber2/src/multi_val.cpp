@@ -10,8 +10,6 @@
 
 using namespace parameterContainer;
 
-//TODO replace all sscanf and sprintf with QString functions (problems with dots/colons)
-
 cMultiVal::cMultiVal()
 {
 	iVal[0] = 0;
@@ -36,9 +34,7 @@ enumVarType cMultiVal::Store(double val)
 {
 	dVal[0] = val;
 	iVal[0] = val;
-	char sbuff[100];
-	sprintf(sbuff, "%.16lg", val);
-	sVal = QString(sbuff);
+	sVal = QString::number(val, 'g', 16);
 
 	if(!typeDefined) type = typeDouble;
 	return typeDouble;
@@ -48,9 +44,8 @@ enumVarType cMultiVal::Store(int val)
 {
 	dVal[0] = val;
 	iVal[0] = val;
-	char sbuff[100];
-	sprintf(sbuff, "%d", val);
-	sVal = QString(sbuff);
+	sVal = QString::number(val);
+
 	if(!typeDefined) type = typeInt;
 	return typeInt;
 }
@@ -62,27 +57,38 @@ enumVarType cMultiVal::Store(QString val)
 		case typeNull:
 		case typeVector3:
 		case typeString:
-			sscanf(val.toUtf8(), "%lf %lf %lf %lf", &dVal[0], &dVal[1], &dVal[2], &dVal[3]);
-			sscanf(val.toUtf8(), "%d %d %d %d", &iVal[0], &iVal[1], &iVal[2], &iVal[3]);
+		{
+			QStringList split = val.split(' ');
+			int size = split.size();
+			if(size >= 4) size = 4;
+			for(int i = 0; i < size; i++)
+			{
+				dVal[i] = split[i].toDouble();
+				iVal[i] = split[i].toInt();
+			}
 			break;
-
+		}
 		case typeInt:
 		case typeDouble:
 		case typeBool:
-			sscanf(val.toUtf8(), "%lf", &dVal[0]);
-			sscanf(val.toUtf8(), "%d", &iVal[0]);
+			dVal[0] = val.toDouble();
+			iVal[0] = val.toInt();
 			break;
 
 		case typeRgb:
-			sscanf(val.toUtf8(), "%x %x %x %x", &iVal[0], &iVal[1], &iVal[2], &iVal[3]);
-			dVal[0] = iVal[0];
-			dVal[1] = iVal[1];
-			dVal[2] = iVal[2];
-			dVal[3] = iVal[3];
+		{
+			QStringList split = val.split(' ');
+			int size = split.size();
+			if(size >= 4) size = 4;
+			for(int i = 0; i < size; i++)
+			{
+				dVal[i] = iVal[i] = split[i].toInt(NULL, 16);
+			}
 			break;
+		}
 
 		case typeColorPalette:
-			//*********************** to do **********************
+			//TODO typeColorPalette in cMultiVal::Store(QString val)
 			break;
 	}
 	sVal = val;
@@ -99,9 +105,7 @@ enumVarType cMultiVal::Store(CVector3 val)
 	iVal[0] = val.x;
 	iVal[1] = val.y;
 	iVal[2] = val.z;
-	char sbuff[100];
-	sprintf(sbuff, "%.16lg %.16lg %.16lg", val.x, val.y, val.z);
-	sVal = QString(sbuff);
+	sVal =  QString::number(val.x, 'g', 16) + " " + QString::number(val.y, 'g', 16) + " " + QString::number(val.z, 'g', 16);
 
 	if(!typeDefined) type = typeVector3;
 	return type;
@@ -115,9 +119,7 @@ enumVarType cMultiVal::Store(sRGB val)
 	iVal[0] = val.R;
 	iVal[1] = val.G;
 	iVal[2] = val.B;
-	char sbuff[100];
-	sprintf(sbuff, "%x %x %x", val.R, val.G, val.B);
-	sVal = QString(sbuff);
+	sVal = QString::number(val.R, 16) + " " + QString::number(val.G, 16) + " " + QString::number(val.B, 16);
 
 	if(!typeDefined) type = typeRgb;
 	return typeRgb;
@@ -127,9 +129,7 @@ enumVarType cMultiVal::Store(bool val)
 {
 	dVal[0] = val;
 	iVal[0] = val;
-	char sbuff[100];
-	sprintf(sbuff, "%d", val);
-	sVal = QString(sbuff);
+	sVal = QString::number(val);
 
 	if(!typeDefined) type = typeBool;
 	return typeBool;
@@ -188,38 +188,32 @@ enumVarType cMultiVal::Get(cColorPalette &val) const
 
 QString cMultiVal::MakePaletteString(cColorPalette &palette)
 {
-	int length;
-	int pointer = 0;
-	char *paletteString = new char[(palette.GetSize()+2) * 7];
+	QString paletteString;
 	for (int i = 0; i < palette.GetSize(); i++)
 	{
 		sRGB colorRGB = palette.GetColor(i);
 		int colour = colorRGB.R * 65536 + colorRGB.G * 256 + colorRGB.B;
 		colour = colour & 0x00FFFFFF;
-		length = sprintf(&paletteString[pointer], "%x ", colour);
-		pointer += length;
+		paletteString += QString::number(colour, 16) + " ";
 	}
-	QString out(paletteString);
-	delete[] paletteString;
-	return out;
+	return paletteString;
 }
 
 cColorPalette cMultiVal::GetPaletteFromString(const QString &paletteString) const
 {
 	cColorPalette colorPalette;
+	QStringList split = paletteString.split(" ");
 
-	for (int i = 0; i < paletteString.length(); i++)
+	for (int i = 0; i < split.size(); i++)
 	{
-		unsigned int colour = 0;
-		sscanf(&paletteString.toLocal8Bit().constData()[i], "%x", &colour);
-		sRGB rgbColour;
-		rgbColour.R = colour / 65536;
-		rgbColour.G = (colour / 256) % 256;
-		rgbColour.B = colour % 256;
-		colorPalette.AppendColor(rgbColour);
-		while (i < paletteString.length() && paletteString[i] != ' ')
+		if(split[i].size() > 0)
 		{
-			i++;
+			unsigned int colour = split[i].toInt(NULL, 16);
+			sRGB rgbColour;
+			rgbColour.R = colour / 65536;
+			rgbColour.G = (colour / 256) % 256;
+			rgbColour.B = colour % 256;
+			colorPalette.AppendColor(rgbColour);
 		}
 	}
 	return colorPalette;

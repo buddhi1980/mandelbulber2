@@ -10,9 +10,6 @@ formula_1 8;
 target 0 0 -1.58057123480107;
 view_distance_max 37.95853865751351;
 [fractal_1]
-alpha_angle_offset 90;
-beta_angle_offset 90;
-power 2;
 [fractal_2]
 [fractal_3]
 [fractal_4]
