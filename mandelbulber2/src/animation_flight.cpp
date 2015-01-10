@@ -98,6 +98,13 @@ void cFlightAnimation::RecordFlight()
 
 	frames->Clear();
 
+	if(frames->GetListOfUsedParameters().size() == 0)
+	{
+		gAnimFrames->AddAnimagedParameter("camera", gPar->GetAsOneParameter("camera"));
+		gAnimFrames->AddAnimagedParameter("target", gPar->GetAsOneParameter("target"));
+		gAnimFrames->AddAnimagedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
+	}
+
 	PrepareTable();
 
 	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);

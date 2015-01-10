@@ -82,9 +82,6 @@ int main(int argc, char *argv[])
 
 	//Alocate container for animation frames
 	gAnimFrames = new cAnimationFrames;
-	gAnimFrames->AddAnimagedParameter("camera", gPar->GetAsOneParameter("camera"));
-	gAnimFrames->AddAnimagedParameter("target", gPar->GetAsOneParameter("target"));
-	gAnimFrames->AddAnimagedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
 
 	gFlightAnimation = new cFlightAnimation(mainInterface, gAnimFrames, mainInterface->mainWindow);
 
