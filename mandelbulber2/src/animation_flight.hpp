@@ -37,7 +37,6 @@ public:
 	 speedConstant
  };
 
-
 	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent = 0);
 	void RecordFlight();
 	void RenderFlight();
@@ -56,12 +55,13 @@ void slotDecreaseSpeed();
 void slotFlightStrafe(CVector2<int> strafe);
 void slotFlightRotation(int direction);
 void slotSelectAnimFlightImageDir();
+void slotTableCellChanged(int row, int column);
 
 private:
 	void PrepareTable();
 	void CreateRowsInTable();
 	int AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription, int index);
-	int AddColumn(const cParameterContainer &params);
+	int AddColumn(const cAnimationFrames::sAnimationFrame &frame);
 	cInterface *interface;
 	Ui::RenderWindow *ui;
 	cAnimationFrames *frames;

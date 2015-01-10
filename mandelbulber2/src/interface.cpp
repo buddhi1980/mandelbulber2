@@ -892,6 +892,8 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 //automatic setting of event slots for all colorButtons and preparation of buttons
 void cInterface::MakeColorButtonsInWindow(QWidget *window)
 {
+	//TODO cInterface::MakeColorButtonsInWindow(QWidget *window) has to be changed to promoted widget class
+
 	WriteLog("MakeColorButtonsInWindow() started");
 
 	QList<QPushButton *> widgetList = window->findChildren<QPushButton *>();
