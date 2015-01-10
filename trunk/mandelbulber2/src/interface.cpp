@@ -1958,6 +1958,7 @@ void cInterface::ComboMouseClickUpdate()
 //adds dynamic actions to the toolbar (example settings)
 void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
 {
+	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) started");
 	QDir toolbarDir = QDir(systemData.dataDirectory + "toolbar");
 	QStringList toolbarFiles = toolbarDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 	QSignalMapper *mapPresetsFromExamples = new QSignalMapper(window);
@@ -1969,6 +1970,7 @@ void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
 		QIcon icon;
 		if (QFileInfo(filename).suffix() == QString("fract"))
 		{
+			WriteLogString("Generating thumbnail for preset", filename);
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.BeQuiet(true);
 			if (parSettings.LoadFromFile(filename))
@@ -1997,6 +1999,7 @@ void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
 
 		application->processEvents();
 	}
+	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) finished");
 }
 
 //----------- functions outside cInterface class -------------
