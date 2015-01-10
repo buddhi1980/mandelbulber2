@@ -82,14 +82,14 @@ bool InitSystem(void)
 	out << "Default data directory: " << systemData.dataDirectory << endl;
 	WriteLogString("Default data directory", systemData.dataDirectory);
 
-	systemData.thumbnailDir = systemData.dataDirectory + QDir::separator() + "thumbnails" + QDir::separator();
+	systemData.thumbnailDir = systemData.dataDirectory + "thumbnails" + QDir::separator();
 
 	//*********** temporary set to false ************
 	systemData.noGui = false;
 
-	systemData.lastSettingsFile = systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator() + QString("settings.fract");
-	systemData.lastImageFile = systemData.dataDirectory + QDir::separator() + "images" + QDir::separator() + QString("image.jpg");
-	systemData.lastImagePaletteFile = systemData.sharedDir + QDir::separator() + "textures" + QDir::separator() + QString("colour palette.jpg");
+	systemData.lastSettingsFile = systemData.dataDirectory + "settings" + QDir::separator() + QString("settings.fract");
+	systemData.lastImageFile = systemData.dataDirectory + "images" + QDir::separator() + QString("image.jpg");
+	systemData.lastImagePaletteFile = systemData.sharedDir + "textures" + QDir::separator() + QString("colour palette.jpg");
 
 	QLocale systemLocale = QLocale::system();
 	systemData.decimalPoint = systemLocale.decimalPoint();
