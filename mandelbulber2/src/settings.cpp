@@ -386,18 +386,6 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 
 	enumVarType varType = par->GetVarType(parameterName);
 
-	if (varType != typeString)
-	{
-		if (systemData.decimalPoint == '.')
-		{
-			value = value.replace(',', '.');
-		}
-		else
-		{
-			value = value.replace('.', ',');
-		}
-	}
-
 	if(varType == typeNull)
 	{
 		cErrorMessage::showMessage(QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
@@ -530,19 +518,6 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 					else
 					{
 						QString val = lineSplit[column];
-
-						if (type != typeString)
-						{
-							if (systemData.decimalPoint == '.')
-							{
-								val = val.replace(',', '.');
-							}
-							else
-							{
-								val = val.replace('.', ',');
-							}
-						}
-
 						container->Set(parameterName, val);
 					}
 					//TODO other types of variables
