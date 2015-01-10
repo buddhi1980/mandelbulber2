@@ -39,6 +39,7 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedIncease()), this, SLOT(slotIncreaseSpeed()));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedDecrease()), this, SLOT(slotDecreaseSpeed()));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightRotation(int)), this, SLOT(slotFlightRotation(int)));
+	QApplication::connect(ui->tableWidget_flightAnimation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
 
 	table = ui->tableWidget_flightAnimation;
 	linearSpeedSp = 0.0;
@@ -230,7 +231,6 @@ void cFlightAnimation::RecordFlight()
 		//create thumbnail
 		UpdateThumbnailFromImage(newColumn);
 
-		//TODO now is temporary saving of images
 		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 90);
 		index++;
@@ -245,11 +245,13 @@ void cFlightAnimation::RecordFlight()
 
 void cFlightAnimation::UpdateThumbnailFromImage(int index)
 {
+	table->blockSignals(true);
 	QImage qimage((const uchar*)interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), interface->mainImage->GetWidth()*sizeof(sRGB8), QImage::Format_RGB888);
 	QPixmap pixmap;
 	pixmap.convertFromImage(qimage);
 	QIcon icon(pixmap.scaled(QSize(100, 70), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
 	table->setItem(0, index, new QTableWidgetItem(icon, QString()));
+	table->blockSignals(false);
 }
 
 void cFlightAnimation::PrepareTable()
@@ -318,8 +320,9 @@ int cFlightAnimation::AddVariableToTable(const cAnimationFrames::sParameterDescr
 	return row;
 }
 
-int cFlightAnimation::AddColumn(const cParameterContainer &params)
+int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame)
 {
+	table->blockSignals(true);
 	int newColumn = table->columnCount();
 	table->insertColumn(newColumn);
 
@@ -334,19 +337,19 @@ int cFlightAnimation::AddColumn(const cParameterContainer &params)
 
 		if (type == typeVector3)
 		{
-			CVector3 val = params.Get<CVector3>(parameterName);
+			CVector3 val = frame.parameters.Get<CVector3>(parameterName);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.x, 'g', 16)));
 			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.y, 'g', 16)));
 			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.z, 'g', 16)));
 		}
 		else
 		{
-			QString val = params.Get<QString>(parameterName);
+			QString val = frame.parameters.Get<QString>(parameterName);
 			table->setItem(row, newColumn, new QTableWidgetItem(val));
 		}
 		//TODO other parameter types
 	}
-
+	table->blockSignals(false);
 	return newColumn;
 }
 
@@ -437,6 +440,7 @@ void cFlightAnimation::DeleteFramesFrom(int index)
 	frames->DeleteFrames(index, frames->GetNumberOfFrames() - 1);
 	RefreshTable();
 }
+
 void cFlightAnimation::DeleteFramesTo(int index)
 {
 	frames->DeleteFrames(0, index);
@@ -483,9 +487,40 @@ void cFlightAnimation::slotSelectAnimFlightImageDir()
 	if(dialog->exec())
 	{
 		filenames = dialog->selectedFiles();
-		qDebug() << filenames.first();
 		QString filename = filenames.first() + "/";
 		ui->text_anim_flight_dir->setText(filename);
 		gPar->Set("anim_flight_dir", filename);
 	}
+}
+
+void cFlightAnimation::slotTableCellChanged(int row, int column)
+{
+	table->blockSignals(true);
+	QTableWidgetItem *cell = ui->tableWidget_flightAnimation->item(row, column);
+	QString cellText = cell->text();
+
+	cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
+
+	QString parameterName = GetParameterName(row);
+	int parameterFirstRow = parameterRows[rowParameter[row]];
+	int vectIndex = row - parameterFirstRow;
+
+	using namespace parameterContainer;
+	enumVarType type = frame.parameters.GetVarType(parameterName);
+
+	if(type == typeVector3)
+	{
+		CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
+		if(vectIndex == 0) vect.x = cellText.toDouble();
+		if(vectIndex == 1) vect.y = cellText.toDouble();
+		if(vectIndex == 2) vect.z = cellText.toDouble();
+		frame.parameters.Set(parameterName, vect);
+	}
+	else
+	{
+		frame.parameters.Set(parameterName, cellText);
+	}
+
+	frames->ModifyFrame(column, frame);
+	table->blockSignals(false);
 }

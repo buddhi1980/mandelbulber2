@@ -33,7 +33,7 @@ public:
 
 	struct sAnimationFrame
 	{
-		cParameterContainer par;
+		cParameterContainer parameters;
 		QPixmap thumnail;
 	};
 
@@ -48,8 +48,9 @@ public:
 
 	cAnimationFrames();
 	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal);
+	void ModifyFrame(int index, sAnimationFrame &frame);
 	void GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
-	cParameterContainer GetFrame(int index);
+	sAnimationFrame GetFrame(int index);
 	int GetNumberOfFrames();
 	void Clear();
 	void ClearAll();

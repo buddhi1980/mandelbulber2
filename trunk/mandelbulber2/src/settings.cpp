@@ -98,14 +98,14 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 				{
 					if(parameterList[i].varType == parameterContainer::typeVector3)
 					{
-						CVector3 val = frames->GetFrame(f).Get<CVector3>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						CVector3 val = frames->GetFrame(f).parameters.Get<CVector3>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
 						settingsText += QString::number(val.x, 'g', 16) + ";";
 						settingsText += QString::number(val.y, 'g', 16) + ";";
 						settingsText += QString::number(val.z, 'g', 16);
 					}
 					else
 					{
-						settingsText += frames->GetFrame(f).Get<QString>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						settingsText += frames->GetFrame(f).parameters.Get<QString>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
 					}
 					//TODO other parameter types
 

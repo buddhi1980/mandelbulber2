@@ -36,7 +36,7 @@ void cAnimationFrames::AddFrame(const cParameterContainer &params, const cFracta
 		if(container)
 		{
 			QString parameterName = listOfParameters[i].parameterName;
-			frame.par.AddParamFromOneParameter(container->GetContainerName() + "_" + parameterName, container->GetAsOneParameter(parameterName));
+			frame.parameters.AddParamFromOneParameter(container->GetContainerName() + "_" + parameterName, container->GetAsOneParameter(parameterName));
 		}
 		else
 		{
@@ -54,7 +54,7 @@ void cAnimationFrames::AddAnimagedParameter(const QString &parameterName, const 
 		listOfParameters.append(sParameterDescription(parameterName, defaultValue.GetOriginalContainerName(), defaultValue.GetValueType()));
 		for(int i = 0; i<frames.size(); ++i)
 		{
-			frames[i].par.AddParamFromOneParameter(defaultValue.GetOriginalContainerName() + "_" + parameterName, defaultValue);
+			frames[i].parameters.AddParamFromOneParameter(defaultValue.GetOriginalContainerName() + "_" + parameterName, defaultValue);
 		}
 	}
 	else
@@ -177,16 +177,16 @@ cParameterContainer* cAnimationFrames::ContainerSelector(QString containerName, 
 	return container;
 }
 
-cParameterContainer cAnimationFrames::GetFrame(int index)
+cAnimationFrames::sAnimationFrame cAnimationFrames::GetFrame(int index)
 {
 	if(index >= 0 && index < frames.count())
 	{
-		return frames.at(index).par;
+		return frames.at(index);
 	}
 	else
 	{
 		qWarning() << "cAnimationFrames::GetFrame(int index): wrong index" << index;
-		return cParameterContainer();
+		return sAnimationFrame();
 	}
 }
 
@@ -194,13 +194,13 @@ void cAnimationFrames::GetFrameAndConsolidate(int index, cParameterContainer *pa
 {
 	if(index >= 0 && index < frames.count())
 	{
-		cParameterContainer frame = frames.at(index).par;
+		cParameterContainer frame = frames.at(index).parameters;
 
 		for(int i=0; i < listOfParameters.size(); ++i)
 		{
 			cParameterContainer *container = ContainerSelector(listOfParameters[i].containerName, params, fractal);
 			QString parameterName = listOfParameters[i].parameterName;
-			cOneParameter oneParameter = frames[index].par.GetAsOneParameter(listOfParameters[i].containerName + "_" + parameterName);
+			cOneParameter oneParameter = frames[index].parameters.GetAsOneParameter(listOfParameters[i].containerName + "_" + parameterName);
 			container->SetFromOneParameter(parameterName, oneParameter);
 		}
 
@@ -215,7 +215,7 @@ void cAnimationFrames::RemoveAnimagedParameter(const QString &fullParameterName)
 {
 	for(int i = 0; i<frames.size(); ++i)
 	{
-		frames[i].par.DeleteParameter(fullParameterName);
+		frames[i].parameters.DeleteParameter(fullParameterName);
 	}
 
 	for(int i=0; i<listOfParameters.size(); ++i)
@@ -233,5 +233,13 @@ void cAnimationFrames::DeleteFrames(int begin, int end)
 	for(int i = end; i >= begin; i--)
 	{
 		frames.removeAt(i);
+	}
+}
+
+void cAnimationFrames::ModifyFrame(int index, sAnimationFrame &frame)
+{
+	if(index >= 0 && index < frames.size())
+	{
+		frames[index] = frame;
 	}
 }
