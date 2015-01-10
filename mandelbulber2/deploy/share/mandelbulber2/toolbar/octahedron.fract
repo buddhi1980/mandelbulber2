@@ -1,0 +1,23 @@
+# Mandelbulber settings file
+# version 2.03
+# only modified parameters
+[main_parameters]
+camera 0.454097650739787 -2.219072397550683 0.3993908086339395;
+camera_distance_to_target 2.3;
+camera_rotation 11.565 -9.999999999999989 0;
+camera_top -0.03481289900076248 0.1701227547102634 0.9848077530122081;
+formula_1 10;
+view_distance_max 3.468462503315997;
+[fractal_1]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_5 1 -1 0;
+IFS_direction_6 1 0 -1;
+IFS_direction_7 0 1 -1;
+IFS_enabled_5 true;
+IFS_enabled_6 true;
+IFS_enabled_7 true;
+[fractal_2]
+[fractal_3]
+[fractal_4]

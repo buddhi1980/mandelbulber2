@@ -3986,7 +3986,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-501</y>
                   <width>303</width>
                   <height>1326</height>
                  </rect>
@@ -8313,6 +8313,15 @@ and water):</string>
   <tabstop>sliderInt_image_height</tabstop>
   <tabstop>spinboxInt_image_height</tabstop>
   <tabstop>comboBox_image_proportion</tabstop>
+  <tabstop>pushButton_resolution_preset_480</tabstop>
+  <tabstop>pushButton_resolution_preset_720</tabstop>
+  <tabstop>pushButton_resolution_preset_1080</tabstop>
+  <tabstop>pushButton_resolution_preset_1440</tabstop>
+  <tabstop>pushButton_resolution_preset_2160</tabstop>
+  <tabstop>pushButton_resolution_preset_4320</tabstop>
+  <tabstop>pushButton_resolution_preset_240</tabstop>
+  <tabstop>pushButton_resolution_preset_600</tabstop>
+  <tabstop>pushButton_resolution_preset_1200</tabstop>
   <tabstop>slider_brightness</tabstop>
   <tabstop>spinbox_brightness</tabstop>
   <tabstop>slider_contrast</tabstop>
@@ -8323,6 +8332,9 @@ and water):</string>
   <tabstop>pushButton_apply_image_changes</tabstop>
   <tabstop>slider_fov</tabstop>
   <tabstop>spinbox_fov</tabstop>
+  <tabstop>comboBox_perspective_type</tabstop>
+  <tabstop>checkBox_legacy_coordinate_system</tabstop>
+  <tabstop>scrollArea_6</tabstop>
   <tabstop>slider_shading</tabstop>
   <tabstop>spinbox_shading</tabstop>
   <tabstop>slider_specular</tabstop>
@@ -8331,26 +8343,51 @@ and water):</string>
   <tabstop>spinbox_ambient_occlusion</tabstop>
   <tabstop>slider_reflect</tabstop>
   <tabstop>spinbox_reflect</tabstop>
+  <tabstop>groupCheck_ambient_occlusion_enabled</tabstop>
   <tabstop>sliderInt_ambient_occlusion_quality</tabstop>
   <tabstop>spinboxInt_ambient_occlusion_quality</tabstop>
   <tabstop>slider_ambient_occlusion_fast_tune</tabstop>
   <tabstop>spinbox_ambient_occlusion_fast_tune</tabstop>
   <tabstop>comboBox_ambient_occlusion_mode</tabstop>
+  <tabstop>text_file_lightmap</tabstop>
+  <tabstop>button_selectLightMapTexture</tabstop>
+  <tabstop>groupCheck_fractal_color</tabstop>
+  <tabstop>slider_coloring_palette_offset</tabstop>
+  <tabstop>spinbox_coloring_palette_offset</tabstop>
+  <tabstop>sliderInt_coloring_palette_size</tabstop>
+  <tabstop>spinboxInt_coloring_palette_size</tabstop>
   <tabstop>slider_coloring_saturation</tabstop>
   <tabstop>spinbox_coloring_saturation</tabstop>
   <tabstop>slider_coloring_speed</tabstop>
   <tabstop>spinbox_coloring_speed</tabstop>
+  <tabstop>pushButton_randomize</tabstop>
   <tabstop>spinboxInt_coloring_random_seed</tabstop>
+  <tabstop>pushButton_randomPalette</tabstop>
   <tabstop>pushButton_getPaletteFromImage</tabstop>
+  <tabstop>groupCheck_env_mapping_enable</tabstop>
+  <tabstop>text_file_envmap</tabstop>
+  <tabstop>button_selectEnvMapTexture</tabstop>
+  <tabstop>groupCheck_raytraced_reflections</tabstop>
   <tabstop>sliderInt_reflections_max</tabstop>
   <tabstop>spinboxInt_reflections_max</tabstop>
+  <tabstop>groupCheck_DOF_enabled</tabstop>
+  <tabstop>logslider_DOF_focus</tabstop>
+  <tabstop>logedit_DOF_focus</tabstop>
+  <tabstop>slider_DOF_radius</tabstop>
+  <tabstop>spinbox_DOF_radius</tabstop>
+  <tabstop>pushButton_DOF_update</tabstop>
+  <tabstop>pushButton_DOF_set_focus</tabstop>
+  <tabstop>groupCheck_basic_fog_enabled</tabstop>
   <tabstop>logslider_basic_fog_visibility</tabstop>
   <tabstop>logedit_basic_fog_visibility</tabstop>
   <tabstop>colorButton_basic_fog_color</tabstop>
+  <tabstop>pushButton_set_fog_by_mouse</tabstop>
+  <tabstop>groupCheck_glow_enabled</tabstop>
   <tabstop>logslider_glow_intensity</tabstop>
   <tabstop>logedit_glow_intensity</tabstop>
   <tabstop>colorButton_glow_color_1</tabstop>
   <tabstop>colorButton_glow_color_2</tabstop>
+  <tabstop>groupCheck_volumetric_fog_enabled</tabstop>
   <tabstop>button_calculateFog</tabstop>
   <tabstop>logslider_volumetric_fog_density</tabstop>
   <tabstop>logedit_volumetric_fog_density</tabstop>
@@ -8363,6 +8400,7 @@ and water):</string>
   <tabstop>colorButton_fog_color_1</tabstop>
   <tabstop>colorButton_fog_color_2</tabstop>
   <tabstop>colorButton_fog_color_3</tabstop>
+  <tabstop>groupCheck_iteration_fog_enable</tabstop>
   <tabstop>logslider_iteration_fog_opacity</tabstop>
   <tabstop>logedit_iteration_fog_opacity</tabstop>
   <tabstop>slider_iteration_fog_opacity_trim</tabstop>
@@ -8374,14 +8412,18 @@ and water):</string>
   <tabstop>colorButton_iteration_fog_color_1</tabstop>
   <tabstop>colorButton_iteration_fog_color_2</tabstop>
   <tabstop>colorButton_iteration_fog_color_3</tabstop>
+  <tabstop>scrollArea_9</tabstop>
   <tabstop>colorButton_background_color_1</tabstop>
   <tabstop>colorButton_background_color_2</tabstop>
   <tabstop>colorButton_background_color_3</tabstop>
+  <tabstop>groupCheck_textured_background</tabstop>
   <tabstop>text_file_background</tabstop>
   <tabstop>button_selectBackgroundTexture</tabstop>
   <tabstop>comboBox_textured_background_map_type</tabstop>
+  <tabstop>scrollArea_10</tabstop>
   <tabstop>checkBox_shadows_enabled</tabstop>
   <tabstop>checkBox_penetrating_lights</tabstop>
+  <tabstop>groupCheck_main_light_enable</tabstop>
   <tabstop>slider_main_light_intensity</tabstop>
   <tabstop>spinbox_main_light_intensity</tabstop>
   <tabstop>slider_main_light_visibility</tabstop>
@@ -8389,7 +8431,9 @@ and water):</string>
   <tabstop>slider_main_light_visibility_size</tabstop>
   <tabstop>spinbox_main_light_visibility_size</tabstop>
   <tabstop>colorButton_main_light_colour</tabstop>
+  <tabstop>dial_main_light_alpha</tabstop>
   <tabstop>spinboxd_main_light_alpha</tabstop>
+  <tabstop>dial_main_light_beta</tabstop>
   <tabstop>spinboxd_main_light_beta</tabstop>
   <tabstop>slider_shadows_cone_angle</tabstop>
   <tabstop>spinbox_shadows_cone_angle</tabstop>
@@ -8401,6 +8445,7 @@ and water):</string>
   <tabstop>logedit_aux_light_intensity_1</tabstop>
   <tabstop>logslider_aux_light_intensity_1</tabstop>
   <tabstop>colorButton_aux_light_colour_1</tabstop>
+  <tabstop>pushButton_place_light_by_mouse_1</tabstop>
   <tabstop>groupCheck_aux_light_enabled_2</tabstop>
   <tabstop>vect3_aux_light_position_2_x</tabstop>
   <tabstop>vect3_aux_light_position_2_y</tabstop>
@@ -8408,6 +8453,7 @@ and water):</string>
   <tabstop>logedit_aux_light_intensity_2</tabstop>
   <tabstop>logslider_aux_light_intensity_2</tabstop>
   <tabstop>colorButton_aux_light_colour_2</tabstop>
+  <tabstop>pushButton_place_light_by_mouse_2</tabstop>
   <tabstop>groupCheck_aux_light_enabled_3</tabstop>
   <tabstop>vect3_aux_light_position_3_x</tabstop>
   <tabstop>vect3_aux_light_position_3_y</tabstop>
@@ -8415,6 +8461,7 @@ and water):</string>
   <tabstop>logedit_aux_light_intensity_3</tabstop>
   <tabstop>logslider_aux_light_intensity_3</tabstop>
   <tabstop>colorButton_aux_light_colour_3</tabstop>
+  <tabstop>pushButton_place_light_by_mouse_3</tabstop>
   <tabstop>groupCheck_aux_light_enabled_4</tabstop>
   <tabstop>vect3_aux_light_position_4_x</tabstop>
   <tabstop>vect3_aux_light_position_4_y</tabstop>
@@ -8422,10 +8469,13 @@ and water):</string>
   <tabstop>logedit_aux_light_intensity_4</tabstop>
   <tabstop>logslider_aux_light_intensity_4</tabstop>
   <tabstop>colorButton_aux_light_colour_4</tabstop>
+  <tabstop>pushButton_place_light_by_mouse_4</tabstop>
   <tabstop>logslider_aux_light_visibility</tabstop>
   <tabstop>logedit_aux_light_visibility</tabstop>
   <tabstop>logslider_aux_light_visibility_size</tabstop>
   <tabstop>logedit_aux_light_visibility_size</tabstop>
+  <tabstop>logslider_aux_light_manual_placement_dist</tabstop>
+  <tabstop>logedit_aux_light_manual_placement_dist</tabstop>
   <tabstop>checkBox_main_light_volumetric_enabled</tabstop>
   <tabstop>logslider_main_light_volumetric_intensity</tabstop>
   <tabstop>logedit_main_light_volumetric_intensity</tabstop>
@@ -8441,6 +8491,7 @@ and water):</string>
   <tabstop>checkBox_aux_light_volumetric_enabled_4</tabstop>
   <tabstop>logslider_aux_light_volumetric_intensity_4</tabstop>
   <tabstop>logedit_aux_light_volumetric_intensity_4</tabstop>
+  <tabstop>groupCheck_fake_lights_enabled</tabstop>
   <tabstop>sliderInt_fake_lights_min_iter</tabstop>
   <tabstop>spinboxInt_fake_lights_min_iter</tabstop>
   <tabstop>sliderInt_fake_lights_max_iter</tabstop>
@@ -8454,14 +8505,64 @@ and water):</string>
   <tabstop>vect3_fake_lights_orbit_trap_x</tabstop>
   <tabstop>vect3_fake_lights_orbit_trap_y</tabstop>
   <tabstop>vect3_fake_lights_orbit_trap_z</tabstop>
-  <tabstop>vect3_julia_c_x</tabstop>
-  <tabstop>vect3_julia_c_y</tabstop>
-  <tabstop>vect3_julia_c_z</tabstop>
   <tabstop>tabWidget_fractals</tabstop>
+  <tabstop>comboBox_formula_1</tabstop>
+  <tabstop>spinboxInt_formula_iterations_1</tabstop>
+  <tabstop>sliderInt_formula_iterations_1</tabstop>
+  <tabstop>scrollArea_fractal_1</tabstop>
+  <tabstop>comboBox_formula_2</tabstop>
   <tabstop>sliderInt_formula_iterations_2</tabstop>
   <tabstop>spinboxInt_formula_iterations_2</tabstop>
   <tabstop>scrollArea_fractal_2</tabstop>
+  <tabstop>comboBox_formula_3</tabstop>
+  <tabstop>sliderInt_formula_iterations_3</tabstop>
+  <tabstop>spinboxInt_formula_iterations_3</tabstop>
+  <tabstop>scrollArea_fractal_3</tabstop>
+  <tabstop>comboBox_formula_4</tabstop>
+  <tabstop>spinboxInt_formula_iterations_4</tabstop>
+  <tabstop>sliderInt_formula_iterations_4</tabstop>
+  <tabstop>scrollArea_fractal_4</tabstop>
+  <tabstop>scrollArea_11</tabstop>
+  <tabstop>groupCheck_julia_mode</tabstop>
+  <tabstop>vect3_julia_c_x</tabstop>
+  <tabstop>vect3_julia_c_y</tabstop>
+  <tabstop>vect3_julia_c_z</tabstop>
+  <tabstop>pushButton_get_julia_constant</tabstop>
+  <tabstop>slider_fractal_constant_factor</tabstop>
+  <tabstop>spinbox_fractal_constant_factor</tabstop>
+  <tabstop>vect3_fractal_position_x</tabstop>
+  <tabstop>vect3_fractal_position_y</tabstop>
+  <tabstop>vect3_fractal_position_z</tabstop>
+  <tabstop>dial3_fractal_rotation_x</tabstop>
+  <tabstop>spinboxd3_fractal_rotation_x</tabstop>
+  <tabstop>dial3_fractal_rotation_y</tabstop>
+  <tabstop>spinboxd3_fractal_rotation_y</tabstop>
+  <tabstop>dial3_fractal_rotation_z</tabstop>
+  <tabstop>spinboxd3_fractal_rotation_z</tabstop>
+  <tabstop>vect3_repeat_x</tabstop>
+  <tabstop>vect3_repeat_y</tabstop>
+  <tabstop>vect3_repeat_z</tabstop>
   <tabstop>checkBox_hybrid_fractal_enable</tabstop>
+  <tabstop>checkBox_linear_DE_mode</tabstop>
+  <tabstop>scrollArea_primitives</tabstop>
+  <tabstop>pushButton_add_primitive_rectangle</tabstop>
+  <tabstop>pushButton_add_primitive_circle</tabstop>
+  <tabstop>pushButton_add_primitive_box</tabstop>
+  <tabstop>pushButton_add_primitive_cylinder</tabstop>
+  <tabstop>pushButton_add_primitive_cone</tabstop>
+  <tabstop>pushButton_add_primitive_sphere</tabstop>
+  <tabstop>pushButton_add_primitive_torus</tabstop>
+  <tabstop>pushButton_add_primitive_plane</tabstop>
+  <tabstop>pushButton_add_primitive_water</tabstop>
+  <tabstop>vect3_all_primitives_position_x</tabstop>
+  <tabstop>vect3_all_primitives_position_y</tabstop>
+  <tabstop>vect3_all_primitives_position_z</tabstop>
+  <tabstop>dial3_all_primitives_rotation_x</tabstop>
+  <tabstop>spinboxd3_all_primitives_rotation_x</tabstop>
+  <tabstop>dial3_all_primitives_rotation_y</tabstop>
+  <tabstop>spinboxd3_all_primitives_rotation_y</tabstop>
+  <tabstop>dial3_all_primitives_rotation_z</tabstop>
+  <tabstop>spinboxd3_all_primitives_rotation_z</tabstop>
   <tabstop>sliderInt_N</tabstop>
   <tabstop>spinboxInt_N</tabstop>
   <tabstop>logslider_detail_level</tabstop>
@@ -8477,8 +8578,10 @@ and water):</string>
   <tabstop>checkBox_iteration_threshold_mode</tabstop>
   <tabstop>checkBox_interior_mode</tabstop>
   <tabstop>checkBox_slow_shading</tabstop>
+  <tabstop>groupCheck_constant_DE_threshold</tabstop>
   <tabstop>logslider_DE_thresh</tabstop>
   <tabstop>logedit_DE_thresh</tabstop>
+  <tabstop>groupCheck_limits_enabled</tabstop>
   <tabstop>vect3_limit_min_x</tabstop>
   <tabstop>vect3_limit_min_y</tabstop>
   <tabstop>vect3_limit_min_z</tabstop>
@@ -8487,12 +8590,14 @@ and water):</string>
   <tabstop>vect3_limit_max_z</tabstop>
   <tabstop>pushButton_render</tabstop>
   <tabstop>pushButton_stop</tabstop>
+  <tabstop>scrollArea_4</tabstop>
   <tabstop>vect3_camera_x</tabstop>
   <tabstop>vect3_camera_y</tabstop>
   <tabstop>vect3_camera_z</tabstop>
   <tabstop>vect3_target_x</tabstop>
   <tabstop>vect3_target_y</tabstop>
   <tabstop>vect3_target_z</tabstop>
+  <tabstop>pushButton_reset_view</tabstop>
   <tabstop>comboBox_camera_movement_mode</tabstop>
   <tabstop>logedit_camera_distance_to_target</tabstop>
   <tabstop>logslider_camera_distance_to_target</tabstop>
@@ -8520,20 +8625,26 @@ and water):</string>
   <tabstop>comboBox_mouse_click_function</tabstop>
   <tabstop>comboBox_image_preview_scale</tabstop>
   <tabstop>checkBox_show_cursor</tabstop>
-  <tabstop>scrollArea_fractal_1</tabstop>
-  <tabstop>sliderInt_formula_iterations_3</tabstop>
-  <tabstop>scrollAreaForImage</tabstop>
-  <tabstop>scrollArea_4</tabstop>
-  <tabstop>scrollArea_fractal_4</tabstop>
-  <tabstop>groupCheck_constant_DE_threshold</tabstop>
-  <tabstop>sliderInt_formula_iterations_1</tabstop>
-  <tabstop>spinboxInt_formula_iterations_3</tabstop>
-  <tabstop>groupCheck_limits_enabled</tabstop>
-  <tabstop>scrollArea_fractal_3</tabstop>
-  <tabstop>spinboxInt_formula_iterations_1</tabstop>
-  <tabstop>sliderInt_formula_iterations_4</tabstop>
-  <tabstop>spinboxInt_formula_iterations_4</tabstop>
+  <tabstop>logslider_flight_speed</tabstop>
+  <tabstop>logedit_flight_speed</tabstop>
+  <tabstop>slider_flight_inertia</tabstop>
+  <tabstop>spinbox_flight_inertia</tabstop>
+  <tabstop>comboBox_flight_speed_control</tabstop>
+  <tabstop>slider_flight_sec_per_frame</tabstop>
+  <tabstop>spinbox_flight_sec_per_frame</tabstop>
+  <tabstop>text_anim_flight_dir</tabstop>
+  <tabstop>button_selectAnimFlightImageDir</tabstop>
+  <tabstop>scrollArea_flyght_animation_parameters</tabstop>
   <tabstop>scrollArea</tabstop>
+  <tabstop>pushButton_render_flight</tabstop>
+  <tabstop>pushButton_record_flight</tabstop>
+  <tabstop>tabWidget_2</tabstop>
+  <tabstop>scrollArea_7</tabstop>
+  <tabstop>tabWidget_fractal</tabstop>
+  <tabstop>scrollArea_8</tabstop>
+  <tabstop>scrollAreaForImage</tabstop>
+  <tabstop>tabWidgetFlightKeyframe</tabstop>
+  <tabstop>tableWidget_flightAnimation</tabstop>
   <tabstop>scrollArea_2</tabstop>
   <tabstop>scrollArea_5</tabstop>
   <tabstop>scrollArea_3</tabstop>
