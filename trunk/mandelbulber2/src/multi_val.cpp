@@ -10,6 +10,8 @@
 
 using namespace parameterContainer;
 
+//TODO replace all sscanf and sprintf with QString functions (problems with dots/colons)
+
 cMultiVal::cMultiVal()
 {
 	iVal[0] = 0;

@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastain Jennen
  */
 
 #include "interface.hpp"
@@ -1981,7 +1981,7 @@ void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
 					InitFractalParams(&parFractal->at(i));
 				if(parSettings.Decode(par, parFractal))
 				{
-					cThumbnail thumbnail(par, parFractal, 80, 80, parSettings.GetHashCode());
+					cThumbnail thumbnail(par, parFractal, 120, 120, parSettings.GetHashCode());
 					pixmap = thumbnail.Render();
 					icon.addPixmap(pixmap.scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 				}

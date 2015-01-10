@@ -1,0 +1,18 @@
+# Mandelbulber settings file
+# version 2.03
+# only modified parameters
+[main_parameters]
+camera 10.46893993947575 -18.13273587655906 5.2952026798171;
+camera_distance_to_target 22.0379463823276;
+camera_rotation 29.99999999999996 -18.17962234301114 0;
+camera_top -0.1559985171788036 0.2701973576590945 0.9500830756055272;
+formula_1 8;
+target 0 0 -1.58057123480107;
+view_distance_max 37.95853865751351;
+[fractal_1]
+alpha_angle_offset 90;
+beta_angle_offset 90;
+power 2;
+[fractal_2]
+[fractal_3]
+[fractal_4]
