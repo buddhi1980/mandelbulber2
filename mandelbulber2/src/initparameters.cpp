@@ -50,7 +50,7 @@ using namespace parameterContainer;
   par->addParam("flight_inertia", 5.0, 0.01, 1000.0, morphLinear, paramStandard);
   par->addParam("flight_speed_control", 0, morphNone, paramStandard);
   par->addParam("flight_sec_per_frame", 1.0, morphNone, paramApp);
-  par->addParam("anim_flight_dir", systemData.dataDirectory + "images" + QDir::separator() + "image", morphNone, paramApp);
+  par->addParam("anim_flight_dir", systemData.dataDirectory + "images" + QDir::separator(), morphNone, paramApp);
 
 	//camera
 	par->addParam("camera", CVector3(3.0, -6.0, 2.0), morphCatMullRom, paramStandard);

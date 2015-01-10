@@ -83,6 +83,7 @@ void cFlightAnimation::RecordFlight()
 	//TODO button to delete all images
 	//TODO skip already rendered frames
 	//TODO play animation from rendered frames (in separate window)
+	//TODO pause of recording flight (spacebar key)
 
 	if(interface->mainImage->IsUsed())
 	{
@@ -230,7 +231,7 @@ void cFlightAnimation::RecordFlight()
 		UpdateThumbnailFromImage(newColumn);
 
 		//TODO now is temporary saving of images
-		QString filename = framesDir + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
+		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 90);
 		index++;
 	}
@@ -387,9 +388,8 @@ void cFlightAnimation::RenderFlight()
 		int result = renderJob->Execute();
 		if(!result) break;
 
-		//TODO selection of images path
-		QString filename = framesDir + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
-		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 90);
+		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
+		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 95);
 	}
 	ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, interface->progressBarAnimation);
 }
