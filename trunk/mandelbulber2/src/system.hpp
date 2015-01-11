@@ -77,8 +77,10 @@ void WriteLogString(QString text, QString value);
 int get_cpu_count();
 bool CreateDefaultFolders(void);
 bool CreateDirectory(QString name);
+void DeleteAllFilesFromDirectory(QString folder);
 int fcopy(QString source, QString dest);
 void Wait(long int time);
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg);
+
 
 #endif /* SYSTEM_HPP_ */

@@ -199,6 +199,31 @@ bool CreateDirectory(QString qname)
 	}
 }
 
+void DeleteAllFilesFromDirectory(QString folder)
+{
+	if(QDir(folder).exists())
+	{
+		QDirIterator folderIterator(folder);
+		while (folderIterator.hasNext())
+		{
+			folderIterator.next();
+			if(folderIterator.fileName() == "." || folderIterator.fileName() == "..") continue;
+			if(QFile::remove(folderIterator.filePath()))
+			{
+				WriteLogString("File eleted", folderIterator.filePath());
+			}
+			else
+			{
+				WriteLogString("File not deleted", folderIterator.filePath());
+			}
+		}
+	}
+	else
+	{
+		WriteLogString("Directory does not exist", folder);
+	}
+}
+
 int fcopy(QString source, QString dest)
 {
 	// ------ file reading
