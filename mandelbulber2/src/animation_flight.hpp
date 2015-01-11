@@ -57,6 +57,7 @@ void slotFlightRotation(int direction);
 void slotSelectAnimFlightImageDir();
 void slotTableCellChanged(int row, int column);
 void slotDeleteAllImages();
+void slotShowAnimation();
 
 private:
 	void PrepareTable();

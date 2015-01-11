@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui uitools widgets
+QT       += core gui uitools widgets multimedia multimediawidgets
 
 TARGET = mandelbulber2
 TEMPLATE = app
@@ -39,10 +39,11 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/one_parameter.cpp\
 	    	../src/old_settings.cpp\
 	    	../src/parameters.cpp\
+				../src/player_widget.cpp\
 	    	../src/primitives.cpp\
-	    	../src/progress_text.cpp\
-	    	../src/preview_file_dialog.cpp\
-	    	../src/random.cpp\
+				../src/progress_text.cpp\
+				../src/preview_file_dialog.cpp\
+				../src/random.cpp\
 	    	../src/render_image.cpp\
 	    	../src/rendered_image_widget.cpp\
 	    	../src/render_job.cpp\
@@ -78,6 +79,7 @@ HEADERS  += ../src/render_window.hpp\
 			../src/ssao_worker.h\
 			../qt/color_palette_widget.h\
 			../src/rendered_image_widget.hpp\
+			../src/player_widget.hpp\
 			../src/animation_flight.hpp
 
 FORMS    += ../qt/render_window.ui

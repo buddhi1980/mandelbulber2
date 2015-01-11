@@ -19,10 +19,10 @@ LICENCE: GNU GPL v3.0
 2. COMPILING
 
 packages needed to run: libqt5gui5, libpng12-0, libgsl0ldbl
-packages needed to compile: qt5-default, libpng12-dev, qttools5-dev, qttools5-dev-tools, libgsl0-dev, libgsl0ldbl
+packages needed to compile: qt5-default, libpng12-dev, qttools5-dev, qttools5-dev-tools, libgsl0-dev, libgsl0ldbl qtmultimedia5-dev
 
 On Ubuntu or Debian: 
-apt-get install libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgsl0-dev libgsl0ldbl
+apt-get install libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgsl0-dev libgsl0ldbl qtmultimedia5-dev
 
 Then:
 

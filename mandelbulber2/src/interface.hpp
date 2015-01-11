@@ -27,6 +27,7 @@
 #include "render_window.hpp"
 #include <QProgressBar>
 #include "rendered_image_widget.hpp"
+#include "player_widget.hpp"
 #include "primitives.h"
 
 class cInterface
@@ -79,6 +80,7 @@ public:
 	RenderWindow *mainWindow;
 	QImage *qimage;
 	RenderedImage *renderedImage;
+	PlayerWidget *imageSequencePlayer;
 	QProgressBar *progressBar;
 	QProgressBar *progressBarAnimation;
 	cImage *mainImage;
