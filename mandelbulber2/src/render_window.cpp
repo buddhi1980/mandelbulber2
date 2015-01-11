@@ -83,11 +83,6 @@ void RenderWindow::slotStopRender(void)
 	mainInterface->stopRequest = true;
 }
 
-void RenderWindow::load(void)
-{
-	printf("load\n");
-}
-
 void RenderWindow::slotDoubleSpinBoxChanged(double value)
 {
 	using namespace std;
@@ -1269,3 +1264,19 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
 	this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 }
 
+void RenderWindow::slotQuit()
+{
+	mainInterface->QuitApplicationDialog();
+}
+
+void RenderWindow::closeEvent(QCloseEvent * event)
+{
+	if(mainInterface->QuitApplicationDialog())
+	{
+		event->accept();
+	}
+	else
+	{
+		event->ignore();
+	}
+}
