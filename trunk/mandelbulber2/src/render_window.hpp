@@ -42,10 +42,13 @@ public:
 	explicit RenderWindow(QWidget *parent = 0);
 	~RenderWindow();
 
+private:
+	void closeEvent(QCloseEvent * event);
+
 private slots:
 	void slotStartRender();
 	void slotStopRender();
-	void load();
+	void slotQuit();
 
 	//automated sliders, dials, buttons
 	void slotSliderMoved(int value);

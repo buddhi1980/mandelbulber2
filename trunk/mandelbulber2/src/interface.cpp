@@ -41,6 +41,7 @@
 #include "progress_text.hpp"
 #include "settings.hpp"
 #include "thumbnail.hpp"
+#include <QMessageBox>
 
 //constructor of interface (loading of ui files)
 cInterface::cInterface()
@@ -182,7 +183,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->spinboxInt_image_height, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotImageHeightChanged(int)));
 
 	//menu actions
-	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
+	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), mainWindow, SLOT(slotQuit()));
 	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveDocksPositions()));
 	QApplication::connect(mainWindow->ui->actionDefault_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuResetDocksPositions()));
 	QApplication::connect(mainWindow->ui->actionStack_all_docks, SIGNAL(triggered()), mainWindow, SLOT(slotStackAllDocks()));
@@ -2002,6 +2003,44 @@ void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
 		application->processEvents();
 	}
 	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) finished");
+}
+
+bool cInterface::QuitApplicationDialog()
+{
+	bool quit = false;
+
+	QMessageBox *messageBox = new QMessageBox(mainWindow);
+
+	QString messageText = QObject::tr("Are you sure to close the application?");
+
+	messageBox->setText(messageText);
+	messageBox->setWindowTitle(QObject::tr("Quit?"));
+	messageBox->setIcon(QMessageBox::Question);
+	messageBox->addButton(QMessageBox::Ok);
+	messageBox->addButton(QMessageBox::Cancel);
+	int ret = messageBox->exec();
+	switch(ret)
+	{
+		case QMessageBox::Ok:
+		{
+			stopRequest = true;
+			application->quit();
+			quit = true;
+			break;
+		}
+		case QMessageBox::Cancel:
+		{
+			//nothing
+			break;
+		}
+		default:
+			//nothing
+			break;
+	}
+
+	delete messageBox;
+
+	return quit;
 }
 
 //----------- functions outside cInterface class -------------
