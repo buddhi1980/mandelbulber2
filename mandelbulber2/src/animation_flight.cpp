@@ -28,12 +28,14 @@
 #include "error_message.hpp"
 #include "progress_text.hpp"
 #include <QFileDialog>
+#include <QMessageBox>
 
 cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent) : QObject(parent), interface(_interface), frames(_frames)
 {
 	ui = interface->mainWindow->ui;
 	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
 	QApplication::connect(ui->pushButton_render_flight, SIGNAL(clicked()), this, SLOT(slotRenderFlight()));
+	QApplication::connect(ui->pushButton_delete_all_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
 	QApplication::connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this, SLOT(slotSelectAnimFlightImageDir()));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightStrafe(CVector2<int>)), this, SLOT(slotFlightStrafe(CVector2<int>)));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedIncease()), this, SLOT(slotIncreaseSpeed()));
@@ -81,7 +83,6 @@ void cFlightAnimation::slotRenderFlight()
 void cFlightAnimation::RecordFlight()
 {
 	//TODO Editing of table with animation frames
-	//TODO button to delete all images
 	//TODO play animation from rendered frames (in separate window)
 	//TODO pause of recording flight (spacebar key)
 
@@ -544,4 +545,19 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 	frames->ModifyFrame(column, frame);
 	table->blockSignals(false);
+}
+
+void cFlightAnimation::slotDeleteAllImages()
+{
+	QMessageBox::StandardButton reply;
+	reply = QMessageBox::question(
+		ui->centralwidget,
+		QObject::tr("Truncate Image Folder"),
+		QObject::tr("This will delete all images in the image folder.\nProceed?"),
+		QMessageBox::Yes|QMessageBox::No);
+
+	if (reply == QMessageBox::Yes)
+	{
+		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
+	}
 }
