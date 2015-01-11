@@ -29,7 +29,7 @@ cAnimationFrames::cAnimationFrames()
 void cAnimationFrames::AddFrame(const cParameterContainer &params, const cFractalContainer &fractal)
 {
 	sAnimationFrame frame;
-
+	frame.alreadyRendered = false;
 	for(int i=0; i < listOfParameters.size(); ++i)
 	{
 		const cParameterContainer *container = ContainerSelector(listOfParameters[i].containerName, &params, &fractal);
@@ -88,6 +88,28 @@ bool cAnimationFrames::AddAnimagedParameter(const QString &fullParameterName, co
 	{
 		qCritical() << "cAnimationFrames::AddAnimagedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal): Wrong container name: " << containerName;
 		return false;
+	}
+}
+
+int cAnimationFrames::GetUnrenderedTotal()
+{
+	return GetUnrenderedTillIndex(frames.count() - 1);
+}
+
+int cAnimationFrames::GetUnrenderedTillIndex(int index)
+{
+	if(index >= 0 && index < frames.count())
+	{
+		int count = 0;
+		for(int i = 0; i < index; i++){
+			if(!frames.at(i).alreadyRendered) count++;
+		}
+		return count;
+	}
+	else
+	{
+		qWarning() << "cAnimationFrames::GetUnrenderedTillIndex(int index): wrong index" << index;
+		return 0;
 	}
 }
 

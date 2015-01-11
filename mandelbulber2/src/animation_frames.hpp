@@ -35,6 +35,7 @@ public:
 	{
 		cParameterContainer parameters;
 		QPixmap thumnail;
+		bool alreadyRendered;
 	};
 
 	struct sParameterDescription
@@ -52,6 +53,8 @@ public:
 	void GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
 	sAnimationFrame GetFrame(int index);
 	int GetNumberOfFrames();
+	int GetUnrenderedTillIndex(int index);
+	int GetUnrenderedTotal();
 	void Clear();
 	void ClearAll();
 	void AddAnimagedParameter(const QString &parameterName, const cOneParameter &defaultValue);

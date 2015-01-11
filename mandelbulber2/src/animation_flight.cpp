@@ -381,9 +381,38 @@ void cFlightAnimation::RenderFlight()
 	cProgressText progressText;
 	progressText.ResetTimer();
 
+	// Check if frames have already been rendered
 	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
 	{
-		double percentDoneFrame = (index * 1.0) / frames->GetNumberOfFrames();
+		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
+		cAnimationFrames::sAnimationFrame frame = frames->GetFrame(index);
+		frame.alreadyRendered = QFile(filename).exists();
+		frames->ModifyFrame(index, frame);
+	}
+
+	if(frames->GetNumberOfFrames() > 0 && frames->GetUnrenderedTotal() == 0){
+		QMessageBox::StandardButton reply;
+		reply = QMessageBox::question(
+			ui->centralwidget,
+			QObject::tr("Truncate Image Folder"),
+			QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
+			+ QObject::tr("This will delete all images in the image folder.\nProceed?"),
+			QMessageBox::Yes|QMessageBox::No);
+
+		if (reply == QMessageBox::Yes)
+		{
+			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
+			return RenderFlight();
+		}
+		else
+		{
+			return;
+		}
+	}
+
+	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
+	{
+		double percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / frames->GetUnrenderedTotal();
 		QString progressTxt = progressText.getText(percentDoneFrame);
 
 		ProgressStatusText(QObject::tr("Animation start"),
@@ -391,16 +420,13 @@ void cFlightAnimation::RenderFlight()
 			percentDoneFrame,
 			ui->statusbar, interface->progressBarAnimation);
 
-		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
-
-		// Check if frame and following frames are already rendered
-		if(QFile(filename).exists())
+		// Skip already rendered frames
+		if(frames->GetFrame(index).alreadyRendered)
 		{
 			int firstMissing = index;
-			while(index < frames->GetNumberOfFrames() && QFile(filename).exists())
+			while(index < frames->GetNumberOfFrames() && frames->GetFrame(index).alreadyRendered)
 			{
 				index++;
-				filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 			}
 			index--;
 			qDebug() << QObject::tr("Skip already rendered frame(s) %1 - %2").arg(firstMissing).arg(index);
@@ -414,6 +440,7 @@ void cFlightAnimation::RenderFlight()
 		int result = renderJob->Execute();
 		if(!result) break;
 
+		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 95);
 	}
 	ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, interface->progressBarAnimation);
