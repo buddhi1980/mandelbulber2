@@ -82,7 +82,6 @@ void cFlightAnimation::RecordFlight()
 {
 	//TODO Editing of table with animation frames
 	//TODO button to delete all images
-	//TODO skip already rendered frames
 	//TODO play animation from rendered frames (in separate window)
 	//TODO pause of recording flight (spacebar key)
 
@@ -391,6 +390,22 @@ void cFlightAnimation::RenderFlight()
 			percentDoneFrame,
 			ui->statusbar, interface->progressBarAnimation);
 
+		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
+
+		// Check if frame and following frames are already rendered
+		if(QFile(filename).exists())
+		{
+			int firstMissing = index;
+			while(index < frames->GetNumberOfFrames() && QFile(filename).exists())
+			{
+				index++;
+				filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
+			}
+			index--;
+			qDebug() << QObject::tr("Skip already rendered frame(s) %1 - %2").arg(firstMissing).arg(index);
+			continue;
+		}
+
 		if(interface->stopRequest) break;
 		frames->GetFrameAndConsolidate(index, gPar, gParFractal);
 		interface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
@@ -398,7 +413,6 @@ void cFlightAnimation::RenderFlight()
 		int result = renderJob->Execute();
 		if(!result) break;
 
-		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 95);
 	}
 	ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, interface->progressBarAnimation);
