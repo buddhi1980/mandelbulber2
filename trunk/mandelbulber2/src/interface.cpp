@@ -49,6 +49,7 @@ cInterface::cInterface()
 	mainWindow = NULL;
 	qimage = NULL;
 	renderedImage = NULL;
+	imageSequencePlayer = NULL;
 	mainImage = NULL;
 	progressBar = NULL;
 	progressBarAnimation = NULL;
@@ -59,6 +60,7 @@ cInterface::cInterface()
 cInterface::~cInterface()
 {
 	if(renderedImage) delete renderedImage;
+	if(imageSequencePlayer) delete imageSequencePlayer;
 	if(progressBar) delete progressBar;
 	if(qimage) delete qimage;
 	if(mainImage) delete mainImage;
@@ -87,6 +89,7 @@ void cInterface::ShowUi(void)
 
 	WriteLog("Prepare RenderedImage class");
 	renderedImage = new RenderedImage(mainWindow);
+
 	mainWindow->ui->scrollAreaLayoutRenderedImage->addWidget(renderedImage);
 
 	//setup main image

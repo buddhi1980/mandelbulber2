@@ -8058,6 +8058,13 @@ and water):</string>
               </widget>
              </item>
              <item>
+              <widget class="QPushButton" name="pushButton_show_animation">
+               <property name="text">
+                <string>Show Animation</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="pushButton_delete_all_images">
                <property name="text">
                 <string>Delete all images</string>

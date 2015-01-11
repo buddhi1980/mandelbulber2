@@ -36,6 +36,8 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
 	QApplication::connect(ui->pushButton_render_flight, SIGNAL(clicked()), this, SLOT(slotRenderFlight()));
 	QApplication::connect(ui->pushButton_delete_all_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
+	QApplication::connect(ui->pushButton_show_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
+
 	QApplication::connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this, SLOT(slotSelectAnimFlightImageDir()));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightStrafe(CVector2<int>)), this, SLOT(slotFlightStrafe(CVector2<int>)));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedIncease()), this, SLOT(slotIncreaseSpeed()));
@@ -390,7 +392,9 @@ void cFlightAnimation::RenderFlight()
 		frames->ModifyFrame(index, frame);
 	}
 
-	if(frames->GetNumberOfFrames() > 0 && frames->GetUnrenderedTotal() == 0){
+	int unrenderedTotal = frames->GetUnrenderedTotal();
+
+	if(frames->GetNumberOfFrames() > 0 && unrenderedTotal == 0){
 		QMessageBox::StandardButton reply;
 		reply = QMessageBox::question(
 			ui->centralwidget,
@@ -412,7 +416,7 @@ void cFlightAnimation::RenderFlight()
 
 	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
 	{
-		double percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / frames->GetUnrenderedTotal();
+		double percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
 		QString progressTxt = progressText.getText(percentDoneFrame);
 
 		ProgressStatusText(QObject::tr("Animation start"),
@@ -587,4 +591,12 @@ void cFlightAnimation::slotDeleteAllImages()
 	{
 		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
 	}
+}
+
+void cFlightAnimation::slotShowAnimation()
+{
+
+	WriteLog("Prepare PlayerWidget class");
+	interface->imageSequencePlayer = new PlayerWidget();
+	interface->imageSequencePlayer->show();
 }
