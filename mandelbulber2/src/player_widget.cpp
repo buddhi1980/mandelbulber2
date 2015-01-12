@@ -26,57 +26,59 @@
 
 PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 {
-		videoItem = new QGraphicsVideoItem;
-		videoItem->setSize(QSizeF(640, 480));
+	// TODO hardware accceleration - 30 fps with HD images should play smooth on reasonable system
 
-		QGraphicsScene *scene = new QGraphicsScene(this);
-		QGraphicsView *graphicsView = new QGraphicsView(scene);
+	videoItem = new QGraphicsVideoItem;
+	videoItem->setSize(QSizeF(640, 480));
 
-		scene->addItem(videoItem);
+	QGraphicsScene *scene = new QGraphicsScene(this);
+	QGraphicsView *graphicsView = new QGraphicsView(scene);
 
-		infoLabel = new QLabel;
+	scene->addItem(videoItem);
 
-		playPauseButton = new QPushButton;
-		playPauseButton->setEnabled(true);
-		playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+	infoLabel = new QLabel;
 
-		positionSlider = new QSlider(Qt::Horizontal);
+	playPauseButton = new QPushButton;
+	playPauseButton->setEnabled(true);
+	playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 
-		QBoxLayout *controlLayout = new QHBoxLayout;
-		controlLayout->setMargin(0);
-		controlLayout->addWidget(playPauseButton);
-		controlLayout->addWidget(positionSlider);
-		controlLayout->addWidget(infoLabel);
+	positionSlider = new QSlider(Qt::Horizontal);
 
-		QBoxLayout *layout = new QVBoxLayout;
-		layout->addWidget(graphicsView);
-		layout->addLayout(controlLayout);
+	QBoxLayout *controlLayout = new QHBoxLayout;
+	controlLayout->setMargin(0);
+	controlLayout->addWidget(playPauseButton);
+	controlLayout->addWidget(positionSlider);
+	controlLayout->addWidget(infoLabel);
 
-		setLayout(layout);
+	QBoxLayout *layout = new QVBoxLayout;
+	layout->addWidget(graphicsView);
+	layout->addLayout(controlLayout);
 
-		mediaPlayer.setVideoOutput(videoItem);
+	setLayout(layout);
 
-		// Load image sequence
-		QDir imageDir = QDir(gPar->Get<QString>("anim_flight_dir"));
-		QStringList imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
+	mediaPlayer.setVideoOutput(videoItem);
 
-		mediaPlaylist = new QMediaPlaylist(this);
-		for(int i = 0; i < imageFiles.size(); i++)
-		{
-			QString fileName = gPar->Get<QString>("anim_flight_dir") + "/" + imageFiles.at(i);
-			mediaPlaylist->addMedia(QUrl::fromLocalFile(fileName));
-		}
+	// Load image sequence
+	QDir imageDir = QDir(gPar->Get<QString>("anim_flight_dir"));
+	QStringList imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
-		positionSlider->setRange(0, mediaPlaylist->mediaCount() - 1);
-		infoLabel->setText(QObject::tr("Frame %1 of %2").arg(0).arg(mediaPlaylist->mediaCount() - 1));
+	mediaPlaylist = new QMediaPlaylist(this);
+	for(int i = 0; i < imageFiles.size(); i++)
+	{
+		QString fileName = gPar->Get<QString>("anim_flight_dir") + "/" + imageFiles.at(i);
+		mediaPlaylist->addMedia(QUrl::fromLocalFile(fileName));
+	}
 
-		mediaPlayer.setPlaylist(mediaPlaylist);
+	positionSlider->setRange(0, mediaPlaylist->mediaCount() - 1);
+	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(0).arg(mediaPlaylist->mediaCount() - 1));
 
-		connect(&mediaPlayer, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(mediaStateChanged(QMediaPlayer::State)));
-		connect(&mediaPlayer, SIGNAL(positionChanged(qint64)), this, SLOT(positionChanged(qint64)));
-		connect(&mediaPlayer, SIGNAL(durationChanged(qint64)), this, SLOT(durationChanged(qint64)));
-		connect(positionSlider, SIGNAL(sliderMoved(int)), this, SLOT(setPosition(int)));
-		connect(playPauseButton, SIGNAL(clicked()), this, SLOT(playPause()));
+	mediaPlayer.setPlaylist(mediaPlaylist);
+
+	connect(&mediaPlayer, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(mediaStateChanged(QMediaPlayer::State)));
+	connect(&mediaPlayer, SIGNAL(positionChanged(qint64)), this, SLOT(positionChanged(qint64)));
+	connect(&mediaPlayer, SIGNAL(durationChanged(qint64)), this, SLOT(durationChanged(qint64)));
+	connect(positionSlider, SIGNAL(sliderMoved(int)), this, SLOT(setPosition(int)));
+	connect(playPauseButton, SIGNAL(clicked()), this, SLOT(playPause()));
 }
 
 PlayerWidget::~PlayerWidget()
@@ -85,16 +87,16 @@ PlayerWidget::~PlayerWidget()
 
 void PlayerWidget::playPause()
 {
-		switch(mediaPlayer.state()) {
-		case QMediaPlayer::PlayingState:
-			playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
-			mediaPlayer.pause();
-			break;
-		default:
-			playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
-			mediaPlayer.play();
-			break;
-		}
+	switch(mediaPlayer.state()) {
+	case QMediaPlayer::PlayingState:
+		playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+		mediaPlayer.pause();
+		break;
+	default:
+		playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+		mediaPlayer.play();
+		break;
+	}
 }
 
 void PlayerWidget::mediaStateChanged(QMediaPlayer::State state)
@@ -106,6 +108,8 @@ void PlayerWidget::positionChanged(qint64 position)
 {
 	positionSlider->setSliderPosition(mediaPlaylist->currentIndex());
 	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(mediaPlaylist->currentIndex()).arg(mediaPlaylist->mediaCount() - 1));
+	// TODO set duration on playlist item
+	Wait(10);
 }
 
 void PlayerWidget::durationChanged(qint64 duration)
@@ -116,7 +120,9 @@ void PlayerWidget::durationChanged(qint64 duration)
 void PlayerWidget::setPosition(int position)
 {
 	qDebug() << "setPosition: " << position;
-	mediaPlaylist->setCurrentIndex(position);
-	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(position).arg(mediaPlaylist->mediaCount() - 1));
+	if(position != mediaPlaylist->currentIndex()){
+		mediaPlaylist->setCurrentIndex(position);
+		infoLabel->setText(QObject::tr("Frame %1 of %2").arg(position).arg(mediaPlaylist->mediaCount() - 1));
+	}
 }
 
