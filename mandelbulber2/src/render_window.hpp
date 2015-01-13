@@ -94,6 +94,7 @@ private slots:
 	void slotResizedScrolledAreaImage(int width, int height);
 	void slotSliderMovedEditManualLightPlacementDistance(int value);
 	void slotMenuLoadPreset(QString filename);
+	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 
 	//camera
 	void slotCameraMove();
@@ -170,6 +171,9 @@ private:
 		proportion16_10 = 5,
 		proportion2_1 = 6
 	};
+
+	signals:
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 
 	friend class cInterface;
 	friend class cFlightAnimation;

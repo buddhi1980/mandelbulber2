@@ -92,8 +92,6 @@ int main(int argc, char *argv[])
 	WriteLog("application->exec()");
 	int result = application->exec();
 
-	//TODO when quit then ask (message) and stop all renderings
-
 	//clean objects when exit
 	delete gPar;
 	delete gParFractal;

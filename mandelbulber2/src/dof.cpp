@@ -29,7 +29,11 @@
 #include "progress_text.hpp"
 #include "global_data.hpp"
 
-void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *statusBar, QProgressBar *progressBar, bool *stopRequest)
+cPostRenderingDOF::cPostRenderingDOF(cImage *_image) : QObject(), image(_image)
+{
+}
+
+void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 {
 	int width = image->GetWidth();
 	int height = image->GetHeight();
@@ -52,12 +56,12 @@ void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *s
 	QString statusText = QObject::tr("Rendering Depth Of Field effect");
 	QString progressTxt;
 
-	ProgressStatusText(statusText, QObject::tr("Sorting zBuffer"), 0.0, statusBar, progressBar);
+	emit updateProgressAndStatus(statusText, QObject::tr("Sorting zBuffer"), 0.0);
 	application->processEvents();
 
 	QuickSortZBuffer(temp_sort, 1, height * width - 1);
 
-	ProgressStatusText(statusText, QObject::tr("Randomizing zBuffer"), 0.0, statusBar, progressBar);
+	emit updateProgressAndStatus(statusText, QObject::tr("Randomizing zBuffer"), 0.0);
 	application->processEvents();
 
 
@@ -125,7 +129,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *s
 	progressText.ResetTimer();
 	double percentDone = 0.0;
 
-	ProgressStatusText(statusText, progressText.getText(0.0), 0.0, statusBar, progressBar);
+	emit updateProgressAndStatus(statusText, progressText.getText(0.0), 0.0);
 	application->processEvents();
 
 	QElapsedTimer timerRefresh;
@@ -189,7 +193,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *s
 			percentDone = (double)i / (height * width);
 			progressTxt = progressText.getText(percentDone);
 
-			ProgressStatusText(statusText, progressTxt, percentDone, statusBar, progressBar);
+			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 			application->processEvents();
 
 		}
@@ -208,7 +212,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *s
 		}
 	}
 
-	ProgressStatusText(statusText, "Finished", 1.0, statusBar, progressBar);
+	emit updateProgressAndStatus(statusText, "Finished", 1.0);
 
 	delete[] temp_image;
 	delete[] temp_alpha;
@@ -217,7 +221,7 @@ void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *s
 }
 
 template <class T>
-void QuickSortZBuffer(sSortZ<T> *buffer, int l, int r)
+void cPostRenderingDOF::QuickSortZBuffer(sSortZ<T> *buffer, int l, int r)
 {
     // Sorts buffer by value of z asc
     int i, j;
@@ -263,4 +267,4 @@ void QuickSortZBuffer(sSortZ<T> *buffer, int l, int r)
         QuickSortZBuffer(buffer, i, r);
     }
 }
-template void QuickSortZBuffer<double>(sSortZ<double> *dane, int l, int p);
+template void cPostRenderingDOF::QuickSortZBuffer<double>(sSortZ<double> *dane, int l, int p);

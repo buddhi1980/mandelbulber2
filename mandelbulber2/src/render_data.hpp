@@ -32,7 +32,7 @@
 struct sRenderData
 {
 	sRenderData() :
-			rendererID(0), numberOfThreads(0), statusBar(NULL), progressBar(NULL), stopRequest(NULL),
+			rendererID(0), numberOfThreads(0), stopRequest(NULL),
 			maxRenderTime(1e50), doNotRefresh(false), lastPercentage(1.0), reduceDetail(1.0)
 	{};
 
@@ -43,8 +43,6 @@ struct sRenderData
 	sTextures textures;
 	cColorPalette palette;
 	cLights lights;
-	QStatusBar *statusBar;
-	QProgressBar *progressBar;
 	bool *stopRequest;
 	double maxRenderTime;
 	bool doNotRefresh;

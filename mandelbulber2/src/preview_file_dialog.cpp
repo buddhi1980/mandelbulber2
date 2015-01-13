@@ -26,6 +26,8 @@
 #include "thumbnail.hpp"
 #include "settings.hpp"
 #include "initparameters.hpp"
+#include "thumbnail_widget.h"
+#include "progress_text.hpp"
 
 PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 {
@@ -41,17 +43,22 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	preview->setAlignment(Qt::AlignCenter);
 	preview->setObjectName("label_preview");
 
+	thumbWidget = new cThumbnailWidget(200, 200, this);
+
 	info = new QLabel("");
 
-	progressBar = new QProgressBar(this);
-	progressBar->setMaximum(1000);
-	progressBar->setAlignment(Qt::AlignCenter);
+	progressBar = new QProgressBar;
+  progressBar->setMaximum(1000);
+  progressBar->setAlignment(Qt::AlignCenter);
+  progressBar->hide();
 
 	vboxlayout->addWidget(checkbox);
 	vboxlayout->addWidget(preview);
-	vboxlayout->addWidget(info);
+	vboxlayout->addWidget(thumbWidget);
 	vboxlayout->addWidget(progressBar);
-	progressBar->hide();
+	vboxlayout->addWidget(info);
+
+	thumbWidget->show();
 	vboxlayout -> addStretch();
 
 	//add to existing layout
@@ -59,7 +66,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	gridlayout->addLayout(vboxlayout, 1, 3, 3, 1);
 
 	connect(this, SIGNAL(currentChanged(const QString&)), this, SLOT(OnCurrentChanged(const QString&)));
-
+	connect(thumbWidget, SIGNAL(thumbnailRendered()), this, SLOT(slotHideProgressBar()));
 }
 
 PreviewFileDialog::~PreviewFileDialog()
@@ -75,10 +82,13 @@ void PreviewFileDialog::OnCurrentChanged(const QString & filename)
 	QPixmap pixmap;
 	if (QFileInfo(filename).suffix() == QString("fract"))
 	{
+		thumbWidget->show();
+		preview->hide();
 		cSettings parSettings(cSettings::formatFullText);
 		parSettings.BeQuiet(true);
 		if (parSettings.LoadFromFile(filename))
 		{
+			progressBar->show();
 			cParameterContainer *par = new cParameterContainer;
 			cFractalContainer *parFractal = new cFractalContainer;
 			InitParams(par);
@@ -86,12 +96,8 @@ void PreviewFileDialog::OnCurrentChanged(const QString & filename)
 				InitFractalParams(&parFractal->at(i));
 			if(parSettings.Decode(par, parFractal))
 			{
-				cThumbnail thumbnail(par, parFractal, 200, 200, parSettings.GetHashCode());
-				thumbnail.AssignProgressBar(progressBar);
-				progressBar->show();
-				pixmap = thumbnail.Render();
-				preview->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-				progressBar->hide();
+				thumbWidget->AssignParameters(*par, *parFractal);
+				thumbWidget->update();
 			}
 			else
 			{
@@ -104,6 +110,8 @@ void PreviewFileDialog::OnCurrentChanged(const QString & filename)
 	}
 	else
 	{
+		thumbWidget->hide();
+		preview->show();
 		pixmap.load(filename);
 		if(pixmap.isNull() || !checkbox->isChecked())
 		{
@@ -119,3 +127,12 @@ void PreviewFileDialog::OnCurrentChanged(const QString & filename)
 	}
 }
 
+void PreviewFileDialog::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
+{
+	ProgressStatusText(text, progressText, progress, NULL, progressBar);
+}
+
+void PreviewFileDialog::slotHideProgressBar()
+{
+	progressBar->hide();
+}

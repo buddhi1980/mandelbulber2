@@ -32,7 +32,6 @@ cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContain
 	qwidget = NULL;
 	image = new cImage(width, height);
 	//image->CreatePreview(1.0, width, height, qwidget);
-	progressBar = NULL;
 }
 
 cThumbnail::~cThumbnail()
@@ -60,10 +59,9 @@ QPixmap cThumbnail::Render()
 	}
 	else
 	{
-		bool stopRequest = false; //TODO stop request for thumbnail rendering
+		bool stopRequest = false;
 		cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, qwidget);
 		renderJob->UseSizeFromImage(true);
-		if(progressBar) renderJob->AssingStatusAndProgessBar(NULL, progressBar);
 		renderJob->Init(cRenderJob::still);
 		renderJob->Execute();
 		QImage qimage((const uchar*)image->ConvertTo8bit(), width, height, width*sizeof(sRGB8), QImage::Format_RGB888);
@@ -79,8 +77,5 @@ void cThumbnail::Save(QString filename)
 	SaveJPEGQt(filename, image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(), 85);
 }
 
-void cThumbnail::AssignProgressBar(QProgressBar *_progressBar)
-{
-	progressBar = _progressBar;
-}
+
 

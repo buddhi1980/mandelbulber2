@@ -29,6 +29,7 @@
 #include <QVBoxLayout>
 #include <QCheckBox>
 #include <QProgressBar>
+#include "thumbnail_widget.h"
 
 class PreviewFileDialog: public QFileDialog
 {
@@ -38,14 +39,17 @@ public:
 	~PreviewFileDialog();
 protected slots:
 	void OnCurrentChanged(const QString & filename);
+	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void slotHideProgressBar();
 
 private:
 	QVBoxLayout* vboxlayout;
 	QCheckBox *checkbox;
+	QProgressBar *progressBar;
 protected:
 	QLabel *preview;
 	QLabel *info;
-	QProgressBar *progressBar;
+	cThumbnailWidget *thumbWidget;
 };
 
 #endif /* PREVIEWFILEDIALOG_H_ */

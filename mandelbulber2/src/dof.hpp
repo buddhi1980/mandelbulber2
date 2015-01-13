@@ -27,14 +27,28 @@
 #include <QProgressBar>
 #include <QStatusBar>
 
-template <class TYPE>
-struct sSortZ
+class cPostRenderingDOF: public QObject
 {
-	TYPE z;
-	int i;
+	Q_OBJECT
+
+private:
+	template <class TYPE>
+
+	struct sSortZ
+	{
+		TYPE z;
+		int i;
+	};
+
+public:
+	cPostRenderingDOF(cImage *_image);
+
+	void Render(double deep, double neutral, bool *stopRequest);
+	template <class T> void QuickSortZBuffer(sSortZ<T> *dane, int l, int p);
+
+	cImage *image;
+
+signals:
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 };
-
-void PostRendering_DOF(cImage *image, double deep, double neutral, QStatusBar *statusBar, QProgressBar *progressBar, bool *stopRequest);
-template <class T> void QuickSortZBuffer(sSortZ<T> *dane, int l, int p);
-
 #endif /* DOF_HPP_ */

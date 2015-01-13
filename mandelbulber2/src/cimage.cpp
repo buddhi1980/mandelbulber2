@@ -113,23 +113,27 @@ bool cImage::AllocMem(void)
 
 bool cImage::ChangeSize(int w, int h)
 {
-	if (imageFloat) delete[] imageFloat;
-	imageFloat = NULL;
-	if (image16) delete[] image16;
-	image16 = NULL;
-	if (image8) delete[] image8;
-	image8 = NULL;
-	if (alphaBuffer) delete[] alphaBuffer;
-	alphaBuffer = NULL;
-	if (opacityBuffer) delete[] opacityBuffer;
-	opacityBuffer = NULL;
-	if (colourBuffer) delete[] colourBuffer;
-	colourBuffer = NULL;
-	if (zBuffer) delete[] zBuffer;
-	zBuffer = NULL;
-	width = w;
-	height = h;
-	return AllocMem();
+	if(w != width || h != height)
+	{
+		if (imageFloat) delete[] imageFloat;
+		imageFloat = NULL;
+		if (image16) delete[] image16;
+		image16 = NULL;
+		if (image8) delete[] image8;
+		image8 = NULL;
+		if (alphaBuffer) delete[] alphaBuffer;
+		alphaBuffer = NULL;
+		if (opacityBuffer) delete[] opacityBuffer;
+		opacityBuffer = NULL;
+		if (colourBuffer) delete[] colourBuffer;
+		colourBuffer = NULL;
+		if (zBuffer) delete[] zBuffer;
+		zBuffer = NULL;
+		width = w;
+		height = h;
+		return AllocMem();
+	}
+	return true;
 }
 
 void cImage::ClearImage(void)

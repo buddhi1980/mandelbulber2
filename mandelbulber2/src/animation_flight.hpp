@@ -74,6 +74,9 @@ private:
 	CVector2<int> strafe;
 	int rotationDirection;
 	double linearSpeedSp;
+
+signals:
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 };
 
 

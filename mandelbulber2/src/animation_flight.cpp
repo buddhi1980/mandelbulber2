@@ -84,9 +84,8 @@ void cFlightAnimation::slotRenderFlight()
 
 void cFlightAnimation::RecordFlight()
 {
-	//TODO Editing of table with animation frames
-	//TODO play animation from rendered frames (in separate window)
 	//TODO pause of recording flight (spacebar key)
+	//TODO refresh previews of frames using cThumbanilWidget
 
 	if(interface->mainImage->IsUsed())
 	{
@@ -117,8 +116,8 @@ void cFlightAnimation::RecordFlight()
 	interface->renderedImage->setClickMode(clickMode);
 
 	//setup of rendering engine
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, interface->mainImage, &interface->stopRequest, interface->renderedImage);
-	renderJob->AssingStatusAndProgessBar(ui->statusbar, interface->progressBar);
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, interface->mainImage, &interface->stopRequest, interface->mainWindow, interface->renderedImage);
+
 	renderJob->Init(cRenderJob::flightAnimRecord);
 	interface->stopRequest = false;
 
@@ -372,8 +371,8 @@ void cFlightAnimation::RenderFlight()
 
 	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, interface->mainImage, &interface->stopRequest, interface->renderedImage);
-	renderJob->AssingStatusAndProgessBar(ui->statusbar, interface->progressBar);
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, interface->mainImage, &interface->stopRequest, interface->mainWindow, interface->renderedImage);
+
 	renderJob->Init(cRenderJob::flightAnim);
 	interface->stopRequest = false;
 
