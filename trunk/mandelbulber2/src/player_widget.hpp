@@ -26,6 +26,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <QTimer>
+#include "../qt/mydoublespinbox.h"
 
 class PlayerWidget : public QWidget
 {
@@ -43,6 +44,7 @@ public slots:
 private slots:
 	void setPosition(int position);
 	void nextFrame();
+	void setFPS(double fps);
 
 private:
 	void updateFrame();
@@ -51,6 +53,7 @@ private:
 	QSlider *positionSlider;
 	QLabel *infoLabel;
 	QLabel *imageLabel;
+	MyDoubleSpinBox *fpsSpinBox;
 	QTimer *playTimer;
 	QStringList imageFiles;
 	int currentIndex;
