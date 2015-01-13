@@ -975,31 +975,31 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 
 void cInterface::StartRender(void)
 {
-	//FIXME instead of repeat loop there must me something to stop previous rendering
 	WriteLog("cInterface::StartRender(void)");
-	if(mainImage->IsUsed())
-	{
-		stopRequest = true;
-		repeatRequest = true;
-		WriteLog("cInterface::StartRender(void): rendering terminate request");
-	}
-	else
-	{
-	  do
-	  {
-			repeatRequest = false;
-			progressBarAnimation->hide();
-	  	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
-			cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage);
-			renderJob->AssingStatusAndProgessBar(mainWindow->ui->statusbar, progressBar);
-			renderJob->Init(cRenderJob::still);
-			renderJob->Execute();
-
-			delete renderJob;
-	  }
-		while(repeatRequest);
+	stopRequest = true;
+	while (mainImage->IsUsed())
+	{
 	}
+
+	repeatRequest = false;
+	progressBarAnimation->hide();
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, mainWindow, renderedImage); //deleted by deleteLater()
+	//renderJob->AssingStatusAndProgessBar(mainWindow->ui->statusbar, progressBar);
+
+	//TODO progress bar update has to be done as signal/slots
+
+	renderJob->Init(cRenderJob::still);
+
+	QThread *thread = new QThread; //deleted by deleteLater()
+	renderJob->moveToThread(thread);
+	QObject::connect(thread, SIGNAL(started()), renderJob, SLOT(slotExecute()));
+	thread->start();
+
+	QObject::connect(renderJob, SIGNAL(finished()), renderJob, SLOT(deleteLater()));
+	QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 }
 
 void cInterface::MoveCamera(QString buttonName)
@@ -1396,13 +1396,17 @@ void cInterface::RefreshMainImage()
 		sRenderData data;
 		data.numberOfThreads = systemData.numberOfThreads;
 		cRenderSSAO rendererSSAO(&params, &data, mainImage);
+		QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+
 		rendererSSAO.RenderSSAO();
 	}
 
 	if(gPar->Get<bool>("DOF_enabled"))
 	{
 		cParamRender params(gPar);
-		PostRendering_DOF(mainImage, params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0, params.DOFFocus, mainWindow->ui->statusbar, progressBar, &stopRequest);
+		cPostRenderingDOF dof(mainImage);
+		QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		dof.Render(params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0, params.DOFFocus, &stopRequest);
 	}
 
 	mainImage->ConvertTo8bit();
@@ -2027,6 +2031,9 @@ bool cInterface::QuitApplicationDialog()
 		case QMessageBox::Ok:
 		{
 			stopRequest = true;
+
+			while(mainImage->IsUsed()) {	}
+
 			application->quit();
 			quit = true;
 			break;

@@ -32,7 +32,6 @@ public:
 	cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal, int _width, int _height, const QString &_hash);
 	~cThumbnail();
 	void AssignWidget(QWidget *widget) {qwidget = widget;}
-	void AssignProgressBar(QProgressBar *_progressBar);
 	QPixmap Render();
 	void Save(QString filename);
 
@@ -44,7 +43,6 @@ private:
 	const int width;
 	const int height;
 	QString hash;
-	QProgressBar *progressBar;
 };
 
 #endif /* THUMBNAIL_HPP_ */

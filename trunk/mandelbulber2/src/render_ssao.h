@@ -28,8 +28,9 @@
 #include <QProgressBar>
 #include <QStatusBar>
 
-class cRenderSSAO
+class cRenderSSAO : public QObject
 {
+	Q_OBJECT
 public:
 	cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image);
 	~cRenderSSAO();
@@ -45,6 +46,9 @@ private:
 	bool quiet;
 	double qualityFactor;
 	int progressive;
+
+signals:
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 };
 
 #endif /* RENDER_SSAO_H_ */

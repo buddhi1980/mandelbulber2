@@ -30,11 +30,14 @@
 #include <QStatusBar>
 #include "camera_target.hpp"
 
-class cRenderJob
+class cRenderJob : public QObject
 {
+	Q_OBJECT
 public:
-	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QWidget *_qwidget = NULL);
+	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QObject *_parent = NULL, QWidget *_qwidget = NULL);
 	~cRenderJob();
+	//QWidtet *parent is needed to connect signals for refreshing progress and status bar.
+	//If _parent is not NULL then parent has to have slot slotUpdateProgressAndStatus()
 
 	enum enumMode
 	{
@@ -46,13 +49,16 @@ public:
 	cImage* GetImagePtr() {return image;}
 	int GetNumberOfCPUs() {return totalNumberOfCPUs;};
 	void UseSizeFromImage(bool mode) {useSizeFromImage = mode;}
-	void AssingStatusAndProgessBar(QStatusBar *_statusBar, QProgressBar *_progressBar) {statusBar = _statusBar; progressBar = _progressBar;}
 	void ChangeCameraTargetPosition(cCameraTarget cameraTarget);
 
 	void UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	void SetMaxRenderTime(double time);
 
+public slots:
+	void slotExecute();
+
 private:
+	QObject *parentObject;
 	bool InitImage(int w, int h);
 	void ReduceDetail();
 
@@ -70,10 +76,14 @@ private:
 	int width;
 	QWidget *imageWidget;
 	sRenderData *renderData;
-	QStatusBar *statusBar;
-	QProgressBar *progressBar;
 	bool *stopRequest;
 	static int id; //global identifier of actual rendering job
+
+	signals:
+	void finished();
+	void fullyRendered();
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void updateImage();
 };
 
 

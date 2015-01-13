@@ -27,7 +27,7 @@
 #include "global_data.hpp"
 #include "system.hpp"
 
-cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image)
+cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image) : QObject()
 {
 	params = _params;
 	data = _renderData;
@@ -151,7 +151,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		progressTxt = progressText.getText(percentDone);
 		if(!quiet)
 		{
-			ProgressStatusText(statusText, progressTxt, percentDone, data->statusBar, data->progressBar);
+			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 		}
 	}
 
@@ -171,7 +171,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	progressTxt = progressText.getText(percentDone);
 	if(!quiet)
 	{
-		ProgressStatusText(statusText, progressTxt, percentDone, data->statusBar, data->progressBar);
+		emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 	}
 	delete[] thread;
 	delete[] threadData;

@@ -1280,3 +1280,8 @@ void RenderWindow::closeEvent(QCloseEvent * event)
 		event->ignore();
 	}
 }
+
+void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
+{
+	ProgressStatusText(text, progressText, progress, ui->statusbar, mainInterface->progressBar);
+}

@@ -32,12 +32,13 @@
 #include "render_ssao.h"
 #include "global_data.hpp"
 
-cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image)
+cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image, QObject *_parentObject) : QObject()
 {
 	params = _params;
 	fractal = _fractal;
 	data = _renderData;
 	image = _image;
+	parentObject = _parentObject;
 }
 
 bool cRenderer::RenderImage()
@@ -124,7 +125,7 @@ bool cRenderer::RenderImage()
 			data->lastPercentage = percentDone;
 			statusText = QObject::tr("Rendering image in progress");
 			progressTxt = progressText.getText(percentDone);
-			ProgressStatusText(statusText, progressTxt, percentDone, data->statusBar, data->progressBar);
+			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 
 			//refresh image
 			if (!data->doNotRefresh && image->IsPreview() && listToRefresh.size() > 0)
@@ -141,6 +142,7 @@ bool cRenderer::RenderImage()
 					if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 					{
 						cRenderSSAO rendererSSAO(params, data, image);
+						if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 						rendererSSAO.setProgressive(scheduler->GetProgresiveStep());
 						rendererSSAO.RenderSSAO(&listToRefresh);
 					}
@@ -174,11 +176,14 @@ bool cRenderer::RenderImage()
 	if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 	{
 		cRenderSSAO rendererSSAO(params, data, image);
+		if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		rendererSSAO.RenderSSAO();
 	}
 	if(params->DOFEnabled && !*data->stopRequest)
 	{
-		PostRendering_DOF(image, params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->statusBar, data->progressBar, data->stopRequest);
+		cPostRenderingDOF dof(image);
+		if(parentObject) QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->stopRequest);
 	}
 
 	if(image->IsPreview())
@@ -197,7 +202,7 @@ bool cRenderer::RenderImage()
 	double percentDone = 1.0;
 	statusText = QObject::tr("Idle");
 	progressTxt = progressText.getText(percentDone);
-	ProgressStatusText(statusText, progressTxt, percentDone, data->statusBar, data->progressBar);
+	emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 
 	delete[] thread;
 	delete[] threadData;
@@ -206,5 +211,8 @@ bool cRenderer::RenderImage()
 
 	WriteLog("cRenderer::RenderImage(): memory released");
 
-	return true;
+	if (*data->stopRequest)
+		return false;
+	else
+		return true;
 }

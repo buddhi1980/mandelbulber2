@@ -39,11 +39,11 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/one_parameter.cpp\
 	    	../src/old_settings.cpp\
 	    	../src/parameters.cpp\
-				../src/player_widget.cpp\
+			../src/player_widget.cpp\
 	    	../src/primitives.cpp\
-				../src/progress_text.cpp\
-				../src/preview_file_dialog.cpp\
-				../src/random.cpp\
+			../src/progress_text.cpp\
+			../src/preview_file_dialog.cpp\
+			../src/random.cpp\
 	    	../src/render_image.cpp\
 	    	../src/rendered_image_widget.cpp\
 	    	../src/render_job.cpp\
@@ -57,6 +57,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/ssao_worker.cpp\
             ../src/texture.cpp\
             ../src/thumbnail.cpp\
+            ../src/thumbnail_widget.cpp\
             ../src/undo.cpp\
             ../qt/mygroupbox.cpp\
             ../qt/mylineedit.cpp\
@@ -79,8 +80,13 @@ HEADERS  += ../src/render_window.hpp\
 			../src/ssao_worker.h\
 			../qt/color_palette_widget.h\
 			../src/rendered_image_widget.hpp\
+			../src/animation_flight.hpp\
+			../src/thumbnail_widget.h\
 			../src/player_widget.hpp\
-			../src/animation_flight.hpp
+			../src/render_job.hpp\
+			../src/render_image.hpp\
+			../src/render_ssao.h\
+			../src/dof.hpp
 
 FORMS    += ../qt/render_window.ui
 

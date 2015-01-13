@@ -29,10 +29,11 @@
 #include "four_fractals.hpp"
 #include "render_data.hpp"
 
-class cRenderer
+class cRenderer : public QObject
 {
+	Q_OBJECT
 public:
-	cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image);
+	cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image, QObject *_parentObject);
 	bool RenderImage();
 
 private:
@@ -40,7 +41,10 @@ private:
 	const cFourFractals *fractal;
 	sRenderData *data;
 	cImage *image;
+	QObject *parentObject;
 
+	signals:
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 };
 
 

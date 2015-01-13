@@ -29,7 +29,7 @@
 #include "progress_text.hpp"
 #include "error_message.hpp"
 
-cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QWidget *_qwidget)
+cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QObject *_parent, QWidget *_qwidget) : QObject()
 {
 	WriteLog("cRenderJob::cRenderJob");
 	image = _image;
@@ -61,10 +61,9 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 
 	useSizeFromImage = false;
 
-	statusBar = NULL;
-	progressBar = NULL;
-
 	stopRequest = _stopRequest;
+
+	parentObject = _parent;
 
 	id++;
 }
@@ -93,7 +92,7 @@ bool cRenderJob::Init(enumMode _mode)
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 
-	ProgressStatusText(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0, statusBar, progressBar);
+	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
 	application->processEvents();
 
 	if(!InitImage(width, height))
@@ -125,7 +124,8 @@ bool cRenderJob::Init(enumMode _mode)
 
 	//textures are deleted with destruction of renderData
 
-	ProgressStatusText(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0, statusBar, progressBar);
+	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
+
 	application->processEvents();
 
 	if(paramsContainer->Get<bool>("textured_background"))
@@ -137,12 +137,11 @@ bool cRenderJob::Init(enumMode _mode)
 	if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
 		renderData->textures.lightmapTexture = new cTexture(paramsContainer->Get<QString>("file_lightmap"));
 
-	renderData->statusBar = statusBar;
-	renderData->progressBar = progressBar;
 	renderData->stopRequest = stopRequest;
 
 	if(mode == flightAnimRecord || mode == flightAnim) renderData->doNotRefresh = true;
 	ready = true;
+
 	return true;
 }
 
@@ -175,12 +174,13 @@ bool cRenderJob::InitImage(int w, int h)
 
 bool cRenderJob::Execute(void)
 {
-	if(image->IsUsed())
-	{
-		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
-		return false;
-	}
+	//if(image->IsUsed())
+	//{
+	//	//cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
+	//	return false;
+	//}
 
+	image->BlockImage();
 	inProgress = true;
 	*renderData->stopRequest = false;
 
@@ -198,10 +198,16 @@ bool cRenderJob::Execute(void)
 	ReduceDetail();
 
 	//create and execute renderer
-	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image);
-	image->BlockImage();
-	renderer->RenderImage();
-	image->ReleaseImage();
+	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image, parentObject);
+
+	//connect signal for progress bar update
+	if(parentObject) QObject::connect(this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	if(parentObject) QObject::connect(renderer, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+
+
+	bool result = renderer->RenderImage();
+
+	if(result) emit fullyRendered();
 
 	delete params;
 	delete fourFractals;
@@ -209,6 +215,8 @@ bool cRenderJob::Execute(void)
 	inProgress = false;
 
 	WriteLog("cRenderJob::Execute(void): finished");
+
+	image->ReleaseImage();
 
 	return true;
 }
@@ -251,4 +259,10 @@ void cRenderJob::ReduceDetail()
 	{
 		renderData->reduceDetail = 1.0;
 	}
+}
+
+void cRenderJob::slotExecute()
+{
+	Execute();
+	emit finished();
 }
