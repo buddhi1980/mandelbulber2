@@ -27,8 +27,6 @@
 PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 {
 	// TODO resize of imageLabel
-	// TODO prebuffering of pixmap(s)?
-	// TODO input field for fps and usage for timer
 
 	infoLabel = new QLabel;
 	imageLabel = new QLabel;
@@ -36,6 +34,7 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	stopButton = new QPushButton;
 	positionSlider = new QSlider(Qt::Horizontal);
 	playTimer = new QTimer;
+	fpsSpinBox = new MyDoubleSpinBox;
 
 	currentIndex = 0;
 	playTimer->setInterval(30);
@@ -44,11 +43,19 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	stopButton->setEnabled(true);
 	stopButton->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
 
+	fpsSpinBox->setMinimum(0.01);
+	fpsSpinBox->setMaximum(100);
+	fpsSpinBox->setDecimals(2);
+	fpsSpinBox->setValue(30);
+
+	QLabel *fpsLabel = new QLabel("FPS");
 	QBoxLayout *controlLayout = new QHBoxLayout;
 	controlLayout->setMargin(0);
 	controlLayout->addWidget(stopButton);
 	controlLayout->addWidget(playPauseButton);
 	controlLayout->addWidget(positionSlider);
+	controlLayout->addWidget(fpsLabel);
+	controlLayout->addWidget(fpsSpinBox);
 	controlLayout->addWidget(infoLabel);
 
 	QBoxLayout *layout = new QVBoxLayout;
@@ -60,15 +67,22 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	QDir imageDir = QDir(gPar->Get<QString>("anim_flight_dir"));
 	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
-	positionSlider->setRange(0, imageFiles.size() - 1);
-	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(0).arg(imageFiles.size() - 1));
+	if(imageFiles.size() == 0)
+	{
+		infoLabel->setText(QObject::tr("No frames to play"));
+	}
+	else
+	{
+		positionSlider->setRange(0, imageFiles.size() - 1);
 
-	connect(positionSlider, SIGNAL(sliderMoved(int)), this, SLOT(setPosition(int)));
-	connect(playPauseButton, SIGNAL(clicked()), this, SLOT(playPause()));
-	connect(stopButton, SIGNAL(clicked()), this, SLOT(stop()));
-	connect(playTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
+		connect(positionSlider, SIGNAL(sliderMoved(int)), this, SLOT(setPosition(int)));
+		connect(playPauseButton, SIGNAL(clicked()), this, SLOT(playPause()));
+		connect(stopButton, SIGNAL(clicked()), this, SLOT(stop()));
+		connect(playTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
+		connect(fpsSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setFPS(double)));
 
-	setPosition(currentIndex);
+		setPosition(currentIndex);
+	}
 }
 
 PlayerWidget::~PlayerWidget()
@@ -77,11 +91,13 @@ PlayerWidget::~PlayerWidget()
 
 void PlayerWidget::playPause()
 {
-	if(playTimer->isActive()){
+	if(playTimer->isActive())
+	{
 		playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 		playTimer->stop();
 	}
-	else{
+	else
+	{
 		playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
 		playTimer->start();
 	}
@@ -117,4 +133,8 @@ void PlayerWidget::updateFrame()
 	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(currentIndex).arg(imageFiles.size() - 1));
 	QString fileName = gPar->Get<QString>("anim_flight_dir") + "/" + imageFiles.at(currentIndex);
 	imageLabel->setPixmap(fileName);
+}
+
+void PlayerWidget::setFPS(double fps){
+	playTimer->setInterval(1000.0 / fps);
 }
