@@ -23,44 +23,37 @@
 #ifndef PLAYERWIDGET_H
 #define PLAYERWIDGET_H
 
-#include <QMediaPlayer>
-#include <QMovie>
 #include <QWidget>
 #include <QtWidgets>
-#include <QVideoSurfaceFormat>
-#include <QGraphicsVideoItem>
-#include <QMediaPlaylist>
-
-class QAbstractButton;
-class QSlider;
-class QGraphicsVideoItem;
+#include <QTimer>
 
 class PlayerWidget : public QWidget
 {
-		Q_OBJECT
+	Q_OBJECT
 
 public:
-		PlayerWidget(QWidget *parent = 0);
-		~PlayerWidget();
-
-		QSize sizeHint() const { return QSize(800, 600); }
+	PlayerWidget(QWidget *parent = 0);
+	~PlayerWidget();
+	QSize sizeHint() const { return QSize(800, 600); }
 
 public slots:
-		void playPause();
+	void playPause();
+	void stop();
 
 private slots:
-		void mediaStateChanged(QMediaPlayer::State state);
-		void positionChanged(qint64 position);
-		void durationChanged(qint64 duration);
-		void setPosition(int position);
+	void setPosition(int position);
+	void nextFrame();
 
 private:
-		QMediaPlaylist *mediaPlaylist;
-		QMediaPlayer mediaPlayer;
-		QGraphicsVideoItem *videoItem;
-		QAbstractButton *playPauseButton;
-		QSlider *positionSlider;
-		QLabel *infoLabel;
+	void updateFrame();
+	QAbstractButton *playPauseButton;
+	QAbstractButton *stopButton;
+	QSlider *positionSlider;
+	QLabel *infoLabel;
+	QLabel *imageLabel;
+	QTimer *playTimer;
+	QStringList imageFiles;
+	int currentIndex;
 };
 
 #endif
