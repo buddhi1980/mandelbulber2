@@ -392,6 +392,17 @@ unsigned char* cImage::GetPreviewPtr(void)
 	return ptr;
 }
 
+unsigned char* cImage::GetPreviewPrimaryPtr(void)
+{
+	unsigned char* ptr = 0;
+	if (previewAllocated)
+	{
+		ptr = (unsigned char*) preview;
+	} else abort();
+	return ptr;
+}
+
+
 bool cImage::IsPreview(void)
 {
 	if (previewAllocated)

@@ -25,6 +25,7 @@
 
 #include "animation_frames.hpp"
 #include "interface.hpp"
+#include "thumbnail_widget.h"
 
 class cFlightAnimation : public QObject
 {
@@ -74,6 +75,7 @@ private:
 	CVector2<int> strafe;
 	int rotationDirection;
 	double linearSpeedSp;
+	QList<cThumbnailWidget*> thumbnailWidgets;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

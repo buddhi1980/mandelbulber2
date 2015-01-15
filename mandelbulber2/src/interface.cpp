@@ -987,9 +987,6 @@ void cInterface::StartRender(void)
 	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, mainWindow, renderedImage); //deleted by deleteLater()
-	//renderJob->AssingStatusAndProgessBar(mainWindow->ui->statusbar, progressBar);
-
-	//TODO progress bar update has to be done as signal/slots
 
 	renderJob->Init(cRenderJob::still);
 
@@ -1996,6 +1993,8 @@ void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
 					pixmap = thumbnail.Render();
 					icon.addPixmap(pixmap.scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 				}
+				delete par;
+				delete parFractal;
 			}
 		}
 

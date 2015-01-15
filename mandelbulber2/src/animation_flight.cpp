@@ -29,6 +29,7 @@
 #include "progress_text.hpp"
 #include <QFileDialog>
 #include <QMessageBox>
+#include "thumbnail_widget.h"
 
 cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent) : QObject(parent), interface(_interface), frames(_frames)
 {
@@ -264,18 +265,33 @@ void cFlightAnimation::UpdateThumbnailFromImage(int index)
 
 void cFlightAnimation::PrepareTable()
 {
+	//manual delete of all cellWidgets
+	//FIXME deleting of cell widgets doesn't work properly. QTableWidgets don't free memory when clear() or removeCellWidget is used
+	//It calls destructors for cell widgets only wnen QTable widget is destroyed.
+	//even if cThumbnailWidget destructors are called, there is still some copy of widget inside the table.
+
+	for(int i = 1; i < table->columnCount(); i++)
+	{
+		table->removeCellWidget(0, i);
+	}
+	for(int i=0; i<thumbnailWidgets.size(); i++)
+	{
+		qDebug() << thumbnailWidgets[i];
+		delete thumbnailWidgets[i];
+	}
+	thumbnailWidgets.clear();
+
+	table->setRowCount(0);
+	table->setColumnCount(0);
 	table->clear();
+	tableRowNames.clear();
 	CreateRowsInTable();
 }
 
 void cFlightAnimation::CreateRowsInTable()
 {
 	QList<cAnimationFrames::sParameterDescription> parList = frames->GetListOfUsedParameters();
-	tableRowNames.clear();
-	table->setRowCount(0);
-	table->setColumnCount(0);
 	table->setIconSize(QSize(100, 70));
-
 	table->insertRow(0);
 	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("preview")));
 	table->setRowHeight(0, 70);
@@ -451,13 +467,34 @@ void cFlightAnimation::RenderFlight()
 
 void cFlightAnimation::RefreshTable()
 {
+	interface->progressBarAnimation->show();
 	PrepareTable();
+	application->processEvents();
+
 	int noOfFrames = frames->GetNumberOfFrames();
+
+	cParameterContainer tempPar = *gPar;
+	cFractalContainer tempFract = *gParFractal;
 
 	for(int i=0; i < noOfFrames; i++)
 	{
-		AddColumn(frames->GetFrame(i));
+		int newColumn = AddColumn(frames->GetFrame(i));
+
+		//TODO add render preview checkbox
+		cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+		thumbnailWidgets.append(thumbWidget);
+		thumbWidget->UseOneCPUCore(true);
+		frames->GetFrameAndConsolidate(i, &tempPar, &tempFract);
+		thumbWidget->AssignParameters(tempPar, tempFract);
+		table->setCellWidget(0, newColumn, thumbWidget);
+
+		if(i % 100 == 0)
+		{
+			ProgressStatusText(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames, ui->statusbar, interface->progressBarAnimation);
+			application->processEvents();
+		}
 	}
+	interface->progressBarAnimation->hide();
 }
 
 QString cFlightAnimation::GetParameterName(int rowNumber)
