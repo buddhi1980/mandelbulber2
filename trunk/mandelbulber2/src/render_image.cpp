@@ -103,7 +103,10 @@ bool cRenderer::RenderImage()
 
 		while (!scheduler->AllLinesDone())
 		{
-			application->processEvents();
+			if(parentObject)
+			{
+				application->processEvents();
+			}
 
 			if (*data->stopRequest || progressText.getTime() > data->maxRenderTime)
 			{
@@ -125,7 +128,11 @@ bool cRenderer::RenderImage()
 			data->lastPercentage = percentDone;
 			statusText = QObject::tr("Rendering image in progress");
 			progressTxt = progressText.getText(percentDone);
-			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+
+			if(parentObject)
+			{
+				emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+			}
 
 			//refresh image
 			if (!data->doNotRefresh && image->IsPreview() && listToRefresh.size() > 0)
@@ -202,7 +209,11 @@ bool cRenderer::RenderImage()
 	double percentDone = 1.0;
 	statusText = QObject::tr("Idle");
 	progressTxt = progressText.getText(percentDone);
-	emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+
+	if(parentObject)
+	{
+		emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+	}
 
 	delete[] thread;
 	delete[] threadData;

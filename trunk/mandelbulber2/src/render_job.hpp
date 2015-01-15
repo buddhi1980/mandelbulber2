@@ -53,6 +53,8 @@ public:
 
 	void UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	void SetMaxRenderTime(double time);
+	static int GetRunningJobCount() {return runningJobs;}
+	void ForceNumberOfThreads(int noOfThreads) {totalNumberOfCPUs = noOfThreads; renderData->numberOfThreads = noOfThreads;}
 
 public slots:
 	void slotExecute();
@@ -78,6 +80,7 @@ private:
 	sRenderData *renderData;
 	bool *stopRequest;
 	static int id; //global identifier of actual rendering job
+	static int runningJobs;
 
 	signals:
 	void finished();

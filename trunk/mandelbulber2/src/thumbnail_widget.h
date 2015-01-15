@@ -16,10 +16,10 @@ class cThumbnailWidget: public QWidget
 {
 	Q_OBJECT
 public:
-	cThumbnailWidget(int _width, int _height, QWidget *parent);
+	cThumbnailWidget(int _width, int _height, QObject *_parentWithProgressBar, QWidget *parent);
 	~cThumbnailWidget();
 	void AssignParameters(const cParameterContainer &_params, const cFractalContainer &_fractal);
-	void AssignProgressBar(QProgressBar *_progressBar);
+	void UseOneCPUCore(bool onlyOne) {useOneCPUCore = onlyOne;}
 
 private:
 	void paintEvent(QPaintEvent *event);
@@ -27,11 +27,12 @@ private:
 private slots:
 	void slotRender();
 	void slotFullyRendered();
+	void slotRandomRender();
 
 private:
 	cImage *image;
-	cParameterContainer params;
-	cFractalContainer fractal;
+	cParameterContainer *params;
+	cFractalContainer *fractal;
 	int tWidth;
 	int tHeight;
 	QString hash;
@@ -39,6 +40,9 @@ private:
 	bool stopRequest;
 	bool isRendered;
 	bool hasParameters;
+	QObject *parentWithProgressBar;
+	bool useOneCPUCore;
+	QTimer *timer; //timer for random trigger for rendering (renders thumbnail even when is not visible)
 
 signals:
 	void renderRequest();

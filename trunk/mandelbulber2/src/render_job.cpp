@@ -66,12 +66,16 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	parentObject = _parent;
 
 	id++;
+	qDebug() << "Id" << id;
+
 }
 int cRenderJob::id = 0;
+int cRenderJob::runningJobs = 0;
 
 cRenderJob::~cRenderJob()
 {
 	id--;
+	qDebug() << "Id" << id;
 	delete paramsContainer;
 	delete fractalContainer;
 	if(renderData) delete renderData;
@@ -92,8 +96,11 @@ bool cRenderJob::Init(enumMode _mode)
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 
-	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
-	application->processEvents();
+	if (parentObject)
+	{
+		emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
+		application->processEvents();
+	}
 
 	if(!InitImage(width, height))
 	{
@@ -124,9 +131,11 @@ bool cRenderJob::Init(enumMode _mode)
 
 	//textures are deleted with destruction of renderData
 
-	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
-
-	application->processEvents();
+	if(parentObject)
+	{
+		emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
+		application->processEvents();
+	}
 
 	if(paramsContainer->Get<bool>("textured_background"))
 		renderData->textures.backgroundTexture = new cTexture(paramsContainer->Get<QString>("file_background"));
@@ -181,6 +190,10 @@ bool cRenderJob::Execute(void)
 	//}
 
 	image->BlockImage();
+
+	runningJobs++;
+	qDebug() << "runningJobs" << runningJobs;
+
 	inProgress = true;
 	*renderData->stopRequest = false;
 
@@ -204,7 +217,6 @@ bool cRenderJob::Execute(void)
 	if(parentObject) QObject::connect(this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 	if(parentObject) QObject::connect(renderer, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 
-
 	bool result = renderer->RenderImage();
 
 	if(result) emit fullyRendered();
@@ -217,6 +229,9 @@ bool cRenderJob::Execute(void)
 	WriteLog("cRenderJob::Execute(void): finished");
 
 	image->ReleaseImage();
+
+	runningJobs--;
+	qDebug() << "runningJobs" << runningJobs;
 
 	return true;
 }

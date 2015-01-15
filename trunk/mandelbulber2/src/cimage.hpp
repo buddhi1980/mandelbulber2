@@ -96,6 +96,7 @@ public:
   unsigned char* CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
   void UpdatePreview(QList<int> *list = NULL);
   unsigned char* GetPreviewPtr(void);
+  unsigned char* GetPreviewPrimaryPtr(void);
   bool IsPreview(void);
   void RedrawInWidget(QWidget *qwidget = NULL);
   double GetPreviewScale() {return previewScale;}

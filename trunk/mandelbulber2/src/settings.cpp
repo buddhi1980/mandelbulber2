@@ -36,6 +36,7 @@ cSettings::cSettings(enumFormat _format)
 	appVersion = MANDELBULBER_VERSION;
 	fileVersion = 0;
 	quiet = false;
+	csvNoOfColumns = 0;
 }
 
 size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames)
