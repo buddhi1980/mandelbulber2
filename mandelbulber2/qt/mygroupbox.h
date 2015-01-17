@@ -42,6 +42,7 @@ public:
 		parameterContainer = NULL;
 		gotDefault = false;
 		defaultValue = 0;
+		firstDisplay = true;
 	};
 
 	void AssignParameterContainer(cParameterContainer *container) {parameterContainer = container;}
@@ -58,6 +59,7 @@ private:
 	bool defaultValue;
 	bool gotDefault;
 	QString originalText;
+	bool firstDisplay;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
