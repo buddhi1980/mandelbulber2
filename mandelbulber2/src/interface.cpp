@@ -2031,8 +2031,6 @@ bool cInterface::QuitApplicationDialog()
 		{
 			stopRequest = true;
 
-			while(mainImage->IsUsed()) {	}
-
 			application->quit();
 			quit = true;
 			break;

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui uitools widgets multimedia multimediawidgets
+QT       += core gui uitools widgets
 
 TARGET = mandelbulber2
 TEMPLATE = app

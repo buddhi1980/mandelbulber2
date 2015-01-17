@@ -44,11 +44,13 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedIncease()), this, SLOT(slotIncreaseSpeed()));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightSpeedDecrease()), this, SLOT(slotDecreaseSpeed()));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightRotation(int)), this, SLOT(slotFlightRotation(int)));
+	QApplication::connect(interface->renderedImage, SIGNAL(flightPause()), this, SLOT(slotRecordPause()));
 	QApplication::connect(ui->tableWidget_flightAnimation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
 
 	table = ui->tableWidget_flightAnimation;
 	linearSpeedSp = 0.0;
 	rotationDirection = 0;
+	recordPause = false;
 }
 
 void cFlightAnimation::slotRecordFlight()
@@ -85,9 +87,6 @@ void cFlightAnimation::slotRenderFlight()
 
 void cFlightAnimation::RecordFlight()
 {
-	//TODO pause of recording flight (spacebar key)
-	//TODO refresh previews of frames using cThumbanilWidget
-
 	if(interface->mainImage->IsUsed())
 	{
 		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
@@ -147,9 +146,29 @@ void cFlightAnimation::RecordFlight()
 	QString framesDir = gPar->Get<QString>("anim_flight_dir");
 
 	int index = 0;
+	recordPause = false;
 
+	interface->progressBarAnimation->show();
 	while(!interface->stopRequest)
 	{
+		ProgressStatusText(QObject::tr("Recording flight animation"), tr("Recording flight animation. Frame: ") + QString::number(index), 0.0, ui->statusbar, interface->progressBarAnimation);
+
+		bool wasPaused = false;
+		while(recordPause)
+		{
+			wasPaused = true;
+			ProgressStatusText(QObject::tr("Recording flight animation"), tr("Paused. Frame: ") + QString::number(index), 0.0, ui->statusbar, interface->progressBarAnimation);
+			application->processEvents();
+			if(interface->stopRequest) break;
+		}
+
+		if(wasPaused)
+		{
+			interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+			renderJob->UpdateParameters(gPar, gParFractal);
+			if(interface->stopRequest) break;
+		}
+
 		CVector2<double> mousePosition = interface->renderedImage->GetLastMousePositionScaled();
 
 		//speed
@@ -270,16 +289,16 @@ void cFlightAnimation::PrepareTable()
 	//It calls destructors for cell widgets only wnen QTable widget is destroyed.
 	//even if cThumbnailWidget destructors are called, there is still some copy of widget inside the table.
 
-	for(int i = 1; i < table->columnCount(); i++)
-	{
-		table->removeCellWidget(0, i);
-	}
-	for(int i=0; i<thumbnailWidgets.size(); i++)
-	{
-		qDebug() << thumbnailWidgets[i];
-		delete thumbnailWidgets[i];
-	}
-	thumbnailWidgets.clear();
+//	for(int i = 1; i < table->columnCount(); i++)
+//	{
+//		table->removeCellWidget(0, i);
+//	}
+//	for(int i=0; i<thumbnailWidgets.size(); i++)
+//	{
+//		qDebug() << thumbnailWidgets[i];
+//		delete thumbnailWidgets[i];
+//	}
+// thumbnailWidgets.clear();
 
 	table->setRowCount(0);
 	table->setColumnCount(0);
@@ -296,6 +315,8 @@ void cFlightAnimation::CreateRowsInTable()
 	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("preview")));
 	table->setRowHeight(0, 70);
 	tableRowNames.append(tr("preview"));
+
+	rowParameter.clear();
 	rowParameter.append(-1);
 
 	parameterRows.clear();
@@ -482,7 +503,7 @@ void cFlightAnimation::RefreshTable()
 
 		//TODO add render preview checkbox
 		cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
-		thumbnailWidgets.append(thumbWidget);
+		//thumbnailWidgets.append(thumbWidget);
 		thumbWidget->UseOneCPUCore(true);
 		frames->GetFrameAndConsolidate(i, &tempPar, &tempFract);
 		thumbWidget->AssignParameters(tempPar, tempFract);
@@ -611,6 +632,14 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 	}
 
 	frames->ModifyFrame(column, frame);
+
+	//update thumbnail
+	cParameterContainer tempPar = *gPar;
+	cFractalContainer tempFract = *gParFractal;
+	frames->GetFrameAndConsolidate(column, &tempPar, &tempFract);
+	cThumbnailWidget *thumbWidget = (cThumbnailWidget*)table->cellWidget(0, column);
+	thumbWidget->AssignParameters(tempPar, tempFract);
+
 	table->blockSignals(false);
 }
 
@@ -635,4 +664,10 @@ void cFlightAnimation::slotShowAnimation()
 	WriteLog("Prepare PlayerWidget class");
 	interface->imageSequencePlayer = new PlayerWidget();
 	interface->imageSequencePlayer->show();
+}
+
+void cFlightAnimation::slotRecordPause()
+{
+	recordPause = !recordPause;
+	qDebug() << recordPause;
 }

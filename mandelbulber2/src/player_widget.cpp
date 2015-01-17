@@ -87,6 +87,7 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 
 PlayerWidget::~PlayerWidget()
 {
+	//FIXME destructor must stop playing animation
 }
 
 void PlayerWidget::playPause()

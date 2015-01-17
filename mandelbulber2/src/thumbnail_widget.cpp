@@ -1,8 +1,23 @@
-/*
- * thumbnail_widget.cpp
+/**
+ * Mandelbulber v2, a 3D fractal generator
  *
- *  Created on: Jan 11, 2015
- *      Author: krzysztof
+ * widget to display auto-rendering thumbnails
+ *
+ * Copyright (C) 2014 Krzysztof Marczak
+ *
+ * This file is part of Mandelbulber.
+ *
+ * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details. You should have received a copy of the GNU
+ * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors:  Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
 #include "thumbnail_widget.h"
@@ -35,6 +50,8 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, QObject *_parentWith
 
 	timer = new QTimer(parent);
 	timer->setSingleShot(true);
+	instanceCount++;
+	qDebug() << "cThumbnailWidget constructed" << instanceCount;
 }
 
 cThumbnailWidget::~cThumbnailWidget()
@@ -46,11 +63,13 @@ cThumbnailWidget::~cThumbnailWidget()
 	delete timer;
 	if(params) delete params;
 	if(fractal) delete fractal;
-	qDebug() << "cThumbnailWidget destructor";
+	instanceCount--;
+	qDebug() << "cThumbnailWidget destructed" << instanceCount;
 }
 
 void cThumbnailWidget::paintEvent(QPaintEvent *event)
 {
+	event->accept();
 	if (hasParameters)
 	{
 		if(!isRendered)
@@ -101,6 +120,7 @@ void cThumbnailWidget::AssignParameters(const cParameterContainer &_params, cons
 		sRGB8 *preview2Pointer = (sRGB8*)image->GetPreviewPtr();
 		memcpy(previewPointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
 		memcpy(preview2Pointer, bitmap, sizeof(sRGB8) * bwidth * bheight);
+
 		emit thumbnailRendered();
 	}
 	else
@@ -113,12 +133,15 @@ void cThumbnailWidget::AssignParameters(const cParameterContainer &_params, cons
 
 void cThumbnailWidget::slotRender()
 {
+
 	stopRequest = true;
 	while(image->IsUsed())
 	{
 		//just wait and pray
 		Wait(100);
 	}
+
+	//random wait to not generate to many events at exactly the same time
 	Wait(Random(100) + 50);
 	stopRequest = false;
 
@@ -141,6 +164,7 @@ void cThumbnailWidget::slotRender()
 	QObject::connect(renderJob, SIGNAL(finished()), renderJob, SLOT(deleteLater()));
 	QObject::connect(renderJob, SIGNAL(finished()), thread, SLOT(quit()));
 	QObject::connect(renderJob, SIGNAL(fullyRendered()), this, SLOT(slotFullyRendered()));
+
 }
 
 void cThumbnailWidget::slotFullyRendered()
@@ -168,3 +192,5 @@ void cThumbnailWidget::slotRandomRender()
 		slotRender();
 	}
 }
+
+int cThumbnailWidget::instanceCount = 0;

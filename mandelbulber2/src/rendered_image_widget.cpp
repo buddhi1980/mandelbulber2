@@ -131,6 +131,7 @@ void RenderedImage::DisplayCoordinates()
 			text += tr("\nRMB - decrease speed");
 			text += tr("\narrow keys - strafe");
 			text += tr("\nz, x keys - roll");
+			text += tr("\nspacebar - pause");
 			break;
 		case clickDoNothing:
 			text  = "";
@@ -421,6 +422,10 @@ void RenderedImage::keyPressEvent(QKeyEvent * event)
 			{
 				flightRotationDirection = -1;
 				emit(flightRotation(flightRotationDirection));
+			}
+			else if(key == Qt::Key_Space)
+			{
+				emit flightPause();
 			}
 
 		}

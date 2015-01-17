@@ -118,6 +118,7 @@ signals:
 	void flightSpeedDecrease();
 	void flightStrafe(CVector2<int> arrows);
 	void flightRotation(int direction);
+	void flightPause();
 };
 
 
