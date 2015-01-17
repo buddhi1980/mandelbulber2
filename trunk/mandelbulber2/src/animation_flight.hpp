@@ -59,6 +59,7 @@ void slotSelectAnimFlightImageDir();
 void slotTableCellChanged(int row, int column);
 void slotDeleteAllImages();
 void slotShowAnimation();
+void slotRecordPause();
 
 private:
 	void PrepareTable();
@@ -75,7 +76,8 @@ private:
 	CVector2<int> strafe;
 	int rotationDirection;
 	double linearSpeedSp;
-	QList<cThumbnailWidget*> thumbnailWidgets;
+	//QList<cThumbnailWidget*> thumbnailWidgets;
+	bool recordPause;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

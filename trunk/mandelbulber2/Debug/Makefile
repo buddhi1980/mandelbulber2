@@ -12,13 +12,13 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_UITOOLS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_WIDGETS_LIB -DQT_UITOOLS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -g -D_REENTRANT -Wall -W -fPIE $(DEFINES)
 CXXFLAGS      = -m64 -pipe -msse2 -ffast-math -g -D_REENTRANT -Wall -W -fPIE $(DEFINES)
-INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtMultimedia -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtNetwork -isystem /usr/include/x86_64-linux-gnu/qt5/QtUiTools -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I../qt
+INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtUiTools -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I../qt
 LINK          = g++
-LFLAGS        = -m64 -Wl,-rpath-link,/usr/lib/x86_64-linux-gnu
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lpng -lgsl -lgslcblas -lQt5MultimediaWidgets -lQt5Multimedia -lQt5Network -lQt5UiTools -lQt5Widgets -lQt5Gui -lQt5Core -lpthread -lGL 
+LFLAGS        = -m64
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lpng -lgsl -lgslcblas -lQt5UiTools -lQt5Widgets -lQt5Gui -lQt5Core -lpthread -lGL 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
@@ -402,12 +402,9 @@ Makefile: mandelbulber.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qm
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		mandelbulber.pro \
 		../qt/icons.qrc \
-		/usr/lib/x86_64-linux-gnu/libQt5MultimediaWidgets.prl \
-		/usr/lib/x86_64-linux-gnu/libQt5Multimedia.prl \
+		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Core.prl \
-		/usr/lib/x86_64-linux-gnu/libQt5Network.prl \
-		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5UiTools.prl
 	$(QMAKE) -o Makefile mandelbulber.pro
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf:
@@ -471,12 +468,9 @@ Makefile: mandelbulber.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qm
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
 mandelbulber.pro:
 ../qt/icons.qrc:
-/usr/lib/x86_64-linux-gnu/libQt5MultimediaWidgets.prl:
-/usr/lib/x86_64-linux-gnu/libQt5Multimedia.prl:
+/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
-/usr/lib/x86_64-linux-gnu/libQt5Network.prl:
-/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5UiTools.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile mandelbulber.pro
@@ -552,7 +546,7 @@ moc_render_window.cpp: ../qt/ui_render_window.h \
 		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/render_window.hpp
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_window.hpp -o moc_render_window.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_window.hpp -o moc_render_window.cpp
 
 moc_render_worker.cpp: ../src/cimage.hpp \
 		../src/color_structures.hpp \
@@ -576,10 +570,10 @@ moc_render_worker.cpp: ../src/cimage.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
 		../src/render_worker.hpp
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_worker.hpp -o moc_render_worker.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_worker.hpp -o moc_render_worker.cpp
 
 moc_myscrolledarea.cpp: ../qt/myscrolledarea.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/myscrolledarea.h -o moc_myscrolledarea.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/myscrolledarea.h -o moc_myscrolledarea.cpp
 
 moc_mylineedit.cpp: ../src/parameters.hpp \
 		../src/one_parameter.hpp \
@@ -588,7 +582,7 @@ moc_mylineedit.cpp: ../src/parameters.hpp \
 		../src/color_structures.hpp \
 		../src/algebra.hpp \
 		../qt/mylineedit.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mylineedit.h -o moc_mylineedit.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mylineedit.h -o moc_mylineedit.cpp
 
 moc_myspinbox.cpp: ../src/parameters.hpp \
 		../src/one_parameter.hpp \
@@ -597,7 +591,7 @@ moc_myspinbox.cpp: ../src/parameters.hpp \
 		../src/color_structures.hpp \
 		../src/algebra.hpp \
 		../qt/myspinbox.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/myspinbox.h -o moc_myspinbox.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/myspinbox.h -o moc_myspinbox.cpp
 
 moc_mydoublespinbox.cpp: ../src/parameters.hpp \
 		../src/one_parameter.hpp \
@@ -606,7 +600,7 @@ moc_mydoublespinbox.cpp: ../src/parameters.hpp \
 		../src/color_structures.hpp \
 		../src/algebra.hpp \
 		../qt/mydoublespinbox.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mydoublespinbox.h -o moc_mydoublespinbox.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mydoublespinbox.h -o moc_mydoublespinbox.cpp
 
 moc_mycheckbox.cpp: ../src/parameters.hpp \
 		../src/one_parameter.hpp \
@@ -615,7 +609,7 @@ moc_mycheckbox.cpp: ../src/parameters.hpp \
 		../src/color_structures.hpp \
 		../src/algebra.hpp \
 		../qt/mycheckbox.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mycheckbox.h -o moc_mycheckbox.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mycheckbox.h -o moc_mycheckbox.cpp
 
 moc_mygroupbox.cpp: ../src/parameters.hpp \
 		../src/one_parameter.hpp \
@@ -624,13 +618,13 @@ moc_mygroupbox.cpp: ../src/parameters.hpp \
 		../src/color_structures.hpp \
 		../src/algebra.hpp \
 		../qt/mygroupbox.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mygroupbox.h -o moc_mygroupbox.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mygroupbox.h -o moc_mygroupbox.cpp
 
 moc_my_table_widget_anim.cpp: ../qt/my_table_widget_anim.hpp
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/my_table_widget_anim.hpp -o moc_my_table_widget_anim.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/my_table_widget_anim.hpp -o moc_my_table_widget_anim.cpp
 
 moc_my_ui_loader.cpp: ../src/my_ui_loader.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/my_ui_loader.h -o moc_my_ui_loader.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/my_ui_loader.h -o moc_my_ui_loader.cpp
 
 moc_preview_file_dialog.cpp: ../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -656,7 +650,7 @@ moc_preview_file_dialog.cpp: ../src/thumbnail_widget.h \
 		../src/region.hpp \
 		../src/camera_target.hpp \
 		../src/preview_file_dialog.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/preview_file_dialog.h -o moc_preview_file_dialog.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/preview_file_dialog.h -o moc_preview_file_dialog.cpp
 
 moc_ssao_worker.cpp: ../src/fractparams.hpp \
 		../src/texture.hpp \
@@ -674,12 +668,12 @@ moc_ssao_worker.cpp: ../src/fractparams.hpp \
 		../src/fractal_container.hpp \
 		../src/region.hpp \
 		../src/ssao_worker.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/ssao_worker.h -o moc_ssao_worker.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/ssao_worker.h -o moc_ssao_worker.cpp
 
 moc_color_palette_widget.cpp: ../src/color_palette.hpp \
 		../src/color_structures.hpp \
 		../qt/color_palette_widget.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/color_palette_widget.h -o moc_color_palette_widget.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/color_palette_widget.h -o moc_color_palette_widget.cpp
 
 moc_rendered_image_widget.cpp: ../src/cimage.hpp \
 		../src/color_structures.hpp \
@@ -689,7 +683,7 @@ moc_rendered_image_widget.cpp: ../src/cimage.hpp \
 		../src/color_palette.hpp \
 		../src/algebra.hpp \
 		../src/rendered_image_widget.hpp
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/rendered_image_widget.hpp -o moc_rendered_image_widget.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/rendered_image_widget.hpp -o moc_rendered_image_widget.cpp
 
 moc_animation_flight.cpp: ../src/animation_frames.hpp \
 		../src/parameters.hpp \
@@ -714,8 +708,22 @@ moc_animation_flight.cpp: ../src/animation_frames.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
 		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp \
 		../src/animation_flight.hpp
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/animation_flight.hpp -o moc_animation_flight.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/animation_flight.hpp -o moc_animation_flight.cpp
 
 moc_thumbnail_widget.cpp: ../src/thumbnail.hpp \
 		../src/render_job.hpp \
@@ -740,10 +748,17 @@ moc_thumbnail_widget.cpp: ../src/thumbnail.hpp \
 		../src/region.hpp \
 		../src/camera_target.hpp \
 		../src/thumbnail_widget.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/thumbnail_widget.h -o moc_thumbnail_widget.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/thumbnail_widget.h -o moc_thumbnail_widget.cpp
 
-moc_player_widget.cpp: ../src/player_widget.hpp
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/player_widget.hpp -o moc_player_widget.cpp
+moc_player_widget.cpp: ../qt/mydoublespinbox.h \
+		../src/parameters.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
+		../src/color_palette.hpp \
+		../src/color_structures.hpp \
+		../src/algebra.hpp \
+		../src/player_widget.hpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/player_widget.hpp -o moc_player_widget.cpp
 
 moc_render_job.cpp: ../src/parameters.hpp \
 		../src/one_parameter.hpp \
@@ -766,7 +781,7 @@ moc_render_job.cpp: ../src/parameters.hpp \
 		../src/region.hpp \
 		../src/camera_target.hpp \
 		../src/render_job.hpp
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_job.hpp -o moc_render_job.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_job.hpp -o moc_render_job.cpp
 
 moc_render_image.cpp: ../src/cimage.hpp \
 		../src/color_structures.hpp \
@@ -787,7 +802,7 @@ moc_render_image.cpp: ../src/cimage.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
 		../src/render_image.hpp
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_image.hpp -o moc_render_image.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_image.hpp -o moc_render_image.cpp
 
 moc_render_ssao.cpp: ../src/fractparams.hpp \
 		../src/texture.hpp \
@@ -805,12 +820,12 @@ moc_render_ssao.cpp: ../src/fractparams.hpp \
 		../src/fractal_container.hpp \
 		../src/region.hpp \
 		../src/render_ssao.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_ssao.h -o moc_render_ssao.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_ssao.h -o moc_render_ssao.cpp
 
 moc_dof.cpp: ../src/cimage.hpp \
 		../src/color_structures.hpp \
 		../src/dof.hpp
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimediaWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/dof.hpp -o moc_dof.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/workspace/mandelbulber3/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/dof.hpp -o moc_dof.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -907,7 +922,8 @@ animation_flight.o: ../src/animation_flight.cpp ../src/animation_flight.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
 		../src/primitives.h \
-		../src/global_data.hpp \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
 		../src/render_job.hpp \
 		../src/render_image.hpp \
 		../src/fractparams.hpp \
@@ -920,6 +936,7 @@ animation_flight.o: ../src/animation_flight.cpp ../src/animation_flight.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
 		../src/camera_target.hpp \
+		../src/global_data.hpp \
 		../src/system.hpp \
 		../src/files.h \
 		../src/error_message.hpp \
@@ -1029,7 +1046,18 @@ dof.o: ../src/dof.cpp ../src/dof.hpp \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
-		../src/player_widget.hpp
+		../src/player_widget.hpp \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dof.o ../src/dof.cpp
 
 error_message.o: ../src/error_message.cpp ../src/error_message.hpp \
@@ -1134,7 +1162,21 @@ global_data.o: ../src/global_data.cpp ../src/global_data.hpp \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../src/primitives.h
+		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o global_data.o ../src/global_data.cpp
 
 initparameters.o: ../src/initparameters.cpp ../src/fractparams.hpp \
@@ -1200,9 +1242,10 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/global_data.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
 		../src/progress_text.hpp \
-		../src/settings.hpp \
-		../src/thumbnail.hpp
+		../src/settings.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interface.o ../src/interface.cpp
 
 lights.o: ../src/lights.cpp ../src/lights.hpp \
@@ -1259,7 +1302,17 @@ main.o: ../src/main.cpp ../src/main.hpp \
 		../src/undo.h \
 		../src/global_data.hpp \
 		../src/animation_frames.hpp \
-		../src/animation_flight.hpp
+		../src/animation_flight.hpp \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 multi_val.o: ../src/multi_val.cpp ../src/multi_val.hpp \
@@ -1318,14 +1371,15 @@ parameters.o: ../src/parameters.cpp ../src/parameters.hpp \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o parameters.o ../src/parameters.cpp
 
 player_widget.o: ../src/player_widget.cpp ../src/player_widget.hpp \
-		../src/system.hpp \
-		../src/global_data.hpp \
+		../qt/mydoublespinbox.h \
 		../src/parameters.hpp \
 		../src/one_parameter.hpp \
 		../src/multi_val.hpp \
 		../src/color_palette.hpp \
 		../src/color_structures.hpp \
 		../src/algebra.hpp \
+		../src/system.hpp \
+		../src/global_data.hpp \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
@@ -1335,14 +1389,27 @@ player_widget.o: ../src/player_widget.cpp ../src/player_widget.hpp \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
-		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
-		../src/primitives.h
+		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o player_widget.o ../src/player_widget.cpp
 
 primitives.o: ../src/primitives.cpp ../src/primitives.h \
@@ -1389,7 +1456,8 @@ preview_file_dialog.o: ../src/preview_file_dialog.cpp ../src/preview_file_dialog
 		../src/camera_target.hpp \
 		../src/settings.hpp \
 		../src/animation_frames.hpp \
-		../src/initparameters.hpp
+		../src/initparameters.hpp \
+		../src/progress_text.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o preview_file_dialog.o ../src/preview_file_dialog.cpp
 
 random.o: ../src/random.cpp ../src/random.hpp
@@ -1437,7 +1505,10 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
-		../src/player_widget.hpp
+		../src/player_widget.hpp \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_image.o ../src/render_image.cpp
 
 rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_widget.hpp \
@@ -1468,7 +1539,18 @@ rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_
 		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
-		../src/player_widget.hpp
+		../src/player_widget.hpp \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rendered_image_widget.o ../src/rendered_image_widget.cpp
 
 render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
@@ -1509,6 +1591,8 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
 		../src/progress_text.hpp \
 		../src/error_message.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_job.o ../src/render_job.cpp
@@ -1547,6 +1631,14 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/camera_target.hpp \
 		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_ssao.o ../src/render_ssao.cpp
 
@@ -1772,7 +1864,9 @@ thumbnail_widget.o: ../src/thumbnail_widget.cpp ../src/thumbnail_widget.h \
 		../qt/myscrolledarea.h \
 		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
-		../src/player_widget.hpp
+		../src/player_widget.hpp \
+		../src/common_math.h \
+		../src/system.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o thumbnail_widget.o ../src/thumbnail_widget.cpp
 
 undo.o: ../src/undo.cpp ../src/undo.h \
@@ -1811,7 +1905,21 @@ mygroupbox.o: ../qt/mygroupbox.cpp ../qt/mygroupbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../src/primitives.h
+		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mygroupbox.o ../qt/mygroupbox.cpp
 
 mylineedit.o: ../qt/mylineedit.cpp ../qt/mylineedit.h \
@@ -1838,7 +1946,21 @@ mylineedit.o: ../qt/mylineedit.cpp ../qt/mylineedit.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../src/primitives.h
+		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mylineedit.o ../qt/mylineedit.cpp
 
 myspinbox.o: ../qt/myspinbox.cpp ../qt/myspinbox.h \
@@ -1865,7 +1987,21 @@ myspinbox.o: ../qt/myspinbox.cpp ../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../src/primitives.h
+		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o myspinbox.o ../qt/myspinbox.cpp
 
 mydoublespinbox.o: ../qt/mydoublespinbox.cpp ../qt/mydoublespinbox.h \
@@ -1892,7 +2028,21 @@ mydoublespinbox.o: ../qt/mydoublespinbox.cpp ../qt/mydoublespinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../src/primitives.h
+		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mydoublespinbox.o ../qt/mydoublespinbox.cpp
 
 mycheckbox.o: ../qt/mycheckbox.cpp ../qt/mycheckbox.h \
@@ -1919,7 +2069,21 @@ mycheckbox.o: ../qt/mycheckbox.cpp ../qt/mycheckbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../src/primitives.h
+		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mycheckbox.o ../qt/mycheckbox.cpp
 
 my_table_widget_anim.o: ../qt/my_table_widget_anim.cpp ../qt/my_table_widget_anim.hpp \
@@ -1946,7 +2110,21 @@ my_table_widget_anim.o: ../qt/my_table_widget_anim.cpp ../qt/my_table_widget_ani
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../src/primitives.h
+		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/camera_target.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o my_table_widget_anim.o ../qt/my_table_widget_anim.cpp
 
 qrc_icons.o: qrc_icons.cpp 
