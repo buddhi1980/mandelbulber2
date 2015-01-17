@@ -59,6 +59,12 @@ void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 
 void MyGroupBox::paintEvent(QPaintEvent *event)
 {
+	if(firstDisplay)
+	{
+		originalText = title();
+		firstDisplay = false;
+	}
+
 	if (isChecked() != GetDefault())
 	{
 		setTitle(originalText + " *");
@@ -83,8 +89,7 @@ bool MyGroupBox::GetDefault()
 		toolTipText += "Name: " + parameterName + "\n";
 		toolTipText += "Default: " + ((defaultValue) ? QString("true") : QString("false"));
 		setToolTip(toolTipText);
-
-		originalText = title();
 	}
 	return defaultValue;
 }
+
