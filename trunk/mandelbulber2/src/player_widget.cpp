@@ -87,7 +87,8 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 
 PlayerWidget::~PlayerWidget()
 {
-	//FIXME destructor must stop playing animation
+	stop();
+	delete playTimer;
 }
 
 void PlayerWidget::playPause()
@@ -138,4 +139,11 @@ void PlayerWidget::updateFrame()
 
 void PlayerWidget::setFPS(double fps){
 	playTimer->setInterval(1000.0 / fps);
+}
+
+void PlayerWidget::closeEvent(QCloseEvent * event)
+{
+	event->accept();
+	stop();
+	deleteLater();
 }
