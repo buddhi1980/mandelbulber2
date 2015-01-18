@@ -63,7 +63,10 @@ void MyTableWidgetAnim::tableContextMenuRequest(QPoint point)
 	}
 	else
 	{
-		interpolateForward = menu->addAction(tr("Interpolate next frames"));
+		if(column < columnCount() - 1)
+		{
+			interpolateForward = menu->addAction(tr("Interpolate next frames"));
+		}
 	}
 
 	QAction *selectedItem = menu->exec(viewport()->mapToGlobal(point));

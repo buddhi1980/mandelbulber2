@@ -30,6 +30,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include "thumbnail_widget.h"
+#include <QInputDialog>
 
 cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent) : QObject(parent), interface(_interface), frames(_frames)
 {
@@ -560,7 +561,6 @@ void cFlightAnimation::RefreshTable()
 
 		//TODO add render preview checkbox
 		cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
-		//thumbnailWidgets.append(thumbWidget);
 		thumbWidget->UseOneCPUCore(true);
 		frames->GetFrameAndConsolidate(i, &tempPar, &tempFract);
 		thumbWidget->AssignParameters(tempPar, tempFract);
@@ -703,7 +703,19 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 	cFractalContainer tempFract = *gParFractal;
 	frames->GetFrameAndConsolidate(column, &tempPar, &tempFract);
 	cThumbnailWidget *thumbWidget = (cThumbnailWidget*)table->cellWidget(0, column);
-	thumbWidget->AssignParameters(tempPar, tempFract);
+
+	if(!thumbWidget)
+	{
+		//TODO add render preview checkbox
+		cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+		thumbWidget->UseOneCPUCore(true);
+		thumbWidget->AssignParameters(tempPar, tempFract);
+		table->setCellWidget(0, column, thumbWidget);
+	}
+	else
+	{
+		thumbWidget->AssignParameters(tempPar, tempFract);
+	}
 
 	table->blockSignals(false);
 }
@@ -741,17 +753,98 @@ void cFlightAnimation::slotRecordPause()
 
 void cFlightAnimation::InterpolateForward(int row, int column)
 {
+	QTableWidgetItem *cell = ui->tableWidget_flightAnimation->item(row, column);
+	QString cellText = cell->text();
+
 	QString parameterName = GetParameterName(row);
 	QString rowName = tableRowNames.at(row);
 	int parameterFirstRow = parameterRows[rowParameter[row]];
-	int vectIndex = row - parameterFirstRow;
 
 	cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
 
 	using namespace parameterContainer;
 	enumVarType type = frame.parameters.GetVarType(parameterName);
 
-	//check if this is double or integer
-	//if it is text just copy to other frames
+	bool valueIsInterer = false;
+	bool valueIsDouble = false;
+	bool valueIsText = false;
+	int valueInteger = 0;
+	double valueDouble = 0.0;
+	QString valueText;
+
+	bool ok;
+	int lastFrame = QInputDialog::getInt(interface->mainWindow, "Parameter interpolation", "Enter last frame number",
+			column + 1, column + 2, frames->GetNumberOfFrames(), 1, &ok);
+	if(!ok) return;
+
+	int numberOfFrames = (lastFrame - column  - 1);
+
+	switch(type)
+	{
+		case typeBool:
+		case typeInt:
+		case typeRgb:
+		{
+			valueIsInterer = true;
+			valueInteger = cellText.toInt();
+			qDebug() << valueInteger;
+			break;
+		}
+		case typeDouble:
+		case typeVector3:
+		{
+			valueIsDouble = true;
+			valueDouble = cellText.toDouble();
+			qDebug() << valueDouble;
+			break;
+		}
+		default:
+		{
+			valueIsText = true;
+			valueText = cellText;
+			break;
+		}
+	}
+
+	int finallInteger = 0;
+	double finallDouble = 0.0;
+	double integerStep = 0.0;
+	double doubleStep = 0.0;
+
+	if(valueIsInterer)
+	{
+		finallInteger = QInputDialog::getInt(interface->mainWindow, "Parameter interpolation", "Enter value for last frame",
+				valueInteger, 0, INT32_MAX, 1, &ok);
+		integerStep = (double)(finallInteger - valueInteger) / numberOfFrames;
+	}
+	else if(valueIsDouble)
+	{
+		finallDouble = QInputDialog::getText(interface->mainWindow, "Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
+				QString::number(valueDouble, 'g', 16), &ok).toDouble();
+		doubleStep = (finallDouble - valueDouble) / numberOfFrames;
+	}
+
+	if(!ok) return;
+
+	for(int i = column; i < lastFrame; i++)
+	{
+		QString newCellText;
+		if(valueIsInterer)
+		{
+			int newValue = integerStep * i + valueInteger;
+			newCellText = QString::number(newValue);
+		}
+		else if(valueIsDouble)
+		{
+			double newValue = doubleStep * (i - column) + valueDouble;
+			newCellText = QString::number(newValue, 'g', 16);
+		}
+		else if(valueIsText)
+		{
+			newCellText = valueText;
+		}
+		QTableWidgetItem *newCell = ui->tableWidget_flightAnimation->item(row, i);
+		newCell->setText(newCellText);
+	}
 
 }
