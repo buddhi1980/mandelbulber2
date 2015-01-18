@@ -26,6 +26,7 @@
 #include "../qt/mydoublespinbox.h"
 #include "../qt/mycheckbox.h"
 #include "../qt/mygroupbox.h"
+#include "../qt/mycolorbutton.h"
 
 MyUiLoader::~MyUiLoader()
 {
@@ -54,12 +55,17 @@ QWidget* MyUiLoader::createWidget(const QString &className, QWidget *parent, con
   {
   	widget = new MyCheckBox(parent);
   	widget->setObjectName(name);
-  }
-  else if(className == QString("MyGroupBox"))
-  {
-  	widget = new MyGroupBox(parent);
-  	widget->setObjectName(name);
-  }
+	}
+	else if(className == QString("MyGroupBox"))
+	{
+		widget = new MyGroupBox(parent);
+		widget->setObjectName(name);
+	}
+	else if(className == QString("MyColorButton"))
+	{
+		widget = new MyColorButton(parent);
+		widget->setObjectName(name);
+	}
   else
   {
   	widget = QUiLoader::createWidget(className, parent, name);
