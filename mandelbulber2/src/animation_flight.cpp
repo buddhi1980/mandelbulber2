@@ -87,10 +87,30 @@ void cFlightAnimation::slotRenderFlight()
 
 void cFlightAnimation::RecordFlight()
 {
-	//TODO confirmation dilog for starting recording
-	//TODO button to add speeds to list of animated parameters (then possible to continue recording starting with proper speed
+	//TODO button/checkbox to add speeds to list of animated parameters (then possible to continue recording starting with proper speed
 	//TODO button for continue recording
 
+	//get latest values of all parameters
+	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
+	//confirmation dialog before start
+	QMessageBox::StandardButton reply;
+	reply = QMessageBox::question(
+		ui->centralwidget,
+		QObject::tr("Are you sure to start recording of new animation?"),
+		QObject::tr("This will delete all images in the image folder.\nProceed?"),
+		QMessageBox::Yes|QMessageBox::No);
+
+	if (reply == QMessageBox::Yes)
+	{
+		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
+	}
+	else
+	{
+		return;
+	}
+
+	//check if main image is not used by other rendering process
 	if(interface->mainImage->IsUsed())
 	{
 		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
@@ -103,6 +123,7 @@ void cFlightAnimation::RecordFlight()
 
 	frames->Clear();
 
+	//add default parameters for animation
 	if(frames->GetListOfUsedParameters().size() == 0)
 	{
 		gAnimFrames->AddAnimagedParameter("camera", gPar->GetAsOneParameter("camera"));
@@ -111,8 +132,6 @@ void cFlightAnimation::RecordFlight()
 	}
 
 	PrepareTable();
-
-	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
 	//setup cursor mode for renderedImage widget
 	QList<QVariant> clickMode;
@@ -675,6 +694,8 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 void cFlightAnimation::slotDeleteAllImages()
 {
+	interface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::read);
+
 	QMessageBox::StandardButton reply;
 	reply = QMessageBox::question(
 		ui->centralwidget,
