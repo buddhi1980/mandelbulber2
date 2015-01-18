@@ -472,6 +472,11 @@ bool cSettings::DecodeFramesHeader(QString line, cParameterContainer *par, cFrac
 						fullParameterName = fullParameterName.left(fullParameterName.length() -2);
 						i+= 2;
 					}
+					else if(lastTwo == "_R" || lastTwo == "_G" || lastTwo == "_B")
+					{
+						fullParameterName = fullParameterName.left(fullParameterName.length() -2);
+						i+= 2;
+					}
 				}
 
 				bool result = frames->AddAnimagedParameter(fullParameterName, par, fractPar);
