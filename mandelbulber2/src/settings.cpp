@@ -80,11 +80,16 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 					settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_y;";
 					settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_z";
 				}
+				else if(parameterList[i].varType == parameterContainer::typeRgb)
+				{
+					settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_R;";
+					settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_G;";
+					settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_B";
+				}
 				else
 				{
 					settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName;
 				}
-				//TODO other parameter types
 
 				if (i != parameterList.size() - 1)
 				{
@@ -104,11 +109,17 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 						settingsText += QString::number(val.y, 'g', 16) + ";";
 						settingsText += QString::number(val.z, 'g', 16);
 					}
+					else if(parameterList[i].varType == parameterContainer::typeRgb)
+					{
+						sRGB val = frames->GetFrame(f).parameters.Get<sRGB>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						settingsText += QString::number(val.R) + ";";
+						settingsText += QString::number(val.G) + ";";
+						settingsText += QString::number(val.B);
+					}
 					else
 					{
 						settingsText += frames->GetFrame(f).parameters.Get<QString>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
 					}
-					//TODO other parameter types
 
 					if (i != parameterList.size() - 1)
 					{
@@ -516,12 +527,20 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 						column += 2;
 						container->Set(parameterName, vect);
 					}
+					else if(type == typeRgb)
+					{
+						sRGB vect;
+						vect.R = lineSplit[column].toInt();
+						vect.G = lineSplit[column + 1].toInt();
+						vect.B = lineSplit[column + 2].toInt();
+						column += 2;
+						container->Set(parameterName, vect);
+					}
 					else
 					{
 						QString val = lineSplit[column];
 						container->Set(parameterName, val);
 					}
-					//TODO other types of variables
 					column++;
 				}
 			}

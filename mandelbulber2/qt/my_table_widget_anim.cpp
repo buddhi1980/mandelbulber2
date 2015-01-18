@@ -45,6 +45,9 @@ MyTableWidgetAnim::~MyTableWidgetAnim()
 
 void MyTableWidgetAnim::tableContextMenuRequest(QPoint point)
 {
+	//TODO change value in selected range of frames with simple linear interpolation
+	//TODO if right click on thumbnailwidget then option for rendering this frame
+
 	/*
 	QMenu *menu = new QMenu;
 	QAction *action;

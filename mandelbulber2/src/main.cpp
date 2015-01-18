@@ -32,6 +32,8 @@
 
 int main(int argc, char *argv[])
 {
+	//TODO clean up all unnecesary qDebug() outputs
+
 	//Initialization of system functions
 	InitSystem();
 

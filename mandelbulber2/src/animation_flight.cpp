@@ -87,6 +87,10 @@ void cFlightAnimation::slotRenderFlight()
 
 void cFlightAnimation::RecordFlight()
 {
+	//TODO confirmation dilog for starting recording
+	//TODO button to add speeds to list of animated parameters (then possible to continue recording starting with proper speed
+	//TODO button for continue recording
+
 	if(interface->mainImage->IsUsed())
 	{
 		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
@@ -353,6 +357,27 @@ int cFlightAnimation::AddVariableToTable(const cAnimationFrames::sParameterDescr
 		table->setVerticalHeaderItem(row + 2, new QTableWidgetItem(varName));
 		rowParameter.append(index);
 	}
+	else if (type == typeRgb)
+	{
+		QString varName;
+		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_R";
+		tableRowNames.append(varName);
+		table->insertRow(row);
+		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
+		rowParameter.append(index);
+
+		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_G";
+		tableRowNames.append(varName);
+		table->insertRow(row + 1);
+		table->setVerticalHeaderItem(row + 1, new QTableWidgetItem(varName));
+		rowParameter.append(index);
+
+		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_B";
+		tableRowNames.append(varName);
+		table->insertRow(row + 2);
+		table->setVerticalHeaderItem(row + 2, new QTableWidgetItem(varName));
+		rowParameter.append(index);
+	}
 	else
 	{
 		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName;
@@ -361,7 +386,6 @@ int cFlightAnimation::AddVariableToTable(const cAnimationFrames::sParameterDescr
 		table->setVerticalHeaderItem(table->rowCount() - 1, new QTableWidgetItem(varName));
 		rowParameter.append(index);
 	}
-	//TODO other parameter types
 	return row;
 }
 
@@ -387,12 +411,18 @@ int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame)
 			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.y, 'g', 16)));
 			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.z, 'g', 16)));
 		}
+		else if (type == typeRgb)
+		{
+			sRGB val = frame.parameters.Get<sRGB>(parameterName);
+			table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.R)));
+			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.G)));
+			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.B)));
+		}
 		else
 		{
 			QString val = frame.parameters.Get<QString>(parameterName);
 			table->setItem(row, newColumn, new QTableWidgetItem(val));
 		}
-		//TODO other parameter types
 	}
 	table->blockSignals(false);
 	return newColumn;

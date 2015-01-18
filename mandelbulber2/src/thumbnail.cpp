@@ -43,8 +43,6 @@ QPixmap cThumbnail::Render()
 {
 	QPixmap pixmap;
 
-	//TODO background rendering
-
 	if(hash.isEmpty())
 	{
 		cSettings tempSettings(cSettings::formatCondensedText);
