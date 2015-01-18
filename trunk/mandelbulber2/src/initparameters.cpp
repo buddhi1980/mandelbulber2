@@ -49,7 +49,14 @@ using namespace parameterContainer;
   par->addParam("flight_speed", 0.01, 0.0, 100.0, morphLinear, paramStandard);
   par->addParam("flight_inertia", 5.0, 0.01, 1000.0, morphLinear, paramStandard);
   par->addParam("flight_speed_control", 0, morphNone, paramStandard);
+  par->addParam("flight_roll_speed", 10.0, morphNone, paramStandard);
+  par->addParam("flight_rotation_speed", 10.0, morphNone, paramStandard);
+  par->addParam("flight_show_thumbnails", false, morphNone, paramStandard);
+  par->addParam("flight_add_speeds", true, morphNone, paramStandard);
+  par->addParam("flight_move_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
+  par->addParam("flight_rotation_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
   par->addParam("flight_sec_per_frame", 1.0, morphNone, paramApp);
+
   par->addParam("anim_flight_dir", systemData.dataDirectory + "images" + QDir::separator(), morphNone, paramApp);
 
 	//camera

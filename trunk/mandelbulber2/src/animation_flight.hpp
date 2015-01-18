@@ -47,19 +47,20 @@ public:
 	void DeleteFramesFrom(int index);
 	void DeleteFramesTo(int index);
 	void UpdateThumbnailFromImage(int index);
+	void InterpolateForward(int row, int column);
 
 private slots:
-void slotRecordFlight();
-void slotRenderFlight();
-void slotIncreaseSpeed();
-void slotDecreaseSpeed();
-void slotFlightStrafe(CVector2<int> strafe);
-void slotFlightRotation(int direction);
-void slotSelectAnimFlightImageDir();
-void slotTableCellChanged(int row, int column);
-void slotDeleteAllImages();
-void slotShowAnimation();
-void slotRecordPause();
+	void slotRecordFlight();
+	void slotRenderFlight();
+	void slotIncreaseSpeed();
+	void slotDecreaseSpeed();
+	void slotFlightStrafe(CVector2<int> strafe);
+	void slotFlightRotation(int direction);
+	void slotSelectAnimFlightImageDir();
+	void slotTableCellChanged(int row, int column);
+	void slotDeleteAllImages();
+	void slotShowAnimation();
+	void slotRecordPause();
 
 private:
 	void PrepareTable();
