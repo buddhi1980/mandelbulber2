@@ -26,8 +26,6 @@
 
 PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 {
-	// TODO resize of imageLabel
-
 	infoLabel = new QLabel;
 	imageLabel = new QLabel;
 	playPauseButton = new QPushButton;
@@ -42,15 +40,16 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 	stopButton->setEnabled(true);
 	stopButton->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
-
+	imageLabel->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+	imageLabel->setAlignment(Qt::AlignCenter);
 	fpsSpinBox->setMinimum(0.01);
 	fpsSpinBox->setMaximum(100);
 	fpsSpinBox->setDecimals(2);
 	fpsSpinBox->setValue(30);
 
 	QLabel *fpsLabel = new QLabel("FPS");
-	QBoxLayout *controlLayout = new QHBoxLayout;
-	controlLayout->setMargin(0);
+	QHBoxLayout *controlLayout = new QHBoxLayout;
+	controlLayout->setMargin(5);
 	controlLayout->addWidget(stopButton);
 	controlLayout->addWidget(playPauseButton);
 	controlLayout->addWidget(positionSlider);
@@ -60,8 +59,10 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 
 	QBoxLayout *layout = new QVBoxLayout;
 
+	layout->setMargin(0);
 	layout->addWidget(imageLabel);
 	layout->addLayout(controlLayout);
+	layout->setStretch(0, 1);
 	setLayout(layout);
 
 	QDir imageDir = QDir(gPar->Get<QString>("anim_flight_dir"));
@@ -117,7 +118,6 @@ void PlayerWidget::stop()
 void PlayerWidget::nextFrame()
 {
 	currentIndex = (currentIndex + 1) % (imageFiles.size() - 1);
-	qDebug() << "play next frame: " << currentIndex;
 	positionSlider->setSliderPosition(currentIndex);
 	updateFrame();
 }
@@ -126,7 +126,6 @@ void PlayerWidget::nextFrame()
 void PlayerWidget::setPosition(int position)
 {
 	currentIndex = position;
-	qDebug() << "setPosition: " << currentIndex;
 	updateFrame();
 }
 
@@ -134,8 +133,18 @@ void PlayerWidget::updateFrame()
 {
 	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(currentIndex).arg(imageFiles.size() - 1));
 	QString fileName = gPar->Get<QString>("anim_flight_dir") + "/" + imageFiles.at(currentIndex);
-	imageLabel->setPixmap(fileName);
+	QPixmap pix(fileName);
+	if((1.0 * imageLabel->width() / imageLabel->height()) > (1.0 * pix.width() / pix.height()))
+	{
+		// imageLabel is relative wider than pix
+		imageLabel->setPixmap(pix.scaled((imageLabel->height() * pix.width() / pix.height()), imageLabel->height()));
+	}
+	else
+	{
+		imageLabel->setPixmap(pix.scaled(imageLabel->width(), (imageLabel->width() * pix.height() / pix.width())));
+	}
 }
+
 
 void PlayerWidget::setFPS(double fps){
 	playTimer->setInterval(1000.0 / fps);
@@ -146,4 +155,10 @@ void PlayerWidget::closeEvent(QCloseEvent * event)
 	event->accept();
 	stop();
 	deleteLater();
+}
+
+void PlayerWidget::resizeEvent(QResizeEvent * event)
+{
+	QWidget::resizeEvent(event);
+	updateFrame();
 }
