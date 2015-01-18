@@ -251,7 +251,6 @@ void cInterface::ConnectSignals(void)
 
 	//------------------------------------------------
 	ConnectSignalsForSlidersInWindow(mainWindow);
-	MakeColorButtonsInWindow(mainWindow);
 }
 
 //Reading ad writing parameters from/to ui to/from parameters container
@@ -646,38 +645,29 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 	//---------- color buttons -----------
 	{
 		WriteLog("SynchronizeInterfaceWindow() colorButtons");
-		QList<QPushButton *> widgetListPushButton = window->findChildren<QPushButton*>();
-		QList<QPushButton *>::iterator it;
+		QList<MyColorButton *> widgetListPushButton = window->findChildren<MyColorButton*>();
+		QList<MyColorButton *>::iterator it;
 		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
 		{
 			QString name = (*it)->objectName();
-			//out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("QPushButton"))
+			QString className = (*it)->metaObject()->className();
+			if (name.length() > 1 && (*it)->metaObject()->className() == QString("MyColorButton"))
 			{
-				QPushButton *colorButton = *it;
-
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
 
-				if (type == QString("colorButton"))
+				MyColorButton *colorButton = *it;
+				colorButton->AssignParameterContainer(par);
+				colorButton->AssingParameterName(parameterName);
+
+				if (mode == read)
 				{
-					if (mode == read)
-					{
-						sRGB color;
-						color.R = colorButton->property("selectedColor_r").toInt();
-						color.G = colorButton->property("selectedColor_g").toInt();
-						color.B = colorButton->property("selectedColor_b").toInt();
-						par->Set(parameterName, color);
-					}
-					else if (mode == write)
-					{
-						sRGB color = par->Get<sRGB>(parameterName);
-						QColor qcolor(color.R / 256, color.G / 256, color.B / 256);
-						MakeIconForButton(qcolor, colorButton);
-						colorButton->setProperty("selectedColor_r", color.R);
-						colorButton->setProperty("selectedColor_g", color.G);
-						colorButton->setProperty("selectedColor_b", color.B);
-					}
+					par->Set(parameterName, colorButton->GetColor());
+				}
+				else if (mode == write)
+				{	
+					colorButton->setText("");
+					colorButton->SetColor(par->Get<sRGB>(parameterName));
 				}
 			}
 		}
@@ -891,36 +881,6 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 		}
 	}
 	WriteLog("ConnectSignalsForSlidersInWindow() finished");
-}
-
-//automatic setting of event slots for all colorButtons and preparation of buttons
-void cInterface::MakeColorButtonsInWindow(QWidget *window)
-{
-	//TODO cInterface::MakeColorButtonsInWindow(QWidget *window) has to be changed to promoted widget class
-
-	WriteLog("MakeColorButtonsInWindow() started");
-
-	QList<QPushButton *> widgetList = window->findChildren<QPushButton *>();
-	QList<QPushButton *>::iterator it;
-	for(it = widgetList.begin(); it != widgetList.end(); ++it)
-	{
-		QString name = (*it)->objectName();
-		if(name.length() > 1 && (*it)->metaObject()->className() == QString("QPushButton"))
-		{
-			QPushButton *pushButton = (*it);
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
-			if(type == QString("colorButton"))
-			{
-				pushButton->setText("");
-				QColor color(255,255,255);
-				MakeIconForButton(color, pushButton);
-				QApplication::connect(pushButton, SIGNAL(clicked()), mainWindow, SLOT(slotPresedColorButton()));
-			}
-		}
-	}
-	WriteLog("MakeColorButtonsInWindow() finished");
 }
 
 //extract name and type string from widget name
@@ -1831,7 +1791,6 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		gPar->Set(primitiveFullName + "_enabled", true);
 
 		ConnectSignalsForSlidersInWindow(mainWidget);
-		MakeColorButtonsInWindow(primitiveWidget);
 		SynchronizeInterfaceWindow(mainWidget, gPar, cInterface::write);
 
 		ComboMouseClickUpdate();

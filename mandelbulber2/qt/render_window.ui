@@ -3210,7 +3210,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="1">
-                       <widget class="QPushButton" name="colorButton_basic_fog_color">
+                       <widget class="MyColorButton" name="colorButton_basic_fog_color">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -3279,7 +3279,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="2" column="1">
-                       <widget class="QPushButton" name="colorButton_glow_color_2">
+                       <widget class="MyColorButton" name="colorButton_glow_color_2">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -3299,7 +3299,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="1" column="1">
-                       <widget class="QPushButton" name="colorButton_glow_color_1">
+                       <widget class="MyColorButton" name="colorButton_glow_color_1">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -3390,7 +3390,7 @@ to target:</string>
                        <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_2_distance"/>
                       </item>
                       <item row="5" column="1">
-                       <widget class="QPushButton" name="colorButton_fog_color_1">
+                       <widget class="MyColorButton" name="colorButton_fog_color_1">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -3440,7 +3440,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="6" column="1">
-                       <widget class="QPushButton" name="colorButton_fog_color_2">
+                       <widget class="MyColorButton" name="colorButton_fog_color_2">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -3454,7 +3454,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="7" column="1">
-                       <widget class="QPushButton" name="colorButton_fog_color_3">
+                       <widget class="MyColorButton" name="colorButton_fog_color_3">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -3525,7 +3525,7 @@ to target:</string>
                        <number>2</number>
                       </property>
                       <item row="4" column="1">
-                       <widget class="QPushButton" name="colorButton_iteration_fog_color_1">
+                       <widget class="MyColorButton" name="colorButton_iteration_fog_color_1">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -3580,7 +3580,7 @@ to target:</string>
                        <widget class="MyLineEdit" name="logedit_iteration_fog_opacity"/>
                       </item>
                       <item row="6" column="1">
-                       <widget class="QPushButton" name="colorButton_iteration_fog_color_3">
+                       <widget class="MyColorButton" name="colorButton_iteration_fog_color_3">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -3626,7 +3626,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="5" column="1">
-                       <widget class="QPushButton" name="colorButton_iteration_fog_color_2">
+                       <widget class="MyColorButton" name="colorButton_iteration_fog_color_2">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -3807,7 +3807,7 @@ to target:</string>
                        <number>2</number>
                       </property>
                       <item row="1" column="1">
-                       <widget class="QPushButton" name="colorButton_background_color_2">
+                       <widget class="MyColorButton" name="colorButton_background_color_2">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -3828,7 +3828,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="1">
-                       <widget class="QPushButton" name="colorButton_background_color_1">
+                       <widget class="MyColorButton" name="colorButton_background_color_1">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -3842,7 +3842,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="2" column="1">
-                       <widget class="QPushButton" name="colorButton_background_color_3">
+                       <widget class="MyColorButton" name="colorButton_background_color_3">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -4305,7 +4305,7 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="3" column="1">
-                       <widget class="QPushButton" name="colorButton_main_light_colour">
+                       <widget class="MyColorButton" name="colorButton_main_light_colour">
                         <property name="text">
                          <string>PushButton</string>
                         </property>
@@ -4485,7 +4485,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QPushButton" name="colorButton_aux_light_colour_1">
+                            <widget class="MyColorButton" name="colorButton_aux_light_colour_1">
                              <property name="text">
                               <string>PushButton</string>
                              </property>
@@ -4613,7 +4613,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QPushButton" name="colorButton_aux_light_colour_2">
+                            <widget class="MyColorButton" name="colorButton_aux_light_colour_2">
                              <property name="text">
                               <string>PushButton</string>
                              </property>
@@ -4741,7 +4741,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QPushButton" name="colorButton_aux_light_colour_3">
+                            <widget class="MyColorButton" name="colorButton_aux_light_colour_3">
                              <property name="text">
                               <string>PushButton</string>
                              </property>
@@ -4872,7 +4872,7 @@ to target:</string>
                             </widget>
                            </item>
                            <item>
-                            <widget class="QPushButton" name="colorButton_aux_light_colour_4">
+                            <widget class="MyColorButton" name="colorButton_aux_light_colour_4">
                              <property name="text">
                               <string>PushButton</string>
                              </property>

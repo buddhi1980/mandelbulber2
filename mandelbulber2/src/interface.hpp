@@ -95,6 +95,5 @@ private:
 
 double ImageScaleComboSelection2Double(int index);
 double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image);
-void MakeIconForButton(QColor &color, QPushButton *pushbutton);
 
 #endif /* INTERFACE_HPP_ */
