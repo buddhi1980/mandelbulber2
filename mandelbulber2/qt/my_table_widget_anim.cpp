@@ -48,19 +48,38 @@ void MyTableWidgetAnim::tableContextMenuRequest(QPoint point)
 	//TODO change value in selected range of frames with simple linear interpolation
 	//TODO if right click on thumbnailwidget then option for rendering this frame
 
-	/*
-	QMenu *menu = new QMenu;
-	QAction *action;
-
-	action = menu->addAction(tr("Render this frame"));
-
 	QModelIndex index = indexAt(point);
-	qDebug() << index;
 	int row = index.row();
 	int column = index.column();
 
+	QMenu *menu = new QMenu;
+
+	QAction *actionRender;
+	QAction *interpolateForward;
+
+	if(row == 0)
+	{
+		actionRender = menu->addAction(tr("Render this frame"));
+	}
+	else
+	{
+		interpolateForward = menu->addAction(tr("Interpolate next frames"));
+	}
+
 	QAction *selectedItem = menu->exec(viewport()->mapToGlobal(point));
-	*/
+
+	if (selectedItem)
+	{
+		if (selectedItem == actionRender)
+		{
+			gFlightAnimation->RenderFrame(column);
+		}
+		else if (selectedItem == interpolateForward)
+		{
+			gFlightAnimation->InterpolateForward(row, column);
+		}
+	}
+
 }
 
 void MyTableWidgetAnim::columnContextMenuRequest(QPoint point)

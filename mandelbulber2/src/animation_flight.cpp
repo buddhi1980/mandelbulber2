@@ -163,7 +163,8 @@ void cFlightAnimation::RecordFlight()
 
 	linearSpeedSp = gPar->Get<double>("flight_speed");
 	enumSpeedMode speedMode = (enumSpeedMode)gPar->Get<double>("flight_speed_control");
-	double rotationSpeed = 0.1;
+	double rotationSpeedSp =  gPar->Get<double>("flight_rotation_speed")/100.0;
+	double rollSpeedSp =  gPar->Get<double>("flight_roll_speed")/100.0;
 	double inertia = gPar->Get<double>("flight_inertia");
 
 	QString framesDir = gPar->Get<QString>("anim_flight_dir");
@@ -187,8 +188,15 @@ void cFlightAnimation::RecordFlight()
 
 		if(wasPaused)
 		{
+			//parameter refresh after pause
 			interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 			renderJob->UpdateParameters(gPar, gParFractal);
+			rotationSpeedSp =  gPar->Get<double>("flight_rotation_speed")/100.0;
+			rollSpeedSp =  gPar->Get<double>("flight_roll_speed")/100.0;
+			inertia = gPar->Get<double>("flight_inertia");
+			double maxRenderTime = gPar->Get<double>("flight_sec_per_frame");;
+			renderJob->SetMaxRenderTime(maxRenderTime);
+
 			if(interface->stopRequest) break;
 		}
 
@@ -228,9 +236,9 @@ void cFlightAnimation::RecordFlight()
 		cameraPosition += cameraSpeed;
 
 		//rotation
-		cameraAngularAcceleration.x = (mousePosition.x * rotationSpeed - cameraAngularSpeed.x) / (inertia + 1.0);
-		cameraAngularAcceleration.y = (mousePosition.y * rotationSpeed - cameraAngularSpeed.y) / (inertia + 1.0);
-		cameraAngularAcceleration.z = (rotationDirection * 0.01 - cameraAngularSpeed.z) / (inertia + 1.0);
+		cameraAngularAcceleration.x = (mousePosition.x * rotationSpeedSp - cameraAngularSpeed.x) / (inertia + 1.0);
+		cameraAngularAcceleration.y = (mousePosition.y * rotationSpeedSp - cameraAngularSpeed.y) / (inertia + 1.0);
+		cameraAngularAcceleration.z = (rotationDirection * rollSpeedSp - cameraAngularSpeed.z) / (inertia + 1.0);
 		cameraAngularSpeed += cameraAngularAcceleration;
 
 		//TODO other modes of rotation
@@ -675,6 +683,14 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 		if(vectIndex == 2) vect.z = cellText.toDouble();
 		frame.parameters.Set(parameterName, vect);
 	}
+	else if(type == typeRgb)
+	{
+		sRGB col = frame.parameters.Get<sRGB>(parameterName);
+		if(vectIndex == 0) col.R = cellText.toInt();
+		if(vectIndex == 1) col.G = cellText.toInt();
+		if(vectIndex == 2) col.B = cellText.toInt();
+		frame.parameters.Set(parameterName, col);
+	}
 	else
 	{
 		frame.parameters.Set(parameterName, cellText);
@@ -721,4 +737,21 @@ void cFlightAnimation::slotRecordPause()
 {
 	recordPause = !recordPause;
 	qDebug() << recordPause;
+}
+
+void cFlightAnimation::InterpolateForward(int row, int column)
+{
+	QString parameterName = GetParameterName(row);
+	QString rowName = tableRowNames.at(row);
+	int parameterFirstRow = parameterRows[rowParameter[row]];
+	int vectIndex = row - parameterFirstRow;
+
+	cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
+
+	using namespace parameterContainer;
+	enumVarType type = frame.parameters.GetVarType(parameterName);
+
+	//check if this is double or integer
+	//if it is text just copy to other frames
+
 }
