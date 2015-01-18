@@ -26,6 +26,26 @@
 #include "../src/global_data.hpp"
 #include <algorithm>
 
+MyColorButton::MyColorButton(QWidget *parent) : QPushButton(parent)
+{
+	actionResetToDefault = NULL;
+	actionAddToFlightAnimation = NULL;
+	parameterContainer = NULL;
+	gotDefault = false;
+	defaultValue = sRGB();
+	currentValue = sRGB();
+	setText("");
+	w = 40;
+	h = 15;
+	SetupColor();
+}
+
+MyColorButton::~MyColorButton(void)
+{
+	delete painter;
+	delete pix;
+}
+
 void MyColorButton::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu *menu = new QMenu;
@@ -74,8 +94,8 @@ void MyColorButton::SetColor(sRGB newColor)
 void MyColorButton::UpdateColor()
 {
 	GetDefault();
-	color = new QColor(currentValue.R / 256, currentValue.G / 256, currentValue.B / 256);
-	painter->fillRect(QRect(0, 0, w, h), *color);
+	QColor color(currentValue.R / 256, currentValue.G / 256, currentValue.B / 256);
+	painter->fillRect(QRect(0, 0, w, h), color);
 	painter->drawRect(0,0,w-1,h-1);
 
 	if(!(defaultValue.R / 256 == currentValue.R / 256 && defaultValue.G / 256 == currentValue.G / 256 && defaultValue.B / 256 == currentValue.B / 256))
@@ -84,15 +104,14 @@ void MyColorButton::UpdateColor()
 		painter->drawRect(1,1,w-3,h-3);
 	}
 
-	icon = new QIcon(*pix);
-	setIcon(*icon);
+	QIcon icon(*pix);
+	setIcon(icon);
 	setIconSize(QSize(w, h));
 }
 
 void MyColorButton::SetupColor(){
 	pix = new QPixmap(w,h);
 	painter = new QPainter(pix);
-	icon = new QIcon(*pix);
 }
 
 sRGB MyColorButton::GetDefault()
@@ -112,7 +131,7 @@ sRGB MyColorButton::GetDefault()
 
 void MyColorButton::mousePressEvent(QMouseEvent *event)
 {
-	QWidget::mousePressEvent(event);
+	QPushButton::mousePressEvent(event);
 
 	Qt::MouseButton button = event->button();
 

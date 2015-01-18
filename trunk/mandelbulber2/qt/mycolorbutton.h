@@ -34,19 +34,8 @@ class MyColorButton : public QPushButton
 	Q_OBJECT
 
 public:
-	MyColorButton(QWidget *parent = 0)  : QPushButton(parent)
-	{
-		actionResetToDefault = NULL;
-		actionAddToFlightAnimation = NULL;
-		parameterContainer = NULL;
-		gotDefault = false;
-		defaultValue = sRGB();
-		currentValue = sRGB();
-		setText("");
-		w = 40;
-		h = 15;
-		SetupColor();
-	};
+	MyColorButton(QWidget *parent = 0);
+	~MyColorButton();
 
 	sRGB GetColor();
 	void SetColor(sRGB newColor);
@@ -74,8 +63,6 @@ private:
 	int h;
 	QPixmap *pix;
 	QPainter *painter;
-	QIcon *icon;
-	QColor *color;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
