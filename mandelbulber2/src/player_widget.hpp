@@ -57,6 +57,9 @@ private:
 	QTimer *playTimer;
 	QStringList imageFiles;
 	int currentIndex;
+
+protected:
+	void closeEvent(QCloseEvent * event);
 };
 
 #endif
