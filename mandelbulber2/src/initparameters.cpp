@@ -51,7 +51,7 @@ using namespace parameterContainer;
   par->addParam("flight_speed_control", 0, morphNone, paramStandard);
   par->addParam("flight_roll_speed", 10.0, morphNone, paramStandard);
   par->addParam("flight_rotation_speed", 10.0, morphNone, paramStandard);
-  par->addParam("flight_show_thumbnails", false, morphNone, paramStandard);
+  par->addParam("flight_show_thumbnails", false, morphNone, paramApp);
   par->addParam("flight_add_speeds", true, morphNone, paramStandard);
   par->addParam("flight_move_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
   par->addParam("flight_rotation_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
