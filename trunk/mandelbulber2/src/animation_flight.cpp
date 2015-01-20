@@ -289,7 +289,10 @@ void cFlightAnimation::RecordFlight()
 		if(!result) break;
 
 		//create thumbnail
-		UpdateThumbnailFromImage(newColumn);
+		if(ui->checkBox_flight_show_thumbnails->isChecked())
+		{
+			UpdateThumbnailFromImage(newColumn);
+		}
 
 		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 		SaveJPEGQt(filename, interface->mainImage->ConvertTo8bit(), interface->mainImage->GetWidth(), interface->mainImage->GetHeight(), 90);
@@ -560,12 +563,14 @@ void cFlightAnimation::RefreshTable()
 		int newColumn = AddColumn(frames->GetFrame(i));
 
 		//TODO add render preview checkbox
-		cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
-		thumbWidget->UseOneCPUCore(true);
-		frames->GetFrameAndConsolidate(i, &tempPar, &tempFract);
-		thumbWidget->AssignParameters(tempPar, tempFract);
-		table->setCellWidget(0, newColumn, thumbWidget);
-
+		if(ui->checkBox_flight_show_thumbnails->isChecked())
+		{
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+			thumbWidget->UseOneCPUCore(true);
+			frames->GetFrameAndConsolidate(i, &tempPar, &tempFract);
+			thumbWidget->AssignParameters(tempPar, tempFract);
+			table->setCellWidget(0, newColumn, thumbWidget);
+		}
 		if(i % 100 == 0)
 		{
 			ProgressStatusText(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames, ui->statusbar, interface->progressBarAnimation);
@@ -599,7 +604,6 @@ void cFlightAnimation::RenderFrame(int index)
 	interface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
 	interface->StartRender();
-	UpdateThumbnailFromImage(index);
 }
 
 void cFlightAnimation::DeleteFramesFrom(int index)
@@ -699,22 +703,25 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 	frames->ModifyFrame(column, frame);
 
 	//update thumbnail
-	cParameterContainer tempPar = *gPar;
-	cFractalContainer tempFract = *gParFractal;
-	frames->GetFrameAndConsolidate(column, &tempPar, &tempFract);
-	cThumbnailWidget *thumbWidget = (cThumbnailWidget*)table->cellWidget(0, column);
+	if (ui->checkBox_flight_show_thumbnails->isChecked())
+	{
+		cParameterContainer tempPar = *gPar;
+		cFractalContainer tempFract = *gParFractal;
+		frames->GetFrameAndConsolidate(column, &tempPar, &tempFract);
+		cThumbnailWidget *thumbWidget = (cThumbnailWidget*) table->cellWidget(0, column);
 
-	if(!thumbWidget)
-	{
-		//TODO add render preview checkbox
-		cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
-		thumbWidget->UseOneCPUCore(true);
-		thumbWidget->AssignParameters(tempPar, tempFract);
-		table->setCellWidget(0, column, thumbWidget);
-	}
-	else
-	{
-		thumbWidget->AssignParameters(tempPar, tempFract);
+		if (!thumbWidget)
+		{
+			//TODO add render preview checkbox
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+			thumbWidget->UseOneCPUCore(true);
+			thumbWidget->AssignParameters(tempPar, tempFract);
+			table->setCellWidget(0, column, thumbWidget);
+		}
+		else
+		{
+			thumbWidget->AssignParameters(tempPar, tempFract);
+		}
 	}
 
 	table->blockSignals(false);

@@ -498,6 +498,8 @@ void RenderWindow::slotMenuSaveSettings()
 
 void RenderWindow::slotMenuLoadSettings()
 {
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read); //update appParam before loading new settings
+
 	cSettings parSettings(cSettings::formatFullText);
 
 	PreviewFileDialog dialog(this);
