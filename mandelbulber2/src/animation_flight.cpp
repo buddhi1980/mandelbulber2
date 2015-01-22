@@ -40,6 +40,7 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	QApplication::connect(ui->pushButton_render_flight, SIGNAL(clicked()), this, SLOT(slotRenderFlight()));
 	QApplication::connect(ui->pushButton_delete_all_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
 	QApplication::connect(ui->pushButton_show_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
+	QApplication::connect(ui->pushButton_flight_refresh_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
 
 	QApplication::connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this, SLOT(slotSelectAnimFlightImageDir()));
 	QApplication::connect(interface->renderedImage, SIGNAL(flightStrafe(CVector2<int>)), this, SLOT(slotFlightStrafe(CVector2<int>)));
@@ -599,6 +600,7 @@ void cFlightAnimation::RefreshTable()
 
 	int noOfFrames = frames->GetNumberOfFrames();
 
+	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	cParameterContainer tempPar = *gPar;
 	cFractalContainer tempFract = *gParFractal;
 
@@ -806,7 +808,6 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 	QString cellText = cell->text();
 
 	QString parameterName = GetParameterName(row);
-	QString rowName = tableRowNames.at(row);
 	int parameterFirstRow = parameterRows[rowParameter[row]];
 
 	cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
@@ -895,5 +896,9 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		QTableWidgetItem *newCell = ui->tableWidget_flightAnimation->item(row, i);
 		newCell->setText(newCellText);
 	}
+}
 
+void cFlightAnimation::slotRefreshTable()
+{
+	RefreshTable();
 }

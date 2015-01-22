@@ -2872,7 +2872,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>166</width>
+                  <width>303</width>
                   <height>180</height>
                  </rect>
                 </property>
@@ -3143,7 +3143,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>195</width>
+                  <width>303</width>
                   <height>533</height>
                  </rect>
                 </property>
@@ -3770,7 +3770,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>273</width>
+                  <width>303</width>
                   <height>204</height>
                  </rect>
                 </property>
@@ -3997,7 +3997,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>265</width>
+                  <width>303</width>
                   <height>1302</height>
                  </rect>
                 </property>
@@ -5814,8 +5814,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>295</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2">
@@ -5956,8 +5956,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>295</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3">
@@ -6098,8 +6098,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>28</height>
+                      <width>295</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4">
@@ -6158,7 +6158,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>208</width>
+                  <width>289</width>
                   <height>456</height>
                  </rect>
                 </property>
@@ -6689,7 +6689,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
+                  <width>289</width>
                   <height>360</height>
                  </rect>
                 </property>
@@ -7912,6 +7912,16 @@ and water):</string>
                   <iconset theme="media-record">
                    <normaloff/>
                   </iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QPushButton" name="pushButton_flight_refresh_table">
+                 <property name="text">
+                  <string>Refresh table</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="view-refresh"/>
                  </property>
                 </widget>
                </item>

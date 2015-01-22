@@ -80,6 +80,7 @@ void MyTableWidgetAnim::tableContextMenuRequest(QPoint point)
 		}
 	}
 
+	delete menu;
 }
 
 void MyTableWidgetAnim::columnContextMenuRequest(QPoint point)
@@ -119,9 +120,10 @@ void MyTableWidgetAnim::rowContextMenuRequest(QPoint point)
 {
 	int row = verticalHeader()->logicalIndexAt(point);
 
+	QMenu *menu = new QMenu;
+
 	if(row > 0)
 	{
-		QMenu *menu = new QMenu;
 		QAction *actionDeleteParameter;
 
 		QString name = gFlightAnimation->GetParameterName(row);
@@ -138,4 +140,20 @@ void MyTableWidgetAnim::rowContextMenuRequest(QPoint point)
 			}
 		}
 	}
+	else
+	{
+		QAction *actionRefresThumbnails = menu->addAction(tr("Refresh all thumbnails"));
+
+		QAction *selectedItem = menu->exec(verticalHeader()->viewport()->mapToGlobal(point));
+
+		if (selectedItem)
+		{
+			if (selectedItem == actionRefresThumbnails)
+			{
+				gFlightAnimation->RefreshTable();
+			}
+		}
+	}
+
+	delete menu;
 }
