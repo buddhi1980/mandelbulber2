@@ -569,13 +569,13 @@ void cFlightAnimation::RenderFlight()
 		// Skip already rendered frames
 		if(frames->GetFrame(index).alreadyRendered)
 		{
-			int firstMissing = index;
+			//int firstMissing = index;
 			while(index < frames->GetNumberOfFrames() && frames->GetFrame(index).alreadyRendered)
 			{
 				index++;
 			}
 			index--;
-			qDebug() << QObject::tr("Skip already rendered frame(s) %1 - %2").arg(firstMissing).arg(index);
+			//qDebug() << QObject::tr("Skip already rendered frame(s) %1 - %2").arg(firstMissing).arg(index);
 			continue;
 		}
 
@@ -799,7 +799,7 @@ void cFlightAnimation::slotShowAnimation()
 void cFlightAnimation::slotRecordPause()
 {
 	recordPause = !recordPause;
-	qDebug() << recordPause;
+	//qDebug() << recordPause;
 }
 
 void cFlightAnimation::InterpolateForward(int row, int column)
@@ -808,7 +808,6 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 	QString cellText = cell->text();
 
 	QString parameterName = GetParameterName(row);
-	int parameterFirstRow = parameterRows[rowParameter[row]];
 
 	cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
 
@@ -837,7 +836,7 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		{
 			valueIsInterer = true;
 			valueInteger = cellText.toInt();
-			qDebug() << valueInteger;
+			//qDebug() << valueInteger;
 			break;
 		}
 		case typeDouble:
@@ -845,7 +844,7 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		{
 			valueIsDouble = true;
 			valueDouble = cellText.toDouble();
-			qDebug() << valueDouble;
+			//qDebug() << valueDouble;
 			break;
 		}
 		default:
