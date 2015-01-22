@@ -39,7 +39,7 @@ public:
  };
 
 	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent = 0);
-	void RecordFlight();
+	void RecordFlight(bool continueRecording);
 	void RenderFlight();
 	void RenderFrame(int index);
 	void RefreshTable();
@@ -51,6 +51,7 @@ public:
 
 private slots:
 	void slotRecordFlight();
+	void slotContinueRecording();
 	void slotRenderFlight();
 	void slotIncreaseSpeed();
 	void slotDecreaseSpeed();

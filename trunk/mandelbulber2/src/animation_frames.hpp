@@ -60,8 +60,6 @@ public:
 	void AddAnimagedParameter(const QString &parameterName, const cOneParameter &defaultValue);
 	bool AddAnimagedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal);
 	void RemoveAnimagedParameter(const QString &fullParameterName);
-	//template<class T>
-	//TODO void SubstituteValueForAll(QString parameterName, T value);
 	QList<sParameterDescription> GetListOfUsedParameters() {return listOfParameters;}
 	const cParameterContainer* ContainerSelector(QString containerName, const cParameterContainer *params, const cFractalContainer *fractal) const;
 	cParameterContainer* ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal) const;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1588</width>
-    <height>1220</height>
+    <width>1700</width>
+    <height>1238</height>
    </rect>
   </property>
   <property name="font">
@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1009</width>
-           <height>823</height>
+           <width>1121</width>
+           <height>740</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -205,7 +205,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1588</width>
+     <width>1700</width>
      <height>17</height>
     </rect>
    </property>
@@ -935,7 +935,9 @@
           <string>RENDER</string>
          </property>
          <property name="icon">
-          <iconset theme="applications-graphics"/>
+          <iconset theme="applications-graphics">
+           <normaloff/>
+          </iconset>
          </property>
         </widget>
        </item>
@@ -945,7 +947,9 @@
           <string>STOP</string>
          </property>
          <property name="icon">
-          <iconset theme="process-stop"/>
+          <iconset theme="process-stop">
+           <normaloff/>
+          </iconset>
          </property>
         </widget>
        </item>
@@ -964,8 +968,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>180</width>
-          <height>818</height>
+          <width>177</width>
+          <height>779</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -2044,7 +2048,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>175</height>
+          <height>167</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2868,7 +2872,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>166</width>
                   <height>180</height>
                  </rect>
                 </property>
@@ -3139,7 +3143,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>195</width>
                   <height>533</height>
                  </rect>
                 </property>
@@ -3766,7 +3770,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>273</width>
                   <height>204</height>
                  </rect>
                 </property>
@@ -3993,7 +3997,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>265</width>
                   <height>1302</height>
                  </rect>
                 </property>
@@ -5499,8 +5503,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>186</height>
+          <width>339</width>
+          <height>171</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -5668,8 +5672,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>309</width>
-                      <height>85</height>
+                      <width>295</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1">
@@ -5810,8 +5814,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>309</width>
-                      <height>85</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2">
@@ -5952,8 +5956,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>309</width>
-                      <height>85</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3">
@@ -6094,8 +6098,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>309</width>
-                      <height>85</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4">
@@ -6154,7 +6158,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>208</width>
                   <height>456</height>
                  </rect>
                 </property>
@@ -6685,7 +6689,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>207</width>
                   <height>360</height>
                  </rect>
                 </property>
@@ -7195,7 +7199,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-55</y>
+          <y>0</y>
           <width>339</width>
           <height>466</height>
          </rect>
@@ -7857,7 +7861,9 @@ and water):</string>
                   <string>Render flight animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="video-x-generic"/>
+                  <iconset theme="video-x-generic">
+                   <normaloff/>
+                  </iconset>
                  </property>
                 </widget>
                </item>
@@ -7867,17 +7873,9 @@ and water):</string>
                   <string>Record flight path</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record"/>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QPushButton" name="pushButton_show_animation">
-                 <property name="text">
-                  <string>Show Animation</string>
-                 </property>
-                 <property name="icon">
-                  <iconset theme="media-playback-start"/>
+                  <iconset theme="media-record">
+                   <normaloff/>
+                  </iconset>
                  </property>
                 </widget>
                </item>
@@ -7887,7 +7885,33 @@ and water):</string>
                   <string>Delete all images</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="edit-delete"/>
+                  <iconset theme="edit-delete">
+                   <normaloff/>
+                  </iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="pushButton_show_animation">
+                 <property name="text">
+                  <string>Show Animation</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="media-playback-start">
+                   <normaloff/>
+                  </iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="pushButton_continue_recording">
+                 <property name="text">
+                  <string>Continue recording</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="media-record">
+                   <normaloff/>
+                  </iconset>
                  </property>
                 </widget>
                </item>
@@ -7902,9 +7926,9 @@ and water):</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-45</y>
-                  <width>374</width>
-                  <height>233</height>
+                  <y>0</y>
+                  <width>416</width>
+                  <height>275</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -8178,7 +8202,7 @@ and water):</string>
                     <widget class="MyCheckBox" name="checkBox_flight_add_speeds">
                      <property name="text">
                       <string>Add flight and rotation speed to parameters
-(needed to continue recorning animation)</string>
+(needed to continue recording animation)</string>
                      </property>
                     </widget>
                    </item>
