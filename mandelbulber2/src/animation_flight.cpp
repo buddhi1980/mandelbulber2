@@ -36,6 +36,7 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 {
 	ui = interface->mainWindow->ui;
 	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
+	QApplication::connect(ui->pushButton_continue_recording, SIGNAL(clicked()), this, SLOT(slotContinueRecording()));
 	QApplication::connect(ui->pushButton_render_flight, SIGNAL(clicked()), this, SLOT(slotRenderFlight()));
 	QApplication::connect(ui->pushButton_delete_all_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
 	QApplication::connect(ui->pushButton_show_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
@@ -58,7 +59,19 @@ void cFlightAnimation::slotRecordFlight()
 {
 	if(frames)
 	{
-		RecordFlight();
+		RecordFlight(false);
+	}
+	else
+	{
+		qCritical() << "gAnimFrames not allocated";
+	}
+}
+
+void cFlightAnimation::slotContinueRecording()
+{
+	if(frames)
+	{
+		RecordFlight(true);
 	}
 	else
 	{
@@ -86,29 +99,37 @@ void cFlightAnimation::slotRenderFlight()
 	}
 }
 
-void cFlightAnimation::RecordFlight()
+void cFlightAnimation::RecordFlight(bool continueRecording)
 {
-	//TODO button/checkbox to add speeds to list of animated parameters (then possible to continue recording starting with proper speed
-	//TODO button for continue recording
-
 	//get latest values of all parameters
 	interface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
-	//confirmation dialog before start
-	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(
-		ui->centralwidget,
-		QObject::tr("Are you sure to start recording of new animation?"),
-		QObject::tr("This will delete all images in the image folder.\nProceed?"),
-		QMessageBox::Yes|QMessageBox::No);
-
-	if (reply == QMessageBox::Yes)
+	if(!continueRecording)
 	{
-		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
+		//confirmation dialog before start
+		QMessageBox::StandardButton reply;
+		reply = QMessageBox::question(
+			ui->centralwidget,
+			QObject::tr("Are you sure to start recording of new animation?"),
+			QObject::tr("This will delete all images in the image folder.\nProceed?"),
+			QMessageBox::Yes|QMessageBox::No);
+
+		if (reply == QMessageBox::Yes)
+		{
+			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
+		}
+		else
+		{
+			return;
+		}
 	}
 	else
 	{
-		return;
+		if (frames->GetNumberOfFrames() == 0)
+		{
+			cErrorMessage::showMessage(QObject::tr("No frames recorded before. Unable to continue."), cErrorMessage::errorMessage);
+			return;
+		}
 	}
 
 	//check if main image is not used by other rendering process
@@ -122,17 +143,29 @@ void cFlightAnimation::RecordFlight()
 	application->processEvents();
 	Wait(3000);
 
-	frames->Clear();
-
-	//add default parameters for animation
-	if(frames->GetListOfUsedParameters().size() == 0)
+	if (!continueRecording)
 	{
-		gAnimFrames->AddAnimagedParameter("camera", gPar->GetAsOneParameter("camera"));
-		gAnimFrames->AddAnimagedParameter("target", gPar->GetAsOneParameter("target"));
-		gAnimFrames->AddAnimagedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
-	}
+		frames->Clear();
 
-	PrepareTable();
+		bool addSpeeds = gPar->Get<bool>("flight_add_speeds");
+
+		//add default parameters for animation
+		if (frames->GetListOfUsedParameters().size() == 0)
+		{
+			gAnimFrames->AddAnimagedParameter("camera", gPar->GetAsOneParameter("camera"));
+			gAnimFrames->AddAnimagedParameter("target", gPar->GetAsOneParameter("target"));
+			gAnimFrames->AddAnimagedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
+			if (addSpeeds)
+			{
+				{
+					gAnimFrames->AddAnimagedParameter("flight_movement_speed_vector", gPar->GetAsOneParameter("flight_movement_speed_vector"));
+					gAnimFrames->AddAnimagedParameter("flight_rotation_speed_vector", gPar->GetAsOneParameter("flight_rotation_speed_vector"));
+				}
+			}
+		}
+
+		PrepareTable();
+	}
 
 	//setup cursor mode for renderedImage widget
 	QList<QVariant> clickMode;
@@ -153,6 +186,15 @@ void cFlightAnimation::RecordFlight()
 	CVector3 cameraAngularAcceleration;
 	CVector3 cameraRotation;
 
+	int index = 0;
+	if(continueRecording)
+	{
+		frames->GetFrameAndConsolidate(frames->GetNumberOfFrames() - 1, gPar, gParFractal);
+		cameraSpeed = gPar->Get<CVector3>("flight_movement_speed_vector");
+		cameraAngularSpeed = gPar->Get<CVector3>("flight_rotation_speed_vector");
+		index = frames->GetNumberOfFrames() - 1;
+	}
+
 	CVector3 cameraPosition = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 top = gPar->Get<CVector3>("camera_top");
@@ -170,7 +212,6 @@ void cFlightAnimation::RecordFlight()
 
 	QString framesDir = gPar->Get<QString>("anim_flight_dir");
 
-	int index = 0;
 	recordPause = false;
 
 	interface->progressBarAnimation->show();
@@ -261,6 +302,9 @@ void cFlightAnimation::RecordFlight()
 		gPar->Set("camera_top", top);
 		gPar->Set("camera_rotation", cameraTarget.GetRotation()*180.0 / M_PI);
 		gPar->Set("camera_distance_to_target", cameraTarget.GetDistance());
+		gPar->Set("flight_movement_speed_vector", cameraSpeed);
+		gPar->Set("flight_rotation_speed_vector", cameraAngularSpeed);
+
 		interface->SynchronizeInterfaceWindow(ui->dockWidget_navigation, gPar, cInterface::write);
 		renderJob->ChangeCameraTargetPosition(cameraTarget);
 
@@ -562,7 +606,6 @@ void cFlightAnimation::RefreshTable()
 	{
 		int newColumn = AddColumn(frames->GetFrame(i));
 
-		//TODO add render preview checkbox
 		if(ui->checkBox_flight_show_thumbnails->isChecked())
 		{
 			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
@@ -712,7 +755,6 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 		if (!thumbWidget)
 		{
-			//TODO add render preview checkbox
 			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
 			thumbWidget->UseOneCPUCore(true);
 			thumbWidget->AssignParameters(tempPar, tempFract);
