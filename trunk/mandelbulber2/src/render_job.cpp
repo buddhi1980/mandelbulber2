@@ -66,7 +66,7 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	parentObject = _parent;
 
 	id++;
-	qDebug() << "Id" << id;
+	//qDebug() << "Id" << id;
 
 }
 int cRenderJob::id = 0;
@@ -75,7 +75,7 @@ int cRenderJob::runningJobs = 0;
 cRenderJob::~cRenderJob()
 {
 	id--;
-	qDebug() << "Id" << id;
+	//qDebug() << "Id" << id;
 	delete paramsContainer;
 	delete fractalContainer;
 	if(renderData) delete renderData;
@@ -176,7 +176,7 @@ bool cRenderJob::InitImage(int w, int h)
 			imageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 		}
 
-		out << "Memory for image: " << image->GetUsedMB() << " MB" << endl;
+		//out << "Memory for image: " << image->GetUsedMB() << " MB" << endl;
 		return true;
 	}
 }
@@ -192,7 +192,7 @@ bool cRenderJob::Execute(void)
 	image->BlockImage();
 
 	runningJobs++;
-	qDebug() << "runningJobs" << runningJobs;
+	//qDebug() << "runningJobs" << runningJobs;
 
 	inProgress = true;
 	*renderData->stopRequest = false;
@@ -231,7 +231,7 @@ bool cRenderJob::Execute(void)
 	image->ReleaseImage();
 
 	runningJobs--;
-	qDebug() << "runningJobs" << runningJobs;
+	//qDebug() << "runningJobs" << runningJobs;
 
 	return true;
 }

@@ -326,7 +326,7 @@ void RenderWindow::slotMenuSaveDocksPositions()
 {
 	settings.setValue("mainWindowGeometry", saveGeometry());
 	settings.setValue("mainWindowState", saveState());
-	qDebug() << "settings saved";
+	//qDebug() << "settings saved";
 }
 
 void RenderWindow::slotMenuResetDocksPositions()

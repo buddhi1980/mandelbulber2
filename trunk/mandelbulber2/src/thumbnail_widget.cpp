@@ -51,7 +51,7 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, QObject *_parentWith
 	timer = new QTimer(parent);
 	timer->setSingleShot(true);
 	instanceCount++;
-	qDebug() << "cThumbnailWidget constructed" << instanceCount;
+	//qDebug() << "cThumbnailWidget constructed" << instanceCount;
 }
 
 cThumbnailWidget::~cThumbnailWidget()
@@ -64,7 +64,7 @@ cThumbnailWidget::~cThumbnailWidget()
 	if(params) delete params;
 	if(fractal) delete fractal;
 	instanceCount--;
-	qDebug() << "cThumbnailWidget destructed" << instanceCount;
+	//qDebug() << "cThumbnailWidget destructed" << instanceCount;
 }
 
 void cThumbnailWidget::paintEvent(QPaintEvent *event)
