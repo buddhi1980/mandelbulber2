@@ -62,6 +62,7 @@ private slots:
 	void slotDeleteAllImages();
 	void slotShowAnimation();
 	void slotRecordPause();
+	void slotRefreshTable();
 
 private:
 	void PrepareTable();
