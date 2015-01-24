@@ -1,5 +1,25 @@
 Version history
 
+v2.03
+- Added recording and rendering of flight animation. All frames are displayed in the table with previews. 
+  There is possible to edit values in the table and interpolate them in selected range of frames
+  All frames can be edited in any spreadsheet editor. CSV format is used in settings file to store animation frames
+  There is possible to add any parameter to animation (context menu for every parameter)
+  Added keyboard shortcuts for recording (pause, strafe, roll)
+  Added player for animation (plays directly from sequence of jpg files)
+- added user defined toolbar. To add new preset it's enough to save settings to $HOME/.mandelbulber/toolbar folder
+- added quit confirmation dialog
+- added multiple language support (EN, PL, DE)
+- reduced all margins and spacings in UI
+- added automatic tabify of docks when application is started first time
+- in file selection dialog the preview is rendered much faster
+- added missing mandelbulber.png icon
+- more detailed recording of errors in .mandelbulber_log.txt
+- corrected tab order in UI
+- fixed bug: in install script
+- fixed bug: there was double slash in paths for files
+- fixed bug: after application quit rendering was not terminated
+
 v2.02
 - added importing of settings from old Mandelbulber (v1.21). It works in 95% cases.
 - added 'legacy_coordinate_system' parameter to provide compatibility with old coordinate system (upside down)

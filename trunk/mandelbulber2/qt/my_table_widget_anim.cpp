@@ -51,8 +51,8 @@ void MyTableWidgetAnim::tableContextMenuRequest(QPoint point)
 
 	QMenu *menu = new QMenu;
 
-	QAction *actionRender;
-	QAction *interpolateForward;
+	QAction *actionRender = NULL;
+	QAction *interpolateForward = NULL;
 
 	if(row == 0)
 	{

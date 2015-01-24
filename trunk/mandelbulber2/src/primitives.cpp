@@ -376,6 +376,8 @@ double cPrimitives::PrimitiveCone(CVector3 _point, const sPrimitiveCone &cone) c
 
 double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water) const
 {
+	//TODO to use rendering technique from here: //https://www.shadertoy.com/view/Ms2SD1
+
 	CVector3 relativePoint = _point - water.position;
 	CVector3 point = water.rotationMatrix.RotateVector(relativePoint);
 
