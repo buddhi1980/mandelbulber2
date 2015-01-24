@@ -1352,6 +1352,7 @@ void cInterface::RefreshMainImage()
 		cParamRender params(gPar);
 		sRenderData data;
 		data.numberOfThreads = systemData.numberOfThreads;
+		data.stopRequest = &stopRequest;
 		cRenderSSAO rendererSSAO(&params, &data, mainImage);
 		QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 
