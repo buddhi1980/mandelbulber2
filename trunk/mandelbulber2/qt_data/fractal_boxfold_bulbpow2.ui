@@ -148,6 +148,12 @@
    <header>mydoublespinbox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_boxfold_bulbpow2_folding_factor</tabstop>
+  <tabstop>spinbox_boxfold_bulbpow2_folding_factor</tabstop>
+  <tabstop>slider_boxfold_bulbpow2_z_factor</tabstop>
+  <tabstop>spinbox_boxfold_bulbpow2_z_factor</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

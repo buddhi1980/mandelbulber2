@@ -653,6 +653,32 @@
    <header>mydoublespinbox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_mandelbox_scale</tabstop>
+  <tabstop>spinbox_mandelbox_scale</tabstop>
+  <tabstop>slider_mandelbox_vary_scale_vary</tabstop>
+  <tabstop>spinbox_mandelbox_vary_scale_vary</tabstop>
+  <tabstop>slider_mandelbox_vary_fold</tabstop>
+  <tabstop>spinbox_mandelbox_vary_fold</tabstop>
+  <tabstop>slider_mandelbox_vary_minr</tabstop>
+  <tabstop>spinbox_mandelbox_vary_minr</tabstop>
+  <tabstop>slider_mandelbox_vary_rpower</tabstop>
+  <tabstop>spinbox_mandelbox_vary_rpower</tabstop>
+  <tabstop>slider_mandelbox_vary_wadd</tabstop>
+  <tabstop>spinbox_mandelbox_vary_wadd</tabstop>
+  <tabstop>slider_mandelbox_color_R</tabstop>
+  <tabstop>spinbox_mandelbox_color_R</tabstop>
+  <tabstop>slider3_mandelbox_color_x</tabstop>
+  <tabstop>spinbox3_mandelbox_color_x</tabstop>
+  <tabstop>slider3_mandelbox_color_y</tabstop>
+  <tabstop>spinbox3_mandelbox_color_y</tabstop>
+  <tabstop>slider3_mandelbox_color_z</tabstop>
+  <tabstop>spinbox3_mandelbox_color_z</tabstop>
+  <tabstop>slider_mandelbox_color_Sp1</tabstop>
+  <tabstop>spinbox_mandelbox_color_Sp1</tabstop>
+  <tabstop>slider_mandelbox_color_Sp2</tabstop>
+  <tabstop>spinbox_mandelbox_color_Sp2</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

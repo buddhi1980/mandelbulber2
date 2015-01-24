@@ -7817,7 +7817,7 @@ and water):</string>
           <attribute name="title">
            <string>Flight animation</string>
           </attribute>
-          <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,3">
+          <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="0,3">
            <property name="spacing">
             <number>2</number>
            </property>
@@ -7921,7 +7921,9 @@ and water):</string>
                   <string>Refresh table</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="view-refresh"/>
+                  <iconset theme="view-refresh">
+                   <normaloff/>
+                  </iconset>
                  </property>
                 </widget>
                </item>
@@ -7937,7 +7939,7 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>416</width>
+                  <width>355</width>
                   <height>275</height>
                  </rect>
                 </property>
@@ -8563,13 +8565,10 @@ and water):</string>
   <tabstop>groupCheck_basic_fog_enabled</tabstop>
   <tabstop>logslider_basic_fog_visibility</tabstop>
   <tabstop>logedit_basic_fog_visibility</tabstop>
-  <tabstop>colorButton_basic_fog_color</tabstop>
   <tabstop>pushButton_set_fog_by_mouse</tabstop>
   <tabstop>groupCheck_glow_enabled</tabstop>
   <tabstop>logslider_glow_intensity</tabstop>
   <tabstop>logedit_glow_intensity</tabstop>
-  <tabstop>colorButton_glow_color_1</tabstop>
-  <tabstop>colorButton_glow_color_2</tabstop>
   <tabstop>groupCheck_volumetric_fog_enabled</tabstop>
   <tabstop>button_calculateFog</tabstop>
   <tabstop>logslider_volumetric_fog_density</tabstop>
@@ -8580,9 +8579,6 @@ and water):</string>
   <tabstop>logedit_volumetric_fog_colour_2_distance</tabstop>
   <tabstop>logslider_volumetric_fog_distance_factor</tabstop>
   <tabstop>logedit_volumetric_fog_distance_factor</tabstop>
-  <tabstop>colorButton_fog_color_1</tabstop>
-  <tabstop>colorButton_fog_color_2</tabstop>
-  <tabstop>colorButton_fog_color_3</tabstop>
   <tabstop>groupCheck_iteration_fog_enable</tabstop>
   <tabstop>logslider_iteration_fog_opacity</tabstop>
   <tabstop>logedit_iteration_fog_opacity</tabstop>
@@ -8592,13 +8588,7 @@ and water):</string>
   <tabstop>spinbox_iteration_fog_color_1_maxiter</tabstop>
   <tabstop>slider_iteration_fog_color_2_maxiter</tabstop>
   <tabstop>spinbox_iteration_fog_color_2_maxiter</tabstop>
-  <tabstop>colorButton_iteration_fog_color_1</tabstop>
-  <tabstop>colorButton_iteration_fog_color_2</tabstop>
-  <tabstop>colorButton_iteration_fog_color_3</tabstop>
   <tabstop>scrollArea_9</tabstop>
-  <tabstop>colorButton_background_color_1</tabstop>
-  <tabstop>colorButton_background_color_2</tabstop>
-  <tabstop>colorButton_background_color_3</tabstop>
   <tabstop>groupCheck_textured_background</tabstop>
   <tabstop>text_file_background</tabstop>
   <tabstop>button_selectBackgroundTexture</tabstop>
@@ -8613,7 +8603,6 @@ and water):</string>
   <tabstop>spinbox_main_light_visibility</tabstop>
   <tabstop>slider_main_light_visibility_size</tabstop>
   <tabstop>spinbox_main_light_visibility_size</tabstop>
-  <tabstop>colorButton_main_light_colour</tabstop>
   <tabstop>dial_main_light_alpha</tabstop>
   <tabstop>spinboxd_main_light_alpha</tabstop>
   <tabstop>dial_main_light_beta</tabstop>
@@ -8627,7 +8616,6 @@ and water):</string>
   <tabstop>vect3_aux_light_position_1_z</tabstop>
   <tabstop>logedit_aux_light_intensity_1</tabstop>
   <tabstop>logslider_aux_light_intensity_1</tabstop>
-  <tabstop>colorButton_aux_light_colour_1</tabstop>
   <tabstop>pushButton_place_light_by_mouse_1</tabstop>
   <tabstop>groupCheck_aux_light_enabled_2</tabstop>
   <tabstop>vect3_aux_light_position_2_x</tabstop>
@@ -8635,7 +8623,6 @@ and water):</string>
   <tabstop>vect3_aux_light_position_2_z</tabstop>
   <tabstop>logedit_aux_light_intensity_2</tabstop>
   <tabstop>logslider_aux_light_intensity_2</tabstop>
-  <tabstop>colorButton_aux_light_colour_2</tabstop>
   <tabstop>pushButton_place_light_by_mouse_2</tabstop>
   <tabstop>groupCheck_aux_light_enabled_3</tabstop>
   <tabstop>vect3_aux_light_position_3_x</tabstop>
@@ -8643,7 +8630,6 @@ and water):</string>
   <tabstop>vect3_aux_light_position_3_z</tabstop>
   <tabstop>logedit_aux_light_intensity_3</tabstop>
   <tabstop>logslider_aux_light_intensity_3</tabstop>
-  <tabstop>colorButton_aux_light_colour_3</tabstop>
   <tabstop>pushButton_place_light_by_mouse_3</tabstop>
   <tabstop>groupCheck_aux_light_enabled_4</tabstop>
   <tabstop>vect3_aux_light_position_4_x</tabstop>
@@ -8651,7 +8637,6 @@ and water):</string>
   <tabstop>vect3_aux_light_position_4_z</tabstop>
   <tabstop>logedit_aux_light_intensity_4</tabstop>
   <tabstop>logslider_aux_light_intensity_4</tabstop>
-  <tabstop>colorButton_aux_light_colour_4</tabstop>
   <tabstop>pushButton_place_light_by_mouse_4</tabstop>
   <tabstop>logslider_aux_light_visibility</tabstop>
   <tabstop>logedit_aux_light_visibility</tabstop>
@@ -8808,15 +8793,15 @@ and water):</string>
   <tabstop>comboBox_mouse_click_function</tabstop>
   <tabstop>comboBox_image_preview_scale</tabstop>
   <tabstop>checkBox_show_cursor</tabstop>
-  <tabstop>logslider_flight_speed</tabstop>
-  <tabstop>logedit_flight_speed</tabstop>
-  <tabstop>slider_flight_inertia</tabstop>
-  <tabstop>spinbox_flight_inertia</tabstop>
+  <tabstop>slider_flight_roll_speed</tabstop>
+  <tabstop>spinbox_flight_roll_speed</tabstop>
   <tabstop>comboBox_flight_speed_control</tabstop>
   <tabstop>slider_flight_sec_per_frame</tabstop>
   <tabstop>spinbox_flight_sec_per_frame</tabstop>
   <tabstop>text_anim_flight_dir</tabstop>
   <tabstop>button_selectAnimFlightImageDir</tabstop>
+  <tabstop>checkBox_flight_show_thumbnails</tabstop>
+  <tabstop>checkBox_flight_add_speeds</tabstop>
   <tabstop>scrollArea_flyght_animation_parameters</tabstop>
   <tabstop>scrollArea</tabstop>
   <tabstop>tabWidget_2</tabstop>
@@ -8829,6 +8814,18 @@ and water):</string>
   <tabstop>scrollArea_2</tabstop>
   <tabstop>scrollArea_5</tabstop>
   <tabstop>scrollArea_3</tabstop>
+  <tabstop>pushButton_render_flight</tabstop>
+  <tabstop>pushButton_record_flight</tabstop>
+  <tabstop>pushButton_continue_recording</tabstop>
+  <tabstop>pushButton_show_animation</tabstop>
+  <tabstop>pushButton_delete_all_images</tabstop>
+  <tabstop>pushButton_flight_refresh_table</tabstop>
+  <tabstop>logslider_flight_speed</tabstop>
+  <tabstop>logedit_flight_speed</tabstop>
+  <tabstop>slider_flight_inertia</tabstop>
+  <tabstop>spinbox_flight_inertia</tabstop>
+  <tabstop>slider_flight_rotation_speed</tabstop>
+  <tabstop>spinbox_flight_rotation_speed</tabstop>
  </tabstops>
  <resources>
   <include location="icons.qrc"/>

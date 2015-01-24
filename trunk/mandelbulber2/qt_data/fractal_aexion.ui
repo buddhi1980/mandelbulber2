@@ -103,6 +103,10 @@
    <header>mydoublespinbox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_cadd</tabstop>
+  <tabstop>spinbox_cadd</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
