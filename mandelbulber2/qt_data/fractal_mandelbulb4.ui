@@ -244,6 +244,16 @@
    <header>mydoublespinbox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>slider_power</tabstop>
+  <tabstop>spinbox_power</tabstop>
+  <tabstop>slider_alpha_angle_offset</tabstop>
+  <tabstop>spinbox_alpha_angle_offset</tabstop>
+  <tabstop>slider_beta_angle_offset</tabstop>
+  <tabstop>spinbox_beta_angle_offset</tabstop>
+  <tabstop>slider_gamma_angle_offset</tabstop>
+  <tabstop>spinbox_gamma_angle_offset</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

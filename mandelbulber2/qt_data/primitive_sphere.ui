@@ -152,8 +152,8 @@
       <widget class="MyLineEdit" name="vect3_repeat_y"/>
      </item>
      <item row="7" column="2">
-      <widget class="MyColorButton" name="colorButton_color">
-       <property name="text">
+      <widget class="MyColorButton" name="colorButton_color" native="true">
+       <property name="text" stdset="0">
         <string>PushButton</string>
        </property>
       </widget>
@@ -254,7 +254,25 @@
    <extends>QCheckBox</extends>
    <header>mycheckbox.h</header>
   </customwidget>
+  <customwidget>
+   <class>MyColorButton</class>
+   <extends>QWidget</extends>
+   <header>mycolorbutton.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>vect3_position_x</tabstop>
+  <tabstop>vect3_position_y</tabstop>
+  <tabstop>vect3_position_z</tabstop>
+  <tabstop>logslider_radius</tabstop>
+  <tabstop>logedit_radius</tabstop>
+  <tabstop>vect3_repeat_x</tabstop>
+  <tabstop>vect3_repeat_y</tabstop>
+  <tabstop>vect3_repeat_z</tabstop>
+  <tabstop>slider_reflection</tabstop>
+  <tabstop>spinbox_reflection</tabstop>
+  <tabstop>checkBox_empty</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

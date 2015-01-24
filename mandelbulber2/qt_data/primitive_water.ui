@@ -333,8 +333,8 @@
       </widget>
      </item>
      <item row="10" column="2">
-      <widget class="MyColorButton" name="colorButton_color">
-       <property name="text">
+      <widget class="MyColorButton" name="colorButton_color" native="true">
+       <property name="text" stdset="0">
         <string>PushButton</string>
        </property>
       </widget>
@@ -469,7 +469,34 @@
    <extends>QCheckBox</extends>
    <header>mycheckbox.h</header>
   </customwidget>
+  <customwidget>
+   <class>MyColorButton</class>
+   <extends>QWidget</extends>
+   <header>mycolorbutton.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>vect3_position_x</tabstop>
+  <tabstop>vect3_position_y</tabstop>
+  <tabstop>vect3_position_z</tabstop>
+  <tabstop>logslider_amplitude</tabstop>
+  <tabstop>logedit_amplitude</tabstop>
+  <tabstop>logslider_length</tabstop>
+  <tabstop>logedit_length</tabstop>
+  <tabstop>slider_anim_speed</tabstop>
+  <tabstop>spinbox_anim_speed</tabstop>
+  <tabstop>sliderInt_iterations</tabstop>
+  <tabstop>spinboxInt_iterations</tabstop>
+  <tabstop>dial3_rotation_x</tabstop>
+  <tabstop>spinboxd3_rotation_x</tabstop>
+  <tabstop>dial3_rotation_y</tabstop>
+  <tabstop>spinboxd3_rotation_y</tabstop>
+  <tabstop>dial3_rotation_z</tabstop>
+  <tabstop>spinboxd3_rotation_z</tabstop>
+  <tabstop>slider_reflection</tabstop>
+  <tabstop>spinbox_reflection</tabstop>
+  <tabstop>checkBox_empty</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

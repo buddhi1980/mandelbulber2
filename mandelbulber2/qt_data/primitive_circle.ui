@@ -213,8 +213,8 @@
       </widget>
      </item>
      <item row="7" column="2">
-      <widget class="MyColorButton" name="colorButton_color">
-       <property name="text">
+      <widget class="MyColorButton" name="colorButton_color" native="true">
+       <property name="text" stdset="0">
         <string>PushButton</string>
        </property>
       </widget>
@@ -338,7 +338,27 @@
    <extends>QDoubleSpinBox</extends>
    <header>mydoublespinbox.h</header>
   </customwidget>
+  <customwidget>
+   <class>MyColorButton</class>
+   <extends>QWidget</extends>
+   <header>mycolorbutton.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>vect3_position_x</tabstop>
+  <tabstop>vect3_position_y</tabstop>
+  <tabstop>vect3_position_z</tabstop>
+  <tabstop>logslider_radius</tabstop>
+  <tabstop>logedit_radius</tabstop>
+  <tabstop>dial3_rotation_x</tabstop>
+  <tabstop>spinboxd3_rotation_x</tabstop>
+  <tabstop>dial3_rotation_y</tabstop>
+  <tabstop>spinboxd3_rotation_y</tabstop>
+  <tabstop>dial3_rotation_z</tabstop>
+  <tabstop>spinboxd3_rotation_z</tabstop>
+  <tabstop>slider_reflection</tabstop>
+  <tabstop>spinbox_reflection</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
