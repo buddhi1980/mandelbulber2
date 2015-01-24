@@ -11,7 +11,7 @@
     <message>
         <location filename="../qt/mycheckbox.cpp" line="32"/>
         <source>Add to flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj do animacji lotu</translation>
     </message>
 </context>
 <context>
@@ -19,12 +19,12 @@
     <message>
         <location filename="../qt/mycolorbutton.cpp" line="54"/>
         <source>Reset to default</source>
-        <translation type="unfinished">Przywróć domyślne</translation>
+        <translation>Przywróć domyślne</translation>
     </message>
     <message>
         <location filename="../qt/mycolorbutton.cpp" line="55"/>
         <source>Add to flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj do animacji lotu</translation>
     </message>
 </context>
 <context>
@@ -37,7 +37,7 @@
     <message>
         <location filename="../qt/mydoublespinbox.cpp" line="33"/>
         <source>Add to flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj do animacji lotu</translation>
     </message>
 </context>
 <context>
@@ -50,7 +50,7 @@
     <message>
         <location filename="../qt/mygroupbox.cpp" line="32"/>
         <source>Add to flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj do animacji lotu</translation>
     </message>
 </context>
 <context>
@@ -63,7 +63,7 @@
     <message>
         <location filename="../qt/mylineedit.cpp" line="33"/>
         <source>Add to flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj do animacji lotu</translation>
     </message>
 </context>
 <context>
@@ -76,7 +76,7 @@
     <message>
         <location filename="../qt/myspinbox.cpp" line="33"/>
         <source>Add to flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj do animacji lotu</translation>
     </message>
 </context>
 <context>
@@ -85,32 +85,32 @@
         <location filename="../qt/my_table_widget_anim.cpp" line="59"/>
         <location filename="../qt/my_table_widget_anim.cpp" line="94"/>
         <source>Render this frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderuj tą klatkę</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_anim.cpp" line="65"/>
         <source>Interpolate next frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Interpoluj następne klatki</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_anim.cpp" line="95"/>
         <source>Delete all frames to here</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń klatki do tego miejsca</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_anim.cpp" line="96"/>
         <source>Delete all frames from here</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń klatki od tego miejsca</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_anim.cpp" line="130"/>
         <source>Remove &apos;%1&apos; from animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń &apos;%1&apos; z animacji</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_anim.cpp" line="145"/>
         <source>Refresh all thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Odśwież wystkie podglądy</translation>
     </message>
 </context>
 <context>
@@ -177,7 +177,7 @@
     </message>
     <message>
         <location filename="../src/interface.cpp" line="931"/>
-        <location filename="../src/interface.cpp" line="1800"/>
+        <location filename="../src/interface.cpp" line="1801"/>
         <source>Can&apos;t open file </source>
         <translation>Nie można otworzyć pliku</translation>
     </message>
@@ -187,79 +187,79 @@
         <translation> Plik ui nie może zostać załadowany</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1740"/>
+        <location filename="../src/interface.cpp" line="1741"/>
         <source>Set position of </source>
         <translation>Ustaw pozycję </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1744"/>
+        <location filename="../src/interface.cpp" line="1745"/>
         <source>Delete </source>
         <translation>Skasuj </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1800"/>
+        <location filename="../src/interface.cpp" line="1801"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
         <translation> Plik ui prymitywu nie może zostać załadowany</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1876"/>
+        <location filename="../src/interface.cpp" line="1877"/>
         <source>No action</source>
         <translation>Brak akcji</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1879"/>
+        <location filename="../src/interface.cpp" line="1880"/>
         <source>Move the camera</source>
         <translation>Przesuń kamerę</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1882"/>
+        <location filename="../src/interface.cpp" line="1883"/>
         <source>Set fog visibility</source>
         <translation>Ustaw widoczność mgły</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1885"/>
+        <location filename="../src/interface.cpp" line="1886"/>
         <source>Set DOF focus</source>
         <translation>Ustaw głębię ostrości</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1888"/>
+        <location filename="../src/interface.cpp" line="1889"/>
         <source>Get Julia constant</source>
         <translation>Pobierz stałą Julia</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1891"/>
+        <location filename="../src/interface.cpp" line="1892"/>
         <source>Place light #1</source>
         <translation>Umieść światło #1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1894"/>
+        <location filename="../src/interface.cpp" line="1895"/>
         <source>Place light #2</source>
         <translation>Umieść światło #2</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1897"/>
+        <location filename="../src/interface.cpp" line="1898"/>
         <source>Place light #3</source>
         <translation>Umieść światło #3</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1900"/>
+        <location filename="../src/interface.cpp" line="1901"/>
         <source>Place light #4</source>
         <translation>Umieść światło #4</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1908"/>
+        <location filename="../src/interface.cpp" line="1909"/>
         <source>Place </source>
         <translation>Umieść </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1979"/>
+        <location filename="../src/interface.cpp" line="1980"/>
         <source>Are you sure to close the application?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy jesteś pewny, że chcesz zamknąć aplikację?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1982"/>
+        <location filename="../src/interface.cpp" line="1983"/>
         <source>Quit?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyjść?</translation>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="58"/>
@@ -365,32 +365,32 @@ Wersja pliku: </translation>
     <message>
         <location filename="../src/settings.cpp" line="403"/>
         <source>Unknown parameter: </source>
-        <translation type="unfinished"></translation>
+        <translation>Nieznany parametr: </translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="462"/>
         <source>Missing column &apos;frame&apos; in list of animation frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Brakuje kolumny &apos;frame&apos; na liście klatek animacji</translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="485"/>
         <source>Unknown parameter in animation frames: </source>
-        <translation type="unfinished"></translation>
+        <translation>Nieznany parametr na liscie klatek animacji: </translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="491"/>
         <source>No valid list of parameters for animation frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak prawidłowej listy parametrów dla klatek animacji</translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="554"/>
         <source>Missing frame no </source>
-        <translation type="unfinished"></translation>
+        <translation>Brakuje klatki nr </translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="559"/>
         <source>Wrong number of columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieprawidłowa liczba kolumn</translation>
     </message>
     <message>
         <location filename="../src/texture.cpp" line="46"/>
@@ -409,93 +409,95 @@ Wersja pliku: </translation>
         <translation>Nie ma więcej przywróceń</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="133"/>
+        <location filename="../src/animation_flight.cpp" line="93"/>
         <source>No frames to render</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak klatek do zrenderowania</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="154"/>
+        <location filename="../src/animation_flight.cpp" line="114"/>
         <source>Are you sure to start recording of new animation?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy jesteś pewny, że chcesz zacząć nagrywać nową animację?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="155"/>
-        <location filename="../src/animation_flight.cpp" line="585"/>
-        <location filename="../src/animation_flight.cpp" line="822"/>
+        <location filename="../src/animation_flight.cpp" line="115"/>
+        <location filename="../src/animation_flight.cpp" line="545"/>
+        <location filename="../src/animation_flight.cpp" line="782"/>
         <source>This will delete all images in the image folder.
 Proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Spowoduje to usunięcie z folderu wszystkich wcześniej zrenderowanych klatek.
+Kontynuować?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="171"/>
+        <location filename="../src/animation_flight.cpp" line="131"/>
         <source>No frames recorded before. Unable to continue.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wcześniej nie było nagranych żadnych klatek. Nie można kontynuować.</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="179"/>
-        <location filename="../src/animation_flight.cpp" line="551"/>
+        <location filename="../src/animation_flight.cpp" line="139"/>
+        <location filename="../src/animation_flight.cpp" line="511"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
-        <translation type="unfinished"></translation>
+        <translation>Silnik renderowania jest zajęcty. Zatrzymaj wcześniej uruchomione renderowanie zanim zaczniesz nowe</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="183"/>
+        <location filename="../src/animation_flight.cpp" line="143"/>
         <source>Recordning flight path</source>
-        <translation type="unfinished"></translation>
+        <translation>Nagrywanie trasy przelotu</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="261"/>
-        <location filename="../src/animation_flight.cpp" line="267"/>
+        <location filename="../src/animation_flight.cpp" line="221"/>
+        <location filename="../src/animation_flight.cpp" line="227"/>
         <source>Recording flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Nagrywanie animacji lotu</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="583"/>
-        <location filename="../src/animation_flight.cpp" line="821"/>
+        <location filename="../src/animation_flight.cpp" line="543"/>
+        <location filename="../src/animation_flight.cpp" line="781"/>
         <source>Truncate Image Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Opróżnianie forlderu z animacją</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="584"/>
+        <location filename="../src/animation_flight.cpp" line="544"/>
         <source>The animation has already been rendered completely.
  Do you want to purge the output folder?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Animacja została już całkowicie zrenderowana.
+Czy chcesz opróżnić folder z klatkami animacji?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="604"/>
+        <location filename="../src/animation_flight.cpp" line="564"/>
         <source>Animation start</source>
-        <translation type="unfinished"></translation>
+        <translation>Start animacji</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="605"/>
+        <location filename="../src/animation_flight.cpp" line="565"/>
         <location filename="../src/player_widget.cpp" line="134"/>
         <source>Frame %1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Klatka %1 z %2</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="632"/>
+        <location filename="../src/animation_flight.cpp" line="592"/>
         <source>Animation finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Animacja ukończona</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="661"/>
+        <location filename="../src/animation_flight.cpp" line="621"/>
         <source>Refreshing animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Odświeżanie animacji</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="736"/>
+        <location filename="../src/animation_flight.cpp" line="696"/>
         <source>Animation Image Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Folder na klatki animacji</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="739"/>
+        <location filename="../src/animation_flight.cpp" line="699"/>
         <source>Choose Animation Image Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybór folderu na klatki animacji</translation>
     </message>
     <message>
         <location filename="../src/player_widget.cpp" line="73"/>
         <source>No frames to play</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak klatek do odtworzenia</translation>
     </message>
 </context>
 <context>
@@ -1669,113 +1671,114 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="7784"/>
         <source>Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animacja</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7818"/>
         <source>Flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animacja lotu</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7873"/>
         <source>Record flight path</source>
-        <translation type="unfinished"></translation>
+        <translation>Nagraj ścieżkę lotu</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7861"/>
         <source>Render flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderuj animację lotu</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7885"/>
         <source>Delete all images</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń wszystkie klatki</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7897"/>
         <source>Show Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetl animację</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7909"/>
         <source>Continue recording</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontynuacja nagrywania</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7921"/>
         <source>Refresh table</source>
-        <translation type="unfinished"></translation>
+        <translation>Odśwież tabelę</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7965"/>
         <source>Path for images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Klatki animacji:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7972"/>
         <source>inertia:</source>
-        <translation type="unfinished"></translation>
+        <translation>Inercja:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7979"/>
         <source>speed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Prędkość:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7986"/>
         <source>speed control:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrola prędkości:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7994"/>
         <source>Relative to distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Według odległości</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7999"/>
         <source>Constant</source>
-        <translation type="unfinished"></translation>
+        <translation>Stała</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8010"/>
         <source>Select folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz folder</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8084"/>
         <source>seconds per frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekund na klatkę:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8174"/>
         <source>roll speed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Prędkość przechylania:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8200"/>
         <source>Show thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetl podglądy</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8207"/>
         <source>rotation speed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Prędkość obrotu:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8214"/>
         <source>Add flight and rotation speed to parameters
 (needed to continue recording animation)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj prędkość lotu i obrotu do parametrów
+(konieczne do kontynuowania nagrywania animacji)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8264"/>
         <source>Keyframe animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animacja z klatkami kluczowymi</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8276"/>
         <source>Comming soon</source>
-        <translation type="unfinished"></translation>
+        <translation>Będzie wkrótce</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8300"/>
@@ -1877,12 +1880,12 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="8430"/>
         <source>Show animation dock</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetl dok z animacją</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8438"/>
         <source>Stack all docks</source>
-        <translation type="unfinished"></translation>
+        <translation>Ułuż wszystkie doki na stosie</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="477"/>
@@ -2026,60 +2029,60 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="130"/>
         <source>LMB - increase speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Lewy - zwiększ prędkość</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="131"/>
         <source>
 RMB - decrease speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Prawy - zmniejsz prędkość</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="132"/>
         <source>
 arrow keys - strafe</source>
-        <translation type="unfinished"></translation>
+        <translation>Klawisze strzałek - na boki</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="133"/>
         <source>
 z, x keys - roll</source>
-        <translation type="unfinished"></translation>
+        <translation>klaw. z,x - pochylanie</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="134"/>
         <source>
 spacebar - pause</source>
-        <translation type="unfinished"></translation>
+        <translation>spacja - pauza</translation>
     </message>
 </context>
 <context>
     <name>cFlightAnimation</name>
     <message>
-        <location filename="../src/animation_flight.cpp" line="183"/>
+        <location filename="../src/animation_flight.cpp" line="143"/>
         <source>waiting 3 seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>Czekanie 3 sekundy</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="261"/>
+        <location filename="../src/animation_flight.cpp" line="221"/>
         <source>Recording flight animation. Frame: </source>
-        <translation type="unfinished"></translation>
+        <translation>Nagrywanie animacji lotu. Klatka:</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="267"/>
+        <location filename="../src/animation_flight.cpp" line="227"/>
         <source>Paused. Frame: </source>
-        <translation type="unfinished"></translation>
+        <translation>Pauza. Klatka:</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="435"/>
-        <location filename="../src/animation_flight.cpp" line="437"/>
+        <location filename="../src/animation_flight.cpp" line="395"/>
+        <location filename="../src/animation_flight.cpp" line="397"/>
         <source>preview</source>
-        <translation type="unfinished"></translation>
+        <translation>podgląd</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="661"/>
+        <location filename="../src/animation_flight.cpp" line="621"/>
         <source>Refreshing animation frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Odświeżenie klatek animacji</translation>
     </message>
 </context>
 </TS>
