@@ -1,4 +1,4 @@
-MANDELBULBER 2.02
+MANDELBULBER 2.03
 
 project leader: Krzysztof Marczak
 project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa, Sebastian Jennen
@@ -22,7 +22,7 @@ packages needed to run: libqt5gui5, libpng12-0
 packages needed to compile: qt5-default, libpng12-dev, qttools5-dev, qttools5-dev-tools
 
 On Ubuntu or Debian: 
-apt-get install libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgsl0-dev libgsl0ldbl qtmultimedia5-dev libqt5multimedia5-plugins
+apt-get install libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools
 
 Then:
 
