@@ -33,72 +33,12 @@
         <location filename="../qt_data/primitive_torus.ui" line="14"/>
         <location filename="../qt_data/primitive_water.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_aexion.ui" line="78"/>
         <source>c add</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="34"/>
-        <source>Scale X</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="41"/>
-        <source>Invert Z</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="54"/>
-        <source>Invert X</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="85"/>
-        <source>Invert Y</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="95"/>
-        <source>Scale Z</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="102"/>
-        <source>Scale Y</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="109"/>
-        <source>Offset X</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="116"/>
-        <source>Offset Y</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="123"/>
-        <source>Offset Z</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="130"/>
-        <source>Angle Mult X</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="137"/>
-        <source>Angle Mult Y</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_basic.ui" line="144"/>
-        <source>Angle Mult Z</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_benesi.ui" line="20"/>
@@ -110,17 +50,55 @@
         <location filename="../qt_data/fractal_menger_sponge.ui" line="20"/>
         <location filename="../qt_data/fractal_quaternion.ui" line="20"/>
         <source>No parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak parametrów</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_boxfold_bulbpow2.ui" line="59"/>
         <source>Z scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala osi z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_boxfold_bulbpow2.ui" line="123"/>
         <source>Box fold:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie sześcienne:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_ifs.ui" line="35"/>
+        <source>Presets</source>
+        <translation>Predefiniowane</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="612"/>
+        <location filename="../qt_data/fractal_ifs.ui" line="73"/>
+        <source>Dodecahedron</source>
+        <translation>Dwunastościan</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="617"/>
+        <source>Octahedron / Cube</source>
+        <translation>Ośmiościan / Sześcian</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="622"/>
+        <location filename="../qt_data/fractal_ifs.ui" line="80"/>
+        <source>Icosahedron</source>
+        <translation>Dwudziestościan</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="607"/>
+        <location filename="../qt_data/fractal_ifs.ui" line="87"/>
+        <source>Octahedron</source>
+        <translation>Ośmiościan</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_ifs.ui" line="94"/>
+        <source>Menger Sponge</source>
+        <translation>Gąbka Mengera</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_ifs.ui" line="101"/>
+        <source>Reset</source>
+        <translation>Resetuj</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="20"/>
@@ -129,180 +107,22 @@
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="35"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="35"/>
         <source>Main parameters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="31"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="61"/>
-        <source>Spherical fold size:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="38"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="68"/>
-        <source>R power:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="125"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="155"/>
-        <source>Box fold size:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="132"/>
-        <location filename="../qt_data/fractal_ifs.ui" line="274"/>
-        <location filename="../qt_data/fractal_mandelbox.ui" line="181"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="162"/>
-        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="163"/>
-        <source>Scale:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="205"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="235"/>
-        <source>Vary scale:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="256"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="286"/>
-        <source>w-axis constant:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="306"/>
-        <location filename="../qt_data/fractal_mandelbox.ui" line="1655"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="336"/>
-        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="501"/>
-        <source>Coloring parameters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="314"/>
-        <location filename="../qt_data/fractal_mandelbox.ui" line="1681"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="362"/>
-        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="527"/>
-        <source>Min radius component:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="321"/>
-        <location filename="../qt_data/fractal_mandelbox.ui" line="1688"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="369"/>
-        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="534"/>
-        <source>Y plane component:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="404"/>
-        <location filename="../qt_data/fractal_mandelbox.ui" line="1771"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="452"/>
-        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="617"/>
-        <source>X plane component:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="411"/>
-        <location filename="../qt_data/fractal_mandelbox.ui" line="1778"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="459"/>
-        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="624"/>
-        <source>Z plane component:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="472"/>
-        <location filename="../qt_data/fractal_mandelbox.ui" line="1839"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="520"/>
-        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="685"/>
-        <source>Absolute value of z:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="501"/>
-        <location filename="../qt_data/fractal_mandelbox.ui" line="1868"/>
-        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="549"/>
-        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="714"/>
-        <source>Fixed radius component:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="589"/>
-        <source>Generalized FoldBox Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="597"/>
-        <source>Tetrahedron</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="602"/>
-        <source>Cube</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="607"/>
-        <location filename="../qt_data/fractal_ifs.ui" line="87"/>
-        <source>Octahedron</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="612"/>
-        <location filename="../qt_data/fractal_ifs.ui" line="73"/>
-        <source>Dodecahedron</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="617"/>
-        <source>Octahedron / Cube</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="622"/>
-        <location filename="../qt_data/fractal_ifs.ui" line="80"/>
-        <source>Icosahedron</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="627"/>
-        <source>Box 6</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="632"/>
-        <source>Box 5</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_ifs.ui" line="35"/>
-        <source>Presets</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_ifs.ui" line="94"/>
-        <source>Menger Sponge</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_ifs.ui" line="101"/>
-        <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Główne parametry</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="139"/>
         <source>abs (x)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="146"/>
         <source>abs (z)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="175"/>
         <source>vector offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie wektora:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="188"/>
@@ -323,7 +143,7 @@
         <location filename="../qt_data/primitive_torus.ui" line="381"/>
         <location filename="../qt_data/primitive_water.ui" line="56"/>
         <source>z:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="204"/>
@@ -344,7 +164,7 @@
         <location filename="../qt_data/primitive_torus.ui" line="201"/>
         <location filename="../qt_data/primitive_water.ui" line="328"/>
         <source>y:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="220"/>
@@ -365,24 +185,33 @@
         <location filename="../qt_data/primitive_torus.ui" line="391"/>
         <location filename="../qt_data/primitive_water.ui" line="370"/>
         <source>x:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="132"/>
+        <location filename="../qt_data/fractal_ifs.ui" line="274"/>
+        <location filename="../qt_data/fractal_mandelbox.ui" line="181"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="162"/>
+        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="163"/>
+        <source>Scale:</source>
+        <translation>Skala:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="297"/>
         <source>abs (y)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="374"/>
         <source>Menger Sponge mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryb Gąbki Mengera</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="386"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="457"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="332"/>
         <source>Main rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Główny obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="441"/>
@@ -396,7 +225,7 @@
         <location filename="../qt_data/fractal_mandelbox.ui" line="1589"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="387"/>
         <source>beta</source>
-        <translation type="unfinished"></translation>
+        <translation>beta</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="473"/>
@@ -410,7 +239,7 @@
         <location filename="../qt_data/fractal_mandelbox.ui" line="1579"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="419"/>
         <source>alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>alfa</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="496"/>
@@ -424,204 +253,320 @@
         <location filename="../qt_data/fractal_mandelbox.ui" line="1412"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="442"/>
         <source>gamma</source>
-        <translation type="unfinished"></translation>
+        <translation>gamma</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="555"/>
         <source>Box folding</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie sześcienne</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="746"/>
         <source>edge:</source>
-        <translation type="unfinished"></translation>
+        <translation>Krawędź:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="758"/>
         <source>Vectors</source>
-        <translation type="unfinished"></translation>
+        <translation>Wektory</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="972"/>
         <source>#2:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="988"/>
         <source>y</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1211"/>
         <source>#8:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1291"/>
         <source>#6:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1364"/>
         <source>intens.</source>
-        <translation type="unfinished"></translation>
+        <translation>intens.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1434"/>
         <source>dist.</source>
-        <translation type="unfinished"></translation>
+        <translation>dyst.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1539"/>
         <source>#1:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1610"/>
         <source>#9:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2138"/>
         <source>#4:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2486"/>
         <source>enable:</source>
-        <translation type="unfinished"></translation>
+        <translation>aktywuj:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2820"/>
         <source>z</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2836"/>
         <source>x</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2846"/>
         <source>#5:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3284"/>
         <source>#7:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3316"/>
         <source>direction:</source>
-        <translation type="unfinished"></translation>
+        <translation>kierunek:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3618"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrót</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3732"/>
         <source>#3:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="61"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="61"/>
         <source>Box folding value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartość zawijania 
+sześciennego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="90"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="68"/>
         <source>Spherical folding
 fixed radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stały promień
+zawijania sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="130"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="156"/>
         <source>Box folding limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Granica zawijania
+sześciennego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="270"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="252"/>
         <source>Spherical folding
 min radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimalny promień
+zawijania sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="278"/>
         <source>Spherical folding
 offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie zawijania
+sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="626"/>
         <source>Rotation of separate planes</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrót poszczególnych płaszczyzn</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="650"/>
         <source>X Axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Oś-X</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="952"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1078"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1422"/>
         <source>Positive plane</source>
-        <translation type="unfinished"></translation>
+        <translation>Płaszczyzna dodatnia</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="962"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1088"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1432"/>
         <source>Negative plane</source>
-        <translation type="unfinished"></translation>
+        <translation>Płaszczyzna ujemna</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="984"/>
         <source>Y Axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Oś-Y</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1318"/>
         <source>Z Axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Oś-Z</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="306"/>
+        <location filename="../qt_data/fractal_mandelbox.ui" line="1655"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="336"/>
+        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="501"/>
+        <source>Coloring parameters</source>
+        <translation>Parametry kolorowania</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="314"/>
+        <location filename="../qt_data/fractal_mandelbox.ui" line="1681"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="362"/>
+        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="527"/>
+        <source>Min radius component:</source>
+        <translation>Składnik minimalnego promienia:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="321"/>
+        <location filename="../qt_data/fractal_mandelbox.ui" line="1688"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="369"/>
+        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="534"/>
+        <source>Y plane component:</source>
+        <translation>Składnik płaszczyzny Y:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="404"/>
+        <location filename="../qt_data/fractal_mandelbox.ui" line="1771"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="452"/>
+        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="617"/>
+        <source>X plane component:</source>
+        <translation>Składnik płaszczyzny X:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="411"/>
+        <location filename="../qt_data/fractal_mandelbox.ui" line="1778"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="459"/>
+        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="624"/>
+        <source>Z plane component:</source>
+        <translation>Składnik płaszczyzny Z:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="472"/>
+        <location filename="../qt_data/fractal_mandelbox.ui" line="1839"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="520"/>
+        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="685"/>
+        <source>Absolute value of z:</source>
+        <translation>Wartość bezwzględna z:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="501"/>
+        <location filename="../qt_data/fractal_mandelbox.ui" line="1868"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="549"/>
+        <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="714"/>
+        <source>Fixed radius component:</source>
+        <translation>Składnik stałego promienia:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="589"/>
+        <source>Generalized FoldBox Type</source>
+        <translation>Typ Generalized FoldBox</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="597"/>
+        <source>Tetrahedron</source>
+        <translation>Czworościan</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="602"/>
+        <source>Cube</source>
+        <translation>Sześcian</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="627"/>
+        <source>Box 6</source>
+        <translation>Sześcian 6</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="632"/>
+        <source>Box 5</source>
+        <translation>Sześcian 5</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="31"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="61"/>
+        <source>Spherical fold size:</source>
+        <translation>Promień zawijania sferycznego:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="38"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="68"/>
+        <source>R power:</source>
+        <translation>potęga R:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="125"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="155"/>
+        <source>Box fold size:</source>
+        <translation>Wielkość sześcianu zawijania:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="205"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="235"/>
+        <source>Vary scale:</source>
+        <translation>Zmienna skala:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_generalized_fold_box.ui" line="256"/>
+        <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="286"/>
+        <source>w-axis constant:</source>
+        <translation>stała osi-W:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb4.ui" line="100"/>
         <location filename="../qt_data/fractal_mandelbulb.ui" line="62"/>
         <location filename="../qt_data/fractal_xenodreambuie.ui" line="100"/>
         <source>Alpha angle offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie kąta alfa:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb4.ui" line="164"/>
         <location filename="../qt_data/fractal_mandelbulb.ui" line="126"/>
         <location filename="../qt_data/fractal_xenodreambuie.ui" line="164"/>
         <source>Power:</source>
-        <translation type="unfinished"></translation>
+        <translation>Potęga:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb4.ui" line="171"/>
         <location filename="../qt_data/fractal_mandelbulb.ui" line="133"/>
         <location filename="../qt_data/fractal_xenodreambuie.ui" line="171"/>
         <source>Beta angle offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie kąta beta:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb4.ui" line="178"/>
         <source>Gamma angle offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesunięcie kata gamma:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="282"/>
         <source>Sharpness:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostrość:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="40"/>
@@ -633,7 +578,7 @@ offset:</source>
         <location filename="../qt_data/primitive_torus.ui" line="164"/>
         <location filename="../qt_data/primitive_water.ui" line="73"/>
         <source>Y-axis rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>obrót osi Y:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="72"/>
@@ -645,7 +590,7 @@ offset:</source>
         <location filename="../qt_data/primitive_torus.ui" line="358"/>
         <location filename="../qt_data/primitive_water.ui" line="380"/>
         <source>X-axis rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>obrót osi X:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="111"/>
@@ -658,7 +603,7 @@ offset:</source>
         <location filename="../qt_data/primitive_torus.ui" line="141"/>
         <location filename="../qt_data/primitive_water.ui" line="202"/>
         <source>Position:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozycja:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="223"/>
@@ -671,7 +616,7 @@ offset:</source>
         <location filename="../qt_data/primitive_torus.ui" line="278"/>
         <location filename="../qt_data/primitive_water.ui" line="338"/>
         <source>PushButton</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="230"/>
@@ -684,29 +629,29 @@ offset:</source>
         <location filename="../qt_data/primitive_torus.ui" line="57"/>
         <location filename="../qt_data/primitive_water.ui" line="66"/>
         <source>Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="263"/>
         <source>rounding:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaokrąglenie:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="298"/>
         <source>Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wielkośc:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="305"/>
         <source>depth (y):</source>
-        <translation type="unfinished"></translation>
+        <translation>głębokość (y):</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="315"/>
         <location filename="../qt_data/primitive_cone.ui" line="235"/>
         <location filename="../qt_data/primitive_cylinder.ui" line="270"/>
         <source>height (z):</source>
-        <translation type="unfinished"></translation>
+        <translation>wysokość (z):</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="338"/>
@@ -718,13 +663,13 @@ offset:</source>
         <location filename="../qt_data/primitive_torus.ui" line="50"/>
         <location filename="../qt_data/primitive_water.ui" line="387"/>
         <source>Z-axis rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>obrót osi Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="345"/>
         <location filename="../qt_data/primitive_rectangle.ui" line="281"/>
         <source>width (x):</source>
-        <translation type="unfinished"></translation>
+        <translation>szerokość (x):</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="355"/>
@@ -735,7 +680,7 @@ offset:</source>
         <location filename="../qt_data/primitive_torus.ui" line="181"/>
         <location filename="../qt_data/primitive_water.ui" line="430"/>
         <source>Empty inside</source>
-        <translation type="unfinished"></translation>
+        <translation>Pusty w środku</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="362"/>
@@ -748,7 +693,7 @@ offset:</source>
         <location filename="../qt_data/primitive_torus.ui" line="246"/>
         <location filename="../qt_data/primitive_water.ui" line="304"/>
         <source>Reflection:</source>
-        <translation type="unfinished"></translation>
+        <translation>Odbicie światła:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="385"/>
@@ -757,59 +702,121 @@ offset:</source>
         <location filename="../qt_data/primitive_sphere.ui" line="134"/>
         <location filename="../qt_data/primitive_torus.ui" line="351"/>
         <source>Repeat</source>
-        <translation type="unfinished"></translation>
+        <translation>Powtórzenie</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_circle.ui" line="153"/>
         <location filename="../qt_data/primitive_cone.ui" line="252"/>
         <location filename="../qt_data/primitive_cylinder.ui" line="254"/>
         <source>radius (x-y plane):</source>
-        <translation type="unfinished"></translation>
+        <translation>promień 
+(płaszczyzna x-y):</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_cone.ui" line="414"/>
         <location filename="../qt_data/primitive_cylinder.ui" line="147"/>
         <source>Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakończenia</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_rectangle.ui" line="291"/>
         <source>height (y):</source>
-        <translation type="unfinished"></translation>
+        <translation>wysokość (z):</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_sphere.ui" line="59"/>
         <source>Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Promień:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_torus.ui" line="134"/>
         <source>Torus radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Promień torusa:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_torus.ui" line="401"/>
         <source>Tube radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Promień tuby:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_water.ui" line="118"/>
         <source>Wave speed (anim.):</source>
-        <translation type="unfinished"></translation>
+        <translation>Prędkośc fali 
+(animacja):</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_water.ui" line="195"/>
         <source>Wave amplitude:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplituda fali:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_water.ui" line="394"/>
         <source>Wave length:</source>
-        <translation type="unfinished"></translation>
+        <translation>Długośc fali:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_water.ui" line="401"/>
         <source>Iterations:</source>
+        <translation>Iteracje:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="34"/>
+        <source>Scale X</source>
+        <translation>Skala X</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="41"/>
+        <source>Invert Z</source>
+        <translation>Odwrócenie Z</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="54"/>
+        <source>Invert X</source>
+        <translation>Odwrócenie X</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="85"/>
+        <source>Invert Y</source>
+        <translation>Odrwrócenie Y</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="95"/>
+        <source>Scale Z</source>
+        <translation>Skala Z</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="102"/>
+        <source>Scale Y</source>
+        <translation>Skala Y</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="109"/>
+        <source>Offset X</source>
+        <translation>Przesunięcie X</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="116"/>
+        <source>Offset Y</source>
+        <translation>Przesunięcie Y</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="123"/>
+        <source>Offset Z</source>
+        <translation>Przesunięcie Z</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="130"/>
+        <source>Angle Mult X</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="137"/>
+        <source>Angle Mult Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_basic.ui" line="144"/>
+        <source>Angle Mult Z</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
