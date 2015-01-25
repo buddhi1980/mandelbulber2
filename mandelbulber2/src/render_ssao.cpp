@@ -125,7 +125,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 
 	while (totalDone < toDo)
 	{
-		application->processEvents();
+		gApplication->processEvents();
 
 		Wait(100);
 
@@ -159,7 +159,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	{
 		while(thread[i]->isRunning())
 		{
-			application->processEvents();
+			gApplication->processEvents();
 		};
 		WriteLog(QString("Thread ") + QString::number(i) + " finished");
 		delete thread[i];

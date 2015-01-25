@@ -57,12 +57,12 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 	QString progressTxt;
 
 	emit updateProgressAndStatus(statusText, QObject::tr("Sorting zBuffer"), 0.0);
-	application->processEvents();
+	gApplication->processEvents();
 
 	QuickSortZBuffer(temp_sort, 1, height * width - 1);
 
 	emit updateProgressAndStatus(statusText, QObject::tr("Randomizing zBuffer"), 0.0);
-	application->processEvents();
+	gApplication->processEvents();
 
 
 	//Randomize Z-buffer
@@ -130,7 +130,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 	double percentDone = 0.0;
 
 	emit updateProgressAndStatus(statusText, progressText.getText(0.0), 0.0);
-	application->processEvents();
+	gApplication->processEvents();
 
 	QElapsedTimer timerRefresh;
 	timerRefresh.start();
@@ -194,7 +194,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 			progressTxt = progressText.getText(percentDone);
 
 			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-			application->processEvents();
+			gApplication->processEvents();
 
 		}
 

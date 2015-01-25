@@ -94,9 +94,9 @@ void cInterface::ShowUi(void)
 
 	//setup main image
 	mainImage = new cImage(gPar->Get<int>("image_width"),gPar->Get<int>("image_height"));
-	mainImage->CreatePreview(1.0, 800, 600, mainInterface->renderedImage);
-	renderedImage->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(),mainInterface->mainImage->GetPreviewHeight());
-	renderedImage->AssignImage(mainInterface->mainImage);
+	mainImage->CreatePreview(1.0, 800, 600, gMainInterface->renderedImage);
+	renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(),gMainInterface->mainImage->GetPreviewHeight());
+	renderedImage->AssignImage(gMainInterface->mainImage);
 	renderedImage->AssignParameters(gPar);
 
 	WriteLog("Prepare progress and status bar");
@@ -1354,7 +1354,7 @@ void cInterface::RefreshMainImage()
 		data.numberOfThreads = systemData.numberOfThreads;
 		data.stopRequest = &stopRequest;
 		cRenderSSAO rendererSSAO(&params, &data, mainImage);
-		QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 
 		rendererSSAO.RenderSSAO();
 	}
@@ -1363,7 +1363,7 @@ void cInterface::RefreshMainImage()
 	{
 		cParamRender params(gPar);
 		cPostRenderingDOF dof(mainImage);
-		QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		dof.Render(params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0, params.DOFFocus, &stopRequest);
 	}
 
@@ -1966,7 +1966,7 @@ void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
 		QApplication::connect(action, SIGNAL(triggered()), mapPresetsFromExamples, SLOT (map()));
 		QApplication::connect(mapPresetsFromExamples, SIGNAL(mapped(QString)), window, SLOT(slotMenuLoadPreset(QString)));
 
-		application->processEvents();
+		gApplication->processEvents();
 	}
 	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) finished");
 }
@@ -1991,7 +1991,7 @@ bool cInterface::QuitApplicationDialog()
 		{
 			stopRequest = true;
 
-			application->quit();
+			gApplication->quit();
 			quit = true;
 			break;
 		}
