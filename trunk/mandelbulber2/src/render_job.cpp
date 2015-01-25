@@ -99,7 +99,7 @@ bool cRenderJob::Init(enumMode _mode)
 	if (parentObject)
 	{
 		emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
-		application->processEvents();
+		gApplication->processEvents();
 	}
 
 	if(!InitImage(width, height))
@@ -134,7 +134,7 @@ bool cRenderJob::Init(enumMode _mode)
 	if(parentObject)
 	{
 		emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
-		application->processEvents();
+		gApplication->processEvents();
 	}
 
 	if(paramsContainer->Get<bool>("textured_background"))

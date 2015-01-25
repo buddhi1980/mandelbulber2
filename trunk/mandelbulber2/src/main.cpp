@@ -39,12 +39,12 @@ int main(int argc, char *argv[])
 	qInstallMessageHandler(myMessageOutput);
 
 	//class for interface windows
-	mainInterface = new cInterface;
+	gMainInterface = new cInterface;
 
 	WriteLog("Prepare QApplication");
-	application = new QApplication(argc, argv);
-	application->setOrganizationName("Mandelbulber");
-	application->setApplicationName("Mandelbulber");
+	gApplication = new QApplication(argc, argv);
+	gApplication->setOrganizationName("Mandelbulber");
+	gApplication->setApplicationName("Mandelbulber");
 
 	// Set language from locale
 	QTranslator main_translator;
@@ -54,8 +54,8 @@ int main(int argc, char *argv[])
 	main_translator.load(locale, systemData.sharedDir + QDir::separator() + "language");
 	qt_data_translator.load("qt_data_" + locale, systemData.sharedDir + QDir::separator() + "language");
 
-	application->installTranslator(&main_translator);
-	application->installTranslator(&qt_data_translator);
+	gApplication->installTranslator(&main_translator);
+	gApplication->installTranslator(&qt_data_translator);
 
 	//Create default directiories and copy all needed files
 	WriteLog("CreateDefaultFolders()");
@@ -78,27 +78,27 @@ int main(int argc, char *argv[])
 	//Define list of fractal formulas
 	DefineFractalList(&fractalList);
 
-	mainInterface->ShowUi();
+	gMainInterface->ShowUi();
 
 	//Alocate container for animation frames
 	gAnimFrames = new cAnimationFrames;
 
-	gFlightAnimation = new cFlightAnimation(mainInterface, gAnimFrames, mainInterface->mainWindow);
+	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainWindow);
 
 	//write parameters to ui
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
 	//start main Qt loop
 	WriteLog("application->exec()");
-	int result = application->exec();
+	int result = gApplication->exec();
 
 	//clean objects when exit
 	delete gPar;
 	delete gParFractal;
 	delete gFlightAnimation;
 	delete gAnimFrames;
-	delete mainInterface;
-	delete application;
+	delete gMainInterface;
+	delete gApplication;
 	return result;
 }
 

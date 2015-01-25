@@ -33,8 +33,8 @@
 extern cParameterContainer *gPar;
 extern cFractalContainer *gParFractal;
 extern cAnimationFrames *gAnimFrames;
-extern cInterface *mainInterface;
+extern cInterface *gMainInterface;
 extern cFlightAnimation *gFlightAnimation;
-extern QApplication *application;
+extern QApplication *gApplication;
 
 #endif /* SRC_GLOBAL_DATA_HPP_ */

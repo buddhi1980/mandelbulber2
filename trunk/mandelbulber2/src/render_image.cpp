@@ -105,7 +105,7 @@ bool cRenderer::RenderImage()
 		{
 			if(parentObject)
 			{
-				application->processEvents();
+				gApplication->processEvents();
 			}
 
 			if (*data->stopRequest || progressText.getTime() > data->maxRenderTime)
@@ -168,7 +168,7 @@ bool cRenderer::RenderImage()
 		{
 			while(thread[i]->isRunning())
 			{
-				application->processEvents();
+				gApplication->processEvents();
 			};
 			WriteLog(QString("Thread ") + QString::number(i) + " finished");
 			delete thread[i];

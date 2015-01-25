@@ -73,14 +73,14 @@ RenderWindow::~RenderWindow()
 
 void RenderWindow::slotStartRender(void)
 {
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	gUndo.Store(gPar, gParFractal);
-	mainInterface->StartRender();
+	gMainInterface->StartRender();
 }
 
 void RenderWindow::slotStopRender(void)
 {
-	mainInterface->stopRequest = true;
+	gMainInterface->stopRequest = true;
 }
 
 void RenderWindow::slotDoubleSpinBoxChanged(double value)
@@ -88,7 +88,7 @@ void RenderWindow::slotDoubleSpinBoxChanged(double value)
 	using namespace std;
 	QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+	gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
 	QString sliderName = QString("slider_") + parameterName;
 
 	QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
@@ -107,7 +107,7 @@ void RenderWindow::slotLogLineEditChanged(const QString &text)
 	using namespace std;
 	QString lineEditName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(lineEditName, &parameterName, &type);
+	gMainInterface->GetNameAndType(lineEditName, &parameterName, &type);
 	QString sliderName = QString("logslider_") + parameterName;
 
 	QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
@@ -135,7 +135,7 @@ void RenderWindow::slotIntSpinBoxChanged(int value)
 	using namespace std;
 	QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+	gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
 	QString sliderName = QString("sliderInt_") + parameterName;
 
 	QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
@@ -154,7 +154,7 @@ void RenderWindow::slotSpinBox3Changed(double value)
 	using namespace std;
 	QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+	gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
 	QString sliderName = QString("slider3_") + parameterName;
 
 	QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
@@ -173,7 +173,7 @@ void RenderWindow::slotSpinBoxD3Changed(double value)
 	using namespace std;
 	QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+	gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
 	QString dialName = QString("dial3_") + parameterName;
 
 	QDial *dial = this->sender()->parent()->findChild<QDial*>(dialName);
@@ -192,7 +192,7 @@ void RenderWindow::slotSpinBoxDChanged(double value)
 	using namespace std;
 	QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
+	gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
 	QString dialName = QString("dial_") + parameterName;
 
 	QDial *dial = this->sender()->parent()->findChild<QDial*>(dialName);
@@ -211,7 +211,7 @@ void RenderWindow::slotSliderMoved(int value)
 	using namespace std;
 	QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
+	gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
 	QString spinBoxName = QString("spinbox_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
@@ -230,7 +230,7 @@ void RenderWindow::slotLogSliderMoved(int value)
 	using namespace std;
 	QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
+	gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
 	QString lineEditName = QString("logedit_") + parameterName;
 
 	QLineEdit *lineEdit = this->sender()->parent()->findChild<QLineEdit*>(lineEditName);
@@ -251,7 +251,7 @@ void RenderWindow::slotIntSliderMoved(int value)
 	using namespace std;
 	QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
+	gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
 	QString spinboxName = QString("spinboxInt_") + parameterName;
 
 	QSpinBox *spinbox = this->sender()->parent()->findChild<QSpinBox*>(spinboxName);
@@ -270,7 +270,7 @@ void RenderWindow::slotSlider3Moved(int value)
 	using namespace std;
 	QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
+	gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
 	QString spinBoxName = QString("spinbox3_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
@@ -289,7 +289,7 @@ void RenderWindow::slotDial3Moved(int value)
 	using namespace std;
 	QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
+	gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
 	QString spinBoxName = QString("spinboxd3_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
@@ -308,7 +308,7 @@ void RenderWindow::slotDialMoved(int value)
 	using namespace std;
 	QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
-	mainInterface->GetNameAndType(sliderName, &parameterName, &type);
+	gMainInterface->GetNameAndType(sliderName, &parameterName, &type);
 	QString spinBoxName = QString("spinboxd_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
@@ -359,8 +359,8 @@ void RenderWindow::slotChangedComboFractal(int index)
 			layout->addWidget(fractalWidgets[fractalNumber]);
 			uiFile.close();
 			fractalWidgets[fractalNumber]->show();
-			mainInterface->ConnectSignalsForSlidersInWindow(fractalWidgets[fractalNumber]);
-			mainInterface->SynchronizeInterfaceWindow(fractalWidgets[fractalNumber], &gParFractal->at(fractalNumber), cInterface::write);
+			gMainInterface->ConnectSignalsForSlidersInWindow(fractalWidgets[fractalNumber]);
+			gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[fractalNumber], &gParFractal->at(fractalNumber), cInterface::write);
 
 			if(fractalList[index].internalID == fractal::kaleidoscopicIFS)
 			{
@@ -378,7 +378,7 @@ void RenderWindow::slotChangedComboFractal(int index)
 		}
 		else
 		{
-			cErrorMessage::showMessage(QString("Can't open file ") + uiFilename + QString("\nFractal ui file can't be loaded"), cErrorMessage::errorMessage, mainInterface->mainWindow);
+			cErrorMessage::showMessage(QString("Can't open file ") + uiFilename + QString("\nFractal ui file can't be loaded"), cErrorMessage::errorMessage, gMainInterface->mainWindow);
 		}
 	}
 	else
@@ -391,66 +391,66 @@ void RenderWindow::slotChangedComboFractal(int index)
 
 void RenderWindow::slotResizedScrolledAreaImage(int width, int height)
 {
-	if (mainInterface->mainImage)
+	if (gMainInterface->mainImage)
 	{
 		int selectedScale = ui->comboBox_image_preview_scale->currentIndex();
 
 		if (selectedScale == 0)
 		{
-			double scale = CalcMainImageScale(0.0, width, height, mainInterface->mainImage);
-			mainInterface->mainImage->CreatePreview(scale, width, height, mainInterface->renderedImage);
-			mainInterface->mainImage->UpdatePreview();
-			mainInterface->renderedImage->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(), mainInterface->mainImage->GetPreviewHeight());
+			double scale = CalcMainImageScale(0.0, width, height, gMainInterface->mainImage);
+			gMainInterface->mainImage->CreatePreview(scale, width, height, gMainInterface->renderedImage);
+			gMainInterface->mainImage->UpdatePreview();
+			gMainInterface->renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(), gMainInterface->mainImage->GetPreviewHeight());
 		}
 	}
 }
 
 void RenderWindow::slotChangedComboImageScale(int index)
 {
-	if (mainInterface->mainImage)
+	if (gMainInterface->mainImage)
 	{
 		double scale = ImageScaleComboSelection2Double(index);
 		int areaWidth = ui->scrollAreaForImage->VisibleAreaWidth();
 		int areaHeight = ui->scrollAreaForImage->VisibleAreaHeight();
-		scale = CalcMainImageScale(scale, areaWidth, areaHeight, mainInterface->mainImage);
+		scale = CalcMainImageScale(scale, areaWidth, areaHeight, gMainInterface->mainImage);
 
-		mainInterface->mainImage->CreatePreview(scale, areaWidth, areaHeight, mainInterface->renderedImage);
-		mainInterface->mainImage->UpdatePreview();
-		mainInterface->renderedImage->setMinimumSize(mainInterface->mainImage->GetPreviewWidth(), mainInterface->mainImage->GetPreviewHeight());
+		gMainInterface->mainImage->CreatePreview(scale, areaWidth, areaHeight, gMainInterface->renderedImage);
+		gMainInterface->mainImage->UpdatePreview();
+		gMainInterface->renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(), gMainInterface->mainImage->GetPreviewHeight());
 	}
 }
 
 void RenderWindow::slotCameraMove()
 {
 	QString buttonName = this->sender()->objectName();
-	mainInterface->MoveCamera(buttonName);
+	gMainInterface->MoveCamera(buttonName);
 }
 
 void RenderWindow::slotCameraRotation()
 {
 	QString buttonName = this->sender()->objectName();
-	mainInterface->RotateCamera(buttonName);
+	gMainInterface->RotateCamera(buttonName);
 }
 
 void RenderWindow::slotCameraOrTargetEdited()
 {
-	mainInterface->CameraOrTargetEdited();
+	gMainInterface->CameraOrTargetEdited();
 }
 
 void RenderWindow::slotRotationEdited()
 {
-	mainInterface->RotationEdited();
+	gMainInterface->RotationEdited();
 }
 
 void RenderWindow::slotCameraDistanceEdited()
 {
-	mainInterface->CameraDistanceEdited();
+	gMainInterface->CameraDistanceEdited();
 }
 
 void RenderWindow::slotCameraDistanceSlider(int value)
 {
 	(void)value;
-	mainInterface->CameraDistanceEdited();
+	gMainInterface->CameraDistanceEdited();
 }
 
 void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
@@ -469,7 +469,7 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 void RenderWindow::slotMenuSaveSettings()
 {
 	cSettings parSettings(cSettings::formatCondensedText);
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames);
 
 	QFileDialog dialog(this);
@@ -498,7 +498,7 @@ void RenderWindow::slotMenuSaveSettings()
 
 void RenderWindow::slotMenuLoadSettings()
 {
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read); //update appParam before loading new settings
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read); //update appParam before loading new settings
 
 	cSettings parSettings(cSettings::formatFullText);
 
@@ -516,9 +516,9 @@ void RenderWindow::slotMenuLoadSettings()
 		QString filename = filenames.first();
 		parSettings.LoadFromFile(filename);
 		parSettings.Decode(gPar, gParFractal, gAnimFrames);
-		mainInterface->RebuildPrimitives(gPar);
-		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-		mainInterface->ComboMouseClickUpdate();
+		gMainInterface->RebuildPrimitives(gPar);
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		gMainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = filename;
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
 		gFlightAnimation->RefreshTable();
@@ -543,9 +543,9 @@ void RenderWindow::slotMenuLoadExample()
 		QString filename = filenames.first();
 		parSettings.LoadFromFile(filename);
 		parSettings.Decode(gPar, gParFractal, gAnimFrames);
-		mainInterface->RebuildPrimitives(gPar);
-		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-		mainInterface->ComboMouseClickUpdate();
+		gMainInterface->RebuildPrimitives(gPar);
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		gMainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = systemData.dataDirectory + "settings" + QDir::separator() + QFileInfo(filename).fileName();
 		this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 	}
@@ -570,9 +570,9 @@ void RenderWindow::slotImportOldSettings()
 		oldSettings::cOldSettings oldSettings;
 		oldSettings.LoadSettings(filename);
 		oldSettings.ConvertToNewContainer(gPar, gParFractal);
-		mainInterface->RebuildPrimitives(gPar);
-		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-		mainInterface->ComboMouseClickUpdate();
+		gMainInterface->RebuildPrimitives(gPar);
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		gMainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = filename;
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
 	}
@@ -582,41 +582,41 @@ void RenderWindow::slotImportOldSettings()
 void RenderWindow::slotPressedButtonIFSDefaultsDodecahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
-	mainInterface->IFSDefaultsDodecahedron(&gParFractal->at(index));
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	gMainInterface->IFSDefaultsDodecahedron(&gParFractal->at(index));
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsIcosahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
-	mainInterface->IFSDefaultsIcosahedron(&gParFractal->at(index));
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	gMainInterface->IFSDefaultsIcosahedron(&gParFractal->at(index));
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsOctahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
-	mainInterface->IFSDefaultsOctahedron(&gParFractal->at(index));
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	gMainInterface->IFSDefaultsOctahedron(&gParFractal->at(index));
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsMengerSponge()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
-	mainInterface->IFSDefaultsMengerSponge(&gParFractal->at(index));
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	gMainInterface->IFSDefaultsMengerSponge(&gParFractal->at(index));
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsReset()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
-	mainInterface->IFSDefaultsReset(&gParFractal->at(index));
-	mainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	gMainInterface->IFSDefaultsReset(&gParFractal->at(index));
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
 }
 
 void RenderWindow::slotMenuAboutQt()
@@ -657,11 +657,11 @@ void RenderWindow::slotMenuSaveImageJPEG()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image started"), 0.0, ui->statusbar, mainInterface->progressBar);
-		application->processEvents();
-		SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
-		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image finished"), 1.0, ui->statusbar, mainInterface->progressBar);
-		application->processEvents();
+		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
+		SaveJPEGQt(filename, gMainInterface->mainImage->ConvertTo8bit(), gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), 95);
+		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
 }
@@ -681,11 +681,11 @@ void RenderWindow::slotMenuSaveImagePNG8()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image started"), 0.0, ui->statusbar, mainInterface->progressBar);
-		application->processEvents();
-		SavePNG(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->ConvertTo8bit());
-		ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image finished"), 1.0, ui->statusbar, mainInterface->progressBar);
-		application->processEvents();
+		ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
+		SavePNG(filename, gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), gMainInterface->mainImage->ConvertTo8bit());
+		ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
 }
@@ -705,11 +705,11 @@ void RenderWindow::slotMenuSaveImagePNG16()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving PNG image started"), 0.0, ui->statusbar, mainInterface->progressBar);
-		application->processEvents();
-		SavePNG16(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->GetImage16Ptr());
-		ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving PNG image finished"), 1.0, ui->statusbar, mainInterface->progressBar);
-		application->processEvents();
+		ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving PNG image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
+		SavePNG16(filename, gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), gMainInterface->mainImage->GetImage16Ptr());
+		ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving PNG image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
 }
@@ -729,11 +729,11 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 0.0, ui->statusbar, mainInterface->progressBar);
-		application->processEvents();
-		SavePNG16Alpha(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage);
-		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 1.0, ui->statusbar, mainInterface->progressBar);
-		application->processEvents();
+		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
+		SavePNG16Alpha(filename, gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), gMainInterface->mainImage);
+		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
 }
@@ -754,7 +754,7 @@ void RenderWindow::slotPressedButtonSelectBackgroundTexture()
 		QString filename = filenames.first();
 		gPar->Set("file_background", filename);
 		ui->text_file_background->setText(filename);
-		mainInterface->ShowImageInLabel(ui->label_backgroundTextureView, filename);
+		gMainInterface->ShowImageInLabel(ui->label_backgroundTextureView, filename);
 	}
 }
 
@@ -774,7 +774,7 @@ void RenderWindow::slotPressedButtonSelectEnvMapTexture()
 		QString filename = filenames.first();
 		gPar->Set("file_envmap", filename);
 		ui->text_file_envmap->setText(filename);
-		mainInterface->ShowImageInLabel(ui->label_envmapTextureView, filename);
+		gMainInterface->ShowImageInLabel(ui->label_envmapTextureView, filename);
 	}
 }
 
@@ -794,7 +794,7 @@ void RenderWindow::slotPressedButtonSelectLightMapTexture()
 		QString filename = filenames.first();
 		gPar->Set("file_lightmap", filename);
 		ui->text_file_lightmap->setText(filename);
-		mainInterface->ShowImageInLabel(ui->label_lightmapTextureView, filename);
+		gMainInterface->ShowImageInLabel(ui->label_lightmapTextureView, filename);
 	}
 }
 
@@ -812,7 +812,7 @@ void RenderWindow::slotPressedButtonGetPaletteFromImage()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		cColorPalette palette = mainInterface->GetPaletteFromImage(filename);
+		cColorPalette palette = gMainInterface->GetPaletteFromImage(filename);
 		ui->colorpalette_surface_color_palette->SetPalette(palette);
 		systemData.lastImagePaletteFile = filename;
 	}
@@ -820,17 +820,17 @@ void RenderWindow::slotPressedButtonGetPaletteFromImage()
 
 void RenderWindow::slotEditedLineEditBackgroundTexture(const QString &text)
 {
-	mainInterface->ShowImageInLabel(ui->label_backgroundTextureView, text);
+	gMainInterface->ShowImageInLabel(ui->label_backgroundTextureView, text);
 }
 
 void RenderWindow::slotEditedLineEditEnvMapTexture(const QString &text)
 {
-	mainInterface->ShowImageInLabel(ui->label_envmapTextureView, text);
+	gMainInterface->ShowImageInLabel(ui->label_envmapTextureView, text);
 }
 
 void RenderWindow::slotEditedLineEditLightMapTexture(const QString &text)
 {
-	mainInterface->ShowImageInLabel(ui->label_lightmapTextureView, text);
+	gMainInterface->ShowImageInLabel(ui->label_lightmapTextureView, text);
 }
 
 void RenderWindow::slotChangedComboAmbientOcclussionMode(int index)
@@ -944,12 +944,12 @@ void RenderWindow::slotImageHeightChanged(int value)
 
 void RenderWindow::slotPressedButtonImageApply()
 {
-	mainInterface->RefreshMainImage();
+	gMainInterface->RefreshMainImage();
 }
 
 void RenderWindow::slotPressedButtonDOFUpdate()
 {
-	mainInterface->RefreshMainImage();
+	gMainInterface->RefreshMainImage();
 }
 
 void RenderWindow::slotChangedComboPerspectiveType(int index)
@@ -982,7 +982,7 @@ void RenderWindow::slotPressedButtonRandomize()
 
 void RenderWindow::slotPressedButtonNewRandomPalette()
 {
-	mainInterface->SynchronizeInterfaceWindow(ui->groupCheck_fractal_color, gPar, cInterface::read);
+	gMainInterface->SynchronizeInterfaceWindow(ui->groupCheck_fractal_color, gPar, cInterface::read);
 	cColorPalette palette(gPar->Get<int>("coloring_palette_size"), gPar->Get<int>("coloring_random_seed"), gPar->Get<double>("coloring_saturation"));
 	ui->colorpalette_surface_color_palette->SetPalette(palette);
 }
@@ -994,7 +994,7 @@ void RenderWindow::slotChangedSpinBoxPaletteSize(int value)
 
 void RenderWindow::slotPressedButtonAutoFog()
 {
-	mainInterface->AutoFog();
+	gMainInterface->AutoFog();
 }
 
 void RenderWindow::slotMouseMovedOnImage(int x, int y)
@@ -1020,7 +1020,7 @@ void RenderWindow::slotMouceClickOnImage(int x, int y, Qt::MouseButton button)
 		case RenderedImage::clickGetJuliaConstant:
 		case RenderedImage::clickPlacePrimitive:
 		{
-			mainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
+			gMainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
 			break;
 		}
 		case RenderedImage::clickDoNothing:
@@ -1033,7 +1033,7 @@ void RenderWindow::slotMouceClickOnImage(int x, int y, Qt::MouseButton button)
 
 void RenderWindow::slotMovementStepModeChanged(int index)
 {
-	mainInterface->MovementStepModeChanged(index);
+	gMainInterface->MovementStepModeChanged(index);
 }
 
 void RenderWindow::slotPressedButtonSetDOFByMouse()
@@ -1042,7 +1042,7 @@ void RenderWindow::slotPressedButtonSetDOFByMouse()
 	item.append((int)RenderedImage::clickDOFFocus);
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	mainInterface->renderedImage->setClickMode(item);
+	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void RenderWindow::slotPressedButtonSetFogByMouse()
@@ -1051,14 +1051,14 @@ void RenderWindow::slotPressedButtonSetFogByMouse()
 	item.append((int)RenderedImage::clickFogVisibility);
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	mainInterface->renderedImage->setClickMode(item);
+	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void RenderWindow::slotChangedComboMouseClickFunction(int index)
 {
 	QComboBox *comboBox = static_cast<QComboBox*>(this->sender());
 	QList<QVariant> item = comboBox->itemData(index).toList();
-	mainInterface->renderedImage->setClickMode(item);
+	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void RenderWindow::slotKeyPressOnImage(Qt::Key key)
@@ -1067,22 +1067,22 @@ void RenderWindow::slotKeyPressOnImage(Qt::Key key)
 	switch (key)
 	{
 		case Qt::Key_W:
-			mainInterface->MoveCamera("bu_move_up");
+			gMainInterface->MoveCamera("bu_move_up");
 			break;
 		case Qt::Key_S:
-			mainInterface->MoveCamera("bu_move_down");
+			gMainInterface->MoveCamera("bu_move_down");
 			break;
 		case Qt::Key_A:
-			mainInterface->MoveCamera("bu_move_left");
+			gMainInterface->MoveCamera("bu_move_left");
 			break;
 		case Qt::Key_D:
-			mainInterface->MoveCamera("bu_move_right");
+			gMainInterface->MoveCamera("bu_move_right");
 			break;
 		case Qt::Key_Up:
-			mainInterface->MoveCamera("bu_move_forward");
+			gMainInterface->MoveCamera("bu_move_forward");
 			break;
 		case Qt::Key_Down:
-			mainInterface->MoveCamera("bu_move_backward");
+			gMainInterface->MoveCamera("bu_move_backward");
 			break;
 		default:
 			break;
@@ -1116,12 +1116,12 @@ void RenderWindow::slotMouseWheelRotatedonImage(int delta)
 
 void RenderWindow::slotEditedLineEditManualLightPlacementDistance(const QString &text)
 {
-	mainInterface->renderedImage->SetFrontDist(text.toDouble());
+	gMainInterface->renderedImage->SetFrontDist(text.toDouble());
 }
 
 void RenderWindow::slotSliderMovedEditManualLightPlacementDistance(int value)
 {
-	mainInterface->renderedImage->SetFrontDist(pow(10.0, value/100.0));
+	gMainInterface->renderedImage->SetFrontDist(pow(10.0, value/100.0));
 }
 
 void RenderWindow::slotPressedButtonSetLight1ByMouse()
@@ -1131,7 +1131,7 @@ void RenderWindow::slotPressedButtonSetLight1ByMouse()
 	item.append(1); //light number
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	mainInterface->renderedImage->setClickMode(item);
+	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void RenderWindow::slotPressedButtonSetLight2ByMouse()
@@ -1141,7 +1141,7 @@ void RenderWindow::slotPressedButtonSetLight2ByMouse()
 	item.append(2); //light number
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	mainInterface->renderedImage->setClickMode(item);
+	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void RenderWindow::slotPressedButtonSetLight3ByMouse()
@@ -1151,7 +1151,7 @@ void RenderWindow::slotPressedButtonSetLight3ByMouse()
 	item.append(3); //light number
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	mainInterface->renderedImage->setClickMode(item);
+	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void RenderWindow::slotPressedButtonSetLight4ByMouse()
@@ -1161,7 +1161,7 @@ void RenderWindow::slotPressedButtonSetLight4ByMouse()
 	item.append(4); //light number
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	mainInterface->renderedImage->setClickMode(item);
+	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void RenderWindow::slotPressedButtonGetJuliaConstant()
@@ -1170,12 +1170,12 @@ void RenderWindow::slotPressedButtonGetJuliaConstant()
 	item.append((int)RenderedImage::clickGetJuliaConstant);
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	mainInterface->renderedImage->setClickMode(item);
+	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void RenderWindow::slotChangedCheckBoxCursorVisibility(int state)
 {
-	mainInterface->renderedImage->SetCursorVisibility(state);
+	gMainInterface->renderedImage->SetCursorVisibility(state);
 }
 
 void RenderWindow::slotPressedButtonSetPositionPrimitive()
@@ -1190,36 +1190,36 @@ void RenderWindow::slotPressedButtonSetPositionPrimitive()
 	item.append(primitiveName); //light number
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
-	mainInterface->renderedImage->setClickMode(item);
+	gMainInterface->renderedImage->setClickMode(item);
 }
 
 void RenderWindow::slotMenuUndo()
 {
-	mainInterface->Undo();
+	gMainInterface->Undo();
 }
 
 void RenderWindow::slotMenuRedo()
 {
-	mainInterface->Redo();
+	gMainInterface->Redo();
 }
 
 void RenderWindow::slotPressedButtonResetView()
 {
-	mainInterface->ResetView();
+	gMainInterface->ResetView();
 }
 
 void RenderWindow::slotPressedButtonNewPrimitive()
 {
 	QString buttonName = this->sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.lastIndexOf('_') + 1);
-	mainInterface->NewPrimitive(primitiveName);
+	gMainInterface->NewPrimitive(primitiveName);
 }
 
 void RenderWindow::slotPressedButtonDeletePrimitive()
 {
 	QString buttonName = this->sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
-	mainInterface->DeletePrimitive(primitiveName);
+	gMainInterface->DeletePrimitive(primitiveName);
 }
 
 void RenderWindow::slotStackAllDocks()
@@ -1241,21 +1241,21 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
 
 	parSettings.LoadFromFile(filename);
 	parSettings.Decode(gPar, gParFractal);
-	mainInterface->RebuildPrimitives(gPar);
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-	mainInterface->ComboMouseClickUpdate();
+	gMainInterface->RebuildPrimitives(gPar);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	gMainInterface->ComboMouseClickUpdate();
 	systemData.lastSettingsFile = systemData.dataDirectory + "settings" + QDir::separator() + QFileInfo(filename).fileName();
 	this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 }
 
 void RenderWindow::slotQuit()
 {
-	mainInterface->QuitApplicationDialog();
+	gMainInterface->QuitApplicationDialog();
 }
 
 void RenderWindow::closeEvent(QCloseEvent * event)
 {
-	if(mainInterface->QuitApplicationDialog())
+	if(gMainInterface->QuitApplicationDialog())
 	{
 		event->accept();
 	}
@@ -1267,5 +1267,5 @@ void RenderWindow::closeEvent(QCloseEvent * event)
 
 void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
 {
-	ProgressStatusText(text, progressText, progress, ui->statusbar, mainInterface->progressBar);
+	ProgressStatusText(text, progressText, progress, ui->statusbar, gMainInterface->progressBar);
 }
