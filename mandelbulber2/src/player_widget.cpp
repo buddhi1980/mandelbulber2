@@ -70,7 +70,7 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 
 	if(imageFiles.size() == 0)
 	{
-		infoLabel->setText(QObject::tr("No frames to play"));
+		imageLabel->setText(QObject::tr("No frames to play"));
 	}
 	else
 	{
@@ -131,6 +131,7 @@ void PlayerWidget::setPosition(int position)
 
 void PlayerWidget::updateFrame()
 {
+	if(imageFiles.size() == 0) return;
 	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(currentIndex).arg(imageFiles.size() - 1));
 	QString fileName = gPar->Get<QString>("anim_flight_dir") + "/" + imageFiles.at(currentIndex);
 	QPixmap pix(fileName);
