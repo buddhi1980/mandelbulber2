@@ -117,7 +117,7 @@ void PlayerWidget::stop()
 
 void PlayerWidget::nextFrame()
 {
-	currentIndex = (currentIndex + 1) % (imageFiles.size() - 1);
+	currentIndex = (currentIndex + 1) % imageFiles.size();
 	positionSlider->setSliderPosition(currentIndex);
 	updateFrame();
 }
@@ -132,7 +132,7 @@ void PlayerWidget::setPosition(int position)
 void PlayerWidget::updateFrame()
 {
 	if(imageFiles.size() == 0) return;
-	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(currentIndex).arg(imageFiles.size() - 1));
+	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(currentIndex + 1).arg(imageFiles.size()));
 	QString fileName = gPar->Get<QString>("anim_flight_dir") + "/" + imageFiles.at(currentIndex);
 	QPixmap pix(fileName);
 	if((1.0 * imageLabel->width() / imageLabel->height()) > (1.0 * pix.width() / pix.height()))
