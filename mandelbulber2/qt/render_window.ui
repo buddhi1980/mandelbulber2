@@ -8253,7 +8253,7 @@ and water):</string>
                 </sizepolicy>
                </property>
                <attribute name="verticalHeaderDefaultSectionSize">
-                <number>15</number>
+                <number>20</number>
                </attribute>
               </widget>
              </item>
