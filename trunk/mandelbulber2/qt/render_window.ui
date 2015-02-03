@@ -20,7 +20,7 @@
    <string>Mandelbulber</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons.qrc">
+   <iconset >
     <normaloff>:/system/icons/mandelbulber.png</normaloff>:/system/icons/mandelbulber.png</iconset>
   </property>
   <property name="dockOptions">
@@ -936,7 +936,7 @@
          </property>
          <property name="icon">
           <iconset theme="applications-graphics">
-           <normaloff/>
+           <normaloff>:/system/icons/applications-graphics.svg</normaloff>
           </iconset>
          </property>
         </widget>
@@ -948,7 +948,7 @@
          </property>
          <property name="icon">
           <iconset theme="process-stop">
-           <normaloff/>
+           <normaloff>:/system/icons/process-stop.svg</normaloff>
           </iconset>
          </property>
         </widget>
@@ -1310,7 +1310,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1339,7 +1339,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1374,7 +1374,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1415,7 +1415,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/arrow-up-double.png</normaloff>:/navigation/icons/arrow-up-double.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1444,7 +1444,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/arrow-down-double.png</normaloff>:/navigation/icons/arrow-down-double.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1473,7 +1473,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1616,7 +1616,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1651,7 +1651,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1680,7 +1680,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1709,7 +1709,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/object-rotate-right.png</normaloff>:/navigation/icons/object-rotate-right.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1738,7 +1738,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/object-rotate-left.png</normaloff>:/navigation/icons/object-rotate-left.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1767,7 +1767,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset >
                     <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -6726,7 +6726,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset >
                        <normaloff>:/primitives/icons/cylinder.png</normaloff>:/primitives/icons/cylinder.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6749,7 +6749,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset >
                        <normaloff>:/primitives/icons/cone.png</normaloff>:/primitives/icons/cone.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6772,7 +6772,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset >
                        <normaloff>:/primitives/icons/rectangle.png</normaloff>:/primitives/icons/rectangle.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6795,7 +6795,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset >
                        <normaloff>:/primitives/icons/circle.png</normaloff>:/primitives/icons/circle.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6818,7 +6818,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset >
                        <normaloff>:/primitives/icons/box.png</normaloff>:/primitives/icons/box.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6841,7 +6841,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset >
                        <normaloff>:/primitives/icons/water.png</normaloff>:/primitives/icons/water.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6864,7 +6864,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset >
                        <normaloff>:/primitives/icons/plane.png</normaloff>:/primitives/icons/plane.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6887,7 +6887,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset >
                        <normaloff>:/primitives/icons/torus.png</normaloff>:/primitives/icons/torus.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6910,7 +6910,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset >
                        <normaloff>:/primitives/icons/sphere.png</normaloff>:/primitives/icons/sphere.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -7862,7 +7862,7 @@ and water):</string>
                  </property>
                  <property name="icon">
                   <iconset theme="video-x-generic">
-                   <normaloff/>
+                   <normaloff>:/system/icons/video-x-generic.svg</normaloff>
                   </iconset>
                  </property>
                 </widget>
@@ -7874,7 +7874,7 @@ and water):</string>
                  </property>
                  <property name="icon">
                   <iconset theme="media-record">
-                   <normaloff/>
+                   <normaloff>:/system/icons/media-record.svg</normaloff>
                   </iconset>
                  </property>
                 </widget>
@@ -7886,7 +7886,7 @@ and water):</string>
                  </property>
                  <property name="icon">
                   <iconset theme="edit-delete">
-                   <normaloff/>
+                   <normaloff>:/system/icons/edit-delete.svg</normaloff>
                   </iconset>
                  </property>
                 </widget>
@@ -7898,7 +7898,7 @@ and water):</string>
                  </property>
                  <property name="icon">
                   <iconset theme="media-playback-start">
-                   <normaloff/>
+                    <normaloff>:/system/icons/media-playback-start.svg</normaloff>
                   </iconset>
                  </property>
                 </widget>
@@ -7910,7 +7910,7 @@ and water):</string>
                  </property>
                  <property name="icon">
                   <iconset theme="media-record">
-                   <normaloff/>
+                    <normaloff>:/system/icons/media-record.svg</normaloff>
                   </iconset>
                  </property>
                 </widget>
@@ -7922,7 +7922,7 @@ and water):</string>
                  </property>
                  <property name="icon">
                   <iconset theme="view-refresh">
-                   <normaloff/>
+                   <normaloff>:/system/icons/view-refresh.svg</normaloff>
                   </iconset>
                  </property>
                 </widget>
@@ -8295,8 +8295,9 @@ and water):</string>
   </widget>
   <action name="actionSave_as_JPG">
    <property name="icon">
-    <iconset theme="document-save-as">
-     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
+    <iconset theme="document-save-as" >
+     <normaloff>:/system/icons/document-save-as.svg</normaloff>
+    </iconset>
    </property>
    <property name="text">
     <string>Save as JPG...</string>
@@ -8304,8 +8305,9 @@ and water):</string>
   </action>
   <action name="actionSave_as_PNG">
    <property name="icon">
-    <iconset theme="document-save-as">
-     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
+    <iconset theme="document-save-as" >
+     <normaloff>:/system/icons/document-save-as.svg</normaloff>
+    </iconset>
    </property>
    <property name="text">
     <string>Save as PNG...</string>
@@ -8313,8 +8315,9 @@ and water):</string>
   </action>
   <action name="actionSave_as_PNG_16_bit">
    <property name="icon">
-    <iconset theme="document-save-as">
-     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
+   <iconset theme="document-save-as" >
+     <normaloff>:/system/icons/document-save-as.svg</normaloff>
+    </iconset>
    </property>
    <property name="text">
     <string>Save as PNG 16 bit...</string>
@@ -8322,8 +8325,9 @@ and water):</string>
   </action>
   <action name="actionSave_as_PNG_16_bit_with_alpha_channel">
    <property name="icon">
-    <iconset theme="document-save-as">
-     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
+   <iconset theme="document-save-as" >
+     <normaloff>:/system/icons/document-save-as.svg</normaloff>
+    </iconset>
    </property>
    <property name="text">
     <string>Save as PNG 16 bit with alpha channel</string>
@@ -8331,8 +8335,9 @@ and water):</string>
   </action>
   <action name="actionLoad_settings">
    <property name="icon">
-    <iconset theme="document-open">
-     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
+    <iconset theme="document-open" >
+     <normaloff>:/system/icons/document-open.svg</normaloff>
+    </iconset>
    </property>
    <property name="text">
     <string>Load settings...</string>
@@ -8340,8 +8345,9 @@ and water):</string>
   </action>
   <action name="actionSave_settings">
    <property name="icon">
-    <iconset theme="document-save">
-     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
+    <iconset theme="document-save" >
+     <normaloff>:/system/icons/document-save.svg</normaloff>
+    </iconset>
    </property>
    <property name="text">
     <string>Save settings</string>
@@ -8349,8 +8355,9 @@ and water):</string>
   </action>
   <action name="actionSave_settings_as">
    <property name="icon">
-    <iconset theme="document-save-as">
-     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
+    <iconset theme="document-save" >
+     <normaloff>:/system/icons/document-save.svg</normaloff>
+    </iconset>
    </property>
    <property name="text">
     <string>Save settings as...</string>
@@ -8362,7 +8369,8 @@ and water):</string>
   <action name="actionQuit">
    <property name="icon">
     <iconset theme="application-exit">
-     <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
+     <normaloff>:/system/icons/system-shutdown.svg</normaloff>
+    </iconset>
    </property>
    <property name="text">
     <string>Quit</string>
@@ -8385,7 +8393,7 @@ and water):</string>
   </action>
   <action name="actionAbout_Mandelbulber">
    <property name="icon">
-    <iconset resource="icons.qrc">
+    <iconset >
      <normaloff>:/system/icons/mandelbulber.png</normaloff>:/system/icons/mandelbulber.png</iconset>
    </property>   
    <property name="text">
@@ -8393,10 +8401,12 @@ and water):</string>
    </property>
   </action>
   <action name="actionUndo">
-  <property name="icon">
-   <iconset theme="undo"/>
-  </property> 
-  <property name="text">
+   <property name="icon">
+    <iconset theme="edit-undo" >
+     <normaloff>:/system/icons/edit-undo.png</normaloff>
+    </iconset>   
+   </property> 
+   <property name="text">
     <string>Undo</string>
    </property>
    <property name="shortcut">
@@ -8405,7 +8415,9 @@ and water):</string>
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset theme="redo"/>
+    <iconset theme="edit-redo" >
+     <normaloff>:/system/icons/edit-redo.png</normaloff>
+    </iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -8416,8 +8428,8 @@ and water):</string>
   </action>
   <action name="actionImport_settings_from_old_Mandelbulber">
    <property name="icon">
-    <iconset theme="document-open">
-     <normaloff/>
+    <iconset theme="document-open" >
+     <normaloff>:/system/icons/document-open.svg</normaloff>
     </iconset>
    </property>
    <property name="text">
@@ -8426,8 +8438,8 @@ and water):</string>
   </action>
   <action name="actionLoad_example">
    <property name="icon">
-    <iconset theme="document-open">
-     <normaloff/>
+    <iconset theme="document-open" >
+     <normaloff>:/system/icons/document-open.svg</normaloff>
     </iconset>
    </property>
    <property name="text">

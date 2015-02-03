@@ -3,8 +3,19 @@
         <file>icons/mandelbulber.png</file>
         <file>icons/edit-undo.png</file>
         <file>icons/edit-redo.png</file>
+        <file>icons/document-open.svg</file>
+        <file>icons/document-save.svg</file>
+        <file>icons/document-save-as.svg</file>
+        <file>icons/applications-graphics.svg</file>
+        <file>icons/media-playback-start.svg</file>
+        <file>icons/media-record.svg</file>
+        <file>icons/process-stop.svg</file>
+        <file>icons/edit-delete.svg</file>
+        <file>icons/view-refresh.svg</file>
+        <file>icons/video-x-generic.svg</file>
+        <file>icons/system-shutdown.svg</file>
     </qresource>
- 	<qresource prefix="/primitives">
+    <qresource prefix="/primitives">
         <file>icons/box.png</file>
         <file>icons/circle.png</file>
         <file>icons/cone.png</file>
