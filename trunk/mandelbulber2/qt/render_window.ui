@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="icons.qrc">
-    <normaloff>:/arrows/icons/mandelbulber.png</normaloff>:/arrows/icons/mandelbulber.png</iconset>
+    <normaloff>:/system/icons/mandelbulber.png</normaloff>:/system/icons/mandelbulber.png</iconset>
   </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
@@ -1311,7 +1311,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/go-next.png</normaloff>:/arrows/icons/go-next.png</iconset>
+                    <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1340,7 +1340,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/go-previous.png</normaloff>:/arrows/icons/go-previous.png</iconset>
+                    <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1375,7 +1375,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/go-up.png</normaloff>:/arrows/icons/go-up.png</iconset>
+                    <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1416,7 +1416,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/arrow-up-double.png</normaloff>:/arrows/icons/arrow-up-double.png</iconset>
+                    <normaloff>:/navigation/icons/arrow-up-double.png</normaloff>:/navigation/icons/arrow-up-double.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1445,7 +1445,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/arrow-down-double.png</normaloff>:/arrows/icons/arrow-down-double.png</iconset>
+                    <normaloff>:/navigation/icons/arrow-down-double.png</normaloff>:/navigation/icons/arrow-down-double.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1474,7 +1474,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
+                    <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1617,7 +1617,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/go-previous.png</normaloff>:/arrows/icons/go-previous.png</iconset>
+                    <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1652,7 +1652,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/go-up.png</normaloff>:/arrows/icons/go-up.png</iconset>
+                    <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1681,7 +1681,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/go-next.png</normaloff>:/arrows/icons/go-next.png</iconset>
+                    <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1710,7 +1710,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/object-rotate-right.png</normaloff>:/arrows/icons/object-rotate-right.png</iconset>
+                    <normaloff>:/navigation/icons/object-rotate-right.png</normaloff>:/navigation/icons/object-rotate-right.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1739,7 +1739,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/object-rotate-left.png</normaloff>:/arrows/icons/object-rotate-left.png</iconset>
+                    <normaloff>:/navigation/icons/object-rotate-left.png</normaloff>:/navigation/icons/object-rotate-left.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -1768,7 +1768,7 @@ to target:</string>
                   </property>
                   <property name="icon">
                    <iconset resource="icons.qrc">
-                    <normaloff>:/arrows/icons/go-down.png</normaloff>:/arrows/icons/go-down.png</iconset>
+                    <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
@@ -6727,7 +6727,7 @@ to target:</string>
                      </property>
                      <property name="icon">
                       <iconset resource="icons.qrc">
-                       <normaloff>:/arrows/icons/cylinder.png</normaloff>:/arrows/icons/cylinder.png</iconset>
+                       <normaloff>:/primitives/icons/cylinder.png</normaloff>:/primitives/icons/cylinder.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -6750,7 +6750,7 @@ to target:</string>
                      </property>
                      <property name="icon">
                       <iconset resource="icons.qrc">
-                       <normaloff>:/arrows/icons/cone.png</normaloff>:/arrows/icons/cone.png</iconset>
+                       <normaloff>:/primitives/icons/cone.png</normaloff>:/primitives/icons/cone.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -6773,7 +6773,7 @@ to target:</string>
                      </property>
                      <property name="icon">
                       <iconset resource="icons.qrc">
-                       <normaloff>:/arrows/icons/rectangle.png</normaloff>:/arrows/icons/rectangle.png</iconset>
+                       <normaloff>:/primitives/icons/rectangle.png</normaloff>:/primitives/icons/rectangle.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -6796,7 +6796,7 @@ to target:</string>
                      </property>
                      <property name="icon">
                       <iconset resource="icons.qrc">
-                       <normaloff>:/arrows/icons/circle.png</normaloff>:/arrows/icons/circle.png</iconset>
+                       <normaloff>:/primitives/icons/circle.png</normaloff>:/primitives/icons/circle.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -6819,7 +6819,7 @@ to target:</string>
                      </property>
                      <property name="icon">
                       <iconset resource="icons.qrc">
-                       <normaloff>:/arrows/icons/box.png</normaloff>:/arrows/icons/box.png</iconset>
+                       <normaloff>:/primitives/icons/box.png</normaloff>:/primitives/icons/box.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -6842,7 +6842,7 @@ to target:</string>
                      </property>
                      <property name="icon">
                       <iconset resource="icons.qrc">
-                       <normaloff>:/arrows/icons/water.png</normaloff>:/arrows/icons/water.png</iconset>
+                       <normaloff>:/primitives/icons/water.png</normaloff>:/primitives/icons/water.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -6865,7 +6865,7 @@ to target:</string>
                      </property>
                      <property name="icon">
                       <iconset resource="icons.qrc">
-                       <normaloff>:/arrows/icons/plane.png</normaloff>:/arrows/icons/plane.png</iconset>
+                       <normaloff>:/primitives/icons/plane.png</normaloff>:/primitives/icons/plane.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -6888,7 +6888,7 @@ to target:</string>
                      </property>
                      <property name="icon">
                       <iconset resource="icons.qrc">
-                       <normaloff>:/arrows/icons/torus.png</normaloff>:/arrows/icons/torus.png</iconset>
+                       <normaloff>:/primitives/icons/torus.png</normaloff>:/primitives/icons/torus.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -6911,7 +6911,7 @@ to target:</string>
                      </property>
                      <property name="icon">
                       <iconset resource="icons.qrc">
-                       <normaloff>:/arrows/icons/sphere.png</normaloff>:/arrows/icons/sphere.png</iconset>
+                       <normaloff>:/primitives/icons/sphere.png</normaloff>:/primitives/icons/sphere.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -8384,12 +8384,19 @@ and water):</string>
    </property>
   </action>
   <action name="actionAbout_Mandelbulber">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/system/icons/mandelbulber.png</normaloff>:/system/icons/mandelbulber.png</iconset>
+   </property>   
    <property name="text">
     <string>About Mandelbulber</string>
    </property>
   </action>
   <action name="actionUndo">
-   <property name="text">
+  <property name="icon">
+   <iconset theme="undo"/>
+  </property> 
+  <property name="text">
     <string>Undo</string>
    </property>
    <property name="shortcut">
@@ -8397,6 +8404,9 @@ and water):</string>
    </property>
   </action>
   <action name="actionRedo">
+   <property name="icon">
+    <iconset theme="redo"/>
+   </property>
    <property name="text">
     <string>Redo</string>
    </property>
