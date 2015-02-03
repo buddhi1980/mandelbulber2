@@ -170,6 +170,7 @@ bool cRenderJob::InitImage(int w, int h)
 		if(hasQWidget)
 		{
 			double scale = ImageScaleComboSelection2Double(paramsContainer->Get<int>("image_preview_scale"));
+			if(useSizeFromImage) scale = 0.0;
 			scale = CalcMainImageScale(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), image);
 			image->CreatePreview(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), imageWidget);
 			image->UpdatePreview();
