@@ -35,7 +35,7 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, QObject *_parentWith
 	tWidth = _width;
 	tHeight = _height;
 	image = new cImage(tWidth, tHeight);
-	image->CreatePreview(1.0, width(), height(), this);
+	image->CreatePreview(1.0, tWidth, tWidth, this);
 	progressBar = NULL;
 	setFixedWidth(tWidth);
 	setFixedHeight(tHeight);
