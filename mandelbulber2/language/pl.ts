@@ -118,7 +118,7 @@
     <message>
         <location filename="../src/preview_file_dialog.cpp" line="39"/>
         <source>Preview</source>
-        <translation>Przywróć domyślne</translation>
+        <translation>Podgląd</translation>
     </message>
 </context>
 <context>
@@ -172,7 +172,7 @@
         <location filename="../src/files.cpp" line="662"/>
         <source>Can&apos;t save image to JPEG file!
 </source>
-        <translation>Nie można zapisać do pliki JPEG!
+        <translation>Nie można zapisać do pliku JPEG!
 </translation>
     </message>
     <message>
@@ -265,13 +265,15 @@
         <location filename="../src/old_settings.cpp" line="58"/>
         <source>Can&apos;t import old settings
 </source>
-        <translation>Nie można zaimportować starych ustawień</translation>
+        <translation>Nie można zaimportować starych ustawień
+</translation>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="58"/>
         <source>File with default values desn&apos;t exist
 </source>
-        <translation>Plik z domyślnymi wartościami nie istnienie</translation>
+        <translation>Plik z domyślnymi wartościami nie istnienie
+</translation>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="999"/>
@@ -333,7 +335,7 @@
     <message>
         <location filename="../src/settings.cpp" line="260"/>
         <source>It&apos;s not valid Mandelbulber settings file. No information about version of file</source>
-        <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Brak inforacji o numerze wersji</translation>
+        <translation>To nie jest prawidłowy plik z ustawieniami Mandelbulbera. Brak informacji o numerze wersji</translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="268"/>
@@ -396,7 +398,8 @@ Wersja pliku: </translation>
         <location filename="../src/texture.cpp" line="46"/>
         <source>Can&apos;t load texture!
 </source>
-        <translation>Nie można wczytać tekstury!</translation>
+        <translation>Nie można wczytać tekstury!
+</translation>
     </message>
     <message>
         <location filename="../src/undo.cpp" line="72"/>
@@ -461,7 +464,8 @@ Kontynuować?</translation>
  Do you want to purge the output folder?
 </source>
         <translation>Animacja została już całkowicie zrenderowana.
-Czy chcesz opróżnić folder z klatkami animacji?</translation>
+Czy chcesz opróżnić folder z klatkami animacji?
+</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="564"/>
@@ -975,7 +979,7 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="2345"/>
         <source>Fast AO tune:</source>
-        <translation>dostrojenie szybkiego:</translation>
+        <translation>Dostrojenie szybkiego:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2368"/>
@@ -1322,7 +1326,7 @@ kamery od celu:</translation>
         <location filename="../qt/render_window.ui" line="4934"/>
         <location filename="../qt/render_window.ui" line="5229"/>
         <source>Size:</source>
-        <translation>Wielkośc:</translation>
+        <translation>Wielkość:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4231"/>
@@ -1601,7 +1605,7 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="7252"/>
         <source>Max. fractal iterations:</source>
-        <translation>Maksymalna ilość ieracji:</translation>
+        <translation>Maksymalna ilość iteracji:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7288"/>
@@ -1621,7 +1625,7 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="7319"/>
         <source>Detail level:</source>
-        <translation>Ilośc detali:</translation>
+        <translation>Ilość detali:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="7351"/>
@@ -2035,25 +2039,29 @@ płaszcyzny i wody):</translation>
         <location filename="../src/rendered_image_widget.cpp" line="131"/>
         <source>
 RMB - decrease speed</source>
-        <translation>Prawy - zmniejsz prędkość</translation>
+        <translation>
+Prawy - zmniejsz prędkość</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="132"/>
         <source>
 arrow keys - strafe</source>
-        <translation>Klawisze strzałek - na boki</translation>
+        <translation>
+Klawisze strzałek - na boki</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="133"/>
         <source>
 z, x keys - roll</source>
-        <translation>klaw. z,x - pochylanie</translation>
+        <translation>
+klaw. z,x - pochylanie</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="134"/>
         <source>
 spacebar - pause</source>
-        <translation>spacja - pauza</translation>
+        <translation>
+spacja - pauza</translation>
     </message>
 </context>
 <context>
