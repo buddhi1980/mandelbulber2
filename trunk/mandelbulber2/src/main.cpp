@@ -30,6 +30,8 @@
 #include "global_data.hpp"
 #include <qapplication.h>
 
+//TODO add autosave of settings
+
 int main(int argc, char *argv[])
 {
 	//Initialization of system functions
@@ -93,7 +95,7 @@ int main(int argc, char *argv[])
 	int result = gApplication->exec();
 
 	//clean objects when exit
-	delete gPar;
+	delete gPar; gPar = NULL;
 	delete gParFractal;
 	delete gFlightAnimation;
 	delete gAnimFrames;

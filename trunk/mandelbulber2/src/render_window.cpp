@@ -1289,6 +1289,7 @@ void RenderWindow::closeEvent(QCloseEvent * event)
 	if(gMainInterface->QuitApplicationDialog())
 	{
 		event->accept();
+		gApplication->quit();
 	}
 	else
 	{
