@@ -241,6 +241,7 @@
     <addaction name="separator"/>
     <addaction name="separator"/>
     <addaction name="actionShow_animation_dock"/>
+    <addaction name="actionShow_toolbar"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -8448,10 +8449,21 @@ and water):</string>
   </action>
   <action name="actionShow_animation_dock">
    <property name="checkable">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Show animation dock</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionShow_toolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show toolbar</string>
    </property>
    <property name="visible">
     <bool>true</bool>

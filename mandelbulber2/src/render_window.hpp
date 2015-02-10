@@ -128,7 +128,8 @@ private slots:
 	void slotMenuSaveImagePNG8();
 	void slotMenuSaveSettings();
 	void slotMenuUndo();
-	void slotShowAnimationDock();
+	void slotUpdateDocksandToolbarbyAction();
+	void slotUpdateDocksandToolbarbyView();
 	void slotStackAllDocks();
 
 	//textures

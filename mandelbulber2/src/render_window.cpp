@@ -1229,12 +1229,43 @@ void RenderWindow::slotStackAllDocks()
 	tabifyDockWidget(ui->dockWidget_rendering_engine, ui->dockWidget_fractal);
 }
 
-void RenderWindow::slotShowAnimationDock()
+void RenderWindow::slotUpdateDocksandToolbarbyAction()
 {
-	addDockWidget(Qt::BottomDockWidgetArea, ui->dockWidget_animation);
-	ui->dockWidget_animation->show();
+	// Animation dock
+	if(ui->actionShow_animation_dock->isChecked() != ui->dockWidget_animation->isVisible())
+	{
+		if(ui->actionShow_animation_dock->isChecked())
+		{
+			addDockWidget(Qt::BottomDockWidgetArea, ui->dockWidget_animation);
+		}
+		else
+		{
+			removeDockWidget(ui->dockWidget_animation);
+		}
+		ui->dockWidget_animation->setVisible(ui->actionShow_animation_dock->isChecked());
+	}
+
+	// Toolbar
+	if(ui->actionShow_toolbar->isChecked() != ui->toolBar->isVisible())
+	{
+			ui->toolBar->setVisible(ui->actionShow_toolbar->isChecked());
+	}
 }
 
+void RenderWindow::slotUpdateDocksandToolbarbyView()
+{
+		// Animation dock
+	if(ui->actionShow_animation_dock->isChecked() != ui->dockWidget_animation->isVisible())
+	{
+		ui->actionShow_animation_dock->setChecked(ui->dockWidget_animation->isVisible());
+	}
+
+	// Toolbar
+	if(ui->actionShow_toolbar->isChecked() != ui->toolBar->isVisible())
+	{
+		ui->actionShow_toolbar->setChecked(ui->toolBar->isVisible());
+	}
+}
 void RenderWindow::slotMenuLoadPreset(QString filename)
 {
 	cSettings parSettings(cSettings::formatFullText);

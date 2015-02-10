@@ -190,7 +190,8 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveDocksPositions()));
 	QApplication::connect(mainWindow->ui->actionDefault_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuResetDocksPositions()));
 	QApplication::connect(mainWindow->ui->actionStack_all_docks, SIGNAL(triggered()), mainWindow, SLOT(slotStackAllDocks()));
-	QApplication::connect(mainWindow->ui->actionShow_animation_dock, SIGNAL(triggered()), mainWindow, SLOT(slotShowAnimationDock()));
+	QApplication::connect(mainWindow->ui->actionShow_animation_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
+	QApplication::connect(mainWindow->ui->actionShow_toolbar, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveSettings()));
 	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadSettings()));
 	QApplication::connect(mainWindow->ui->actionLoad_example, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadExample()));
@@ -249,8 +250,11 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->logslider_camera_distance_to_target, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotCameraDistanceSlider(int)));
 	QApplication::connect(mainWindow->ui->comboBox_camera_absolute_distance_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotMovementStepModeChanged(int)));
 
+	QApplication::connect(mainWindow->ui->dockWidget_animation, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+	QApplication::connect(mainWindow->ui->toolBar, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 	//------------------------------------------------
 	ConnectSignalsForSlidersInWindow(mainWindow);
+	mainWindow->slotUpdateDocksandToolbarbyView();
 }
 
 //Reading ad writing parameters from/to ui to/from parameters container
@@ -1654,11 +1658,9 @@ void cInterface::ResetView()
 	//calculate size of the fractal in random directions
 	double maxDist = 0.0;
 
-	ProgressStatusText("Reseting view", "Fractal size calculation", 0.0, mainWindow->ui->statusbar, progressBar);
-
 	for(int i = 0; i<50; i++)
 	{
-		ProgressStatusText("Reseting view", "Fractal size calculation", i / 50.0, mainWindow->ui->statusbar, progressBar);
+		ProgressStatusText(QObject::tr("Reseting view"), QObject::tr("Fractal size calculation"), i / 50.0, mainWindow->ui->statusbar, progressBar);
 		CVector3 direction(Random(1000)/500.0-1.0, Random(1000)/500.0-1.0, Random(1000)/500.0-1.0);
 		direction.Normalize();
 		double distStep = 0.0;
@@ -1677,7 +1679,7 @@ void cInterface::ResetView()
 		}
 		if (scan > maxDist) maxDist = scan;
 	}
-	ProgressStatusText("Reseting view", "Done", 100.0, mainWindow->ui->statusbar, progressBar);
+	ProgressStatusText(QObject::tr("Reseting view"), QObject::tr("Done"), 100.0, mainWindow->ui->statusbar, progressBar);
 
 	double newCameraDist = maxDist / fov * 2.0 * sqrt(2);
 	if(perspType == params::perspFishEye || perspType == params::perspFishEyeCut || perspType == params::perspEquirectangular)
@@ -1958,7 +1960,7 @@ void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
 			}
 		}
 
-		QAction *action = new QAction("Example settings: " + filename, window);
+		QAction *action = new QAction(QObject::tr("Toolbar settings: ") + filename, window);
 		action->setIcon(icon);
 		toolBar->addAction(action);
 
