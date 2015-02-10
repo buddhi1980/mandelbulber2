@@ -131,6 +131,11 @@ void PlayerWidget::setPosition(int position)
 
 void PlayerWidget::updateFrame()
 {
+	if(!gPar)
+	{
+		close();
+		return;
+	}
 	if(imageFiles.size() == 0) return;
 	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(currentIndex + 1).arg(imageFiles.size()));
 	QString fileName = gPar->Get<QString>("anim_flight_dir") + "/" + imageFiles.at(currentIndex);
