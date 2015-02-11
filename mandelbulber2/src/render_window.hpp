@@ -105,6 +105,7 @@ private slots:
 	void slotMovementStepModeChanged(int index);
 
 	void slotChangedCheckBoxHybridFractal(int state);
+	void slotChangedCheckBoxBooleanOperators(bool state);
 
 	//IFS
 	void slotPressedButtonIFSDefaultsDodecahedron();

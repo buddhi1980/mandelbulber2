@@ -464,6 +464,18 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 	ui->scrollArea_fractal_2->setEnabled(state);
 	ui->scrollArea_fractal_3->setEnabled(state);
 	ui->scrollArea_fractal_4->setEnabled(state);
+	if(state)	ui->groupCheck_boolean_operators->setChecked(false);
+}
+
+void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
+{
+	ui->frame_iterations_formula_2->setEnabled(state);
+	ui->frame_iterations_formula_3->setEnabled(state);
+	ui->frame_iterations_formula_4->setEnabled(state);
+	ui->scrollArea_fractal_2->setEnabled(state);
+	ui->scrollArea_fractal_3->setEnabled(state);
+	ui->scrollArea_fractal_4->setEnabled(state);
+	if(state)	ui->checkBox_hybrid_fractal_enable->setChecked(false);
 }
 
 void RenderWindow::slotMenuSaveSettings()
