@@ -211,6 +211,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->comboBox_formula_3, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
 	QApplication::connect(mainWindow->ui->comboBox_formula_4, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
 	QApplication::connect(mainWindow->ui->checkBox_hybrid_fractal_enable, SIGNAL(stateChanged(int)), mainWindow, SLOT(slotChangedCheckBoxHybridFractal(int)));
+	QApplication::connect(mainWindow->ui->groupCheck_boolean_operators, SIGNAL(toggled(bool)), mainWindow, SLOT(slotChangedCheckBoxBooleanOperators(bool)));
 
 	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow, SLOT(slotResizedScrolledAreaImage(int, int)));
 	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageScale(int)));

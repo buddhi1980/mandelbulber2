@@ -50,6 +50,11 @@ enum enumTextureMapType
 	mapDoubleHemisphere = 1,
 };
 
+enum enumBooleanOperator
+{
+	booleanOperatorAND = 0, booleanOperatorOR = 1, booleanOperatorSUB = 2
+};
+
 }
 
 class cParamRender
@@ -78,10 +83,12 @@ public:
 	params::enumPerspectiveType perspectiveType;
 	params::enumAOMode ambientOcclusionMode;
 	params::enumTextureMapType texturedBackgroundMapType;
+	params::enumBooleanOperator booleanOperator[3];
 
 	bool ambientOcclusionEnabled; //enable global ilumination
 	bool analitycDEMode;	 //analytic DE mode
 	bool auxLightPreEnabled[4];
+	bool booleanOperatorsEnabled;
 	bool coloringEnabled;
 	bool constantDEThreshold;
 	bool DOFEnabled;

@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>1121</width>
-           <height>777</height>
+           <height>740</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -2047,7 +2047,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>176</height>
+          <height>167</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -5502,8 +5502,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>177</height>
+          <width>339</width>
+          <height>171</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -5671,8 +5671,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>309</width>
-                      <height>76</height>
+                      <width>295</width>
+                      <height>70</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1">
@@ -5813,8 +5813,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>80</width>
-                      <height>16</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2">
@@ -5955,8 +5955,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>80</width>
-                      <height>16</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3">
@@ -6097,8 +6097,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>80</width>
-                      <height>16</height>
+                      <width>98</width>
+                      <height>28</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4">
@@ -6157,7 +6157,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>289</width>
                   <height>456</height>
                  </rect>
                 </property>
@@ -6676,7 +6676,7 @@ to target:</string>
                    <number>2</number>
                   </property>
                   <item row="1" column="1">
-                   <widget class="QComboBox" name="comboBox_boolead_operator_1">
+                   <widget class="QComboBox" name="comboBox_boolean_operator_1">
                     <item>
                      <property name="text">
                       <string>Intersection (AND)</string>
@@ -6732,7 +6732,7 @@ to target:</string>
                    </widget>
                   </item>
                   <item row="2" column="1">
-                   <widget class="QComboBox" name="comboBox_boolead_operator_2">
+                   <widget class="QComboBox" name="comboBox_boolean_operator_2">
                     <item>
                      <property name="text">
                       <string>Intersection (AND)</string>
@@ -6781,7 +6781,7 @@ to target:</string>
                    </widget>
                   </item>
                   <item row="3" column="1">
-                   <widget class="QComboBox" name="comboBox_boolead_operator_3">
+                   <widget class="QComboBox" name="comboBox_boolean_operator_3">
                     <item>
                      <property name="text">
                       <string>Intersection (AND)</string>
@@ -6893,7 +6893,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>289</width>
                   <height>360</height>
                  </rect>
                 </property>
@@ -8138,7 +8138,7 @@ and water):</string>
                   <x>0</x>
                   <y>0</y>
                   <width>355</width>
-                  <height>238</height>
+                  <height>275</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">

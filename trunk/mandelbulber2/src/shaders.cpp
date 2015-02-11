@@ -327,7 +327,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		//fake lights (orbit trap)
 		if(params->fakeLightsEnabled)
 		{
-			sFractalIn fractIn(point, params->minN, params->N, params->common);
+			sFractalIn fractIn(point, params->minN, params->N, params->common, -1);
 			sFractalOut fractOut;
 			Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;
@@ -849,7 +849,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 			sRGB colour (256, 256, 256);
 			if (params->coloringEnabled)
 			{
-				sFractalIn fractIn(input.point, 0, params->N * 10, params->common);
+				sFractalIn fractIn(input.point, 0, params->N * 10, params->common, -1);
 				sFractalOut fractOut;
 				Compute<fractal::colouring>(*fractal, fractIn, &fractOut);
 				int nrCol = floor(fractOut.colorIndex);
@@ -1054,7 +1054,7 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 
 	double delta = input.distThresh * params->smoothness;
 
-	sFractalIn fractIn(input.point, params->minN, params->N, params->common);
+	sFractalIn fractIn(input.point, params->minN, params->N, params->common, -1);
 	sFractalOut fractOut;
 	Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
 	double rr = fractOut.orbitTrapR;

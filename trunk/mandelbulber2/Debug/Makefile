@@ -509,26 +509,37 @@ compiler_rcc_make_all: qrc_icons.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_icons.cpp
 qrc_icons.cpp: ../qt/icons.qrc \
-		../qt/icons/box.png \
-		../qt/icons/cone.png \
-		../qt/icons/circle.png \
-		../qt/icons/go-next.png \
-		../qt/icons/go-up.png \
-		../qt/icons/mandelbulber.png \
-		../qt/icons/water.png \
-		../qt/icons/arrow-down-double.png \
-		../qt/icons/arrow-up-double.png \
-		../qt/icons/cylinder.png \
-		../qt/icons/object-rotate-left.png \
-		../qt/icons/rectangle.png \
-		../qt/icons/torus.png \
-		../qt/icons/object-rotate-right.png \
-		../qt/icons/edit-redo.png \
-		../qt/icons/plane.png \
-		../qt/icons/sphere.png \
-		../qt/icons/edit-undo.png \
 		../qt/icons/go-down.png \
-		../qt/icons/go-previous.png
+		../qt/icons/arrow-down-double.png \
+		../qt/icons/go-previous.png \
+		../qt/icons/go-up.png \
+		../qt/icons/go-next.png \
+		../qt/icons/arrow-up-double.png \
+		../qt/icons/object-rotate-left.png \
+		../qt/icons/object-rotate-right.png \
+		../qt/icons/cone.png \
+		../qt/icons/torus.png \
+		../qt/icons/circle.png \
+		../qt/icons/sphere.png \
+		../qt/icons/box.png \
+		../qt/icons/plane.png \
+		../qt/icons/rectangle.png \
+		../qt/icons/cylinder.png \
+		../qt/icons/water.png \
+		../qt/icons/edit-redo.png \
+		../qt/icons/media-record.svg \
+		../qt/icons/edit-delete.svg \
+		../qt/icons/system-shutdown.svg \
+		../qt/icons/applications-graphics.svg \
+		../qt/icons/document-save-as.svg \
+		../qt/icons/media-playback-start.svg \
+		../qt/icons/video-x-generic.svg \
+		../qt/icons/document-save.svg \
+		../qt/icons/process-stop.svg \
+		../qt/icons/document-open.svg \
+		../qt/icons/view-refresh.svg \
+		../qt/icons/mandelbulber.png \
+		../qt/icons/edit-undo.png
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name icons ../qt/icons.qrc -o qrc_icons.cpp
 
 compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_mydoublespinbox.cpp moc_mycheckbox.cpp moc_mygroupbox.cpp moc_mycolorbutton.cpp moc_my_table_widget_anim.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp moc_animation_flight.cpp moc_thumbnail_widget.cpp moc_player_widget.cpp moc_render_job.cpp moc_render_image.cpp moc_render_ssao.cpp moc_dof.cpp
@@ -544,6 +555,7 @@ moc_render_window.cpp: ../qt/ui_render_window.h \
 		../src/one_parameter.hpp \
 		../src/multi_val.hpp \
 		../src/algebra.hpp \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -713,6 +725,7 @@ moc_animation_flight.cpp: ../src/animation_frames.hpp \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -855,6 +868,7 @@ compiler_uic_clean:
 		../qt/mycheckbox.h \
 		../qt/mygroupbox.h \
 		../qt/my_table_widget_anim.hpp \
+		../qt/mycolorbutton.h \
 		../src/parameters.hpp \
 		../src/one_parameter.hpp \
 		../src/multi_val.hpp \
@@ -869,6 +883,12 @@ compiler_uic_clean:
 		../src/algebra.hpp \
 		../src/color_palette.hpp \
 		../src/color_structures.hpp \
+		../src/parameters.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
+		../src/color_palette.hpp \
+		../src/color_structures.hpp \
+		../src/algebra.hpp \
 		../src/parameters.hpp \
 		../src/one_parameter.hpp \
 		../src/multi_val.hpp \
@@ -927,6 +947,7 @@ animation_flight.o: ../src/animation_flight.cpp ../src/animation_flight.hpp \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1054,6 +1075,7 @@ dof.o: ../src/dof.cpp ../src/dof.hpp \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1168,6 +1190,7 @@ global_data.o: ../src/global_data.cpp ../src/global_data.hpp \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1222,6 +1245,7 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1304,6 +1328,7 @@ main.o: ../src/main.cpp ../src/main.hpp \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1404,6 +1429,7 @@ player_widget.o: ../src/player_widget.cpp ../src/player_widget.hpp \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
@@ -1514,6 +1540,7 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1549,6 +1576,7 @@ rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1599,6 +1627,7 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1639,6 +1668,7 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1668,6 +1698,7 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/one_parameter.hpp \
 		../src/multi_val.hpp \
 		../src/algebra.hpp \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1873,6 +1904,7 @@ thumbnail_widget.o: ../src/thumbnail_widget.cpp ../src/thumbnail_widget.h \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -1913,6 +1945,7 @@ mygroupbox.o: ../qt/mygroupbox.cpp ../qt/mygroupbox.h \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
@@ -1954,6 +1987,7 @@ mylineedit.o: ../qt/mylineedit.cpp ../qt/mylineedit.h \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/myscrolledarea.h \
@@ -1995,6 +2029,7 @@ myspinbox.o: ../qt/myspinbox.cpp ../qt/myspinbox.h \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -2036,6 +2071,7 @@ mydoublespinbox.o: ../qt/mydoublespinbox.cpp ../qt/mydoublespinbox.h \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
 		../qt/myscrolledarea.h \
@@ -2076,6 +2112,7 @@ mycheckbox.o: ../qt/mycheckbox.cpp ../qt/mycheckbox.h \
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
 		../qt/my_table_widget_anim.hpp \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \
@@ -2159,6 +2196,7 @@ my_table_widget_anim.o: ../qt/my_table_widget_anim.cpp ../qt/my_table_widget_ani
 		../qt/ui_render_window.h \
 		../qt/color_palette_widget.h \
 		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
 		../qt/mygroupbox.h \
 		../qt/mylineedit.h \

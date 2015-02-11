@@ -58,13 +58,16 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 
 	out->maxiter = true;
 
-	const cFractal *defaultFractal = four.GetFractal(0);
+	int fractalIndex = 0;
+	if(in.forcedFormulaIndex >=0) fractalIndex = in.forcedFormulaIndex;
+
+	const cFractal *defaultFractal = four.GetFractal(fractalIndex);
 
 	sMandelbulbAux bulbAux[4];
 	sMandelboxAux mandelboxAux[4];
 	sIFSAux ifsAux[4];
 	sAexionAux aexionAux[4];
-	int maxFractals = four.IsHybrid() ? 4 : 1;
+	int maxFractals = (four.IsHybrid() || in.forcedFormulaIndex >= 0) ? 4 : 1;
 	for(int i = 0; i < maxFractals; i++)
 	{
 		bulbAux[i].r_dz = 1.0;
@@ -81,7 +84,15 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	int i;
 	for (i = 0; i < in.maxN; i++)
 	{
-		int sequence = four.GetSequence(i);
+		int sequence;
+		if(in.forcedFormulaIndex >= 0)
+		{
+			sequence = in.forcedFormulaIndex;
+		}
+		else
+		{
+			sequence = four.GetSequence(i);
+		}
 		const cFractal *fractal = four.GetFractal(sequence);
 
 		//calls for fractal formulas
@@ -259,16 +270,16 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		switch (defaultFractal->formula)
 		{
 			case mandelbulb:
-				out->distance = 0.5 * r * log(r) / bulbAux[0].r_dz;
+				out->distance = 0.5 * r * log(r) / bulbAux[fractalIndex].r_dz;
 				break;
 			case mandelbox:
 			case smoothMandelbox:
 			case mandelboxVaryScale4D:
-				out->distance = r / fabs(mandelboxAux[0].mboxDE);
+				out->distance = r / fabs(mandelboxAux[fractalIndex].mboxDE);
 				break;
 			case menger_sponge:
 			case kaleidoscopicIFS:
-				out->distance = (r - 2.0) / ifsAux[0].ifsDE;
+				out->distance = (r - 2.0) / ifsAux[fractalIndex].ifsDE;
 				break;
 			default:
 				out->distance = -1.0;
@@ -305,7 +316,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				case mandelbox:
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
-					out->colorIndex = mandelboxAux[0].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR;
+					out->colorIndex = mandelboxAux[fractalIndex].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR;
 					break;
 
 				case menger_sponge:

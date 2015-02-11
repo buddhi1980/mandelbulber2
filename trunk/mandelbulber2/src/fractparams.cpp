@@ -157,5 +157,11 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 	common.fractalRotation = container->Get<CVector3>("fractal_rotation");
 	common.mRotFractalRotation.SetRotation2(common.fractalRotation / 180.0 * M_PI);
 
+	booleanOperatorsEnabled = container->Get<bool>("boolean_operators");
+	for(int i = 0; i < 3; i++)
+	{
+		booleanOperator[i] = (params::enumBooleanOperator)container->Get<int>("boolean_operator", i + 1);
+	}
+
 	//formula = Get<int>("tile_number");
 }

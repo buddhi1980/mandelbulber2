@@ -51,13 +51,67 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 		}
 	}
 
+	if(params.booleanOperatorsEnabled)
+	{
+		//TODO coloring source depending on nearest fractal
+
+		distance = CalculateDistanceSimple(params, four, in, out, 0);
+		for(int i = 0; i < 3; i++)
+		{
+			if(four.GetFractal(i + 1)->formula != fractal::none)
+			{
+				double distTemp = CalculateDistanceSimple(params, four, in, out, i + 1);
+
+				params::enumBooleanOperator boolOperator = params.booleanOperator[i];
+
+				switch (boolOperator)
+				{
+					case params::booleanOperatorOR:
+						distance = min(distTemp, distance);
+						break;
+					case params::booleanOperatorAND:
+						distance = max(distTemp, distance);
+						break;
+
+					default:
+						break;
+				}
+			}
+		}
+	}
+	else
+	{
+		distance = CalculateDistanceSimple(params, four, in, out, -1);
+	}
+
+	distance = min(distance, params.primitives.TotalDistance(in.point, distance, &out->object, &out->objectColor, &out->objectReflect));
+
+	if (params.limitsEnabled)
+	{
+		if (limitBoxDist < in.detailSize)
+		{
+			distance = max(distance, limitBoxDist);
+		}
+	}
+
+	out->distance = distance;
+
+	return distance;
+}
+
+double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &four, const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex)
+{
+	double distance;
+
 	int N = in.normalCalculationMode ? params.N * 5 : params.N;
 
-	sFractalIn fractIn(in.point, params.minN, N, params.common);
+	sFractalIn fractIn(in.point, params.minN, N, params.common, forcedFormulaIndex);
 	sFractalOut fractOut;
 
-	if(true) //TODO !params.primitives.plane.onlyPlane
+	if (true) //TODO !params.primitives.plane.onlyPlane
 	{
+
+		//TODO separate DE type for each fractal
 		if (four.DEType == fractal::analitycDE)
 		{
 
@@ -67,9 +121,8 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 			out->iters = fractOut.iters;
 			out->colorIndex = fractOut.colorIndex;
 
-			if(out->maxiter) distance = 0.0;
+			if (out->maxiter) distance = 0.0;
 
-			//---------------- 3587.7 ns for Compute -----------
 			if (distance < 0) distance = 0;
 
 			if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
@@ -82,23 +135,24 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 					out->maxiter = false;
 				}
 			}
-			else if(params.interiorMode && in.normalCalculationMode)
+			else if (params.interiorMode && in.normalCalculationMode)
 			{
 				if (distance < 0.9 * in.detailSize)
 				{
 					distance = in.detailSize - distance;
-					out->maxiter = false;;
+					out->maxiter = false;
+					;
 				}
 			}
 
 			if (params.iterThreshMode && !fractOut.maxiter)
 			{
-				if(distance < in.detailSize)
+				if (distance < in.detailSize)
 				{
 					distance = in.detailSize * 1.01;
 				}
 			}
-			// ---------- 75 ns for rest of calculation -------------
+
 		}
 		else
 		{
@@ -155,7 +209,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 					out->maxiter = false;
 				}
 			}
-			else if(params.interiorMode && in.normalCalculationMode)
+			else if (params.interiorMode && in.normalCalculationMode)
 			{
 				if (distance < 0.9 * in.detailSize)
 				{
@@ -166,7 +220,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 
 			if (params.iterThreshMode && !maxiter)
 			{
-				if(distance < in.detailSize)
+				if (distance < in.detailSize)
 				{
 					distance = in.detailSize * 1.01;
 				}
@@ -180,19 +234,6 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 		out->maxiter = false;
 	}
 
-	distance = min(distance, params.primitives.TotalDistance(in.point, distance, &out->object, &out->objectColor, &out->objectReflect));
-
-	if (params.limitsEnabled)
-	{
-		if (limitBoxDist < in.detailSize)
-		{
-			distance = max(distance, limitBoxDist);
-		}
-	}
-
-	out->distance = distance;
-
-	//-------------- 3936.54 ns for distance calculation -------------
 	return distance;
 }
 

@@ -81,6 +81,12 @@ using namespace parameterContainer;
 	par->addParam("formula_iterations", 3, 1, 1, 65536, morphNone, paramStandard);
 	par->addParam("formula_iterations", 4, 1, 1, 65536, morphNone, paramStandard);
 
+	//bolean operators
+	par->addParam("boolean_operators", false, morphLinear, paramStandard);
+	par->addParam("boolean_operator", 1, (int)params::booleanOperatorOR, morphLinear, paramStandard);
+	par->addParam("boolean_operator", 2, (int)params::booleanOperatorOR, morphLinear, paramStandard);
+	par->addParam("boolean_operator", 3, (int)params::booleanOperatorOR, morphLinear, paramStandard);
+
 	//general fractal and engine
 	par->addParam("julia_mode", false, morphLinear, paramStandard);
 	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);

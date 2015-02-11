@@ -49,5 +49,6 @@ struct sDistanceOut
 };
 
 double CalculateDistance(const cParamRender &params, const cFourFractals &four, const sDistanceIn &in, sDistanceOut *out);
+double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &four, const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
 
 #endif /* CALCULATE_DISTANCE_HPP_ */
