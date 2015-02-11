@@ -20,7 +20,7 @@
    <string>Mandelbulber</string>
   </property>
   <property name="windowIcon">
-   <iconset >
+   <iconset resource="icons.qrc">
     <normaloff>:/system/icons/mandelbulber.png</normaloff>:/system/icons/mandelbulber.png</iconset>
   </property>
   <property name="dockOptions">
@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>1121</width>
-           <height>740</height>
+           <height>777</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -936,9 +936,8 @@
           <string>RENDER</string>
          </property>
          <property name="icon">
-          <iconset theme="applications-graphics">
-           <normaloff>:/system/icons/applications-graphics.svg</normaloff>
-          </iconset>
+          <iconset theme="applications-graphics" resource="icons.qrc">
+           <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
          </property>
         </widget>
        </item>
@@ -948,9 +947,8 @@
           <string>STOP</string>
          </property>
          <property name="icon">
-          <iconset theme="process-stop">
-           <normaloff>:/system/icons/process-stop.svg</normaloff>
-          </iconset>
+          <iconset theme="process-stop" resource="icons.qrc">
+           <normaloff>:/system/icons/process-stop.svg</normaloff>:/system/icons/process-stop.svg</iconset>
          </property>
         </widget>
        </item>
@@ -1311,7 +1309,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1340,7 +1338,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1375,7 +1373,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1416,7 +1414,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/arrow-up-double.png</normaloff>:/navigation/icons/arrow-up-double.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1445,7 +1443,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/arrow-down-double.png</normaloff>:/navigation/icons/arrow-down-double.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1474,7 +1472,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1617,7 +1615,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1652,7 +1650,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1681,7 +1679,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1710,7 +1708,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/object-rotate-right.png</normaloff>:/navigation/icons/object-rotate-right.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1739,7 +1737,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/object-rotate-left.png</normaloff>:/navigation/icons/object-rotate-left.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -1768,7 +1766,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset >
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2049,7 +2047,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>167</height>
+          <height>176</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -5504,8 +5502,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>171</height>
+          <width>353</width>
+          <height>177</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -5530,7 +5528,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>2</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -5673,8 +5671,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>295</width>
-                      <height>70</height>
+                      <width>309</width>
+                      <height>76</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_1">
@@ -5815,8 +5813,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>295</width>
-                      <height>70</height>
+                      <width>80</width>
+                      <height>16</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_2">
@@ -5957,8 +5955,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>295</width>
-                      <height>70</height>
+                      <width>80</width>
+                      <height>16</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_3">
@@ -6099,8 +6097,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>295</width>
-                      <height>70</height>
+                      <width>80</width>
+                      <height>16</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_fractal_4">
@@ -6159,7 +6157,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>303</width>
                   <height>456</height>
                  </rect>
                 </property>
@@ -6646,6 +6644,211 @@ to target:</string>
               </layout>
              </item>
              <item>
+              <widget class="MyGroupBox" name="groupCheck_boolean_operators">
+               <property name="title">
+                <string>Boolean operators</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_76">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <property name="leftMargin">
+                 <number>2</number>
+                </property>
+                <property name="topMargin">
+                 <number>2</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>2</number>
+                </property>
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_40">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <item row="1" column="1">
+                   <widget class="QComboBox" name="comboBox_boolead_operator_1">
+                    <item>
+                     <property name="text">
+                      <string>Intersection (AND)</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Union (OR)</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Complement (1st minus 2nd)</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_154">
+                    <property name="text">
+                     <string>1st &lt;-&gt; 2nd formula:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QComboBox" name="comboBox_boolead_operator_2">
+                    <item>
+                     <property name="text">
+                      <string>Intersection (AND)</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Union (OR)</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Complement (2nd minus 3rd)</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QComboBox" name="comboBox_boolead_operator_3">
+                    <item>
+                     <property name="text">
+                      <string>Intersection (AND)</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Union (OR)</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Complement (3rd minus 4th)</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_155">
+                    <property name="text">
+                     <string>2st &lt;-&gt; 3rd formula:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_156">
+                    <property name="text">
+                     <string>3rd &lt;-&gt; 4th formula:</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
               <spacer name="verticalSpacer_10">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
@@ -6690,7 +6893,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>303</width>
                   <height>360</height>
                  </rect>
                 </property>
@@ -6727,7 +6930,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset >
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/cylinder.png</normaloff>:/primitives/icons/cylinder.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6750,7 +6953,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset >
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/cone.png</normaloff>:/primitives/icons/cone.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6773,7 +6976,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset >
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/rectangle.png</normaloff>:/primitives/icons/rectangle.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6796,7 +6999,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset >
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/circle.png</normaloff>:/primitives/icons/circle.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6819,7 +7022,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset >
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/box.png</normaloff>:/primitives/icons/box.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6842,7 +7045,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset >
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/water.png</normaloff>:/primitives/icons/water.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6865,7 +7068,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset >
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/plane.png</normaloff>:/primitives/icons/plane.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6888,7 +7091,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset >
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/torus.png</normaloff>:/primitives/icons/torus.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -6911,7 +7114,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset >
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/sphere.png</normaloff>:/primitives/icons/sphere.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -7862,9 +8065,8 @@ and water):</string>
                   <string>Render flight animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="video-x-generic">
-                   <normaloff>:/system/icons/video-x-generic.svg</normaloff>
-                  </iconset>
+                  <iconset theme="video-x-generic" resource="icons.qrc">
+                   <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
                  </property>
                 </widget>
                </item>
@@ -7874,9 +8076,8 @@ and water):</string>
                   <string>Record flight path</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record">
-                   <normaloff>:/system/icons/media-record.svg</normaloff>
-                  </iconset>
+                  <iconset theme="media-record" resource="icons.qrc">
+                   <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
                </item>
@@ -7886,9 +8087,8 @@ and water):</string>
                   <string>Delete all images</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="edit-delete">
-                   <normaloff>:/system/icons/edit-delete.svg</normaloff>
-                  </iconset>
+                  <iconset theme="edit-delete" resource="icons.qrc">
+                   <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
                  </property>
                 </widget>
                </item>
@@ -7898,9 +8098,8 @@ and water):</string>
                   <string>Show Animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-playback-start">
-                    <normaloff>:/system/icons/media-playback-start.svg</normaloff>
-                  </iconset>
+                  <iconset theme="media-playback-start" resource="icons.qrc">
+                   <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
                  </property>
                 </widget>
                </item>
@@ -7910,9 +8109,8 @@ and water):</string>
                   <string>Continue recording</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record">
-                    <normaloff>:/system/icons/media-record.svg</normaloff>
-                  </iconset>
+                  <iconset theme="media-record" resource="icons.qrc">
+                   <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
                </item>
@@ -7922,9 +8120,8 @@ and water):</string>
                   <string>Refresh table</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="view-refresh">
-                   <normaloff>:/system/icons/view-refresh.svg</normaloff>
-                  </iconset>
+                  <iconset theme="view-refresh" resource="icons.qrc">
+                   <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
                  </property>
                 </widget>
                </item>
@@ -7941,7 +8138,7 @@ and water):</string>
                   <x>0</x>
                   <y>0</y>
                   <width>355</width>
-                  <height>275</height>
+                  <height>238</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -8296,9 +8493,8 @@ and water):</string>
   </widget>
   <action name="actionSave_as_JPG">
    <property name="icon">
-    <iconset theme="document-save-as" >
-     <normaloff>:/system/icons/document-save-as.svg</normaloff>
-    </iconset>
+    <iconset theme="document-save-as" resource="icons.qrc">
+     <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
     <string>Save as JPG...</string>
@@ -8306,9 +8502,8 @@ and water):</string>
   </action>
   <action name="actionSave_as_PNG">
    <property name="icon">
-    <iconset theme="document-save-as" >
-     <normaloff>:/system/icons/document-save-as.svg</normaloff>
-    </iconset>
+    <iconset theme="document-save-as" resource="icons.qrc">
+     <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
     <string>Save as PNG...</string>
@@ -8316,9 +8511,8 @@ and water):</string>
   </action>
   <action name="actionSave_as_PNG_16_bit">
    <property name="icon">
-   <iconset theme="document-save-as" >
-     <normaloff>:/system/icons/document-save-as.svg</normaloff>
-    </iconset>
+    <iconset theme="document-save-as" resource="icons.qrc">
+     <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
     <string>Save as PNG 16 bit...</string>
@@ -8326,9 +8520,8 @@ and water):</string>
   </action>
   <action name="actionSave_as_PNG_16_bit_with_alpha_channel">
    <property name="icon">
-   <iconset theme="document-save-as" >
-     <normaloff>:/system/icons/document-save-as.svg</normaloff>
-    </iconset>
+    <iconset theme="document-save-as" resource="icons.qrc">
+     <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
     <string>Save as PNG 16 bit with alpha channel</string>
@@ -8336,9 +8529,8 @@ and water):</string>
   </action>
   <action name="actionLoad_settings">
    <property name="icon">
-    <iconset theme="document-open" >
-     <normaloff>:/system/icons/document-open.svg</normaloff>
-    </iconset>
+    <iconset theme="document-open" resource="icons.qrc">
+     <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
     <string>Load settings...</string>
@@ -8346,9 +8538,8 @@ and water):</string>
   </action>
   <action name="actionSave_settings">
    <property name="icon">
-    <iconset theme="document-save" >
-     <normaloff>:/system/icons/document-save.svg</normaloff>
-    </iconset>
+    <iconset theme="document-save" resource="icons.qrc">
+     <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
    </property>
    <property name="text">
     <string>Save settings</string>
@@ -8356,9 +8547,8 @@ and water):</string>
   </action>
   <action name="actionSave_settings_as">
    <property name="icon">
-    <iconset theme="document-save" >
-     <normaloff>:/system/icons/document-save.svg</normaloff>
-    </iconset>
+    <iconset theme="document-save" resource="icons.qrc">
+     <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
    </property>
    <property name="text">
     <string>Save settings as...</string>
@@ -8369,9 +8559,8 @@ and water):</string>
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset theme="application-exit">
-     <normaloff>:/system/icons/system-shutdown.svg</normaloff>
-    </iconset>
+    <iconset theme="application-exit" resource="icons.qrc">
+     <normaloff>:/system/icons/system-shutdown.svg</normaloff>:/system/icons/system-shutdown.svg</iconset>
    </property>
    <property name="text">
     <string>Quit</string>
@@ -8394,19 +8583,18 @@ and water):</string>
   </action>
   <action name="actionAbout_Mandelbulber">
    <property name="icon">
-    <iconset >
+    <iconset resource="icons.qrc">
      <normaloff>:/system/icons/mandelbulber.png</normaloff>:/system/icons/mandelbulber.png</iconset>
-   </property>   
+   </property>
    <property name="text">
     <string>About Mandelbulber</string>
    </property>
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset theme="edit-undo" >
-     <normaloff>:/system/icons/edit-undo.png</normaloff>
-    </iconset>   
-   </property> 
+    <iconset theme="edit-undo" resource="icons.qrc">
+     <normaloff>:/system/icons/edit-undo.png</normaloff>:/system/icons/edit-undo.png</iconset>
+   </property>
    <property name="text">
     <string>Undo</string>
    </property>
@@ -8416,9 +8604,8 @@ and water):</string>
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset theme="edit-redo" >
-     <normaloff>:/system/icons/edit-redo.png</normaloff>
-    </iconset>
+    <iconset theme="edit-redo" resource="icons.qrc">
+     <normaloff>:/system/icons/edit-redo.png</normaloff>:/system/icons/edit-redo.png</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -8429,9 +8616,8 @@ and water):</string>
   </action>
   <action name="actionImport_settings_from_old_Mandelbulber">
    <property name="icon">
-    <iconset theme="document-open" >
-     <normaloff>:/system/icons/document-open.svg</normaloff>
-    </iconset>
+    <iconset theme="document-open" resource="icons.qrc">
+     <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
     <string>Import settings from old Mandelbulber (v1.21)...</string>
@@ -8439,9 +8625,8 @@ and water):</string>
   </action>
   <action name="actionLoad_example">
    <property name="icon">
-    <iconset theme="document-open" >
-     <normaloff>:/system/icons/document-open.svg</normaloff>
-    </iconset>
+    <iconset theme="document-open" resource="icons.qrc">
+     <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
     <string>Load example...</string>
