@@ -526,3 +526,5 @@ void BristorbrotIteration(CVector3 &z)
 	z.y = newy;
 	z.z = newz;
 }
+
+/* Just a test comment from Jeroen (Youhn) to commit changes though SVN */
