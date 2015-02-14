@@ -37,11 +37,12 @@ public:
 	cFourFractals(const cFractalContainer *fractalPar, const cParameterContainer *generalPar);
 	cFractal* GetFractal(int index) const {return fourFractals[index];}
 	cFractal **fourFractals;
-	fractal::enumDEType DEType;
 	int GetSequence(int i) const;
 	bool IsHybrid() const {return isHybrid;}
+	fractal::enumDEType GetDEType(int formulaIndex) const;
 
 private:
+	fractal::enumDEType DEType[NUMBER_OF_FRACTALS];
 	QVector<int> hybridSequence;
 	void CreateSequence(const cParameterContainer *generalPar);
 	int maxN;

@@ -26,8 +26,10 @@ cFourFractals::cFourFractals()
 {
 	fourFractals = new cFractal*[NUMBER_OF_FRACTALS];
 	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
+	{
 		fourFractals[i] = NULL;
-	DEType = fractal::deltaDE;
+		DEType[i] = fractal::deltaDE;
+	}
 	maxN = 0;
 	isHybrid = false;
 }
@@ -61,16 +63,19 @@ cFourFractals::cFourFractals(const cFractalContainer *par, const cParameterConta
 
 	if (generalPar->Get<bool>("hybrid_fractal_enable"))
 	{
-		DEType = fractal::deltaDE;
+		DEType[0] = fractal::deltaDE;
 	}
 	else
 	{
-		fractal::enumFractalFormula formula = fourFractals[0]->formula;
-		for (int i = 0; i < fractalList.size(); i++)
+		for(int f = 0; f < NUMBER_OF_FRACTALS; f++)
 		{
-			if (fractalList[i].internalID == formula)
+			fractal::enumFractalFormula formula = fourFractals[f]->formula;
+			for (int i = 0; i < fractalList.size(); i++)
 			{
-				DEType = fractalList[i].DEType;
+				if (fractalList[i].internalID == formula)
+				{
+					DEType[f] = fractalList[i].DEType;
+				}
 			}
 		}
 	}
@@ -132,4 +137,18 @@ int cFourFractals::GetSequence(int i) const
 	{
 		return 0;
 	}
+}
+
+fractal::enumDEType cFourFractals::GetDEType(int formulaIndex) const
+{
+	fractal::enumDEType type = fractal::deltaDE;
+	if(formulaIndex == -1)
+	{
+		type = DEType[0];
+	}
+	else
+	{
+		type = DEType[formulaIndex];
+	}
+	return type;
 }

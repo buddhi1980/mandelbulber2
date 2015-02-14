@@ -56,7 +56,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 		//TODO coloring source depending on nearest fractal
 
 		distance = CalculateDistanceSimple(params, four, in, out, 0);
-		for(int i = 0; i < 3; i++)
+		for(int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 		{
 			if(four.GetFractal(i + 1)->formula != fractal::none)
 			{
@@ -71,6 +71,9 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 						break;
 					case params::booleanOperatorAND:
 						distance = max(distTemp, distance);
+						break;
+					case params::booleanOperatorSUB:
+						//TODO SUBB operator
 						break;
 
 					default:
@@ -110,11 +113,8 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 
 	if (true) //TODO !params.primitives.plane.onlyPlane
 	{
-
-		//TODO separate DE type for each fractal
-		if (four.DEType == fractal::analitycDE)
+		if (four.GetDEType(forcedFormulaIndex) == fractal::analitycDE)
 		{
-
 			Compute<fractal::normal>(four, fractIn, &fractOut);
 			distance = fractOut.distance;
 			out->maxiter = fractOut.maxiter;
