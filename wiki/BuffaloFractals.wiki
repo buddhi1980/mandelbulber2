@@ -19,7 +19,7 @@ By adding absolute operators to a combination of the iterated x,y,z values of th
 	z.z = newz;
 }}}
 
-= The six variation of the Buffalo =
+= The variations of the Buffalo =
 
 ==Buffalo 1==
 || abs(x) ||
