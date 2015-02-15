@@ -66,7 +66,19 @@ enum enumFractalFormula
 	angleMultiplyY = 35,
 	angleMultiplyZ = 36,
 	generalizedFoldBox = 37,
-	ocl_custom = 38
+	ocl_custom = 38,
+    ides = 39,
+    ides2 = 40,
+    buffalo1 = 41,
+    buffalo2 = 42,
+    buffalo3 = 43,
+    buffalo4 = 44,
+    buffalo5 = 45,
+    buffalo6 = 46,
+    buffalo7 = 47,
+    quickdudley = 48,
+    lkmitch = 49,
+    makin3d2 = 50
 };
 
 enum enumDEType

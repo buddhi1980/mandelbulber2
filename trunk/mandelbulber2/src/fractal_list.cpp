@@ -48,5 +48,16 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Aexion", "aexion", aexion, deltaDE));
 	fractalList->append(sFractalDescription("Benesi", "benesi", benesi, deltaDE));
 	fractalList->append(sFractalDescription("Bristorbrot", "bristorbrot", bristorbrot, deltaDE));
+	fractalList->append(sFractalDescription("Ides Formula", "ides", ides, deltaDE));
+	fractalList->append(sFractalDescription("Ides Formula 2", "ides2", ides2, deltaDE));
+	fractalList->append(sFractalDescription("Buffalo 1", "buffalo1", buffalo1, deltaDE));
+	fractalList->append(sFractalDescription("Buffalo 2", "buffalo2", buffalo2, deltaDE));
+	fractalList->append(sFractalDescription("Buffalo 3", "buffalo3", buffalo3, deltaDE));
+	fractalList->append(sFractalDescription("Buffalo 4", "buffalo4", buffalo4, deltaDE));
+	fractalList->append(sFractalDescription("Buffalo 5", "buffalo5", buffalo5, deltaDE));
+	fractalList->append(sFractalDescription("Buffalo 6", "buffalo6", buffalo6, deltaDE));
+	fractalList->append(sFractalDescription("Buffalo 7", "buffalo7", buffalo7, deltaDE));
+	fractalList->append(sFractalDescription("Quick-Dudley", "quickdudley", quickdudley, deltaDE));
+	fractalList->append(sFractalDescription("Lkmitch", "lkmitch", lkmitch, deltaDE));
+	fractalList->append(sFractalDescription("Makin3D-2", "makin3d2", makin3d2, deltaDE));
 }
-

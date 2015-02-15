@@ -527,4 +527,170 @@ void BristorbrotIteration(CVector3 &z)
 	z.z = newz;
 }
 
-/* Just a test comment from Jeroen (Youhn) to commit changes though SVN */
+
+void IdesIteration(CVector3 &z)
+{
+    double x2 = z.x * z.x;
+    double y2 = z.y * z.y;
+    double z2 = z.z * z.z;
+    double newx = x2 - 0.5 * (y2 + z2) + z.x;
+    double newy = 2.0 * z.x * z.y * z.z + z.y;
+    double newz = z2 - 0.5 * (x2 + y2) + z.z;
+    z.x = newx;
+    z.y = newy;
+    z.z = newz;
+}
+
+void Ides2Iteration(CVector3 &z, CVector3 &c)
+{
+    double x2 = z.x * z.x;
+    double y2 = z.y * z.y;
+    double z2 = z.z * z.z;
+    double newx = x2 - 0.5 * (y2 + z2) + c.x;
+    double newy = 2.0 * z.x * z.y * z.z + c.y;
+    double newz = z2 - 0.5 * (x2 + y2) + c.z;
+    z.x = newx;
+    z.y = newy;
+    z.z = newz;
+}
+
+void Buffalo1Iteration(CVector3 &z)
+{
+    double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+	double temp = 1.0 - z2 / (x2 + y2);
+	double newx = (x2 - y2) * temp;
+	double newy = 2.0 * z.x * z.y * temp;
+	double newz = -2.0 * z.z * sqrt(x2 + y2);
+	z.x = fabs(newx);
+	z.y = newy;
+	z.z = newz;
+}
+
+void Buffalo2Iteration(CVector3 &z)
+{
+    double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+	double temp = 1.0 - z2 / (x2 + y2);
+	double newx = (x2 - y2) * temp;
+	double newy = 2.0 * z.x * z.y * temp;
+	double newz = -2.0 * z.z * sqrt(x2 + y2);
+	z.x = newx;
+	z.y = fabs(newy);
+	z.z = newz;
+}
+
+void Buffalo3Iteration(CVector3 &z)
+{
+    double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+	double temp = 1.0 - z2 / (x2 + y2);
+	double newx = (x2 - y2) * temp;
+	double newy = 2.0 * z.x * z.y * temp;
+	double newz = -2.0 * z.z * sqrt(x2 + y2);
+	z.x = newx;
+	z.y = newy;
+	z.z = fabs(newz);
+}
+
+void Buffalo4Iteration(CVector3 &z)
+{
+    double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+	double temp = 1.0 - z2 / (x2 + y2);
+	double newx = (x2 - y2) * temp;
+	double newy = 2.0 * z.x * z.y * temp;
+	double newz = -2.0 * z.z * sqrt(x2 + y2);
+	z.x = fabs(newx);
+	z.y = fabs(newy);
+	z.z = newz;
+}
+
+void Buffalo5Iteration(CVector3 &z)
+{
+    double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+	double temp = 1.0 - z2 / (x2 + y2);
+	double newx = (x2 - y2) * temp;
+	double newy = 2.0 * z.x * z.y * temp;
+	double newz = -2.0 * z.z * sqrt(x2 + y2);
+	z.x = fabs(newx);
+	z.y = newy;
+	z.z = fabs(newz);
+}
+
+void Buffalo6Iteration(CVector3 &z)
+{
+    double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+	double temp = 1.0 - z2 / (x2 + y2);
+	double newx = (x2 - y2) * temp;
+	double newy = 2.0 * z.x * z.y * temp;
+	double newz = -2.0 * z.z * sqrt(x2 + y2);
+	z.x = newx;
+	z.y = fabs(newy);
+	z.z = fabs(newz);
+}
+
+void Buffalo7Iteration(CVector3 &z)
+{
+    double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+	double temp = 1.0 - z2 / (x2 + y2);
+	double newx = (x2 - y2) * temp;
+	double newy = 2.0 * z.x * z.y * temp;
+	double newz = -2.0 * z.z * sqrt(x2 + y2);
+	z.x = fabs(newx);
+	z.y = fabs(newy);
+	z.z = fabs(newz);
+}
+
+/* http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
+void QuickDudleyIteration(CVector3 &z)
+{
+    double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+    double newx = x2 - 2 * z.y * z.z;
+    double newy = z2 + 2 * z.x * z.y;
+    double newz = y2 + 2 * z.x * z.z;
+    z.x = newx;
+    z.y = newy;
+    z.z = newz;
+}
+
+/* http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
+void LkmitchIteration(CVector3 &z)
+{
+    double x2 = z.x * z.x;
+    double y2 = z.y * z.y;
+    double z2 = z.z * z.z;
+    double newx = x2 - 2 * z.y * z.z;
+    double newy = z2 + 2 * z.x * z.y;
+    double newz = y2 - 2 * z.x * z.z;
+    z.x = newx;
+    z.y = newy;
+    z.z = newz;
+}
+
+/* Makin3D-2 found through the another shot at the holy grail topic at ff */
+void Makin3D2Iteration(CVector3 &z)
+{
+    double x2 = z.x * z.x;
+    double y2 = z.y * z.y;
+    double z2 = z.z * z.z;
+    double newx =  x2 + 2 * z.y * z.z;
+    double newy = -y2 - 2 * z.x * z.z;
+    double newz = -z2 + 2 * z.x * z.y;
+    z.x = newx;
+    z.y = newy;
+    z.z = newz;
+}
+
