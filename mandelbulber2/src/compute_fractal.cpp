@@ -189,6 +189,56 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				BristorbrotIteration(z);
 				break;
 			}
+            case buffalo1:
+            {
+                Buffalo1Iteration(z);
+                break;
+            }
+            case buffalo2:
+            {
+                Buffalo2Iteration(z);
+                break;
+            }
+            case buffalo3:
+            {
+                Buffalo3Iteration(z);
+                break;
+            }
+            case buffalo4:
+            {
+                Buffalo4Iteration(z);
+                break;
+            }
+            case buffalo5:
+            {
+                Buffalo5Iteration(z);
+                break;
+            }
+            case buffalo6:
+            {
+                Buffalo6Iteration(z);
+                break;
+            }
+            case buffalo7:
+            {
+                Buffalo7Iteration(z);
+                break;
+            }
+            case quickdudley:
+            {
+                QuickDudleyIteration(z);
+                break;
+            }
+            case lkmitch:
+            {
+                LkmitchIteration(z);
+                break;
+            }
+            case makin3d2:
+            {
+                Makin3D2Iteration(z);
+                break;
+            }
 			default:
 				z = CVector3(0.0, 0.0, 0.0);
 				break;
@@ -324,6 +374,16 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 					out->colorIndex = minimumR * 1000.0;
 					break;
 
+                case ides:
+                {
+                    IdesIteration(z);
+                    break;
+                }
+                case ides2:
+                {
+                    Ides2Iteration(z, c);
+                    break;
+                }
 				default:
 					out->colorIndex = minimumR * 5000.0;
 					break;
@@ -347,4 +407,3 @@ template void Compute<deltaDE1>(const cFourFractals &four, const sFractalIn &in,
 template void Compute<deltaDE2>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
 template void Compute<colouring>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
 template void Compute<orbitTrap>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
-

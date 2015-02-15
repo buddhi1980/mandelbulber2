@@ -67,5 +67,16 @@ void HypercomplexIteration(CVector3 &z, double &w);
 void QuaternionIteration(CVector3 &z, double &w);
 void BenesiIteration(CVector3 &z, CVector3 &c);
 void BristorbrotIteration(CVector3 &z);
-
+void IdesIteration(CVector3 &z);
+void Ides2Iteration(CVector3 &z, CVector3 &c);
+void Buffalo1Iteration(CVector3 &z);
+void Buffalo2Iteration(CVector3 &z);
+void Buffalo3Iteration(CVector3 &z);
+void Buffalo4Iteration(CVector3 &z);
+void Buffalo5Iteration(CVector3 &z);
+void Buffalo6Iteration(CVector3 &z);
+void Buffalo7Iteration(CVector3 &z);
+void QuickDudleyIteration(CVector3 &z);
+void LkmitchIteration(CVector3 &z);
+void Makin3D2Iteration(CVector3 &z);
 #endif /* FRACTAL_FORMULAS_HPP_ */
