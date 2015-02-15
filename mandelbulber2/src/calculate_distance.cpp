@@ -56,13 +56,17 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 		//TODO coloring source depending on nearest fractal
 
 		distance = CalculateDistanceSimple(params, four, in, out, 0);
+
 		for(int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 		{
 			if(four.GetFractal(i + 1)->formula != fractal::none)
 			{
+				sDistanceOut outTemp = *out;
 				double distTemp = CalculateDistanceSimple(params, four, in, out, i + 1);
 
 				params::enumBooleanOperator boolOperator = params.booleanOperator[i];
+
+				//TODO logic for out.maxIter
 
 				switch (boolOperator)
 				{
@@ -73,9 +77,33 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 						distance = max(distTemp, distance);
 						break;
 					case params::booleanOperatorSUB:
-						//TODO SUBB operator
+					{
+						double limit = 1.5;
+						if(distance < in.detailSize) //if inside 1st
+						{
+							if(distTemp < in.detailSize * limit) //if inside 2nd
+							{
+								if(in.normalCalculationMode)
+								{
+									distance = in.detailSize * limit- distTemp;
+								}
+								else
+								{
+									distance = in.detailSize * limit;
+								}
+							}
+							else //if ouside 2nd
+							{
+								distance = max(in.detailSize * limit - distTemp, distance);
+								if(distance < 0) distance = 0;
+							}
+						}
+						else //if ouside 1st
+						{
+							*out = outTemp;
+						}
 						break;
-
+					}
 					default:
 						break;
 				}
@@ -141,7 +169,6 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 				{
 					distance = in.detailSize - distance;
 					out->maxiter = false;
-					;
 				}
 			}
 
