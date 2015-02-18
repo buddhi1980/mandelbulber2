@@ -104,14 +104,7 @@ bool cOldSettings::LoadSettings2(const QString &filename)
 double cOldSettings::atof2(const char *str)
 {
 	QString string(str);
-	if (systemData.decimalPoint == '.')
-	{
-		string = string.replace(',', '.');
-	}
-	else
-	{
-		string = string.replace('.', ',');
-	}
+	string = string.replace(',', '.');
 	return string.toDouble();
 }
 
