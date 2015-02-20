@@ -1,4 +1,4 @@
-MANDELBULBER 2.03
+MANDELBULBER 2.03-1
 
 project leader: Krzysztof Marczak
 project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa, Sebastian Jennen
