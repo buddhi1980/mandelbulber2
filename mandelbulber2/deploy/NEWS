@@ -1,5 +1,8 @@
 Version history
 
+v2.03-1
+fixed bug: improper loading of "old settings" when system used comma as decimal separator
+
 v2.03
 - Added recording and rendering of flight animation. All frames are displayed in the table with previews. 
   There is possible to edit values in the table and interpolate them in selected range of frames
