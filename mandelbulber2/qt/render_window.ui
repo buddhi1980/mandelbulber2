@@ -2109,7 +2109,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-40</y>
                   <width>303</width>
                   <height>626</height>
                  </rect>
@@ -5590,9 +5590,9 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
+                      <y>-112</y>
                       <width>295</width>
-                      <height>421</height>
+                      <height>445</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -5767,7 +5767,7 @@ to target:</string>
                           <item row="2" column="2">
                            <widget class="MyLineEdit" name="vect3_formula_position_1_z"/>
                           </item>
-                          <item row="4" column="1">
+                          <item row="5" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_1_y">
                             <property name="minimum">
                              <number>-18000</number>
@@ -5787,7 +5787,7 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="4" column="0">
+                          <item row="5" column="0">
                            <widget class="QLabel" name="label_157">
                             <property name="text">
                              <string>Y-axis rotation:</string>
@@ -5810,7 +5810,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="5" column="2">
+                          <item row="1" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_1_y"/>
+                          </item>
+                          <item row="6" column="2">
                            <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_1_z">
                             <property name="prefix">
                              <string/>
@@ -5832,7 +5835,7 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="4" column="2">
+                          <item row="5" column="2">
                            <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_1_y">
                             <property name="prefix">
                              <string/>
@@ -5854,10 +5857,7 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_position_1_y"/>
-                          </item>
-                          <item row="7" column="1">
+                          <item row="8" column="1">
                            <widget class="QLabel" name="label_167">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -5873,7 +5873,7 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="3" column="2">
+                          <item row="4" column="2">
                            <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_1_x">
                             <property name="prefix">
                              <string/>
@@ -5895,7 +5895,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="3" column="1">
+                          <item row="0" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_1_x"/>
+                          </item>
+                          <item row="4" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_1_x">
                             <property name="minimum">
                              <number>-18000</number>
@@ -5908,20 +5911,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_position_1_x"/>
-                          </item>
-                          <item row="6" column="2">
+                          <item row="7" column="2">
                            <widget class="MyLineEdit" name="vect3_formula_repeat_1_x"/>
                           </item>
-                          <item row="3" column="0">
-                           <widget class="QLabel" name="label_160">
-                            <property name="text">
-                             <string>X-axis rotation:</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="5" column="1">
+                          <item row="6" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_1_z">
                             <property name="minimum">
                              <number>-18000</number>
@@ -5931,6 +5924,20 @@ to target:</string>
                             </property>
                             <property name="wrapping">
                              <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0">
+                           <widget class="QLabel" name="label_160">
+                            <property name="text">
+                             <string>X-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="0">
+                           <widget class="QLabel" name="label_162">
+                            <property name="text">
+                             <string>Z-axis rotation:</string>
                             </property>
                            </widget>
                           </item>
@@ -5950,14 +5957,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="5" column="0">
-                           <widget class="QLabel" name="label_162">
-                            <property name="text">
-                             <string>Z-axis rotation:</string>
-                            </property>
-                           </widget>
+                          <item row="8" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_1_y"/>
                           </item>
-                          <item row="6" column="1">
+                          <item row="7" column="1">
                            <widget class="QLabel" name="label_165">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -5973,7 +5976,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="8" column="1">
+                          <item row="9" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_1_z"/>
+                          </item>
+                          <item row="9" column="1">
                            <widget class="QLabel" name="label_166">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -5989,16 +5995,52 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="7" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_repeat_1_y"/>
-                          </item>
-                          <item row="8" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_repeat_1_z"/>
-                          </item>
-                          <item row="6" column="0" rowspan="3">
+                          <item row="7" column="0" rowspan="3">
                            <widget class="QLabel" name="label_164">
                             <property name="text">
                              <string>Repeat</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0">
+                           <widget class="QLabel" name="label_168">
+                            <property name="text">
+                             <string>scale:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="2">
+                           <widget class="MyLineEdit" name="logedit_formula_scale_1">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="1">
+                           <widget class="QSlider" name="logslider_formula_scale_1">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="sizeIncrement">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="minimum">
+                             <number>-1000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>300</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
                             </property>
                            </widget>
                           </item>
@@ -6055,9 +6097,9 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
+                      <y>-88</y>
                       <width>295</width>
-                      <height>421</height>
+                      <height>445</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -6232,7 +6274,7 @@ to target:</string>
                           <item row="2" column="2">
                            <widget class="MyLineEdit" name="vect3_formula_position_2_z"/>
                           </item>
-                          <item row="4" column="1">
+                          <item row="5" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_2_y">
                             <property name="minimum">
                              <number>-18000</number>
@@ -6252,7 +6294,7 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="4" column="0">
+                          <item row="5" column="0">
                            <widget class="QLabel" name="label_181">
                             <property name="text">
                              <string>Y-axis rotation:</string>
@@ -6275,30 +6317,8 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="5" column="2">
+                          <item row="6" column="2">
                            <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_2_z">
-                            <property name="prefix">
-                             <string/>
-                            </property>
-                            <property name="suffix">
-                             <string/>
-                            </property>
-                            <property name="decimals">
-                             <number>2</number>
-                            </property>
-                            <property name="minimum">
-                             <double>-36000.000000000000000</double>
-                            </property>
-                            <property name="maximum">
-                             <double>36000.000000000000000</double>
-                            </property>
-                            <property name="singleStep">
-                             <double>0.100000000000000</double>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="4" column="2">
-                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_2_y">
                             <property name="prefix">
                              <string/>
                             </property>
@@ -6322,7 +6342,29 @@ to target:</string>
                           <item row="1" column="2">
                            <widget class="MyLineEdit" name="vect3_formula_position_2_y"/>
                           </item>
-                          <item row="7" column="1">
+                          <item row="5" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_2_y">
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="1">
                            <widget class="QLabel" name="label_183">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -6338,7 +6380,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="3" column="2">
+                          <item row="0" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_2_x"/>
+                          </item>
+                          <item row="4" column="2">
                            <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_2_x">
                             <property name="prefix">
                              <string/>
@@ -6360,7 +6405,7 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="3" column="1">
+                          <item row="4" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_2_x">
                             <property name="minimum">
                              <number>-18000</number>
@@ -6373,20 +6418,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_position_2_x"/>
-                          </item>
-                          <item row="6" column="2">
+                          <item row="7" column="2">
                            <widget class="MyLineEdit" name="vect3_formula_repeat_2_x"/>
                           </item>
-                          <item row="3" column="0">
-                           <widget class="QLabel" name="label_184">
-                            <property name="text">
-                             <string>X-axis rotation:</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="5" column="1">
+                          <item row="6" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_2_z">
                             <property name="minimum">
                              <number>-18000</number>
@@ -6396,6 +6431,20 @@ to target:</string>
                             </property>
                             <property name="wrapping">
                              <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0">
+                           <widget class="QLabel" name="label_184">
+                            <property name="text">
+                             <string>X-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="0">
+                           <widget class="QLabel" name="label_186">
+                            <property name="text">
+                             <string>Z-axis rotation:</string>
                             </property>
                            </widget>
                           </item>
@@ -6415,14 +6464,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="5" column="0">
-                           <widget class="QLabel" name="label_186">
-                            <property name="text">
-                             <string>Z-axis rotation:</string>
-                            </property>
-                           </widget>
+                          <item row="8" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_2_y"/>
                           </item>
-                          <item row="6" column="1">
+                          <item row="7" column="1">
                            <widget class="QLabel" name="label_187">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -6438,7 +6483,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="8" column="1">
+                          <item row="9" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_2_z"/>
+                          </item>
+                          <item row="9" column="1">
                            <widget class="QLabel" name="label_188">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -6454,16 +6502,52 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="7" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_repeat_2_y"/>
-                          </item>
-                          <item row="8" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_repeat_2_z"/>
-                          </item>
-                          <item row="6" column="0" rowspan="3">
+                          <item row="7" column="0" rowspan="3">
                            <widget class="QLabel" name="label_189">
                             <property name="text">
                              <string>Repeat</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="1">
+                           <widget class="QSlider" name="logslider_formula_scale_2">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="sizeIncrement">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="minimum">
+                             <number>-1000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>300</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="2">
+                           <widget class="MyLineEdit" name="logedit_formula_scale_2">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0">
+                           <widget class="QLabel" name="label_214">
+                            <property name="text">
+                             <string>scale:</string>
                             </property>
                            </widget>
                           </item>
@@ -6520,9 +6604,9 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
+                      <y>-140</y>
                       <width>295</width>
-                      <height>421</height>
+                      <height>445</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -6678,6 +6762,28 @@ to target:</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
+                          <item row="5" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_3_y">
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
                           <item row="2" column="1">
                            <widget class="QLabel" name="label_190">
                             <property name="sizePolicy">
@@ -6697,7 +6803,7 @@ to target:</string>
                           <item row="2" column="2">
                            <widget class="MyLineEdit" name="vect3_formula_position_3_z"/>
                           </item>
-                          <item row="4" column="1">
+                          <item row="5" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_3_y">
                             <property name="minimum">
                              <number>-18000</number>
@@ -6717,7 +6823,7 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="4" column="0">
+                          <item row="5" column="0">
                            <widget class="QLabel" name="label_192">
                             <property name="text">
                              <string>Y-axis rotation:</string>
@@ -6740,7 +6846,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="5" column="2">
+                          <item row="1" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_3_y"/>
+                          </item>
+                          <item row="6" column="2">
                            <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_3_z">
                             <property name="prefix">
                              <string/>
@@ -6762,32 +6871,7 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="4" column="2">
-                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_3_y">
-                            <property name="prefix">
-                             <string/>
-                            </property>
-                            <property name="suffix">
-                             <string/>
-                            </property>
-                            <property name="decimals">
-                             <number>2</number>
-                            </property>
-                            <property name="minimum">
-                             <double>-36000.000000000000000</double>
-                            </property>
-                            <property name="maximum">
-                             <double>36000.000000000000000</double>
-                            </property>
-                            <property name="singleStep">
-                             <double>0.100000000000000</double>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="1" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_position_3_y"/>
-                          </item>
-                          <item row="7" column="1">
+                          <item row="8" column="1">
                            <widget class="QLabel" name="label_194">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -6803,7 +6887,7 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="3" column="2">
+                          <item row="4" column="2">
                            <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_3_x">
                             <property name="prefix">
                              <string/>
@@ -6825,7 +6909,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="3" column="1">
+                          <item row="0" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_3_x"/>
+                          </item>
+                          <item row="4" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_3_x">
                             <property name="minimum">
                              <number>-18000</number>
@@ -6838,20 +6925,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_position_3_x"/>
-                          </item>
-                          <item row="6" column="2">
+                          <item row="7" column="2">
                            <widget class="MyLineEdit" name="vect3_formula_repeat_3_x"/>
                           </item>
-                          <item row="3" column="0">
-                           <widget class="QLabel" name="label_195">
-                            <property name="text">
-                             <string>X-axis rotation:</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="5" column="1">
+                          <item row="6" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_3_z">
                             <property name="minimum">
                              <number>-18000</number>
@@ -6861,6 +6938,20 @@ to target:</string>
                             </property>
                             <property name="wrapping">
                              <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0">
+                           <widget class="QLabel" name="label_195">
+                            <property name="text">
+                             <string>X-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="0">
+                           <widget class="QLabel" name="label_197">
+                            <property name="text">
+                             <string>Z-axis rotation:</string>
                             </property>
                            </widget>
                           </item>
@@ -6880,14 +6971,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="5" column="0">
-                           <widget class="QLabel" name="label_197">
-                            <property name="text">
-                             <string>Z-axis rotation:</string>
-                            </property>
-                           </widget>
+                          <item row="8" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_3_y"/>
                           </item>
-                          <item row="6" column="1">
+                          <item row="7" column="1">
                            <widget class="QLabel" name="label_198">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -6903,7 +6990,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="8" column="1">
+                          <item row="9" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_3_z"/>
+                          </item>
+                          <item row="9" column="1">
                            <widget class="QLabel" name="label_199">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -6919,16 +7009,52 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="7" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_repeat_3_y"/>
-                          </item>
-                          <item row="8" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_repeat_3_z"/>
-                          </item>
-                          <item row="6" column="0" rowspan="3">
+                          <item row="7" column="0" rowspan="3">
                            <widget class="QLabel" name="label_200">
                             <property name="text">
                              <string>Repeat</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="1">
+                           <widget class="QSlider" name="logslider_formula_scale_3">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="sizeIncrement">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="minimum">
+                             <number>-1000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>300</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="2">
+                           <widget class="MyLineEdit" name="logedit_formula_scale_3">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0">
+                           <widget class="QLabel" name="label_215">
+                            <property name="text">
+                             <string>scale:</string>
                             </property>
                            </widget>
                           </item>
@@ -6985,9 +7111,9 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
+                      <y>-123</y>
                       <width>295</width>
-                      <height>421</height>
+                      <height>445</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -7162,7 +7288,7 @@ to target:</string>
                           <item row="2" column="2">
                            <widget class="MyLineEdit" name="vect3_formula_position_4_z"/>
                           </item>
-                          <item row="4" column="1">
+                          <item row="5" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_4_y">
                             <property name="minimum">
                              <number>-18000</number>
@@ -7182,7 +7308,7 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="4" column="0">
+                          <item row="5" column="0">
                            <widget class="QLabel" name="label_203">
                             <property name="text">
                              <string>Y-axis rotation:</string>
@@ -7205,30 +7331,8 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="5" column="2">
+                          <item row="6" column="2">
                            <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_4_z">
-                            <property name="prefix">
-                             <string/>
-                            </property>
-                            <property name="suffix">
-                             <string/>
-                            </property>
-                            <property name="decimals">
-                             <number>2</number>
-                            </property>
-                            <property name="minimum">
-                             <double>-36000.000000000000000</double>
-                            </property>
-                            <property name="maximum">
-                             <double>36000.000000000000000</double>
-                            </property>
-                            <property name="singleStep">
-                             <double>0.100000000000000</double>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="4" column="2">
-                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_4_y">
                             <property name="prefix">
                              <string/>
                             </property>
@@ -7252,7 +7356,29 @@ to target:</string>
                           <item row="1" column="2">
                            <widget class="MyLineEdit" name="vect3_formula_position_4_y"/>
                           </item>
-                          <item row="7" column="1">
+                          <item row="5" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_4_y">
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="1">
                            <widget class="QLabel" name="label_205">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -7268,7 +7394,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="3" column="2">
+                          <item row="0" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_4_x"/>
+                          </item>
+                          <item row="4" column="2">
                            <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_4_x">
                             <property name="prefix">
                              <string/>
@@ -7290,7 +7419,7 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="3" column="1">
+                          <item row="4" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_4_x">
                             <property name="minimum">
                              <number>-18000</number>
@@ -7303,20 +7432,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="0" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_position_4_x"/>
-                          </item>
-                          <item row="6" column="2">
+                          <item row="7" column="2">
                            <widget class="MyLineEdit" name="vect3_formula_repeat_4_x"/>
                           </item>
-                          <item row="3" column="0">
-                           <widget class="QLabel" name="label_206">
-                            <property name="text">
-                             <string>X-axis rotation:</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="5" column="1">
+                          <item row="6" column="1">
                            <widget class="QDial" name="dial3_formula_rotation_4_z">
                             <property name="minimum">
                              <number>-18000</number>
@@ -7326,6 +7445,20 @@ to target:</string>
                             </property>
                             <property name="wrapping">
                              <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0">
+                           <widget class="QLabel" name="label_206">
+                            <property name="text">
+                             <string>X-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="0">
+                           <widget class="QLabel" name="label_208">
+                            <property name="text">
+                             <string>Z-axis rotation:</string>
                             </property>
                            </widget>
                           </item>
@@ -7345,14 +7478,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="5" column="0">
-                           <widget class="QLabel" name="label_208">
-                            <property name="text">
-                             <string>Z-axis rotation:</string>
-                            </property>
-                           </widget>
+                          <item row="8" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_4_y"/>
                           </item>
-                          <item row="6" column="1">
+                          <item row="7" column="1">
                            <widget class="QLabel" name="label_209">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -7368,7 +7497,10 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="8" column="1">
+                          <item row="9" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_4_z"/>
+                          </item>
+                          <item row="9" column="1">
                            <widget class="QLabel" name="label_210">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -7384,16 +7516,45 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="7" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_repeat_4_y"/>
-                          </item>
-                          <item row="8" column="2">
-                           <widget class="MyLineEdit" name="vect3_formula_repeat_4_z"/>
-                          </item>
-                          <item row="6" column="0" rowspan="3">
+                          <item row="7" column="0" rowspan="3">
                            <widget class="QLabel" name="label_211">
                             <property name="text">
                              <string>Repeat</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="1">
+                           <widget class="QSlider" name="logslider_formula_scale_4">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="sizeIncrement">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="minimum">
+                             <number>-1000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>300</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="2">
+                           <widget class="MyLineEdit" name="logedit_formula_scale_4">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
                             </property>
                            </widget>
                           </item>

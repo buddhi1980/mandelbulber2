@@ -163,5 +163,14 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 		booleanOperator[i] = (params::enumBooleanOperator)container->Get<int>("boolean_operator", i + 1);
 	}
 
+	for(int i = 0; i < 4; i++)
+	{
+		formulaPosition[i] = container->Get<CVector3>("formula_position", i + 1);
+		formulaRotation[i] = container->Get<CVector3>("formula_rotation", i + 1);
+		formulaRepeat[i] = container->Get<CVector3>("formula_repeat", i + 1);
+		formulaScale[i] = 1.0 / container->Get<double>("formula_scale", i + 1);
+		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
+	}
+
 	//formula = Get<int>("tile_number");
 }

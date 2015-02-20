@@ -55,14 +55,29 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 	{
 		//TODO coloring source depending on nearest fractal
 
-		distance = CalculateDistanceSimple(params, four, in, out, 0);
+		sDistanceIn inTemp = in;
+		CVector3 point = inTemp.point;
+
+		point = point.mod(params.formulaRepeat[0]) - params.formulaPosition[0];
+		point = params.mRotFormulaRotation[0].RotateVector(point);
+		point *= params.formulaScale[0];
+		inTemp.point = point;
+
+		distance = CalculateDistanceSimple(params, four, inTemp, out, 0) / params.formulaScale[0];
 
 		for(int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 		{
 			if(four.GetFractal(i + 1)->formula != fractal::none)
 			{
 				sDistanceOut outTemp = *out;
-				double distTemp = CalculateDistanceSimple(params, four, in, out, i + 1);
+
+				point = in.point;
+				point *= params.formulaScale[i + 1];
+				point = point.mod(params.formulaRepeat[i + 1]) - params.formulaPosition[i + 1];
+				point = params.mRotFormulaRotation[i + 1].RotateVector(point);
+				inTemp.point = point;
+
+				double distTemp = CalculateDistanceSimple(params, four, inTemp, out, i + 1) / params.formulaScale[i + 1];
 
 				params::enumBooleanOperator boolOperator = params.booleanOperator[i];
 
