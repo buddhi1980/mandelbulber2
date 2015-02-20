@@ -152,6 +152,7 @@ public:
 	double fakeLightsVisibility;
 	double fakeLightsVisibilitySize;
   double fogVisibility;
+  double formulaScale[4];
 	double fov; //perspective factor
   double glowIntensity;
 	double iterFogColor1Maxiter;
@@ -182,6 +183,9 @@ public:
 
 	CVector3 auxLightPre[4];
 	CVector3 auxLightRandomCenter;
+	CVector3 formulaPosition[4];
+	CVector3 formulaRotation[4];
+	CVector3 formulaRepeat[4];
 	CVector3 limitMin;
 	CVector3 limitMax;
 	CVector3 repeat;
@@ -189,6 +193,8 @@ public:
 	CVector3 camera; //view point
 	CVector3 viewAngle;
 	CVector3 topVector;
+
+	CRotationMatrix mRotFormulaRotation[4];
 
 	cPrimitives primitives;
 

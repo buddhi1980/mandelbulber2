@@ -87,6 +87,15 @@ using namespace parameterContainer;
 	par->addParam("boolean_operator", 2, (int)params::booleanOperatorOR, morphLinear, paramStandard);
 	par->addParam("boolean_operator", 3, (int)params::booleanOperatorOR, morphLinear, paramStandard);
 
+	//fractal transform
+	for(int i = 1; i <= 4; i++)
+	{
+		par->addParam("formula_position", i, CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+		par->addParam("formula_rotation", i, CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
+		par->addParam("formula_repeat", i, CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+		par->addParam("formula_scale", i, 1.0, morphCatMullRom, paramStandard);
+	}
+
 	//general fractal and engine
 	par->addParam("julia_mode", false, morphLinear, paramStandard);
 	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
