@@ -261,42 +261,32 @@ void cInterface::ConnectSignals(void)
 //Reading ad writing parameters from/to ui to/from parameters container
 void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode)
 {
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode)");
+	WriteLog("cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_image_adjustments, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_image_adjustments, par, mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, par, mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_rendering_engine, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_rendering_engine, par, mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_common, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_common, par, mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_hybrid, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_hybrid, par, mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->tab_primitives, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_primitives, par, mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidgetContents_animation, par, mode);
 
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[0], &parFractal[0], mode)");
+
 	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[0], &parFractal->at(0), mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[1], &parFractal[1], mode)");
 	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[1], &parFractal->at(1), mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[2], &parFractal[2], mode)");
 	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[2], &parFractal->at(2), mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->fractalWidgets[3], &parFractal[3], mode)");
 	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[3], &parFractal->at(3), mode);
 
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_1, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_1, par, mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_2, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_2, par, mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_3, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_3, par, mode);
-	WriteLog("SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_4, par, mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_4, par, mode);
+
+	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_1, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_2, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_3, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_4, par, mode);
 }
 
 //Reading ad writing parameters from/to selected widget to/from parameters container
@@ -930,6 +920,31 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 		mainWindow->ui->comboBox_formula_3->addItems(fractalNames);
 		mainWindow->ui->comboBox_formula_4->clear();
 		mainWindow->ui->comboBox_formula_4->addItems(fractalNames);
+
+		mainWindow->ui->label_formula_iterations_1->setVisible(false);
+		mainWindow->ui->spinboxInt_formula_iterations_1->setVisible(false);
+		mainWindow->ui->sliderInt_formula_iterations_1->setVisible(false);
+		mainWindow->ui->label_formula_iterations_2->setVisible(false);
+		mainWindow->ui->spinboxInt_formula_iterations_2->setVisible(false);
+		mainWindow->ui->sliderInt_formula_iterations_2->setVisible(false);
+		mainWindow->ui->label_formula_iterations_3->setVisible(false);
+		mainWindow->ui->spinboxInt_formula_iterations_3->setVisible(false);
+		mainWindow->ui->sliderInt_formula_iterations_3->setVisible(false);
+		mainWindow->ui->label_formula_iterations_4->setVisible(false);
+		mainWindow->ui->spinboxInt_formula_iterations_4->setVisible(false);
+		mainWindow->ui->sliderInt_formula_iterations_4->setVisible(false);
+
+		mainWindow->ui->frame_iterations_formula_2->setEnabled(false);
+		mainWindow->ui->frame_iterations_formula_3->setEnabled(false);
+		mainWindow->ui->frame_iterations_formula_4->setEnabled(false);
+		mainWindow->ui->scrollArea_fractal_2->setEnabled(false);
+		mainWindow->ui->scrollArea_fractal_3->setEnabled(false);
+		mainWindow->ui->scrollArea_fractal_4->setEnabled(false);
+
+		mainWindow->ui->groupBox_formula_transform_1->setVisible(false);
+		mainWindow->ui->groupBox_formula_transform_2->setVisible(false);
+		mainWindow->ui->groupBox_formula_transform_3->setVisible(false);
+		mainWindow->ui->groupBox_formula_transform_4->setVisible(false);
 	}
 	else
 	{

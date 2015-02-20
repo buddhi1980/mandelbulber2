@@ -455,27 +455,45 @@ void RenderWindow::slotCameraDistanceSlider(int value)
 
 void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 {
-	ui->label_formula_iterations_1->setEnabled(state);
-	ui->spinboxInt_formula_iterations_1->setEnabled(state);
-	ui->sliderInt_formula_iterations_1->setEnabled(state);
+	if(state)	ui->groupCheck_boolean_operators->setChecked(false);
+	gApplication->processEvents();
+
+	ui->label_formula_iterations_1->setVisible(state);
+	ui->spinboxInt_formula_iterations_1->setVisible(state);
+	ui->sliderInt_formula_iterations_1->setVisible(state);
+	ui->label_formula_iterations_2->setVisible(state);
+	ui->spinboxInt_formula_iterations_2->setVisible(state);
+	ui->sliderInt_formula_iterations_2->setVisible(state);
+	ui->label_formula_iterations_3->setVisible(state);
+	ui->spinboxInt_formula_iterations_3->setVisible(state);
+	ui->sliderInt_formula_iterations_3->setVisible(state);
+	ui->label_formula_iterations_4->setVisible(state);
+	ui->spinboxInt_formula_iterations_4->setVisible(state);
+	ui->sliderInt_formula_iterations_4->setVisible(state);
+
 	ui->frame_iterations_formula_2->setEnabled(state);
 	ui->frame_iterations_formula_3->setEnabled(state);
 	ui->frame_iterations_formula_4->setEnabled(state);
 	ui->scrollArea_fractal_2->setEnabled(state);
 	ui->scrollArea_fractal_3->setEnabled(state);
 	ui->scrollArea_fractal_4->setEnabled(state);
-	if(state)	ui->groupCheck_boolean_operators->setChecked(false);
 }
 
 void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
 {
+	if(state)	ui->checkBox_hybrid_fractal_enable->setChecked(false);
+	gApplication->processEvents();
+
 	ui->frame_iterations_formula_2->setEnabled(state);
 	ui->frame_iterations_formula_3->setEnabled(state);
 	ui->frame_iterations_formula_4->setEnabled(state);
 	ui->scrollArea_fractal_2->setEnabled(state);
 	ui->scrollArea_fractal_3->setEnabled(state);
 	ui->scrollArea_fractal_4->setEnabled(state);
-	if(state)	ui->checkBox_hybrid_fractal_enable->setChecked(false);
+	ui->groupBox_formula_transform_1->setVisible(state);
+	ui->groupBox_formula_transform_2->setVisible(state);
+	ui->groupBox_formula_transform_3->setVisible(state);
+	ui->groupBox_formula_transform_4->setVisible(state);
 }
 
 void RenderWindow::slotMenuSaveSettings()
