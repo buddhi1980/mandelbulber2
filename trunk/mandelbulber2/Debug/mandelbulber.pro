@@ -53,8 +53,8 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/scheduler.cpp\
 	    	../src/settings.cpp\
 	    	../src/shaders.cpp\
-	    	../src/system.cpp\
-	    	../src/ssao_worker.cpp\
+				../src/system.cpp\
+				../src/ssao_worker.cpp\
             ../src/texture.cpp\
             ../src/thumbnail.cpp\
             ../src/thumbnail_widget.cpp\
@@ -66,6 +66,7 @@ SOURCES +=  ../src/algebra.cpp\
             ../qt/mycheckbox.cpp\
             ../qt/mycolorbutton.cpp\
             ../qt/my_table_widget_anim.cpp\
+            ../qt/mylogwidget.cpp\
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
@@ -77,6 +78,7 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/mygroupbox.h\
 			../qt/mycolorbutton.h\
 			../qt/my_table_widget_anim.hpp\
+			../qt/mylogwidget.h\
 			../src/my_ui_loader.h\
 			../src/preview_file_dialog.h\
 			../src/ssao_worker.h\

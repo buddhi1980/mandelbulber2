@@ -75,6 +75,7 @@ public:
 	void RebuildPrimitives(cParameterContainer *par);
 	void ComboMouseClickUpdate();
 	void PopulateToolbar(QWidget *window, QToolBar *toolBar);
+
 	bool QuitApplicationDialog();
 
 	RenderWindow *mainWindow;
@@ -88,8 +89,6 @@ public:
 
 	bool stopRequest;
 	bool repeatRequest; //request to repeat start loop
-
-private:
 
 };
 

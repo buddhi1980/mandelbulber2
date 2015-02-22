@@ -82,6 +82,7 @@ void cInterface::ShowUi(void)
 		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_image_adjustments, mainWindow->ui->dockWidget_rendering_engine);
 		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_rendering_engine, mainWindow->ui->dockWidget_fractal);
 		mainWindow->ui->dockWidget_animation->hide();
+		mainWindow->ui->dockWidget_log->hide();
 	}
 
 	WriteLog("mainWindow->show()");
@@ -171,6 +172,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->text_file_background, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditBackgroundTexture(const QString&)));
 	QApplication::connect(mainWindow->ui->text_file_envmap, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditEnvMapTexture(const QString&)));
 	QApplication::connect(mainWindow->ui->text_file_lightmap, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditLightMapTexture(const QString&)));
+	QApplication::connect(mainWindow, SIGNAL(AppendToLog(const QString&)), mainWindow->ui->log_text, SLOT(appendMessage(const QString&)));
 
 	//image resolution
 	QApplication::connect(mainWindow->ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageProportion(int)));
@@ -192,6 +194,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionStack_all_docks, SIGNAL(triggered()), mainWindow, SLOT(slotStackAllDocks()));
 	QApplication::connect(mainWindow->ui->actionShow_animation_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionShow_toolbar, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
+	QApplication::connect(mainWindow->ui->actionShow_log_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveSettings()));
 	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadSettings()));
 	QApplication::connect(mainWindow->ui->actionLoad_example, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadExample()));
@@ -204,6 +207,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutMandelbulber()));
 	QApplication::connect(mainWindow->ui->actionUndo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuUndo()));
 	QApplication::connect(mainWindow->ui->actionRedo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuRedo()));
+	QApplication::connect(mainWindow->ui->actionProgramSettings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuProgramSettings()));
 
 	//formulas
 	QApplication::connect(mainWindow->ui->comboBox_formula_1, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
@@ -253,6 +257,7 @@ void cInterface::ConnectSignals(void)
 
 	QApplication::connect(mainWindow->ui->dockWidget_animation, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 	QApplication::connect(mainWindow->ui->toolBar, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+	QApplication::connect(mainWindow->ui->dockWidget_log, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 	//------------------------------------------------
 	ConnectSignalsForSlidersInWindow(mainWindow);
 	mainWindow->slotUpdateDocksandToolbarbyView();

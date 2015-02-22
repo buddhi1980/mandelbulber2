@@ -29,6 +29,7 @@
 #include <QtGui>
 #include <ctime>
 #include <QTextStream>
+#include "global_data.hpp"
 
 //#define CLSUPPORT
 
@@ -106,22 +107,30 @@ int get_cpu_count()
 void WriteLog(QString text)
 {
 	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "a");
-	fprintf(logfile, "PID: %ld, time: %.6lf, %s\n", (unsigned long int)QCoreApplication::applicationPid(), (double)clock()/1.0e6, text.toUtf8().constData());
-	fclose(logfile);
-}
+	QString logtext = QString("PID: %1, time: %2, %3\n")
+			.arg(QCoreApplication::applicationPid())
+			.arg(QString::number(clock() / 1.0e6, 'f', 6))
+			.arg(text);
 
-void WriteLogDouble(QString text, double value)
-{
-	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "a");
-	fprintf(logfile, "PID: %ld, time: %.6lf, %s, value = %g\n",(unsigned long int)QCoreApplication::applicationPid(), (double)clock()/1.0e6, text.toUtf8().constData(), value);
+	fprintf(logfile, logtext.toUtf8().constData());
+	// fprintf(logfile, "PID: %ld, time: %.6lf, %s\n", (unsigned long int)QCoreApplication::applicationPid(), (double)clock()/1.0e6, text.toUtf8().constData());
 	fclose(logfile);
+
+	// write to log in window
+	if(gMainInterface && gMainInterface->mainWindow != NULL)
+	{
+		gMainInterface->mainWindow->AppendToLog(logtext);
+	}
 }
 
 void WriteLogString(QString text, QString value)
 {
-	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "a");
-	fprintf(logfile, "PID: %ld, time: %.6lf, %s, value = %s\n",(unsigned long int)QCoreApplication::applicationPid(), (double)clock()/1.0e6, text.toUtf8().constData(), value.toUtf8().constData());
-	fclose(logfile);
+	WriteLog(text + ", value = " + value);
+}
+
+void WriteLogDouble(QString text, double value)
+{
+	WriteLog(text + ", value = " + QString::number(value));
 }
 
 bool CreateDefaultFolders(void)

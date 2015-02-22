@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1121</width>
-           <height>740</height>
+           <width>991</width>
+           <height>733</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -206,7 +206,7 @@
      <x>0</x>
      <y>0</y>
      <width>1700</width>
-     <height>17</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -229,6 +229,8 @@
     <addaction name="separator"/>
     <addaction name="actionImport_settings_from_old_Mandelbulber"/>
     <addaction name="separator"/>
+    <addaction name="actionProgramSettings"/>
+    <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -241,6 +243,7 @@
     <addaction name="separator"/>
     <addaction name="separator"/>
     <addaction name="actionShow_animation_dock"/>
+    <addaction name="actionShow_log_dock"/>
     <addaction name="actionShow_toolbar"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
@@ -324,8 +327,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>454</height>
+          <width>424</width>
+          <height>464</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -967,8 +970,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>177</width>
-          <height>779</height>
+          <width>221</width>
+          <height>787</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -2046,8 +2049,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>167</height>
+          <width>438</width>
+          <height>160</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2109,9 +2112,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-40</y>
-                  <width>303</width>
-                  <height>626</height>
+                  <y>0</y>
+                  <width>386</width>
+                  <height>630</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -2871,8 +2874,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
-                  <height>180</height>
+                  <width>386</width>
+                  <height>184</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -3142,8 +3145,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
-                  <height>533</height>
+                  <width>386</width>
+                  <height>555</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -3769,8 +3772,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
-                  <height>204</height>
+                  <width>386</width>
+                  <height>210</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3996,8 +3999,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
-                  <height>1302</height>
+                  <width>386</width>
+                  <height>1332</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -5502,8 +5505,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>167</height>
+          <width>438</width>
+          <height>161</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -5590,9 +5593,9 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-112</y>
-                      <width>295</width>
-                      <height>445</height>
+                      <y>0</y>
+                      <width>378</width>
+                      <height>447</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -6097,9 +6100,9 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-88</y>
-                      <width>295</width>
-                      <height>445</height>
+                      <y>0</y>
+                      <width>378</width>
+                      <height>447</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -6604,9 +6607,9 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-140</y>
-                      <width>295</width>
-                      <height>445</height>
+                      <y>0</y>
+                      <width>378</width>
+                      <height>447</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -7111,9 +7114,9 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-123</y>
-                      <width>295</width>
-                      <height>445</height>
+                      <y>0</y>
+                      <width>378</width>
+                      <height>447</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -7616,8 +7619,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
-                  <height>456</height>
+                  <width>386</width>
+                  <height>458</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -8352,7 +8355,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>386</width>
                   <height>360</height>
                  </rect>
                 </property>
@@ -8863,8 +8866,8 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>466</height>
+          <width>424</width>
+          <height>472</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -9442,6 +9445,42 @@ and water):</string>
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dockWidget_log">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="windowTitle">
+    <string>Log</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_log">
+    <layout class="QHBoxLayout" name="horizontalLayout_13">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
+     <item>
+      <widget class="MyLogWidget" name="log_text" native="true"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <widget class="QDockWidget" name="dockWidget_animation">
    <property name="windowTitle">
     <string>Animation</string>
@@ -9450,7 +9489,7 @@ and water):</string>
     <number>8</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_animation">
-    <layout class="QHBoxLayout" name="horizontalLayout_13">
+    <layout class="QHBoxLayout" name="horizontalLayout_14">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -9596,8 +9635,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>355</width>
-                  <height>275</height>
+                  <width>424</width>
+                  <height>281</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -10016,6 +10055,15 @@ and water):</string>
     <string>Save settings in selected file</string>
    </property>
   </action>
+  <action name="actionProgramSettings">
+   <property name="icon">
+    <iconset theme="preferences-system" resource="icons.qrc">
+     <normaloff>:/system/icons/preferences-system.svg</normaloff>:/system/icons/preferences-system.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Program Settings</string>
+   </property>
+  </action>
   <action name="actionQuit">
    <property name="icon">
     <iconset theme="application-exit" resource="icons.qrc">
@@ -10102,6 +10150,17 @@ and water):</string>
     <bool>true</bool>
    </property>
   </action>
+  <action name="actionShow_log_dock">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Log dock</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+  </action>
   <action name="actionShow_toolbar">
    <property name="checkable">
     <bool>true</bool>
@@ -10168,6 +10227,11 @@ and water):</string>
    <class>MyColorButton</class>
    <extends>QWidget</extends>
    <header>mycolorbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyLogWidget</class>
+   <extends>QWidget</extends>
+   <header>mylogwidget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
