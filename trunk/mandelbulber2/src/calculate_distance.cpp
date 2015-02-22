@@ -30,6 +30,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 {
 	double distance;
 	out->object = fractal::objFractal;
+	out->formulaIndex = 0;
 
 	double limitBoxDist = 0.0;
 
@@ -77,7 +78,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 				point = params.mRotFormulaRotation[i + 1].RotateVector(point);
 				inTemp.point = point;
 
-				double distTemp = CalculateDistanceSimple(params, four, inTemp, out, i + 1) / params.formulaScale[i + 1];
+				double distTemp = CalculateDistanceSimple(params, four, inTemp, &outTemp, i + 1) / params.formulaScale[i + 1];
 
 				params::enumBooleanOperator boolOperator = params.booleanOperator[i];
 
@@ -86,9 +87,19 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 				switch (boolOperator)
 				{
 					case params::booleanOperatorOR:
+						if(distTemp < distance)
+						{
+							outTemp.formulaIndex = 1 + i;
+							*out = outTemp;
+						}
 						distance = min(distTemp, distance);
 						break;
 					case params::booleanOperatorAND:
+						if(distTemp > distance)
+						{
+							outTemp.formulaIndex = 1 + i;
+							*out = outTemp;
+						}
 						distance = max(distTemp, distance);
 						break;
 					case params::booleanOperatorSUB:
@@ -106,16 +117,23 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 								{
 									distance = in.detailSize * limit;
 								}
+
 							}
 							else //if ouside 2nd
 							{
+								if(in.detailSize * limit - distTemp > distance)
+								{
+									outTemp.formulaIndex = 1 + i;
+									*out = outTemp;
+								}
+
 								distance = max(in.detailSize * limit - distTemp, distance);
 								if(distance < 0) distance = 0;
 							}
 						}
 						else //if ouside 1st
 						{
-							*out = outTemp;
+							//
 						}
 						break;
 					}

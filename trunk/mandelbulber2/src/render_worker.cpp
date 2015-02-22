@@ -178,6 +178,7 @@ void cRenderWorker::doWork(void)
 					reflectBuff[ray].depth = rayMarchingOut.depth;
 					reflectBuff[ray].objectColor = rayMarchingOut.objectColor;
 					reflectBuff[ray].reflect = rayMarchingOut.objectReflect;
+					reflectBuff[ray].formulaIndex = rayMarchingOut.formulaIndex;
 
 					rayEnd = ray;
 					if (!reflectBuff[ray].found) break;
@@ -219,6 +220,7 @@ void cRenderWorker::doWork(void)
 					shaderInputData.stepBuff = reflectBuff[ray].stepBuff;
 					shaderInputData.objectType = reflectBuff[ray].objectType;
 					shaderInputData.objectColor = reflectBuff[ray].objectColor;
+					shaderInputData.formulaIndex = reflectBuff[ray].formulaIndex;
 
 					//if fractal surface was found
 					if (reflectBuff[ray].found)
@@ -453,6 +455,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		sDistanceOut distanceOut;
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 		out->object = distanceOut.object;
+		out->formulaIndex = distanceOut.formulaIndex;
 		if(out->object == fractal::objFractal)
 		{
 			out->objectReflect = params->reflect;
@@ -534,6 +537,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			sDistanceOut distanceOut;
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 			out->object = distanceOut.object;
+			out->formulaIndex = distanceOut.formulaIndex;
 
 			if(out->object == fractal::objFractal)
 			{

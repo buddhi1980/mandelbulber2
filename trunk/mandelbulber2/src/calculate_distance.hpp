@@ -43,6 +43,7 @@ struct sDistanceOut
 	double colorIndex;
 	int iters;
 	fractal::enumObjectType object;
+	int formulaIndex;
 	double objectReflect;
 	sRGB objectColor;
 	bool maxiter;
