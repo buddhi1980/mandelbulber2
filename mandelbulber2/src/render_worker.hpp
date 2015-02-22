@@ -76,6 +76,7 @@ private:
 		bool found;
 		double distThresh;
 		fractal::enumObjectType objectType;
+		int formulaIndex;
 		sRGB objectColor;
 		double reflect;
 	};
@@ -113,6 +114,7 @@ private:
 		double depth;
 		double distThresh;
 		fractal::enumObjectType object;
+		int formulaIndex;
 		sRGB objectColor;
 		double objectReflect;
 		bool found;
@@ -131,6 +133,7 @@ private:
 		sStep *stepBuff;
 		int stepCount;
 		fractal::enumObjectType objectType;
+		int formulaIndex;
 		sRGB objectColor;
 		double objectReflect;
 	};
