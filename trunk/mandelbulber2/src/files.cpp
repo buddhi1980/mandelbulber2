@@ -652,7 +652,14 @@ string removeFileExtension(const string &filename)
 
 bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality)
 {
-	QImage *qimage = new QImage(image, width, height, QImage::Format_RGB888);
+	QImage *qimage = new QImage(width, height, QImage::Format_RGB888);
+
+	for(int line = 0; line < height; line++)
+	{
+		unsigned char *linePointer = &image[line * width * 3];
+		unsigned char *qScanLine = qimage->scanLine(line);
+		memcpy(qScanLine, linePointer, sizeof(unsigned char) * 3 * width);
+	}
 
 	QFile file(filename);
 	file.open(QIODevice::WriteOnly);
