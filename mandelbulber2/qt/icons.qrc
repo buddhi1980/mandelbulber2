@@ -13,6 +13,7 @@
         <file>icons/edit-delete.svg</file>
         <file>icons/view-refresh.svg</file>
         <file>icons/video-x-generic.svg</file>
+        <file>icons/preferences-system.svg</file>
         <file>icons/system-shutdown.svg</file>
     </qresource>
     <qresource prefix="/primitives">

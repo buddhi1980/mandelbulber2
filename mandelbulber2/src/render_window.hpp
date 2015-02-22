@@ -94,6 +94,7 @@ private slots:
 	void slotSliderMovedEditManualLightPlacementDistance(int value);
 	void slotMenuLoadPreset(QString filename);
 	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void slotMenuProgramSettings();
 
 	//camera
 	void slotCameraMove();
@@ -175,6 +176,7 @@ private:
 
 	signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void AppendToLog(const QString& text);
 
 	friend class cInterface;
 	friend class cFlightAnimation;

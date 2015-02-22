@@ -1275,6 +1275,20 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 		ui->dockWidget_animation->setVisible(ui->actionShow_animation_dock->isChecked());
 	}
 
+	// Log dock
+	if(ui->actionShow_log_dock->isChecked() != ui->dockWidget_log->isVisible())
+	{
+		if(ui->actionShow_log_dock->isChecked())
+		{
+			addDockWidget(Qt::BottomDockWidgetArea, ui->dockWidget_log);
+		}
+		else
+		{
+			removeDockWidget(ui->dockWidget_log);
+		}
+		ui->dockWidget_log->setVisible(ui->actionShow_log_dock->isChecked());
+	}
+
 	// Toolbar
 	if(ui->actionShow_toolbar->isChecked() != ui->toolBar->isVisible())
 	{
@@ -1284,10 +1298,16 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 
 void RenderWindow::slotUpdateDocksandToolbarbyView()
 {
-		// Animation dock
+	// Animation dock
 	if(ui->actionShow_animation_dock->isChecked() != ui->dockWidget_animation->isVisible())
 	{
 		ui->actionShow_animation_dock->setChecked(ui->dockWidget_animation->isVisible());
+	}
+
+	// Log dock
+	if(ui->actionShow_log_dock->isChecked() != ui->dockWidget_log->isVisible())
+	{
+		ui->actionShow_log_dock->setChecked(ui->dockWidget_log->isVisible());
 	}
 
 	// Toolbar
@@ -1330,4 +1350,9 @@ void RenderWindow::closeEvent(QCloseEvent * event)
 void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
 {
 	ProgressStatusText(text, progressText, progress, ui->statusbar, gMainInterface->progressBar);
+}
+
+void RenderWindow::slotMenuProgramSettings()
+{
+	// TODO show ProgramSettings interface
 }
