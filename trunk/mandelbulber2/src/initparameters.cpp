@@ -32,7 +32,7 @@
 void InitParams(cParameterContainer *par)
 {
 using namespace parameterContainer;
-	WriteLog("Parameters initialization started");
+	WriteLog("Parameters initialization started: " + par->GetContainerName());
 
 	//image
 	par->addParam("image_width", 800, 32, 1000000, morphNone, paramStandard);
@@ -319,7 +319,7 @@ using namespace parameterContainer;
 //definition of all parameters
 void InitFractalParams(cParameterContainer *par)
 {
-	WriteLog("Fractal parameters initialization started");
+	WriteLog("Fractal parameters initialization started: " + par->GetContainerName());
 
 	par->addParam("power", 9.0, morphCatMullRom, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphCatMullRomAngle, paramStandard);
