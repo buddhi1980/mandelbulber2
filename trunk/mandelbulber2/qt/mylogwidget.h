@@ -41,6 +41,7 @@ public:
 public slots:
 	void appendMessage(const QString& text);
 	void initFromLogFile();
+	QString formatLine(const QString& text);
 
 private:
 	bool initializedFromLogFile;
