@@ -32,15 +32,40 @@ void MyLogWidget::appendMessage(const QString& text)
 	else
 	{
 		moveCursor (QTextCursor::End);
-		insertPlainText (text);
+		this->appendHtml(formatLine(text));
 	}
 }
 
 void MyLogWidget::initFromLogFile()
 {
-	QFile file(systemData.logfileName);
-	file.open(QFile::ReadOnly | QFile::Text);
-	QTextStream ReadFile(&file);
-	this->appendPlainText(ReadFile.readAll());
+	QFile logFile(systemData.logfileName);
+	logFile.open(QFile::ReadOnly | QFile::Text);
+	QTextStream logTextStream(&logFile);
+	while (!logTextStream.atEnd())
+	{
+		this->appendHtml(formatLine(logTextStream.readLine()));
+	}
 	this->ensureCursorVisible();
+}
+
+QString MyLogWidget::formatLine(const QString& text)
+{
+	QRegularExpression re("(PID:) ([0-9]+), (time:) ([0-9\.]+), (.*)");
+	QRegularExpressionMatch match = re.match(text);
+	if (match.hasMatch()) {
+		QString out = "<span style=\"color: grey;\">" + match.captured(1) + "</span>"
+			+ ", "
+			+ "<span style=\"color: grey; font-weight: bold\">" + match.captured(2) + "</span>"
+			+ ", "
+			+ "<span style=\"color: orange;\">" + match.captured(3) + "</span>"
+			+ ", "
+			+ "<span style=\"color: orange; font-weight: bold\">" + match.captured(4) + "</span>"
+			+ ", "
+			+ "<span style=\"color: black; font-weight: bold\">" + match.captured(5) + "</span>";
+			return out;
+	}
+	else
+	{
+		return text;
+	}
 }
