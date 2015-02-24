@@ -35,15 +35,15 @@ public:
 	MyLogWidget(QWidget *parent = 0)  : QPlainTextEdit(parent)
 	{
 		this->setReadOnly(true);
-		QFile file(systemData.logfileName);
-		file.open(QFile::ReadOnly | QFile::Text);
-		QTextStream ReadFile(&file);
-		this->appendPlainText(ReadFile.readAll());
-		this->ensureCursorVisible();
+		initializedFromLogFile = false;
 	};
 
 public slots:
 	void appendMessage(const QString& text);
+	void initFromLogFile();
+
+private:
+	bool initializedFromLogFile;
 };
 
 #endif /* MYLOGWIDGET_HPP_ */

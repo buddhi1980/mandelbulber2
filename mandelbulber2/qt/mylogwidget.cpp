@@ -24,6 +24,23 @@
 
 void MyLogWidget::appendMessage(const QString& text)
 {
-	moveCursor (QTextCursor::End);
-	insertPlainText (text);
+	if(!initializedFromLogFile)
+	{
+		this->initFromLogFile();
+		initializedFromLogFile = true;
+	}
+	else
+	{
+		moveCursor (QTextCursor::End);
+		insertPlainText (text);
+	}
+}
+
+void MyLogWidget::initFromLogFile()
+{
+	QFile file(systemData.logfileName);
+	file.open(QFile::ReadOnly | QFile::Text);
+	QTextStream ReadFile(&file);
+	this->appendPlainText(ReadFile.readAll());
+	this->ensureCursorVisible();
 }
