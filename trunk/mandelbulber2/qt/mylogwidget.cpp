@@ -53,16 +53,10 @@ QString MyLogWidget::formatLine(const QString& text)
 	QRegularExpression re("(PID:) ([0-9]+), (time:) ([0-9\.]+), (.*)");
 	QRegularExpressionMatch match = re.match(text);
 	if (match.hasMatch()) {
-		QString out = "<span style=\"color: grey;\">" + match.captured(1) + "</span>"
-			+ ", "
-			+ "<span style=\"color: grey; font-weight: bold\">" + match.captured(2) + "</span>"
-			+ ", "
-			+ "<span style=\"color: orange;\">" + match.captured(3) + "</span>"
-			+ ", "
-			+ "<span style=\"color: orange; font-weight: bold\">" + match.captured(4) + "</span>"
-			+ ", "
-			+ "<span style=\"color: black; font-weight: bold\">" + match.captured(5) + "</span>";
-			return out;
+		QString out = "<span style=\"color: grey;\">" + match.captured(1) + " <b>" + match.captured(2) + "</b></span>, "
+			+ "<span style=\"color: orange;\">" + match.captured(3) + " <b>" + match.captured(4) + "</b></span>, "
+			+ "<span style=\"color: black;\"><b>" + match.captured(5) + "</b></span>";
+		return out;
 	}
 	else
 	{
