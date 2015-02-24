@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>991</width>
-           <height>733</height>
+           <width>1121</width>
+           <height>904</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -206,7 +206,7 @@
      <x>0</x>
      <y>0</y>
      <width>1700</width>
-     <height>19</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -326,9 +326,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>424</width>
-          <height>464</height>
+          <y>-245</y>
+          <width>339</width>
+          <height>454</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -970,8 +970,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>221</width>
-          <height>787</height>
+          <width>180</width>
+          <height>899</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -2049,8 +2049,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>438</width>
-          <height>160</height>
+          <width>353</width>
+          <height>207</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2112,9 +2112,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>386</width>
-                  <height>630</height>
+                  <y>-79</y>
+                  <width>303</width>
+                  <height>626</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -2874,8 +2874,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>386</width>
-                  <height>184</height>
+                  <width>317</width>
+                  <height>193</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -3145,8 +3145,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>386</width>
-                  <height>555</height>
+                  <width>303</width>
+                  <height>533</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -3772,8 +3772,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>386</width>
-                  <height>210</height>
+                  <width>303</width>
+                  <height>204</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -3999,8 +3999,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>386</width>
-                  <height>1332</height>
+                  <width>303</width>
+                  <height>1302</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -5505,8 +5505,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>438</width>
-          <height>161</height>
+          <width>353</width>
+          <height>350</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -5531,7 +5531,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>2</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -5594,8 +5594,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>378</width>
-                      <height>447</height>
+                      <width>295</width>
+                      <height>445</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -6101,8 +6101,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>378</width>
-                      <height>447</height>
+                      <width>217</width>
+                      <height>445</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -6608,8 +6608,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>378</width>
-                      <height>447</height>
+                      <width>217</width>
+                      <height>445</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -7115,8 +7115,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>378</width>
-                      <height>447</height>
+                      <width>217</width>
+                      <height>445</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -7619,8 +7619,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>386</width>
-                  <height>458</height>
+                  <width>303</width>
+                  <height>456</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -8114,7 +8114,7 @@ to target:</string>
                 <bool>true</bool>
                </property>
                <property name="checked">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_76">
                 <property name="spacing">
@@ -8311,6 +8311,236 @@ to target:</string>
               </widget>
              </item>
              <item>
+              <widget class="MyGroupBox" name="groupCheck_box_folding">
+               <property name="title">
+                <string>Box Folding</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_80">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <property name="leftMargin">
+                 <number>2</number>
+                </property>
+                <property name="topMargin">
+                 <number>2</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>2</number>
+                </property>
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_42">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_128">
+                    <property name="text">
+                     <string>Folding limit:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QSlider" name="slider_box_folding_limit">
+                    <property name="maximum">
+                     <number>200</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="MyDoubleSpinBox" name="spinbox_box_folding_limit">
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="maximum">
+                     <double>1000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_129">
+                    <property name="text">
+                     <string>Folding value:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QSlider" name="slider_box_folding_value">
+                    <property name="maximum">
+                     <number>200</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="2">
+                   <widget class="MyDoubleSpinBox" name="spinbox_box_folding_value">
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="maximum">
+                     <double>1000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="MyGroupBox" name="groupCheck_box_folding_2">
+               <property name="title">
+                <string>Spherical Folding</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_81">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <property name="leftMargin">
+                 <number>2</number>
+                </property>
+                <property name="topMargin">
+                 <number>2</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>2</number>
+                </property>
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_43">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_130">
+                    <property name="text">
+                     <string>Other radius:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QSlider" name="slider_spherical_folding_outher">
+                    <property name="maximum">
+                     <number>200</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="MyDoubleSpinBox" name="spinbox_spherical_folding_outher">
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="maximum">
+                     <double>1000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_169">
+                    <property name="text">
+                     <string>Inner radius:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QSlider" name="slider_spherical_folding_inner">
+                    <property name="maximum">
+                     <number>200</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="2">
+                   <widget class="MyDoubleSpinBox" name="spinbox_spherical_folding_inner">
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="maximum">
+                     <double>1000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
               <spacer name="verticalSpacer_10">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
@@ -8355,7 +8585,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>386</width>
+                  <width>303</width>
                   <height>360</height>
                  </rect>
                 </property>
@@ -8866,8 +9096,8 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>424</width>
-          <height>472</height>
+          <width>339</width>
+          <height>466</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -9635,8 +9865,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>424</width>
-                  <height>281</height>
+                  <width>341</width>
+                  <height>233</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
