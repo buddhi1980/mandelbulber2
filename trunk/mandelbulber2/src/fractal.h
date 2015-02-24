@@ -134,13 +134,6 @@ struct sFractalBoxFoldBulbPow2
 	double foldfactor;
 };
 
-struct sFractalFoldings
-{
-	double foldingLimit; //paramters of TGlad's folding
-	double foldingValue;
-	double foldingSphericalMin;
-	double foldingSphericalFixed;
-};
 
 struct sFractalMandelbulb
 {
@@ -169,7 +162,6 @@ public:
 	sFractalBoxFoldBulbPow2 foldingIntPow;
 	sFractalMandelboxVary4D mandelboxVary4D;
 	sFractalAexion aexion;
-	sFractalFoldings foldings;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

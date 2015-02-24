@@ -25,6 +25,16 @@
 
 #include "algebra.hpp"
 
+struct sFractalFoldings
+{
+	double boxLimit; //paramters of TGlad's folding
+	double boxValue;
+	double sphericalOther;
+	double sphericalInner;
+	bool boxEnable;
+	bool sphericalEnable;
+};
+
 struct sCommonParams
 {
 	CVector3 fakeLightsOrbitTrap;
@@ -37,10 +47,12 @@ struct sCommonParams
 
 	bool juliaMode;
 
-    CVector3 fractalPosition;
-    CVector3 fractalRotation;
-    CVector3 repeat;
+  CVector3 fractalPosition;
+  CVector3 fractalRotation;
+  CVector3 repeat;
 	CRotationMatrix mRotFractalRotation;
+
+	sFractalFoldings foldings;
 };
 
 
