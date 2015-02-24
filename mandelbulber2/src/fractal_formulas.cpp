@@ -694,3 +694,9 @@ void Makin3D2Iteration(CVector3 &z)
     z.z = newz;
 }
 
+void BoxFolding(CVector3 &z, const sFractalFoldings *foldings)
+{
+
+}
+
+

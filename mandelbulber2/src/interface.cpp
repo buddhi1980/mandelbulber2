@@ -94,6 +94,7 @@ void cInterface::ShowUi(void)
 	mainWindow->ui->scrollAreaLayoutRenderedImage->addWidget(renderedImage);
 
 	//setup main image
+	WriteLog("Setup of main image");
 	mainImage = new cImage(gPar->Get<int>("image_width"),gPar->Get<int>("image_height"));
 	mainImage->CreatePreview(1.0, 800, 600, gMainInterface->renderedImage);
 	renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(),gMainInterface->mainImage->GetPreviewHeight());
@@ -101,7 +102,6 @@ void cInterface::ShowUi(void)
 	renderedImage->AssignParameters(gPar);
 
 	WriteLog("Prepare progress and status bar");
-
 	progressBarAnimation = new QProgressBar(mainWindow->ui->statusbar);
 	progressBarAnimation->setMaximum(1000);
 	progressBarAnimation->setAlignment(Qt::AlignCenter);
@@ -298,11 +298,9 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumReadWrite mode)
 {
 	QTextStream out(stdout);
-	WriteLog("SynchronizeInterfaceWindow() started");
 
 	//----------- QLineEdit -------------------
 	{
-		WriteLog("SynchronizeInterfaceWindow() QLineEdit");
 		QList<QLineEdit *> widgetListLineEdit = window->findChildren<QLineEdit *>();
 		QList<QLineEdit *>::iterator it;
 
@@ -426,7 +424,6 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 
 	//------------ Double spin-box --------------
 	{
-		WriteLog("SynchronizeInterfaceWindow() QDoubleSpinBox");
 		QList<QDoubleSpinBox *> widgetListDoubleSpinBox = window->findChildren<QDoubleSpinBox*>();
 		QList<QDoubleSpinBox *>::iterator it;
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
@@ -522,7 +519,6 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 
 	//------------ integer spin-box --------------
 	{
-		WriteLog("SynchronizeInterfaceWindow() QSpinBox");
 		QList<QSpinBox *> widgetListDoubleSpinBox = window->findChildren<QSpinBox*>();
 		QList<QSpinBox *>::iterator it;
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
@@ -562,7 +558,6 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 
 	//checkboxes
 	{
-		WriteLog("SynchronizeInterfaceWindow() QCheckBox");
 		QList<QCheckBox *> widgetListDoubleSpinBox = window->findChildren<QCheckBox*>();
 		QList<QCheckBox *>::iterator it;
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
@@ -603,7 +598,6 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 
 	//groupsBox with checkbox
 	{
-		WriteLog("SynchronizeInterfaceWindow() QGroupBox");
 		QList<QGroupBox *> widgetListDoubleSpinBox = window->findChildren<QGroupBox*>();
 		QList<QGroupBox *>::iterator it;
 		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
@@ -644,7 +638,6 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 
 	//---------- color buttons -----------
 	{
-		WriteLog("SynchronizeInterfaceWindow() colorButtons");
 		QList<MyColorButton *> widgetListPushButton = window->findChildren<MyColorButton*>();
 		QList<MyColorButton *>::iterator it;
 		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
@@ -672,11 +665,9 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 			}
 		}
 	}
-	WriteLog("SynchronizeInterfaceWindow() finished");
 
 	//---------- colorpalette -----------
 	{
-		WriteLog("SynchronizeInterfaceWindow() colorpalette");
 		QList<ColorPaletteWidget *> widgetListColorPalette = window->findChildren<ColorPaletteWidget*>();
 		QList<ColorPaletteWidget *>::iterator it;
 		for (it = widgetListColorPalette.begin(); it != widgetListColorPalette.end(); ++it)
@@ -709,7 +700,6 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 
 	//combo boxes
 	{
-		WriteLog("SynchronizeInterfaceWindow() combo boxes");
 		QList<QComboBox *> widgetListPushButton = window->findChildren<QComboBox*>();
 		QList<QComboBox *>::iterator it;
 		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
@@ -755,14 +745,11 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 			}
 		}
 	}
-	WriteLog("SynchronizeInterfaceWindow() finished");
 }
 
 //automatic setting of event slots for all sliders
 void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 {
-	WriteLog("ConnectSignalsForSlidersInWindow() started");
-
 	QList<QSlider *> widgetList = window->findChildren<QSlider *>();
 	QList<QSlider *>::iterator it;
 	for (it = widgetList.begin(); it != widgetList.end(); ++it)
@@ -880,7 +867,6 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 			}
 		}
 	}
-	WriteLog("ConnectSignalsForSlidersInWindow() finished");
 }
 
 //extract name and type string from widget name
@@ -2013,7 +1999,7 @@ bool cInterface::QuitApplicationDialog()
 		case QMessageBox::Ok:
 		{
 			stopRequest = true;
-
+			WriteLog("Quit application");
 			gApplication->quit();
 			quit = true;
 			break;

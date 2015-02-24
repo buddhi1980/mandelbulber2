@@ -41,6 +41,7 @@ cSettings::cSettings(enumFormat _format)
 
 size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames)
 {
+	WriteLog("Create settings text");
 	settingsText.clear();
 	settingsText += CreateHeader();
 	settingsText += "[main_parameters]\n";
@@ -138,6 +139,8 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 	hash = hashCrypt.result();
 	//qDebug() << "hash code" << hash.toHex();
 
+	WriteLogString("Settings text prepared", settingsText);
+
 	return settingsText.size();
 }
 
@@ -226,6 +229,8 @@ bool cSettings::LoadFromFile(QString filename)
 		hash = hashCrypt.result();
 		//qDebug() << "hash code" << hash.toHex();
 
+		WriteLogString("Settings loaded", settingsText);
+
 		return true;
 	}
 	else
@@ -297,6 +302,8 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 
 bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)
 {
+	WriteLog("cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)");
+
 	//clear settings
 	par->ResetAllToDefault();
 	for(int i=0; i<NUMBER_OF_FRACTALS; i++)

@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
 	gApplication->setApplicationName("Mandelbulber");
 
 	// Set language from locale
+	WriteLog("Prepare translator");
 	QTranslator main_translator;
 	QTranslator qt_data_translator;
 	QString locale = QLocale::system().name();
@@ -56,6 +57,7 @@ int main(int argc, char *argv[])
 	main_translator.load(locale, systemData.sharedDir + QDir::separator() + "language");
 	qt_data_translator.load("qt_data_" + locale, systemData.sharedDir + QDir::separator() + "language");
 
+	WriteLog("Instaling translator");
 	gApplication->installTranslator(&main_translator);
 	gApplication->installTranslator(&qt_data_translator);
 
