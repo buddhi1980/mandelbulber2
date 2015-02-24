@@ -172,5 +172,13 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
 	}
 
+	common.foldings.boxEnable = container->Get<bool>("box_folding");
+	common.foldings.boxLimit = container->Get<double>("box_folding_limit");
+	common.foldings.boxValue = container->Get<double>("box_folding_value");
+
+	common.foldings.sphericalEnable = container->Get<bool>("spherical_folding");
+	common.foldings.sphericalOther = container->Get<double>("spherical_folding_outher");
+	common.foldings.sphericalInner = container->Get<double>("spherical_folding_inner");
+
 	//formula = Get<int>("tile_number");
 }

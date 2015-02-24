@@ -54,8 +54,6 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 
 	if(params.booleanOperatorsEnabled)
 	{
-		//TODO coloring source depending on nearest fractal
-
 		sDistanceIn inTemp = in;
 		CVector3 point = inTemp.point;
 

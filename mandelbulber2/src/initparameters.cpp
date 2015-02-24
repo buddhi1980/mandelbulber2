@@ -120,16 +120,13 @@ using namespace parameterContainer;
 	par->addParam("hybrid_fractal_enable", false, morphNone, paramStandard);
 
 	//foldings
-	//TODO folding modes
-	par->addParam("tglad_folding_mode", false, morphLinear, paramStandard);
-	par->addParam("folding_limit", 1.0, morphLinear, paramStandard);
-	par->addParam("folding_value", 2.0, morphLinear, paramStandard);
-	par->addParam("spherical_folding_mode", false, morphLinear, paramStandard);
-	par->addParam("spherical_folding_fixed", 1.0, morphLinear, paramStandard);
-	par->addParam("spherical_folding_min", 0.5, morphLinear, paramStandard);
+	par->addParam("box_folding", false, morphLinear, paramStandard);
+	par->addParam("box_folding_limit", 1.0, morphLinear, paramStandard);
+	par->addParam("box_folding_value", 2.0, morphLinear, paramStandard);
+	par->addParam("spherical_folding", false, morphLinear, paramStandard);
+	par->addParam("spherical_folding_outher", 1.0, morphLinear, paramStandard);
+	par->addParam("spherical_folding_inner", 0.5, morphLinear, paramStandard);
 	par->addParam("c_add", -1.3, morphLinear, paramStandard);
-	par->addParam("IFS_folding_mode", false, morphLinear, paramStandard);
-	par->addParam("mandelbox_fold_mode", true, morphLinear, paramStandard);
 
 	//image effects
 	par->addParam("brightness", 1.0, 0.0, 1e15, morphLinear, paramStandard);
