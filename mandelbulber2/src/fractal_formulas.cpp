@@ -694,9 +694,58 @@ void Makin3D2Iteration(CVector3 &z)
     z.z = newz;
 }
 
-void BoxFolding(CVector3 &z, const sFractalFoldings *foldings)
+void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor)
 {
-
+	if (z.x > foldings->boxLimit)
+	{
+		z.x = foldings->boxValue - z.x;
+		foldColor *= 0.9;
+	}
+	else if (z.x < -foldings->boxLimit)
+	{
+		z.x = -foldings->boxValue - z.x;
+		foldColor *= 0.9;
+	}
+	if (z.y > foldings->boxLimit)
+	{
+		z.y = foldings->boxValue - z.y;
+		foldColor *= 0.9;
+	}
+	else if (z.y < -foldings->boxLimit)
+	{
+		z.y = -foldings->boxValue - z.y;
+		foldColor *= 0.9;
+	}
+	if (z.z > foldings->boxLimit)
+	{
+		z.z = foldings->boxValue - z.z;
+		foldColor *= 0.9;
+	}
+	else if (z.z < -foldings->boxLimit)
+	{
+		z.z = -foldings->boxValue - z.z;
+		foldColor *= 0.9;
+	}
 }
 
+void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor, double &foldDE, double r)
+{
+	double fR2_2 = foldings->sphericalOuther * foldings->sphericalOuther;
+	double mR2_2 = foldings->sphericalInner * foldings->sphericalInner;
+	double r2_2 = r * r;
+	double fold_factor1_2 = fR2_2 / mR2_2;
 
+	if (r2_2 < mR2_2)
+	{
+		z = z * fold_factor1_2;
+		foldDE *= fold_factor1_2;
+		foldColor *= 0.9;
+	}
+	else if (r2_2 < fR2_2)
+	{
+		double fold_factor2_2 = fR2_2 / r2_2;
+		z = z * fold_factor2_2;
+		foldDE *= fold_factor2_2;
+		foldColor *= 0.9;
+	}
+}

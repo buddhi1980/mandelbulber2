@@ -84,7 +84,7 @@ cRenderJob::~cRenderJob()
 
 bool cRenderJob::Init(enumMode _mode)
 {
-	WriteLog("cRenderJob::Init");
+	WriteLog("cRenderJob::Init id = " + QString::number(id));
 
 	mode = _mode;
 
@@ -198,7 +198,7 @@ bool cRenderJob::Execute(void)
 	inProgress = true;
 	*renderData->stopRequest = false;
 
-	WriteLog("cRenderJob::Execute(void)");
+	WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs));
 
 	renderData->lights.Set(paramsContainer, fractalContainer);
 	renderData->palette = paramsContainer->Get<cColorPalette>("surface_color_palette");
