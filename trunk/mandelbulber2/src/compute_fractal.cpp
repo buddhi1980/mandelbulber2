@@ -55,6 +55,8 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	double minimumR = 1e20;
 	double w = 0.0;
 	double orbitTrapTotal = 0.0;
+	double foldColor = 1.0;
+	double foldDE = 1.0;
 
 	out->maxiter = true;
 
@@ -84,6 +86,20 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	int i;
 	for (i = 0; i < in.maxN; i++)
 	{
+		//foldings
+		if(in.common.foldings.boxEnable)
+		{
+			BoxFolding(z, &in.common.foldings, foldColor);
+			r = z.Length();
+		}
+
+		if(in.common.foldings.sphericalEnable)
+		{
+			SphericalFolding(z, &in.common.foldings, foldColor, foldDE, r);
+			r = z.Length();
+		}
+
+		//hybrid fractal sequence
 		int sequence;
 		if(in.forcedFormulaIndex >= 0)
 		{
@@ -189,6 +205,16 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				BristorbrotIteration(z);
 				break;
 			}
+      case ides:
+      {
+          IdesIteration(z);
+          break;
+      }
+      case ides2:
+      {
+          Ides2Iteration(z, c);
+          break;
+      }
 			case buffalo1:
 			{
 				Buffalo1Iteration(z);
@@ -325,11 +351,11 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			case mandelbox:
 			case smoothMandelbox:
 			case mandelboxVaryScale4D:
-				out->distance = r / fabs(mandelboxAux[fractalIndex].mboxDE);
+				out->distance = r / fabs(mandelboxAux[fractalIndex].mboxDE * foldDE);
 				break;
 			case menger_sponge:
 			case kaleidoscopicIFS:
-				out->distance = (r - 2.0) / ifsAux[fractalIndex].ifsDE;
+				out->distance = (r - 2.0) / (ifsAux[fractalIndex].ifsDE * foldDE);
 				break;
 			default:
 				out->distance = -1.0;
@@ -366,7 +392,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				case mandelbox:
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
-					out->colorIndex = mandelboxAux[fractalIndex].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR;
+					out->colorIndex = mandelboxAux[fractalIndex].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR * foldColor;
 					break;
 
 				case menger_sponge:
@@ -374,16 +400,6 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 					out->colorIndex = minimumR * 1000.0;
 					break;
 
-                case ides:
-                {
-                    IdesIteration(z);
-                    break;
-                }
-                case ides2:
-                {
-                    Ides2Iteration(z, c);
-                    break;
-                }
 				default:
 					out->colorIndex = minimumR * 5000.0;
 					break;

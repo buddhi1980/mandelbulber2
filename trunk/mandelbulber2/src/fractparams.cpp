@@ -177,7 +177,7 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 	common.foldings.boxValue = container->Get<double>("box_folding_value");
 
 	common.foldings.sphericalEnable = container->Get<bool>("spherical_folding");
-	common.foldings.sphericalOther = container->Get<double>("spherical_folding_outher");
+	common.foldings.sphericalOuther = container->Get<double>("spherical_folding_outher");
 	common.foldings.sphericalInner = container->Get<double>("spherical_folding_inner");
 
 	//formula = Get<int>("tile_number");
