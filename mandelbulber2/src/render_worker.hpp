@@ -62,24 +62,12 @@ private:
 		double distThresh;
 	};
 
-	//reflection data
-	struct sReflect
+	struct sRayBuffer
 	{
-		CVector3 start;
-		CVector3 point;
-		CVector3 viewVector;
-		CVector3 distance;
 		sStep *stepBuff;
 		int buffCount;
-		double depth;
-		double lastDist;
-		bool found;
-		double distThresh;
-		fractal::enumObjectType objectType;
-		int formulaIndex;
-		sRGB objectColor;
-		double reflect;
 	};
+
 
 	//ambient occlussion data
 	struct sVectorsAround
@@ -120,6 +108,28 @@ private:
 		bool found;
 	};
 
+	struct sRayRecursionIn
+	{
+		sRayMarchingIn rayMarchingIn;
+		bool calcTransparency;
+		sRGBAfloat resultShader;
+		sRGBAfloat objectColour;
+	};
+
+	struct sRayRecursionOut
+	{
+		sRayMarchingOut rayMarchingOut;
+		CVector3 point;
+		sRGBAfloat resultShader;
+		sRGBAfloat objectColour;
+	};
+
+	struct sRayRecursionInOut
+	{
+		int rayIndex;
+		sRayMarchingInOut rayMarchingInOut;
+	};
+
 	struct sShaderInputData
 	{
 		CVector3 point;
@@ -146,6 +156,7 @@ private:
 	double CalcDistThresh(CVector3 point);
 	double CalcDelta(CVector3 point);
 	double IterOpacity(double step, double iters, double maxN, double trim, double opacitySp);
+	sRayRecursionOut RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut);
 
 	//shaders
 	sRGBAfloat ObjectShader(const sShaderInputData &input, sRGBAfloat *surfaceColour, sRGBAfloat *specularOut);
@@ -190,7 +201,7 @@ private:
 
 	//allocated objects
 	cCameraTarget *cameraTarget;
-	sReflect *reflectBuff;
+	sRayBuffer *rayBuffer;
 	sVectorsAround *AOvectorsAround;
 
 public slots:
