@@ -842,6 +842,14 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 		par->Set("primitive_water_1_rotation", CVector3(180.0, 0, -oldData->fractal.doubles.primitives.waterRotation));
 	}
 
+	//foldings
+	par->Set("box_folding", oldData->fractal.tgladFoldingMode);
+	par->Set("box_folding_limit", oldData->fractal.doubles.foldingLimit);
+	par->Set("box_folding_value", oldData->fractal.doubles.foldingValue);
+	par->Set("spherical_folding", oldData->fractal.sphericalFoldingMode);
+	par->Set("spherical_folding_outher", oldData->fractal.doubles.foldingSphericalFixed);
+	par->Set("spherical_folding_inner", oldData->fractal.doubles.foldingSphericalMin);
+
 	//fractal parameters
 
 	if(oldData->fractal.formula == trig_DE)

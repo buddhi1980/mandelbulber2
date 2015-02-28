@@ -109,9 +109,7 @@ public:
 	bool raytracedReflections;
 	bool shadow; //enable shadows
 	bool slowShading; //enable fake gradient calculation for shading
-	bool sphericalFoldingMode;  // spherical folding mode
 	bool texturedBackground; //enable testured background
-	bool tgladFoldingMode;		// Tglad's folding mode
 	bool volumetricLightEnabled[5];
 	bool volFogEnabled;
 

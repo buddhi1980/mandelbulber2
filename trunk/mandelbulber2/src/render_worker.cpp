@@ -35,7 +35,7 @@ cRenderWorker::cRenderWorker(const cParamRender *_params, const cFourFractals *_
 	image = _image;
 	threadData = _threadData;
 	cameraTarget = NULL;
-	reflectBuff = NULL;
+	rayBuffer = NULL;
 	AOvectorsAround = NULL;
 	AOvectorsCount = 0;
 	baseX = CVector3(1.0, 0.0, 0.0);
@@ -62,13 +62,13 @@ cRenderWorker::~cRenderWorker()
 		cameraTarget = NULL;
 	}
 
-	if (reflectBuff)
+	if (rayBuffer)
 	{
 		for (int i = 0; i < reflectionsMax + 1; i++)
 		{
-			delete[] reflectBuff[i].stepBuff;
+			delete[] rayBuffer[i].stepBuff;
 		}
-		delete[] reflectBuff;
+		delete[] rayBuffer;
 	}
 
 	if(AOvectorsAround)
@@ -141,35 +141,41 @@ void cRenderWorker::doWork(void)
 			CVector3 startRay = start;
 			sRGBAfloat resultShader;
 			sRGBAfloat objectColour;
-			int rayEnd = 0;
+			double depth = 1e20;
 
 			//raymarching loop (reflections)
 
 			if (!hemisphereCut) //in fulldome mode, will not render pixels out of the fuldome
 			{
-				sRayMarchingOut rayMarchingOut;
-				for (int ray = 0; ray <= reflectionsMax; ray++)
+				sRayRecursionIn recursionIn;
+
+				sRayMarchingIn rayMarchingIn;
+				rayMarchingIn.binaryEnable = true;
+				rayMarchingIn.direction = viewVector;
+				rayMarchingIn.maxScan = params->viewDistanceMax;
+				rayMarchingIn.minScan = params->viewDistanceMin;
+				rayMarchingIn.start = startRay;
+				recursionIn.rayMarchingIn = rayMarchingIn;
+				recursionIn.calcTransparency = false;
+				recursionIn.resultShader = resultShader;
+				recursionIn.objectColour = objectColour;
+
+				sRayRecursionInOut recursionInOut;
+				sRayMarchingInOut rayMarchingInOut;
+				rayMarchingInOut.buffCount = &rayBuffer[0].buffCount;
+				rayMarchingInOut.stepBuff = rayBuffer[0].stepBuff;
+				recursionInOut.rayMarchingInOut = rayMarchingInOut;
+				recursionInOut.rayIndex = 0;
+
+				sRayRecursionOut recursionOut = RayRecursion(recursionIn, recursionInOut);
+
+				resultShader = recursionOut.resultShader;
+				objectColour = recursionOut.objectColour;
+				depth = recursionOut.rayMarchingOut.depth;
+
+				/*
+
 				{
-					reflectBuff[ray].start = startRay;
-					reflectBuff[ray].viewVector = viewVector;
-					reflectBuff[ray].found = false;
-					reflectBuff[ray].buffCount = 0;
-
-					double minScan = ray == 0 ? params->viewDistanceMin : 0.0;
-
-					sRayMarchingIn rayMarchingIn;
-					rayMarchingIn.binaryEnable = true;
-					rayMarchingIn.direction = viewVector;
-					rayMarchingIn.maxScan = params->viewDistanceMax;
-					rayMarchingIn.minScan = minScan;
-					rayMarchingIn.start = startRay;
-
-					sRayMarchingInOut rayMarchingInOut;
-					rayMarchingInOut.buffCount = &reflectBuff[ray].buffCount;
-					rayMarchingInOut.stepBuff = reflectBuff[ray].stepBuff;
-
-					point = RayMarching(rayMarchingIn, &rayMarchingInOut, &rayMarchingOut);
-
 					reflectBuff[ray].point = point;
 					reflectBuff[ray].distThresh = rayMarchingOut.distThresh;
 					reflectBuff[ray].objectType = rayMarchingOut.object;
@@ -236,6 +242,8 @@ void cRenderWorker::doWork(void)
 
 					double reflect = reflectBuff[ray].reflect;
 
+
+
 					sRGBAfloat pixel;
 
 					if (reflectionsMax > 0 && rayEnd > 0 && ray != rayEnd)
@@ -276,6 +284,7 @@ void cRenderWorker::doWork(void)
 
 					}
 				}
+				*/
 			}
 
 			sRGBfloat pixel2;
@@ -294,7 +303,7 @@ void cRenderWorker::doWork(void)
 				{
 					image->PutPixelImage(screenPoint.x + xx, screenPoint.y + yy, pixel2);
 					image->PutPixelColour(screenPoint.x + xx, screenPoint.y + yy, colour);
-					image->PutPixelZBuffer(screenPoint.x + xx, screenPoint.y + yy, (float) reflectBuff[0].depth);
+					image->PutPixelZBuffer(screenPoint.x + xx, screenPoint.y + yy, (float) depth);
 				}
 			}
 
@@ -348,13 +357,13 @@ void cRenderWorker::PrepareReflectionBuffer(void)
 
 	reflectionsMax = params->reflectionsMax;
 	if (!params->raytracedReflections) reflectionsMax = 0;
-	reflectBuff = new sReflect[reflectionsMax + 2];
+	rayBuffer = new sRayBuffer[reflectionsMax + 2];
 
 	for (int i = 0; i < reflectionsMax + 1; i++)
 	{
 		//rayMarching buffers
-		reflectBuff[i].stepBuff = new sStep[maxraymarchingSteps + 2];
-		reflectBuff[i].buffCount = 0;
+		rayBuffer[i].stepBuff = new sStep[maxraymarchingSteps + 2];
+		rayBuffer[i].buffCount = 0;
 	}
 }
 
@@ -573,4 +582,108 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	return point;
 }
 
+cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut)
+{
+	sRayMarchingOut rayMarchingOut;
+
+	*inOut.rayMarchingInOut.buffCount = 0;
+
+	CVector3 point = RayMarching(in.rayMarchingIn, &inOut.rayMarchingInOut, &rayMarchingOut);
+
+	sRGBAfloat resultShader = in.resultShader;
+	sRGBAfloat objectColour = in.objectColour;
+
+	//here will be called branch for RayRecursion();
+
+	sRGBAfloat objectShader;
+	objectShader.A = 0.0;
+	sRGBAfloat backgroundShader;
+	sRGBAfloat volumetricShader;
+	sRGBAfloat specular;
+
+	CVector3 lightVector = shadowVector;
+
+	sShaderInputData shaderInputData;
+	shaderInputData.distThresh = rayMarchingOut.distThresh;
+	shaderInputData.delta = CalcDelta(point);
+	shaderInputData.lightVect = lightVector;
+	shaderInputData.point = point;
+	shaderInputData.viewVector = in.rayMarchingIn.direction;
+	shaderInputData.lastDist = rayMarchingOut.lastDist;
+	shaderInputData.depth = rayMarchingOut.depth;
+	shaderInputData.stepCount = *inOut.rayMarchingInOut.buffCount;
+	shaderInputData.stepBuff = inOut.rayMarchingInOut.stepBuff;
+	shaderInputData.objectType = rayMarchingOut.object;
+	shaderInputData.objectColor = rayMarchingOut.objectColor;
+	shaderInputData.formulaIndex = rayMarchingOut.formulaIndex;
+
+
+	sRGBAfloat reflectShader = in.resultShader;
+	double reflect = rayMarchingOut.objectReflect;
+
+	if(rayMarchingOut.found)
+	{
+		//here will start branch for deeper recursion
+
+		if(reflect > 0.0 && inOut.rayIndex < reflectionsMax)
+		{
+			inOut.rayIndex++;
+
+			//calculate new direction
+			CVector3 vn = CalculateNormals(shaderInputData);
+			CVector3 newDirection = in.rayMarchingIn.direction - vn * in.rayMarchingIn.direction.Dot(vn) * 2.0;
+			CVector3 newPoint = point + newDirection * shaderInputData.distThresh;
+
+			sRayRecursionIn recursionIn;
+			sRayMarchingIn rayMarchingIn;
+			rayMarchingIn.binaryEnable = true;
+			rayMarchingIn.direction = newDirection;
+			rayMarchingIn.maxScan = params->viewDistanceMax;
+			rayMarchingIn.minScan = 0.0;
+			rayMarchingIn.start = newPoint;
+			recursionIn.rayMarchingIn = rayMarchingIn;
+			recursionIn.calcTransparency = false;
+			recursionIn.resultShader = resultShader;
+			recursionIn.objectColour = objectColour;
+
+			sRayMarchingInOut rayMarchingInOut;
+			rayMarchingInOut.buffCount = &rayBuffer[inOut.rayIndex].buffCount;
+			rayMarchingInOut.stepBuff = rayBuffer[inOut.rayIndex].stepBuff;
+			inOut.rayMarchingInOut = rayMarchingInOut;
+
+			sRayRecursionOut recursionOut = RayRecursion(recursionIn, inOut);
+			reflectShader = recursionOut.resultShader;
+
+			inOut.rayIndex--;
+		}
+
+		objectShader = ObjectShader(shaderInputData, &objectColour, &specular);
+
+		resultShader.R = reflectShader.R * reflect + (1.0 - reflect) * (objectShader.R + backgroundShader.R + specular.R);
+		resultShader.G = reflectShader.G * reflect + (1.0 - reflect) * (objectShader.G + backgroundShader.G + specular.G);
+		resultShader.B = reflectShader.B * reflect + (1.0 - reflect) * (objectShader.B + backgroundShader.B + specular.B);
+	}
+	else
+	{
+		backgroundShader = BackgroundShader(shaderInputData);
+		resultShader = backgroundShader;
+		shaderInputData.depth = 1e20;
+	}
+
+
+
+	sRGBAfloat opacityOut;
+
+	volumetricShader = VolumetricShader(shaderInputData, resultShader, &opacityOut);
+
+	resultShader = volumetricShader;
+
+	sRayRecursionOut out;
+	out.point = point;
+	out.rayMarchingOut = rayMarchingOut;
+	out.objectColour = objectColour;
+	out.resultShader = resultShader;
+
+	return out;
+}
 
