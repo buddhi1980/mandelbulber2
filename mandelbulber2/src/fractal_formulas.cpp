@@ -554,7 +554,7 @@ void Ides2Iteration(CVector3 &z, CVector3 &c)
     z.z = newz;
 }
 
-void Buffalo1Iteration(CVector3 &z)
+void BuffaloIteration(CVector3 &z)
 {
     double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
@@ -563,93 +563,17 @@ void Buffalo1Iteration(CVector3 &z)
 	double newx = (x2 - y2) * temp;
 	double newy = 2.0 * z.x * z.y * temp;
 	double newz = -2.0 * z.z * sqrt(x2 + y2);
-	z.x = fabs(newx);
+    if absx 
+    {
+        z.x = fabs(newx);
+    } 
+    else 
+    {
+        z.x = newx;
+    }
+	    
 	z.y = newy;
 	z.z = newz;
-}
-
-void Buffalo2Iteration(CVector3 &z)
-{
-    double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2);
-	double newx = (x2 - y2) * temp;
-	double newy = 2.0 * z.x * z.y * temp;
-	double newz = -2.0 * z.z * sqrt(x2 + y2);
-	z.x = newx;
-	z.y = fabs(newy);
-	z.z = newz;
-}
-
-void Buffalo3Iteration(CVector3 &z)
-{
-    double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2);
-	double newx = (x2 - y2) * temp;
-	double newy = 2.0 * z.x * z.y * temp;
-	double newz = -2.0 * z.z * sqrt(x2 + y2);
-	z.x = newx;
-	z.y = newy;
-	z.z = fabs(newz);
-}
-
-void Buffalo4Iteration(CVector3 &z)
-{
-    double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2);
-	double newx = (x2 - y2) * temp;
-	double newy = 2.0 * z.x * z.y * temp;
-	double newz = -2.0 * z.z * sqrt(x2 + y2);
-	z.x = fabs(newx);
-	z.y = fabs(newy);
-	z.z = newz;
-}
-
-void Buffalo5Iteration(CVector3 &z)
-{
-    double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2);
-	double newx = (x2 - y2) * temp;
-	double newy = 2.0 * z.x * z.y * temp;
-	double newz = -2.0 * z.z * sqrt(x2 + y2);
-	z.x = fabs(newx);
-	z.y = newy;
-	z.z = fabs(newz);
-}
-
-void Buffalo6Iteration(CVector3 &z)
-{
-    double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2);
-	double newx = (x2 - y2) * temp;
-	double newy = 2.0 * z.x * z.y * temp;
-	double newz = -2.0 * z.z * sqrt(x2 + y2);
-	z.x = newx;
-	z.y = fabs(newy);
-	z.z = fabs(newz);
-}
-
-void Buffalo7Iteration(CVector3 &z)
-{
-    double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2);
-	double newx = (x2 - y2) * temp;
-	double newy = 2.0 * z.x * z.y * temp;
-	double newz = -2.0 * z.z * sqrt(x2 + y2);
-	z.x = fabs(newx);
-	z.y = fabs(newy);
-	z.z = fabs(newz);
 }
 
 /* http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */

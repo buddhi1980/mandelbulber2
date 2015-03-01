@@ -215,39 +215,9 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
           Ides2Iteration(z, c);
           break;
       }
-			case buffalo1:
+			case buffalo:
 			{
-				Buffalo1Iteration(z);
-				break;
-			}
-			case buffalo2:
-			{
-				Buffalo2Iteration(z);
-				break;
-			}
-			case buffalo3:
-			{
-				Buffalo3Iteration(z);
-				break;
-			}
-			case buffalo4:
-			{
-				Buffalo4Iteration(z);
-				break;
-			}
-			case buffalo5:
-			{
-				Buffalo5Iteration(z);
-				break;
-			}
-			case buffalo6:
-			{
-				Buffalo6Iteration(z);
-				break;
-			}
-			case buffalo7:
-			{
-				Buffalo7Iteration(z);
+				BuffaloIteration(z);
 				break;
 			}
 			case quickdudley:
@@ -265,6 +235,11 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				Makin3D2Iteration(z);
 				break;
 			}
+            case jeroen:
+            {
+                JeroenIteration(z);
+                break;
+            }
 			default:
 				z = CVector3(0.0, 0.0, 0.0);
 				break;
