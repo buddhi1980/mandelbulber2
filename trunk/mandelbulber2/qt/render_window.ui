@@ -2085,7 +2085,7 @@ to target:</string>
            </property>
            <widget class="QWidget" name="tab">
             <attribute name="title">
-             <string>Surface</string>
+             <string>Material</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_63">
              <property name="spacing">
@@ -2112,9 +2112,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-101</y>
                   <width>303</width>
-                  <height>626</height>
+                  <height>734</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -2138,6 +2138,33 @@ to target:</string>
                    <property name="spacing">
                     <number>2</number>
                    </property>
+                   <item row="7" column="0">
+                    <widget class="QLabel" name="label_172">
+                     <property name="text">
+                      <string>Color of volume:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="1">
+                    <widget class="MyColorButton" name="colorButton_transparency_interior_color" native="true">
+                     <property name="text" stdset="0">
+                      <string>PushButton</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QSlider" name="slider_specular">
+                     <property name="maximum">
+                      <number>200</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="2" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_ambient_occlusion">
                      <property name="prefix">
@@ -2178,19 +2205,6 @@ to target:</string>
                    </item>
                    <item row="0" column="1">
                     <widget class="QSlider" name="slider_shading">
-                     <property name="maximum">
-                      <number>200</number>
-                     </property>
-                     <property name="singleStep">
-                      <number>1</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QSlider" name="slider_specular">
                      <property name="maximum">
                       <number>200</number>
                      </property>
@@ -2267,6 +2281,13 @@ to target:</string>
                      </property>
                     </widget>
                    </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_52">
+                     <property name="text">
+                      <string>Shading:</string>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="2" column="1">
                     <widget class="QSlider" name="slider_ambient_occlusion">
                      <property name="maximum">
@@ -2287,10 +2308,130 @@ to target:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_52">
+                   <item row="4" column="1">
+                    <widget class="QSlider" name="slider_transparency_of_surface">
+                     <property name="maximum">
+                      <number>100</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="label_171">
                      <property name="text">
-                      <string>Shading:</string>
+                      <string>Transparency of volume:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_170">
+                     <property name="text">
+                      <string>Transparency of surface:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinbox_transparency_of_surface">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="maximum">
+                      <double>1.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="0">
+                    <widget class="QLabel" name="label_173">
+                     <property name="text">
+                      <string>Index of refraction:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="1">
+                    <widget class="QSlider" name="slider_transparency_index_of_refraction">
+                     <property name="maximum">
+                      <number>300</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="2">
+                    <widget class="MyLineEdit" name="logedit_transparency_of_interior">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinbox_transparency_index_of_refraction">
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="maximum">
+                      <double>10.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="1">
+                    <widget class="QSlider" name="logslider_transparency_of_interior">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="sizeIncrement">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="minimum">
+                      <number>-1000</number>
+                     </property>
+                     <property name="maximum">
+                      <number>0</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="0" colspan="3">
+                    <widget class="MyCheckBox" name="checkBox_fresnel_reflectance">
+                     <property name="text">
+                      <string>Fresnel's equations for reflectance</string>
                      </property>
                     </widget>
                    </item>
@@ -2378,6 +2519,13 @@ to target:</string>
                         </property>
                        </widget>
                       </item>
+                      <item row="0" column="2">
+                       <widget class="MySpinBox" name="spinboxInt_ambient_occlusion_quality">
+                        <property name="maximum">
+                         <number>30</number>
+                        </property>
+                       </widget>
+                      </item>
                       <item row="2" column="1">
                        <widget class="QComboBox" name="comboBox_ambient_occlusion_mode">
                         <item>
@@ -2395,13 +2543,6 @@ to target:</string>
                           <string>Screen space</string>
                          </property>
                         </item>
-                       </widget>
-                      </item>
-                      <item row="0" column="2">
-                       <widget class="MySpinBox" name="spinboxInt_ambient_occlusion_quality">
-                        <property name="maximum">
-                         <number>30</number>
-                        </property>
                        </widget>
                       </item>
                       <item row="1" column="2">
@@ -2874,7 +3015,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>227</width>
                   <height>180</height>
                  </rect>
                 </property>
@@ -2897,7 +3038,7 @@ to target:</string>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_raytraced_reflections">
                    <property name="title">
-                    <string>Ray-traced reflections</string>
+                    <string>Ray-traced reflections and transparency</string>
                    </property>
                    <property name="checkable">
                     <bool>true</bool>
@@ -3145,7 +3286,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>195</width>
                   <height>533</height>
                  </rect>
                 </property>
@@ -3772,7 +3913,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>273</width>
                   <height>204</height>
                  </rect>
                 </property>
@@ -3999,7 +4140,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>265</width>
                   <height>1302</height>
                  </rect>
                 </property>
@@ -5504,7 +5645,7 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-129</y>
+          <y>0</y>
           <width>339</width>
           <height>313</height>
          </rect>
@@ -5531,7 +5672,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>0</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -7619,7 +7760,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>208</width>
                   <height>456</height>
                  </rect>
                 </property>
@@ -8585,7 +8726,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>207</width>
                   <height>360</height>
                  </rect>
                 </property>

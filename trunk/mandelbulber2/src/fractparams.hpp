@@ -95,6 +95,7 @@ public:
 	bool envMappingEnable;
 	bool fakeLightsEnabled;
 	bool fogEnabled;
+	bool fresnelReflectance;
 	bool glowEnabled;
 	bool hybridFractalEnable;
 	bool interiorMode;
@@ -110,6 +111,7 @@ public:
 	bool shadow; //enable shadows
 	bool slowShading; //enable fake gradient calculation for shading
 	bool texturedBackground; //enable testured background
+
 	bool volumetricLightEnabled[5];
 	bool volFogEnabled;
 
@@ -122,15 +124,16 @@ public:
 	sRGB background_color2;
 	sRGB background_color3;
 	sRGB fogColor;
-	sRGB volFogColour1;
-	sRGB volFogColour2;
-	sRGB volFogColour3;
+	sRGB glowColor1;
+	sRGB glowColor2;
 	sRGB iterFogColour1;
 	sRGB iterFogColour2;
 	sRGB iterFogColour3;
-	sRGB glowColor1;
-	sRGB glowColor2;
 	sRGB mainLightColour;
+	sRGB transparencyInteriorColor;
+	sRGB volFogColour1;
+	sRGB volFogColour2;
+	sRGB volFogColour3;
 
   double ambientOcclusion;
 	double ambientOcclusionFastTune;
@@ -169,6 +172,9 @@ public:
 	double shadowConeAngle;
 	double smoothness;
   double specular;
+	double transparencyIndexOfRefraction;
+  double transparencyOfInterior;
+  double transparencyOfSurface;
 	double viewDistanceMax;
 	double viewDistanceMin;
 	double volFogColour1Distance;

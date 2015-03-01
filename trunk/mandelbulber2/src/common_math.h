@@ -81,6 +81,8 @@ inline double SmoothConditionAGreaterB(double a, double b, double sharpness) {re
 inline double SmoothConditionALessB(double a, double b, double sharpness) {return 1.0 / (1.0 + exp(sharpness * (a - b)));}
 CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, params::enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth, double imgHeight);
 CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov, params::enumPerspectiveType perspType, const CRotationMatrix &mRot);
-
+CVector3 ReflectionVector(const CVector3 &normal, const CVector3 &incident);
+CVector3 RefractVector(const CVector3 &normal, const CVector3 &incident, double n1, double n2);
+double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, double n2);
 
 #endif /* COMMON_MATH_H_ */

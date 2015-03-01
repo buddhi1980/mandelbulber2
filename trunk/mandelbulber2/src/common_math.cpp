@@ -156,3 +156,39 @@ CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, p
 
 	return screenPoint;
 }
+
+//----------------------------------------
+//reference:
+//http://graphics.stanford.edu/courses/cs148-10-summer/docs/2006--degreve--reflection_refraction.pdf
+//Reflections and Refractions in Ray Tracing
+//Bram de Greve (bram.degreve@gmail.com)
+//November 13, 2006
+
+CVector3 ReflectionVector(const CVector3 &normal, const CVector3 &incident)
+{
+	return incident - normal * incident.Dot(normal) * 2.0;
+}
+
+CVector3 RefractVector(const CVector3 &normal, const CVector3 &incident, double n1, double n2)
+{
+	const double n = n1 / n2;
+	const double cosI = -normal.Dot(incident);
+	const double sinT2 = n * n * (1.0 - cosI * cosI);
+	if (sinT2 > 1.0) return CVector3(0.0, 0.0, 0.0); //total internal reflection
+	const double cosT = sqrt(1.0 - sinT2);
+	return incident * n + normal * (n * cosI - cosT);
+}
+
+double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, double n2)
+{
+	const double n = n1 / n2;
+	const double cosI = -normal.Dot(incident);
+	const double sinT2 = n * n * (1.0 - cosI * cosI);
+	if (sinT2 > 1.0) return 1.0; //total internal reflection
+	const double cosT = sqrt(1.0 - sinT2);
+	const double r0rth = (n1 * cosI - n2 * cosT) / (n1 * cosI + n2 * cosT);
+	const double rPar = (n2 * cosI - n1 * cosT) / (n2 * cosI + n1 * cosT);
+	return (r0rth * r0rth + rPar * rPar) / 2.0;
+}
+
+//----------------------------------------
