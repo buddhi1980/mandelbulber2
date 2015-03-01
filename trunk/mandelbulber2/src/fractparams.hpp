@@ -111,7 +111,6 @@ public:
 	bool shadow; //enable shadows
 	bool slowShading; //enable fake gradient calculation for shading
 	bool texturedBackground; //enable testured background
-
 	bool volumetricLightEnabled[5];
 	bool volFogEnabled;
 
