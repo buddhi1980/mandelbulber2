@@ -563,7 +563,7 @@ void BuffaloIteration(CVector3 &z)
 	double newx = (x2 - y2) * temp;
 	double newy = 2.0 * z.x * z.y * temp;
 	double newz = -2.0 * z.z * sqrt(x2 + y2);
-    if absx 
+    if (absx)
     {
         z.x = fabs(newx);
     } 
@@ -572,8 +572,23 @@ void BuffaloIteration(CVector3 &z)
         z.x = newx;
     }
 	    
-	z.y = newy;
-	z.z = newz;
+    if (absy)
+    {
+        z.y = fabs(newy);
+    } 
+    else 
+    {
+        z.y = newy;
+    }
+	    
+    if (absz)
+    {
+        z.z = fabs(newz);
+    } 
+    else 
+    {
+        z.z = newz;
+    }
 }
 
 /* http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
