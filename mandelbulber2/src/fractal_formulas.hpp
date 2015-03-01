@@ -51,10 +51,6 @@ struct sAexionAux
 	int iterNo;
 };
 
-/* For buffalo fractal family */
-bool absx;
-bool absy;
-bool absz;
 
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
 void Mandelbulbulb2Iteration(CVector3 &z, sMandelbulbAux &aux);
@@ -75,7 +71,7 @@ void BenesiIteration(CVector3 &z, CVector3 &c);
 void BristorbrotIteration(CVector3 &z);
 void IdesIteration(CVector3 &z);
 void Ides2Iteration(CVector3 &z, CVector3 &c);
-void BuffaloIteration(CVector3 &z);
+void BuffaloIteration(CVector3 &z, const cFractal *fractal);
 void QuickDudleyIteration(CVector3 &z);
 void LkmitchIteration(CVector3 &z);
 void Makin3D2Iteration(CVector3 &z);

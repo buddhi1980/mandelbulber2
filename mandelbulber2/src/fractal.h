@@ -148,6 +148,13 @@ struct sFractalAexion
 	double cadd;
 };
 
+struct sFractalBuffalo
+{
+	bool absx;
+	bool absy;
+	bool absz;
+};
+
 class cFractal
 {
 public:
@@ -162,6 +169,7 @@ public:
 	sFractalBoxFoldBulbPow2 foldingIntPow;
 	sFractalMandelboxVary4D mandelboxVary4D;
 	sFractalAexion aexion;
+	sFractalBuffalo buffalo;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

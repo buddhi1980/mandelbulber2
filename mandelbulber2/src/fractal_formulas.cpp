@@ -527,7 +527,6 @@ void BristorbrotIteration(CVector3 &z)
 	z.z = newz;
 }
 
-
 void IdesIteration(CVector3 &z)
 {
     double x2 = z.x * z.x;
@@ -554,41 +553,41 @@ void Ides2Iteration(CVector3 &z, CVector3 &c)
     z.z = newz;
 }
 
-void BuffaloIteration(CVector3 &z)
+void BuffaloIteration(CVector3 &z, const cFractal *fractal)
 {
-    double x2 = z.x * z.x;
+	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
 	double z2 = z.z * z.z;
 	double temp = 1.0 - z2 / (x2 + y2);
 	double newx = (x2 - y2) * temp;
 	double newy = 2.0 * z.x * z.y * temp;
 	double newz = -2.0 * z.z * sqrt(x2 + y2);
-    if (absx)
-    {
-        z.x = fabs(newx);
-    } 
-    else 
-    {
-        z.x = newx;
-    }
-	    
-    if (absy)
-    {
-        z.y = fabs(newy);
-    } 
-    else 
-    {
-        z.y = newy;
-    }
-	    
-    if (absz)
-    {
-        z.z = fabs(newz);
-    } 
-    else 
-    {
-        z.z = newz;
-    }
+	if (fractal->buffalo.absx)
+	{
+		z.x = fabs(newx);
+	}
+	else
+	{
+		z.x = newx;
+	}
+
+	if (fractal->buffalo.absy)
+	{
+		z.y = fabs(newy);
+	}
+	else
+	{
+		z.y = newy;
+	}
+
+	if (fractal->buffalo.absz)
+	{
+		z.z = fabs(newz);
+	}
+	else
+	{
+		z.z = newz;
+	}
 }
 
 /* http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */

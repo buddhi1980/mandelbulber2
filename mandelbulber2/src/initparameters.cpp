@@ -383,10 +383,13 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("mandelbox_vary_rpower", 1.0, morphLinear, paramStandard);
 	par->addParam("mandelbox_vary_wadd", 0.0, morphLinear, paramStandard);
 
-
 	//FoldingIntPow
 	par->addParam("boxfold_bulbpow2_folding_factor", 2.0, morphLinear, paramStandard);
 	par->addParam("boxfold_bulbpow2_z_factor", 5.0, morphLinear, paramStandard);
+
+	par->addParam("buffalo_abs_x", false, morphLinear, paramStandard);
+	par->addParam("buffalo_abs_y", false, morphLinear, paramStandard);
+	par->addParam("buffalo_abs_z", false, morphLinear, paramStandard);
 
 	WriteLog("Fractal parameters initialization finished");
 }

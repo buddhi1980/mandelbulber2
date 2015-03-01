@@ -88,6 +88,10 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	aexion.cadd = container->Get<double>("cadd");
 
+	buffalo.absx = container->Get<bool>("buffalo_abs_x");
+	buffalo.absy = container->Get<bool>("buffalo_abs_y");
+	buffalo.absz = container->Get<bool>("buffalo_abs_z");
+
 	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();
 }
@@ -225,5 +229,4 @@ void cFractal::RecalculateFractalParams(void)
 	genFoldBox.Nv_box5[5] = CVector3(cos(tha5 * 3), sin(tha5 * 3), 0);
 	genFoldBox.Nv_box5[6] = CVector3(cos(tha5 * 4), sin(tha5 * 4), 0);
 	genFoldBox.sides_box5 = 7;
-
 }
