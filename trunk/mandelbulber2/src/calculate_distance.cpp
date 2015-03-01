@@ -71,9 +71,9 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 				sDistanceOut outTemp = *out;
 
 				point = in.point;
-				point *= params.formulaScale[i + 1];
 				point = point.mod(params.formulaRepeat[i + 1]) - params.formulaPosition[i + 1];
 				point = params.mRotFormulaRotation[i + 1].RotateVector(point);
+				point *= params.formulaScale[i + 1];
 				inTemp.point = point;
 
 				double distTemp = CalculateDistanceSimple(params, four, inTemp, &outTemp, i + 1) / params.formulaScale[i + 1];
