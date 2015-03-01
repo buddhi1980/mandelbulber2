@@ -53,8 +53,8 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/scheduler.cpp\
 	    	../src/settings.cpp\
 	    	../src/shaders.cpp\
-				../src/system.cpp\
-				../src/ssao_worker.cpp\
+			../src/system.cpp\
+			../src/ssao_worker.cpp\
             ../src/texture.cpp\
             ../src/thumbnail.cpp\
             ../src/thumbnail_widget.cpp\

@@ -150,6 +150,11 @@ using namespace parameterContainer;
 	par->addParam("raytraced_reflections", false, morphLinear, paramStandard);
 	par->addParam("reflections_max", 5, 0, 10, morphLinear, paramStandard);
 	par->addParam("env_mapping_enable", false, morphLinear, paramStandard);
+	par->addParam("transparency_of_surface", 0.0, 0.0, 1.0, morphLinear, paramStandard);
+	par->addParam("transparency_of_interior", 1.0, 0.0, 1.0, morphLinear, paramStandard);
+	par->addParam("transparency_interior_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+	par->addParam("transparency_index_of_refraction", 1.5, 0.0, 10.0, morphLinear, paramStandard);
+	par->addParam("fresnel_reflectance", false, morphLinear, paramStandard);
 
 	par->addParam("glow_color", 1, sRGB(40984, 44713, 49490), morphLinear, paramStandard);
 	par->addParam("glow_color", 2, sRGB(57192, 60888, 62408), morphLinear, paramStandard);

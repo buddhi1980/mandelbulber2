@@ -88,6 +88,7 @@ private:
 		double minScan;
 		double maxScan;
 		bool binaryEnable;
+		bool invertMode;
 	};
 
 	struct sRayMarchingInOut
@@ -111,7 +112,7 @@ private:
 	struct sRayRecursionIn
 	{
 		sRayMarchingIn rayMarchingIn;
-		bool calcTransparency;
+		bool calcInside;
 		sRGBAfloat resultShader;
 		sRGBAfloat objectColour;
 	};

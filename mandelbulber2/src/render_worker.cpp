@@ -150,13 +150,16 @@ void cRenderWorker::doWork(void)
 				sRayRecursionIn recursionIn;
 
 				sRayMarchingIn rayMarchingIn;
+				CVector3 direction = viewVector;
+				direction.Normalize();
 				rayMarchingIn.binaryEnable = true;
-				rayMarchingIn.direction = viewVector;
+				rayMarchingIn.direction = direction;
 				rayMarchingIn.maxScan = params->viewDistanceMax;
 				rayMarchingIn.minScan = params->viewDistanceMin;
 				rayMarchingIn.start = startRay;
+				rayMarchingIn.invertMode = false;
 				recursionIn.rayMarchingIn = rayMarchingIn;
-				recursionIn.calcTransparency = false;
+				recursionIn.calcInside = false;
 				recursionIn.resultShader = resultShader;
 				recursionIn.objectColour = objectColour;
 
@@ -172,119 +175,6 @@ void cRenderWorker::doWork(void)
 				resultShader = recursionOut.resultShader;
 				objectColour = recursionOut.objectColour;
 				depth = recursionOut.rayMarchingOut.depth;
-
-				/*
-
-				{
-					reflectBuff[ray].point = point;
-					reflectBuff[ray].distThresh = rayMarchingOut.distThresh;
-					reflectBuff[ray].objectType = rayMarchingOut.object;
-					reflectBuff[ray].lastDist = rayMarchingOut.lastDist;
-					reflectBuff[ray].found = rayMarchingOut.found;
-					reflectBuff[ray].depth = rayMarchingOut.depth;
-					reflectBuff[ray].objectColor = rayMarchingOut.objectColor;
-					reflectBuff[ray].reflect = rayMarchingOut.objectReflect;
-					reflectBuff[ray].formulaIndex = rayMarchingOut.formulaIndex;
-
-					rayEnd = ray;
-					if (!reflectBuff[ray].found) break;
-					if (reflectBuff[ray].reflect == 0) break;
-
-					//calculate new ray direction and start point
-					startRay = point;
-					sShaderInputData shaderInputData;
-					shaderInputData.distThresh = reflectBuff[ray].distThresh;
-					shaderInputData.lightVect = shadowVector;
-					shaderInputData.point = point;
-					shaderInputData.viewVector = viewVector;
-					shaderInputData.delta = CalcDelta(point);
-					CVector3 vn = CalculateNormals(shaderInputData);
-					viewVector = viewVector - vn * viewVector.Dot(vn) * 2.0;
-					startRay = startRay + viewVector * reflectBuff[ray].distThresh;
-				}
-
-				for (int ray = rayEnd; ray >= 0; ray--)
-				{
-
-					sRGBAfloat objectShader;
-					objectShader.A = 0.0;
-					sRGBAfloat backgroundShader;
-					sRGBAfloat volumetricShader;
-					sRGBAfloat specular;
-
-					CVector3 lightVector = shadowVector;
-
-					sShaderInputData shaderInputData;
-					shaderInputData.distThresh = reflectBuff[ray].distThresh;
-					shaderInputData.delta = CalcDelta(reflectBuff[ray].point);
-					shaderInputData.lightVect = lightVector;
-					shaderInputData.point = reflectBuff[ray].point;
-					shaderInputData.viewVector = reflectBuff[ray].viewVector;
-					shaderInputData.lastDist = reflectBuff[ray].lastDist;
-					shaderInputData.depth = reflectBuff[ray].depth;
-					shaderInputData.stepCount = reflectBuff[ray].buffCount;
-					shaderInputData.stepBuff = reflectBuff[ray].stepBuff;
-					shaderInputData.objectType = reflectBuff[ray].objectType;
-					shaderInputData.objectColor = reflectBuff[ray].objectColor;
-					shaderInputData.formulaIndex = reflectBuff[ray].formulaIndex;
-
-					//if fractal surface was found
-					if (reflectBuff[ray].found)
-					{
-						objectShader = ObjectShader(shaderInputData, &objectColour, &specular);
-
-					} //end if found
-					else
-					{
-						backgroundShader = BackgroundShader(shaderInputData);
-						reflectBuff[ray].depth = 1e20;
-					}
-
-					double reflect = reflectBuff[ray].reflect;
-
-
-
-					sRGBAfloat pixel;
-
-					if (reflectionsMax > 0 && rayEnd > 0 && ray != rayEnd)
-					{
-
-						pixel.R = resultShader.R * reflect + (1.0 - reflect) * (objectShader.R + backgroundShader.R) + specular.R;
-						pixel.G = resultShader.G * reflect + (1.0 - reflect) * (objectShader.G + backgroundShader.G) + specular.G;
-						pixel.B = resultShader.B * reflect + (1.0 - reflect) * (objectShader.B + backgroundShader.B) + specular.B;
-
-					}
-					else
-					{
-						pixel.R = objectShader.R + backgroundShader.R + specular.R;
-						pixel.G = objectShader.G + backgroundShader.G + specular.G;
-						pixel.B = objectShader.B + backgroundShader.B + specular.B;
-					}
-
-					pixel.A = objectShader.A + backgroundShader.A;
-
-					sRGBAfloat opacityOut;
-
-					volumetricShader = VolumetricShader(shaderInputData, pixel, &opacityOut);
-
-					resultShader.R = volumetricShader.R;
-					resultShader.G = volumetricShader.G;
-					resultShader.B = volumetricShader.B;
-
-					if (ray == 0)
-					{
-						for (int xx = 0; xx < scheduler->GetProgresiveStep(); ++xx)
-						{
-							for (int yy = 0; yy < scheduler->GetProgresiveStep(); ++yy)
-							{
-								image->PutPixelOpacity(screenPoint.x + xx, screenPoint.y + yy, (unsigned short) (opacityOut.R * 65535.0));
-								image->PutPixelAlpha(screenPoint.x + xx, screenPoint.y + yy, (unsigned short) (volumetricShader.A * 65535.0));
-							}
-						}
-
-					}
-				}
-				*/
 			}
 
 			sRGBfloat pixel2;
@@ -355,11 +245,11 @@ void cRenderWorker::PrepareMainVectors(void)
 void cRenderWorker::PrepareReflectionBuffer(void)
 {
 
-	reflectionsMax = params->reflectionsMax;
+	reflectionsMax = params->reflectionsMax * 2;
 	if (!params->raytracedReflections) reflectionsMax = 0;
-	rayBuffer = new sRayBuffer[reflectionsMax + 2];
+	rayBuffer = new sRayBuffer[reflectionsMax + 4];
 
-	for (int i = 0; i < reflectionsMax + 1; i++)
+	for (int i = 0; i < reflectionsMax + 3; i++)
 	{
 		//rayMarching buffers
 		rayBuffer[i].stepBuff = new sStep[maxraymarchingSteps + 2];
@@ -463,6 +353,11 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		sDistanceIn distanceIn(point, distThresh, false);
 		sDistanceOut distanceOut;
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		if(in.invertMode)
+		{
+			dist = distThresh * 1.99 - dist;
+			if(dist < 0.0) dist = 0.0;
+		}
 		out->object = distanceOut.object;
 		out->formulaIndex = distanceOut.formulaIndex;
 		if(out->object == fractal::objFractal)
@@ -545,6 +440,13 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			sDistanceIn distanceIn(point, distThresh, false);
 			sDistanceOut distanceOut;
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+
+			if(in.invertMode)
+			{
+				dist = distThresh * 1.99 - dist;
+				if(dist < 0.0) dist = 0.0;
+			}
+
 			out->object = distanceOut.object;
 			out->formulaIndex = distanceOut.formulaIndex;
 
@@ -588,6 +490,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 
 	*inOut.rayMarchingInOut.buffCount = 0;
 
+	//trace the light in given direction
 	CVector3 point = RayMarching(in.rayMarchingIn, &inOut.rayMarchingInOut, &rayMarchingOut);
 
 	sRGBAfloat resultShader = in.resultShader;
@@ -601,8 +504,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 	sRGBAfloat volumetricShader;
 	sRGBAfloat specular;
 
+	//prepare data for shaders
 	CVector3 lightVector = shadowVector;
-
 	sShaderInputData shaderInputData;
 	shaderInputData.distThresh = rayMarchingOut.distThresh;
 	shaderInputData.delta = CalcDelta(point);
@@ -620,64 +523,188 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 
 	sRGBAfloat reflectShader = in.resultShader;
 	double reflect = rayMarchingOut.objectReflect;
+	sRGBAfloat transparentShader = in.resultShader;
+	double transparent = params->transparencyOfSurface;
+	sRGBfloat transparentColor = sRGBfloat(	params->transparencyInteriorColor.R / 65536.0,
+																					params->transparencyInteriorColor.G / 65536.0,
+																					params->transparencyInteriorColor.B / 65536.0);
+	resultShader.R = transparentColor.R;
+	resultShader.G = transparentColor.G;
+	resultShader.B = transparentColor.B;
 
+	//if found any object
 	if(rayMarchingOut.found)
 	{
-		//here will start branch for deeper recursion
+		//calculate normal vector
+		CVector3 vn = CalculateNormals(shaderInputData);
 
-		if(reflect > 0.0 && inOut.rayIndex < reflectionsMax)
+		//prepare refraction values
+		double n1, n2;
+		if(in.calcInside) //if trance is inside the object
 		{
-			inOut.rayIndex++;
-
-			//calculate new direction
-			CVector3 vn = CalculateNormals(shaderInputData);
-			CVector3 newDirection = in.rayMarchingIn.direction - vn * in.rayMarchingIn.direction.Dot(vn) * 2.0;
-			CVector3 newPoint = point + newDirection * shaderInputData.distThresh;
-
-			sRayRecursionIn recursionIn;
-			sRayMarchingIn rayMarchingIn;
-			rayMarchingIn.binaryEnable = true;
-			rayMarchingIn.direction = newDirection;
-			rayMarchingIn.maxScan = params->viewDistanceMax;
-			rayMarchingIn.minScan = 0.0;
-			rayMarchingIn.start = newPoint;
-			recursionIn.rayMarchingIn = rayMarchingIn;
-			recursionIn.calcTransparency = false;
-			recursionIn.resultShader = resultShader;
-			recursionIn.objectColour = objectColour;
-
-			sRayMarchingInOut rayMarchingInOut;
-			rayMarchingInOut.buffCount = &rayBuffer[inOut.rayIndex].buffCount;
-			rayMarchingInOut.stepBuff = rayBuffer[inOut.rayIndex].stepBuff;
-			inOut.rayMarchingInOut = rayMarchingInOut;
-
-			sRayRecursionOut recursionOut = RayRecursion(recursionIn, inOut);
-			reflectShader = recursionOut.resultShader;
-
-			inOut.rayIndex--;
+			vn = vn * -1.0; //reverse normal vector
+			n1 = params->transparencyIndexOfRefraction; //reverse refractive indices
+			n2 = 1.0;
+		}
+		else
+		{
+			n1 = 1.0;
+			n2 = params->transparencyIndexOfRefraction;;
 		}
 
+
+
+		if(inOut.rayIndex < reflectionsMax)
+		{
+
+			//calculate refraction (transparency)
+			if(transparent > 0.0)
+			{
+				sRayRecursionIn recursionIn;
+				sRayMarchingIn rayMarchingIn;
+				sRayMarchingInOut rayMarchingInOut;
+
+				//calculate direction of refracted light
+				CVector3 newDirection = RefractVector(vn, in.rayMarchingIn.direction, n1, n2);
+
+				//move starting point a little
+				CVector3 newPoint = point + in.rayMarchingIn.direction * shaderInputData.distThresh * 1.0;
+
+				//if is total internal reflection the use reflection instead of refraction
+				bool internalReflection = false;
+				if(newDirection.Length() == 0.0)
+				{
+					newDirection = ReflectionVector(vn, in.rayMarchingIn.direction);
+					newPoint = point + in.rayMarchingIn.direction * shaderInputData.distThresh * 1.0;
+					internalReflection = true;
+				}
+
+				//preparation for new recursion
+				rayMarchingIn.binaryEnable = true;
+				rayMarchingIn.direction = newDirection;
+				rayMarchingIn.maxScan = params->viewDistanceMax;
+				rayMarchingIn.minScan = 0.0;
+				rayMarchingIn.start = newPoint;
+				rayMarchingIn.invertMode = !in.calcInside || internalReflection;
+				recursionIn.rayMarchingIn = rayMarchingIn;
+				recursionIn.calcInside = !in.calcInside || internalReflection;
+				recursionIn.resultShader = resultShader;
+				recursionIn.objectColour = objectColour;
+
+				//setup buffers for ray data
+				inOut.rayIndex++; //increase recursion index
+				rayMarchingInOut.buffCount = &rayBuffer[inOut.rayIndex].buffCount;
+				rayMarchingInOut.stepBuff = rayBuffer[inOut.rayIndex].stepBuff;
+				inOut.rayMarchingInOut = rayMarchingInOut;
+
+				//recursion for refraction
+				sRayRecursionOut recursionOutTransparent = RayRecursion(recursionIn, inOut);
+				transparentShader = recursionOutTransparent.resultShader;
+			}
+
+			//calculate reflection
+			if(reflect > 0.0)
+			{
+				sRayRecursionIn recursionIn;
+				sRayMarchingIn rayMarchingIn;
+				sRayMarchingInOut rayMarchingInOut;
+
+				//calculate new direction of relfection
+				CVector3 newDirection = ReflectionVector(vn, in.rayMarchingIn.direction);
+				CVector3 newPoint = point + newDirection * shaderInputData.distThresh;
+
+				//prepare for new recursion
+				rayMarchingIn.binaryEnable = true;
+				rayMarchingIn.direction = newDirection;
+				rayMarchingIn.maxScan = params->viewDistanceMax;
+				rayMarchingIn.minScan = 0.0;
+				rayMarchingIn.start = newPoint;
+				rayMarchingIn.invertMode = false;
+				recursionIn.rayMarchingIn = rayMarchingIn;
+				recursionIn.calcInside = false;
+				recursionIn.resultShader = resultShader;
+				recursionIn.objectColour = objectColour;
+
+				//setup buffers for ray data
+				inOut.rayIndex++; //increase recursion index
+				rayMarchingInOut.buffCount = &rayBuffer[inOut.rayIndex].buffCount;
+				rayMarchingInOut.stepBuff = rayBuffer[inOut.rayIndex].stepBuff;
+				inOut.rayMarchingInOut = rayMarchingInOut;
+
+				//recursion for reflection
+				sRayRecursionOut recursionOutReflect = RayRecursion(recursionIn, inOut);
+				reflectShader = recursionOutReflect.resultShader;
+
+			}
+			if(transparent > 0.0) inOut.rayIndex--; //decrease recursion index
+			if(reflect > 0.0) inOut.rayIndex--; //decrease recursion index
+		}
+
+		//calculate effects for object surface
 		objectShader = ObjectShader(shaderInputData, &objectColour, &specular);
 
-		resultShader.R = reflectShader.R * reflect + (1.0 - reflect) * (objectShader.R + backgroundShader.R + specular.R);
-		resultShader.G = reflectShader.G * reflect + (1.0 - reflect) * (objectShader.G + backgroundShader.G + specular.G);
-		resultShader.B = reflectShader.B * reflect + (1.0 - reflect) * (objectShader.B + backgroundShader.B + specular.B);
+		//calculate reflectance according to Fresnel equations
+		double reflectance = 1.0;
+		double reflectanceN = 1.0;
+
+		if(params->fresnelReflectance)
+		{
+			reflectance = Reflectance(vn, in.rayMarchingIn.direction, n1, n2);
+			if(reflectance < 0.0) reflectance = 0.0;
+			if(reflectance > 1.0) reflectance = 1.0;
+			reflectanceN = 1.0 - reflectance;
+		}
+
+		//combine all results
+		resultShader.R = (objectShader.R + specular.R);
+		resultShader.G = (objectShader.G + specular.G);
+		resultShader.B = (objectShader.B + specular.B);
+
+		if(reflectionsMax > 0)
+		{
+			resultShader.R = transparentShader.R * transparent * reflectanceN + (1.0 - transparent * reflectanceN) * resultShader.R;
+			resultShader.G = transparentShader.G * transparent * reflectanceN + (1.0 - transparent * reflectanceN) * resultShader.G;
+			resultShader.B = transparentShader.B * transparent * reflectanceN + (1.0 - transparent * reflectanceN) * resultShader.B;
+
+			resultShader.R = reflectShader.R * reflect * reflectance + (1.0 - reflect * reflectance) * resultShader.R;
+			resultShader.G = reflectShader.G * reflect * reflectance + (1.0 - reflect * reflectance) * resultShader.G;
+			resultShader.B = reflectShader.B * reflect * reflectance + (1.0 - reflect * reflectance) * resultShader.B;
+		}
 	}
-	else
+	else //if fobject not found then calculate background
 	{
 		backgroundShader = BackgroundShader(shaderInputData);
 		resultShader = backgroundShader;
 		shaderInputData.depth = 1e20;
 	}
 
-
-
 	sRGBAfloat opacityOut;
 
-	volumetricShader = VolumetricShader(shaderInputData, resultShader, &opacityOut);
+	if(in.calcInside) //if now is traced object interior, then there is calculated absorbtion of light
+	{
+	  for(int index = shaderInputData.stepCount - 1; index > 0; index--)
+		{
+			double step = shaderInputData.stepBuff[index].step;
+			CVector3 point = shaderInputData.stepBuff[index].point;
 
-	resultShader = volumetricShader;
+			//shaderInputData.point = point;
+			//sRGBAfloat color = SurfaceColour(shaderInputData);
+			//transparentColor.R = color.R;
+			//transparentColor.G = color.G;
+			//transparentColor.B = color.B;
+			double opacity = (1.0 - params->transparencyOfInterior) * step;
+			resultShader.R = opacity * transparentColor.R + (1.0 - opacity) * resultShader.R;
+			resultShader.G = opacity * transparentColor.G + (1.0 - opacity) * resultShader.G;
+			resultShader.B = opacity * transparentColor.B + (1.0 - opacity) * resultShader.B;
+		}
+	}
+	else //if now is outside the object, then calculate all volumetric effects like fog, glow...
+	{
+		volumetricShader = VolumetricShader(shaderInputData, resultShader, &opacityOut);
+		resultShader = volumetricShader;
+	}
 
+	//prepare final result
 	sRayRecursionOut out;
 	out.point = point;
 	out.rayMarchingOut = rayMarchingOut;
@@ -686,4 +713,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 
 	return out;
 }
+
+
 
