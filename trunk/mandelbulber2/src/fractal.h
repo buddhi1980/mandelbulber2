@@ -153,6 +153,7 @@ struct sFractalBuffalo
 	bool absx;
 	bool absy;
 	bool absz;
+    bool posz;
 };
 
 class cFractal
