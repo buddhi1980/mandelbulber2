@@ -747,6 +747,8 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 		normal.Normalize();
 	}
 
+	if(input.invertMode) normal *= (-1.0);
+
 	return normal;
 }
 

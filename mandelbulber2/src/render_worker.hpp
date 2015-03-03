@@ -147,6 +147,7 @@ private:
 		int formulaIndex;
 		sRGB objectColor;
 		double objectReflect;
+		bool invertMode;
 	};
 
 	//functions
