@@ -519,6 +519,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 	shaderInputData.objectType = rayMarchingOut.object;
 	shaderInputData.objectColor = rayMarchingOut.objectColor;
 	shaderInputData.formulaIndex = rayMarchingOut.formulaIndex;
+	shaderInputData.invertMode = in.calcInside;
 
 
 	sRGBAfloat reflectShader = in.resultShader;
@@ -542,7 +543,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 		double n1, n2;
 		if(in.calcInside) //if trance is inside the object
 		{
-			vn = vn * -1.0; //reverse normal vector
 			n1 = params->transparencyIndexOfRefraction; //reverse refractive indices
 			n2 = 1.0;
 		}
@@ -551,8 +551,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 			n1 = 1.0;
 			n2 = params->transparencyIndexOfRefraction;;
 		}
-
-
 
 		if(inOut.rayIndex < reflectionsMax)
 		{
@@ -682,7 +680,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 
 	if(in.calcInside) //if now is traced object interior, then there is calculated absorbtion of light
 	{
-	  for(int index = shaderInputData.stepCount - 1; index > 0; index--)
+		for(int index = shaderInputData.stepCount - 1; index > 0; index--)
 		{
 			double step = shaderInputData.stepBuff[index].step;
 			CVector3 point = shaderInputData.stepBuff[index].point;
@@ -692,7 +690,10 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 			//transparentColor.R = color.R;
 			//transparentColor.G = color.G;
 			//transparentColor.B = color.B;
-			double opacity = (1.0 - params->transparencyOfInterior) * step;
+
+			double opacity = -log(params->transparencyOfInterior) * step;
+			if(opacity > 1.0) opacity = 1.0;
+
 			resultShader.R = opacity * transparentColor.R + (1.0 - opacity) * resultShader.R;
 			resultShader.G = opacity * transparentColor.G + (1.0 - opacity) * resultShader.G;
 			resultShader.B = opacity * transparentColor.B + (1.0 - opacity) * resultShader.B;
