@@ -91,6 +91,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	buffalo.absx = container->Get<bool>("buffalo_abs_x");
 	buffalo.absy = container->Get<bool>("buffalo_abs_y");
 	buffalo.absz = container->Get<bool>("buffalo_abs_z");
+	buffalo.posz = container->Get<bool>("buffalo_pos_z");
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();

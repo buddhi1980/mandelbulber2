@@ -390,6 +390,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("buffalo_abs_x", false, morphLinear, paramStandard);
 	par->addParam("buffalo_abs_y", false, morphLinear, paramStandard);
 	par->addParam("buffalo_abs_z", false, morphLinear, paramStandard);
+	par->addParam("buffalo_pos_z", false, morphLinear, paramStandard);
 
 	WriteLog("Fractal parameters initialization finished");
 }

@@ -561,7 +561,15 @@ void BuffaloIteration(CVector3 &z, const cFractal *fractal)
 	double temp = 1.0 - z2 / (x2 + y2);
 	double newx = (x2 - y2) * temp;
 	double newy = 2.0 * z.x * z.y * temp;
-	double newz = -2.0 * z.z * sqrt(x2 + y2);
+	double newz;
+    if (fractal->buffalo.posz)
+    {
+        newz = 2.0 * z.z * sqrt(x2 + y2);
+    }
+    else
+    {
+	    newz = -2.0 * z.z * sqrt(x2 + y2);
+    }
 	if (fractal->buffalo.absx)
 	{
 		z.x = fabs(newx);
@@ -570,7 +578,6 @@ void BuffaloIteration(CVector3 &z, const cFractal *fractal)
 	{
 		z.x = newx;
 	}
-
 	if (fractal->buffalo.absy)
 	{
 		z.y = fabs(newy);
@@ -579,7 +586,6 @@ void BuffaloIteration(CVector3 &z, const cFractal *fractal)
 	{
 		z.y = newy;
 	}
-
 	if (fractal->buffalo.absz)
 	{
 		z.z = fabs(newz);
