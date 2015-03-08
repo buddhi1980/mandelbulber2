@@ -28,7 +28,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	sRGBAfloat output;
 
 	//normal vector
-	CVector3 vn = CalculateNormals(_input);
+	CVector3 vn = _input.normal;
 	sShaderInputData input = _input;
 	input.normal = vn;
 
@@ -719,7 +719,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 	{
 		CVector3 point2;
 		CVector3 point3;
-		double delta = input.delta * params->smoothness;
+		double delta = input.delta * params->smoothness * 0.5;
 		if(params->interiorMode) delta = input.distThresh * 0.2 * params->smoothness;
 
 		sDistanceOut distanceOut;
@@ -748,6 +748,8 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 	}
 
 	if(input.invertMode) normal *= (-1.0);
+
+	//qDebug() << input.point.Debug() << normal.Debug();
 
 	return normal;
 }
