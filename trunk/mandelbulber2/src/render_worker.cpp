@@ -349,10 +349,10 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 
 		distThresh = CalcDistThresh(point);
 
-
 		sDistanceIn distanceIn(point, distThresh, false);
 		sDistanceOut distanceOut;
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		//qDebug() <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan;
 		if(in.invertMode)
 		{
 			dist = distThresh * 1.99 - dist;
@@ -411,10 +411,11 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	}
 	//------------- 83.2473 us for RayMarching loop -------------------------
 
+	//qDebug() << "------------ binary search";
 	if (found && in.binaryEnable)
 	{
 		step *= 0.5;
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < 30; i++)
 		{
 			counter++;
 			if (dist < distThresh && dist > distThresh * search_limit)
@@ -440,6 +441,8 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			sDistanceIn distanceIn(point, distThresh, false);
 			sDistanceOut distanceOut;
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+
+			//qDebug() << "i" << i <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan << "step" << step;
 
 			if(in.invertMode)
 			{
@@ -469,6 +472,13 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			step *= 0.5;
 		}
 	}
+	if(params->iterThreshMode)
+	{
+		//this fixes problem with noise when there is used "stop at maxIter" mode
+		scan -= distThresh;
+		point = in.start + in.direction * scan;
+	}
+
 	//---------- 7.19605us for binary searching ---------------
 
 	DECounter+= counter;
@@ -637,6 +647,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 			if(transparent > 0.0) inOut.rayIndex--; //decrease recursion index
 			if(reflect > 0.0) inOut.rayIndex--; //decrease recursion index
 		}
+
+		shaderInputData.normal = vn;
 
 		//calculate effects for object surface
 		objectShader = ObjectShader(shaderInputData, &objectColour, &specular);

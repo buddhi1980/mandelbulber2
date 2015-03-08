@@ -176,11 +176,13 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 		{
 			Compute<fractal::normal>(four, fractIn, &fractOut);
 			distance = fractOut.distance;
+			//qDebug() << "computed distance" << distance;
 			out->maxiter = fractOut.maxiter;
 			out->iters = fractOut.iters;
 			out->colorIndex = fractOut.colorIndex;
 
 			if (out->maxiter) distance = 0.0;
+			//qDebug() << "maxiter" << out->maxiter;
 
 			if (distance < 0) distance = 0;
 
@@ -203,7 +205,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 				}
 			}
 
-			if (params.iterThreshMode && !fractOut.maxiter)
+			if (params.iterThreshMode && !in.normalCalculationMode && !fractOut.maxiter)
 			{
 				if (distance < in.detailSize)
 				{
@@ -276,7 +278,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 				}
 			}
 
-			if (params.iterThreshMode && !maxiter)
+			if (params.iterThreshMode && !in.normalCalculationMode && !maxiter)
 			{
 				if (distance < in.detailSize)
 				{
