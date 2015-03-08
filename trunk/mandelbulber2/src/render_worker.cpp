@@ -64,7 +64,7 @@ cRenderWorker::~cRenderWorker()
 
 	if (rayBuffer)
 	{
-		for (int i = 0; i < reflectionsMax + 1; i++)
+		for (int i = 0; i < reflectionsMax + 3; i++)
 		{
 			delete[] rayBuffer[i].stepBuff;
 		}
