@@ -67,6 +67,7 @@ SOURCES +=  ../src/algebra.cpp\
             ../qt/mycolorbutton.cpp\
             ../qt/my_table_widget_anim.cpp\
             ../qt/mylogwidget.cpp\
+            ../qt/myhistogramlabel.cpp\
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
@@ -79,6 +80,7 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/mycolorbutton.h\
 			../qt/my_table_widget_anim.hpp\
 			../qt/mylogwidget.h\
+			../qt/myhistogramlabel.h\
 			../src/my_ui_loader.h\
 			../src/preview_file_dialog.h\
 			../src/ssao_worker.h\
@@ -118,5 +120,3 @@ win32:LIBS += -lz
 win32:greaterThan(QT_MAJOR_VERSION, 4): INCLUDEPATH += "C:/Qt/Tools/mingw48_32/include/libpng16"
 #win32:LIBS += "C:/Qt/Tools/mingw48_32/lib/libpng16"
 #win32:INCLUDEPATH += "C:/Qt/Tools/mingw48_32/include/libpng16"
-
-

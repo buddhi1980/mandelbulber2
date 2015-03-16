@@ -42,6 +42,10 @@ public:
 	explicit RenderWindow(QWidget *parent = 0);
 	~RenderWindow();
 
+public slots:
+	void slotUpdateHistogramDE();
+	void slotUpdateHistogramIters();
+
 private:
 	void closeEvent(QCloseEvent * event);
 
@@ -162,6 +166,11 @@ private:
 	QSettings settings;
 	QByteArray defaultGeometry;
 	QByteArray defaultState;
+
+	long histogramDE[256];
+	long histogramIters[256];
+	int countHistogramDE;
+	int countHistogramIters;
 
 	enum enumImageProporton
 	{

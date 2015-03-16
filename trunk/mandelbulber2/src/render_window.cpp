@@ -60,6 +60,12 @@ RenderWindow::RenderWindow(QWidget *parent) :
   	//store defauly geometry and state
   	defaultGeometry = saveGeometry();
   	defaultState = saveState();
+		for(int i = 0; i < 256; i++){
+			histogramDE[i] = 0;
+			histogramIters[i] = 0;
+		}
+		countHistogramDE = 0;
+		countHistogramIters = 0;
 }
 
 RenderWindow::~RenderWindow()
@@ -1275,18 +1281,18 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 		ui->dockWidget_animation->setVisible(ui->actionShow_animation_dock->isChecked());
 	}
 
-	// Log dock
-	if(ui->actionShow_log_dock->isChecked() != ui->dockWidget_log->isVisible())
+	// Info dock
+	if(ui->actionShow_info_dock->isChecked() != ui->dockWidget_info->isVisible())
 	{
-		if(ui->actionShow_log_dock->isChecked())
+		if(ui->actionShow_info_dock->isChecked())
 		{
-			addDockWidget(Qt::BottomDockWidgetArea, ui->dockWidget_log);
+			addDockWidget(Qt::TopDockWidgetArea, ui->dockWidget_info);
 		}
 		else
 		{
-			removeDockWidget(ui->dockWidget_log);
+			removeDockWidget(ui->dockWidget_info);
 		}
-		ui->dockWidget_log->setVisible(ui->actionShow_log_dock->isChecked());
+		ui->dockWidget_info->setVisible(ui->actionShow_info_dock->isChecked());
 	}
 
 	// Toolbar
@@ -1305,9 +1311,9 @@ void RenderWindow::slotUpdateDocksandToolbarbyView()
 	}
 
 	// Log dock
-	if(ui->actionShow_log_dock->isChecked() != ui->dockWidget_log->isVisible())
+	if(ui->actionShow_info_dock->isChecked() != ui->dockWidget_info->isVisible())
 	{
-		ui->actionShow_log_dock->setChecked(ui->dockWidget_log->isVisible());
+		ui->actionShow_info_dock->setChecked(ui->dockWidget_info->isVisible());
 	}
 
 	// Toolbar
@@ -1355,4 +1361,15 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 void RenderWindow::slotMenuProgramSettings()
 {
 	// TODO show ProgramSettings interface
+}
+
+void RenderWindow::slotUpdateHistogramDE()
+{
+	ui->label_histogram_de->UpdateHistogram(histogramDE, 256, countHistogramDE);
+}
+
+void RenderWindow::slotUpdateHistogramIters()
+{
+	ui->label_histogram_iter->SetBarcolor(QColor(0, 255, 0)); // TODO move to setup
+	ui->label_histogram_iter->UpdateHistogram(histogramIters, 256, countHistogramIters);
 }
