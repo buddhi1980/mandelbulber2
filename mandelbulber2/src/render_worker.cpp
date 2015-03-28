@@ -27,7 +27,7 @@
 #include "common_math.h"
 
 
-cRenderWorker::cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal, sThreadData *_threadData, const sRenderData *_data, cImage *_image)
+cRenderWorker::cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal, sThreadData *_threadData, sRenderData *_data, cImage *_image)
 {
 	params = _params;
 	fractal = _fractal;
@@ -45,11 +45,6 @@ cRenderWorker::cRenderWorker(const cParamRender *_params, const cFourFractals *_
 	missed_DE_counter = 0;
 	pixelCounter = 0;
 	DECounter = 0;
-	for(int i=0; i<256; i++)
-	{
-		histogramDE[i] = 0;
-		histogramIters[i] = 0;
-	}
 	reflectionsMax = 0;
 	stopRequest = false;
 }
@@ -378,10 +373,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		inOut->stepBuff[i].iters = distanceOut.iters;
 		inOut->stepBuff[i].distThresh = distThresh;
 
-		if(distanceOut.iters < 256)
-			histogramIters[distanceOut.iters]++;
-		else
-			histogramIters[255]++;
+		data->histogramIterations.Add(distanceOut.iters);
 
 		if (dist > 3.0) dist = 3.0;
 		if (dist < distThresh)
@@ -464,10 +456,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 				out->objectColor = distanceOut.objectColor;
 			}
 
-			if(distanceOut.iters < 256)
-				histogramIters[distanceOut.iters]++;
-			else
-				histogramIters[255]++;
+			data->histogramIterations.Add(distanceOut.iters);
 
 			step *= 0.5;
 		}
@@ -481,11 +470,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 
 	//---------- 7.19605us for binary searching ---------------
 
-	DECounter+= counter;
-	//counters for drawing histogram
-	int counter2 = counter / 4;
-	if (counter2 < 256) histogramDE[counter2]++;
-	else histogramDE[255]++;
+	data->histogramStepCount.Add(counter);
 
 	out->found = found;
 	out->lastDist = dist;

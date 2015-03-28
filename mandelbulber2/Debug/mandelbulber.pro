@@ -32,6 +32,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/global_data.cpp\
 	    	../src/initparameters.cpp\
 	    	../src/interface.cpp\
+	    	../src/histogram.cpp\
 	    	../src/lights.cpp\
 	    	../src/main.cpp\
 	    	../src/multi_val.cpp\
@@ -67,7 +68,7 @@ SOURCES +=  ../src/algebra.cpp\
             ../qt/mycolorbutton.cpp\
             ../qt/my_table_widget_anim.cpp\
             ../qt/mylogwidget.cpp\
-            ../qt/myhistogramlabel.cpp\
+            ../qt/myhistogramlabel.cpp
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
@@ -93,6 +94,7 @@ HEADERS  += ../src/render_window.hpp\
 			../src/render_image.hpp\
 			../src/render_ssao.h\
 			../src/dof.hpp
+
 
 FORMS    += ../qt/render_window.ui
 

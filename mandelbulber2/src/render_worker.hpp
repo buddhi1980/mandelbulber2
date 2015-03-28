@@ -45,7 +45,7 @@ public:
 		cScheduler *scheduler;
 	};
 
-	cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal, sThreadData *_threadData, const sRenderData *_data, cImage *_image);
+	cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal, sThreadData *_threadData, sRenderData *_data, cImage *_image);
 	~cRenderWorker();
 
 	QThread workerThread;
@@ -180,7 +180,7 @@ private:
 	//data got from main thread
 	const cParamRender *params;
 	const cFourFractals *fractal;
-	const sRenderData *data;
+	sRenderData *data;
 	sThreadData *threadData;
 	cImage *image;
 
@@ -196,8 +196,6 @@ private:
 	long int missed_DE_counter;
 	long int DECounter;
 	long int pixelCounter;
-	int histogramDE[256];
-	int histogramIters[256];
 	int reflectionsMax;
 	bool stopRequest;
 

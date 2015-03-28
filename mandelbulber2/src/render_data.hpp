@@ -28,6 +28,7 @@
 #include "region.hpp"
 #include <QProgressBar>
 #include <QStatusBar>
+#include "histogram.hpp"
 
 struct sRenderData
 {
@@ -48,6 +49,8 @@ struct sRenderData
 	bool doNotRefresh;
 	double lastPercentage;
 	double reduceDetail;
+	cHistogram histogramIterations;
+	cHistogram histogramStepCount;
 };
 
 #endif /* RENDER_DATA_HPP_ */

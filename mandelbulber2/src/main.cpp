@@ -61,6 +61,8 @@ int main(int argc, char *argv[])
 	gApplication->installTranslator(&main_translator);
 	gApplication->installTranslator(&qt_data_translator);
 
+	qRegisterMetaType<cHistogram>("cHistogram");
+
 	//Create default directiories and copy all needed files
 	WriteLog("CreateDefaultFolders()");
 	if(!CreateDefaultFolders())

@@ -30,10 +30,10 @@ MyHistogramLabel::MyHistogramLabel(QWidget *parent) : QLabel(parent)
 {
 	pix = new QPixmap(width(), height());
 	painter = new QPainter(pix);
-	barColor = new QColor(255, 0, 0);
-	backgroundColor = new QColor(0, 0, 0);
-	legendColor = new QColor(255, 255, 255);
-	maxColor = new QColor(255, 255, 255, 200);
+	barColor = QColor(255, 0, 0);
+	backgroundColor = QColor(0, 0, 0);
+	legendColor = QColor(255, 255, 255);
+	maxColor = QColor(255, 255, 255, 200);
 	legendX = 0;
 	isUpdating = false;
 	legendWidth = 15;
@@ -44,73 +44,75 @@ MyHistogramLabel::~MyHistogramLabel(void)
 {
 	delete painter;
 	delete pix;
-	delete barColor;
-	delete backgroundColor;
-	delete legendColor;
-	delete maxColor;
 }
 
-void MyHistogramLabel::UpdateHistogram(long histogram[], int size, int count)
+void MyHistogramLabel::UpdateHistogram(const cHistogram &histData)
 {
 	if(isUpdating) return;
 	isUpdating = true;
 
 	// get max Element
-	long max = 0;
+	long maxH = 0;
 	int maxIndex = 0;
+  int size = histData.GetSize();
 
 	for (int i = 0; i < size; i++)
 	{
-		if (histogram[i] > max) {
-			max = histogram[i];
+		if (histData.GetHist(i) > maxH) {
+			maxH = histData.GetHist(i);
 			maxIndex = i;
 		}
 	}
-	int maxAVG = max / count;
 
-	// redraw legend, if necessary
-	if(legendX != size)
+	if(histData.GetCount() > 0)
 	{
-		legendX = size;
-		DrawLegend();
+		// redraw legend, if necessary
+		if(legendX != size)
+		{
+			legendX = size;
+			DrawLegend();
+		}
+
+		int legendWidthP1 = legendWidth + 1;
+		int legendHeightP1 = legendHeight + 1;
+
+		int drawWidth = pix->width() - legendWidthP1;
+		int drawHeight = pix->height() - legendHeightP1;
+
+		// draw background
+		painter->setPen(QPen(backgroundColor));
+		painter->setBrush(QBrush(backgroundColor));
+		painter->drawRect(QRect(legendWidthP1, 0, drawWidth, drawHeight));
+
+		painter->setPen(QPen(barColor));
+		painter->setBrush(QBrush(barColor));
+
+		// draw each column bar
+		for (int i = 0; i < size; i++)
+		{
+			int height = (double)drawHeight * max(0L, histData.GetHist(i)) / maxH;
+
+			painter->drawRect(
+				QRect(legendWidthP1 + i * drawWidth / size,
+					drawHeight - height,
+					ceil(1.0 * drawWidth / size),
+					height)
+			);
+		}
+
+		// draw max description
+		painter->setPen(QPen(maxColor));
+		painter->setBrush(QBrush(maxColor));
+
+		painter->drawText(
+					fmin(legendWidthP1 + (maxIndex * drawWidth / size) + 20, pix->width() - 100), 20,
+					QString("extr: ")
+					+ GetShortNumberDisplay(maxIndex)
+					+ QString(", avg:")
+					+ QString::number((double)histData.GetSum() / histData.GetCount()));
+
+		setPixmap(*pix);
 	}
-
-	int legendWidthP1 = legendWidth + 1;
-	int legendHeightP1 = legendHeight + 1;
-
-	int drawWidth = pix->width() - legendWidthP1;
-	int drawHeight = pix->height() - legendHeightP1;
-
-	// draw background
-	painter->setPen(QPen(*backgroundColor));
-	painter->setBrush(QBrush(*backgroundColor));
-	painter->drawRect(QRect(legendWidthP1, 0, drawWidth, drawHeight));
-
-	painter->setPen(QPen(*barColor));
-	painter->setBrush(QBrush(*barColor));
-
-	// draw each column bar
-	for (int i = 0; i < size; i++)
-	{
-		int height = drawHeight * fmax(0, histogram[i]) / max;
-
-		painter->drawRect(
-			QRect(legendWidthP1 + i * drawWidth / size,
-				drawHeight - height,
-				ceil(1.0 * drawWidth / size),
-				height)
-		);
-	}
-
-	// draw max description
-	painter->setPen(QPen(*maxColor));
-	painter->setBrush(QBrush(*maxColor));
-
-	painter->drawText(
-				fmin(legendWidthP1 + (maxIndex * drawWidth / size) + 20, pix->width() - 100), 20,
-				"max: " + GetShortNumberDisplay(maxAVG));
-
-	setPixmap(*pix);
 	isUpdating = false;
 }
 
@@ -128,12 +130,12 @@ QString MyHistogramLabel::GetShortNumberDisplay(int val)
 void MyHistogramLabel::DrawLegend()
 {
 	// draw background
-	painter->setPen(QPen(*backgroundColor));
-	painter->setBrush(QBrush(*backgroundColor));
+	painter->setPen(QPen(backgroundColor));
+	painter->setBrush(QBrush(backgroundColor));
 	painter->drawRect(QRect(0, 0, pix->width(), pix->height()));
 
-	painter->setPen(QPen(*legendColor));
-	painter->setBrush(QBrush(*legendColor));
+	painter->setPen(QPen(legendColor));
+	painter->setBrush(QBrush(legendColor));
 
 	// X-Axis
 	painter->drawLine(legendWidth / 2, pix->height() - legendHeight, pix->width() - 1, pix->height() - legendHeight);

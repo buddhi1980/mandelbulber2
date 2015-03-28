@@ -27,6 +27,7 @@
 #include <QtCore>
 #include <QLabel>
 #include "../src/parameters.hpp"
+#include "../src/histogram.hpp"
 
 class MyHistogramLabel : public QLabel
 {
@@ -36,11 +37,11 @@ public:
 	MyHistogramLabel(QWidget *parent = 0);
 	~MyHistogramLabel();
 
-	void UpdateHistogram(long histogram[], int size, int count);
-	void SetBarcolor(QColor c){ barColor = &c; }
-	void SetBackgroundcolor(QColor c){ backgroundColor = &c; }
-	void SetLegendcolor(QColor c){ legendColor = &c; }
-	void SetMaxcolor(QColor c){ maxColor = &c; }
+	void UpdateHistogram(const cHistogram &histData);
+	void SetBarcolor(QColor c){ barColor = c; }
+	void SetBackgroundcolor(QColor c){ backgroundColor = c; }
+	void SetLegendcolor(QColor c){ legendColor = c; }
+	void SetMaxcolor(QColor c){ maxColor = c; }
 
 protected:
 	void resizeEvent(QResizeEvent *event);
@@ -52,10 +53,10 @@ private:
 
 	QPixmap *pix;
 	QPainter *painter;
-	QColor *barColor;
-	QColor *backgroundColor;
-	QColor *legendColor;
-	QColor *maxColor;
+	QColor barColor;
+	QColor backgroundColor;
+	QColor legendColor;
+	QColor maxColor;
 	int legendX;
 	bool isUpdating;
 	int legendWidth;

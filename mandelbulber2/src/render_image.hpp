@@ -45,9 +45,8 @@ private:
 
 	signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void updateHistogramIterations(cHistogram histogram);
+	void updateHistogramStepCount(cHistogram histogram);
 };
-
-
-
 
 #endif /* RENDER_IMAGE_HPP_ */

@@ -132,6 +132,8 @@ bool cRenderer::RenderImage()
 			if(parentObject)
 			{
 				emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+				emit updateHistogramIterations(data->histogramIterations);
+				emit updateHistogramStepCount(data->histogramStepCount);
 			}
 
 			//refresh image

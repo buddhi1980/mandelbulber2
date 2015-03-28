@@ -211,12 +211,18 @@ bool cRenderJob::Execute(void)
 	params->resolution = 1.0/image->GetHeight();
 	ReduceDetail();
 
+	//initialize histograms
+	renderData->histogramIterations.Resize(paramsContainer->Get<int>("N"));
+	renderData->histogramStepCount.Resize(256);
+
 	//create and execute renderer
 	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image, parentObject);
 
 	//connect signal for progress bar update
 	if(parentObject) QObject::connect(this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 	if(parentObject) QObject::connect(renderer, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramIterations(cHistogram)), parentObject, SLOT(slotUpdateHistogramIterations(cHistogram)));
+	if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramStepCount(cHistogram)), parentObject, SLOT(slotUpdateHistogramStepCount(cHistogram)));
 
 	bool result = renderer->RenderImage();
 

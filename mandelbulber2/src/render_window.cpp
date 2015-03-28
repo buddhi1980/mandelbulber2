@@ -60,12 +60,6 @@ RenderWindow::RenderWindow(QWidget *parent) :
   	//store defauly geometry and state
   	defaultGeometry = saveGeometry();
   	defaultState = saveState();
-		for(int i = 0; i < 256; i++){
-			histogramDE[i] = 0;
-			histogramIters[i] = 0;
-		}
-		countHistogramDE = 0;
-		countHistogramIters = 0;
 }
 
 RenderWindow::~RenderWindow()
@@ -1363,13 +1357,13 @@ void RenderWindow::slotMenuProgramSettings()
 	// TODO show ProgramSettings interface
 }
 
-void RenderWindow::slotUpdateHistogramDE()
+void RenderWindow::slotUpdateHistogramStepCount(cHistogram histogram)
 {
-	ui->label_histogram_de->UpdateHistogram(histogramDE, 256, countHistogramDE);
+	ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0)); // TODO move to setup
+	ui->label_histogram_de->UpdateHistogram(histogram);
 }
 
-void RenderWindow::slotUpdateHistogramIters()
+void RenderWindow::slotUpdateHistogramIterations(cHistogram histogram)
 {
-	ui->label_histogram_iter->SetBarcolor(QColor(0, 255, 0)); // TODO move to setup
-	ui->label_histogram_iter->UpdateHistogram(histogramIters, 256, countHistogramIters);
+   ui->label_histogram_iter->UpdateHistogram(histogram);
 }
