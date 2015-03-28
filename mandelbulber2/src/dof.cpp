@@ -71,6 +71,10 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 	{
 		if (*stopRequest)
 		{
+			// delete allocated memory
+			delete [] temp_image;
+			delete [] temp_alpha;
+			delete [] temp_sort;
 			return;
 		}
 		sSortZ<float> temp;
@@ -143,6 +147,10 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 	{
 		if (*stopRequest)
 		{
+			// delete allocated memory
+			delete [] temp_image;
+			delete [] temp_alpha;
+			delete [] temp_sort;
 			return;
 		}
 
@@ -217,7 +225,6 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 	delete[] temp_image;
 	delete[] temp_alpha;
 	delete[] temp_sort;
-
 }
 
 template <class T>
