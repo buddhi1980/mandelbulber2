@@ -42,10 +42,6 @@ public:
 	explicit RenderWindow(QWidget *parent = 0);
 	~RenderWindow();
 
-public slots:
-	void slotUpdateHistogramDE();
-	void slotUpdateHistogramIters();
-
 private:
 	void closeEvent(QCloseEvent * event);
 
@@ -98,6 +94,8 @@ private slots:
 	void slotSliderMovedEditManualLightPlacementDistance(int value);
 	void slotMenuLoadPreset(QString filename);
 	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void slotUpdateHistogramIterations(cHistogram histogram);
+	void slotUpdateHistogramStepCount(cHistogram histogram);
 	void slotMenuProgramSettings();
 
 	//camera
@@ -166,11 +164,6 @@ private:
 	QSettings settings;
 	QByteArray defaultGeometry;
 	QByteArray defaultState;
-
-	long histogramDE[256];
-	long histogramIters[256];
-	int countHistogramDE;
-	int countHistogramIters;
 
 	enum enumImageProporton
 	{
