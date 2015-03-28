@@ -70,7 +70,7 @@ bool InitSystem(void)
 	printf("Detected %d CPUs\n", systemData.numberOfThreads);
 	WriteLogDouble("CPUs detected", systemData.numberOfThreads);
 
-#ifdef ONETHREAD //for debbuging
+#ifdef ONETHREAD //for debugging
 	NR_THREADS = 1;
 #endif
 
@@ -219,7 +219,7 @@ void DeleteAllFilesFromDirectory(QString folder)
 			if(folderIterator.fileName() == "." || folderIterator.fileName() == "..") continue;
 			if(QFile::remove(folderIterator.filePath()))
 			{
-				WriteLogString("File eleted", folderIterator.filePath());
+				WriteLogString("File deleted", folderIterator.filePath());
 			}
 			else
 			{

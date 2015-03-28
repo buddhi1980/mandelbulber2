@@ -13,12 +13,12 @@ LICENCE: GNU GPL v3.0
 1. REQUIREMENTS
 
 - Windows XP or newer
-- very fast CPU (recomended 2GHz, 4 cores)
+- very fast CPU (recommended 2GHz, 4 cores)
 - 2GB RAM
 
 2. INSTALLATION
 
-Copy this folder somwhere and run Mandelbulber2.exe or run Mandelbulber v2-2.xx-Setup.exe if it is provided.
+Copy this folder somewhere and run Mandelbulber2.exe or run Mandelbulber v2-2.xx-Setup.exe if it is provided.
 
 3. Mandelbulber v2 is also available for Linux
 
@@ -31,4 +31,4 @@ Copy this folder somwhere and run Mandelbulber2.exe or run Mandelbulber v2-2.xx-
 
 Please visit: http://wiki.mandelbulber.com/index.php?title=Main_Page
 
-Actually there is only avaliable documentation for old Mandelbulber (v1)
+Actually there is only available documentation for old Mandelbulber (v1)
