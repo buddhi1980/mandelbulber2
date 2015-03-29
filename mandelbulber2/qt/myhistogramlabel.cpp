@@ -28,8 +28,6 @@
 
 MyHistogramLabel::MyHistogramLabel(QWidget *parent) : QLabel(parent)
 {
-	pix = new QPixmap(width(), height());
-	painter = new QPainter(pix);
 	barColor = QColor(255, 0, 0);
 	backgroundColor = QColor(0, 0, 0);
 	legendColor = QColor(255, 255, 255);
@@ -38,19 +36,23 @@ MyHistogramLabel::MyHistogramLabel(QWidget *parent) : QLabel(parent)
 	isUpdating = false;
 	legendWidth = 15;
 	legendHeight = 15;
+	pixmapWidth = width();
+	pixmapHeight = height();
 }
 
 MyHistogramLabel::~MyHistogramLabel(void)
 {
-	delete painter;
-	delete pix;
+	//delete pix;
 }
 
-void MyHistogramLabel::UpdateHistogram(const cHistogram &histData)
+void MyHistogramLabel::UpdateHistogram(const cHistogram &_histData)
 {
-	if(isUpdating) return;
-	isUpdating = true;
+	histData = _histData;
+	update();
+}
 
+void MyHistogramLabel::RedrawHistogram(QPainter &painter)
+{
 	// get max Element
 	long maxH = 0;
 	int maxIndex = 0;
@@ -66,33 +68,26 @@ void MyHistogramLabel::UpdateHistogram(const cHistogram &histData)
 
 	if(histData.GetCount() > 0)
 	{
-		// redraw legend, if necessary
-		if(legendX != size)
-		{
-			legendX = size;
-			DrawLegend();
-		}
-
 		int legendWidthP1 = legendWidth + 1;
 		int legendHeightP1 = legendHeight + 1;
 
-		int drawWidth = pix->width() - legendWidthP1;
-		int drawHeight = pix->height() - legendHeightP1;
+		int drawWidth = width() - legendWidthP1;
+		int drawHeight = height() - legendHeightP1;
 
 		// draw background
-		painter->setPen(QPen(backgroundColor));
-		painter->setBrush(QBrush(backgroundColor));
-		painter->drawRect(QRect(legendWidthP1, 0, drawWidth, drawHeight));
+		painter.setPen(QPen(backgroundColor));
+		painter.setBrush(QBrush(backgroundColor));
+		painter.drawRect(QRect(legendWidthP1, 0, drawWidth, drawHeight));
 
-		painter->setPen(QPen(barColor));
-		painter->setBrush(QBrush(barColor));
+		painter.setPen(QPen(barColor));
+		painter.setBrush(QBrush(barColor));
 
 		// draw each column bar
 		for (int i = 0; i < size; i++)
 		{
 			int height = (double)drawHeight * max(0L, histData.GetHist(i)) / maxH;
 
-			painter->drawRect(
+			painter.drawRect(
 				QRect(legendWidthP1 + i * drawWidth / size,
 					drawHeight - height,
 					ceil(1.0 * drawWidth / size),
@@ -101,19 +96,17 @@ void MyHistogramLabel::UpdateHistogram(const cHistogram &histData)
 		}
 
 		// draw max description
-		painter->setPen(QPen(maxColor));
-		painter->setBrush(QBrush(maxColor));
+		painter.setPen(QPen(maxColor));
+		painter.setBrush(QBrush(maxColor));
 
-		painter->drawText(
-					fmin(legendWidthP1 + (maxIndex * drawWidth / size) + 20, pix->width() - 100), 20,
+		painter.drawText(
+					fmin(legendWidthP1 + (maxIndex * drawWidth / size) + 20, width() - 100), 20,
 					QString("extr: ")
 					+ GetShortNumberDisplay(maxIndex)
 					+ QString(", avg:")
 					+ QString::number((double)histData.GetSum() / histData.GetCount()));
 
-		setPixmap(*pix);
 	}
-	isUpdating = false;
 }
 
 QString MyHistogramLabel::GetShortNumberDisplay(int val)
@@ -127,39 +120,50 @@ QString MyHistogramLabel::GetShortNumberDisplay(int val)
 	return QString::number((val / 1000000)) + "M";
 }
 
-void MyHistogramLabel::DrawLegend()
+void MyHistogramLabel::DrawLegend(QPainter &painter)
 {
-	// draw background
-	painter->setPen(QPen(backgroundColor));
-	painter->setBrush(QBrush(backgroundColor));
-	painter->drawRect(QRect(0, 0, pix->width(), pix->height()));
+	painter.setPen(QPen(backgroundColor));
+	painter.setBrush(QBrush(backgroundColor));
+	painter.drawRect(QRect(0, 0, width(), height()));
 
-	painter->setPen(QPen(legendColor));
-	painter->setBrush(QBrush(legendColor));
+	painter.setPen(QPen(legendColor));
+	painter.setBrush(QBrush(legendColor));
 
 	// X-Axis
-	painter->drawLine(legendWidth / 2, pix->height() - legendHeight, pix->width() - 1, pix->height() - legendHeight);
+	painter.drawLine(legendWidth / 2, height() - legendHeight, width() - 1, height() - legendHeight);
 
 	// Y-Axis
-	painter->drawLine(legendWidth, 0, legendWidth, pix->height() - legendWidth / 2);
+	painter.drawLine(legendWidth, 0, legendWidth, height() - legendWidth / 2);
 
 	// Nuntius X-Axis
 	for(int i = 0; i < legendX; i++){
 		if(i % 5 == 0){
-			int xPos = legendWidth + (pix->width() - legendWidth) * i / legendX;
+			int xPos = legendWidth + (width() - legendWidth) * i / legendX;
 			int nuntiusLength = (i % 10 == 0 ? legendHeight / 2 : legendHeight / 4);
-			painter->drawLine(xPos, pix->height() - legendHeight, xPos, pix->height() - legendHeight + nuntiusLength);
+			painter.drawLine(xPos, height() - legendHeight, xPos, height() - legendHeight + nuntiusLength);
 		}
 	}
 
-	painter->drawText(3, pix->height() - 1, "0");
+	painter.drawText(3, height() - 1, "0");
 
-	painter->drawText(pix->width() - 26, pix->height() - 1, QString::number(legendX));
+	painter.drawText(width() - 26, height() - 1, QString::number(legendX));
 }
 
 void MyHistogramLabel::resizeEvent(QResizeEvent *event)
 {
-	pix = new QPixmap(event->size().width(), event->size().height());
-	painter = new QPainter(pix);
-	DrawLegend();
+	QWidget::resizeEvent(event);
+	//delete pix;
+	//pix = new QPixmap(event->size().width(), event->size().height());
+}
+
+void MyHistogramLabel::paintEvent(QPaintEvent *event)
+{
+	QWidget::paintEvent(event);
+	QPainter painter(this);
+	DrawLegend(painter);
+
+	if(histData.GetCount() > 0)
+	{
+		RedrawHistogram(painter);
+	}
 }

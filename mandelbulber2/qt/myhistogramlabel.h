@@ -37,22 +37,23 @@ public:
 	MyHistogramLabel(QWidget *parent = 0);
 	~MyHistogramLabel();
 
-	void UpdateHistogram(const cHistogram &histData);
+
 	void SetBarcolor(QColor c){ barColor = c; }
 	void SetBackgroundcolor(QColor c){ backgroundColor = c; }
 	void SetLegendcolor(QColor c){ legendColor = c; }
 	void SetMaxcolor(QColor c){ maxColor = c; }
+	void UpdateHistogram(const cHistogram &histData);
 
 protected:
 	void resizeEvent(QResizeEvent *event);
+	void paintEvent(QPaintEvent *event);
 
 private:
 	int getLegendY(int y);
-	void DrawLegend();
+	void DrawLegend(QPainter &painter);
+	void RedrawHistogram(QPainter &painter);
 	QString GetShortNumberDisplay(int val);
 
-	QPixmap *pix;
-	QPainter *painter;
 	QColor barColor;
 	QColor backgroundColor;
 	QColor legendColor;
@@ -61,6 +62,10 @@ private:
 	bool isUpdating;
 	int legendWidth;
 	int legendHeight;
+	int pixmapWidth;
+	int pixmapHeight;
+
+	cHistogram histData;
 };
 
 #endif /* MYHISTOGRAMLABEL_HPP_ */
