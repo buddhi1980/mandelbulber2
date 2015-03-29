@@ -70,8 +70,8 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 		}
 		sum += histData.GetHist(i);
 		double prob = (double)sum / histData.GetCount();
-		if (prob < 0.067) minIndex = i + 1;
-		if (prob < 0.933) maxIndex = i;
+		if (prob < 0.0062) minIndex = i + 1;
+		if (prob < 0.9938) maxIndex = i;
 	}
 
 	if(histData.GetCount() > 0)
@@ -145,10 +145,13 @@ void MyHistogramLabel::DrawLegend(QPainter &painter)
 	painter.drawLine(legendWidth, 0, legendWidth, height() - legendWidth / 2);
 
 	// Nuntius X-Axis
+
+	int mul = (legendX > 250) ? 10 : 1;
+
 	for(int i = 0; i < legendX; i++){
-		if(i % 5 == 0){
+		if(i % (5 * mul) == 0){
 			int xPos = legendWidth + (width() - legendWidth) * i / legendX;
-			int nuntiusLength = (i % 10 == 0 ? legendHeight / 2 : legendHeight / 4);
+			int nuntiusLength = (i % (10 * mul) == 0 ? legendHeight / 2 : legendHeight / 4);
 			painter.drawLine(xPos, height() - legendHeight, xPos, height() - legendHeight + nuntiusLength);
 		}
 	}
