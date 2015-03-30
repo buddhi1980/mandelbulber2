@@ -46,7 +46,7 @@ public:
 		qint32 id;
 		qint32 size;
 		char* payload;
-		//QByteArray payload - will be better
+		// QByteArray payload- will be better
 	};
 
 	struct sClient

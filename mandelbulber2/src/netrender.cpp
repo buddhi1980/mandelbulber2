@@ -248,11 +248,15 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 {
 	QDataStream socketReadStream(socket);
 
-	if (msg->command == -1) //where command is set to -1 ???
+	if (msg->command == -1) //where command is set to -1 ??? on initializer list in header file, means msg is completely new
 	{
 		if (socket->bytesAvailable() < (sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size)))
 		{
 			//I suppose it is failure situation, so would be good to have some message here and flush socket buffer
+			// ###############
+			// this is not an error, but ReceiveData (readyRead) gets called multiple times while recewiving the message
+			// so this is a buffer like behaviour, to handle the received package head first https://doc-snapshots.qt.io/qt5-5.4/qiodevice.html#readyRead
+			// ###############
 			return;
 		}
 		// meta data available
@@ -266,6 +270,7 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 		if (socket->bytesAvailable() < sizeof(quint16) + msg->size)
 		{
 			//I suppose it is failure situation, so would be good to have some message here and flush socket buffer
+			// same as above
 			return;
 		}
 		// full payload available
@@ -277,7 +282,7 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 		socketReadStream.readRawData(msg->payload, msg->size);
 		quint16 crc;
 		socketReadStream >> crc;
-		if(crc != qChecksum(msg->payload, msg->size)) //16-bit checksum is enough
+		if(crc != qChecksum(msg->payload, msg->size))
 		{
 			qDebug() << "CNetRender - checksum mismatch, will ignore this message(cmd: " << msg->command << "id: " << msg->id << "size: " << msg->size << ")";
 			return;
