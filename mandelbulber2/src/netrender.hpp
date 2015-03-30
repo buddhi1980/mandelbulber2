@@ -46,6 +46,7 @@ public:
 		qint32 id;
 		qint32 size;
 		char* payload;
+		//QByteArray payload - will be better
 	};
 
 	struct sClient
@@ -66,7 +67,7 @@ public:
 	void DeleteClient();
 
 	qint32 GetClientCount() {return clients.size();}
-	qint32 GetWorkerCount(qint32 index) {return clients[index]->clientWorkerCount;}
+	qint32 GetWorkerCount(qint32 index) {return clients[index].clientWorkerCount;}
 	qint32 getTotalWorkerCount();
 
 	bool SendData(QTcpSocket *socket, sMessage msg);
@@ -87,7 +88,7 @@ private slots:
 	void TryServerConnect();
 
 public:
-	QList<sClient *> clients;
+	QList<sClient> clients;
 
 private:
 	QString address;

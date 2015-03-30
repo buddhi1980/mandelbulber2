@@ -25,11 +25,15 @@
 #include "system.hpp"
 #include <QAbstractSocket>
 
-CNetRender::CNetRender(qint32 workerCount)
+CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
 {
 	this->workerCount = workerCount;
 	deviceType = UNKNOWN;
 	version = 1000 * MANDELBULBER_VERSION;
+	clientSocket = NULL;
+	server = NULL;
+	portNo = 0;
+	reconnectTimer = NULL;
 }
 
 CNetRender::~CNetRender()
@@ -45,7 +49,8 @@ void CNetRender::SetServer(qint32 portNo)
 	server = new QTcpServer(this);
 	if(!server->listen(QHostAddress::LocalHost, portNo))
 	{
-		qDebug() << "CNetRender - SetServer Error: " << server->errorString();
+		qCritical() << "CNetRender - SetServer Error: " << server->errorString();
+		deviceType = UNKNOWN;
 	}
 	else
 	{
@@ -64,6 +69,8 @@ void CNetRender::DeleteServer()
 
 	deviceType = UNKNOWN;
 	qDebug() << "CNetRender - DeleteServer";
+
+	if(server) delete server; server = NULL;
 }
 
 int CNetRender::getTotalWorkerCount()
@@ -71,7 +78,7 @@ int CNetRender::getTotalWorkerCount()
 	int totalCount = 0;
 	for(int i = 0; i < clients.count(); i++)
 	{
-		totalCount += clients[i]->clientWorkerCount;
+		totalCount += clients[i].clientWorkerCount;
 	}
 	return totalCount;
 }
@@ -81,22 +88,22 @@ void CNetRender::HandleNewConnection()
 	while (server->hasPendingConnections())
 	{
 		// push new socket to list
-		sClient *client = new sClient;
-		client->socket = server->nextPendingConnection();
-		client->msg = new sMessage;
+		sClient client;
+		client.socket = server->nextPendingConnection();
+		client.msg = new sMessage; //potential memory leak! Maybe better will be to use QByteArray
 		clients.append(client);
 
 		// qDebug() << "CNetRender - HandleNewConnection socket: " << client->socket->peerAddress();
 
-		connect(client->socket, SIGNAL(disconnected()), this, SLOT(ClientDisconnected()));
-		connect(client->socket, SIGNAL(readyRead()), this, SLOT(ReceiveFromClient()));
+		connect(client.socket, SIGNAL(disconnected()), this, SLOT(ClientDisconnected()));
+		connect(client.socket, SIGNAL(readyRead()), this, SLOT(ReceiveFromClient()));
 
 		// tell mandelbulber version to client
 		sMessage msg;
 		msg.command = VERSION;
 		msg.payload = (char*) &version;
 		msg.size = sizeof(qint32);
-		SendData(client->socket, msg);
+		SendData(client.socket, msg);
 		emit ClientsChanged();
 	}
 }
@@ -122,7 +129,7 @@ int CNetRender::GetClientIndexFromSocket(const QTcpSocket *socket)
 {
 	for(int i = 0; i < clients.size(); i++)
 	{
-		if(clients[i]->socket->socketDescriptor() == socket->socketDescriptor())
+		if(clients.at(i).socket->socketDescriptor() == socket->socketDescriptor())
 		{
 			return i;
 		}
@@ -137,7 +144,7 @@ void CNetRender::ReceiveFromClient()
 	int index = GetClientIndexFromSocket(socket);
 	if(index != -1)
 	{
-		ReceiveData(socket, clients[index]->msg);
+		ReceiveData(socket, clients[index].msg);
 	}
 }
 
@@ -189,6 +196,7 @@ void CNetRender::DeleteClient()
 	if (deviceType != CLIENT) return;
 	deviceType = UNKNOWN;
 	qDebug() << "CNetRender - DeleteClient";
+	if(clientSocket) delete clientSocket; clientSocket = NULL;
 }
 
 bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
@@ -240,10 +248,11 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 {
 	QDataStream socketReadStream(socket);
 
-	if (msg->command == -1)
+	if (msg->command == -1) //where command is set to -1 ???
 	{
 		if (socket->bytesAvailable() < (sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size)))
 		{
+			//I suppose it is failure situation, so would be good to have some message here and flush socket buffer
 			return;
 		}
 		// meta data available
@@ -256,14 +265,19 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 	{
 		if (socket->bytesAvailable() < sizeof(quint16) + msg->size)
 		{
+			//I suppose it is failure situation, so would be good to have some message here and flush socket buffer
 			return;
 		}
 		// full payload available
-		msg->payload = new char[msg->size];
+		msg->payload = new char[msg->size]; //here is memory leak.
+		//Instead of use payload variable here, would be better to create here some teporary buffer, read data from socket
+		//and then copy data to QByteArray which would be in sMessage. Then temp buffer can be deleted.
+		//In this way will be easy to manage memory
+
 		socketReadStream.readRawData(msg->payload, msg->size);
 		quint16 crc;
 		socketReadStream >> crc;
-		if(crc != qChecksum(msg->payload, msg->size))
+		if(crc != qChecksum(msg->payload, msg->size)) //16-bit checksum is enough
 		{
 			qDebug() << "CNetRender - checksum mismatch, will ignore this message(cmd: " << msg->command << "id: " << msg->id << "size: " << msg->size << ")";
 			return;
@@ -327,9 +341,9 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			}
 			case WORKER:
 			{
-				clients[index]->clientWorkerCount = *(qint32*)inMsg->payload;
-				if(clients[index]->status == NEW) clients[index]->status = IDLE;
-				qDebug() << "CNetRender - clients[" << index << "] " << socket->peerAddress() << " has " << clients[index]->clientWorkerCount << "workers";
+				clients[index].clientWorkerCount = *(qint32*)inMsg->payload;
+				if(clients[index].status == NEW) clients[index].status = IDLE;
+				qDebug() << "CNetRender - clients[" << index << "] " << socket->peerAddress() << " has " << clients[index].clientWorkerCount << "workers";
 				emit ClientsChanged();
 				break;
 			}
