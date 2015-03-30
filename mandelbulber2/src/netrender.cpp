@@ -90,7 +90,6 @@ void CNetRender::HandleNewConnection()
 		// push new socket to list
 		sClient client;
 		client.socket = server->nextPendingConnection();
-		client.msg = new sMessage; //potential memory leak! Maybe better will be to use QByteArray
 		clients.append(client);
 
 		// qDebug() << "CNetRender - HandleNewConnection socket: " << client->socket->peerAddress();
@@ -143,7 +142,7 @@ void CNetRender::ReceiveFromClient()
 	int index = GetClientIndexFromSocket(socket);
 	if(index != -1)
 	{
-		ReceiveData(socket, clients[index].msg);
+		ReceiveData(socket, &clients[index].msg);
 	}
 }
 
@@ -242,6 +241,7 @@ void CNetRender::ResetMessage(sMessage *msg)
 		msg->command = -1;
 		msg->id = 0;
 		msg->size = 0;
+		msg->payload.clear();
 	}
 }
 

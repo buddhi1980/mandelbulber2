@@ -51,9 +51,9 @@ public:
 
 	struct sClient
 	{
-		sClient() : socket(NULL), msg(NULL), status(NEW), clientWorkerCount(0) {}
+		sClient() : socket(NULL), status(NEW), clientWorkerCount(0) {}
 		QTcpSocket* socket;
-		sMessage* msg;
+		sMessage msg;
 		clientStatus status;
 		qint32 clientWorkerCount;
 	};
