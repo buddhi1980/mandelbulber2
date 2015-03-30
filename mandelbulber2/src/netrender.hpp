@@ -42,12 +42,11 @@ public:
 
 	struct sMessage
 	{
-		sMessage() : command(-1), id(0), size(0), payload(NULL) {}
+		sMessage() : command(-1), id(0), size(0) {}
 		qint32 command;
 		qint32 id;
 		qint32 size;
-		char* payload;
-		// QByteArray payload- will be better
+		QByteArray payload;
 	};
 
 	struct sClient

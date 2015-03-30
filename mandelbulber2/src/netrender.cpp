@@ -101,8 +101,7 @@ void CNetRender::HandleNewConnection()
 		// tell mandelbulber version to client
 		sMessage msg;
 		msg.command = VERSION;
-		msg.payload = (char*) &version;
-		msg.size = sizeof(qint32);
+		msg.payload.append((char*)&version, sizeof(qint32));
 		SendData(client.socket, msg);
 		emit ClientsChanged();
 	}
@@ -211,15 +210,17 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 	QByteArray byteArray;
 	QDataStream socketWriteStream(&byteArray, QIODevice::ReadWrite);
 
+	msg.size = msg.payload.size();
+
 	// append header
 	socketWriteStream << msg.command << msg.id << msg.size;
 
 	// append payload
 	if(msg.size > 0)
 	{
-		socketWriteStream.writeRawData(msg.payload, msg.size);
+		socketWriteStream.writeRawData(msg.payload.data(), msg.size);
 		// append checksum
-		socketWriteStream << qChecksum(msg.payload, msg.size);
+		socketWriteStream << qChecksum(msg.payload.data(), msg.size);
 	}
 
 	// write to socket
@@ -252,11 +253,6 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 	{
 		if (socket->bytesAvailable() < (sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size)))
 		{
-			//I suppose it is failure situation, so would be good to have some message here and flush socket buffer
-			// ###############
-			// this is not an error, but ReceiveData (readyRead) gets called multiple times while recewiving the message
-			// so this is a buffer like behaviour, to handle the received package head first https://doc-snapshots.qt.io/qt5-5.4/qiodevice.html#readyRead
-			// ###############
 			return;
 		}
 		// meta data available
@@ -274,15 +270,14 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 			return;
 		}
 		// full payload available
-		msg->payload = new char[msg->size]; //here is memory leak.
-		//Instead of use payload variable here, would be better to create here some teporary buffer, read data from socket
-		//and then copy data to QByteArray which would be in sMessage. Then temp buffer can be deleted.
-		//In this way will be easy to manage memory
-
-		socketReadStream.readRawData(msg->payload, msg->size);
-		quint16 crc;
-		socketReadStream >> crc;
-		if(crc != qChecksum(msg->payload, msg->size))
+		char* buffer = new char[msg->size];
+		socketReadStream.readRawData(buffer, msg->size);
+		msg->payload.append(buffer, msg->size);
+		quint16 crcCalculated = qChecksum(buffer, msg->size);
+		quint16 crcReceived;
+		socketReadStream >> crcReceived;
+		delete buffer;
+		if(crcCalculated != crcReceived)
 		{
 			qDebug() << "CNetRender - checksum mismatch, will ignore this message(cmd: " << msg->command << "id: " << msg->id << "size: " << msg->size << ")";
 			return;
@@ -303,17 +298,16 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 		case VERSION:
 		{
 			sMessage outMsg;
-			if(*(qint32*)inMsg->payload == version)
+			if(*(qint32*)inMsg->payload.data() == version)
 			{
 				qDebug() << "CNetRender - version matches (" << version << "), connection established";
 				// server version matches, send worker count
 				outMsg.command = WORKER;
-				outMsg.payload = (char*) &workerCount;
-				outMsg.size = sizeof(qint32);
+				outMsg.payload.append(workerCount);
 			}
 			else
 			{
-				qDebug() << "CNetRender - version mismatch! client version: " << version << ", server: " << *(qint32*)inMsg->payload;
+				qDebug() << "CNetRender - version mismatch! client version: " << version << ", server: " << *(qint32*)inMsg->payload.data();
 				outMsg.command = BAD;
 			}
 			SendData(clientSocket, outMsg);
@@ -346,7 +340,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			}
 			case WORKER:
 			{
-				clients[index].clientWorkerCount = *(qint32*)inMsg->payload;
+				clients[index].clientWorkerCount = *(qint32*)inMsg->payload.data();
 				if(clients[index].status == NEW) clients[index].status = IDLE;
 				qDebug() << "CNetRender - clients[" << index << "] " << socket->peerAddress() << " has " << clients[index].clientWorkerCount << "workers";
 				emit ClientsChanged();
