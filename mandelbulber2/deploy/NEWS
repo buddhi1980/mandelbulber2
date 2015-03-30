@@ -75,7 +75,7 @@ v1.20
 - OpenCL - added "interior mode"
 - OpecCL - added primitive objects
 - OpenCL - next trial to fix the problem with -I option for OpenCL compiler (spaces in path were not passed properly)
-- OpenCL - added setting for delta for deltaDE algorythm
+- OpenCL - added setting for delta for deltaDE algorithm
 - added HUD for flight path recording
 - simplified code and corrected for "limits" and "interior mode"
 - fixed bug: NetRender didn't worked under Windows 7 and Windows Vista. Now connection is limited to IPv4 and works properly.
@@ -88,7 +88,7 @@ v1.19
 - improved algorithm for fake lights based on orbit traps
 - OpenCL - implemented fake lights in "full" kernel
 - OpenCL - added error handling and messages for most of errors. Program is not terminated when error occurs
-- OpenCL - added setting for max GPU memory intented to use with OpenCL. Can be helpful when program cannot detect avilable memomy.
+- OpenCL - added setting for max GPU memory intended to use with OpenCL. Can be helpful when program cannot detect avilable memomy.
 - added quit confirmation dialog
 - OpenCL - added selection for OpenCL platform, device and switching between use of GPU or CPU
 - added loading at program startup and saving at program exit of several application settings
@@ -111,9 +111,9 @@ v1.18
 v1.17.2
 - fixed bug: OpenCL - include path compatible with nVidia-win32 driver requirements
 - fixed bug: OpenCL - changed all M_PI to M_PI_F - there were problems with compilation kernel code on some machines
-- fixed bug: OpenCL - some frames of animation were incomplette
+- fixed bug: OpenCL - some frames of animation were incomplete
 - fixed bug: OpenCL - removed #pragma OPENCL EXTENSION cl_khr_byte_addressable_store : enable
-- fixed bug: on Arch Linux there was problem with missing system incudes
+- fixed bug: on Arch Linux there was problem with missing system includes
 
 v1.17.1
 - release for Win32
@@ -122,7 +122,7 @@ v1.17
 - OpenCL - rewritten most of OpenCL kernel. Implemented almost all shaders including ray-traced reflections and volumetric effects
 - animation record mode works now like flight simulator. There is also recorded camera gamma angle.
 - added HDR filter
-- fixed bug: there was vissible different detail level between 3-point perspective and fish-eye
+- fixed bug: there was visible different detail level between 3-point perspective and fish-eye
 - fixed bug: Netrender didn't work with number of tiles > 1
 
 v1.16
@@ -130,14 +130,14 @@ v1.16
 - light sources are rendered as a volumetric objects
 - introduced soft shadows
 - raytracing works with all shaders and is much more accurate
-- glow and all fog shaders now are volumetric effects and can be used simultanously
+- glow and all fog shaders now are volumetric effects and can be used simultaneously
 - possible to set different reflection factor for each primitive object
 - zoom by click works much more accurate and rotates the camera towards to selected point
 - added option for using constant step length for zoom by click (useful for animations)
 - added contrast adjustment for image
 - user interface reorganized
-- internal image buffer is now floating point type (better HDR efects)
-- fixed bug: crashed when animation keyframe thumbnail was refrshed during image rendering
+- internal image buffer is now floating point type (better HDR effects)
+- fixed bug: crashed when animation keyframe thumbnail was refreshed during image rendering
 - fixed bug: NetRender client saved partially rendered images
 - fixed bug: animated water wasn't rendered properly with NetRender
 - remark: some shaders settings are not compatible with older setting files (fog and DOF distance, reflection factor)
@@ -169,7 +169,7 @@ v1.12
 - added "fish eye 180 degree cut" mode to limit rendering area to hemisphere
 
 v1.11
-- added iteration fog effect (fog which density depends on interation count). This fog cast shadows on fractal surface and on itself. Can be also iluminated by auxiliary lights and ambiet occlusion.
+- added iteration fog effect (fog which density depends on iteration count). This fog cast shadows on fractal surface and on itself. Can be also illuminated by auxiliary lights and ambient occlusion.
 - improved water animation effect
 - disabling of SSAO and DOF when tile rendering is enabled
 - OpenCL: added ambient occlusion effect
@@ -191,11 +191,11 @@ v1.09
 
 - Implemented OpenCL support (now only under linux) for image preview. Works only for few formulas.
 - Added formula General Fold Box (reference: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/msg36503/#msg36503)
-- Fixed rotation problems in aminations. Patch by mintaka (http://www.fractalforums.com/mandelbulber/mandelbulber-1-06-patch/)
+- Fixed rotation problems in animations. Patch by mintaka (http://www.fractalforums.com/mandelbulber/mandelbulber-1-06-patch/)
 - Added animation effect for water
 
 v1.08
-- Impelemnted primitive objects like plane, box, sphere and water
+- Implemented primitive objects like plane, box, sphere and water
 - Improved raytraced reflections algorithm - better reflections with ambient occlusion
 - Added fast ambient occlusion effect. Reference: http://www.iquilezles.org/www/material/nvscene2008/rwwtt.pdf (Iñigo Quilez – iq/rgba)
 - Added possibility to turn off "penetrating light" for the main light source
@@ -212,7 +212,7 @@ v1.07
 - Changed shaders sequence. Glow looks better when fog (from post-processing) is enabled.
 
 v1.061
-- Cretated 64-bit version for Windows (based on experimental versio of GTK+ libraries)
+- Created 64-bit version for Windows (based on experimental versio of GTK+ libraries)
 - Fixed bug: Removed many uninitialised variables (found using valgrind)
 - Fixed problem with -lowmem mode (reported on http://www.fractalforums.com/mandelbulber/(1-06)-lowmem-switch-causes-segfaults-when-increasing-resolution/msg34210/#msg34210)
 - Fixed bug: overflow in UpdatePreviewSettingsDialog()
@@ -231,7 +231,7 @@ v1.05
 - Changed file structure. Now example and other files are located in (on Linux) /usr/share/mandelbulber directory or (on Windows) C:\Program files\mandelbulber. 
   User data is stored in ".mandelbulber" directory located in $HOME folder
 - textures are loaded when necessary
-- backgrond gradient is defined using 3 colours
+- background gradient is defined using 3 colours
 - added "Load Example" button
 
 v1.04
@@ -245,7 +245,7 @@ v1.04
 - Added image proportion selection on Image tab
 - Added Random() function into raymarching process. When there are some render artifacts, random noise looks better. Added the same into volumetric lighting shader.
 - Corrected some typos in messages and labels
-- Added disabling of raytraced reflections in AutoDEStep() fuction
+- Added disabling of raytraced reflections in AutoDEStep() function
 - Replaced "char *" by "const char *" where possible (This avoids explicit casts of string literals to "char *", which are potentially dangerous.
 - Improved adjustments for raytraced reflections
 - Eliminated all compiler errors and warnings generated by new GCC 4.6
@@ -302,7 +302,7 @@ v0.98
 - added preview for settings files in Load Settings dialog window
 - improved quality of Depth of Field effect
 - added FoldingIntPow2 formula
-- improved calculation of raytracing steps. Added dynamic correction of estimated distance. Added possibility to switch between logaritmic and linear fuction for distance estimation.
+- improved calculation of raytracing steps. Added dynamic correction of estimated distance. Added possibility to switch between logarithmic and linear function for distance estimation.
 - moved Image Scale combo into main Render Window
 - added possibility to adjust fog visibility and focus point for Depth of Field effect using mouse pointer (added combo box for change function of mouse click)
 - source code: cleaned up, refractioned, optimised (thanks to Ryan Hitchman)
@@ -359,8 +359,8 @@ v0.93
 - fixed bug: program crashed during saving image in PNG 16-bit format
 
 v0.92
-- progressive rendering of image (first in very low resolution and then in higher and higer)
-- all camarea changes (zoom by click, 3D navigator) immediately stop rendering and start with new settings
+- progressive rendering of image (first in very low resolution and then in higher and highers)
+- all camera changes (zoom by click, 3D navigator) immediately stop rendering and start with new settings
 - better environment mapping effect
 - added "Fit to window" zoom option. In this mode the image is scaled with window.
 - added front distance for fog effect
@@ -394,7 +394,7 @@ v0.90
 
 v0.85
 - added animation of different parameters by sound envelope, and envelope of selected sound frequency bands
-- added command-line mode. Program can work without GUI on enviromnents without any display drivers
+- added command-line mode. Program can work without GUI on environments without any display drivers
 - after pressing "Record key-frame" button, program tries to load next keyframe if exists 
 - GUI redesign: image tab was divided into image and shaders tabs
 - animation can be rendered also into PNG and PNG with alpha channel image sequence
@@ -409,9 +409,9 @@ v0.80
 - added xenodreambuie's fractal formula (http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/msg8246/#msg8246)
 - more accurate calculation of new view-point position after "zoom by click"
 - improved coloring method for Tglad's formula (Mandelbox)
-- auto-saving of images now is disabled by default - can be activaded using "Auto-save" checkbox on "Image" tab
-- removed limitaions for size of env-map texture and light-map textures (was 512x512)
-- all parameters for IFS symetry vectors can be also animated using key-frames
+- auto-saving of images now is disabled by default - can be activated using "Auto-save" checkbox on "Image" tab
+- removed limitations for size of env-map texture and light-map textures (was 512x512)
+- all parameters for IFS symmetry vectors can be also animated using key-frames
 - fixed bug: exp10(x) function was implemented as pow(x,10) - should be pow(10,x) - wrong calculation of fog distance and depth of field focus
 
 v0.72
@@ -419,7 +419,7 @@ v0.72
 - undo buffer in saved in files and is available after restarting the program
 - fixed bug: IFS_distance parameter was not saved and loaded
 - fixed bug: missed libpng-14-14.dll in package for Windows
-- fixed bug: backgroud image disappeared when close-up was lower than 1e-10
+- fixed bug: background image disappeared when close-up was lower than 1e-10
 
 v0.71
 - reorganized buttons for key-frames - now are on bottom of window
@@ -440,16 +440,16 @@ v0.70
 v0.60
 - added Kaleidoscopic IFS formula
 - added "Kaleidoscopic IFS" tab in GUI for all IFS parameters
-- fixed problem with loading settigns files generated in older versions of program (all missing parameters are filled by default values)
+- fixed problem with loading settings files generated in older versions of program (all missing parameters are filled by default values)
 - rewritten all algebraic functions in whole program (all use new CVector3 and CMatrix33 classes)
 
 v0.51
 - fixed Random() function (problem on Windows)
 
 v0.50
-- added "Light sorces" tab in GUI
+- added "Light sources" tab in GUI
 - main light is configurable (colour, angle)
-- added random auxilaty lightsources
+- added random auxiliary lightsources
 - added 4 configurable lightsources
 - improved environment mapping reflection. Now is calculated real reflection vector
 - improved specular highlight effect
@@ -470,7 +470,7 @@ v0.42
 v0.41
 - added post rendering effect based on z-buffer: Depth Of Field
 - improved coloring method for Mandelbulbs
-- slider for fog visibility changed to logarytmic scale
+- slider for fog visibility changed to logarithmic scale
 - added information on progress bar about rendering post effects
 - stop button is able to terminate rendering post effects
 - added "About..." tab in GUI
@@ -512,7 +512,7 @@ v0.21
 - fixed bug with hanging refreshing of image in window after using Stop button
 - created windows port
 - all textures are loaded using cTexture class
-- optimised conditions in CalculateInterations() funsction
+- optimised conditions in CalculateInterations() function
 - added fractal coloring algorithm
 
 v0.20
@@ -530,6 +530,6 @@ v0.11
 - added 3D navigator tool
 
 v0.1 (04.02.2010)
-- first alfa release
+- first alpha release
 
  

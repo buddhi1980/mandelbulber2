@@ -13,7 +13,7 @@ LICENCE: GNU GPL v3.0
 1. REQUIREMENTS
 
 - Linux OS with installed Qt 5 libraries (version >5.3) and libjpeg
-- very fast CPU (recomended 2GHz, 4 cores)
+- very fast CPU (recommended 2GHz, 4 cores)
 - 2GB RAM
 
 2. COMPILING
@@ -36,7 +36,7 @@ cd ..
 please type:
 ./install
 
-(instalation script will do compilation also)
+(installation script will do compilation also)
 
 4. TESTED ON:
 
@@ -48,4 +48,4 @@ please type:
 
 Please visit: http://wiki.mandelbulber.com/index.php?title=Main_Page
 
-Actually there is only avaliable documentation for old Mandelbulber (v1)
+Actually there is only available documentation for old Mandelbulber (v1)

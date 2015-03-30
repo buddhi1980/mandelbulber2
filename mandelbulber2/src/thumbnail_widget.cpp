@@ -125,7 +125,7 @@ void cThumbnailWidget::AssignParameters(const cParameterContainer &_params, cons
 	}
 	else
 	{
-		//render thumbnail after random time. It forces rendering of widgets when they are not visible. It makes rendering of widgets when iddle
+		//render thumbnail after random time. It forces rendering of widgets when they are not visible. It makes rendering of widgets when they are idle.
     connect(timer, SIGNAL(timeout()), this, SLOT(slotRandomRender()));
     timer->start(Random(100000)*10 + 1);
 	}
@@ -183,7 +183,7 @@ void cThumbnailWidget::slotRandomRender()
 {
 	if(cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
 	{
-		//if it's to bussy, render later
+		//if it's to busy, render later
 		timer->start(Random(100000)*10 + 1);
 	}
 	else
