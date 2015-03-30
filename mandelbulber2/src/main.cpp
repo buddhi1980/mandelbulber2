@@ -91,6 +91,9 @@ int main(int argc, char *argv[])
 
 	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainWindow);
 
+	//net rendet
+	gNetRender = new CNetRender(systemData.numberOfThreads);
+
 	//write parameters to ui
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
@@ -103,6 +106,7 @@ int main(int argc, char *argv[])
 	delete gParFractal;
 	delete gFlightAnimation;
 	delete gAnimFrames;
+	delete gNetRender;
 	delete gMainInterface;
 	delete gApplication;
 	return result;

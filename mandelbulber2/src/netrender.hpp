@@ -38,6 +38,7 @@ public:
 	enum netCommand { VERSION, WORKER, RENDER, DATA, BAD };
 	enum clientStatus { IDLE, WORKING, NEW };
 	enum typeOfDevice { CLIENT, SERVER, UNKNOWN };
+	enum enumUiNetRenderMode {netRenderClient, netRenderServer};
 
 	struct sMessage
 	{

@@ -157,6 +157,10 @@ private slots:
 	void slotKeyReleaseOnImage(Qt::Key key);
 	void slotMouseWheelRotatedonImage(int delta);
 
+	//NetRender
+	void slotNetRenderServerStart();
+	void slotNetRenderClientConnect();
+
 private:
 	Ui::RenderWindow *ui;
 	QWidget **fractalWidgets;

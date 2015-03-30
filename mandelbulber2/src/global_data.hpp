@@ -29,6 +29,7 @@
 #include "animation_frames.hpp"
 #include "animation_flight.hpp"
 #include "interface.hpp"
+#include "netrender.hpp"
 
 extern cParameterContainer *gPar;
 extern cFractalContainer *gParFractal;
@@ -36,5 +37,7 @@ extern cAnimationFrames *gAnimFrames;
 extern cInterface *gMainInterface;
 extern cFlightAnimation *gFlightAnimation;
 extern QApplication *gApplication;
+extern CNetRender *gNetRender;
+
 
 #endif /* SRC_GLOBAL_DATA_HPP_ */

@@ -26,6 +26,7 @@
 #include "parameters.hpp"
 #include "system.hpp"
 #include "color_palette.hpp"
+#include "netrender.hpp"
 #include <QtCore>
 
 //definition of all parameters
@@ -295,6 +296,10 @@ using namespace parameterContainer;
 	par->addParam("auto_save_images", false, morphNone, paramApp);
 	par->addParam("save_image_format", 0, morphNone, paramApp);
 	par->addParam("image_preview_scale", 3, 0, 6, morphNone, paramApp);
+	par->addParam("netrender_mode", (int)CNetRender::netRenderServer, morphNone, paramApp);
+	par->addParam("netrender_client_remote_address", QString("localhost"), morphNone, paramApp);
+	par->addParam("netrender_client_remote_port", 5555, morphNone, paramApp);
+	par->addParam("netrender_server_local_port", 5555, morphNone, paramApp);
 
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);

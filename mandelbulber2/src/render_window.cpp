@@ -1367,3 +1367,16 @@ void RenderWindow::slotUpdateHistogramIterations(cHistogram histogram)
 {
    ui->label_histogram_iter->UpdateHistogram(histogram);
 }
+
+void RenderWindow::slotNetRenderServerStart()
+{
+	qint32 port = gPar->Get<int>("netrender_server_local_port");
+	gNetRender->SetServer(port);
+}
+
+void RenderWindow::slotNetRenderClientConnect()
+{
+	QString address = gPar->Get<QString>("netrender_client_remote_address");
+	qint32 port = gPar->Get<int>("netrender_client_remote_port");
+	gNetRender->SetClient(address, port);
+}

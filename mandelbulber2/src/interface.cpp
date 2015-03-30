@@ -227,6 +227,10 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(renderedImage, SIGNAL(keyRelease(Qt::Key)), mainWindow, SLOT(slotKeyReleaseOnImage(Qt::Key)));
 	QApplication::connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow, SLOT(slotMouseWheelRotatedonImage(int)));
 
+	//NetRender
+	QApplication::connect(mainWindow->ui->bu_netrender_connect, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderClientConnect()));
+	QApplication::connect(mainWindow->ui->bu_netrender_start_server, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderServerStart()));
+
 	// ------------ camera manipulation -----------
 	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
 	QApplication::connect(mainWindow->ui->bu_move_down, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
