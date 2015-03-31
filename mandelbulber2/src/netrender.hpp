@@ -27,6 +27,10 @@
 #include <QtCore>
 #include <QTcpSocket>
 #include <QTcpServer>
+#include "parameters.hpp"
+#include "fractal_container.hpp"
+#include "fractparams.hpp"
+#include "scheduler.hpp"
 
 class CNetRender : public QObject
 {
@@ -35,7 +39,16 @@ public:
 	CNetRender(qint32 workerCount);
 	~CNetRender();
 
-	enum netCommand { VERSION, WORKER, RENDER, DATA, BAD };
+	enum netCommand { VERSION, WORKER, RENDER, DATA, BAD, JOB, STOP, STATUS};
+	//VERSION - ask for server version
+	//WORKER - ask for number of client CPU count
+	//RENDER - list of lines needed to be rendered (to Client), and suggestion which lines should be rendered first
+	//DATA - data of rendered lines (to Server)
+	//BAD - answer about wrong server version
+	//JOB - settings and textures for clients (to clients). Receiving of job will start rendering
+	//STOP - terminate rendering request (to clients)
+	//STATUS - ask for status (to client)
+
 	enum clientStatus { IDLE, WORKING, NEW };
 	enum typeOfDevice { CLIENT, SERVER, UNKNOWN };
 	enum enumUiNetRenderMode {netRenderClient, netRenderServer};
@@ -72,6 +85,16 @@ public:
 
 	bool SendData(QTcpSocket *socket, sMessage msg);
 
+	//TODO ------- netrender functions to do ------------
+	void SendJob(cParameterContainer *settings, cParameterContainer *fractal, cTexture *textures);
+	void GetJob(cParameterContainer *settings, cParameterContainer *fractal, cTexture *textures);
+	void Stop(); //stop rendering of all clients
+	void GetStatus(); //get status of all clients
+	void SendToDoList(cScheduler *scheduler); //send list of lines to render and suggestion which lines should be rendered first
+	void GetToDoList(cScheduler *scheduler);
+	void SendRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines);
+	void GetRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines);
+
 private:
 	void ReceiveData(QTcpSocket *socket, sMessage *msg);
 	void ProcessData(QTcpSocket *socket, sMessage *inMsg);
@@ -106,6 +129,11 @@ signals:
 	void RenderRequest(sMessage *msg);
 	void RenderResponse(qint32 index, sMessage *msg);
 	void ClientsChanged();
+
+	//TODO new signals
+	void NewJobReceived();
+	void NewLinesArrived();
+	void ToDoListReceived();
 };
 
 extern CNetRender *netRender;
