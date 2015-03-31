@@ -84,15 +84,15 @@ int main(int argc, char *argv[])
 	//Define list of fractal formulas
 	DefineFractalList(&fractalList);
 
+	//Netrender
+	gNetRender = new CNetRender(systemData.numberOfThreads);
+
 	gMainInterface->ShowUi();
 
 	//Alocate container for animation frames
 	gAnimFrames = new cAnimationFrames;
 
 	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainWindow);
-
-	//net rendet
-	gNetRender = new CNetRender(systemData.numberOfThreads);
 
 	//write parameters to ui
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);

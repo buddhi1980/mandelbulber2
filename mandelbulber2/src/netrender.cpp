@@ -33,6 +33,7 @@ CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
 	clientSocket = NULL;
 	server = NULL;
 	portNo = 0;
+	status = NEW;
 	reconnectTimer = NULL;
 }
 
@@ -303,7 +304,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				qDebug() << "CNetRender - version matches (" << version << "), connection established";
 				// server version matches, send worker count
 				outMsg.command = WORKER;
-				outMsg.payload.append(workerCount);
+				outMsg.payload.append((char*)&workerCount, sizeof(qint32));
 			}
 			else
 			{
@@ -318,6 +319,19 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			// emit signal on which client is listening for rendering jobs
 			qDebug() << "CNetRender - received render request from server, id: " << inMsg->id;
 			emit RenderRequest(inMsg);
+			break;
+		}
+		case STOP:
+		{
+			emit StopReceived();
+			break;
+		}
+		case STATUS:
+		{
+			sMessage outMsg;
+			outMsg.command = STATUS;
+			outMsg.payload.append((char*)&status, sizeof(qint32));
+			SendData(clientSocket, outMsg);
 			break;
 		}
 		default:
@@ -353,6 +367,12 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				emit RenderResponse(index, inMsg);
 				break;
 			}
+			case STATUS:
+			{
+				clients[index].status = (clientStatus)*(qint32*)inMsg->payload.data();
+				emit ClientsChanged();
+				break;
+			}
 			default:
 				break;
 			}
@@ -364,3 +384,68 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 	}
 	ResetMessage(inMsg);
 }
+
+/* ### not sure about this ###
+// send rendered lines to server
+void CNetRender::SendRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines)
+{
+	sMessage msg;
+	msg.command = DATA;
+	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+	for(int i = 0; i < lineNumbers->size(); i++)
+	{
+		stream << (qint32) (*lineNumbers)[i];
+		stream << (qint32) (*lines)[i].size();
+		stream.writeRawData((*lines)[i].data(), (*lines)[i].size());
+	}
+	SendData(clientSocket, msg);
+}
+
+// receive rendered lines
+void CNetRender::GetRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines)
+{
+	sMessage msg; // TODO msg has to be recent msg from client
+	QDataStream stream(&msg.payload, QIODevice::ReadOnly);
+	qint32 line;
+	qint32 lineLength;
+	QByteArray lineData;
+	while(!stream.atEnd())
+	{
+		stream >> line;
+		stream >> lineLength;
+		lineData.resize(lineLength);
+		stream.writeRawData(lineData.data(), lineData.size());
+		lineNumbers->append(line);
+		lines->append(lineData);
+	}
+}
+*/
+
+// stop rendering of all clients
+void CNetRender::Stop()
+{
+	sMessage msg;
+	msg.command = STOP;
+	for(int i = 0; i < clients.size(); i++)
+	{
+		SendData(clients[i].socket, msg);
+	}
+}
+
+// get status of all clients
+void CNetRender::GetStatus()
+{
+	sMessage msg;
+	msg.command = STATUS;
+	for(int i = 0; i < clients.size(); i++)
+	{
+		SendData(clients[i].socket, msg);
+	}
+}
+
+// TODO
+// SendJob(QTcpSocket *socket, cParameterContainer *settings, cParameterContainer *fractal, cTexture *textures);
+// void GetJob(cParameterContainer *settings, cParameterContainer *fractal, cTexture *textures);
+// void SendToDoList(cScheduler *scheduler); //send list of lines to render and suggestion which lines should be rendered first
+// void GetToDoList(cScheduler *scheduler);
+

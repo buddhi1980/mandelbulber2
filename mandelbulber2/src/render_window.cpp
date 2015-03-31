@@ -1380,3 +1380,65 @@ void RenderWindow::slotNetRenderClientConnect()
 	qint32 port = gPar->Get<int>("netrender_client_remote_port");
 	gNetRender->SetClient(address, port);
 }
+
+void RenderWindow::slotNetRenderClientServerChange(int index)
+{
+	ui->groupBox_netrender_client_config->setVisible(index == CNetRender::CLIENT);
+	ui->groupBox_netrender_server_config->setVisible(index == CNetRender::SERVER);
+}
+
+void RenderWindow::slotNetRenderClientListUpdate()
+{
+	QTableWidget *table = ui->tableWidget_netrender_connected_clients;
+
+	// init table
+	if(table->columnCount() == 0){
+		table->setRowCount(gNetRender->clients.size());
+		QStringList header;
+		header << tr("Host") << tr("Worker") << tr("Status") << tr("Open") << tr("Done");
+		table->setColumnCount(header.size());
+		table->setHorizontalHeaderLabels(header);
+	}
+
+	// update table
+	for(int i = 0; i < table->rowCount(); i++)
+	{
+		for(int j = 0; j < table->columnCount(); j++)
+		{
+			QTableWidgetItem *cell = table->item(i, j);
+			if(!cell)
+			{
+				cell = new QTableWidgetItem;
+				table->setItem(i, j, cell);
+			}
+
+			switch(j)
+			{
+				case 0: cell->setText(gNetRender->clients[i].socket->peerAddress().toString()); break;
+				case 1: cell->setText(QString::number(gNetRender->clients[i].clientWorkerCount)); break;
+				case 2:
+				{
+					switch(gNetRender->clients[i].status)
+					{
+						case CNetRender::NEW:
+							cell->setText("NEW");
+							// cell->setBackgroundColor(QColor(255, 255, 0));
+							break;
+						case CNetRender::IDLE:
+							cell->setText("IDLE");
+							// cell->setBackgroundColor(QColor(0, 0, 255));
+							break;
+						case CNetRender::WORKING:
+							cell->setText("WORKING");
+							// cell->setBackgroundColor(QColor(0, 255, 0));
+							break;
+					}
+					break;
+				}
+				case 3: cell->setText(QString::number(gNetRender->clients[i].jobsOpen)); break;
+				case 4: cell->setText(QString::number(gNetRender->clients[i].jobsDone)); break;
+			}
+		}
+	}
+	qDebug() << "client update!";
+}
