@@ -64,10 +64,12 @@ public:
 
 	struct sClient
 	{
-		sClient() : socket(NULL), status(NEW), clientWorkerCount(0) {}
+		sClient() : socket(NULL), status(NEW), jobsDone(0), jobsOpen(0), clientWorkerCount(0) {}
 		QTcpSocket* socket;
 		sMessage msg;
 		clientStatus status;
+		qint32 jobsDone;
+		qint32 jobsOpen;
 		qint32 clientWorkerCount;
 	};
 
@@ -118,6 +120,7 @@ private:
 	qint32 portNo;
 	qint32 version;
 	qint32 workerCount;
+	clientStatus status;
 	QTcpServer *server;
 	QTcpSocket *clientSocket;
 	typeOfDevice deviceType;
@@ -129,11 +132,14 @@ signals:
 	void RenderRequest(sMessage *msg);
 	void RenderResponse(qint32 index, sMessage *msg);
 	void ClientsChanged();
+	void ClientsChanged(int i);
+	void ClientsChanged(int i, int j);
 
 	//TODO new signals
 	void NewJobReceived();
 	void NewLinesArrived();
 	void ToDoListReceived();
+	void StopReceived();
 };
 
 extern CNetRender *netRender;

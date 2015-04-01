@@ -232,6 +232,8 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->bu_netrender_start_server, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderServerStart()));
 	QApplication::connect(mainWindow->ui->comboBox_netrender_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotNetRenderClientServerChange(int)));
 	QApplication::connect(gNetRender, SIGNAL(ClientsChanged()), mainWindow, SLOT(slotNetRenderClientListUpdate()));
+	QApplication::connect(gNetRender, SIGNAL(ClientsChanged(int)), mainWindow, SLOT(slotNetRenderClientListUpdate(int)));
+	QApplication::connect(gNetRender, SIGNAL(ClientsChanged(int, int)), mainWindow, SLOT(slotNetRenderClientListUpdate(int, int)));
 
 	// ------------ camera manipulation -----------
 	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));

@@ -162,6 +162,8 @@ private slots:
 	void slotNetRenderClientConnect();
 	void slotNetRenderClientServerChange(int index);
 	void slotNetRenderClientListUpdate();
+	void slotNetRenderClientListUpdate(int i);
+	void slotNetRenderClientListUpdate(int i, int j);
 
 private:
 	Ui::RenderWindow *ui;
