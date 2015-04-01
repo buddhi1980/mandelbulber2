@@ -578,3 +578,14 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 	return true;
 }
 
+QString cSettings::GetSettingsText()
+{
+	if (textPrepared)
+	{
+		return settingsText;
+	}
+	else
+	{
+		return QString();
+	}
+}

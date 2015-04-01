@@ -363,9 +363,24 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			case DATA:
 			{
 				qDebug() << "CNetRender - received data from clients[" << index << "] " << socket->peerAddress() << ", id: " << inMsg->id;
-				// emit signal on which server is listening for rendered response
-				emit RenderResponse(index, inMsg);
+				QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+				qint32 line;
+				qint32 lineLength;
+				QByteArray lineData;
+				while(!stream.atEnd())
+				{
+					stream >> line;
+					stream >> lineLength;
+					lineData.resize(lineLength);
+					stream.writeRawData(lineData.data(), lineData.size());
+					receiivedLineNumbers.append(line);
+					receivedRenderedLines.append(lineData);
+				}
+				emit NewLinesArrived();
 				break;
+
+				//********************************
+				//if DATA is received then store
 			}
 			case STATUS:
 			{
@@ -385,8 +400,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 	ResetMessage(inMsg);
 }
 
-/* ### not sure about this ###
-// send rendered lines to server
+//send rendered lines
 void CNetRender::SendRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines)
 {
 	sMessage msg;
@@ -404,22 +418,12 @@ void CNetRender::SendRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *l
 // receive rendered lines
 void CNetRender::GetRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines)
 {
-	sMessage msg; // TODO msg has to be recent msg from client
-	QDataStream stream(&msg.payload, QIODevice::ReadOnly);
-	qint32 line;
-	qint32 lineLength;
-	QByteArray lineData;
-	while(!stream.atEnd())
-	{
-		stream >> line;
-		stream >> lineLength;
-		lineData.resize(lineLength);
-		stream.writeRawData(lineData.data(), lineData.size());
-		lineNumbers->append(line);
-		lines->append(lineData);
-	}
+	*lineNumbers = receiivedLineNumbers;
+	*lines = receivedRenderedLines;
+	receiivedLineNumbers.clear();
+	receivedRenderedLines.clear();
 }
-*/
+
 
 // stop rendering of all clients
 void CNetRender::Stop()
@@ -444,7 +448,15 @@ void CNetRender::GetStatus()
 }
 
 // TODO
+// *******************************
 // SendJob(QTcpSocket *socket, cParameterContainer *settings, cParameterContainer *fractal, cTexture *textures);
+//   the best will be to store 'settings' and 'fractal' in cSettings by using
+//   size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames = NULL);
+//   and send as a text
+//
+//   textures can be send as original files. Filenames are available in e.g. testures->backgroundTexture->GetFileName()
+// ********************************
+
 // void GetJob(cParameterContainer *settings, cParameterContainer *fractal, cTexture *textures);
 // void SendToDoList(cScheduler *scheduler); //send list of lines to render and suggestion which lines should be rendered first
 // void GetToDoList(cScheduler *scheduler);

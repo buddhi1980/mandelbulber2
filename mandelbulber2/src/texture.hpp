@@ -38,6 +38,8 @@ public:
 	sRGB8 Pixel(double x, double y);
 	sRGB8 FastPixel(int x, int y);
 	bool IsLoaded(void) {return loaded;}
+	QString GetFileName() {return originalFileName;}
+
 private:
 	sRGB8 Interpolation(double x, double y);
 	sRGB8 *bitmap;
@@ -45,6 +47,7 @@ private:
 	int height;
 	bool loaded;
 	QImage qimage;
+	QString originalFileName;
 };
 
 #endif /* TEXTURE_HPP_ */

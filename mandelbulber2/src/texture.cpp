@@ -40,6 +40,7 @@ cTexture::cTexture(QString filename)
 		width = qimage.width();
 		height = qimage.height();
 		loaded = true;
+		originalFileName = filename;
 	}
 	else
 	{

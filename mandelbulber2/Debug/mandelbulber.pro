@@ -4,9 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui uitools widgets
+QT       += core gui uitools widgets network
 
-TARGET = mandelbulber2
+TARGET = mandelbulber2 
 TEMPLATE = app
 
 CONFIG += qt thread debug
@@ -37,6 +37,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/main.cpp\
 	    	../src/multi_val.cpp\
 	    	../src/my_ui_loader.cpp\
+	    	../src/netrender.cpp\
 	    	../src/one_parameter.cpp\
 	    	../src/old_settings.cpp\
 	    	../src/parameters.cpp\
@@ -93,7 +94,8 @@ HEADERS  += ../src/render_window.hpp\
 			../src/render_job.hpp\
 			../src/render_image.hpp\
 			../src/render_ssao.h\
-			../src/dof.hpp
+			../src/dof.hpp\
+			../src/netrender.hpp
 
 
 FORMS    += ../qt/render_window.ui

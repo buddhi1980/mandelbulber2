@@ -45,6 +45,7 @@ public:
 	bool Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames = NULL);
 	QString GetHashCode() {return hash.toHex();}
 	void BeQuiet(bool _quiet) {quiet = _quiet;}
+	QString GetSettingsText();
 
 private:
 	QString CreateHeader(void);
