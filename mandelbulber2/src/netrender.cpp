@@ -348,8 +348,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			qDebug() << settingsSize;
 			buffer.resize(settingsSize);
 			stream.readRawData(buffer.data(), settingsSize);
-			settingsText = QString(buffer);
-
+			settingsText = QString::fromUtf8(buffer.data(), buffer.size());
 			qDebug() << settingsText;
 			emit NewJobReceived();
 			break;
@@ -379,7 +378,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				clients[index].clientWorkerCount = *(qint32*)inMsg->payload.data();
 				if(clients[index].status == NEW) clients[index].status = IDLE;
 				qDebug() << "CNetRender - clients[" << index << "] " << socket->peerAddress() << " has " << clients[index].clientWorkerCount << "workers";
-				emit ClientsChanged();
+				emit ClientsChanged(index);
 				break;
 			}
 			case DATA:
@@ -407,7 +406,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			case STATUS:
 			{
 				clients[index].status = (clientStatus)*(qint32*)inMsg->payload.data();
-				emit ClientsChanged();
+				emit ClientsChanged(index);
 				break;
 			}
 			default:
@@ -483,7 +482,7 @@ void CNetRender::SendJob(cParameterContainer *settings, cFractalContainer *fract
 		msg.command = JOB;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 		stream << (qint32)settingsText.toUtf8().size();
-		stream << settingsText.toUtf8().data();
+		stream.writeRawData(settingsText.toUtf8().data(), settingsText.toUtf8().size());
 		qDebug() << "UTF8:" << settingsText.toUtf8().data();
 		qDebug() << "Payload:" << msg.payload;
 		//TODO sending textures
