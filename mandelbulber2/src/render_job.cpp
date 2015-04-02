@@ -151,6 +151,11 @@ bool cRenderJob::Init(enumMode _mode)
 	if(mode == flightAnimRecord || mode == flightAnim) renderData->doNotRefresh = true;
 	ready = true;
 
+	if(gNetRender->IsServer())
+	{
+		gNetRender->SendJob(paramsContainer, fractalContainer, &renderData->textures);
+	}
+
 	return true;
 }
 

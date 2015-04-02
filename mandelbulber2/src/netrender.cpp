@@ -340,9 +340,12 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 		{
 			qDebug() << "CNetRender - received new job";
 			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+			qDebug() << inMsg->payload;
+
 			QByteArray buffer;
 			qint32 settingsSize;
 			stream >> settingsSize;
+			qDebug() << settingsSize;
 			buffer.resize(settingsSize);
 			stream.readRawData(buffer.data(), settingsSize);
 			settingsText = QString(buffer);
@@ -427,9 +430,9 @@ void CNetRender::SendRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *l
 	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 	for(int i = 0; i < lineNumbers->size(); i++)
 	{
-		stream << (qint32) (*lineNumbers)[i];
-		stream << (qint32) (*lines)[i].size();
-		stream.writeRawData((*lines)[i].data(), (*lines)[i].size());
+		stream << (qint32) lineNumbers->at(i);
+		stream << (qint32) lines->at(i).size();
+		stream.writeRawData(lines->at(i).data(), lines->at(i).size());
 	}
 	SendData(clientSocket, msg);
 }
@@ -468,17 +471,21 @@ void CNetRender::GetStatus()
 
 void CNetRender::SendJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures)
 {
+	qDebug() << "CNetRender - sending job";
 	cSettings settingsData(cSettings::formatCondensedText);
 	size_t dataSize = settingsData.CreateText(settings, fractal);
 	if(dataSize > 0)
 	{
 		QString settingsText = settingsData.GetSettingsText();
+		qDebug() << settingsText;
+		qDebug() << settingsText.size();
 		sMessage msg;
 		msg.command = JOB;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
-		stream << (qint32)settingsText.size();
-		stream << settingsText;
-
+		stream << (qint32)settingsText.toUtf8().size();
+		stream << settingsText.toUtf8().data();
+		qDebug() << "UTF8:" << settingsText.toUtf8().data();
+		qDebug() << "Payload:" << msg.payload;
 		//TODO sending textures
 
 		for(int i = 0; i < clients.size(); i++)
