@@ -42,6 +42,7 @@ public:
 	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames = NULL);
 	bool SaveToFile(QString filename);
 	bool LoadFromFile(QString filename);
+	bool LoadFromString(const QString &_settingsText);
 	bool Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames = NULL);
 	QString GetHashCode() {return hash.toHex();}
 	void BeQuiet(bool _quiet) {quiet = _quiet;}

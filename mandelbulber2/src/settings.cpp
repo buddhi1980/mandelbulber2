@@ -243,6 +243,17 @@ bool cSettings::LoadFromFile(QString filename)
 	}
 }
 
+bool cSettings::LoadFromString(const QString &_settingsText)
+{
+	settingsText = _settingsText;
+	textPrepared = true;
+
+	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
+	hashCrypt.addData(settingsText.toUtf8());
+	hash = hashCrypt.result();
+	return true;
+}
+
 void cSettings::DecodeHeader(QStringList &separatedText)
 {
 	if (textPrepared)
@@ -589,3 +600,4 @@ QString cSettings::GetSettingsText()
 		return QString();
 	}
 }
+

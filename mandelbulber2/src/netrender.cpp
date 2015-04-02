@@ -25,6 +25,8 @@
 #include "system.hpp"
 #include <QAbstractSocket>
 #include "settings.hpp"
+#include "global_data.hpp"
+#include "interface.hpp"
 
 CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
 {
@@ -340,16 +342,22 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 		{
 			qDebug() << "CNetRender - received new job";
 			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
-			qDebug() << inMsg->payload;
-
 			QByteArray buffer;
 			qint32 settingsSize;
 			stream >> settingsSize;
-			qDebug() << settingsSize;
 			buffer.resize(settingsSize);
 			stream.readRawData(buffer.data(), settingsSize);
 			settingsText = QString::fromUtf8(buffer.data(), buffer.size());
 			qDebug() << settingsText;
+
+			cSettings parSettings(cSettings::formatCondensedText);
+			parSettings.BeQuiet(true);
+			parSettings.LoadFromString(settingsText);
+			parSettings.Decode(gPar, gParFractal);
+
+			gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+			gMainInterface->StartRender();
+
 			emit NewJobReceived();
 			break;
 		}
@@ -476,22 +484,19 @@ void CNetRender::SendJob(cParameterContainer *settings, cFractalContainer *fract
 	if(dataSize > 0)
 	{
 		QString settingsText = settingsData.GetSettingsText();
-		qDebug() << settingsText;
-		qDebug() << settingsText.size();
+
 		sMessage msg;
 		msg.command = JOB;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 		stream << (qint32)settingsText.toUtf8().size();
 		stream.writeRawData(settingsText.toUtf8().data(), settingsText.toUtf8().size());
-		qDebug() << "UTF8:" << settingsText.toUtf8().data();
-		qDebug() << "Payload:" << msg.payload;
+
 		//TODO sending textures
 
 		for(int i = 0; i < clients.size(); i++)
 		{
 			SendData(clients[i].socket, msg);
 		}
-
 	}
 }
 
