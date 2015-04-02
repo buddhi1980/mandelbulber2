@@ -1,13 +1,16 @@
-![Banner](https://github.com/buddhi1980/mandelbulber2/tree/wiki/assets/images/mandelbulberBanner.png?raw=true)
+![Banner](https://raw.githubusercontent.com/buddhi1980/mandelbulber2/wiki/assets/images/mandelbulberBanner.png)
 
 ## What this is
 
 Mandelbulber generates 3-dimensional fractals.
+
 Explore trigonometric, hypercomplex, mandelbox, IFS and many other 3D fractals.
+
 Render with a great palette of customized shaders and create stunning images and videos.
+
 The possibilties are literally **infinite**!
 
-![Test Render](https://github.com/buddhi1980/mandelbulber2/tree/wiki/assets/images/mandelbulberTestrender.jpg?raw=true)
+![Test Render](https://raw.githubusercontent.com/buddhi1980/mandelbulber2/wiki/assets/images/mandelbulberTestrender.jpg)
 
 ## Features
 
@@ -21,7 +24,7 @@ The possibilties are literally **infinite**!
 - OpenCL support (not yet in v2)
 - network rendering (not yet in v2, currently under development)
 
-![GUI](https://github.com/buddhi1980/mandelbulber2/tree/wiki/assets/images/mandelbulberGUI.jpg?raw=true)
+![GUI](https://raw.githubusercontent.com/buddhi1980/mandelbulber2/wiki/assets/images/mandelbulberGUI.jpg)
 
 ## Resources
 
