@@ -88,8 +88,8 @@ public:
 	bool SendData(QTcpSocket *socket, sMessage msg);
 
 	//TODO ------- netrender functions to do ------------
-	void SendJob(cParameterContainer *settings, cParameterContainer *fractal, sTextures *textures);
-	void GetJob(cParameterContainer *settings, cParameterContainer *fractal, sTextures *textures);
+	void SendJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures);
+	void GetJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures);
 	void Stop(); //stop rendering of all clients
 	void GetStatus(); //get status of all clients
 	void SendToDoList(cScheduler *scheduler); //send list of lines to render and suggestion which lines should be rendered first
@@ -126,8 +126,14 @@ private:
 	typeOfDevice deviceType;
 	sMessage msgFromServer;
 	QTimer *reconnectTimer;
+
+	//server data buffers
 	QList<QByteArray> receivedRenderedLines;
 	QList<int> receiivedLineNumbers;
+
+	//client data buffers
+	QString settingsText;
+	sTextures textures;
 
 signals:
 	// TODO connect signals

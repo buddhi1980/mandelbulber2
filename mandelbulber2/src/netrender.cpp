@@ -24,6 +24,7 @@
 #include "netrender.hpp"
 #include "system.hpp"
 #include <QAbstractSocket>
+#include "settings.hpp"
 
 CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
 {
@@ -292,6 +293,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 	// beware: payload points to char, first cast to target type pointer, then dereference
 	// *(qint32*)msg->payload
 
+	//------------------------- CLIENT ------------------------
 	if(IsClient())
 	{
 		switch ((netCommand)inMsg->command)
@@ -334,10 +336,27 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			SendData(clientSocket, outMsg);
 			break;
 		}
+		case JOB:
+		{
+			qDebug() << "CNetRender - received new job";
+			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+			QByteArray buffer;
+			qint32 settingsSize;
+			stream >> settingsSize;
+			buffer.resize(settingsSize);
+			stream.readRawData(buffer.data(), settingsSize);
+			settingsText = QString(buffer);
+
+			qDebug() << settingsText;
+			emit NewJobReceived();
+			break;
+		}
 		default:
 			break;
 		}
 	}
+
+	//----------------------------- SERVER ----------------------
 	else if(IsServer())
 	{
 		int index = GetClientIndexFromSocket(socket);
@@ -372,7 +391,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					stream >> line;
 					stream >> lineLength;
 					lineData.resize(lineLength);
-					stream.writeRawData(lineData.data(), lineData.size());
+					stream.readRawData(lineData.data(), lineData.size());
 					receiivedLineNumbers.append(line);
 					receivedRenderedLines.append(lineData);
 				}
@@ -444,6 +463,29 @@ void CNetRender::GetStatus()
 	for(int i = 0; i < clients.size(); i++)
 	{
 		SendData(clients[i].socket, msg);
+	}
+}
+
+void CNetRender::SendJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures)
+{
+	cSettings settingsData(cSettings::formatCondensedText);
+	size_t dataSize = settingsData.CreateText(settings, fractal);
+	if(dataSize > 0)
+	{
+		QString settingsText = settingsData.GetSettingsText();
+		sMessage msg;
+		msg.command = JOB;
+		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+		stream << (qint32)settingsText.size();
+		stream << settingsText;
+
+		//TODO sending textures
+
+		for(int i = 0; i < clients.size(); i++)
+		{
+			SendData(clients[i].socket, msg);
+		}
+
 	}
 }
 
