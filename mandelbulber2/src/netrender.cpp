@@ -343,13 +343,31 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			qDebug() << "CNetRender - received new job";
 			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 			QByteArray buffer;
-			qint32 settingsSize;
-			stream >> settingsSize;
-			buffer.resize(settingsSize);
-			stream.readRawData(buffer.data(), settingsSize);
-			settingsText = QString::fromUtf8(buffer.data(), buffer.size());
-			qDebug() << settingsText;
+			qint32 size;
 
+			// read settings
+			stream >> size;
+			buffer.resize(size);
+			stream.readRawData(buffer.data(), size);
+			settingsText = QString::fromUtf8(buffer.data(), buffer.size());
+
+			// read textures
+			QList< cTexture* > textureList;
+			textureList.append(textures.backgroundTexture);
+			textureList.append(textures.envmapTexture);
+			textureList.append(textures.lightmapTexture);
+			for(int i = 0; i < textureList.size(); i++)
+			{
+				stream >> size;
+				if(size > 0)
+				{
+					buffer.resize(size);
+					stream.readRawData(buffer.data(), size);
+					textureList[i]->FromQByteArray(buffer);
+				}
+			}
+
+			qDebug() << settingsText;
 			cSettings parSettings(cSettings::formatCondensedText);
 			parSettings.BeQuiet(true);
 			parSettings.LoadFromString(settingsText);
@@ -484,14 +502,34 @@ void CNetRender::SendJob(cParameterContainer *settings, cFractalContainer *fract
 	if(dataSize > 0)
 	{
 		QString settingsText = settingsData.GetSettingsText();
-
 		sMessage msg;
 		msg.command = JOB;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+
+		// write settings
 		stream << (qint32)settingsText.toUtf8().size();
 		stream.writeRawData(settingsText.toUtf8().data(), settingsText.toUtf8().size());
 
-		//TODO sending textures
+		// write textures (from files)
+		QList< cTexture* > textureList;
+		textureList.append(textures->backgroundTexture);
+		textureList.append(textures->envmapTexture);
+		textureList.append(textures->lightmapTexture);
+		for(int i = 0; i < textureList.size(); i++)
+		{
+			if(textureList[i] != NULL)
+			{
+				QFile file(textureList[i]->GetFileName());
+				if (file.open(QIODevice::ReadOnly))
+				{
+					QByteArray buffer = file.readAll();
+					stream << (qint32)buffer.size();
+					stream.writeRawData(buffer.data(), buffer.size());
+					continue;
+				}
+			}
+			stream << (qint32) 0; // empty entry
+		}
 
 		for(int i = 0; i < clients.size(); i++)
 		{

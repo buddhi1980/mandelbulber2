@@ -53,6 +53,11 @@ cTexture::cTexture(QString filename)
 	}
 }
 
+void cTexture::FromQByteArray(QByteArray buffer)
+{
+	// TODO
+}
+
 cTexture::cTexture(void)
 {
 	width = 100;

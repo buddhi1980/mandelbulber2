@@ -39,6 +39,7 @@ public:
 	sRGB8 FastPixel(int x, int y);
 	bool IsLoaded(void) {return loaded;}
 	QString GetFileName() {return originalFileName;}
+	void FromQByteArray(QByteArray buffer);
 
 private:
 	sRGB8 Interpolation(double x, double y);
