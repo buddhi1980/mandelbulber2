@@ -34,6 +34,8 @@ The possibilties are literally **infinite**!
 
 [compiled binaries](http://sourceforge.net/projects/mandelbulber/)
 
+[Coverity Scan](http://scan.coverity.com/projects/4723?tab=overview)
+
 ## License
 
 GNU GPL v3
