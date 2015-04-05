@@ -36,6 +36,7 @@ cLights::cLights()
 
 cLights::cLights(const cParameterContainer *_params, const cFractalContainer *_fractal)
 {
+	cLights();
 	Set(_params, _fractal);
 }
 

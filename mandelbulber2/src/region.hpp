@@ -30,7 +30,7 @@ class cRegion
 {
 public:
 	cRegion(T _x1, T _y1, T _x2, T _y2) : x1(_x1), y1(_y1), x2(_x2), y2(_y2), width(_x2 - _x1), height(_y2 - _y1) {};
-	cRegion() : x1(), y1(), x2(), y2() {};
+	cRegion() : x1(), y1(), x2(), y2(), width(), height() {};
 	cRegion(CVector2<T> corner1, CVector2<T> corner2) : x1(corner1.x), y1(corner1.y), x2(corner1.x), y2(corner2.y), width(corner2.x - corner1.x), height(corner2.y - corner1.y) {};
 	void Set(T _x1, T _y1, T _x2, T _y2) {x1 = _x1; x2 = _x2; y1 = _y1; y2 = _y2; width = _x2 - _x1; height = _y2 - _y1;}
 

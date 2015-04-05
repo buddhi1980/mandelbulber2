@@ -31,7 +31,8 @@
 
 struct sImageAdjustments
 {
-  double brightness;
+	sImageAdjustments() : brightness(1.0), contrast(1.0), imageGamma(1.0), hdrEnabled(false) {};
+	double brightness;
   double contrast;
   double imageGamma;
   bool hdrEnabled;

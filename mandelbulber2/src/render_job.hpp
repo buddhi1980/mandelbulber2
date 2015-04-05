@@ -49,7 +49,7 @@ public:
 	cImage* GetImagePtr() {return image;}
 	int GetNumberOfCPUs() {return totalNumberOfCPUs;};
 	void UseSizeFromImage(bool mode) {useSizeFromImage = mode;}
-	void ChangeCameraTargetPosition(cCameraTarget cameraTarget);
+	void ChangeCameraTargetPosition(cCameraTarget &cameraTarget);
 
 	void UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	void SetMaxRenderTime(double time);

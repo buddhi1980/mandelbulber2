@@ -35,7 +35,7 @@ struct sFractalIn
 	int maxN;
 	sCommonParams common;
 	int forcedFormulaIndex;
-	sFractalIn(CVector3 _point, int _minN, int _maxN, sCommonParams _common, int _forcedFormulaIndex)
+	sFractalIn(CVector3 _point, int _minN, int _maxN, const sCommonParams &_common, int _forcedFormulaIndex)
 		: point(_point), minN(_minN), maxN(_maxN), common(_common), forcedFormulaIndex(_forcedFormulaIndex) {};
 };
 

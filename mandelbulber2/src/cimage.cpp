@@ -44,6 +44,8 @@ cImage::cImage(int w, int h, bool low_mem)
 	previewScale = 1.0;
 	previewVisibleWidth = 1;
 	previewVisibleHeight = 1;
+	previewWidth = 0;
+	previewHeight = 0;
 }
 
 cImage::~cImage()

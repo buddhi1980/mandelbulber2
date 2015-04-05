@@ -70,6 +70,10 @@ cTexture::cTexture(void)
 //destructor
 cTexture::~cTexture(void)
 {
+	if(qimage.isNull())
+	{
+		delete[] bitmap;
+	}
 }
 
 //read pixel

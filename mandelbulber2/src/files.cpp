@@ -210,6 +210,8 @@ void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles)
 					printf("Reading error of image tile files");
 					for (int tile2 = 0; tile2 < tiles; tile2++)
 						fclose(files[tile2]);
+					delete[] rowBuffer;
+					delete[] files;
 					return;
 				}
 			}
@@ -453,7 +455,7 @@ int fcopy(const char *source, const char *dest)
 	// ------ file reading
 
 	FILE * pFile;
-	unsigned long lSize;
+	long int lSize;
 	char *buffer;
 	size_t result;
 

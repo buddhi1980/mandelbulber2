@@ -248,7 +248,7 @@ bool cRenderJob::Execute(void)
 	return true;
 }
 
-void cRenderJob::ChangeCameraTargetPosition(cCameraTarget cameraTarget)
+void cRenderJob::ChangeCameraTargetPosition(cCameraTarget &cameraTarget)
 {
 	paramsContainer->Set("camera", cameraTarget.GetCamera());
 	paramsContainer->Set("target", cameraTarget.GetTarget());

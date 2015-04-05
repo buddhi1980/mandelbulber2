@@ -90,7 +90,15 @@ bool cScheduler::AllLinesDone(void)
 
 bool cScheduler::ShouldIBreak(int threadId, int actualLine)
 {
-	return threadId != linePendingThreadId[actualLine] || stopRequest;
+	if(actualLine >= 0)
+	{
+		return threadId != linePendingThreadId[actualLine] || stopRequest;
+	}
+	else
+	{
+		qCritical() << "cScheduler::ShouldIBreak(int threadId, int actualLine): actualLine lower than zero";
+		return true;
+	}
 }
 
 int cScheduler::NextLine(int threadId, int actualLine)

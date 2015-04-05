@@ -142,11 +142,16 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 		auxLightPreColour[i] = container->Get<sRGB>("aux_light_colour", i + 1);
 	}
 
-
 	for(int i = 1; i <= 4; i++)
 	{
 		volumetricLightIntensity[i] = container->Get<double>("aux_light_volumetric_intensity", i);
 		volumetricLightEnabled[i] = container->Get<double>("aux_light_volumetric_enabled", i);
+	}
+
+	volumetricLightAnyEnabled = false;
+	for(int i = 0; i <=4; i++)
+	{
+		if(volumetricLightEnabled[i]) volumetricLightAnyEnabled = true;
 	}
 
 	for(int i = 0; i < 3; i++)

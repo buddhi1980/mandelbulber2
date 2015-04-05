@@ -46,7 +46,6 @@ double CVector3::itemByName(char item)
 			return 0.0;
 			break;
 	}
-	return 0.0;
 }
 
 /***************** class CMatrix33 ***********************/

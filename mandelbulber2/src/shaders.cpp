@@ -538,7 +538,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 		point2 = input.point + input.lightVect * i;
 
 		float dist_thresh;
-		if(params->iterFogEnabled || params->volumetricLightEnabled)
+		if(params->iterFogEnabled || params->volumetricLightEnabled[0])
 		{
 			dist_thresh = CalcDistThresh(point2);
 		}
@@ -653,7 +653,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 			shadowTemp -= opacity * (end_dist - r) / end_dist;
 
 			float dist_thresh;
-			if(params->iterFogEnabled || params->volumetricLightEnabled)
+			if(params->iterFogEnabled || params->volumetricLightEnabled[0])
 			{
 				dist_thresh = CalcDistThresh(point2);
 			}
@@ -994,7 +994,7 @@ double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance, 
 	double shadowTemp = 1.0;
 
 	double DE_factor = params->DEFactor;
-	if(params->iterFogEnabled || params->volumetricLightEnabled) DE_factor = 1.0;
+	if(params->iterFogEnabled || params->volumetricLightAnyEnabled) DE_factor = 1.0;
 
 	for (double i = input.delta; i < distance; i += dist * DE_factor)
 	{
@@ -1016,7 +1016,7 @@ double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance, 
 		shadowTemp -= opacity * (distance - i) / distance;
 
 		float dist_thresh;
-		if(params->iterFogEnabled || params->volumetricLightEnabled)
+		if(params->iterFogEnabled || params->volumetricLightAnyEnabled)
 		{
 			dist_thresh = CalcDistThresh(point2);
 		}

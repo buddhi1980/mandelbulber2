@@ -238,7 +238,7 @@ int fcopy(QString source, QString dest)
 	// ------ file reading
 
 	FILE * pFile;
-	unsigned long lSize;
+	long int lSize;
 	char *buffer;
 	size_t result;
 
