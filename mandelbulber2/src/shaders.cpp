@@ -519,7 +519,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 	double dist = input.distThresh;
 
 	double DEFactor = params->DEFactor;
-	if(params->iterFogEnabled || params->volumetricLightEnabled) DEFactor = 1.0;
+	if(params->iterFogEnabled || params->volumetricLightEnabled[0]) DEFactor = 1.0;
 
 	//double start = input.delta;
 	double start = input.distThresh;

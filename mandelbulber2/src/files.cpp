@@ -471,17 +471,26 @@ int fcopy(const char *source, const char *dest)
 	lSize = ftell(pFile);
 	rewind(pFile);
 
-	// allocate memory to contain the whole file:
-	buffer = new char[lSize];
-
-	// copy the file into the buffer:
-	result = fread(buffer, 1, lSize, pFile);
-	if (result != lSize)
+	if(lSize > 0)
 	{
-		printf("Can't read source file for copying: %s\n", source);
-		delete[] buffer;
+		// allocate memory to contain the whole file:
+		buffer = new char[lSize];
+
+		// copy the file into the buffer:
+		result = fread(buffer, 1, lSize, pFile);
+		if (result != (size_t)lSize)
+		{
+			printf("Can't read source file for copying: %s\n", source);
+			delete[] buffer;
+			fclose(pFile);
+			return 2;
+		}
+	}
+	else
+	{
+		qCritical() << "Can't obtain file size: " << source;
 		fclose(pFile);
-		return 2;
+		return 4;
 	}
 	fclose(pFile);
 

@@ -36,6 +36,15 @@ cImage::cImage(int w, int h, bool low_mem)
 	height = h;
 	previewAllocated = false;
 	lowMem = low_mem;
+
+	image8 = NULL;
+	image16 = NULL;
+	imageFloat = NULL;
+	alphaBuffer = NULL;
+	opacityBuffer = NULL;
+	colourBuffer = NULL;
+	zBuffer = NULL;
+
 	AllocMem();
 	gammaTable = new int[65536];
 	progressiveFactor = 1;

@@ -169,6 +169,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 
 	sFractalIn fractIn(in.point, params.minN, N, params.common, forcedFormulaIndex);
 	sFractalOut fractOut;
+	fractOut.colorIndex = 0;
 
 	if (true) //TODO !params.primitives.plane.onlyPlane
 	{

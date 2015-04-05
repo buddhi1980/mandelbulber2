@@ -256,17 +256,26 @@ int fcopy(QString source, QString dest)
 	rewind(pFile);
 
 	// allocate memory to contain the whole file:
-	buffer = new char[lSize];
-
-	// copy the file into the buffer:
-	result = fread(buffer, 1, lSize, pFile);
-	if (result != lSize)
+	if(lSize > 0)
 	{
-		qCritical() << "Can't read source file for copying: " << source << endl;
-		WriteLogString("Can't read source file for copying", source);
-		delete[] buffer;
+		buffer = new char[lSize];
+
+		// copy the file into the buffer:
+		result = fread(buffer, 1, lSize, pFile);
+		if (result != (size_t)lSize)
+		{
+			qCritical() << "Can't read source file for copying: " << source << endl;
+			WriteLogString("Can't read source file for copying", source);
+			delete[] buffer;
+			fclose(pFile);
+			return 2;
+		}
+	}
+	else
+	{
+		qCritical() << "Can't obtain file size: " << source;
 		fclose(pFile);
-		return 2;
+		return 4;
 	}
 	fclose(pFile);
 
