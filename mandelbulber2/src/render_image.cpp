@@ -49,7 +49,7 @@ bool cRenderer::RenderImage()
 	image->SetImageParameters(params->imageAdjustments);
 
 	int progressiveSteps;
-	if(data->doNotRefresh && data->maxRenderTime > 1e10)
+	if((data->doNotRefresh && data->maxRenderTime > 1e10) || gNetRender->IsClient() || gNetRender->IsServer())
 			progressiveSteps = 0;
 	else
 		progressiveSteps = (int)(log((double)max(image->GetWidth(), image->GetHeight())) / log(2.0))-3;
@@ -137,7 +137,7 @@ bool cRenderer::RenderImage()
 			//refresh image
 			if (!data->doNotRefresh && image->IsPreview() && listToRefresh.size() > 0)
 			{
-				if (timerRefresh.elapsed() > lastRefreshTime && scheduler->GetProgresivePass() > 1)
+				if (timerRefresh.elapsed() > lastRefreshTime && (scheduler->GetProgresivePass() > 1 || gNetRender->IsClient() || gNetRender->IsServer()))
 				{
 					timerRefresh.restart();
 					QSet<int> set_listTorefresh = listToRefresh.toSet(); //removing duplicates
@@ -160,6 +160,18 @@ bool cRenderer::RenderImage()
 
 					emit updateHistogramIterations(data->histogramIterations);
 					emit updateHistogramStepCount(data->histogramStepCount);
+
+					if(gNetRender->IsClient())
+					{
+						QList<QByteArray> renderedLinesData;
+						for(int i = 0; i < listToRefresh.size(); i++)
+						{
+							QByteArray lineData;
+							CreateLineData(listToRefresh.at(i), &lineData);
+							renderedLinesData.append(lineData);
+						}
+						gNetRender->SendRenderedLines(&listToRefresh, &renderedLinesData);
+					}
 
 					lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
 					timerRefresh.restart();
@@ -229,4 +241,28 @@ bool cRenderer::RenderImage()
 		return false;
 	else
 		return true;
+}
+
+void cRenderer::CreateLineData(int y, QByteArray *lineData)
+{
+	if (y >= 0 && y < image->GetHeight())
+	{
+		int width = image->GetWidth();
+		sAllImageData *lineOfImage = new sAllImageData[width];
+		size_t dataSize = sizeof(sAllImageData) * width;
+		for (int x = 0; x < width; x++)
+		{
+			lineOfImage[x].imageFloat = image->GetPixelImage(x, y);
+			lineOfImage[x].alphaBuffer = image->GetPixelAlpha(x, y);
+			lineOfImage[x].colourBuffer = image->GetPixelColor(x, y);
+			lineOfImage[x].zBuffer = image->GetPixelZBuffer(x, y);
+			lineOfImage[x].opacityBuffer = image->GetPixelOpacity(x, y);
+		}
+		lineData->append((char*)lineOfImage, dataSize);
+		delete[] lineOfImage;
+	}
+	else
+	{
+		qCritical() << "cRenderer::CreateLineData(int y, QByteArray *lineData): wrong line:" << y;
+	}
 }

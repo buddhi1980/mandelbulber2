@@ -37,6 +37,8 @@ public:
 	bool RenderImage();
 
 private:
+	void CreateLineData(int y, QByteArray *lineData);
+
 	const cParamRender *params;
 	const cFourFractals *fractal;
 	sRenderData *data;
