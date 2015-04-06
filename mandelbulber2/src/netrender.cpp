@@ -280,7 +280,7 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 		quint16 crcCalculated = qChecksum(buffer, msg->size);
 		quint16 crcReceived;
 		socketReadStream >> crcReceived;
-		delete buffer;
+		delete[] buffer;
 		if(crcCalculated != crcReceived)
 		{
 			qDebug() << "CNetRender - checksum mismatch, will ignore this message(cmd: " << msg->command << "id: " << msg->id << "size: " << msg->size << ")";
@@ -420,7 +420,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					stream >> lineLength;
 					lineData.resize(lineLength);
 					stream.readRawData(lineData.data(), lineData.size());
-					receiivedLineNumbers.append(line);
+					receivedLineNumbers.append(line);
 					receivedRenderedLines.append(lineData);
 				}
 				emit NewLinesArrived();
@@ -465,9 +465,9 @@ void CNetRender::SendRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *l
 // receive rendered lines
 void CNetRender::GetRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines)
 {
-	*lineNumbers = receiivedLineNumbers;
+	*lineNumbers = receivedLineNumbers;
 	*lines = receivedRenderedLines;
-	receiivedLineNumbers.clear();
+	receivedLineNumbers.clear();
 	receivedRenderedLines.clear();
 }
 

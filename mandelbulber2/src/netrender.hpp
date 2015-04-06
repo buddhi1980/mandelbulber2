@@ -129,7 +129,7 @@ private:
 
 	//server data buffers
 	QList<QByteArray> receivedRenderedLines;
-	QList<int> receiivedLineNumbers;
+	QList<int> receivedLineNumbers;
 
 	//client data buffers
 	QString settingsText;
