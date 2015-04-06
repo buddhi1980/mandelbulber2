@@ -214,6 +214,7 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 	QDataStream socketWriteStream(&byteArray, QIODevice::ReadWrite);
 
 	msg.size = msg.payload.size();
+	qDebug() << "SendData: payload size:" << msg.size;
 
 	// append header
 	socketWriteStream << msg.command << msg.id << msg.size;
@@ -255,22 +256,26 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 
 	if (msg->command == -1) //where command is set to -1 ??? on initializer list in header file, means msg is completely new
 	{
+		qDebug() << "ReceiveData (header): bytes available" << socket->bytesAvailable();
 		if (socket->bytesAvailable() < (sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size)))
 		{
+			qDebug() << "Waiting for rest of data";
 			return;
 		}
 		// meta data available
 		socketReadStream >> msg->command;
 		socketReadStream >> msg->id;
 		socketReadStream >> msg->size;
+
+		qDebug() << "ReceiveData: Command" << msg->command << "payload size:" << msg->size;
 	}
 
 	if(msg->size > 0)
 	{
+		qDebug() << "ReceiveData (msg): bytes available" << socket->bytesAvailable();
 		if (socket->bytesAvailable() < sizeof(quint16) + msg->size)
 		{
-			//I suppose it is failure situation, so would be good to have some message here and flush socket buffer
-			// same as above
+			qDebug() << "Waiting for rest of data";
 			return;
 		}
 		// full payload available
