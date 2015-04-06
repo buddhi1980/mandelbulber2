@@ -239,7 +239,7 @@ void CNetRender::ResetMessage(sMessage *msg)
 {
 	if(msg == NULL)
 	{
-		msg = new sMessage;
+		qCritical() << "CNetRender::ResetMessage(sMessage *msg): message has NULL pointer!";
 	}
 	else
 	{
