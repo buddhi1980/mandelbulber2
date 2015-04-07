@@ -366,6 +366,10 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				stream >> size;
 				if(size > 0)
 				{
+					if(textureList[i] == NULL)
+					{
+						textureList[i] = new cTexture();
+					}
 					buffer.resize(size);
 					stream.readRawData(buffer.data(), size);
 					textureList[i]->FromQByteArray(buffer);

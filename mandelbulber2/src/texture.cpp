@@ -55,7 +55,20 @@ cTexture::cTexture(QString filename)
 
 void cTexture::FromQByteArray(QByteArray buffer)
 {
-	// TODO
+	bitmap = NULL;
+	qimage = QImage::fromData(buffer);
+	qimage = qimage.convertToFormat(QImage::Format_RGB888);
+	if (!qimage.isNull())
+	{
+		bitmap = (sRGB8*)(qimage.bits());
+		width = qimage.width();
+		height = qimage.height();
+		loaded = true;
+	}
+	else
+	{
+		cErrorMessage::showMessage(QObject::tr("Can't load texture from QByteArray!\n"), cErrorMessage::errorMessage);
+	}
 }
 
 cTexture::cTexture(void)

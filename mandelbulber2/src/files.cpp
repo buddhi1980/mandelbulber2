@@ -524,8 +524,8 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
 	int max;
 	max = (maxR > maxG) ? maxR : maxG;
 	max = (maxB > max) ? maxB : max;
-	double factor = 65535.0 / max;
-	if(max == 0) factor = 1.0;
+	double factor = 1.0;
+	if(max > 0) factor = 65535.0 / max;
 	for(unsigned int i = 0; i<size; i++)
 	{
 		buffer[i].R *= factor;
