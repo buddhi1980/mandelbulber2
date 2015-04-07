@@ -39,7 +39,7 @@ public:
 	CNetRender(qint32 workerCount);
 	~CNetRender();
 
-	enum netCommand { VERSION, WORKER, RENDER, DATA, BAD, JOB, STOP, STATUS};
+	enum netCommand { NONE, VERSION, WORKER, RENDER, DATA, BAD, JOB, STOP, STATUS};
 	//VERSION - ask for server version
 	//WORKER - ask for number of client CPU count
 	//RENDER - list of lines needed to be rendered (to Client), and suggestion which lines should be rendered first
@@ -55,7 +55,7 @@ public:
 
 	struct sMessage
 	{
-		sMessage() : command(-1), id(0), size(0) {}
+		sMessage() : command(NONE), id(0), size(0) {}
 		qint32 command;
 		qint32 id;
 		qint32 size;
@@ -137,6 +137,7 @@ private:
 
 signals:
 	// TODO connect signals
+	void ThereIsMoreData();
 	void RenderRequest(sMessage *msg);
 	void RenderResponse(qint32 index, sMessage *msg);
 	void ClientsChanged();

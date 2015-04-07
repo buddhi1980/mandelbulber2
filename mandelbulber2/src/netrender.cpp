@@ -146,6 +146,7 @@ void CNetRender::ReceiveFromClient()
 	int index = GetClientIndexFromSocket(socket);
 	if(index != -1)
 	{
+		qDebug() << "New data arrived to server socket #" << index;
 		ReceiveData(socket, &clients[index].msg);
 	}
 }
@@ -190,6 +191,7 @@ void CNetRender::TryServerConnect()
 
 void CNetRender::ReceiveFromServer()
 {
+	qDebug() << "New data arrived to client";
 	ReceiveData(clientSocket, &msgFromServer);
 }
 
@@ -214,7 +216,8 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 	QDataStream socketWriteStream(&byteArray, QIODevice::ReadWrite);
 
 	msg.size = msg.payload.size();
-	qDebug() << "SendData: payload size:" << msg.size;
+	msg.id = rand();
+	qDebug() << "SendData: payload size:" << msg.size << "id: " << msg.id;
 
 	// append header
 	socketWriteStream << msg.command << msg.id << msg.size;
@@ -224,7 +227,9 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 	{
 		socketWriteStream.writeRawData(msg.payload.data(), msg.size);
 		// append checksum
-		socketWriteStream << qChecksum(msg.payload.data(), msg.size);
+		qint16 checksum = qChecksum(msg.payload.data(), msg.size);
+		qDebug() << "checksum:" << checksum;
+		socketWriteStream << checksum;
 	}
 
 	// write to socket
@@ -243,7 +248,7 @@ void CNetRender::ResetMessage(sMessage *msg)
 	}
 	else
 	{
-		msg->command = -1;
+		msg->command = NONE;
 		msg->id = 0;
 		msg->size = 0;
 		msg->payload.clear();
@@ -252,47 +257,64 @@ void CNetRender::ResetMessage(sMessage *msg)
 
 void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 {
+	qDebug() << "ReceiveData BEGIN: Command" << msg->command << "payload size:" << msg->size << "id: " << msg->id;
+
 	QDataStream socketReadStream(socket);
+	qint64 bytesAvailable = socket->bytesAvailable();
+	qDebug() << "status:" << socketReadStream.status();
 
-	if (msg->command == -1) //where command is set to -1 ??? on initializer list in header file, means msg is completely new
+	while(bytesAvailable > 0)
 	{
-		qDebug() << "ReceiveData (header): bytes available" << socket->bytesAvailable();
-		if (socket->bytesAvailable() < (sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size)))
+		if (msg->command == NONE)
 		{
-			qDebug() << "Waiting for rest of data";
-			return;
-		}
-		// meta data available
-		socketReadStream >> msg->command;
-		socketReadStream >> msg->id;
-		socketReadStream >> msg->size;
+			qDebug() << "ReceiveData (header): bytes available" << socket->bytesAvailable();
+			if (socket->bytesAvailable() < (sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size)))
+			{
+				qDebug() << "Waiting for rest of data";
+				return;
+			}
+			// meta data available
+			socketReadStream >> msg->command;
+			socketReadStream >> msg->id;
+			socketReadStream >> msg->size;
 
-		qDebug() << "ReceiveData: Command" << msg->command << "payload size:" << msg->size;
-	}
+			qDebug() << "ReceiveData: Command" << msg->command << "payload size:" << msg->size << "id: " << msg->id;
+		}
 
-	if(msg->size > 0)
-	{
-		qDebug() << "ReceiveData (msg): bytes available" << socket->bytesAvailable();
-		if (socket->bytesAvailable() < sizeof(quint16) + msg->size)
+		bytesAvailable = socket->bytesAvailable();
+
+		if(msg->size > 0)
 		{
-			qDebug() << "Waiting for rest of data";
-			return;
+			qDebug() << "ReceiveData (msg): bytes available" << socket->bytesAvailable();
+			if (bytesAvailable < sizeof(quint16) + msg->size)
+			{
+				qDebug() << "Waiting for rest of data";
+				return;
+			}
+			// full payload available
+			char* buffer = new char[msg->size];
+			socketReadStream.readRawData(buffer, msg->size);
+			msg->payload.append(buffer, msg->size);
+
+			quint16 crcCalculated = qChecksum(buffer, msg->size);
+			quint16 crcReceived;
+			socketReadStream >> crcReceived;
+
+			qDebug() << "checksum received:" << crcReceived << "checksum calculated:" << crcCalculated;
+			delete[] buffer;
+			if(crcCalculated != crcReceived)
+			{
+				qDebug() << "CNetRender - checksum mismatch, will ignore this message(cmd: " << msg->command << "id: " << msg->id << "size: " << msg->size << ")";
+				//ResetMessage(msg);
+				//socketReadStream.atEnd();
+				//socketReadStream.skipRawData(socket->bytesAvailable());
+				return;
+			}
 		}
-		// full payload available
-		char* buffer = new char[msg->size];
-		socketReadStream.readRawData(buffer, msg->size);
-		msg->payload.append(buffer, msg->size);
-		quint16 crcCalculated = qChecksum(buffer, msg->size);
-		quint16 crcReceived;
-		socketReadStream >> crcReceived;
-		delete[] buffer;
-		if(crcCalculated != crcReceived)
-		{
-			qDebug() << "CNetRender - checksum mismatch, will ignore this message(cmd: " << msg->command << "id: " << msg->id << "size: " << msg->size << ")";
-			return;
-		}
+		ProcessData(socket, msg);
+
+		bytesAvailable = socket->bytesAvailable();
 	}
-	ProcessData(socket, msg);
 }
 
 void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
