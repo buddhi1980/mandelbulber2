@@ -94,7 +94,6 @@ public:
 	void GetStatus(); //get status of all clients
 	void SendToDoList(cScheduler *scheduler); //send list of lines to render and suggestion which lines should be rendered first
 	void GetToDoList(cScheduler *scheduler);
-	void SendRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines);
 	void GetRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines);
 
 private:
@@ -102,6 +101,9 @@ private:
 	void ProcessData(QTcpSocket *socket, sMessage *inMsg);
 	void ResetMessage(sMessage *msg);
 	int GetClientIndexFromSocket(const QTcpSocket *socket);
+
+public slots:
+	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
 
 private slots:
 	void HandleNewConnection();

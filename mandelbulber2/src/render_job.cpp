@@ -229,6 +229,11 @@ bool cRenderJob::Execute(void)
 	if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramIterations(cHistogram)), parentObject, SLOT(slotUpdateHistogramIterations(cHistogram)));
 	if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramStepCount(cHistogram)), parentObject, SLOT(slotUpdateHistogramStepCount(cHistogram)));
 
+	if(gNetRender->IsClient())
+	{
+		QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)), gNetRender, SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
+	}
+
 	bool result = renderer->RenderImage();
 
 	if(result) emit fullyRendered();

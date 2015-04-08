@@ -49,6 +49,7 @@ private:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void updateHistogramIterations(cHistogram histogram);
 	void updateHistogramStepCount(cHistogram histogram);
+	void sendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
 };
 
 #endif /* RENDER_IMAGE_HPP_ */

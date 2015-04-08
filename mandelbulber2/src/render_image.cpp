@@ -170,7 +170,7 @@ bool cRenderer::RenderImage()
 							CreateLineData(listToRefresh.at(i), &lineData);
 							renderedLinesData.append(lineData);
 						}
-						gNetRender->SendRenderedLines(&listToRefresh, &renderedLinesData);
+						emit sendRenderedLines(listToRefresh, renderedLinesData);
 					}
 
 					lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());

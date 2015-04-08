@@ -62,6 +62,7 @@ int main(int argc, char *argv[])
 	gApplication->installTranslator(&qt_data_translator);
 
 	qRegisterMetaType<cHistogram>("cHistogram");
+	qRegisterMetaType<QList<QByteArray> >("QList<QByteArray>");
 
 	//Create default directiories and copy all needed files
 	WriteLog("CreateDefaultFolders()");

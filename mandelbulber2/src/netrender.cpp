@@ -479,16 +479,18 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 }
 
 //send rendered lines
-void CNetRender::SendRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines)
+void CNetRender::SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines)
 {
+	qDebug() << lineNumbers.size() << lineNumbers;
+	qDebug() << lines.size();
 	sMessage msg;
 	msg.command = DATA;
 	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
-	for(int i = 0; i < lineNumbers->size(); i++)
+	for(int i = 0; i < lineNumbers.size(); i++)
 	{
-		stream << (qint32) lineNumbers->at(i);
-		stream << (qint32) lines->at(i).size();
-		stream.writeRawData(lines->at(i).data(), lines->at(i).size());
+		stream << (qint32) lineNumbers.at(i);
+		stream << (qint32) lines.at(i).size();
+		stream.writeRawData(lines.at(i).data(), lines.at(i).size());
 	}
 	SendData(clientSocket, msg);
 }
