@@ -70,7 +70,7 @@ bool cRenderer::RenderImage()
 	cRenderWorker **worker= new cRenderWorker*[data->numberOfThreads];
 
 	if(scheduler) delete scheduler;
-	else scheduler = new cScheduler(image->GetHeight(), progressive);
+	scheduler = new cScheduler(image->GetHeight(), progressive);
 
 	cProgressText progressText;
 	progressText.ResetTimer();
