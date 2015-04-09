@@ -104,6 +104,7 @@ private:
 
 public slots:
 	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
+	void notifyStatus();
 
 private slots:
 	void HandleNewConnection();
@@ -116,13 +117,13 @@ private slots:
 
 public:
 	QList<sClient> clients;
+	clientStatus status;
 
 private:
 	QString address;
 	qint32 portNo;
 	qint32 version;
 	qint32 workerCount;
-	clientStatus status;
 	QTcpServer *server;
 	QTcpSocket *clientSocket;
 	typeOfDevice deviceType;

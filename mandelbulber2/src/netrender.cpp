@@ -155,6 +155,7 @@ void CNetRender::SetClient(QString address, int portNo)
 {
 	DeleteServer();
 	deviceType = CLIENT;
+	status = NEW;
 	this->address = address;
 	this->portNo = portNo;
 	ResetMessage(&msgFromServer);
@@ -354,15 +355,14 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 		}
 		case STOP:
 		{
+			status = IDLE;
+			gMainInterface->stopRequest = true;
 			emit StopReceived();
 			break;
 		}
 		case STATUS:
 		{
-			sMessage outMsg;
-			outMsg.command = STATUS;
-			outMsg.payload.append((char*)&status, sizeof(qint32));
-			SendData(clientSocket, outMsg);
+			emit notifyStatus();
 			break;
 		}
 		case JOB:
@@ -371,6 +371,8 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 			QByteArray buffer;
 			qint32 size;
+			status = WORKING;
+			emit notifyStatus();
 
 			// read settings
 			stream >> size;
@@ -561,6 +563,14 @@ void CNetRender::SendJob(cParameterContainer *settings, cFractalContainer *fract
 			SendData(clients[i].socket, msg);
 		}
 	}
+}
+
+void CNetRender::notifyStatus()
+{
+	sMessage outMsg;
+	outMsg.command = STATUS;
+	outMsg.payload.append((char*)&status, sizeof(qint32));
+	SendData(clientSocket, outMsg);
 }
 
 // TODO

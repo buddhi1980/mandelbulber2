@@ -168,7 +168,7 @@ bool cRenderer::RenderImage()
 					emit updateHistogramIterations(data->histogramIterations);
 					emit updateHistogramStepCount(data->histogramStepCount);
 
-					if(gNetRender->IsClient())
+					if(gNetRender->IsClient() && gNetRender->status == CNetRender::WORKING)
 					{
 						QList<QByteArray> renderedLinesData;
 						for(int i = 0; i < listToRefresh.size(); i++)
@@ -197,7 +197,10 @@ bool cRenderer::RenderImage()
 		}
 	}
 	while(scheduler->ProgresiveNextStep());
-
+	if(gNetRender->IsClient()) {
+		gNetRender->status = CNetRender::IDLE;
+		gNetRender->notifyStatus();
+	}
 	//refresh image at end
 	WriteLog("image->CompileImage()");
 	image->CompileImage();
