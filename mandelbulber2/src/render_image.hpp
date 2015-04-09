@@ -28,12 +28,14 @@
 #include "fractparams.hpp"
 #include "four_fractals.hpp"
 #include "render_data.hpp"
+#include "scheduler.hpp"
 
 class cRenderer : public QObject
 {
 	Q_OBJECT
 public:
 	cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image, QObject *_parentObject);
+	~cRenderer();
 	bool RenderImage();
 
 private:
@@ -44,6 +46,10 @@ private:
 	sRenderData *data;
 	cImage *image;
 	QObject *parentObject;
+	cScheduler *scheduler;
+
+public slots:
+	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
 
 	signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

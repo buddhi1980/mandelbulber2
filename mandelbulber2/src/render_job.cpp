@@ -234,6 +234,12 @@ bool cRenderJob::Execute(void)
 		QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)), gNetRender, SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
 	}
 
+	if(gNetRender->IsServer())
+	{
+		QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), renderer, SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
+	}
+
+
 	bool result = renderer->RenderImage();
 
 	if(result) emit fullyRendered();

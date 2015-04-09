@@ -445,6 +445,10 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				qint32 line;
 				qint32 lineLength;
 				QByteArray lineData;
+
+				QList<QByteArray> receivedRenderedLines;
+				QList<int> receivedLineNumbers;
+
 				while(!stream.atEnd())
 				{
 					stream >> line;
@@ -454,11 +458,9 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					receivedLineNumbers.append(line);
 					receivedRenderedLines.append(lineData);
 				}
-				emit NewLinesArrived();
-				break;
 
-				//********************************
-				//if DATA is received then store
+				emit NewLinesArrived(receivedLineNumbers, receivedRenderedLines);
+				break;
 			}
 			case STATUS:
 			{
@@ -494,16 +496,6 @@ void CNetRender::SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lin
 	}
 	SendData(clientSocket, msg);
 }
-
-// receive rendered lines
-void CNetRender::GetRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines)
-{
-	*lineNumbers = receivedLineNumbers;
-	*lines = receivedRenderedLines;
-	receivedLineNumbers.clear();
-	receivedRenderedLines.clear();
-}
-
 
 // stop rendering of all clients
 void CNetRender::Stop()

@@ -39,6 +39,12 @@ cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal,
 	data = _renderData;
 	image = _image;
 	parentObject = _parentObject;
+	scheduler = NULL;
+}
+
+cRenderer::~cRenderer()
+{
+	if(scheduler) delete scheduler;
 }
 
 bool cRenderer::RenderImage()
@@ -63,7 +69,8 @@ bool cRenderer::RenderImage()
 	cRenderWorker::sThreadData *threadData = new cRenderWorker::sThreadData[data->numberOfThreads];
 	cRenderWorker **worker= new cRenderWorker*[data->numberOfThreads];
 
-	cScheduler *scheduler = new cScheduler(image->GetHeight(), progressive);
+	if(scheduler) delete scheduler;
+	else scheduler = new cScheduler(image->GetHeight(), progressive);
 
 	cProgressText progressText;
 	progressText.ResetTimer();
@@ -233,7 +240,6 @@ bool cRenderer::RenderImage()
 	delete[] thread;
 	delete[] threadData;
 	delete[] worker;
-	delete scheduler;
 
 	WriteLog("cRenderer::RenderImage(): memory released");
 
@@ -265,4 +271,33 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData)
 	{
 		qCritical() << "cRenderer::CreateLineData(int y, QByteArray *lineData): wrong line:" << y;
 	}
+}
+
+void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
+{
+	qDebug() << "NewLinesArrived";
+	for(int i = 0; i < lineNumbers.size(); i++)
+	{
+		int y = lineNumbers.at(i);
+		if (y >= 0 && y < image->GetHeight())
+		{
+			sAllImageData *lineOfImage = (sAllImageData *)lines.at(i).data();
+			int width = image->GetWidth();
+			for (int x = 0; x < width; x++)
+			{
+				image->PutPixelImage(x, y, lineOfImage[x].imageFloat);
+				image->PutPixelAlpha(x, y, lineOfImage[x].alphaBuffer);
+				image->PutPixelColour(x, y, lineOfImage[x].colourBuffer);
+				image->PutPixelZBuffer(x, y, lineOfImage[x].zBuffer);
+				image->PutPixelOpacity(x, y, lineOfImage[x].opacityBuffer);
+			}
+		}
+		else
+		{
+			qCritical() << "cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines): wrong line number:" << y;
+			return;
+		}
+	}
+
+	scheduler->MarkReceivedLines(lineNumbers);
 }

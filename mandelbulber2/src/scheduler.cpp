@@ -221,3 +221,13 @@ bool cScheduler::ProgresiveNextStep()
 		return true;
 	}
 }
+
+void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers)
+{
+	for(int i=0; i<lineNumbers.size(); i++)
+	{
+		int line = lineNumbers.at(i);
+		lineDone[line] = true;
+		lastLinesDone[line] = true;
+	}
+}

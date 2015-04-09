@@ -38,6 +38,7 @@ public:
 	QList<int> GetLastRenderedLines(void);
 	double PercentDone();
 	void Stop() {stopRequest = true;}
+	void MarkReceivedLines(const QList<int> &lineNumbers);
 
 	int GetProgresiveStep() {return progressiveStep;}
 	int GetProgresivePass() {return progressivePass;}

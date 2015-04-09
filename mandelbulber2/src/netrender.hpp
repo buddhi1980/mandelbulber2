@@ -129,17 +129,12 @@ private:
 	sMessage msgFromServer;
 	QTimer *reconnectTimer;
 
-	//server data buffers
-	QList<QByteArray> receivedRenderedLines;
-	QList<int> receivedLineNumbers;
-
 	//client data buffers
 	QString settingsText;
 	sTextures textures;
 
 signals:
 	// TODO connect signals
-	void ThereIsMoreData();
 	void RenderRequest(sMessage *msg);
 	void RenderResponse(qint32 index, sMessage *msg);
 	void ClientsChanged();
@@ -148,7 +143,7 @@ signals:
 
 	//TODO new signals
 	void NewJobReceived();
-	void NewLinesArrived();
+	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
 	void ToDoListReceived();
 	void StopReceived();
 };
