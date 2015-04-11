@@ -221,6 +221,9 @@ bool cRenderer::RenderImage()
 	WriteLog("image->CompileImage()");
 	image->CompileImage();
 
+	//TODO when NetRender Client then do not render SSAO and DOF
+	//TODO send STOP signal to all clients
+
 	if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 	{
 		cRenderSSAO rendererSSAO(params, data, image);
@@ -294,7 +297,6 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData)
 
 void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 {
-	qDebug() << "NewLinesArrived";
 	for(int i = 0; i < lineNumbers.size(); i++)
 	{
 		int y = lineNumbers.at(i);

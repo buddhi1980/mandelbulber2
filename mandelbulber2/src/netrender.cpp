@@ -51,7 +51,7 @@ void CNetRender::SetServer(qint32 portNo)
 	DeleteClient();
 	this->portNo = portNo;
 	server = new QTcpServer(this);
-	if(!server->listen(QHostAddress::LocalHost, portNo))
+	if(!server->listen(QHostAddress::Any, portNo))
 	{
 		qCritical() << "CNetRender - SetServer Error: " << server->errorString();
 		deviceType = UNKNOWN;
@@ -414,8 +414,6 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				startPositions.append(line);
 			}
 			emit ToDoListArrived(done, startPositions);
-			qDebug() << "done" << done;
-			qDebug() << "startPositions:" << startPositions;
 
 			break;
 		}
