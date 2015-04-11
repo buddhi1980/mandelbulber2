@@ -78,7 +78,7 @@ bool cRenderer::RenderImage()
 	for(int i=0; i < data->numberOfThreads; i++)
 	{
 		threadData[i].id = i + 1;
-		threadData[i].startLine = (image->GetHeight()/data->numberOfThreads * i) / scheduler->GetProgresiveStep() * scheduler->GetProgresiveStep();
+		threadData[i].startLine = (image->GetHeight()/(data->numberOfThreads + gNetRender->getTotalWorkerCount()) * i) / scheduler->GetProgresiveStep() * scheduler->GetProgresiveStep();
 		threadData[i].scheduler = scheduler;
 	}
 
@@ -178,6 +178,22 @@ bool cRenderer::RenderImage()
 							renderedLinesData.append(lineData);
 						}
 						emit sendRenderedLines(listToRefresh, renderedLinesData);
+					}
+
+					if(gNetRender->IsServer())
+					{
+						QList<int> toDoList = scheduler->CreateToDoList();
+						if(toDoList.size() > data->numberOfThreads)
+						{
+							for(int c = 0; c < gNetRender->GetClientCount(); c++)
+							{
+								QList<int> startPositionsList = scheduler->CreateNewStartPositions(gNetRender->GetWorkerCount(c), c);
+								if(startPositionsList.size() == gNetRender->GetWorkerCount(c))
+								{
+									emit SendToDoList(c, toDoList, startPositionsList);
+								}
+							}
+						}
 					}
 
 					lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());

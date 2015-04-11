@@ -165,7 +165,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 		unsigned short center_alpha = temp_alpha[x + y * width];
 		double factor = blur * blur * sqrt(blur)* M_PI/3.0;
 
-		#pragma omp parallel for
+		//#pragma omp parallel for
 		for (int yy = y - size; yy <= y + size; yy++)
 		{
 			for (int xx = x - size; xx <= x + size; xx++)

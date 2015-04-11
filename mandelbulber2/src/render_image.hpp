@@ -56,6 +56,7 @@ public slots:
 	void updateHistogramIterations(cHistogram histogram);
 	void updateHistogramStepCount(cHistogram histogram);
 	void sendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
+	void SendToDoList(int clientIndex, QList<int> toDo, QList<int> startPositions);
 };
 
 #endif /* RENDER_IMAGE_HPP_ */

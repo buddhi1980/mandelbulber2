@@ -31,6 +31,7 @@ cScheduler::cScheduler(int _numberOfLines, int progressive)
 	linePendingThreadId = new int[numberOfLines];
 	lineDone = new bool[numberOfLines];
 	lastLinesDone = new bool[numberOfLines];
+	lineAssignedForNetRender = new bool[numberOfLines];
 	stopRequest = false;
 	progressiveStep = progressive;
 	progressivePass = 1;
@@ -44,12 +45,14 @@ cScheduler::~cScheduler()
 	delete[] lineDone;
 	delete[] linePendingThreadId;
 	delete[] lastLinesDone;
+	delete[] lineAssignedForNetRender;
 }
 
 void cScheduler::Reset()
 {
 	memset(linePendingThreadId, 0, sizeof(int) * numberOfLines);
 	memset(lineDone, 0, sizeof(bool) * numberOfLines);
+	memset(lineAssignedForNetRender, 0, sizeof(bool) * numberOfLines);
 	memset(lastLinesDone, 0, sizeof(bool) * numberOfLines);
 }
 
@@ -106,10 +109,6 @@ int cScheduler::NextLine(int threadId, int actualLine)
 	QTextStream out(stdout);
 
 	int nextLine = -1;
-	int firstFree = -1;
-	int lastFree = -1;
-	int maxHole = 0;
-	bool firstFreeFound = false;
 
 	for(int i=0; i<progressiveStep; i++)
 	{
@@ -128,39 +127,59 @@ int cScheduler::NextLine(int threadId, int actualLine)
 	else
 	//next line is occupied or it's last line. There is needed to find new optimal line for rendering
 	{
-		for(int i = 0; i < numberOfLines; i++)
-		{
-			if(!firstFreeFound && linePendingThreadId[i] == 0)
-			{
-				firstFreeFound = true;
-				firstFree = i;
-				continue;
-			}
-
-			if(firstFreeFound && (linePendingThreadId[i] > 0 || i == numberOfLines - 1))
-			{
-				lastFree = i;
-				int holeSize = lastFree - firstFree;
-				firstFreeFound = false;
-
-				if(holeSize > maxHole)
-				{
-					maxHole = holeSize;
-					//next line should be in the middle of the biggest gap
-					nextLine = (lastFree + firstFree) / 2;
-					nextLine /= progressiveStep;
-					nextLine *= progressiveStep;
-					//out << "Jump Id: " << threadId  << " first: " << firstFree << " last: " << lastFree << endl;
-				}
-			}
-		}
+		nextLine = FindBiggestGap();
 	}
 	if(nextLine >= 0)
 	{
 		linePendingThreadId[nextLine] = threadId;
 	}
+
+	if(nextLine < 0)
+	{
+		qCritical() << "cScheduler::NextLine(int threadId, int actualLine): not possible to find new line";
+		return -1;
+	}
+
 	return nextLine;
 }
+
+int cScheduler::FindBiggestGap()
+{
+	bool firstFreeFound = false;
+	int firstFree = -1;
+	int lastFree = -1;
+	int maxHole = 0;
+	int theBest = -1;
+
+	for(int i = 0; i < numberOfLines; i++)
+	{
+		if(!firstFreeFound && linePendingThreadId[i] == 0 && !lineAssignedForNetRender[i])
+		{
+			firstFreeFound = true;
+			firstFree = i;
+			continue;
+		}
+
+		if(firstFreeFound && (linePendingThreadId[i] > 0 || lineAssignedForNetRender[i] || i == numberOfLines - 1))
+		{
+			lastFree = i;
+			int holeSize = lastFree - firstFree;
+			firstFreeFound = false;
+
+			if(holeSize > maxHole)
+			{
+				maxHole = holeSize;
+				//next line should be in the middle of the biggest gap
+				theBest = (lastFree + firstFree) / 2;
+				theBest /= progressiveStep;
+				theBest *= progressiveStep;
+				//out << "Jump Id: " << threadId  << " first: " << firstFree << " last: " << lastFree << endl;
+			}
+		}
+	}
+	return theBest;
+}
+
 
 void cScheduler::InitFirstLine(int threadId, int firstLine)
 {
@@ -229,5 +248,40 @@ void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers)
 		int line = lineNumbers.at(i);
 		lineDone[line] = true;
 		lastLinesDone[line] = true;
+		linePendingThreadId[line] = 9999; //just set some number, to inform that this line was already taken
 	}
+}
+
+QList<int> cScheduler::CreateToDoList()
+{
+	QList<int> list;
+	for(int i=0; i < numberOfLines; i++)
+	{
+		if(!lineDone[i])
+		{
+			list.append(i);
+		}
+		lineAssignedForNetRender[i] = false;
+	}
+
+	return list;
+}
+
+QList<int> cScheduler::CreateNewStartPositions(int count, int clientIndex)
+{
+	QList<int> list;
+	for(int i=0; i < count; i++)
+	{
+		int line = FindBiggestGap();
+		if(line >= 0)
+		{
+			lineAssignedForNetRender[line] = true;
+			list.append(line);
+		}
+		else
+		{
+			return list;
+		}
+	}
+	return list;
 }

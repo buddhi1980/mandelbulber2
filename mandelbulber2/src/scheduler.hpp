@@ -43,13 +43,17 @@ public:
 	int GetProgresiveStep() {return progressiveStep;}
 	int GetProgresivePass() {return progressivePass;}
 	bool ProgresiveNextStep();
+	QList<int> CreateToDoList();
+	QList<int> CreateNewStartPositions(int count, int clientIndex);
 
 private:
 	void Reset(void);
+	int FindBiggestGap();
 
 	int *linePendingThreadId;
 	bool *lineDone;
 	bool *lastLinesDone;
+	bool *lineAssignedForNetRender;
 	int numberOfLines;
 	volatile bool stopRequest;
 	int progressiveStep;

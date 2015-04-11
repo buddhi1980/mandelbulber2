@@ -86,15 +86,10 @@ public:
 	qint32 getTotalWorkerCount();
 
 	bool SendData(QTcpSocket *socket, sMessage msg);
-
-	//TODO ------- netrender functions to do ------------
 	void SendJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures);
 	void GetJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures);
 	void Stop(); //stop rendering of all clients
 	void GetStatus(); //get status of all clients
-	void SendToDoList(cScheduler *scheduler); //send list of lines to render and suggestion which lines should be rendered first
-	void GetToDoList(cScheduler *scheduler);
-	void GetRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines);
 
 private:
 	void ReceiveData(QTcpSocket *socket, sMessage *msg);
@@ -104,6 +99,7 @@ private:
 
 public slots:
 	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
+	void SendToDoList(int clientIndex, QList<int> toDo, QList<int> startPositions); //send list of lines to render and suggestion which lines should be rendered first
 	void notifyStatus();
 
 private slots:
@@ -136,7 +132,6 @@ private:
 
 signals:
 	// TODO connect signals
-	void RenderRequest(sMessage *msg);
 	void RenderResponse(qint32 index, sMessage *msg);
 	void ClientsChanged();
 	void ClientsChanged(int i);
@@ -145,7 +140,7 @@ signals:
 	//TODO new signals
 	void NewJobReceived();
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
-	void ToDoListReceived();
+	void ToDoListArrived(QList<int> toDo, QList<int> startPositions);
 	void StopReceived();
 };
 

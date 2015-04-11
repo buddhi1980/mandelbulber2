@@ -146,7 +146,6 @@ void CNetRender::ReceiveFromClient()
 	int index = GetClientIndexFromSocket(socket);
 	if(index != -1)
 	{
-		qDebug() << "New data arrived to server socket #" << index;
 		ReceiveData(socket, &clients[index].msg);
 	}
 }
@@ -218,7 +217,6 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 
 	msg.size = msg.payload.size();
 	msg.id = rand();
-	qDebug() << "SendData: payload size:" << msg.size << "id: " << msg.id;
 
 	// append header
 	socketWriteStream << msg.command << msg.id << msg.size;
@@ -229,7 +227,6 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 		socketWriteStream.writeRawData(msg.payload.data(), msg.size);
 		// append checksum
 		qint16 checksum = qChecksum(msg.payload.data(), msg.size);
-		qDebug() << "checksum:" << checksum;
 		socketWriteStream << checksum;
 	}
 
@@ -258,38 +255,29 @@ void CNetRender::ResetMessage(sMessage *msg)
 
 void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 {
-	qDebug() << "ReceiveData BEGIN: Command" << msg->command << "payload size:" << msg->size << "id: " << msg->id;
-
 	QDataStream socketReadStream(socket);
 	qint64 bytesAvailable = socket->bytesAvailable();
-	qDebug() << "status:" << socketReadStream.status();
 
 	while(bytesAvailable > 0)
 	{
 		if (msg->command == NONE)
 		{
-			qDebug() << "ReceiveData (header): bytes available" << socket->bytesAvailable();
 			if (socket->bytesAvailable() < (sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size)))
 			{
-				qDebug() << "Waiting for rest of data";
 				return;
 			}
 			// meta data available
 			socketReadStream >> msg->command;
 			socketReadStream >> msg->id;
 			socketReadStream >> msg->size;
-
-			qDebug() << "ReceiveData: Command" << msg->command << "payload size:" << msg->size << "id: " << msg->id;
 		}
 
 		bytesAvailable = socket->bytesAvailable();
 
 		if(msg->size > 0)
 		{
-			qDebug() << "ReceiveData (msg): bytes available" << socket->bytesAvailable();
 			if (bytesAvailable < sizeof(quint16) + msg->size)
 			{
-				qDebug() << "Waiting for rest of data";
 				return;
 			}
 			// full payload available
@@ -301,11 +289,9 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 			quint16 crcReceived;
 			socketReadStream >> crcReceived;
 
-			qDebug() << "checksum received:" << crcReceived << "checksum calculated:" << crcCalculated;
 			delete[] buffer;
 			if(crcCalculated != crcReceived)
 			{
-				qDebug() << "CNetRender - checksum mismatch, will ignore this message(cmd: " << msg->command << "id: " << msg->id << "size: " << msg->size << ")";
 				//ResetMessage(msg);
 				//socketReadStream.atEnd();
 				//socketReadStream.skipRawData(socket->bytesAvailable());
@@ -344,13 +330,6 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				outMsg.command = BAD;
 			}
 			SendData(clientSocket, outMsg);
-			break;
-		}
-		case RENDER:
-		{
-			// emit signal on which client is listening for rendering jobs
-			qDebug() << "CNetRender - received render request from server, id: " << inMsg->id;
-			emit RenderRequest(inMsg);
 			break;
 		}
 		case STOP:
@@ -412,6 +391,35 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			emit NewJobReceived();
 			break;
 		}
+		case RENDER:
+		{
+			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+			int toDoSize;
+			stream >> toDoSize;
+			QList<int> toDo;
+			for(int i=0; i < toDoSize; i++)
+			{
+				qint32 line;
+				stream >> line;
+				toDo.append(line);
+			}
+
+			int startPositionsSize;
+			stream >> startPositionsSize;
+			QList<int> startPositions;
+			for(int i=0; i < startPositionsSize; i++)
+			{
+				qint32 line;
+				stream >> line;
+				startPositions.append(line);
+			}
+			emit ToDoListArrived(toDo, startPositions);
+			qDebug() << "toDo" << toDo;
+			qDebug() << "startPositions:" << startPositions;
+
+			break;
+		}
+
 		default:
 			break;
 		}
@@ -427,7 +435,6 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			{
 			case BAD:
 			{
-				qDebug() << "CNetRender - clients[" << index << "] " << socket->peerAddress() << " has wrong version";
 				clients.removeAt(index);
 				emit ClientsChanged();
 				break;
@@ -436,13 +443,11 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			{
 				clients[index].clientWorkerCount = *(qint32*)inMsg->payload.data();
 				if(clients[index].status == NEW) clients[index].status = IDLE;
-				qDebug() << "CNetRender - clients[" << index << "] " << socket->peerAddress() << " has " << clients[index].clientWorkerCount << "workers";
 				emit ClientsChanged(index);
 				break;
 			}
 			case DATA:
 			{
-				qDebug() << "CNetRender - received data from clients[" << index << "] " << socket->peerAddress() << ", id: " << inMsg->id;
 				QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 				qint32 line;
 				qint32 lineLength;
@@ -470,6 +475,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				emit ClientsChanged(index);
 				break;
 			}
+
 			default:
 				break;
 			}
@@ -485,8 +491,6 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 //send rendered lines
 void CNetRender::SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines)
 {
-	qDebug() << lineNumbers.size() << lineNumbers;
-	qDebug() << lines.size();
 	sMessage msg;
 	msg.command = DATA;
 	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
@@ -571,6 +575,31 @@ void CNetRender::notifyStatus()
 	outMsg.command = STATUS;
 	outMsg.payload.append((char*)&status, sizeof(qint32));
 	SendData(clientSocket, outMsg);
+}
+
+void CNetRender::SendToDoList(int clientIndex, QList<int> toDo, QList<int> startPositions)
+{
+	if(clientIndex < clients.size())
+	{
+		sMessage msg;
+		msg.command = RENDER;
+		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+		stream << (qint32)toDo.size();
+		for(int i = 0; i < toDo.size(); i++)
+		{
+			stream << (qint32)toDo.at(i);
+		}
+		stream << (qint32)startPositions.size();
+		for(int i = 0; i < startPositions.size(); i++)
+		{
+			stream << (qint32)startPositions.at(i);
+		}
+		SendData(clients[clientIndex].socket, msg);
+	}
+	else
+	{
+		qCritical() << "CNetRender::SendToDoList(int clientIndex, QList<int> toDo, QList<int> startPositions): Client index out of range:" << clientIndex;
+	}
 }
 
 // TODO
