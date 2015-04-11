@@ -140,7 +140,7 @@ signals:
 	//TODO new signals
 	void NewJobReceived();
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
-	void ToDoListArrived(QList<int> toDo, QList<int> startPositions);
+	void ToDoListArrived(QList<int> done, QList<int> startPositions);
 	void StopReceived();
 };
 

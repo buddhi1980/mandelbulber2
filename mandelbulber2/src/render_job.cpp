@@ -108,6 +108,11 @@ bool cRenderJob::Init(enumMode _mode)
 		return false;
 	}
 
+	if(gNetRender->IsClient() || gNetRender->IsServer())
+	{
+		image->ClearImage();
+	}
+
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	//totalNumberOfCPUs = 1;
 
@@ -232,6 +237,7 @@ bool cRenderJob::Execute(void)
 	if(gNetRender->IsClient())
 	{
 		QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)), gNetRender, SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
+		QObject::connect(gNetRender, SIGNAL(ToDoListArrived(QList<int>, QList<int>)), renderer, SLOT(ToDoListArrived(QList<int>, QList<int>)));
 	}
 
 	if(gNetRender->IsServer())

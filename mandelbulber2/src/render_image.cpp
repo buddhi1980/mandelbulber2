@@ -182,7 +182,7 @@ bool cRenderer::RenderImage()
 
 					if(gNetRender->IsServer())
 					{
-						QList<int> toDoList = scheduler->CreateToDoList();
+						QList<int> toDoList = scheduler->CreateDoneList();
 						if(toDoList.size() > data->numberOfThreads)
 						{
 							for(int c = 0; c < gNetRender->GetClientCount(); c++)
@@ -319,4 +319,9 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 	}
 
 	scheduler->MarkReceivedLines(lineNumbers);
+}
+
+void cRenderer::ToDoListArrived(QList<int> toDo, QList<int> startPositions)
+{
+	scheduler->UpdateDoneLines(toDo);
 }

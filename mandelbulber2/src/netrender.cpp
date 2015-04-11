@@ -394,14 +394,14 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 		case RENDER:
 		{
 			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
-			int toDoSize;
-			stream >> toDoSize;
-			QList<int> toDo;
-			for(int i=0; i < toDoSize; i++)
+			int doneSize;
+			stream >> doneSize;
+			QList<int> done;
+			for(int i=0; i < doneSize; i++)
 			{
 				qint32 line;
 				stream >> line;
-				toDo.append(line);
+				done.append(line);
 			}
 
 			int startPositionsSize;
@@ -413,8 +413,8 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				stream >> line;
 				startPositions.append(line);
 			}
-			emit ToDoListArrived(toDo, startPositions);
-			qDebug() << "toDo" << toDo;
+			emit ToDoListArrived(done, startPositions);
+			qDebug() << "done" << done;
 			qDebug() << "startPositions:" << startPositions;
 
 			break;
@@ -577,17 +577,17 @@ void CNetRender::notifyStatus()
 	SendData(clientSocket, outMsg);
 }
 
-void CNetRender::SendToDoList(int clientIndex, QList<int> toDo, QList<int> startPositions)
+void CNetRender::SendToDoList(int clientIndex, QList<int> done, QList<int> startPositions)
 {
 	if(clientIndex < clients.size())
 	{
 		sMessage msg;
 		msg.command = RENDER;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
-		stream << (qint32)toDo.size();
-		for(int i = 0; i < toDo.size(); i++)
+		stream << (qint32)done.size();
+		for(int i = 0; i < done.size(); i++)
 		{
-			stream << (qint32)toDo.at(i);
+			stream << (qint32)done.at(i);
 		}
 		stream << (qint32)startPositions.size();
 		for(int i = 0; i < startPositions.size(); i++)
@@ -598,7 +598,7 @@ void CNetRender::SendToDoList(int clientIndex, QList<int> toDo, QList<int> start
 	}
 	else
 	{
-		qCritical() << "CNetRender::SendToDoList(int clientIndex, QList<int> toDo, QList<int> startPositions): Client index out of range:" << clientIndex;
+		qCritical() << "CNetRender::SendToDoList(int clientIndex, QList<int> done, QList<int> startPositions): Client index out of range:" << clientIndex;
 	}
 }
 

@@ -104,23 +104,26 @@ bool cScheduler::ShouldIBreak(int threadId, int actualLine)
 	}
 }
 
-int cScheduler::NextLine(int threadId, int actualLine)
+int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 {
 	QTextStream out(stdout);
 
 	int nextLine = -1;
 
-	for(int i=0; i<progressiveStep; i++)
+	if(!lastLineWasBroken)
 	{
-		if(actualLine + i < numberOfLines)
+		for(int i=0; i<progressiveStep; i++)
 		{
-			lineDone[actualLine + i] = true;
-			lastLinesDone[actualLine + i] = true;
+			if(actualLine + i < numberOfLines)
+			{
+				lineDone[actualLine + i] = true;
+				lastLinesDone[actualLine + i] = true;
+			}
 		}
 	}
 
 	//next line is not occupied by any thread
-	if(actualLine < numberOfLines - progressiveStep && linePendingThreadId[actualLine + progressiveStep] == 0)
+	if(actualLine < numberOfLines - progressiveStep && linePendingThreadId[actualLine + progressiveStep] == 0 && !lastLineWasBroken)
 	{
 		nextLine = actualLine + progressiveStep;
 	}
@@ -252,12 +255,12 @@ void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers)
 	}
 }
 
-QList<int> cScheduler::CreateToDoList()
+QList<int> cScheduler::CreateDoneList()
 {
 	QList<int> list;
 	for(int i=0; i < numberOfLines; i++)
 	{
-		if(!lineDone[i])
+		if(lineDone[i])
 		{
 			list.append(i);
 		}
@@ -284,4 +287,14 @@ QList<int> cScheduler::CreateNewStartPositions(int count, int clientIndex)
 		}
 	}
 	return list;
+}
+
+void cScheduler::UpdateDoneLines(const QList<int> &done)
+{
+	for(int i=0; i<done.size(); i++)
+	{
+		int line = done.at(i);
+		lineDone[line] = true;
+		linePendingThreadId[line] = 9999; //just set some number, to inform that this line was already taken
+	}
 }
