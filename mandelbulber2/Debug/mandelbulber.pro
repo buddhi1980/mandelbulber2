@@ -111,11 +111,11 @@ TRANSLATIONS = ../language/en.ts\
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3
  
-QMAKE_LFLAGS_RELEASE -= -O1
+QMAKE_LFLAGS_RELEASE -= -O1 -fopenmp
 
-QMAKE_CXXFLAGS += -msse2 -ffast-math
+QMAKE_CXXFLAGS += -msse2 -ffast-math -fopenmp
 
-LIBS += -lpng -lgsl -lgslcblas
+LIBS += -lpng -lgsl -lgslcblas -fopenmp
 win32:LIBS += -lz
 
 # rh: ugly absolute paths for libpng and libjpeg on my windows system
