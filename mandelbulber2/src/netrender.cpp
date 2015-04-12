@@ -54,14 +54,21 @@ void CNetRender::SetServer(qint32 portNo)
 	server = new QTcpServer(this);
 	if(!server->listen(QHostAddress::Any, portNo))
 	{
-		qCritical() << "CNetRender - SetServer Error: " << server->errorString();
+		if(server->serverError() == QAbstractSocket::AddressInUseError)
+		{
+			qWarning() << "NetRender -address already in use. Is there already a mandelbulber server instance running on this port?";
+		}
+		else
+		{
+			qCritical() << "NetRender - SetServer Error: " << server->errorString();
+		}
 		deviceType = UNKNOWN;
 	}
 	else
 	{
 		connect(server, SIGNAL(newConnection()), this, SLOT(HandleNewConnection()));
 		deviceType = SERVER;
-		qDebug() << "CNetRender - SetServer setup on localhost, port: " << portNo;
+		WriteLog("NetRender - Server Setup on localhost, port: " + QString::number(portNo));
 	}
 }
 
@@ -73,7 +80,7 @@ void CNetRender::DeleteServer()
 	// qDeleteAll(clients);
 
 	deviceType = UNKNOWN;
-	qDebug() << "CNetRender - DeleteServer";
+	WriteLog("NetRender - Delete Server");
 	server->close();
 	if(server) delete server; server = NULL;
 	clients.clear();
@@ -83,7 +90,7 @@ void CNetRender::DeleteClient()
 {
 	if (deviceType != CLIENT) return;
 	deviceType = UNKNOWN;
-	qDebug() << "CNetRender - DeleteClient";
+	WriteLog("NetRender - Delete Client");
 	if(clientSocket) delete clientSocket; clientSocket = NULL;
 }
 
@@ -106,8 +113,6 @@ void CNetRender::HandleNewConnection()
 		client.socket = server->nextPendingConnection();
 		clients.append(client);
 
-		// qDebug() << "CNetRender - HandleNewConnection socket: " << client->socket->peerAddress();
-
 		connect(client.socket, SIGNAL(disconnected()), this, SLOT(ClientDisconnected()));
 		connect(client.socket, SIGNAL(readyRead()), this, SLOT(ReceiveFromClient()));
 
@@ -124,10 +129,10 @@ void CNetRender::ClientDisconnected()
 {
 	// get client by signal emitter
 	QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
-	qDebug() << "CNetRender - ClientDisconnected socket: " << socket->peerAddress();
 	if(socket)
 	{
 		int index = GetClientIndexFromSocket(socket);
+		WriteLog("NetRender - Client disconnected #" + QString::number(index) + " (" + socket->peerAddress().toString() + ")");
 		if(index > -1){
 			clients.removeAt(index);
 		}
@@ -177,7 +182,7 @@ void CNetRender::SetClient(QString address, int portNo)
 	connect(clientSocket, SIGNAL(readyRead()), this, SLOT(ReceiveFromServer()));
 
 	reconnectTimer->start();
-	qDebug() << "CNetRender - SetClient setup, link to server: " << address << ", port: " << portNo;
+	WriteLog("NetRender - Client Setup, link to server: " + address + ", port: " + QString::number(portNo));
 }
 
 void CNetRender::ServerDisconnected()
@@ -201,7 +206,7 @@ void CNetRender::TryServerConnect()
 
 void CNetRender::ReceiveFromServer()
 {
-	qDebug() << "New data arrived to client";
+	// qDebug() << "New data arrived to client";
 	ReceiveData(clientSocket, &msgFromServer);
 }
 
@@ -321,14 +326,14 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			sMessage outMsg;
 			if(*(qint32*)inMsg->payload.data() == version)
 			{
-				qDebug() << "CNetRender - version matches (" << version << "), connection established";
+				WriteLog("NetRender - version matches (" + QString::number(version) + "), connection established");
 				// server version matches, send worker count
 				outMsg.command = WORKER;
 				outMsg.payload.append((char*)&workerCount, sizeof(qint32));
 			}
 			else
 			{
-				qDebug() << "CNetRender - version mismatch! client version: " << version << ", server: " << *(qint32*)inMsg->payload.data();
+				qWarning() << "CNetRender - version mismatch! client version: " << version << ", server: " << *(qint32*)inMsg->payload.data();
 				outMsg.command = BAD;
 			}
 			SendData(clientSocket, outMsg);
@@ -348,7 +353,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 		}
 		case JOB:
 		{
-			qDebug() << "CNetRender - received new job";
+			WriteLog("NetRender - received new job");
 			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 			QByteArray buffer;
 			qint32 size;
@@ -443,6 +448,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			{
 				clients[index].clientWorkerCount = *(qint32*)inMsg->payload.data();
 				if(clients[index].status == NEW) clients[index].status = IDLE;
+				WriteLog("NetRender - new Client #" + QString::number(index) + "(" + clients[index].socket->peerAddress().toString() + ")");
 				emit ClientsChanged(index);
 				break;
 			}
@@ -482,7 +488,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 		}
 		else
 		{
-			qDebug() << "CNetRender - client " << socket->peerAddress() << " unknown";
+			qWarning() << "NetRender - client unknown, address: " + socket->peerAddress().toString();
 		}
 	}
 	ResetMessage(inMsg);
@@ -527,7 +533,7 @@ void CNetRender::GetStatus()
 
 void CNetRender::SendJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures)
 {
-	qDebug() << "CNetRender - sending job";
+	WriteLog("NetRender - Sending job");
 	cSettings settingsData(cSettings::formatCondensedText);
 	size_t dataSize = settingsData.CreateText(settings, fractal);
 	if(dataSize > 0)

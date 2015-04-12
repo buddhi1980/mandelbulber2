@@ -50,12 +50,28 @@ void MyLogWidget::initFromLogFile()
 
 QString MyLogWidget::formatLine(const QString& text)
 {
-	QRegularExpression re("(PID:) ([0-9]+), (time:) ([0-9\.]+), (.*)");
+	QRegularExpression re("^(PID:) ([0-9]+), (time:) ([0-9\.]+), (.*)");
 	QRegularExpressionMatch match = re.match(text);
-	if (match.hasMatch()) {
+	if (match.hasMatch())
+	{
 		QString out = "<span style=\"color: grey;\">" + match.captured(1) + " <b>" + match.captured(2) + "</b></span>, "
-			+ "<span style=\"color: orange;\">" + match.captured(3) + " <b>" + match.captured(4) + "</b></span>, "
-			+ "<span style=\"color: black;\"><b>" + match.captured(5) + "</b></span>";
+			+ "<span style=\"color: orange;\">" + match.captured(3) + " <b>" + match.captured(4) + "</b></span>, ";
+		QRegularExpression reType("^(Debug|Warning|Critical|NetRender)(.*)");
+		QRegularExpressionMatch matchType = reType.match(match.captured(5));
+		if (matchType.hasMatch())
+		{
+			QString color = "black";
+			if(matchType.captured(1) == "Debug") color = "green";
+			else if(matchType.captured(1) == "Warning") color = "orange";
+			else if(matchType.captured(1) == "Critical") color = "red";
+			else if(matchType.captured(1) == "NetRender") color = "darkblue";
+
+			out += "<span style=\"color: " + color + ";\">" + matchType.captured(1) + "<b>" + matchType.captured(2) + "</b></span>";
+		}
+		else
+		{
+			out += "<span style=\"color: black;\"><b>" + match.captured(5) + "</b></span>";
+		}
 		return out;
 	}
 	else
