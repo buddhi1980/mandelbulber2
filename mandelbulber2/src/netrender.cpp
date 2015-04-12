@@ -91,6 +91,7 @@ void CNetRender::DeleteClient()
 	if (deviceType != CLIENT) return;
 	deviceType = UNKNOWN;
 	WriteLog("NetRender - Delete Client");
+	if(reconnectTimer->isActive()) reconnectTimer->stop();
 	if(clientSocket) delete clientSocket; clientSocket = NULL;
 }
 
