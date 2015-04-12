@@ -50,14 +50,14 @@ private:
 
 public slots:
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
-	void ToDoListArrived(QList<int> done, QList<int> startPositions);
+	void ToDoListArrived(QList<int> done);
 
 	signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void updateHistogramIterations(cHistogram histogram);
 	void updateHistogramStepCount(cHistogram histogram);
 	void sendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
-	void SendToDoList(int clientIndex, QList<int> done, QList<int> startPositions);
+	void SendToDoList(int clientIndex, QList<int> done);
 	void StopAllClients();
 };
 

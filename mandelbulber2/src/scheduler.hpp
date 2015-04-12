@@ -45,7 +45,6 @@ public:
 	int GetProgresivePass() {return progressivePass;}
 	bool ProgresiveNextStep();
 	QList<int> CreateDoneList();
-	QList<int> CreateNewStartPositions(int count, int clientIndex);
 
 private:
 	void Reset(void);
@@ -54,7 +53,6 @@ private:
 	int *linePendingThreadId;
 	bool *lineDone;
 	bool *lastLinesDone;
-	bool *lineAssignedForNetRender;
 	int numberOfLines;
 	volatile bool stopRequest;
 	int progressiveStep;

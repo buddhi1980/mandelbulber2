@@ -118,7 +118,7 @@ private:
 
 public slots:
 	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
-	void SendToDoList(int clientIndex, QList<int> toDo, QList<int> startPositions); //send list of lines to render and suggestion which lines should be rendered first
+	void SendToDoList(int clientIndex, QList<int> toDo); //send list of lines to render and suggestion which lines should be rendered first
 	void notifyStatus();
 	void StopAll();
 
@@ -137,7 +137,7 @@ signals:
 	void ClientsChanged(int i, int j);
 	void NewJobReceived();
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
-	void ToDoListArrived(QList<int> done, QList<int> startPositions);
+	void ToDoListArrived(QList<int> done);
 	void StopReceived();
 };
 

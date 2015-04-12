@@ -31,7 +31,6 @@ cScheduler::cScheduler(int _numberOfLines, int progressive)
 	linePendingThreadId = new int[numberOfLines];
 	lineDone = new bool[numberOfLines];
 	lastLinesDone = new bool[numberOfLines];
-	lineAssignedForNetRender = new bool[numberOfLines];
 	stopRequest = false;
 	progressiveStep = progressive;
 	progressivePass = 1;
@@ -45,14 +44,12 @@ cScheduler::~cScheduler()
 	delete[] lineDone;
 	delete[] linePendingThreadId;
 	delete[] lastLinesDone;
-	delete[] lineAssignedForNetRender;
 }
 
 void cScheduler::Reset()
 {
 	memset(linePendingThreadId, 0, sizeof(int) * numberOfLines);
 	memset(lineDone, 0, sizeof(bool) * numberOfLines);
-	memset(lineAssignedForNetRender, 0, sizeof(bool) * numberOfLines);
 	memset(lastLinesDone, 0, sizeof(bool) * numberOfLines);
 }
 
@@ -155,11 +152,6 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 	if(nextLine < 0)
 	{
 		//qCritical() << "cScheduler::NextLine(int threadId, int actualLine): not possible to find new line";
-		//clean up
-		for(int i=0; i < numberOfLines; i++)
-		{
-			lineAssignedForNetRender[i] = false;
-		}
 		return -1;
 	}
 
@@ -177,14 +169,14 @@ int cScheduler::FindBiggestGap()
 
 	for(int i = 0; i < numberOfLines; i++)
 	{
-		if(!firstFreeFound && linePendingThreadId[i] == 0 && !lineAssignedForNetRender[i])
+		if(!firstFreeFound && linePendingThreadId[i] == 0)
 		{
 			firstFreeFound = true;
 			firstFree = i;
 			continue;
 		}
 
-		if(firstFreeFound && (linePendingThreadId[i] > 0 || lineAssignedForNetRender[i] || i == numberOfLines - 1))
+		if(firstFreeFound && (linePendingThreadId[i] > 0 || i == numberOfLines - 1))
 		{
 			lastFree = i;
 			int holeSize = lastFree - firstFree;
@@ -285,28 +277,8 @@ QList<int> cScheduler::CreateDoneList()
 		{
 			list.append(i);
 		}
-		lineAssignedForNetRender[i] = false;
 	}
 
-	return list;
-}
-
-QList<int> cScheduler::CreateNewStartPositions(int count, int clientIndex)
-{
-	QList<int> list;
-	for(int i=0; i < count; i++)
-	{
-		int line = FindBiggestGap();
-		if(line >= 0)
-		{
-			lineAssignedForNetRender[line] = true;
-			list.append(line);
-		}
-		else
-		{
-			return list;
-		}
-	}
 	return list;
 }
 

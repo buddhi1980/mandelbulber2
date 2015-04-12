@@ -190,11 +190,7 @@ bool cRenderer::RenderImage()
 						{
 							for(int c = 0; c < gNetRender->GetClientCount(); c++)
 							{
-								QList<int> startPositionsList = scheduler->CreateNewStartPositions(gNetRender->GetWorkerCount(c), c);
-								if(startPositionsList.size() == gNetRender->GetWorkerCount(c))
-								{
-									emit SendToDoList(c, toDoList, startPositionsList);
-								}
+								emit SendToDoList(c, toDoList);
 							}
 						}
 					}
@@ -339,7 +335,7 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 	scheduler->MarkReceivedLines(lineNumbers);
 }
 
-void cRenderer::ToDoListArrived(QList<int> toDo, QList<int> startPositions)
+void cRenderer::ToDoListArrived(QList<int> toDo)
 {
 	scheduler->UpdateDoneLines(toDo);
 }

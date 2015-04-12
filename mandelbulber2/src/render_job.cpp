@@ -237,13 +237,13 @@ bool cRenderJob::Execute(void)
 	if(gNetRender->IsClient())
 	{
 		QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)), gNetRender, SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
-		QObject::connect(gNetRender, SIGNAL(ToDoListArrived(QList<int>, QList<int>)), renderer, SLOT(ToDoListArrived(QList<int>, QList<int>)));
+		QObject::connect(gNetRender, SIGNAL(ToDoListArrived(QList<int>)), renderer, SLOT(ToDoListArrived(QList<int>)));
 	}
 
 	if(gNetRender->IsServer())
 	{
 		QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), renderer, SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
-		QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>, QList<int>)), gNetRender, SLOT(SendToDoList(int, QList<int>, QList<int>)));
+		QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>)), gNetRender, SLOT(SendToDoList(int, QList<int>)));
 		QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAll()));
 	}
 

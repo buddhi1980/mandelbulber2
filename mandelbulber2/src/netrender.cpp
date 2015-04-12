@@ -412,16 +412,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				done.append(line);
 			}
 
-			int startPositionsSize;
-			stream >> startPositionsSize;
-			QList<int> startPositions;
-			for(int i=0; i < startPositionsSize; i++)
-			{
-				qint32 line;
-				stream >> line;
-				startPositions.append(line);
-			}
-			emit ToDoListArrived(done, startPositions);
+			emit ToDoListArrived(done);
 
 			break;
 		}
@@ -584,7 +575,7 @@ void CNetRender::notifyStatus()
 	SendData(clientSocket, outMsg);
 }
 
-void CNetRender::SendToDoList(int clientIndex, QList<int> done, QList<int> startPositions)
+void CNetRender::SendToDoList(int clientIndex, QList<int> done)
 {
 	if(clientIndex < clients.size())
 	{
@@ -595,11 +586,6 @@ void CNetRender::SendToDoList(int clientIndex, QList<int> done, QList<int> start
 		for(int i = 0; i < done.size(); i++)
 		{
 			stream << (qint32)done.at(i);
-		}
-		stream << (qint32)startPositions.size();
-		for(int i = 0; i < startPositions.size(); i++)
-		{
-			stream << (qint32)startPositions.at(i);
 		}
 		SendData(clients[clientIndex].socket, msg);
 	}
