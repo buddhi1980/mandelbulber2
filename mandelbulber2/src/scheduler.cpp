@@ -140,6 +140,11 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 	if(nextLine < 0)
 	{
 		qCritical() << "cScheduler::NextLine(int threadId, int actualLine): not possible to find new line";
+		//clean up
+		for(int i=0; i < numberOfLines; i++)
+		{
+			lineAssignedForNetRender[i] = false;
+		}
 		return -1;
 	}
 
