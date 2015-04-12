@@ -9236,7 +9236,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-656</y>
+          <y>-384</y>
           <width>339</width>
           <height>809</height>
          </rect>
@@ -9797,7 +9797,7 @@ and water):</string>
           </widget>
          </item>
          <item>
-          <widget class="MyGroupBox" name="group_netrender_enabled">
+          <widget class="MyGroupBox" name="group_netrender">
            <property name="title">
             <string>NetRender</string>
            </property>
@@ -9834,6 +9834,9 @@ and water):</string>
               </item>
               <item row="0" column="1">
                <widget class="QComboBox" name="combo_netrender_mode">
+                <property name="currentIndex">
+                 <number>1</number>
+                </property>
                 <item>
                  <property name="text">
                   <string>Client</string>
@@ -9850,6 +9853,9 @@ and water):</string>
             </item>
             <item>
              <widget class="QGroupBox" name="groupBox_netrender_client_config">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="title">
                <string>Client configuration:</string>
               </property>

@@ -97,21 +97,6 @@ private:
 	void ResetMessage(sMessage *msg);
 	int GetClientIndexFromSocket(const QTcpSocket *socket);
 
-public slots:
-	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
-	void SendToDoList(int clientIndex, QList<int> toDo, QList<int> startPositions); //send list of lines to render and suggestion which lines should be rendered first
-	void notifyStatus();
-	void StopAll();
-
-private slots:
-	void HandleNewConnection();
-	void ClientDisconnected();
-	void ReceiveFromClient();
-
-	void ServerDisconnected();
-	void ReceiveFromServer();
-	void TryServerConnect();
-
 public:
 	QList<sClient> clients;
 	clientStatus status;
@@ -130,6 +115,21 @@ private:
 	//client data buffers
 	QString settingsText;
 	sTextures textures;
+
+public slots:
+	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
+	void SendToDoList(int clientIndex, QList<int> toDo, QList<int> startPositions); //send list of lines to render and suggestion which lines should be rendered first
+	void notifyStatus();
+	void StopAll();
+
+private slots:
+	void HandleNewConnection();
+	void ClientDisconnected();
+	void ReceiveFromClient();
+
+	void ServerDisconnected();
+	void ReceiveFromServer();
+	void TryServerConnect();
 
 signals:
 	void ClientsChanged();

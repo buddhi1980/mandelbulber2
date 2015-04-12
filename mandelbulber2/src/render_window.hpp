@@ -164,6 +164,7 @@ private slots:
 	void slotNetRenderClientListUpdate();
 	void slotNetRenderClientListUpdate(int i);
 	void slotNetRenderClientListUpdate(int i, int j);
+	void slotCheckBoxDisableNetRender(bool on);
 
 private:
 	Ui::RenderWindow *ui;

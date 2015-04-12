@@ -1370,12 +1370,14 @@ void RenderWindow::slotUpdateHistogramIterations(cHistogram histogram)
 
 void RenderWindow::slotNetRenderServerStart()
 {
+	gMainInterface->SynchronizeInterfaceWindow(ui->group_netrender, gPar, cInterface::read);
 	qint32 port = gPar->Get<int>("netrender_server_local_port");
 	gNetRender->SetServer(port);
 }
 
 void RenderWindow::slotNetRenderClientConnect()
 {
+	gMainInterface->SynchronizeInterfaceWindow(ui->group_netrender, gPar, cInterface::read);
 	QString address = gPar->Get<QString>("netrender_client_remote_address");
 	qint32 port = gPar->Get<int>("netrender_client_remote_port");
 	gNetRender->SetClient(address, port);
@@ -1467,5 +1469,15 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 		}
 		case 3: cell->setText(QString::number(gNetRender->clients[i].jobsOpen)); break;
 		case 4: cell->setText(QString::number(gNetRender->clients[i].jobsDone)); break;
+	}
+}
+
+void RenderWindow::slotCheckBoxDisableNetRender(bool on)
+{
+	qDebug() << " RenderWindow::slotCheckBoxDisableNetRender(bool on):" << on;
+	if(!on)
+	{
+		gNetRender->DeleteClient();
+		gNetRender->DeleteServer();
 	}
 }

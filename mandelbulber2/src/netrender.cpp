@@ -49,6 +49,7 @@ CNetRender::~CNetRender()
 void CNetRender::SetServer(qint32 portNo)
 {
 	DeleteClient();
+	DeleteServer();
 	this->portNo = portNo;
 	server = new QTcpServer(this);
 	if(!server->listen(QHostAddress::Any, portNo))
@@ -73,8 +74,17 @@ void CNetRender::DeleteServer()
 
 	deviceType = UNKNOWN;
 	qDebug() << "CNetRender - DeleteServer";
-
+	server->close();
 	if(server) delete server; server = NULL;
+	clients.clear();
+}
+
+void CNetRender::DeleteClient()
+{
+	if (deviceType != CLIENT) return;
+	deviceType = UNKNOWN;
+	qDebug() << "CNetRender - DeleteClient";
+	if(clientSocket) delete clientSocket; clientSocket = NULL;
 }
 
 int CNetRender::getTotalWorkerCount()
@@ -193,14 +203,6 @@ void CNetRender::ReceiveFromServer()
 {
 	qDebug() << "New data arrived to client";
 	ReceiveData(clientSocket, &msgFromServer);
-}
-
-void CNetRender::DeleteClient()
-{
-	if (deviceType != CLIENT) return;
-	deviceType = UNKNOWN;
-	qDebug() << "CNetRender - DeleteClient";
-	if(clientSocket) delete clientSocket; clientSocket = NULL;
 }
 
 bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)

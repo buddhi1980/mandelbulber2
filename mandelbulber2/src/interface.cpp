@@ -113,6 +113,8 @@ void cInterface::ShowUi(void)
 	progressBar->setAlignment(Qt::AlignCenter);
 	mainWindow->ui->statusbar->addPermanentWidget(progressBar);
 
+	mainWindow->ui->groupBox_netrender_client_config->setVisible(false);
+
 	renderedImage->show();
 
 	//loading default ui for all fractal components
@@ -234,6 +236,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(gNetRender, SIGNAL(ClientsChanged()), mainWindow, SLOT(slotNetRenderClientListUpdate()));
 	QApplication::connect(gNetRender, SIGNAL(ClientsChanged(int)), mainWindow, SLOT(slotNetRenderClientListUpdate(int)));
 	QApplication::connect(gNetRender, SIGNAL(ClientsChanged(int, int)), mainWindow, SLOT(slotNetRenderClientListUpdate(int, int)));
+	QApplication::connect(mainWindow->ui->group_netrender, SIGNAL(toggled(bool)), mainWindow, SLOT(slotCheckBoxDisableNetRender(bool)));
 
 	// ------------ camera manipulation -----------
 	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
