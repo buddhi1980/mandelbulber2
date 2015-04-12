@@ -213,10 +213,18 @@ bool cRenderer::RenderImage()
 		}
 	}
 	while(scheduler->ProgresiveNextStep());
+
+	//TODO change notifyStatus() to use signal/slot
 	if(gNetRender->IsClient()) {
 		gNetRender->status = CNetRender::IDLE;
 		gNetRender->notifyStatus();
 	}
+
+	if(gNetRender->IsServer())
+	{
+		emit StopAllClients();
+	}
+
 	//refresh image at end
 	WriteLog("image->CompileImage()");
 	image->CompileImage();

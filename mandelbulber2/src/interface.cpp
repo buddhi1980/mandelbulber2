@@ -230,7 +230,7 @@ void cInterface::ConnectSignals(void)
 	//NetRender
 	QApplication::connect(mainWindow->ui->bu_netrender_connect, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderClientConnect()));
 	QApplication::connect(mainWindow->ui->bu_netrender_start_server, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderServerStart()));
-	QApplication::connect(mainWindow->ui->comboBox_netrender_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotNetRenderClientServerChange(int)));
+	QApplication::connect(mainWindow->ui->combo_netrender_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotNetRenderClientServerChange(int)));
 	QApplication::connect(gNetRender, SIGNAL(ClientsChanged()), mainWindow, SLOT(slotNetRenderClientListUpdate()));
 	QApplication::connect(gNetRender, SIGNAL(ClientsChanged(int)), mainWindow, SLOT(slotNetRenderClientListUpdate(int)));
 	QApplication::connect(gNetRender, SIGNAL(ClientsChanged(int, int)), mainWindow, SLOT(slotNetRenderClientListUpdate(int, int)));

@@ -101,6 +101,7 @@ public slots:
 	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
 	void SendToDoList(int clientIndex, QList<int> toDo, QList<int> startPositions); //send list of lines to render and suggestion which lines should be rendered first
 	void notifyStatus();
+	void StopAll();
 
 private slots:
 	void HandleNewConnection();
@@ -131,13 +132,9 @@ private:
 	sTextures textures;
 
 signals:
-	// TODO connect signals
-	void RenderResponse(qint32 index, sMessage *msg);
 	void ClientsChanged();
 	void ClientsChanged(int i);
 	void ClientsChanged(int i, int j);
-
-	//TODO new signals
 	void NewJobReceived();
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
 	void ToDoListArrived(QList<int> done, QList<int> startPositions);

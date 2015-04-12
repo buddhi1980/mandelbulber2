@@ -600,17 +600,10 @@ void CNetRender::SendToDoList(int clientIndex, QList<int> done, QList<int> start
 	}
 }
 
-// TODO
-// *******************************
-// SendJob(QTcpSocket *socket, cParameterContainer *settings, cParameterContainer *fractal, cTexture *textures);
-//   the best will be to store 'settings' and 'fractal' in cSettings by using
-//   size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames = NULL);
-//   and send as a text
-//
-//   textures can be send as original files. Filenames are available in e.g. testures->backgroundTexture->GetFileName()
-// ********************************
+void CNetRender::StopAll()
+{
+	Stop();
+}
 
-// void GetJob(cParameterContainer *settings, cParameterContainer *fractal, cTexture *textures);
-// void SendToDoList(cScheduler *scheduler); //send list of lines to render and suggestion which lines should be rendered first
-// void GetToDoList(cScheduler *scheduler);
+
 

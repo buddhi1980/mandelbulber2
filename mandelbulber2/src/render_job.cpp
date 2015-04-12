@@ -244,6 +244,7 @@ bool cRenderJob::Execute(void)
 	{
 		QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), renderer, SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
 		QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>, QList<int>)), gNetRender, SLOT(SendToDoList(int, QList<int>, QList<int>)));
+		QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAll()));
 	}
 
 

@@ -108,6 +108,8 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 {
 	QTextStream out(stdout);
 
+	//qDebug() << "threadID:" << threadId << " Actual line:" << actualLine;
+
 	int nextLine = -1;
 
 	if(!lastLineWasBroken)
@@ -121,25 +123,38 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 			}
 		}
 	}
+	else
+	{
+		//qDebug() << "threadID:" << threadId << " lastLineWasBroken";
+	}
 
 	//next line is not occupied by any thread
 	if(actualLine < numberOfLines - progressiveStep && linePendingThreadId[actualLine + progressiveStep] == 0 && !lastLineWasBroken)
 	{
 		nextLine = actualLine + progressiveStep;
+		//qDebug() << "threadID:" << threadId << " one after:" << nextLine;
 	}
 	else
 	//next line is occupied or it's last line. There is needed to find new optimal line for rendering
 	{
 		nextLine = FindBiggestGap();
+		//qDebug() << "threadID:" << threadId << " gap:" << nextLine;
 	}
+
 	if(nextLine >= 0)
 	{
-		linePendingThreadId[nextLine] = threadId;
+		for(int i=0; i<progressiveStep; i++)
+		{
+			if(nextLine + i < numberOfLines)
+			{
+				linePendingThreadId[nextLine + i] = threadId;
+			}
+		}
 	}
 
 	if(nextLine < 0)
 	{
-		qCritical() << "cScheduler::NextLine(int threadId, int actualLine): not possible to find new line";
+		//qCritical() << "cScheduler::NextLine(int threadId, int actualLine): not possible to find new line";
 		//clean up
 		for(int i=0; i < numberOfLines; i++)
 		{
@@ -148,6 +163,7 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 		return -1;
 	}
 
+	//qDebug() << "threadID:" << threadId << " Next line:" << nextLine;
 	return nextLine;
 }
 
