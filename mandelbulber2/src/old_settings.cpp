@@ -32,7 +32,7 @@ namespace oldSettings
 {
 
 const char* axis_names[] = {"X", "Y", "Z"};
-const char* component_names[] = {"alfa", "beta", "gamma"};
+const char* component_names[] = {"alpha", "beta", "gamma"};
 
 cOldSettings::cOldSettings()
 {
@@ -55,7 +55,7 @@ bool cOldSettings::LoadSettings(const QString &filename)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("Can't import old settings\n") + QObject::tr("File with default values desn't exist\n") + defaultsFilename, cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("Can't import old settings\n") + QObject::tr("File with default values doesn't exist\n") + defaultsFilename, cErrorMessage::errorMessage);
 		return false;
 	}
 	return LoadSettings2(filename);
@@ -141,7 +141,7 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 
 	char str3[100];
 
-	//IFS params
+	//IFS parameter
 	bool IFSresult = false;
 	for (int i = 0; i < IFS_VECTOR_COUNT; i++)
 	{
