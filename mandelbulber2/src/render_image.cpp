@@ -153,12 +153,15 @@ bool cRenderer::RenderImage()
 
 					image->CompileImage(&listToRefresh);
 
-					if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+					if(!gNetRender->IsServer() && !gNetRender->IsClient())
 					{
-						cRenderSSAO rendererSSAO(params, data, image);
-						if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-						rendererSSAO.setProgressive(scheduler->GetProgresiveStep());
-						rendererSSAO.RenderSSAO(&listToRefresh);
+						if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+						{
+							cRenderSSAO rendererSSAO(params, data, image);
+							if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+							rendererSSAO.setProgressive(scheduler->GetProgresiveStep());
+							rendererSSAO.RenderSSAO(&listToRefresh);
+						}
 					}
 
 					image->ConvertTo8bit();
@@ -196,7 +199,12 @@ bool cRenderer::RenderImage()
 						}
 					}
 
-					lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
+					if(gNetRender->IsServer() || gNetRender->IsClient())
+						lastRefreshTime = timerRefresh.elapsed() * 10 / (listToRefresh.size());
+					else
+						lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
+
+					qDebug() << "Time to next refresh:" << lastRefreshTime;
 					timerRefresh.restart();
 					listToRefresh.clear();
 				} //timerRefresh

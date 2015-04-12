@@ -1474,7 +1474,6 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 
 void RenderWindow::slotCheckBoxDisableNetRender(bool on)
 {
-	qDebug() << " RenderWindow::slotCheckBoxDisableNetRender(bool on):" << on;
 	if(!on)
 	{
 		gNetRender->DeleteClient();
