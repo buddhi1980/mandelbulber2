@@ -235,7 +235,7 @@ bool cRenderer::RenderImage()
 
 	//TODO when NetRender Client then do not render SSAO and DOF
 
-	if(gNetRender->IsClient())
+	if(!gNetRender->IsClient())
 	{
 		if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 		{
