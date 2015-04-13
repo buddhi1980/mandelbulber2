@@ -86,7 +86,6 @@ public:
 	qint32 getTotalWorkerCount();
 
 	bool SendData(QTcpSocket *socket, sMessage msg);
-	void SendJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures);
 	void GetJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures);
 	void Stop(); //stop rendering of all clients
 	void GetStatus(); //get status of all clients
@@ -117,6 +116,7 @@ private:
 	sTextures textures;
 
 public slots:
+  void SendJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures);
 	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
 	void SendToDoList(int clientIndex, QList<int> toDo); //send list of lines to render and suggestion which lines should be rendered first
 	void notifyStatus();

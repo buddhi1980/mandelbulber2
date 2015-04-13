@@ -234,19 +234,21 @@ bool cRenderer::RenderImage()
 	image->CompileImage();
 
 	//TODO when NetRender Client then do not render SSAO and DOF
-	//TODO send STOP signal to all clients
 
-	if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+	if(gNetRender->IsClient())
 	{
-		cRenderSSAO rendererSSAO(params, data, image);
-		if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-		rendererSSAO.RenderSSAO();
-	}
-	if(params->DOFEnabled && !*data->stopRequest)
-	{
-		cPostRenderingDOF dof(image);
-		if(parentObject) QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-		dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->stopRequest);
+		if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+		{
+			cRenderSSAO rendererSSAO(params, data, image);
+			if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+			rendererSSAO.RenderSSAO();
+		}
+		if(params->DOFEnabled && !*data->stopRequest)
+		{
+			cPostRenderingDOF dof(image);
+			if(parentObject) QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+			dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->stopRequest);
+		}
 	}
 
 	if(image->IsPreview())

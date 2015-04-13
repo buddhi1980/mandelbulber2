@@ -113,6 +113,11 @@ bool cRenderJob::Init(enumMode _mode)
 		image->ClearImage();
 	}
 
+	if(gNetRender->IsServer())
+	{
+		connect(this, SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, sTextures)), gNetRender, SLOT(SendJob(cParameterContainer, cFractalContainer, sTextures)));
+	}
+
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	//totalNumberOfCPUs = 1;
 
@@ -153,13 +158,8 @@ bool cRenderJob::Init(enumMode _mode)
 
 	renderData->stopRequest = stopRequest;
 
-	if(mode == flightAnimRecord || mode == flightAnim) renderData->doNotRefresh = true;
+	if((mode == flightAnimRecord || mode == flightAnim) && (!gNetRender->IsClient() && !gNetRender->IsServer())) renderData->doNotRefresh = true;
 	ready = true;
-
-	if(gNetRender->IsServer())
-	{
-		gNetRender->SendJob(paramsContainer, fractalContainer, &renderData->textures);
-	}
 
 	return true;
 }
@@ -201,6 +201,12 @@ bool cRenderJob::Execute(void)
 	//}
 
 	image->BlockImage();
+
+	//send settings to all NetRender clients
+	if(gNetRender->IsServer())
+	{
+		emit SendNetRenderJob(*paramsContainer, *fractalContainer, renderData->textures);
+	}
 
 	runningJobs++;
 	//qDebug() << "runningJobs" << runningJobs;
@@ -246,7 +252,6 @@ bool cRenderJob::Execute(void)
 		QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>)), gNetRender, SLOT(SendToDoList(int, QList<int>)));
 		QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAll()));
 	}
-
 
 	bool result = renderer->RenderImage();
 

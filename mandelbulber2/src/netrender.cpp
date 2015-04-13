@@ -523,11 +523,11 @@ void CNetRender::GetStatus()
 	}
 }
 
-void CNetRender::SendJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures)
+void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures)
 {
 	WriteLog("NetRender - Sending job");
 	cSettings settingsData(cSettings::formatCondensedText);
-	size_t dataSize = settingsData.CreateText(settings, fractal);
+	size_t dataSize = settingsData.CreateText(&settings, &fractal);
 	if(dataSize > 0)
 	{
 		QString settingsText = settingsData.GetSettingsText();
@@ -541,9 +541,9 @@ void CNetRender::SendJob(cParameterContainer *settings, cFractalContainer *fract
 
 		// write textures (from files)
 		QList< cTexture* > textureList;
-		textureList.append(textures->backgroundTexture);
-		textureList.append(textures->envmapTexture);
-		textureList.append(textures->lightmapTexture);
+		textureList.append(textures.backgroundTexture);
+		textureList.append(textures.envmapTexture);
+		textureList.append(textures.lightmapTexture);
 		for(int i = 0; i < textureList.size(); i++)
 		{
 			if(textureList[i] != NULL)

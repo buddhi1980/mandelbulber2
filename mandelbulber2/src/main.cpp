@@ -61,8 +61,12 @@ int main(int argc, char *argv[])
 	gApplication->installTranslator(&main_translator);
 	gApplication->installTranslator(&qt_data_translator);
 
+	//registering types for queued connections
 	qRegisterMetaType<cHistogram>("cHistogram");
 	qRegisterMetaType<QList<QByteArray> >("QList<QByteArray>");
+	qRegisterMetaType<cParameterContainer>("cParameterContainer");
+	qRegisterMetaType<cFractalContainer>("cFractalContainer");
+	qRegisterMetaType<sTextures>("sTextures");
 
 	//Create default directiories and copy all needed files
 	WriteLog("CreateDefaultFolders()");
