@@ -30,6 +30,8 @@
 #include "global_data.hpp"
 #include <qapplication.h>
 
+//test
+
 //TODO add autosave of settings
 
 int main(int argc, char *argv[])
