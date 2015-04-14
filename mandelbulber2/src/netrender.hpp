@@ -119,7 +119,7 @@ public slots:
   void SendJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures);
 	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
 	void SendToDoList(int clientIndex, QList<int> toDo); //send list of lines to render and suggestion which lines should be rendered first
-	void notifyStatus();
+	void NotifyStatus();
 	void StopAll();
 
 private slots:

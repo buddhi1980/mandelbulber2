@@ -181,6 +181,7 @@ bool cRenderer::RenderImage()
 							renderedLinesData.append(lineData);
 						}
 						emit sendRenderedLines(listToRefresh, renderedLinesData);
+						emit NotifyClientStatus();
 					}
 
 					if(gNetRender->IsServer())
@@ -218,10 +219,9 @@ bool cRenderer::RenderImage()
 	}
 	while(scheduler->ProgresiveNextStep());
 
-	//TODO change notifyStatus() to use signal/slot
 	if(gNetRender->IsClient()) {
 		gNetRender->status = CNetRender::IDLE;
-		gNetRender->notifyStatus();
+		emit NotifyClientStatus();
 	}
 
 	if(gNetRender->IsServer())

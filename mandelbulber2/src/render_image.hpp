@@ -59,6 +59,7 @@ public slots:
 	void sendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
 	void SendToDoList(int clientIndex, QList<int> done);
 	void StopAllClients();
+	void NotifyClientStatus();
 };
 
 #endif /* RENDER_IMAGE_HPP_ */

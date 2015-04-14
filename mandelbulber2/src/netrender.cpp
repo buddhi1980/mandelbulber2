@@ -349,7 +349,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 		}
 		case STATUS:
 		{
-			emit notifyStatus();
+			emit NotifyStatus();
 			break;
 		}
 		case JOB:
@@ -359,7 +359,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			QByteArray buffer;
 			qint32 size;
 			status = WORKING;
-			emit notifyStatus();
+			emit NotifyStatus();
 
 			// read settings
 			stream >> size;
@@ -567,7 +567,7 @@ void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal
 	}
 }
 
-void CNetRender::notifyStatus()
+void CNetRender::NotifyStatus()
 {
 	sMessage outMsg;
 	outMsg.command = STATUS;
