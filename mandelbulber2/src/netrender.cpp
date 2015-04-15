@@ -38,6 +38,7 @@ CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
 	portNo = 0;
 	status = NEW;
 	reconnectTimer = NULL;
+	actualId = 0;
 }
 
 CNetRender::~CNetRender()
@@ -224,7 +225,7 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 	QDataStream socketWriteStream(&byteArray, QIODevice::ReadWrite);
 
 	msg.size = msg.payload.size();
-	msg.id = rand();
+	msg.id = actualId;
 
 	// append header
 	socketWriteStream << msg.command << msg.id << msg.size;
@@ -339,86 +340,116 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			}
 			SendData(clientSocket, outMsg);
 			break;
-		}
-		case STOP:
-		{
-			status = IDLE;
-			gMainInterface->stopRequest = true;
-			emit StopReceived();
-			break;
-		}
-		case STATUS:
-		{
-			emit NotifyStatus();
-			break;
-		}
-		case JOB:
-		{
-			WriteLog("NetRender - received new job");
-			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
-			QByteArray buffer;
-			qint32 size;
-			status = WORKING;
-			emit NotifyStatus();
-
-			// read settings
-			stream >> size;
-			buffer.resize(size);
-			stream.readRawData(buffer.data(), size);
-			settingsText = QString::fromUtf8(buffer.data(), buffer.size());
-
-			// read textures
-			QList< cTexture* > textureList;
-			textureList.append(textures.backgroundTexture);
-			textureList.append(textures.envmapTexture);
-			textureList.append(textures.lightmapTexture);
-			for(int i = 0; i < textureList.size(); i++)
+			}
+			case STOP:
 			{
-				stream >> size;
-				if(size > 0)
+				status = IDLE;
+				gMainInterface->stopRequest = true;
+				emit StopReceived();
+				break;
+			}
+			case STATUS:
+			{
+				emit NotifyStatus();
+				break;
+			}
+			case JOB:
+			{
+				if (inMsg->id == actualId)
 				{
-					if(textureList[i] == NULL)
-					{
-						textureList[i] = new cTexture();
-					}
+					WriteLog("NetRender - received new job");
+					QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+					QByteArray buffer;
+					qint32 size;
+					status = WORKING;
+					emit NotifyStatus();
+
+					// read settings
+					stream >> size;
 					buffer.resize(size);
 					stream.readRawData(buffer.data(), size);
-					textureList[i]->FromQByteArray(buffer);
+					settingsText = QString::fromUtf8(buffer.data(), buffer.size());
+
+					// read textures
+					QList<cTexture*> textureList;
+					textureList.append(textures.backgroundTexture);
+					textureList.append(textures.envmapTexture);
+					textureList.append(textures.lightmapTexture);
+					for (int i = 0; i < textureList.size(); i++)
+					{
+						stream >> size;
+						if (size > 0)
+						{
+							if (textureList[i] == NULL)
+							{
+								textureList[i] = new cTexture();
+							}
+							buffer.resize(size);
+							stream.readRawData(buffer.data(), size);
+							textureList[i]->FromQByteArray(buffer);
+						}
+					}
+
+					qDebug() << settingsText;
+					cSettings parSettings(cSettings::formatCondensedText);
+					parSettings.BeQuiet(true);
+					parSettings.LoadFromString(settingsText);
+					parSettings.Decode(gPar, gParFractal);
+
+					gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+					gMainInterface->StartRender();
+
+					emit NewJobReceived();
 				}
+				else
+				{
+					WriteLog("NetRender - received JOB message with wrong id");
+				}
+				break;
 			}
-
-			qDebug() << settingsText;
-			cSettings parSettings(cSettings::formatCondensedText);
-			parSettings.BeQuiet(true);
-			parSettings.LoadFromString(settingsText);
-			parSettings.Decode(gPar, gParFractal);
-
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-			gMainInterface->StartRender();
-
-			emit NewJobReceived();
-			break;
-		}
-		case RENDER:
-		{
-			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
-			int doneSize;
-			stream >> doneSize;
-			QList<int> done;
-			for(int i=0; i < doneSize; i++)
+			case RENDER:
 			{
-				qint32 line;
-				stream >> line;
-				done.append(line);
+				if (inMsg->id == actualId)
+				{
+					QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+					qint32 doneSize;
+					stream >> doneSize;
+					QList<int> done;
+					for (int i = 0; i < doneSize; i++)
+					{
+						qint32 line;
+						stream >> line;
+						done.append(line);
+					}
+
+					emit ToDoListArrived(done);
+				}
+				else
+				{
+					WriteLog("NetRender - received RENDER message with wrong id");
+				}
+				break;
 			}
 
-			emit ToDoListArrived(done);
+			case SETUP:
+			{
+				QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 
-			break;
-		}
+				stream >> actualId;
 
-		default:
-			break;
+				qint32 startingPositionsSize;
+				stream >> startingPositionsSize;
+				startingPositions.clear();
+				for (int i = 0; i < startingPositionsSize; i++)
+				{
+					qint32 line;
+					stream >> line;
+					startingPositions.append(line);
+				}
+				break;
+			}
+			default:
+				break;
 		}
 	}
 
@@ -600,5 +631,25 @@ void CNetRender::StopAll()
 	Stop();
 }
 
-
+void CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions)
+{
+	if (clientIndex < clients.size())
+	{
+		sMessage msg;
+		msg.command = SETUP;
+		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+		stream << (qint32) id;
+		stream << (qint32) startingPositions.size();
+		for (int i = 0; i < startingPositions.size(); i++)
+		{
+			stream << (qint32) startingPositions.at(i);
+		}
+		SendData(clients[clientIndex].socket, msg);
+		actualId = id;
+	}
+	else
+	{
+		qCritical() << "CNetRender::SendToDoList(int clientIndex, QList<int> done, QList<int> startPositions): Client index out of range:" << clientIndex;
+	}
+}
 

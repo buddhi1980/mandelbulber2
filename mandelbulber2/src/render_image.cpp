@@ -78,7 +78,22 @@ bool cRenderer::RenderImage()
 	for(int i=0; i < data->numberOfThreads; i++)
 	{
 		threadData[i].id = i + 1;
-		threadData[i].startLine = (image->GetHeight()/(data->numberOfThreads + gNetRender->getTotalWorkerCount()) * i) / scheduler->GetProgresiveStep() * scheduler->GetProgresiveStep();
+		if(gNetRender->IsClient() || gNetRender->IsServer())
+		{
+			if(i < data->netRenderStartingPositions.size())
+			{
+				threadData[i].startLine = data->netRenderStartingPositions.at(i);
+			}
+			else
+			{
+				threadData[i].startLine = 0;
+				qCritical() << "NetRender - Mising starting positions data";
+			}
+		}
+		else
+		{
+			threadData[i].startLine = (image->GetHeight()/data->numberOfThreads) * i / scheduler->GetProgresiveStep() * scheduler->GetProgresiveStep();
+		}
 		threadData[i].scheduler = scheduler;
 	}
 
@@ -201,7 +216,6 @@ bool cRenderer::RenderImage()
 					else
 						lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
 
-					qDebug() << "Time to next refresh:" << lastRefreshTime;
 					timerRefresh.restart();
 					listToRefresh.clear();
 				} //timerRefresh

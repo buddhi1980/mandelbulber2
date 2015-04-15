@@ -116,6 +116,7 @@ bool cRenderJob::Init(enumMode _mode)
 	if(gNetRender->IsServer())
 	{
 		connect(this, SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, sTextures)), gNetRender, SLOT(SendJob(cParameterContainer, cFractalContainer, sTextures)));
+		connect(this, SIGNAL(SendNetRenderSetup(int , int, QList<int>)), gNetRender, SLOT(SendSetup(int , int, QList<int>)));
 	}
 
 	totalNumberOfCPUs = systemData.numberOfThreads;
@@ -205,7 +206,46 @@ bool cRenderJob::Execute(void)
 	//send settings to all NetRender clients
 	if(gNetRender->IsServer())
 	{
+		//new id
+		qint32 id = rand();
+
+		//calculation of starting positions list and sending id to clients
+		renderData->netRenderStartingPositions.clear();
+
+		int clientIndex = 0;
+		int clientWorkerIndex = 0;
+
+		int workersCount = gNetRender->getTotalWorkerCount() + renderData->numberOfThreads;
+
+		QList<int> startingPositionsToSend;
+
+		for(int i = 0; i < workersCount; i++)
+		{
+			if(i < renderData->numberOfThreads)
+			{
+				renderData->netRenderStartingPositions.append(i * image->GetHeight() / workersCount);
+			}
+			else
+			{
+				startingPositionsToSend.append(i * image->GetHeight() / workersCount);
+				clientWorkerIndex++;
+
+				if(clientWorkerIndex >= gNetRender->GetWorkerCount(clientIndex))
+				{
+					emit SendNetRenderSetup(clientIndex, id, startingPositionsToSend);
+					clientIndex++;
+					startingPositionsToSend.clear();
+				}
+			}
+		}
+
+		//send settings to all clients
 		emit SendNetRenderJob(*paramsContainer, *fractalContainer, renderData->textures);
+	}
+
+	if(gNetRender->IsClient())
+	{
+		renderData->netRenderStartingPositions = gNetRender->GetStartingPositions();
 	}
 
 	runningJobs++;
