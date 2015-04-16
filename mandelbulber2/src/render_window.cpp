@@ -1339,6 +1339,13 @@ void RenderWindow::closeEvent(QCloseEvent * event)
 	if(gMainInterface->QuitApplicationDialog())
 	{
 		event->accept();
+
+		//save applications settings
+		cSettings parSettings(cSettings::formatAppSettings);
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+		parSettings.CreateText(gPar, gParFractal, gAnimFrames);
+		parSettings.SaveToFile(systemData.dataDirectory + "mandelbulber.ini");
+
 		gApplication->quit();
 	}
 	else
