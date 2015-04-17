@@ -651,6 +651,7 @@ void Makin3D2Iteration(CVector3 &z)
 }
 
 /* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */
+void MsltoeSym2(CVector3 &z)
 {
     if (fabs(z.y) < fabs(z.z))
     {
@@ -666,7 +667,7 @@ void Makin3D2Iteration(CVector3 &z)
     double x2 = z.x * z.x;
     double y2 = z.y * z.y;
     double z2 = z.z * z.z;
-    double zr = 1 - z.z * z.z / (z.x + z.y + z.z);
+    double zr = 1 - z.z * z.z / (x2 + y2 + z2);
     /* TODO: link param to UI */
     double Y_multiplier = 1;
     double newx = (x2 - y2) * zr;
