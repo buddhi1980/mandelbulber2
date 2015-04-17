@@ -15,6 +15,24 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QCheckBox" name="checkBox_buffalo_preabs_x">
+     <property name="text">
+      <string>PreAbs(x)</string>
+     </property>
+    </widget>
+   <item>
+    <widget class="QCheckBox" name="checkBox_buffalo_preabs_y">
+     <property name="text">
+      <string>PreAbs(y)</string>
+     </property>
+    </widget>
+   <item>
+    <widget class="QCheckBox" name="checkBox_buffalo_preabs_z">
+     <property name="text">
+      <string>PreAbs(x)</string>
+     </property>
+    </widget>
+   <item>
     <widget class="QCheckBox" name="checkBox_buffalo_abs_x">
      <property name="text">
       <string>Abs(x)</string>

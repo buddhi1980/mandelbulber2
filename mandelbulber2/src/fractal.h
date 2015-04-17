@@ -150,6 +150,9 @@ struct sFractalAexion
 
 struct sFractalBuffalo
 {
+	bool preabsx;
+	bool preabsy;
+	bool preabsz;
 	bool absx;
 	bool absy;
 	bool absz;

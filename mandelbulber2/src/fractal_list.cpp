@@ -54,4 +54,5 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Quick-Dudley", "quickdudley", quickdudley, deltaDE));
 	fractalList->append(sFractalDescription("Lkmitch", "lkmitch", lkmitch, deltaDE));
 	fractalList->append(sFractalDescription("Makin3D-2", "makin3d2", makin3d2, deltaDE));
+	fractalList->append(sFractalDescription("MsltoeSym2", "msltoesym2", msltoesym2, deltaDE));
 }

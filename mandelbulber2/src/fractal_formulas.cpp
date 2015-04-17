@@ -555,6 +555,18 @@ void Ides2Iteration(CVector3 &z, CVector3 &c)
 
 void BuffaloIteration(CVector3 &z, const cFractal *fractal)
 {
+    if (fractal->buffalo.preabsx)
+    {
+        z.x = fabs(z.x);
+    }
+    if (fractal->buffalo.preabsy)
+    {
+        z.y = fabs(z.y);
+    }
+    if (fractal->buffalo.preabsz)
+    {
+        z.z = fabs(z.z);
+    }
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
 	double z2 = z.z * z.z;
@@ -633,6 +645,33 @@ void Makin3D2Iteration(CVector3 &z)
     double newx =  x2 + 2 * z.y * z.z;
     double newy = -y2 - 2 * z.x * z.z;
     double newz = -z2 + 2 * z.x * z.y;
+    z.x = newx;
+    z.y = newy;
+    z.z = newz;
+}
+
+/* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */
+{
+    if (fabs(z.y) < fabs(z.z))
+    {
+        double newy = z.z;
+        double newz = z.y;
+        z.y = newy;
+        z.z = newz;
+    }
+    if (z.y > z.z)
+    {
+        z.x = -z.x;
+    }
+    double x2 = z.x * z.x;
+    double y2 = z.y * z.y;
+    double z2 = z.z * z.z;
+    double zr = 1 - z.z * z.z / (z.x + z.y + z.z);
+    /* TODO: link param to UI */
+    double Y_multiplier = 1;
+    double newx = (x2 - y2) * zr;
+    double newy = 2 * z.x * z.y * zr * Y_multiplier;
+    double newz = 2 * z.z * sqrt(x2 + z2);
     z.x = newx;
     z.y = newy;
     z.z = newz;

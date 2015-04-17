@@ -89,6 +89,9 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	aexion.cadd = container->Get<double>("cadd");
 
+	buffalo.preabsx = container->Get<bool>("buffalo_preabs_x");
+	buffalo.preabsy = container->Get<bool>("buffalo_preabs_y");
+	buffalo.preabsz = container->Get<bool>("buffalo_preabs_z");
 	buffalo.absx = container->Get<bool>("buffalo_abs_x");
 	buffalo.absy = container->Get<bool>("buffalo_abs_y");
 	buffalo.absz = container->Get<bool>("buffalo_abs_z");
