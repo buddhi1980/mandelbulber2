@@ -90,14 +90,15 @@ void cRenderWorker::doWork(void)
 	//init of scheduler
 	cScheduler *scheduler = threadData->scheduler;
 
-
 	//start point for ray-marching
 	CVector3 start = params->camera;
 
-
 	scheduler->InitFirstLine(threadData->id, threadData->startLine);
+
+	bool lastLineWasBroken = false;
+
 	//main loop for y
-	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id); ys = scheduler->NextLine(threadData->id, ys))
+	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id); ys = scheduler->NextLine(threadData->id, ys, lastLineWasBroken))
 	{
 		//skip if line is out of region
 		if (ys < data->screenRegion.y1 || ys > data->screenRegion.y2) continue;
@@ -107,8 +108,10 @@ void cRenderWorker::doWork(void)
 		{
 
 			//break if by coincidence this thread started rendering the same line as some other
+			lastLineWasBroken = false;
 			if (scheduler->ShouldIBreak(threadData->id, ys))
 			{
+				lastLineWasBroken = true;
 				break;
 			}
 

@@ -28,6 +28,7 @@
 #include "fractal_list.hpp"
 #include "undo.h"
 #include "global_data.hpp"
+#include "settings.hpp"
 #include <qapplication.h>
 
 //TODO add autosave of settings
@@ -61,8 +62,12 @@ int main(int argc, char *argv[])
 	gApplication->installTranslator(&main_translator);
 	gApplication->installTranslator(&qt_data_translator);
 
+	//registering types for queued connections
 	qRegisterMetaType<cHistogram>("cHistogram");
 	qRegisterMetaType<QList<QByteArray> >("QList<QByteArray>");
+	qRegisterMetaType<cParameterContainer>("cParameterContainer");
+	qRegisterMetaType<cFractalContainer>("cFractalContainer");
+	qRegisterMetaType<sTextures>("sTextures");
 
 	//Create default directiories and copy all needed files
 	WriteLog("CreateDefaultFolders()");
@@ -89,6 +94,16 @@ int main(int argc, char *argv[])
 	gNetRender = new CNetRender(systemData.numberOfThreads);
 
 	gMainInterface->ShowUi();
+
+	//loading AppSettings
+	if(QFile(systemData.dataDirectory + "mandelbulber.ini").exists())
+	{
+		cSettings parSettings(cSettings::formatAppSettings);
+		parSettings.LoadFromFile(systemData.dataDirectory + "mandelbulber.ini");
+		parSettings.Decode(gPar, gParFractal, gAnimFrames);
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		gMainInterface->ComboMouseClickUpdate();
+	}
 
 	//Alocate container for animation frames
 	gAnimFrames = new cAnimationFrames;

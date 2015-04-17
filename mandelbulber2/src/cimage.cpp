@@ -356,6 +356,7 @@ void cImage::UpdatePreview(QList<int> *list)
 					}
 				}
 
+				#pragma omp parallel for
 				for (int x = 0; x < w; x++)
 				{
 					int R = 0;

@@ -87,6 +87,8 @@ private:
 	void fullyRendered();
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void updateImage();
+	void SendNetRenderJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures);
+	void SendNetRenderSetup(int clientIndex, int id, QList<int> startingPositions);
 };
 
 

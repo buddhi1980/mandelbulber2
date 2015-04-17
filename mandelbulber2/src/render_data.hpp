@@ -51,6 +51,7 @@ struct sRenderData
 	double reduceDetail;
 	cHistogram histogramIterations;
 	cHistogram histogramStepCount;
+	QList<int> netRenderStartingPositions;
 };
 
 #endif /* RENDER_DATA_HPP_ */

@@ -54,7 +54,7 @@ void MyHistogramLabel::UpdateHistogram(const cHistogram &_histData)
 void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 {
 	// get max Element
-	long maxH = 0;
+	long maxH = 1; //1 to prevent division by zero
 	int extrIndex = 0;
 	int minIndex = 0;
 	int maxIndex = 0;

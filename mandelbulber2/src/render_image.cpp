@@ -78,7 +78,22 @@ bool cRenderer::RenderImage()
 	for(int i=0; i < data->numberOfThreads; i++)
 	{
 		threadData[i].id = i + 1;
-		threadData[i].startLine = (image->GetHeight()/data->numberOfThreads * i) / scheduler->GetProgresiveStep() * scheduler->GetProgresiveStep();
+		if(gNetRender->IsClient() || gNetRender->IsServer())
+		{
+			if(i < data->netRenderStartingPositions.size())
+			{
+				threadData[i].startLine = data->netRenderStartingPositions.at(i);
+			}
+			else
+			{
+				threadData[i].startLine = 0;
+				qCritical() << "NetRender - Mising starting positions data";
+			}
+		}
+		else
+		{
+			threadData[i].startLine = (image->GetHeight()/data->numberOfThreads) * i / scheduler->GetProgresiveStep() * scheduler->GetProgresiveStep();
+		}
 		threadData[i].scheduler = scheduler;
 	}
 
@@ -153,12 +168,15 @@ bool cRenderer::RenderImage()
 
 					image->CompileImage(&listToRefresh);
 
-					if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+					if(!gNetRender->IsServer() && !gNetRender->IsClient())
 					{
-						cRenderSSAO rendererSSAO(params, data, image);
-						if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-						rendererSSAO.setProgressive(scheduler->GetProgresiveStep());
-						rendererSSAO.RenderSSAO(&listToRefresh);
+						if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+						{
+							cRenderSSAO rendererSSAO(params, data, image);
+							if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+							rendererSSAO.setProgressive(scheduler->GetProgresiveStep());
+							rendererSSAO.RenderSSAO(&listToRefresh);
+						}
 					}
 
 					image->ConvertTo8bit();
@@ -178,9 +196,26 @@ bool cRenderer::RenderImage()
 							renderedLinesData.append(lineData);
 						}
 						emit sendRenderedLines(listToRefresh, renderedLinesData);
+						emit NotifyClientStatus();
 					}
 
-					lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
+					if(gNetRender->IsServer())
+					{
+						QList<int> toDoList = scheduler->CreateDoneList();
+						if(toDoList.size() > data->numberOfThreads)
+						{
+							for(int c = 0; c < gNetRender->GetClientCount(); c++)
+							{
+								emit SendToDoList(c, toDoList);
+							}
+						}
+					}
+
+					if(gNetRender->IsServer() || gNetRender->IsClient())
+						lastRefreshTime = timerRefresh.elapsed() * 10 / (listToRefresh.size());
+					else
+						lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
+
 					timerRefresh.restart();
 					listToRefresh.clear();
 				} //timerRefresh
@@ -197,25 +232,37 @@ bool cRenderer::RenderImage()
 		}
 	}
 	while(scheduler->ProgresiveNextStep());
+
 	if(gNetRender->IsClient()) {
 		gNetRender->status = CNetRender::IDLE;
-		gNetRender->notifyStatus();
+		emit NotifyClientStatus();
 	}
+
+	if(gNetRender->IsServer())
+	{
+		emit StopAllClients();
+	}
+
 	//refresh image at end
 	WriteLog("image->CompileImage()");
 	image->CompileImage();
 
-	if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+	//TODO when NetRender Client then do not render SSAO and DOF
+
+	if(!gNetRender->IsClient())
 	{
-		cRenderSSAO rendererSSAO(params, data, image);
-		if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-		rendererSSAO.RenderSSAO();
-	}
-	if(params->DOFEnabled && !*data->stopRequest)
-	{
-		cPostRenderingDOF dof(image);
-		if(parentObject) QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-		dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->stopRequest);
+		if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+		{
+			cRenderSSAO rendererSSAO(params, data, image);
+			if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+			rendererSSAO.RenderSSAO();
+		}
+		if(params->DOFEnabled && !*data->stopRequest)
+		{
+			cPostRenderingDOF dof(image);
+			if(parentObject) QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+			dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->stopRequest);
+		}
 	}
 
 	if(image->IsPreview())
@@ -278,7 +325,6 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData)
 
 void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 {
-	qDebug() << "NewLinesArrived";
 	for(int i = 0; i < lineNumbers.size(); i++)
 	{
 		int y = lineNumbers.at(i);
@@ -303,4 +349,9 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 	}
 
 	scheduler->MarkReceivedLines(lineNumbers);
+}
+
+void cRenderer::ToDoListArrived(QList<int> toDo)
+{
+	scheduler->UpdateDoneLines(toDo);
 }

@@ -30,7 +30,7 @@ class cScheduler
 public:
 	cScheduler(int _numberOfLines, int progressive);
 	~cScheduler();
-	int NextLine(int threadId, int actualLine);
+	int NextLine(int threadId, int actualLine, bool lastLineWasBroken);
 	bool ShouldIBreak(int threadId, int actualLine);
 	bool ThereIsStillSomethingToDo(int ThreadId);
 	bool AllLinesDone();
@@ -39,13 +39,16 @@ public:
 	double PercentDone();
 	void Stop() {stopRequest = true;}
 	void MarkReceivedLines(const QList<int> &lineNumbers);
+	void UpdateDoneLines(const QList<int> &done);
 
 	int GetProgresiveStep() {return progressiveStep;}
 	int GetProgresivePass() {return progressivePass;}
 	bool ProgresiveNextStep();
+	QList<int> CreateDoneList();
 
 private:
 	void Reset(void);
+	int FindBiggestGap();
 
 	int *linePendingThreadId;
 	bool *lineDone;

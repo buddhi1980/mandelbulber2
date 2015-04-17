@@ -32,6 +32,14 @@
 #include "fractparams.hpp"
 #include "scheduler.hpp"
 
+//TODO blocking of START / STOP buttons on client side when NetRender is activated
+//TODO add different error messages
+//TODO clean up al qDebus()s and add WriteLog()s
+//TODO check if there are no memory leaks
+//TODO lock using NetRender if render job is not in main image
+//TODO add displaying of client status (would be nice to have displayed information about server address)
+//TODO add sending job if new client is connected during rendering
+
 class CNetRender : public QObject
 {
 	Q_OBJECT
@@ -39,7 +47,7 @@ public:
 	CNetRender(qint32 workerCount);
 	~CNetRender();
 
-	enum netCommand { NONE, VERSION, WORKER, RENDER, DATA, BAD, JOB, STOP, STATUS};
+	enum netCommand { NONE, VERSION, WORKER, RENDER, DATA, BAD, JOB, STOP, STATUS, SETUP};
 	//VERSION - ask for server version
 	//WORKER - ask for number of client CPU count
 	//RENDER - list of lines needed to be rendered (to Client), and suggestion which lines should be rendered first
@@ -48,6 +56,7 @@ public:
 	//JOB - settings and textures for clients (to clients). Receiving of job will start rendering
 	//STOP - terminate rendering request (to clients)
 	//STATUS - ask for status (to client)
+	//SETUP - setup job id and starting postions
 
 	enum clientStatus { IDLE, WORKING, NEW };
 	enum typeOfDevice { CLIENT, SERVER, UNKNOWN };
@@ -86,34 +95,16 @@ public:
 	qint32 getTotalWorkerCount();
 
 	bool SendData(QTcpSocket *socket, sMessage msg);
-
-	//TODO ------- netrender functions to do ------------
-	void SendJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures);
 	void GetJob(cParameterContainer *settings, cFractalContainer *fractal, sTextures *textures);
 	void Stop(); //stop rendering of all clients
 	void GetStatus(); //get status of all clients
-	void SendToDoList(cScheduler *scheduler); //send list of lines to render and suggestion which lines should be rendered first
-	void GetToDoList(cScheduler *scheduler);
-	void GetRenderedLines(QList<int> *lineNumbers, QList<QByteArray> *lines);
+	QList<int> GetStartingPositions() {return startingPositions;}
 
 private:
 	void ReceiveData(QTcpSocket *socket, sMessage *msg);
 	void ProcessData(QTcpSocket *socket, sMessage *inMsg);
 	void ResetMessage(sMessage *msg);
 	int GetClientIndexFromSocket(const QTcpSocket *socket);
-
-public slots:
-	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
-	void notifyStatus();
-
-private slots:
-	void HandleNewConnection();
-	void ClientDisconnected();
-	void ReceiveFromClient();
-
-	void ServerDisconnected();
-	void ReceiveFromServer();
-	void TryServerConnect();
 
 public:
 	QList<sClient> clients;
@@ -133,19 +124,33 @@ private:
 	//client data buffers
 	QString settingsText;
 	sTextures textures;
+	qint32 actualId;
+	QList<int> startingPositions;
+
+public slots:
+  void SendJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures);
+	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
+	void SendToDoList(int clientIndex, QList<int> toDo); //send list of lines to render and suggestion which lines should be rendered first
+	void NotifyStatus();
+	void StopAll();
+	void SendSetup(int clientIndex, int id, QList<int> startingPositions);
+
+private slots:
+	void HandleNewConnection();
+	void ClientDisconnected();
+	void ReceiveFromClient();
+
+	void ServerDisconnected();
+	void ReceiveFromServer();
+	void TryServerConnect();
 
 signals:
-	// TODO connect signals
-	void RenderRequest(sMessage *msg);
-	void RenderResponse(qint32 index, sMessage *msg);
 	void ClientsChanged();
 	void ClientsChanged(int i);
 	void ClientsChanged(int i, int j);
-
-	//TODO new signals
 	void NewJobReceived();
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
-	void ToDoListReceived();
+	void ToDoListArrived(QList<int> done);
 	void StopReceived();
 };
 

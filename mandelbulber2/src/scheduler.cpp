@@ -101,66 +101,101 @@ bool cScheduler::ShouldIBreak(int threadId, int actualLine)
 	}
 }
 
-int cScheduler::NextLine(int threadId, int actualLine)
+int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 {
 	QTextStream out(stdout);
 
-	int nextLine = -1;
-	int firstFree = -1;
-	int lastFree = -1;
-	int maxHole = 0;
-	bool firstFreeFound = false;
+	//qDebug() << "threadID:" << threadId << " Actual line:" << actualLine;
 
-	for(int i=0; i<progressiveStep; i++)
+	int nextLine = -1;
+
+	if(!lastLineWasBroken)
 	{
-		if(actualLine + i < numberOfLines)
+		for(int i=0; i<progressiveStep; i++)
 		{
-			lineDone[actualLine + i] = true;
-			lastLinesDone[actualLine + i] = true;
+			if(actualLine + i < numberOfLines)
+			{
+				lineDone[actualLine + i] = true;
+				lastLinesDone[actualLine + i] = true;
+			}
 		}
+	}
+	else
+	{
+		//qDebug() << "threadID:" << threadId << " lastLineWasBroken";
 	}
 
 	//next line is not occupied by any thread
-	if(actualLine < numberOfLines - progressiveStep && linePendingThreadId[actualLine + progressiveStep] == 0)
+	if(actualLine < numberOfLines - progressiveStep && linePendingThreadId[actualLine + progressiveStep] == 0 && !lastLineWasBroken)
 	{
 		nextLine = actualLine + progressiveStep;
+		//qDebug() << "threadID:" << threadId << " one after:" << nextLine;
 	}
 	else
 	//next line is occupied or it's last line. There is needed to find new optimal line for rendering
 	{
-		for(int i = 0; i < numberOfLines; i++)
+		nextLine = FindBiggestGap();
+		//qDebug() << "threadID:" << threadId << " gap:" << nextLine;
+	}
+
+	if(nextLine >= 0)
+	{
+		for(int i=0; i<progressiveStep; i++)
 		{
-			if(!firstFreeFound && linePendingThreadId[i] == 0)
+			if(nextLine + i < numberOfLines)
 			{
-				firstFreeFound = true;
-				firstFree = i;
-				continue;
-			}
-
-			if(firstFreeFound && (linePendingThreadId[i] > 0 || i == numberOfLines - 1))
-			{
-				lastFree = i;
-				int holeSize = lastFree - firstFree;
-				firstFreeFound = false;
-
-				if(holeSize > maxHole)
-				{
-					maxHole = holeSize;
-					//next line should be in the middle of the biggest gap
-					nextLine = (lastFree + firstFree) / 2;
-					nextLine /= progressiveStep;
-					nextLine *= progressiveStep;
-					//out << "Jump Id: " << threadId  << " first: " << firstFree << " last: " << lastFree << endl;
-				}
+				linePendingThreadId[nextLine + i] = threadId;
 			}
 		}
 	}
-	if(nextLine >= 0)
+
+	if(nextLine < 0)
 	{
-		linePendingThreadId[nextLine] = threadId;
+		//qCritical() << "cScheduler::NextLine(int threadId, int actualLine): not possible to find new line";
+		return -1;
 	}
+
+	//qDebug() << "threadID:" << threadId << " Next line:" << nextLine;
 	return nextLine;
 }
+
+int cScheduler::FindBiggestGap()
+{
+	bool firstFreeFound = false;
+	int firstFree = -1;
+	int lastFree = -1;
+	int maxHole = 0;
+	int theBest = -1;
+
+	for(int i = 0; i < numberOfLines; i++)
+	{
+		if(!firstFreeFound && linePendingThreadId[i] == 0)
+		{
+			firstFreeFound = true;
+			firstFree = i;
+			continue;
+		}
+
+		if(firstFreeFound && (linePendingThreadId[i] > 0 || i == numberOfLines - 1))
+		{
+			lastFree = i;
+			int holeSize = lastFree - firstFree;
+			firstFreeFound = false;
+
+			if(holeSize > maxHole)
+			{
+				maxHole = holeSize;
+				//next line should be in the middle of the biggest gap
+				theBest = (lastFree + firstFree) / 2;
+				theBest /= progressiveStep;
+				theBest *= progressiveStep;
+				//out << "Jump Id: " << threadId  << " first: " << firstFree << " last: " << lastFree << endl;
+			}
+		}
+	}
+	return theBest;
+}
+
 
 void cScheduler::InitFirstLine(int threadId, int firstLine)
 {
@@ -229,5 +264,30 @@ void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers)
 		int line = lineNumbers.at(i);
 		lineDone[line] = true;
 		lastLinesDone[line] = true;
+		linePendingThreadId[line] = 9999; //just set some number, to inform that this line was already taken
+	}
+}
+
+QList<int> cScheduler::CreateDoneList()
+{
+	QList<int> list;
+	for(int i=0; i < numberOfLines; i++)
+	{
+		if(lineDone[i])
+		{
+			list.append(i);
+		}
+	}
+
+	return list;
+}
+
+void cScheduler::UpdateDoneLines(const QList<int> &done)
+{
+	for(int i=0; i<done.size(); i++)
+	{
+		int line = done.at(i);
+		lineDone[line] = true;
+		linePendingThreadId[line] = 9999; //just set some number, to inform that this line was already taken
 	}
 }
