@@ -235,11 +235,11 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				Makin3D2Iteration(z);
 				break;
 			}
-            case msltoesym2:
-            {
-                MsttoeSym2(z);
-                break;
-            }
+			case msltoesym2:
+			{
+				MsltoeSym2(z);
+				break;
+			}
 			default:
 				z = CVector3(0.0, 0.0, 0.0);
 				break;
