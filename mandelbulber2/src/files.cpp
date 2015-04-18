@@ -232,6 +232,7 @@ void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles)
 	{
 		fprintf(stderr, "[write_png_file] Error during end of write");
 		delete[] rowBuffer;
+	        delete[] files;
 		fclose(fp);
 		return;
 	}
