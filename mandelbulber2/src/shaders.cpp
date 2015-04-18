@@ -531,7 +531,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
 	double maxSoft = 0.0;
 
-	double bSoft = (!params->iterFogEnabled && !params->limitsEnabled && !params->iterThreshMode) && softRange > 0.0;
+	const bool bSoft = (!params->iterFogEnabled && !params->limitsEnabled && !params->iterThreshMode) && softRange > 0.0;
 
 	for (double i = start; i < factor; i += dist * DEFactor)
 	{
