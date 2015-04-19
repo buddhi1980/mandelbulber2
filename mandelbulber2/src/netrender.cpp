@@ -24,6 +24,7 @@
 #include "netrender.hpp"
 #include "system.hpp"
 #include <QAbstractSocket>
+#include <QHostInfo>
 #include "settings.hpp"
 #include "global_data.hpp"
 #include "interface.hpp"
@@ -354,7 +355,11 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				WriteLog("NetRender - version matches (" + QString::number(version) + "), connection established");
 				// server version matches, send worker count
 				outMsg.command = WORKER;
-				outMsg.payload.append((char*)&workerCount, sizeof(qint32));
+				QDataStream stream(&outMsg.payload, QIODevice::WriteOnly);
+				stream << workerCount;
+				QString machineName = QHostInfo::localHostName();
+				stream << (qint32)machineName.toUtf8().size();
+				stream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());
 				status = READY;
 				emit NewStatusClient();
 			}
@@ -494,9 +499,17 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			}
 			case WORKER:
 			{
-				clients[index].clientWorkerCount = *(qint32*)inMsg->payload.data();
+				QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+				stream >> clients[index].clientWorkerCount;
+				QByteArray buffer;
+				qint32 size;
+				stream >> size;
+				buffer.resize(size);
+				stream.readRawData(buffer.data(), size);
+				clients[index].name = QString::fromUtf8(buffer.data(), buffer.size());
+
 				if(clients[index].status == NEW) clients[index].status = READY;
-				WriteLog("NetRender - new Client #" + QString::number(index) + "(" + clients[index].socket->peerAddress().toString() + ")");
+				WriteLog("NetRender - new Client #" + QString::number(index) + "(" + clients[index].name + " - " + clients[index].socket->peerAddress().toString() + ")");
 				emit ClientsChanged(index);
 				break;
 			}

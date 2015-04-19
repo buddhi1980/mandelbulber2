@@ -78,6 +78,7 @@ public:
 		qint32 jobsDone;
 		qint32 jobsOpen;
 		qint32 clientWorkerCount;
+		QString name;
 	};
 
 	bool IsServer() {return deviceType == SERVER;}

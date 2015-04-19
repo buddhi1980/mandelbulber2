@@ -1451,7 +1451,7 @@ void RenderWindow::slotNetRenderClientListUpdate()
 	if(table->columnCount() == 0)
 	{
 		QStringList header;
-		header << tr("Host") << tr("Worker") << tr("Status") << tr("Open") << tr("Done");
+		header << tr("Name") << tr("Host") << tr("Worker") << tr("Status") << tr("Open") << tr("Done");
 		table->setColumnCount(header.size());
 		table->setHorizontalHeaderLabels(header);
 	}
@@ -1493,9 +1493,10 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 
 	switch(j)
 	{
-		case 0: cell->setText(gNetRender->clients[i].socket->peerAddress().toString()); break;
-		case 1: cell->setText(QString::number(gNetRender->clients[i].clientWorkerCount)); break;
-		case 2:
+		case 0: cell->setText(gNetRender->clients[i].name); break;
+		case 1: cell->setText(gNetRender->clients[i].socket->peerAddress().toString()); break;
+		case 2: cell->setText(QString::number(gNetRender->clients[i].clientWorkerCount)); break;
+		case 3:
 		{
 			switch(gNetRender->clients[i].status)
 			{
@@ -1517,8 +1518,8 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 			}
 		break;
 		}
-		case 3: cell->setText(QString::number(gNetRender->clients[i].jobsOpen)); break;
-		case 4: cell->setText(QString::number(gNetRender->clients[i].jobsDone)); break;
+		case 4: cell->setText(QString::number(gNetRender->clients[i].jobsOpen)); break;
+		case 5: cell->setText(QString::number(gNetRender->clients[i].jobsDone)); break;
 	}
 }
 
