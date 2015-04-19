@@ -108,15 +108,18 @@ bool cRenderJob::Init(enumMode _mode)
 		return false;
 	}
 
-	if(gNetRender->IsClient() || gNetRender->IsServer())
+	if(image->IsMainImage())
 	{
-		image->ClearImage();
-	}
+		if(gNetRender->IsClient() || gNetRender->IsServer())
+		{
+			image->ClearImage();
+		}
 
-	if(gNetRender->IsServer())
-	{
-		connect(this, SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, sTextures)), gNetRender, SLOT(SendJob(cParameterContainer, cFractalContainer, sTextures)));
-		connect(this, SIGNAL(SendNetRenderSetup(int , int, QList<int>)), gNetRender, SLOT(SendSetup(int , int, QList<int>)));
+		if(gNetRender->IsServer())
+		{
+			connect(this, SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, sTextures)), gNetRender, SLOT(SendJob(cParameterContainer, cFractalContainer, sTextures)));
+			connect(this, SIGNAL(SendNetRenderSetup(int , int, QList<int>)), gNetRender, SLOT(SendSetup(int , int, QList<int>)));
+		}
 	}
 
 	totalNumberOfCPUs = systemData.numberOfThreads;
@@ -204,48 +207,51 @@ bool cRenderJob::Execute(void)
 	image->BlockImage();
 
 	//send settings to all NetRender clients
-	if(gNetRender->IsServer())
+	if(image->IsMainImage())
 	{
-		//new id
-		qint32 id = rand();
-
-		//calculation of starting positions list and sending id to clients
-		renderData->netRenderStartingPositions.clear();
-
-		int clientIndex = 0;
-		int clientWorkerIndex = 0;
-
-		int workersCount = gNetRender->getTotalWorkerCount() + renderData->numberOfThreads;
-
-		QList<int> startingPositionsToSend;
-
-		for(int i = 0; i < workersCount; i++)
+		if(gNetRender->IsServer())
 		{
-			if(i < renderData->numberOfThreads)
-			{
-				renderData->netRenderStartingPositions.append(i * image->GetHeight() / workersCount);
-			}
-			else
-			{
-				startingPositionsToSend.append(i * image->GetHeight() / workersCount);
-				clientWorkerIndex++;
+			//new id
+			qint32 id = rand();
 
-				if(clientWorkerIndex >= gNetRender->GetWorkerCount(clientIndex))
+			//calculation of starting positions list and sending id to clients
+			renderData->netRenderStartingPositions.clear();
+
+			int clientIndex = 0;
+			int clientWorkerIndex = 0;
+
+			int workersCount = gNetRender->getTotalWorkerCount() + renderData->numberOfThreads;
+
+			QList<int> startingPositionsToSend;
+
+			for(int i = 0; i < workersCount; i++)
+			{
+				if(i < renderData->numberOfThreads)
 				{
-					emit SendNetRenderSetup(clientIndex, id, startingPositionsToSend);
-					clientIndex++;
-					startingPositionsToSend.clear();
+					renderData->netRenderStartingPositions.append(i * image->GetHeight() / workersCount);
+				}
+				else
+				{
+					startingPositionsToSend.append(i * image->GetHeight() / workersCount);
+					clientWorkerIndex++;
+
+					if(clientWorkerIndex >= gNetRender->GetWorkerCount(clientIndex))
+					{
+						emit SendNetRenderSetup(clientIndex, id, startingPositionsToSend);
+						clientIndex++;
+						startingPositionsToSend.clear();
+					}
 				}
 			}
+
+			//send settings to all clients
+			emit SendNetRenderJob(*paramsContainer, *fractalContainer, renderData->textures);
 		}
 
-		//send settings to all clients
-		emit SendNetRenderJob(*paramsContainer, *fractalContainer, renderData->textures);
-	}
-
-	if(gNetRender->IsClient())
-	{
-		renderData->netRenderStartingPositions = gNetRender->GetStartingPositions();
+		if(gNetRender->IsClient())
+		{
+			renderData->netRenderStartingPositions = gNetRender->GetStartingPositions();
+		}
 	}
 
 	runningJobs++;
@@ -280,18 +286,21 @@ bool cRenderJob::Execute(void)
 	if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramIterations(cHistogram)), parentObject, SLOT(slotUpdateHistogramIterations(cHistogram)));
 	if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramStepCount(cHistogram)), parentObject, SLOT(slotUpdateHistogramStepCount(cHistogram)));
 
-	if(gNetRender->IsClient())
+	if(image->IsMainImage())
 	{
-		QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)), gNetRender, SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
-		QObject::connect(gNetRender, SIGNAL(ToDoListArrived(QList<int>)), renderer, SLOT(ToDoListArrived(QList<int>)));
-		QObject::connect(renderer, SIGNAL(NotifyClientStatus()), gNetRender, SLOT(NotifyStatus()));
-	}
+		if(gNetRender->IsClient())
+		{
+			QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)), gNetRender, SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
+			QObject::connect(gNetRender, SIGNAL(ToDoListArrived(QList<int>)), renderer, SLOT(ToDoListArrived(QList<int>)));
+			QObject::connect(renderer, SIGNAL(NotifyClientStatus()), gNetRender, SLOT(NotifyStatus()));
+		}
 
-	if(gNetRender->IsServer())
-	{
-		QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), renderer, SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
-		QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>)), gNetRender, SLOT(SendToDoList(int, QList<int>)));
-		QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAll()));
+		if(gNetRender->IsServer())
+		{
+			QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), renderer, SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
+			QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>)), gNetRender, SLOT(SendToDoList(int, QList<int>)));
+			QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAll()));
+		}
 	}
 
 	bool result = renderer->RenderImage();
