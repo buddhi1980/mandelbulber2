@@ -39,6 +39,8 @@ CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
 	status = NEW;
 	reconnectTimer = NULL;
 	actualId = 0;
+	totalReceivedUncompressed = 0;
+	totalReceived = 0;
 }
 
 CNetRender::~CNetRender()
@@ -53,11 +55,12 @@ void CNetRender::SetServer(qint32 portNo)
 	DeleteServer();
 	this->portNo = portNo;
 	server = new QTcpServer(this);
+	WriteLog("NetRender - starting server.");
 	if(!server->listen(QHostAddress::Any, portNo))
 	{
 		if(server->serverError() == QAbstractSocket::AddressInUseError)
 		{
-			qWarning() << "NetRender -address already in use. Is there already a mandelbulber server instance running on this port?";
+			qWarning() << "NetRender - address already in use. Is there already a mandelbulber server instance running on this port?";
 		}
 		else
 		{
@@ -78,14 +81,15 @@ void CNetRender::SetServer(qint32 portNo)
 void CNetRender::DeleteServer()
 {
 	if(deviceType != SERVER) return;
-	// delete all clients
-	// TODO check if memory leaks
-	// qDeleteAll(clients);
 
 	deviceType = UNKNOWN;
 	WriteLog("NetRender - Delete Server");
-	server->close();
-	if(server) delete server; server = NULL;
+	if(server)
+	{
+		server->close();
+		delete server;
+		server = NULL;
+	}
 	clients.clear();
 	status = DISABLED;
 	emit NewStatusServer();
@@ -97,7 +101,12 @@ void CNetRender::DeleteClient()
 	deviceType = UNKNOWN;
 	WriteLog("NetRender - Delete Client");
 	if(reconnectTimer->isActive()) reconnectTimer->stop();
-	if(clientSocket) delete clientSocket; clientSocket = NULL;
+	if(clientSocket)
+	{
+		clientSocket->close();
+		delete clientSocket;
+		clientSocket = NULL;
+	}
 	status = DISABLED;
 	emit NotifyStatus();
 }
@@ -116,6 +125,7 @@ void CNetRender::HandleNewConnection()
 {
 	while (server->hasPendingConnections())
 	{
+		WriteLog("NetRender - new client connected");
 		// push new socket to list
 		sClient client;
 		client.socket = server->nextPendingConnection();
@@ -201,15 +211,18 @@ void CNetRender::ServerDisconnected()
 
 void CNetRender::TryServerConnect()
 {
-	if(clientSocket->state() == QAbstractSocket::ConnectedState)
+	if(clientSocket)
 	{
-		reconnectTimer->stop();
-	}
-	else
-	{
-		// qDebug() << "CNetRender - Try (re)connect to server: " << address << ", port: " << portNo;
-		clientSocket->close();
-		clientSocket->connectToHost(address, portNo);
+		if(clientSocket->state() == QAbstractSocket::ConnectedState)
+		{
+			reconnectTimer->stop();
+		}
+		else
+		{
+			// qDebug() << "CNetRender - Try (re)connect to server: " << address << ", port: " << portNo;
+			clientSocket->close();
+			clientSocket->connectToHost(address, portNo);
+		}
 	}
 }
 
@@ -651,6 +664,7 @@ void CNetRender::StopAll()
 
 void CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions)
 {
+	WriteLog("NetRender - send setup to clients");
 	if (clientIndex < clients.size())
 	{
 		sMessage msg;
