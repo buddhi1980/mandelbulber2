@@ -33,7 +33,6 @@
 #include "scheduler.hpp"
 
 //TODO add different error messages
-//TODO clean up al qDebus()s and add WriteLog()s
 //TODO check if there are no memory leaks
 //TODO lock using NetRender if render job is not in main image
 //TODO add displaying of client status (would be nice to have displayed information about server address)
@@ -57,7 +56,7 @@ public:
 	//STATUS - ask for status (to client)
 	//SETUP - setup job id and starting postions
 
-	enum netRenderStatus { DISABLED, IDLE, WORKING, NEW };
+	enum netRenderStatus { DISABLED, READY, WORKING, NEW };
 	enum typeOfDevice { CLIENT, SERVER, UNKNOWN };
 	enum enumUiNetRenderMode {netRenderClient, netRenderServer};
 

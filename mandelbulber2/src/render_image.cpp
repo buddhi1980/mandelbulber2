@@ -234,7 +234,7 @@ bool cRenderer::RenderImage()
 	while(scheduler->ProgresiveNextStep());
 
 	if(gNetRender->IsClient()) {
-		gNetRender->status = CNetRender::IDLE;
+		gNetRender->status = CNetRender::READY;
 		emit NotifyClientStatus();
 	}
 

@@ -219,7 +219,6 @@ void CNetRender::TryServerConnect()
 		}
 		else
 		{
-			// qDebug() << "CNetRender - Try (re)connect to server: " << address << ", port: " << portNo;
 			clientSocket->close();
 			clientSocket->connectToHost(address, portNo);
 		}
@@ -228,7 +227,6 @@ void CNetRender::TryServerConnect()
 
 void CNetRender::ReceiveFromServer()
 {
-	// qDebug() << "New data arrived to client";
 	ReceiveData(clientSocket, &msgFromServer);
 }
 
@@ -267,7 +265,6 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 	socket->write(byteArray);
 	socket->waitForBytesWritten();
 
-	// qDebug() << "wrote data: " << msg.command << ", id: " << msg.id << ", size: " << msg.size;
 	return true;
 }
 
@@ -358,6 +355,8 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				// server version matches, send worker count
 				outMsg.command = WORKER;
 				outMsg.payload.append((char*)&workerCount, sizeof(qint32));
+				status = READY;
+				emit NewStatusClient();
 			}
 			else
 			{
@@ -369,7 +368,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			}
 			case STOP:
 			{
-				status = IDLE;
+				status = READY;
 				gMainInterface->stopRequest = true;
 				emit NotifyStatus();
 				emit StopReceived();
@@ -417,7 +416,6 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 						}
 					}
 
-					qDebug() << settingsText;
 					cSettings parSettings(cSettings::formatCondensedText);
 					parSettings.BeQuiet(true);
 					parSettings.LoadFromString(settingsText);
@@ -497,7 +495,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			case WORKER:
 			{
 				clients[index].clientWorkerCount = *(qint32*)inMsg->payload.data();
-				if(clients[index].status == NEW) clients[index].status = IDLE;
+				if(clients[index].status == NEW) clients[index].status = READY;
 				WriteLog("NetRender - new Client #" + QString::number(index) + "(" + clients[index].socket->peerAddress().toString() + ")");
 				emit ClientsChanged(index);
 				break;

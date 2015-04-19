@@ -1406,7 +1406,7 @@ void RenderWindow::slotNetRenderStatusServerUpdate()
 	switch(gNetRender->status)
 	{
 		case CNetRender::DISABLED: ui->label_netrender_server_status->setText("DISABLED"); break;
-		case CNetRender::IDLE: ui->label_netrender_server_status->setText("IDLE"); break;
+		case CNetRender::READY: ui->label_netrender_server_status->setText("IDLE"); break;
 		case CNetRender::WORKING: ui->label_netrender_server_status->setText("WORKING"); break;
 		case CNetRender::NEW: ui->label_netrender_server_status->setText("NEW"); break;
 	}
@@ -1420,9 +1420,9 @@ void RenderWindow::slotNetRenderStatusClientUpdate()
 	switch(gNetRender->status)
 	{
 		case CNetRender::DISABLED: ui->label_netrender_client_status->setText("DISABLED"); break;
-		case CNetRender::IDLE: ui->label_netrender_client_status->setText("IDLE"); break;
+		case CNetRender::READY: ui->label_netrender_client_status->setText("READY"); break;
 		case CNetRender::WORKING: ui->label_netrender_client_status->setText("WORKING"); break;
-		case CNetRender::NEW: ui->label_netrender_client_status->setText("NEW"); break;
+		case CNetRender::NEW: ui->label_netrender_client_status->setText("CONNECTING"); break;
 	}
 
 	ui->bu_netrender_connect->setEnabled(!gNetRender->IsClient());
@@ -1506,7 +1506,7 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 					cell->setText("NEW");
 					// cell->setBackgroundColor(QColor(255, 255, 0));
 				break;
-				case CNetRender::IDLE:
+				case CNetRender::READY:
 					cell->setText("IDLE");
 					// cell->setBackgroundColor(QColor(0, 0, 255));
 				break;
