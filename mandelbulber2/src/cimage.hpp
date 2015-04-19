@@ -59,6 +59,9 @@ public:
 	void BlockImage() {isUsed = true;}
 	void ReleaseImage() {isUsed = false;}
 
+	void SetAsMainImage() {isMainImage = true;}
+	bool IsMainImage() {return isMainImage;}
+
 	inline void PutPixelImage(int x, int y, sRGBfloat pixel)	{if (x >= 0 && x < width && y >= 0 && y < height) imageFloat[x + y * width] = pixel;}
 	inline void PutPixelImage16(int x, int y, sRGB16 pixel)	{if (x >= 0 && x < width && y >= 0 && y < height) image16[x + y * width] = pixel;}
 	inline void PutPixelColour(int x, int y, sRGB8 pixel)	{if (x >= 0 && x < width && y >= 0 && y < height) colourBuffer[x + y * width] = pixel;}
@@ -143,6 +146,7 @@ private:
 	int previewVisibleWidth;
 	int previewVisibleHeight;
 	bool lowMem;
+	bool isMainImage;
 	volatile bool isUsed;
 };
 

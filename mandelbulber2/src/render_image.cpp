@@ -54,8 +54,10 @@ bool cRenderer::RenderImage()
 
 	image->SetImageParameters(params->imageAdjustments);
 
+	bool useNetRender = (gNetRender->IsClient() || gNetRender->IsServer()) && image->IsMainImage();
+
 	int progressiveSteps;
-	if((data->doNotRefresh && data->maxRenderTime > 1e10) || gNetRender->IsClient() || gNetRender->IsServer())
+	if((data->doNotRefresh && data->maxRenderTime > 1e10) || useNetRender)
 			progressiveSteps = 0;
 	else
 		progressiveSteps = (int)(log((double)max(image->GetWidth(), image->GetHeight())) / log(2.0))-3;
@@ -78,7 +80,7 @@ bool cRenderer::RenderImage()
 	for(int i=0; i < data->numberOfThreads; i++)
 	{
 		threadData[i].id = i + 1;
-		if(gNetRender->IsClient() || gNetRender->IsServer())
+		if(useNetRender)
 		{
 			if(i < data->netRenderStartingPositions.size())
 			{
@@ -159,7 +161,7 @@ bool cRenderer::RenderImage()
 			//refresh image
 			if (!data->doNotRefresh && image->IsPreview() && listToRefresh.size() > 0)
 			{
-				if (timerRefresh.elapsed() > lastRefreshTime && (scheduler->GetProgresivePass() > 1 || gNetRender->IsClient() || gNetRender->IsServer()))
+				if (timerRefresh.elapsed() > lastRefreshTime && (scheduler->GetProgresivePass() > 1 || useNetRender))
 				{
 					timerRefresh.restart();
 					QSet<int> set_listTorefresh = listToRefresh.toSet(); //removing duplicates
@@ -168,7 +170,7 @@ bool cRenderer::RenderImage()
 
 					image->CompileImage(&listToRefresh);
 
-					if(!gNetRender->IsServer() && !gNetRender->IsClient())
+					if(!useNetRender)
 					{
 						if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 						{
@@ -186,7 +188,7 @@ bool cRenderer::RenderImage()
 					emit updateHistogramIterations(data->histogramIterations);
 					emit updateHistogramStepCount(data->histogramStepCount);
 
-					if(gNetRender->IsClient() && gNetRender->status == CNetRender::WORKING)
+					if(image->IsMainImage() && gNetRender->IsClient() && gNetRender->status == CNetRender::WORKING)
 					{
 						QList<QByteArray> renderedLinesData;
 						for(int i = 0; i < listToRefresh.size(); i++)
@@ -199,7 +201,7 @@ bool cRenderer::RenderImage()
 						emit NotifyClientStatus();
 					}
 
-					if(gNetRender->IsServer())
+					if(image->IsMainImage() && gNetRender->IsServer())
 					{
 						QList<int> toDoList = scheduler->CreateDoneList();
 						if(toDoList.size() > data->numberOfThreads)
@@ -211,8 +213,8 @@ bool cRenderer::RenderImage()
 						}
 					}
 
-					if(gNetRender->IsServer() || gNetRender->IsClient())
-						lastRefreshTime = timerRefresh.elapsed() * 10 / (listToRefresh.size());
+					if(useNetRender)
+						lastRefreshTime = timerRefresh.elapsed() * 100 / (listToRefresh.size());
 					else
 						lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
 
@@ -233,23 +235,25 @@ bool cRenderer::RenderImage()
 	}
 	while(scheduler->ProgresiveNextStep());
 
-	if(gNetRender->IsClient()) {
-		gNetRender->status = CNetRender::READY;
-		emit NotifyClientStatus();
-	}
-
-	if(gNetRender->IsServer())
+	if(useNetRender)
 	{
-		emit StopAllClients();
-	}
+		if(gNetRender->IsClient()) {
+			gNetRender->status = CNetRender::READY;
+			emit NotifyClientStatus();
+		}
 
+		if(gNetRender->IsServer())
+		{
+			emit StopAllClients();
+		}
+	}
 	//refresh image at end
 	WriteLog("image->CompileImage()");
 	image->CompileImage();
 
 	//TODO when NetRender Client then do not render SSAO and DOF
 
-	if(!gNetRender->IsClient())
+	if(!(gNetRender->IsClient() && image->IsMainImage()))
 	{
 		if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 		{
