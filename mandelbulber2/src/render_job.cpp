@@ -239,6 +239,7 @@ bool cRenderJob::Execute(void)
 					{
 						emit SendNetRenderSetup(clientIndex, id, startingPositionsToSend);
 						clientIndex++;
+						clientWorkerIndex = 0;
 						startingPositionsToSend.clear();
 					}
 				}
