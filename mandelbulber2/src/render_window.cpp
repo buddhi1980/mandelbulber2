@@ -1427,6 +1427,7 @@ void RenderWindow::slotNetRenderStatusClientUpdate()
 
 	ui->bu_netrender_connect->setEnabled(!gNetRender->IsClient());
 	ui->bu_netrender_disconnect->setEnabled(gNetRender->IsClient());
+	ui->pushButton_render->setEnabled(!gNetRender->IsClient());
 }
 
 void RenderWindow::slotNetRenderClientServerChange(int index)

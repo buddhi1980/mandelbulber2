@@ -32,7 +32,6 @@
 #include "fractparams.hpp"
 #include "scheduler.hpp"
 
-//TODO blocking of START / STOP buttons on client side when NetRender is activated
 //TODO add different error messages
 //TODO clean up al qDebus()s and add WriteLog()s
 //TODO check if there are no memory leaks
