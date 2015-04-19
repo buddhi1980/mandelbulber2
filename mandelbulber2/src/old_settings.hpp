@@ -248,7 +248,7 @@ struct sFractalD
 	double constantFactor;
 	double FoldingIntPowZfactor;
 	double FoldingIntPowFoldFactor;
-	double foldingLimit; //paramters of TGlad's folding
+	double foldingLimit; //parameters of TGlad's folding
 	double foldingValue;
 	double foldingSphericalMin;
 	double foldingSphericalFixed;
@@ -419,10 +419,10 @@ struct sParamRender
 	enumPerspectiveType perspectiveType;
 
 	bool shadow; //enable shadows
-	bool global_ilumination; //enable global ilumination
-	bool fastGlobalIllumination; //enable fake global ilumination
+	bool global_ilumination; //enable global illumination
+	bool fastGlobalIllumination; //enable fake global illumination
 	bool slowShading; //enable fake gradient calculation for shading
-	bool texturedBackground; //enable testured background
+	bool texturedBackground; //enable textured background
 	bool background_as_fulldome;
 	bool recordMode; //path recording mode
 	bool continueRecord; //continue recording mode
