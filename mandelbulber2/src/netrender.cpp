@@ -70,6 +70,8 @@ void CNetRender::SetServer(qint32 portNo)
 		connect(server, SIGNAL(newConnection()), this, SLOT(HandleNewConnection()));
 		deviceType = SERVER;
 		WriteLog("NetRender - Server Setup on localhost, port: " + QString::number(portNo));
+		status = NEW;
+		emit NewStatusServer();
 	}
 }
 
@@ -85,6 +87,8 @@ void CNetRender::DeleteServer()
 	server->close();
 	if(server) delete server; server = NULL;
 	clients.clear();
+	status = DISABLED;
+	emit NewStatusServer();
 }
 
 void CNetRender::DeleteClient()
@@ -94,6 +98,8 @@ void CNetRender::DeleteClient()
 	WriteLog("NetRender - Delete Client");
 	if(reconnectTimer->isActive()) reconnectTimer->stop();
 	if(clientSocket) delete clientSocket; clientSocket = NULL;
+	status = DISABLED;
+	emit NotifyStatus();
 }
 
 int CNetRender::getTotalWorkerCount()
@@ -185,6 +191,7 @@ void CNetRender::SetClient(QString address, int portNo)
 
 	reconnectTimer->start();
 	WriteLog("NetRender - Client Setup, link to server: " + address + ", port: " + QString::number(portNo));
+	emit NotifyStatus();
 }
 
 void CNetRender::ServerDisconnected()
@@ -351,6 +358,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			{
 				status = IDLE;
 				gMainInterface->stopRequest = true;
+				emit NotifyStatus();
 				emit StopReceived();
 				break;
 			}
@@ -506,7 +514,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			}
 			case STATUS:
 			{
-				clients[index].status = (clientStatus)*(qint32*)inMsg->payload.data();
+				clients[index].status = (netRenderStatus)*(qint32*)inMsg->payload.data();
 				emit ClientsChanged(index);
 				break;
 			}
@@ -606,10 +614,14 @@ void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal
 
 void CNetRender::NotifyStatus()
 {
-	sMessage outMsg;
-	outMsg.command = STATUS;
-	outMsg.payload.append((char*)&status, sizeof(qint32));
-	SendData(clientSocket, outMsg);
+	if(clientSocket != NULL)
+	{
+		sMessage outMsg;
+		outMsg.command = STATUS;
+		outMsg.payload.append((char*)&status, sizeof(qint32));
+		SendData(clientSocket, outMsg);
+	}
+	emit NewStatusClient();
 }
 
 void CNetRender::SendToDoList(int clientIndex, QList<int> done)

@@ -9910,18 +9910,57 @@ and water):</string>
                 </layout>
                </item>
                <item>
+                <layout class="QGridLayout" name="gridLayout_50">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <item row="0" column="0">
                 <widget class="QPushButton" name="bu_netrender_connect">
                  <property name="text">
                   <string>Connect to server</string>
                  </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_netrender_client_status">
-                 <property name="text">
-                  <string>Starus: disabled</string>
+                 <property name="icon">
+                  <iconset theme="media-playback-start" resource="icons.qrc">
+                   <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
                  </property>
                 </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QPushButton" name="bu_netrender_disconnect">
+                 <property name="text">
+                  <string>Disconnect</string>
+                 </property>
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="edit-delete" resource="icons.qrc">
+                   <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               </layout>
+               </item>
+               <item>
+                <layout class="QGridLayout" name="gridLayout_50">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <item row="0" column="0">
+                <widget class="QLabel" name="label_">
+                 <property name="text">
+                  <string>Status:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="label_netrender_client_status">
+                 <property name="text">
+                  <string>disabled</string>
+                 </property>
+                </widget>
+               </item>
+               </layout>
                </item>
               </layout>
              </widget>
@@ -9972,18 +10011,57 @@ and water):</string>
                 </layout>
                </item>
                <item>
+                <layout class="QGridLayout" name="gridLayout_50">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <item row="0" column="0">
                 <widget class="QPushButton" name="bu_netrender_start_server">
                  <property name="text">
                   <string>Launch server and watch for clients</string>
                  </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_netrender_server_status">
-                 <property name="text">
-                  <string>Starus: disabled</string>
+                 <property name="icon">
+                  <iconset theme="media-playback-start" resource="icons.qrc">
+                   <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
                  </property>
                 </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QPushButton" name="bu_netrender_stop_server">
+                 <property name="text">
+                  <string>Stop Server</string>
+                 </property>
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="edit-delete" resource="icons.qrc">
+                   <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               </layout>
+               </item>
+               <item>
+                <layout class="QGridLayout" name="gridLayout_50">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <item row="0" column="0">
+                <widget class="QLabel" name="label_">
+                 <property name="text">
+                  <string>Status:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="label_netrender_server_status">
+                 <property name="text">
+                  <string>disabled</string>
+                 </property>
+                </widget>
+               </item>
+               </layout>
                </item>
                <item>
                 <widget class="QLabel" name="label_175">

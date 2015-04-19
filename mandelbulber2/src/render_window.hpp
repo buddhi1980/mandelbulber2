@@ -159,11 +159,15 @@ private slots:
 
 	//NetRender
 	void slotNetRenderServerStart();
+	void slotNetRenderServerStop();
 	void slotNetRenderClientConnect();
+	void slotNetRenderClientDisconnect();
 	void slotNetRenderClientServerChange(int index);
 	void slotNetRenderClientListUpdate();
 	void slotNetRenderClientListUpdate(int i);
 	void slotNetRenderClientListUpdate(int i, int j);
+	void slotNetRenderStatusServerUpdate();
+	void slotNetRenderStatusClientUpdate();
 	void slotCheckBoxDisableNetRender(bool on);
 
 private:

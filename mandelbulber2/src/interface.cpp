@@ -231,12 +231,17 @@ void cInterface::ConnectSignals(void)
 
 	//NetRender
 	QApplication::connect(mainWindow->ui->bu_netrender_connect, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderClientConnect()));
+	QApplication::connect(mainWindow->ui->bu_netrender_disconnect, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderClientDisconnect()));
 	QApplication::connect(mainWindow->ui->bu_netrender_start_server, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderServerStart()));
+	QApplication::connect(mainWindow->ui->bu_netrender_stop_server, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderServerStop()));
 	QApplication::connect(mainWindow->ui->combo_netrender_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotNetRenderClientServerChange(int)));
+	QApplication::connect(mainWindow->ui->group_netrender, SIGNAL(toggled(bool)), mainWindow, SLOT(slotCheckBoxDisableNetRender(bool)));
+
+	QApplication::connect(gNetRender, SIGNAL(NewStatusClient()), mainWindow, SLOT(slotNetRenderStatusClientUpdate()));
+	QApplication::connect(gNetRender, SIGNAL(NewStatusServer()), mainWindow, SLOT(slotNetRenderStatusServerUpdate()));
 	QApplication::connect(gNetRender, SIGNAL(ClientsChanged()), mainWindow, SLOT(slotNetRenderClientListUpdate()));
 	QApplication::connect(gNetRender, SIGNAL(ClientsChanged(int)), mainWindow, SLOT(slotNetRenderClientListUpdate(int)));
 	QApplication::connect(gNetRender, SIGNAL(ClientsChanged(int, int)), mainWindow, SLOT(slotNetRenderClientListUpdate(int, int)));
-	QApplication::connect(mainWindow->ui->group_netrender, SIGNAL(toggled(bool)), mainWindow, SLOT(slotCheckBoxDisableNetRender(bool)));
 
 	// ------------ camera manipulation -----------
 	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));

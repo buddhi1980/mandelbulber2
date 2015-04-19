@@ -1382,12 +1382,51 @@ void RenderWindow::slotNetRenderServerStart()
 	gNetRender->SetServer(port);
 }
 
+void RenderWindow::slotNetRenderServerStop()
+{
+	gNetRender->DeleteServer();
+}
+
 void RenderWindow::slotNetRenderClientConnect()
 {
 	gMainInterface->SynchronizeInterfaceWindow(ui->group_netrender, gPar, cInterface::read);
 	QString address = gPar->Get<QString>("netrender_client_remote_address");
 	qint32 port = gPar->Get<int>("netrender_client_remote_port");
 	gNetRender->SetClient(address, port);
+}
+
+void RenderWindow::slotNetRenderClientDisconnect()
+{
+	gNetRender->DeleteClient();
+}
+
+
+void RenderWindow::slotNetRenderStatusServerUpdate()
+{
+	switch(gNetRender->status)
+	{
+		case CNetRender::DISABLED: ui->label_netrender_server_status->setText("DISABLED"); break;
+		case CNetRender::IDLE: ui->label_netrender_server_status->setText("IDLE"); break;
+		case CNetRender::WORKING: ui->label_netrender_server_status->setText("WORKING"); break;
+		case CNetRender::NEW: ui->label_netrender_server_status->setText("NEW"); break;
+	}
+
+	ui->bu_netrender_start_server->setEnabled(!gNetRender->IsServer());
+	ui->bu_netrender_stop_server->setEnabled(gNetRender->IsServer());
+}
+
+void RenderWindow::slotNetRenderStatusClientUpdate()
+{
+	switch(gNetRender->status)
+	{
+		case CNetRender::DISABLED: ui->label_netrender_client_status->setText("DISABLED"); break;
+		case CNetRender::IDLE: ui->label_netrender_client_status->setText("IDLE"); break;
+		case CNetRender::WORKING: ui->label_netrender_client_status->setText("WORKING"); break;
+		case CNetRender::NEW: ui->label_netrender_client_status->setText("NEW"); break;
+	}
+
+	ui->bu_netrender_connect->setEnabled(!gNetRender->IsClient());
+	ui->bu_netrender_disconnect->setEnabled(gNetRender->IsClient());
 }
 
 void RenderWindow::slotNetRenderClientServerChange(int index)
@@ -1459,6 +1498,9 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 		{
 			switch(gNetRender->clients[i].status)
 			{
+				case CNetRender::DISABLED:
+					cell->setText("DISABLED");
+					// cell->setBackgroundColor(QColor(255, 0, 0));
 				case CNetRender::NEW:
 					cell->setText("NEW");
 					// cell->setBackgroundColor(QColor(255, 255, 0));

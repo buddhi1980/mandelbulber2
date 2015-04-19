@@ -58,7 +58,7 @@ public:
 	//STATUS - ask for status (to client)
 	//SETUP - setup job id and starting postions
 
-	enum clientStatus { IDLE, WORKING, NEW };
+	enum netRenderStatus { DISABLED, IDLE, WORKING, NEW };
 	enum typeOfDevice { CLIENT, SERVER, UNKNOWN };
 	enum enumUiNetRenderMode {netRenderClient, netRenderServer};
 
@@ -76,7 +76,7 @@ public:
 		sClient() : socket(NULL), status(NEW), jobsDone(0), jobsOpen(0), clientWorkerCount(0) {}
 		QTcpSocket* socket;
 		sMessage msg;
-		clientStatus status;
+		netRenderStatus status;
 		qint32 jobsDone;
 		qint32 jobsOpen;
 		qint32 clientWorkerCount;
@@ -108,11 +108,13 @@ private:
 
 public:
 	QList<sClient> clients;
-	clientStatus status;
+	netRenderStatus status;
 
 private:
 	QString address;
 	qint32 portNo;
+	qint32 totalReceived;
+	qint32 totalReceivedUncompressed;
 	qint32 version;
 	qint32 workerCount;
 	QTcpServer *server;
@@ -152,6 +154,8 @@ signals:
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
 	void ToDoListArrived(QList<int> done);
 	void StopReceived();
+	void NewStatusClient();
+	void NewStatusServer();
 };
 
 extern CNetRender *netRender;
