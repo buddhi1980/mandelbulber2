@@ -101,6 +101,7 @@ void cRenderWorker::doWork(void)
 	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id); ys = scheduler->NextLine(threadData->id, ys, lastLineWasBroken))
 	{
 		//skip if line is out of region
+		if (ys < 0) break;
 		if (ys < data->screenRegion.y1 || ys > data->screenRegion.y2) continue;
 
 		//main loop for x
