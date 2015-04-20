@@ -34,7 +34,6 @@
 
 //TODO add different error messages
 //TODO check if there are no memory leaks
-//TODO lock using NetRender if render job is not in main image
 //TODO add displaying of client status (would be nice to have displayed information about server address)
 //TODO add sending job if new client is connected during rendering
 

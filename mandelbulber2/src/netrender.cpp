@@ -28,6 +28,7 @@
 #include "settings.hpp"
 #include "global_data.hpp"
 #include "interface.hpp"
+#include "error_message.hpp"
 
 CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
 {
@@ -61,7 +62,7 @@ void CNetRender::SetServer(qint32 portNo)
 	{
 		if(server->serverError() == QAbstractSocket::AddressInUseError)
 		{
-			qWarning() << "NetRender - address already in use. Is there already a mandelbulber server instance running on this port?";
+			cErrorMessage::showMessage(QObject::tr("NetRender - address already in use. Is there already a mandelbulber server instance running on this port?"), cErrorMessage::errorMessage, gMainInterface->mainWindow);
 		}
 		else
 		{
