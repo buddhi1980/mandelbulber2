@@ -62,11 +62,15 @@ void CNetRender::SetServer(qint32 portNo)
 	{
 		if(server->serverError() == QAbstractSocket::AddressInUseError)
 		{
-			cErrorMessage::showMessage(QObject::tr("NetRender - address already in use. Is there already a mandelbulber server instance running on this port?"), cErrorMessage::errorMessage, gMainInterface->mainWindow);
+			cErrorMessage::showMessage(
+				QObject::tr("NetRender - address already in use.\n\nIs there already a mandelbulber server instance running on this port?"),
+				cErrorMessage::errorMessage, gMainInterface->mainWindow);
 		}
 		else
 		{
-			qCritical() << "NetRender - SetServer Error: " << server->errorString();
+			cErrorMessage::showMessage(
+				QObject::tr("NetRender - SetServer Error:\n\n") + server->errorString(),
+				cErrorMessage::errorMessage, gMainInterface->mainWindow);
 		}
 		deviceType = UNKNOWN;
 	}
@@ -218,6 +222,10 @@ void CNetRender::TryServerConnect()
 		if(clientSocket->state() == QAbstractSocket::ConnectedState)
 		{
 			reconnectTimer->stop();
+		}
+		else if(clientSocket->state() == QAbstractSocket::ConnectingState)
+		{
+			return; // wait for result
 		}
 		else
 		{
@@ -693,7 +701,7 @@ void CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions
 	}
 	else
 	{
-		qCritical() << "CNetRender::SendToDoList(int clientIndex, QList<int> done, QList<int> startPositions): Client index out of range:" << clientIndex;
+		qCritical() << "CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions): Client index out of range:" << clientIndex;
 	}
 }
 

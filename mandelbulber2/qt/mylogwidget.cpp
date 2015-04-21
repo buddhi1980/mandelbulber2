@@ -56,7 +56,7 @@ QString MyLogWidget::formatLine(const QString& text)
 	{
 		QString out = "<span style=\"color: grey;\">" + match.captured(1) + " <b>" + match.captured(2) + "</b></span>, "
 			+ "<span style=\"color: orange;\">" + match.captured(3) + " <b>" + match.captured(4) + "</b></span>, ";
-		QRegularExpression reType("^(Debug|Warning|Critical|NetRender)(.*)");
+		QRegularExpression reType("^(Debug|Warning|Critical|Error|NetRender)(.*)");
 		QRegularExpressionMatch matchType = reType.match(match.captured(5));
 		if (matchType.hasMatch())
 		{
@@ -64,6 +64,7 @@ QString MyLogWidget::formatLine(const QString& text)
 			if(matchType.captured(1) == "Debug") color = "green";
 			else if(matchType.captured(1) == "Warning") color = "orange";
 			else if(matchType.captured(1) == "Critical") color = "red";
+			else if(matchType.captured(1) == "Error") color = "red";
 			else if(matchType.captured(1) == "NetRender") color = "darkblue";
 
 			out += "<span style=\"color: " + color + ";\">" + matchType.captured(1) + "<b>" + matchType.captured(2) + "</b></span>";
