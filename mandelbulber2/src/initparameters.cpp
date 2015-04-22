@@ -290,7 +290,7 @@ using namespace parameterContainer;
 	par->addParam("camera_absolute_distance_mode", 0, morphNone, paramApp);
 	par->addParam("camera_movement_mode", 0, morphNone, paramApp);
 	par->addParam("camera_rotation_mode", 0, morphNone, paramApp);
-	par->addParam("mouse_click_function", 1, morphNone, paramApp);
+	par->addParam("mouse_click_function", 1, morphNone, paramNoSave);
 	par->addParam("show_cursor", true, morphNone, paramApp);
 
 	par->addParam("auto_save_images", false, morphNone, paramApp);
