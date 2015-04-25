@@ -185,8 +185,11 @@ bool cRenderer::RenderImage()
 					image->UpdatePreview(&listToRefresh);
 					image->GetImageWidget()->update();
 
-					emit updateHistogramIterations(data->histogramIterations);
-					emit updateHistogramStepCount(data->histogramStepCount);
+					if(image->IsMainImage())
+					{
+						emit updateHistogramIterations(data->histogramIterations);
+						emit updateHistogramStepCount(data->histogramStepCount);
+					}
 
 					if(image->IsMainImage() && gNetRender->IsClient() && gNetRender->status == CNetRender::WORKING)
 					{

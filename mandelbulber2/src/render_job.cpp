@@ -284,8 +284,12 @@ bool cRenderJob::Execute(void)
 	//connect signal for progress bar update
 	if(parentObject) QObject::connect(this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 	if(parentObject) QObject::connect(renderer, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-	if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramIterations(cHistogram)), parentObject, SLOT(slotUpdateHistogramIterations(cHistogram)));
-	if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramStepCount(cHistogram)), parentObject, SLOT(slotUpdateHistogramStepCount(cHistogram)));
+
+	if(image->IsMainImage())
+	{
+		if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramIterations(cHistogram)), parentObject, SLOT(slotUpdateHistogramIterations(cHistogram)));
+		if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramStepCount(cHistogram)), parentObject, SLOT(slotUpdateHistogramStepCount(cHistogram)));
+	}
 
 	if(image->IsMainImage())
 	{

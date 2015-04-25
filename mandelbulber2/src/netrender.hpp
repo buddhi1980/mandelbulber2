@@ -34,7 +34,6 @@
 
 //TODO add different error messages
 //TODO check if there are no memory leaks
-//TODO add displaying of client status (would be nice to have displayed information about server address)
 //TODO add sending job if new client is connected during rendering
 
 class CNetRender : public QObject
