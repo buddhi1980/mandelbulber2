@@ -1403,13 +1403,10 @@ void RenderWindow::slotNetRenderClientDisconnect()
 
 void RenderWindow::slotNetRenderStatusServerUpdate()
 {
-	switch(gNetRender->status)
-	{
-		case CNetRender::DISABLED: ui->label_netrender_server_status->setText("DISABLED"); break;
-		case CNetRender::READY: ui->label_netrender_server_status->setText("IDLE"); break;
-		case CNetRender::WORKING: ui->label_netrender_server_status->setText("WORKING"); break;
-		case CNetRender::NEW: ui->label_netrender_server_status->setText("NEW"); break;
-	}
+	QString text = CNetRender::GetStatusText(gNetRender->status);
+	QString color = CNetRender::GetStatusColor(gNetRender->status);
+	ui->label_netrender_server_status->setText(text);
+	ui->label_netrender_server_status->setStyleSheet("QLabel { color: " + color + "; font-weight: bold; }");
 
 	ui->bu_netrender_start_server->setEnabled(!gNetRender->IsServer());
 	ui->bu_netrender_stop_server->setEnabled(gNetRender->IsServer());
@@ -1417,13 +1414,10 @@ void RenderWindow::slotNetRenderStatusServerUpdate()
 
 void RenderWindow::slotNetRenderStatusClientUpdate()
 {
-	switch(gNetRender->status)
-	{
-		case CNetRender::DISABLED: ui->label_netrender_client_status->setText("DISABLED"); break;
-		case CNetRender::READY: ui->label_netrender_client_status->setText("READY"); break;
-		case CNetRender::WORKING: ui->label_netrender_client_status->setText("WORKING"); break;
-		case CNetRender::NEW: ui->label_netrender_client_status->setText("CONNECTING"); break;
-	}
+	QString text = CNetRender::GetStatusText(gNetRender->status);
+	QString color = CNetRender::GetStatusColor(gNetRender->status);
+	ui->label_netrender_client_status->setText(text);
+	ui->label_netrender_client_status->setStyleSheet("QLabel { color: " + color + "; font-weight: bold; }");
 
 	ui->bu_netrender_connect->setEnabled(!gNetRender->IsClient());
 	ui->bu_netrender_disconnect->setEnabled(gNetRender->IsClient());
@@ -1498,24 +1492,13 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 		case 2: cell->setText(QString::number(gNetRender->clients[i].clientWorkerCount)); break;
 		case 3:
 		{
-			switch(gNetRender->clients[i].status)
-			{
-				case CNetRender::DISABLED:
-					cell->setText("DISABLED");
-					// cell->setBackgroundColor(QColor(255, 0, 0));
-				case CNetRender::NEW:
-					cell->setText("NEW");
-					// cell->setBackgroundColor(QColor(255, 255, 0));
-				break;
-				case CNetRender::READY:
-					cell->setText("IDLE");
-					// cell->setBackgroundColor(QColor(0, 0, 255));
-				break;
-				case CNetRender::WORKING:
-					cell->setText("WORKING");
-					// cell->setBackgroundColor(QColor(0, 255, 0));
-				break;
-			}
+			QString text = CNetRender::GetStatusText(gNetRender->clients[i].status);
+			QString color = CNetRender::GetStatusColor(gNetRender->clients[i].status);
+
+			cell->setText(text);
+			cell->setTextColor(color);
+			// ui->label_netrender_client_status->setStyleSheet("QLabel { background-color: " + color + "; }");
+			// cell->setBackgroundColor(QColor(255, 0, 0));
 		break;
 		}
 		case 4: cell->setText(QString::number(gNetRender->clients[i].jobsOpen)); break;

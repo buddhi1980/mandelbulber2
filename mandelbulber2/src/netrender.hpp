@@ -55,7 +55,7 @@ public:
 	//STATUS - ask for status (to client)
 	//SETUP - setup job id and starting postions
 
-	enum netRenderStatus { DISABLED, READY, WORKING, NEW };
+	enum netRenderStatus { DISABLED, READY, WORKING, NEW, CONNECTING, ERROR };
 	enum typeOfDevice { CLIENT, SERVER, UNKNOWN };
 	enum enumUiNetRenderMode {netRenderClient, netRenderServer};
 
@@ -97,6 +97,9 @@ public:
 	void Stop(); //stop rendering of all clients
 	void GetStatus(); //get status of all clients
 	QList<int> GetStartingPositions() {return startingPositions;}
+
+	static QString GetStatusText(netRenderStatus displayStatus);
+	static QString GetStatusColor(netRenderStatus displayStatus);
 
 private:
 	void ReceiveData(QTcpSocket *socket, sMessage *msg);

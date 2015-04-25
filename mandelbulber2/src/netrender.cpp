@@ -62,11 +62,15 @@ void CNetRender::SetServer(qint32 portNo)
 	{
 		if(server->serverError() == QAbstractSocket::AddressInUseError)
 		{
-			cErrorMessage::showMessage(QObject::tr("NetRender - address already in use. Is there already a mandelbulber server instance running on this port?"), cErrorMessage::errorMessage, gMainInterface->mainWindow);
+			cErrorMessage::showMessage(
+				QObject::tr("NetRender - address already in use.\n\nIs there already a mandelbulber server instance running on this port?"),
+				cErrorMessage::errorMessage, gMainInterface->mainWindow);
 		}
 		else
 		{
-			qCritical() << "NetRender - SetServer Error: " << server->errorString();
+			cErrorMessage::showMessage(
+				QObject::tr("NetRender - SetServer Error:\n\n") + server->errorString(),
+				cErrorMessage::errorMessage, gMainInterface->mainWindow);
 		}
 		deviceType = UNKNOWN;
 	}
@@ -208,6 +212,8 @@ void CNetRender::SetClient(QString address, int portNo)
 
 void CNetRender::ServerDisconnected()
 {
+	status = ERROR;
+	emit NotifyStatus();
 	reconnectTimer->start();
 }
 
@@ -219,8 +225,14 @@ void CNetRender::TryServerConnect()
 		{
 			reconnectTimer->stop();
 		}
+		else if(clientSocket->state() == QAbstractSocket::ConnectingState)
+		{
+			return; // wait for result
+		}
 		else
 		{
+			status = CONNECTING;
+			emit NotifyStatus();
 			clientSocket->close();
 			clientSocket->connectToHost(address, portNo);
 		}
@@ -693,7 +705,34 @@ void CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions
 	}
 	else
 	{
-		qCritical() << "CNetRender::SendToDoList(int clientIndex, QList<int> done, QList<int> startPositions): Client index out of range:" << clientIndex;
+		qCritical() << "CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions): Client index out of range:" << clientIndex;
 	}
 }
 
+QString CNetRender::GetStatusText(netRenderStatus displayStatus)
+{
+	switch(displayStatus)
+	{
+		case CNetRender::DISABLED: return "DISABLED";
+		case CNetRender::READY: return "READY";
+		case CNetRender::WORKING: return "WORKING";
+		case CNetRender::NEW: return "NEW";
+		case CNetRender::CONNECTING: return "(RE-)CONNECTING";
+		case CNetRender::ERROR: return "ERROR";
+	}
+	return "UNKNOWN";
+}
+
+QString CNetRender::GetStatusColor(netRenderStatus displayStatus)
+{
+	switch(displayStatus)
+	{
+		case CNetRender::DISABLED: return "darkgrey";
+		case CNetRender::READY: return "green";
+		case CNetRender::WORKING: return "darkblue";
+		case CNetRender::NEW: return "purple";
+		case CNetRender::CONNECTING: return "orange";
+		case CNetRender::ERROR: return "red";
+	}
+	return "red";
+}
