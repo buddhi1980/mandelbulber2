@@ -50,7 +50,7 @@ void MyLogWidget::initFromLogFile()
 
 QString MyLogWidget::formatLine(const QString& text)
 {
-	QRegularExpression re("^(PID:) ([0-9]+), (time:) ([0-9\.]+), (.*)");
+	QRegularExpression re("^(PID:) ([0-9]+), (time:) ([0-9.]+), (.*)");
 	QRegularExpressionMatch match = re.match(text);
 	if (match.hasMatch())
 	{

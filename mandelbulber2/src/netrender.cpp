@@ -212,6 +212,8 @@ void CNetRender::SetClient(QString address, int portNo)
 
 void CNetRender::ServerDisconnected()
 {
+	status = ERROR;
+	emit NotifyStatus();
 	reconnectTimer->start();
 }
 
@@ -229,6 +231,8 @@ void CNetRender::TryServerConnect()
 		}
 		else
 		{
+			status = CONNECTING;
+			emit NotifyStatus();
 			clientSocket->close();
 			clientSocket->connectToHost(address, portNo);
 		}
@@ -705,3 +709,30 @@ void CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions
 	}
 }
 
+QString CNetRender::GetStatusText(netRenderStatus displayStatus)
+{
+	switch(displayStatus)
+	{
+		case CNetRender::DISABLED: return "DISABLED";
+		case CNetRender::READY: return "READY";
+		case CNetRender::WORKING: return "WORKING";
+		case CNetRender::NEW: return "NEW";
+		case CNetRender::CONNECTING: return "(RE-)CONNECTING";
+		case CNetRender::ERROR: return "ERROR";
+	}
+	return "UNKNOWN";
+}
+
+QString CNetRender::GetStatusColor(netRenderStatus displayStatus)
+{
+	switch(displayStatus)
+	{
+		case CNetRender::DISABLED: return "darkgrey";
+		case CNetRender::READY: return "green";
+		case CNetRender::WORKING: return "darkblue";
+		case CNetRender::NEW: return "purple";
+		case CNetRender::CONNECTING: return "orange";
+		case CNetRender::ERROR: return "red";
+	}
+	return "red";
+}
