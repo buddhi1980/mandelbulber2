@@ -43,7 +43,8 @@ public:
 	CNetRender(qint32 workerCount);
 	~CNetRender();
 
-	enum netCommand { NONE, VERSION, WORKER, RENDER, DATA, BAD, JOB, STOP, STATUS, SETUP};
+	enum netCommand { netRender_NONE, netRender_VERSION, netRender_WORKER, netRender_RENDER, netRender_DATA,
+										netRender_BAD, netRender_JOB, netRender_STOP, netRender_STATUS, netRender_SETUP};
 	//VERSION - ask for server version
 	//WORKER - ask for number of client CPU count
 	//RENDER - list of lines needed to be rendered (to Client), and suggestion which lines should be rendered first
@@ -54,13 +55,13 @@ public:
 	//STATUS - ask for status (to client)
 	//SETUP - setup job id and starting postions
 
-	enum netRenderStatus { DISABLED, READY, WORKING, NEW, CONNECTING, ERROR };
-	enum typeOfDevice { CLIENT, SERVER, UNKNOWN };
+	enum netRenderStatus { netRender_DISABLED, netRender_READY, netRender_WORKING, netRender_NEW, netRender_CONNECTING, netRender_ERROR };
+	enum typeOfDevice { netRender_CLIENT, netRender_SERVER, netRender_UNKNOWN };
 	enum enumUiNetRenderMode {netRenderClient, netRenderServer};
 
 	struct sMessage
 	{
-		sMessage() : command(NONE), id(0), size(0) {}
+		sMessage() : command(netRender_NONE), id(0), size(0) {}
 		qint32 command;
 		qint32 id;
 		qint32 size;
@@ -69,7 +70,7 @@ public:
 
 	struct sClient
 	{
-		sClient() : socket(NULL), status(NEW), jobsDone(0), jobsOpen(0), clientWorkerCount(0) {}
+		sClient() : socket(NULL), status(netRender_NEW), jobsDone(0), jobsOpen(0), clientWorkerCount(0) {}
 		QTcpSocket* socket;
 		sMessage msg;
 		netRenderStatus status;
@@ -79,8 +80,8 @@ public:
 		QString name;
 	};
 
-	bool IsServer() {return deviceType == SERVER;}
-	bool IsClient() {return deviceType == CLIENT;}
+	bool IsServer() {return deviceType == netRender_SERVER;}
+	bool IsClient() {return deviceType == netRender_CLIENT;}
 
 	void SetServer(qint32 portNo);
 	void DeleteServer();

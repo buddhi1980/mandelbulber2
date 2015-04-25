@@ -33,12 +33,12 @@
 CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
 {
 	this->workerCount = workerCount;
-	deviceType = UNKNOWN;
+	deviceType = netRender_UNKNOWN;
 	version = 1000 * MANDELBULBER_VERSION;
 	clientSocket = NULL;
 	server = NULL;
 	portNo = 0;
-	status = NEW;
+	status = netRender_NEW;
 	reconnectTimer = NULL;
 	actualId = 0;
 	totalReceivedUncompressed = 0;
@@ -72,23 +72,23 @@ void CNetRender::SetServer(qint32 portNo)
 				QObject::tr("NetRender - SetServer Error:\n\n") + server->errorString(),
 				cErrorMessage::errorMessage, gMainInterface->mainWindow);
 		}
-		deviceType = UNKNOWN;
+		deviceType = netRender_UNKNOWN;
 	}
 	else
 	{
 		connect(server, SIGNAL(newConnection()), this, SLOT(HandleNewConnection()));
-		deviceType = SERVER;
+		deviceType = netRender_SERVER;
 		WriteLog("NetRender - Server Setup on localhost, port: " + QString::number(portNo));
-		status = NEW;
+		status = netRender_NEW;
 		emit NewStatusServer();
 	}
 }
 
 void CNetRender::DeleteServer()
 {
-	if(deviceType != SERVER) return;
+	if(deviceType != netRender_SERVER) return;
 
-	deviceType = UNKNOWN;
+	deviceType = netRender_UNKNOWN;
 	WriteLog("NetRender - Delete Server");
 	if(server)
 	{
@@ -97,14 +97,14 @@ void CNetRender::DeleteServer()
 		server = NULL;
 	}
 	clients.clear();
-	status = DISABLED;
+	status = netRender_DISABLED;
 	emit NewStatusServer();
 }
 
 void CNetRender::DeleteClient()
 {
-	if (deviceType != CLIENT) return;
-	deviceType = UNKNOWN;
+	if (deviceType != netRender_CLIENT) return;
+	deviceType = netRender_UNKNOWN;
 	WriteLog("NetRender - Delete Client");
 	if(reconnectTimer->isActive()) reconnectTimer->stop();
 	if(clientSocket)
@@ -113,7 +113,7 @@ void CNetRender::DeleteClient()
 		delete clientSocket;
 		clientSocket = NULL;
 	}
-	status = DISABLED;
+	status = netRender_DISABLED;
 	emit NotifyStatus();
 }
 
@@ -142,7 +142,7 @@ void CNetRender::HandleNewConnection()
 
 		// tell mandelbulber version to client
 		sMessage msg;
-		msg.command = VERSION;
+		msg.command = netRender_VERSION;
 		msg.payload.append((char*)&version, sizeof(qint32));
 		SendData(client.socket, msg);
 		emit ClientsChanged();
@@ -192,8 +192,8 @@ void CNetRender::ReceiveFromClient()
 void CNetRender::SetClient(QString address, int portNo)
 {
 	DeleteServer();
-	deviceType = CLIENT;
-	status = NEW;
+	deviceType = netRender_CLIENT;
+	status = netRender_NEW;
 	this->address = address;
 	this->portNo = portNo;
 	ResetMessage(&msgFromServer);
@@ -212,7 +212,7 @@ void CNetRender::SetClient(QString address, int portNo)
 
 void CNetRender::ServerDisconnected()
 {
-	status = ERROR;
+	status = netRender_ERROR;
 	emit NotifyStatus();
 	reconnectTimer->start();
 }
@@ -231,7 +231,7 @@ void CNetRender::TryServerConnect()
 		}
 		else
 		{
-			status = CONNECTING;
+			status = netRender_CONNECTING;
 			emit NotifyStatus();
 			clientSocket->close();
 			clientSocket->connectToHost(address, portNo);
@@ -290,7 +290,7 @@ void CNetRender::ResetMessage(sMessage *msg)
 	}
 	else
 	{
-		msg->command = NONE;
+		msg->command = netRender_NONE;
 		msg->id = 0;
 		msg->size = 0;
 		msg->payload.clear();
@@ -304,7 +304,7 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 
 	while(bytesAvailable > 0)
 	{
-		if (msg->command == NONE)
+		if (msg->command == netRender_NONE)
 		{
 			if (socket->bytesAvailable() < (sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size)))
 			{
@@ -360,44 +360,44 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 	{
 		switch ((netCommand)inMsg->command)
 		{
-		case VERSION:
+		case netRender_VERSION:
 		{
 			sMessage outMsg;
 			if(*(qint32*)inMsg->payload.data() == version)
 			{
 				WriteLog("NetRender - version matches (" + QString::number(version) + "), connection established");
 				// server version matches, send worker count
-				outMsg.command = WORKER;
+				outMsg.command = netRender_WORKER;
 				QDataStream stream(&outMsg.payload, QIODevice::WriteOnly);
 				stream << workerCount;
 				QString machineName = QHostInfo::localHostName();
 				stream << (qint32)machineName.toUtf8().size();
 				stream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());
-				status = READY;
+				status = netRender_READY;
 				emit NewStatusClient();
 			}
 			else
 			{
 				qWarning() << "CNetRender - version mismatch! client version: " << version << ", server: " << *(qint32*)inMsg->payload.data();
-				outMsg.command = BAD;
+				outMsg.command = netRender_BAD;
 			}
 			SendData(clientSocket, outMsg);
 			break;
 			}
-			case STOP:
+			case netRender_STOP:
 			{
-				status = READY;
+				status = netRender_READY;
 				gMainInterface->stopRequest = true;
 				emit NotifyStatus();
 				emit StopReceived();
 				break;
 			}
-			case STATUS:
+			case netRender_STATUS:
 			{
 				emit NotifyStatus();
 				break;
 			}
-			case JOB:
+			case netRender_JOB:
 			{
 				if (inMsg->id == actualId)
 				{
@@ -405,7 +405,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 					QByteArray buffer;
 					qint32 size;
-					status = WORKING;
+					status = netRender_WORKING;
 					emit NotifyStatus();
 
 					// read settings
@@ -450,7 +450,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				}
 				break;
 			}
-			case RENDER:
+			case netRender_RENDER:
 			{
 				if (inMsg->id == actualId)
 				{
@@ -474,7 +474,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				break;
 			}
 
-			case SETUP:
+			case netRender_SETUP:
 			{
 				QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 
@@ -504,13 +504,13 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 		{
 			switch ((netCommand)inMsg->command)
 			{
-			case BAD:
+			case netRender_BAD:
 			{
 				clients.removeAt(index);
 				emit ClientsChanged();
 				break;
 			}
-			case WORKER:
+			case netRender_WORKER:
 			{
 				QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 				stream >> clients[index].clientWorkerCount;
@@ -521,12 +521,12 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				stream.readRawData(buffer.data(), size);
 				clients[index].name = QString::fromUtf8(buffer.data(), buffer.size());
 
-				if(clients[index].status == NEW) clients[index].status = READY;
+				if(clients[index].status == netRender_NEW) clients[index].status = netRender_READY;
 				WriteLog("NetRender - new Client #" + QString::number(index) + "(" + clients[index].name + " - " + clients[index].socket->peerAddress().toString() + ")");
 				emit ClientsChanged(index);
 				break;
 			}
-			case DATA:
+			case netRender_DATA:
 			{
 				QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 				qint32 line;
@@ -549,7 +549,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				emit NewLinesArrived(receivedLineNumbers, receivedRenderedLines);
 				break;
 			}
-			case STATUS:
+			case netRender_STATUS:
 			{
 				clients[index].status = (netRenderStatus)*(qint32*)inMsg->payload.data();
 				emit ClientsChanged(index);
@@ -572,7 +572,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 void CNetRender::SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines)
 {
 	sMessage msg;
-	msg.command = DATA;
+	msg.command = netRender_DATA;
 	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 	for(int i = 0; i < lineNumbers.size(); i++)
 	{
@@ -587,7 +587,7 @@ void CNetRender::SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lin
 void CNetRender::Stop()
 {
 	sMessage msg;
-	msg.command = STOP;
+	msg.command = netRender_STOP;
 	for(int i = 0; i < clients.size(); i++)
 	{
 		SendData(clients[i].socket, msg);
@@ -598,7 +598,7 @@ void CNetRender::Stop()
 void CNetRender::GetStatus()
 {
 	sMessage msg;
-	msg.command = STATUS;
+	msg.command = netRender_STATUS;
 	for(int i = 0; i < clients.size(); i++)
 	{
 		SendData(clients[i].socket, msg);
@@ -614,7 +614,7 @@ void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal
 	{
 		QString settingsText = settingsData.GetSettingsText();
 		sMessage msg;
-		msg.command = JOB;
+		msg.command = netRender_JOB;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 
 		// write settings
@@ -654,7 +654,7 @@ void CNetRender::NotifyStatus()
 	if(clientSocket != NULL)
 	{
 		sMessage outMsg;
-		outMsg.command = STATUS;
+		outMsg.command = netRender_STATUS;
 		outMsg.payload.append((char*)&status, sizeof(qint32));
 		SendData(clientSocket, outMsg);
 	}
@@ -666,7 +666,7 @@ void CNetRender::SendToDoList(int clientIndex, QList<int> done)
 	if(clientIndex < clients.size())
 	{
 		sMessage msg;
-		msg.command = RENDER;
+		msg.command = netRender_RENDER;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 		stream << (qint32)done.size();
 		for(int i = 0; i < done.size(); i++)
@@ -692,7 +692,7 @@ void CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions
 	if (clientIndex < clients.size())
 	{
 		sMessage msg;
-		msg.command = SETUP;
+		msg.command = netRender_SETUP;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 		stream << (qint32) id;
 		stream << (qint32) startingPositions.size();
@@ -713,12 +713,12 @@ QString CNetRender::GetStatusText(netRenderStatus displayStatus)
 {
 	switch(displayStatus)
 	{
-		case CNetRender::DISABLED: return "DISABLED";
-		case CNetRender::READY: return "READY";
-		case CNetRender::WORKING: return "WORKING";
-		case CNetRender::NEW: return "NEW";
-		case CNetRender::CONNECTING: return "(RE-)CONNECTING";
-		case CNetRender::ERROR: return "ERROR";
+		case CNetRender::netRender_DISABLED: return "DISABLED";
+		case CNetRender::netRender_READY: return "READY";
+		case CNetRender::netRender_WORKING: return "WORKING";
+		case CNetRender::netRender_NEW: return "NEW";
+		case CNetRender::netRender_CONNECTING: return "(RE-)CONNECTING";
+		case CNetRender::netRender_ERROR: return "ERROR";
 	}
 	return "UNKNOWN";
 }
@@ -727,12 +727,12 @@ QString CNetRender::GetStatusColor(netRenderStatus displayStatus)
 {
 	switch(displayStatus)
 	{
-		case CNetRender::DISABLED: return "darkgrey";
-		case CNetRender::READY: return "green";
-		case CNetRender::WORKING: return "darkblue";
-		case CNetRender::NEW: return "purple";
-		case CNetRender::CONNECTING: return "orange";
-		case CNetRender::ERROR: return "red";
+		case CNetRender::netRender_DISABLED: return "darkgrey";
+		case CNetRender::netRender_READY: return "green";
+		case CNetRender::netRender_WORKING: return "darkblue";
+		case CNetRender::netRender_NEW: return "purple";
+		case CNetRender::netRender_CONNECTING: return "orange";
+		case CNetRender::netRender_ERROR: return "red";
 	}
 	return "red";
 }

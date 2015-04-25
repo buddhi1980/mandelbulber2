@@ -1426,8 +1426,8 @@ void RenderWindow::slotNetRenderStatusClientUpdate()
 
 void RenderWindow::slotNetRenderClientServerChange(int index)
 {
-	ui->groupBox_netrender_client_config->setVisible(index == CNetRender::CLIENT);
-	ui->groupBox_netrender_server_config->setVisible(index == CNetRender::SERVER);
+	ui->groupBox_netrender_client_config->setVisible(index == CNetRender::netRender_CLIENT);
+	ui->groupBox_netrender_server_config->setVisible(index == CNetRender::netRender_SERVER);
 }
 
 void RenderWindow::slotNetRenderClientListUpdate()
