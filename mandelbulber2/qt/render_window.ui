@@ -2049,8 +2049,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>152</height>
+          <width>339</width>
+          <height>129</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2113,7 +2113,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>290</width>
                   <height>734</height>
                  </rect>
                 </property>
@@ -3015,7 +3015,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>227</width>
+                  <width>289</width>
                   <height>180</height>
                  </rect>
                 </property>
@@ -3286,7 +3286,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>195</width>
+                  <width>289</width>
                   <height>533</height>
                  </rect>
                 </property>
@@ -3913,7 +3913,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>273</width>
+                  <width>289</width>
                   <height>204</height>
                  </rect>
                 </property>
@@ -4140,7 +4140,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>265</width>
+                  <width>289</width>
                   <height>1302</height>
                  </rect>
                 </property>
@@ -6242,7 +6242,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>445</height>
                      </rect>
                     </property>
@@ -6749,7 +6749,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>445</height>
                      </rect>
                     </property>
@@ -7256,7 +7256,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>445</height>
                      </rect>
                     </property>
@@ -7760,7 +7760,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>208</width>
+                  <width>289</width>
                   <height>456</height>
                  </rect>
                 </property>
@@ -8726,7 +8726,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
+                  <width>289</width>
                   <height>360</height>
                  </rect>
                 </property>
@@ -9236,9 +9236,9 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-384</y>
+          <y>-408</y>
           <width>339</width>
-          <height>809</height>
+          <height>947</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -9797,12 +9797,21 @@ and water):</string>
           </widget>
          </item>
          <item>
-          <widget class="MyGroupBox" name="group_netrender">
+          <widget class="QGroupBox" name="group_netrender">
+           <property name="minimumSize">
+            <size>
+             <width>335</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="title">
             <string>NetRender</string>
            </property>
            <property name="checkable">
-            <bool>true</bool>
+            <bool>false</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_60">
             <property name="spacing">
@@ -9915,31 +9924,31 @@ and water):</string>
                   <number>2</number>
                  </property>
                  <item row="0" column="0">
-                <widget class="QPushButton" name="bu_netrender_connect">
-                 <property name="text">
-                  <string>Connect to server</string>
-                 </property>
-                 <property name="icon">
-                  <iconset theme="media-playback-start" resource="icons.qrc">
-                   <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QPushButton" name="bu_netrender_disconnect">
-                 <property name="text">
-                  <string>Disconnect</string>
-                 </property>
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                 <property name="icon">
-                  <iconset theme="edit-delete" resource="icons.qrc">
-                   <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
-                 </property>
-                </widget>
-               </item>
-               </layout>
+                  <widget class="QPushButton" name="bu_netrender_connect">
+                   <property name="text">
+                    <string>Connect to server</string>
+                   </property>
+                   <property name="icon">
+                    <iconset theme="media-playback-start" resource="icons.qrc">
+                     <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QPushButton" name="bu_netrender_disconnect">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="text">
+                    <string>Disconnect</string>
+                   </property>
+                   <property name="icon">
+                    <iconset theme="edit-delete" resource="icons.qrc">
+                     <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
                <item>
                 <layout class="QGridLayout" name="gridLayout_50">
@@ -9947,20 +9956,20 @@ and water):</string>
                   <number>2</number>
                  </property>
                  <item row="0" column="0">
-                <widget class="QLabel" name="label_">
-                 <property name="text">
-                  <string>Status:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="label_netrender_client_status">
-                 <property name="text">
-                  <string>disabled</string>
-                 </property>
-                </widget>
-               </item>
-               </layout>
+                  <widget class="QLabel" name="label_">
+                   <property name="text">
+                    <string>Status:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="label_netrender_client_status">
+                   <property name="text">
+                    <string>disabled</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -10016,31 +10025,31 @@ and water):</string>
                   <number>2</number>
                  </property>
                  <item row="0" column="0">
-                <widget class="QPushButton" name="bu_netrender_start_server">
-                 <property name="text">
-                  <string>Launch server and watch for clients</string>
-                 </property>
-                 <property name="icon">
-                  <iconset theme="media-playback-start" resource="icons.qrc">
-                   <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QPushButton" name="bu_netrender_stop_server">
-                 <property name="text">
-                  <string>Stop Server</string>
-                 </property>
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                 <property name="icon">
-                  <iconset theme="edit-delete" resource="icons.qrc">
-                   <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
-                 </property>
-                </widget>
-               </item>
-               </layout>
+                  <widget class="QPushButton" name="bu_netrender_start_server">
+                   <property name="text">
+                    <string>Launch server and watch for clients</string>
+                   </property>
+                   <property name="icon">
+                    <iconset theme="media-playback-start" resource="icons.qrc">
+                     <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QPushButton" name="bu_netrender_stop_server">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="text">
+                    <string>Stop Server</string>
+                   </property>
+                   <property name="icon">
+                    <iconset theme="edit-delete" resource="icons.qrc">
+                     <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
                <item>
                 <layout class="QGridLayout" name="gridLayout_50">
@@ -10048,20 +10057,20 @@ and water):</string>
                   <number>2</number>
                  </property>
                  <item row="0" column="0">
-                <widget class="QLabel" name="label_">
-                 <property name="text">
-                  <string>Status:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="label_netrender_server_status">
-                 <property name="text">
-                  <string>disabled</string>
-                 </property>
-                </widget>
-               </item>
-               </layout>
+                  <widget class="QLabel" name="label_">
+                   <property name="text">
+                    <string>Status:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="label_netrender_server_status">
+                   <property name="text">
+                    <string>disabled</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
                <item>
                 <widget class="QLabel" name="label_175">
@@ -10071,7 +10080,14 @@ and water):</string>
                 </widget>
                </item>
                <item>
-                <widget class="QTableWidget" name="tableWidget_netrender_connected_clients"/>
+                <widget class="QTableWidget" name="tableWidget_netrender_connected_clients">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
