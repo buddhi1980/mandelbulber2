@@ -53,6 +53,36 @@ cTexture::cTexture(QString filename)
 	}
 }
 
+//copy constructor
+cTexture::cTexture(const cTexture &tex)
+{
+	width = tex.width;
+	height = tex.height;
+	loaded = tex.loaded;
+	qimage = tex.qimage;
+	originalFileName = tex.originalFileName;
+	bitmap = new sRGB8[width * height];
+	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
+}
+
+cTexture& cTexture::operator=(const cTexture &tex)
+{
+	width = tex.width;
+	height = tex.height;
+	loaded = tex.loaded;
+	qimage = tex.qimage;
+	originalFileName = tex.originalFileName;
+	if(qimage.isNull() && !bitmap)
+	{
+		delete[] bitmap;
+		bitmap = NULL;
+	}
+	bitmap = new sRGB8[width * height];
+	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
+
+	return *this;
+}
+
 void cTexture::FromQByteArray(QByteArray buffer)
 {
 	bitmap = NULL;
@@ -86,6 +116,7 @@ cTexture::~cTexture(void)
 	if(qimage.isNull())
 	{
 		delete[] bitmap;
+		bitmap = NULL;
 	}
 }
 

@@ -32,6 +32,9 @@ class cTexture
 public:
 	cTexture(QString filename);
 	cTexture();
+	cTexture(const cTexture &tex);
+	cTexture& operator=(const cTexture &tex);
+
 	~cTexture(void);
 	int Height(void) {return height;}
 	int Width(void) {return width;}

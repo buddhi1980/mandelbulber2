@@ -262,8 +262,8 @@ void cRenderWorker::PrepareAOVectors(void)
 	AOvectorsAround = new sVectorsAround[10000];
 	AOvectorsCount = 0;
 	int counter = 0;
-	int lightMapWidth = data->textures.lightmapTexture->Width();
-	int lightMapHeight = data->textures.lightmapTexture->Height();
+	int lightMapWidth = data->textures.lightmapTexture.Width();
+	int lightMapHeight = data->textures.lightmapTexture.Height();
 	for (double b = -0.49 * M_PI; b < 0.49 * M_PI; b += 1.0 / params->ambientOcclusionQuality)
 	{
 		for (double a = 0.0; a < 2.0 * M_PI; a += ((2.0 / params->ambientOcclusionQuality) / cos(b)))
@@ -277,9 +277,9 @@ void cRenderWorker::PrepareAOVectors(void)
 			AOvectorsAround[counter].v = d;
 			int X = (int) ((a + b) / (2.0 * M_PI) * lightMapWidth + lightMapWidth * 8.5) % lightMapWidth;
 			int Y = (int) (b / (M_PI) * lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
-			AOvectorsAround[counter].R = data->textures.lightmapTexture->FastPixel(X, Y).R;
-			AOvectorsAround[counter].G = data->textures.lightmapTexture->FastPixel(X, Y).G;
-			AOvectorsAround[counter].B = data->textures.lightmapTexture->FastPixel(X, Y).B;
+			AOvectorsAround[counter].R = data->textures.lightmapTexture.FastPixel(X, Y).R;
+			AOvectorsAround[counter].G = data->textures.lightmapTexture.FastPixel(X, Y).G;
+			AOvectorsAround[counter].B = data->textures.lightmapTexture.FastPixel(X, Y).B;
 			if (AOvectorsAround[counter].R > 10 || AOvectorsAround[counter].G > 10 || AOvectorsAround[counter].B > 10)
 			{
 				counter++;

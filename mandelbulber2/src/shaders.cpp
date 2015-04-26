@@ -135,8 +135,8 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 		{
 			double alphaTexture = input.viewVector.GetAlpha();
 			double betaTexture = input.viewVector.GetBeta();
-			int texWidth = data->textures.backgroundTexture->Width()*0.5;
-			int texHeight = data->textures.backgroundTexture->Height();
+			int texWidth = data->textures.backgroundTexture.Width()*0.5;
+			int texHeight = data->textures.backgroundTexture.Height();
 			int offset = 0;
 
 			if(betaTexture < 0)
@@ -147,7 +147,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 			}
 			double texX = 0.5 * texWidth + cos(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texWidth * 0.5 + offset;
 			double texY = 0.5 * texHeight + sin(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texHeight * 0.5;
-			sRGB8 pixel = data->textures.backgroundTexture->Pixel(texX, texY);
+			sRGB8 pixel = data->textures.backgroundTexture.Pixel(texX, texY);
 			pixel2.R = pixel.R / 256.0;
 			pixel2.G = pixel.G / 256.0;
 			pixel2.B = pixel.B / 256.0;
@@ -158,9 +158,9 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 			double betaTexture = input.viewVector.GetBeta();
 			if (betaTexture > 0.5 * M_PI) betaTexture = 0.5 * M_PI - betaTexture;
 			if (betaTexture < -0.5 * M_PI) betaTexture = -0.5 * M_PI + betaTexture;
-			double texX = alphaTexture / (2.0 * M_PI) * data->textures.backgroundTexture->Width();
-			double texY = (betaTexture / (M_PI) + 0.5) * data->textures.backgroundTexture->Height();
-			sRGB8 pixel = data->textures.backgroundTexture->Pixel(texX, texY);
+			double texX = alphaTexture / (2.0 * M_PI) * data->textures.backgroundTexture.Width();
+			double texY = (betaTexture / (M_PI) + 0.5) * data->textures.backgroundTexture.Height();
+			sRGB8 pixel = data->textures.backgroundTexture.Pixel(texX, texY);
 			pixel2.R = pixel.R/256.0;
 			pixel2.G = pixel.G/256.0;
 			pixel2.B = pixel.B/256.0;
@@ -789,8 +789,8 @@ sRGBAfloat cRenderWorker::EnvMapping(const sShaderInputData &input)
 
 	double alphaTexture = reflect.GetAlpha() + M_PI;
 	double betaTexture = reflect.GetBeta();
-	double texWidth = data->textures.envmapTexture->Width();
-	double texHeight = data->textures.envmapTexture->Height();
+	double texWidth = data->textures.envmapTexture.Width();
+	double texHeight = data->textures.envmapTexture.Height();
 
 	if (betaTexture > 0.5 * M_PI) betaTexture = 0.5 * M_PI - betaTexture;
 
@@ -802,9 +802,9 @@ sRGBAfloat cRenderWorker::EnvMapping(const sShaderInputData &input)
 	dty = fmod(dty, texHeight);
 	if (dtx < 0) dtx = 0;
 	if (dty < 0) dty = 0;
-	envReflect.R = data->textures.envmapTexture->Pixel(dtx, dty).R / 256.0;
-	envReflect.G = data->textures.envmapTexture->Pixel(dtx, dty).G / 256.0;
-	envReflect.B = data->textures.envmapTexture->Pixel(dtx, dty).B / 256.0;
+	envReflect.R = data->textures.envmapTexture.Pixel(dtx, dty).R / 256.0;
+	envReflect.G = data->textures.envmapTexture.Pixel(dtx, dty).G / 256.0;
+	envReflect.B = data->textures.envmapTexture.Pixel(dtx, dty).B / 256.0;
 	return envReflect;
 }
 

@@ -416,9 +416,9 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 
 					// read textures
 					QList<cTexture*> textureList;
-					textureList.append(textures.backgroundTexture);
-					textureList.append(textures.envmapTexture);
-					textureList.append(textures.lightmapTexture);
+					textureList.append(&textures.backgroundTexture);
+					textureList.append(&textures.envmapTexture);
+					textureList.append(&textures.lightmapTexture);
 					for (int i = 0; i < textureList.size(); i++)
 					{
 						stream >> size;
@@ -623,9 +623,9 @@ void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal
 
 		// write textures (from files)
 		QList< cTexture* > textureList;
-		textureList.append(textures.backgroundTexture);
-		textureList.append(textures.envmapTexture);
-		textureList.append(textures.lightmapTexture);
+		textureList.append(&textures.backgroundTexture);
+		textureList.append(&textures.envmapTexture);
+		textureList.append(&textures.lightmapTexture);
 		for(int i = 0; i < textureList.size(); i++)
 		{
 			if(textureList[i] != NULL)

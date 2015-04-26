@@ -151,14 +151,28 @@ bool cRenderJob::Init(enumMode _mode)
 		gApplication->processEvents();
 	}
 
-	if(paramsContainer->Get<bool>("textured_background"))
-		renderData->textures.backgroundTexture = new cTexture(paramsContainer->Get<QString>("file_background"));
+	if(gNetRender->IsClient())
+	{
+		if(paramsContainer->Get<bool>("textured_background"))
+			renderData->textures.backgroundTexture = gNetRender->GetTextures()->backgroundTexture;
 
-	if(paramsContainer->Get<bool>("env_mapping_enable"))
-		renderData->textures.envmapTexture = new cTexture(paramsContainer->Get<QString>("file_envmap"));
+		if(paramsContainer->Get<bool>("env_mapping_enable"))
+			renderData->textures.envmapTexture = gNetRender->GetTextures()->envmapTexture;
 
-	if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
-		renderData->textures.lightmapTexture = new cTexture(paramsContainer->Get<QString>("file_lightmap"));
+		if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
+			renderData->textures.lightmapTexture = gNetRender->GetTextures()->lightmapTexture;
+	}
+	else
+	{
+		if(paramsContainer->Get<bool>("textured_background"))
+			renderData->textures.backgroundTexture = cTexture(paramsContainer->Get<QString>("file_background"));
+
+		if(paramsContainer->Get<bool>("env_mapping_enable"))
+			renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"));
+
+		if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
+			renderData->textures.lightmapTexture = cTexture(paramsContainer->Get<QString>("file_lightmap"));
+	}
 
 	renderData->stopRequest = stopRequest;
 

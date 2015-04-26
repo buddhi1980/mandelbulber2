@@ -97,6 +97,7 @@ public:
 	void Stop(); //stop rendering of all clients
 	void GetStatus(); //get status of all clients
 	QList<int> GetStartingPositions() {return startingPositions;}
+	sTextures *GetTextures() {return &textures;};
 
 	static QString GetStatusText(netRenderStatus displayStatus);
 	static QString GetStatusColor(netRenderStatus displayStatus);
