@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
 	//registering types for queued connections
 	qRegisterMetaType<cHistogram>("cHistogram");
 	qRegisterMetaType<QList<QByteArray> >("QList<QByteArray>");
+	qRegisterMetaType<QList<int> >("QList<int>");
 	qRegisterMetaType<cParameterContainer>("cParameterContainer");
 	qRegisterMetaType<cFractalContainer>("cFractalContainer");
 	qRegisterMetaType<sTextures>("sTextures");
