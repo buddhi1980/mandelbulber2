@@ -534,7 +534,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					receivedLineNumbers.append(line);
 					receivedRenderedLines.append(lineData);
 				}
-
+				clients[index].linesRendered += receivedLineNumbers.size();
 				emit NewLinesArrived(receivedLineNumbers, receivedRenderedLines);
 				break;
 			}

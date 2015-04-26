@@ -85,12 +85,11 @@ public:
 	//all information about connected clients
 	struct sClient
 	{
-		sClient() : socket(NULL), status(netRender_NEW), jobsDone(0), jobsOpen(0), clientWorkerCount(0) {}
+		sClient() : socket(NULL), status(netRender_NEW), linesRendered(0), clientWorkerCount(0) {}
 		QTcpSocket* socket;
 		sMessage msg;
 		netRenderStatus status;
-		qint32 jobsDone;
-		qint32 jobsOpen;
+		qint32 linesRendered;
 		qint32 clientWorkerCount;
 		QString name;
 	};

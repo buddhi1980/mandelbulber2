@@ -1445,7 +1445,7 @@ void RenderWindow::slotNetRenderClientListUpdate()
 	if(table->columnCount() == 0)
 	{
 		QStringList header;
-		header << tr("Name") << tr("Host") << tr("Worker") << tr("Status") << tr("Open") << tr("Done");
+		header << tr("Name") << tr("Host") << tr("Worker") << tr("Status") << tr("Rendered");
 		table->setColumnCount(header.size());
 		table->setHorizontalHeaderLabels(header);
 	}
@@ -1501,8 +1501,7 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 			// cell->setBackgroundColor(QColor(255, 0, 0));
 		break;
 		}
-		case 4: cell->setText(QString::number(gNetRender->GetClient(i).jobsOpen)); break;
-		case 5: cell->setText(QString::number(gNetRender->GetClient(i).jobsDone)); break;
+		case 4: cell->setText(QString::number(gNetRender->GetClient(i).linesRendered)); break;
 	}
 }
 
