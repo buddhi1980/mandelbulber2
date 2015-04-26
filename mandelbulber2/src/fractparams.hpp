@@ -210,6 +210,13 @@ struct sTextures
 	cTexture backgroundTexture;
 	cTexture envmapTexture;
 	cTexture lightmapTexture;
+	QList<cTexture*> textureList;
+
+	sTextures(){
+		textureList.append(&backgroundTexture);
+		textureList.append(&envmapTexture);
+		textureList.append(&lightmapTexture);
+	};
 };
 
 

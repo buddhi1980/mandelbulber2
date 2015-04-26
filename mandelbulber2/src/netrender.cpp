@@ -414,22 +414,14 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					settingsText = QString::fromUtf8(buffer.data(), buffer.size());
 
 					// read textures
-					QList<cTexture*> textureList;
-					textureList.append(&textures.backgroundTexture);
-					textureList.append(&textures.envmapTexture);
-					textureList.append(&textures.lightmapTexture);
-					for (int i = 0; i < textureList.size(); i++)
+					for (int i = 0; i < textures.textureList.size(); i++)
 					{
 						stream >> size;
 						if (size > 0)
 						{
-							if (textureList[i] == NULL)
-							{
-								textureList[i] = new cTexture();
-							}
 							buffer.resize(size);
 							stream.readRawData(buffer.data(), size);
-							textureList[i]->FromQByteArray(buffer);
+							textures.textureList[i]->FromQByteArray(buffer);
 						}
 					}
 
@@ -608,15 +600,11 @@ void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal
 		stream.writeRawData(settingsText.toUtf8().data(), settingsText.toUtf8().size());
 
 		// write textures (from files)
-		QList< cTexture* > textureList;
-		textureList.append(&textures.backgroundTexture);
-		textureList.append(&textures.envmapTexture);
-		textureList.append(&textures.lightmapTexture);
-		for(int i = 0; i < textureList.size(); i++)
+		for(int i = 0; i < textures.textureList.size(); i++)
 		{
-			if(textureList[i] != NULL)
+			if(textures.textureList[i]->IsLoaded())
 			{
-				QFile file(textureList[i]->GetFileName());
+				QFile file(textures.textureList[i]->GetFileName());
 				if (file.open(QIODevice::ReadOnly))
 				{
 					QByteArray buffer = file.readAll();
