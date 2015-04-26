@@ -389,7 +389,6 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				status = netRender_READY;
 				gMainInterface->stopRequest = true;
 				emit NotifyStatus();
-				emit StopReceived();
 				break;
 			}
 			case netRender_STATUS:
@@ -441,8 +440,6 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 
 					gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 					gMainInterface->StartRender();
-
-					emit NewJobReceived();
 				}
 				else
 				{
@@ -594,17 +591,6 @@ void CNetRender::Stop()
 	}
 }
 
-// get status of all clients
-void CNetRender::GetStatus()
-{
-	sMessage msg;
-	msg.command = netRender_STATUS;
-	for(int i = 0; i < clients.size(); i++)
-	{
-		SendData(clients[i].socket, msg);
-	}
-}
-
 void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures)
 {
 	WriteLog("NetRender - Sending job");
@@ -735,4 +721,17 @@ QString CNetRender::GetStatusColor(netRenderStatus displayStatus)
 		case CNetRender::netRender_ERROR: return "red";
 	}
 	return "red";
+}
+
+const CNetRender::sClient& CNetRender::GetClient(int index)
+{
+	if(index >=0 && index < GetClientCount())
+	{
+		return clients.at(index);
+	}
+	else
+	{
+		qCritical() << "CNetRender::sClient& CNetRender::getClient(int index): client " << index << " doesn't exist";
+		return nullClient;
+	}
 }

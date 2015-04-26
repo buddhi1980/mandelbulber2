@@ -1403,8 +1403,8 @@ void RenderWindow::slotNetRenderClientDisconnect()
 
 void RenderWindow::slotNetRenderStatusServerUpdate()
 {
-	QString text = CNetRender::GetStatusText(gNetRender->status);
-	QString color = CNetRender::GetStatusColor(gNetRender->status);
+	QString text = CNetRender::GetStatusText(gNetRender->GetStatus());
+	QString color = CNetRender::GetStatusColor(gNetRender->GetStatus());
 	ui->label_netrender_server_status->setText(text);
 	ui->label_netrender_server_status->setStyleSheet("QLabel { color: " + color + "; font-weight: bold; }");
 
@@ -1414,8 +1414,8 @@ void RenderWindow::slotNetRenderStatusServerUpdate()
 
 void RenderWindow::slotNetRenderStatusClientUpdate()
 {
-	QString text = CNetRender::GetStatusText(gNetRender->status);
-	QString color = CNetRender::GetStatusColor(gNetRender->status);
+	QString text = CNetRender::GetStatusText(gNetRender->GetStatus());
+	QString color = CNetRender::GetStatusColor(gNetRender->GetStatus());
 	ui->label_netrender_client_status->setText(text);
 	ui->label_netrender_client_status->setStyleSheet("QLabel { color: " + color + "; font-weight: bold; }");
 
@@ -1435,7 +1435,7 @@ void RenderWindow::slotNetRenderClientListUpdate()
 	QTableWidget *table = ui->tableWidget_netrender_connected_clients;
 
 	// reset table
-	if(gNetRender->clients.size() == 0)
+	if(gNetRender->GetClientCount() == 0)
 	{
 		table->clear();
 		return;
@@ -1451,9 +1451,9 @@ void RenderWindow::slotNetRenderClientListUpdate()
 	}
 
 	// change table
-	if(table->rowCount() != gNetRender->clients.size())
+	if(table->rowCount() != gNetRender->GetClientCount())
 	{
-		table->setRowCount(gNetRender->clients.size());
+		table->setRowCount(gNetRender->GetClientCount());
 	}
 
 	// update table
@@ -1487,13 +1487,13 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 
 	switch(j)
 	{
-		case 0: cell->setText(gNetRender->clients[i].name); break;
-		case 1: cell->setText(gNetRender->clients[i].socket->peerAddress().toString()); break;
-		case 2: cell->setText(QString::number(gNetRender->clients[i].clientWorkerCount)); break;
+		case 0: cell->setText(gNetRender->GetClient(i).name); break;
+		case 1: cell->setText(gNetRender->GetClient(i).socket->peerAddress().toString()); break;
+		case 2: cell->setText(QString::number(gNetRender->GetClient(i).clientWorkerCount)); break;
 		case 3:
 		{
-			QString text = CNetRender::GetStatusText(gNetRender->clients[i].status);
-			QString color = CNetRender::GetStatusColor(gNetRender->clients[i].status);
+			QString text = CNetRender::GetStatusText(gNetRender->GetClient(i).status);
+			QString color = CNetRender::GetStatusColor(gNetRender->GetClient(i).status);
 
 			cell->setText(text);
 			cell->setTextColor(color);
@@ -1501,8 +1501,8 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 			// cell->setBackgroundColor(QColor(255, 0, 0));
 		break;
 		}
-		case 4: cell->setText(QString::number(gNetRender->clients[i].jobsOpen)); break;
-		case 5: cell->setText(QString::number(gNetRender->clients[i].jobsDone)); break;
+		case 4: cell->setText(QString::number(gNetRender->GetClient(i).jobsOpen)); break;
+		case 5: cell->setText(QString::number(gNetRender->GetClient(i).jobsDone)); break;
 	}
 }
 

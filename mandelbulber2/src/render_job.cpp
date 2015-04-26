@@ -58,11 +58,8 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	renderData = NULL;
-
 	useSizeFromImage = false;
-
 	stopRequest = _stopRequest;
-
 	parentObject = _parent;
 
 	id++;
@@ -88,6 +85,7 @@ bool cRenderJob::Init(enumMode _mode)
 
 	mode = _mode;
 
+	//needed when image has to fit in widget
 	if(useSizeFromImage)
 	{
 		paramsContainer->Set("image_width", image->GetWidth());
@@ -110,11 +108,15 @@ bool cRenderJob::Init(enumMode _mode)
 
 	if(image->IsMainImage())
 	{
+		//clear image before start rendering
 		if(gNetRender->IsClient() || gNetRender->IsServer())
 		{
 			image->ClearImage();
+			image->UpdatePreview();
+			if(hasQWidget) imageWidget->update();
 		}
 
+		//connect signals
 		if(gNetRender->IsServer())
 		{
 			connect(this, SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, sTextures)), gNetRender, SLOT(SendJob(cParameterContainer, cFractalContainer, sTextures)));
@@ -132,6 +134,7 @@ bool cRenderJob::Init(enumMode _mode)
 	renderData->rendererID = id;
 	renderData->numberOfThreads = totalNumberOfCPUs;
 
+	//set image region to render
 	if(paramsContainer->Get<bool>("legacy_coordinate_system"))
 	{
 		renderData->imageRegion.Set(-0.5, -0.5, 0.5, 0.5);
@@ -140,7 +143,6 @@ bool cRenderJob::Init(enumMode _mode)
 	{
 		renderData->imageRegion.Set(-0.5, 0.5, 0.5, -0.5);
 	}
-
 	renderData->screenRegion.Set(0, 0, width, height);
 
 	//textures are deleted with destruction of renderData
@@ -153,6 +155,7 @@ bool cRenderJob::Init(enumMode _mode)
 
 	if(gNetRender->IsClient())
 	{
+		//get received textures from NetRender buffer
 		if(paramsContainer->Get<bool>("textured_background"))
 			renderData->textures.backgroundTexture = gNetRender->GetTextures()->backgroundTexture;
 
@@ -174,8 +177,10 @@ bool cRenderJob::Init(enumMode _mode)
 			renderData->textures.lightmapTexture = cTexture(paramsContainer->Get<QString>("file_lightmap"));
 	}
 
+	//assign stop handler
 	renderData->stopRequest = stopRequest;
 
+	//set doNotRefresh flag
 	if((mode == flightAnimRecord || mode == flightAnim) && (!gNetRender->IsClient() && !gNetRender->IsServer())) renderData->doNotRefresh = true;
 	ready = true;
 
@@ -263,6 +268,7 @@ bool cRenderJob::Execute(void)
 			emit SendNetRenderJob(*paramsContainer, *fractalContainer, renderData->textures);
 		}
 
+		//get starting positions received from server
 		if(gNetRender->IsClient())
 		{
 			renderData->netRenderStartingPositions = gNetRender->GetStartingPositions();
