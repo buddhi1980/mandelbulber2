@@ -517,25 +517,32 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			}
 			case netRender_DATA:
 			{
-				QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
-				qint32 line;
-				qint32 lineLength;
-				QByteArray lineData;
-
-				QList<QByteArray> receivedRenderedLines;
-				QList<int> receivedLineNumbers;
-
-				while(!stream.atEnd())
+				if (inMsg->id == actualId)
 				{
-					stream >> line;
-					stream >> lineLength;
-					lineData.resize(lineLength);
-					stream.readRawData(lineData.data(), lineData.size());
-					receivedLineNumbers.append(line);
-					receivedRenderedLines.append(lineData);
+					QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+					qint32 line;
+					qint32 lineLength;
+					QByteArray lineData;
+
+					QList<QByteArray> receivedRenderedLines;
+					QList<int> receivedLineNumbers;
+
+					while(!stream.atEnd())
+					{
+						stream >> line;
+						stream >> lineLength;
+						lineData.resize(lineLength);
+						stream.readRawData(lineData.data(), lineData.size());
+						receivedLineNumbers.append(line);
+						receivedRenderedLines.append(lineData);
+					}
+					clients[index].linesRendered += receivedLineNumbers.size();
+					emit NewLinesArrived(receivedLineNumbers, receivedRenderedLines);
 				}
-				clients[index].linesRendered += receivedLineNumbers.size();
-				emit NewLinesArrived(receivedLineNumbers, receivedRenderedLines);
+				else
+				{
+					WriteLog("NetRender - received DATA message with wrong id");
+				}
 				break;
 			}
 			case netRender_STATUS:
