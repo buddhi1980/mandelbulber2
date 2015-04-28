@@ -694,14 +694,14 @@ QString CNetRender::GetStatusText(netRenderStatus displayStatus)
 {
 	switch(displayStatus)
 	{
-		case CNetRender::netRender_DISABLED: return "DISABLED";
-		case CNetRender::netRender_READY: return "READY";
-		case CNetRender::netRender_WORKING: return "WORKING";
-		case CNetRender::netRender_NEW: return "NEW";
-		case CNetRender::netRender_CONNECTING: return "(RE-)CONNECTING";
-		case CNetRender::netRender_ERROR: return "ERROR";
+		case CNetRender::netRender_DISABLED: return tr("DISABLED");
+		case CNetRender::netRender_READY: return tr("READY");
+		case CNetRender::netRender_WORKING: return tr("WORKING");
+		case CNetRender::netRender_NEW: return tr("NEW");
+		case CNetRender::netRender_CONNECTING: return tr("(RE-)CONNECTING");
+		case CNetRender::netRender_ERROR: return tr("ERROR");
 	}
-	return "UNKNOWN";
+	return tr("UNKNOWN");
 }
 
 QString CNetRender::GetStatusColor(netRenderStatus displayStatus)
