@@ -43,6 +43,7 @@
 #include "common_math.h"
 #include "my_ui_loader.h"
 #include "preview_file_dialog.h"
+#include "exr_file_dialog.h"
 #include "global_data.hpp"
 
 #include "progress_text.hpp"
@@ -763,6 +764,31 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 		gApplication->processEvents();
 		SavePNG16Alpha(filename, gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), gMainInterface->mainImage);
 		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
+		systemData.lastImageFile = filename;
+	}
+}
+
+void RenderWindow::slotMenuSaveImageEXR()
+{
+	EXRFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("EXR images (*.exr)"));
+	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
+	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle(tr("Save image to %1 file...").arg("EXR"));
+	dialog.setDefaultSuffix("exr");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		ProgressStatusText(tr("Saving %1 image").arg("EXR"), tr("Saving EXR image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
+		SaveEXR(filename, gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(),
+		gMainInterface->mainImage, dialog.rgbChannel(), dialog.alphaChannel(), dialog.zBufferChannel());
+		ProgressStatusText(tr("Saving %1 image").arg("EXR"), tr("Saving EXR image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}

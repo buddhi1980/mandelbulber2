@@ -45,6 +45,7 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/primitives.cpp\
 			../src/progress_text.cpp\
 			../src/preview_file_dialog.cpp\
+                        ../src/exr_file_dialog.cpp\
 			../src/random.cpp\
 	    	../src/render_image.cpp\
 	    	../src/rendered_image_widget.cpp\
@@ -85,6 +86,7 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/myhistogramlabel.h\
 			../src/my_ui_loader.h\
 			../src/preview_file_dialog.h\
+                        ../src/exr_file_dialog.h\
 			../src/ssao_worker.h\
 			../qt/color_palette_widget.h\
 			../src/rendered_image_widget.hpp\
@@ -113,9 +115,9 @@ QMAKE_CXXFLAGS_RELEASE += -O3
  
 QMAKE_LFLAGS_RELEASE -= -O1 -fopenmp
 
-QMAKE_CXXFLAGS += -msse2 -ffast-math -fopenmp
+QMAKE_CXXFLAGS += -msse2 -ffast-math -fopenmp -lIlmImf
 
-LIBS += -lpng -lgsl -lgslcblas -fopenmp
+LIBS += -lpng -lgsl -lgslcblas -fopenmp -lIlmImf
 win32:LIBS += -lz
 
 # rh: ugly absolute paths for libpng and libjpeg on my windows system
@@ -124,3 +126,5 @@ win32:LIBS += -lz
 win32:greaterThan(QT_MAJOR_VERSION, 4): INCLUDEPATH += "C:/Qt/Tools/mingw48_32/include/libpng16"
 #win32:LIBS += "C:/Qt/Tools/mingw48_32/lib/libpng16"
 #win32:INCLUDEPATH += "C:/Qt/Tools/mingw48_32/include/libpng16"
+
+INCLUDEPATH += "/usr/include/OpenEXR"

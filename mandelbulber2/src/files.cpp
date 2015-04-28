@@ -26,6 +26,14 @@
 
 #include "files.h"
 #include "error_message.hpp"
+#include <stdio.h>
+
+#include <ImfAttribute.h>
+#include <ImfInputFile.h>
+#include <ImfOutputFile.h>
+#include <ImfChannelList.h>
+#include <ImfFrameBuffer.h>
+#include <half.h>
 
 using namespace std;
 
@@ -685,3 +693,73 @@ bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, i
 	return result;
 }
 
+void SaveEXR(QString filename, int width, int height, cImage* image, bool rgbChannel, bool alphaChannel, bool zBufferChannel)
+{
+	Imf::Header header(width, height);
+	Imf::FrameBuffer frameBuffer;
+
+	header.compression() = Imf::ZIP_COMPRESSION;
+
+	if(rgbChannel)
+	{
+		// add rgb channel header
+		header.channels().insert("R", Imf::Channel(Imf::FLOAT));
+		header.channels().insert("G", Imf::Channel(Imf::FLOAT));
+		header.channels().insert("B", Imf::Channel(Imf::FLOAT));
+
+		sRGBfloat *imageFloat = new sRGBfloat[(unsigned long int)width * height];
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				unsigned long int ptr = x+y*width;
+				sRGB16 pixel = image->GetPixelImage16(x, y);
+				imageFloat[ptr].R = 1.0 * pixel.R / 65536;
+				imageFloat[ptr].G = 1.0 * pixel.G / 65536;
+				imageFloat[ptr].B = 1.0 * pixel.B / 65536;
+			}
+		}
+
+		// point EXR frame buffer to rgb
+		size_t compSize = sizeof(Imf::FLOAT);
+		frameBuffer.insert("R", Imf::Slice(Imf::FLOAT, (char *)imageFloat + 0 * compSize, 3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("G", Imf::Slice(Imf::FLOAT, (char *)imageFloat + 1 * compSize, 3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("B", Imf::Slice(Imf::FLOAT, (char *)imageFloat + 2 * compSize, 3 * compSize, 3 * width * compSize));
+	}
+
+	if(alphaChannel)
+	{
+		// add alpha channel header
+		header.channels().insert("A", Imf::Channel(Imf::FLOAT));
+
+		float *alphaFloat = new float[(unsigned long int)width * height];
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				qDebug() << image->GetPixelAlpha(x, y);
+				unsigned long int ptr = x+y*width;
+				alphaFloat[ptr] = 1.0 * image->GetPixelAlpha(x, y) / 256;
+			}
+		}
+
+		// point EXR frame buffer to alpha
+		frameBuffer.insert("A", Imf::Slice(Imf::FLOAT, (char *)alphaFloat, sizeof(half), width * sizeof(half)));
+	}
+
+	if(zBufferChannel)
+	{
+		// add z Buffer channel header
+		header.channels().insert("Z", Imf::Channel(Imf::FLOAT));
+
+		// point EXR frame buffer to z buffer
+		float* zBuffer = image->GetZBufferPtr();
+		frameBuffer.insert("Z", Imf::Slice(Imf::FLOAT, (char *)zBuffer, sizeof(half), width * sizeof(half)));
+	}
+
+	Imf::OutputFile file(filename.toStdString().c_str(), header);
+	file.setFrameBuffer(frameBuffer);
+	file.writePixels(height);
+}

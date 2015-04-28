@@ -1,0 +1,52 @@
+/**
+ * Mandelbulber v2, a 3D fractal generator
+ *
+ * EXRFileDialog class - extension of QFileDialog class to store EXR Image files
+ *
+ * Copyright (C) 2014 Krzysztof Marczak
+ *
+ * This file is part of Mandelbulber.
+ *
+ * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details. You should have received a copy of the GNU
+ * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Sebastian Jennen (sebastian.jennen@gmx.de)
+ */
+
+#ifndef EXRFILEDIALOG_H_
+#define EXRFILEDIALOG_H_
+
+#include <QFileDialog>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QCheckBox>
+
+class EXRFileDialog: public QFileDialog
+{
+		Q_OBJECT
+
+public:
+		EXRFileDialog(QWidget *parent);
+		~EXRFileDialog();
+		bool rgbChannel();
+		bool alphaChannel();
+		bool zBufferChannel();
+
+private:
+		QVBoxLayout* vboxlayout;
+		QCheckBox *checkboxRGB;
+		QCheckBox *checkboxAlpha;
+		QCheckBox *checkboxZBuffer;
+
+protected:
+		QLabel *info;
+};
+
+#endif /* EXRFILEDIALOG_H_ */

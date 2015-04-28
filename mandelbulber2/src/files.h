@@ -53,6 +53,7 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size);
 //void SaveAllImageLayers(const char *filename, cImage *image);
 std::string removeFileExtension(const std::string &filename);
 
+void SaveEXR(QString filename, int width, int height, cImage* image, bool rgbChannel, bool alphaChannel, bool zBufferChannel);
 bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality);
 
 #endif /* FILES_H_ */

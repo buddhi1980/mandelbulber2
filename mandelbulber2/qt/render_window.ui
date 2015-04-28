@@ -217,6 +217,7 @@
     <addaction name="actionSave_as_PNG"/>
     <addaction name="actionSave_as_PNG_16_bit"/>
     <addaction name="actionSave_as_PNG_16_bit_with_alpha_channel"/>
+    <addaction name="actionSave_as_EXR"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -10733,6 +10734,15 @@ and water):</string>
    </property>
    <property name="text">
     <string>Save as PNG 16 bit with alpha channel</string>
+   </property>
+  </action>
+  <action name="actionSave_as_EXR">
+   <property name="icon">
+    <iconset theme="document-save-as" resource="icons.qrc">
+     <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Save as EXR</string>
    </property>
   </action>
   <action name="actionLoad_settings">
