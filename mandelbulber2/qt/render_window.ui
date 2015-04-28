@@ -9895,7 +9895,7 @@ and water):</string>
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_178">
                    <property name="text">
-                    <string>Remote server addres:</string>
+                    <string>Remote server address:</string>
                    </property>
                   </widget>
                  </item>
@@ -9965,7 +9965,7 @@ and water):</string>
                  <item row="0" column="1">
                   <widget class="QLabel" name="label_netrender_client_status">
                    <property name="text">
-                    <string>disabled</string>
+                    <string>DISABLED</string>
                    </property>
                   </widget>
                  </item>
@@ -10066,7 +10066,7 @@ and water):</string>
                  <item row="0" column="1">
                   <widget class="QLabel" name="label_netrender_server_status">
                    <property name="text">
-                    <string>disabled</string>
+                    <string>DISABLED</string>
                    </property>
                   </widget>
                  </item>

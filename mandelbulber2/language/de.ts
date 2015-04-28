@@ -2,6 +2,44 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE" sourcelanguage="en">
 <context>
+    <name>CNetRender</name>
+    <message>
+        <location filename="../src/netrender.cpp" line="697"/>
+        <source>DISABLED</source>
+        <translation>AUS</translation>
+    </message>
+    <message>
+        <location filename="../src/netrender.cpp" line="698"/>
+        <source>READY</source>
+        <translation>BEREIT</translation>
+    </message>
+    <message>
+        <location filename="../src/netrender.cpp" line="699"/>
+        <source>WORKING</source>
+        <translation>ARBEITET</translation>
+    </message>
+    <message>
+        <location filename="../src/netrender.cpp" line="700"/>
+        <source>NEW</source>
+        <translation>NEU</translation>
+    </message>
+    <message>
+        <location filename="../src/netrender.cpp" line="701"/>
+        <source>(RE-)CONNECTING</source>
+        <translation>(WIEDER-)VERBINDEN</translation>
+    </message>
+    <message>
+        <location filename="../src/netrender.cpp" line="702"/>
+        <source>ERROR</source>
+        <translation>FEHLER</translation>
+    </message>
+    <message>
+        <location filename="../src/netrender.cpp" line="704"/>
+        <source>UNKNOWN</source>
+        <translation>UNBEKANNT</translation>
+    </message>
+</context>
+<context>
     <name>MyCheckBox</name>
     <message>
         <location filename="../qt/mycheckbox.cpp" line="31"/>
@@ -138,81 +176,87 @@
         <translation>100% Fertig, Gesamtzeit: %3</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="254"/>
+        <location filename="../src/settings.cpp" line="268"/>
         <source>It&apos;s not valid Mandelbulber settings file. No header</source>
         <translation>Keine valide Mandelbulber Einstellungsdatei. Kein Header</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="259"/>
+        <location filename="../src/settings.cpp" line="273"/>
         <source>It&apos;s not valid Mandelbulber settings file. Wrong header</source>
         <translation>Keine valide Mandelbulber Einstellungsdatei. Falscher Header</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="265"/>
+        <location filename="../src/settings.cpp" line="279"/>
         <source>It&apos;s not valid Mandelbulber settings file. No information about version of file</source>
         <translation>Keine valide Mandelbulber Einstellungsdatei. Keine Information über Version der Datei</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="273"/>
+        <location filename="../src/settings.cpp" line="287"/>
         <source>It&apos;s not valid Mandelbulber settings file. Wrong file version number</source>
         <translation>Keine valide Mandelbulber Einstellungsdatei. Falsche Dateiversionsnummer</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="276"/>
+        <location filename="../src/settings.cpp" line="290"/>
         <source>File was saved in newer version of Mandelbulber
 File version: </source>
         <translation>Die Datei wurde mit einer neueren Version von Mandelbulber gespeichert\n Datei Version: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="289"/>
+        <location filename="../src/settings.cpp" line="307"/>
         <source>It&apos;s not valid Mandelbulber settings file. Format not specified in the header</source>
         <translation>Keine valide Mandelbulber Einstellungsdatei. Datei Format im Header nicht angegeben</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="366"/>
+        <location filename="../src/settings.cpp" line="384"/>
         <source>Error in settings file. Line: </source>
         <translation>Fehler in Einstellungsdatei. Zeile: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="371"/>
+        <location filename="../src/settings.cpp" line="389"/>
         <source>Too many errors in settings file</source>
         <translation>Zu viele Fehler in Einstellungsdatei</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="410"/>
+        <location filename="../src/settings.cpp" line="428"/>
         <source>Unknown parameter: </source>
         <translation>Unbekannter Parameter: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="469"/>
+        <location filename="../src/settings.cpp" line="487"/>
         <source>Missing column &apos;frame&apos; in list of animation frames</source>
         <translation>Fehlende Spalte &apos;Frame&apos; in Liste der Animationsframes</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="492"/>
+        <location filename="../src/settings.cpp" line="510"/>
         <source>Unknown parameter in animation frames: </source>
         <translation>Unbekannter Parameter in Animationsframes: </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="498"/>
+        <location filename="../src/settings.cpp" line="516"/>
         <source>No valid list of parameters for animation frames</source>
         <translation>Keine valide Parameterliste für Animationsframes</translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="561"/>
+        <location filename="../src/settings.cpp" line="579"/>
         <source>Missing frame no </source>
         <translation>Fehlender Frame Nr </translation>
     </message>
     <message>
-        <location filename="../src/settings.cpp" line="566"/>
+        <location filename="../src/settings.cpp" line="584"/>
         <source>Wrong number of columns</source>
         <translation>Falsche Anzahl an Spalten</translation>
     </message>
     <message>
-        <location filename="../src/texture.cpp" line="46"/>
+        <location filename="../src/texture.cpp" line="47"/>
         <source>Can&apos;t load texture!
 </source>
         <translation>Textur konnten icht geladen werden!</translation>
+    </message>
+    <message>
+        <location filename="../src/texture.cpp" line="100"/>
+        <source>Can&apos;t load texture from QByteArray!
+</source>
+        <translation>Textur konnte nicht von QByteArray geladen werden!</translation>
     </message>
     <message>
         <location filename="../src/undo.cpp" line="72"/>
@@ -270,115 +314,115 @@ File version: </source>
         <translation>Mandelbulber Information</translation>
     </message>
     <message>
-        <location filename="../src/files.cpp" line="669"/>
+        <location filename="../src/files.cpp" line="681"/>
         <source>Can&apos;t save image to JPEG file!
 </source>
         <translation>Konnte Bild nicht als JPEG Daten speichern!</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="942"/>
-        <location filename="../src/interface.cpp" line="1810"/>
+        <location filename="../src/interface.cpp" line="960"/>
+        <location filename="../src/interface.cpp" line="1828"/>
         <source>Can&apos;t open file </source>
         <translation>Kann Datei nicht öffnen </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="942"/>
+        <location filename="../src/interface.cpp" line="960"/>
         <source> Fractal ui files can&apos;t be loaded</source>
         <translation>Fraktal UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1670"/>
-        <location filename="../src/interface.cpp" line="1689"/>
+        <location filename="../src/interface.cpp" line="1688"/>
+        <location filename="../src/interface.cpp" line="1707"/>
         <source>Reseting view</source>
         <translation>Ansicht wird zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1670"/>
+        <location filename="../src/interface.cpp" line="1688"/>
         <source>Fractal size calculation</source>
         <translation>Fraktalgröße berechnen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1689"/>
+        <location filename="../src/interface.cpp" line="1707"/>
         <source>Done</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1750"/>
+        <location filename="../src/interface.cpp" line="1768"/>
         <source>Set position of </source>
         <translation>Setze Position von </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1754"/>
+        <location filename="../src/interface.cpp" line="1772"/>
         <source>Delete </source>
         <translation>Lösche </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1810"/>
+        <location filename="../src/interface.cpp" line="1828"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
         <translation>Primitive Objekte UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1886"/>
+        <location filename="../src/interface.cpp" line="1904"/>
         <source>No action</source>
         <translation>Keine Aktion</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1889"/>
+        <location filename="../src/interface.cpp" line="1907"/>
         <source>Move the camera</source>
         <translation>Kamera bewegen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1892"/>
+        <location filename="../src/interface.cpp" line="1910"/>
         <source>Set fog visibility</source>
         <translation>Nebelsichtbarkeit setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1895"/>
+        <location filename="../src/interface.cpp" line="1913"/>
         <source>Set DOF focus</source>
         <translation>Tiefenschärfefokus setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1898"/>
+        <location filename="../src/interface.cpp" line="1916"/>
         <source>Get Julia constant</source>
         <translation>Julia Konstante holen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1901"/>
+        <location filename="../src/interface.cpp" line="1919"/>
         <source>Place light #1</source>
         <translation>Setze Licht #1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1904"/>
+        <location filename="../src/interface.cpp" line="1922"/>
         <source>Place light #2</source>
         <translation>Setze Licht #2</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1907"/>
+        <location filename="../src/interface.cpp" line="1925"/>
         <source>Place light #3</source>
         <translation>Setze Licht #3</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1910"/>
+        <location filename="../src/interface.cpp" line="1928"/>
         <source>Place light #4</source>
         <translation>Setze Licht #4</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1918"/>
+        <location filename="../src/interface.cpp" line="1936"/>
         <source>Place </source>
         <translation>Setze </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1970"/>
+        <location filename="../src/interface.cpp" line="1988"/>
         <source>Toolbar settings: </source>
         <translation>Toolbar Einstellungen:</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1989"/>
+        <location filename="../src/interface.cpp" line="2007"/>
         <source>Are you sure to close the application?</source>
         <translation>Anwendung beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1992"/>
+        <location filename="../src/interface.cpp" line="2010"/>
         <source>Quit?</source>
         <translation>Beenden?</translation>
     </message>
@@ -390,9 +434,9 @@ File version: </source>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="58"/>
-        <source>File with default values desn&apos;t exist
+        <source>File with default values doesn&apos;t exist
 </source>
-        <translation></translation>
+        <translation>Datei mit Standardwerten existiert nicht.</translation>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="1000"/>
@@ -400,29 +444,29 @@ File version: </source>
         <translation>Hybridfraktal kann nicht konvertiert werden</translation>
     </message>
     <message>
-        <location filename="../src/render_image.cpp" line="129"/>
+        <location filename="../src/render_image.cpp" line="153"/>
         <source>Rendering image in progress</source>
         <translation>Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../src/render_image.cpp" line="212"/>
+        <location filename="../src/render_image.cpp" line="289"/>
         <location filename="../src/render_ssao.cpp" line="170"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="101"/>
-        <location filename="../src/render_job.cpp" line="136"/>
+        <location filename="../src/render_job.cpp" line="99"/>
+        <location filename="../src/render_job.cpp" line="152"/>
         <source>Initialization</source>
         <translation>Initialisierung</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="101"/>
+        <location filename="../src/render_job.cpp" line="99"/>
         <source>Setting up image buffers</source>
         <translation>Bildpuffer einrichten</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="136"/>
+        <location filename="../src/render_job.cpp" line="152"/>
         <source>Loading textures</source>
         <translation>Lade Texturen</translation>
     </message>
@@ -444,7 +488,7 @@ File version: </source>
     <message>
         <location filename="../src/animation_flight.cpp" line="115"/>
         <location filename="../src/animation_flight.cpp" line="545"/>
-        <location filename="../src/animation_flight.cpp" line="782"/>
+        <location filename="../src/animation_flight.cpp" line="783"/>
         <source>This will delete all images in the image folder.
 Proceed?</source>
         <translation>Das wird alle Bilder im Bildordner löschen.
@@ -474,7 +518,7 @@ Fortsetzen?</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="543"/>
-        <location filename="../src/animation_flight.cpp" line="781"/>
+        <location filename="../src/animation_flight.cpp" line="782"/>
         <source>Truncate Image Folder</source>
         <translation>Bilderordner leeren</translation>
     </message>
@@ -521,6 +565,22 @@ Soll der Bilderordner geleert werden?</translation>
         <location filename="../src/player_widget.cpp" line="73"/>
         <source>No frames to play</source>
         <translation>Keine Frames zum abspielen</translation>
+    </message>
+    <message>
+        <location filename="../src/netrender.cpp" line="66"/>
+        <source>NetRender - address already in use.
+
+Is there already a mandelbulber server instance running on this port?</source>
+        <translation>NetRender - Adresse schon in Benutzung
+
+Ist bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</translation>
+    </message>
+    <message>
+        <location filename="../src/netrender.cpp" line="72"/>
+        <source>NetRender - SetServer Error:
+
+</source>
+        <translation>NetRender - SetServer Fehler:</translation>
     </message>
 </context>
 <context>
@@ -1636,7 +1696,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="8604"/>
         <source>Other radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anderer Radius:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8643"/>
@@ -1644,133 +1704,212 @@ to target:</source>
         <translation>Innenradius:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="9827"/>
+        <location filename="../qt/render_window.ui" line="9808"/>
+        <source>NetRender</source>
+        <translation>NetRender</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9840"/>
+        <source>Mode:</source>
+        <translation>Modus:</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9851"/>
+        <source>Client</source>
+        <translation>Client</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9856"/>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9869"/>
+        <source>Client configuration:</source>
+        <translation>Client Konfiguration:</translation>
+    </message>
+    <message>
+        <source>Remote server addres:</source>
+        <translation type="obsolete">Remote Server Ad</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9905"/>
+        <source>Remote server port:</source>
+        <translation>Remote Server Port:</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9929"/>
+        <source>Connect to server</source>
+        <translation>Server verbinden</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9943"/>
+        <source>Disconnect</source>
+        <translation>Trennen</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9961"/>
+        <location filename="../qt/render_window.ui" line="10062"/>
+        <source>Status:</source>
+        <translation>Status:</translation>
+    </message>
+    <message>
+        <source>disabled</source>
+        <translation type="vanished">aus</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9980"/>
+        <source>Server configuration:</source>
+        <translation>Server Konfiguration:</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10016"/>
+        <source>Local server port:</source>
+        <translation>Lokaler Server Port:</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10030"/>
+        <source>Launch server and watch for clients</source>
+        <translation>Server starten und auf Clients horchen</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10044"/>
+        <source>Stop Server</source>
+        <translation>Server stoppen</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10078"/>
+        <source>List of connected clients</source>
+        <translation>Liste der verbundenen Clients</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10126"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="9857"/>
+        <location filename="../qt/render_window.ui" line="10162"/>
         <source>Histogram of ray-marching step count</source>
         <translation>Histogramm von Raymarching Schritt Anzahl</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="9884"/>
+        <location filename="../qt/render_window.ui" line="10182"/>
         <source>Histogram of fractal interation count</source>
         <translation>Histogramm von fraktalen Iterationsschritten</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="9911"/>
+        <location filename="../qt/render_window.ui" line="10196"/>
         <source>Animation</source>
         <translation>Animation</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="9945"/>
+        <location filename="../qt/render_window.ui" line="10230"/>
         <source>Flight animation</source>
         <translation>Fluganimation</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="9999"/>
+        <location filename="../qt/render_window.ui" line="10284"/>
         <source>Record flight path</source>
         <translation>Flug aufzeichnen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="9988"/>
+        <location filename="../qt/render_window.ui" line="10273"/>
         <source>Render flight animation</source>
         <translation>Fluganimation rendern</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10088"/>
+        <location filename="../qt/render_window.ui" line="10373"/>
         <source>Path for images:</source>
         <translation>Pfad für Bilder:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10095"/>
+        <location filename="../qt/render_window.ui" line="10380"/>
         <source>inertia:</source>
         <translation>Trägheit:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10102"/>
+        <location filename="../qt/render_window.ui" line="10387"/>
         <source>speed:</source>
         <translation>Geschwindigkeit:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10109"/>
+        <location filename="../qt/render_window.ui" line="10394"/>
         <source>speed control:</source>
         <translation>Geschwindigkeitssteuerung:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10117"/>
+        <location filename="../qt/render_window.ui" line="10402"/>
         <source>Relative to distance</source>
         <translation>Relativ zur Distanz</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10122"/>
+        <location filename="../qt/render_window.ui" line="10407"/>
         <source>Constant</source>
         <translation>Konstant</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10207"/>
+        <location filename="../qt/render_window.ui" line="10492"/>
         <source>seconds per frame:</source>
         <translation>Sekunden pro Frame:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10387"/>
+        <location filename="../qt/render_window.ui" line="10672"/>
         <source>Keyframe animation</source>
         <translation>Keyframe Animation</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10399"/>
+        <location filename="../qt/render_window.ui" line="10684"/>
         <source>Comming soon</source>
         <translation>Kommt noch</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10531"/>
+        <location filename="../qt/render_window.ui" line="10816"/>
         <source>Undo</source>
         <translation>Rückgängig</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10534"/>
+        <location filename="../qt/render_window.ui" line="10819"/>
         <source>Ctrl+Z</source>
         <translation>Strg+Z</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10543"/>
+        <location filename="../qt/render_window.ui" line="10828"/>
         <source>Redo</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10546"/>
+        <location filename="../qt/render_window.ui" line="10831"/>
         <source>Ctrl+Y</source>
         <translation>Strg+Y</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10555"/>
+        <location filename="../qt/render_window.ui" line="10840"/>
         <location filename="../src/render_window.cpp" line="594"/>
         <source>Import settings from old Mandelbulber (v1.21)...</source>
         <translation>Einstellungen von alten Mandelbulber Dateien (v1.21)...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10564"/>
+        <location filename="../qt/render_window.ui" line="10849"/>
         <source>Load example...</source>
         <translation>Lade Beispiel...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10572"/>
+        <location filename="../qt/render_window.ui" line="10857"/>
         <source>Show animation dock</source>
         <translation>Zeige Animationsdock</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10583"/>
+        <location filename="../qt/render_window.ui" line="10868"/>
         <source>Show Info dock</source>
         <translation>Zeige Infodock</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10594"/>
+        <location filename="../qt/render_window.ui" line="10879"/>
         <source>Show toolbar</source>
         <translation>Zeige Toolbar</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10602"/>
+        <location filename="../qt/render_window.ui" line="10887"/>
         <source>Stack all docks</source>
         <translation>Alle Docks überlagern</translation>
     </message>
@@ -2004,120 +2143,131 @@ und Wasser):</translation>
         <translation>Ecke - oben recht hinten:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10010"/>
+        <location filename="../qt/render_window.ui" line="9898"/>
+        <source>Remote server address:</source>
+        <translation>Remote Server Adresse:</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9968"/>
+        <location filename="../qt/render_window.ui" line="10069"/>
+        <source>DISABLED</source>
+        <translation>AUS</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10295"/>
         <source>Delete all images</source>
         <translation>Alle Bilder löschen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10021"/>
+        <location filename="../qt/render_window.ui" line="10306"/>
         <source>Show Animation</source>
         <translation>Zeige Animation</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10032"/>
+        <location filename="../qt/render_window.ui" line="10317"/>
         <source>Continue recording</source>
         <translation>Aufnahme fortsetzen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10043"/>
+        <location filename="../qt/render_window.ui" line="10328"/>
         <source>Refresh table</source>
         <translation>Tabelle aktualisieren</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10133"/>
+        <location filename="../qt/render_window.ui" line="10418"/>
         <source>Select folder</source>
         <translation>Ordner auswählen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10297"/>
+        <location filename="../qt/render_window.ui" line="10582"/>
         <source>roll speed:</source>
         <translation>Gier Geschwindigkeit:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10323"/>
+        <location filename="../qt/render_window.ui" line="10608"/>
         <source>Show thumbnails</source>
         <translation>Zeige Tumbnails</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10330"/>
+        <location filename="../qt/render_window.ui" line="10615"/>
         <source>rotation speed:</source>
         <translation>Rotationsgeschwindigkeit:</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10337"/>
+        <location filename="../qt/render_window.ui" line="10622"/>
         <source>Add flight and rotation speed to parameters
 (needed to continue recording animation)</source>
         <translation>Flug- und Drehgeschwindigkeit zu Parametern hinzufügen
 (nötig um die Aufnahme der Animation fortzusetzen)</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10423"/>
+        <location filename="../qt/render_window.ui" line="10708"/>
         <source>Save as JPG...</source>
         <translation>JPG speichern...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10432"/>
+        <location filename="../qt/render_window.ui" line="10717"/>
         <source>Save as PNG...</source>
         <translation>PNG speichern...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10441"/>
+        <location filename="../qt/render_window.ui" line="10726"/>
         <source>Save as PNG 16 bit...</source>
         <translation>PNG 16 bit speichern...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10450"/>
+        <location filename="../qt/render_window.ui" line="10735"/>
         <source>Save as PNG 16 bit with alpha channel</source>
         <translation>PNG 16 bit mit Alpha speichern</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10459"/>
+        <location filename="../qt/render_window.ui" line="10744"/>
         <location filename="../src/render_window.cpp" line="541"/>
         <source>Load settings...</source>
         <translation>Einstellungen laden...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10468"/>
+        <location filename="../qt/render_window.ui" line="10753"/>
         <source>Save settings</source>
         <translation>Einstellungen speichern</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10477"/>
+        <location filename="../qt/render_window.ui" line="10762"/>
         <source>Save settings as...</source>
         <translation>Einstellungen speichern als...</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10480"/>
+        <location filename="../qt/render_window.ui" line="10765"/>
         <source>Save settings in selected file</source>
         <translation>Einstellungen in selektierter Datei speichern</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10489"/>
+        <location filename="../qt/render_window.ui" line="10774"/>
         <source>Program Settings</source>
         <translation>Programm Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10498"/>
+        <location filename="../qt/render_window.ui" line="10783"/>
         <source>Quit</source>
         <translation>Schließen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10503"/>
+        <location filename="../qt/render_window.ui" line="10788"/>
         <source>Save window state</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10508"/>
+        <location filename="../qt/render_window.ui" line="10793"/>
         <source>Default docks positions</source>
         <translation>Standard Docks Positionen</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10513"/>
+        <location filename="../qt/render_window.ui" line="10798"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10522"/>
+        <location filename="../qt/render_window.ui" line="10807"/>
         <source>About Mandelbulber</source>
         <translation>Über Mandelbulber</translation>
     </message>
@@ -2226,6 +2376,31 @@ und Wasser):</translation>
         <location filename="../src/render_window.cpp" line="839"/>
         <source>Select image to grab colors...</source>
         <translation>Wähle Bild zum Farben holen...</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window.cpp" line="1448"/>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window.cpp" line="1448"/>
+        <source>Host</source>
+        <translation>Host</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window.cpp" line="1448"/>
+        <source>Worker</source>
+        <translation>Worker</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window.cpp" line="1448"/>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window.cpp" line="1448"/>
+        <source>Rendered</source>
+        <translation>Gerendert</translation>
     </message>
 </context>
 <context>
