@@ -31,8 +31,6 @@
 #include "settings.hpp"
 #include <qapplication.h>
 
-//TODO add autosave of settings
-
 int main(int argc, char *argv[])
 {
 	//Initialization of system functions

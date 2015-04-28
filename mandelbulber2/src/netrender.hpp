@@ -32,8 +32,6 @@
 #include "fractparams.hpp"
 #include "scheduler.hpp"
 
-//TODO add different error messages
-//TODO check if there are no memory leaks
 //TODO add sending job if new client is connected during rendering
 
 class CNetRender : public QObject

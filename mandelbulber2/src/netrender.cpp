@@ -389,6 +389,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				status = netRender_READY;
 				gMainInterface->stopRequest = true;
 				emit NotifyStatus();
+				qDebug() << "CNetRender - STOP";
 				break;
 			}
 			case netRender_STATUS:
@@ -478,6 +479,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					stream >> line;
 					startingPositions.append(line);
 				}
+				qDebug() << "Id: " << actualId << "Starting positions: " << startingPositions;
 				break;
 			}
 			default:

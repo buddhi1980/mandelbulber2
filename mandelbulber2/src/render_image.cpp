@@ -221,6 +221,11 @@ bool cRenderer::RenderImage()
 					else
 						lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
 
+					if(useNetRender)
+					{
+						if(lastRefreshTime < 1000) lastRefreshTime = 1000;
+					}
+
 					timerRefresh.restart();
 					listToRefresh.clear();
 				} //timerRefresh
@@ -238,6 +243,26 @@ bool cRenderer::RenderImage()
 	}
 	while(scheduler->ProgresiveNextStep());
 
+	//send last rendered lines
+	if(image->IsMainImage() && gNetRender->IsClient() && gNetRender->GetStatus() == CNetRender::netRender_WORKING)
+	{
+		QList<int> list = scheduler->GetLastRenderedLines();
+		listToRefresh += list;
+		QSet<int> set_listTorefresh = listToRefresh.toSet(); //removing duplicates
+		listToRefresh = set_listTorefresh.toList();
+		qSort(listToRefresh);
+		QList<QByteArray> renderedLinesData;
+		for(int i = 0; i < listToRefresh.size(); i++)
+		{
+			QByteArray lineData;
+			CreateLineData(listToRefresh.at(i), &lineData);
+			renderedLinesData.append(lineData);
+		}
+		emit sendRenderedLines(listToRefresh, renderedLinesData);
+		emit NotifyClientStatus();
+		gApplication->processEvents();
+	}
+
 	if(useNetRender)
 	{
 		if(gNetRender->IsClient()) {
@@ -253,8 +278,6 @@ bool cRenderer::RenderImage()
 	//refresh image at end
 	WriteLog("image->CompileImage()");
 	image->CompileImage();
-
-	//TODO when NetRender Client then do not render SSAO and DOF
 
 	if(!(gNetRender->IsClient() && image->IsMainImage()))
 	{
