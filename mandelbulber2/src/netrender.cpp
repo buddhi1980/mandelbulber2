@@ -273,7 +273,7 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 
 	// write to socket
 	socket->write(byteArray);
-	socket->waitForBytesWritten();
+	//socket->waitForBytesWritten();
 
 	return true;
 }
@@ -477,6 +477,16 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				qDebug() << "Id: " << actualId << "Starting positions: " << startingPositions;
 				break;
 			}
+
+			case netRender_ACK:
+			{
+				if (inMsg->id == actualId)
+				{
+					emit AckReceived();
+				}
+				break;
+			}
+
 			default:
 				break;
 		}
@@ -535,6 +545,12 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					}
 					clients[index].linesRendered += receivedLineNumbers.size();
 					emit NewLinesArrived(receivedLineNumbers, receivedRenderedLines);
+
+					//send acknowledge
+					sMessage outMsg;
+					outMsg.id = actualId;
+					outMsg.command = netRender_ACK;
+					SendData(clients[index].socket, outMsg);
 				}
 				else
 				{

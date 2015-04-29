@@ -287,7 +287,20 @@ void cScheduler::UpdateDoneLines(const QList<int> &done)
 	for(int i=0; i<done.size(); i++)
 	{
 		int line = done.at(i);
+		lastLinesDone[line] = false;
 		lineDone[line] = true;
 		linePendingThreadId[line] = 9999; //just set some number, to inform that this line was already taken
+	}
+}
+
+bool cScheduler::IsLineDoneByServer(int line)
+{
+	if(line >= 0 && line < numberOfLines)
+	{
+		return linePendingThreadId[line] == 9999;
+	}
+	else
+	{
+		return false;
 	}
 }

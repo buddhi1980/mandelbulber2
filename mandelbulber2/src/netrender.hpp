@@ -44,7 +44,7 @@ public:
 //--------------- enumerations ---------------------
 public:
 	enum netCommand { netRender_NONE, netRender_VERSION, netRender_WORKER, netRender_RENDER, netRender_DATA,
-										netRender_BAD, netRender_JOB, netRender_STOP, netRender_STATUS, netRender_SETUP};
+										netRender_BAD, netRender_JOB, netRender_STOP, netRender_STATUS, netRender_SETUP, netRender_ACK};
 	//VERSION - ask for server version
 	//WORKER - ask for number of client CPU count
 	//RENDER - list of lines needed to be rendered (to Client), and suggestion which lines should be rendered first
@@ -54,6 +54,7 @@ public:
 	//STOP - terminate rendering request (to clients)
 	//STATUS - ask for status (to client)
 	//SETUP - setup job id and starting positions
+	//ACK - acknowledge after receive rendered lines
 
 	enum netRenderStatus { netRender_DISABLED, netRender_READY, netRender_WORKING, netRender_NEW, netRender_CONNECTING, netRender_ERROR };
 	//DISABLED - no slot configured
@@ -206,6 +207,8 @@ signals:
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
 	//send list of rendered lines to cRenderer
 	void ToDoListArrived(QList<int> done);
+	//confirmation of data receive
+	void AckReceived();
 
 	void NewStatusClient();
 	void NewStatusServer();

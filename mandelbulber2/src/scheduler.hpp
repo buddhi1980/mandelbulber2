@@ -45,6 +45,7 @@ public:
 	int GetProgresivePass() {return progressivePass;}
 	bool ProgresiveNextStep();
 	QList<int> CreateDoneList();
+	bool IsLineDoneByServer(int line);
 
 private:
 	void Reset(void);

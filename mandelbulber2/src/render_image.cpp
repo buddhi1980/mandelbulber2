@@ -40,6 +40,7 @@ cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal,
 	image = _image;
 	parentObject = _parentObject;
 	scheduler = NULL;
+	netRemderAckReceived = true;
 }
 
 cRenderer::~cRenderer()
@@ -106,6 +107,7 @@ bool cRenderer::RenderImage()
 	timerRefresh.start();
 	qint64 lastRefreshTime = 0;
 	QList<int> listToRefresh;
+	QList<int> listToSend;
 
 	WriteLog("Start rendering");
 	do
@@ -167,6 +169,7 @@ bool cRenderer::RenderImage()
 					QSet<int> set_listTorefresh = listToRefresh.toSet(); //removing duplicates
 					listToRefresh = set_listTorefresh.toList();
 					qSort(listToRefresh);
+					listToSend += listToRefresh;
 
 					image->CompileImage(&listToRefresh);
 
@@ -193,15 +196,32 @@ bool cRenderer::RenderImage()
 
 					if(image->IsMainImage() && gNetRender->IsClient() && gNetRender->GetStatus() == CNetRender::netRender_WORKING)
 					{
-						QList<QByteArray> renderedLinesData;
-						for(int i = 0; i < listToRefresh.size(); i++)
+						if(netRemderAckReceived)
 						{
-							QByteArray lineData;
-							CreateLineData(listToRefresh.at(i), &lineData);
-							renderedLinesData.append(lineData);
+							QList<QByteArray> renderedLinesData;
+							for(int i = 0; i < listToSend.size(); i++)
+							{
+								//avoid sending already rendered lines
+								if(scheduler->IsLineDoneByServer(listToSend.at(i)))
+								{
+									listToSend.removeAt(i);
+									i--;
+									continue;
+								}
+								QByteArray lineData;
+								CreateLineData(listToSend.at(i), &lineData);
+								renderedLinesData.append(lineData);
+							}
+
+							if(listToSend.size() > 0)
+							{
+								emit sendRenderedLines(listToSend, renderedLinesData);
+								emit NotifyClientStatus();
+								netRemderAckReceived = false;
+								qDebug() << "Send:" << listToSend;
+								listToSend.clear();
+							}
 						}
-						emit sendRenderedLines(listToRefresh, renderedLinesData);
-						emit NotifyClientStatus();
 					}
 
 					if(image->IsMainImage() && gNetRender->IsServer())
@@ -223,7 +243,7 @@ bool cRenderer::RenderImage()
 
 					if(useNetRender)
 					{
-						if(lastRefreshTime < 1000) lastRefreshTime = 1000;
+						if(lastRefreshTime < 500) lastRefreshTime = 500;
 					}
 
 					timerRefresh.restart();
@@ -246,21 +266,32 @@ bool cRenderer::RenderImage()
 	//send last rendered lines
 	if(image->IsMainImage() && gNetRender->IsClient() && gNetRender->GetStatus() == CNetRender::netRender_WORKING)
 	{
-		QList<int> list = scheduler->GetLastRenderedLines();
-		listToRefresh += list;
-		QSet<int> set_listTorefresh = listToRefresh.toSet(); //removing duplicates
-		listToRefresh = set_listTorefresh.toList();
-		qSort(listToRefresh);
-		QList<QByteArray> renderedLinesData;
-		for(int i = 0; i < listToRefresh.size(); i++)
+		if (netRemderAckReceived)
 		{
-			QByteArray lineData;
-			CreateLineData(listToRefresh.at(i), &lineData);
-			renderedLinesData.append(lineData);
+			QList<QByteArray> renderedLinesData;
+			for (int i = 0; i < listToSend.size(); i++)
+			{
+				//avoid sending already rendered lines
+				if (scheduler->IsLineDoneByServer(listToSend.at(i)))
+				{
+					listToSend.removeAt(i);
+					i--;
+					continue;
+				}
+				QByteArray lineData;
+				CreateLineData(listToSend.at(i), &lineData);
+				renderedLinesData.append(lineData);
+			}
+
+			if (listToSend.size() > 0)
+			{
+				emit sendRenderedLines(listToSend, renderedLinesData);
+				emit NotifyClientStatus();
+				netRemderAckReceived = false;
+				qDebug() << "Send:" << listToSend;
+				listToSend.clear();
+			}
 		}
-		emit sendRenderedLines(listToRefresh, renderedLinesData);
-		emit NotifyClientStatus();
-		gApplication->processEvents();
 	}
 
 	if(useNetRender)
@@ -384,4 +415,10 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 void cRenderer::ToDoListArrived(QList<int> toDo)
 {
 	scheduler->UpdateDoneLines(toDo);
+}
+
+void cRenderer::AckReceived()
+{
+	netRemderAckReceived = true;
+	qDebug() << "ACK";
 }
