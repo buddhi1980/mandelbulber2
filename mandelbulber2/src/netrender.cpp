@@ -256,10 +256,6 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg)
 	QByteArray byteArray;
 	QDataStream socketWriteStream(&byteArray, QIODevice::ReadWrite);
 
-	if(msg.payload.size() > 0){
-		msg.payload = qCompress(msg.payload);
-	}
-
 	msg.size = msg.payload.size();
 	msg.id = actualId;
 
@@ -341,7 +337,6 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 				//socketReadStream.skipRawData(socket->bytesAvailable());
 				return;
 			}
-			msg->payload = qUncompress(msg->payload);
 			msg->size = msg->payload.size();
 		}
 		ProcessData(socket, msg);
