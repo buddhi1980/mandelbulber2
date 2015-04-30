@@ -53,13 +53,12 @@ void cScheduler::Reset()
 	memset(lastLinesDone, 0, sizeof(bool) * numberOfLines);
 }
 
-//coś wymyslić, żeby nie zostawała jedna linia na koniec - oznaczać linie w toku i zakończone oddzielnie
 bool cScheduler::ThereIsStillSomethingToDo(int threadId)
 {
 	bool result = false;
 	for(int i = 0; i<numberOfLines; i++)
 	{
-		if(lineDone[i] == false && linePendingThreadId[i] == threadId)
+		if(lineDone[i] == false && (linePendingThreadId[i] == threadId || linePendingThreadId[i] == 0))
 		{
 			result = true;
 			break;
