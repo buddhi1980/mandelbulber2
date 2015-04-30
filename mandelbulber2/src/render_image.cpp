@@ -194,9 +194,10 @@ bool cRenderer::RenderImage()
 						emit updateHistogramStepCount(data->histogramStepCount);
 					}
 
+					//sending rendered lines to NetRender server
 					if(image->IsMainImage() && gNetRender->IsClient() && gNetRender->GetStatus() == CNetRender::netRender_WORKING)
 					{
-						if(netRemderAckReceived)
+						if(netRemderAckReceived) //is ACK was already received. Server is ready to take new data
 						{
 							QList<QByteArray> renderedLinesData;
 							for(int i = 0; i < listToSend.size(); i++)
@@ -208,17 +209,17 @@ bool cRenderer::RenderImage()
 									i--;
 									continue;
 								}
+								//creating data set to send
 								QByteArray lineData;
 								CreateLineData(listToSend.at(i), &lineData);
 								renderedLinesData.append(lineData);
 							}
-
+							//sending data
 							if(listToSend.size() > 0)
 							{
 								emit sendRenderedLines(listToSend, renderedLinesData);
 								emit NotifyClientStatus();
 								netRemderAckReceived = false;
-								qDebug() << "Send:" << listToSend;
 								listToSend.clear();
 							}
 						}
@@ -241,6 +242,7 @@ bool cRenderer::RenderImage()
 					else
 						lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
 
+					//do not refresh and send data too often
 					if(useNetRender)
 					{
 						if(lastRefreshTime < 500) lastRefreshTime = 500;
@@ -288,7 +290,6 @@ bool cRenderer::RenderImage()
 				emit sendRenderedLines(listToSend, renderedLinesData);
 				emit NotifyClientStatus();
 				netRemderAckReceived = false;
-				qDebug() << "Send:" << listToSend;
 				listToSend.clear();
 			}
 		}
@@ -420,5 +421,4 @@ void cRenderer::ToDoListArrived(QList<int> toDo)
 void cRenderer::AckReceived()
 {
 	netRemderAckReceived = true;
-	qDebug() << "ACK";
 }

@@ -384,7 +384,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				status = netRender_READY;
 				gMainInterface->stopRequest = true;
 				emit NotifyStatus();
-				qDebug() << "CNetRender - STOP";
+				WriteLog("CNetRender - STOP");
 				break;
 			}
 			case netRender_STATUS:
@@ -474,7 +474,6 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					stream >> line;
 					startingPositions.append(line);
 				}
-				qDebug() << "Id: " << actualId << "Starting positions: " << startingPositions;
 				break;
 			}
 
@@ -639,6 +638,7 @@ void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal
 		for(int i = 0; i < clients.size(); i++)
 		{
 			SendData(clients[i].socket, msg);
+			clients[i].linesRendered = 0;
 		}
 	}
 }
