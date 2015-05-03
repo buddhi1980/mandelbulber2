@@ -302,7 +302,7 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 	{
 		if (msg->command == netRender_NONE)
 		{
-			if (socket->bytesAvailable() < (sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size)))
+			if (socket->bytesAvailable() < (qint64)((sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size))))
 			{
 				return;
 			}
@@ -316,7 +316,7 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 
 		if(msg->size > 0)
 		{
-			if (bytesAvailable < sizeof(quint16) + msg->size)
+			if (bytesAvailable < (qint64)(sizeof(quint16) + msg->size))
 			{
 				return;
 			}

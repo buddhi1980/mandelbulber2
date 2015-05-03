@@ -684,8 +684,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 		for(int index = shaderInputData.stepCount - 1; index > 0; index--)
 		{
 			double step = shaderInputData.stepBuff[index].step;
-			CVector3 point = shaderInputData.stepBuff[index].point;
 
+			//CVector3 point = shaderInputData.stepBuff[index].point;
 			//shaderInputData.point = point;
 			//sRGBAfloat color = SurfaceColour(shaderInputData);
 			//transparentColor.R = color.R;
