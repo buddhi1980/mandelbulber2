@@ -4,39 +4,39 @@
 <context>
     <name>CNetRender</name>
     <message>
-        <location filename="../src/netrender.cpp" line="697"/>
+        <location filename="../src/netrender.cpp" line="710"/>
         <source>DISABLED</source>
-        <translation type="unfinished"></translation>
+        <translation>WYŁĄCZONY</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="698"/>
+        <location filename="../src/netrender.cpp" line="711"/>
         <source>READY</source>
-        <translation type="unfinished"></translation>
+        <translation>GOTOWY</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="699"/>
+        <location filename="../src/netrender.cpp" line="712"/>
         <source>WORKING</source>
-        <translation type="unfinished"></translation>
+        <translation>PRACUJE</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="700"/>
+        <location filename="../src/netrender.cpp" line="713"/>
         <source>NEW</source>
-        <translation type="unfinished"></translation>
+        <translation>NOWY</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="701"/>
+        <location filename="../src/netrender.cpp" line="714"/>
         <source>(RE-)CONNECTING</source>
-        <translation type="unfinished"></translation>
+        <translation>ŁĄCZENIE</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="702"/>
+        <location filename="../src/netrender.cpp" line="715"/>
         <source>ERROR</source>
-        <translation type="unfinished"></translation>
+        <translation>BŁĄD</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="704"/>
+        <location filename="../src/netrender.cpp" line="717"/>
         <source>UNKNOWN</source>
-        <translation type="unfinished"></translation>
+        <translation>NIEZNANY</translation>
     </message>
 </context>
 <context>
@@ -228,17 +228,17 @@
         <location filename="../src/interface.cpp" line="1688"/>
         <location filename="../src/interface.cpp" line="1707"/>
         <source>Reseting view</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset widoku</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1688"/>
         <source>Fractal size calculation</source>
-        <translation type="unfinished"></translation>
+        <translation>Obczanie wielkości fraktala</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1707"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Gotowe</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1768"/>
@@ -308,7 +308,7 @@
     <message>
         <location filename="../src/interface.cpp" line="1988"/>
         <source>Toolbar settings: </source>
-        <translation type="unfinished"></translation>
+        <translation>Plik ustawień:</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="2007"/>
@@ -331,7 +331,7 @@
         <location filename="../src/old_settings.cpp" line="58"/>
         <source>File with default values doesn&apos;t exist
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Plik z wartościami domyslnymi nie istnieje</translation>
     </message>
     <message>
         <source>File with default values desn&apos;t exist
@@ -355,12 +355,12 @@
         <translation>100% gotowe, czałkowity czas: %3</translation>
     </message>
     <message>
-        <location filename="../src/render_image.cpp" line="153"/>
+        <location filename="../src/render_image.cpp" line="155"/>
         <source>Rendering image in progress</source>
         <translation>Renderowanie obrazu w trakcie</translation>
     </message>
     <message>
-        <location filename="../src/render_image.cpp" line="289"/>
+        <location filename="../src/render_image.cpp" line="344"/>
         <location filename="../src/render_ssao.cpp" line="170"/>
         <source>Idle</source>
         <translation>Bezczynność</translation>
@@ -469,7 +469,7 @@ Wersja pliku: </translation>
         <location filename="../src/texture.cpp" line="100"/>
         <source>Can&apos;t load texture from QByteArray!
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Nie mogę załadować tekstury z QByteArray!</translation>
     </message>
     <message>
         <location filename="../src/undo.cpp" line="72"/>
@@ -578,14 +578,14 @@ Czy chcesz opróżnić folder z klatkami animacji?
         <source>NetRender - address already in use.
 
 Is there already a mandelbulber server instance running on this port?</source>
-        <translation type="unfinished"></translation>
+        <translation>NetRender - adres jest już w uzyciu. Czy jakiś inny Madelbulber pracuje na tym porcie?</translation>
     </message>
     <message>
         <location filename="../src/netrender.cpp" line="72"/>
         <source>NetRender - SetServer Error:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>NetRender - błąd serwera</translation>
     </message>
 </context>
 <context>
@@ -1272,37 +1272,37 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="2088"/>
         <source>Material</source>
-        <translation type="unfinished"></translation>
+        <translation>Materiał</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2144"/>
         <source>Color of volume:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor wnętrza:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2327"/>
         <source>Transparency of volume:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przezroczystość wnętrza:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2334"/>
         <source>Transparency of surface:</source>
-        <translation type="unfinished"></translation>
+        <translation>Przezroczystość powierzchni:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2360"/>
         <source>Index of refraction:</source>
-        <translation type="unfinished"></translation>
+        <translation>Współczynnik załanania:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2434"/>
         <source>Fresnel&apos;s equations for reflectance</source>
-        <translation type="unfinished"></translation>
+        <translation>Równanie Fresnela dla reflektancji</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3041"/>
         <source>Ray-traced reflections and transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Śledzone promienie odbić i przezroczystości</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3375"/>
@@ -1641,7 +1641,7 @@ kamery od celu:</translation>
         <location filename="../qt/render_window.ui" line="6855"/>
         <location filename="../qt/render_window.ui" line="7362"/>
         <source>Formula specific parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Parametry specyficzne dla formuły</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5872"/>
@@ -1649,7 +1649,7 @@ kamery od celu:</translation>
         <location filename="../qt/render_window.ui" line="6886"/>
         <location filename="../qt/render_window.ui" line="7393"/>
         <source>Transform</source>
-        <translation type="unfinished"></translation>
+        <translation>Przekształcenie</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5930"/>
@@ -1657,14 +1657,14 @@ kamery od celu:</translation>
         <location filename="../qt/render_window.ui" line="6966"/>
         <location filename="../qt/render_window.ui" line="7451"/>
         <source>shift:</source>
-        <translation type="unfinished"></translation>
+        <translation>przesunięcie:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6152"/>
         <location filename="../qt/render_window.ui" line="6694"/>
         <location filename="../qt/render_window.ui" line="7201"/>
         <source>scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>skala:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6217"/>
@@ -1864,13 +1864,13 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="9898"/>
         <source>Remote server address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Adres serwera zdalnego:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9968"/>
         <location filename="../qt/render_window.ui" line="10069"/>
         <source>DISABLED</source>
-        <translation type="unfinished"></translation>
+        <translation>WYŁĄCZONY</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10196"/>
@@ -1895,167 +1895,167 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="8252"/>
         <source>Boolean operators</source>
-        <translation type="unfinished"></translation>
+        <translation>Operacje boolowskie</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8285"/>
         <location filename="../qt/render_window.ui" line="8341"/>
         <location filename="../qt/render_window.ui" line="8390"/>
         <source>Intersection (AND)</source>
-        <translation type="unfinished"></translation>
+        <translation>Część wspólna (AND)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8290"/>
         <location filename="../qt/render_window.ui" line="8346"/>
         <location filename="../qt/render_window.ui" line="8395"/>
         <source>Union (OR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Suma (OR)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8295"/>
         <source>Complement (1st minus 2nd)</source>
-        <translation type="unfinished"></translation>
+        <translation>Różnica (1szy - 2gi)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8333"/>
         <source>1st &lt;-&gt; 2nd formula:</source>
-        <translation type="unfinished"></translation>
+        <translation>1 &lt;&gt; 2 formuła:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8351"/>
         <source>Complement (2nd minus 3rd)</source>
-        <translation type="unfinished"></translation>
+        <translation>Różnica (2-ga minus 1sza)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8400"/>
         <source>Complement (3rd minus 4th)</source>
-        <translation type="unfinished"></translation>
+        <translation>Różnica (3cia minus 4ta)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8438"/>
         <source>2st &lt;-&gt; 3rd formula:</source>
-        <translation type="unfinished"></translation>
+        <translation>1 &lt;-&gt; 2 formuła:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8445"/>
         <source>3rd &lt;-&gt; 4th formula:</source>
-        <translation type="unfinished"></translation>
+        <translation>3 &lt;-&gt; 4 formuła:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8457"/>
         <source>Box Folding</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie sześcienne</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8489"/>
         <source>Folding limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit zawijania:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8528"/>
         <source>Folding value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartość zawijania:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8572"/>
         <source>Spherical Folding</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie kuliste</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8604"/>
         <source>Other radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Promień zewnętrzny:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8643"/>
         <source>Inner radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Promień wewnętrzny:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9808"/>
         <source>NetRender</source>
-        <translation type="unfinished"></translation>
+        <translation>NetRender</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9840"/>
         <source>Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryb:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9851"/>
         <source>Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Klient</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9856"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Serwer</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9869"/>
         <source>Client configuration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguracja klienta:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9905"/>
         <source>Remote server port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Port zdalnego serwera:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9929"/>
         <source>Connect to server</source>
-        <translation type="unfinished"></translation>
+        <translation>Połącz z serwerem</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9943"/>
         <source>Disconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozłącz</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9961"/>
         <location filename="../qt/render_window.ui" line="10062"/>
         <source>Status:</source>
-        <translation type="unfinished"></translation>
+        <translation>Status:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9980"/>
         <source>Server configuration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguracja serwera:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10016"/>
         <source>Local server port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Port lokalny serwera:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10030"/>
         <source>Launch server and watch for clients</source>
-        <translation type="unfinished"></translation>
+        <translation>Uruchom serwer i czekaj na klientów</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10044"/>
         <source>Stop Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatrzymaj serwer</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10078"/>
         <source>List of connected clients</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista podłączonych klientów</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10126"/>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Informacje</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10162"/>
         <source>Histogram of ray-marching step count</source>
-        <translation type="unfinished"></translation>
+        <translation>Hostogram ilości kroków śledzenia promieni</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10182"/>
         <source>Histogram of fractal interation count</source>
-        <translation type="unfinished"></translation>
+        <translation>Histogram ilość iteracji fraktala</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10295"/>
@@ -2193,7 +2193,7 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="10774"/>
         <source>Program Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawienia programu</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10783"/>
@@ -2259,12 +2259,12 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="10868"/>
         <source>Show Info dock</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż dok z informacjami</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10879"/>
         <source>Show toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż pasek narzędzi</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10887"/>
@@ -2380,27 +2380,27 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../src/render_window.cpp" line="1448"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="1448"/>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation>Gospodarz</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="1448"/>
         <source>Worker</source>
-        <translation type="unfinished"></translation>
+        <translation>Procesory</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="1448"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Status</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="1448"/>
         <source>Rendered</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrenderowane</translation>
     </message>
 </context>
 <context>

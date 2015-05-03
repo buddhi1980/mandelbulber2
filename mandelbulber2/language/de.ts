@@ -4,37 +4,37 @@
 <context>
     <name>CNetRender</name>
     <message>
-        <location filename="../src/netrender.cpp" line="697"/>
+        <location filename="../src/netrender.cpp" line="710"/>
         <source>DISABLED</source>
         <translation>AUS</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="698"/>
+        <location filename="../src/netrender.cpp" line="711"/>
         <source>READY</source>
         <translation>BEREIT</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="699"/>
+        <location filename="../src/netrender.cpp" line="712"/>
         <source>WORKING</source>
         <translation>ARBEITET</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="700"/>
+        <location filename="../src/netrender.cpp" line="713"/>
         <source>NEW</source>
         <translation>NEU</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="701"/>
+        <location filename="../src/netrender.cpp" line="714"/>
         <source>(RE-)CONNECTING</source>
         <translation>(WIEDER-)VERBINDEN</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="702"/>
+        <location filename="../src/netrender.cpp" line="715"/>
         <source>ERROR</source>
         <translation>FEHLER</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="704"/>
+        <location filename="../src/netrender.cpp" line="717"/>
         <source>UNKNOWN</source>
         <translation>UNBEKANNT</translation>
     </message>
@@ -444,12 +444,12 @@ File version: </source>
         <translation>Hybridfraktal kann nicht konvertiert werden</translation>
     </message>
     <message>
-        <location filename="../src/render_image.cpp" line="153"/>
+        <location filename="../src/render_image.cpp" line="155"/>
         <source>Rendering image in progress</source>
         <translation>Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../src/render_image.cpp" line="289"/>
+        <location filename="../src/render_image.cpp" line="344"/>
         <location filename="../src/render_ssao.cpp" line="170"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
