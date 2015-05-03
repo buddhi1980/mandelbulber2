@@ -1,5 +1,22 @@
 Version history
 
+v2.04
+- added ray-traced transparency and Fresnel's refraction
+- added NetRender - rendering of the same image or animation on multiple machines over the TCP/IP network (Internet, local LAN).
+- shading of DOF parallelized via OpenMP (leverages shading time roughly about 1/3 on an 8 core CPU), 
+- added boolean functions for fractal formulas
+- added transform functions for fractal formulas (useful for boolean operations)
+- added several fractal formulas
+- added box and spherical folding
+- more ergonomic layout for IFS formula
+- added log window (information dock)
+- added histogram view
+- application settings are saved when application is shut down
+- fixed bug: saved jpeg images where corrupted when width was not multiply of 4
+- fixed bug: there was noise when "stop at maximum iteration" mode was enabled
+- source code repository moved to http://github.com/buddhi1980/mandelbulber2
+- fixed bug: corrected calculation of coordinates of 3D cursor when there was used 3-point perspective
+
 v2.03-1
 fixed bug: improper loading of "old settings" when system used comma as decimal separator
 

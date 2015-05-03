@@ -662,7 +662,8 @@ void RenderWindow::slotMenuAboutMandelbulber()
 	text += "Licence: GNU GPL version 3.0\n";
 	text += "Copyright Ⓒ 2014\n";
 	text += "project leader: Krzysztof Marczak\n";
-	text += "commiters:\n";
+	text += "programmers:\n";
+	text +=	"Krzysztof Marczak\n";
 	text +=	"Sebastian Jennen\n";
 	text += "\n";
 	text += "Thanks to many friends from www.fractalforums.com for help\n";
