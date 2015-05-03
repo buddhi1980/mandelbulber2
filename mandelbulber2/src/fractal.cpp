@@ -97,6 +97,8 @@ cFractal::cFractal(const cParameterContainer *container)
 	buffalo.absz = container->Get<bool>("buffalo_abs_z");
 	buffalo.posz = container->Get<bool>("buffalo_pos_z");
 
+	msltoeSym2.y_multiplier = container->Get<double>("msltoesym2_y_multiplier");
+
 	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();
 }

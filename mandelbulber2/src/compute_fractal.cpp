@@ -237,7 +237,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			}
 			case msltoesym2:
 			{
-				MsltoeSym2(z);
+				MsltoeSym2(z, fractal);
 				break;
 			}
 			default:

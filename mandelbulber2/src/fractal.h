@@ -156,7 +156,12 @@ struct sFractalBuffalo
 	bool absx;
 	bool absy;
 	bool absz;
-    bool posz;
+  bool posz;
+};
+
+struct sMsltoeSym2
+{
+	double y_multiplier;
 };
 
 class cFractal
@@ -174,6 +179,7 @@ public:
 	sFractalMandelboxVary4D mandelboxVary4D;
 	sFractalAexion aexion;
 	sFractalBuffalo buffalo;
+	sMsltoeSym2 msltoeSym2;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

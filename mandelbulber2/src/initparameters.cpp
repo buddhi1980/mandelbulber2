@@ -400,6 +400,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("buffalo_abs_z", false, morphLinear, paramStandard);
 	par->addParam("buffalo_pos_z", false, morphLinear, paramStandard);
 
+	par->addParam("msltoesym2_y_multiplier", 1.0, morphLinear, paramStandard);
+
 	WriteLog("Fractal parameters initialization finished");
 }
 
