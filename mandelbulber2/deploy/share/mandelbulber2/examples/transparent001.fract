@@ -1,0 +1,54 @@
+# Mandelbulber settings file
+# version 2.04
+# only modified parameters
+[main_parameters]
+aux_light_colour_1 ef00 ff00 3d00;
+aux_light_enabled_1 true;
+aux_light_position_1 -1.8 2 1;
+aux_light_visibility 2;
+aux_light_visibility_size 0.3;
+boolean_operators true;
+camera 1.219416123820438 -2.941872379615727 0.6359322091664581;
+camera_distance_to_target 4.865060779052292;
+camera_rotation 23.39944972329763 -16.4416702388717 0;
+camera_top -0.1124058767153811 0.2597614996561704 0.9591083787436245;
+detail_level 0.1;
+file_background /usr/share/mandelbulber2/textures/background4.jpg;
+formula_2 7;
+formula_position_2 -0.7 -0.7 -1.1;
+formula_rotation_2 0 0 26.57;
+formula_scale_2 0.2;
+fresnel_reflectance true;
+glow_color_1 ff00 0 0;
+glow_color_2 f300 dd00 3500;
+glow_intensity 4;
+image_height 1000;
+image_width 1000;
+main_light_visibility 4.11;
+main_light_visibility_size 8.220000000000001;
+N 7;
+primitive_box_1_enabled true;
+primitive_box_1_position 0 0 -1.4;
+primitive_box_1_reflection 1;
+primitive_box_1_rounding 0.01;
+primitive_box_1_size 2 2 0.1;
+primitive_sphere_1_enabled true;
+primitive_sphere_1_position 0.55 -0.55 -1.05;
+primitive_sphere_1_radius 0.3;
+primitive_sphere_1_reflection 1;
+primitive_torus_1_enabled true;
+primitive_torus_1_radius 1.5;
+primitive_torus_1_reflection 1;
+primitive_torus_1_tube_radius 0.1;
+raytraced_reflections true;
+reflect 0.98;
+specular 2;
+target -0.633682684144897 1.340499142533255 -0.7410700922396651;
+textured_background true;
+transparency_interior_color 0 2200 0;
+transparency_of_surface 1;
+view_distance_max 30.58511951292859;
+[fractal_1]
+[fractal_2]
+[fractal_3]
+[fractal_4]
