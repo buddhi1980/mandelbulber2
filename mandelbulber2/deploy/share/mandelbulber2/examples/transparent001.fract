@@ -13,7 +13,6 @@ camera_distance_to_target 4.865060779052292;
 camera_rotation 23.39944972329763 -16.4416702388717 0;
 camera_top -0.1124058767153811 0.2597614996561704 0.9591083787436245;
 detail_level 0.1;
-file_background /usr/share/mandelbulber2/textures/background4.jpg;
 formula_2 7;
 formula_position_2 -0.7 -0.7 -1.1;
 formula_rotation_2 0 0 26.57;
