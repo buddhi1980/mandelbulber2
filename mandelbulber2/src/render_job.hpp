@@ -55,6 +55,7 @@ public:
 	void SetMaxRenderTime(double time);
 	static int GetRunningJobCount() {return runningJobs;}
 	void ForceNumberOfThreads(int noOfThreads) {totalNumberOfCPUs = noOfThreads; renderData->numberOfThreads = noOfThreads;}
+	void BeQuiet() {beQuiet = true;}
 
 public slots:
 	void slotExecute();
@@ -79,6 +80,8 @@ private:
 	QWidget *imageWidget;
 	sRenderData *renderData;
 	bool *stopRequest;
+	bool beQuiet;
+
 	static int id; //global identifier of actual rendering job
 	static int runningJobs;
 

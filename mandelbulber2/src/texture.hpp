@@ -30,7 +30,7 @@
 class cTexture
 {
 public:
-	cTexture(QString filename);
+	cTexture(QString filename, bool beQuiet = false);
 	cTexture();
 	cTexture(const cTexture &tex);
 	cTexture& operator=(const cTexture &tex);

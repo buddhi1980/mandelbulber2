@@ -28,7 +28,7 @@
 #include "error_message.hpp"
 
 //constructor
-cTexture::cTexture(QString filename)
+cTexture::cTexture(QString filename, bool beQuiet)
 {
 	bitmap = NULL;
 	qimage.load(filename);
@@ -44,7 +44,7 @@ cTexture::cTexture(QString filename)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("Can't load texture!\n") + filename, cErrorMessage::errorMessage);
+		if(!beQuiet) cErrorMessage::showMessage(QObject::tr("Can't load texture!\n") + filename, cErrorMessage::errorMessage);
 		width = 100;
 		height = 100;
 		loaded = false;

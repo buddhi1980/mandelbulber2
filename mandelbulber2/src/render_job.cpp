@@ -62,6 +62,8 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	stopRequest = _stopRequest;
 	parentObject = _parent;
 
+	beQuiet = false;
+
 	id++;
 	//qDebug() << "Id" << id;
 
@@ -168,13 +170,13 @@ bool cRenderJob::Init(enumMode _mode)
 	else
 	{
 		if(paramsContainer->Get<bool>("textured_background"))
-			renderData->textures.backgroundTexture = cTexture(paramsContainer->Get<QString>("file_background"));
+			renderData->textures.backgroundTexture = cTexture(paramsContainer->Get<QString>("file_background"), beQuiet);
 
 		if(paramsContainer->Get<bool>("env_mapping_enable"))
-			renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"));
+			renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"), beQuiet);
 
 		if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
-			renderData->textures.lightmapTexture = cTexture(paramsContainer->Get<QString>("file_lightmap"));
+			renderData->textures.lightmapTexture = cTexture(paramsContainer->Get<QString>("file_lightmap"), beQuiet);
 	}
 
 	//assign stop handler

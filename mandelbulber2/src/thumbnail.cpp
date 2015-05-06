@@ -60,6 +60,7 @@ QPixmap cThumbnail::Render()
 		bool stopRequest = false;
 		cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, qwidget);
 		renderJob->UseSizeFromImage(true);
+		renderJob->BeQuiet();
 		renderJob->Init(cRenderJob::still);
 		renderJob->Execute();
 		QImage qimage((const uchar*)image->ConvertTo8bit(), width, height, width*sizeof(sRGB8), QImage::Format_RGB888);

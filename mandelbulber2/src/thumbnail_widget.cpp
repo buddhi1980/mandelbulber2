@@ -148,6 +148,7 @@ void cThumbnailWidget::slotRender()
 	cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, parentWithProgressBar, (QWidget*)this);
 
 	renderJob->UseSizeFromImage(true);
+	renderJob->BeQuiet();
 	renderJob->Init(cRenderJob::still);
 
 	if(useOneCPUCore)	renderJob->ForceNumberOfThreads(1);
