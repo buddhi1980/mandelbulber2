@@ -303,8 +303,9 @@ double cPrimitives::PrimitivePlane(CVector3 _point, const sPrimitivePlane &plane
 
 double cPrimitives::PrimitiveBox(CVector3 _point, const sPrimitiveBox &box) const
 {
-	CVector3 relativePoint = _point.mod(box.repeat) - box.position;
-	CVector3 point = box.rotationMatrix.RotateVector(relativePoint);
+	CVector3 point = (_point - box.position);
+	point = box.rotationMatrix.RotateVector(point);
+	point = point.mod(box.repeat);
 	if(box.empty)
 	{
 		double boxDist = -1e10;
@@ -325,7 +326,8 @@ double cPrimitives::PrimitiveBox(CVector3 _point, const sPrimitiveBox &box) cons
 
 double cPrimitives::PrimitiveSphere(CVector3 _point, const sPrimitiveSphere &sphere) const
 {
-	double dist = (_point.mod(sphere.repeat) - sphere.position).Length() - sphere.radius;
+	//TODO add rotation for repeat operator
+	double dist = (_point - sphere.position).mod(sphere.repeat ).Length() - sphere.radius;
 	return sphere.empty ? fabs(dist) : dist;
 }
 
@@ -342,8 +344,10 @@ double cPrimitives::PrimitiveRectangle(CVector3 _point, const sPrimitiveRectangl
 
 double cPrimitives::PrimitiveCylinder(CVector3 _point, const sPrimitiveCylinder &cylinder) const
 {
- 	CVector3 relativePoint = _point.mod(cylinder.repeat) - cylinder.position;
-	CVector3 point = cylinder.rotationMatrix.RotateVector(relativePoint);
+	CVector3 point = (_point - cylinder.position);
+	point = cylinder.rotationMatrix.RotateVector(point);
+	point = point.mod(cylinder.repeat);
+
 	CVector2<double> cylTemp(point.x, point.y);
 	double dist = cylTemp.Length() - cylinder.radius;
 	if(!cylinder.caps) dist = fabs(dist);
@@ -363,8 +367,10 @@ double cPrimitives::PrimitiveCircle(CVector3 _point, const sPrimitiveCircle &cir
 
 double cPrimitives::PrimitiveCone(CVector3 _point, const sPrimitiveCone &cone) const
 {
- 	CVector3 relativePoint = _point.mod(cone.repeat) - cone.position;
-	CVector3 point = cone.rotationMatrix.RotateVector(relativePoint);
+	CVector3 point = (_point - cone.position);
+	point = cone.rotationMatrix.RotateVector(point);
+	point = point.mod(cone.repeat);
+
 	point.z -= cone.height;
 	float q = sqrt(point.x * point.x + point.y * point.y);
   CVector2<double> vect(q, point.z);
@@ -411,8 +417,9 @@ double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water
 
 double cPrimitives::PrimitiveTorus(CVector3 _point, const sPrimitiveTorus &torus) const
 {
- 	CVector3 relativePoint = _point.mod(torus.repeat) - torus.position;
-	CVector3 point = torus.rotationMatrix.RotateVector(relativePoint);
+	CVector3 point = (_point - torus.position);
+	point = torus.rotationMatrix.RotateVector(point);
+	point = point.mod(torus.repeat);
 
 	double d1 = sqrt(point.x * point.x + point.y * point.y) - torus.radius;
 	double dist = sqrt(d1 * d1 + point.z * point.z) - torus.tube_radius;
