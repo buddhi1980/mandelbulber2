@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>1121</width>
-           <height>651</height>
+           <height>637</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -2051,7 +2051,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>144</height>
+          <height>141</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -10184,7 +10184,7 @@ and water):</string>
        <item>
         <widget class="QTabWidget" name="tabWidgetFlightKeyframe">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_flight_animation">
           <attribute name="title">
@@ -10307,7 +10307,7 @@ and water):</string>
                   <x>0</x>
                   <y>0</y>
                   <width>355</width>
-                  <height>275</height>
+                  <height>289</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -10632,19 +10632,213 @@ and water):</string>
           <attribute name="title">
            <string>Keyframe animation</string>
           </attribute>
-          <widget class="QLabel" name="label_149">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>10</y>
-             <width>171</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Comming soon</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_15">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_flight_animtion_2">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <item>
+              <layout class="QGridLayout" name="gridLayout_keyframe_amination_parameters">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <property name="spacing">
+                <number>2</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QPushButton" name="pushButton_render_fkeyframe_animation">
+                 <property name="text">
+                  <string>Render keyframe animation</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="video-x-generic" resource="icons.qrc">
+                   <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QPushButton" name="pushButton_record_keyframe">
+                 <property name="text">
+                  <string>Record keyframe</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="media-record" resource="icons.qrc">
+                   <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QPushButton" name="pushButton_delete_all_keyframe_images">
+                 <property name="text">
+                  <string>Delete all images</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="edit-delete" resource="icons.qrc">
+                   <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="pushButton_show_keyframe_animation">
+                 <property name="text">
+                  <string>Show Animation</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="media-playback-start" resource="icons.qrc">
+                   <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QPushButton" name="pushButton_flight_refresh_keyframe_table">
+                 <property name="text">
+                  <string>Refresh table</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="view-refresh" resource="icons.qrc">
+                   <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QScrollArea" name="scrollArea_keyframe_animation_parameters">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_keyframeAnimationParameters">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>344</width>
+                  <height>275</height>
+                 </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_92">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_52">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_219">
+                     <property name="text">
+                      <string>frames per keyframe:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_177">
+                     <property name="text">
+                      <string>Path for images:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="MySpinBox" name="spinboxInt_frames_per_keyframe">
+                     <property name="minimum">
+                      <number>1</number>
+                     </property>
+                     <property name="maximum">
+                      <number>500</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0" colspan="3">
+                    <widget class="MyCheckBox" name="checkBox_flight_show_keyframe_thumbnails">
+                     <property name="text">
+                      <string>Show thumbnails</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QSlider" name="sliderInt_frames_per_keyframe">
+                     <property name="minimum">
+                      <number>1</number>
+                     </property>
+                     <property name="maximum">
+                      <number>250</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>8</number>
+                     </property>
+                     <property name="pageStep">
+                      <number>64</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="MyLineEdit" name="text_anim_keyframe_dir"/>
+                   </item>
+                   <item row="1" column="2">
+                    <widget class="QPushButton" name="button_selectAnimKeyframeImageDir">
+                     <property name="text">
+                      <string>Select folder</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_13">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="MyTableWidgetAnim" name="tableWidget_keyframe_animation">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>3</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <attribute name="verticalHeaderDefaultSectionSize">
+              <number>20</number>
+             </attribute>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </widget>
        </item>
