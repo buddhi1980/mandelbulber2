@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>1121</width>
-           <height>680</height>
+           <height>651</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -245,6 +245,7 @@
     <addaction name="actionShow_animation_dock"/>
     <addaction name="actionShow_info_dock"/>
     <addaction name="actionShow_toolbar"/>
+    <addaction name="actionShow_histogram_dock"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -2049,8 +2050,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>129</height>
+          <width>353</width>
+          <height>144</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2113,7 +2114,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>290</width>
+                  <width>303</width>
                   <height>734</height>
                  </rect>
                 </property>
@@ -3015,7 +3016,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>303</width>
                   <height>180</height>
                  </rect>
                 </property>
@@ -3286,7 +3287,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>303</width>
                   <height>533</height>
                  </rect>
                 </property>
@@ -3913,7 +3914,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>303</width>
                   <height>204</height>
                  </rect>
                 </property>
@@ -4140,7 +4141,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>303</width>
                   <height>1302</height>
                  </rect>
                 </property>
@@ -9236,7 +9237,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-408</y>
+          <y>0</y>
           <width>339</width>
           <height>947</height>
          </rect>
@@ -10129,7 +10130,7 @@ and water):</string>
     <number>4</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_info">
-    <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="6,4,4">
+    <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="6">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -10147,46 +10148,6 @@ and water):</string>
      </property>
      <item>
       <widget class="MyLogWidget" name="log_text" native="true"/>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_histogram_de">
-       <item>
-        <widget class="QLabel" name="label_174">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Histogram of ray-marching step count</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="MyHistogramLabel" name="label_histogram_de"/>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_histogram_iter">
-       <item>
-        <widget class="QLabel" name="label_174">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Histogram of fractal interation count</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="MyHistogramLabel" name="label_histogram_iter"/>
-       </item>
-      </layout>
      </item>
     </layout>
    </widget>
@@ -10699,6 +10660,93 @@ and water):</string>
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dockWidget_histogram">
+   <property name="windowTitle">
+    <string>Histograms</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_4">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_histogram_de">
+       <item>
+        <widget class="QLabel" name="label_174">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Histogram of ray-marching step count</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="MyHistogramLabel" name="label_histogram_de">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_histogram_iter">
+       <item>
+        <widget class="QLabel" name="label_174">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Histogram of fractal interation count</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="MyHistogramLabel" name="label_histogram_iter">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionSave_as_JPG">
    <property name="icon">
     <iconset theme="document-save-as" resource="icons.qrc">
@@ -10885,6 +10933,14 @@ and water):</string>
   <action name="actionStack_all_docks">
    <property name="text">
     <string>Stack all docks</string>
+   </property>
+  </action>
+  <action name="actionShow_histogram_dock">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show histograms</string>
    </property>
   </action>
  </widget>

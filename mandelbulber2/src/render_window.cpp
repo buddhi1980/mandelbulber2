@@ -1276,7 +1276,7 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 		ui->dockWidget_animation->setVisible(ui->actionShow_animation_dock->isChecked());
 	}
 
-	// Info dock
+	// Information dock
 	if(ui->actionShow_info_dock->isChecked() != ui->dockWidget_info->isVisible())
 	{
 		if(ui->actionShow_info_dock->isChecked())
@@ -1288,6 +1288,20 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 			removeDockWidget(ui->dockWidget_info);
 		}
 		ui->dockWidget_info->setVisible(ui->actionShow_info_dock->isChecked());
+	}
+
+	// Histogram dock
+	if(ui->actionShow_histogram_dock->isChecked() != ui->dockWidget_histogram->isVisible())
+	{
+		if(ui->actionShow_histogram_dock->isChecked())
+		{
+			addDockWidget(Qt::TopDockWidgetArea, ui->dockWidget_histogram);
+		}
+		else
+		{
+			removeDockWidget(ui->dockWidget_histogram);
+		}
+		ui->dockWidget_histogram->setVisible(ui->actionShow_histogram_dock->isChecked());
 	}
 
 	// Toolbar
@@ -1309,6 +1323,12 @@ void RenderWindow::slotUpdateDocksandToolbarbyView()
 	if(ui->actionShow_info_dock->isChecked() != ui->dockWidget_info->isVisible())
 	{
 		ui->actionShow_info_dock->setChecked(ui->dockWidget_info->isVisible());
+	}
+
+	// Histogram dock
+	if(ui->actionShow_histogram_dock->isChecked() != ui->dockWidget_histogram->isVisible())
+	{
+		ui->actionShow_histogram_dock->setChecked(ui->dockWidget_histogram->isVisible());
 	}
 
 	// Toolbar
