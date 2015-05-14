@@ -65,7 +65,7 @@ public:
 	cParameterContainer* ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal) const;
 	void DeleteFrames(int begin, int end);
 
-private:
+protected:
 	int IndexOnList(QString parameterName, QString containerName);
 
 	QList<sAnimationFrame> frames;
