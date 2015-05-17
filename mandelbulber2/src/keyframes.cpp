@@ -26,7 +26,7 @@
 
 cKeyframes::cKeyframes() : cAnimationFrames()
 {
-	framesPerKeyframe = 100;
+	framesPerKeyframe = 5;
 }
 
 cKeyframes::~cKeyframes()
@@ -37,27 +37,33 @@ cKeyframes::~cKeyframes()
 
 cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index)
 {
-	sAnimationFrame interpolated;
 	int keyframe = index / framesPerKeyframe;
 	int subindex = index % framesPerKeyframe;
 
+	if(subindex == 0)
+	{
+		// no need to interpolate
+		return GetFrame(keyframe);
+	}
+
+	sAnimationFrame interpolated;
 	QList<QString> parameterList = frames.at(keyframe).parameters.GetListOfParameters();
 	for (int i = 0; i < parameterList.size(); i++)
 	{
 		// prepare interpolator
-		if(morph.size() < i - 1)
+		if(morph.size() <= i)
 		{
 			morph.append(new cMorph());
 		}
 		for(int k = fmax(0, keyframe - 2); k < fmin(frames.size() - 1, keyframe + 3); k++)
 		{
-			if(!morph[i]->findInMorph(keyframe))
+			if(morph[i]->findInMorph(keyframe) < 0)
 			{
 				morph[i]->AddData(k, frames.at(k).parameters.GetAsOneParameter(parameterList.at(i)));
 			}
 		}
 		// interpolate each parameter and write back
-		interpolated.parameters.AddParamFromOneParameter(parameterList.at(i), morph[i]->Interpolate(keyframe, subindex / framesPerKeyframe));
+		interpolated.parameters.AddParamFromOneParameter(parameterList.at(i), morph[i]->Interpolate(keyframe, 1.0 * subindex / framesPerKeyframe));
 	}
 	return interpolated;
 }

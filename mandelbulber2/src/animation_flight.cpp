@@ -153,14 +153,14 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		//add default parameters for animation
 		if (frames->GetListOfUsedParameters().size() == 0)
 		{
-			gAnimFrames->AddAnimatedParameter("camera", gPar->GetAsOneParameter("camera"));
-			gAnimFrames->AddAnimatedParameter("target", gPar->GetAsOneParameter("target"));
-			gAnimFrames->AddAnimatedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
+			gKeyframes->AddAnimatedParameter("camera", gPar->GetAsOneParameter("camera"));
+			gKeyframes->AddAnimatedParameter("target", gPar->GetAsOneParameter("target"));
+			gKeyframes->AddAnimatedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
 			if (addSpeeds)
 			{
 				{
-					gAnimFrames->AddAnimatedParameter("flight_movement_speed_vector", gPar->GetAsOneParameter("flight_movement_speed_vector"));
-					gAnimFrames->AddAnimatedParameter("flight_rotation_speed_vector", gPar->GetAsOneParameter("flight_rotation_speed_vector"));
+					gKeyframes->AddAnimatedParameter("flight_movement_speed_vector", gPar->GetAsOneParameter("flight_movement_speed_vector"));
+					gKeyframes->AddAnimatedParameter("flight_rotation_speed_vector", gPar->GetAsOneParameter("flight_rotation_speed_vector"));
 				}
 			}
 		}
