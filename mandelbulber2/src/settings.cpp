@@ -504,7 +504,7 @@ bool cSettings::DecodeFramesHeader(QString line, cParameterContainer *par, cFrac
 					}
 				}
 
-				bool result = frames->AddAnimagedParameter(fullParameterName, par, fractPar);
+				bool result = frames->AddAnimatedParameter(fullParameterName, par, fractPar);
 				if(!result)
 				{
 					throw QObject::tr("Unknown parameter in animation frames: ") + fullParameterName;

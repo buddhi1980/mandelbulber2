@@ -25,6 +25,7 @@
 #define MANDELBULBER2_SRC_KEYFRAMES_HPP_
 
 #include "animation_frames.hpp"
+#include "morph.hpp"
 
 class cKeyframes: public cAnimationFrames
 {
@@ -38,14 +39,14 @@ public:
 	cKeyframes();
 	~cKeyframes();
 
-	//TODO new functions:
-	sAnimationFrame GetIntepolatedFrame(int index);
+	sAnimationFrame GetInterpolatedFrame(int index);
 	void GetInterpolatedFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
-
-	void SetFramesPerKeframe(int frPerKey) {framesPerKeyframe = frPerKey;}
+	void SetFramesPerKeyframe(int frPerKey) {framesPerKeyframe = frPerKey;}
+	int GetFramesPerKeyframe() { return framesPerKeyframe;}
 
 private:
 	int framesPerKeyframe;
+	QList<cMorph*> morph;
 };
 
 #endif /* MANDELBULBER2_SRC_KEYFRAMES_HPP_ */

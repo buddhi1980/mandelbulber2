@@ -25,6 +25,7 @@
 cParameterContainer *gPar;
 cFractalContainer *gParFractal;
 cAnimationFrames *gAnimFrames;
+cKeyframes *gKeyframes;
 cInterface *gMainInterface;
 cFlightAnimation *gFlightAnimation;
 QApplication *gApplication;

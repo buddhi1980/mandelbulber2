@@ -47,7 +47,7 @@ void cAnimationFrames::AddFrame(const cParameterContainer &params, const cFracta
 }
 
 
-void cAnimationFrames::AddAnimagedParameter(const QString &parameterName, const cOneParameter &defaultValue)
+void cAnimationFrames::AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue)
 {
 	if(IndexOnList(parameterName, defaultValue.GetOriginalContainerName()) == -1)
 	{
@@ -59,11 +59,11 @@ void cAnimationFrames::AddAnimagedParameter(const QString &parameterName, const 
 	}
 	else
 	{
-		qWarning() << "cAnimationFrames::AddAnimagedParameter(const QString &parameterName, const cOneParameter &defaultValue): element '" << parameterName << "' already exists" << endl;
+		qWarning() << "cAnimationFrames::AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue): element '" << parameterName << "' already exists" << endl;
 	}
 }
 
-bool cAnimationFrames::AddAnimagedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal)
+bool cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal)
 {
 	int firstUnderscore = fullParameterName.indexOf('_');
 	QString containerName = fullParameterName.left(firstUnderscore);
@@ -75,18 +75,18 @@ bool cAnimationFrames::AddAnimagedParameter(const QString &fullParameterName, co
 		cOneParameter parameter = container->GetAsOneParameter(parameterName);
 		if(parameter.IsEmpty())
 		{
-			qWarning() << "cAnimationFrames::AddAnimagedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal): unknown parameter" << fullParameterName;
+			qWarning() << "cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal): unknown parameter" << fullParameterName;
 			return false;
 		}
 		else
 		{
-			AddAnimagedParameter(parameterName, container->GetAsOneParameter(parameterName));
+			AddAnimatedParameter(parameterName, container->GetAsOneParameter(parameterName));
 			return true;
 		}
 	}
 	else
 	{
-		qCritical() << "cAnimationFrames::AddAnimagedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal): Wrong container name: " << containerName;
+		qCritical() << "cAnimationFrames::AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal): Wrong container name: " << containerName;
 		return false;
 	}
 }
@@ -233,7 +233,7 @@ void cAnimationFrames::GetFrameAndConsolidate(int index, cParameterContainer *pa
 	}
 }
 
-void cAnimationFrames::RemoveAnimagedParameter(const QString &fullParameterName)
+void cAnimationFrames::RemoveAnimatedParameter(const QString &fullParameterName)
 {
 	for(int i = 0; i<frames.size(); ++i)
 	{

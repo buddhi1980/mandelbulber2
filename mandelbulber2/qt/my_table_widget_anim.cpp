@@ -135,7 +135,7 @@ void MyTableWidgetAnim::rowContextMenuRequest(QPoint point)
 		{
 			if (selectedItem == actionDeleteParameter)
 			{
-				gAnimFrames->RemoveAnimagedParameter(name);
+				gAnimFrames->RemoveAnimatedParameter(name);
 				gFlightAnimation->RefreshTable();
 			}
 		}

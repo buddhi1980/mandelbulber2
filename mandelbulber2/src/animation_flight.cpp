@@ -32,7 +32,7 @@
 #include "thumbnail_widget.h"
 #include <QInputDialog>
 
-cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), frames(_frames)
+cFlightAnimation::cFlightAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), frames(_frames)
 {
 	ui = mainInterface->mainWindow->ui;
 	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
@@ -153,14 +153,14 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		//add default parameters for animation
 		if (frames->GetListOfUsedParameters().size() == 0)
 		{
-			gAnimFrames->AddAnimagedParameter("camera", gPar->GetAsOneParameter("camera"));
-			gAnimFrames->AddAnimagedParameter("target", gPar->GetAsOneParameter("target"));
-			gAnimFrames->AddAnimagedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
+			gAnimFrames->AddAnimatedParameter("camera", gPar->GetAsOneParameter("camera"));
+			gAnimFrames->AddAnimatedParameter("target", gPar->GetAsOneParameter("target"));
+			gAnimFrames->AddAnimatedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
 			if (addSpeeds)
 			{
 				{
-					gAnimFrames->AddAnimagedParameter("flight_movement_speed_vector", gPar->GetAsOneParameter("flight_movement_speed_vector"));
-					gAnimFrames->AddAnimagedParameter("flight_rotation_speed_vector", gPar->GetAsOneParameter("flight_rotation_speed_vector"));
+					gAnimFrames->AddAnimatedParameter("flight_movement_speed_vector", gPar->GetAsOneParameter("flight_movement_speed_vector"));
+					gAnimFrames->AddAnimatedParameter("flight_rotation_speed_vector", gPar->GetAsOneParameter("flight_rotation_speed_vector"));
 				}
 			}
 		}
@@ -575,9 +575,23 @@ void cFlightAnimation::RenderFlight()
 				index++;
 			}
 			index--;
-			//qDebug() << QObject::tr("Skip already rendered frame(s) %1 - %2").arg(firstMissing).arg(index);
 			continue;
 		}
+
+		// ########### Keyframe testing
+		for(int subindex = 0; subindex < frames->GetFramesPerKeyframe(); subindex++)
+		{
+			if(mainInterface->stopRequest) break;
+			frames->GetInterpolatedFrameAndConsolidate(index * frames->GetFramesPerKeyframe() + subindex, gPar, gParFractal);
+			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+			renderJob->UpdateParameters(gPar, gParFractal);
+			int result = renderJob->Execute();
+			if(!result) break;
+
+			QString filename = framesDir + "frame_interpolated" + QString("%1_%2").arg(index, 5, 10, QChar('0')).arg(subindex, 5, 10, QChar('0')) + QString(".jpg");
+			SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
+		}
+		// ########### Keyframe testing
 
 		if(mainInterface->stopRequest) break;
 		frames->GetFrameAndConsolidate(index, gPar, gParFractal);

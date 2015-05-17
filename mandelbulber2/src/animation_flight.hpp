@@ -23,7 +23,7 @@
 #ifndef SRC_ANIMATION_FLIGHT_HPP_
 #define SRC_ANIMATION_FLIGHT_HPP_
 
-#include "animation_frames.hpp"
+#include "keyframes.hpp"
 #include "interface.hpp"
 #include "thumbnail_widget.h"
 
@@ -38,7 +38,7 @@ public:
 	 speedConstant
  };
 
-	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent = 0);
+	cFlightAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent = 0);
 	void RecordFlight(bool continueRecording);
 	void RenderFlight();
 	void RenderFrame(int index);
@@ -71,7 +71,7 @@ private:
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame);
 	cInterface *mainInterface;
 	Ui::RenderWindow *ui;
-	cAnimationFrames *frames;
+	cKeyframes *frames;
 	QStringList tableRowNames;
 	QVector<int> parameterRows; //position of parameter in table
 	QVector<int> rowParameter; //index of parameter in row

@@ -55,7 +55,7 @@ void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
 				if (type == QString("vect3"))
 					parName = parameterName.left(parameterName.length() - 2);
 
-				gAnimFrames->AddAnimagedParameter(parName, parameterContainer->GetAsOneParameter(parName));
+				gAnimFrames->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
 				gFlightAnimation->RefreshTable();
 			}
 		}

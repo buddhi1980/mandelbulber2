@@ -50,7 +50,7 @@ void MySpinBox::contextMenuEvent(QContextMenuEvent *event)
 		{
 			if (parameterContainer)
 			{
-				gAnimFrames->AddAnimagedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
+				gAnimFrames->AddAnimatedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
 				gFlightAnimation->RefreshTable();
 			}
 		}

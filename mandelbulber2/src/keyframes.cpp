@@ -22,6 +22,7 @@
 
 
 #include "keyframes.hpp"
+#include "animation_frames.hpp"
 
 cKeyframes::cKeyframes() : cAnimationFrames()
 {
@@ -30,6 +31,53 @@ cKeyframes::cKeyframes() : cAnimationFrames()
 
 cKeyframes::~cKeyframes()
 {
-
+	qDeleteAll(morph);
+	morph.clear();
 }
 
+cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index)
+{
+	sAnimationFrame interpolated;
+	int keyframe = index / framesPerKeyframe;
+	int subindex = index % framesPerKeyframe;
+
+	QList<QString> parameterList = frames.at(keyframe).parameters.GetListOfParameters();
+	for (int i = 0; i < parameterList.size(); i++)
+	{
+		// prepare interpolator
+		if(morph.size() < i - 1)
+		{
+			morph.append(new cMorph());
+		}
+		for(int k = fmax(0, keyframe - 2); k < fmin(frames.size() - 1, keyframe + 3); k++)
+		{
+			if(!morph[i]->findInMorph(keyframe))
+			{
+				morph[i]->AddData(k, frames.at(k).parameters.GetAsOneParameter(parameterList.at(i)));
+			}
+		}
+		// interpolate each parameter and write back
+		interpolated.parameters.AddParamFromOneParameter(parameterList.at(i), morph[i]->Interpolate(keyframe, subindex / framesPerKeyframe));
+	}
+	return interpolated;
+}
+
+void cKeyframes::GetInterpolatedFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal)
+{
+	if(index >= 0 && index < frames.count() * framesPerKeyframe)
+	{
+		sAnimationFrame frame = GetInterpolatedFrame(index);
+
+		for(int i=0; i < listOfParameters.size(); ++i)
+		{
+			cParameterContainer *container = ContainerSelector(listOfParameters[i].containerName, params, fractal);
+			QString parameterName = listOfParameters[i].parameterName;
+			cOneParameter oneParameter = frame.parameters.GetAsOneParameter(listOfParameters[i].containerName + "_" + parameterName);
+			container->SetFromOneParameter(parameterName, oneParameter);
+		}
+	}
+	else
+	{
+		qWarning() << "cAnimationFrames::GetInterpolatedFrameAndConsolidate(int index): wrong index" << index;
+	}
+}

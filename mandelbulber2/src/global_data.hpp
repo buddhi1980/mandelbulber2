@@ -34,6 +34,7 @@
 extern cParameterContainer *gPar;
 extern cFractalContainer *gParFractal;
 extern cAnimationFrames *gAnimFrames;
+extern cKeyframes *gKeyframes;
 extern cInterface *gMainInterface;
 extern cFlightAnimation *gFlightAnimation;
 extern QApplication *gApplication;

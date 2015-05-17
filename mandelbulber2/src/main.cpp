@@ -104,10 +104,13 @@ int main(int argc, char *argv[])
 		gMainInterface->ComboMouseClickUpdate();
 	}
 
-	//Alocate container for animation frames
+	//Allocate container for animation frames
 	gAnimFrames = new cAnimationFrames;
 
-	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainWindow);
+	//Allocate container for key frames
+	gKeyframes = new cKeyframes;
+
+	gFlightAnimation = new cFlightAnimation(gMainInterface, gKeyframes, gMainInterface->mainWindow);
 
 	//write parameters to ui
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
@@ -121,6 +124,7 @@ int main(int argc, char *argv[])
 	delete gParFractal;
 	delete gFlightAnimation;
 	delete gAnimFrames;
+	delete gKeyframes;
 	delete gNetRender;
 	delete gMainInterface;
 	delete gApplication;

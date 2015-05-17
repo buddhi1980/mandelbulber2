@@ -33,8 +33,10 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/initparameters.cpp\
 	    	../src/interface.cpp\
 	    	../src/histogram.cpp\
+		../src/keyframes.cpp\
 	    	../src/lights.cpp\
 	    	../src/main.cpp\
+		../src/morph.cpp\
 	    	../src/multi_val.cpp\
 	    	../src/my_ui_loader.cpp\
 	    	../src/netrender.cpp\
@@ -89,6 +91,8 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/color_palette_widget.h\
 			../src/rendered_image_widget.hpp\
 			../src/animation_flight.hpp\
+			../src/keyframes.hpp\
+			../src/morph.hpp\
 			../src/thumbnail_widget.h\
 			../src/player_widget.hpp\
 			../src/render_job.hpp\
