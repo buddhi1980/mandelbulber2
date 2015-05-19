@@ -84,6 +84,8 @@ cOneParameter cMorph::Interpolate(const int keyframe, float factor)
 		return CatmullRom(key, factor);
 	case morphCatMullRomAngle:
 		return CatmullRomAngular(key, factor);
+	case morphAkima:
+		return Akima(key, factor);
 	default:
 		return None(key);
 	}
@@ -258,14 +260,12 @@ cOneParameter cMorph::Akima(int const key, double const factor)
 	int k1, k2, k3, k4, k5, k6;
 
 	if (key >= 2) k1 = key - 2;
-	else if (key >= 1) k1 = key - 1;
-	else k1 = key;
+	else k1 = 0;
 
 	if (key >= 1) k2 = key - 1;
-	else k2 = key;
+	else k2 = 0;
 
-	if (key < dataSets.size()) k3 = key;
-	else k3 = dataSets.size() - 1;
+	k3 = key;
 
 	if (key < dataSets.size() - 1) k4 = key + 1;
 	else k4 = dataSets.size() - 1;
@@ -273,7 +273,7 @@ cOneParameter cMorph::Akima(int const key, double const factor)
 	if (key < dataSets.size() - 2) k5 = key + 2;
 	else k5 = dataSets.size() - 1;
 
-	if (key < dataSets.size() - 2) k6 = key + 3;
+	if (key < dataSets.size() - 3) k6 = key + 3;
 	else k6 = dataSets.size() - 1;
 
 	cOneParameter interpolated = dataSets[key].parameter;
