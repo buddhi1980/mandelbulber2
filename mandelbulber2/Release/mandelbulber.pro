@@ -33,8 +33,10 @@ SOURCES +=  ../src/algebra.cpp\
 	    	../src/initparameters.cpp\
 	    	../src/interface.cpp\
 	    	../src/histogram.cpp\
+			../src/keyframes.cpp\
 	    	../src/lights.cpp\
 	    	../src/main.cpp\
+			../src/morph.cpp\
 	    	../src/multi_val.cpp\
 	    	../src/my_ui_loader.cpp\
 	    	../src/netrender.cpp\
@@ -68,6 +70,7 @@ SOURCES +=  ../src/algebra.cpp\
             ../qt/mycheckbox.cpp\
             ../qt/mycolorbutton.cpp\
             ../qt/my_table_widget_anim.cpp\
+            ../qt/my_table_widget_keyframes.cpp\
             ../qt/mylogwidget.cpp\
             ../qt/myhistogramlabel.cpp
 
@@ -81,6 +84,7 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/mygroupbox.h\
 			../qt/mycolorbutton.h\
 			../qt/my_table_widget_anim.hpp\
+			../qt/my_table_widget_keyframes.hpp\
 			../qt/mylogwidget.h\
 			../qt/myhistogramlabel.h\
 			../src/my_ui_loader.h\
@@ -89,6 +93,8 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/color_palette_widget.h\
 			../src/rendered_image_widget.hpp\
 			../src/animation_flight.hpp\
+			../src/keyframes.hpp\
+			../src/morph.hpp\
 			../src/thumbnail_widget.h\
 			../src/player_widget.hpp\
 			../src/render_job.hpp\

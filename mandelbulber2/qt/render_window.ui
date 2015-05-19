@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>1121</width>
-           <height>637</height>
+           <height>651</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -2051,7 +2051,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>141</height>
+          <height>146</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3016,7 +3016,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>227</width>
                   <height>180</height>
                  </rect>
                 </property>
@@ -3287,7 +3287,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>196</width>
                   <height>533</height>
                  </rect>
                 </property>
@@ -3914,7 +3914,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>273</width>
                   <height>204</height>
                  </rect>
                 </property>
@@ -4141,7 +4141,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>265</width>
                   <height>1302</height>
                  </rect>
                 </property>
@@ -6243,7 +6243,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>445</height>
                      </rect>
                     </property>
@@ -6750,7 +6750,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>445</height>
                      </rect>
                     </property>
@@ -7257,7 +7257,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>445</height>
                      </rect>
                     </property>
@@ -7761,7 +7761,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>208</width>
                   <height>456</height>
                  </rect>
                 </property>
@@ -8727,7 +8727,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>207</width>
                   <height>360</height>
                  </rect>
                 </property>
@@ -10307,7 +10307,7 @@ and water):</string>
                   <x>0</x>
                   <y>0</y>
                   <width>355</width>
-                  <height>289</height>
+                  <height>275</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -10723,7 +10723,7 @@ and water):</string>
                   <x>0</x>
                   <y>0</y>
                   <width>344</width>
-                  <height>275</height>
+                  <height>261</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -10826,7 +10826,7 @@ and water):</string>
             </layout>
            </item>
            <item>
-            <widget class="MyTableWidgetAnim" name="tableWidget_keyframe_animation">
+            <widget class="MyTableWidgetKeyframes" name="tableWidget_keyframe_animation">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>3</horstretch>
@@ -11197,6 +11197,11 @@ and water):</string>
    <class>MyHistogramLabel</class>
    <extends>QLabel</extends>
    <header>myhistogramlabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyTableWidgetKeyframes</class>
+   <extends>QTableWidget</extends>
+   <header>my_table_widget_keyframes.hpp</header>
   </customwidget>
  </customwidgets>
  <tabstops>
