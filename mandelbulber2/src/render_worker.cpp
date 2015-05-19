@@ -180,6 +180,7 @@ void cRenderWorker::doWork(void)
 			pixel2.R = resultShader.R;
 			pixel2.G = resultShader.G;
 			pixel2.B = resultShader.B;
+			unsigned short alpha = resultShader.A * 65535;
 
 			sRGB8 colour;
 			colour.R = objectColour.R * 255;
@@ -192,6 +193,7 @@ void cRenderWorker::doWork(void)
 				{
 					image->PutPixelImage(screenPoint.x + xx, screenPoint.y + yy, pixel2);
 					image->PutPixelColour(screenPoint.x + xx, screenPoint.y + yy, colour);
+					image->PutPixelAlpha(screenPoint.x + xx, screenPoint.y + yy, alpha);
 					image->PutPixelZBuffer(screenPoint.x + xx, screenPoint.y + yy, (float) depth);
 				}
 			}
