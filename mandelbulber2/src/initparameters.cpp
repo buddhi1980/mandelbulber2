@@ -61,14 +61,14 @@ using namespace parameterContainer;
   par->addParam("anim_flight_dir", systemData.dataDirectory + "images" + QDir::separator(), morphNone, paramApp);
 
 	//camera
-	par->addParam("camera", CVector3(3.0, -6.0, 2.0), morphCatMullRom, paramStandard);
-	par->addParam("target", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("camera_top", CVector3(-0.1277753, 0.2555506, 0.958314), morphCatMullRom, paramStandard); //internal vector which represents top direction
+	par->addParam("camera", CVector3(3.0, -6.0, 2.0), morphAkima, paramStandard);
+	par->addParam("target", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("camera_top", CVector3(-0.1277753, 0.2555506, 0.958314), morphAkima, paramStandard); //internal vector which represents top direction
 	par->addParam("camera_rotation", CVector3(26.5650, -16.60154, 0.0), morphCatMullRomAngle, paramStandard);
-	par->addParam("camera_distance_to_target", 7.0, 0.0, 1e15, morphCatMullRom, paramStandard);
-	par->addParam("fov", 1.0, 0.0, 100.0, morphCatMullRom, paramStandard);
+	par->addParam("camera_distance_to_target", 7.0, 0.0, 1e15, morphAkima, paramStandard);
+	par->addParam("fov", 1.0, 0.0, 100.0, morphAkima, paramStandard);
 	par->addParam("perspective_type", 0, morphLinear, paramStandard);
-	par->addParam("stereo_eye_distance", 1.0, morphCatMullRom, paramStandard);
+	par->addParam("stereo_eye_distance", 1.0, morphAkima, paramStandard);
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
 	par->addParam("legacy_coordinate_system", false, morphNone, paramStandard);
 
@@ -91,15 +91,15 @@ using namespace parameterContainer;
 	//fractal transform
 	for(int i = 1; i <= 4; i++)
 	{
-		par->addParam("formula_position", i, CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+		par->addParam("formula_position", i, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 		par->addParam("formula_rotation", i, CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
-		par->addParam("formula_repeat", i, CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-		par->addParam("formula_scale", i, 1.0, morphCatMullRom, paramStandard);
+		par->addParam("formula_repeat", i, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+		par->addParam("formula_scale", i, 1.0, morphAkima, paramStandard);
 	}
 
 	//general fractal and engine
 	par->addParam("julia_mode", false, morphLinear, paramStandard);
-	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("N", 250, 1, 65536, morphLinear, paramStandard);
 	par->addParam("minN", 1, 0, 65536, morphLinear, paramStandard);
 	par->addParam("fractal_constant_factor", 1.0, morphLinear, paramStandard);
@@ -215,10 +215,10 @@ using namespace parameterContainer;
 	par->addParam("aux_light_visibility", 1.0, morphLinear, paramStandard);
 	par->addParam("aux_light_visibility_size", 1.0, morphLinear, paramStandard);
 
-	par->addParam("aux_light_position", 1, CVector3(3.0, -3.0, 3.0), morphCatMullRom, paramStandard);
-	par->addParam("aux_light_position", 2, CVector3(-3.0, -3.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("aux_light_position", 3, CVector3(-3.0, 3.0, -1.0), morphCatMullRom, paramStandard);
-	par->addParam("aux_light_position", 4, CVector3(0.0, -1.0, -3.0), morphCatMullRom, paramStandard);
+	par->addParam("aux_light_position", 1, CVector3(3.0, -3.0, 3.0), morphAkima, paramStandard);
+	par->addParam("aux_light_position", 2, CVector3(-3.0, -3.0, 0.0), morphAkima, paramStandard);
+	par->addParam("aux_light_position", 3, CVector3(-3.0, 3.0, -1.0), morphAkima, paramStandard);
+	par->addParam("aux_light_position", 4, CVector3(0.0, -1.0, -3.0), morphAkima, paramStandard);
 	par->addParam("aux_light_intensity", 1, 1.3, morphLinear, paramStandard);
 	par->addParam("aux_light_intensity", 2, 1.0, morphLinear, paramStandard);
 	par->addParam("aux_light_intensity", 3, 3, morphLinear, paramStandard);
@@ -247,10 +247,10 @@ using namespace parameterContainer;
 	par->addParam("fake_lights_min_iter", 1, 0, 250, morphLinear, paramStandard);
 	par->addParam("fake_lights_max_iter", 2, 0, 250, morphLinear, paramStandard);
 
-	par->addParam("all_primitives_position", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("all_primitives_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("fractal_position", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("fractal_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("all_primitives_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("all_primitives_rotation", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("fractal_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("fractal_rotation", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 
 	//OpenCL Support
@@ -331,18 +331,18 @@ void InitFractalParams(cParameterContainer *par)
 {
 	WriteLog("Fractal parameters initialization started: " + par->GetContainerName());
 
-	par->addParam("power", 9.0, morphCatMullRom, paramStandard);
+	par->addParam("power", 9.0, morphAkima, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphCatMullRomAngle, paramStandard);
 	par->addParam("beta_angle_offset", 0.0, morphCatMullRomAngle, paramStandard);
-	par->addParam("gamma_angle_offset", 0.0, morphCatMullRom, paramStandard);
+	par->addParam("gamma_angle_offset", 0.0, morphAkima, paramStandard);
 	par->addParam("cadd", -1.3, morphLinear, paramStandard);
 
 	//IFS formula
-	par->addParam("IFS_scale", 2.0, morphCatMullRom, paramStandard);
+	par->addParam("IFS_scale", 2.0, morphAkima, paramStandard);
 	par->addParam("IFS_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
 	par->addParam("IFS_rotation_enabled", false, morphLinear, paramStandard);
-	par->addParam("IFS_offset", CVector3(1.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam("IFS_edge", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("IFS_offset", CVector3(1.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("IFS_edge", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("IFS_edge_enabled", false, morphLinear, paramStandard);
 	par->addParam("IFS_abs_x", false, morphLinear, paramStandard);
 	par->addParam("IFS_abs_y", false, morphLinear, paramStandard);
@@ -351,21 +351,21 @@ void InitFractalParams(cParameterContainer *par)
 
 	for(int i = 0; i < IFS_VECTOR_COUNT; i++)
 	{
-		par->addParam("IFS_direction", i, CVector3(1.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+		par->addParam("IFS_direction", i, CVector3(1.0, 0.0, 0.0), morphAkima, paramStandard);
 		par->addParam("IFS_rotations", i, CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
-		par->addParam("IFS_distance", i, 0.0, morphCatMullRom, paramStandard);
-		par->addParam("IFS_intensity", i, 1.0, morphCatMullRom, paramStandard);
+		par->addParam("IFS_distance", i, 0.0, morphAkima, paramStandard);
+		par->addParam("IFS_intensity", i, 1.0, morphAkima, paramStandard);
 		par->addParam("IFS_enabled", i, false, morphLinear, paramStandard);
 	}
 
 	//Mandelbox
-	par->addParam("mandelbox_scale", 2.0, morphCatMullRom, paramStandard);
-	par->addParam("mandelbox_folding_limit", 1.0, morphCatMullRom, paramStandard);
-	par->addParam("mandelbox_folding_value", 2.0, morphCatMullRom, paramStandard);
-	par->addParam("mandelbox_folding_min_radius", 0.5, morphCatMullRom, paramStandard);
-	par->addParam("mandelbox_folding_fixed_radius", 1.0, morphCatMullRom, paramStandard);
-	par->addParam("mandelbox_sharpness", 3.0, morphCatMullRom, paramStandard);
-	par->addParam("mandelbox_offset", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
+	par->addParam("mandelbox_scale", 2.0, morphAkima, paramStandard);
+	par->addParam("mandelbox_folding_limit", 1.0, morphAkima, paramStandard);
+	par->addParam("mandelbox_folding_value", 2.0, morphAkima, paramStandard);
+	par->addParam("mandelbox_folding_min_radius", 0.5, morphAkima, paramStandard);
+	par->addParam("mandelbox_folding_fixed_radius", 1.0, morphAkima, paramStandard);
+	par->addParam("mandelbox_sharpness", 3.0, morphAkima, paramStandard);
+	par->addParam("mandelbox_offset", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("mandelbox_rotation_main", CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
 	for(int i = 1; i<=3; i++)
 	{
@@ -407,60 +407,60 @@ void InitFractalParams(cParameterContainer *par)
 
 void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par)
 {
-	par->addParam(QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam(QString(primitiveName) + "_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRom, paramStandard);
-	par->addParam(QString(primitiveName) + "_color", sRGB(32000, 32000, 32000), morphCatMullRom, paramStandard);
-	par->addParam(QString(primitiveName) + "_reflection", 0.0, 0.0, 1.0, morphCatMullRom, paramStandard);
-	par->addParam(QString(primitiveName) + "_enabled", false, morphCatMullRom, paramStandard);
+	par->addParam(QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam(QString(primitiveName) + "_rotation", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam(QString(primitiveName) + "_color", sRGB(32000, 32000, 32000), morphAkima, paramStandard);
+	par->addParam(QString(primitiveName) + "_reflection", 0.0, 0.0, 1.0, morphAkima, paramStandard);
+	par->addParam(QString(primitiveName) + "_enabled", false, morphAkima, paramStandard);
 
 	switch (objectType)
 	{
 		case fractal::objBox:
-			par->addParam(QString(primitiveName) + "_size", CVector3(1.0, 1.0, 1.0), morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_rounding", 1e-15, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_size", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_rounding", 1e-15, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 			break;
 		case fractal::objCircle:
-			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
 			break;
 		case fractal::objCylinder:
-			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_height", 1.0, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_caps", true, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_height", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_caps", true, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 			break;
 		case fractal::objCone:
-			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_height", 1.0, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_caps", true, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_height", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_caps", true, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 			break;
 		case fractal::objPlane:
-			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			break;
 		case fractal::objRectangle:
-			par->addParam(QString(primitiveName) + "_width", 1.0, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_height", 1.0, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_width", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_height", 1.0, morphAkima, paramStandard);
 			break;
 		case fractal::objSphere:
-			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 			break;
 		case fractal::objWater:
-			par->addParam(QString(primitiveName) + "_amplitude", 0.02, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_length", 0.1, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_anim_speed", 1.0, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_iterations", 5, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_amplitude", 0.02, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_length", 0.1, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_anim_speed", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_iterations", 5, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			break;
 		case fractal::objTorus:
-			par->addParam(QString(primitiveName) + "_radius", 1.0, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_tube_radius", 0.2, morphCatMullRom, paramStandard);
-			par->addParam(QString(primitiveName) + "_empty", false, morphCatMullRom, paramStandard);
+			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_tube_radius", 0.2, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 			break;
 

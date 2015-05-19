@@ -55,9 +55,9 @@ cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index)
 		{
 			morph.append(new cMorph());
 		}
-		for(int k = fmax(0, keyframe - 2); k < fmin(frames.size() - 1, keyframe + 3); k++)
+		for(int k = fmax(0, keyframe - 2); k <= fmin(frames.size() - 1, keyframe + 3); k++)
 		{
-			if(morph[i]->findInMorph(keyframe) < 0)
+			if(morph[i]->findInMorph(k) == -1)
 			{
 				morph[i]->AddData(k, frames.at(k).parameters.GetAsOneParameter(parameterList.at(i)));
 			}
