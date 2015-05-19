@@ -3016,7 +3016,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>227</width>
+                  <width>303</width>
                   <height>180</height>
                  </rect>
                 </property>
@@ -3287,7 +3287,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>196</width>
+                  <width>303</width>
                   <height>533</height>
                  </rect>
                 </property>
@@ -3914,7 +3914,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>273</width>
+                  <width>303</width>
                   <height>204</height>
                  </rect>
                 </property>
@@ -4141,7 +4141,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>265</width>
+                  <width>303</width>
                   <height>1302</height>
                  </rect>
                 </property>
@@ -6243,7 +6243,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>445</height>
                      </rect>
                     </property>
@@ -6750,7 +6750,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>445</height>
                      </rect>
                     </property>
@@ -7257,7 +7257,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>445</height>
                      </rect>
                     </property>
@@ -7761,7 +7761,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>208</width>
+                  <width>289</width>
                   <height>456</height>
                  </rect>
                 </property>
@@ -8727,7 +8727,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
+                  <width>289</width>
                   <height>360</height>
                  </rect>
                 </property>
@@ -10656,7 +10656,7 @@ and water):</string>
                 <number>2</number>
                </property>
                <item row="0" column="0">
-                <widget class="QPushButton" name="pushButton_render_fkeyframe_animation">
+                <widget class="QPushButton" name="pushButton_render_keyframe_animation">
                  <property name="text">
                   <string>Render keyframe animation</string>
                  </property>
@@ -10700,7 +10700,7 @@ and water):</string>
                 </widget>
                </item>
                <item row="1" column="2">
-                <widget class="QPushButton" name="pushButton_flight_refresh_keyframe_table">
+                <widget class="QPushButton" name="pushButton_refresh_keyframe_table">
                  <property name="text">
                   <string>Refresh table</string>
                  </property>

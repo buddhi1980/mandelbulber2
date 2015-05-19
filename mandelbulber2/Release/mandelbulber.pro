@@ -14,65 +14,66 @@ CONFIG += qt thread
 SOURCES +=  ../src/algebra.cpp\
 			../src/animation_frames.cpp\
 			../src/animation_flight.cpp\
+			../src/animation_keyframes.cpp\
 			../src/calculate_distance.cpp\
 			../src/camera_target.cpp\
 			../src/compute_fractal.cpp\
 			../src/color_palette.cpp\
-	    	../src/cimage.cpp\
-	    	../src/common_math.cpp\
-	    	../src/dof.cpp\
-	    	../src/error_message.cpp\
-	    	../src/fractparams.cpp\
-	    	../src/files.cpp\
-	    	../src/four_fractals.cpp\
-	    	../src/fractal.cpp\
-	    	../src/fractal_container.cpp\
-	    	../src/fractal_formulas.cpp\
-	    	../src/fractal_list.cpp\
-	    	../src/global_data.cpp\
-	    	../src/initparameters.cpp\
-	    	../src/interface.cpp\
-	    	../src/histogram.cpp\
+			../src/cimage.cpp\
+			../src/common_math.cpp\
+			../src/dof.cpp\
+			../src/error_message.cpp\
+			../src/fractparams.cpp\
+			../src/files.cpp\
+			../src/four_fractals.cpp\
+			../src/fractal.cpp\
+			../src/fractal_container.cpp\
+			../src/fractal_formulas.cpp\
+			../src/fractal_list.cpp\
+			../src/global_data.cpp\
+			../src/initparameters.cpp\
+			../src/interface.cpp\
+			../src/histogram.cpp\
 			../src/keyframes.cpp\
-	    	../src/lights.cpp\
-	    	../src/main.cpp\
+			../src/lights.cpp\
+			../src/main.cpp\
 			../src/morph.cpp\
-	    	../src/multi_val.cpp\
-	    	../src/my_ui_loader.cpp\
-	    	../src/netrender.cpp\
-	    	../src/one_parameter.cpp\
-	    	../src/old_settings.cpp\
-	    	../src/parameters.cpp\
+			../src/multi_val.cpp\
+			../src/my_ui_loader.cpp\
+			../src/netrender.cpp\
+			../src/one_parameter.cpp\
+			../src/old_settings.cpp\
+			../src/parameters.cpp\
 			../src/player_widget.cpp\
-	    	../src/primitives.cpp\
+			../src/primitives.cpp\
 			../src/progress_text.cpp\
 			../src/preview_file_dialog.cpp\
 			../src/random.cpp\
-	    	../src/render_image.cpp\
-	    	../src/rendered_image_widget.cpp\
-	    	../src/render_job.cpp\
-	    	../src/render_ssao.cpp\
-	    	../src/render_window.cpp\
-	    	../src/render_worker.cpp\
-	    	../src/scheduler.cpp\
-	    	../src/settings.cpp\
-	    	../src/shaders.cpp\
+			../src/render_image.cpp\
+			../src/rendered_image_widget.cpp\
+			../src/render_job.cpp\
+			../src/render_ssao.cpp\
+			../src/render_window.cpp\
+			../src/render_worker.cpp\
+			../src/scheduler.cpp\
+			../src/settings.cpp\
+			../src/shaders.cpp\
 			../src/system.cpp\
 			../src/ssao_worker.cpp\
-            ../src/texture.cpp\
-            ../src/thumbnail.cpp\
-            ../src/thumbnail_widget.cpp\
-            ../src/undo.cpp\
-            ../qt/mygroupbox.cpp\
-            ../qt/mylineedit.cpp\
-            ../qt/myspinbox.cpp\
-            ../qt/mydoublespinbox.cpp\
-            ../qt/mycheckbox.cpp\
-            ../qt/mycolorbutton.cpp\
-            ../qt/my_table_widget_anim.cpp\
-            ../qt/my_table_widget_keyframes.cpp\
-            ../qt/mylogwidget.cpp\
-            ../qt/myhistogramlabel.cpp
+			../src/texture.cpp\
+			../src/thumbnail.cpp\
+			../src/thumbnail_widget.cpp\
+			../src/undo.cpp\
+			../qt/mygroupbox.cpp\
+			../qt/mylineedit.cpp\
+			../qt/myspinbox.cpp\
+			../qt/mydoublespinbox.cpp\
+			../qt/mycheckbox.cpp\
+			../qt/mycolorbutton.cpp\
+			../qt/my_table_widget_anim.cpp\
+			../qt/my_table_widget_keyframes.cpp\
+			../qt/mylogwidget.cpp\
+			../qt/myhistogramlabel.cpp
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
@@ -93,6 +94,7 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/color_palette_widget.h\
 			../src/rendered_image_widget.hpp\
 			../src/animation_flight.hpp\
+			../src/animation_keyframes.hpp\
 			../src/keyframes.hpp\
 			../src/morph.hpp\
 			../src/thumbnail_widget.h\
@@ -102,7 +104,6 @@ HEADERS  += ../src/render_window.hpp\
 			../src/render_ssao.h\
 			../src/dof.hpp\
 			../src/netrender.hpp
-
 
 FORMS    += ../qt/render_window.ui
 

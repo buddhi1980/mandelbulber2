@@ -32,7 +32,7 @@
 #include "thumbnail_widget.h"
 #include <QInputDialog>
 
-cFlightAnimation::cFlightAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), frames(_frames)
+cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), frames(_frames)
 {
 	ui = mainInterface->mainWindow->ui;
 	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
@@ -579,18 +579,18 @@ void cFlightAnimation::RenderFlight()
 		}
 
 		// ########### Keyframe testing
-		for(int subindex = 0; subindex < frames->GetFramesPerKeyframe(); subindex++)
-		{
-			if(mainInterface->stopRequest) break;
-			frames->GetInterpolatedFrameAndConsolidate(index * frames->GetFramesPerKeyframe() + subindex, gPar, gParFractal);
-			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-			renderJob->UpdateParameters(gPar, gParFractal);
-			int result = renderJob->Execute();
-			if(!result) break;
-
-			QString filename = framesDir + "frame_interpolated" + QString("%1_%2").arg(index, 5, 10, QChar('0')).arg(subindex, 5, 10, QChar('0')) + QString(".jpg");
-			SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
-		}
+//		for(int subindex = 0; subindex < frames->GetFramesPerKeyframe(); subindex++)
+//		{
+//			if(mainInterface->stopRequest) break;
+//			frames->GetInterpolatedFrameAndConsolidate(index * frames->GetFramesPerKeyframe() + subindex, gPar, gParFractal);
+//			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+//			renderJob->UpdateParameters(gPar, gParFractal);
+//			int result = renderJob->Execute();
+//			if(!result) break;
+//
+//			QString filename = framesDir + "frame_interpolated" + QString("%1_%2").arg(index, 5, 10, QChar('0')).arg(subindex, 5, 10, QChar('0')) + QString(".jpg");
+//			SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
+//		}
 		// ########### Keyframe testing
 
 		if(mainInterface->stopRequest) break;

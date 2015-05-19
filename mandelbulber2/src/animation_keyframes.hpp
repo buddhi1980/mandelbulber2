@@ -20,48 +20,40 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-#ifndef SRC_ANIMATION_FLIGHT_HPP_
-#define SRC_ANIMATION_FLIGHT_HPP_
+#ifndef SRC_ANIMATION_KEYFRAMES_HPP_
+#define SRC_ANIMATION_KEYFRAMES_HPP_
 
 #include "keyframes.hpp"
 #include "interface.hpp"
 #include "thumbnail_widget.h"
 
-class cFlightAnimation : public QObject
+class cKeyframeAnimation : public QObject
 {
  Q_OBJECT
 
 public:
- enum enumSpeedMode
- {
-	 speedRelative,
-	 speedConstant
- };
+	enum enumSpeedMode
+	{
+		speedRelative, speedConstant
+	};
 
-	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent = 0);
-	void RecordFlight(bool continueRecording);
-	void RenderFlight();
+	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent = 0);
+	void RecordKeyframe();
+	void RenderKeyframes();
 	void RenderFrame(int index);
 	void RefreshTable();
 	QString GetParameterName(int rowNumber);
 	void DeleteFramesFrom(int index);
 	void DeleteFramesTo(int index);
 	void UpdateThumbnailFromImage(int index);
-	void InterpolateForward(int row, int column);
 
 private slots:
-	void slotRecordFlight();
-	void slotContinueRecording();
-	void slotRenderFlight();
-	void slotIncreaseSpeed();
-	void slotDecreaseSpeed();
-	void slotFlightStrafe(CVector2<int> strafe);
-	void slotFlightRotation(int direction);
-	void slotSelectAnimFlightImageDir();
+	void slotRecordKeyframe();
+	void slotRenderKeyframes();
+	void slotSelectKeyframeAnimImageDir();
 	void slotTableCellChanged(int row, int column);
 	void slotDeleteAllImages();
 	void slotShowAnimation();
-	void slotRecordPause();
 	void slotRefreshTable();
 
 private:
@@ -71,16 +63,11 @@ private:
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame);
 	cInterface *mainInterface;
 	Ui::RenderWindow *ui;
-	cAnimationFrames *frames;
+	cKeyframes *frames;
 	QStringList tableRowNames;
 	QVector<int> parameterRows; //position of parameter in table
 	QVector<int> rowParameter; //index of parameter in row
-	MyTableWidgetAnim *table;
-	CVector2<int> strafe;
-	int rotationDirection;
-	double linearSpeedSp;
-	//QList<cThumbnailWidget*> thumbnailWidgets;
-	bool recordPause;
+	MyTableWidgetKeyframes *table;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
@@ -88,4 +75,4 @@ signals:
 
 
 
-#endif /* SRC_ANIMATION_FLIGHT_HPP_ */
+#endif /* SRC_ANIMATION_KEYFRAMES_HPP_ */

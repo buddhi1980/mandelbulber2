@@ -28,6 +28,8 @@
 #include "fractal_container.hpp"
 #include "animation_frames.hpp"
 #include "animation_flight.hpp"
+#include "animation_keyframes.hpp"
+#include "keyframes.hpp"
 #include "interface.hpp"
 #include "netrender.hpp"
 
@@ -37,6 +39,7 @@ extern cAnimationFrames *gAnimFrames;
 extern cKeyframes *gKeyframes;
 extern cInterface *gMainInterface;
 extern cFlightAnimation *gFlightAnimation;
+extern cKeyframeAnimation *gKeyframeAnimation;
 extern QApplication *gApplication;
 extern CNetRender *gNetRender;
 

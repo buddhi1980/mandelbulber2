@@ -28,5 +28,6 @@ cAnimationFrames *gAnimFrames;
 cKeyframes *gKeyframes;
 cInterface *gMainInterface;
 cFlightAnimation *gFlightAnimation;
+cKeyframeAnimation *gKeyframeAnimation;
 QApplication *gApplication;
 CNetRender *gNetRender;

@@ -195,6 +195,7 @@ private:
 
 	friend class cInterface;
 	friend class cFlightAnimation;
+	friend class cKeyframeAnimation;
 };
 
 
