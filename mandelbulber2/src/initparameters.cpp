@@ -42,10 +42,10 @@ using namespace parameterContainer;
 	par->addParam("tile_number", 0, morphNone, paramStandard);
 	par->addParam("image_proportion", 0, morphNone, paramNoSave);
 
-	//animation
-	par->addParam("start_frame", 0, 0, 99999, morphNone, paramStandard);
-	par->addParam("end_frame", 1000, 0, 99999, morphNone, paramStandard);
-	par->addParam("frames_per_keyframe", 100, 1, 99999, morphNone, paramStandard);
+	//flight animation
+	par->addParam("flight_start_frame", 0, 0, 99999, morphNone, paramStandard);
+	par->addParam("flight_end_frame", 1000, 0, 99999, morphNone, paramStandard);
+
 	par->addParam("frame_no", 0, 0, 99999, morphNone, paramNoSave);
   par->addParam("flight_speed", 0.01, 0.0, 100.0, morphLinear, paramStandard);
   par->addParam("flight_inertia", 5.0, 0.01, 1000.0, morphLinear, paramStandard);
@@ -59,6 +59,13 @@ using namespace parameterContainer;
   par->addParam("flight_sec_per_frame", 1.0, morphNone, paramApp);
 
   par->addParam("anim_flight_dir", systemData.dataDirectory + "images" + QDir::separator(), morphNone, paramApp);
+
+  //keyframe animation
+	par->addParam("frames_per_keyframe", 100, 1, 99999, morphNone, paramStandard);
+	par->addParam("keyframes_start_frame", 0, 0, 99999, morphNone, paramStandard);
+	par->addParam("keyframes_end_frame", 1000, 0, 99999, morphNone, paramStandard);
+	par->addParam("anim_keyframe_dir", systemData.dataDirectory + "images" + QDir::separator(), morphNone, paramApp);
+  par->addParam("show_keyframe_thumbnails", false, morphNone, paramApp);
 
 	//camera
 	par->addParam("camera", CVector3(3.0, -6.0, 2.0), morphAkima, paramStandard);

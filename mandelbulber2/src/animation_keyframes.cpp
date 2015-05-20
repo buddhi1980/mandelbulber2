@@ -35,7 +35,7 @@
 cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), keyframes(_frames)
 {
 	ui = mainInterface->mainWindow->ui;
-	QApplication::connect(ui->pushButton_record_keyframe, SIGNAL(clicked()), this, SLOT(slotRecordKeyframe()));
+	QApplication::connect(ui->pushButton_add_keyframe, SIGNAL(clicked()), this, SLOT(slotAddKeyframe()));
 	QApplication::connect(ui->pushButton_render_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotRenderKeyframes()));
 	QApplication::connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
 	QApplication::connect(ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
@@ -56,7 +56,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 	}
 }
 
-void cKeyframeAnimation::slotRecordKeyframe()
+void cKeyframeAnimation::slotAddKeyframe()
 {
 	if(keyframes)
 	{
@@ -260,6 +260,8 @@ void cKeyframeAnimation::RenderKeyframes()
 	}
 
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
+	keyframes->SetFramesPerKeyframe(gPar->Get<int>("frames_per_keyframe"));
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
 

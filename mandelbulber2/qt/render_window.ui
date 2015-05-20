@@ -10655,29 +10655,7 @@ and water):</string>
                <property name="spacing">
                 <number>2</number>
                </property>
-               <item row="0" column="0">
-                <widget class="QPushButton" name="pushButton_render_keyframe_animation">
-                 <property name="text">
-                  <string>Render keyframe animation</string>
-                 </property>
-                 <property name="icon">
-                  <iconset theme="video-x-generic" resource="icons.qrc">
-                   <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QPushButton" name="pushButton_record_keyframe">
-                 <property name="text">
-                  <string>Record keyframe</string>
-                 </property>
-                 <property name="icon">
-                  <iconset theme="media-record" resource="icons.qrc">
-                   <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
+               <item row="2" column="2">
                 <widget class="QPushButton" name="pushButton_delete_all_keyframe_images">
                  <property name="text">
                   <string>Delete all images</string>
@@ -10688,7 +10666,51 @@ and water):</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
+               <item row="2" column="3">
+                <widget class="QPushButton" name="pushButton_refresh_keyframe_table">
+                 <property name="text">
+                  <string>Refresh table</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="view-refresh" resource="icons.qrc">
+                   <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QPushButton" name="pushButton_insert_keyframe">
+                 <property name="text">
+                  <string>Insert keyframe</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="media-record" resource="icons.qrc">
+                   <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QPushButton" name="pushButton_delete_keyframe">
+                 <property name="text">
+                  <string>Delete keyframe</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="media-record" resource="icons.qrc">
+                   <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QPushButton" name="pushButton_add_keyframe">
+                 <property name="text">
+                  <string>Add keyframe</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="media-record" resource="icons.qrc">
+                   <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
                 <widget class="QPushButton" name="pushButton_show_keyframe_animation">
                  <property name="text">
                   <string>Show Animation</string>
@@ -10699,14 +10721,14 @@ and water):</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="2">
-                <widget class="QPushButton" name="pushButton_refresh_keyframe_table">
+               <item row="0" column="1">
+                <widget class="QPushButton" name="pushButton_render_keyframe_animation">
                  <property name="text">
-                  <string>Refresh table</string>
+                  <string>Render animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="view-refresh" resource="icons.qrc">
-                   <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
+                  <iconset theme="video-x-generic" resource="icons.qrc">
+                   <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
                  </property>
                 </widget>
                </item>
@@ -10722,8 +10744,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>344</width>
-                  <height>261</height>
+                  <width>317</width>
+                  <height>235</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -10769,7 +10791,7 @@ and water):</string>
                     </widget>
                    </item>
                    <item row="2" column="0" colspan="3">
-                    <widget class="MyCheckBox" name="checkBox_flight_show_keyframe_thumbnails">
+                    <widget class="MyCheckBox" name="checkBox_show_keyframe_thumbnails">
                      <property name="text">
                       <string>Show thumbnails</string>
                      </property>

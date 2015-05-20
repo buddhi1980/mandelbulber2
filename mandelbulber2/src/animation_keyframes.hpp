@@ -48,7 +48,7 @@ public:
 	void UpdateThumbnailFromImage(int index);
 
 private slots:
-	void slotRecordKeyframe();
+	void slotAddKeyframe();
 	void slotRenderKeyframes();
 	void slotSelectKeyframeAnimImageDir();
 	void slotTableCellChanged(int row, int column);
