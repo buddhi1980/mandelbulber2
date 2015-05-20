@@ -283,7 +283,7 @@ void cKeyframeAnimation::RenderKeyframes()
 		keyframes->ModifyFrame(index, frame);
 	}
 
-	int unrenderedTotal = keyframes->GetUnrenderedTotal();
+	//TODO int unrenderedTotal = keyframes->GetUnrenderedTotal();
 
 
 //	if(frames->GetNumberOfFrames() > 0 && unrenderedTotal == 0){
@@ -306,17 +306,13 @@ void cKeyframeAnimation::RenderKeyframes()
 //		}
 //	}
 
+	int totalFrames = keyframes->GetNumberOfFrames() * keyframes->GetFramesPerKeyframe();
+
 	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
 	{
-		double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
-		QString progressTxt = progressText.getText(percentDoneFrame);
 
-		ProgressStatusText(QObject::tr("Animation start"),
-			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(keyframes->GetNumberOfFrames()) + " " + progressTxt,
-			percentDoneFrame,
-			ui->statusbar, mainInterface->progressBarAnimation);
 
-		// Skip already rendered frames
+		//TODO Skip already rendered frames
 		if(keyframes->GetFrame(index).alreadyRendered)
 		{
 			//int firstMissing = index;
@@ -331,14 +327,25 @@ void cKeyframeAnimation::RenderKeyframes()
 		//-------------- rendering of interpolated keyframes ----------------
 		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
+			int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
+
+			//double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / totalFrames;
+			double percentDoneFrame = frameIndex * 1.0 / totalFrames;
+			QString progressTxt = progressText.getText(percentDoneFrame);
+
+			ProgressStatusText(QObject::tr("Rendering animation"),
+				QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
+				percentDoneFrame,
+				ui->statusbar, mainInterface->progressBarAnimation);
+
 			if(mainInterface->stopRequest) break;
-			keyframes->GetInterpolatedFrameAndConsolidate(index * keyframes->GetFramesPerKeyframe() + subindex, gPar, gParFractal);
+			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, gPar, gParFractal);
 			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 			renderJob->UpdateParameters(gPar, gParFractal);
 			int result = renderJob->Execute();
 			if(!result) break;
 
-			QString filename = framesDir + "frame_interpolated" + QString("%1_%2").arg(index, 5, 10, QChar('0')).arg(subindex, 5, 10, QChar('0')) + QString(".jpg");
+			QString filename = framesDir + "frame_" + QString("%1").arg(frameIndex, 5, 10, QChar('0')) + QString(".jpg");
 			SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
 		}
 		//--------------------------------------------------------------------
