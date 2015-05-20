@@ -32,10 +32,10 @@
 #include "thumbnail_widget.h"
 #include <QInputDialog>
 
-cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), frames(_frames)
+cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), keyframes(_frames)
 {
 	ui = mainInterface->mainWindow->ui;
-	QApplication::connect(ui->pushButton_record_keyframe, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
+	QApplication::connect(ui->pushButton_record_keyframe, SIGNAL(clicked()), this, SLOT(slotRecordKeyframe()));
 	QApplication::connect(ui->pushButton_render_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotRenderKeyframes()));
 	QApplication::connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
 	QApplication::connect(ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
@@ -45,13 +45,29 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 	QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
 
 	table = ui->tableWidget_keyframe_animation;
+
+	//add default parameters for animation
+	if (keyframes->GetListOfUsedParameters().size() == 0)
+	{
+		keyframes->AddAnimatedParameter("camera", gPar->GetAsOneParameter("camera"));
+		keyframes->AddAnimatedParameter("target", gPar->GetAsOneParameter("target"));
+		keyframes->AddAnimatedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
+		PrepareTable();
+	}
 }
 
 void cKeyframeAnimation::slotRecordKeyframe()
 {
-	if(frames)
+	if(keyframes)
 	{
-		//TODO record keyframe
+		//get latest values of all parameters
+		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
+		//add new frame to container
+		keyframes->AddFrame(*gPar, *gParFractal);
+
+		//add column to table
+		int newColumn = AddColumn(keyframes->GetFrame(keyframes->GetNumberOfFrames() - 1));
 	}
 	else
 	{
@@ -61,9 +77,9 @@ void cKeyframeAnimation::slotRecordKeyframe()
 
 void cKeyframeAnimation::slotRenderKeyframes()
 {
-	if(frames)
+	if(keyframes)
 	{
-		if(frames->GetNumberOfFrames() > 0)
+		if(keyframes->GetNumberOfFrames() > 0)
 		{
 			RenderKeyframes();
 		}
@@ -117,7 +133,7 @@ void cKeyframeAnimation::PrepareTable()
 
 void cKeyframeAnimation::CreateRowsInTable()
 {
-	QList<cAnimationFrames::sParameterDescription> parList = frames->GetListOfUsedParameters();
+	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
 	table->setIconSize(QSize(100, 70));
 	table->insertRow(0);
 	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("preview")));
@@ -199,7 +215,7 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 	int newColumn = table->columnCount();
 	table->insertColumn(newColumn);
 
-	QList<cAnimationFrames::sParameterDescription> parList = frames->GetListOfUsedParameters();
+	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
 
 	using namespace parameterContainer;
 	for(int i=0; i<parList.size(); ++i)
@@ -257,15 +273,15 @@ void cKeyframeAnimation::RenderKeyframes()
 	progressText.ResetTimer();
 
 	// Check if frames have already been rendered
-	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
+	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
 	{
 		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
-		cAnimationFrames::sAnimationFrame frame = frames->GetFrame(index);
+		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
 		frame.alreadyRendered = QFile(filename).exists();
-		frames->ModifyFrame(index, frame);
+		keyframes->ModifyFrame(index, frame);
 	}
 
-	int unrenderedTotal = frames->GetUnrenderedTotal();
+	int unrenderedTotal = keyframes->GetUnrenderedTotal();
 
 
 //	if(frames->GetNumberOfFrames() > 0 && unrenderedTotal == 0){
@@ -288,21 +304,21 @@ void cKeyframeAnimation::RenderKeyframes()
 //		}
 //	}
 
-	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
+	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
 	{
-		double percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
+		double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
 		QString progressTxt = progressText.getText(percentDoneFrame);
 
 		ProgressStatusText(QObject::tr("Animation start"),
-			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
+			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(keyframes->GetNumberOfFrames()) + " " + progressTxt,
 			percentDoneFrame,
 			ui->statusbar, mainInterface->progressBarAnimation);
 
 		// Skip already rendered frames
-		if(frames->GetFrame(index).alreadyRendered)
+		if(keyframes->GetFrame(index).alreadyRendered)
 		{
 			//int firstMissing = index;
-			while(index < frames->GetNumberOfFrames() && frames->GetFrame(index).alreadyRendered)
+			while(index < keyframes->GetNumberOfFrames() && keyframes->GetFrame(index).alreadyRendered)
 			{
 				index++;
 			}
@@ -311,10 +327,10 @@ void cKeyframeAnimation::RenderKeyframes()
 		}
 
 		//-------------- rendering of interpolated keyframes ----------------
-		for(int subindex = 0; subindex < frames->GetFramesPerKeyframe(); subindex++)
+		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
 			if(mainInterface->stopRequest) break;
-			frames->GetInterpolatedFrameAndConsolidate(index * frames->GetFramesPerKeyframe() + subindex, gPar, gParFractal);
+			keyframes->GetInterpolatedFrameAndConsolidate(index * keyframes->GetFramesPerKeyframe() + subindex, gPar, gParFractal);
 			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 			renderJob->UpdateParameters(gPar, gParFractal);
 			int result = renderJob->Execute();
@@ -335,7 +351,7 @@ void cKeyframeAnimation::RefreshTable()
 	PrepareTable();
 	gApplication->processEvents();
 
-	int noOfFrames = frames->GetNumberOfFrames();
+	int noOfFrames = keyframes->GetNumberOfFrames();
 
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	cParameterContainer tempPar = *gPar;
@@ -343,13 +359,13 @@ void cKeyframeAnimation::RefreshTable()
 
 	for(int i=0; i < noOfFrames; i++)
 	{
-		int newColumn = AddColumn(frames->GetFrame(i));
+		int newColumn = AddColumn(keyframes->GetFrame(i));
 
 		if(ui->checkBox_flight_show_thumbnails->isChecked())
 		{
 			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
 			thumbWidget->UseOneCPUCore(true);
-			frames->GetFrameAndConsolidate(i, &tempPar, &tempFract);
+			keyframes->GetFrameAndConsolidate(i, &tempPar, &tempFract);
 			thumbWidget->AssignParameters(tempPar, tempFract);
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
@@ -367,7 +383,7 @@ QString cKeyframeAnimation::GetParameterName(int rowNumber)
 	int parameterNumber = rowParameter[rowNumber];
 
 	QString fullParameterName;
-	QList<cAnimationFrames::sParameterDescription> list = frames->GetListOfUsedParameters();
+	QList<cAnimationFrames::sParameterDescription> list = keyframes->GetListOfUsedParameters();
 	if(parameterNumber >= 0)
 	{
 		fullParameterName = list[parameterNumber].containerName + "_" + list[parameterNumber].parameterName;
@@ -382,7 +398,7 @@ QString cKeyframeAnimation::GetParameterName(int rowNumber)
 void cKeyframeAnimation::RenderFrame(int index)
 {
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	frames->GetFrameAndConsolidate(index, gPar, gParFractal);
+	keyframes->GetFrameAndConsolidate(index, gPar, gParFractal);
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
 	mainInterface->StartRender();
@@ -390,13 +406,13 @@ void cKeyframeAnimation::RenderFrame(int index)
 
 void cKeyframeAnimation::DeleteFramesFrom(int index)
 {
-	frames->DeleteFrames(index, frames->GetNumberOfFrames() - 1);
+	keyframes->DeleteFrames(index, keyframes->GetNumberOfFrames() - 1);
 	RefreshTable();
 }
 
 void cKeyframeAnimation::DeleteFramesTo(int index)
 {
-	frames->DeleteFrames(0, index);
+	keyframes->DeleteFrames(0, index);
 	RefreshTable();
 }
 
@@ -427,7 +443,7 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 	QTableWidgetItem *cell = ui->tableWidget_flightAnimation->item(row, column);
 	QString cellText = cell->text();
 
-	cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
+	cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(column);
 
 	QString parameterName = GetParameterName(row);
 	int parameterFirstRow = parameterRows[rowParameter[row]];
@@ -457,14 +473,14 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 		frame.parameters.Set(parameterName, cellText);
 	}
 
-	frames->ModifyFrame(column, frame);
+	keyframes->ModifyFrame(column, frame);
 
 	//update thumbnail
 	if (ui->checkBox_flight_show_thumbnails->isChecked())
 	{
 		cParameterContainer tempPar = *gPar;
 		cFractalContainer tempFract = *gParFractal;
-		frames->GetFrameAndConsolidate(column, &tempPar, &tempFract);
+		keyframes->GetFrameAndConsolidate(column, &tempPar, &tempFract);
 		cThumbnailWidget *thumbWidget = (cThumbnailWidget*) table->cellWidget(0, column);
 
 		if (!thumbWidget)

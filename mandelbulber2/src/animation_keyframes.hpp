@@ -63,7 +63,7 @@ private:
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame);
 	cInterface *mainInterface;
 	Ui::RenderWindow *ui;
-	cKeyframes *frames;
+	cKeyframes *keyframes;
 	QStringList tableRowNames;
 	QVector<int> parameterRows; //position of parameter in table
 	QVector<int> rowParameter; //index of parameter in row
