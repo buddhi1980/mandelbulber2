@@ -30,6 +30,7 @@ void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 	QMenu *menu = new QMenu;
 	actionResetToDefault = menu->addAction(tr("Reset to default"));
 	actionAddToFlightAnimation = menu->addAction(tr("Add to flight animation"));
+	actionAddToKeyframeAnimation = menu->addAction(tr("Add to keyframe animation"));
 	QAction *selectedItem = menu->exec(event->globalPos());
 	if (selectedItem)
 	{
@@ -51,6 +52,14 @@ void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 			{
 				gAnimFrames->AddAnimatedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
 				gFlightAnimation->RefreshTable();
+			}
+		}
+		else if (selectedItem == actionAddToKeyframeAnimation)
+		{
+			if (parameterContainer)
+			{
+				gKeyframes->AddAnimatedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
+				gKeyframeAnimation->RefreshTable();
 			}
 		}
 	}

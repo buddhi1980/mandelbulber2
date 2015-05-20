@@ -39,6 +39,7 @@ public:
 	{
 		actionResetToDefault = NULL;
 		actionAddToFlightAnimation = NULL;
+		actionAddToKeyframeAnimation = NULL;
 		parameterContainer = NULL;
 		gotDefault = false;
 		defaultValue = 0;
@@ -51,6 +52,7 @@ public:
 private:
 	QAction *actionResetToDefault;
 	QAction *actionAddToFlightAnimation;
+	QAction *actionAddToKeyframeAnimation;
 	QString GetType(const QString &name);
 	cParameterContainer *parameterContainer;
 	QString parameterName;

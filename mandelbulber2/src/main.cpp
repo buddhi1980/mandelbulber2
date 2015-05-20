@@ -110,7 +110,8 @@ int main(int argc, char *argv[])
 	//Allocate container for key frames
 	gKeyframes = new cKeyframes;
 
-	gFlightAnimation = new cFlightAnimation(gMainInterface, gKeyframes, gMainInterface->mainWindow);
+	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainWindow);
+	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainWindow);
 
 	//write parameters to ui
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
@@ -123,6 +124,7 @@ int main(int argc, char *argv[])
 	delete gPar; gPar = NULL;
 	delete gParFractal;
 	delete gFlightAnimation;
+	delete gKeyframeAnimation;
 	delete gAnimFrames;
 	delete gKeyframes;
 	delete gNetRender;

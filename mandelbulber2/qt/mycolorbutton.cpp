@@ -30,6 +30,7 @@ MyColorButton::MyColorButton(QWidget *parent) : QPushButton(parent)
 {
 	actionResetToDefault = NULL;
 	actionAddToFlightAnimation = NULL;
+	actionAddToKeyframeAnimation = NULL;
 	parameterContainer = NULL;
 	gotDefault = false;
 	defaultValue = sRGB();
@@ -53,6 +54,7 @@ void MyColorButton::contextMenuEvent(QContextMenuEvent *event)
 
 	actionResetToDefault = menu->addAction(tr("Reset to default"));
 	actionAddToFlightAnimation = menu->addAction(tr("Add to flight animation"));
+	actionAddToKeyframeAnimation = menu->addAction(tr("Add to keyframe animation"));
 	QAction *selectedItem = menu->exec(event->globalPos());
 	if (selectedItem)
 	{
@@ -74,6 +76,14 @@ void MyColorButton::contextMenuEvent(QContextMenuEvent *event)
 			{
 				gAnimFrames->AddAnimatedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
 				gFlightAnimation->RefreshTable();
+			}
+		}
+		else if (selectedItem == actionAddToKeyframeAnimation)
+		{
+			if (parameterContainer)
+			{
+				gKeyframes->AddAnimatedParameter(parameterName, parameterContainer->GetAsOneParameter(parameterName));
+				gKeyframeAnimation->RefreshTable();
 			}
 		}
 	}

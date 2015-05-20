@@ -31,6 +31,7 @@ void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
 	menu->addSeparator();
 	actionResetToDefault = menu->addAction(tr("Reset to default"));
 	actionAddToFlightAnimation = menu->addAction(tr("Add to flight animation"));
+	actionAddToKeyframeAnimation = menu->addAction(tr("Add to keyframe animation"));
 	QAction *selectedItem = menu->exec(event->globalPos());
 	if (selectedItem)
 	{
@@ -57,6 +58,19 @@ void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
 
 				gAnimFrames->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
 				gFlightAnimation->RefreshTable();
+			}
+		}
+		else if (selectedItem == actionAddToKeyframeAnimation)
+		{
+			if (parameterContainer)
+			{
+				QString parName = parameterName;
+				QString type = GetType(objectName());
+				if (type == QString("spinbox3") || type == QString("spinboxd3"))
+					parName = parameterName.left(parameterName.length() - 2);
+
+				gKeyframes->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
+				gKeyframeAnimation->RefreshTable();
 			}
 		}
 	}
