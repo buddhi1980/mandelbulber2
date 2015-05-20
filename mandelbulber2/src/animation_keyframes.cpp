@@ -310,7 +310,7 @@ void cKeyframeAnimation::RenderKeyframes()
 			continue;
 		}
 
-		// ########### Keyframe testing
+		//-------------- rendering of interpolated keyframes ----------------
 		for(int subindex = 0; subindex < frames->GetFramesPerKeyframe(); subindex++)
 		{
 			if(mainInterface->stopRequest) break;
@@ -323,17 +323,8 @@ void cKeyframeAnimation::RenderKeyframes()
 			QString filename = framesDir + "frame_interpolated" + QString("%1_%2").arg(index, 5, 10, QChar('0')).arg(subindex, 5, 10, QChar('0')) + QString(".jpg");
 			SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
 		}
-		// ########### Keyframe testing
+		//--------------------------------------------------------------------
 
-		if(mainInterface->stopRequest) break;
-		frames->GetFrameAndConsolidate(index, gPar, gParFractal);
-		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-		renderJob->UpdateParameters(gPar, gParFractal);
-		int result = renderJob->Execute();
-		if(!result) break;
-
-		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
-		SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
 	}
 	ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, mainInterface->progressBarAnimation);
 }

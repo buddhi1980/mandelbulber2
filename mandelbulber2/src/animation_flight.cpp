@@ -153,14 +153,14 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		//add default parameters for animation
 		if (frames->GetListOfUsedParameters().size() == 0)
 		{
-			gKeyframes->AddAnimatedParameter("camera", gPar->GetAsOneParameter("camera"));
-			gKeyframes->AddAnimatedParameter("target", gPar->GetAsOneParameter("target"));
-			gKeyframes->AddAnimatedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
+			gAnimFrames->AddAnimatedParameter("camera", gPar->GetAsOneParameter("camera"));
+			gAnimFrames->AddAnimatedParameter("target", gPar->GetAsOneParameter("target"));
+			gAnimFrames->AddAnimatedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
 			if (addSpeeds)
 			{
 				{
-					gKeyframes->AddAnimatedParameter("flight_movement_speed_vector", gPar->GetAsOneParameter("flight_movement_speed_vector"));
-					gKeyframes->AddAnimatedParameter("flight_rotation_speed_vector", gPar->GetAsOneParameter("flight_rotation_speed_vector"));
+					gAnimFrames->AddAnimatedParameter("flight_movement_speed_vector", gPar->GetAsOneParameter("flight_movement_speed_vector"));
+					gAnimFrames->AddAnimatedParameter("flight_rotation_speed_vector", gPar->GetAsOneParameter("flight_rotation_speed_vector"));
 				}
 			}
 		}
@@ -561,49 +561,31 @@ void cFlightAnimation::RenderFlight()
 		double percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
 		QString progressTxt = progressText.getText(percentDoneFrame);
 
-		ProgressStatusText(QObject::tr("Animation start"),
-			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
-			percentDoneFrame,
-			ui->statusbar, mainInterface->progressBarAnimation);
+		ProgressStatusText(QObject::tr("Animation start"), QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt, percentDoneFrame,
+				ui->statusbar, mainInterface->progressBarAnimation);
 
 		// Skip already rendered frames
-		if(frames->GetFrame(index).alreadyRendered)
+		if (frames->GetFrame(index).alreadyRendered)
 		{
 			//int firstMissing = index;
-			while(index < frames->GetNumberOfFrames() && frames->GetFrame(index).alreadyRendered)
+			while (index < frames->GetNumberOfFrames() && frames->GetFrame(index).alreadyRendered)
 			{
 				index++;
 			}
 			index--;
+			//qDebug() << QObject::tr("Skip already rendered frame(s) %1 - %2").arg(firstMissing).arg(index);
 			continue;
 		}
 
-		// ########### Keyframe testing
-//		for(int subindex = 0; subindex < frames->GetFramesPerKeyframe(); subindex++)
-//		{
-//			if(mainInterface->stopRequest) break;
-//			frames->GetInterpolatedFrameAndConsolidate(index * frames->GetFramesPerKeyframe() + subindex, gPar, gParFractal);
-//			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-//			renderJob->UpdateParameters(gPar, gParFractal);
-//			int result = renderJob->Execute();
-//			if(!result) break;
-//
-//			QString filename = framesDir + "frame_interpolated" + QString("%1_%2").arg(index, 5, 10, QChar('0')).arg(subindex, 5, 10, QChar('0')) + QString(".jpg");
-//			SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
-//		}
-
-		// ########### Keyframe testing
-		/*
-		if(mainInterface->stopRequest) break;
+		if (mainInterface->stopRequest) break;
 		frames->GetFrameAndConsolidate(index, gPar, gParFractal);
 		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 		renderJob->UpdateParameters(gPar, gParFractal);
 		int result = renderJob->Execute();
-		if(!result) break;
+		if (!result) break;
 
 		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 		SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
-		*/
 	}
 	ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, mainInterface->progressBarAnimation);
 }
