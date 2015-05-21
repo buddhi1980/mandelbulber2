@@ -285,56 +285,51 @@ void cKeyframeAnimation::RenderKeyframes()
 	// Check if frames have already been rendered
 	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
 	{
-		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
 		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
-		frame.alreadyRendered = QFile(filename).exists();
+		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
+		{
+			QString filename = keyframes->GetKeyframeFilename(index, subindex);
+			frame.alreadyRenderedSubFrames.append(QFile(filename).exists());
+		}
 		keyframes->ModifyFrame(index, frame);
 	}
 
-	//TODO int unrenderedTotal = keyframes->GetUnrenderedTotal();
+	int unrenderedTotal = keyframes->GetUnrenderedTotal();
 
 
-//	if(frames->GetNumberOfFrames() > 0 && unrenderedTotal == 0){
-//		QMessageBox::StandardButton reply;
-//		reply = QMessageBox::question(
-//			ui->centralwidget,
-//			QObject::tr("Truncate Image Folder"),
-//			QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
-//			+ QObject::tr("This will delete all images in the image folder.\nProceed?"),
-//			QMessageBox::Yes|QMessageBox::No);
-//
-//		if (reply == QMessageBox::Yes)
-//		{
-//			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
-//			return RenderFlight();
-//		}
-//		else
-//		{
-//			return;
-//		}
-//	}
+	if(keyframes->GetNumberOfFrames() > 0 && unrenderedTotal == 0){
+		QMessageBox::StandardButton reply;
+		reply = QMessageBox::question(
+			ui->centralwidget,
+			QObject::tr("Truncate Image Folder"),
+			QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
+			+ QObject::tr("This will delete all images in the image folder.\nProceed?"),
+			QMessageBox::Yes|QMessageBox::No);
+
+		if (reply == QMessageBox::Yes)
+		{
+			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
+			return RenderKeyframes();
+		}
+		else
+		{
+			return;
+		}
+	}
 
 	int totalFrames = keyframes->GetNumberOfFrames() * keyframes->GetFramesPerKeyframe();
 
 	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
 	{
-
-
-		//TODO Skip already rendered frames
-		if(keyframes->GetFrame(index).alreadyRendered)
-		{
-			//int firstMissing = index;
-			while(index < keyframes->GetNumberOfFrames() && keyframes->GetFrame(index).alreadyRendered)
-			{
-				index++;
-			}
-			index--;
-			continue;
-		}
-
 		//-------------- rendering of interpolated keyframes ----------------
 		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
+			// skip already rendered frame
+			if(keyframes->GetFrame(index).alreadyRenderedSubFrames[subindex])
+			{
+				continue;
+			}
+
 			int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
 
 			//double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / totalFrames;
@@ -353,7 +348,7 @@ void cKeyframeAnimation::RenderKeyframes()
 			int result = renderJob->Execute();
 			if(!result) break;
 
-			QString filename = framesDir + "frame_" + QString("%1").arg(frameIndex, 5, 10, QChar('0')) + QString(".jpg");
+			QString filename = keyframes->GetKeyframeFilename(index, subindex);
 			SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
 		}
 		//--------------------------------------------------------------------

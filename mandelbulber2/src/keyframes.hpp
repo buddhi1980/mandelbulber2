@@ -43,6 +43,9 @@ public:
 	void GetInterpolatedFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
 	void SetFramesPerKeyframe(int frPerKey) {framesPerKeyframe = frPerKey;}
 	int GetFramesPerKeyframe() { return framesPerKeyframe;}
+	int GetUnrenderedTotal();
+	int GetUnrenderedTillIndex(int index);
+	QString GetKeyframeFilename(int index, int subindex);
 
 private:
 	int framesPerKeyframe;
