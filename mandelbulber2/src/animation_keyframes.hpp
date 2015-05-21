@@ -60,7 +60,9 @@ private:
 	void PrepareTable();
 	void CreateRowsInTable();
 	int AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription, int index);
-	int AddColumn(const cAnimationFrames::sAnimationFrame &frame);
+	int AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index = -1);
+	void NewKeyframe(int index);
+
 	cInterface *mainInterface;
 	Ui::RenderWindow *ui;
 	cKeyframes *keyframes;

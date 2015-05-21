@@ -26,7 +26,7 @@ cAnimationFrames::cAnimationFrames()
 {
 }
 
-void cAnimationFrames::AddFrame(const cParameterContainer &params, const cFractalContainer &fractal)
+void cAnimationFrames::AddFrame(const cParameterContainer &params, const cFractalContainer &fractal, int index)
 {
 	sAnimationFrame frame;
 	frame.alreadyRendered = false;
@@ -43,7 +43,9 @@ void cAnimationFrames::AddFrame(const cParameterContainer &params, const cFracta
 			qCritical() << "cAnimationFrames::AddFrame(const cParameterContainer &params, const cFractalContainer &fractal): Wrong container name: " << listOfParameters[i].containerName;
 		}
 	}
-	frames.append(frame);
+	int indexTemp = index;
+	if(index == -1) indexTemp = frames.size();
+	frames.insert(indexTemp, frame);
 }
 
 

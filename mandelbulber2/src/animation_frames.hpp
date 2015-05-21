@@ -48,7 +48,7 @@ public:
 	};
 
 	cAnimationFrames();
-	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal);
+	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal, int index = -1);
 	void ModifyFrame(int index, sAnimationFrame &frame);
 	void GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
 	sAnimationFrame GetFrame(int index);

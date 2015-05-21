@@ -58,16 +58,23 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 
 void cKeyframeAnimation::slotAddKeyframe()
 {
+	NewKeyframe(keyframes->GetNumberOfFrames());
+}
+
+void cKeyframeAnimation::NewKeyframe(int index)
+{
 	if(keyframes)
 	{
 		//get latest values of all parameters
 		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
 		//add new frame to container
-		keyframes->AddFrame(*gPar, *gParFractal);
+		keyframes->AddFrame(*gPar, *gParFractal, index);
 
 		//add column to table
 		int newColumn = AddColumn(keyframes->GetFrame(keyframes->GetNumberOfFrames() - 1));
+		table->selectColumn(newColumn);
+
 	}
 	else
 	{
@@ -209,10 +216,11 @@ int cKeyframeAnimation::AddVariableToTable(const cAnimationFrames::sParameterDes
 	return row;
 }
 
-int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame)
+int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index)
 {
 	table->blockSignals(true);
-	int newColumn = table->columnCount();
+	int newColumn = index;
+	if(index == -1) newColumn =	table->columnCount();
 	table->insertColumn(newColumn);
 
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
