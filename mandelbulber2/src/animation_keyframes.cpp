@@ -301,6 +301,7 @@ void cKeyframeAnimation::RenderKeyframes()
 	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
 	{
 		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
+		frame.alreadyRenderedSubFrames.clear();
 		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
 			QString filename = keyframes->GetKeyframeFilename(index, subindex);

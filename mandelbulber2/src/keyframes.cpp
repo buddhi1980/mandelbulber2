@@ -107,9 +107,8 @@ int cKeyframes::GetUnrenderedTillIndex(int index)
 			for(int subindex = 0; subindex < subindexMax; subindex++)
 			{
 				QString filename = GetKeyframeFilename(index, subindex);
-				if(frame.alreadyRenderedSubFrames[subindex]) count++;
+				if(!frame.alreadyRenderedSubFrames[subindex]) count++;
 			}
-			ModifyFrame(index, frame);
 		}
 		return count;
 	}
