@@ -49,6 +49,7 @@ public:
 
 private slots:
 	void slotAddKeyframe();
+	void slotInsertKeyframe();
 	void slotRenderKeyframes();
 	void slotSelectKeyframeAnimImageDir();
 	void slotTableCellChanged(int row, int column);

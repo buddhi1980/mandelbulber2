@@ -36,6 +36,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 {
 	ui = mainInterface->mainWindow->ui;
 	QApplication::connect(ui->pushButton_add_keyframe, SIGNAL(clicked()), this, SLOT(slotAddKeyframe()));
+	QApplication::connect(ui->pushButton_insert_keyframe, SIGNAL(clicked()), this, SLOT(slotInsertKeyframe()));
 	QApplication::connect(ui->pushButton_render_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotRenderKeyframes()));
 	QApplication::connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
 	QApplication::connect(ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
@@ -61,6 +62,13 @@ void cKeyframeAnimation::slotAddKeyframe()
 	NewKeyframe(keyframes->GetNumberOfFrames());
 }
 
+void cKeyframeAnimation::slotInsertKeyframe()
+{
+	int column = table->currentColumn();
+	if(column < 0) column = 0;
+	NewKeyframe(column);
+}
+
 void cKeyframeAnimation::NewKeyframe(int index)
 {
 	if(keyframes)
@@ -72,7 +80,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 		keyframes->AddFrame(*gPar, *gParFractal, index);
 
 		//add column to table
-		int newColumn = AddColumn(keyframes->GetFrame(keyframes->GetNumberOfFrames() - 1));
+		int newColumn = AddColumn(keyframes->GetFrame(index), index);
 		table->selectColumn(newColumn);
 
 	}
