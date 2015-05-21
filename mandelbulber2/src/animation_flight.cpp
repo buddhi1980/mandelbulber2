@@ -711,7 +711,7 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 {
 	//FIXME program crashes when there is edited (by double click) first row (with previews)
 	table->blockSignals(true);
-	QTableWidgetItem *cell = ui->tableWidget_flightAnimation->item(row, column);
+	QTableWidgetItem *cell = table->item(row, column);
 	QString cellText = cell->text();
 
 	cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
