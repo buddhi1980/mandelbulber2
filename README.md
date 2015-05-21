@@ -20,9 +20,10 @@ The possibilties are literally **infinite**!
 - unlimited image resolution on 64-bit systems
 - program compiled for x86 and x64 CPUs (Linux, Windows, OS X)
 - simple 3D navigator
-- key-frame animation of all parameters (not yet in v2)
+- network rendering
+- key-frame animation of all parameters (not yet in v2, currently under development)
 - OpenCL support (not yet in v2)
-- network rendering (not yet in v2, currently under development)
+
 
 ![GUI](https://raw.githubusercontent.com/buddhi1980/mandelbulber2/wiki/assets/images/mandelbulberGUI.jpg)
 

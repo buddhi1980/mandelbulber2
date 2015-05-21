@@ -36,6 +36,7 @@ public:
 		cParameterContainer parameters;
 		QPixmap thumnail;
 		bool alreadyRendered;
+		QList<bool> alreadyRenderedSubFrames;
 	};
 
 	struct sParameterDescription

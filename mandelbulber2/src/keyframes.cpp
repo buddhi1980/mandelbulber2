@@ -20,7 +20,7 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com)
  */
 
-
+#include "global_data.hpp"
 #include "keyframes.hpp"
 #include "animation_frames.hpp"
 
@@ -87,3 +87,42 @@ void cKeyframes::GetInterpolatedFrameAndConsolidate(int index, cParameterContain
 		qWarning() << "cAnimationFrames::GetInterpolatedFrameAndConsolidate(int index): wrong index" << index;
 	}
 }
+
+int cKeyframes::GetUnrenderedTotal()
+{
+		return GetUnrenderedTillIndex(frames.count() * GetFramesPerKeyframe() - 1);
+}
+
+int cKeyframes::GetUnrenderedTillIndex(int index)
+{
+	if(index >= 0 && index < frames.count() * GetFramesPerKeyframe())
+	{
+		int keyframe = index / GetFramesPerKeyframe();
+		int subindex = index % GetFramesPerKeyframe();
+		int count = 0;
+		for(int index = 0; index < keyframe; ++index)
+		{
+			cAnimationFrames::sAnimationFrame frame = GetFrame(index);
+			int subindexMax = (index == keyframe - 1 ? subindex : GetFramesPerKeyframe());
+			for(int subindex = 0; subindex < subindexMax; subindex++)
+			{
+				QString filename = GetKeyframeFilename(index, subindex);
+				if(frame.alreadyRenderedSubFrames[subindex]) count++;
+			}
+			ModifyFrame(index, frame);
+		}
+		return count;
+	}
+	else
+	{
+		qWarning() << "cAnimationFrames::GetUnrenderedTillIndex(int index): wrong index" << index;
+		return 0;
+	}
+}
+
+QString cKeyframes::GetKeyframeFilename(int index, int subindex)
+{
+	int frameIndex = index * GetFramesPerKeyframe() + subindex;
+	return gPar->Get<QString>("anim_flight_dir") + "frame_" + QString("%1").arg(frameIndex, 5, 10, QChar('0')) + QString(".jpg");
+}
+
