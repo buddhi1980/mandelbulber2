@@ -83,6 +83,13 @@ void cKeyframeAnimation::NewKeyframe(int index)
 		int newColumn = AddColumn(keyframes->GetFrame(index), index);
 		table->selectColumn(newColumn);
 
+		if(ui->checkBox_flight_show_thumbnails->isChecked())
+		{
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+			thumbWidget->UseOneCPUCore(false);
+			thumbWidget->AssignParameters(*gPar, *gParFractal);
+			table->setCellWidget(0, newColumn, thumbWidget);
+		}
 	}
 	else
 	{
