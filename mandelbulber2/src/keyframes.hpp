@@ -33,8 +33,6 @@ class cKeyframes: public cAnimationFrames
 	//frame means animation keyframe
 	//interpolatedFrame means animation frame
 
-	//TODO GetUnrenderedTillIndex(int index) and GetUnrenderedTotal() needed to be overwritten
-
 public:
 	cKeyframes();
 	~cKeyframes();
@@ -44,8 +42,7 @@ public:
 	void SetFramesPerKeyframe(int frPerKey) {framesPerKeyframe = frPerKey;}
 	int GetFramesPerKeyframe() { return framesPerKeyframe;}
 	int GetUnrenderedTotal();
-	int GetUnrenderedTillIndex(int index);
-	QString GetKeyframeFilename(int index, int subindex);
+	int GetUnrenderedTillIndex(int frameIndex);
 
 private:
 	int framesPerKeyframe;

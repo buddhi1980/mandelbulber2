@@ -291,7 +291,7 @@ void cKeyframeAnimation::RenderKeyframes()
 	renderJob->Init(cRenderJob::flightAnim);
 	mainInterface->stopRequest = false;
 
-	QString framesDir = gPar->Get<QString>("anim_flight_dir");
+	QString framesDir = gPar->Get<QString>("anim_keyframe_dir");
 
 	mainInterface->progressBarAnimation->show();
 	cProgressText progressText;
@@ -304,7 +304,7 @@ void cKeyframeAnimation::RenderKeyframes()
 		frame.alreadyRenderedSubFrames.clear();
 		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
-			QString filename = keyframes->GetKeyframeFilename(index, subindex);
+			QString filename = GetKeyframeFilename(index, subindex);
 			frame.alreadyRenderedSubFrames.append(QFile(filename).exists());
 		}
 		keyframes->ModifyFrame(index, frame);
@@ -324,7 +324,7 @@ void cKeyframeAnimation::RenderKeyframes()
 
 		if (reply == QMessageBox::Yes)
 		{
-			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
+			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_keyframe_dir"));
 			return RenderKeyframes();
 		}
 		else
@@ -348,8 +348,7 @@ void cKeyframeAnimation::RenderKeyframes()
 
 			int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
 
-			//double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / totalFrames;
-			double percentDoneFrame = frameIndex * 1.0 / totalFrames;
+			double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / unrenderedTotal;
 			QString progressTxt = progressText.getText(percentDoneFrame);
 
 			ProgressStatusText(QObject::tr("Rendering animation"),
@@ -364,7 +363,7 @@ void cKeyframeAnimation::RenderKeyframes()
 			int result = renderJob->Execute();
 			if(!result) break;
 
-			QString filename = keyframes->GetKeyframeFilename(index, subindex);
+			QString filename = GetKeyframeFilename(index, subindex);
 			SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
 		}
 		//--------------------------------------------------------------------
@@ -449,7 +448,7 @@ void cKeyframeAnimation::slotSelectKeyframeAnimImageDir()
 	QFileDialog* dialog = new QFileDialog();
 	dialog->setFileMode(QFileDialog::DirectoryOnly);
 	dialog->setNameFilter(QObject::tr("Animation Image Folder"));
-	dialog->setDirectory(gPar->Get<QString>("anim_flight_dir"));
+	dialog->setDirectory(gPar->Get<QString>("anim_keyframe_dir"));
 	dialog->setAcceptMode(QFileDialog::AcceptOpen);
 	dialog->setWindowTitle(QObject::tr("Choose Animation Image Folder"));
 	dialog->setOption(QFileDialog::ShowDirsOnly);
@@ -459,8 +458,8 @@ void cKeyframeAnimation::slotSelectKeyframeAnimImageDir()
 	{
 		filenames = dialog->selectedFiles();
 		QString filename = filenames.first() + "/";
-		ui->text_anim_flight_dir->setText(filename);
-		gPar->Set("anim_flight_dir", filename);
+		ui->text_anim_keyframe_dir->setText(filename);
+		gPar->Set("anim_keyframe_dir", filename);
 	}
 }
 
@@ -540,7 +539,7 @@ void cKeyframeAnimation::slotDeleteAllImages()
 
 	if (reply == QMessageBox::Yes)
 	{
-		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
+		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_keyframe_dir"));
 	}
 }
 
@@ -552,8 +551,13 @@ void cKeyframeAnimation::slotShowAnimation()
 	mainInterface->imageSequencePlayer->show();
 }
 
-
 void cKeyframeAnimation::slotRefreshTable()
 {
 	RefreshTable();
+}
+
+QString cKeyframeAnimation::GetKeyframeFilename(int index, int subindex)
+{
+	int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
+	return gPar->Get<QString>("anim_keyframe_dir") + "frame_" + QString("%1").arg(frameIndex, 5, 10, QChar('0')) + QString(".jpg");
 }

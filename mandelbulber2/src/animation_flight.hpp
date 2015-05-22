@@ -37,7 +37,8 @@ public:
 	 speedRelative,
 	 speedConstant
  };
-
+	//TODO possibility to copy flight path frames to keyframeanimation
+	//TODO selection of image type (png, png alpha, ...) for animation
 	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent = 0);
 	void RecordFlight(bool continueRecording);
 	void RenderFlight();

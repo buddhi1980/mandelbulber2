@@ -36,7 +36,8 @@ public:
 	{
 		speedRelative, speedConstant
 	};
-
+	//TODO possibility to copy keyframeanimation frames to flight path
+	//TODO selection of image type (png, png alpha, ...) for animation
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent = 0);
 	void RecordKeyframe();
 	void RenderKeyframes();
@@ -63,6 +64,7 @@ private:
 	int AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription, int index);
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index = -1);
 	void NewKeyframe(int index);
+	QString GetKeyframeFilename(int index, int subindex);
 
 	cInterface *mainInterface;
 	Ui::RenderWindow *ui;
