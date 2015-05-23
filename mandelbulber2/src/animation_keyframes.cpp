@@ -82,7 +82,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 		int newColumn = AddColumn(keyframes->GetFrame(index), index);
 		table->selectColumn(newColumn);
 
-		if(ui->checkBox_flight_show_thumbnails->isChecked())
+		if(ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
 			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
 			thumbWidget->UseOneCPUCore(false);
@@ -386,7 +386,7 @@ void cKeyframeAnimation::RefreshTable()
 	{
 		int newColumn = AddColumn(keyframes->GetFrame(i));
 
-		if(ui->checkBox_flight_show_thumbnails->isChecked())
+		if(ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
 			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
 			thumbWidget->UseOneCPUCore(true);
@@ -501,7 +501,7 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 	keyframes->ModifyFrame(column, frame);
 
 	//update thumbnail
-	if (ui->checkBox_flight_show_thumbnails->isChecked())
+	if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 	{
 		cParameterContainer tempPar = *gPar;
 		cFractalContainer tempFract = *gParFractal;
@@ -526,7 +526,7 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 
 void cKeyframeAnimation::slotDeleteAllImages()
 {
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::read);
+	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, gPar, cInterface::read);
 
 	QMessageBox::StandardButton reply;
 	reply = QMessageBox::question(
@@ -547,6 +547,101 @@ void cKeyframeAnimation::slotShowAnimation()
 	WriteLog("Prepare PlayerWidget class");
 	mainInterface->imageSequencePlayer = new PlayerWidget();
 	mainInterface->imageSequencePlayer->show();
+}
+
+void cKeyframeAnimation::InterpolateForward(int row, int column)
+{
+	QTableWidgetItem *cell = table->item(row, column);
+	QString cellText = cell->text();
+
+	QString parameterName = GetParameterName(row);
+
+	cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(column);
+
+	using namespace parameterContainer;
+	enumVarType type = frame.parameters.GetVarType(parameterName);
+
+	bool valueIsInterer = false;
+	bool valueIsDouble = false;
+	bool valueIsText = false;
+	int valueInteger = 0;
+	double valueDouble = 0.0;
+	QString valueText;
+
+	bool ok;
+	int lastFrame = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation", "Enter last frame number",
+			column + 1, column + 2, keyframes->GetNumberOfFrames(), 1, &ok);
+	if(!ok) return;
+
+	int numberOfFrames = (lastFrame - column  - 1);
+
+	switch(type)
+	{
+		case typeBool:
+		case typeInt:
+		case typeRgb:
+		{
+			valueIsInterer = true;
+			valueInteger = cellText.toInt();
+			//qDebug() << valueInteger;
+			break;
+		}
+		case typeDouble:
+		case typeVector3:
+		{
+			valueIsDouble = true;
+			valueDouble = cellText.toDouble();
+			//qDebug() << valueDouble;
+			break;
+		}
+		default:
+		{
+			valueIsText = true;
+			valueText = cellText;
+			break;
+		}
+	}
+
+	int finallInteger = 0;
+	double finallDouble = 0.0;
+	double integerStep = 0.0;
+	double doubleStep = 0.0;
+
+	if(valueIsInterer)
+	{
+		finallInteger = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame",
+				valueInteger, 0, 2147483647, 1, &ok);
+		integerStep = (double)(finallInteger - valueInteger) / numberOfFrames;
+	}
+	else if(valueIsDouble)
+	{
+		finallDouble = QInputDialog::getText(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
+				QString::number(valueDouble, 'g', 16), &ok).toDouble();
+		doubleStep = (finallDouble - valueDouble) / numberOfFrames;
+	}
+
+	if(!ok) return;
+
+	for(int i = column; i < lastFrame; i++)
+	{
+		QString newCellText;
+		if(valueIsInterer)
+		{
+			int newValue = integerStep * i + valueInteger;
+			newCellText = QString::number(newValue);
+		}
+		else if(valueIsDouble)
+		{
+			double newValue = doubleStep * (i - column) + valueDouble;
+			newCellText = QString::number(newValue, 'g', 16);
+		}
+		else if(valueIsText)
+		{
+			newCellText = valueText;
+		}
+		QTableWidgetItem *newCell = table->item(row, i);
+		newCell->setText(newCellText);
+	}
 }
 
 void cKeyframeAnimation::slotRefreshTable()

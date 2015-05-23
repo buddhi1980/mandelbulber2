@@ -54,32 +54,31 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point)
 	QAction *actionRender = NULL;
 	QAction *interpolateForward = NULL;
 
-//TODO context menu for keyframes
-//	if(row == 0)
-//	{
-//		actionRender = menu->addAction(tr("Render this frame"));
-//	}
-//	else
-//	{
-//		if(column < columnCount() - 1)
-//		{
-//			interpolateForward = menu->addAction(tr("Interpolate next frames"));
-//		}
-//	}
-//
-//	QAction *selectedItem = menu->exec(viewport()->mapToGlobal(point));
-//
-//	if (selectedItem)
-//	{
-//		if (selectedItem == actionRender)
-//		{
-//			gFlightAnimation->RenderFrame(column);
-//		}
-//		else if (selectedItem == interpolateForward)
-//		{
-//			gFlightAnimation->InterpolateForward(row, column);
-//		}
-//	}
+	if(row == 0)
+	{
+		actionRender = menu->addAction(tr("Render this keyframe"));
+	}
+	else
+	{
+		if(column < columnCount() - 1)
+		{
+			interpolateForward = menu->addAction(tr("Interpolate next frames"));
+		}
+	}
+
+	QAction *selectedItem = menu->exec(viewport()->mapToGlobal(point));
+
+	if (selectedItem)
+	{
+		if (selectedItem == actionRender)
+		{
+			gKeyframeAnimation->RenderFrame(column);
+		}
+		else if (selectedItem == interpolateForward)
+		{
+			gKeyframeAnimation->InterpolateForward(row, column);
+		}
+	}
 
 	delete menu;
 }
@@ -104,15 +103,15 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point)
 	{
 		if (selectedItem == actionRender)
 		{
-			//TODO gFlightAnimation->RenderFrame(column);
+			gKeyframeAnimation->RenderFrame(column);
 		}
 		else if(selectedItem == actionDeleteFrom)
 		{
-			//TODO gFlightAnimation->DeleteFramesFrom(column);
+			gKeyframeAnimation->DeleteFramesFrom(column);
 		}
 		else if(selectedItem == actionDeleteTo)
 		{
-			//TODO gFlightAnimation->DeleteFramesTo(column);
+			gKeyframeAnimation->DeleteFramesTo(column);
 		}
 	}
 
@@ -125,39 +124,38 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
 
 	QMenu *menu = new QMenu;
 
-//TODO rewrite context menu for rows
-//	if(row > 0)
-//	{
-//		QAction *actionDeleteParameter;
-//
-//		QString name = gFlightAnimation->GetParameterName(row);
-//		actionDeleteParameter = menu->addAction(tr("Remove '%1' from animation").arg(name));
-//
-//		QAction *selectedItem = menu->exec(verticalHeader()->viewport()->mapToGlobal(point));
-//
-//		if (selectedItem)
-//		{
-//			if (selectedItem == actionDeleteParameter)
-//			{
-//				gAnimFrames->RemoveAnimatedParameter(name);
-//				gFlightAnimation->RefreshTable();
-//			}
-//		}
-//	}
-//	else
-//	{
-//		QAction *actionRefresThumbnails = menu->addAction(tr("Refresh all thumbnails"));
-//
-//		QAction *selectedItem = menu->exec(verticalHeader()->viewport()->mapToGlobal(point));
-//
-//		if (selectedItem)
-//		{
-//			if (selectedItem == actionRefresThumbnails)
-//			{
-//				gFlightAnimation->RefreshTable();
-//			}
-//		}
-//	}
+	if(row > 0)
+	{
+		QAction *actionDeleteParameter;
+
+		QString name = gKeyframeAnimation->GetParameterName(row);
+		actionDeleteParameter = menu->addAction(tr("Remove '%1' from animation").arg(name));
+
+		QAction *selectedItem = menu->exec(verticalHeader()->viewport()->mapToGlobal(point));
+
+		if (selectedItem)
+		{
+			if (selectedItem == actionDeleteParameter)
+			{
+				gKeyframes->RemoveAnimatedParameter(name);
+				gKeyframeAnimation->RefreshTable();
+			}
+		}
+	}
+	else
+	{
+		QAction *actionRefresThumbnails = menu->addAction(tr("Refresh all thumbnails"));
+
+		QAction *selectedItem = menu->exec(verticalHeader()->viewport()->mapToGlobal(point));
+
+		if (selectedItem)
+		{
+			if (selectedItem == actionRefresThumbnails)
+			{
+				gKeyframeAnimation->RefreshTable();
+			}
+		}
+	}
 
 	delete menu;
 }

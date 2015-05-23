@@ -48,6 +48,7 @@ public:
 	void DeleteFramesFrom(int index);
 	void DeleteFramesTo(int index);
 	void UpdateThumbnailFromImage(int index);
+	void InterpolateForward(int row, int column);
 
 private slots:
 	void slotAddKeyframe();
