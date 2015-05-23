@@ -52,8 +52,8 @@ public:
 	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal, int index = -1);
 	void ModifyFrame(int index, sAnimationFrame &frame);
 	void GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
-	sAnimationFrame GetFrame(int index);
-	int GetNumberOfFrames();
+	sAnimationFrame GetFrame(int index) const;
+	int GetNumberOfFrames() const;
 	int GetUnrenderedTillIndex(int index);
 	int GetUnrenderedTotal();
 	void Clear();
@@ -61,7 +61,7 @@ public:
 	void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue);
 	bool AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal);
 	void RemoveAnimatedParameter(const QString &fullParameterName);
-	QList<sParameterDescription> GetListOfUsedParameters() {return listOfParameters;}
+	QList<sParameterDescription> GetListOfUsedParameters() const {return listOfParameters;}
 	const cParameterContainer* ContainerSelector(QString containerName, const cParameterContainer *params, const cFractalContainer *fractal) const;
 	cParameterContainer* ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal) const;
 	void DeleteFrames(int begin, int end);

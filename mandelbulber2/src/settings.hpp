@@ -26,6 +26,7 @@
 #include "parameters.hpp"
 #include "fractal_container.hpp"
 #include "animation_frames.hpp"
+#include "keyframes.hpp"
 #include <QtCore>
 
 class cSettings
@@ -39,7 +40,7 @@ public:
 	};
 
 	cSettings(enumFormat _format);
-	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames = NULL);
+	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
 	bool SaveToFile(QString filename);
 	bool LoadFromFile(QString filename);
 	bool LoadFromString(const QString &_settingsText);
@@ -55,6 +56,7 @@ private:
 	bool DecodeOneLine(cParameterContainer *par, QString line);
 	bool CheckSection(QString text, QString &section);
 	QString Compatibility(const QString &old);
+	void CreateAnimationString(QString &text, const QString &headerText, const cAnimationFrames &frames);
 
 	bool DecodeFramesHeader(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
 	bool DecodeFramesLine(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);

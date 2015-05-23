@@ -115,7 +115,7 @@ int cAnimationFrames::GetUnrenderedTillIndex(int index)
 	}
 }
 
-int cAnimationFrames::GetNumberOfFrames()
+int cAnimationFrames::GetNumberOfFrames() const
 {
 	return frames.count();
 }
@@ -201,7 +201,7 @@ cParameterContainer* cAnimationFrames::ContainerSelector(QString containerName, 
 	return container;
 }
 
-cAnimationFrames::sAnimationFrame cAnimationFrames::GetFrame(int index)
+cAnimationFrames::sAnimationFrame cAnimationFrames::GetFrame(int index) const
 {
 	if(index >= 0 && index < frames.count())
 	{

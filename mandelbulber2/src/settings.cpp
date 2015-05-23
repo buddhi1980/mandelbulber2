@@ -39,7 +39,7 @@ cSettings::cSettings(enumFormat _format)
 	csvNoOfColumns = 0;
 }
 
-size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames)
+size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes)
 {
 	WriteLog("Create settings text");
 	settingsText.clear();
@@ -66,73 +66,11 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 			parameterListFractal.clear();
 		}
 
-		//animation
-		if (frames)
-		{
-			if (frames->GetNumberOfFrames() > 0)
-			{
-				settingsText += "[frames]\n";
-				QList<cAnimationFrames::sParameterDescription> parameterList = frames->GetListOfUsedParameters();
-				//header
-				settingsText += "frame;";
-				for (int i = 0; i < parameterList.size(); ++i)
-				{
-					if (parameterList[i].varType == parameterContainer::typeVector3)
-					{
-						settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_x;";
-						settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_y;";
-						settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_z";
-					}
-					else if (parameterList[i].varType == parameterContainer::typeRgb)
-					{
-						settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_R;";
-						settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_G;";
-						settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_B";
-					}
-					else
-					{
-						settingsText += parameterList[i].containerName + "_" + parameterList[i].parameterName;
-					}
+		//flight animation
+		CreateAnimationString(settingsText, QString("frames"), *frames);
 
-					if (i != parameterList.size() - 1)
-					{
-						settingsText += ";";
-					}
-				}
-				settingsText += "\n";
-				for (int f = 0; f < frames->GetNumberOfFrames(); ++f)
-				{
-					settingsText += QString::number(f) + ";";
-					for (int i = 0; i < parameterList.size(); ++i)
-					{
-						if (parameterList[i].varType == parameterContainer::typeVector3)
-						{
-							CVector3 val = frames->GetFrame(f).parameters.Get<CVector3>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
-							settingsText += QString::number(val.x, 'g', 16) + ";";
-							settingsText += QString::number(val.y, 'g', 16) + ";";
-							settingsText += QString::number(val.z, 'g', 16);
-						}
-						else if (parameterList[i].varType == parameterContainer::typeRgb)
-						{
-							sRGB val = frames->GetFrame(f).parameters.Get<sRGB>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
-							settingsText += QString::number(val.R) + ";";
-							settingsText += QString::number(val.G) + ";";
-							settingsText += QString::number(val.B);
-						}
-						else
-						{
-							settingsText += frames->GetFrame(f).parameters.Get<QString>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
-						}
-
-						if (i != parameterList.size() - 1)
-						{
-							settingsText += ";";
-						}
-					}
-					settingsText += "\n";
-				}
-			}
-		}
+		//keyframe animation
+		CreateAnimationString(settingsText, QString("keyframes"), *keyframes);
 	}
 	textPrepared = true;
 
@@ -145,6 +83,76 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 	WriteLogString("Settings text prepared", settingsText);
 
 	return settingsText.size();
+}
+
+void cSettings::CreateAnimationString(QString &text, const QString &headerText, const cAnimationFrames &frames)
+{
+	if (&frames)
+	{
+		if (frames.GetNumberOfFrames() > 0)
+		{
+			text += "[" + headerText + "]\n";
+			QList<cAnimationFrames::sParameterDescription> parameterList = frames.GetListOfUsedParameters();
+			//header
+			text += "frame;";
+			for (int i = 0; i < parameterList.size(); ++i)
+			{
+				if (parameterList[i].varType == parameterContainer::typeVector3)
+				{
+					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_x;";
+					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_y;";
+					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_z";
+				}
+				else if (parameterList[i].varType == parameterContainer::typeRgb)
+				{
+					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_R;";
+					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_G;";
+					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_B";
+				}
+				else
+				{
+					text += parameterList[i].containerName + "_" + parameterList[i].parameterName;
+				}
+
+				if (i != parameterList.size() - 1)
+				{
+					text += ";";
+				}
+			}
+			text += "\n";
+			for (int f = 0; f < frames.GetNumberOfFrames(); ++f)
+			{
+				text += QString::number(f) + ";";
+				for (int i = 0; i < parameterList.size(); ++i)
+				{
+					if (parameterList[i].varType == parameterContainer::typeVector3)
+					{
+						CVector3 val = frames.GetFrame(f).parameters.Get<CVector3>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						text += QString::number(val.x, 'g', 16) + ";";
+						text += QString::number(val.y, 'g', 16) + ";";
+						text += QString::number(val.z, 'g', 16);
+					}
+					else if (parameterList[i].varType == parameterContainer::typeRgb)
+					{
+						sRGB val = frames.GetFrame(f).parameters.Get<sRGB>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						text += QString::number(val.R) + ";";
+						text += QString::number(val.G) + ";";
+						text += QString::number(val.B);
+					}
+					else
+					{
+						text += frames.GetFrame(f).parameters.Get<QString>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+					}
+
+					if (i != parameterList.size() - 1)
+					{
+						text += ";";
+					}
+				}
+				text += "\n";
+			}
+		}
+	}
 }
 
 QString cSettings::CreateHeader()

@@ -500,7 +500,7 @@ void RenderWindow::slotMenuSaveSettings()
 {
 	cSettings parSettings(cSettings::formatCondensedText);
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	parSettings.CreateText(gPar, gParFractal, gAnimFrames);
+	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
@@ -1364,7 +1364,7 @@ void RenderWindow::closeEvent(QCloseEvent * event)
 		//save applications settings
 		cSettings parSettings(cSettings::formatAppSettings);
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-		parSettings.CreateText(gPar, gParFractal, gAnimFrames);
+		parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 		parSettings.SaveToFile(systemData.dataDirectory + "mandelbulber.ini");
 
 		gApplication->quit();
