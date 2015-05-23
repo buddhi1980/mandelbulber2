@@ -65,7 +65,7 @@ using namespace parameterContainer;
 	par->addParam("keyframes_start_frame", 0, 0, 99999, morphNone, paramStandard);
 	par->addParam("keyframes_end_frame", 1000, 0, 99999, morphNone, paramStandard);
   par->addParam("show_keyframe_thumbnails", false, morphNone, paramApp);
-	par->addParam("flight_keyframe_image_type", 0, morphNone, paramApp);
+	par->addParam("keyframe_animation_image_type", 0, morphNone, paramApp);
 	par->addParam("anim_keyframe_dir", systemData.dataDirectory + "images" + QDir::separator(), morphNone, paramApp);
 
 	//camera
