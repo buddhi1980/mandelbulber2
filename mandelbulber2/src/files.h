@@ -41,6 +41,15 @@ extern "C"
 
 extern std::string logfileName;
 
+enum enumImageType
+{
+	IMAGE_TYPE_JPG,
+	IMAGE_TYPE_PNG,
+	IMAGE_TYPE_PNG_16,
+	IMAGE_TYPE_PNG_16_WITH_ALPHA,
+};
+
+
 std::string IndexFilename(const char* filename, const char* extension, int number);
 //METHODDEF(void) my_error_exit(j_common_ptr cinfo);
 void SavePNG(QString filename, int width, int height, png_byte *image);
@@ -52,7 +61,7 @@ int fcopy(const char *source, const char *dest);
 void BufferNormalize16(sRGB16 *buffer, unsigned int size);
 //void SaveAllImageLayers(const char *filename, cImage *image);
 std::string removeFileExtension(const std::string &filename);
-
+void SaveMainImage(QString filename, enumImageType imageType);
 bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality);
 
 #endif /* FILES_H_ */

@@ -26,6 +26,7 @@
 #include "keyframes.hpp"
 #include "interface.hpp"
 #include "thumbnail_widget.h"
+#include "files.h"
 
 class cKeyframeAnimation : public QObject
 {
@@ -37,16 +38,7 @@ public:
 		speedRelative, speedConstant
 	};
 
-	enum enumImageType
-	{
-		IMAGE_TYPE_JPG,
-		IMAGE_TYPE_PNG,
-		IMAGE_TYPE_PNG_16,
-		IMAGE_TYPE_PNG_16_WITH_ALPHA,
-	};
-
 	//TODO possibility to copy keyframeanimation frames to flight path
-	//TODO selection of image type (png, png alpha, ...) for animation
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent = 0);
 	void RecordKeyframe();
 	void RenderKeyframes();
@@ -66,7 +58,6 @@ private slots:
 	void slotDeleteAllImages();
 	void slotShowAnimation();
 	void slotRefreshTable();
-	void slotChangedImageType(int index);
 private:
 	void PrepareTable();
 	void CreateRowsInTable();
@@ -82,7 +73,6 @@ private:
 	QVector<int> parameterRows; //position of parameter in table
 	QVector<int> rowParameter; //index of parameter in row
 	MyTableWidgetKeyframes *table;
-	enumImageType imageType;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

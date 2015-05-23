@@ -57,15 +57,16 @@ using namespace parameterContainer;
   par->addParam("flight_movement_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
   par->addParam("flight_rotation_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
   par->addParam("flight_sec_per_frame", 1.0, morphNone, paramApp);
-
+	par->addParam("flight_animation_image_type", 0, morphNone, paramApp);
   par->addParam("anim_flight_dir", systemData.dataDirectory + "images" + QDir::separator(), morphNone, paramApp);
 
   //keyframe animation
 	par->addParam("frames_per_keyframe", 100, 1, 99999, morphNone, paramStandard);
 	par->addParam("keyframes_start_frame", 0, 0, 99999, morphNone, paramStandard);
 	par->addParam("keyframes_end_frame", 1000, 0, 99999, morphNone, paramStandard);
-	par->addParam("anim_keyframe_dir", systemData.dataDirectory + "images" + QDir::separator(), morphNone, paramApp);
   par->addParam("show_keyframe_thumbnails", false, morphNone, paramApp);
+	par->addParam("flight_keyframe_image_type", 0, morphNone, paramApp);
+	par->addParam("anim_keyframe_dir", systemData.dataDirectory + "images" + QDir::separator(), morphNone, paramApp);
 
 	//camera
 	par->addParam("camera", CVector3(3.0, -6.0, 2.0), morphAkima, paramStandard);
@@ -307,9 +308,6 @@ using namespace parameterContainer;
 	par->addParam("netrender_client_remote_address", QString("localhost"), morphNone, paramApp);
 	par->addParam("netrender_client_remote_port", 5555, morphNone, paramApp);
 	par->addParam("netrender_server_local_port", 5555, morphNone, paramApp);
-
-	par->addParam("flight_animation_image_type", 0, morphNone, paramApp);
-	par->addParam("keyframe_animation_image_type", 0, morphNone, paramApp);
 
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);

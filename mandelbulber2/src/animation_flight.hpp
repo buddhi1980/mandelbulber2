@@ -26,6 +26,7 @@
 #include "keyframes.hpp"
 #include "interface.hpp"
 #include "thumbnail_widget.h"
+#include "files.h"
 
 class cFlightAnimation : public QObject
 {
@@ -38,16 +39,7 @@ public:
 	 speedConstant
  };
 
- enum enumImageType
- {
-	 IMAGE_TYPE_JPG,
-	 IMAGE_TYPE_PNG,
-	 IMAGE_TYPE_PNG_16,
-	 IMAGE_TYPE_PNG_16_WITH_ALPHA,
- };
-
 	//TODO possibility to copy flight path frames to keyframeanimation
-	//TODO selection of image type (png, png alpha, ...) for animation
 	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent = 0);
 	void RecordFlight(bool continueRecording);
 	void RenderFlight();
@@ -74,7 +66,6 @@ private slots:
 	void slotShowAnimation();
 	void slotRecordPause();
 	void slotRefreshTable();
-	void slotChangedImageType(int index);
 
 private:
 	void PrepareTable();
@@ -93,7 +84,6 @@ private:
 	double linearSpeedSp;
 	//QList<cThumbnailWidget*> thumbnailWidgets;
 	bool recordPause;
-	enumImageType imageType;
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 };
