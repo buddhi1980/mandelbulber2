@@ -50,6 +50,7 @@ public:
 
 	cAnimationFrames();
 	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal, int index = -1);
+	void AddFrame(const sAnimationFrame &frame);
 	void ModifyFrame(int index, sAnimationFrame &frame);
 	void GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
 	sAnimationFrame GetFrame(int index) const;
@@ -68,6 +69,7 @@ public:
 	void Override(QList<sAnimationFrame> _frames, QList<sParameterDescription> _listOfParameters){ frames = _frames; listOfParameters = _listOfParameters; }
 	QList<sAnimationFrame> GetFrames(){ return frames; }
 	QList<sParameterDescription> GetListOfParameters(){ return listOfParameters; }
+	void SetListOfParametersAndClear(QList<sParameterDescription> _listOfParameters) {listOfParameters = _listOfParameters; frames.clear();}
 protected:
 	int IndexOnList(QString parameterName, QString containerName);
 

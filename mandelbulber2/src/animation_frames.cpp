@@ -267,3 +267,8 @@ void cAnimationFrames::ModifyFrame(int index, sAnimationFrame &frame)
 		frames[index] = frame;
 	}
 }
+
+void cAnimationFrames::AddFrame(const sAnimationFrame &frame)
+{
+	frames.append(frame);
+}

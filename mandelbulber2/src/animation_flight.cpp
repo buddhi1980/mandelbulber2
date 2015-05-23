@@ -921,6 +921,8 @@ QString cFlightAnimation::GetFlightFilename(int index)
 
 void cFlightAnimation::slotExportFlightToKeyframes()
 {
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
 	if(gKeyframes->GetFrames().size() > 0)
 	{
 		QMessageBox::StandardButton reply;
@@ -934,7 +936,15 @@ void cFlightAnimation::slotExportFlightToKeyframes()
 	}
 
 	gKeyframes->ClearAll();
-	gKeyframes->Override(gAnimFrames->GetFrames(), gAnimFrames->GetListOfParameters());
+	gKeyframes->SetListOfParametersAndClear(gAnimFrames->GetListOfParameters());
+
+	int step = gPar->Get<int>("frames_per_keyframe");
+
+	for(int i=0; i < frames->GetNumberOfFrames(); i += step)
+	{
+		gKeyframes->AddFrame(frames->GetFrame(i));
+	}
+
 	ui->tabWidgetFlightKeyframe->setCurrentIndex(1);
 	ui->pushButton_refresh_keyframe_table->animateClick();
 }
