@@ -308,6 +308,9 @@ using namespace parameterContainer;
 	par->addParam("netrender_client_remote_port", 5555, morphNone, paramApp);
 	par->addParam("netrender_server_local_port", 5555, morphNone, paramApp);
 
+	par->addParam("flight_animation_image_type", 0, morphNone, paramApp);
+	par->addParam("keyframe_animation_image_type", 0, morphNone, paramApp);
+
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);
 	par->SetAsAppParam("openCL_use_CPU", true);
