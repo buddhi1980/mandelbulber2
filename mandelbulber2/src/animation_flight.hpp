@@ -39,7 +39,6 @@ public:
 	 speedConstant
  };
 
-	//TODO possibility to copy flight path frames to keyframeanimation
 	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent = 0);
 	void RecordFlight(bool continueRecording);
 	void RenderFlight();
@@ -66,7 +65,7 @@ private slots:
 	void slotShowAnimation();
 	void slotRecordPause();
 	void slotRefreshTable();
-
+	void slotExportFlightToKeyframes();
 private:
 	void PrepareTable();
 	void CreateRowsInTable();

@@ -40,6 +40,8 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	QApplication::connect(ui->pushButton_delete_all_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
 	QApplication::connect(ui->pushButton_show_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
 	QApplication::connect(ui->pushButton_flight_refresh_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
+	QApplication::connect(ui->pushButton_flight_to_keyframe_export, SIGNAL(clicked()), this, SLOT(slotExportFlightToKeyframes()));
+
 
 	QApplication::connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this, SLOT(slotSelectAnimFlightImageDir()));
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightStrafe(CVector2<int>)), this, SLOT(slotFlightStrafe(CVector2<int>)));
@@ -916,3 +918,24 @@ QString cFlightAnimation::GetFlightFilename(int index)
 	}
 	return filename;
 }
+
+void cFlightAnimation::slotExportFlightToKeyframes()
+{
+	if(gKeyframes->GetFrames().size() > 0)
+	{
+		QMessageBox::StandardButton reply;
+		reply = QMessageBox::question(
+			ui->centralwidget,
+			QObject::tr("Export flight to keyframes"),
+			QObject::tr("There are already captured keyframes present.\nDiscard current keyframes?"),
+			QMessageBox::Yes|QMessageBox::No);
+
+		if (reply == QMessageBox::No) return;
+	}
+
+	gKeyframes->ClearAll();
+	gKeyframes->Override(gAnimFrames->GetFrames(), gAnimFrames->GetListOfParameters());
+	ui->tabWidgetFlightKeyframe->setCurrentIndex(1);
+	ui->pushButton_refresh_keyframe_table->animateClick();
+}
+

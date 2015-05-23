@@ -10294,6 +10294,17 @@ and water):</string>
                  </property>
                 </widget>
                </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="pushButton_flight_to_keyframe_export">
+                 <property name="text">
+                  <string>Export to Keyframes</string>
+                 </property>
+                 <!--<property name="icon">
+                  <iconset theme="view-refresh" resource="icons.qrc">
+                   <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
+                 </property>-->
+                </widget>
+               </item>
               </layout>
              </item>
              <item>

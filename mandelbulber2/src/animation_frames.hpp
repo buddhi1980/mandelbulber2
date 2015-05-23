@@ -65,7 +65,9 @@ public:
 	const cParameterContainer* ContainerSelector(QString containerName, const cParameterContainer *params, const cFractalContainer *fractal) const;
 	cParameterContainer* ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal) const;
 	void DeleteFrames(int begin, int end);
-
+	void Override(QList<sAnimationFrame> _frames, QList<sParameterDescription> _listOfParameters){ frames = _frames; listOfParameters = _listOfParameters; }
+	QList<sAnimationFrame> GetFrames(){ return frames; }
+	QList<sParameterDescription> GetListOfParameters(){ return listOfParameters; }
 protected:
 	int IndexOnList(QString parameterName, QString containerName);
 
