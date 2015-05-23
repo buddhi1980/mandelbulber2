@@ -37,6 +37,15 @@ public:
 	 speedRelative,
 	 speedConstant
  };
+
+ enum enumImageType
+ {
+	 IMAGE_TYPE_JPG,
+	 IMAGE_TYPE_PNG,
+	 IMAGE_TYPE_PNG_16,
+	 IMAGE_TYPE_PNG_16_WITH_ALPHA,
+ };
+
 	//TODO possibility to copy flight path frames to keyframeanimation
 	//TODO selection of image type (png, png alpha, ...) for animation
 	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent = 0);
@@ -49,6 +58,7 @@ public:
 	void DeleteFramesTo(int index);
 	void UpdateThumbnailFromImage(int index);
 	void InterpolateForward(int row, int column);
+	QString GetFlightFilename(int index);
 
 private slots:
 	void slotRecordFlight();
@@ -64,6 +74,7 @@ private slots:
 	void slotShowAnimation();
 	void slotRecordPause();
 	void slotRefreshTable();
+	void slotChangedImageType(int index);
 
 private:
 	void PrepareTable();
@@ -82,7 +93,7 @@ private:
 	double linearSpeedSp;
 	//QList<cThumbnailWidget*> thumbnailWidgets;
 	bool recordPause;
-
+	enumImageType imageType;
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 };

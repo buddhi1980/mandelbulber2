@@ -44,6 +44,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 
 	QApplication::connect(ui->button_selectAnimKeyframeImageDir, SIGNAL(clicked()), this, SLOT(slotSelectKeyframeAnimImageDir()));
 	QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
+	QApplication::connect(ui->comboBox_keyframe_animation_image_type, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChangedImageType(int)));
 
 	table = ui->tableWidget_keyframe_animation;
 
@@ -362,7 +363,6 @@ void cKeyframeAnimation::RenderKeyframes()
 			renderJob->UpdateParameters(gPar, gParFractal);
 			int result = renderJob->Execute();
 			if(!result) break;
-
 			QString filename = GetKeyframeFilename(index, subindex);
 			SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
 		}
@@ -556,8 +556,31 @@ void cKeyframeAnimation::slotRefreshTable()
 	RefreshTable();
 }
 
+void cKeyframeAnimation::slotChangedImageType(int index)
+{
+	switch(index)
+	{
+		case 0: imageType = IMAGE_TYPE_JPG; break;
+		case 1: imageType = IMAGE_TYPE_PNG; break;
+		case 2: imageType = IMAGE_TYPE_PNG_16; break;
+		case 3: imageType = IMAGE_TYPE_PNG_16_WITH_ALPHA; break;
+	}
+}
+
 QString cKeyframeAnimation::GetKeyframeFilename(int index, int subindex)
 {
 	int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
-	return gPar->Get<QString>("anim_keyframe_dir") + "frame_" + QString("%1").arg(frameIndex, 5, 10, QChar('0')) + QString(".jpg");
+	QString filename = gPar->Get<QString>("anim_keyframe_dir") + "frame_" + QString("%1").arg(frameIndex, 5, 10, QChar('0'));
+	switch(imageType)
+	{
+		case IMAGE_TYPE_JPG:
+			filename += QString(".jpg");
+		break;
+		case IMAGE_TYPE_PNG:
+		case IMAGE_TYPE_PNG_16:
+		case IMAGE_TYPE_PNG_16_WITH_ALPHA:
+			filename += QString(".png");
+		break;
+	}
+	return filename;
 }

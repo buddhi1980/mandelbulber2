@@ -49,11 +49,13 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightRotation(int)), this, SLOT(slotFlightRotation(int)));
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightPause()), this, SLOT(slotRecordPause()));
 	QApplication::connect(ui->tableWidget_flightAnimation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
+	QApplication::connect(ui->comboBox_flight_animation_image_type, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChangedImageType(int)));
 
 	table = ui->tableWidget_flightAnimation;
 	linearSpeedSp = 0.0;
 	rotationDirection = 0;
 	recordPause = false;
+	imageType = IMAGE_TYPE_JPG;
 }
 
 void cFlightAnimation::slotRecordFlight()
@@ -339,8 +341,21 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			UpdateThumbnailFromImage(newColumn);
 		}
 
-		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
-		SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 90);
+		QString filename = GetFlightFilename(index);
+		switch(imageType){
+			case IMAGE_TYPE_JPG:
+				SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 90);
+			break;
+			case IMAGE_TYPE_PNG:
+				SavePNG(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->ConvertTo8bit());
+			break;
+			case IMAGE_TYPE_PNG_16:
+				SavePNG16(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->GetImage16Ptr());
+			break;
+			case IMAGE_TYPE_PNG_16_WITH_ALPHA:
+				SavePNG16Alpha(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage);
+			break;
+		}
 		index++;
 	}
 
@@ -584,8 +599,21 @@ void cFlightAnimation::RenderFlight()
 		int result = renderJob->Execute();
 		if (!result) break;
 
-		QString filename = framesDir + "frame" + QString("%1").arg(index, 5, 10, QChar('0')) + QString(".jpg");
-		SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 95);
+		QString filename = GetFlightFilename(index);
+		switch(imageType){
+			case IMAGE_TYPE_JPG:
+				SaveJPEGQt(filename, mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), 90);
+			break;
+			case IMAGE_TYPE_PNG:
+				SavePNG(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->ConvertTo8bit());
+			break;
+			case IMAGE_TYPE_PNG_16:
+				SavePNG16(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->GetImage16Ptr());
+			break;
+			case IMAGE_TYPE_PNG_16_WITH_ALPHA:
+				SavePNG16Alpha(filename, mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage);
+			break;
+		}
 	}
 	ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, mainInterface->progressBarAnimation);
 }
@@ -899,4 +927,32 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 void cFlightAnimation::slotRefreshTable()
 {
 	RefreshTable();
+}
+
+void cFlightAnimation::slotChangedImageType(int index)
+{
+	switch(index)
+	{
+		case 0: imageType = IMAGE_TYPE_JPG; break;
+		case 1: imageType = IMAGE_TYPE_PNG; break;
+		case 2: imageType = IMAGE_TYPE_PNG_16; break;
+		case 3: imageType = IMAGE_TYPE_PNG_16_WITH_ALPHA; break;
+	}
+}
+
+QString cFlightAnimation::GetFlightFilename(int index)
+{
+	QString filename = gPar->Get<QString>("anim_flight_dir") + "frame_" + QString("%1").arg(index, 5, 10, QChar('0'));
+	switch(imageType)
+	{
+		case IMAGE_TYPE_JPG:
+			filename += QString(".jpg");
+		break;
+		case IMAGE_TYPE_PNG:
+		case IMAGE_TYPE_PNG_16:
+		case IMAGE_TYPE_PNG_16_WITH_ALPHA:
+			filename += QString(".png");
+		break;
+	}
+	return filename;
 }
