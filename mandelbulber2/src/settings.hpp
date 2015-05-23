@@ -44,7 +44,7 @@ public:
 	bool SaveToFile(QString filename);
 	bool LoadFromFile(QString filename);
 	bool LoadFromString(const QString &_settingsText);
-	bool Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames = NULL);
+	bool Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
 	QString GetHashCode() {return hash.toHex();}
 	void BeQuiet(bool _quiet) {quiet = _quiet;}
 	QString GetSettingsText();

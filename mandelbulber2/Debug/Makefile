@@ -48,6 +48,7 @@ OBJECTS_DIR   = ./
 SOURCES       = ../src/algebra.cpp \
 		../src/animation_frames.cpp \
 		../src/animation_flight.cpp \
+		../src/animation_keyframes.cpp \
 		../src/calculate_distance.cpp \
 		../src/camera_target.cpp \
 		../src/compute_fractal.cpp \
@@ -67,8 +68,10 @@ SOURCES       = ../src/algebra.cpp \
 		../src/initparameters.cpp \
 		../src/interface.cpp \
 		../src/histogram.cpp \
+		../src/keyframes.cpp \
 		../src/lights.cpp \
 		../src/main.cpp \
+		../src/morph.cpp \
 		../src/multi_val.cpp \
 		../src/my_ui_loader.cpp \
 		../src/netrender.cpp \
@@ -102,6 +105,7 @@ SOURCES       = ../src/algebra.cpp \
 		../qt/mycheckbox.cpp \
 		../qt/mycolorbutton.cpp \
 		../qt/my_table_widget_anim.cpp \
+		../qt/my_table_widget_keyframes.cpp \
 		../qt/mylogwidget.cpp \
 		../qt/myhistogramlabel.cpp qrc_icons.cpp \
 		moc_render_window.cpp \
@@ -114,6 +118,7 @@ SOURCES       = ../src/algebra.cpp \
 		moc_mygroupbox.cpp \
 		moc_mycolorbutton.cpp \
 		moc_my_table_widget_anim.cpp \
+		moc_my_table_widget_keyframes.cpp \
 		moc_mylogwidget.cpp \
 		moc_myhistogramlabel.cpp \
 		moc_my_ui_loader.cpp \
@@ -122,6 +127,7 @@ SOURCES       = ../src/algebra.cpp \
 		moc_color_palette_widget.cpp \
 		moc_rendered_image_widget.cpp \
 		moc_animation_flight.cpp \
+		moc_animation_keyframes.cpp \
 		moc_thumbnail_widget.cpp \
 		moc_player_widget.cpp \
 		moc_render_job.cpp \
@@ -132,6 +138,7 @@ SOURCES       = ../src/algebra.cpp \
 OBJECTS       = algebra.o \
 		animation_frames.o \
 		animation_flight.o \
+		animation_keyframes.o \
 		calculate_distance.o \
 		camera_target.o \
 		compute_fractal.o \
@@ -151,8 +158,10 @@ OBJECTS       = algebra.o \
 		initparameters.o \
 		interface.o \
 		histogram.o \
+		keyframes.o \
 		lights.o \
 		main.o \
+		morph.o \
 		multi_val.o \
 		my_ui_loader.o \
 		netrender.o \
@@ -186,6 +195,7 @@ OBJECTS       = algebra.o \
 		mycheckbox.o \
 		mycolorbutton.o \
 		my_table_widget_anim.o \
+		my_table_widget_keyframes.o \
 		mylogwidget.o \
 		myhistogramlabel.o \
 		qrc_icons.o \
@@ -199,6 +209,7 @@ OBJECTS       = algebra.o \
 		moc_mygroupbox.o \
 		moc_mycolorbutton.o \
 		moc_my_table_widget_anim.o \
+		moc_my_table_widget_keyframes.o \
 		moc_mylogwidget.o \
 		moc_myhistogramlabel.o \
 		moc_my_ui_loader.o \
@@ -207,6 +218,7 @@ OBJECTS       = algebra.o \
 		moc_color_palette_widget.o \
 		moc_rendered_image_widget.o \
 		moc_animation_flight.o \
+		moc_animation_keyframes.o \
 		moc_thumbnail_widget.o \
 		moc_player_widget.o \
 		moc_render_job.o \
@@ -276,6 +288,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		mandelbulber.pro ../src/algebra.cpp \
 		../src/animation_frames.cpp \
 		../src/animation_flight.cpp \
+		../src/animation_keyframes.cpp \
 		../src/calculate_distance.cpp \
 		../src/camera_target.cpp \
 		../src/compute_fractal.cpp \
@@ -295,8 +308,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../src/initparameters.cpp \
 		../src/interface.cpp \
 		../src/histogram.cpp \
+		../src/keyframes.cpp \
 		../src/lights.cpp \
 		../src/main.cpp \
+		../src/morph.cpp \
 		../src/multi_val.cpp \
 		../src/my_ui_loader.cpp \
 		../src/netrender.cpp \
@@ -330,6 +345,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../qt/mycheckbox.cpp \
 		../qt/mycolorbutton.cpp \
 		../qt/my_table_widget_anim.cpp \
+		../qt/my_table_widget_keyframes.cpp \
 		../qt/mylogwidget.cpp \
 		../qt/myhistogramlabel.cpp
 QMAKE_TARGET  = mandelbulber2
@@ -504,7 +520,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/mandelbulber21.0.0 || mkdir -p .tmp/mandelbulber21.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../qt/myspinbox.h ../qt/mydoublespinbox.h ../qt/mycheckbox.h ../qt/mygroupbox.h ../qt/mycolorbutton.h ../qt/my_table_widget_anim.hpp ../qt/mylogwidget.h ../qt/myhistogramlabel.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp ../src/animation_flight.hpp ../src/thumbnail_widget.h ../src/player_widget.hpp ../src/render_job.hpp ../src/render_image.hpp ../src/render_ssao.h ../src/dof.hpp ../src/netrender.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/animation_frames.cpp ../src/animation_flight.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_container.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/global_data.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/histogram.cpp ../src/lights.cpp ../src/main.cpp ../src/multi_val.cpp ../src/my_ui_loader.cpp ../src/netrender.cpp ../src/one_parameter.cpp ../src/old_settings.cpp ../src/parameters.cpp ../src/player_widget.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/random.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp ../src/thumbnail.cpp ../src/thumbnail_widget.cpp ../src/undo.cpp ../qt/mygroupbox.cpp ../qt/mylineedit.cpp ../qt/myspinbox.cpp ../qt/mydoublespinbox.cpp ../qt/mycheckbox.cpp ../qt/mycolorbutton.cpp ../qt/my_table_widget_anim.cpp ../qt/mylogwidget.cpp ../qt/myhistogramlabel.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../language/en.ts ../language/de.ts ../language/pl.ts .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/icons.qrc .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/render_window.hpp ../src/render_worker.hpp ../qt/myscrolledarea.h ../qt/mylineedit.h ../qt/myspinbox.h ../qt/mydoublespinbox.h ../qt/mycheckbox.h ../qt/mygroupbox.h ../qt/mycolorbutton.h ../qt/my_table_widget_anim.hpp ../qt/my_table_widget_keyframes.hpp ../qt/mylogwidget.h ../qt/myhistogramlabel.h ../src/my_ui_loader.h ../src/preview_file_dialog.h ../src/ssao_worker.h ../qt/color_palette_widget.h ../src/rendered_image_widget.hpp ../src/animation_flight.hpp ../src/animation_keyframes.hpp ../src/keyframes.hpp ../src/morph.hpp ../src/thumbnail_widget.h ../src/player_widget.hpp ../src/render_job.hpp ../src/render_image.hpp ../src/render_ssao.h ../src/dof.hpp ../src/netrender.hpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../src/algebra.cpp ../src/animation_frames.cpp ../src/animation_flight.cpp ../src/animation_keyframes.cpp ../src/calculate_distance.cpp ../src/camera_target.cpp ../src/compute_fractal.cpp ../src/color_palette.cpp ../src/cimage.cpp ../src/common_math.cpp ../src/dof.cpp ../src/error_message.cpp ../src/fractparams.cpp ../src/files.cpp ../src/four_fractals.cpp ../src/fractal.cpp ../src/fractal_container.cpp ../src/fractal_formulas.cpp ../src/fractal_list.cpp ../src/global_data.cpp ../src/initparameters.cpp ../src/interface.cpp ../src/histogram.cpp ../src/keyframes.cpp ../src/lights.cpp ../src/main.cpp ../src/morph.cpp ../src/multi_val.cpp ../src/my_ui_loader.cpp ../src/netrender.cpp ../src/one_parameter.cpp ../src/old_settings.cpp ../src/parameters.cpp ../src/player_widget.cpp ../src/primitives.cpp ../src/progress_text.cpp ../src/preview_file_dialog.cpp ../src/random.cpp ../src/render_image.cpp ../src/rendered_image_widget.cpp ../src/render_job.cpp ../src/render_ssao.cpp ../src/render_window.cpp ../src/render_worker.cpp ../src/scheduler.cpp ../src/settings.cpp ../src/shaders.cpp ../src/system.cpp ../src/ssao_worker.cpp ../src/texture.cpp ../src/thumbnail.cpp ../src/thumbnail_widget.cpp ../src/undo.cpp ../qt/mygroupbox.cpp ../qt/mylineedit.cpp ../qt/myspinbox.cpp ../qt/mydoublespinbox.cpp ../qt/mycheckbox.cpp ../qt/mycolorbutton.cpp ../qt/my_table_widget_anim.cpp ../qt/my_table_widget_keyframes.cpp ../qt/mylogwidget.cpp ../qt/myhistogramlabel.cpp .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../qt/render_window.ui .tmp/mandelbulber21.0.0/ && $(COPY_FILE) --parents ../language/en.ts ../language/de.ts ../language/pl.ts .tmp/mandelbulber21.0.0/ && (cd `dirname .tmp/mandelbulber21.0.0` && $(TAR) mandelbulber21.0.0.tar mandelbulber21.0.0 && $(COMPRESS) mandelbulber21.0.0.tar) && $(MOVE) `dirname .tmp/mandelbulber21.0.0`/mandelbulber21.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mandelbulber21.0.0
 
 
 clean:compiler_clean 
@@ -563,12 +579,31 @@ qrc_icons.cpp: ../qt/icons.qrc \
 		../qt/icons/preferences-system.svg
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name icons ../qt/icons.qrc -o qrc_icons.cpp
 
-compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_mydoublespinbox.cpp moc_mycheckbox.cpp moc_mygroupbox.cpp moc_mycolorbutton.cpp moc_my_table_widget_anim.cpp moc_mylogwidget.cpp moc_myhistogramlabel.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp moc_animation_flight.cpp moc_thumbnail_widget.cpp moc_player_widget.cpp moc_render_job.cpp moc_render_image.cpp moc_render_ssao.cpp moc_dof.cpp moc_netrender.cpp
+compiler_moc_header_make_all: moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_mydoublespinbox.cpp moc_mycheckbox.cpp moc_mygroupbox.cpp moc_mycolorbutton.cpp moc_my_table_widget_anim.cpp moc_my_table_widget_keyframes.cpp moc_mylogwidget.cpp moc_myhistogramlabel.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp moc_animation_flight.cpp moc_animation_keyframes.cpp moc_thumbnail_widget.cpp moc_player_widget.cpp moc_render_job.cpp moc_render_image.cpp moc_render_ssao.cpp moc_dof.cpp moc_netrender.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_mydoublespinbox.cpp moc_mycheckbox.cpp moc_mygroupbox.cpp moc_mycolorbutton.cpp moc_my_table_widget_anim.cpp moc_mylogwidget.cpp moc_myhistogramlabel.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp moc_animation_flight.cpp moc_thumbnail_widget.cpp moc_player_widget.cpp moc_render_job.cpp moc_render_image.cpp moc_render_ssao.cpp moc_dof.cpp moc_netrender.cpp
+	-$(DEL_FILE) moc_render_window.cpp moc_render_worker.cpp moc_myscrolledarea.cpp moc_mylineedit.cpp moc_myspinbox.cpp moc_mydoublespinbox.cpp moc_mycheckbox.cpp moc_mygroupbox.cpp moc_mycolorbutton.cpp moc_my_table_widget_anim.cpp moc_my_table_widget_keyframes.cpp moc_mylogwidget.cpp moc_myhistogramlabel.cpp moc_my_ui_loader.cpp moc_preview_file_dialog.cpp moc_ssao_worker.cpp moc_color_palette_widget.cpp moc_rendered_image_widget.cpp moc_animation_flight.cpp moc_animation_keyframes.cpp moc_thumbnail_widget.cpp moc_player_widget.cpp moc_render_job.cpp moc_render_image.cpp moc_render_ssao.cpp moc_dof.cpp moc_netrender.cpp
 moc_render_window.cpp: ../qt/ui_render_window.h \
-		../src/cimage.hpp \
+		../qt/color_palette_widget.h \
+		../src/color_palette.hpp \
 		../src/color_structures.hpp \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../src/parameters.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
+		../src/algebra.hpp \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
+		../src/cimage.hpp \
 		../src/render_window.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/git/mandelbulber2/mandelbulber2/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/render_window.hpp -o moc_render_window.cpp
 
@@ -657,6 +692,9 @@ moc_mycolorbutton.cpp: ../src/parameters.hpp \
 moc_my_table_widget_anim.cpp: ../qt/my_table_widget_anim.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/git/mandelbulber2/mandelbulber2/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/my_table_widget_anim.hpp -o moc_my_table_widget_anim.cpp
 
+moc_my_table_widget_keyframes.cpp: ../qt/my_table_widget_keyframes.hpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/git/mandelbulber2/mandelbulber2/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/my_table_widget_keyframes.hpp -o moc_my_table_widget_keyframes.cpp
+
 moc_mylogwidget.cpp: ../src/system.hpp \
 		../qt/mylogwidget.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/git/mandelbulber2/mandelbulber2/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../qt/mylogwidget.h -o moc_mylogwidget.cpp
@@ -736,7 +774,8 @@ moc_rendered_image_widget.cpp: ../src/cimage.hpp \
 		../src/rendered_image_widget.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/git/mandelbulber2/mandelbulber2/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/rendered_image_widget.hpp -o moc_rendered_image_widget.cpp
 
-moc_animation_flight.cpp: ../src/animation_frames.hpp \
+moc_animation_flight.cpp: ../src/keyframes.hpp \
+		../src/animation_frames.hpp \
 		../src/parameters.hpp \
 		../src/one_parameter.hpp \
 		../src/multi_val.hpp \
@@ -744,13 +783,27 @@ moc_animation_flight.cpp: ../src/animation_frames.hpp \
 		../src/color_structures.hpp \
 		../src/algebra.hpp \
 		../src/fractal_container.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -765,11 +818,59 @@ moc_animation_flight.cpp: ../src/animation_frames.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
 		../src/animation_flight.hpp
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/git/mandelbulber2/mandelbulber2/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/animation_flight.hpp -o moc_animation_flight.cpp
+
+moc_animation_keyframes.cpp: ../src/keyframes.hpp \
+		../src/animation_frames.hpp \
+		../src/parameters.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
+		../src/color_palette.hpp \
+		../src/color_structures.hpp \
+		../src/algebra.hpp \
+		../src/fractal_container.hpp \
+		../src/morph.hpp \
+		../src/interface.hpp \
+		../src/render_window.hpp \
+		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
+		../src/cimage.hpp \
+		../src/rendered_image_widget.hpp \
+		../src/player_widget.hpp \
+		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/scheduler.hpp \
+		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/krzysztof/git/mandelbulber2/mandelbulber2/Debug -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtUiTools -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/4.9 -I/usr/include/x86_64-linux-gnu/c++/4.9 -I/usr/include/c++/4.9/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/animation_keyframes.hpp -o moc_animation_keyframes.cpp
 
 moc_thumbnail_widget.cpp: ../src/thumbnail.hpp \
 		../src/render_job.hpp \
@@ -913,6 +1014,7 @@ compiler_uic_clean:
 		../qt/mycolorbutton.h \
 		../qt/mylogwidget.h \
 		../qt/myhistogramlabel.h \
+		../qt/my_table_widget_keyframes.hpp \
 		../src/parameters.hpp \
 		../src/one_parameter.hpp \
 		../src/multi_val.hpp \
@@ -985,6 +1087,7 @@ animation_frames.o: ../src/animation_frames.cpp ../src/animation_frames.hpp \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animation_frames.o ../src/animation_frames.cpp
 
 animation_flight.o: ../src/animation_flight.cpp ../src/animation_flight.hpp \
+		../src/keyframes.hpp \
 		../src/animation_frames.hpp \
 		../src/parameters.hpp \
 		../src/one_parameter.hpp \
@@ -993,13 +1096,27 @@ animation_flight.o: ../src/animation_flight.cpp ../src/animation_flight.hpp \
 		../src/color_structures.hpp \
 		../src/algebra.hpp \
 		../src/fractal_container.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -1014,16 +1131,70 @@ animation_flight.o: ../src/animation_flight.cpp ../src/animation_flight.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
 		../src/global_data.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp \
-		../src/system.hpp \
 		../src/files.h \
 		../src/error_message.hpp \
 		../src/progress_text.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animation_flight.o ../src/animation_flight.cpp
+
+animation_keyframes.o: ../src/animation_keyframes.cpp ../src/animation_keyframes.hpp \
+		../src/keyframes.hpp \
+		../src/animation_frames.hpp \
+		../src/parameters.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
+		../src/color_palette.hpp \
+		../src/color_structures.hpp \
+		../src/algebra.hpp \
+		../src/fractal_container.hpp \
+		../src/morph.hpp \
+		../src/interface.hpp \
+		../src/render_window.hpp \
+		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
+		../src/cimage.hpp \
+		../src/rendered_image_widget.hpp \
+		../src/player_widget.hpp \
+		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/scheduler.hpp \
+		../src/camera_target.hpp \
+		../src/global_data.hpp \
+		../src/animation_flight.hpp \
+		../src/netrender.hpp \
+		../src/files.h \
+		../src/error_message.hpp \
+		../src/progress_text.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animation_keyframes.o ../src/animation_keyframes.cpp
 
 calculate_distance.o: ../src/calculate_distance.cpp ../src/calculate_distance.hpp \
 		../src/compute_fractal.hpp \
@@ -1116,12 +1287,27 @@ dof.o: ../src/dof.cpp ../src/dof.hpp \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
 		../src/render_job.hpp \
@@ -1132,9 +1318,9 @@ dof.o: ../src/dof.cpp ../src/dof.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dof.o ../src/dof.cpp
 
@@ -1226,13 +1412,28 @@ global_data.o: ../src/global_data.cpp ../src/global_data.hpp \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -1247,9 +1448,9 @@ global_data.o: ../src/global_data.cpp ../src/global_data.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o global_data.o ../src/global_data.cpp
 
@@ -1282,12 +1483,24 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/fractal_container.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
-		../src/system.hpp \
 		../src/fractal_list.hpp \
 		../src/render_job.hpp \
 		../src/render_image.hpp \
@@ -1299,7 +1512,6 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
 		../src/calculate_distance.hpp \
@@ -1314,8 +1526,11 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 		../src/global_data.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp \
 		../src/progress_text.hpp \
 		../src/settings.hpp
@@ -1323,6 +1538,18 @@ interface.o: ../src/interface.cpp ../src/interface.hpp \
 
 histogram.o: ../src/histogram.cpp ../src/histogram.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o histogram.o ../src/histogram.cpp
+
+keyframes.o: ../src/keyframes.cpp ../src/keyframes.hpp \
+		../src/animation_frames.hpp \
+		../src/parameters.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
+		../src/color_palette.hpp \
+		../src/color_structures.hpp \
+		../src/algebra.hpp \
+		../src/fractal_container.hpp \
+		../src/morph.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o keyframes.o ../src/keyframes.cpp
 
 lights.o: ../src/lights.cpp ../src/lights.hpp \
 		../src/parameters.hpp \
@@ -1363,15 +1590,29 @@ main.o: ../src/main.cpp ../src/main.hpp \
 		../src/fractal_container.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/initparameters.hpp \
 		../src/fractal_list.hpp \
 		../src/undo.h \
 		../src/global_data.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
 		../src/render_job.hpp \
@@ -1381,12 +1622,27 @@ main.o: ../src/main.cpp ../src/main.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp \
 		../src/settings.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
+
+morph.o: ../src/morph.cpp ../src/morph.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
+		../src/color_palette.hpp \
+		../src/color_structures.hpp \
+		../src/algebra.hpp \
+		../src/common_math.h \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/cimage.hpp \
+		../src/primitives.h \
+		../src/parameters.hpp \
+		../src/commonparams.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o morph.o ../src/morph.cpp
 
 multi_val.o: ../src/multi_val.cpp ../src/multi_val.hpp \
 		../src/color_palette.hpp \
@@ -1428,12 +1684,26 @@ netrender.o: ../src/netrender.cpp ../src/netrender.hpp \
 		../src/animation_frames.hpp \
 		../src/global_data.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
 		../src/render_job.hpp \
@@ -1444,8 +1714,9 @@ netrender.o: ../src/netrender.cpp ../src/netrender.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
-		../src/camera_target.hpp
+		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
+		../src/error_message.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o netrender.o ../src/netrender.cpp
 
 one_parameter.o: ../src/one_parameter.cpp ../src/one_parameter.hpp \
@@ -1496,9 +1767,23 @@ player_widget.o: ../src/player_widget.cpp ../src/player_widget.hpp \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/primitives.h \
@@ -1515,9 +1800,9 @@ player_widget.o: ../src/player_widget.cpp ../src/player_widget.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o player_widget.o ../src/player_widget.cpp
 
@@ -1605,15 +1890,29 @@ render_image.o: ../src/render_image.cpp ../src/render_image.hpp \
 		../src/global_data.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
 		../src/render_job.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_image.o ../src/render_image.cpp
 
@@ -1634,11 +1933,26 @@ rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
-		../src/player_widget.hpp \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
 		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
+		../src/player_widget.hpp \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
 		../src/render_job.hpp \
@@ -1649,9 +1963,9 @@ rendered_image_widget.o: ../src/rendered_image_widget.cpp ../src/rendered_image_
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rendered_image_widget.o ../src/rendered_image_widget.cpp
 
@@ -1682,14 +1996,28 @@ render_job.o: ../src/render_job.cpp ../src/render_job.hpp \
 		../src/global_data.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp \
 		../src/progress_text.hpp \
 		../src/error_message.hpp
@@ -1717,12 +2045,26 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../src/global_data.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
 		../src/render_job.hpp \
@@ -1732,27 +2074,39 @@ render_ssao.o: ../src/render_ssao.cpp ../src/render_ssao.h \
 		../src/fractal_list.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
-		../src/netrender.hpp \
-		../src/system.hpp
+		../src/animation_keyframes.hpp \
+		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_ssao.o ../src/render_ssao.cpp
 
 render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../qt/ui_render_window.h \
-		../src/cimage.hpp \
+		../qt/color_palette_widget.h \
+		../src/color_palette.hpp \
 		../src/color_structures.hpp \
-		../src/interface.hpp \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
 		../src/parameters.hpp \
 		../src/one_parameter.hpp \
 		../src/multi_val.hpp \
-		../src/color_palette.hpp \
 		../src/algebra.hpp \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
+		../src/cimage.hpp \
+		../src/interface.hpp \
 		../src/fractal_container.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/fractal_list.hpp \
-		../src/system.hpp \
 		../src/settings.hpp \
 		../src/animation_frames.hpp \
 		../src/error_message.hpp \
@@ -1768,7 +2122,6 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
 		../src/undo.h \
@@ -1779,6 +2132,9 @@ render_window.o: ../src/render_window.cpp ../src/render_window.hpp \
 		../src/thumbnail_widget.h \
 		../src/global_data.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp \
 		../src/progress_text.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o render_window.o ../src/render_window.cpp
@@ -1871,13 +2227,27 @@ system.o: ../src/system.cpp ../src/system.hpp \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -1892,9 +2262,9 @@ system.o: ../src/system.cpp ../src/system.hpp \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o system.o ../src/system.cpp
 
@@ -1984,15 +2354,29 @@ thumbnail_widget.o: ../src/thumbnail_widget.cpp ../src/thumbnail_widget.h \
 		../src/animation_frames.hpp \
 		../src/global_data.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp \
-		../src/common_math.h \
-		../src/system.hpp
+		../src/common_math.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o thumbnail_widget.o ../src/thumbnail_widget.cpp
 
 undo.o: ../src/undo.cpp ../src/undo.h \
@@ -2018,13 +2402,27 @@ mygroupbox.o: ../qt/mygroupbox.cpp ../qt/mygroupbox.h \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -2039,9 +2437,9 @@ mygroupbox.o: ../qt/mygroupbox.cpp ../qt/mygroupbox.h \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mygroupbox.o ../qt/mygroupbox.cpp
 
@@ -2056,13 +2454,27 @@ mylineedit.o: ../qt/mylineedit.cpp ../qt/mylineedit.h \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -2077,9 +2489,9 @@ mylineedit.o: ../qt/mylineedit.cpp ../qt/mylineedit.h \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mylineedit.o ../qt/mylineedit.cpp
 
@@ -2094,13 +2506,27 @@ myspinbox.o: ../qt/myspinbox.cpp ../qt/myspinbox.h \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -2115,9 +2541,9 @@ myspinbox.o: ../qt/myspinbox.cpp ../qt/myspinbox.h \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o myspinbox.o ../qt/myspinbox.cpp
 
@@ -2132,9 +2558,24 @@ mydoublespinbox.o: ../qt/mydoublespinbox.cpp ../qt/mydoublespinbox.h \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
@@ -2152,9 +2593,9 @@ mydoublespinbox.o: ../qt/mydoublespinbox.cpp ../qt/mydoublespinbox.h \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mydoublespinbox.o ../qt/mydoublespinbox.cpp
 
@@ -2169,13 +2610,27 @@ mycheckbox.o: ../qt/mycheckbox.cpp ../qt/mycheckbox.h \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -2190,9 +2645,9 @@ mycheckbox.o: ../qt/mycheckbox.cpp ../qt/mycheckbox.h \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mycheckbox.o ../qt/mycheckbox.cpp
 
@@ -2207,13 +2662,27 @@ mycolorbutton.o: ../qt/mycolorbutton.cpp ../qt/mycolorbutton.h \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -2228,9 +2697,9 @@ mycolorbutton.o: ../qt/mycolorbutton.cpp ../qt/mycolorbutton.h \
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mycolorbutton.o ../qt/mycolorbutton.cpp
 
@@ -2245,13 +2714,27 @@ my_table_widget_anim.o: ../qt/my_table_widget_anim.cpp ../qt/my_table_widget_ani
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -2266,11 +2749,63 @@ my_table_widget_anim.o: ../qt/my_table_widget_anim.cpp ../qt/my_table_widget_ani
 		../src/render_data.hpp \
 		../src/lights.hpp \
 		../src/region.hpp \
-		../src/histogram.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o my_table_widget_anim.o ../qt/my_table_widget_anim.cpp
+
+my_table_widget_keyframes.o: ../qt/my_table_widget_keyframes.cpp ../qt/my_table_widget_keyframes.hpp \
+		../src/global_data.hpp \
+		../src/parameters.hpp \
+		../src/one_parameter.hpp \
+		../src/multi_val.hpp \
+		../src/color_palette.hpp \
+		../src/color_structures.hpp \
+		../src/algebra.hpp \
+		../src/fractal_container.hpp \
+		../src/animation_frames.hpp \
+		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
+		../src/interface.hpp \
+		../src/render_window.hpp \
+		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/myhistogramlabel.h \
+		../src/histogram.hpp \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
+		../src/cimage.hpp \
+		../src/rendered_image_widget.hpp \
+		../src/player_widget.hpp \
+		../src/primitives.h \
+		../src/thumbnail_widget.h \
+		../src/thumbnail.hpp \
+		../src/render_job.hpp \
+		../src/render_image.hpp \
+		../src/fractparams.hpp \
+		../src/texture.hpp \
+		../src/commonparams.hpp \
+		../src/four_fractals.hpp \
+		../src/fractal.h \
+		../src/fractal_list.hpp \
+		../src/render_data.hpp \
+		../src/lights.hpp \
+		../src/region.hpp \
+		../src/scheduler.hpp \
+		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
+		../src/netrender.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o my_table_widget_keyframes.o ../qt/my_table_widget_keyframes.cpp
 
 mylogwidget.o: ../qt/mylogwidget.cpp ../qt/mylogwidget.h \
 		../src/system.hpp
@@ -2288,13 +2823,26 @@ myhistogramlabel.o: ../qt/myhistogramlabel.cpp ../qt/myhistogramlabel.h \
 		../src/fractal_container.hpp \
 		../src/animation_frames.hpp \
 		../src/animation_flight.hpp \
+		../src/keyframes.hpp \
+		../src/morph.hpp \
 		../src/interface.hpp \
 		../src/render_window.hpp \
 		../qt/ui_render_window.h \
+		../qt/color_palette_widget.h \
+		../qt/my_table_widget_anim.hpp \
+		../qt/my_table_widget_keyframes.hpp \
+		../qt/mycheckbox.h \
+		../qt/mycolorbutton.h \
+		../qt/mydoublespinbox.h \
+		../qt/mygroupbox.h \
+		../qt/mylineedit.h \
+		../qt/mylogwidget.h \
+		../src/system.hpp \
+		../qt/myscrolledarea.h \
+		../qt/myspinbox.h \
 		../src/cimage.hpp \
 		../src/rendered_image_widget.hpp \
 		../src/player_widget.hpp \
-		../qt/mydoublespinbox.h \
 		../src/primitives.h \
 		../src/thumbnail_widget.h \
 		../src/thumbnail.hpp \
@@ -2311,6 +2859,7 @@ myhistogramlabel.o: ../qt/myhistogramlabel.cpp ../qt/myhistogramlabel.h \
 		../src/region.hpp \
 		../src/scheduler.hpp \
 		../src/camera_target.hpp \
+		../src/animation_keyframes.hpp \
 		../src/netrender.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o myhistogramlabel.o ../qt/myhistogramlabel.cpp
 
@@ -2347,6 +2896,9 @@ moc_mycolorbutton.o: moc_mycolorbutton.cpp
 moc_my_table_widget_anim.o: moc_my_table_widget_anim.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_my_table_widget_anim.o moc_my_table_widget_anim.cpp
 
+moc_my_table_widget_keyframes.o: moc_my_table_widget_keyframes.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_my_table_widget_keyframes.o moc_my_table_widget_keyframes.cpp
+
 moc_mylogwidget.o: moc_mylogwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mylogwidget.o moc_mylogwidget.cpp
 
@@ -2370,6 +2922,9 @@ moc_rendered_image_widget.o: moc_rendered_image_widget.cpp
 
 moc_animation_flight.o: moc_animation_flight.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_animation_flight.o moc_animation_flight.cpp
+
+moc_animation_keyframes.o: moc_animation_keyframes.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_animation_keyframes.o moc_animation_keyframes.cpp
 
 moc_thumbnail_widget.o: moc_thumbnail_widget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_thumbnail_widget.o moc_thumbnail_widget.cpp

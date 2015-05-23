@@ -325,8 +325,7 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 	}
 }
 
-
-bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)
+bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes)
 {
 	WriteLog("cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)");
 
@@ -337,6 +336,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cA
 	DeleteAllPrimitiveParams(par);
 
 	if(frames) frames->ClearAll();
+	if(keyframes) keyframes->ClearAll();
 	//temporary containers to decode frames
 	cParameterContainer parTemp = *par;
 	cFractalContainer fractTemp = *fractPar;
@@ -354,6 +354,9 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cA
 		{
 			QString line = separatedText[l];
 			bool isNewSection = CheckSection(line, section);
+
+			if(isNewSection) csvLine = 0;
+
 			if(!isNewSection)
 			{
 				bool result = false;
@@ -378,6 +381,26 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cA
 						else
 						{
 							result = DecodeFramesLine(line, &parTemp, &fractTemp, frames);
+							csvLine++;
+						}
+					}
+					else
+					{
+						result = true;
+					}
+				}
+				else if(section == QString("keyframes"))
+				{
+					if(keyframes)
+					{
+						if(csvLine == 0)
+						{
+							result = DecodeFramesHeader(line, par, fractPar, keyframes);
+							csvLine++;
+						}
+						else
+						{
+							result = DecodeFramesLine(line, &parTemp, &fractTemp, keyframes);
 							csvLine++;
 						}
 					}

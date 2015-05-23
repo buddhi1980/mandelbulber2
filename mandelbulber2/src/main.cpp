@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 	{
 		cSettings parSettings(cSettings::formatAppSettings);
 		parSettings.LoadFromFile(systemData.dataDirectory + "mandelbulber.ini");
-		parSettings.Decode(gPar, gParFractal, gAnimFrames);
+		parSettings.Decode(gPar, gParFractal);
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
 	}
