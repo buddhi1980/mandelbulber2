@@ -36,6 +36,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 	ui = mainInterface->mainWindow->ui;
 	QApplication::connect(ui->pushButton_add_keyframe, SIGNAL(clicked()), this, SLOT(slotAddKeyframe()));
 	QApplication::connect(ui->pushButton_insert_keyframe, SIGNAL(clicked()), this, SLOT(slotInsertKeyframe()));
+	QApplication::connect(ui->pushButton_delete_keyframe, SIGNAL(clicked()), this, SLOT(slotDeleteKeyframe()));
 	QApplication::connect(ui->pushButton_render_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotRenderKeyframes()));
 	QApplication::connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
 	QApplication::connect(ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
@@ -94,6 +95,23 @@ void cKeyframeAnimation::NewKeyframe(int index)
 	{
 		qCritical() << "gAnimFrames not allocated";
 	}
+}
+
+void cKeyframeAnimation::DeleteKeyframe(int index)
+{
+	if(index < 0)
+	{
+		cErrorMessage::showMessage(QObject::tr("No keyframe selected"), cErrorMessage::errorMessage, ui->centralwidget);
+	}
+
+	keyframes->DeleteFrames(index, index);
+	RefreshTable();
+}
+
+void cKeyframeAnimation::slotDeleteKeyframe()
+{
+	int column = table->currentColumn();
+	DeleteKeyframe(column);
 }
 
 void cKeyframeAnimation::slotRenderKeyframes()

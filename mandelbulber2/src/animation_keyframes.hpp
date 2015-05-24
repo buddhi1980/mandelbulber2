@@ -45,6 +45,7 @@ public:
 	void RenderFrame(int index);
 	void RefreshTable();
 	QString GetParameterName(int rowNumber);
+	void DeleteKeyframe(int index);
 	void DeleteFramesFrom(int index);
 	void DeleteFramesTo(int index);
 	void UpdateThumbnailFromImage(int index);
@@ -53,12 +54,14 @@ public:
 private slots:
 	void slotAddKeyframe();
 	void slotInsertKeyframe();
+	void slotDeleteKeyframe();
 	void slotRenderKeyframes();
 	void slotSelectKeyframeAnimImageDir();
 	void slotTableCellChanged(int row, int column);
 	void slotDeleteAllImages();
 	void slotShowAnimation();
 	void slotRefreshTable();
+
 private:
 	void PrepareTable();
 	void CreateRowsInTable();

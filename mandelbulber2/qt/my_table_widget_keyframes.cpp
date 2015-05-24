@@ -88,10 +88,12 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point)
 	QMenu *menu = new QMenu;
 
 	QAction *actionRender;
+	QAction *actionDelete;
 	QAction *actionDeleteTo;
 	QAction *actionDeleteFrom;
 
 	actionRender = menu->addAction(tr("Render this keyframe"));
+	actionDelete = menu->addAction(tr("Delete this keyframe"));
 	actionDeleteTo = menu->addAction(tr("Delete all keyframes to here"));
 	actionDeleteFrom = menu->addAction(tr("Delete all keyframes from here"));
 
@@ -104,6 +106,10 @@ void MyTableWidgetKeyframes::columnContextMenuRequest(QPoint point)
 		if (selectedItem == actionRender)
 		{
 			gKeyframeAnimation->RenderFrame(column);
+		}
+		else if(selectedItem == actionDelete)
+		{
+			gKeyframeAnimation->DeleteKeyframe(column);
 		}
 		else if(selectedItem == actionDeleteFrom)
 		{
