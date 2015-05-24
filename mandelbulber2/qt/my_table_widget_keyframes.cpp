@@ -134,25 +134,31 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
 	{
 		QString name = gKeyframeAnimation->GetParameterName(row);
 		QAction *actionDeleteParameter = menu->addAction(tr("Remove '%1' from animation").arg(name));
-		menu->addSeparator();
-
-		//TODO rest of morph types
-
-		QAction *actionNoInterpolation = menu->addAction(tr("No interpolation"));
-		QAction *actionLinearInterpolation = menu->addAction(tr("Linear interpolation"));
-		QAction *actionCatMulRomInterpolation = menu->addAction(tr("CatMulRom interpolation"));
-		QAction *actionAkimaInterpolation = menu->addAction(tr("Akima interpolation"));
-		QActionGroup actionGroup(menu);
-		actionGroup.addAction(actionNoInterpolation);
-		actionGroup.addAction(actionLinearInterpolation);
-		actionGroup.addAction(actionCatMulRomInterpolation);
-		actionGroup.addAction(actionAkimaInterpolation);
-		actionGroup.setExclusive(true);
+		menu->addSeparator()->setText(tr("Interpolation type"));
+		QAction *actionNoInterpolation = menu->addAction(tr("None"));
+		QAction *actionLinearInterpolation = menu->addAction(tr("Linear"));
+		QAction *actionLinearAngleInterpolation = menu->addAction(tr("Linear angle"));
+		QAction *actionCatMulRomInterpolation = menu->addAction(tr("CatMulRom"));
+		QAction *actionCatMulRomAngleInterpolation = menu->addAction(tr("CatMulRom angle"));
+		QAction *actionAkimaInterpolation = menu->addAction(tr("Akima"));
+		QAction *actionAkimaAngleInterpolation = menu->addAction(tr("Akima angle"));
+		QActionGroup actionGroupInterpolation(menu);
+		actionGroupInterpolation.addAction(actionNoInterpolation);
+		actionGroupInterpolation.addAction(actionLinearInterpolation);
+		actionGroupInterpolation.addAction(actionLinearAngleInterpolation);
+		actionGroupInterpolation.addAction(actionCatMulRomInterpolation);
+		actionGroupInterpolation.addAction(actionCatMulRomAngleInterpolation);
+		actionGroupInterpolation.addAction(actionAkimaInterpolation);
+		actionGroupInterpolation.addAction(actionAkimaAngleInterpolation);
+		actionGroupInterpolation.setExclusive(true);
 
 		actionNoInterpolation->setCheckable(true);
 		actionLinearInterpolation->setCheckable(true);
+		actionLinearAngleInterpolation->setCheckable(true);
 		actionCatMulRomInterpolation->setCheckable(true);
+		actionCatMulRomAngleInterpolation->setCheckable(true);
 		actionAkimaInterpolation->setCheckable(true);
+		actionAkimaAngleInterpolation->setCheckable(true);
 
 		using namespace parameterContainer;
 		enumMorphType morphType = gKeyframeAnimation->GetMorphType(row);
@@ -164,11 +170,20 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
 			case morphLinear:
 				actionLinearInterpolation->setChecked(true);
 				break;
+			case morphLinearAngle:
+				actionLinearAngleInterpolation->setChecked(true);
+				break;
 			case morphCatMullRom:
 				actionCatMulRomInterpolation->setChecked(true);
 				break;
+			case morphCatMullRomAngle:
+				actionCatMulRomAngleInterpolation->setChecked(true);
+				break;
 			case morphAkima:
 				actionAkimaInterpolation->setChecked(true);
+				break;
+			case morphAkimaAngle:
+				actionAkimaAngleInterpolation->setChecked(true);
 				break;
 		}
 
