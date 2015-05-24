@@ -42,7 +42,7 @@ public:
 	~cMorph();
 	void AddData(const int keyframe, const cOneParameter val);
 	int findInMorph(const int keyframe);
-
+	void Clear(){ dataSets.clear(); }
 	cOneParameter Interpolate(const int keyframe, float factor);
 	cOneParameter None(const int key);
 	cOneParameter Linear(const int key, const double factor, bool const angular);
