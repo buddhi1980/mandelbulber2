@@ -47,6 +47,7 @@ public:
 	void UpdateThumbnailFromImage(int index);
 	void InterpolateForward(int row, int column);
 	parameterContainer::enumMorphType GetMorphType(int row);
+	void ChangeMorphType(int row, parameterContainer::enumMorphType morphType);
 
 private slots:
 	void slotAddKeyframe();

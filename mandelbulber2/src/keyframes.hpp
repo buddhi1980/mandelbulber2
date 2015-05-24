@@ -43,6 +43,7 @@ public:
 	int GetFramesPerKeyframe() { return framesPerKeyframe;}
 	int GetUnrenderedTotal();
 	int GetUnrenderedTillIndex(int frameIndex);
+	void ChangeMorphType(int parameterIndex, parameterContainer::enumMorphType morphType);
 
 private:
 	int framesPerKeyframe;

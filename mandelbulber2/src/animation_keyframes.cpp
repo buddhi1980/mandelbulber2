@@ -734,3 +734,10 @@ parameterContainer::enumMorphType cKeyframeAnimation::GetMorphType(int row)
 	return morphType;
 }
 
+void cKeyframeAnimation::ChangeMorphType(int row, parameterContainer::enumMorphType morphType)
+{
+	int parameterIndex = rowParameter.at(row);
+	keyframes->ChangeMorphType(parameterIndex, morphType);
+	RefreshTable();
+}
+

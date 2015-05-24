@@ -135,6 +135,9 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
 		QString name = gKeyframeAnimation->GetParameterName(row);
 		QAction *actionDeleteParameter = menu->addAction(tr("Remove '%1' from animation").arg(name));
 		menu->addSeparator();
+
+		//TODO rest of morph types
+
 		QAction *actionNoInterpolation = menu->addAction(tr("No interpolation"));
 		QAction *actionLinearInterpolation = menu->addAction(tr("Linear interpolation"));
 		QAction *actionCatMulRomInterpolation = menu->addAction(tr("CatMulRom interpolation"));
@@ -178,6 +181,23 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
 				gKeyframes->RemoveAnimatedParameter(name);
 				gKeyframeAnimation->RefreshTable();
 			}
+			else if(selectedItem == actionNoInterpolation)
+			{
+				gKeyframeAnimation->ChangeMorphType(row, morphNone);
+			}
+			else if(selectedItem == actionLinearInterpolation)
+			{
+				gKeyframeAnimation->ChangeMorphType(row, morphLinear);
+			}
+			else if(selectedItem == actionCatMulRomInterpolation)
+			{
+				gKeyframeAnimation->ChangeMorphType(row, morphCatMullRom);
+			}
+			else if(selectedItem == actionAkimaInterpolation)
+			{
+				gKeyframeAnimation->ChangeMorphType(row, morphAkima);
+			}
+
 		}
 	}
 	else
