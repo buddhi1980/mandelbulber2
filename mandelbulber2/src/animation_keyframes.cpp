@@ -264,28 +264,63 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		enumVarType type = parList[i].varType;
 		int row = parameterRows[i];
 
+		cOneParameter parameter = frame.parameters.GetAsOneParameter(parameterName);
+		parameterContainer::enumMorphType morphType = parameter.GetMorphType();
+
 		if (type == typeVector3)
 		{
-			CVector3 val = frame.parameters.Get<CVector3>(parameterName);
+			CVector3 val = parameter.Get<CVector3>(valueActual);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.x, 'g', 16)));
 			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.y, 'g', 16)));
 			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.z, 'g', 16)));
+			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
+			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
+			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 		}
 		else if (type == typeRgb)
 		{
-			sRGB val = frame.parameters.Get<sRGB>(parameterName);
+			sRGB val = parameter.Get<sRGB>(valueActual);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.R)));
 			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.G)));
 			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.B)));
+			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
+			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
+			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 		}
 		else
 		{
-			QString val = frame.parameters.Get<QString>(parameterName);
+			QString val = parameter.Get<QString>(valueActual);
 			table->setItem(row, newColumn, new QTableWidgetItem(val));
+			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 		}
 	}
 	table->blockSignals(false);
 	return newColumn;
+}
+
+QColor cKeyframeAnimation::MorphType2Color(parameterContainer::enumMorphType morphType)
+{
+	using namespace parameterContainer;
+	QColor color;
+	switch(morphType)
+	{
+		case morphNone:
+			color = QColor(255, 255, 255);
+			break;
+		case morphLinear:
+			color = QColor(255, 200, 200);
+			break;
+		case morphCatMullRom:
+			color = QColor(200, 255, 200);
+			break;
+		case morphCatMullRomAngle:
+			color = QColor(200, 200, 255);
+			break;
+		case morphAkima:
+			color = QColor(255, 255, 200);
+			break;
+	}
+	return color;
 }
 
 void cKeyframeAnimation::RenderKeyframes()

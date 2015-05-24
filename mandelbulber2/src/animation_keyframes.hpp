@@ -69,6 +69,7 @@ private:
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index = -1);
 	void NewKeyframe(int index);
 	QString GetKeyframeFilename(int index, int subindex);
+	QColor MorphType2Color(parameterContainer::enumMorphType morphType);
 
 	cInterface *mainInterface;
 	Ui::RenderWindow *ui;
