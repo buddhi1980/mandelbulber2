@@ -79,13 +79,17 @@ cOneParameter cMorph::Interpolate(const int keyframe, float factor)
 	case morphNone:
 		return None(key);
 	case morphLinear:
-		return Linear(key, factor);
+		return Linear(key, factor, false);
+	case morphLinearAngle:
+		return Linear(key, factor, true);
 	case morphCatMullRom:
-		return CatmullRom(key, factor);
+		return CatmullRom(key, factor, false);
 	case morphCatMullRomAngle:
-		return CatmullRomAngular(key, factor);
+		return CatmullRom(key, factor, true);
 	case morphAkima:
-		return Akima(key, factor);
+		return Akima(key, factor, false);
+	case morphAkimaAngle:
+		return Akima(key, factor, true);
 	default:
 		return None(key);
 	}
@@ -96,7 +100,7 @@ cOneParameter cMorph::None(const int key)
 	return dataSets[key].parameter;
 }
 
-cOneParameter cMorph::Linear(const int key, const double factor)
+cOneParameter cMorph::Linear(const int key, const double factor, const bool angular)
 {
 	int k1, k2;
 	if(key == dataSets.size() - 1) return dataSets[key].parameter;
@@ -120,7 +124,7 @@ cOneParameter cMorph::Linear(const int key, const double factor)
 		double v1, v2;
 		dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
 		dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
-		val.Store(LinearInterpolate(factor, v1, v2));
+		val.Store(LinearInterpolate(factor, v1, v2, angular));
 		break;
 	}
 	case typeRgb:
@@ -130,9 +134,9 @@ cOneParameter cMorph::Linear(const int key, const double factor)
 		dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
 		val.Store(
 					sRGB(
-						LinearInterpolate(factor, v1.R, v2.R),
-						LinearInterpolate(factor, v1.G, v2.G),
-						LinearInterpolate(factor, v1.B, v2.B)
+						LinearInterpolate(factor, v1.R, v2.R, angular),
+						LinearInterpolate(factor, v1.G, v2.G, angular),
+						LinearInterpolate(factor, v1.B, v2.B, angular)
 						)
 					);
 		break;
@@ -144,9 +148,9 @@ cOneParameter cMorph::Linear(const int key, const double factor)
 		dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
 		val.Store(
 					CVector3(
-						LinearInterpolate(factor, v1.x, v2.x),
-						LinearInterpolate(factor, v1.y, v2.y),
-						LinearInterpolate(factor, v1.z, v2.z)
+						LinearInterpolate(factor, v1.x, v2.x, angular),
+						LinearInterpolate(factor, v1.y, v2.y, angular),
+						LinearInterpolate(factor, v1.z, v2.z, angular)
 						)
 					);
 		break;
@@ -161,9 +165,9 @@ cOneParameter cMorph::Linear(const int key, const double factor)
 		{
 			out.AppendColor(
 						sRGB(
-							LinearInterpolate(factor, v1.GetColor(i).R, v2.GetColor(i).R),
-							LinearInterpolate(factor, v1.GetColor(i).G, v2.GetColor(i).G),
-							LinearInterpolate(factor, v1.GetColor(i).B, v2.GetColor(i).B)
+							LinearInterpolate(factor, v1.GetColor(i).R, v2.GetColor(i).R, angular),
+							LinearInterpolate(factor, v1.GetColor(i).G, v2.GetColor(i).G, angular),
+							LinearInterpolate(factor, v1.GetColor(i).B, v2.GetColor(i).B, angular)
 							)
 						);
 		}
@@ -177,7 +181,7 @@ cOneParameter cMorph::Linear(const int key, const double factor)
 	return interpolated;
 }
 
-cOneParameter cMorph::CatmullRom(int const key, double const factor)
+cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const angular)
 {
 	int k1, k2, k3, k4;
 
@@ -211,7 +215,7 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor)
 			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
 			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
 			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
-			val.Store(CatmullRomInterpolate(factor, v1, v2, v3, v4));
+			val.Store(CatmullRomInterpolate(factor, v1, v2, v3, v4, angular));
 			break;
 		}
 		case typeRgb:
@@ -223,9 +227,9 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor)
 			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
 			val.Store(
 						sRGB(
-							CatmullRomInterpolate(factor, v1.R, v2.R, v3.R, v4.R),
-							CatmullRomInterpolate(factor, v1.G, v2.G, v3.G, v4.G),
-							CatmullRomInterpolate(factor, v1.B, v2.B, v3.B, v4.B)
+							CatmullRomInterpolate(factor, v1.R, v2.R, v3.R, v4.R, angular),
+							CatmullRomInterpolate(factor, v1.G, v2.G, v3.G, v4.G, angular),
+							CatmullRomInterpolate(factor, v1.B, v2.B, v3.B, v4.B, angular)
 							)
 						);
 			break;
@@ -239,9 +243,9 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor)
 			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
 			val.Store(
 						CVector3(
-							CatmullRomInterpolate(factor, v1.x, v2.x, v3.x, v4.x),
-							CatmullRomInterpolate(factor, v1.y, v2.y, v3.y, v4.y),
-							CatmullRomInterpolate(factor, v1.z, v2.z, v3.z, v4.z)
+							CatmullRomInterpolate(factor, v1.x, v2.x, v3.x, v4.x, angular),
+							CatmullRomInterpolate(factor, v1.y, v2.y, v3.y, v4.y, angular),
+							CatmullRomInterpolate(factor, v1.z, v2.z, v3.z, v4.z, angular)
 							)
 						);
 			break;
@@ -255,7 +259,7 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor)
 	return interpolated;
 }
 
-cOneParameter cMorph::Akima(int const key, double const factor)
+cOneParameter cMorph::Akima(int const key, double const factor, bool const angular)
 {
 	int k1, k2, k3, k4, k5, k6;
 
@@ -296,7 +300,7 @@ cOneParameter cMorph::Akima(int const key, double const factor)
 			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
 			dataSets[k5].parameter.GetMultival(valueActual).Get(v5);
 			dataSets[k6].parameter.GetMultival(valueActual).Get(v6);
-			val.Store(AkimaInterpolate(factor, v1, v2, v3, v4, v5, v6));
+			val.Store(AkimaInterpolate(factor, v1, v2, v3, v4, v5, v6, angular));
 			break;
 		}
 		case typeRgb:
@@ -310,9 +314,9 @@ cOneParameter cMorph::Akima(int const key, double const factor)
 			dataSets[k6].parameter.GetMultival(valueActual).Get(v6);
 			val.Store(
 						sRGB(
-							AkimaInterpolate(factor, v1.R, v2.R, v3.R, v4.R, v5.R, v6.R),
-							AkimaInterpolate(factor, v1.G, v2.G, v3.G, v4.G, v5.G, v6.G),
-							AkimaInterpolate(factor, v1.B, v2.B, v3.B, v4.B, v5.B, v6.B)
+							AkimaInterpolate(factor, v1.R, v2.R, v3.R, v4.R, v5.R, v6.R, angular),
+							AkimaInterpolate(factor, v1.G, v2.G, v3.G, v4.G, v5.G, v6.G, angular),
+							AkimaInterpolate(factor, v1.B, v2.B, v3.B, v4.B, v5.B, v6.B, angular)
 							)
 						);
 			break;
@@ -328,9 +332,9 @@ cOneParameter cMorph::Akima(int const key, double const factor)
 			dataSets[k6].parameter.GetMultival(valueActual).Get(v6);
 			val.Store(
 						CVector3(
-							AkimaInterpolate(factor, v1.x, v2.x, v3.x, v4.x, v5.x, v6.x),
-							AkimaInterpolate(factor, v1.y, v2.y, v3.y, v4.y, v5.y, v6.y),
-							AkimaInterpolate(factor, v1.z, v2.z, v3.z, v4.z, v5.z, v6.z)
+							AkimaInterpolate(factor, v1.x, v2.x, v3.x, v4.x, v5.x, v6.x, angular),
+							AkimaInterpolate(factor, v1.y, v2.y, v3.y, v4.y, v5.y, v6.y, angular),
+							AkimaInterpolate(factor, v1.z, v2.z, v3.z, v4.z, v5.z, v6.z, angular)
 							)
 						);
 			break;
@@ -344,29 +348,27 @@ cOneParameter cMorph::Akima(int const key, double const factor)
 	return interpolated;
 }
 
-cOneParameter cMorph::CatmullRomAngular(const int frame, const double factor)
+double cMorph::LinearInterpolate(const double factor, double v1, double v2, bool const angular)
 {
-	// different?
-	return CatmullRom(frame, factor);
-}
+	if(angular)
+	{
+		QList<double*> vals;
+		vals << &v1 << &v2;
+		NearestNeighbourAngle(vals);
+	}
 
-double cMorph::LinearInterpolate(const double factor, const double v1, const double v2)
-{
 	return v1 + ((v2 - v1) * factor);
 }
 
-double cMorph::AkimaInterpolate(const double factor, double v1, double v2, double v3, double v4, double v5, double v6)
+double cMorph::CatmullRomInterpolate(const double factor, double v1, double v2, double v3, double v4, const bool angular)
 {
-	// more info: http://www.alglib.net/interpolation/spline3.php
-	double x[] = {-2, -1, 0, 1, 2, 3};
-	double y[] = {v1, v2, v3, v4, v5, v6};
+	if(angular)
+	{
+		QList<double*> vals;
+		vals << &v1 << &v2 << &v3 << &v4;
+		NearestNeighbourAngle(vals);
+	}
 
-	gsl_spline_init(splineAkimaPeriodic, x, y, listSize);
-	return gsl_spline_eval(splineAkimaPeriodic, factor, interpolationAccelerator);
-}
-
-double cMorph::CatmullRomInterpolate(const double factor, double v1, double v2, double v3, double v4)
-{
 	double factor2 = factor * factor;
 	double factor3 = factor2 * factor;
 
@@ -400,4 +402,41 @@ double cMorph::CatmullRomInterpolate(const double factor, double v1, double v2, 
 	if(fabs(value) < 1e-20) value = 0.0;
 
 	return value;
+}
+
+double cMorph::AkimaInterpolate(const double factor, double v1, double v2, double v3, double v4, double v5, double v6, const bool angular)
+{
+	if(angular)
+	{
+		QList<double*> vals;
+		vals << &v1 << &v2 << &v3 << &v4 << &v5 << &v6;
+		NearestNeighbourAngle(vals);
+	}
+
+	qDebug() << "v1: " << v1 << ", v2: " << v2 << ", v3: " << v3 << ", v4: " << v4 << ", v5: " << v5 << ", v6: " << v6;
+
+	double x[] = {-2, -1, 0, 1, 2, 3};
+	double y[] = {v1, v2, v3, v4, v5, v6};
+	// more info: http://www.alglib.net/interpolation/spline3.php
+	gsl_spline_init(splineAkimaPeriodic, x, y, listSize);
+	return gsl_spline_eval(splineAkimaPeriodic, factor, interpolationAccelerator);
+}
+
+void cMorph::NearestNeighbourAngle(QList<double*> vals)
+{
+	// modify angles, so that each successive value is not more than 180deg (absolute) away from last value
+	// two consecutive angles shall be not more than 360 degress apart
+	int deltacircle = 0;
+	for(int i = 1; i < vals.size(); i++)
+	{
+		if(fabs(*vals[i] - *vals[i-1]) > 180.0)
+		{
+			// need to adjust next angle
+			deltacircle = *vals[i] < *vals[i-1] ? 1 : -1;
+			for(int j = i; j < vals.size(); j++)
+			{
+				*vals[j] += deltacircle * 360.0;
+			}
+		}
+	}
 }

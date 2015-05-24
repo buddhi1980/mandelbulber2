@@ -19,7 +19,7 @@ namespace parameterContainer
 
 	enum enumMorphType
 	{
-		morphNone, morphLinear, morphCatMullRom, morphCatMullRomAngle, morphAkima
+		morphNone, morphLinear, morphLinearAngle, morphCatMullRom, morphCatMullRomAngle, morphAkima, morphAkimaAngle
 	};
 
 	enum enumValueSelection

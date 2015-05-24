@@ -45,15 +45,14 @@ public:
 
 	cOneParameter Interpolate(const int keyframe, float factor);
 	cOneParameter None(const int key);
-	cOneParameter Linear(const int key, const double factor);
-	cOneParameter CatmullRom(const int key, const double factor);
-	cOneParameter CatmullRomAngular(const int key, const double factor);
-	cOneParameter Akima(const int key, const double factor);
+	cOneParameter Linear(const int key, const double factor, bool const angular);
+	cOneParameter CatmullRom(const int key, const double factor, bool const angular);
+	cOneParameter Akima(const int key, const double factor, bool const angular);
 
-	double LinearInterpolate(const double factor, const double v1, const double v2);
-	double CatmullRomInterpolate(const double factor, double v1, double v2, double v3, double v4);
-	double AkimaInterpolate(const double factor, double v1, double v2, double v3, double v4, double v5, double v6);
-
+	double LinearInterpolate(const double factor, double v1, double v2, bool const angular);
+	double CatmullRomInterpolate(const double factor, double v1, double v2, double v3, double v4, bool const angular);
+	double AkimaInterpolate(const double factor, double v1, double v2, double v3, double v4, double v5, double v6, const bool angular);
+	void NearestNeighbourAngle(QList<double*> vals);
 private:
 	int listSize;
 	gsl_interp_accel *interpolationAccelerator;

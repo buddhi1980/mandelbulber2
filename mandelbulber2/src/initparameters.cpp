@@ -72,7 +72,7 @@ using namespace parameterContainer;
 	par->addParam("camera", CVector3(3.0, -6.0, 2.0), morphAkima, paramStandard);
 	par->addParam("target", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("camera_top", CVector3(-0.1277753, 0.2555506, 0.958314), morphAkima, paramStandard); //internal vector which represents top direction
-	par->addParam("camera_rotation", CVector3(26.5650, -16.60154, 0.0), morphCatMullRomAngle, paramStandard);
+	par->addParam("camera_rotation", CVector3(26.5650, -16.60154, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("camera_distance_to_target", 7.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam("fov", 1.0, 0.0, 100.0, morphAkima, paramStandard);
 	par->addParam("perspective_type", 0, morphLinear, paramStandard);
@@ -100,7 +100,7 @@ using namespace parameterContainer;
 	for(int i = 1; i <= 4; i++)
 	{
 		par->addParam("formula_position", i, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-		par->addParam("formula_rotation", i, CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
+		par->addParam("formula_rotation", i, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 		par->addParam("formula_repeat", i, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 		par->addParam("formula_scale", i, 1.0, morphAkima, paramStandard);
 	}
@@ -209,8 +209,8 @@ using namespace parameterContainer;
 	par->addParam("main_light_intensity", 1.0, morphLinear, paramStandard);
 	par->addParam("main_light_visibility", 1.0, morphLinear, paramStandard);
 	par->addParam("main_light_visibility_size", 1.0, morphLinear, paramStandard);
-	par->addParam("main_light_alpha", -45.0, morphCatMullRomAngle, paramStandard);
-	par->addParam("main_light_beta", 45.0,  morphCatMullRomAngle, paramStandard);
+	par->addParam("main_light_alpha", -45.0, morphAkimaAngle, paramStandard);
+	par->addParam("main_light_beta", 45.0,  morphAkimaAngle, paramStandard);
 	par->addParam("main_light_colour", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("shadows_cone_angle", 1.0, 0.0, 180.0, morphLinear, paramStandard);
 	par->addParam("main_light_enable", true, morphLinear, paramStandard);
@@ -340,14 +340,14 @@ void InitFractalParams(cParameterContainer *par)
 	WriteLog("Fractal parameters initialization started: " + par->GetContainerName());
 
 	par->addParam("power", 9.0, morphAkima, paramStandard);
-	par->addParam("alpha_angle_offset", 0.0, morphCatMullRomAngle, paramStandard);
-	par->addParam("beta_angle_offset", 0.0, morphCatMullRomAngle, paramStandard);
+	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
+	par->addParam("beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("gamma_angle_offset", 0.0, morphAkima, paramStandard);
 	par->addParam("cadd", -1.3, morphLinear, paramStandard);
 
 	//IFS formula
 	par->addParam("IFS_scale", 2.0, morphAkima, paramStandard);
-	par->addParam("IFS_rotation", CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
+	par->addParam("IFS_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("IFS_rotation_enabled", false, morphLinear, paramStandard);
 	par->addParam("IFS_offset", CVector3(1.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("IFS_edge", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
@@ -360,7 +360,7 @@ void InitFractalParams(cParameterContainer *par)
 	for(int i = 0; i < IFS_VECTOR_COUNT; i++)
 	{
 		par->addParam("IFS_direction", i, CVector3(1.0, 0.0, 0.0), morphAkima, paramStandard);
-		par->addParam("IFS_rotations", i, CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
+		par->addParam("IFS_rotations", i, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 		par->addParam("IFS_distance", i, 0.0, morphAkima, paramStandard);
 		par->addParam("IFS_intensity", i, 1.0, morphAkima, paramStandard);
 		par->addParam("IFS_enabled", i, false, morphLinear, paramStandard);
@@ -374,11 +374,11 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("mandelbox_folding_fixed_radius", 1.0, morphAkima, paramStandard);
 	par->addParam("mandelbox_sharpness", 3.0, morphAkima, paramStandard);
 	par->addParam("mandelbox_offset", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	par->addParam("mandelbox_rotation_main", CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
+	par->addParam("mandelbox_rotation_main", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	for(int i = 1; i<=3; i++)
 	{
-		par->addParam("mandelbox_rotation_neg", i, CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
-		par->addParam("mandelbox_rotation_pos", i, CVector3(0.0, 0.0, 0.0), morphCatMullRomAngle, paramStandard);
+		par->addParam("mandelbox_rotation_neg", i, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+		par->addParam("mandelbox_rotation_pos", i, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	}
 	par->addParam("mandelbox_color", CVector3(0.03, 0.05, 0.07), morphLinear, paramStandard);
 	par->addParam("mandelbox_color_R", 0.0, morphLinear, paramStandard);
