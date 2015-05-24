@@ -118,6 +118,7 @@ void cKeyframes::ChangeMorphType(int parameterIndex, parameterContainer::enumMor
 	enumMorphType oldMorphType = listOfParameters[parameterIndex].morphType;
 	if(morphType != oldMorphType)
 	{
+		morph[parameterIndex]->Clear();
 		listOfParameters[parameterIndex].morphType = morphType;
 		QString fullParameterName = listOfParameters[parameterIndex].containerName + "_" + listOfParameters[parameterIndex].parameterName;
 
@@ -128,4 +129,21 @@ void cKeyframes::ChangeMorphType(int parameterIndex, parameterContainer::enumMor
 			frames[i].parameters.SetFromOneParameter(fullParameterName, parameter);
 		}
 	}
+}
+void cKeyframes::AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue)
+{
+	morph.clear();
+	cAnimationFrames::AddAnimatedParameter(parameterName, defaultValue);
+}
+
+bool cKeyframes::AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal)
+{
+	morph.clear();
+	return cAnimationFrames::AddAnimatedParameter(fullParameterName, param, fractal);
+}
+
+void cKeyframes::RemoveAnimatedParameter(const QString &fullParameterName)
+{
+	morph.clear();
+	cAnimationFrames::RemoveAnimatedParameter(fullParameterName);
 }

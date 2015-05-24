@@ -936,6 +936,7 @@ void cFlightAnimation::slotExportFlightToKeyframes()
 	}
 
 	gKeyframes->ClearAll();
+	gKeyframes->ClearMorphCache();
 	gKeyframes->SetListOfParametersAndClear(gAnimFrames->GetListOfParameters());
 
 	int step = gPar->Get<int>("frames_per_keyframe");

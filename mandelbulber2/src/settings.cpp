@@ -336,7 +336,11 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cA
 	DeleteAllPrimitiveParams(par);
 
 	if(frames) frames->ClearAll();
-	if(keyframes) keyframes->ClearAll();
+	if(keyframes)
+	{
+		keyframes->ClearAll();
+		keyframes->ClearMorphCache();
+	}
 	//temporary containers to decode frames
 	cParameterContainer parTemp = *par;
 	cFractalContainer fractTemp = *fractPar;
