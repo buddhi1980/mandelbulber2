@@ -123,6 +123,7 @@ private:
 		CVector3 point;
 		sRGBAfloat resultShader;
 		sRGBAfloat objectColour;
+		bool found;
 	};
 
 	struct sRayRecursionInOut

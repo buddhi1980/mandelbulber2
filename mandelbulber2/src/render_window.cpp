@@ -766,7 +766,31 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
 		gApplication->processEvents();
 		SavePNG16Alpha(filename, gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), gMainInterface->mainImage);
-		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
+		systemData.lastImageFile = filename;
+	}
+}
+
+void RenderWindow::slotMenuSaveImageZBuffer()
+{
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("PNG images (*.png)"));
+	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
+	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName() + "_zBuffer");
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle(tr("Save zBuffer to 16-bit PNG"));
+	dialog.setDefaultSuffix("png");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		ProgressStatusText(tr("Saving zBuffer to 16-bit PNG"), tr("Saving zBuffer started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
+		SaveZBuffer(filename, gMainInterface->mainImage);
+		ProgressStatusText(tr("Saving zBuffer to 16-bit PNG"), tr("Saving zBuffer finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}

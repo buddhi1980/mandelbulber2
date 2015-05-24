@@ -130,6 +130,7 @@ private slots:
 	void slotMenuSaveImagePNG16();
 	void slotMenuSaveImagePNG16Alpha();
 	void slotMenuSaveImagePNG8();
+	void slotMenuSaveImageZBuffer();
 	void slotMenuSaveSettings();
 	void slotMenuUndo();
 	void slotUpdateDocksandToolbarbyAction();

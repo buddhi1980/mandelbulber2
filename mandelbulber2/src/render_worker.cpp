@@ -174,6 +174,7 @@ void cRenderWorker::doWork(void)
 				resultShader = recursionOut.resultShader;
 				objectColour = recursionOut.objectColour;
 				depth = recursionOut.rayMarchingOut.depth;
+				if(!recursionOut.found) depth = 1e20;
 			}
 
 			sRGBfloat pixel2;
@@ -714,6 +715,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 	out.rayMarchingOut = rayMarchingOut;
 	out.objectColour = objectColour;
 	out.resultShader = resultShader;
+	out.found = (shaderInputData.depth == 1e20) ? false : true;
 
 	return out;
 }

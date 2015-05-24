@@ -554,6 +554,35 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
 	}
 }
 
+void SaveZBuffer(QString filename, cImage *image)
+{
+	unsigned int w = image->GetWidth();
+	unsigned int h = image->GetHeight();
+	unsigned int size = w * h;
+
+	sRGB16 *buffer16 = new sRGB16[w* h];
+
+	//normalize zBuffer
+	float *zbuffer = image->GetZBufferPtr();
+	float minZ = 1.0e50;
+	float maxZ = 0.0;
+	for (unsigned int i = 0; i < size; i++)
+	{
+		float z = zbuffer[i];
+		if (z > maxZ && z < 1e19) maxZ = z;
+		if (z < minZ) minZ = z;
+	}
+	float zRange = maxZ - minZ;
+	float zFactor = 60000.0 / zRange;
+	for (unsigned int i = 0; i < size; i++)
+	{
+		int z = (zbuffer[i] - minZ) * zFactor;
+		if (zbuffer[i] > 1e19) z = 65535;
+		buffer16[i].R = buffer16[i].G = buffer16[i].B = z;
+	}
+	SavePNG16(filename, w, h, buffer16);
+}
+
 /*
 void SaveAllImageLayers(const char *filename, cImage *image)
 {
