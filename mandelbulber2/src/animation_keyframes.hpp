@@ -33,10 +33,6 @@ class cKeyframeAnimation : public QObject
  Q_OBJECT
 
 public:
-	enum enumSpeedMode
-	{
-		speedRelative, speedConstant
-	};
 
 	//TODO possibility to copy keyframeanimation frames to flight path
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent = 0);
@@ -50,6 +46,7 @@ public:
 	void DeleteFramesTo(int index);
 	void UpdateThumbnailFromImage(int index);
 	void InterpolateForward(int row, int column);
+	parameterContainer::enumMorphType GetMorphType(int row);
 
 private slots:
 	void slotAddKeyframe();

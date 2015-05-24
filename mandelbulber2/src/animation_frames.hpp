@@ -41,11 +41,12 @@ public:
 
 	struct sParameterDescription
 	{
-		sParameterDescription(QString _parameterName, QString _containerName, parameterContainer::enumVarType _varType)
-			: parameterName(_parameterName), containerName(_containerName), varType(_varType) {};
+		sParameterDescription(QString _parameterName, QString _containerName, parameterContainer::enumVarType _varType, parameterContainer::enumMorphType _morphType)
+			: parameterName(_parameterName), containerName(_containerName), varType(_varType), morphType(_morphType) {};
 		QString parameterName;
 		QString containerName;
 		parameterContainer::enumVarType varType;
+		parameterContainer::enumMorphType morphType;
 	};
 
 	cAnimationFrames();

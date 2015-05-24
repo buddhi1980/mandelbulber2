@@ -719,3 +719,12 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subindex)
 	}
 	return filename;
 }
+
+parameterContainer::enumMorphType cKeyframeAnimation::GetMorphType(int row)
+{
+	parameterContainer::enumMorphType morphType;
+	int parameterIndex = rowParameter.at(row);
+	morphType = keyframes->GetListOfParameters().at(parameterIndex).morphType;
+	return morphType;
+}
+

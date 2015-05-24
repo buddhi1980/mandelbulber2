@@ -53,7 +53,7 @@ void cAnimationFrames::AddAnimatedParameter(const QString &parameterName, const 
 {
 	if(IndexOnList(parameterName, defaultValue.GetOriginalContainerName()) == -1)
 	{
-		listOfParameters.append(sParameterDescription(parameterName, defaultValue.GetOriginalContainerName(), defaultValue.GetValueType()));
+		listOfParameters.append(sParameterDescription(parameterName, defaultValue.GetOriginalContainerName(), defaultValue.GetValueType(), defaultValue.GetMorphType()));
 		for(int i = 0; i<frames.size(); ++i)
 		{
 			frames[i].parameters.AddParamFromOneParameter(defaultValue.GetOriginalContainerName() + "_" + parameterName, defaultValue);

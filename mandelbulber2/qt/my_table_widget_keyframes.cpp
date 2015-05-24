@@ -132,10 +132,42 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
 
 	if(row > 0)
 	{
-		QAction *actionDeleteParameter;
-
 		QString name = gKeyframeAnimation->GetParameterName(row);
-		actionDeleteParameter = menu->addAction(tr("Remove '%1' from animation").arg(name));
+		QAction *actionDeleteParameter = menu->addAction(tr("Remove '%1' from animation").arg(name));
+		menu->addSeparator();
+		QAction *actionNoInterpolation = menu->addAction(tr("No interpolation"));
+		QAction *actionLinearInterpolation = menu->addAction(tr("Linear interpolation"));
+		QAction *actionCatMulRomInterpolation = menu->addAction(tr("CatMulRom interpolation"));
+		QAction *actionAkimaInterpolation = menu->addAction(tr("Akima interpolation"));
+		QActionGroup actionGroup(menu);
+		actionGroup.addAction(actionNoInterpolation);
+		actionGroup.addAction(actionLinearInterpolation);
+		actionGroup.addAction(actionCatMulRomInterpolation);
+		actionGroup.addAction(actionAkimaInterpolation);
+		actionGroup.setExclusive(true);
+
+		actionNoInterpolation->setCheckable(true);
+		actionLinearInterpolation->setCheckable(true);
+		actionCatMulRomInterpolation->setCheckable(true);
+		actionAkimaInterpolation->setCheckable(true);
+
+		using namespace parameterContainer;
+		enumMorphType morphType = gKeyframeAnimation->GetMorphType(row);
+		switch(morphType)
+		{
+			case morphNone:
+				actionNoInterpolation->setChecked(true);
+				break;
+			case morphLinear:
+				actionLinearInterpolation->setChecked(true);
+				break;
+			case morphCatMullRom:
+				actionCatMulRomInterpolation->setChecked(true);
+				break;
+			case morphAkima:
+				actionAkimaInterpolation->setChecked(true);
+				break;
+		}
 
 		QAction *selectedItem = menu->exec(verticalHeader()->viewport()->mapToGlobal(point));
 
