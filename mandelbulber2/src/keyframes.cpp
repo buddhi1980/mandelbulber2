@@ -112,3 +112,20 @@ int cKeyframes::GetUnrenderedTillIndex(int frameIndex)
 	}
 }
 
+void cKeyframes::ChangeMorphType(int parameterIndex, parameterContainer::enumMorphType morphType)
+{
+	using namespace parameterContainer;
+	enumMorphType oldMorphType = listOfParameters[parameterIndex].morphType;
+	if(morphType != oldMorphType)
+	{
+		listOfParameters[parameterIndex].morphType = morphType;
+		QString fullParameterName = listOfParameters[parameterIndex].containerName + "_" + listOfParameters[parameterIndex].parameterName;
+
+		for(int i = 0; i < frames.size(); i++)
+		{
+			cOneParameter parameter = frames[i].parameters.GetAsOneParameter(fullParameterName);
+			parameter.SetMorphType(morphType);
+			frames[i].parameters.SetFromOneParameter(fullParameterName, parameter);
+		}
+	}
+}
