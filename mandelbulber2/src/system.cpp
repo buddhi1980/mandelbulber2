@@ -208,8 +208,11 @@ bool CreateDirectory(QString qname)
 	}
 }
 
-void DeleteAllFilesFromDirectory(QString folder)
+void DeleteAllFilesFromDirectory(QString folder, QString filterExpression)
 {
+	QRegExp rx(filterExpression);
+	rx.setPatternSyntax(QRegExp::Wildcard);
+
 	if(QDir(folder).exists())
 	{
 		QDirIterator folderIterator(folder);
@@ -217,13 +220,16 @@ void DeleteAllFilesFromDirectory(QString folder)
 		{
 			folderIterator.next();
 			if(folderIterator.fileName() == "." || folderIterator.fileName() == "..") continue;
-			if(QFile::remove(folderIterator.filePath()))
+			if(folderIterator.fileName().contains(rx))
 			{
-				WriteLogString("File deleted", folderIterator.filePath());
-			}
-			else
-			{
-				WriteLogString("File not deleted", folderIterator.filePath());
+				if(QFile::remove(folderIterator.filePath()))
+				{
+					WriteLogString("File deleted", folderIterator.filePath());
+				}
+				else
+				{
+					WriteLogString("File not deleted", folderIterator.filePath());
+				}
 			}
 		}
 	}

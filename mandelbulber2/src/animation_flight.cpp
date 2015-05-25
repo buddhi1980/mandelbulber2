@@ -118,7 +118,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 		if (reply == QMessageBox::Yes)
 		{
-			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
+			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"), "frame_?????.*");
 		}
 		else
 		{
@@ -548,7 +548,7 @@ void cFlightAnimation::RenderFlight()
 
 		if (reply == QMessageBox::Yes)
 		{
-			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
+			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"), "frame_?????.*");
 			return RenderFlight();
 		}
 		else
@@ -784,7 +784,7 @@ void cFlightAnimation::slotDeleteAllImages()
 
 	if (reply == QMessageBox::Yes)
 	{
-		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"));
+		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"), "frame_?????.*");
 	}
 }
 
