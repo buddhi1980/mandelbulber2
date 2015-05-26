@@ -428,6 +428,18 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cA
 
 			}
 		}
+
+		//add default parameters for animation
+		if (keyframes)
+		{
+			if (keyframes->GetListOfUsedParameters().size() == 0)
+			{
+				keyframes->AddAnimatedParameter("camera", par->GetAsOneParameter("camera"));
+				keyframes->AddAnimatedParameter("target", par->GetAsOneParameter("target"));
+				keyframes->AddAnimatedParameter("camera_top", par->GetAsOneParameter("camera_top"));
+			}
+		}
+
 		return true;
 	}
 	else
