@@ -747,6 +747,7 @@ void cKeyframeAnimation::ChangeMorphType(int row, parameterContainer::enumMorphT
 void cKeyframeAnimation::slotExportKeyframesToFlight()
 {
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	keyframes->SetFramesPerKeyframe(gPar->Get<int>("frames_per_keyframe"));
 
 	if(gAnimFrames->GetFrames().size() > 0)
 	{
@@ -763,7 +764,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	gAnimFrames->ClearAll();
 	gAnimFrames->SetListOfParametersAndClear(gKeyframes->GetListOfParameters());
 
-	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
+	for(int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 	{
 		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
