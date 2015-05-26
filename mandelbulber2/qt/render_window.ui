@@ -10771,6 +10771,13 @@ and water):</string>
                  </property>
                 </widget>
                </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="pushButton_keyframe_to_flight_export">
+                 <property name="text">
+                  <string>Export to Flight</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </item>
              <item>

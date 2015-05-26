@@ -59,6 +59,7 @@ private slots:
 	void slotDeleteAllImages();
 	void slotShowAnimation();
 	void slotRefreshTable();
+	void slotExportKeyframesToFlight();
 
 private:
 	void PrepareTable();

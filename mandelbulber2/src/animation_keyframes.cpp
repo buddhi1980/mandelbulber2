@@ -41,6 +41,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 	QApplication::connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
 	QApplication::connect(ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
 	QApplication::connect(ui->pushButton_refresh_keyframe_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
+	QApplication::connect(ui->pushButton_keyframe_to_flight_export, SIGNAL(clicked()), this, SLOT(slotExportKeyframesToFlight()));
 
 	QApplication::connect(ui->button_selectAnimKeyframeImageDir, SIGNAL(clicked()), this, SLOT(slotSelectKeyframeAnimImageDir()));
 	QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
@@ -741,3 +742,39 @@ void cKeyframeAnimation::ChangeMorphType(int row, parameterContainer::enumMorphT
 	RefreshTable();
 }
 
+void cKeyframeAnimation::slotExportKeyframesToFlight()
+{
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
+	if(gAnimFrames->GetFrames().size() > 0)
+	{
+		QMessageBox::StandardButton reply;
+		reply = QMessageBox::question(
+		ui->centralwidget,
+		QObject::tr("Export keyframes to flight"),
+		QObject::tr("There are already captured flight frames present.\nDiscard current flight frames ?"),
+		QMessageBox::Yes|QMessageBox::No);
+
+		if (reply == QMessageBox::No) return;
+	}
+
+	gAnimFrames->ClearAll();
+	gAnimFrames->SetListOfParametersAndClear(gKeyframes->GetListOfParameters());
+
+	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
+	{
+		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
+		{
+			int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
+			gAnimFrames->AddFrame(keyframes->GetInterpolatedFrame(frameIndex));
+		}
+		if(index % 10 == 0)
+		{
+			ProgressStatusText(QObject::tr("Exporting"), tr("Exporting keyframes to flight"), (double)index / keyframes->GetNumberOfFrames(), ui->statusbar, mainInterface->progressBarAnimation);
+			gApplication->processEvents();
+		}
+	}
+	mainInterface->progressBarAnimation->hide();
+	ui->tabWidgetFlightKeyframe->setCurrentIndex(0);
+	ui->pushButton_flight_refresh_table->animateClick();
+}
