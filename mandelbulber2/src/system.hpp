@@ -77,7 +77,7 @@ void WriteLogString(QString text, QString value);
 int get_cpu_count();
 bool CreateDefaultFolders(void);
 bool CreateDirectory(QString name);
-void DeleteAllFilesFromDirectory(QString folder);
+void DeleteAllFilesFromDirectory(QString folder, QString filterExpression);
 int fcopy(QString source, QString dest);
 void Wait(long int time);
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg);

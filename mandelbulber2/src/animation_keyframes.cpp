@@ -383,7 +383,7 @@ void cKeyframeAnimation::RenderKeyframes()
 
 		if (reply == QMessageBox::Yes)
 		{
-			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_keyframe_dir"));
+			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
 			return RenderKeyframes();
 		}
 		else
@@ -586,6 +586,8 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 
 void cKeyframeAnimation::slotDeleteAllImages()
 {
+	//TODO this has to delete only animation frames (frame_*.*)
+
 	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, gPar, cInterface::read);
 
 	QMessageBox::StandardButton reply;
@@ -597,7 +599,7 @@ void cKeyframeAnimation::slotDeleteAllImages()
 
 	if (reply == QMessageBox::Yes)
 	{
-		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_keyframe_dir"));
+		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
 	}
 }
 
