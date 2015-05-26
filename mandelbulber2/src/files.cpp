@@ -572,11 +572,12 @@ void SaveZBuffer(QString filename, cImage *image)
 		if (z > maxZ && z < 1e19) maxZ = z;
 		if (z < minZ) minZ = z;
 	}
-	float zRange = maxZ - minZ;
-	float zFactor = 60000.0 / zRange;
+
+	double k = log(maxZ / minZ);
 	for (unsigned int i = 0; i < size; i++)
 	{
-		int z = (zbuffer[i] - minZ) * zFactor;
+		float z1 = log(zbuffer[i] / minZ) / k;
+		int z = z1 * 60000;
 		if (zbuffer[i] > 1e19) z = 65535;
 		buffer16[i].R = buffer16[i].G = buffer16[i].B = z;
 	}
