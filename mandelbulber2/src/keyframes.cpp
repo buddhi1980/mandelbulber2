@@ -118,7 +118,8 @@ void cKeyframes::ChangeMorphType(int parameterIndex, parameterContainer::enumMor
 	enumMorphType oldMorphType = listOfParameters[parameterIndex].morphType;
 	if(morphType != oldMorphType)
 	{
-		morph[parameterIndex]->Clear();
+		if(parameterIndex < morph.size())	morph[parameterIndex]->Clear();
+
 		listOfParameters[parameterIndex].morphType = morphType;
 		QString fullParameterName = listOfParameters[parameterIndex].containerName + "_" + listOfParameters[parameterIndex].parameterName;
 

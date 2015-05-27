@@ -417,6 +417,9 @@ void cKeyframeAnimation::RenderKeyframes()
 
 			if(mainInterface->stopRequest) break;
 			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, gPar, gParFractal);
+
+			//TODO recalculation of camera distance and angle (only for display purposes)
+
 			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 			renderJob->UpdateParameters(gPar, gParFractal);
 			int result = renderJob->Execute();

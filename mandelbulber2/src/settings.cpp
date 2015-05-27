@@ -70,6 +70,9 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 		CreateAnimationString(settingsText, QString("frames"), *frames);
 
 		//keyframe animation
+
+
+		//TODO add saving of interpolation type
 		CreateAnimationString(settingsText, QString("keyframes"), *keyframes);
 	}
 	textPrepared = true;

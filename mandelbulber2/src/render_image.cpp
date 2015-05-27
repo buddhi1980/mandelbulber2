@@ -344,6 +344,13 @@ bool cRenderer::RenderImage()
 	statusText = QObject::tr("Idle");
 	progressTxt = progressText.getText(percentDone);
 
+	//update histograms
+	if(image->IsMainImage())
+	{
+		emit updateHistogramIterations(data->histogramIterations);
+		emit updateHistogramStepCount(data->histogramStepCount);
+	}
+
 	if(parentObject)
 	{
 		emit updateProgressAndStatus(statusText, progressTxt, percentDone);

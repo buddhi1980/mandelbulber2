@@ -147,6 +147,7 @@ void PlayerWidget::updateFrame()
 	}
 	else
 	{
+		//FIXME program crashes when there are some untypical files in folder
 		imageLabel->setPixmap(pix.scaled(imageLabel->width(), (imageLabel->width() * pix.height() / pix.width())));
 	}
 }
