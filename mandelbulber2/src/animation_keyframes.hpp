@@ -33,8 +33,6 @@ class cKeyframeAnimation : public QObject
  Q_OBJECT
 
 public:
-
-	//TODO possibility to copy keyframeanimation frames to flight path
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent = 0);
 	void RecordKeyframe();
 	void RenderKeyframes();

@@ -652,14 +652,14 @@ void cFlightAnimation::RenderFrame(int index)
 
 void cFlightAnimation::DeleteFramesFrom(int index)
 {
+	for(int i = frames->GetNumberOfFrames() - 1; i >= index; i--) table->removeColumn(index);
 	frames->DeleteFrames(index, frames->GetNumberOfFrames() - 1);
-	RefreshTable();
 }
 
 void cFlightAnimation::DeleteFramesTo(int index)
 {
+	for(int i = 0; i <= index; i++) table->removeColumn(0);
 	frames->DeleteFrames(0, index);
-	RefreshTable();
 }
 
 void cFlightAnimation::slotFlightStrafe(CVector2<int> _strafe)

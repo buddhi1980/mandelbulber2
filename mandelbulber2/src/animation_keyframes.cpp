@@ -106,7 +106,7 @@ void cKeyframeAnimation::DeleteKeyframe(int index)
 	}
 
 	keyframes->DeleteFrames(index, index);
-	RefreshTable();
+	table->removeColumn(index);
 }
 
 void cKeyframeAnimation::slotDeleteKeyframe()
@@ -491,14 +491,14 @@ void cKeyframeAnimation::RenderFrame(int index)
 
 void cKeyframeAnimation::DeleteFramesFrom(int index)
 {
+	for(int i = keyframes->GetNumberOfFrames() - 1; i >= index; i--) table->removeColumn(index);
 	keyframes->DeleteFrames(index, keyframes->GetNumberOfFrames() - 1);
-	RefreshTable();
 }
 
 void cKeyframeAnimation::DeleteFramesTo(int index)
 {
+	for(int i = 0; i <= index; i++) table->removeColumn(0);
 	keyframes->DeleteFrames(0, index);
-	RefreshTable();
 }
 
 void cKeyframeAnimation::slotSelectKeyframeAnimImageDir()
