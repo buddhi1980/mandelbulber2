@@ -175,7 +175,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 	{
 		if (four.GetDEType(forcedFormulaIndex) == fractal::analitycDE)
 		{
-			Compute<fractal::normal>(four, fractIn, &fractOut);
+			Compute<fractal::calcModeNormal>(four, fractIn, &fractOut);
 			distance = fractOut.distance;
 			//qDebug() << "computed distance" << distance;
 			out->maxiter = fractOut.maxiter;
@@ -219,7 +219,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 		{
 			double deltaDE = 1e-10;
 
-			Compute<fractal::deltaDE1>(four, fractIn, &fractOut);
+			Compute<fractal::calcModeDeltaDE1>(four, fractIn, &fractOut);
 			double r = fractOut.z.Length();
 			bool maxiter = out->maxiter = fractOut.maxiter;
 			out->iters = fractOut.iters;
@@ -228,17 +228,17 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 			fractIn.maxN = fractOut.iters; //for other directions must be the same number of iterations
 
 			fractIn.point = in.point + CVector3(deltaDE, 0.0, 0.0);
-			Compute<fractal::deltaDE1>(four, fractIn, &fractOut);
+			Compute<fractal::calcModeDeltaDE1>(four, fractIn, &fractOut);
 			double r2 = fractOut.z.Length();
 			double dr1 = fabs(r2 - r) / deltaDE;
 
 			fractIn.point = in.point + CVector3(0.0, deltaDE, 0.0);
-			Compute<fractal::deltaDE1>(four, fractIn, &fractOut);
+			Compute<fractal::calcModeDeltaDE1>(four, fractIn, &fractOut);
 			r2 = fractOut.z.Length();
 			double dr2 = fabs(r2 - r) / deltaDE;
 
 			fractIn.point = in.point + CVector3(0.0, 0.0, deltaDE);
-			Compute<fractal::deltaDE1>(four, fractIn, &fractOut);
+			Compute<fractal::calcModeDeltaDE1>(four, fractIn, &fractOut);
 			r2 = fractOut.z.Length();
 			double dr3 = fabs(r2 - r) / deltaDE;
 

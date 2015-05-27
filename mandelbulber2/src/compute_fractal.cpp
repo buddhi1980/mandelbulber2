@@ -272,7 +272,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 
 		//escape conditions
-		if (Mode == normal)
+		if (Mode == calcModeNormal)
 		{
 			if (r > 1e2)
 			{
@@ -280,7 +280,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				break;
 			}
 		}
-		else if (Mode == deltaDE1)
+		else if (Mode == calcModeDeltaDE1)
 		{
 			if (r > 1e10)
 			{
@@ -288,12 +288,12 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				break;
 			}
 		}
-		else if (Mode == deltaDE2)
+		else if (Mode == calcModeDeltaDE2)
 		{
 			if (i == in.maxN)
 				break;
 		}
-		else if (Mode == colouring)
+		else if (Mode == calcModeColouring)
 		{
 			if (fractal->formula != mandelbox)
 			{
@@ -302,7 +302,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			if (r > 1e15)
 				break;
 		}
-		else if (Mode == orbitTrap)
+		else if (Mode == calcModeOrbitTrap)
 		{
 			CVector3 delta = z - in.common.fakeLightsOrbitTrap;
 			double distance = delta.Length();
@@ -316,7 +316,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	}
 
 	//final calculations
-	if(Mode == normal)
+	if(Mode == calcModeNormal)
 	{
 		switch (defaultFractal->formula)
 		{
@@ -338,7 +338,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		}
 	}
 	//color calculation
-	else if (Mode == colouring)
+	else if (Mode == calcModeColouring)
 	{
 		if (four.IsHybrid())
 		{
@@ -393,8 +393,8 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	//------------- 3249 ns for all calculation  ----------------
 }
 
-template void Compute<normal>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
-template void Compute<deltaDE1>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
-template void Compute<deltaDE2>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
-template void Compute<colouring>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
-template void Compute<orbitTrap>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeNormal>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeDeltaDE1>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeDeltaDE2>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeColouring>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeOrbitTrap>(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);

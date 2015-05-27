@@ -329,7 +329,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		{
 			sFractalIn fractIn(point, params->minN, params->N, params->common, -1);
 			sFractalOut fractOut;
-			Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
+			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;
 			r = sqrt(1.0f/(r + 1.0e-30f));
 			double fakeLight = 1.0 / (pow(r, 10.0 / params->fakeLightsVisibilitySize) * pow(10.0, 10.0 / params->fakeLightsVisibilitySize) + 1e-100);
@@ -855,7 +855,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 			{
 				sFractalIn fractIn(input.point, 0, params->N * 10, params->common, input.formulaIndex);
 				sFractalOut fractOut;
-				Compute<fractal::colouring>(*fractal, fractIn, &fractOut);
+				Compute<fractal::calcModeColouring>(*fractal, fractIn, &fractOut);
 				int nrCol = floor(fractOut.colorIndex);
 				nrCol = abs(nrCol) % (248 * 256);
 
@@ -1060,7 +1060,7 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 
 	sFractalIn fractIn(input.point, params->minN, params->N, params->common, -1);
 	sFractalOut fractOut;
-	Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
+	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 	double rr = fractOut.orbitTrapR;
 
 	double fakeLight = params->fakeLightsIntensity/rr;
@@ -1071,15 +1071,15 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	CVector3 deltaz(0.0, 0.0, delta);
 
 	fractIn.point = input.point + deltax;
-	Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
+	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 	double rx = 1.0/(fractOut.orbitTrapR + 1e-30);
 
 	fractIn.point = input.point + deltay;
-	Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
+	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 	double ry = 1.0/(fractOut.orbitTrapR + 1e-30);
 
 	fractIn.point = input.point + deltaz;
-	Compute<fractal::orbitTrap>(*fractal, fractIn, &fractOut);
+	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 	double rz = 1.0/(fractOut.orbitTrapR + 1e-30);
 
 	CVector3 fakeLightNormal;

@@ -35,7 +35,7 @@ namespace fractal
 {
 enum enumCalculationMode
 {
-	normal = 0, colouring = 1, fake_AO = 2, deltaDE1 = 3, deltaDE2 = 4, orbitTrap = 5
+	calcModeNormal = 0, calcModeColouring = 1, calcModeFake_AO = 2, calcModeDeltaDE1 = 3, calcModeDeltaDE2 = 4, calcModeOrbitTrap = 5
 };
 
 enum enumGeneralizedFoldBoxType
