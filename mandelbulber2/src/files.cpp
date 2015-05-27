@@ -554,25 +554,16 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
 	}
 }
 
-void SaveZBuffer(QString filename, cImage *image)
+void SaveZBuffer(QString filename, cImage *image, float minZ, float maxZ)
 {
 	unsigned int w = image->GetWidth();
 	unsigned int h = image->GetHeight();
 	unsigned int size = w * h;
 
 	sRGB16 *buffer16 = new sRGB16[w* h];
-
-	//normalize zBuffer
 	float *zbuffer = image->GetZBufferPtr();
-	float minZ = 1.0e50;
-	float maxZ = 0.0;
-	for (unsigned int i = 0; i < size; i++)
-	{
-		float z = zbuffer[i];
-		if (z > maxZ && z < 1e19) maxZ = z;
-		if (z < minZ) minZ = z;
-	}
 
+	//normalize zBuffer logarithmically
 	double k = log(maxZ / minZ);
 	for (unsigned int i = 0; i < size; i++)
 	{
@@ -582,6 +573,25 @@ void SaveZBuffer(QString filename, cImage *image)
 		buffer16[i].R = buffer16[i].G = buffer16[i].B = z;
 	}
 	SavePNG16(filename, w, h, buffer16);
+}
+
+void SaveZBuffer(QString filename, cImage *image)
+{
+	unsigned int w = image->GetWidth();
+	unsigned int h = image->GetHeight();
+	unsigned int size = w * h;
+
+	// calculate min / max values from zbuffer range
+	float *zbuffer = image->GetZBufferPtr();
+	float minZ = 1.0e50;
+	float maxZ = 0.0;
+	for (unsigned int i = 0; i < size; i++)
+	{
+		float z = zbuffer[i];
+		if (z > maxZ && z < 1e19) maxZ = z;
+		if (z < minZ) minZ = z;
+	}
+	SaveZBuffer(filename, image, minZ, maxZ);
 }
 
 /*
