@@ -66,6 +66,9 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	setLayout(layout);
 
 	QDir imageDir = QDir(gPar->Get<QString>("anim_flight_dir"));
+	QStringList imageFileExtensions;
+	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png";
+	// imageDir.setNameFilters(imageFileExtensions);
 	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
 	if(imageFiles.size() == 0)
@@ -137,9 +140,14 @@ void PlayerWidget::updateFrame()
 		return;
 	}
 	if(imageFiles.size() == 0) return;
-	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(currentIndex + 1).arg(imageFiles.size()));
 	QString fileName = gPar->Get<QString>("anim_flight_dir") + "/" + imageFiles.at(currentIndex);
 	QPixmap pix(fileName);
+	if(pix.isNull())
+	{
+		qWarning() << "Image could not be loaded, " << fileName;
+		return;
+	}
+	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(currentIndex + 1).arg(imageFiles.size()));
 	if((1.0 * imageLabel->width() / imageLabel->height()) > (1.0 * pix.width() / pix.height()))
 	{
 		// imageLabel is relative wider than pix
@@ -147,7 +155,6 @@ void PlayerWidget::updateFrame()
 	}
 	else
 	{
-		//FIXME program crashes when there are some untypical files in folder
 		imageLabel->setPixmap(pix.scaled(imageLabel->width(), (imageLabel->width() * pix.height() / pix.width())));
 	}
 }
