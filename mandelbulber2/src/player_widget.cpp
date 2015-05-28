@@ -68,7 +68,7 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	QDir imageDir = QDir(gPar->Get<QString>("anim_flight_dir"));
 	QStringList imageFileExtensions;
 	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png";
-	// imageDir.setNameFilters(imageFileExtensions);
+	imageDir.setNameFilters(imageFileExtensions);
 	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
 	if(imageFiles.size() == 0)
