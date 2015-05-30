@@ -332,9 +332,6 @@ QColor cKeyframeAnimation::MorphType2Color(parameterContainer::enumMorphType mor
 
 void cKeyframeAnimation::RenderKeyframes()
 {
-
-	//TODO RenderKeyframes() has to be rewrited
-
 	if(mainInterface->mainImage->IsUsed())
 	{
 		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
@@ -597,8 +594,6 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 
 void cKeyframeAnimation::slotDeleteAllImages()
 {
-	//TODO this has to delete only animation frames (frame_*.*)
-
 	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, gPar, cInterface::read);
 
 	QMessageBox::StandardButton reply;

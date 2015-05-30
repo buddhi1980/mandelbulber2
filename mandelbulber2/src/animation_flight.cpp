@@ -285,7 +285,6 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		cameraAngularAcceleration.z = (rotationDirection * rollSpeedSp - cameraAngularSpeed.z) / (inertia + 1.0);
 		cameraAngularSpeed += cameraAngularAcceleration;
 
-		//TODO other modes of rotation
 		CVector3 forwardVector = cameraTarget.GetForwardVector();
 		forwardVector = forwardVector.RotateAroundVectorByAngle(cameraTarget.GetTopVector(), -cameraAngularSpeed.x);
 		forwardVector = forwardVector.RotateAroundVectorByAngle(cameraTarget.GetRightVector(), -cameraAngularSpeed.y);

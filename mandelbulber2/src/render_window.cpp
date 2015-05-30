@@ -47,6 +47,8 @@
 
 #include "progress_text.hpp"
 
+#include "preferencesdialog.h"
+
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -1409,7 +1411,8 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 
 void RenderWindow::slotMenuProgramSettings()
 {
-	// TODO show ProgramSettings interface
+	cPreferencesDialog *preferencesDialog = new cPreferencesDialog;
+	preferencesDialog->show();
 }
 
 void RenderWindow::slotUpdateHistogramStepCount(cHistogram histogram)

@@ -73,7 +73,8 @@ SOURCES +=  ../src/algebra.cpp\
 			../qt/my_table_widget_anim.cpp\
 			../qt/my_table_widget_keyframes.cpp\
 			../qt/mylogwidget.cpp\
-			../qt/myhistogramlabel.cpp
+			../qt/myhistogramlabel.cpp \
+    	../qt/preferencesdialog.cpp
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
@@ -103,10 +104,11 @@ HEADERS  += ../src/render_window.hpp\
 			../src/render_image.hpp\
 			../src/render_ssao.h\
 			../src/dof.hpp\
-			../src/netrender.hpp
+			../src/netrender.hpp \
+    	../qt/preferencesdialog.h
 
-
-FORMS    += ../qt/render_window.ui
+FORMS    += ../qt/render_window.ui \
+    				../qt/preferencesdialog.ui
 
 RESOURCES = ../qt/icons.qrc
 
