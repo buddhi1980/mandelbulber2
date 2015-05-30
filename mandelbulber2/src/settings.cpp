@@ -20,6 +20,7 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
+#include "global_data.hpp"
 #include "settings.hpp"
 #include "system.hpp"
 #include "error_message.hpp"
@@ -70,9 +71,6 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 		CreateAnimationString(settingsText, QString("frames"), *frames);
 
 		//keyframe animation
-
-
-		//TODO add saving of interpolation type
 		CreateAnimationString(settingsText, QString("keyframes"), *keyframes);
 	}
 	textPrepared = true;
@@ -147,6 +145,28 @@ void cSettings::CreateAnimationString(QString &text, const QString &headerText, 
 						text += frames.GetFrame(f).parameters.Get<QString>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
 					}
 
+					if (i != parameterList.size() - 1)
+					{
+						text += ";";
+					}
+				}
+				text += "\n";
+			}
+			if(headerText == "keyframes")
+			{
+				text += "interpolation;";
+				for (int i = 0; i < parameterList.size(); ++i)
+				{
+					switch(parameterList[i].morphType)
+					{
+						case morphNone: text += "morphAkima"; break;
+						case morphLinear: text += "morphLinear"; break;
+						case morphLinearAngle: text += "morphLinearAngle"; break;
+						case morphCatMullRom: text += "morphCatMullRom"; break;
+						case morphCatMullRomAngle: text += "morphCatMullRomAngle"; break;
+						case morphAkima: text += "morphAkima"; break;
+						case morphAkimaAngle: text += "morphAkimaAngle"; break;
+					}
 					if (i != parameterList.size() - 1)
 					{
 						text += ";";
@@ -553,7 +573,6 @@ bool cSettings::DecodeFramesHeader(QString line, cParameterContainer *par, cFrac
 						i+= 2;
 					}
 				}
-
 				bool result = frames->AddAnimatedParameter(fullParameterName, par, fractPar);
 				if(!result)
 				{
@@ -584,7 +603,31 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 
 	try
 	{
-		if(lineSplit.size() == csvNoOfColumns)
+		if(lineSplit.size() > 0 && lineSplit[0] == QString("interpolation"))
+		{
+			// interpolation
+			if(lineSplit.size()- 1 == parameterList.size())
+			{
+				for(int i = 0; i < parameterList.size(); i++)
+				{
+					column++;
+					enumMorphType morphType = morphNone;
+					if(lineSplit[column] == "morphLinear") morphType = morphLinear;
+					else if(lineSplit[column] == "morphLinearAngle") morphType = morphLinearAngle;
+					else if(lineSplit[column] == "morphCatMullRom") morphType = morphCatMullRom;
+					else if(lineSplit[column] == "morphCatMullRomAngle") morphType = morphCatMullRomAngle;
+					else if(lineSplit[column] == "morphAkima") morphType = morphAkima;
+					else if(lineSplit[column] == "morphAkimaAngle") morphType = morphAkimaAngle;
+					static_cast<cKeyframes*>(frames)->ChangeMorphType(i, morphType);
+				}
+				return true;
+			}
+			else
+			{
+				throw QObject::tr("Wrong number of interpolation columns");
+			}
+		}
+		else if(lineSplit.size() == csvNoOfColumns)
 		{
 			int frameCount = lineSplit[0].toInt();
 			if(frameCount == frames->GetNumberOfFrames())
