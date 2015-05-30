@@ -710,65 +710,67 @@ void cFlightAnimation::slotSelectAnimFlightImageDir()
 
 void cFlightAnimation::slotTableCellChanged(int row, int column)
 {
-	//FIXME program crashes when there is edited (by double click) first row (with previews)
-	table->blockSignals(true);
-	QTableWidgetItem *cell = table->item(row, column);
-	QString cellText = cell->text();
-
-	cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
-
-	QString parameterName = GetParameterName(row);
-	int parameterFirstRow = parameterRows[rowParameter[row]];
-	int vectIndex = row - parameterFirstRow;
-
-	using namespace parameterContainer;
-	enumVarType type = frame.parameters.GetVarType(parameterName);
-
-	if(type == typeVector3)
+	if(row > 0)
 	{
-		CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
-		if(vectIndex == 0) vect.x = cellText.toDouble();
-		if(vectIndex == 1) vect.y = cellText.toDouble();
-		if(vectIndex == 2) vect.z = cellText.toDouble();
-		frame.parameters.Set(parameterName, vect);
-	}
-	else if(type == typeRgb)
-	{
-		sRGB col = frame.parameters.Get<sRGB>(parameterName);
-		if(vectIndex == 0) col.R = cellText.toInt();
-		if(vectIndex == 1) col.G = cellText.toInt();
-		if(vectIndex == 2) col.B = cellText.toInt();
-		frame.parameters.Set(parameterName, col);
-	}
-	else
-	{
-		frame.parameters.Set(parameterName, cellText);
-	}
+		table->blockSignals(true);
+		QTableWidgetItem *cell = table->item(row, column);
+		QString cellText = cell->text();
 
-	frames->ModifyFrame(column, frame);
+		cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
 
-	//update thumbnail
-	if (ui->checkBox_flight_show_thumbnails->isChecked())
-	{
-		cParameterContainer tempPar = *gPar;
-		cFractalContainer tempFract = *gParFractal;
-		frames->GetFrameAndConsolidate(column, &tempPar, &tempFract);
-		cThumbnailWidget *thumbWidget = (cThumbnailWidget*) table->cellWidget(0, column);
+		QString parameterName = GetParameterName(row);
+		int parameterFirstRow = parameterRows[rowParameter[row]];
+		int vectIndex = row - parameterFirstRow;
 
-		if (!thumbWidget)
+		using namespace parameterContainer;
+		enumVarType type = frame.parameters.GetVarType(parameterName);
+
+		if(type == typeVector3)
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
-			thumbWidget->UseOneCPUCore(true);
-			thumbWidget->AssignParameters(tempPar, tempFract);
-			table->setCellWidget(0, column, thumbWidget);
+			CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
+			if(vectIndex == 0) vect.x = cellText.toDouble();
+			if(vectIndex == 1) vect.y = cellText.toDouble();
+			if(vectIndex == 2) vect.z = cellText.toDouble();
+			frame.parameters.Set(parameterName, vect);
+		}
+		else if(type == typeRgb)
+		{
+			sRGB col = frame.parameters.Get<sRGB>(parameterName);
+			if(vectIndex == 0) col.R = cellText.toInt();
+			if(vectIndex == 1) col.G = cellText.toInt();
+			if(vectIndex == 2) col.B = cellText.toInt();
+			frame.parameters.Set(parameterName, col);
 		}
 		else
 		{
-			thumbWidget->AssignParameters(tempPar, tempFract);
+			frame.parameters.Set(parameterName, cellText);
 		}
-	}
 
-	table->blockSignals(false);
+		frames->ModifyFrame(column, frame);
+
+		//update thumbnail
+		if (ui->checkBox_flight_show_thumbnails->isChecked())
+		{
+			cParameterContainer tempPar = *gPar;
+			cFractalContainer tempFract = *gParFractal;
+			frames->GetFrameAndConsolidate(column, &tempPar, &tempFract);
+			cThumbnailWidget *thumbWidget = (cThumbnailWidget*) table->cellWidget(0, column);
+
+			if (!thumbWidget)
+			{
+				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+				thumbWidget->UseOneCPUCore(true);
+				thumbWidget->AssignParameters(tempPar, tempFract);
+				table->setCellWidget(0, column, thumbWidget);
+			}
+			else
+			{
+				thumbWidget->AssignParameters(tempPar, tempFract);
+			}
+		}
+
+		table->blockSignals(false);
+	}
 }
 
 void cFlightAnimation::slotDeleteAllImages()
