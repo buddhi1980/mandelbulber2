@@ -2,6 +2,7 @@
 #define PREFERENCESDIALOG_H
 
 #include <QDialog>
+#include "../src/global_data.hpp"
 
 namespace Ui {
 class cPreferencesDialog;
@@ -17,6 +18,12 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
+
+    void on_pushButton_select_image_path_clicked();
+
+    void on_pushButton_select_settings_path_clicked();
+
+    void on_pushButton_select_textures_path_clicked();
 
 private:
     Ui::cPreferencesDialog *ui;
