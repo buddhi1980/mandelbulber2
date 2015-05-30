@@ -337,3 +337,15 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 
     WriteLog(text);
 }
+
+void UpdateDefaultPaths (void)
+{
+	systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator() + QString("settings.fract");
+  systemData.lastImageFile = gPar->Get<QString>("default_image_path") + QDir::separator() + QString("image.jpg");
+	gPar->Set("file_background", gPar->Get<QString>("default_textures_path") + QDir::separator() + "background.jpg");
+	gPar->Set("file_envmap", gPar->Get<QString>("default_textures_path") + QDir::separator() + "envmap.jpg");
+	gPar->Set("file_lightmap", gPar->Get<QString>("default_textures_path") + QDir::separator() + "lightmap.jpg");
+
+
+
+}

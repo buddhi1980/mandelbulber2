@@ -81,6 +81,7 @@ void DeleteAllFilesFromDirectory(QString folder, QString filterExpression);
 int fcopy(QString source, QString dest);
 void Wait(long int time);
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg);
+void UpdateDefaultPaths();
 
 
 #endif /* SYSTEM_HPP_ */

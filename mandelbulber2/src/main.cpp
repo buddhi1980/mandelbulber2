@@ -104,6 +104,8 @@ int main(int argc, char *argv[])
 		gMainInterface->ComboMouseClickUpdate();
 	}
 
+	UpdateDefaultPaths();
+
 	//Allocate container for animation frames
 	gAnimFrames = new cAnimationFrames;
 
