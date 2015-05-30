@@ -196,23 +196,13 @@ void MyTableWidgetKeyframes::rowContextMenuRequest(QPoint point)
 				gKeyframes->RemoveAnimatedParameter(name);
 				gKeyframeAnimation->RefreshTable();
 			}
-			else if(selectedItem == actionNoInterpolation)
-			{
-				gKeyframeAnimation->ChangeMorphType(row, morphNone);
-			}
-			else if(selectedItem == actionLinearInterpolation)
-			{
-				gKeyframeAnimation->ChangeMorphType(row, morphLinear);
-			}
-			else if(selectedItem == actionCatMulRomInterpolation)
-			{
-				gKeyframeAnimation->ChangeMorphType(row, morphCatMullRom);
-			}
-			else if(selectedItem == actionAkimaInterpolation)
-			{
-				gKeyframeAnimation->ChangeMorphType(row, morphAkima);
-			}
-
+			else if(selectedItem == actionNoInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphNone);
+			else if(selectedItem == actionLinearInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphLinear);
+			else if(selectedItem == actionLinearAngleInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphLinearAngle);
+			else if(selectedItem == actionCatMulRomInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphCatMullRom);
+			else if(selectedItem == actionCatMulRomAngleInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphCatMullRomAngle);
+			else if(selectedItem == actionAkimaInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphAkima);
+			else if(selectedItem == actionAkimaAngleInterpolation) gKeyframeAnimation->ChangeMorphType(row, morphAkimaAngle);
 		}
 	}
 	else
