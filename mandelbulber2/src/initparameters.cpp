@@ -309,6 +309,11 @@ using namespace parameterContainer;
 	par->addParam("netrender_client_remote_port", 5555, morphNone, paramApp);
 	par->addParam("netrender_server_local_port", 5555, morphNone, paramApp);
 
+	par->addParam("default_image_path", systemData.dataDirectory + "images", morphNone, paramApp);
+	par->addParam("default_textures_path", systemData.sharedDir + "textures", morphNone, paramApp);
+	par->addParam("default_settings_path", systemData.dataDirectory + "settings", morphNone, paramApp);
+
+
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);
 	par->SetAsAppParam("openCL_use_CPU", true);
