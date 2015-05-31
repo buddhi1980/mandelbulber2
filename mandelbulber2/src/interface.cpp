@@ -704,6 +704,9 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
 
+				colorPaletteWidget->AssignParameterContainer(par);
+				colorPaletteWidget->AssingParameterName(parameterName);
+
 				if (type == QString("colorpalette"))
 				{
 					if (mode == read)

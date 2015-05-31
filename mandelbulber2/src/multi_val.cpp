@@ -88,7 +88,7 @@ enumVarType cMultiVal::Store(QString val)
 		}
 
 		case typeColorPalette:
-			//TODO typeColorPalette in cMultiVal::Store(QString val)
+			sVal = val;
 			break;
 	}
 	sVal = val;

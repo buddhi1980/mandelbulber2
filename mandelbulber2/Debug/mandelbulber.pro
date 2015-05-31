@@ -75,7 +75,8 @@ SOURCES +=  ../src/algebra.cpp\
 			../qt/my_table_widget_keyframes.cpp\
 			../qt/mylogwidget.cpp\
 			../qt/myhistogramlabel.cpp \
-    	../qt/preferencesdialog.cpp
+    	../qt/preferencesdialog.cpp \
+    	../qt/color_palette_widget.cpp
 
 HEADERS  += ../src/render_window.hpp\
 			../src/render_worker.hpp\
