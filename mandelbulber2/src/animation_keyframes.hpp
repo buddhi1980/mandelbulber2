@@ -36,6 +36,7 @@ public:
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent = 0);
 	void RecordKeyframe();
 	void RenderKeyframes();
+	//TODO add ModifyActualKeyframe button
 	void RenderFrame(int index);
 	void RefreshTable();
 	QString GetParameterName(int rowNumber);

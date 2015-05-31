@@ -33,14 +33,14 @@ class cMorph
 public:
 	struct sMorphParameter
 	{
-		sMorphParameter(int _keyframe, cOneParameter _parameter) : keyframe(_keyframe), parameter(_parameter) {}
+		sMorphParameter(int _keyframe, const cOneParameter &_parameter) : keyframe(_keyframe), parameter(_parameter) {}
 		int keyframe;
 		cOneParameter parameter;
 	};
 
 	cMorph();
 	~cMorph();
-	void AddData(const int keyframe, const cOneParameter val);
+	void AddData(const int keyframe, const cOneParameter &val);
 	int findInMorph(const int keyframe);
 	void Clear(){ dataSets.clear(); }
 	cOneParameter Interpolate(const int keyframe, float factor);

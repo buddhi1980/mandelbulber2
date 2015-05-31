@@ -9,15 +9,14 @@
 
 cStatistics::cStatistics()
 {
-	// TODO Auto-generated constructor stub
   totalNumberOfIterations = 0;
   missedDE = 0;
   numberOfRaymarchings = 0;
   numberOfRenderedPixels = 0;
+  time = 0.0;
 }
 
 cStatistics::~cStatistics()
 {
-	// TODO Auto-generated destructor stub
 }
 

@@ -41,7 +41,7 @@ cMorph::~cMorph()
 	gsl_interp_accel_free(interpolationAccelerator);
 }
 
-void cMorph::AddData(const int keyFrame, const cOneParameter val)
+void cMorph::AddData(const int keyFrame, const cOneParameter &val)
 {
 	int key = findInMorph(keyFrame);
 	if(key != -1) return;

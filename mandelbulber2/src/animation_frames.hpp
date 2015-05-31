@@ -33,6 +33,7 @@ public:
 
 	struct sAnimationFrame
 	{
+		sAnimationFrame() : alreadyRendered(false) {};
 		cParameterContainer parameters;
 		QPixmap thumnail;
 		bool alreadyRendered;
