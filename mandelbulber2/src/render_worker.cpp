@@ -42,9 +42,6 @@ cRenderWorker::cRenderWorker(const cParamRender *_params, const cFourFractals *_
 	baseY = CVector3(0.0, 1.0, 0.0);
 	baseZ = CVector3(0.0, 0.0, 1.0);
 	maxraymarchingSteps = 10000;
-	missed_DE_counter = 0;
-	pixelCounter = 0;
-	DECounter = 0;
 	reflectionsMax = 0;
 	stopRequest = false;
 }
@@ -199,7 +196,7 @@ void cRenderWorker::doWork(void)
 				}
 			}
 
-			pixelCounter++;
+			data->statistics.numberOfRenderedPixels++;
 		}
 	}
 
@@ -380,12 +377,13 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		inOut->stepBuff[i].iters = distanceOut.iters;
 		inOut->stepBuff[i].distThresh = distThresh;
 
-		data->histogramIterations.Add(distanceOut.iters);
+		data->statistics.histogramIterations.Add(distanceOut.iters);
+		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
 
 		if (dist > 3.0) dist = 3.0;
 		if (dist < distThresh)
 		{
-			if (dist < 0.1 * distThresh) missed_DE_counter++;
+			if (dist < 0.1 * distThresh) data->statistics.missedDE++;
 			found = true;
 			break;
 		}
@@ -463,7 +461,8 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 				out->objectColor = distanceOut.objectColor;
 			}
 
-			data->histogramIterations.Add(distanceOut.iters);
+			data->statistics.histogramIterations.Add(distanceOut.iters);
+			data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
 
 			step *= 0.5;
 		}
@@ -477,12 +476,13 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 
 	//---------- 7.19605us for binary searching ---------------
 
-	data->histogramStepCount.Add(counter);
+	data->statistics.histogramStepCount.Add(counter);
 
 	out->found = found;
 	out->lastDist = dist;
 	out->depth = scan;
 	out->distThresh = distThresh;
+	data->statistics.numberOfRaymarchings++;
 	return point;
 }
 

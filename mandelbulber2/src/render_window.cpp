@@ -1320,9 +1320,9 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 	}
 
 	// Histogram dock
-	if(ui->actionShow_histogram_dock->isChecked() != ui->dockWidget_histogram->isVisible())
+	if(ui->actionShow_statistics_dock->isChecked() != ui->dockWidget_histogram->isVisible())
 	{
-		if(ui->actionShow_histogram_dock->isChecked())
+		if(ui->actionShow_statistics_dock->isChecked())
 		{
 			addDockWidget(Qt::TopDockWidgetArea, ui->dockWidget_histogram);
 		}
@@ -1330,7 +1330,7 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 		{
 			removeDockWidget(ui->dockWidget_histogram);
 		}
-		ui->dockWidget_histogram->setVisible(ui->actionShow_histogram_dock->isChecked());
+		ui->dockWidget_histogram->setVisible(ui->actionShow_statistics_dock->isChecked());
 	}
 
 	// Toolbar
@@ -1355,9 +1355,9 @@ void RenderWindow::slotUpdateDocksandToolbarbyView()
 	}
 
 	// Histogram dock
-	if(ui->actionShow_histogram_dock->isChecked() != ui->dockWidget_histogram->isVisible())
+	if(ui->actionShow_statistics_dock->isChecked() != ui->dockWidget_histogram->isVisible())
 	{
-		ui->actionShow_histogram_dock->setChecked(ui->dockWidget_histogram->isVisible());
+		ui->actionShow_statistics_dock->setChecked(ui->dockWidget_histogram->isVisible());
 	}
 
 	// Toolbar
@@ -1415,15 +1415,16 @@ void RenderWindow::slotMenuProgramSettings()
 	preferencesDialog->show();
 }
 
-void RenderWindow::slotUpdateHistogramStepCount(cHistogram histogram)
+void RenderWindow::slotUpdateStatistics(cStatistics stat)
 {
 	ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0)); // TODO move to setup
-	ui->label_histogram_de->UpdateHistogram(histogram);
-}
+	ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);
+	ui->label_histogram_iter->UpdateHistogram(stat.histogramIterations);
 
-void RenderWindow::slotUpdateHistogramIterations(cHistogram histogram)
-{
-   ui->label_histogram_iter->UpdateHistogram(histogram);
+	ui->tableWidget_statistics->item(0, 0)->setText(QString::number(stat.GetTotalNumberOfIterations()));
+	ui->tableWidget_statistics->item(1, 0)->setText(QString::number(stat.GetNumberOfIterationsPerPixel()));
+	ui->tableWidget_statistics->item(2, 0)->setText(QString::number(stat.GetNumberOfIterationsPerSecond()));
+	ui->tableWidget_statistics->item(3, 0)->setText(QString::number(stat.GetMissedDEPercentage()));
 }
 
 void RenderWindow::slotNetRenderServerStart()

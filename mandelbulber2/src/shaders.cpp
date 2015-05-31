@@ -548,6 +548,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(point2, dist_thresh, false);
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
 
 		if (bSoft)
 		{
@@ -608,6 +609,7 @@ sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input)
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(pointTemp, input.distThresh, false);
 		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
 		aoTemp += 1.0 / (pow(2.0, i)) * (scan - params->ambientOcclusionFastTune * dist) / input.distThresh;
 	}
 	double ao = 1.0 - 0.2 * aoTemp;
@@ -640,6 +642,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 			sDistanceOut distanceOut;
 			sDistanceIn distanceIn(point2, input.distThresh, false);
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+			data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
 
 			if (params->iterFogEnabled)
 			{
@@ -696,18 +699,22 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 
 		sDistanceIn distanceIn1(input.point, input.distThresh, true);
 		s1 = CalculateDistance(*params, *fractal, distanceIn1, &distanceOut);
+		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
 
 		CVector3 deltax(delta, 0.0, 0.0);
 		sDistanceIn distanceIn2(input.point + deltax, input.distThresh, true);
 		s2 = CalculateDistance(*params, *fractal, distanceIn2, &distanceOut);
+		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
 
 		CVector3 deltay(0.0, delta, 0.0);
 		sDistanceIn distanceIn3(input.point + deltay, input.distThresh, true);
 		s3 = CalculateDistance(*params, *fractal, distanceIn3, &distanceOut);
+		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
 
 		CVector3 deltaz(0.0, 0.0, delta);
 		sDistanceIn distanceIn4(input.point + deltaz, input.distThresh, true);
 		s4 = CalculateDistance(*params, *fractal, distanceIn4, &distanceOut);
+		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
 
 		normal.x = s2 - s1;
 		normal.y = s3 - s1;
@@ -733,6 +740,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 
 					sDistanceIn distanceIn(point3, input.distThresh, true);
 					double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+					data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
 					normal += (point2 * dist);
 				}
 			}
@@ -1003,6 +1011,7 @@ double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance, 
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(point2, input.distThresh, false);
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
+		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
 
 		if (params->iterFogEnabled)
 		{

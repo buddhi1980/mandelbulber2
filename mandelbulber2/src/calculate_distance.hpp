@@ -42,6 +42,7 @@ struct sDistanceOut
 	double distance;
 	double colorIndex;
 	int iters;
+	int totalIters;
 	fractal::enumObjectType object;
 	int formulaIndex;
 	double objectReflect;

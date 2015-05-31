@@ -31,6 +31,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 	double distance;
 	out->object = fractal::objFractal;
 	out->formulaIndex = 0;
+	out->totalIters = 0;
 
 	double limitBoxDist = 0.0;
 
@@ -181,6 +182,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 			out->maxiter = fractOut.maxiter;
 			out->iters = fractOut.iters;
 			out->colorIndex = fractOut.colorIndex;
+			out->totalIters += fractOut.iters;
 
 			if (out->maxiter) distance = 0.0;
 			//qDebug() << "maxiter" << out->maxiter;
@@ -224,6 +226,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 			bool maxiter = out->maxiter = fractOut.maxiter;
 			out->iters = fractOut.iters;
 			out->colorIndex = fractOut.colorIndex;
+			out->totalIters += fractOut.iters;
 
 			fractIn.maxN = fractOut.iters; //for other directions must be the same number of iterations
 
@@ -231,16 +234,19 @@ double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &
 			Compute<fractal::calcModeDeltaDE1>(four, fractIn, &fractOut);
 			double r2 = fractOut.z.Length();
 			double dr1 = fabs(r2 - r) / deltaDE;
+			out->totalIters += fractOut.iters;
 
 			fractIn.point = in.point + CVector3(0.0, deltaDE, 0.0);
 			Compute<fractal::calcModeDeltaDE1>(four, fractIn, &fractOut);
 			r2 = fractOut.z.Length();
 			double dr2 = fabs(r2 - r) / deltaDE;
+			out->totalIters += fractOut.iters;
 
 			fractIn.point = in.point + CVector3(0.0, 0.0, deltaDE);
 			Compute<fractal::calcModeDeltaDE1>(four, fractIn, &fractOut);
 			r2 = fractOut.z.Length();
 			double dr3 = fabs(r2 - r) / deltaDE;
+			out->totalIters += fractOut.iters;
 
 			double dr = sqrt(dr1 * dr1 + dr2 * dr2 + dr3 * dr3);
 

@@ -297,8 +297,8 @@ bool cRenderJob::Execute(void)
 	ReduceDetail();
 
 	//initialize histograms
-	renderData->histogramIterations.Resize(paramsContainer->Get<int>("N"));
-	renderData->histogramStepCount.Resize(1000);
+	renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
+	renderData->statistics.histogramStepCount.Resize(1000);
 
 	//create and execute renderer
 	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image, parentObject);
@@ -309,8 +309,7 @@ bool cRenderJob::Execute(void)
 
 	if(image->IsMainImage())
 	{
-		if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramIterations(cHistogram)), parentObject, SLOT(slotUpdateHistogramIterations(cHistogram)));
-		if(parentObject) QObject::connect(renderer, SIGNAL(updateHistogramStepCount(cHistogram)), parentObject, SLOT(slotUpdateHistogramStepCount(cHistogram)));
+		if(parentObject) QObject::connect(renderer, SIGNAL(updateStatistics(cStatistics)), parentObject, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 
 	if(image->IsMainImage())

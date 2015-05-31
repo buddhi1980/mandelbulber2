@@ -190,8 +190,8 @@ bool cRenderer::RenderImage()
 
 					if(image->IsMainImage())
 					{
-						emit updateHistogramIterations(data->histogramIterations);
-						emit updateHistogramStepCount(data->histogramStepCount);
+						data->statistics.time = progressText.getTime();
+						emit updateStatistics(data->statistics);
 					}
 
 					//sending rendered lines to NetRender server
@@ -347,8 +347,8 @@ bool cRenderer::RenderImage()
 	//update histograms
 	if(image->IsMainImage())
 	{
-		emit updateHistogramIterations(data->histogramIterations);
-		emit updateHistogramStepCount(data->histogramStepCount);
+		data->statistics.time = progressText.getTime();
+		emit updateStatistics(data->statistics);
 	}
 
 	if(parentObject)

@@ -194,9 +194,6 @@ private:
 	CVector3 viewAngle;
 	CVector3 shadowVector;
 	int AOvectorsCount;
-	long int missed_DE_counter;
-	long int DECounter;
-	long int pixelCounter;
 	int reflectionsMax;
 	bool stopRequest;
 

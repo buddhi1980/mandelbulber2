@@ -28,7 +28,7 @@
 #include "region.hpp"
 #include <QProgressBar>
 #include <QStatusBar>
-#include "histogram.hpp"
+#include "statistics.h"
 
 struct sRenderData
 {
@@ -49,8 +49,7 @@ struct sRenderData
 	bool doNotRefresh;
 	double lastPercentage;
 	double reduceDetail;
-	cHistogram histogramIterations;
-	cHistogram histogramStepCount;
+	cStatistics statistics;
 	QList<int> netRenderStartingPositions;
 };
 

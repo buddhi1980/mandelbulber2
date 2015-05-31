@@ -28,6 +28,7 @@
 #include "../qt/ui_render_window.h"
 #include <QSettings>
 #include "cimage.hpp"
+#include "statistics.h"
 
 namespace Ui
 {
@@ -94,8 +95,7 @@ private slots:
 	void slotSliderMovedEditManualLightPlacementDistance(int value);
 	void slotMenuLoadPreset(QString filename);
 	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
-	void slotUpdateHistogramIterations(cHistogram histogram);
-	void slotUpdateHistogramStepCount(cHistogram histogram);
+	void slotUpdateStatistics(cStatistics);
 	void slotMenuProgramSettings();
 
 	//camera

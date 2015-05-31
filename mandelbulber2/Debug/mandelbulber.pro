@@ -60,6 +60,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/shaders.cpp\
 			../src/system.cpp\
 			../src/ssao_worker.cpp\
+			../src/statistics.cpp\
 			../src/texture.cpp\
 			../src/thumbnail.cpp\
 			../src/thumbnail_widget.cpp\

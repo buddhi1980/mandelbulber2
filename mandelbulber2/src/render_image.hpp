@@ -56,8 +56,7 @@ public slots:
 
 	signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
-	void updateHistogramIterations(cHistogram histogram);
-	void updateHistogramStepCount(cHistogram histogram);
+	void updateStatistics(cStatistics);
 	void sendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);
 	void SendToDoList(int clientIndex, QList<int> done);
 	void StopAllClients();

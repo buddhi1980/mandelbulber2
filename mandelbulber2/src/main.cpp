@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 	gApplication->installTranslator(&qt_data_translator);
 
 	//registering types for queued connections
-	qRegisterMetaType<cHistogram>("cHistogram");
+	qRegisterMetaType<cStatistics>("cStatistics");
 	qRegisterMetaType<QList<QByteArray> >("QList<QByteArray>");
 	qRegisterMetaType<QList<int> >("QList<int>");
 	qRegisterMetaType<cParameterContainer>("cParameterContainer");

@@ -198,7 +198,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionShow_animation_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionShow_toolbar, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionShow_info_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
-	QApplication::connect(mainWindow->ui->actionShow_histogram_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
+	QApplication::connect(mainWindow->ui->actionShow_statistics_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveSettings()));
 	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadSettings()));
 	QApplication::connect(mainWindow->ui->actionLoad_example, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadExample()));
@@ -983,6 +983,10 @@ void cInterface::StartRender(void)
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, mainWindow, renderedImage); //deleted by deleteLater()
 
 	renderJob->Init(cRenderJob::still);
+
+	//show distance in statistics table
+	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
+	mainWindow->ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
 
 	QThread *thread = new QThread; //deleted by deleteLater()
 	renderJob->moveToThread(thread);

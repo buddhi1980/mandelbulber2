@@ -424,6 +424,11 @@ void cKeyframeAnimation::RenderKeyframes()
 			gPar->Set("camera_distance_to_target", cameraTarget.GetDistance());
 
 			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+			//show distance in statistics table
+			double distance = mainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
+			ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
+
 			renderJob->UpdateParameters(gPar, gParFractal);
 			int result = renderJob->Execute();
 			if(!result) break;
