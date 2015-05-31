@@ -313,6 +313,8 @@ using namespace parameterContainer;
 	par->addParam("default_textures_path", systemData.sharedDir + "textures", morphNone, paramApp);
 	par->addParam("default_settings_path", systemData.dataDirectory + "settings", morphNone, paramApp);
 
+	par->addParam("jpeg_quality", 95, morphNone, paramApp);
+
 
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);

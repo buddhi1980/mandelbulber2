@@ -40,7 +40,7 @@
         <x>0</x>
         <y>0</y>
         <width>423</width>
-        <height>430</height>
+        <height>431</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -86,7 +86,7 @@
              <number>2</number>
             </property>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="text_default_image_path"/>
+             <widget class="MyLineEdit" name="text_default_image_path"/>
             </item>
             <item row="1" column="2">
              <widget class="QPushButton" name="pushButton_select_settings_path">
@@ -127,7 +127,7 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="text_default_settings_path"/>
+             <widget class="MyLineEdit" name="text_default_settings_path"/>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_3">
@@ -137,7 +137,7 @@
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QLineEdit" name="text_default_textures_path"/>
+             <widget class="MyLineEdit" name="text_default_textures_path"/>
             </item>
             <item row="2" column="2">
              <widget class="QPushButton" name="pushButton_select_textures_path">
@@ -148,6 +148,73 @@
                <iconset theme="folder">
                 <normaloff/>
                </iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Image quality</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>2</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>2</number>
+          </property>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_2">
+            <property name="spacing">
+             <number>2</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>JPEG quality:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QSlider" name="sliderInt_jpeg_quality">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="singleStep">
+               <number>8</number>
+              </property>
+              <property name="pageStep">
+               <number>64</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="MySpinBox" name="spinboxInt_jpeg_quality">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
               </property>
              </widget>
             </item>
@@ -185,6 +252,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mylineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>myspinbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -194,8 +273,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>250</x>
+     <y>457</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -210,8 +289,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>318</x>
+     <y>457</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

@@ -695,7 +695,11 @@ void RenderWindow::slotMenuSaveImageJPEG()
 		QString filename = filenames.first();
 		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
 		gApplication->processEvents();
-		SaveJPEGQt(filename, gMainInterface->mainImage->ConvertTo8bit(), gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), 95);
+		SaveJPEGQt(	filename,
+								gMainInterface->mainImage->ConvertTo8bit(),
+								gMainInterface->mainImage->GetWidth(),
+								gMainInterface->mainImage->GetHeight(),
+								gPar->Get<int>("jpeg_quality"));
 		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
