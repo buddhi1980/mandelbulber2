@@ -25,6 +25,7 @@ private slots:
 
     void on_pushButton_select_textures_path_clicked();
 
+		void on_comboBox_ui_style_type(int index);
 private:
     Ui::cPreferencesDialog *ui;
 };

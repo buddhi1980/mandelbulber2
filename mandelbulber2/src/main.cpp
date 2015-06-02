@@ -92,19 +92,19 @@ int main(int argc, char *argv[])
 	//Netrender
 	gNetRender = new CNetRender(systemData.numberOfThreads);
 
-	gMainInterface->ShowUi();
-
 	//loading AppSettings
 	if(QFile(systemData.dataDirectory + "mandelbulber.ini").exists())
 	{
 		cSettings parSettings(cSettings::formatAppSettings);
 		parSettings.LoadFromFile(systemData.dataDirectory + "mandelbulber.ini");
 		parSettings.Decode(gPar, gParFractal);
-		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-		gMainInterface->ComboMouseClickUpdate();
 	}
 
 	UpdateDefaultPaths();
+
+	UpdateUIStyle();
+
+	gMainInterface->ShowUi();
 
 	//Allocate container for animation frames
 	gAnimFrames = new cAnimationFrames;
@@ -117,6 +117,7 @@ int main(int argc, char *argv[])
 
 	//write parameters to ui
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	gMainInterface->ComboMouseClickUpdate();
 
 	//start main Qt loop
 	WriteLog("application->exec()");

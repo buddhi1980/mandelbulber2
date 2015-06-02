@@ -345,7 +345,13 @@ void UpdateDefaultPaths (void)
 	gPar->Set("file_background", gPar->Get<QString>("default_textures_path") + QDir::separator() + "background.jpg");
 	gPar->Set("file_envmap", gPar->Get<QString>("default_textures_path") + QDir::separator() + "envmap.jpg");
 	gPar->Set("file_lightmap", gPar->Get<QString>("default_textures_path") + QDir::separator() + "lightmap.jpg");
+}
 
-
-
+void UpdateUIStyle (void)
+{
+	// set ui style
+	if(gPar->Get<int>("ui_style_type") >= 0 && gPar->Get<int>("ui_style_type") < QStyleFactory::keys().size())
+	{
+		gApplication->setStyle(QStyleFactory::create(QStyleFactory::keys().at(gPar->Get<int>("ui_style_type"))));
+	}
 }

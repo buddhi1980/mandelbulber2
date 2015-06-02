@@ -11,6 +11,9 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
 
 	gMainInterface->ConnectSignalsForSlidersInWindow(this);
   gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
+	ui->comboBox_ui_style_type->addItems(QStyleFactory::keys());
+	ui->comboBox_ui_style_type->setCurrentIndex(gPar->Get<int>("ui_style_type"));
+	connect(ui->comboBox_ui_style_type, SIGNAL(currentIndexChanged(int)), this, SLOT(on_comboBox_ui_style_type(int)));
 }
 
 cPreferencesDialog::~cPreferencesDialog()
@@ -48,4 +51,13 @@ void cPreferencesDialog::on_pushButton_select_textures_path_clicked()
   {
   	ui->text_default_textures_path->setText(dir);
   }
+}
+
+void cPreferencesDialog::on_comboBox_ui_style_type(int index)
+{
+	QStringList styles = QStyleFactory::keys();
+	if(index >= 0 && index < styles.size())
+	{
+		gApplication->setStyle(QStyleFactory::create(styles[index]));
+	}
 }

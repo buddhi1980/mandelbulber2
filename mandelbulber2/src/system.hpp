@@ -82,6 +82,6 @@ int fcopy(QString source, QString dest);
 void Wait(long int time);
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 void UpdateDefaultPaths();
-
+void UpdateUIStyle();
 
 #endif /* SYSTEM_HPP_ */
