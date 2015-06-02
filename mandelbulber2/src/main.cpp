@@ -104,6 +104,8 @@ int main(int argc, char *argv[])
 
 	UpdateUIStyle();
 
+	UpdateUISkin();
+
 	gMainInterface->ShowUi();
 
 	//Allocate container for animation frames

@@ -39,8 +39,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>423</width>
-        <height>425</height>
+        <width>567</width>
+        <height>409</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -259,9 +259,42 @@
             <item row="0" column="1">
              <widget class="QComboBox" name="comboBox_ui_style_type"/>
             </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>UI Skin</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="comboBox_ui_skin">
+              <item>
+               <property name="text">
+                <string>normal</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>dark</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>light</string>
+               </property>
+              </item>
+             </widget>
+            </item>
            </layout>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Skin based on https://gist.github.com/QuantumCD/6245215 thanks to QuantumCD</string>
+         </property>
         </widget>
        </item>
        <item>
