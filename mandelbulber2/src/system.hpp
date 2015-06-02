@@ -84,5 +84,6 @@ void Wait(long int time);
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 void UpdateDefaultPaths();
 void UpdateUIStyle();
+void UpdateUISkin();
 
 #endif /* SYSTEM_HPP_ */

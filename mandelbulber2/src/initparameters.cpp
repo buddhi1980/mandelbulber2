@@ -316,7 +316,7 @@ using namespace parameterContainer;
 	par->addParam("jpeg_quality", 95, morphNone, paramApp);
 
 	par->addParam("ui_style_type", -1, morphNone, paramApp);
-
+	par->addParam("ui_skin", -1, morphNone, paramApp);
 
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);

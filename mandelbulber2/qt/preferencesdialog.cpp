@@ -13,7 +13,10 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
   gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
 	ui->comboBox_ui_style_type->addItems(QStyleFactory::keys());
 	ui->comboBox_ui_style_type->setCurrentIndex(gPar->Get<int>("ui_style_type"));
+	ui->comboBox_ui_skin->setCurrentIndex(gPar->Get<int>("ui_skin"));
+
 	connect(ui->comboBox_ui_style_type, SIGNAL(currentIndexChanged(int)), this, SLOT(on_comboBox_ui_style_type(int)));
+	connect(ui->comboBox_ui_skin, SIGNAL(currentIndexChanged(int)), this, SLOT(on_comboBox_ui_skin(int)));
 }
 
 cPreferencesDialog::~cPreferencesDialog()
@@ -55,9 +58,12 @@ void cPreferencesDialog::on_pushButton_select_textures_path_clicked()
 
 void cPreferencesDialog::on_comboBox_ui_style_type(int index)
 {
-	QStringList styles = QStyleFactory::keys();
-	if(index >= 0 && index < styles.size())
-	{
-		gApplication->setStyle(QStyleFactory::create(styles[index]));
-	}
+	gPar->Set<int>("ui_style_type", index);
+	UpdateUIStyle();
+}
+
+void cPreferencesDialog::on_comboBox_ui_skin(int index)
+{
+	gPar->Set<int>("ui_skin", index);
+	UpdateUISkin();
 }
