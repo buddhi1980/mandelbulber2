@@ -129,9 +129,9 @@ void cSettings::CreateAnimationString(QString &text, const QString &headerText, 
 					if (parameterList[i].varType == parameterContainer::typeVector3)
 					{
 						CVector3 val = frames.GetFrame(f).parameters.Get<CVector3>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
-						text += QString::number(val.x, 'g', 16) + ";";
-						text += QString::number(val.y, 'g', 16) + ";";
-						text += QString::number(val.z, 'g', 16);
+						text += QString("%L1").arg(val.x, 0, 'g', 16) + ";";
+						text += QString("%L1").arg(val.y, 0, 'g', 16) + ";";
+						text += QString("%L1").arg(val.z, 0, 'g', 16);
 					}
 					else if (parameterList[i].varType == parameterContainer::typeRgb)
 					{
@@ -504,6 +504,11 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 		{
 			value = (value == QString("true")) ? "1" : "0";
 		}
+		else if(varType == typeDouble || varType == typeVector3)
+		{
+			value = everyLocaleDouble(value);
+		}
+
 		par->Set(parameterName, value);
 		return true;
 	}
@@ -644,9 +649,9 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 					if(type == typeVector3)
 					{
 						CVector3 vect;
-						vect.x = lineSplit[column].toDouble();
-						vect.y = lineSplit[column + 1].toDouble();
-						vect.z = lineSplit[column + 2].toDouble();
+						vect.x = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column]));
+						vect.y = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 1]));
+						vect.z = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 2]));
 						column += 2;
 						container->Set(parameterName, vect);
 					}
@@ -661,7 +666,15 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 					}
 					else
 					{
-						QString val = lineSplit[column];
+						QString val;
+						if(type == typeDouble)
+						{
+							val = everyLocaleDouble(lineSplit[column]);
+						}
+						else
+						{
+							val = lineSplit[column];
+						}
 						container->Set(parameterName, val);
 					}
 					column++;
@@ -699,5 +712,13 @@ QString cSettings::GetSettingsText()
 	{
 		return QString();
 	}
+}
+
+QString cSettings::everyLocaleDouble(QString txt)
+{
+	QString txtOut;
+	if(systemData.decimalPoint == ',') txtOut = txt.replace('.', ',');
+	if(systemData.decimalPoint == '.') txtOut = txt.replace(',', '.');
+	return txtOut;
 }
 

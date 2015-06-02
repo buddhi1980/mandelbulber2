@@ -483,9 +483,9 @@ int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame)
 		if (type == typeVector3)
 		{
 			CVector3 val = frame.parameters.Get<CVector3>(parameterName);
-			table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.x, 'g', 16)));
-			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.y, 'g', 16)));
-			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.z, 'g', 16)));
+			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
+			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
+			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
 		}
 		else if (type == typeRgb)
 		{
@@ -583,7 +583,7 @@ void cFlightAnimation::RenderFlight()
 
 		//show distance in statistics table
 		double distance = mainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
-		ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
+		ui->tableWidget_statistics->item(4, 0)->setText(QString("%L1").arg(distance));
 
 		renderJob->UpdateParameters(gPar, gParFractal);
 		int result = renderJob->Execute();
@@ -732,9 +732,9 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 		if(type == typeVector3)
 		{
 			CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
-			if(vectIndex == 0) vect.x = cellText.toDouble();
-			if(vectIndex == 1) vect.y = cellText.toDouble();
-			if(vectIndex == 2) vect.z = cellText.toDouble();
+			if(vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
+			if(vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
+			if(vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
 			frame.parameters.Set(parameterName, vect);
 		}
 		else if(type == typeRgb)
@@ -849,7 +849,7 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		case typeVector3:
 		{
 			valueIsDouble = true;
-			valueDouble = cellText.toDouble();
+			valueDouble = systemData.locale.toDouble(cellText);
 			//qDebug() << valueDouble;
 			break;
 		}
@@ -874,8 +874,8 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 	}
 	else if(valueIsDouble)
 	{
-		finallDouble = QInputDialog::getText(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
-				QString::number(valueDouble, 'g', 16), &ok).toDouble();
+		finallDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
+				QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
 		doubleStep = (finallDouble - valueDouble) / numberOfFrames;
 	}
 
@@ -892,7 +892,7 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		else if(valueIsDouble)
 		{
 			double newValue = doubleStep * (i - column) + valueDouble;
-			newCellText = QString::number(newValue, 'g', 16);
+			newCellText = QString("%L1").arg(newValue, 0, 'g', 16);
 		}
 		else if(valueIsText)
 		{

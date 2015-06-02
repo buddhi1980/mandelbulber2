@@ -110,7 +110,7 @@ QString MyLineEdit::GetDefault()
 			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 			QString nameVect = parameterName.left(parameterName.length() - 2);
 			CVector3 val = parameterContainer->GetDefault<CVector3>(nameVect);
-			QString valS = QString::number(val.itemByName(lastChar), 'g', 16);
+			QString valS = QString("%L1").arg(val.itemByName(lastChar), 0, 'g', 16);
 			defaultText = valS;
 			gotDefault = true;
 		}

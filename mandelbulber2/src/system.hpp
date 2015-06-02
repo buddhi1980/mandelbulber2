@@ -57,6 +57,7 @@ struct sSystem
 	int numberOfThreads;
 	bool noGui;
 	QChar decimalPoint;
+	QLocale locale;
 };
 
 struct sActualFileNames

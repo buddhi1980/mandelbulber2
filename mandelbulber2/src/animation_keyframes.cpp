@@ -271,9 +271,9 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		if (type == typeVector3)
 		{
 			CVector3 val = parameter.Get<CVector3>(valueActual);
-			table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.x, 'g', 16)));
-			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.y, 'g', 16)));
-			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.z, 'g', 16)));
+			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
+			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
+			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
 			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
@@ -552,9 +552,9 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 		if(type == typeVector3)
 		{
 			CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
-			if(vectIndex == 0) vect.x = cellText.toDouble();
-			if(vectIndex == 1) vect.y = cellText.toDouble();
-			if(vectIndex == 2) vect.z = cellText.toDouble();
+			if(vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
+			if(vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
+			if(vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
 			frame.parameters.Set(parameterName, vect);
 		}
 		else if(type == typeRgb)
@@ -663,7 +663,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 		case typeVector3:
 		{
 			valueIsDouble = true;
-			valueDouble = cellText.toDouble();
+			valueDouble = systemData.locale.toDouble(cellText);
 			//qDebug() << valueDouble;
 			break;
 		}
@@ -688,8 +688,8 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	}
 	else if(valueIsDouble)
 	{
-		finallDouble = QInputDialog::getText(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
-				QString::number(valueDouble, 'g', 16), &ok).toDouble();
+		finallDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
+				QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
 		doubleStep = (finallDouble - valueDouble) / numberOfFrames;
 	}
 
@@ -706,7 +706,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 		else if(valueIsDouble)
 		{
 			double newValue = doubleStep * (i - column) + valueDouble;
-			newCellText = QString::number(newValue, 'g', 16);
+			newCellText = QString("%L1").arg(newValue, 0, 'g', 16);
 		}
 		else if(valueIsText)
 		{

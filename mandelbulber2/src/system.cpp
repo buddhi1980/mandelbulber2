@@ -39,6 +39,9 @@ sActualFileNames actualFileNames;
 bool InitSystem(void)
 {
 	setlocale(LC_ALL, "");
+	systemData.locale = QLocale::system();
+	systemData.locale.setNumberOptions(QLocale::OmitGroupSeparator);
+	QLocale::setDefault(systemData.locale);
 
 	QTextStream out(stdout);
 

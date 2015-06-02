@@ -359,7 +359,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 
 					if (mode == read)
 					{
-						double value = lineEdit->text().toDouble();
+						double value = systemData.locale.toDouble(lineEdit->text());
 						//out << nameVect << " - " << lastChar << " axis = " << value << endl;
 						CVector3 vect = par->Get<CVector3>(nameVect);
 
@@ -391,15 +391,15 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 						switch (lastChar)
 						{
 							case 'x':
-								qtext = QString::number(vect.x, 'g', 16);
+								qtext = QString("%L1").arg(vect.x, 0, 'g', 16);
 								break;
 
 							case 'y':
-								qtext = QString::number(vect.y, 'g', 16);
+								qtext = QString("%L1").arg(vect.y, 0, 'g', 16);
 								break;
 
 							case 'z':
-								qtext = QString::number(vect.z, 'g', 16);
+								qtext = QString("%L1").arg(vect.z, 0, 'g', 16);
 								break;
 
 							default:
@@ -416,13 +416,13 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 				{
 					if (mode == read)
 					{
-						double value = lineEdit->text().toDouble();
+						double value = systemData.locale.toDouble(lineEdit->text());
 						par->Set(parameterName, value);
 					}
 					else if (mode == write)
 					{
 						double value = par->Get<double>(parameterName);
-						lineEdit->setText(QString::number(value, 'g', 16));
+						lineEdit->setText(QString("%L1").arg(value, 0, 'g', 16));
 						lineEdit->setCursorPosition(0);
 					}
 				}

@@ -61,6 +61,8 @@ private:
 	bool DecodeFramesHeader(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
 	bool DecodeFramesLine(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
 
+	QString everyLocaleDouble(QString txt);
+
 	enumFormat format;
 	QString settingsText;
 

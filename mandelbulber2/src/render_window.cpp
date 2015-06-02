@@ -115,10 +115,10 @@ void RenderWindow::slotLogLineEditChanged(const QString &text)
 	QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
 	if (slider)
 	{
-		double value = text.toDouble();
+		double value = systemData.locale.toDouble(text);
 		if(value > 0.0)
 		{
-			int sliderPosition = log10(text.toDouble()) * 100.0;
+			int sliderPosition = log10(systemData.locale.toDouble(text)) * 100.0;
 			slider->setValue(sliderPosition);
 		}
 		else
@@ -239,7 +239,7 @@ void RenderWindow::slotLogSliderMoved(int value)
 	if(lineEdit)
 	{
 		double dValue = pow(10.0, value/100.0);
-		QString text = QString::number(dValue);
+		QString text = QString("%L1").arg(dValue);
 		lineEdit->setText(text);
 	}
 	else
@@ -1168,7 +1168,7 @@ void RenderWindow::slotMouseWheelRotatedonImage(int delta)
 		case RenderedImage::clickPlaceLight:
 		{
 			double deltaLog = exp(delta * 0.001);
-			double dist = ui->logedit_aux_light_manual_placement_dist->text().toDouble();
+			double dist = systemData.locale.toDouble(ui->logedit_aux_light_manual_placement_dist->text());
 			dist *= deltaLog;
 			ui->logedit_aux_light_manual_placement_dist->setText(QString::number(dist));
 			break;
@@ -1180,7 +1180,7 @@ void RenderWindow::slotMouseWheelRotatedonImage(int delta)
 
 void RenderWindow::slotEditedLineEditManualLightPlacementDistance(const QString &text)
 {
-	gMainInterface->renderedImage->SetFrontDist(text.toDouble());
+	gMainInterface->renderedImage->SetFrontDist(systemData.locale.toDouble(text));
 }
 
 void RenderWindow::slotSliderMovedEditManualLightPlacementDistance(int value)

@@ -7,6 +7,7 @@
 
 #include "multi_val.hpp"
 #include <QtCore>
+#include <QLocale>
 
 using namespace parameterContainer;
 
@@ -34,7 +35,7 @@ enumVarType cMultiVal::Store(double val)
 {
 	dVal[0] = val;
 	iVal[0] = val;
-	sVal = QString::number(val, 'g', 16);
+	sVal = QString("%L1").arg(val, 0, 'g', 16);
 
 	if(!typeDefined) type = typeDouble;
 	return typeDouble;
@@ -63,7 +64,7 @@ enumVarType cMultiVal::Store(QString val)
 			if(size >= 4) size = 4;
 			for(int i = 0; i < size; i++)
 			{
-				dVal[i] = split[i].toDouble();
+				dVal[i] = QLocale::system().toDouble(split[i]);
 				iVal[i] = split[i].toInt();
 			}
 			break;
@@ -71,7 +72,7 @@ enumVarType cMultiVal::Store(QString val)
 		case typeInt:
 		case typeDouble:
 		case typeBool:
-			dVal[0] = val.toDouble();
+			dVal[0] = QLocale::system().toDouble(val);
 			iVal[0] = val.toInt();
 			break;
 
@@ -105,7 +106,7 @@ enumVarType cMultiVal::Store(CVector3 val)
 	iVal[0] = val.x;
 	iVal[1] = val.y;
 	iVal[2] = val.z;
-	sVal =  QString::number(val.x, 'g', 16) + " " + QString::number(val.y, 'g', 16) + " " + QString::number(val.z, 'g', 16);
+	sVal =  QString("%L1 %L2 %L3").arg(val.x, 0, 'g', 16).arg(val.y, 0, 'g', 16).arg(val.z, 0, 'g', 16);
 
 	if(!typeDefined) type = typeVector3;
 	return type;
