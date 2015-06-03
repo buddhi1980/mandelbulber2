@@ -361,11 +361,12 @@ void UpdateUIStyle (void)
 
 void UpdateUISkin (void)
 {
+	static QPalette defaultPalette; // cache "normal" skin on first call
 	QPalette palette;
 
 	switch(gPar->Get<int>("ui_skin"))
 	{
-		case 1:
+		case 1: // dark skin
 			palette.setColor(QPalette::Window, QColor(53,53,53));
 			palette.setColor(QPalette::WindowText, Qt::white);
 			palette.setColor(QPalette::Base, QColor(25,25,25));
@@ -382,6 +383,27 @@ void UpdateUISkin (void)
 			palette.setColor(QPalette::HighlightedText, Qt::black);
 			palette.setColor(QPalette::ToolTipBase, Qt::black);
 			palette.setColor(QPalette::ToolTipText, QColor(42, 130, 218));
+		break;
+		case 2: // light skin (only roughly inverted dark skin)
+			palette.setColor(QPalette::Window, QColor(240,240,240));
+			palette.setColor(QPalette::WindowText, Qt::black);
+			palette.setColor(QPalette::Base, QColor(250,250,250));
+			palette.setColor(QPalette::AlternateBase, QColor(240,240,240));
+			palette.setColor(QPalette::ToolTipBase, Qt::black);
+			palette.setColor(QPalette::ToolTipText, Qt::black);
+			palette.setColor(QPalette::Text, Qt::black);
+			palette.setColor(QPalette::Button, QColor(240,240,240));
+			palette.setColor(QPalette::ButtonText, Qt::black);
+			palette.setColor(QPalette::BrightText, Qt::red);
+			palette.setColor(QPalette::Link, QColor(42, 130, 218));
+
+			palette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+			palette.setColor(QPalette::HighlightedText, Qt::white);
+			palette.setColor(QPalette::ToolTipBase, Qt::white);
+			palette.setColor(QPalette::ToolTipText, QColor(42, 130, 218));
+		break;
+		default: // normal skin
+			palette = defaultPalette;
 		break;
 	}
 	// set ui skin
