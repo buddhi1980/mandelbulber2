@@ -659,21 +659,31 @@ void RenderWindow::slotMenuAboutQt()
 	QMessageBox::aboutQt(this);
 }
 
+void RenderWindow::slotMenuAboutThirdParty()
+{
+	QString text = "<h2>Third Party</h2>";
+	text += "<ul>";
+	text += "	<li><b>Dark Skin</b> based on <br><a href=\"https://gist.github.com/QuantumCD/6245215\">gist.github.com/QuantumCD/6245215</a><br>thanks to QuantumCD</li>";
+	text += "</ul>";
+	QMessageBox::about(this, "About Third Party", text);
+}
+
+
 void RenderWindow::slotMenuAboutMandelbulber()
 {
-	QString text = "Mandelbulber\n";
-	text += "version: " + QString(MANDELBULBER_VERSION_STRING) + ", build date: " + QString(__DATE__) + QString("\n");
-	text += "\n";
-	text += "Licence: GNU GPL version 3.0\n";
-	text += "Copyright Ⓒ 2014\n";
-	text += "project leader: Krzysztof Marczak\n";
-	text += "programmers:\n";
-	text +=	"Krzysztof Marczak\n";
-	text +=	"Sebastian Jennen\n";
-	text += "\n";
-	text += "Thanks to many friends from www.fractalforums.com for help\n";
-	text += "\n";
-	text += "www.mandelbulber.com";
+	QString text = "<h2>Mandelbulber</h2>";
+	text += "version: <b>" + QString(MANDELBULBER_VERSION_STRING) + "</b>, build date: <b>" + QString(__DATE__) + "</b><br>";
+	text += "<br>";
+	text += "Licence: GNU GPL version 3.0<br>";
+	text += "Copyright Ⓒ 2015<br>";
+	text += "project leader: Krzysztof Marczak<br>";
+	text += "programmers:<br>";
+	text +=	"Krzysztof Marczak<br>";
+	text +=	"Sebastian Jennen<br>";
+	text += "<br>";
+	text += "Thanks to many friends from <a href=\"http://www.fractalforums.com\">www.fractalforums.com</a> for help<br>";
+	text += "<br>";
+	text += "<a href=\"http://www.mandelbulber.com\">www.mandelbulber.com</a>";
 
 	QMessageBox::about(this, "About Mandelbulber", text);
 }

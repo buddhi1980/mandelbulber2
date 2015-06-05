@@ -39,8 +39,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>567</width>
-        <height>409</height>
+        <width>423</width>
+        <height>425</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -288,13 +288,6 @@
            </layout>
           </item>
          </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Skin based on https://gist.github.com/QuantumCD/6245215 thanks to QuantumCD</string>
-         </property>
         </widget>
        </item>
        <item>

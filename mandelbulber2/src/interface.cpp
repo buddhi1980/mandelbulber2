@@ -210,6 +210,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionSave_zBuffer_as_PNG_16_bit, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImageZBuffer()));
 	QApplication::connect(mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
 	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutMandelbulber()));
+	QApplication::connect(mainWindow->ui->actionAbout_ThirdParty, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutThirdParty()));
 	QApplication::connect(mainWindow->ui->actionUndo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuUndo()));
 	QApplication::connect(mainWindow->ui->actionRedo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuRedo()));
 	QApplication::connect(mainWindow->ui->actionProgramSettings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuProgramSettings()));

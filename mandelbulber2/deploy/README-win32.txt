@@ -6,7 +6,7 @@ project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Eple
 contact: buddhi1980@gmail.com
 www: http://www.mandelbulber.com
 download site: http://sourceforge.net/projects/mandelbulber/
-SVN: http://code.google.com/p/mandelbulber2/
+GIT: https://github.com/buddhi1980/mandelbulber2
 
 LICENCE: GNU GPL v3.0
 
@@ -25,7 +25,8 @@ Copy this folder somewhere and run Mandelbulber2.exe or run Mandelbulber v2-2.xx
 4. TESTED ON:
 
 - Windows Vista
-- Windows 7 
+- Windows 7
+- Windows 8
 
 5. USAGE
 

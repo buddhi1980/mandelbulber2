@@ -254,6 +254,7 @@
     </property>
     <addaction name="actionAbout_Mandelbulber"/>
     <addaction name="actionAbout_Qt"/>
+    <addaction name="actionAbout_ThirdParty"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -11260,6 +11261,11 @@ and water):</string>
   <action name="actionAbout_Qt">
    <property name="text">
     <string>About Qt</string>
+   </property>
+  </action>
+  <action name="actionAbout_ThirdParty">
+   <property name="text">
+    <string>About Third Party</string>
    </property>
   </action>
   <action name="actionAbout_Mandelbulber">
