@@ -329,7 +329,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-341</y>
           <width>339</width>
           <height>449</height>
          </rect>
@@ -378,6 +378,9 @@
               </property>
               <item row="1" column="2">
                <widget class="MySpinBox" name="spinboxInt_image_height">
+                <property name="toolTip">
+                 <string>Height of rendered image in pixels</string>
+                </property>
                 <property name="minimum">
                  <number>32</number>
                 </property>
@@ -443,6 +446,9 @@
               </item>
               <item row="0" column="2">
                <widget class="MySpinBox" name="spinboxInt_image_width">
+                <property name="toolTip">
+                 <string>Width of rendered image in pixels</string>
+                </property>
                 <property name="minimum">
                  <number>32</number>
                 </property>
@@ -463,6 +469,9 @@
               </item>
               <item row="2" column="1">
                <widget class="QComboBox" name="comboBox_image_proportion">
+                <property name="toolTip">
+                 <string>Force image proportion</string>
+                </property>
                 <item>
                  <property name="text">
                   <string>Free</string>
@@ -504,6 +513,9 @@
             </item>
             <item>
              <widget class="QGroupBox" name="groupBox_6">
+              <property name="toolTip">
+               <string>Presets for rendered image size</string>
+              </property>
               <property name="title">
                <string>Presets</string>
               </property>
@@ -604,6 +616,9 @@
          </item>
          <item>
           <widget class="QGroupBox" name="groupBox_ImageAdjustments">
+           <property name="toolTip">
+            <string>Adjustments for image colors. Can be changed after rendering</string>
+           </property>
            <property name="title">
             <string>Picture</string>
            </property>
@@ -630,6 +645,9 @@
               </property>
               <item row="1" column="2">
                <widget class="MyDoubleSpinBox" name="spinbox_contrast">
+                <property name="toolTip">
+                 <string>Contrast of image</string>
+                </property>
                 <property name="prefix">
                  <string/>
                 </property>
@@ -649,6 +667,9 @@
               </item>
               <item row="2" column="2">
                <widget class="MyDoubleSpinBox" name="spinbox_gamma">
+                <property name="toolTip">
+                 <string>Gamma of image</string>
+                </property>
                 <property name="prefix">
                  <string/>
                 </property>
@@ -675,6 +696,9 @@
               </item>
               <item row="0" column="2">
                <widget class="MyDoubleSpinBox" name="spinbox_brightness">
+                <property name="toolTip">
+                 <string>Brightness of image</string>
+                </property>
                 <property name="prefix">
                  <string/>
                 </property>
@@ -743,6 +767,9 @@
             </item>
             <item>
              <widget class="MyCheckBox" name="checkBox_hdr">
+              <property name="toolTip">
+               <string>High dynamic range effect. Reduces brightness of the brightest pixels to not oversaturate them.</string>
+              </property>
               <property name="text">
                <string>High Dynamic Range (HDR)</string>
               </property>
@@ -750,6 +777,9 @@
             </item>
             <item>
              <widget class="QPushButton" name="pushButton_apply_image_changes">
+              <property name="toolTip">
+               <string>Apply changes of image colors</string>
+              </property>
               <property name="text">
                <string>Apply changes</string>
               </property>
@@ -794,6 +824,9 @@
               </item>
               <item row="0" column="2">
                <widget class="MyDoubleSpinBox" name="spinbox_fov">
+                <property name="toolTip">
+                 <string>Field of view of camera. Higher value gives wider view.</string>
+                </property>
                 <property name="prefix">
                  <string/>
                 </property>
@@ -835,6 +868,9 @@
               </item>
               <item row="1" column="1" colspan="2">
                <widget class="QComboBox" name="comboBox_perspective_type">
+                <property name="toolTip">
+                 <string>Type of perspective projection.</string>
+                </property>
                 <item>
                  <property name="text">
                   <string>Three-point perspective</string>
@@ -868,6 +904,9 @@
             </item>
             <item>
              <widget class="MyCheckBox" name="checkBox_legacy_coordinate_system">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This guarantee compatibility of coordinate system with old Mandelbulber v. 1.21&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
               <property name="text">
                <string>Coordinate system like in Mandelbulber v1.21</string>
               </property>
@@ -2170,6 +2209,9 @@ to target:</string>
                    </item>
                    <item row="2" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_ambient_occlusion">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of scattered light&lt;/p&gt;&lt;p&gt;example of effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="prefix">
                       <string/>
                      </property>
@@ -2249,7 +2291,7 @@ to target:</string>
                    <item row="0" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_shading">
                      <property name="toolTip">
-                      <string>angle of incidence effect intesity</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;angle of incidence effect intesity&lt;/p&gt;&lt;p&gt;shading 0.0&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;shading 1.0&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="prefix">
                       <string/>
@@ -2270,6 +2312,9 @@ to target:</string>
                    </item>
                    <item row="1" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_specular">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;specularity effect&lt;/p&gt;&lt;p&gt;specularity 0&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 0.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;specularity 5&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="prefix">
                       <string/>
                      </property>

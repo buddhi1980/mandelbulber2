@@ -335,6 +335,9 @@ void RenderWindow::slotMenuResetDocksPositions()
 {
 	restoreGeometry(defaultGeometry);
 	restoreState(defaultState);
+	ui->dockWidget_histogram->hide();
+	ui->dockWidget_info->hide();
+	ui->dockWidget_animation->hide();
 }
 
 void RenderWindow::slotChangedComboFractal(int index)
@@ -1303,6 +1306,8 @@ void RenderWindow::slotStackAllDocks()
 	tabifyDockWidget(ui->dockWidget_effects, ui->dockWidget_image_adjustments);
 	tabifyDockWidget(ui->dockWidget_image_adjustments, ui->dockWidget_rendering_engine);
 	tabifyDockWidget(ui->dockWidget_rendering_engine, ui->dockWidget_fractal);
+	tabifyDockWidget(ui->dockWidget_fractal, ui->dockWidget_histogram);
+	tabifyDockWidget(ui->dockWidget_histogram, ui->dockWidget_info);
 }
 
 void RenderWindow::slotUpdateDocksandToolbarbyAction()
