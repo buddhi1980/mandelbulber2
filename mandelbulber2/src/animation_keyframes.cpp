@@ -37,6 +37,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 	QApplication::connect(ui->pushButton_add_keyframe, SIGNAL(clicked()), this, SLOT(slotAddKeyframe()));
 	QApplication::connect(ui->pushButton_insert_keyframe, SIGNAL(clicked()), this, SLOT(slotInsertKeyframe()));
 	QApplication::connect(ui->pushButton_delete_keyframe, SIGNAL(clicked()), this, SLOT(slotDeleteKeyframe()));
+	QApplication::connect(ui->pushButton_modify_keyframe, SIGNAL(clicked()), this, SLOT(slotModifyKeyframe()));
 	QApplication::connect(ui->pushButton_render_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotRenderKeyframes()));
 	QApplication::connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
 	QApplication::connect(ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
@@ -107,6 +108,38 @@ void cKeyframeAnimation::DeleteKeyframe(int index)
 
 	keyframes->DeleteFrames(index, index);
 	table->removeColumn(index);
+}
+
+void cKeyframeAnimation::slotModifyKeyframe()
+{
+	int column = table->currentColumn();
+
+	if(keyframes)
+	{
+		//get latest values of all parameters
+		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
+		//add new frame to container
+		keyframes->DeleteFrames(column, column);
+		keyframes->AddFrame(*gPar, *gParFractal, column);
+
+		//add column to table
+		table->removeColumn(column);
+		int newColumn = AddColumn(keyframes->GetFrame(column), column);
+		table->selectColumn(newColumn);
+
+		if(ui->checkBox_show_keyframe_thumbnails->isChecked())
+		{
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+			thumbWidget->UseOneCPUCore(false);
+			thumbWidget->AssignParameters(*gPar, *gParFractal);
+			table->setCellWidget(0, newColumn, thumbWidget);
+		}
+	}
+	else
+	{
+		qCritical() << "gAnimFrames not allocated";
+	}
 }
 
 void cKeyframeAnimation::slotDeleteKeyframe()

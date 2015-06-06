@@ -52,6 +52,7 @@ private slots:
 	void slotAddKeyframe();
 	void slotInsertKeyframe();
 	void slotDeleteKeyframe();
+	void slotModifyKeyframe();
 	void slotRenderKeyframes();
 	void slotSelectKeyframeAnimImageDir();
 	void slotTableCellChanged(int row, int column);

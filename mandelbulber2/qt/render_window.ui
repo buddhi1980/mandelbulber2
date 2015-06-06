@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1131</width>
-           <height>670</height>
+           <width>1123</width>
+           <height>498</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -2052,8 +2052,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>155</height>
+          <width>339</width>
+          <height>129</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2116,7 +2116,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>291</width>
                   <height>732</height>
                  </rect>
                 </property>
@@ -2248,6 +2248,9 @@ to target:</string>
                    </item>
                    <item row="0" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_shading">
+                     <property name="toolTip">
+                      <string>angle of incidence effect intesity</string>
+                     </property>
                      <property name="prefix">
                       <string/>
                      </property>
@@ -3018,7 +3021,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>289</width>
                   <height>178</height>
                  </rect>
                 </property>
@@ -3289,7 +3292,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>289</width>
                   <height>531</height>
                  </rect>
                 </property>
@@ -3916,7 +3919,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>289</width>
                   <height>204</height>
                  </rect>
                 </property>
@@ -4143,7 +4146,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>289</width>
                   <height>1300</height>
                  </rect>
                 </property>
@@ -9239,7 +9242,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-658</y>
+          <y>0</y>
           <width>339</width>
           <height>823</height>
          </rect>
@@ -10319,7 +10322,7 @@ and water):</string>
                   <x>0</x>
                   <y>0</y>
                   <width>338</width>
-                  <height>256</height>
+                  <height>306</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -10392,12 +10395,8 @@ and water):</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="0">
-                    <widget class="QLabel" name="label_148">
-                     <property name="text">
-                      <string>speed control:</string>
-                     </property>
-                    </widget>
+                   <item row="6" column="1">
+                    <widget class="MyLineEdit" name="text_anim_flight_dir"/>
                    </item>
                    <item row="4" column="1" colspan="2">
                     <widget class="QComboBox" name="comboBox_flight_speed_control">
@@ -10413,13 +10412,10 @@ and water):</string>
                      </item>
                     </widget>
                    </item>
-                   <item row="6" column="1">
-                    <widget class="MyLineEdit" name="text_anim_flight_dir"/>
-                   </item>
-                   <item row="6" column="2">
-                    <widget class="QPushButton" name="button_selectAnimFlightImageDir">
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_148">
                      <property name="text">
-                      <string>Select folder</string>
+                      <string>speed control:</string>
                      </property>
                     </widget>
                    </item>
@@ -10430,6 +10426,13 @@ and water):</string>
                        <horstretch>1</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="2">
+                    <widget class="QPushButton" name="button_selectAnimFlightImageDir">
+                     <property name="text">
+                      <string>Select folder</string>
                      </property>
                     </widget>
                    </item>
@@ -10455,6 +10458,13 @@ and water):</string>
                      </property>
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="label_151">
+                     <property name="text">
+                      <string>seconds per frame:</string>
                      </property>
                     </widget>
                    </item>
@@ -10490,18 +10500,24 @@ and water):</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="0">
-                    <widget class="QLabel" name="label_151">
-                     <property name="text">
-                      <string>seconds per frame:</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="5" column="1">
                     <widget class="QSlider" name="slider_flight_sec_per_frame">
                      <property name="minimum">
                       <number>1</number>
                      </property>
+                     <property name="maximum">
+                      <number>5000</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QSlider" name="slider_flight_roll_speed">
                      <property name="maximum">
                       <number>5000</number>
                      </property>
@@ -10535,8 +10551,8 @@ and water):</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1">
-                    <widget class="QSlider" name="slider_flight_roll_speed">
+                   <item row="2" column="1">
+                    <widget class="QSlider" name="slider_flight_rotation_speed">
                      <property name="maximum">
                       <number>5000</number>
                      </property>
@@ -10545,6 +10561,13 @@ and water):</string>
                      </property>
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_153">
+                     <property name="text">
+                      <string>roll speed:</string>
                      </property>
                     </widget>
                    </item>
@@ -10567,23 +10590,17 @@ and water):</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1">
-                    <widget class="QSlider" name="slider_flight_rotation_speed">
-                     <property name="maximum">
-                      <number>5000</number>
-                     </property>
-                     <property name="singleStep">
-                      <number>1</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                   <item row="10" column="0" colspan="3">
+                    <widget class="MyCheckBox" name="checkBox_flight_show_thumbnails">
+                     <property name="text">
+                      <string>Show thumbnails</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="label_153">
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_152">
                      <property name="text">
-                      <string>roll speed:</string>
+                      <string>rotation speed:</string>
                      </property>
                     </widget>
                    </item>
@@ -10606,25 +10623,95 @@ and water):</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="8" column="0" colspan="3">
-                    <widget class="MyCheckBox" name="checkBox_flight_show_thumbnails">
-                     <property name="text">
-                      <string>Show thumbnails</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_152">
-                     <property name="text">
-                      <string>rotation speed:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="9" column="0" colspan="3">
+                   <item row="11" column="0" colspan="3">
                     <widget class="MyCheckBox" name="checkBox_flight_add_speeds">
                      <property name="text">
                       <string>Add flight and rotation speed to parameters
 (needed to continue recording animation)</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="1">
+                    <widget class="QSlider" name="sliderInt_flight_first_to_render">
+                     <property name="minimum">
+                      <number>0</number>
+                     </property>
+                     <property name="maximum">
+                      <number>99999</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="pageStep">
+                      <number>100</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="2">
+                    <widget class="MySpinBox" name="spinboxInt_flight_first_to_render">
+                     <property name="minimum">
+                      <number>0</number>
+                     </property>
+                     <property name="maximum">
+                      <number>99999</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="value">
+                      <number>0</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="9" column="1">
+                    <widget class="QSlider" name="sliderInt_flight_last_to_render">
+                     <property name="minimum">
+                      <number>0</number>
+                     </property>
+                     <property name="maximum">
+                      <number>99999</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="pageStep">
+                      <number>100</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="9" column="2">
+                    <widget class="MySpinBox" name="spinboxInt_flight_last_to_render">
+                     <property name="minimum">
+                      <number>0</number>
+                     </property>
+                     <property name="maximum">
+                      <number>99999</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="value">
+                      <number>0</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="0">
+                    <widget class="QLabel" name="label_218">
+                     <property name="text">
+                      <string>first frame to render:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="9" column="0">
+                    <widget class="QLabel" name="label_220">
+                     <property name="text">
+                      <string>last frame to render:</string>
                      </property>
                     </widget>
                    </item>
@@ -10698,30 +10785,11 @@ and water):</string>
                <property name="spacing">
                 <number>2</number>
                </property>
-               <item row="2" column="2">
-                <widget class="QPushButton" name="pushButton_delete_all_keyframe_images">
-                 <property name="text">
-                  <string>Delete all images</string>
-                 </property>
-                 <property name="icon">
-                  <iconset theme="edit-delete" resource="icons.qrc">
-                   <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="3">
-                <widget class="QPushButton" name="pushButton_refresh_keyframe_table">
-                 <property name="text">
-                  <string>Refresh table</string>
-                 </property>
-                 <property name="icon">
-                  <iconset theme="view-refresh" resource="icons.qrc">
-                   <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="1">
                 <widget class="QPushButton" name="pushButton_insert_keyframe">
+                 <property name="toolTip">
+                  <string>Insert keyframe before selected keyframe</string>
+                 </property>
                  <property name="text">
                   <string>Insert keyframe</string>
                  </property>
@@ -10733,6 +10801,9 @@ and water):</string>
                </item>
                <item row="1" column="3">
                 <widget class="QPushButton" name="pushButton_delete_keyframe">
+                 <property name="toolTip">
+                  <string>Delete selected keyframe</string>
+                 </property>
                  <property name="text">
                   <string>Delete keyframe</string>
                  </property>
@@ -10744,6 +10815,9 @@ and water):</string>
                </item>
                <item row="1" column="2">
                 <widget class="QPushButton" name="pushButton_add_keyframe">
+                 <property name="toolTip">
+                  <string>Add keyframe at the end</string>
+                 </property>
                  <property name="text">
                   <string>Add keyframe</string>
                  </property>
@@ -10753,7 +10827,7 @@ and water):</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1">
+               <item row="3" column="1">
                 <widget class="QPushButton" name="pushButton_show_keyframe_animation">
                  <property name="text">
                   <string>Show Animation</string>
@@ -10775,10 +10849,46 @@ and water):</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
+               <item row="2" column="1">
+                <widget class="QPushButton" name="pushButton_modify_keyframe">
+                 <property name="toolTip">
+                  <string>Modify selected keyframe</string>
+                 </property>
+                 <property name="text">
+                  <string>Modify keyframe</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="media-record" resource="icons.qrc">
+                   <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="3">
                 <widget class="QPushButton" name="pushButton_keyframe_to_flight_export">
                  <property name="text">
                   <string>Export to Flight</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="2">
+                <widget class="QPushButton" name="pushButton_delete_all_keyframe_images">
+                 <property name="text">
+                  <string>Delete all images</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="edit-delete" resource="icons.qrc">
+                   <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QPushButton" name="pushButton_refresh_keyframe_table">
+                 <property name="text">
+                  <string>Refresh table</string>
+                 </property>
+                 <property name="icon">
+                  <iconset theme="view-refresh" resource="icons.qrc">
+                   <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
                  </property>
                 </widget>
                </item>
@@ -10795,7 +10905,7 @@ and water):</string>
                   <x>0</x>
                   <y>0</y>
                   <width>314</width>
-                  <height>108</height>
+                  <height>247</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -10871,12 +10981,15 @@ and water):</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="0" colspan="3">
+                   <item row="5" column="0" colspan="3">
                     <widget class="MyCheckBox" name="checkBox_show_keyframe_thumbnails">
                      <property name="text">
                       <string>Show thumbnails</string>
                      </property>
                     </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="MyLineEdit" name="text_anim_keyframe_dir"/>
                    </item>
                    <item row="0" column="1">
                     <widget class="QSlider" name="sliderInt_frames_per_keyframe">
@@ -10897,13 +11010,91 @@ and water):</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="1">
-                    <widget class="MyLineEdit" name="text_anim_keyframe_dir"/>
-                   </item>
                    <item row="1" column="2">
                     <widget class="QPushButton" name="button_selectAnimKeyframeImageDir">
                      <property name="text">
                       <string>Select folder</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="2">
+                    <widget class="MySpinBox" name="spinboxInt_keyframe_first_to_render">
+                     <property name="minimum">
+                      <number>0</number>
+                     </property>
+                     <property name="maximum">
+                      <number>99999</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="value">
+                      <number>0</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_213">
+                     <property name="text">
+                      <string>first frame to render:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QSlider" name="sliderInt_keyframe_first_to_render">
+                     <property name="minimum">
+                      <number>0</number>
+                     </property>
+                     <property name="maximum">
+                      <number>99999</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="pageStep">
+                      <number>100</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="1">
+                    <widget class="QSlider" name="sliderInt_keyframe_last_to_render">
+                     <property name="minimum">
+                      <number>0</number>
+                     </property>
+                     <property name="maximum">
+                      <number>99999</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="pageStep">
+                      <number>100</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="2">
+                    <widget class="MySpinBox" name="spinboxInt_keyframe_last_to_render">
+                     <property name="minimum">
+                      <number>0</number>
+                     </property>
+                     <property name="maximum">
+                      <number>99999</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_217">
+                     <property name="text">
+                      <string>last frame to render:</string>
                      </property>
                     </widget>
                    </item>
