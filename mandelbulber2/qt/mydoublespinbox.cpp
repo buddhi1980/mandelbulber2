@@ -120,7 +120,7 @@ double MyDoubleSpinBox::GetDefault()
 		}
 
 		QString toolTipText = toolTip();
-		toolTipText += "\nParameter name: " + parameterName + "\n";
+		toolTipText += "\nParameter name: " + parameterName + "<br>";
 		toolTipText += "Default: " + QString("%L1").arg(defaultValue, 0, 'g', 16);
 		setToolTip(toolTipText);
 	}

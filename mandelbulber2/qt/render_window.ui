@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1700</width>
-    <height>1238</height>
+    <width>1741</width>
+    <height>1259</height>
    </rect>
   </property>
   <property name="font">
@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1123</width>
-           <height>498</height>
+           <width>1164</width>
+           <height>519</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -205,7 +205,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1700</width>
+     <width>1741</width>
      <height>17</height>
     </rect>
    </property>
@@ -329,7 +329,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-341</y>
+          <y>-338</y>
           <width>339</width>
           <height>449</height>
          </rect>
@@ -2090,7 +2090,7 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-7</y>
           <width>339</width>
           <height>129</height>
          </rect>
@@ -2154,7 +2154,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-380</y>
                   <width>291</width>
                   <height>732</height>
                  </rect>
@@ -2189,6 +2189,9 @@ to target:</string>
                    </item>
                    <item row="7" column="1">
                     <widget class="MyColorButton" name="colorButton_transparency_interior_color" native="true">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of interior of fractal&lt;/p&gt;&lt;p&gt;To have this efect working there has to be enabled ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="text" stdset="0">
                       <string>PushButton</string>
                      </property>
@@ -2231,6 +2234,9 @@ to target:</string>
                    </item>
                    <item row="3" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_reflect">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of light reflection effect&lt;/p&gt;&lt;p&gt;To have this efect working there has to be enabled ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab or environment mapping&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="prefix">
                       <string/>
                      </property>
@@ -2388,6 +2394,9 @@ to target:</string>
                    </item>
                    <item row="4" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_transparency_of_surface">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transpararency of fractal surface&lt;/p&gt;&lt;p&gt;To have this efect working there has to be enabled ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="prefix">
                       <string/>
                      </property>
@@ -2433,10 +2442,16 @@ to target:</string>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparancy of interion of fractal.&lt;/p&gt;&lt;p&gt;To have this efect working there has to be enabled ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                     </widget>
                    </item>
                    <item row="6" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_transparency_index_of_refraction">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Index of refraction of fractal object&lt;/p&gt;&lt;p&gt;To have this efect working there has to be enabled ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;p&gt;Example values: vacuum 1.0; glass.1.5; water 1.35; diamond 2.41&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="prefix">
                       <string/>
                      </property>
@@ -2481,6 +2496,9 @@ to target:</string>
                    </item>
                    <item row="8" column="0" colspan="3">
                     <widget class="MyCheckBox" name="checkBox_fresnel_reflectance">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled the reflectance is calculated from Fresnel's equations. In other words reflectance depeds on angle of incidence of ray.&lt;/p&gt;&lt;p&gt;To have this efect working there has to be enabled ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="text">
                       <string>Fresnel's equations for reflectance</string>
                      </property>
@@ -2490,6 +2508,9 @@ to target:</string>
                  </item>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_ambient_occlusion_enabled">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settings for scattered light effect&lt;/p&gt;&lt;p&gt;Types of ambient occlusion effect:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Screen Space Ambient Occlusion (SSAO)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Multiple rays&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Fast&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion high quality.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion fast mode.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;SSAO - relatively fast post-effect based on z-Buffer&lt;/p&gt;&lt;p&gt;Multiple rays - based on calculation of rays in different directions. It uses texture to create colored light map. This effect slowes down rendering.&lt;/p&gt;&lt;p&gt;Fast - simple and fast method to calculate scattered light effect. This the least accurate effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="title">
                     <string>Ambient occlusion</string>
                    </property>
@@ -2572,6 +2593,9 @@ to target:</string>
                       </item>
                       <item row="0" column="2">
                        <widget class="MySpinBox" name="spinboxInt_ambient_occlusion_quality">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quality of ambient occlusion effect. Higher quality reduces rendering speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="maximum">
                          <number>30</number>
                         </property>
@@ -2579,6 +2603,9 @@ to target:</string>
                       </item>
                       <item row="2" column="1">
                        <widget class="QComboBox" name="comboBox_ambient_occlusion_mode">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of method to calculate ambient occlusion effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <item>
                          <property name="text">
                           <string>Fast</string>
@@ -2598,6 +2625,9 @@ to target:</string>
                       </item>
                       <item row="1" column="2">
                        <widget class="MyDoubleSpinBox" name="spinbox_ambient_occlusion_fast_tune">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter controls brightness of fast ambient occlusion effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="prefix">
                          <string/>
                         </property>
@@ -2660,7 +2690,11 @@ to target:</string>
                           </widget>
                          </item>
                          <item row="0" column="1">
-                          <widget class="MyLineEdit" name="text_file_lightmap"/>
+                          <widget class="MyLineEdit" name="text_file_lightmap">
+                           <property name="toolTip">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to file with light map for ambient occlusion effect based on multiple rays&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                          </widget>
                          </item>
                          <item row="0" column="0">
                           <widget class="QLabel" name="label_133">

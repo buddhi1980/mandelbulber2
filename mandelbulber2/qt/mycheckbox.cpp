@@ -92,7 +92,7 @@ bool MyCheckBox::GetDefault()
 		gotDefault = true;
 
 		QString toolTipText = toolTip();
-		toolTipText += "\nParameter name: " + parameterName + "\n";
+		toolTipText += "\nParameter name: " + parameterName + "<br>";
 		toolTipText += "Default: " + ((defaultValue) ? QString("true") : QString("false"));
 		setToolTip(toolTipText);
 	}

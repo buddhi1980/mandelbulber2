@@ -122,7 +122,7 @@ QString MyLineEdit::GetDefault()
 		}
 
 		QString toolTipText = toolTip();
-		toolTipText += "\nParameter name: " + parameterName + "\n";
+		toolTipText += "\nParameter name: " + parameterName + "<br>";
 		toolTipText += "Default: " + defaultText;
 		setToolTip(toolTipText);
 	}

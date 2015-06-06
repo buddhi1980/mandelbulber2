@@ -17,6 +17,8 @@
     <file>icons/system-shutdown.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
+    <file>tooltips_images/image - shader - ambient occlusion high quality.jpg</file>
+    <file>tooltips_images/image - shader - ambient occlusion fast mode.jpg</file>
     <file>tooltips_images/image - shader - ambient occlusion 1.0.jpg</file>
     <file>tooltips_images/image - shader - specularity 0.jpg</file>
     <file>tooltips_images/image - shader - specularity 5.jpg</file>
