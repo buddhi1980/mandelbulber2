@@ -53,6 +53,11 @@ RenderedImage::RenderedImage(QWidget *parent) :
 	QList<QVariant> mode;
 	mode.append((int)RenderedImage::clickPlaceLight);
 	clickModeData = mode;
+
+	//timer to refresh image
+	timerRefreshImage = new QTimer(this);
+	timerRefreshImage->setInterval(40);
+	this->connect(timerRefreshImage, SIGNAL(timeout()), this, SLOT(update()));
 }
 
 void RenderedImage::paintEvent(QPaintEvent *event)
@@ -119,6 +124,7 @@ void RenderedImage::DisplayCoordinates()
 			break;
 		case clickPlaceLight:
 			text = tr("Place light #") + QString::number(clickModeData.at(1).toInt());
+			text += tr("\nMouse wheel - light fov / bkw");
 			break;
 		case clickPlacePrimitive:
 			text = tr("Place ") + PrimitiveNames((fractal::enumObjectType)clickModeData.at(1).toInt()) + QString(" #")+ QString::number(clickModeData.at(2).toInt());
@@ -193,6 +199,8 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 	if (z > 0 && clickMode != clickFlightSpeedControl)
 	{
+		if(smoothLastZMouse < 0.0) smoothLastZMouse = 0.0;
+
 		bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
 		double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
 
@@ -373,6 +381,7 @@ void RenderedImage::enterEvent(QEvent * event)
 	(void)event;
 	setFocus();
 	isFocus = true;
+	timerRefreshImage->start();
 }
 
 void RenderedImage::leaveEvent(QEvent * event)
@@ -380,6 +389,7 @@ void RenderedImage::leaveEvent(QEvent * event)
 	(void)event;
 	isFocus = false;
 	update();
+	timerRefreshImage->stop();
 }
 
 void RenderedImage::keyPressEvent(QKeyEvent * event)

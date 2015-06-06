@@ -107,6 +107,7 @@ private:
 	sFlightData flightData;
 	CVector2<int> keyArrows;
 	int flightRotationDirection;
+	QTimer *timerRefreshImage;
 
 signals:
 	void mouseMoved(int x, int y);

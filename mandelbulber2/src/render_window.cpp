@@ -1180,7 +1180,7 @@ void RenderWindow::slotMouseWheelRotatedonImage(int delta)
 			double deltaLog = exp(delta * 0.001);
 			double dist = systemData.locale.toDouble(ui->logedit_aux_light_manual_placement_dist->text());
 			dist *= deltaLog;
-			ui->logedit_aux_light_manual_placement_dist->setText(QString::number(dist));
+			ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(dist));
 			break;
 		}
 		default:
@@ -1206,6 +1206,8 @@ void RenderWindow::slotPressedButtonSetLight1ByMouse()
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
+	double distance = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
+	ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(distance * 0.1));
 }
 
 void RenderWindow::slotPressedButtonSetLight2ByMouse()
