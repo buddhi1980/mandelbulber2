@@ -48,6 +48,7 @@ public:
 
 	template <class T> void Set(T val, enumValueSelection selection);
 	template <class T> T Get(enumValueSelection selection) const;
+	void LimitValue(cMultiVal &multi);
 
 private:
 	//parameter data

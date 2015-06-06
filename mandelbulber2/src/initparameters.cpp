@@ -76,7 +76,7 @@ using namespace parameterContainer;
 	par->addParam("camera_distance_to_target", 7.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam("fov", 1.0, 0.0, 100.0, morphAkima, paramStandard);
 	par->addParam("perspective_type", 0, morphLinear, paramStandard);
-	par->addParam("stereo_eye_distance", 1.0, morphAkima, paramStandard);
+	par->addParam("stereo_eye_distance", 1.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
 	par->addParam("legacy_coordinate_system", false, morphNone, paramStandard);
 
@@ -111,14 +111,14 @@ using namespace parameterContainer;
 	par->addParam("N", 250, 1, 65536, morphLinear, paramStandard);
 	par->addParam("minN", 1, 0, 65536, morphLinear, paramStandard);
 	par->addParam("fractal_constant_factor", 1.0, morphLinear, paramStandard);
-	par->addParam("detail_level", 1.0, morphLinear, paramStandard);
-	par->addParam("DE_thresh", 0.01, morphLinear, paramStandard); //old name was 'quality'
-	par->addParam("smoothness", 1.0, morphLinear, paramStandard);
+	par->addParam("detail_level", 1.0, 1e-8, 1e8, morphLinear, paramStandard);
+	par->addParam("DE_thresh", 0.01, 1e-15, 1e5, morphLinear, paramStandard); //old name was 'quality'
+	par->addParam("smoothness", 1.0, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("iteration_threshold_mode", false, morphNone, paramStandard);
 	par->addParam("analityc_DE_mode", true, morphNone, paramStandard);
-	par->addParam("DE_factor", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("DE_factor", 1.0, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("slow_shading", false, morphLinear, paramStandard);
-	par->addParam("view_distance_max", 50.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("view_distance_max", 50.0, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("view_distance_min", 1e-15, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("limit_min", CVector3(-10.0, -10.0, -10.0), morphLinear, paramStandard);
 	par->addParam("limit_max", CVector3(10.0, 10.0, 10.0), morphLinear, paramStandard);
@@ -145,7 +145,7 @@ using namespace parameterContainer;
 	par->addParam("reflect", 0.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_quality", 4, 1, 10, morphLinear, paramStandard);
-	par->addParam("ambient_occlusion_fast_tune", 1.0, morphLinear, paramStandard);
+	par->addParam("ambient_occlusion_fast_tune", 1.0, 1e-5, 1e5, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_enabled", false, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_mode", (int)params::AOmodeScreenSpace, morphLinear, paramStandard);
 	par->addParam("shading", 1.0, 0.0, 1e15, morphLinear, paramStandard);
@@ -176,9 +176,9 @@ using namespace parameterContainer;
 
 	par->addParam("volumetric_fog_enabled", false, morphLinear, paramStandard);
 	par->addParam("volumetric_fog_density", 0.5, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("volumetric_fog_colour_1_distance", 1.0, morphLinear, paramStandard);
-	par->addParam("volumetric_fog_colour_2_distance", 2.0, morphLinear, paramStandard);
-	par->addParam("volumetric_fog_distance_factor", 1.0, morphLinear, paramStandard);
+	par->addParam("volumetric_fog_colour_1_distance", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("volumetric_fog_colour_2_distance", 2.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("volumetric_fog_distance_factor", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 
 	par->addParam("iteration_fog_enable", false, morphLinear, paramStandard);
 	par->addParam("iteration_fog_opacity", 1000.0, 0.0, 1e15, morphLinear, paramStandard);
@@ -192,45 +192,45 @@ using namespace parameterContainer;
 	//coloring
 	par->addParam("fractal_color", true, morphLinear, paramStandard);
 	par->addParam("coloring_random_seed", 269259, morphLinear, paramStandard);
-	par->addParam("coloring_saturation", 1.0, morphLinear, paramStandard);
-	par->addParam("coloring_speed", 1.0, morphLinear, paramStandard);
+	par->addParam("coloring_saturation", 1.0, 0.0, 1000.0, morphLinear, paramStandard);
+	par->addParam("coloring_speed", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("coloring_palette_size", 10, 1, 255, morphLinear, paramStandard);
 	par->addParam("coloring_palette_offset", 0.0, 0.0, 256.0, morphLinear, paramStandard);
 
 	//fog
 	par->addParam("basic_fog_enabled", false, morphLinear, paramStandard);
-	par->addParam("basic_fog_visibility", 20.0, morphLinear, paramStandard);
+	par->addParam("basic_fog_visibility", 20.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("basic_fog_color", sRGB(59399, 61202, 65535), morphLinear, paramStandard);
 	par->addParam("DOF_enabled", false, morphLinear, paramStandard);
 	par->addParam("DOF_focus", 6.0, 0.0, 200.0, morphLinear, paramStandard);
 	par->addParam("DOF_radius", 10.0, 0.0, 200.0, morphLinear, paramStandard);
 
 	//main light
-	par->addParam("main_light_intensity", 1.0, morphLinear, paramStandard);
-	par->addParam("main_light_visibility", 1.0, morphLinear, paramStandard);
-	par->addParam("main_light_visibility_size", 1.0, morphLinear, paramStandard);
+	par->addParam("main_light_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("main_light_visibility", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("main_light_visibility_size", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("main_light_alpha", -45.0, morphAkimaAngle, paramStandard);
 	par->addParam("main_light_beta", 45.0,  morphAkimaAngle, paramStandard);
 	par->addParam("main_light_colour", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("shadows_cone_angle", 1.0, 0.0, 180.0, morphLinear, paramStandard);
 	par->addParam("main_light_enable", true, morphLinear, paramStandard);
 	par->addParam("main_light_position_relative", true, morphLinear, paramStandard);
-	par->addParam("main_light_volumetric_intensity", 1.0, morphLinear, paramStandard);
+	par->addParam("main_light_volumetric_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("main_light_volumetric_enabled", false, morphLinear, paramStandard);
 
 	//aux lights
-	par->addParam("aux_light_intensity", 1.0, morphLinear, paramStandard);
-	par->addParam("aux_light_visibility", 1.0, morphLinear, paramStandard);
-	par->addParam("aux_light_visibility_size", 1.0, morphLinear, paramStandard);
+	par->addParam("aux_light_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("aux_light_visibility", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("aux_light_visibility_size", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 
 	par->addParam("aux_light_position", 1, CVector3(3.0, -3.0, 3.0), morphAkima, paramStandard);
 	par->addParam("aux_light_position", 2, CVector3(-3.0, -3.0, 0.0), morphAkima, paramStandard);
 	par->addParam("aux_light_position", 3, CVector3(-3.0, 3.0, -1.0), morphAkima, paramStandard);
 	par->addParam("aux_light_position", 4, CVector3(0.0, -1.0, -3.0), morphAkima, paramStandard);
-	par->addParam("aux_light_intensity", 1, 1.3, morphLinear, paramStandard);
-	par->addParam("aux_light_intensity", 2, 1.0, morphLinear, paramStandard);
-	par->addParam("aux_light_intensity", 3, 3.0, morphLinear, paramStandard);
-	par->addParam("aux_light_intensity", 4, 2.0, morphLinear, paramStandard);
+	par->addParam("aux_light_intensity", 1, 1.3, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("aux_light_intensity", 2, 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("aux_light_intensity", 3, 3.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("aux_light_intensity", 4, 2.0,0.0, 1e15,  morphLinear, paramStandard);
 	par->addParam("aux_light_enabled", 1, false, morphLinear, paramStandard);
 	par->addParam("aux_light_enabled", 2, false, morphLinear, paramStandard);
 	par->addParam("aux_light_enabled", 3, false, morphLinear, paramStandard);
@@ -242,15 +242,15 @@ using namespace parameterContainer;
 
 	for(int i=1; i<=4; i++)
 	{
-		par->addParam("aux_light_volumetric_intensity", i, 1.0, morphLinear, paramStandard);
+		par->addParam("aux_light_volumetric_intensity", i, 1.0, 0.0, 1e15, morphLinear, paramStandard);
 		par->addParam("aux_light_volumetric_enabled", i, false, morphLinear, paramStandard);
 	}
 
 	//fake lights
 	par->addParam("fake_lights_enabled", false, morphLinear, paramStandard);
-	par->addParam("fake_lights_intensity", 1.0, morphLinear, paramStandard);
-	par->addParam("fake_lights_visibility", 1.0, morphLinear, paramStandard);
-	par->addParam("fake_lights_visibility_size", 5.0, morphLinear, paramStandard);
+	par->addParam("fake_lights_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("fake_lights_visibility", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("fake_lights_visibility_size", 5.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("fake_lights_orbit_trap", CVector3(2.0, 0.0, 0.0), morphLinear, paramStandard);
 	par->addParam("fake_lights_min_iter", 1, 0, 250, morphLinear, paramStandard);
 	par->addParam("fake_lights_max_iter", 2, 0, 250, morphLinear, paramStandard);
@@ -313,7 +313,7 @@ using namespace parameterContainer;
 	par->addParam("default_textures_path", systemData.sharedDir + "textures", morphNone, paramApp);
 	par->addParam("default_settings_path", systemData.dataDirectory + "settings", morphNone, paramApp);
 
-	par->addParam("jpeg_quality", 95, morphNone, paramApp);
+	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
 
 	par->addParam("ui_style_type", -1, morphNone, paramApp);
 	par->addParam("ui_skin", -1, morphNone, paramApp);
