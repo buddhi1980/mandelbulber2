@@ -43,8 +43,8 @@ using namespace parameterContainer;
 	par->addParam("image_proportion", 0, morphNone, paramNoSave);
 
 	//flight animation
-	par->addParam("flight_start_frame", 0, 0, 99999, morphNone, paramStandard);
-	par->addParam("flight_end_frame", 1000, 0, 99999, morphNone, paramStandard);
+	par->addParam("flight_first_to_render", 0, 0, 99999, morphNone, paramStandard);
+	par->addParam("flight_last_to_render", 1000, 0, 99999, morphNone, paramStandard);
 
 	par->addParam("frame_no", 0, 0, 99999, morphNone, paramNoSave);
   par->addParam("flight_speed", 0.01, 0.0, 100.0, morphLinear, paramStandard);
@@ -62,8 +62,8 @@ using namespace parameterContainer;
 
   //keyframe animation
 	par->addParam("frames_per_keyframe", 100, 1, 99999, morphNone, paramStandard);
-	par->addParam("keyframes_start_frame", 0, 0, 99999, morphNone, paramStandard);
-	par->addParam("keyframes_end_frame", 1000, 0, 99999, morphNone, paramStandard);
+	par->addParam("keyframe_first_to_render", 0, 0, 99999, morphNone, paramStandard);
+	par->addParam("keyframe_last_to_render", 1000, 0, 99999, morphNone, paramStandard);
   par->addParam("show_keyframe_thumbnails", false, morphNone, paramApp);
 	par->addParam("keyframe_animation_image_type", 0, morphNone, paramApp);
 	par->addParam("anim_keyframe_dir", systemData.dataDirectory + "images" + QDir::separator(), morphNone, paramApp);

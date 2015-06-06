@@ -47,6 +47,7 @@ public:
 	void InterpolateForward(int row, int column);
 	parameterContainer::enumMorphType GetMorphType(int row);
 	void ChangeMorphType(int row, parameterContainer::enumMorphType morphType);
+	void UpdateLimitsForFrameRange(void);
 
 private slots:
 	void slotAddKeyframe();
@@ -60,6 +61,8 @@ private slots:
 	void slotShowAnimation();
 	void slotRefreshTable();
 	void slotExportKeyframesToFlight();
+	void slotMovedSliderFirstFrame(int value);
+	void slotMovedSliderLastFrame(int value);
 
 private:
 	void PrepareTable();

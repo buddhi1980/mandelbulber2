@@ -47,6 +47,9 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 	QApplication::connect(ui->button_selectAnimKeyframeImageDir, SIGNAL(clicked()), this, SLOT(slotSelectKeyframeAnimImageDir()));
 	QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
 
+	QApplication::connect(ui->spinboxInt_keyframe_first_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderFirstFrame(int)));
+	QApplication::connect(ui->spinboxInt_keyframe_last_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderLastFrame(int)));
+
 	table = ui->tableWidget_keyframe_animation;
 
 	//add default parameters for animation
@@ -92,6 +95,8 @@ void cKeyframeAnimation::NewKeyframe(int index)
 			thumbWidget->AssignParameters(*gPar, *gParFractal);
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
+		UpdateLimitsForFrameRange();
+		ui->spinboxInt_keyframe_last_to_render->setValue(keyframes->GetNumberOfFrames() * ui->spinboxInt_frames_per_keyframe->value());
 	}
 	else
 	{
@@ -108,6 +113,7 @@ void cKeyframeAnimation::DeleteKeyframe(int index)
 
 	keyframes->DeleteFrames(index, index);
 	table->removeColumn(index);
+	UpdateLimitsForFrameRange();
 }
 
 void cKeyframeAnimation::slotModifyKeyframe()
@@ -386,6 +392,9 @@ void cKeyframeAnimation::RenderKeyframes()
 	cProgressText progressText;
 	progressText.ResetTimer();
 
+	int startFrame = gPar->Get<int>("keyframe_first_to_render");
+	int endFrame = gPar->Get<int>("keyframe_last_to_render");
+
 	// Check if frames have already been rendered
 	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
 	{
@@ -394,7 +403,8 @@ void cKeyframeAnimation::RenderKeyframes()
 		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
 			QString filename = GetKeyframeFilename(index, subindex);
-			frame.alreadyRenderedSubFrames.append(QFile(filename).exists());
+			int frameNo = index * keyframes->GetFramesPerKeyframe() + subindex;
+			frame.alreadyRenderedSubFrames.append(QFile(filename).exists() || frameNo < startFrame || frameNo >= endFrame);
 		}
 		keyframes->ModifyFrame(index, frame);
 	}
@@ -504,6 +514,7 @@ void cKeyframeAnimation::RefreshTable()
 			gApplication->processEvents();
 		}
 	}
+	UpdateLimitsForFrameRange();
 	mainInterface->progressBarAnimation->hide();
 }
 
@@ -537,12 +548,14 @@ void cKeyframeAnimation::DeleteFramesFrom(int index)
 {
 	for(int i = keyframes->GetNumberOfFrames() - 1; i >= index; i--) table->removeColumn(index);
 	keyframes->DeleteFrames(index, keyframes->GetNumberOfFrames() - 1);
+	UpdateLimitsForFrameRange();
 }
 
 void cKeyframeAnimation::DeleteFramesTo(int index)
 {
 	for(int i = 0; i <= index; i++) table->removeColumn(0);
 	keyframes->DeleteFrames(0, index);
+	UpdateLimitsForFrameRange();
 }
 
 void cKeyframeAnimation::slotSelectKeyframeAnimImageDir()
@@ -825,3 +838,35 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	ui->tabWidgetFlightKeyframe->setCurrentIndex(0);
 	ui->pushButton_flight_refresh_table->animateClick();
 }
+
+void cKeyframeAnimation::UpdateLimitsForFrameRange(void)
+{
+	int framesPerKey = ui->spinboxInt_frames_per_keyframe->value();
+	int noOfFrames = keyframes->GetNumberOfFrames() * framesPerKey;
+
+	if(ui->spinboxInt_keyframe_first_to_render->maximum() > noOfFrames)
+	{
+		ui->spinboxInt_keyframe_first_to_render->setMaximum(noOfFrames);
+		ui->sliderInt_keyframe_first_to_render->setMaximum(noOfFrames);
+	}
+
+	if(ui->spinboxInt_keyframe_last_to_render->maximum() > noOfFrames)
+	{
+		ui->spinboxInt_keyframe_last_to_render->setMaximum(noOfFrames);
+		ui->sliderInt_keyframe_last_to_render->setMaximum(noOfFrames);
+	}
+
+
+}
+
+void cKeyframeAnimation::slotMovedSliderFirstFrame(int value)
+{
+	if(value > ui->spinboxInt_keyframe_last_to_render->value())
+		ui->spinboxInt_keyframe_last_to_render->setValue(value);
+}
+void cKeyframeAnimation::slotMovedSliderLastFrame(int value)
+{
+	if(value < ui->spinboxInt_keyframe_first_to_render->value())
+		ui->spinboxInt_keyframe_first_to_render->setValue(value);
+}
+

@@ -272,3 +272,4 @@ void cAnimationFrames::AddFrame(const sAnimationFrame &frame)
 {
 	frames.append(frame);
 }
+

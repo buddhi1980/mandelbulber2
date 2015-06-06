@@ -51,6 +51,9 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightPause()), this, SLOT(slotRecordPause()));
 	QApplication::connect(ui->tableWidget_flightAnimation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
 
+	QApplication::connect(ui->spinboxInt_flight_first_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderFirstFrame(int)));
+	QApplication::connect(ui->spinboxInt_flight_last_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderLastFrame(int)));
+
 	table = ui->tableWidget_flightAnimation;
 	linearSpeedSp = 0.0;
 	rotationDirection = 0;
@@ -348,6 +351,9 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	QList<QVariant> item = ui->comboBox_mouse_click_function->itemData(ui->comboBox_mouse_click_function->currentIndex()).toList();
 	gMainInterface->renderedImage->setClickMode(item);
 
+	UpdateLimitsForFrameRange();
+	ui->spinboxInt_flight_last_to_render->setValue(frames->GetNumberOfFrames());
+
 	delete renderJob;
 }
 
@@ -525,12 +531,15 @@ void cFlightAnimation::RenderFlight()
 	cProgressText progressText;
 	progressText.ResetTimer();
 
+	int startFrame = gPar->Get<int>("flight_first_to_render");
+	int endFrame = gPar->Get<int>("flight_last_to_render");
+
 	// Check if frames have already been rendered
 	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
 	{
 		QString filename = GetFlightFilename(index);
 		cAnimationFrames::sAnimationFrame frame = frames->GetFrame(index);
-		frame.alreadyRendered = QFile(filename).exists();
+		frame.alreadyRendered = QFile(filename).exists() || index < startFrame || index >= endFrame;
 		frames->ModifyFrame(index, frame);
 	}
 
@@ -625,6 +634,9 @@ void cFlightAnimation::RefreshTable()
 			gApplication->processEvents();
 		}
 	}
+
+	UpdateLimitsForFrameRange();
+
 	mainInterface->progressBarAnimation->hide();
 }
 
@@ -658,12 +670,14 @@ void cFlightAnimation::DeleteFramesFrom(int index)
 {
 	for(int i = frames->GetNumberOfFrames() - 1; i >= index; i--) table->removeColumn(index);
 	frames->DeleteFrames(index, frames->GetNumberOfFrames() - 1);
+	UpdateLimitsForFrameRange();
 }
 
 void cFlightAnimation::DeleteFramesTo(int index)
 {
 	for(int i = 0; i <= index; i++) table->removeColumn(0);
 	frames->DeleteFrames(0, index);
+	UpdateLimitsForFrameRange();
 }
 
 void cFlightAnimation::slotFlightStrafe(CVector2<int> _strafe)
@@ -954,5 +968,34 @@ void cFlightAnimation::slotExportFlightToKeyframes()
 
 	ui->tabWidgetFlightKeyframe->setCurrentIndex(1);
 	ui->pushButton_refresh_keyframe_table->animateClick();
+}
+
+void cFlightAnimation::UpdateLimitsForFrameRange(void)
+{
+	int noOfFrames = frames->GetNumberOfFrames();
+	if(ui->spinboxInt_flight_first_to_render->maximum() > noOfFrames)
+	{
+		ui->spinboxInt_flight_first_to_render->setMaximum(noOfFrames);
+		ui->sliderInt_flight_first_to_render->setMaximum(noOfFrames);
+	}
+
+	if(ui->spinboxInt_flight_last_to_render->maximum() > noOfFrames)
+	{
+		ui->spinboxInt_flight_last_to_render->setMaximum(noOfFrames);
+		ui->sliderInt_flight_last_to_render->setMaximum(noOfFrames);
+	}
+
+
+}
+
+void cFlightAnimation::slotMovedSliderFirstFrame(int value)
+{
+	if(value > ui->spinboxInt_flight_last_to_render->value())
+		ui->spinboxInt_flight_last_to_render->setValue(value);
+}
+void cFlightAnimation::slotMovedSliderLastFrame(int value)
+{
+	if(value < ui->spinboxInt_flight_first_to_render->value())
+		ui->spinboxInt_flight_first_to_render->setValue(value);
 }
 

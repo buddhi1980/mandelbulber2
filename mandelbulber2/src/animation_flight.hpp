@@ -50,6 +50,7 @@ public:
 	void UpdateThumbnailFromImage(int index);
 	void InterpolateForward(int row, int column);
 	QString GetFlightFilename(int index);
+	void UpdateLimitsForFrameRange(void);
 
 private slots:
 	void slotRecordFlight();
@@ -66,6 +67,9 @@ private slots:
 	void slotRecordPause();
 	void slotRefreshTable();
 	void slotExportFlightToKeyframes();
+	void slotMovedSliderFirstFrame(int value);
+	void slotMovedSliderLastFrame(int value);
+
 private:
 	void PrepareTable();
 	void CreateRowsInTable();
