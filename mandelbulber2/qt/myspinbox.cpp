@@ -92,8 +92,8 @@ int MySpinBox::GetDefault()
 		defaultValue = val;
 		gotDefault = true;
 
-		QString toolTipText;
-		toolTipText += "Name: " + parameterName + "\n";
+		QString toolTipText = toolTip();
+		toolTipText += "\nParameter name: " + parameterName + "\n";
 		toolTipText += "Default: " + QString::number(defaultValue);
 		setToolTip(toolTipText);
 	}

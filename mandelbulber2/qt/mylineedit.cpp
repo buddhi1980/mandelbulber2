@@ -121,8 +121,8 @@ QString MyLineEdit::GetDefault()
 			gotDefault = true;
 		}
 
-		QString toolTipText;
-		toolTipText += "Name: " + parameterName + "\n";
+		QString toolTipText = toolTip();
+		toolTipText += "\nParameter name: " + parameterName + "\n";
 		toolTipText += "Default: " + defaultText;
 		setToolTip(toolTipText);
 	}

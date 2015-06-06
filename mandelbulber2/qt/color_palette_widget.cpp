@@ -123,8 +123,8 @@ cColorPalette ColorPaletteWidget::GetDefault(void)
 		defaultValue = val;
 		gotDefault = true;
 
-		QString toolTipText;
-		toolTipText += "Name: " + parameterName;
+		QString toolTipText = toolTip();
+		toolTipText += "\nParameter name: " + parameterName + "\n";
 		setToolTip(toolTipText);
 	}
 	return defaultValue;
