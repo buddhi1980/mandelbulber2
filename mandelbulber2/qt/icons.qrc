@@ -17,6 +17,17 @@
     <file>icons/system-shutdown.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
+    <file>tooltips_images/rotate camera around target.png</file>
+    <file>tooltips_images/rotate target around camera.png</file>
+    <file>tooltips_images/Yaw_Pich_Roll.png</file>
+    <file>tooltips_images/move only target.png</file>
+    <file>tooltips_images/move only camera.png</file>
+    <file>tooltips_images/move camera and target.png</file>
+    <file>tooltips_images/Camera target.png</file>
+    <file>tooltips_images/image - DOF - focus close.jpg</file>
+    <file>tooltips_images/image - DOF - focus far.jpg</file>
+    <file>tooltips_images/image - DOF - radius 10.jpg</file>
+    <file>tooltips_images/image - DOF - radius 50.jpg</file>
     <file>tooltips_images/image - limits x, y, z.jpeg</file>
     <file>tooltips_images/image - limits z.jpeg</file>
     <file>tooltips_images/image - interior disabled.jpg</file>

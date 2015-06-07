@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1164</width>
-           <height>690</height>
+           <width>1136</width>
+           <height>519</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -329,7 +329,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-381</y>
+          <y>0</y>
           <width>339</width>
           <height>449</height>
          </rect>
@@ -977,6 +977,9 @@
        </property>
        <item row="0" column="0">
         <widget class="QPushButton" name="pushButton_render">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start rendering of image based on actual settings&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>RENDER</string>
          </property>
@@ -988,6 +991,9 @@
        </item>
        <item row="0" column="1">
         <widget class="QPushButton" name="pushButton_stop">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Terminate rendering&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>STOP</string>
          </property>
@@ -1011,8 +1017,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>177</width>
+          <y>-259</y>
+          <width>194</width>
           <height>774</height>
          </rect>
         </property>
@@ -1039,6 +1045,9 @@
            </property>
            <item>
             <widget class="QGroupBox" name="groupBox_coordinates">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;These parameters and gauges controls position of camera and point where the camera is looking at (target)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/Camera target.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="title">
               <string>Coordinates:</string>
              </property>
@@ -1060,6 +1069,9 @@
               </property>
               <item>
                <widget class="QGroupBox" name="groupBox_cameraPosition">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of camera&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="title">
                  <string>Camera</string>
                 </property>
@@ -1154,6 +1166,9 @@
               </item>
               <item>
                <widget class="QGroupBox" name="groupBox_targetPosition">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of target&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="title">
                  <string>Target</string>
                 </property>
@@ -1248,6 +1263,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_reset_view">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set camera far from the fractal. It keeps actual camera angle.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Reset view</string>
                 </property>
@@ -1255,6 +1273,9 @@
               </item>
               <item>
                <widget class="QComboBox" name="comboBox_camera_movement_mode">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of camera / target movement mode&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Move camera and target&lt;/span&gt; - moves camera and target by the same distance&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move camera and target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; - moves only camera. Target stays in the same prace. Camera rotates to look at stationary target.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Move target - moves only camera. Camera stays in the same place. Camera rotates to look at moving target.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <item>
                  <property name="text">
                   <string>Move camera and target</string>
@@ -1298,6 +1319,9 @@ to target:</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance between camera and target&lt;/p&gt;&lt;p&gt;In&lt;span style=&quot; font-style:italic;&quot;&gt; Move camera and target&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; modes it moves cmaera closer/farther from target.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1350,6 +1374,9 @@ to target:</string>
                     <height>40</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves right the camera or the target by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1378,6 +1405,9 @@ to target:</string>
                     <width>40</width>
                     <height>40</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves left the camera or the target by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1413,6 +1443,9 @@ to target:</string>
                     <width>40</width>
                     <height>40</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves up the camera or target by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1455,6 +1488,9 @@ to target:</string>
                     <height>32</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves forward the camera or the target by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1484,6 +1520,9 @@ to target:</string>
                     <height>32</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves backward the camera or the target by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1512,6 +1551,9 @@ to target:</string>
                     <width>40</width>
                     <height>40</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves down the camera or the target by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1567,7 +1609,11 @@ to target:</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="MyLineEdit" name="logedit_camera_movement_step"/>
+                    <widget class="MyLineEdit" name="logedit_camera_movement_step">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Step for camera or target movement.&lt;/p&gt;&lt;p&gt;It can be relative or absolute step.&lt;/p&gt;&lt;p&gt;When it's relative then movement distance equals to &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; multiplied by actual distance to fractal sufrace.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -1601,6 +1647,9 @@ to target:</string>
               </item>
               <item>
                <widget class="QComboBox" name="comboBox_camera_absolute_distance_mode">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for movement step calculation.&lt;/p&gt;&lt;p&gt;When it's relative then movement distance equals to &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; multiplied by actual distance to fractal sufrace. It's prefered mode.&lt;/p&gt;&lt;p&gt;When it's absolute then movement is by step set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <item>
                  <property name="text">
                   <string>Relative step mode</string>
@@ -1618,6 +1667,9 @@ to target:</string>
            </item>
            <item>
             <widget class="QGroupBox" name="groupBox_rotation">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls for camera rotation in three different axes&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/Yaw_Pich_Roll.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;image source: &amp;quot;&lt;a href=&quot;http://commons.wikimedia.org/wiki/File:Yaw_Axis_Corrected.svg#/media/File:Yaw_Axis_Corrected.svg&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Yaw Axis Corrected&lt;/span&gt;&lt;/a&gt;&amp;quot; by &lt;a href=&quot;//commons.wikimedia.org/wiki/File:Yaw_Axis.svg&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Yaw_Axis.svg&lt;/span&gt;&lt;/a&gt;: &lt;a href=&quot;//commons.wikimedia.org/wiki/User:Auawise&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Auawise&lt;/span&gt;&lt;/a&gt;derivative work: &lt;a href=&quot;//commons.wikimedia.org/w/index.php?title=User:Jrvz&amp;amp;action=edit&amp;amp;redlink=1&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Jrvz&lt;/span&gt;&lt;/a&gt; (&lt;a href=&quot;//commons.wikimedia.org/w/index.php?title=User_talk:Jrvz&amp;amp;action=edit&amp;amp;redlink=1&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;talk&lt;/span&gt;&lt;/a&gt;) - &lt;a href=&quot;//commons.wikimedia.org/wiki/File:Yaw_Axis.svg&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Yaw_Axis.svg&lt;/span&gt;&lt;/a&gt;. Licensed under &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/3.0&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;CC BY-SA 3.0&lt;/span&gt;&lt;/a&gt; via &lt;a href=&quot;//commons.wikimedia.org/wiki/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Wikimedia Commons&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="title">
               <string>Camera rotation:</string>
              </property>
@@ -1656,6 +1708,9 @@ to target:</string>
                     <height>40</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Yaw left&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1691,6 +1746,9 @@ to target:</string>
                     <height>40</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pitch up&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1719,6 +1777,9 @@ to target:</string>
                     <width>40</width>
                     <height>40</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Yaw right&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1749,6 +1810,9 @@ to target:</string>
                     <height>40</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll rigth&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1778,6 +1842,9 @@ to target:</string>
                     <height>40</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll left&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1806,6 +1873,9 @@ to target:</string>
                     <width>40</width>
                     <height>40</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pitch down&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1862,6 +1932,9 @@ to target:</string>
                    </item>
                    <item>
                     <widget class="MyDoubleSpinBox" name="spinbox_camera_rotation_step">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Step of rotation in degrees&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="prefix">
                       <string/>
                      </property>
@@ -1892,6 +1965,9 @@ to target:</string>
               </item>
               <item>
                <widget class="QComboBox" name="comboBox_camera_rotation_mode">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Modes of camera rotation&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Rotate camera&lt;/span&gt; - rotates the camera by moving the target around the camera&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate target around camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;Rotate around target - rotates the camera by moving camera around the target&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate camera around target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <item>
                  <property name="text">
                   <string>Rotate camera</string>
@@ -1906,6 +1982,9 @@ to target:</string>
               </item>
               <item>
                <widget class="QComboBox" name="comboBox_camera_straight_rotation">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for rotation modes&lt;/p&gt;&lt;p&gt;Fixed roll angle - rotates camera using world axes. This mode doesn''t change roll but can be difficult to predict when camera is upside down or almost in vertical orientation.&lt;/p&gt;&lt;p&gt;Straight rotation - rotates camera using actual camera axes. This mode rotates camera in more intuitive way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <item>
                  <property name="text">
                   <string>Fixed roll angle</string>
@@ -1961,7 +2040,11 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="MyLineEdit" name="vect3_camera_rotation_x"/>
+                    <widget class="MyLineEdit" name="vect3_camera_rotation_x">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of camera around yaw axis (left &amp;lt;-&amp;gt; right)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                    </widget>
                    </item>
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_16">
@@ -1971,7 +2054,11 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="MyLineEdit" name="vect3_camera_rotation_y"/>
+                    <widget class="MyLineEdit" name="vect3_camera_rotation_y">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of camera around pitch axis (up &amp;lt;-&amp;gt; down)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                    </widget>
                    </item>
                    <item row="2" column="0">
                     <widget class="QLabel" name="label_17">
@@ -1981,7 +2068,11 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="MyLineEdit" name="vect3_camera_rotation_z"/>
+                    <widget class="MyLineEdit" name="vect3_camera_rotation_z">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of camera around roll axis (rotates image left &amp;lt;-&amp;gt; right)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -2091,8 +2182,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>129</height>
+          <width>353</width>
+          <height>203</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2117,7 +2208,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>2</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -2155,7 +2246,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>291</width>
+                  <width>303</width>
                   <height>732</height>
                  </rect>
                 </property>
@@ -3159,8 +3250,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
-                  <height>178</height>
+                  <width>317</width>
+                  <height>189</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -3181,6 +3272,9 @@ to target:</string>
                  </property>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_raytraced_reflections">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Activate calculation of ray-traced reflections and transparency. Reflectance can be set by &lt;span style=&quot; font-style:italic;&quot;&gt;Material/Reflection. &lt;/span&gt;Transparecy settings are in the same as reflection.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="title">
                     <string>Ray-traced reflections and transparency</string>
                    </property>
@@ -3210,6 +3304,9 @@ to target:</string>
                       </property>
                       <item row="0" column="2">
                        <widget class="MySpinBox" name="spinboxInt_reflections_max">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of ray bounces which are calculated for given pixel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="maximum">
                          <number>9</number>
                         </property>
@@ -3245,6 +3342,9 @@ to target:</string>
                  </item>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_DOF_enabled">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Depth of field is the effect in which objects within some range of distances in a scene appear in focus, and objects nearer or farther than this range appear out of focus.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="title">
                     <string>Depth of field</string>
                    </property>
@@ -3319,6 +3419,9 @@ to target:</string>
                           <verstretch>0</verstretch>
                          </sizepolicy>
                         </property>
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It's the distance where objects appear in focus.&lt;/p&gt;&lt;p&gt;Distance can be set bu using button &lt;span style=&quot; font-style:italic;&quot;&gt;Set focus distance by mouse&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;low focus distance&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;high focus distance&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                        </widget>
                       </item>
                       <item row="1" column="1">
@@ -3339,6 +3442,9 @@ to target:</string>
                       </item>
                       <item row="1" column="2">
                        <widget class="MyDoubleSpinBox" name="spinbox_DOF_radius">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of DOF effect (average radius of blur)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;radius = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;radius = 50&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 50.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="prefix">
                          <string/>
                         </property>
@@ -3366,6 +3472,9 @@ to target:</string>
                     </item>
                     <item>
                      <widget class="QPushButton" name="pushButton_DOF_update">
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Update image after changes of DOF settings. Can be updated even after image rendering.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
                       <property name="text">
                        <string>Update image</string>
                       </property>
@@ -3373,6 +3482,9 @@ to target:</string>
                     </item>
                     <item>
                      <widget class="QPushButton" name="pushButton_DOF_set_focus">
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setting of focus distance by mouse pointer. &lt;/p&gt;&lt;p&gt;Click on this button and then point the object on image which you want to appear in focus.&lt;/p&gt;&lt;p&gt;After using it don't forget to chage &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mouse click function&lt;/span&gt; to continue work with the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
                       <property name="text">
                        <string>Set focus distance by mouse</string>
                       </property>
@@ -3430,7 +3542,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>303</width>
                   <height>531</height>
                  </rect>
                 </property>
@@ -4057,7 +4169,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>303</width>
                   <height>204</height>
                  </rect>
                 </property>
@@ -4284,7 +4396,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>303</width>
                   <height>1300</height>
                  </rect>
                 </property>
@@ -9380,7 +9492,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-405</y>
+          <y>0</y>
           <width>339</width>
           <height>824</height>
          </rect>
@@ -11079,8 +11191,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>300</width>
-                  <height>152</height>
+                  <width>314</width>
+                  <height>247</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
