@@ -943,8 +943,8 @@
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetRightContents">
-    <layout class="QVBoxLayout" name="verticalLayout_24">
+   <widget class="QWidget" name="dockWidgetGamepadContents">
+    <layout class="QVBoxLayout" name="verticalLayout_dockgamepadcontent">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -961,7 +961,7 @@
       <number>2</number>
      </property>
      <item>
-      <layout class="QGridLayout" name="gridLayout_26">
+      <layout class="QGridLayout" name="gridLayout_gamepad_device">
        <property name="topMargin">
         <number>0</number>
        </property>
@@ -995,20 +995,20 @@
       </layout>
      </item>
      <item>
-      <widget class="QScrollArea" name="scrollArea_4">
+      <widget class="QScrollArea" name="scrollArea_gamepad">
        <property name="horizontalScrollBarPolicy">
         <enum>Qt::ScrollBarAsNeeded</enum>
        </property>
        <property name="widgetResizable">
         <bool>true</bool>
        </property>
-       <widget class="QWidget" name="scrollAreaWidgetContents_5">
+       <widget class="QWidget" name="scrollAreaWidgetContents_gamepad">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>187</width>
-          <height>179</height>
+          <width>180</width>
+          <height>216</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -1028,7 +1028,7 @@
           <number>2</number>
          </property>
          <item>
-          <layout class="QVBoxLayout" name="vl_side_functions" stretch="0,0,0">
+          <layout class="QVBoxLayout" name="vl_gamepad_movements" stretch="0,0,0">
            <property name="spacing">
             <number>1</number>
            </property>
@@ -1037,7 +1037,7 @@
              <property name="title">
               <string>movement velocity</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_2">
+             <layout class="QVBoxLayout" name="verticalLayout_movement_velocity">
               <property name="spacing">
                <number>1</number>
               </property>
@@ -1054,7 +1054,7 @@
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_51" columnminimumwidth="0,0,0">
+               <layout class="QGridLayout" name="gridLayout_gamepad_vel" columnminimumwidth="0,0,0">
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
@@ -1062,28 +1062,28 @@
                  <number>0</number>
                 </property>
                 <item row="0" column="0">
-                 <widget class="QLabel" name="label_222">
+                 <widget class="QLabel" name="label_gamepad_x">
                   <property name="text">
                    <string>x:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QLabel" name="label_19">
+                 <widget class="QLabel" name="label_gamepad_y">
                   <property name="text">
                    <string>y:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="2">
-                 <widget class="QLabel" name="label_20">
+                 <widget class="QLabel" name="label_gamepad_z">
                   <property name="text">
                    <string>z:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QSlider" name="logslider_gamepad_movement_x">
+                 <widget class="QSlider" name="sl_gamepad_movement_x">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1108,7 +1108,7 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QSlider" name="logslider_gamepad_movement_y">
+                 <widget class="QSlider" name="sl_gamepad_movement_y">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1133,7 +1133,7 @@
                  </widget>
                 </item>
                 <item row="1" column="2">
-                 <widget class="QSlider" name="logslider_gamepad_movement_z">
+                 <widget class="QSlider" name="sl_gamepad_movement_z">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1167,7 +1167,7 @@
              <property name="title">
               <string>angle velocity</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_2">
+             <layout class="QVBoxLayout" name="verticalLayout_angle_velocity">
               <property name="spacing">
                <number>1</number>
               </property>
@@ -1184,7 +1184,7 @@
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_51" columnminimumwidth="0,0,0">
+               <layout class="QGridLayout" name="gridLayout_gamepad_angle" columnminimumwidth="0,0,0">
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
@@ -1192,28 +1192,28 @@
                  <number>0</number>
                 </property>
                 <item row="0" column="0">
-                 <widget class="QLabel" name="label_222">
+                 <widget class="QLabel" name="label_gamepad_yaw">
                   <property name="text">
                    <string>yaw:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QLabel" name="label_19">
+                 <widget class="QLabel" name="label_gamepad_pich">
                   <property name="text">
                    <string>pitch:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="2">
-                 <widget class="QLabel" name="label_20">
+                 <widget class="QLabel" name="label_gamepad_roll">
                   <property name="text">
                    <string>roll:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QSlider" name="logslider_gamepad_angle_yaw">
+                 <widget class="QSlider" name="sl_gamepad_angle_yaw">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1238,7 +1238,7 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QSlider" name="logslider_gamepad_angle_pitch">
+                 <widget class="QSlider" name="sl_gamepad_angle_pitch">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1263,7 +1263,7 @@
                  </widget>
                 </item>
                 <item row="1" column="2">
-                 <widget class="QSlider" name="logslider_gamepad_angle_roll">
+                 <widget class="QSlider" name="sl_gamepad_angle_roll">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1293,7 +1293,7 @@
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer">
+            <spacer name="verticalSpacer_gamepad">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -1396,7 +1396,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-273</y>
+          <y>0</y>
           <width>177</width>
           <height>774</height>
          </rect>
@@ -2564,8 +2564,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>248</height>
+          <width>339</width>
+          <height>129</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2590,7 +2590,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>1</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -2627,8 +2627,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-385</y>
-                  <width>303</width>
+                  <y>0</y>
+                  <width>291</width>
                   <height>732</height>
                  </rect>
                 </property>
@@ -3610,8 +3610,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>234</height>
+                  <width>289</width>
+                  <height>178</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -3901,8 +3901,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-156</y>
-                  <width>303</width>
+                  <y>0</y>
+                  <width>289</width>
                   <height>531</height>
                  </rect>
                 </property>
@@ -4585,8 +4585,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>234</height>
+                  <width>289</width>
+                  <height>204</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -4812,7 +4812,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>289</width>
                   <height>1300</height>
                  </rect>
                 </property>
@@ -9908,7 +9908,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-651</y>
           <width>339</width>
           <height>824</height>
          </rect>
@@ -10628,7 +10628,7 @@ and water):</string>
                 </layout>
                </item>
                <item>
-                <layout class="QGridLayout" name="gridLayout_50">
+                <layout class="QGridLayout" name="gridLayout_connect_to_server">
                  <property name="spacing">
                   <number>2</number>
                  </property>
@@ -10660,12 +10660,12 @@ and water):</string>
                 </layout>
                </item>
                <item>
-                <layout class="QGridLayout" name="gridLayout_50">
+                <layout class="QGridLayout" name="gridLayout_server_status">
                  <property name="spacing">
                   <number>2</number>
                  </property>
                  <item row="0" column="0">
-                  <widget class="QLabel" name="label_">
+                  <widget class="QLabel" name="label_client_status">
                    <property name="text">
                     <string>Status:</string>
                    </property>
@@ -10705,7 +10705,7 @@ and water):</string>
                 <number>2</number>
                </property>
                <item>
-                <layout class="QGridLayout" name="gridLayout_50">
+                <layout class="QGridLayout" name="gridLayout_local_server_port">
                  <property name="spacing">
                   <number>2</number>
                  </property>
@@ -10729,7 +10729,7 @@ and water):</string>
                 </layout>
                </item>
                <item>
-                <layout class="QGridLayout" name="gridLayout_50">
+                <layout class="QGridLayout" name="gridLayout_launch_server">
                  <property name="spacing">
                   <number>2</number>
                  </property>
@@ -10761,7 +10761,7 @@ and water):</string>
                 </layout>
                </item>
                <item>
-                <layout class="QGridLayout" name="gridLayout_50">
+                <layout class="QGridLayout" name="gridLayout_server_status_2">
                  <property name="spacing">
                   <number>2</number>
                  </property>
@@ -10895,7 +10895,7 @@ and water):</string>
        <item>
         <widget class="QTabWidget" name="tabWidgetFlightKeyframe">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_flight_animation">
           <attribute name="title">
@@ -11047,14 +11047,14 @@ and water):</string>
                     <number>2</number>
                    </property>
                    <item row="6" column="0">
-                    <widget class="QLabel" name="label_150">
+                    <widget class="QLabel" name="label_path_for_images">
                      <property name="text">
                       <string>Path for images:</string>
                      </property>
                     </widget>
                    </item>
                    <item row="7" column="0">
-                    <widget class="QLabel" name="label_150">
+                    <widget class="QLabel" name="label_image_type">
                      <property name="text">
                       <string>image type:</string>
                      </property>
@@ -11898,7 +11898,7 @@ and water):</string>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_histogram_iter">
          <item>
-          <widget class="QLabel" name="label_174">
+          <widget class="QLabel" name="label_hist_iter">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
              <horstretch>0</horstretch>
@@ -11931,7 +11931,7 @@ and water):</string>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_histogram_de">
          <item>
-          <widget class="QLabel" name="label_174">
+          <widget class="QLabel" name="label_hist_de">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
              <horstretch>0</horstretch>
@@ -12600,7 +12600,7 @@ and water):</string>
   <tabstop>vect3_limit_max_z</tabstop>
   <tabstop>pushButton_render</tabstop>
   <tabstop>pushButton_stop</tabstop>
-  <tabstop>scrollArea_4</tabstop>
+  <tabstop>scrollArea_gamepad</tabstop>
   <tabstop>vect3_camera_x</tabstop>
   <tabstop>vect3_camera_y</tabstop>
   <tabstop>vect3_camera_z</tabstop>
