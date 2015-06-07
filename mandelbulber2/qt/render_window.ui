@@ -329,7 +329,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-361</y>
+          <y>-381</y>
           <width>339</width>
           <height>449</height>
          </rect>
@@ -9380,7 +9380,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-405</y>
           <width>339</width>
           <height>824</height>
          </rect>
@@ -9461,10 +9461,16 @@ and water):</string>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;All object closer than this distance won't be visible&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                </widget>
               </item>
               <item row="7" column="0" colspan="3">
                <widget class="MyCheckBox" name="checkBox_iteration_threshold_mode">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Swithes off stopping of ray-marching at distance threshold. When it's checked detail level is controlled with &lt;span style=&quot; font-style:italic;&quot;&gt;Max. fractal iterations&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Stop at maximum iteration</string>
                 </property>
@@ -9472,6 +9478,9 @@ and water):</string>
               </item>
               <item row="8" column="0" colspan="3">
                <widget class="MyCheckBox" name="checkBox_interior_mode">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes fractals empy inside. It gives interesting results when there is rendered cross section of fractal using &lt;span style=&quot; font-style:italic;&quot;&gt;Linits (box)&lt;/span&gt; feature. &lt;/p&gt;&lt;p&gt;This effect is very slow to render because iterations stop at high number inside the fractal. It's good to reduce Max. fractal iterations to speed up rendering.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;interior mode enabled&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;interior mode disabled&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Interior mode</string>
                 </property>
@@ -9553,6 +9562,9 @@ and water):</string>
               </item>
               <item row="9" column="0" colspan="3">
                <widget class="MyCheckBox" name="checkBox_slow_shading">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables mode dedicated for fractals where there is difficult to calculate surface normal vectors. Rendering is much slower, but fractal surface is much smoother.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Non-DE shading mode (slow)</string>
                 </property>
@@ -9578,6 +9590,9 @@ and water):</string>
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Smoothness parameter defines averaging area for normal vecotr calculation.&lt;/p&gt;&lt;p&gt;Higher value gives smoother fractal surface.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;smoothness = 0.1&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 0.1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
@@ -9626,6 +9641,9 @@ and water):</string>
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines visibility distance. All further objects won't be visible. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
@@ -9681,6 +9699,9 @@ and water):</string>
               </item>
               <item row="10" column="0" colspan="3">
                <widget class="QGroupBox" name="groupCheck_constant_DE_threshold">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When it's not enabled, the program automatically reduces amount of details for the furthest regions of ractal. If you go closer to fractal surface, the program increases number of details.&lt;/p&gt;&lt;p&gt;If it's checked, then in every region of fractal detail size will be the same.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="title">
                  <string>Constant detail size</string>
                 </property>
@@ -9751,6 +9772,9 @@ and water):</string>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance threshold which defines detail size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                     </widget>
                    </item>
                   </layout>
@@ -9790,6 +9814,9 @@ and water):</string>
          </item>
          <item>
           <widget class="MyGroupBox" name="groupCheck_limits_enabled">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of ractal cross sections.&lt;/p&gt;&lt;p&gt;Example cross sections of Buffalo fractal:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;x = {-10; 10}, y = {-10, 10}, z = {-10, 0}&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;x = {-10, 0}, y = {0, 10}, z = {-0.1; 0.1}&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - limits z.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - limits x, y, z.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="title">
             <string>Limits (box)</string>
            </property>

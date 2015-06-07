@@ -17,6 +17,13 @@
     <file>icons/system-shutdown.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
+    <file>tooltips_images/image - limits x, y, z.jpeg</file>
+    <file>tooltips_images/image - limits z.jpeg</file>
+    <file>tooltips_images/image - interior disabled.jpg</file>
+    <file>tooltips_images/image - interior enabled.jpg</file>
+    <file>tooltips_images/image - smoothness 0.1.jpg</file>
+    <file>tooltips_images/image - smoothness 1.jpg</file>
+    <file>tooltips_images/image - smoothness 5.jpg</file>
     <file>tooltips_images/image - DE step factor 1.jpg</file>
     <file>tooltips_images/image - DE step factor 4.jpg</file>
     <file>tooltips_images/image - resolution 0.2.jpg</file>
