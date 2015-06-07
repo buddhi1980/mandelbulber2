@@ -338,6 +338,7 @@ void RenderWindow::slotMenuResetDocksPositions()
 	ui->dockWidget_histogram->hide();
 	ui->dockWidget_info->hide();
 	ui->dockWidget_animation->hide();
+	ui->dockWidget_gamepad_dock->hide();
 }
 
 void RenderWindow::slotChangedComboFractal(int index)
@@ -1359,6 +1360,20 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 	{
 			ui->toolBar->setVisible(ui->actionShow_toolbar->isChecked());
 	}
+
+	// Gamepad dock
+	if(ui->actionShow_gamepad_dock->isChecked() != ui->dockWidget_gamepad_dock->isVisible())
+	{
+		if(ui->actionShow_gamepad_dock->isChecked())
+		{
+			addDockWidget(Qt::RightDockWidgetArea, ui->dockWidget_gamepad_dock);
+		}
+		else
+		{
+			removeDockWidget(ui->dockWidget_gamepad_dock);
+		}
+		ui->dockWidget_gamepad_dock->setVisible(ui->actionShow_gamepad_dock->isChecked());
+	}
 }
 
 void RenderWindow::slotUpdateDocksandToolbarbyView()
@@ -1385,6 +1400,12 @@ void RenderWindow::slotUpdateDocksandToolbarbyView()
 	if(ui->actionShow_toolbar->isChecked() != ui->toolBar->isVisible())
 	{
 		ui->actionShow_toolbar->setChecked(ui->toolBar->isVisible());
+	}
+
+	// Gamepad dock
+	if(ui->actionShow_gamepad_dock->isChecked() != ui->dockWidget_gamepad_dock->isVisible())
+	{
+		ui->actionShow_gamepad_dock->setChecked(ui->dockWidget_gamepad_dock->isVisible());
 	}
 }
 void RenderWindow::slotMenuLoadPreset(QString filename)

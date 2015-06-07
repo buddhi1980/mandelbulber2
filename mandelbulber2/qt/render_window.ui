@@ -247,6 +247,7 @@
     <addaction name="actionShow_info_dock"/>
     <addaction name="actionShow_toolbar"/>
     <addaction name="actionShow_statistics_dock"/>
+    <addaction name="actionShow_gamepad_dock"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -927,6 +928,384 @@
             </size>
            </property>
           </spacer>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_gamepad_dock">
+   <property name="windowTitle">
+    <string>Gamepad</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetRightContents">
+    <layout class="QVBoxLayout" name="verticalLayout_24">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_26">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="horizontalSpacing">
+        <number>2</number>
+       </property>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_149">
+         <property name="text">
+          <string>Gamepad device:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="comboBox_gamepad_device"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="checkBox_enable_gamepad">
+         <property name="text">
+          <string>enable</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_gamepad_no_device">
+         <property name="text">
+          <string>no device attached</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QScrollArea" name="scrollArea_4">
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_5">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>187</width>
+          <height>179</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <layout class="QVBoxLayout" name="vl_side_functions" stretch="0,0,0">
+           <property name="spacing">
+            <number>1</number>
+           </property>
+           <item>
+            <widget class="QGroupBox" name="groupBox_movement_velocity">
+             <property name="title">
+              <string>movement velocity</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <property name="spacing">
+               <number>1</number>
+              </property>
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_51" columnminimumwidth="0,0,0">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_222">
+                  <property name="text">
+                   <string>x:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLabel" name="label_19">
+                  <property name="text">
+                   <string>y:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="label_20">
+                  <property name="text">
+                   <string>z:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QSlider" name="logslider_gamepad_movement_x">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimum">
+                   <number>-100</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>10</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="tickPosition">
+                   <enum>QSlider::TicksBothSides</enum>
+                  </property>
+                  <property name="tickInterval">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QSlider" name="logslider_gamepad_movement_y">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimum">
+                   <number>-100</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>10</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="tickPosition">
+                   <enum>QSlider::TicksBothSides</enum>
+                  </property>
+                  <property name="tickInterval">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QSlider" name="logslider_gamepad_movement_z">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimum">
+                   <number>-100</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>10</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="tickPosition">
+                   <enum>QSlider::TicksBothSides</enum>
+                  </property>
+                  <property name="tickInterval">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_angle_velocity">
+             <property name="title">
+              <string>angle velocity</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <property name="spacing">
+               <number>1</number>
+              </property>
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_51" columnminimumwidth="0,0,0">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_222">
+                  <property name="text">
+                   <string>yaw:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLabel" name="label_19">
+                  <property name="text">
+                   <string>pitch:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="label_20">
+                  <property name="text">
+                   <string>roll:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QSlider" name="logslider_gamepad_angle_yaw">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimum">
+                   <number>-100</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>10</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="tickPosition">
+                   <enum>QSlider::TicksBothSides</enum>
+                  </property>
+                  <property name="tickInterval">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QSlider" name="logslider_gamepad_angle_pitch">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimum">
+                   <number>-100</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>10</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="tickPosition">
+                   <enum>QSlider::TicksBothSides</enum>
+                  </property>
+                  <property name="tickInterval">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QSlider" name="logslider_gamepad_angle_roll">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimum">
+                   <number>-100</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>10</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="tickPosition">
+                   <enum>QSlider::TicksBothSides</enum>
+                  </property>
+                  <property name="tickInterval">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>
@@ -11840,6 +12219,17 @@ and water):</string>
    </property>
    <property name="text">
     <string>Show animation dock</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionShow_gamepad_dock">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show gamepad dock</string>
    </property>
    <property name="visible">
     <bool>true</bool>
