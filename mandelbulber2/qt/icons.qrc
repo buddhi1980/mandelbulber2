@@ -17,6 +17,16 @@
     <file>icons/system-shutdown.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
+    <file>tooltips_images/image - DE step factor 1.jpg</file>
+    <file>tooltips_images/image - DE step factor 4.jpg</file>
+    <file>tooltips_images/image - resolution 0.2.jpg</file>
+    <file>tooltips_images/image - resolution 0.5.jpg</file>
+    <file>tooltips_images/image - resolution 1.jpg</file>
+    <file>tooltips_images/image - maxiter - 10.jpg</file>
+    <file>tooltips_images/image - maxiter - 15.jpg</file>
+    <file>tooltips_images/image - shader - colouring enabled.jpg</file>
+    <file>tooltips_images/image - shader - colour speed 0.3.jpg</file>
+    <file>tooltips_images/image - shader - colour speed 5.jpg</file>
     <file>tooltips_images/image - shader - ambient occlusion high quality.jpg</file>
     <file>tooltips_images/image - shader - ambient occlusion fast mode.jpg</file>
     <file>tooltips_images/image - shader - ambient occlusion 1.0.jpg</file>

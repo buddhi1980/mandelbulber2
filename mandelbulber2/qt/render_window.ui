@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>1164</width>
-           <height>519</height>
+           <height>690</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -329,7 +329,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-338</y>
+          <y>-361</y>
           <width>339</width>
           <height>449</height>
          </rect>
@@ -379,7 +379,7 @@
               <item row="1" column="2">
                <widget class="MySpinBox" name="spinboxInt_image_height">
                 <property name="toolTip">
-                 <string>Height of rendered image in pixels</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Height of rendered image in pixels&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="minimum">
                  <number>32</number>
@@ -447,7 +447,7 @@
               <item row="0" column="2">
                <widget class="MySpinBox" name="spinboxInt_image_width">
                 <property name="toolTip">
-                 <string>Width of rendered image in pixels</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Width of rendered image in pixels&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="minimum">
                  <number>32</number>
@@ -470,7 +470,7 @@
               <item row="2" column="1">
                <widget class="QComboBox" name="comboBox_image_proportion">
                 <property name="toolTip">
-                 <string>Force image proportion</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Force image proportion&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <item>
                  <property name="text">
@@ -514,7 +514,7 @@
             <item>
              <widget class="QGroupBox" name="groupBox_6">
               <property name="toolTip">
-               <string>Presets for rendered image size</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Presets for rendered image size&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="title">
                <string>Presets</string>
@@ -617,7 +617,7 @@
          <item>
           <widget class="QGroupBox" name="groupBox_ImageAdjustments">
            <property name="toolTip">
-            <string>Adjustments for image colors. Can be changed after rendering</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjustments for image colors. Can be changed after rendering&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="title">
             <string>Picture</string>
@@ -646,7 +646,7 @@
               <item row="1" column="2">
                <widget class="MyDoubleSpinBox" name="spinbox_contrast">
                 <property name="toolTip">
-                 <string>Contrast of image</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrast of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="prefix">
                  <string/>
@@ -668,7 +668,7 @@
               <item row="2" column="2">
                <widget class="MyDoubleSpinBox" name="spinbox_gamma">
                 <property name="toolTip">
-                 <string>Gamma of image</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="prefix">
                  <string/>
@@ -697,7 +697,7 @@
               <item row="0" column="2">
                <widget class="MyDoubleSpinBox" name="spinbox_brightness">
                 <property name="toolTip">
-                 <string>Brightness of image</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="prefix">
                  <string/>
@@ -768,7 +768,7 @@
             <item>
              <widget class="MyCheckBox" name="checkBox_hdr">
               <property name="toolTip">
-               <string>High dynamic range effect. Reduces brightness of the brightest pixels to not oversaturate them.</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;High dynamic range effect. Reduces brightness of the brightest pixels to not oversaturate them.&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
                <string>High Dynamic Range (HDR)</string>
@@ -778,7 +778,7 @@
             <item>
              <widget class="QPushButton" name="pushButton_apply_image_changes">
               <property name="toolTip">
-               <string>Apply changes of image colors</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Apply changes of image colors&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
                <string>Apply changes</string>
@@ -825,7 +825,7 @@
               <item row="0" column="2">
                <widget class="MyDoubleSpinBox" name="spinbox_fov">
                 <property name="toolTip">
-                 <string>Field of view of camera. Higher value gives wider view.</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Field of view of camera. Higher value gives wider view.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="prefix">
                  <string/>
@@ -869,7 +869,7 @@
               <item row="1" column="1" colspan="2">
                <widget class="QComboBox" name="comboBox_perspective_type">
                 <property name="toolTip">
-                 <string>Type of perspective projection.</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Type of perspective projection.&lt;/p&gt;&lt;p&gt;- Three-point perspective is perspective projection, where are two vanishing points on the horizon line and one on zenith or nadir&lt;/p&gt;&lt;p&gt;- Fish eye - simulates fish eye camera. &lt;span style=&quot; font-style:italic;&quot;&gt;Field of view&lt;/span&gt; = 1.0 coresponds to 180 degree&lt;/p&gt;&lt;p&gt;- Equirectangular - is dedicated to render 360 degree panoramas. Image proportion should be set to 2:1 and &lt;span style=&quot; font-style:italic;&quot;&gt;Field of view&lt;/span&gt; = 1.0&lt;/p&gt;&lt;p&gt;- Fuldome - is dedicated to render images for displaying in fulldome.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <item>
                  <property name="text">
@@ -2090,7 +2090,7 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-7</y>
+          <y>0</y>
           <width>339</width>
           <height>129</height>
          </rect>
@@ -2154,7 +2154,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-380</y>
+                  <y>0</y>
                   <width>291</width>
                   <height>732</height>
                  </rect>
@@ -2297,7 +2297,18 @@ to target:</string>
                    <item row="0" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_shading">
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;angle of incidence effect intesity&lt;/p&gt;&lt;p&gt;shading 0.0&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;shading 1.0&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;angle of incidence effect intesity&lt;/p&gt;
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;shading 0.0&lt;/td&gt;
+    &lt;td&gt;shading 1.0&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="prefix">
                       <string/>
@@ -2319,7 +2330,18 @@ to target:</string>
                    <item row="1" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_specular">
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;specularity effect&lt;/p&gt;&lt;p&gt;specularity 0&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 0.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;specularity 5&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;specularity effect&lt;/p&gt;
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;specularity 0&lt;/td&gt;
+    &lt;td&gt;specularity 5&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 0.jpg&quot;/&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 5.jpg&quot;/&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="prefix">
                       <string/>
@@ -2726,6 +2748,9 @@ to target:</string>
                  </item>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_fractal_color">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coloring of fractal surface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="title">
                     <string>Surface color</string>
                    </property>
@@ -2762,6 +2787,9 @@ to target:</string>
                       </item>
                       <item row="5" column="2">
                        <widget class="MySpinBox" name="spinboxInt_coloring_random_seed">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Random seed for palette generator&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="maximum">
                          <number>999999</number>
                         </property>
@@ -2783,6 +2811,9 @@ to target:</string>
                       </item>
                       <item row="3" column="2">
                        <widget class="MyDoubleSpinBox" name="spinbox_coloring_saturation">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Saturation of colors in random color palette &lt;/p&gt;&lt;p&gt;To apply changes of saturation, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="accelerated">
                          <bool>false</bool>
                         </property>
@@ -2817,10 +2848,16 @@ to target:</string>
                           <height>30</height>
                          </size>
                         </property>
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cyclic pallete of colors which is used to color fractal surface.&lt;/p&gt;&lt;p&gt;To edit palette click on chosen color.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                        </widget>
                       </item>
                       <item row="4" column="2">
                        <widget class="MyDoubleSpinBox" name="spinbox_coloring_speed">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color palette speed sets frequency of color changing&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;speed 0.3&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;speed 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;speed 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 0.3.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="accelerated">
                          <bool>false</bool>
                         </property>
@@ -2849,6 +2886,9 @@ to target:</string>
                       </item>
                       <item row="7" column="0" colspan="3">
                        <widget class="QPushButton" name="pushButton_getPaletteFromImage">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Grab color palette from selected picture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text">
                          <string>Grab colors from image...</string>
                         </property>
@@ -2922,6 +2962,9 @@ to target:</string>
                       </item>
                       <item row="2" column="2">
                        <widget class="MySpinBox" name="spinboxInt_coloring_palette_size">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of colors used in color palette.&lt;/p&gt;&lt;p&gt;To apply changes of palette size, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="minimum">
                          <number>1</number>
                         </property>
@@ -2955,6 +2998,9 @@ to target:</string>
                       </item>
                       <item row="1" column="2">
                        <widget class="MyDoubleSpinBox" name="spinbox_coloring_palette_offset">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift of color palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="accelerated">
                          <bool>false</bool>
                         </property>
@@ -2983,6 +3029,9 @@ to target:</string>
                       </item>
                       <item row="6" column="0" colspan="3">
                        <widget class="QPushButton" name="pushButton_randomPalette">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate patelle from actual random seed.&lt;/p&gt;&lt;p&gt;This applies changes of palette size and color saturation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text">
                          <string>Generate new random palette</string>
                         </property>
@@ -2990,6 +3039,9 @@ to target:</string>
                       </item>
                       <item row="5" column="1">
                        <widget class="QPushButton" name="pushButton_randomize">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate new random seed and palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text">
                          <string>Randomize</string>
                         </property>
@@ -3002,6 +3054,9 @@ to target:</string>
                  </item>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_env_mapping_enable">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Environment mapping is an image-based lighting technique for approximating the appearance of a reflective surface by means of a precomputed texture image. The texture is used to store the image of the distant environment surrounding the rendered object.&lt;/p&gt;&lt;p&gt;To adjust efect intensity use &lt;span style=&quot; font-style:italic;&quot;&gt;reflection&lt;/span&gt; slider&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="title">
                     <string>Environment mappring</string>
                    </property>
@@ -3037,7 +3092,11 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="1">
-                       <widget class="MyLineEdit" name="text_file_envmap"/>
+                       <widget class="MyLineEdit" name="text_file_envmap">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image file with reflection map.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                       </widget>
                       </item>
                       <item row="0" column="0">
                        <widget class="QLabel" name="label_132">
@@ -9323,7 +9382,7 @@ and water):</string>
           <x>0</x>
           <y>0</y>
           <width>339</width>
-          <height>823</height>
+          <height>824</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -9426,12 +9485,16 @@ and water):</string>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameters has takes biggest factor on overal quality of image and rendering speed.&lt;/p&gt;&lt;p&gt;Higher value gives faster rendering but more noise on image.&lt;/p&gt;&lt;p&gt;When rays are traced, for each step there are estimated distances to the fractal surface. The jump distance for every ray-marching step should equal to estimated distance. This is the optimal way and gives small number of steps and good quality. However the distance can be only estimated, so it's not always accurate. It can produce oversteppings which will be visible on the image as random noise.&lt;/p&gt;&lt;p&gt;In some cases you need to play with this parameter to find when is good quality and rendering is not so slow.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;step multiplier = 1.0 (optimal - good quality and fast)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;step multiplier = 5 (visible strong noise on image)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 4.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;As a quality indicator can be used &lt;span style=&quot; font-style:italic;&quot;&gt;Percentage of wrong distance estimations&lt;/span&gt; visivle in &lt;span style=&quot; font-style:italic;&quot;&gt;Statistics&lt;/span&gt; dock. &lt;/p&gt;&lt;p&gt;To optimize this parameter there can be used histograms of iteration count and ray-marching step count.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                </widget>
               </item>
               <item row="3" column="0">
                <widget class="QLabel" name="label_105">
                 <property name="text">
-                 <string>Raymarching step mult.:</string>
+                 <string>Raymarching step mult.
+(controls quality):</string>
                 </property>
                </widget>
               </item>
@@ -9497,6 +9560,9 @@ and water):</string>
               </item>
               <item row="1" column="2">
                <widget class="MySpinBox" name="spinboxInt_N">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The higher the maximum number of iterations (&amp;quot;maxiter&amp;quot;), the more detail and subtlety emerge in the final image, but the longer time it will take to calculate the fractal image. &lt;/p&gt;&lt;p&gt;In normal operation this should be set as high as possible because &amp;quot;Distance estimation&amp;quot; algorithm limits number of iteration (almost no influence on rendering speed)&lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Stop at maximum iteration&lt;/span&gt; is selected, then this parameter controls detail level.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;maxiter = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;maxiter = 15&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 15.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="minimum">
                  <number>1</number>
                 </property>
@@ -9547,6 +9613,9 @@ and water):</string>
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls how much detail will be visible on fractal surface. When it is set to 1.0, then minimum visible detail has size of 2 pixels.&lt;/p&gt;&lt;p&gt;Higher value gives more detailed image, but slowes down rendering.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;detail level 0.2&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;detail level 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;detail level 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.2.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
@@ -10983,8 +11052,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>314</width>
-                  <height>247</height>
+                  <width>300</width>
+                  <height>152</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
