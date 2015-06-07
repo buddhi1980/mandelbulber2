@@ -83,6 +83,7 @@ void cInterface::ShowUi(void)
 		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_rendering_engine, mainWindow->ui->dockWidget_fractal);
 		mainWindow->ui->dockWidget_animation->hide();
 		mainWindow->ui->dockWidget_info->hide();
+		mainWindow->ui->dockWidget_gamepad_dock->hide();
 	}
 
 	WriteLog("mainWindow->show()");
@@ -279,7 +280,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->toolBar, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 	QApplication::connect(mainWindow->ui->dockWidget_info, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 	QApplication::connect(mainWindow->ui->dockWidget_histogram, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
-
+	QApplication::connect(mainWindow->ui->dockWidget_gamepad_dock, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 
 
 	//------------------------------------------------
