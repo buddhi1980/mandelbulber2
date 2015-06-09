@@ -17,6 +17,10 @@
     <file>icons/system-shutdown.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
+    <file>tooltips_images/image - shader - glow.jpeg</file>
+    <file>tooltips_images/image - shader - distance glow.jpg</file>
+    <file>tooltips_images/image - shader - distance glow 2.jpeg</file>
+    <file>tooltips_images/image - shader - fog.jpeg</file>
     <file>tooltips_images/rotate camera around target.png</file>
     <file>tooltips_images/rotate target around camera.png</file>
     <file>tooltips_images/Yaw_Pich_Roll.png</file>

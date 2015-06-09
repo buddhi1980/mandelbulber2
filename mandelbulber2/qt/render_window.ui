@@ -67,7 +67,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1136</width>
+           <width>1164</width>
            <height>519</height>
           </rect>
          </property>
@@ -943,8 +943,8 @@
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetRightContents">
-    <layout class="QVBoxLayout" name="verticalLayout_24">
+   <widget class="QWidget" name="dockWidgetGamepadContents">
+    <layout class="QVBoxLayout" name="verticalLayout_dockgamepadcontent">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -961,7 +961,7 @@
       <number>2</number>
      </property>
      <item>
-      <layout class="QGridLayout" name="gridLayout_26">
+      <layout class="QGridLayout" name="gridLayout_gamepad_device">
        <property name="topMargin">
         <number>0</number>
        </property>
@@ -995,20 +995,20 @@
       </layout>
      </item>
      <item>
-      <widget class="QScrollArea" name="scrollArea_4">
+      <widget class="QScrollArea" name="scrollArea_gamepad">
        <property name="horizontalScrollBarPolicy">
         <enum>Qt::ScrollBarAsNeeded</enum>
        </property>
        <property name="widgetResizable">
         <bool>true</bool>
        </property>
-       <widget class="QWidget" name="scrollAreaWidgetContents_5">
+       <widget class="QWidget" name="scrollAreaWidgetContents_gamepad">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>187</width>
-          <height>179</height>
+          <width>180</width>
+          <height>216</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -1028,7 +1028,7 @@
           <number>2</number>
          </property>
          <item>
-          <layout class="QVBoxLayout" name="vl_side_functions" stretch="0,0,0">
+          <layout class="QVBoxLayout" name="vl_gamepad_movements" stretch="0,0,0">
            <property name="spacing">
             <number>1</number>
            </property>
@@ -1037,7 +1037,7 @@
              <property name="title">
               <string>movement velocity</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_2">
+             <layout class="QVBoxLayout" name="verticalLayout_movement_velocity">
               <property name="spacing">
                <number>1</number>
               </property>
@@ -1054,7 +1054,7 @@
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_51" columnminimumwidth="0,0,0">
+               <layout class="QGridLayout" name="gridLayout_gamepad_vel" columnminimumwidth="0,0,0">
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
@@ -1062,28 +1062,28 @@
                  <number>0</number>
                 </property>
                 <item row="0" column="0">
-                 <widget class="QLabel" name="label_222">
+                 <widget class="QLabel" name="label_gamepad_x">
                   <property name="text">
                    <string>x:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QLabel" name="label_19">
+                 <widget class="QLabel" name="label_gamepad_y">
                   <property name="text">
                    <string>y:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="2">
-                 <widget class="QLabel" name="label_20">
+                 <widget class="QLabel" name="label_gamepad_z">
                   <property name="text">
                    <string>z:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QSlider" name="logslider_gamepad_movement_x">
+                 <widget class="QSlider" name="sl_gamepad_movement_x">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1108,7 +1108,7 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QSlider" name="logslider_gamepad_movement_y">
+                 <widget class="QSlider" name="sl_gamepad_movement_y">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1133,7 +1133,7 @@
                  </widget>
                 </item>
                 <item row="1" column="2">
-                 <widget class="QSlider" name="logslider_gamepad_movement_z">
+                 <widget class="QSlider" name="sl_gamepad_movement_z">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1167,7 +1167,7 @@
              <property name="title">
               <string>angle velocity</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_2">
+             <layout class="QVBoxLayout" name="verticalLayout_angle_velocity">
               <property name="spacing">
                <number>1</number>
               </property>
@@ -1184,7 +1184,7 @@
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_51" columnminimumwidth="0,0,0">
+               <layout class="QGridLayout" name="gridLayout_gamepad_angle" columnminimumwidth="0,0,0">
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
@@ -1192,28 +1192,28 @@
                  <number>0</number>
                 </property>
                 <item row="0" column="0">
-                 <widget class="QLabel" name="label_222">
+                 <widget class="QLabel" name="label_gamepad_yaw">
                   <property name="text">
                    <string>yaw:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QLabel" name="label_19">
+                 <widget class="QLabel" name="label_gamepad_pich">
                   <property name="text">
                    <string>pitch:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="2">
-                 <widget class="QLabel" name="label_20">
+                 <widget class="QLabel" name="label_gamepad_roll">
                   <property name="text">
                    <string>roll:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QSlider" name="logslider_gamepad_angle_yaw">
+                 <widget class="QSlider" name="sl_gamepad_angle_yaw">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1238,7 +1238,7 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QSlider" name="logslider_gamepad_angle_pitch">
+                 <widget class="QSlider" name="sl_gamepad_angle_pitch">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1263,7 +1263,7 @@
                  </widget>
                 </item>
                 <item row="1" column="2">
-                 <widget class="QSlider" name="logslider_gamepad_angle_roll">
+                 <widget class="QSlider" name="sl_gamepad_angle_roll">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1293,7 +1293,7 @@
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer">
+            <spacer name="verticalSpacer_gamepad">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -1396,8 +1396,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-259</y>
-          <width>194</width>
+          <y>0</y>
+          <width>177</width>
           <height>774</height>
          </rect>
         </property>
@@ -2476,6 +2476,9 @@ to target:</string>
                <height>0</height>
               </size>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for action which will be executed after clicking on image&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;No action - blocks functionality of mouse pointer&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Move the camera - moves the camera or target (depends on movement and rotation mode)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set fog visibility - sets visibility distance for basic fog effect&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set DOF focus - sets object which will aprear in focus&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Get Julia constant - gets value of constant for Julia fractal&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Place light #n - places light in selected place (mouse wheel controls distance from fractal) &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <item>
               <property name="text">
                <string>No action</string>
@@ -2561,8 +2564,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>203</height>
+          <width>339</width>
+          <height>129</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2587,7 +2590,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>1</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -2625,7 +2628,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>291</width>
                   <height>732</height>
                  </rect>
                 </property>
@@ -2767,18 +2770,7 @@ to target:</string>
                    <item row="0" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_shading">
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;angle of incidence effect intesity&lt;/p&gt;
-&lt;table&gt;
-  &lt;tr&gt;
-    &lt;td&gt;shading 0.0&lt;/td&gt;
-    &lt;td&gt;shading 1.0&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/td&gt;
-    &lt;td&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;angle of incidence effect intesity&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;shading 0.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;shading 1.0 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="prefix">
                       <string/>
@@ -2800,18 +2792,7 @@ to target:</string>
                    <item row="1" column="2">
                     <widget class="MyDoubleSpinBox" name="spinbox_specular">
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;specularity effect&lt;/p&gt;
-&lt;table&gt;
-  &lt;tr&gt;
-    &lt;td&gt;specularity 0&lt;/td&gt;
-    &lt;td&gt;specularity 5&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 0.jpg&quot;/&gt;&lt;/td&gt;
-    &lt;td&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 5.jpg&quot;/&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;specularity effect&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;specularity 0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;specularity 5 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="prefix">
                       <string/>
@@ -3629,8 +3610,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>189</height>
+                  <width>289</width>
+                  <height>178</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -3921,7 +3902,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>289</width>
                   <height>531</height>
                  </rect>
                 </property>
@@ -3943,6 +3924,9 @@ to target:</string>
                  </property>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_basic_fog_enabled">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables fog effect. Density of fog is constant over entire space.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - fog.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="title">
                     <string>Basic fog</string>
                    </property>
@@ -3985,6 +3969,9 @@ to target:</string>
                       </item>
                       <item row="0" column="2">
                        <widget class="MyLineEdit" name="logedit_basic_fog_visibility">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Visibility distance of fog. Visibility can be set by using '&lt;span style=&quot; font-style:italic;&quot;&gt;Set visibility distance by mouse'&lt;/span&gt; button&lt;/p&gt;&lt;p&gt;Lower value gives denser fog,&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="alignment">
                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                         </property>
@@ -3999,6 +3986,9 @@ to target:</string>
                       </item>
                       <item row="1" column="1">
                        <widget class="MyColorButton" name="colorButton_basic_fog_color" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
@@ -4015,6 +4005,9 @@ to target:</string>
                     </item>
                     <item>
                      <widget class="QPushButton" name="pushButton_set_fog_by_mouse">
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets visibility distance using mouse pointer. Point the object which should be the fathrthest visible.&lt;/p&gt;&lt;p&gt;After using it don't forget to chage &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mouse click function&lt;/span&gt; to continue work with the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
                       <property name="text">
                        <string>Set visibility distance by mouse</string>
                       </property>
@@ -4025,6 +4018,9 @@ to target:</string>
                  </item>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_glow_enabled">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Glow effect based on ray-marching step count&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - glow.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="title">
                     <string>Glow</string>
                    </property>
@@ -4068,6 +4064,9 @@ to target:</string>
                       </item>
                       <item row="2" column="1">
                        <widget class="MyColorButton" name="colorButton_glow_color_2" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of bright areas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
@@ -4088,6 +4087,9 @@ to target:</string>
                       </item>
                       <item row="1" column="1">
                        <widget class="MyColorButton" name="colorButton_glow_color_1" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of dark areas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
@@ -4101,7 +4103,11 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="2">
-                       <widget class="MyLineEdit" name="logedit_glow_intensity"/>
+                       <widget class="MyLineEdit" name="logedit_glow_intensity">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                       </widget>
                       </item>
                      </layout>
                     </item>
@@ -4110,6 +4116,9 @@ to target:</string>
                  </item>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_volumetric_fog_enabled">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fog where density depends on distance from fractal surface.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Example of high values of distance&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Examples of low values of distance &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow 2.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="title">
                     <string>Fog based on distance</string>
                    </property>
@@ -4138,7 +4147,11 @@ to target:</string>
                        <number>2</number>
                       </property>
                       <item row="1" column="2">
-                       <widget class="MyLineEdit" name="logedit_volumetric_fog_density"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_fog_density">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Density of fog. Higher value gives denser fog. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                       </widget>
                       </item>
                       <item row="4" column="0">
                        <widget class="QLabel" name="label_77">
@@ -4175,10 +4188,17 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="3" column="2">
-                       <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_2_distance"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_2_distance">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum distance from fractal surface where color #2 is used and minimum where color #3  is used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                       </widget>
                       </item>
                       <item row="5" column="1">
                        <widget class="MyColorButton" name="colorButton_fog_color_1" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used from fractal surface to distance #1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
@@ -4198,7 +4218,11 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="2" column="2">
-                       <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_1_distance"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_1_distance">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum distance from fractal surface where color #1 is used&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                       </widget>
                       </item>
                       <item row="2" column="1">
                        <widget class="QSlider" name="logslider_volumetric_fog_colour_1_distance">
@@ -4229,6 +4253,9 @@ to target:</string>
                       </item>
                       <item row="6" column="1">
                        <widget class="MyColorButton" name="colorButton_fog_color_2" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used between distance #1  and distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
@@ -4243,13 +4270,20 @@ to target:</string>
                       </item>
                       <item row="7" column="1">
                        <widget class="MyColorButton" name="colorButton_fog_color_3" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used farther than distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
                        </widget>
                       </item>
                       <item row="4" column="2">
-                       <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_factor"/>
+                       <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_factor">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts density of fog to distance from fractal surface. Higher value givers fog which reaches further from fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                       </widget>
                       </item>
                       <item row="1" column="1">
                        <widget class="QSlider" name="logslider_volumetric_fog_density">
@@ -4266,6 +4300,9 @@ to target:</string>
                       </item>
                       <item row="0" column="0" colspan="3">
                        <widget class="QPushButton" name="button_calculateFog">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Calculates optimal settings for fog effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text">
                          <string>Optimal distances calculation</string>
                         </property>
@@ -4548,7 +4585,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>289</width>
                   <height>204</height>
                  </rect>
                 </property>
@@ -4775,7 +4812,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>289</width>
                   <height>1300</height>
                  </rect>
                 </property>
@@ -9871,7 +9908,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-651</y>
           <width>339</width>
           <height>824</height>
          </rect>
@@ -10591,7 +10628,7 @@ and water):</string>
                 </layout>
                </item>
                <item>
-                <layout class="QGridLayout" name="gridLayout_50">
+                <layout class="QGridLayout" name="gridLayout_connect_to_server">
                  <property name="spacing">
                   <number>2</number>
                  </property>
@@ -10623,12 +10660,12 @@ and water):</string>
                 </layout>
                </item>
                <item>
-                <layout class="QGridLayout" name="gridLayout_50">
+                <layout class="QGridLayout" name="gridLayout_server_status">
                  <property name="spacing">
                   <number>2</number>
                  </property>
                  <item row="0" column="0">
-                  <widget class="QLabel" name="label_">
+                  <widget class="QLabel" name="label_client_status">
                    <property name="text">
                     <string>Status:</string>
                    </property>
@@ -10668,7 +10705,7 @@ and water):</string>
                 <number>2</number>
                </property>
                <item>
-                <layout class="QGridLayout" name="gridLayout_50">
+                <layout class="QGridLayout" name="gridLayout_local_server_port">
                  <property name="spacing">
                   <number>2</number>
                  </property>
@@ -10692,7 +10729,7 @@ and water):</string>
                 </layout>
                </item>
                <item>
-                <layout class="QGridLayout" name="gridLayout_50">
+                <layout class="QGridLayout" name="gridLayout_launch_server">
                  <property name="spacing">
                   <number>2</number>
                  </property>
@@ -10724,7 +10761,7 @@ and water):</string>
                 </layout>
                </item>
                <item>
-                <layout class="QGridLayout" name="gridLayout_50">
+                <layout class="QGridLayout" name="gridLayout_server_status_2">
                  <property name="spacing">
                   <number>2</number>
                  </property>
@@ -10858,7 +10895,7 @@ and water):</string>
        <item>
         <widget class="QTabWidget" name="tabWidgetFlightKeyframe">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_flight_animation">
           <attribute name="title">
@@ -11010,14 +11047,14 @@ and water):</string>
                     <number>2</number>
                    </property>
                    <item row="6" column="0">
-                    <widget class="QLabel" name="label_150">
+                    <widget class="QLabel" name="label_path_for_images">
                      <property name="text">
                       <string>Path for images:</string>
                      </property>
                     </widget>
                    </item>
                    <item row="7" column="0">
-                    <widget class="QLabel" name="label_150">
+                    <widget class="QLabel" name="label_image_type">
                      <property name="text">
                       <string>image type:</string>
                      </property>
@@ -11861,7 +11898,7 @@ and water):</string>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_histogram_iter">
          <item>
-          <widget class="QLabel" name="label_174">
+          <widget class="QLabel" name="label_hist_iter">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
              <horstretch>0</horstretch>
@@ -11894,7 +11931,7 @@ and water):</string>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_histogram_de">
          <item>
-          <widget class="QLabel" name="label_174">
+          <widget class="QLabel" name="label_hist_de">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
              <horstretch>0</horstretch>
@@ -12563,7 +12600,7 @@ and water):</string>
   <tabstop>vect3_limit_max_z</tabstop>
   <tabstop>pushButton_render</tabstop>
   <tabstop>pushButton_stop</tabstop>
-  <tabstop>scrollArea_4</tabstop>
+  <tabstop>scrollArea_gamepad</tabstop>
   <tabstop>vect3_camera_x</tabstop>
   <tabstop>vect3_camera_y</tabstop>
   <tabstop>vect3_camera_z</tabstop>
