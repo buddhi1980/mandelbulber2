@@ -29,6 +29,9 @@
 #include <QSettings>
 #include "cimage.hpp"
 #include "statistics.h"
+#ifdef USE_GAMEPAD
+#include <QtGamepad/qgamepad.h>
+#endif // USE_GAMEPAD
 
 namespace Ui
 {
@@ -172,6 +175,12 @@ private slots:
 	void slotNetRenderStatusClientUpdate();
 	void slotCheckBoxDisableNetRender(bool on);
 
+#ifdef USE_GAMEPAD
+	// Gamepad
+	void slotChangeGamepadIndex(int index);
+	void slotGamePadDevicesConnected(int index);
+	void slotGamePadDevicesDisconnected(int index);
+#endif // USE_GAMEPAD
 private:
 	Ui::RenderWindow *ui;
 	QWidget **fractalWidgets;
@@ -179,6 +188,7 @@ private:
 	QSettings settings;
 	QByteArray defaultGeometry;
 	QByteArray defaultState;
+	QGamepad gamepad;
 
 	enum enumImageProporton
 	{

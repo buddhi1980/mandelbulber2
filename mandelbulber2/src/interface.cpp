@@ -42,6 +42,10 @@
 #include "settings.hpp"
 #include "thumbnail.hpp"
 #include <QMessageBox>
+#ifdef USE_GAMEPAD
+#include <QtGamepad/qgamepadmanager.h>
+#endif // USE_GAMEPAD
+
 
 //constructor of interface (loading of ui files)
 cInterface::cInterface()
@@ -282,6 +286,12 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->dockWidget_histogram, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 	QApplication::connect(mainWindow->ui->dockWidget_gamepad_dock, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 
+	#ifdef USE_GAMEPAD
+	// ------------ gamepad -----------
+	QApplication::connect(mainWindow->ui->comboBox_gamepad_device, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangeGamepadIndex(int)));
+	QApplication::connect(QGamepadManager::instance(), SIGNAL(gamepadConnected(int)), mainWindow, SLOT(slotGamePadDevicesConnected(int)));
+	QApplication::connect(QGamepadManager::instance(), SIGNAL(gamepadDisconnected(int)), mainWindow, SLOT(slotGamePadDevicesDisconnected(int)));
+	#endif // USE_GAMEPAD
 
 	//------------------------------------------------
 	ConnectSignalsForSlidersInWindow(mainWindow);

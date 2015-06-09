@@ -6,6 +6,11 @@
 
 QT       += core gui uitools widgets network
 
+qtHaveModule(gamepad){
+		QT += gamepad
+		DEFINES += USE_GAMEPAD
+}
+
 TARGET = mandelbulber2 
 TEMPLATE = app
 

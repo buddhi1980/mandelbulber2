@@ -1607,3 +1607,33 @@ void RenderWindow::slotCheckBoxDisableNetRender(bool on)
 		gNetRender->DeleteServer();
 	}
 }
+
+
+#ifdef USE_GAMEPAD
+void RenderWindow::slotChangeGamepadIndex(int index)
+{
+	gamepad.setIndex(index);
+	qDebug() << "slotChangeGamepadIndex: " << index;
+}
+
+void RenderWindow::slotGamePadDevicesConnected(int index)
+{
+	QString deviceName = "Device Name"; // TODO get device name
+	if(ui->comboBox_gamepad_device->count() == 0)
+	{
+		ui->comboBox_gamepad_device->setEnabled(true);
+		ui->label_gamepad_no_device->hide();
+	}
+	ui->comboBox_gamepad_device->addItem(deviceName, index);
+}
+
+void RenderWindow::slotGamePadDevicesDisconnected(int index)
+{
+	ui->comboBox_gamepad_device->removeItem(index);
+	if(ui->comboBox_gamepad_device->count() == 0)
+	{
+		ui->comboBox_gamepad_device->setEnabled(false);
+		ui->label_gamepad_no_device->show();
+	}
+}
+#endif // USE_GAMEPAD
