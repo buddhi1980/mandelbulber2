@@ -115,8 +115,7 @@ void WriteLog(QString text)
 			.arg(QString::number(clock() / 1.0e6, 'f', 6))
 			.arg(text);
 
-	fprintf(logfile, logtext.toUtf8().constData());
-	// fprintf(logfile, "PID: %ld, time: %.6lf, %s\n", (unsigned long int)QCoreApplication::applicationPid(), (double)clock()/1.0e6, text.toUtf8().constData());
+	fputs(logtext.toUtf8().constData(), logfile);
 	fclose(logfile);
 
 	// write to log in window
@@ -320,6 +319,10 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
     QByteArray localMsg = msg.toLocal8Bit();
     QString text;
     switch (type) {
+		case QtInfoMsg:
+				fprintf(stderr, "Info: %s\n", localMsg.constData());
+				text = QString("Info: ") + QString(localMsg.constData());
+				break;
     case QtDebugMsg:
         fprintf(stderr, "Debug: %s\n", localMsg.constData());
         text = QString("Debug: ") + QString(localMsg.constData());

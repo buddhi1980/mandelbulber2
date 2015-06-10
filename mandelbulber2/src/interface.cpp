@@ -289,8 +289,8 @@ void cInterface::ConnectSignals(void)
 	#ifdef USE_GAMEPAD
 	// ------------ gamepad -----------
 	QApplication::connect(mainWindow->ui->comboBox_gamepad_device, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangeGamepadIndex(int)));
-	QApplication::connect(QGamepadManager::instance(), SIGNAL(gamepadConnected(int)), mainWindow, SLOT(slotGamePadDevicesConnected(int)));
-	QApplication::connect(QGamepadManager::instance(), SIGNAL(gamepadDisconnected(int)), mainWindow, SLOT(slotGamePadDevicesDisconnected(int)));
+	QApplication::connect(QGamepadManager::instance(), SIGNAL(gamepadConnected(int)), mainWindow, SLOT(slotGamePadDeviceConnected(int)));
+	QApplication::connect(QGamepadManager::instance(), SIGNAL(gamepadDisconnected(int)), mainWindow, SLOT(slotGamePadDeviceDisconnected(int)));
 	#endif // USE_GAMEPAD
 
 	//------------------------------------------------

@@ -62,6 +62,16 @@ RenderWindow::RenderWindow(QWidget *parent) :
   	//store defauly geometry and state
   	defaultGeometry = saveGeometry();
   	defaultState = saveState();
+
+		QApplication::connect(&gamepad, SIGNAL(axisLeftXChanged(double)), this, SLOT(slotGamepadPitch(double)));
+		QApplication::connect(&gamepad, SIGNAL(axisLeftYChanged(double)), this, SLOT(slotGamepadYaw(double)));
+		QApplication::connect(&gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadRoll()));
+		QApplication::connect(&gamepad, SIGNAL(buttonR2Changed(double)), this, SLOT(slotGamepadRoll()));
+
+		QApplication::connect(&gamepad, SIGNAL(axisRightXChanged(double)), this, SLOT(slotGamepadX(double)));
+		QApplication::connect(&gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadY(double)));
+		QApplication::connect(&gamepad, SIGNAL(buttonAChanged(bool)), this, SLOT(slotGamepadZ()));
+		QApplication::connect(&gamepad, SIGNAL(buttonBChanged(bool)), this, SLOT(slotGamepadZ()));
 }
 
 RenderWindow::~RenderWindow()
@@ -1613,12 +1623,15 @@ void RenderWindow::slotCheckBoxDisableNetRender(bool on)
 void RenderWindow::slotChangeGamepadIndex(int index)
 {
 	gamepad.setIndex(index);
-	qDebug() << "slotChangeGamepadIndex: " << index;
+	WriteLog("Gamepad - slotChangeGamepadIndex: " + QString::number(index));
 }
 
-void RenderWindow::slotGamePadDevicesConnected(int index)
+void RenderWindow::slotGamePadDeviceConnected(int index)
 {
-	QString deviceName = "Device Name"; // TODO get device name
+	QString deviceName = ""; // TODO
+	if(deviceName == "") deviceName = "Device #" + QString::number(index);
+	WriteLog("Gamepad - device connected | index: " + QString::number(index) + ", name: " + deviceName);
+
 	if(ui->comboBox_gamepad_device->count() == 0)
 	{
 		ui->comboBox_gamepad_device->setEnabled(true);
@@ -1627,8 +1640,9 @@ void RenderWindow::slotGamePadDevicesConnected(int index)
 	ui->comboBox_gamepad_device->addItem(deviceName, index);
 }
 
-void RenderWindow::slotGamePadDevicesDisconnected(int index)
+void RenderWindow::slotGamePadDeviceDisconnected(int index)
 {
+	WriteLog("Gamepad - device disconnected | index: " + QString::number(index) + ", name: " + ui->comboBox_gamepad_device->itemText(index));
 	ui->comboBox_gamepad_device->removeItem(index);
 	if(ui->comboBox_gamepad_device->count() == 0)
 	{
@@ -1636,4 +1650,37 @@ void RenderWindow::slotGamePadDevicesDisconnected(int index)
 		ui->label_gamepad_no_device->show();
 	}
 }
+
+void RenderWindow::slotGamepadPitch(double value) {
+	WriteLog("Gamepad - slotGamepadPitch | value: " + QString::number(value));
+	ui->sl_gamepad_angle_pitch->setValue(-100 + 200 * value);
+}
+
+void RenderWindow::slotGamepadYaw(double value) {
+	WriteLog("Gamepad - slotGamepadYaw | value: " + QString::number(value));
+	ui->sl_gamepad_angle_yaw->setValue(-100 + 200 * value);
+}
+
+void RenderWindow::slotGamepadRoll() {
+	double value = 0.5 + (gamepad.buttonR2() - gamepad.buttonL2()) / 2.0;
+	WriteLog("Gamepad - slotGamepadRoll | value: " + QString::number(value));
+	ui->sl_gamepad_angle_yaw->setValue(-100 + 200 * value);
+}
+
+void RenderWindow::slotGamepadX(double value) {
+	WriteLog("Gamepad - slotGamepadX | value: " + QString::number(value));
+	ui->sl_gamepad_movement_x->setValue(-100 + 200 * value);
+}
+
+void RenderWindow::slotGamepadY(double value) {
+	WriteLog("Gamepad - slotGamepadY | value: " + QString::number(value));
+	ui->sl_gamepad_movement_y->setValue(-100 + 200 * value);
+}
+
+void RenderWindow::slotGamepadZ() {
+	double value = 0.5 + ((gamepad.buttonA() ? 1 : 0) - (gamepad.buttonB() ? 1 : 0)) / 2.0;
+	WriteLog("Gamepad - slotGamepadZ | value: " + QString::number(value));
+	ui->sl_gamepad_movement_z->setValue(-100 + 200 * value);
+}
+
 #endif // USE_GAMEPAD

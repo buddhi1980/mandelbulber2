@@ -178,8 +178,16 @@ private slots:
 #ifdef USE_GAMEPAD
 	// Gamepad
 	void slotChangeGamepadIndex(int index);
-	void slotGamePadDevicesConnected(int index);
-	void slotGamePadDevicesDisconnected(int index);
+	void slotGamePadDeviceConnected(int index);
+	void slotGamePadDeviceDisconnected(int index);
+
+	void slotGamepadPitch(double value);
+	void slotGamepadYaw(double value);
+	void slotGamepadRoll();
+
+	void slotGamepadX(double value);
+	void slotGamepadY(double value);
+	void slotGamepadZ();
 #endif // USE_GAMEPAD
 private:
 	Ui::RenderWindow *ui;
