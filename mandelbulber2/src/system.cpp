@@ -319,10 +319,12 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
     QByteArray localMsg = msg.toLocal8Bit();
     QString text;
     switch (type) {
+#if QT_VERSION >= 0x050500
 		case QtInfoMsg:
 				fprintf(stderr, "Info: %s\n", localMsg.constData());
 				text = QString("Info: ") + QString(localMsg.constData());
 				break;
+#endif
     case QtDebugMsg:
         fprintf(stderr, "Debug: %s\n", localMsg.constData());
         text = QString("Debug: ") + QString(localMsg.constData());

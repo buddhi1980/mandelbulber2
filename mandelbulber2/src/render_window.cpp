@@ -63,6 +63,7 @@ RenderWindow::RenderWindow(QWidget *parent) :
   	defaultGeometry = saveGeometry();
   	defaultState = saveState();
 
+#ifdef USE_GAMEPAD
 		QApplication::connect(&gamepad, SIGNAL(axisLeftXChanged(double)), this, SLOT(slotGamepadPitch(double)));
 		QApplication::connect(&gamepad, SIGNAL(axisLeftYChanged(double)), this, SLOT(slotGamepadYaw(double)));
 		QApplication::connect(&gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadRoll()));
@@ -72,6 +73,7 @@ RenderWindow::RenderWindow(QWidget *parent) :
 		QApplication::connect(&gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadY(double)));
 		QApplication::connect(&gamepad, SIGNAL(buttonAChanged(bool)), this, SLOT(slotGamepadZ()));
 		QApplication::connect(&gamepad, SIGNAL(buttonBChanged(bool)), this, SLOT(slotGamepadZ()));
+#endif
 }
 
 RenderWindow::~RenderWindow()

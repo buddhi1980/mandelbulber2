@@ -189,6 +189,7 @@ private slots:
 	void slotGamepadY(double value);
 	void slotGamepadZ();
 #endif // USE_GAMEPAD
+
 private:
 	Ui::RenderWindow *ui;
 	QWidget **fractalWidgets;
@@ -196,7 +197,10 @@ private:
 	QSettings settings;
 	QByteArray defaultGeometry;
 	QByteArray defaultState;
+
+#ifdef USE_GAMEPAD
 	QGamepad gamepad;
+#endif
 
 	enum enumImageProporton
 	{
