@@ -88,6 +88,7 @@ void cInterface::ShowUi(void)
 		mainWindow->ui->dockWidget_animation->hide();
 		mainWindow->ui->dockWidget_info->hide();
 		mainWindow->ui->dockWidget_gamepad_dock->hide();
+		mainWindow->ui->dockWidget_histogram->hide();
 	}
 
 	WriteLog("mainWindow->show()");
