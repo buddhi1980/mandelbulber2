@@ -73,6 +73,9 @@ RenderWindow::RenderWindow(QWidget *parent) :
 		QApplication::connect(&gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadY(double)));
 		QApplication::connect(&gamepad, SIGNAL(buttonAChanged(bool)), this, SLOT(slotGamepadZ()));
 		QApplication::connect(&gamepad, SIGNAL(buttonBChanged(bool)), this, SLOT(slotGamepadZ()));
+#else
+		ui->menuView->removeAction(ui->actionShow_gamepad_dock);
+		ui->dockWidget_gamepad_dock->hide();
 #endif
 }
 
