@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>1164</width>
-           <height>519</height>
+           <height>696</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -1008,7 +1008,7 @@
           <x>0</x>
           <y>0</y>
           <width>180</width>
-          <height>216</height>
+          <height>307</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -2564,8 +2564,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>129</height>
+          <width>353</width>
+          <height>425</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2590,7 +2590,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>2</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -2628,7 +2628,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>291</width>
+                  <width>303</width>
                   <height>732</height>
                  </rect>
                 </property>
@@ -3610,8 +3610,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
-                  <height>178</height>
+                  <width>317</width>
+                  <height>411</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -3901,8 +3901,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>289</width>
+                  <y>-120</y>
+                  <width>303</width>
                   <height>531</height>
                  </rect>
                 </property>
@@ -4322,6 +4322,9 @@ to target:</string>
                  </item>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_iteration_fog_enable">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fog effect, where density of fog depentd on iteration count of fractal formula. Fog is denser in areas of higher iteration count.&lt;/p&gt;&lt;p&gt;Fog receivers shadows and casts shadows on fractal surface and on itself.&lt;/p&gt;&lt;p&gt;Example of fog with additional light sources:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - lights.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="title">
                     <string>Fog based on iteration count</string>
                    </property>
@@ -4351,6 +4354,9 @@ to target:</string>
                       </property>
                       <item row="4" column="1">
                        <widget class="MyColorButton" name="colorButton_iteration_fog_color_1" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #1 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
@@ -4358,6 +4364,9 @@ to target:</string>
                       </item>
                       <item row="1" column="2">
                        <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_opacity_trim">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;There is no fog in volume where iteration count is lower than this value. When this parameter is high then fog is only just by fractal surface.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;trim = 4&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;trim = 6&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;trim = 8&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 16000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 6 - 30000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 8 - 40000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="prefix">
                          <string/>
                         </property>
@@ -4384,6 +4393,9 @@ to target:</string>
                       </item>
                       <item row="2" column="2">
                        <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_color_1_maxiter">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #1 is used for iteration count lower than this value&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="prefix">
                          <string/>
                         </property>
@@ -4402,10 +4414,17 @@ to target:</string>
                        </widget>
                       </item>
                       <item row="0" column="2">
-                       <widget class="MyLineEdit" name="logedit_iteration_fog_opacity"/>
+                       <widget class="MyLineEdit" name="logedit_iteration_fog_opacity">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opacity of fog. Higher value gives denser fog.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;opacity = 1000&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;opacity = 4000&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;opacity = 16000&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 1000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 4000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 16000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                       </widget>
                       </item>
                       <item row="6" column="1">
                        <widget class="MyColorButton" name="colorButton_iteration_fog_color_3" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #3 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
@@ -4452,6 +4471,9 @@ to target:</string>
                       </item>
                       <item row="5" column="1">
                        <widget class="MyColorButton" name="colorButton_iteration_fog_color_2" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #2 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
@@ -4479,6 +4501,9 @@ to target:</string>
                       </item>
                       <item row="3" column="2">
                        <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_color_2_maxiter">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #2 is used for iteration count lower than this value. &lt;/p&gt;&lt;p&gt;Color #3 is used for iteration count greather than this value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="prefix">
                          <string/>
                         </property>
@@ -4585,8 +4610,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
-                  <height>204</height>
+                  <width>317</width>
+                  <height>411</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -4812,7 +4837,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>303</width>
                   <height>1300</height>
                  </rect>
                 </property>
@@ -9908,7 +9933,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-651</y>
+          <y>0</y>
           <width>339</width>
           <height>824</height>
          </rect>
@@ -11607,8 +11632,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>314</width>
-                  <height>247</height>
+                  <width>300</width>
+                  <height>152</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
