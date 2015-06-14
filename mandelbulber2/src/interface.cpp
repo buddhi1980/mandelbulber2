@@ -990,7 +990,10 @@ void cInterface::StartRender(void)
 	stopRequest = true;
 	while (mainImage->IsUsed())
 	{
+		gApplication->processEvents();
+		stopRequest = true;
 	}
+	mainImage->BlockImage();
 
 	repeatRequest = false;
 	progressBarAnimation->hide();
