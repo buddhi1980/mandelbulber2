@@ -58,8 +58,9 @@ private slots:
 	void slotRenderFlight();
 	void slotIncreaseSpeed();
 	void slotDecreaseSpeed();
-	void slotFlightStrafe(CVector2<int> strafe);
-	void slotFlightRotation(int direction);
+	void slotFlightStrafe(CVector2<double> _strafe);
+	void slotFlightYawAndPitch(CVector2<double> _yawAndPtch);
+	void slotFlightRotation(double direction);
 	void slotSelectAnimFlightImageDir();
 	void slotTableCellChanged(int row, int column);
 	void slotDeleteAllImages();
@@ -82,8 +83,9 @@ private:
 	QVector<int> parameterRows; //position of parameter in table
 	QVector<int> rowParameter; //index of parameter in row
 	MyTableWidgetAnim *table;
-	CVector2<int> strafe;
-	int rotationDirection;
+	CVector2<double> strafe;
+	CVector2<double> yawAndPitch;
+	double rotationDirection;
 	double linearSpeedSp;
 	//QList<cThumbnailWidget*> thumbnailWidgets;
 	bool recordPause;

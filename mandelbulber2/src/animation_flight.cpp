@@ -44,10 +44,11 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 
 
 	QApplication::connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this, SLOT(slotSelectAnimFlightImageDir()));
-	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightStrafe(CVector2<int>)), this, SLOT(slotFlightStrafe(CVector2<int>)));
+	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightStrafe(CVector2<double>)), this, SLOT(slotFlightStrafe(CVector2<double>)));
+	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightYawAndPitch(CVector2<double>)), this, SLOT(slotFlightYawAndPitch(CVector2<double>)));
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightSpeedIncease()), this, SLOT(slotIncreaseSpeed()));
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightSpeedDecrease()), this, SLOT(slotDecreaseSpeed()));
-	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightRotation(int)), this, SLOT(slotFlightRotation(int)));
+	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightRotation(double)), this, SLOT(slotFlightRotation(double)));
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightPause()), this, SLOT(slotRecordPause()));
 	QApplication::connect(ui->tableWidget_flightAnimation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
 
@@ -247,8 +248,6 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			if(mainInterface->stopRequest) break;
 		}
 
-		CVector2<double> mousePosition = mainInterface->renderedImage->GetLastMousePositionScaled();
-
 		//speed
 		double linearSpeed;
 		double distanceToSurface = gMainInterface->GetDistanceForPoint(cameraPosition, gPar, gParFractal);
@@ -283,8 +282,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		cameraPosition += cameraSpeed;
 
 		//rotation
-		cameraAngularAcceleration.x = (mousePosition.x * rotationSpeedSp - cameraAngularSpeed.x) / (inertia + 1.0);
-		cameraAngularAcceleration.y = (mousePosition.y * rotationSpeedSp - cameraAngularSpeed.y) / (inertia + 1.0);
+		cameraAngularAcceleration.x = (yawAndPitch.x * rotationSpeedSp - cameraAngularSpeed.x) / (inertia + 1.0);
+		cameraAngularAcceleration.y = (yawAndPitch.y * rotationSpeedSp - cameraAngularSpeed.y) / (inertia + 1.0);
 		cameraAngularAcceleration.z = (rotationDirection * rollSpeedSp - cameraAngularSpeed.z) / (inertia + 1.0);
 		cameraAngularSpeed += cameraAngularAcceleration;
 
@@ -680,9 +679,14 @@ void cFlightAnimation::DeleteFramesTo(int index)
 	UpdateLimitsForFrameRange();
 }
 
-void cFlightAnimation::slotFlightStrafe(CVector2<int> _strafe)
+void cFlightAnimation::slotFlightStrafe(CVector2<double> _strafe)
 {
 	strafe = _strafe;
+}
+
+void cFlightAnimation::slotFlightYawAndPitch(CVector2<double> _yawAndPitch)
+{
+	yawAndPitch = _yawAndPitch;
 }
 
 void cFlightAnimation::slotIncreaseSpeed()
@@ -701,7 +705,7 @@ void cFlightAnimation::slotDecreaseSpeed()
 	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::write);
 }
 
-void cFlightAnimation::slotFlightRotation(int direction)
+void cFlightAnimation::slotFlightRotation(double direction)
 {
 	rotationDirection = direction;
 }

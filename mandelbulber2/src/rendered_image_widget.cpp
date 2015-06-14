@@ -336,6 +336,11 @@ void RenderedImage::mouseMoveEvent(QMouseEvent * event)
 	//remember last mouse position
 	lastMousePosition = screenPoint;
 
+	CVector2<double> yawAndPitch;
+	yawAndPitch.x = ((double)lastMousePosition.x / image->GetPreviewWidth() - 0.5) * 2.0;
+	yawAndPitch.y = ((double)lastMousePosition.y / image->GetPreviewHeight() - 0.5) * 2.0;
+	emit flightYawAndPitch(yawAndPitch);
+
 	if(params)
 	{
 		if(cursorVisible && isFocus && redrawed)
@@ -510,14 +515,6 @@ void RenderedImage::wheelEvent(QWheelEvent * event)
 	{
 		qCritical() << "RenderedImage::mouseMoveEvent(QMouseEvent * event): parameters not assigned";
 	}
-}
-
-CVector2<double> RenderedImage::GetLastMousePositionScaled(void)
-{
-	CVector2<double> position;
-	position.x = ((double)lastMousePosition.x / image->GetPreviewWidth() - 0.5) * 2.0;
-	position.y = ((double)lastMousePosition.y / image->GetPreviewHeight() - 0.5) * 2.0;
-	return position;
 }
 
 void RenderedImage::DisplayCrosshair()

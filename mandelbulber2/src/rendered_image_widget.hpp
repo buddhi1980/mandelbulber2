@@ -74,6 +74,14 @@ struct sFlightData
 	void SetFlightData(const sFlightData &fData) {flightData = fData;}
 	CVector2<double> GetLastMousePositionScaled(void);
 
+signals:
+	void flightSpeedIncease();
+	void flightSpeedDecrease();
+	void flightStrafe(CVector2<double> arrows);
+	void flightYawAndPitch(CVector2<double> yawAndPitch);
+	void flightRotation(double direction);
+	void flightPause();
+
 protected:
 	void paintEvent(QPaintEvent *event);
 	void mouseMoveEvent(QMouseEvent * event);
@@ -105,8 +113,8 @@ private:
 	bool isOnObject;
 	double frontDist;
 	sFlightData flightData;
-	CVector2<int> keyArrows;
-	int flightRotationDirection;
+	CVector2<double> keyArrows;
+	double flightRotationDirection;
 	QTimer *timerRefreshImage;
 
 signals:
@@ -115,11 +123,6 @@ signals:
 	void keyPress(Qt::Key key);
 	void keyRelease(Qt::Key key);
 	void mouseWheelRotated(int delta);
-	void flightSpeedIncease();
-	void flightSpeedDecrease();
-	void flightStrafe(CVector2<int> arrows);
-	void flightRotation(int direction);
-	void flightPause();
 };
 
 
