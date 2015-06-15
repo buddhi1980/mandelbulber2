@@ -30,6 +30,7 @@
 #include <QMessageBox>
 #include "thumbnail_widget.h"
 #include <QInputDialog>
+#include "undo.h"
 
 cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), keyframes(_frames)
 {
@@ -64,6 +65,9 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 
 void cKeyframeAnimation::slotAddKeyframe()
 {
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+
 	NewKeyframe(keyframes->GetNumberOfFrames());
 }
 
@@ -71,6 +75,10 @@ void cKeyframeAnimation::slotInsertKeyframe()
 {
 	int column = table->currentColumn();
 	if(column < 0) column = 0;
+
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+
 	NewKeyframe(column);
 }
 
@@ -78,9 +86,6 @@ void cKeyframeAnimation::NewKeyframe(int index)
 {
 	if(keyframes)
 	{
-		//get latest values of all parameters
-		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-
 		//add new frame to container
 		keyframes->AddFrame(*gPar, *gParFractal, index);
 
@@ -110,7 +115,7 @@ void cKeyframeAnimation::DeleteKeyframe(int index)
 	{
 		cErrorMessage::showMessage(QObject::tr("No keyframe selected"), cErrorMessage::errorMessage, ui->centralwidget);
 	}
-
+	gUndo.Store(gPar, gParFractal, NULL, keyframes);
 	keyframes->DeleteFrames(index, index);
 	table->removeColumn(index);
 	UpdateLimitsForFrameRange();
@@ -124,6 +129,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 	{
 		//get latest values of all parameters
 		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+		gUndo.Store(gPar, gParFractal, NULL, keyframes);
 
 		//add new frame to container
 		keyframes->DeleteFrames(column, column);
@@ -172,17 +178,6 @@ void cKeyframeAnimation::slotRenderKeyframes()
 	{
 		qCritical() << "gAnimFrames not allocated";
 	}
-}
-
-void cKeyframeAnimation::UpdateThumbnailFromImage(int index)
-{
-	table->blockSignals(true);
-	QImage qimage((const uchar*)mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->GetWidth()*sizeof(sRGB8), QImage::Format_RGB888);
-	QPixmap pixmap;
-	pixmap.convertFromImage(qimage);
-	QIcon icon(pixmap.scaled(QSize(100, 70), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
-	table->setItem(0, index, new QTableWidgetItem(icon, QString()));
-	table->blockSignals(false);
 }
 
 void cKeyframeAnimation::PrepareTable()
@@ -378,6 +373,7 @@ void cKeyframeAnimation::RenderKeyframes()
 	}
 
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gUndo.Store(gPar, gParFractal, NULL, keyframes);
 
 	keyframes->SetFramesPerKeyframe(gPar->Get<int>("frames_per_keyframe"));
 
@@ -546,6 +542,7 @@ void cKeyframeAnimation::RenderFrame(int index)
 
 void cKeyframeAnimation::DeleteFramesFrom(int index)
 {
+	gUndo.Store(gPar, gParFractal, NULL, keyframes);
 	for(int i = keyframes->GetNumberOfFrames() - 1; i >= index; i--) table->removeColumn(index);
 	keyframes->DeleteFrames(index, keyframes->GetNumberOfFrames() - 1);
 	UpdateLimitsForFrameRange();
@@ -553,6 +550,7 @@ void cKeyframeAnimation::DeleteFramesFrom(int index)
 
 void cKeyframeAnimation::DeleteFramesTo(int index)
 {
+	gUndo.Store(gPar, gParFractal, NULL, keyframes);
 	for(int i = 0; i <= index; i++) table->removeColumn(0);
 	keyframes->DeleteFrames(0, index);
 	UpdateLimitsForFrameRange();
@@ -670,6 +668,8 @@ void cKeyframeAnimation::slotShowAnimation()
 
 void cKeyframeAnimation::InterpolateForward(int row, int column)
 {
+	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+
 	QTableWidgetItem *cell = table->item(row, column);
 	QString cellText = cell->text();
 
@@ -796,6 +796,7 @@ parameterContainer::enumMorphType cKeyframeAnimation::GetMorphType(int row)
 
 void cKeyframeAnimation::ChangeMorphType(int row, parameterContainer::enumMorphType morphType)
 {
+	gUndo.Store(gPar, gParFractal, NULL, keyframes);
 	int parameterIndex = rowParameter.at(row);
 	keyframes->ChangeMorphType(parameterIndex, morphType);
 	RefreshTable();
@@ -804,6 +805,7 @@ void cKeyframeAnimation::ChangeMorphType(int row, parameterContainer::enumMorphT
 void cKeyframeAnimation::slotExportKeyframesToFlight()
 {
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gUndo.Store(gPar, gParFractal, gAnimFrames, keyframes);
 	keyframes->SetFramesPerKeyframe(gPar->Get<int>("frames_per_keyframe"));
 
 	if(gAnimFrames->GetFrames().size() > 0)

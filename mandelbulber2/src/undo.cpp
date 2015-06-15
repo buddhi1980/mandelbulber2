@@ -34,11 +34,30 @@ cUndo::~cUndo()
 {
 }
 
-void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal)
+void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes)
 {
 	sUndoRecord record;
 	record.mainParams = *par;
 	record.fractParams = *parFractal;
+	if(frames)
+	{
+		record.animationFrames = *frames;
+		record.hasFrames = true;
+	}
+	else
+	{
+		record.hasFrames = false;
+	}
+
+	if(keyframes)
+	{
+		record.animationKeyframes = *keyframes;
+		record.hasKeyframes = true;
+	}
+	else
+	{
+		record.hasKeyframes = false;
+	}
 
 	if(undoBuffer.size() > level)
 	{
@@ -50,9 +69,10 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal)
 
 	undoBuffer.append(record);
 	level++;
+	qDebug() << "Undo level:" << level;
 }
 
-bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal)
+bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes)
 {
 	if(level > 1)
 	{
@@ -63,8 +83,18 @@ bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal)
 			record = undoBuffer.at(level-1);
 			*par = record.mainParams;
 			*parFractal = record.fractParams;
-
+			if(frames && record.hasFrames)
+			{
+				*frames = record.animationFrames;
+				*refreshFrames = true;
+			}
+			if(keyframes && record.hasKeyframes)
+			{
+				*keyframes = record.animationKeyframes;
+				*refreshKeyframes = true;
+			}
 		}
+		qDebug() << "Undo level:" << level;
 		return true;
 	}
 	else
@@ -74,7 +104,7 @@ bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal)
 	}
 }
 
-bool cUndo::Redo(cParameterContainer *par, cFractalContainer *parFractal)
+bool cUndo::Redo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes)
 {
 	if (level < undoBuffer.size())
 	{
@@ -83,6 +113,17 @@ bool cUndo::Redo(cParameterContainer *par, cFractalContainer *parFractal)
 		level++;
 		*par = record.mainParams;
 		*parFractal = record.fractParams;
+		if(frames && record.hasFrames)
+		{
+			*frames = record.animationFrames;
+			*refreshFrames = true;
+		}
+		if(keyframes && record.hasKeyframes)
+		{
+			*keyframes = record.animationKeyframes;
+			*refreshKeyframes = true;
+		}
+		qDebug() << "Undo level:" << level;
 		return true;
 	}
 	else

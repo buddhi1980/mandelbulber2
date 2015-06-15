@@ -34,7 +34,6 @@ class cKeyframeAnimation : public QObject
 
 public:
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent = 0);
-	void RecordKeyframe();
 	void RenderKeyframes();
 	//TODO add ModifyActualKeyframe button
 	void RenderFrame(int index);
@@ -43,7 +42,6 @@ public:
 	void DeleteKeyframe(int index);
 	void DeleteFramesFrom(int index);
 	void DeleteFramesTo(int index);
-	void UpdateThumbnailFromImage(int index);
 	void InterpolateForward(int row, int column);
 	parameterContainer::enumMorphType GetMorphType(int row);
 	void ChangeMorphType(int row, parameterContainer::enumMorphType morphType);

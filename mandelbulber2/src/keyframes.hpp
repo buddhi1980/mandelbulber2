@@ -51,7 +51,7 @@ public:
 
 private:
 	int framesPerKeyframe;
-	QList<cMorph*> morph;
+	QList<cMorph*> morph; //TODO probably there is needed copy constructor for this class because of this list
 };
 
 #endif /* MANDELBULBER2_SRC_KEYFRAMES_HPP_ */

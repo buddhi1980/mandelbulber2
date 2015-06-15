@@ -30,6 +30,7 @@
 #include <QMessageBox>
 #include "thumbnail_widget.h"
 #include <QInputDialog>
+#include "undo.h"
 
 cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), frames(_frames)
 {
@@ -109,6 +110,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 {
 	//get latest values of all parameters
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gUndo.Store(gPar, gParFractal, frames, NULL);
 
 	if(!continueRecording)
 	{
@@ -518,6 +520,7 @@ void cFlightAnimation::RenderFlight()
 	}
 
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gUndo.Store(gPar, gParFractal, frames, NULL);
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
 
@@ -667,6 +670,7 @@ void cFlightAnimation::RenderFrame(int index)
 
 void cFlightAnimation::DeleteFramesFrom(int index)
 {
+	gUndo.Store(gPar, gParFractal, frames, NULL);
 	for(int i = frames->GetNumberOfFrames() - 1; i >= index; i--) table->removeColumn(index);
 	frames->DeleteFrames(index, frames->GetNumberOfFrames() - 1);
 	UpdateLimitsForFrameRange();
@@ -674,6 +678,7 @@ void cFlightAnimation::DeleteFramesFrom(int index)
 
 void cFlightAnimation::DeleteFramesTo(int index)
 {
+	gUndo.Store(gPar, gParFractal, frames, NULL);
 	for(int i = 0; i <= index; i++) table->removeColumn(0);
 	frames->DeleteFrames(0, index);
 	UpdateLimitsForFrameRange();
@@ -828,6 +833,8 @@ void cFlightAnimation::slotRecordPause()
 
 void cFlightAnimation::InterpolateForward(int row, int column)
 {
+	gUndo.Store(gPar, gParFractal, frames, NULL);
+
 	QTableWidgetItem *cell = ui->tableWidget_flightAnimation->item(row, column);
 	QString cellText = cell->text();
 
@@ -946,6 +953,7 @@ QString cFlightAnimation::GetFlightFilename(int index)
 void cFlightAnimation::slotExportFlightToKeyframes()
 {
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 
 	if(gKeyframes->GetFrames().size() > 0)
 	{

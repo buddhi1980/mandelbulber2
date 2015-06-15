@@ -26,6 +26,8 @@
 #include <QtCore>
 #include "parameters.hpp"
 #include "fractal_container.hpp"
+#include "animation_frames.hpp"
+#include "keyframes.hpp"
 
 #define MAX_UNDO_LEVELS 100
 
@@ -34,15 +36,19 @@ class cUndo
 public:
 	cUndo();
 	~cUndo();
-	void Store(cParameterContainer *par, cFractalContainer *parFractal);
-	bool Undo(cParameterContainer *par, cFractalContainer *parFractal);
-	bool Redo(cParameterContainer *par, cFractalContainer *parFractal);
+	void Store(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
+	bool Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes);
+	bool Redo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes);
 
 private:
 	struct sUndoRecord
 	{
 		cParameterContainer mainParams;
 		cFractalContainer fractParams;
+		cAnimationFrames animationFrames;
+		cKeyframes animationKeyframes;
+		bool hasFrames;
+		bool hasKeyframes;
 	};
 
 	QList<sUndoRecord> undoBuffer;

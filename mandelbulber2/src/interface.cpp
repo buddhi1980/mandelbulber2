@@ -1101,7 +1101,7 @@ void cInterface::MoveCamera(QString buttonName)
 
 	SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
-	gUndo.Store(gPar, gParFractal);
+	gUndo.Store(gPar, gParFractal, NULL, NULL);
 
 	StartRender();
 }
@@ -1676,18 +1676,26 @@ void cInterface::MovementStepModeChanged(int mode)
 
 void cInterface::Undo()
 {
-	if(gUndo.Undo(gPar, gParFractal))
+	bool refreshFrames = false;
+	bool refreshKeyframes = false;
+	if(gUndo.Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
 		SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		if(refreshFrames) gFlightAnimation->RefreshTable();
+		if(refreshKeyframes) gKeyframeAnimation->RefreshTable();
 		StartRender();
 	}
 }
 
 void cInterface::Redo()
 {
-	if(gUndo.Redo(gPar, gParFractal))
+	bool refreshFrames = false;
+	bool refreshKeyframes = false;
+	if(gUndo.Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
 		SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		if(refreshFrames) gFlightAnimation->RefreshTable();
+		if(refreshKeyframes) gKeyframeAnimation->RefreshTable();
 		StartRender();
 	}
 }
