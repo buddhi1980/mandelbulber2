@@ -34,6 +34,22 @@ cKeyframes::~cKeyframes()
 	morph.clear();
 }
 
+cKeyframes::cKeyframes(const cKeyframes &source)
+{
+	*this = source;
+}
+
+cKeyframes& cKeyframes::operator=(const cKeyframes &source)
+{
+	if(this != &source)
+	{
+		for(int i = 0; i < source.morph.size(); i++){
+			this->morph.append(new cMorph(*source.morph.at(i)));
+		}
+	}
+	return *this;
+}
+
 cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index)
 {
 	int keyframe = index / framesPerKeyframe;

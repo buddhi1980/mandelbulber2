@@ -40,6 +40,8 @@ public:
 
 	cMorph();
 	~cMorph();
+	cMorph(const cMorph &source);
+	cMorph& operator=(const cMorph &source);
 	void AddData(const int keyframe, const cOneParameter &val);
 	int findInMorph(const int keyframe);
 	void Clear(){ dataSets.clear(); }

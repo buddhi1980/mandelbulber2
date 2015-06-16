@@ -36,7 +36,8 @@ class cKeyframes: public cAnimationFrames
 public:
 	cKeyframes();
 	~cKeyframes();
-
+	cKeyframes(const cKeyframes &source);
+	cKeyframes& operator=(const cKeyframes &source);
 	sAnimationFrame GetInterpolatedFrame(int index);
 	void GetInterpolatedFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
 	void SetFramesPerKeyframe(int frPerKey) {framesPerKeyframe = frPerKey;}
@@ -51,7 +52,7 @@ public:
 
 private:
 	int framesPerKeyframe;
-	QList<cMorph*> morph; //TODO probably there is needed copy constructor for this class because of this list
+	QList<cMorph*> morph;
 };
 
 #endif /* MANDELBULBER2_SRC_KEYFRAMES_HPP_ */

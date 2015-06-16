@@ -41,6 +41,25 @@ cMorph::~cMorph()
 	gsl_interp_accel_free(interpolationAccelerator);
 }
 
+cMorph::cMorph(const cMorph &source)
+{
+	*this = source;
+}
+
+cMorph& cMorph::operator=(const cMorph &source)
+{
+	if(this != &source)
+	{
+		listSize = 6;
+		interpolationAccelerator = gsl_interp_accel_alloc ();
+		splineAkimaPeriodic = gsl_spline_alloc (gsl_interp_akima_periodic, listSize);
+		for(int i = 0; i < source.dataSets.size(); i++){
+			this->dataSets.append(source.dataSets[i]);
+		}
+	}
+	return *this;
+}
+
 void cMorph::AddData(const int keyFrame, const cOneParameter &val)
 {
 	int key = findInMorph(keyFrame);
