@@ -943,7 +943,13 @@
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetGamepadContents">
+   <widget class="MyGroupBox" name="groupCheck_gamepad_enabled">
+    <property name="title">
+     <string>Gamepad activate</string>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
     <layout class="QVBoxLayout" name="verticalLayout_dockgamepadcontent">
      <property name="spacing">
       <number>2</number>
@@ -977,13 +983,6 @@
        </item>
        <item row="1" column="1">
         <widget class="QComboBox" name="comboBox_gamepad_device"/>
-       </item>
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="checkBox_enable_gamepad">
-         <property name="text">
-          <string>enable</string>
-         </property>
-        </widget>
        </item>
        <item row="0" column="1">
         <widget class="QLabel" name="label_gamepad_no_device">

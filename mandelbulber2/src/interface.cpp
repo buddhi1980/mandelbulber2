@@ -205,6 +205,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionShow_toolbar, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionShow_info_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionShow_statistics_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
+	QApplication::connect(mainWindow->ui->actionShow_gamepad_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveSettings()));
 	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadSettings()));
 	QApplication::connect(mainWindow->ui->actionLoad_example, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadExample()));
