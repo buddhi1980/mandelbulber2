@@ -22,6 +22,9 @@
 
 #include "undo.h"
 #include "error_message.hpp"
+#include "system.hpp"
+#include "settings.hpp"
+#include "global_data.hpp"
 
 cUndo gUndo;
 
@@ -37,6 +40,15 @@ cUndo::~cUndo()
 void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes)
 {
 	sUndoRecord record;
+
+	//autosave
+	WriteLog("Autosave started");
+	cSettings parSettings(cSettings::formatCondensedText);
+	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+	parSettings.SaveToFile(systemData.autosaveFile);
+	WriteLog("Autosave finished");
+
+	WriteLog("cUndo::Store() started");
 	record.mainParams = *par;
 	record.fractParams = *parFractal;
 	if(frames)
@@ -69,7 +81,7 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 
 	undoBuffer.append(record);
 	level++;
-	qDebug() << "Undo level:" << level;
+	WriteLog("cUndo::Store() finished");
 }
 
 bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes)
@@ -94,7 +106,6 @@ bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnima
 				*refreshKeyframes = true;
 			}
 		}
-		qDebug() << "Undo level:" << level;
 		return true;
 	}
 	else
@@ -123,7 +134,6 @@ bool cUndo::Redo(cParameterContainer *par, cFractalContainer *parFractal, cAnima
 			*keyframes = record.animationKeyframes;
 			*refreshKeyframes = true;
 		}
-		qDebug() << "Undo level:" << level;
 		return true;
 	}
 	else

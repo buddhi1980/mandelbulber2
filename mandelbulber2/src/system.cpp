@@ -88,6 +88,8 @@ bool InitSystem(void)
 
 	systemData.thumbnailDir = systemData.dataDirectory + "thumbnails" + QDir::separator();
 
+	systemData.autosaveFile = systemData.dataDirectory + ".autosave.fract";
+
 	//*********** temporary set to false ************
 	systemData.noGui = false;
 

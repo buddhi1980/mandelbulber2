@@ -1453,6 +1453,8 @@ void RenderWindow::closeEvent(QCloseEvent * event)
 		parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 		parSettings.SaveToFile(systemData.dataDirectory + "mandelbulber.ini");
 
+		QFile::remove(systemData.autosaveFile);
+
 		gApplication->quit();
 	}
 	else

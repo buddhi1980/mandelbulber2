@@ -121,6 +121,8 @@ int main(int argc, char *argv[])
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 	gMainInterface->ComboMouseClickUpdate();
 
+	gMainInterface->AutoRecovery();
+
 	//start main Qt loop
 	WriteLog("application->exec()");
 	int result = gApplication->exec();

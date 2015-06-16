@@ -54,6 +54,7 @@ struct sSystem
 	QString lastImageFile;
 	QString lastImagePaletteFile;
 	QString thumbnailDir;
+	QString autosaveFile;
 	int numberOfThreads;
 	bool noGui;
 	QChar decimalPoint;

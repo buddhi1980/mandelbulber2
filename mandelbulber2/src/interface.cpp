@@ -2073,6 +2073,33 @@ bool cInterface::QuitApplicationDialog()
 	return quit;
 }
 
+void cInterface::AutoRecovery()
+{
+	if(QFile::exists(systemData.autosaveFile))
+	{
+		//autorecovery dialog
+		QMessageBox::StandardButton reply;
+		reply = QMessageBox::question(
+			mainWindow->ui->centralwidget,
+			QObject::tr("Auto recovery"),
+			QObject::tr("Application haven't been closed properly\nDo you want to recover your latest work?"),
+			QMessageBox::Yes|QMessageBox::No);
+
+		if (reply == QMessageBox::Yes)
+		{
+			cSettings parSettings(cSettings::formatFullText);
+			parSettings.LoadFromFile(systemData.autosaveFile);
+			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+			gFlightAnimation->RefreshTable();
+			gKeyframeAnimation->RefreshTable();
+		}
+		else
+		{
+			return;
+		}
+	}
+}
+
 //----------- functions outside cInterface class -------------
 
 double ImageScaleComboSelection2Double(int index)

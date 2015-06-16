@@ -75,6 +75,7 @@ public:
 	void RebuildPrimitives(cParameterContainer *par);
 	void ComboMouseClickUpdate();
 	void PopulateToolbar(QWidget *window, QToolBar *toolBar);
+	void AutoRecovery();
 
 	bool QuitApplicationDialog();
 
