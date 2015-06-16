@@ -2090,6 +2090,8 @@ void cInterface::AutoRecovery()
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.LoadFromFile(systemData.autosaveFile);
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+			gMainInterface->RebuildPrimitives(gPar);
+			gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 			gFlightAnimation->RefreshTable();
 			gKeyframeAnimation->RefreshTable();
 		}

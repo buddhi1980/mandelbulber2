@@ -309,6 +309,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		gPar->Set("camera_distance_to_target", cameraTarget.GetDistance());
 		gPar->Set("flight_movement_speed_vector", cameraSpeed);
 		gPar->Set("flight_rotation_speed_vector", cameraAngularSpeed);
+		gPar->Set("frame_no", index);
 
 		mainInterface->SynchronizeInterfaceWindow(ui->dockWidget_navigation, gPar, cInterface::write);
 		renderJob->ChangeCameraTargetPosition(cameraTarget);
@@ -595,6 +596,7 @@ void cFlightAnimation::RenderFlight()
 		//show distance in statistics table
 		double distance = mainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
 		ui->tableWidget_statistics->item(4, 0)->setText(QString("%L1").arg(distance));
+		gPar->Set("frame_no", index);
 
 		renderJob->UpdateParameters(gPar, gParFractal);
 		int result = renderJob->Execute();
