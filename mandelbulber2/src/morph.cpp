@@ -39,6 +39,8 @@ cMorph::~cMorph()
 {
 	gsl_spline_free(splineAkimaPeriodic);
 	gsl_interp_accel_free(interpolationAccelerator);
+	splineAkimaPeriodic = NULL;
+	interpolationAccelerator = NULL;
 }
 
 cMorph::cMorph(const cMorph &source)
@@ -50,12 +52,10 @@ cMorph& cMorph::operator=(const cMorph &source)
 {
 	if(this != &source)
 	{
-		listSize = 6;
+		listSize = source.listSize;
 		interpolationAccelerator = gsl_interp_accel_alloc ();
 		splineAkimaPeriodic = gsl_spline_alloc (gsl_interp_akima_periodic, listSize);
-		for(int i = 0; i < source.dataSets.size(); i++){
-			this->dataSets.append(source.dataSets[i]);
-		}
+		dataSets = source.dataSets;
 	}
 	return *this;
 }

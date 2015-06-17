@@ -43,10 +43,16 @@ cKeyframes& cKeyframes::operator=(const cKeyframes &source)
 {
 	if(this != &source)
 	{
+		qDeleteAll(morph);
+		morph.clear();
 		for(int i = 0; i < source.morph.size(); i++){
 			this->morph.append(new cMorph(*source.morph.at(i)));
 		}
 	}
+	this->frames = source.frames;
+	this->listOfParameters = source.listOfParameters;
+	this->framesPerKeyframe = source.framesPerKeyframe;
+
 	return *this;
 }
 
