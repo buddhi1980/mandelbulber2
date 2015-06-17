@@ -123,7 +123,8 @@ UI_DIR = ../qt
 
 TRANSLATIONS = ../language/en.ts\
                ../language/de.ts\
-               ../language/pl.ts
+               ../language/pl.ts\
+               ../language/it.ts
 
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3

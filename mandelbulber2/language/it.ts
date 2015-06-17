@@ -1,751 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de" sourcelanguage="en">
-<context>
-    <name>CNetRender</name>
-    <message>
-        <source>DISABLED</source>
-        <translation type="vanished">AUS</translation>
-    </message>
-    <message>
-        <source>READY</source>
-        <translation type="vanished">BEREIT</translation>
-    </message>
-    <message>
-        <source>WORKING</source>
-        <translation type="vanished">ARBEITET</translation>
-    </message>
-    <message>
-        <source>NEW</source>
-        <translation type="vanished">NEU</translation>
-    </message>
-    <message>
-        <source>(RE-)CONNECTING</source>
-        <translation type="vanished">(WIEDER-)VERBINDEN</translation>
-    </message>
-    <message>
-        <source>ERROR</source>
-        <translation type="vanished">FEHLER</translation>
-    </message>
-    <message>
-        <source>UNKNOWN</source>
-        <translation type="vanished">UNBEKANNT</translation>
-    </message>
-</context>
-<context>
-    <name>MyCheckBox</name>
-    <message>
-        <source>Reset to default</source>
-        <translation type="vanished">Auf Standardwert zurücksetzen</translation>
-    </message>
-    <message>
-        <source>Add to flight animation</source>
-        <translation type="vanished">Zur Fluganimation hinzufügen</translation>
-    </message>
-</context>
-<context>
-    <name>MyColorButton</name>
-    <message>
-        <source>Reset to default</source>
-        <translation type="vanished">Auf Standardwert zurücksetzen</translation>
-    </message>
-    <message>
-        <source>Add to flight animation</source>
-        <translation type="vanished">Zur Fluganimation hinzufügen</translation>
-    </message>
-</context>
-<context>
-    <name>MyDoubleSpinBox</name>
-    <message>
-        <source>Reset to default</source>
-        <translation type="vanished">Auf Standardwert zurücksetzen</translation>
-    </message>
-    <message>
-        <source>Add to flight animation</source>
-        <translation type="vanished">Zur Fluganimation hinzufügen</translation>
-    </message>
-</context>
-<context>
-    <name>MyGroupBox</name>
-    <message>
-        <source>Reset to default</source>
-        <translation type="vanished">Auf Standardwert zurücksetzen</translation>
-    </message>
-    <message>
-        <source>Add to flight animation</source>
-        <translation type="vanished">Zur Fluganimation hinzufügen</translation>
-    </message>
-</context>
-<context>
-    <name>MyLineEdit</name>
-    <message>
-        <source>Reset to default</source>
-        <translation type="vanished">Auf Standardwert zurücksetzen</translation>
-    </message>
-    <message>
-        <source>Add to flight animation</source>
-        <translation type="vanished">Zur Fluganimation hinzufügen</translation>
-    </message>
-</context>
-<context>
-    <name>MySpinBox</name>
-    <message>
-        <source>Reset to default</source>
-        <translation type="vanished">Auf Standardwert zurücksetzen</translation>
-    </message>
-    <message>
-        <source>Add to flight animation</source>
-        <translation type="vanished">Zur Fluganimation hinzufügen</translation>
-    </message>
-</context>
-<context>
-    <name>MyTableWidgetAnim</name>
-    <message>
-        <source>Render this frame</source>
-        <translation type="vanished">Diesen Frame rendern</translation>
-    </message>
-    <message>
-        <source>Interpolate next frames</source>
-        <translation type="vanished">Nächste Frames interpolieren</translation>
-    </message>
-    <message>
-        <source>Delete all frames to here</source>
-        <translation type="vanished">Alle Frames bis hier löschen</translation>
-    </message>
-    <message>
-        <source>Delete all frames from here</source>
-        <translation type="vanished">Alle Frames von hier aus löschen</translation>
-    </message>
-    <message>
-        <source>Remove &apos;%1&apos; from animation</source>
-        <translation type="vanished">Lösche &apos;%1&apos; von der Animation</translation>
-    </message>
-    <message>
-        <source>Refresh all thumbnails</source>
-        <translation type="vanished">Alle Thumbnails aktualisieren</translation>
-    </message>
-    <message>
-        <source>Remove &apos;</source>
-        <translation type="obsolete">Lösche </translation>
-    </message>
-</context>
-<context>
-    <name>PreviewFileDialog</name>
-    <message>
-        <source>Preview</source>
-        <translation type="vanished">Vorschau</translation>
-    </message>
-</context>
-<context>
-    <name>QObject</name>
-    <message>
-        <source>Done %1%, elapsed: %2, estamined to end: %3</source>
-        <translation type="vanished">Fortschritt %1%, vergangen: %2, voraussichtlich noch: %3</translation>
-    </message>
-    <message>
-        <source>100% Done, total time: %3</source>
-        <translation type="vanished">100% Fertig, Gesamtzeit: %3</translation>
-    </message>
-    <message>
-        <source>It&apos;s not valid Mandelbulber settings file. No header</source>
-        <translation type="vanished">Keine valide Mandelbulber Einstellungsdatei. Kein Header</translation>
-    </message>
-    <message>
-        <source>It&apos;s not valid Mandelbulber settings file. Wrong header</source>
-        <translation type="vanished">Keine valide Mandelbulber Einstellungsdatei. Falscher Header</translation>
-    </message>
-    <message>
-        <source>It&apos;s not valid Mandelbulber settings file. No information about version of file</source>
-        <translation type="vanished">Keine valide Mandelbulber Einstellungsdatei. Keine Information über Version der Datei</translation>
-    </message>
-    <message>
-        <source>It&apos;s not valid Mandelbulber settings file. Wrong file version number</source>
-        <translation type="vanished">Keine valide Mandelbulber Einstellungsdatei. Falsche Dateiversionsnummer</translation>
-    </message>
-    <message>
-        <source>File was saved in newer version of Mandelbulber
-File version: </source>
-        <translation type="vanished">Die Datei wurde mit einer neueren Version von Mandelbulber gespeichert\n Datei Version: </translation>
-    </message>
-    <message>
-        <source>It&apos;s not valid Mandelbulber settings file. Format not specified in the header</source>
-        <translation type="vanished">Keine valide Mandelbulber Einstellungsdatei. Datei Format im Header nicht angegeben</translation>
-    </message>
-    <message>
-        <source>Error in settings file. Line: </source>
-        <translation type="vanished">Fehler in Einstellungsdatei. Zeile: </translation>
-    </message>
-    <message>
-        <source>Too many errors in settings file</source>
-        <translation type="vanished">Zu viele Fehler in Einstellungsdatei</translation>
-    </message>
-    <message>
-        <source>Unknown parameter: </source>
-        <translation type="vanished">Unbekannter Parameter: </translation>
-    </message>
-    <message>
-        <source>Missing column &apos;frame&apos; in list of animation frames</source>
-        <translation type="vanished">Fehlende Spalte &apos;Frame&apos; in Liste der Animationsframes</translation>
-    </message>
-    <message>
-        <source>Unknown parameter in animation frames: </source>
-        <translation type="vanished">Unbekannter Parameter in Animationsframes: </translation>
-    </message>
-    <message>
-        <source>No valid list of parameters for animation frames</source>
-        <translation type="vanished">Keine valide Parameterliste für Animationsframes</translation>
-    </message>
-    <message>
-        <source>Missing frame no </source>
-        <translation type="vanished">Fehlender Frame Nr </translation>
-    </message>
-    <message>
-        <source>Wrong number of columns</source>
-        <translation type="vanished">Falsche Anzahl an Spalten</translation>
-    </message>
-    <message>
-        <source>Can&apos;t load texture!
-</source>
-        <translation type="vanished">Textur konnten icht geladen werden!</translation>
-    </message>
-    <message>
-        <source>Can&apos;t load texture from QByteArray!
-</source>
-        <translation type="vanished">Textur konnte nicht von QByteArray geladen werden!</translation>
-    </message>
-    <message>
-        <source>No more undo</source>
-        <translation type="vanished">Kein Undo mehr möglich</translation>
-    </message>
-    <message>
-        <source>No more redo</source>
-        <translation type="vanished">Kein Redo mehr möglich</translation>
-    </message>
-    <message>
-        <source>Rendering Depth Of Field effect</source>
-        <translation type="vanished">Rendere Tiefenschärfe Effekt</translation>
-    </message>
-    <message>
-        <source>Sorting zBuffer</source>
-        <translation type="vanished">Sortiere ZBuffer</translation>
-    </message>
-    <message>
-        <source>Randomizing zBuffer</source>
-        <translation type="vanished">Mische ZBuffer</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="vanished">Warnung</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="vanished">Fehler</translation>
-    </message>
-    <message>
-        <source>Note</source>
-        <translation type="vanished">Notiz</translation>
-    </message>
-    <message>
-        <source>Mandelbulber warning</source>
-        <translation type="vanished">Mandelbulber Warnung</translation>
-    </message>
-    <message>
-        <source>Mandelbulber error</source>
-        <translation type="vanished">Mandelbulber Fehler</translation>
-    </message>
-    <message>
-        <source>Mandelbulber information</source>
-        <translation type="vanished">Mandelbulber Information</translation>
-    </message>
-    <message>
-        <source>Can&apos;t save image to JPEG file!
-</source>
-        <translation type="vanished">Konnte Bild nicht als JPEG Daten speichern!</translation>
-    </message>
-    <message>
-        <source>Can&apos;t open file </source>
-        <translation type="vanished">Kann Datei nicht öffnen </translation>
-    </message>
-    <message>
-        <source> Fractal ui files can&apos;t be loaded</source>
-        <translation type="vanished">Fraktal UI Dateien konnten nicht geladen werden</translation>
-    </message>
-    <message>
-        <source>Reseting view</source>
-        <translation type="vanished">Ansicht wird zurückgesetzt</translation>
-    </message>
-    <message>
-        <source>Fractal size calculation</source>
-        <translation type="vanished">Fraktalgröße berechnen</translation>
-    </message>
-    <message>
-        <source>Done</source>
-        <translation type="vanished">Fertig</translation>
-    </message>
-    <message>
-        <source>Set position of </source>
-        <translation type="vanished">Setze Position von </translation>
-    </message>
-    <message>
-        <source>Delete </source>
-        <translation type="vanished">Lösche </translation>
-    </message>
-    <message>
-        <source> Primitive object ui file can&apos;t be loaded</source>
-        <translation type="vanished">Primitive Objekte UI Dateien konnten nicht geladen werden</translation>
-    </message>
-    <message>
-        <source>No action</source>
-        <translation type="vanished">Keine Aktion</translation>
-    </message>
-    <message>
-        <source>Move the camera</source>
-        <translation type="vanished">Kamera bewegen</translation>
-    </message>
-    <message>
-        <source>Set fog visibility</source>
-        <translation type="vanished">Nebelsichtbarkeit setzen</translation>
-    </message>
-    <message>
-        <source>Set DOF focus</source>
-        <translation type="vanished">Tiefenschärfefokus setzen</translation>
-    </message>
-    <message>
-        <source>Get Julia constant</source>
-        <translation type="vanished">Julia Konstante holen</translation>
-    </message>
-    <message>
-        <source>Place light #1</source>
-        <translation type="vanished">Setze Licht #1</translation>
-    </message>
-    <message>
-        <source>Place light #2</source>
-        <translation type="vanished">Setze Licht #2</translation>
-    </message>
-    <message>
-        <source>Place light #3</source>
-        <translation type="vanished">Setze Licht #3</translation>
-    </message>
-    <message>
-        <source>Place light #4</source>
-        <translation type="vanished">Setze Licht #4</translation>
-    </message>
-    <message>
-        <source>Place </source>
-        <translation type="vanished">Setze </translation>
-    </message>
-    <message>
-        <source>Toolbar settings: </source>
-        <translation type="vanished">Toolbar Einstellungen:</translation>
-    </message>
-    <message>
-        <source>Are you sure to close the application?</source>
-        <translation type="vanished">Anwendung beenden?</translation>
-    </message>
-    <message>
-        <source>Quit?</source>
-        <translation type="vanished">Beenden?</translation>
-    </message>
-    <message>
-        <source>Can&apos;t import old settings
-</source>
-        <translation type="vanished">Kann alte Einstellungen nicht importieren</translation>
-    </message>
-    <message>
-        <source>File with default values doesn&apos;t exist
-</source>
-        <translation type="vanished">Datei mit Standardwerten existiert nicht.</translation>
-    </message>
-    <message>
-        <source>Hybrid fractal can&apos;t be converted</source>
-        <translation type="vanished">Hybridfraktal kann nicht konvertiert werden</translation>
-    </message>
-    <message>
-        <source>Rendering image in progress</source>
-        <translation type="vanished">Rendere Bild</translation>
-    </message>
-    <message>
-        <source>Idle</source>
-        <translation type="vanished">Leerlauf</translation>
-    </message>
-    <message>
-        <source>Initialization</source>
-        <translation type="vanished">Initialisierung</translation>
-    </message>
-    <message>
-        <source>Setting up image buffers</source>
-        <translation type="vanished">Bildpuffer einrichten</translation>
-    </message>
-    <message>
-        <source>Loading textures</source>
-        <translation type="vanished">Lade Texturen</translation>
-    </message>
-    <message>
-        <source>Rendering SSAO effect in progress</source>
-        <translation type="vanished">Rendere SSAO Effekt</translation>
-    </message>
-    <message>
-        <source>No frames to render</source>
-        <translation type="vanished">Keine Frames zu Rendern</translation>
-    </message>
-    <message>
-        <source>Are you sure to start recording of new animation?</source>
-        <translation type="vanished">Eine neue Animation aufnehmen?</translation>
-    </message>
-    <message>
-        <source>This will delete all images in the image folder.
-Proceed?</source>
-        <translation type="vanished">Das wird alle Bilder im Bildordner löschen.
-Fortsetzen?</translation>
-    </message>
-    <message>
-        <source>No frames recorded before. Unable to continue.</source>
-        <translation type="vanished">Noch keine Frames aufgenommen. Kann nicht fortfahren.</translation>
-    </message>
-    <message>
-        <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
-        <translation type="vanished">Renderingengine ist beschäfting. Unfertige Renders anhalten, bevor neue gestartet werden</translation>
-    </message>
-    <message>
-        <source>Recordning flight path</source>
-        <translation type="vanished">Flug aufzeichnen</translation>
-    </message>
-    <message>
-        <source>Recording flight animation</source>
-        <translation type="vanished">Fluganimation aufzeichnen</translation>
-    </message>
-    <message>
-        <source>Truncate Image Folder</source>
-        <translation type="vanished">Bilderordner leeren</translation>
-    </message>
-    <message>
-        <source>The animation has already been rendered completely.
- Do you want to purge the output folder?
-</source>
-        <translation type="vanished">Die Animation wurde bereits vollständig gerendert.
-Soll der Bilderordner geleert werden?</translation>
-    </message>
-    <message>
-        <source>Animation start</source>
-        <translation type="vanished">Animationsstart</translation>
-    </message>
-    <message>
-        <source>Frame %1 of %2</source>
-        <translation type="vanished">Frame %1 von %2</translation>
-    </message>
-    <message>
-        <source>Animation finished</source>
-        <translation type="vanished">Animation beendet</translation>
-    </message>
-    <message>
-        <source>Refreshing animation</source>
-        <translation type="vanished">Animationsframes werden aktualisiert</translation>
-    </message>
-    <message>
-        <source>Animation Image Folder</source>
-        <translation type="vanished">Ordner für Animationsbilder</translation>
-    </message>
-    <message>
-        <source>Choose Animation Image Folder</source>
-        <translation type="vanished">Wähle Ordner für Animationsbilder</translation>
-    </message>
-    <message>
-        <source>No frames to play</source>
-        <translation type="vanished">Keine Frames zum abspielen</translation>
-    </message>
-    <message>
-        <source>NetRender - address already in use.
-
-Is there already a mandelbulber server instance running on this port?</source>
-        <translation type="vanished">NetRender - Adresse schon in Benutzung
-
-Ist bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</translation>
-    </message>
-    <message>
-        <source>NetRender - SetServer Error:
-
-</source>
-        <translation type="vanished">NetRender - SetServer Fehler:</translation>
-    </message>
-</context>
+<TS version="2.1" language="it">
 <context>
     <name>RenderWindow</name>
     <message>
         <location filename="../qt/render_window.ui" line="20"/>
         <source>Mandelbulber</source>
-        <translation>Mandelbulber</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="114"/>
         <source>Zoom:</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="128"/>
         <source>Fit to window</source>
-        <translation>An Bildschirmgröße anpassen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="133"/>
         <source>400%</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="138"/>
         <source>200%</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="143"/>
         <source>100%</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="148"/>
         <source>50%</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="153"/>
         <source>25%</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="158"/>
         <source>10%</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="173"/>
         <source>Show cursor</source>
-        <translation>Zeige Cursor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="214"/>
         <source>Image</source>
-        <translation>Bild</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="224"/>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="239"/>
         <source>View</source>
-        <translation>Ansicht</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="254"/>
         <source>About</source>
-        <translation>Über</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="262"/>
         <source>Edit</source>
-        <translation>Bearbeiten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="296"/>
         <source>Image adjustments</source>
-        <translation>Bild Einstellungen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="357"/>
         <source>Image resolution</source>
-        <translation>Bild Auflösung</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="418"/>
         <source>Image width:</source>
-        <translation>Bildbreite:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="425"/>
         <source>Image height:</source>
-        <translation>Bildhöhe:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="467"/>
         <source>Image proportion:</source>
-        <translation>Seitenverhältnis:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="478"/>
         <source>Free</source>
-        <translation>Frei</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="483"/>
         <source>1:1</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="488"/>
         <source>4:3</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="493"/>
         <source>3:2</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="498"/>
         <source>16:9</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="503"/>
         <source>16:10</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="508"/>
         <source>2:1</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="521"/>
         <source>Presets</source>
-        <translation>Voreinstellungen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="550"/>
         <source>4096×2160</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="557"/>
         <source>1280x720</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="564"/>
         <source>1920x1080</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="571"/>
         <source>7680×4320</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="578"/>
         <source>720x480</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="585"/>
         <source>2560x1440</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="592"/>
         <source>320x240</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="599"/>
         <source>800x600</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="606"/>
         <source>1600x1200</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="624"/>
         <source>Picture</source>
-        <translation>Bild</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="694"/>
         <source>Gamma:</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="723"/>
         <source>Brightness:</source>
-        <translation>Helligkeit:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="753"/>
         <source>Contrast:</source>
-        <translation>Kontrast:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="775"/>
         <source>High Dynamic Range (HDR)</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="785"/>
         <source>Apply changes</source>
-        <translation>Einstellungen übernehmen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="799"/>
         <location filename="../qt/render_window.ui" line="1454"/>
         <source>Camera</source>
-        <translation>Kamera</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="822"/>
         <source>Field of view:</source>
-        <translation>Sichtfeld:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="877"/>
         <source>Three-point perspective</source>
-        <translation>Drei-Punkt-Perspektive</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="882"/>
         <source>Fish eye</source>
-        <translation>Fischauge</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="887"/>
         <location filename="../qt/render_window.ui" line="4762"/>
         <source>Equirectangular</source>
-        <translation>Gleichwinklig</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="892"/>
         <source>Fulldome</source>
-        <translation>Vollkuppel</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="900"/>
         <source>Perspective type:</source>
-        <translation>Perspektive:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="912"/>
         <source>Coordinate system like in Mandelbulber v1.21</source>
-        <translation>Koordinatensystem wie in Mandelbulber v1.21</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1326"/>
         <source>Navigation</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1362"/>
         <source>RENDER</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1376"/>
         <source>STOP</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1430"/>
         <source>Coordinates:</source>
-        <translation>Koordinaten:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1066"/>
@@ -771,7 +304,7 @@ Ist bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</transla
         <location filename="../qt/render_window.ui" line="10408"/>
         <location filename="../qt/render_window.ui" line="10488"/>
         <source>x:</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1073"/>
@@ -797,7 +330,7 @@ Ist bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</transla
         <location filename="../qt/render_window.ui" line="10440"/>
         <location filename="../qt/render_window.ui" line="10504"/>
         <source>y:</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1080"/>
@@ -823,303 +356,295 @@ Ist bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</transla
         <location filename="../qt/render_window.ui" line="10456"/>
         <location filename="../qt/render_window.ui" line="10520"/>
         <source>z:</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1551"/>
         <source>Target</source>
-        <translation>Ziel</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1648"/>
         <source>Reset view</source>
-        <translation>Ansicht reseten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1659"/>
         <source>Move camera and target</source>
-        <translation>Kamera und Ziel bewegen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1664"/>
         <source>Move camera</source>
-        <translation>Kamera bewegen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1669"/>
         <source>Move target</source>
-        <translation>Ziel bewegen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1688"/>
         <source>Camera distance
 to target:</source>
-        <translation>Kameradistanz zum Ziel:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1985"/>
         <source>step:</source>
-        <translation>Schritt:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2033"/>
         <source>Relative step mode</source>
-        <translation>relativer Schrittmodus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2038"/>
         <source>Absolute step mode</source>
-        <translation>absoluter Schrittmodus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2052"/>
         <source>Camera rotation:</source>
-        <translation>Kamera Rotation:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2307"/>
         <source>rotation step:</source>
-        <translation>Rotationsschritt:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2351"/>
         <source>Rotate camera</source>
-        <translation>Kamera rotieren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2356"/>
         <source>Rotate around target</source>
-        <translation>Um Ziel rotieren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2368"/>
         <source>Fixed roll angle</source>
-        <translation>Fester Roll Winkel</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2373"/>
         <source>Staight rotation</source>
-        <translation>Gerade Rotation</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1196"/>
         <location filename="../qt/render_window.ui" line="2416"/>
         <source>yaw:</source>
-        <translation>Gier:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1203"/>
         <location filename="../qt/render_window.ui" line="2430"/>
         <source>pitch:</source>
-        <translation>Nick:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1210"/>
         <location filename="../qt/render_window.ui" line="2444"/>
         <source>roll:</source>
-        <translation>Roll:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2466"/>
         <source>Mouse click function:</source>
-        <translation>Mausklick Funktion:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2483"/>
         <source>No action</source>
-        <translation>Keine Aktion</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2512"/>
         <source>toolBar</source>
-        <translation>Toolbar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2531"/>
         <source>Effects</source>
-        <translation>Effekte</translation>
-    </message>
-    <message>
-        <source>Surface</source>
-        <translation type="vanished">Oberfläche</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2745"/>
         <source>Ambient occlusion:</source>
-        <translation>Umgebungsverdunklung:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2752"/>
         <source>Reflection:</source>
-        <translation>Reflektion:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2836"/>
         <source>Specularity:</source>
-        <translation>Glanz:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2816"/>
         <source>Shading:</source>
-        <translation>Schattierung:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2987"/>
         <source>Ambient occlusion</source>
-        <translation>Umgebungsverdeckung</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3032"/>
         <source>Fast AO tune:</source>
-        <translation>Schnelle UV Bestimmung:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3055"/>
         <source>Quality:</source>
-        <translation>Qualität:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3062"/>
         <source>Type:</source>
-        <translation>Typ:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3083"/>
         <source>Fast</source>
-        <translation>Schnell</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3088"/>
         <source>Multiple rays with light map</source>
-        <translation>Mehrere Strahlen mit Light Map</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3093"/>
         <source>Screen space</source>
-        <translation>Bildschirmraum</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3160"/>
         <location filename="../qt/render_window.ui" line="3540"/>
         <location filename="../qt/render_window.ui" line="4737"/>
         <source>Select file</source>
-        <translation>Datei auswählen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3174"/>
         <source>Light map texture:</source>
-        <translation>Textur für Light Map:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3205"/>
         <source>Surface color</source>
-        <translation>Oberflächenfarbe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3234"/>
         <source>Color speed:</source>
-        <translation>Farbgeschwindigkeit:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3251"/>
         <source>Random seed:</source>
-        <translation>Zufallsstartwert:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3258"/>
         <source>Saturation:</source>
-        <translation>Sättigung:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3343"/>
         <source>Grab colors from image...</source>
-        <translation>Farbe aus Bild bestimmen...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3382"/>
         <source>Palette size:</source>
-        <translation>Palettengröße:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3389"/>
         <source>Palette:
 (click to edit)</source>
-        <translation>Palette: (Klicken zum ändern)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3429"/>
         <source>Palette offset:</source>
-        <translation>Palettenversatz:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3486"/>
         <source>Generate new random palette</source>
-        <translation>Erzeuge neue Zufallspalette</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3496"/>
         <source>Randomize</source>
-        <translation>zufällig erzeugen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3511"/>
         <source>Environment mappring</source>
-        <translation>Umgebungsmapping</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3554"/>
         <location filename="../qt/render_window.ui" line="4747"/>
         <source>Texture path:</source>
-        <translation>Texturpfad:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3584"/>
         <source>Ray-tracing</source>
-        <translation>Raytracing</translation>
-    </message>
-    <message>
-        <source>Ray-traced reflections</source>
-        <translation type="vanished">Raytraced Reflektionen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3677"/>
         <source>Reflections depth:</source>
-        <translation>Reflektionstiefe:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3708"/>
         <source>Depth of field</source>
-        <translation>Tiefenschärfe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3737"/>
         <source>Focus distance:</source>
-        <translation>Fokus Distanz:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3744"/>
         <source>Radius:</source>
-        <translation>Radius:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3838"/>
         <source>Update image</source>
-        <translation>Bild updaten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3848"/>
         <source>Set focus distance by mouse</source>
-        <translation>Setze Fokusdistanz per Maus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3876"/>
         <source>Volumetric</source>
-        <translation>Volumetrisch</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3930"/>
         <source>Basic fog</source>
-        <translation>Basisnebel</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3982"/>
@@ -1129,7 +654,7 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="5588"/>
         <location filename="../qt/render_window.ui" line="5719"/>
         <source>Color:</source>
-        <translation>Farbe:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2668"/>
@@ -1151,7 +676,7 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="5595"/>
         <location filename="../qt/render_window.ui" line="5726"/>
         <source>PushButton</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="383"/>
@@ -1401,12 +926,12 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2602"/>
         <source>Material</source>
-        <translation>Material</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2658"/>
         <source>Color of volume:</source>
-        <translation>Farbe des Volumens:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2665"/>
@@ -1436,12 +961,12 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2856"/>
         <source>Transparency of volume:</source>
-        <translation>Transparenz des Volumens:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2863"/>
         <source>Transparency of surface:</source>
-        <translation>Transparenz der Oberfläche:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2870"/>
@@ -1451,7 +976,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2892"/>
         <source>Index of refraction:</source>
-        <translation>Brechungsindex:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2918"/>
@@ -1471,7 +996,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2975"/>
         <source>Fresnel&apos;s equations for reflectance</source>
-        <translation>Fresnelsche Brechungsgleichung</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2984"/>
@@ -1566,7 +1091,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="3638"/>
         <source>Ray-traced reflections and transparency</source>
-        <translation>Raytraced Reflektionen und Transparenz</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3667"/>
@@ -1616,7 +1141,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="3999"/>
         <source>Visibility distance:</source>
-        <translation>Sichtbarkeitsdistanz:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4008"/>
@@ -1626,7 +1151,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4011"/>
         <source>Set visibility distance by mouse</source>
-        <translation>Setze Sichtbarkeitsdistanz per Maus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4021"/>
@@ -1636,7 +1161,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4024"/>
         <source>Glow</source>
-        <translation>Leuchten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4053"/>
@@ -1644,7 +1169,7 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="4484"/>
         <location filename="../qt/render_window.ui" line="4675"/>
         <source>Color #1:</source>
-        <translation>Farbe #1:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4060"/>
@@ -1652,7 +1177,7 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="4389"/>
         <location filename="../qt/render_window.ui" line="4668"/>
         <source>Color #2:</source>
-        <translation>Farbe #2:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4067"/>
@@ -1673,7 +1198,7 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="5686"/>
         <location filename="../qt/render_window.ui" line="6134"/>
         <source>Intensity:</source>
-        <translation>Intensität:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4107"/>
@@ -1688,7 +1213,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4122"/>
         <source>Fog based on distance</source>
-        <translation>Nebel auf Distanzbasis</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4151"/>
@@ -1698,17 +1223,17 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4158"/>
         <source>Fog distance factor:</source>
-        <translation>Nebel Distanzfaktor:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4165"/>
         <source>Distance of color #2:</source>
-        <translation>Distanz Farbe #2:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4172"/>
         <source>Distance of color #1:</source>
-        <translation>Distanz Farbe #1:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4192"/>
@@ -1728,7 +1253,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4242"/>
         <source>Density:</source>
-        <translation>Dichte:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4256"/>
@@ -1740,7 +1265,7 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="4533"/>
         <location filename="../qt/render_window.ui" line="4689"/>
         <source>Color #3:</source>
-        <translation>Farbe #3:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4273"/>
@@ -1760,7 +1285,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4306"/>
         <source>Optimal distances calculation</source>
-        <translation>Optimale Distanzberechnung</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4325"/>
@@ -1770,7 +1295,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4328"/>
         <source>Fog based on iteration count</source>
-        <translation>Nebel auf Iterationsschrittbasis</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4357"/>
@@ -1810,116 +1335,116 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4526"/>
         <source>Opacity:</source>
-        <translation>Deckkraft:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4540"/>
         <source>Low iterations trim:</source>
-        <translation>Wenige Iterationen trimmen:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4547"/>
         <source>Max iter. for color#2:</source>
-        <translation>Max Iter. für Farbe #2:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4554"/>
         <source>Max iter. for color#1:</source>
-        <translation>Max Iter. für Farbe #1:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4584"/>
         <source>Background</source>
-        <translation>Hintergrund</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4635"/>
         <source>Colored background</source>
-        <translation>Gefärbter Hintergrund</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4708"/>
         <source>Textured background</source>
-        <translation>Textur Hintergrund</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4754"/>
         <source>Map type:</source>
-        <translation>Map Typ:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4767"/>
         <source>Double hemisphere</source>
-        <translation>Doppelte Hemisphäre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4811"/>
         <source>Lights</source>
-        <translation>Lichter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4862"/>
         <source>Common light options</source>
-        <translation>Haupt Lichtoptionen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4883"/>
         <source>Cast shadows</source>
-        <translation>Schatten werfen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4890"/>
         <source>Penetrating lights</source>
-        <translation>Gleißende Lichter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4900"/>
         <source>Main light source</source>
-        <translation>Hauptlicht Quelle</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4939"/>
         <source>Horizontal angle:</source>
-        <translation>Horizontaler Winkel:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5035"/>
         <location filename="../qt/render_window.ui" line="5773"/>
         <location filename="../qt/render_window.ui" line="6068"/>
         <source>Size:</source>
-        <translation>Größe:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5070"/>
         <source>Vertical angle:</source>
-        <translation>Vertikaler Winkel:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5115"/>
         <source>Soft shadow cone angle:</source>
-        <translation>Weichschatten Kegelwinkel:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5132"/>
         <location filename="../qt/render_window.ui" line="5812"/>
         <location filename="../qt/render_window.ui" line="6202"/>
         <source>Visibility:</source>
-        <translation>Sichtbarkeit:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5194"/>
         <source>Position relative to the camera</source>
-        <translation>Position relativ zur Kamera</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5204"/>
         <source>Custom lights</source>
-        <translation>Custom Lichter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5230"/>
         <source>Light #1</source>
-        <translation>Licht #1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5348"/>
@@ -1927,88 +1452,131 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="5604"/>
         <location filename="../qt/render_window.ui" line="5735"/>
         <source>Place by mouse</source>
-        <translation>Per Maus setzen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5358"/>
         <source>Light #2</source>
-        <translation>Licht #2</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5486"/>
         <source>Light #3</source>
-        <translation>Licht #3</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5614"/>
         <source>Light #4</source>
-        <translation>Licht #4</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5747"/>
         <source>Custom lights options</source>
-        <translation>Custom Lichtoptionen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5819"/>
         <source>Placement distance
 (by mouse):</source>
-        <translation>Setzdistanz (per Maus):</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5851"/>
         <source>Volumetric lights</source>
-        <translation>Volumetrisches Licht</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5890"/>
         <source>Visibility of light #2:</source>
-        <translation>Sichtbarkeit von Licht #2:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5897"/>
         <source>Visibility of light #1:</source>
-        <translation>Sichtbarkeit von Licht #1:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5904"/>
         <source>Visibility of main light:</source>
-        <translation>Sichtbarkeit des Hauptlichts:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5936"/>
         <source>Visibility of light #3:</source>
-        <translation>Sichtbarkeit von Licht #3:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5956"/>
         <source>Visibility of light #4:</source>
-        <translation>Sichtbarkeit von Licht #4:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5992"/>
         <source>Main light as volumetric</source>
-        <translation>Hauptlicht volumetrisch</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5999"/>
         <source>Light #1 as volumetric</source>
-        <translation>Licht #1 volumetrisch</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6006"/>
         <source>Light #2 as volumetric</source>
-        <translation>Licht #2 volumetrisch</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6013"/>
         <source>Light #3 as volumetric</source>
-        <translation>Licht #3 volumetrisch</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6020"/>
         <source>Light #4 as volumetric</source>
-        <translation>Licht #4 volumetrisch</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6032"/>
+        <source>Fake lights based on orbit traps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6114"/>
+        <source>Minimum iteration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6182"/>
+        <source>Maximum iteration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6225"/>
+        <source>Orbit trap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6313"/>
+        <source>Fractal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6381"/>
+        <source>Formulas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6406"/>
+        <source>Formula #1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6489"/>
+        <location filename="../qt/render_window.ui" line="6996"/>
+        <location filename="../qt/render_window.ui" line="7503"/>
+        <location filename="../qt/render_window.ui" line="8010"/>
+        <source>Iterations:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6537"/>
@@ -2016,7 +1584,7 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="7551"/>
         <location filename="../qt/render_window.ui" line="8058"/>
         <source>Formula specific parameters</source>
-        <translation>Formelspezifische Parameter</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6568"/>
@@ -2024,7 +1592,7 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="7582"/>
         <location filename="../qt/render_window.ui" line="8089"/>
         <source>Transform</source>
-        <translation>Transformation</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6626"/>
@@ -2032,7 +1600,201 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="7662"/>
         <location filename="../qt/render_window.ui" line="8147"/>
         <source>shift:</source>
-        <translation>Verschiebung:</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6848"/>
+        <location filename="../qt/render_window.ui" line="7390"/>
+        <location filename="../qt/render_window.ui" line="7897"/>
+        <source>scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6913"/>
+        <source>Formula #2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="7420"/>
+        <source>Formula #3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="7927"/>
+        <source>Formula #4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="8431"/>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="8482"/>
+        <source>Julia mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="8527"/>
+        <source>Julia constant (c):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="8577"/>
+        <source>Get Julia constant by mouse pointer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="8598"/>
+        <source>Constant multiplier:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="12294"/>
+        <source>Show statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="12303"/>
+        <source>Save zBuffer as PNG 16 bit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6773"/>
+        <location filename="../qt/render_window.ui" line="7280"/>
+        <location filename="../qt/render_window.ui" line="7787"/>
+        <location filename="../qt/render_window.ui" line="8294"/>
+        <location filename="../qt/render_window.ui" line="8688"/>
+        <location filename="../qt/render_window.ui" line="9750"/>
+        <source>X-axis rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="8698"/>
+        <source>fractal position:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6633"/>
+        <location filename="../qt/render_window.ui" line="7140"/>
+        <location filename="../qt/render_window.ui" line="7669"/>
+        <location filename="../qt/render_window.ui" line="8154"/>
+        <location filename="../qt/render_window.ui" line="8833"/>
+        <location filename="../qt/render_window.ui" line="9692"/>
+        <source>Y-axis rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10892"/>
+        <source>Animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10926"/>
+        <source>Flight animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10980"/>
+        <source>Record flight path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10969"/>
+        <source>Render flight animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10631"/>
+        <source>Remote server address:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10701"/>
+        <location filename="../qt/render_window.ui" line="10802"/>
+        <source>DISABLED</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="11076"/>
+        <location filename="../qt/render_window.ui" line="11666"/>
+        <source>Path for images:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="11114"/>
+        <source>inertia:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="11121"/>
+        <source>speed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="11145"/>
+        <source>speed control:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="11132"/>
+        <source>Relative to distance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="11137"/>
+        <source>Constant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="11194"/>
+        <source>seconds per frame:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="11490"/>
+        <source>Keyframe animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="12237"/>
+        <source>Load example...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="12245"/>
+        <source>Show animation dock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="12256"/>
+        <source>Show gamepad dock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="12267"/>
+        <source>Show Info dock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="12278"/>
+        <source>Show toolbar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="12286"/>
+        <source>Stack all docks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="6780"/>
+        <location filename="../qt/render_window.ui" line="7287"/>
+        <location filename="../qt/render_window.ui" line="7794"/>
+        <location filename="../qt/render_window.ui" line="8301"/>
+        <location filename="../qt/render_window.ui" line="8826"/>
+        <location filename="../qt/render_window.ui" line="9843"/>
+        <source>Z-axis rotation:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6841"/>
@@ -2041,93 +1803,275 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="8362"/>
         <location filename="../qt/render_window.ui" line="8879"/>
         <source>Repeat</source>
-        <translation>Wiederholen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="6848"/>
-        <location filename="../qt/render_window.ui" line="7390"/>
-        <location filename="../qt/render_window.ui" line="7897"/>
-        <source>scale:</source>
-        <translation>Skalierung:</translation>
+        <location filename="../qt/render_window.ui" line="8906"/>
+        <source>Hybrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="8932"/>
+        <source>Enable hybrid fractals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="8939"/>
+        <source>Linear distance estimation (good for Mandelbox or IFS)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8948"/>
         <source>Boolean operators</source>
-        <translation>Boolsche Operatoren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8981"/>
         <location filename="../qt/render_window.ui" line="9037"/>
         <location filename="../qt/render_window.ui" line="9086"/>
         <source>Intersection (AND)</source>
-        <translation>Schnittmenge (AND)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8986"/>
         <location filename="../qt/render_window.ui" line="9042"/>
         <location filename="../qt/render_window.ui" line="9091"/>
         <source>Union (OR)</source>
-        <translation>Vereinigung (OR)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8991"/>
         <source>Complement (1st minus 2nd)</source>
-        <translation>Komplement (1. minus 2.)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9029"/>
         <source>1st &lt;-&gt; 2nd formula:</source>
-        <translation>1. &lt;-&gt; 2. Formel:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9047"/>
         <source>Complement (2nd minus 3rd)</source>
-        <translation>Komplement (2. minus 3.)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9096"/>
         <source>Complement (3rd minus 4th)</source>
-        <translation>Komplement (3. minus 4.)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9134"/>
         <source>2st &lt;-&gt; 3rd formula:</source>
-        <translation>2. &lt;-&gt; 3. Formel:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9141"/>
         <source>3rd &lt;-&gt; 4th formula:</source>
-        <translation>3. &lt;-&gt; 4. Formel:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9153"/>
         <source>Box Folding</source>
-        <translation>Box Faltung</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9185"/>
         <source>Folding limit:</source>
-        <translation>Faltungsgrenze:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9224"/>
         <source>Folding value:</source>
-        <translation>Faltungswert:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9268"/>
         <source>Spherical Folding</source>
-        <translation>Sphärische Faltung</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9300"/>
         <source>Other radius:</source>
-        <translation>Anderer Radius:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="9339"/>
         <source>Inner radius:</source>
-        <translation>Innenradius:</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9397"/>
+        <source>Primitives</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9850"/>
+        <source>all primitives
+position
+(except plane
+and water):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9904"/>
+        <source>Rendering engine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9959"/>
+        <source>Common rendering settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="9985"/>
+        <source>Max. fractal iterations:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10027"/>
+        <source>Stop at maximum iteration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10037"/>
+        <source>Interior mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10065"/>
+        <source>Detail level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10097"/>
+        <source>minimum view distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10104"/>
+        <source>maximum view distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10111"/>
+        <source>Smoothness:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10121"/>
+        <source>Non-DE shading mode (slow)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10258"/>
+        <source>Constant detail size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10290"/>
+        <source>distance threshold:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10373"/>
+        <source>Limits (box)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10424"/>
+        <source>bottom left front corner:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10475"/>
+        <source>top right back corner:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10541"/>
+        <source>NetRender</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10573"/>
+        <source>Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10584"/>
+        <source>Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10589"/>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10602"/>
+        <source>Client configuration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10638"/>
+        <source>Remote server port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10662"/>
+        <source>Connect to server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10676"/>
+        <source>Disconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10694"/>
+        <location filename="../qt/render_window.ui" line="10795"/>
+        <source>Status:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10713"/>
+        <source>Server configuration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10749"/>
+        <source>Local server port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10763"/>
+        <source>Launch server and watch for clients</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10777"/>
+        <source>Stop Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10811"/>
+        <source>List of connected clients</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="10862"/>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="11972"/>
+        <source>Histogram of ray-marching step count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="11933"/>
+        <source>Histogram of fractal interation count</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10017"/>
@@ -2196,490 +2140,27 @@ to target:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="10541"/>
-        <source>NetRender</source>
-        <translation>NetRender</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10573"/>
-        <source>Mode:</source>
-        <translation>Modus:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10584"/>
-        <source>Client</source>
-        <translation>Client</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10589"/>
-        <source>Server</source>
-        <translation>Server</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10602"/>
-        <source>Client configuration:</source>
-        <translation>Client Konfiguration:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12294"/>
-        <source>Show statistics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12303"/>
-        <source>Save zBuffer as PNG 16 bit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remote server addres:</source>
-        <translation type="obsolete">Remote Server Ad</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10638"/>
-        <source>Remote server port:</source>
-        <translation>Remote Server Port:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10662"/>
-        <source>Connect to server</source>
-        <translation>Server verbinden</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10676"/>
-        <source>Disconnect</source>
-        <translation>Trennen</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10694"/>
-        <location filename="../qt/render_window.ui" line="10795"/>
-        <source>Status:</source>
-        <translation>Status:</translation>
-    </message>
-    <message>
-        <source>disabled</source>
-        <translation type="vanished">aus</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10713"/>
-        <source>Server configuration:</source>
-        <translation>Server Konfiguration:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10749"/>
-        <source>Local server port:</source>
-        <translation>Lokaler Server Port:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10763"/>
-        <source>Launch server and watch for clients</source>
-        <translation>Server starten und auf Clients horchen</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10777"/>
-        <source>Stop Server</source>
-        <translation>Server stoppen</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10811"/>
-        <source>List of connected clients</source>
-        <translation>Liste der verbundenen Clients</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10862"/>
-        <source>Info</source>
-        <translation>Info</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="11972"/>
-        <source>Histogram of ray-marching step count</source>
-        <translation>Histogramm von Raymarching Schritt Anzahl</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="11933"/>
-        <source>Histogram of fractal interation count</source>
-        <translation>Histogramm von fraktalen Iterationsschritten</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10892"/>
-        <source>Animation</source>
-        <translation>Animation</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10926"/>
-        <source>Flight animation</source>
-        <translation>Fluganimation</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10980"/>
-        <source>Record flight path</source>
-        <translation>Flug aufzeichnen</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10969"/>
-        <source>Render flight animation</source>
-        <translation>Fluganimation rendern</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="11076"/>
-        <location filename="../qt/render_window.ui" line="11666"/>
-        <source>Path for images:</source>
-        <translation>Pfad für Bilder:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="11114"/>
-        <source>inertia:</source>
-        <translation>Trägheit:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="11121"/>
-        <source>speed:</source>
-        <translation>Geschwindigkeit:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="11145"/>
-        <source>speed control:</source>
-        <translation>Geschwindigkeitssteuerung:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="11132"/>
-        <source>Relative to distance</source>
-        <translation>Relativ zur Distanz</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="11137"/>
-        <source>Constant</source>
-        <translation>Konstant</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="11194"/>
-        <source>seconds per frame:</source>
-        <translation>Sekunden pro Frame:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="11490"/>
-        <source>Keyframe animation</source>
-        <translation>Keyframe Animation</translation>
-    </message>
-    <message>
-        <source>Comming soon</source>
-        <translation type="vanished">Kommt noch</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12204"/>
-        <source>Undo</source>
-        <translation>Rückgängig</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12207"/>
-        <source>Ctrl+Z</source>
-        <translation>Strg+Z</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12216"/>
-        <source>Redo</source>
-        <translation>Wiederholen</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12219"/>
-        <source>Ctrl+Y</source>
-        <translation>Strg+Y</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12228"/>
-        <source>Import settings from old Mandelbulber (v1.21)...</source>
-        <translation>Einstellungen von alten Mandelbulber Dateien (v1.21)...</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12237"/>
-        <source>Load example...</source>
-        <translation>Lade Beispiel...</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12245"/>
-        <source>Show animation dock</source>
-        <translation>Zeige Animationsdock</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12256"/>
-        <source>Show gamepad dock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12267"/>
-        <source>Show Info dock</source>
-        <translation>Zeige Infodock</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12278"/>
-        <source>Show toolbar</source>
-        <translation>Zeige Toolbar</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="12286"/>
-        <source>Stack all docks</source>
-        <translation>Alle Docks überlagern</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6032"/>
-        <source>Fake lights based on orbit traps</source>
-        <translation>Falschlichter aus Orbit Traps</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6114"/>
-        <source>Minimum iteration:</source>
-        <translation>Minimale Iteration:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6182"/>
-        <source>Maximum iteration:</source>
-        <translation>Maximale Iteration:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6225"/>
-        <source>Orbit trap:</source>
-        <translation>Orbit Trap:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6313"/>
-        <source>Fractal</source>
-        <translation>Fraktal</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6381"/>
-        <source>Formulas</source>
-        <translation>Formeln</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6406"/>
-        <source>Formula #1</source>
-        <translation>Formel #1</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6489"/>
-        <location filename="../qt/render_window.ui" line="6996"/>
-        <location filename="../qt/render_window.ui" line="7503"/>
-        <location filename="../qt/render_window.ui" line="8010"/>
-        <source>Iterations:</source>
-        <translation>Iterationen:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6913"/>
-        <source>Formula #2</source>
-        <translation>Formel #2</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="7420"/>
-        <source>Formula #3</source>
-        <translation>Formel #3</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="7927"/>
-        <source>Formula #4</source>
-        <translation>Formel #4</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="8431"/>
-        <source>Options</source>
-        <translation>Optionen</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="8482"/>
-        <source>Julia mode</source>
-        <translation>Julia Modus</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="8527"/>
-        <source>Julia constant (c):</source>
-        <translation>Julia Konstante (c):</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="8577"/>
-        <source>Get Julia constant by mouse pointer</source>
-        <translation>Hole Julia Konstante von Maus Zeiger</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="8598"/>
-        <source>Constant multiplier:</source>
-        <translation>Konstanter Multiplikator:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6773"/>
-        <location filename="../qt/render_window.ui" line="7280"/>
-        <location filename="../qt/render_window.ui" line="7787"/>
-        <location filename="../qt/render_window.ui" line="8294"/>
-        <location filename="../qt/render_window.ui" line="8688"/>
-        <location filename="../qt/render_window.ui" line="9750"/>
-        <source>X-axis rotation:</source>
-        <translation>X-Achsen Rotation:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="8698"/>
-        <source>fractal position:</source>
-        <translation>Fraktalposition:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6633"/>
-        <location filename="../qt/render_window.ui" line="7140"/>
-        <location filename="../qt/render_window.ui" line="7669"/>
-        <location filename="../qt/render_window.ui" line="8154"/>
-        <location filename="../qt/render_window.ui" line="8833"/>
-        <location filename="../qt/render_window.ui" line="9692"/>
-        <source>Y-axis rotation:</source>
-        <translation>Y-Achsen Rotation:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="6780"/>
-        <location filename="../qt/render_window.ui" line="7287"/>
-        <location filename="../qt/render_window.ui" line="7794"/>
-        <location filename="../qt/render_window.ui" line="8301"/>
-        <location filename="../qt/render_window.ui" line="8826"/>
-        <location filename="../qt/render_window.ui" line="9843"/>
-        <source>Z-axis rotation:</source>
-        <translation>Z-Achsen Rotation:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="8906"/>
-        <source>Hybrid</source>
-        <translation>Hybrid</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="8932"/>
-        <source>Enable hybrid fractals</source>
-        <translation>Hybrid Fraktale aktivieren</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="8939"/>
-        <source>Linear distance estimation (good for Mandelbox or IFS)</source>
-        <translation>Lineare Distanzermittlung (gut für Mandelbox und IFS)</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="9397"/>
-        <source>Primitives</source>
-        <translation>Primitive</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="9850"/>
-        <source>all primitives
-position
-(except plane
-and water):</source>
-        <translation>Alle primitive
-Positionen
-(bis auf Fläche
-und Wasser):</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="9904"/>
-        <source>Rendering engine</source>
-        <translation>Rendering Engine</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="9959"/>
-        <source>Common rendering settings</source>
-        <translation>Haupt Rendering Einstellungen</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="9985"/>
-        <source>Max. fractal iterations:</source>
-        <translation>Max. Fraktal Iterationen:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10027"/>
-        <source>Stop at maximum iteration</source>
-        <translation>Bei maximaler iteration stoppen</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10037"/>
-        <source>Interior mode</source>
-        <translation>Interior Modus</translation>
-    </message>
-    <message>
-        <source>Raymarching step mult.:</source>
-        <translation type="vanished">Raymarching Schritt mult.:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10065"/>
-        <source>Detail level:</source>
-        <translation>Detail level:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10097"/>
-        <source>minimum view distance:</source>
-        <translation>Minimale Sichtdistanz:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10104"/>
-        <source>maximum view distance:</source>
-        <translation>Maximale Sichtdistanz:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10111"/>
-        <source>Smoothness:</source>
-        <translation>Glättung:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10121"/>
-        <source>Non-DE shading mode (slow)</source>
-        <translation>Non-DE Schattierungsmodus (langsam)</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10258"/>
-        <source>Constant detail size</source>
-        <translation>Konstante Detailgröße</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10290"/>
-        <source>distance threshold:</source>
-        <translation>Distanz Schwelle:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10373"/>
-        <source>Limits (box)</source>
-        <translation>Grenzen (Box)</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10424"/>
-        <source>bottom left front corner:</source>
-        <translation>Ecke - unten links vorne:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10475"/>
-        <source>top right back corner:</source>
-        <translation>Ecke - oben recht hinten:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10631"/>
-        <source>Remote server address:</source>
-        <translation>Remote Server Adresse:</translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="10701"/>
-        <location filename="../qt/render_window.ui" line="10802"/>
-        <source>DISABLED</source>
-        <translation>AUS</translation>
-    </message>
-    <message>
         <location filename="../qt/render_window.ui" line="10991"/>
         <location filename="../qt/render_window.ui" line="11603"/>
         <source>Delete all images</source>
-        <translation>Alle Bilder löschen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11002"/>
         <location filename="../qt/render_window.ui" line="11560"/>
         <source>Show Animation</source>
-        <translation>Zeige Animation</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11013"/>
         <source>Continue recording</source>
-        <translation>Aufnahme fortsetzen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11024"/>
         <location filename="../qt/render_window.ui" line="11614"/>
         <source>Refresh table</source>
-        <translation>Tabelle aktualisieren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11035"/>
@@ -2720,30 +2201,29 @@ und Wasser):</translation>
         <location filename="../qt/render_window.ui" line="11162"/>
         <location filename="../qt/render_window.ui" line="11743"/>
         <source>Select folder</source>
-        <translation>Ordner auswählen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11297"/>
         <source>roll speed:</source>
-        <translation>Gier Geschwindigkeit:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11323"/>
         <location filename="../qt/render_window.ui" line="11714"/>
         <source>Show thumbnails</source>
-        <translation>Zeige Tumbnails</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11330"/>
         <source>rotation speed:</source>
-        <translation>Rotationsgeschwindigkeit:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11356"/>
         <source>Add flight and rotation speed to parameters
 (needed to continue recording animation)</source>
-        <translation>Flug- und Drehgeschwindigkeit zu Parametern hinzufügen
-(nötig um die Aufnahme der Animation fortzusetzen)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11434"/>
@@ -2859,67 +2339,67 @@ und Wasser):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="12091"/>
         <source>Save as JPG...</source>
-        <translation>JPG speichern...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12100"/>
         <source>Save as PNG...</source>
-        <translation>PNG speichern...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12109"/>
         <source>Save as PNG 16 bit...</source>
-        <translation>PNG 16 bit speichern...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12118"/>
         <source>Save as PNG 16 bit with alpha channel</source>
-        <translation>PNG 16 bit mit Alpha speichern</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12127"/>
         <source>Load settings...</source>
-        <translation>Einstellungen laden...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12136"/>
         <source>Save settings</source>
-        <translation>Einstellungen speichern</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12145"/>
         <source>Save settings as...</source>
-        <translation>Einstellungen speichern als...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12148"/>
         <source>Save settings in selected file</source>
-        <translation>Einstellungen in selektierter Datei speichern</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12157"/>
         <source>Program Settings</source>
-        <translation>Programm Einstellungen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12166"/>
         <source>Quit</source>
-        <translation>Schließen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12171"/>
         <source>Save window state</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12176"/>
         <source>Default docks positions</source>
-        <translation>Standard Docks Positionen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12181"/>
         <source>About Qt</source>
-        <translation>Über Qt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12186"/>
@@ -2929,172 +2409,32 @@ und Wasser):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="12195"/>
         <source>About Mandelbulber</source>
-        <translation>Über Mandelbulber</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fractals (*.txt *.fract)</source>
-        <translation type="vanished">Fraktale (*.txt *.fract)</translation>
+        <location filename="../qt/render_window.ui" line="12204"/>
+        <source>Undo</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save settings...</source>
-        <translation type="vanished">Einstellungen speichern...</translation>
+        <location filename="../qt/render_window.ui" line="12207"/>
+        <source>Ctrl+Z</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Load example settings...</source>
-        <translation type="vanished">Lade Beispiel Einstellungen...</translation>
+        <location filename="../qt/render_window.ui" line="12216"/>
+        <source>Redo</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>JPEG images (*.jpg *.jpeg)</source>
-        <translation type="vanished">JPEG Bilder (*.jpg *.jpeg)</translation>
+        <location filename="../qt/render_window.ui" line="12219"/>
+        <source>Ctrl+Y</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save image to %1 file...</source>
-        <translation type="vanished">Speichere Bild als %1 Datei...</translation>
-    </message>
-    <message>
-        <source>Saving %1 image</source>
-        <translation type="vanished">Speichere %1 Bild</translation>
-    </message>
-    <message>
-        <source>Saving image started</source>
-        <translation type="vanished">Speichern gestartet</translation>
-    </message>
-    <message>
-        <source>Saving image finished</source>
-        <translation type="vanished">Speichern beendet</translation>
-    </message>
-    <message>
-        <source>PNG images (*.png)</source>
-        <translation type="vanished">PNG Bilder (*.png)</translation>
-    </message>
-    <message>
-        <source>Saving PNG image started</source>
-        <translation type="vanished">PNG Speichern gestartet</translation>
-    </message>
-    <message>
-        <source>Saving PNG image finished</source>
-        <translation type="vanished">PNG Speichern beendet</translation>
-    </message>
-    <message>
-        <source>Saving image to %1 ...</source>
-        <translation type="vanished">Speichere Bild als %1 ...</translation>
-    </message>
-    <message>
-        <source>Images (*.jpg *.jpeg *.png *.bmp)</source>
-        <translation type="vanished">Bilder (*.jpg *.jpeg *.png *.bmp)</translation>
-    </message>
-    <message>
-        <source>Select background texture...</source>
-        <translation type="vanished">Wähle Hintergrundtextur...</translation>
-    </message>
-    <message>
-        <source>Select texture for environment mapping effect...</source>
-        <translation type="vanished">Wähle Textur für Umgebungsmapping Effekt...</translation>
-    </message>
-    <message>
-        <source>Select texture for ambient occlussion light map...</source>
-        <translation type="vanished">Wähle Textur für Umgebungsverdunklung Lichtmap...</translation>
-    </message>
-    <message>
-        <source>Select image to grab colors...</source>
-        <translation type="vanished">Wähle Bild zum Farben holen...</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Name</translation>
-    </message>
-    <message>
-        <source>Host</source>
-        <translation type="vanished">Host</translation>
-    </message>
-    <message>
-        <source>Worker</source>
-        <translation type="vanished">Worker</translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation type="vanished">Status</translation>
-    </message>
-    <message>
-        <source>Rendered</source>
-        <translation type="vanished">Gerendert</translation>
-    </message>
-</context>
-<context>
-    <name>RenderedImage</name>
-    <message>
-        <source>Move camera</source>
-        <translation type="vanished">Kamera bewegen</translation>
-    </message>
-    <message>
-        <source>Change fog visibility</source>
-        <translation type="vanished">Nebelsichtbarkeit ändern</translation>
-    </message>
-    <message>
-        <source>Change DOF focus</source>
-        <translation type="vanished">Tiefenschärfefokus ändern</translation>
-    </message>
-    <message>
-        <source>Place light #</source>
-        <translation type="vanished">Setze Licht #</translation>
-    </message>
-    <message>
-        <source>Place </source>
-        <translation type="vanished">Setze </translation>
-    </message>
-    <message>
-        <source>Get Julia constant</source>
-        <translation type="vanished">Julia Konstante holen</translation>
-    </message>
-    <message>
-        <source>LMB - increase speed</source>
-        <translation type="vanished">LMB - Beschleunigen</translation>
-    </message>
-    <message>
-        <source>
-RMB - decrease speed</source>
-        <translation type="vanished">
-RMB - Verlangsamen</translation>
-    </message>
-    <message>
-        <source>
-arrow keys - strafe</source>
-        <translation type="vanished">
-Pfeiltasten - Bewegen</translation>
-    </message>
-    <message>
-        <source>
-z, x keys - roll</source>
-        <translation type="vanished">z, x Tasten - Rollen</translation>
-    </message>
-    <message>
-        <source>
-spacebar - pause</source>
-        <translation type="vanished">
-Leertaste - Pause</translation>
-    </message>
-</context>
-<context>
-    <name>cFlightAnimation</name>
-    <message>
-        <source>waiting 3 seconds</source>
-        <translation type="vanished">3 Sekunden warten</translation>
-    </message>
-    <message>
-        <source>Recording flight animation. Frame: </source>
-        <translation type="vanished">Fluganimation aufzeichnen. Frame: </translation>
-    </message>
-    <message>
-        <source>Paused. Frame: </source>
-        <translation type="vanished">Pausiert. Frame: </translation>
-    </message>
-    <message>
-        <source>preview</source>
-        <translation type="vanished">Vorschau</translation>
-    </message>
-    <message>
-        <source>Refreshing animation frames</source>
-        <translation type="vanished">Animationsframes aktualisieren</translation>
+        <location filename="../qt/render_window.ui" line="12228"/>
+        <source>Import settings from old Mandelbulber (v1.21)...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
