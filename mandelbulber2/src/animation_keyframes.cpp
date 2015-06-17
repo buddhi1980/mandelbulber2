@@ -847,19 +847,11 @@ void cKeyframeAnimation::UpdateLimitsForFrameRange(void)
 	int framesPerKey = ui->spinboxInt_frames_per_keyframe->value();
 	int noOfFrames = keyframes->GetNumberOfFrames() * framesPerKey;
 
-	if(ui->spinboxInt_keyframe_first_to_render->maximum() > noOfFrames)
-	{
-		ui->spinboxInt_keyframe_first_to_render->setMaximum(noOfFrames);
-		ui->sliderInt_keyframe_first_to_render->setMaximum(noOfFrames);
-	}
+	ui->spinboxInt_keyframe_first_to_render->setMaximum(noOfFrames);
+	ui->sliderInt_keyframe_first_to_render->setMaximum(noOfFrames);
 
-	if(ui->spinboxInt_keyframe_last_to_render->maximum() > noOfFrames)
-	{
-		ui->spinboxInt_keyframe_last_to_render->setMaximum(noOfFrames);
-		ui->sliderInt_keyframe_last_to_render->setMaximum(noOfFrames);
-	}
-
-
+	ui->spinboxInt_keyframe_last_to_render->setMaximum(noOfFrames);
+	ui->sliderInt_keyframe_last_to_render->setMaximum(noOfFrames);
 }
 
 void cKeyframeAnimation::slotMovedSliderFirstFrame(int value)
