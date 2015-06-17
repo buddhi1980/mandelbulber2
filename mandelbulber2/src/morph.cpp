@@ -45,6 +45,8 @@ cMorph::~cMorph()
 
 cMorph::cMorph(const cMorph &source)
 {
+	splineAkimaPeriodic = NULL;
+	interpolationAccelerator = NULL;
 	*this = source;
 }
 
