@@ -14,7 +14,7 @@ namespace parameterContainer
 {
 	enum enumParameterType
 	{
-		paramStandard, paramApp, paramNoSave
+		paramStandard, paramApp, paramNoSave, paramOnlyForNet
 	};
 
 	enum enumMorphType

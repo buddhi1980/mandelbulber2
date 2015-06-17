@@ -201,7 +201,7 @@ QString cSettings::CreateHeader()
 QString cSettings::CreateOneLine(const cParameterContainer *par, QString name)
 {
 	QString text;
-	if ((format != formatAppSettings && par->GetParameterType(name) == paramStandard) || (format == formatAppSettings && par->GetParameterType(name) == paramApp))
+	if ((format != formatAppSettings && (par->GetParameterType(name) == paramStandard || par->GetParameterType(name) == paramOnlyForNet)) || (format == formatAppSettings && par->GetParameterType(name) == paramApp))
 	{
 		if (format == formatFullText || format == formatCondensedText || format == formatAppSettings)
 		{
