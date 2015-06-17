@@ -76,6 +76,8 @@ void QuickDudleyIteration(CVector3 &z);
 void LkmitchIteration(CVector3 &z);
 void Makin3D2Iteration(CVector3 &z);
 void MsltoeSym2(CVector3 &z, const cFractal *fractal);
+void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux);
+
 void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor);
 void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor, double &foldDE, double r);
 #endif /* FRACTAL_FORMULAS_HPP_ */

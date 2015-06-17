@@ -240,6 +240,11 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				MsltoeSym2(z, fractal);
 				break;
 			}
+			case generalizedFoldBox:
+			{
+				GeneralizedFoldBoxIteration(z, fractal, mandelboxAux[sequence]);
+				break;
+			}
 			default:
 				z = CVector3(0.0, 0.0, 0.0);
 				break;
@@ -326,6 +331,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			case mandelbox:
 			case smoothMandelbox:
 			case mandelboxVaryScale4D:
+			case generalizedFoldBox:
 				out->distance = r / fabs(mandelboxAux[fractalIndex].mboxDE * foldDE);
 				break;
 			case menger_sponge:
@@ -367,6 +373,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				case mandelbox:
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
+				case generalizedFoldBox:
 					out->colorIndex = mandelboxAux[fractalIndex].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR * foldColor;
 					break;
 

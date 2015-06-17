@@ -405,6 +405,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("mandelbox_vary_rpower", 1.0, morphLinear, paramStandard);
 	par->addParam("mandelbox_vary_wadd", 0.0, morphLinear, paramStandard);
 
+	par->addParam("mandelbox_generalized_fold_type", 0, morphNone, paramStandard);
+
 	//FoldingIntPow
 	par->addParam("boxfold_bulbpow2_folding_factor", 2.0, morphLinear, paramStandard);
 	par->addParam("boxfold_bulbpow2_z_factor", 5.0, morphLinear, paramStandard);

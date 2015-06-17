@@ -62,6 +62,10 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelboxVary4D.scaleVary = container->Get<double>("mandelbox_vary_scale_vary");
 	mandelboxVary4D.wadd = container->Get<double>("mandelbox_vary_wadd");
 
+	mandelbox.solid = container->Get<double>("mandelbox_solid");
+	mandelbox.melt = container->Get<double>("mandelbox_melt");
+	genFoldBox.type = (fractal::enumGeneralizedFoldBoxType)container->Get<int>("mandelbox_generalized_fold_type");
+
 	foldingIntPow.foldfactor = container->Get<double>("boxfold_bulbpow2_folding_factor");
 	foldingIntPow.zFactor = container->Get<double>("boxfold_bulbpow2_z_factor");
 
