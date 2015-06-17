@@ -414,8 +414,15 @@ double cMorph::LinearInterpolate(const double factor, double v1, double v2, bool
 		vals << &v1 << &v2;
 		NearestNeighbourAngle(vals);
 	}
-
-	return v1 + ((v2 - v1) * factor);
+	double value = v1 + ((v2 - v1) * factor);
+	if(angular)
+	{
+		return fmod(value + 180.0, 360.0) - 180.0;
+	}
+	else
+	{
+		return value;
+	}
 }
 
 double cMorph::CatmullRomInterpolate(const double factor, double v1, double v2, double v3, double v4, const bool angular)
@@ -459,7 +466,14 @@ double cMorph::CatmullRomInterpolate(const double factor, double v1, double v2, 
 	if(value < -1e20) value = 1e20;
 	if(fabs(value) < 1e-20) value = 0.0;
 
-	return value;
+	if(angular)
+	{
+		return fmod(value + 180.0, 360.0) - 180.0;
+	}
+	else
+	{
+		return value;
+	}
 }
 
 double cMorph::AkimaInterpolate(const double factor, double v1, double v2, double v3, double v4, double v5, double v6, const bool angular)
@@ -475,7 +489,16 @@ double cMorph::AkimaInterpolate(const double factor, double v1, double v2, doubl
 	double y[] = {v1, v2, v3, v4, v5, v6};
 	// more info: http://www.alglib.net/interpolation/spline3.php
 	gsl_spline_init(splineAkimaPeriodic, x, y, listSize);
-	return gsl_spline_eval(splineAkimaPeriodic, factor, interpolationAccelerator);
+	double value = gsl_spline_eval(splineAkimaPeriodic, factor, interpolationAccelerator);
+
+	if(angular)
+	{
+		return fmod(value + 180.0, 360.0) - 180.0;
+	}
+	else
+	{
+		return value;
+	}
 }
 
 void cMorph::NearestNeighbourAngle(QList<double*> vals)
