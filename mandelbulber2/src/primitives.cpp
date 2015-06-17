@@ -390,7 +390,7 @@ double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water
 	double planeDistance = point.z;
 	if(planeDistance < water.amplitude * 10.0)
 	{
-		double phase = water.animSpeed * water.animFrame;
+		double phase = water.animSpeed * water.animFrame * 0.1;
 		double k=0.23;
 		double waveXtemp = point.x;
 		double waveYtemp = point.y;
