@@ -35,6 +35,7 @@ class PlayerWidget : public QWidget
 public:
 	PlayerWidget(QWidget *parent = 0);
 	~PlayerWidget();
+	void SetFilePath(QString filePath);
 	QSize sizeHint() const { return QSize(800, 600); }
 
 public slots:

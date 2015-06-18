@@ -1156,7 +1156,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="383"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Height of rendered image in pixels&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Height of rendered image in pixels&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="451"/>
@@ -1221,32 +1221,32 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="941"/>
         <source>Gamepad</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamepad</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="948"/>
         <source>Gamepad activate</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamepad aktivieren</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="980"/>
         <source>Gamepad device:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamepad Gerät:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="990"/>
         <source>no device attached</source>
-        <translation type="unfinished"></translation>
+        <translation>keini Gerät verbunden</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1037"/>
         <source>movement velocity</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewegungsgeschwindigkeit</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1167"/>
         <source>angle velocity</source>
-        <translation type="unfinished"></translation>
+        <translation>Winkelgeschwindigkeit</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1359"/>
@@ -2153,7 +2153,8 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="10057"/>
         <source>Raymarching step mult.
 (controls quality):</source>
-        <translation type="unfinished"></translation>
+        <translation>Raymarching Schritt mult.
+(beeinflusst Qualität):</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="10118"/>
@@ -2223,12 +2224,12 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="12294"/>
         <source>Show statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Statistik</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12303"/>
         <source>Save zBuffer as PNG 16 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>zBuffer als PNG 16 bit speichern</translation>
     </message>
     <message>
         <source>Remote server addres:</source>
@@ -2402,7 +2403,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="12256"/>
         <source>Show gamepad dock</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Gamepad Dock</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12267"/>
@@ -2684,37 +2685,37 @@ und Wasser):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="11035"/>
         <source>Export to Keyframes</source>
-        <translation type="unfinished"></translation>
+        <translation>Export zu Keyframes</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11083"/>
         <location filename="../qt/render_window.ui" line="11673"/>
         <source>image type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild typ:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11091"/>
         <location filename="../qt/render_window.ui" line="11681"/>
         <source>JPG</source>
-        <translation type="unfinished"></translation>
+        <translation>JPG</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11096"/>
         <location filename="../qt/render_window.ui" line="11686"/>
         <source>PNG</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11101"/>
         <location filename="../qt/render_window.ui" line="11691"/>
         <source>PNG 16 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG 16 bit</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11106"/>
         <location filename="../qt/render_window.ui" line="11696"/>
         <source>PNG 16 bit with alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG 16 bit mit Alpha</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11162"/>
@@ -2749,103 +2750,103 @@ und Wasser):</translation>
         <location filename="../qt/render_window.ui" line="11434"/>
         <location filename="../qt/render_window.ui" line="11766"/>
         <source>first frame to render:</source>
-        <translation type="unfinished"></translation>
+        <translation>erster Renderframe:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11441"/>
         <location filename="../qt/render_window.ui" line="11824"/>
         <source>last frame to render:</source>
-        <translation type="unfinished"></translation>
+        <translation>letzter  Renderframe:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11518"/>
         <source>Insert keyframe before selected keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyframe vor Selektion einfügen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11521"/>
         <source>Insert keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyframe einfügen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11532"/>
         <source>Delete selected keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Selektierten Keyframe löschen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11535"/>
         <source>Delete keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyframe löschen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11546"/>
         <source>Add keyframe at the end</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyframe am Ende einfügen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11549"/>
         <source>Add keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyframe einfügen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11571"/>
         <source>Render animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animation rendern</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11582"/>
         <source>Modify selected keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Selektierten Keyframe ändern</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11585"/>
         <source>Modify keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyframe ändern</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11596"/>
         <source>Export to Flight</source>
-        <translation type="unfinished"></translation>
+        <translation>Export zu Flug</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11659"/>
         <source>frames per keyframe:</source>
-        <translation type="unfinished"></translation>
+        <translation>Frames pro Keyframe:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11880"/>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statistik</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12027"/>
         <source>Total number of iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>Gesamtanzahl Iterationen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12032"/>
         <source>Number of iterations per pixel</source>
-        <translation type="unfinished"></translation>
+        <translation>Iterationen pro Pixel</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12037"/>
         <source>Number of iterations per second</source>
-        <translation type="unfinished"></translation>
+        <translation>Iterationen pro Sekunde</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12042"/>
         <source>Percentage of wrong distance estimations</source>
-        <translation type="unfinished"></translation>
+        <translation>Prozentsatz falscher Distanzermittlungen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12047"/>
         <source>Distance of camera to fractal surface</source>
-        <translation type="unfinished"></translation>
+        <translation>Distanz von Kamera zu Fraktaloberfläche</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12052"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Wert</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12057"/>
@@ -2854,7 +2855,7 @@ und Wasser):</translation>
         <location filename="../qt/render_window.ui" line="12072"/>
         <location filename="../qt/render_window.ui" line="12077"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12091"/>
@@ -2924,7 +2925,7 @@ und Wasser):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="12186"/>
         <source>About Third Party</source>
-        <translation type="unfinished"></translation>
+        <translation>Über Drittanbieter</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12195"/>
@@ -3107,62 +3108,62 @@ Leertaste - Pause</translation>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="65"/>
         <source>Default file paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard Dateipfade</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="106"/>
         <source>Settings:</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen:</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="125"/>
         <source>Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder:</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="135"/>
         <source>Textures:</source>
-        <translation type="unfinished"></translation>
+        <translation>Texturen:</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="162"/>
         <source>Image quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildqualität</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="188"/>
         <source>JPEG quality:</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG Qualität:</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="229"/>
         <source>System Look and Feel</source>
-        <translation type="unfinished"></translation>
+        <translation>Darstellung</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="255"/>
         <source>UI Style type</source>
-        <translation type="unfinished"></translation>
+        <translation>Oberfläche</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="265"/>
         <source>UI Skin</source>
-        <translation type="unfinished"></translation>
+        <translation>Skin</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="273"/>
         <source>normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="278"/>
         <source>dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Dunkel</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="283"/>
         <source>light</source>
-        <translation type="unfinished"></translation>
+        <translation>Hell</translation>
     </message>
 </context>
 </TS>
