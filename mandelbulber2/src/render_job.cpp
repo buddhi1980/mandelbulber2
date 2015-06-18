@@ -346,7 +346,7 @@ bool cRenderJob::Execute(void)
 	runningJobs--;
 	//qDebug() << "runningJobs" << runningJobs;
 
-	return true;
+	return result;
 }
 
 void cRenderJob::ChangeCameraTargetPosition(cCameraTarget &cameraTarget)
