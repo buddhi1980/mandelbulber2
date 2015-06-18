@@ -84,5 +84,6 @@ CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov, param
 CVector3 ReflectionVector(const CVector3 &normal, const CVector3 &incident);
 CVector3 RefractVector(const CVector3 &normal, const CVector3 &incident, double n1, double n2);
 double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, double n2);
+inline double LimitAngle(double angle) {return fmod(fmod(angle - 180.0, 360.0) + 360.0, 360.0) - 180.0;}
 
 #endif /* COMMON_MATH_H_ */

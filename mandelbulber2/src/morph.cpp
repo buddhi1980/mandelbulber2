@@ -417,7 +417,7 @@ double cMorph::LinearInterpolate(const double factor, double v1, double v2, bool
 	double value = v1 + ((v2 - v1) * factor);
 	if(angular)
 	{
-		return fmod(value + 180.0, 360.0) - 180.0;
+		return LimitAngle(value);
 	}
 	else
 	{
@@ -468,7 +468,7 @@ double cMorph::CatmullRomInterpolate(const double factor, double v1, double v2, 
 
 	if(angular)
 	{
-		return fmod(value + 180.0, 360.0) - 180.0;
+		return LimitAngle(value);
 	}
 	else
 	{
@@ -493,7 +493,7 @@ double cMorph::AkimaInterpolate(const double factor, double v1, double v2, doubl
 
 	if(angular)
 	{
-		return fmod(value + 180.0, 360.0) - 180.0;
+		return LimitAngle(value);
 	}
 	else
 	{
