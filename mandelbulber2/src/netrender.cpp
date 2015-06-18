@@ -605,7 +605,7 @@ void CNetRender::Stop()
 void CNetRender::SendJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures)
 {
 	WriteLog("NetRender - Sending job");
-	cSettings settingsData(cSettings::formatCondensedText);
+	cSettings settingsData(cSettings::formatNetRender);
 	size_t dataSize = settingsData.CreateText(&settings, &fractal);
 	if(dataSize > 0)
 	{

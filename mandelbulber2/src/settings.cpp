@@ -189,6 +189,7 @@ QString cSettings::CreateHeader()
 			header += "# all parameters\n";
 			break;
 		case formatCondensedText:
+		case formatNetRender:
 			header += "# only modified parameters\n";
 			break;
 		case formatAppSettings:
@@ -201,25 +202,25 @@ QString cSettings::CreateHeader()
 QString cSettings::CreateOneLine(const cParameterContainer *par, QString name)
 {
 	QString text;
-	if ((format != formatAppSettings && (par->GetParameterType(name) == paramStandard || par->GetParameterType(name) == paramOnlyForNet)) || (format == formatAppSettings && par->GetParameterType(name) == paramApp))
+	enumParameterType parType = par->GetParameterType(name);
+	if (((format == formatFullText || format == formatCondensedText) && parType == paramStandard)
+			|| (format == formatNetRender && (parType == paramStandard || parType == paramOnlyForNet))
+			|| (format == formatAppSettings && parType == paramApp))
 	{
-		if (format == formatFullText || format == formatCondensedText || format == formatAppSettings)
+		QString value;
+		enumVarType type = par->GetVarType(name);
+		if (!par->isDefaultValue(name) || format == formatFullText)
 		{
-			QString value;
-			enumVarType type = par->GetVarType(name);
-			if (!par->isDefaultValue(name) || format == formatFullText)
+			if (type == typeBool)
 			{
-				if (type == typeBool)
-				{
-					bool bValue = par->Get<bool>(name);
-					value = bValue ? "true" : "false";
-				}
-				else
-				{
-					value = par->Get<QString>(name);
-				}
-				text = name + " " + value + ";\n";
+				bool bValue = par->Get<bool>(name);
+				value = bValue ? "true" : "false";
 			}
+			else
+			{
+				value = par->Get<QString>(name);
+			}
+			text = name + " " + value + ";\n";
 		}
 	}
 	return text;

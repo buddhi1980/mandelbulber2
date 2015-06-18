@@ -36,7 +36,8 @@ public:
 	{
 		formatFullText,
 		formatCondensedText,
-		formatAppSettings
+		formatAppSettings,
+		formatNetRender
 	};
 
 	cSettings(enumFormat _format);
