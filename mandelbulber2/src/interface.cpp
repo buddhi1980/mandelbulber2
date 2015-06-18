@@ -91,6 +91,10 @@ void cInterface::ShowUi(void)
 		mainWindow->ui->dockWidget_histogram->hide();
 	}
 
+	QFont font = mainWindow->font();
+	font.setPixelSize(gPar->Get<int>("ui_font_size"));
+	mainWindow->setFont(font);
+
 	WriteLog("mainWindow->show()");
 	mainWindow->show();
 

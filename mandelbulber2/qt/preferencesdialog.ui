@@ -40,7 +40,7 @@
         <x>0</x>
         <y>0</y>
         <width>423</width>
-        <height>425</height>
+        <height>431</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -283,6 +283,23 @@
                 <string>light</string>
                </property>
               </item>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>UI font size (pixels)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="MySpinBox" name="spinboxInt_ui_font_size">
+              <property name="minimum">
+               <number>5</number>
+              </property>
+              <property name="maximum">
+               <number>50</number>
+              </property>
              </widget>
             </item>
            </layout>

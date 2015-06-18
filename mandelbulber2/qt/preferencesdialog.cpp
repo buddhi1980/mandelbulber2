@@ -27,6 +27,10 @@ cPreferencesDialog::~cPreferencesDialog()
 void cPreferencesDialog::on_buttonBox_accepted()
 {
 	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::read);
+
+	QFont font = gMainInterface->mainWindow->font();
+	font.setPixelSize(gPar->Get<int>("ui_font_size"));
+	gMainInterface->mainWindow->setFont(font);
 }
 
 void cPreferencesDialog::on_pushButton_select_image_path_clicked()
