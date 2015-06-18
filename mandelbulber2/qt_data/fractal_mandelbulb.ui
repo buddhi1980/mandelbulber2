@@ -36,6 +36,12 @@
      </property>
      <item row="2" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd_beta_angle_offset">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="prefix">
         <string/>
        </property>
@@ -65,6 +71,12 @@
      </item>
      <item row="0" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_power">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="prefix">
         <string/>
        </property>
@@ -87,6 +99,12 @@
      </item>
      <item row="1" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd_alpha_angle_offset">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="prefix">
         <string/>
        </property>
@@ -109,6 +127,12 @@
      </item>
      <item row="0" column="1">
       <widget class="QSlider" name="slider_power">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="maximum">
         <number>2000</number>
        </property>

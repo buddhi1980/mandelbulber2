@@ -71,6 +71,12 @@
         </item>
         <item row="0" column="1" colspan="2">
          <widget class="QSlider" name="slider_mandelbox_scale">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -87,6 +93,12 @@
         </item>
         <item row="1" column="1">
          <widget class="QSlider" name="slider_mandelbox_vary_scale_vary">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -103,6 +115,12 @@
         </item>
         <item row="4" column="1" colspan="2">
          <widget class="QSlider" name="slider_mandelbox_vary_rpower">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -119,6 +137,12 @@
         </item>
         <item row="3" column="1" colspan="2">
          <widget class="QSlider" name="slider_mandelbox_vary_minr">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -135,6 +159,12 @@
         </item>
         <item row="2" column="1" colspan="2">
          <widget class="QSlider" name="slider_mandelbox_vary_fold">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -165,6 +195,12 @@
         </item>
         <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_fold">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -187,6 +223,12 @@
         </item>
         <item row="3" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_minr">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -209,6 +251,12 @@
         </item>
         <item row="4" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_rpower">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -238,6 +286,12 @@
         </item>
         <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_scale">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -260,6 +314,12 @@
         </item>
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_scale_vary">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -289,6 +349,12 @@
         </item>
         <item row="5" column="1">
          <widget class="QSlider" name="slider_mandelbox_vary_wadd">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -305,6 +371,12 @@
         </item>
         <item row="5" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_vary_wadd">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -372,6 +444,12 @@
         </item>
         <item row="2" column="1">
          <widget class="QSlider" name="slider3_mandelbox_color_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -388,6 +466,12 @@
         </item>
         <item row="1" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -410,6 +494,12 @@
         </item>
         <item row="3" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -432,6 +522,12 @@
         </item>
         <item row="1" column="1">
          <widget class="QSlider" name="slider3_mandelbox_color_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -462,6 +558,12 @@
         </item>
         <item row="0" column="1">
          <widget class="QSlider" name="slider_mandelbox_color_R">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -478,6 +580,12 @@
         </item>
         <item row="0" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_R">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -500,6 +608,12 @@
         </item>
         <item row="3" column="1">
          <widget class="QSlider" name="slider3_mandelbox_color_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -523,6 +637,12 @@
         </item>
         <item row="2" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -552,6 +672,12 @@
         </item>
         <item row="4" column="1">
          <widget class="QSlider" name="slider_mandelbox_color_Sp1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -568,6 +694,12 @@
         </item>
         <item row="5" column="1">
          <widget class="QSlider" name="slider_mandelbox_color_Sp2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -584,6 +716,12 @@
         </item>
         <item row="4" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -606,6 +744,12 @@
         </item>
         <item row="5" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>

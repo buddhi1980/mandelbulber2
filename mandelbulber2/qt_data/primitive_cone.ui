@@ -37,7 +37,7 @@
      <item row="4" column="2">
       <widget class="MyLineEdit" name="logedit_height">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -62,7 +62,14 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="MyLineEdit" name="vect3_position_x"/>
+      <widget class="MyLineEdit" name="vect3_position_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_8">
@@ -73,6 +80,12 @@
      </item>
      <item row="6" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="prefix">
         <string/>
        </property>
@@ -108,7 +121,14 @@
       </widget>
      </item>
      <item row="10" column="2">
-      <widget class="MyLineEdit" name="vect3_repeat_z"/>
+      <widget class="MyLineEdit" name="vect3_repeat_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
      <item row="5" column="1">
       <widget class="QDial" name="dial3_rotation_x">
@@ -133,7 +153,7 @@
      <item row="4" column="1">
       <widget class="QSlider" name="logslider_height">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -163,12 +183,19 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="MyLineEdit" name="vect3_position_y"/>
+      <widget class="MyLineEdit" name="vect3_position_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
      <item row="3" column="1">
       <widget class="QSlider" name="logslider_radius">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -206,7 +233,7 @@
      <item row="3" column="2">
       <widget class="MyLineEdit" name="logedit_radius">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -215,6 +242,12 @@
      </item>
      <item row="12" column="1">
       <widget class="QSlider" name="slider_reflection">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimum">
         <number>0</number>
        </property>
@@ -258,6 +291,12 @@
      </item>
      <item row="12" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_reflection">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="prefix">
         <string/>
        </property>
@@ -292,10 +331,23 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="MyLineEdit" name="vect3_position_z"/>
+      <widget class="MyLineEdit" name="vect3_position_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
      <item row="5" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="prefix">
         <string/>
        </property>
@@ -325,6 +377,12 @@
      </item>
      <item row="7" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="prefix">
         <string/>
        </property>
@@ -376,10 +434,24 @@
       </widget>
      </item>
      <item row="8" column="2">
-      <widget class="MyLineEdit" name="vect3_repeat_x"/>
+      <widget class="MyLineEdit" name="vect3_repeat_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
      <item row="9" column="2">
-      <widget class="MyLineEdit" name="vect3_repeat_y"/>
+      <widget class="MyLineEdit" name="vect3_repeat_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
      <item row="8" column="1">
       <widget class="QLabel" name="label_repeat_x_2">
@@ -393,6 +465,12 @@
      </item>
      <item row="14" column="0" colspan="2">
       <widget class="MyCheckBox" name="checkBox_empty">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Empty inside</string>
        </property>
@@ -410,6 +488,12 @@
      </item>
      <item row="13" column="0" colspan="2">
       <widget class="MyCheckBox" name="checkBox_caps">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Caps</string>
        </property>

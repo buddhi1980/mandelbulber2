@@ -94,6 +94,7 @@ void cInterface::ShowUi(void)
 	QFont font = mainWindow->font();
 	font.setPixelSize(gPar->Get<int>("ui_font_size"));
 	mainWindow->setFont(font);
+	mainWindow->ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(gPar->Get<int>("ui_font_size") + 6);
 
 	WriteLog("mainWindow->show()");
 	mainWindow->show();

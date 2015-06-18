@@ -69,6 +69,12 @@
         </property>
         <item>
          <widget class="QPushButton" name="pushButton_preset_dodecahedron">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Dodecahedron</string>
           </property>
@@ -76,6 +82,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_preset_icosahedron">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Icosahedron</string>
           </property>
@@ -83,6 +95,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_preset_octahedron">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Octahedron</string>
           </property>
@@ -90,6 +108,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_preset_menger_sponge">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Menger Sponge</string>
           </property>
@@ -97,6 +121,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_preset_reset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Reset</string>
           </property>
@@ -135,6 +165,12 @@
         </property>
         <item row="4" column="0" colspan="4">
          <widget class="MyCheckBox" name="checkBox_IFS_abs_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>abs (x)</string>
           </property>
@@ -142,6 +178,12 @@
         </item>
         <item row="6" column="0" colspan="4">
          <widget class="MyCheckBox" name="checkBox_IFS_abs_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>abs (z)</string>
           </property>
@@ -149,6 +191,12 @@
         </item>
         <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_scale">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -226,6 +274,12 @@
         </item>
         <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_offset_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -248,6 +302,12 @@
         </item>
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_offset_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -277,6 +337,12 @@
         </item>
         <item row="0" column="2">
          <widget class="QSlider" name="slider_IFS_scale">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -293,6 +359,12 @@
         </item>
         <item row="5" column="0" colspan="4">
          <widget class="MyCheckBox" name="checkBox_IFS_abs_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>abs (y)</string>
           </property>
@@ -300,6 +372,12 @@
         </item>
         <item row="3" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_offset_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -322,6 +400,12 @@
         </item>
         <item row="1" column="2">
          <widget class="QSlider" name="slider3_IFS_offset_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -338,6 +422,12 @@
         </item>
         <item row="2" column="2">
          <widget class="QSlider" name="slider3_IFS_offset_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -354,6 +444,12 @@
         </item>
         <item row="3" column="2">
          <widget class="QSlider" name="slider3_IFS_offset_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -370,6 +466,12 @@
         </item>
         <item row="7" column="0" colspan="4">
          <widget class="MyCheckBox" name="checkBox_IFS_menger_sponge_mode">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Menger Sponge mode</string>
           </property>
@@ -447,6 +549,12 @@
         </item>
         <item row="2" column="0">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotation_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -502,6 +610,12 @@
         </item>
         <item row="2" column="1">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotation_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -524,6 +638,12 @@
         </item>
         <item row="2" column="2">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotation_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -580,6 +700,12 @@
         </property>
         <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_edge_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -602,6 +728,12 @@
         </item>
         <item row="0" column="2">
          <widget class="QSlider" name="slider3_IFS_edge_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -618,6 +750,12 @@
         </item>
         <item row="1" column="2">
          <widget class="QSlider" name="slider3_IFS_edge_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -634,6 +772,12 @@
         </item>
         <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_edge_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -656,6 +800,12 @@
         </item>
         <item row="2" column="2">
          <widget class="QSlider" name="slider3_IFS_edge_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -672,6 +822,12 @@
         </item>
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_edge_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -786,6 +942,12 @@
         </property>
         <item row="19" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_4_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -824,6 +986,12 @@
         </item>
         <item row="2" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_0_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -850,6 +1018,12 @@
         </item>
         <item row="18" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_4_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -866,6 +1040,12 @@
         </item>
         <item row="27" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_6_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -888,6 +1068,12 @@
         </item>
         <item row="31" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_7_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -910,6 +1096,12 @@
         </item>
         <item row="23" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_5_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -952,7 +1144,7 @@
         <item row="1" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_0_x">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -980,6 +1172,12 @@
         </item>
         <item row="5" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_1_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1015,6 +1213,12 @@
         </item>
         <item row="22" column="6">
          <widget class="QSlider" name="slider_IFS_intensity_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -1031,6 +1235,12 @@
         </item>
         <item row="30" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_7_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1072,6 +1282,12 @@
         </item>
         <item row="25" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_6_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1098,6 +1314,12 @@
         </item>
         <item row="21" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1120,6 +1342,12 @@
         </item>
         <item row="3" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_0_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1152,6 +1380,12 @@
         </item>
         <item row="10" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_2_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1174,6 +1408,12 @@
         </item>
         <item row="15" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_3_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1251,6 +1491,12 @@
         </item>
         <item row="19" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_4_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1289,6 +1535,12 @@
         </item>
         <item row="11" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_2_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1305,6 +1557,12 @@
         </item>
         <item row="13" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_3_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1328,6 +1586,12 @@
         </item>
         <item row="14" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_3_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1370,6 +1634,12 @@
         </item>
         <item row="26" column="6">
          <widget class="QSlider" name="slider_IFS_intensity_6">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -1386,6 +1656,12 @@
         </item>
         <item row="21" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_5_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1424,6 +1700,12 @@
         </item>
         <item row="31" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_7_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1446,6 +1728,12 @@
         </item>
         <item row="25" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_6">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1484,6 +1772,12 @@
         </item>
         <item row="1" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_0_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="decimals">
            <number>2</number>
           </property>
@@ -1510,6 +1804,12 @@
         </item>
         <item row="11" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_2_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1574,6 +1874,12 @@
         </item>
         <item row="13" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1596,6 +1902,12 @@
         </item>
         <item row="27" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_6_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1648,6 +1960,12 @@
         </item>
         <item row="29" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_7_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1664,6 +1982,12 @@
         </item>
         <item row="9" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_2_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1690,6 +2014,12 @@
         </item>
         <item row="2" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_0_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1728,6 +2058,12 @@
         </item>
         <item row="29" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_7_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1766,6 +2102,12 @@
         </item>
         <item row="15" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_3_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1788,6 +2130,12 @@
         </item>
         <item row="33" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_8">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1826,6 +2174,12 @@
         </item>
         <item row="5" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_1_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1873,6 +2227,12 @@
         </item>
         <item row="6" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_1_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1895,6 +2255,12 @@
         </item>
         <item row="17" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_4_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -1911,6 +2277,12 @@
         </item>
         <item row="17" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_4_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1965,6 +2337,12 @@
         </item>
         <item row="34" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_8_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -1994,6 +2372,12 @@
         </item>
         <item row="10" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_2_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -2045,6 +2429,12 @@
         </item>
         <item row="7" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_1_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2077,6 +2467,12 @@
         </item>
         <item row="14" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_3_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2099,6 +2495,12 @@
         </item>
         <item row="2" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_0">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2137,6 +2539,12 @@
         </item>
         <item row="1" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_0_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2214,6 +2622,12 @@
         </item>
         <item row="21" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_5_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2236,6 +2650,12 @@
         </item>
         <item row="26" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_6">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2318,6 +2738,12 @@
         </item>
         <item row="7" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_1_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2340,6 +2766,12 @@
         </item>
         <item row="10" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2456,6 +2888,12 @@
         </item>
         <item row="13" column="6">
          <widget class="QSlider" name="slider_IFS_distance_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -2472,6 +2910,12 @@
         </item>
         <item row="2" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_0_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2494,6 +2938,12 @@
         </item>
         <item row="14" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2542,6 +2992,12 @@
         </item>
         <item row="30" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_7_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2564,6 +3020,12 @@
         </item>
         <item row="9" column="6">
          <widget class="QSlider" name="slider_IFS_distance_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -2594,6 +3056,12 @@
         </item>
         <item row="21" column="6">
          <widget class="QSlider" name="slider_IFS_distance_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -2610,6 +3078,12 @@
         </item>
         <item row="22" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_5_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2632,6 +3106,12 @@
         </item>
         <item row="25" column="6">
          <widget class="QSlider" name="slider_IFS_distance_6">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -2648,6 +3128,12 @@
         </item>
         <item row="33" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_8_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2680,6 +3166,12 @@
         </item>
         <item row="18" column="6">
          <widget class="QSlider" name="slider_IFS_intensity_4">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -2706,6 +3198,12 @@
         </item>
         <item row="23" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_5_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2728,6 +3226,12 @@
         </item>
         <item row="34" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_8_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2798,6 +3302,12 @@
         </item>
         <item row="14" column="6">
          <widget class="QSlider" name="slider_IFS_intensity_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -2814,6 +3324,12 @@
         </item>
         <item row="6" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_1_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2856,6 +3372,12 @@
         </item>
         <item row="34" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_8_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -2882,6 +3404,12 @@
         </item>
         <item row="27" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_6_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2904,6 +3432,12 @@
         </item>
         <item row="13" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_3_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -2926,6 +3460,12 @@
         </item>
         <item row="26" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_6_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3006,6 +3546,12 @@
         </item>
         <item row="10" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_2_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3028,6 +3574,12 @@
         </item>
         <item row="2" column="6">
          <widget class="QSlider" name="slider_IFS_intensity_0">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -3079,6 +3631,12 @@
         </item>
         <item row="10" column="6">
          <widget class="QSlider" name="slider_IFS_intensity_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -3105,6 +3663,12 @@
         </item>
         <item row="18" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_4">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3127,6 +3691,12 @@
         </item>
         <item row="22" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_5_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3159,6 +3729,12 @@
         </item>
         <item row="21" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_5_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -3202,6 +3778,12 @@
         </item>
         <item row="5" column="6">
          <widget class="QSlider" name="slider_IFS_distance_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -3228,6 +3810,12 @@
         </item>
         <item row="3" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_0_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3250,6 +3838,12 @@
         </item>
         <item row="22" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_5_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -3318,6 +3912,12 @@
         </item>
         <item row="29" column="6">
          <widget class="QSlider" name="slider_IFS_distance_7">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -3341,6 +3941,12 @@
         </item>
         <item row="17" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_4_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3370,6 +3976,12 @@
         </item>
         <item row="30" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_7_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3392,6 +4004,12 @@
         </item>
         <item row="13" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_3_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3414,6 +4032,12 @@
         </item>
         <item row="25" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_6_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3436,6 +4060,12 @@
         </item>
         <item row="3" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_0_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3458,6 +4088,12 @@
         </item>
         <item row="9" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3490,6 +4126,12 @@
         </item>
         <item row="18" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_4_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3531,6 +4173,12 @@
         </item>
         <item row="30" column="6">
          <widget class="QSlider" name="slider_IFS_intensity_7">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -3547,6 +4195,12 @@
         </item>
         <item row="6" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3569,6 +4223,12 @@
         </item>
         <item row="31" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_7_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -3592,6 +4252,12 @@
         </item>
         <item row="34" column="6">
          <widget class="QSlider" name="slider_IFS_intensity_8">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -3624,6 +4290,12 @@
         </item>
         <item row="15" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_3_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3646,6 +4318,12 @@
         </item>
         <item row="35" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_8_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -3681,6 +4359,12 @@
         </item>
         <item row="35" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_8_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3719,6 +4403,12 @@
         </item>
         <item row="7" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_1_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -3761,6 +4451,12 @@
         </item>
         <item row="6" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_1_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -3838,6 +4534,12 @@
         </item>
         <item row="17" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_4">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3860,6 +4562,12 @@
         </item>
         <item row="9" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_2_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3882,6 +4590,12 @@
         </item>
         <item row="29" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_7">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3904,6 +4618,12 @@
         </item>
         <item row="26" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_6_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -3920,6 +4640,12 @@
         </item>
         <item row="29" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_7_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3961,6 +4687,12 @@
         </item>
         <item row="9" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_2_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -3983,6 +4715,12 @@
         </item>
         <item row="26" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_6_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4005,6 +4743,12 @@
         </item>
         <item row="5" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4027,6 +4771,12 @@
         </item>
         <item row="22" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4049,6 +4799,12 @@
         </item>
         <item row="1" column="6">
          <widget class="QSlider" name="slider_IFS_distance_0">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -4065,6 +4821,12 @@
         </item>
         <item row="18" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_4_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4097,6 +4859,12 @@
         </item>
         <item row="19" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_4_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -4123,6 +4891,12 @@
         </item>
         <item row="14" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_3_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4195,6 +4969,12 @@
         </item>
         <item row="33" column="6">
          <widget class="QSlider" name="slider_IFS_distance_8">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -4221,6 +5001,12 @@
         </item>
         <item row="23" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_5_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4243,6 +5029,12 @@
         </item>
         <item row="35" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_8_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4297,6 +5089,12 @@
         </item>
         <item row="33" column="3">
          <widget class="QSlider" name="slider3_IFS_direction_8_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -4313,6 +5111,12 @@
         </item>
         <item row="33" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_8_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4345,6 +5149,12 @@
         </item>
         <item row="30" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_7">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4377,6 +5187,12 @@
         </item>
         <item row="6" column="6">
          <widget class="QSlider" name="slider_IFS_intensity_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>0</number>
           </property>
@@ -4458,6 +5274,12 @@
         </item>
         <item row="11" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_IFS_direction_2_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4480,6 +5302,12 @@
         </item>
         <item row="34" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_8">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4521,6 +5349,12 @@
         </item>
         <item row="25" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_6_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4562,6 +5396,12 @@
         </item>
         <item row="5" column="8">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_1_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>
@@ -4613,6 +5453,12 @@
         </item>
         <item row="17" column="6">
          <widget class="QSlider" name="slider_IFS_distance_4">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimum">
            <number>-500</number>
           </property>
@@ -4639,6 +5485,12 @@
         </item>
         <item row="1" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_distance_0">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="prefix">
            <string/>
           </property>

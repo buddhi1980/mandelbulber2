@@ -43,6 +43,12 @@
      </property>
      <item row="0" column="1">
       <widget class="QSlider" name="slider_msltoesym2_y_multiplier">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimum">
         <number>0</number>
        </property>
@@ -69,6 +75,12 @@
      </item>
      <item row="0" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_msltoesym2_y_multiplier">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="prefix">
         <string/>
        </property>

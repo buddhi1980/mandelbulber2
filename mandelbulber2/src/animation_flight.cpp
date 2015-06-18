@@ -392,6 +392,7 @@ void cFlightAnimation::PrepareTable()
 	table->setColumnCount(0);
 	table->clear();
 	tableRowNames.clear();
+	table->verticalHeader()->setDefaultSectionSize(gPar->Get<int>("ui_font_size") + 6);
 	CreateRowsInTable();
 }
 
