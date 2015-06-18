@@ -61,11 +61,11 @@ cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(int index)
 	int keyframe = index / framesPerKeyframe;
 	int subindex = index % framesPerKeyframe;
 
-	if(subindex == 0)
-	{
+	//if(subindex == 0)
+	//{
 		// no need to interpolate
-		return GetFrame(keyframe);
-	}
+	//	return GetFrame(keyframe);
+	//}
 
 	sAnimationFrame interpolated;
 	QList<QString> parameterList = frames.at(keyframe).parameters.GetListOfParameters();
