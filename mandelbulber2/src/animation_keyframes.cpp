@@ -89,6 +89,8 @@ void cKeyframeAnimation::NewKeyframe(int index)
 		//add new frame to container
 		keyframes->AddFrame(*gPar, *gParFractal, index);
 
+		gPar->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
+
 		//add column to table
 		int newColumn = AddColumn(keyframes->GetFrame(index), index);
 		table->selectColumn(newColumn);
@@ -502,6 +504,7 @@ void cKeyframeAnimation::RefreshTable()
 			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
 			thumbWidget->UseOneCPUCore(true);
 			keyframes->GetFrameAndConsolidate(i, &tempPar, &tempFract);
+			tempPar.Set("frame_no", keyframes->GetFramesPerKeyframe() * i);
 			thumbWidget->AssignParameters(tempPar, tempFract);
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
@@ -537,6 +540,8 @@ void cKeyframeAnimation::RenderFrame(int index)
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	keyframes->GetFrameAndConsolidate(index, gPar, gParFractal);
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+	gPar->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
 
 	mainInterface->StartRender();
 }
