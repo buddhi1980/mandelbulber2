@@ -596,6 +596,12 @@ void cFlightAnimation::RenderFlight()
 		//show distance in statistics table
 		double distance = mainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
 		ui->tableWidget_statistics->item(4, 0)->setText(QString("%L1").arg(distance));
+
+		if(gNetRender->IsServer())
+		{
+			gNetRender->WaitForAllClientsReady(2.0);
+		}
+
 		gPar->Set("frame_no", index);
 
 		renderJob->UpdateParameters(gPar, gParFractal);

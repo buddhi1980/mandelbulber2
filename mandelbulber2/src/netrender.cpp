@@ -743,3 +743,46 @@ const CNetRender::sClient& CNetRender::GetClient(int index)
 		return nullClient;
 	}
 }
+
+CNetRender::netRenderStatus CNetRender::GetClientStatus(int index)
+{
+	if(index < GetClientCount())
+	{
+		return clients[index].status;
+	}
+	else
+	{
+		return netRender_ERROR;
+	}
+}
+
+bool CNetRender::WaitForAllClientsReady(double timeout)
+{
+	QElapsedTimer timer;
+	timer.start();
+	while(timer.elapsed() < timeout * 1000)
+	{
+		bool allReady = true;
+		for(int i=0; i < GetClientCount(); i++)
+		{
+			if(GetClientStatus(i) != netRender_READY)
+			{
+				allReady = false;
+				WriteLog(QString("Client # %1 is not ready yet").arg(i));
+				break;
+			}
+		}
+
+		if(allReady)
+		{
+			return true;
+		}
+		else
+		{
+			Wait(200);
+		}
+
+		gApplication->processEvents();
+	}
+	return false;
+}

@@ -120,6 +120,8 @@ public:
 	netRenderStatus GetStatus() {return status;}
 	//update status
 	void SetStatus(netRenderStatus _status) {status = _status;}
+	//get status of Client
+	netRenderStatus GetClientStatus(int index);
 
 	//stop rendering of all clients
 	void Stop();
@@ -127,6 +129,8 @@ public:
 	QList<int> GetStartingPositions() {return startingPositions;}
 	//get received textures
 	sTextures *GetTextures() {return &textures;}
+
+	bool WaitForAllClientsReady(double timeout);
 
 	//setting status test
 	static QString GetStatusText(netRenderStatus displayStatus);

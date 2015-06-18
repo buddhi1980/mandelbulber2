@@ -470,6 +470,11 @@ void cKeyframeAnimation::RenderKeyframes()
 			double distance = mainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
 			ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
 
+			if(gNetRender->IsServer())
+			{
+				gNetRender->WaitForAllClientsReady(2.0);
+			}
+
 			gPar->Set("frame_no", frameIndex);
 			renderJob->UpdateParameters(gPar, gParFractal);
 			int result = renderJob->Execute();
