@@ -71,6 +71,27 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	imageDir.setNameFilters(imageFileExtensions);
 	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
+	connect(positionSlider, SIGNAL(sliderMoved(int)), this, SLOT(setPosition(int)));
+	connect(playPauseButton, SIGNAL(clicked()), this, SLOT(playPause()));
+	connect(stopButton, SIGNAL(clicked()), this, SLOT(stop()));
+	connect(playTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
+	connect(fpsSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setFPS(double)));
+}
+
+PlayerWidget::~PlayerWidget()
+{
+	stop();
+	delete playTimer;
+}
+
+void PlayerWidget::SetFilePath(QString filePath)
+{
+	QDir imageDir = QDir(filePath);
+	QStringList imageFileExtensions;
+	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png";
+	imageDir.setNameFilters(imageFileExtensions);
+	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
+
 	if(imageFiles.size() == 0)
 	{
 		imageLabel->setText(QObject::tr("No frames to play"));
@@ -78,21 +99,8 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	else
 	{
 		positionSlider->setRange(0, imageFiles.size() - 1);
-
-		connect(positionSlider, SIGNAL(sliderMoved(int)), this, SLOT(setPosition(int)));
-		connect(playPauseButton, SIGNAL(clicked()), this, SLOT(playPause()));
-		connect(stopButton, SIGNAL(clicked()), this, SLOT(stop()));
-		connect(playTimer, SIGNAL(timeout()), this, SLOT(nextFrame()));
-		connect(fpsSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setFPS(double)));
-
 		setPosition(currentIndex);
 	}
-}
-
-PlayerWidget::~PlayerWidget()
-{
-	stop();
-	delete playTimer;
 }
 
 void PlayerWidget::playPause()

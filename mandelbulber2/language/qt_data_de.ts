@@ -146,12 +146,12 @@
         <location filename="../qt_data/fractal_ifs.ui" line="4371"/>
         <location filename="../qt_data/fractal_ifs.ui" line="4417"/>
         <source>alpha:</source>
-        <translation type="unfinished"></translation>
+        <translation>Alpha:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="977"/>
         <source>#4</source>
-        <translation type="unfinished"></translation>
+        <translation>4.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1092"/>
@@ -164,7 +164,7 @@
         <location filename="../qt_data/fractal_ifs.ui" line="4215"/>
         <location filename="../qt_data/fractal_ifs.ui" line="4607"/>
         <source>gamma:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamma:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1194"/>
@@ -177,32 +177,32 @@
         <location filename="../qt_data/fractal_ifs.ui" line="4149"/>
         <location filename="../qt_data/fractal_ifs.ui" line="4407"/>
         <source>beta:</source>
-        <translation type="unfinished"></translation>
+        <translation>Beta:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1367"/>
         <source>#3</source>
-        <translation type="unfinished"></translation>
+        <translation>3.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3338"/>
         <source>#8</source>
-        <translation type="unfinished"></translation>
+        <translation>8.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3367"/>
         <source>#6</source>
-        <translation type="unfinished"></translation>
+        <translation>6.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3758"/>
         <source>#2</source>
-        <translation type="unfinished"></translation>
+        <translation>2.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="4294"/>
         <source>#5</source>
-        <translation type="unfinished"></translation>
+        <translation>5.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="294"/>
@@ -269,17 +269,17 @@
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="82"/>
         <source>OctCube</source>
-        <translation type="unfinished"></translation>
+        <translation>OctCube</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="92"/>
         <source>Box6</source>
-        <translation type="unfinished"></translation>
+        <translation>Box6</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="97"/>
         <source>Box5</source>
-        <translation type="unfinished"></translation>
+        <translation>Box5</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="165"/>
@@ -412,7 +412,7 @@
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1991"/>
         <source>#1</source>
-        <translation type="unfinished"></translation>
+        <translation>1.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2427"/>
@@ -440,12 +440,12 @@
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2453"/>
         <source>#9</source>
-        <translation type="unfinished"></translation>
+        <translation>9.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2591"/>
         <source>#7</source>
-        <translation type="unfinished"></translation>
+        <translation>7.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3186"/>
@@ -527,17 +527,17 @@ Offset:</translation>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="406"/>
         <source>Solid:</source>
-        <translation type="unfinished"></translation>
+        <translation>Festitgkeit:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="413"/>
         <source>Box type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Box Typ:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="420"/>
         <source>Melt:</source>
-        <translation type="unfinished"></translation>
+        <translation>Schmelze:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="671"/>
@@ -914,37 +914,37 @@ Offset:</translation>
         <location filename="../qt_data/fractal_buffalo.ui" line="20"/>
         <location filename="../qt_data/fractal_buffalo.ui" line="34"/>
         <source>PreAbs(x)</source>
-        <translation type="unfinished"></translation>
+        <translation>PreAbs(x)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="27"/>
         <source>PreAbs(y)</source>
-        <translation type="unfinished"></translation>
+        <translation>PreAbs(y)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="41"/>
         <source>Abs(x)</source>
-        <translation type="unfinished"></translation>
+        <translation>Abs(x)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="48"/>
         <source>Abs(y)</source>
-        <translation type="unfinished"></translation>
+        <translation>Abs(y)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="55"/>
         <source>Abs(z)</source>
-        <translation type="unfinished"></translation>
+        <translation>Abs(y)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="62"/>
         <source>Positive Z component</source>
-        <translation type="unfinished"></translation>
+        <translation>Positive Z Komponente</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2.ui" line="66"/>
         <source>Y scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y Skalierung</translation>
     </message>
 </context>
 </TS>

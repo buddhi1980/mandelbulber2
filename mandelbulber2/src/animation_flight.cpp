@@ -827,9 +827,9 @@ void cFlightAnimation::slotDeleteAllImages()
 
 void cFlightAnimation::slotShowAnimation()
 {
-
 	WriteLog("Prepare PlayerWidget class");
 	mainInterface->imageSequencePlayer = new PlayerWidget();
+	mainInterface->imageSequencePlayer->SetFilePath(gPar->Get<QString>("anim_flight_dir"));
 	mainInterface->imageSequencePlayer->show();
 }
 
