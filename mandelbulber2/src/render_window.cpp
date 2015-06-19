@@ -108,11 +108,13 @@ void RenderWindow::slotDoubleSpinBoxChanged(double value)
 	QString type, parameterName;
 	gMainInterface->GetNameAndType(spinBoxName, &parameterName, &type);
 	QString sliderName = QString("slider_") + parameterName;
-
 	QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
 	if (slider)
 	{
-		slider->setValue(value * 100.0);
+		QDoubleSpinBox *spinBox = static_cast<QDoubleSpinBox*>(this->sender());
+		double decimals = spinBox->decimals();
+		double multiplier = pow(10.0, decimals);
+		slider->setValue(value * multiplier);
 	}
 	else
 	{
@@ -176,9 +178,13 @@ void RenderWindow::slotSpinBox3Changed(double value)
 	QString sliderName = QString("slider3_") + parameterName;
 
 	QSlider *slider = this->sender()->parent()->findChild<QSlider*>(sliderName);
+
 	if (slider)
 	{
-		slider->setValue(value * 100.0);
+		QDoubleSpinBox *spinBox = static_cast<QDoubleSpinBox*>(this->sender());
+		double decimals = spinBox->decimals();
+		double multiplier = pow(10.0, decimals);
+		slider->setValue(value * multiplier);
 	}
 	else
 	{
@@ -235,7 +241,9 @@ void RenderWindow::slotSliderMoved(int value)
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
 	if(spinBox)
 	{
-		spinBox->setValue(value/100.0);
+		double decimals = spinBox->decimals();
+		double divider = pow(10.0, decimals);
+		spinBox->setValue(value/divider);
 	}
 	else
 	{
@@ -292,9 +300,12 @@ void RenderWindow::slotSlider3Moved(int value)
 	QString spinBoxName = QString("spinbox3_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
+
 	if(spinBox)
 	{
-		spinBox->setValue(value/100.0);
+		double decimals = spinBox->decimals();
+		double divider = pow(10.0, decimals);
+		spinBox->setValue(value/divider);
 	}
 	else
 	{
