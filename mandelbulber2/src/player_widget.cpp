@@ -65,11 +65,11 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	layout->setStretch(0, 1);
 	setLayout(layout);
 
-	QDir imageDir = QDir(gPar->Get<QString>("anim_flight_dir"));
-	QStringList imageFileExtensions;
-	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png";
-	imageDir.setNameFilters(imageFileExtensions);
-	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
+//	QDir imageDir = QDir(gPar->Get<QString>("anim_flight_dir"));
+//	QStringList imageFileExtensions;
+//	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png";
+//	imageDir.setNameFilters(imageFileExtensions);
+//	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
 	connect(positionSlider, SIGNAL(sliderMoved(int)), this, SLOT(setPosition(int)));
 	connect(playPauseButton, SIGNAL(clicked()), this, SLOT(playPause()));
@@ -86,6 +86,12 @@ PlayerWidget::~PlayerWidget()
 
 void PlayerWidget::SetFilePath(QString filePath)
 {
+	dirPath = filePath;
+	if(dirPath.right(1) == QString("/"))
+	{
+		dirPath.truncate(dirPath.length() - 1);
+	}
+
 	QDir imageDir = QDir(filePath);
 	QStringList imageFileExtensions;
 	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png";
@@ -105,15 +111,18 @@ void PlayerWidget::SetFilePath(QString filePath)
 
 void PlayerWidget::playPause()
 {
-	if(playTimer->isActive())
+	if(imageFiles.size() > 0)
 	{
-		playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
-		playTimer->stop();
-	}
-	else
-	{
-		playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
-		playTimer->start();
+		if(playTimer->isActive())
+		{
+			playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+			playTimer->stop();
+		}
+		else
+		{
+			playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
+			playTimer->start();
+		}
 	}
 }
 
@@ -148,7 +157,7 @@ void PlayerWidget::updateFrame()
 		return;
 	}
 	if(imageFiles.size() == 0) return;
-	QString fileName = gPar->Get<QString>("anim_flight_dir") + "/" + imageFiles.at(currentIndex);
+	QString fileName = dirPath + "/" + imageFiles.at(currentIndex);
 	QPixmap pix(fileName);
 	if(pix.isNull())
 	{

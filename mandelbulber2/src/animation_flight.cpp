@@ -829,6 +829,7 @@ void cFlightAnimation::slotDeleteAllImages()
 void cFlightAnimation::slotShowAnimation()
 {
 	WriteLog("Prepare PlayerWidget class");
+	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, gPar, cInterface::read);
 	mainInterface->imageSequencePlayer = new PlayerWidget();
 	mainInterface->imageSequencePlayer->SetFilePath(gPar->Get<QString>("anim_flight_dir"));
 	mainInterface->imageSequencePlayer->show();
