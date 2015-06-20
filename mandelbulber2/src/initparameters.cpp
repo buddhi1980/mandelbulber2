@@ -27,6 +27,7 @@
 #include "system.hpp"
 #include "color_palette.hpp"
 #include "netrender.hpp"
+#include "files.h"
 #include <QtCore>
 
 //definition of all parameters
@@ -313,12 +314,26 @@ using namespace parameterContainer;
 	par->addParam("default_textures_path", systemData.sharedDir + "textures", morphNone, paramApp);
 	par->addParam("default_settings_path", systemData.dataDirectory + "settings", morphNone, paramApp);
 
-	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
-
+	//----------------------- preferences ---------------------
 	par->addParam("ui_style_type", -1, morphNone, paramApp);
 	par->addParam("ui_skin", -1, morphNone, paramApp);
-
 	par->addParam("ui_font_size", 9, 5, 50, morphNone, paramApp);
+
+	//image file configuration
+	par->addParam("color_enabled", true, morphNone, paramStandard);
+	par->addParam("alpha_enabled", false, morphNone, paramStandard);
+	par->addParam("zbuffer_enabled", false, morphNone, paramStandard);
+
+	par->addParam("color_quality", (int)IMAGE_CHANNEL_QUALITY_16, morphNone, paramStandard);
+	par->addParam("alpha_quality", (int)IMAGE_CHANNEL_QUALITY_8, morphNone, paramStandard);
+	par->addParam("zbuffer_quality", (int)IMAGE_CHANNEL_QUALITY_32, morphNone, paramStandard);
+
+	par->addParam("color_postfix", QString(""), morphNone, paramStandard);
+	par->addParam("alpha_postfix", QString("_alpha"), morphNone, paramStandard);
+	par->addParam("zbuffer_postfix", QString("_zbuffer"), morphNone, paramStandard);
+
+	par->addParam("append_alpha_png", true, morphNone, paramStandard);
+	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
 
 #ifdef CLSUPPORT
 	par->addParam("openCL_use_CPU", false, true);

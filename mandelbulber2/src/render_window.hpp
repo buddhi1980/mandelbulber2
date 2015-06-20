@@ -135,6 +135,9 @@ private slots:
 	void slotMenuSaveImagePNG16Alpha();
 	void slotMenuSaveImagePNG8();
 	void slotMenuSaveImageZBuffer();
+#ifdef USE_EXR
+	void slotMenuSaveImageEXR();
+#endif // USE_EXR
 	void slotMenuSaveSettings();
 	void slotMenuUndo();
 	void slotUpdateDocksandToolbarbyAction();

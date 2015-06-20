@@ -736,11 +736,12 @@ void RenderWindow::slotMenuSaveImageJPEG()
 		QString filename = filenames.first();
 		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
 		gApplication->processEvents();
-		SaveJPEGQt(	filename,
+		SaveImage(filename, IMAGE_FILE_TYPE_JPG, gMainInterface->mainImage);
+		/*SaveJPEGQt(	filename,
 								gMainInterface->mainImage->ConvertTo8bit(),
 								gMainInterface->mainImage->GetWidth(),
 								gMainInterface->mainImage->GetHeight(),
-								gPar->Get<int>("jpeg_quality"));
+								gPar->Get<int>("jpeg_quality"));*/
 		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
@@ -764,7 +765,8 @@ void RenderWindow::slotMenuSaveImagePNG8()
 		QString filename = filenames.first();
 		ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
 		gApplication->processEvents();
-		SavePNG(filename, gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), gMainInterface->mainImage->ConvertTo8bit());
+		SaveImage(filename, IMAGE_FILE_TYPE_PNG, gMainInterface->mainImage);
+		// SavePNG(filename, gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), gMainInterface->mainImage->ConvertTo8bit());
 		ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
@@ -842,6 +844,32 @@ void RenderWindow::slotMenuSaveImageZBuffer()
 		systemData.lastImageFile = filename;
 	}
 }
+
+#ifdef USE_EXR
+void RenderWindow::slotMenuSaveImageEXR()
+{
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("EXR images (*.exr)"));
+	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
+	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle(tr("Save image to %1 file...").arg("EXR"));
+	dialog.setDefaultSuffix("exr");
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		ProgressStatusText(tr("Saving %1 image").arg("EXR"), tr("Saving EXR image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
+		SaveImage(filename, IMAGE_FILE_TYPE_EXR, gMainInterface->mainImage);
+		ProgressStatusText(tr("Saving %1 image").arg("EXR"), tr("Saving EXR image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		gApplication->processEvents();
+		systemData.lastImageFile = filename;
+	}
+}
+#endif // USE_EXR
 
 void RenderWindow::slotPressedButtonSelectBackgroundTexture()
 {

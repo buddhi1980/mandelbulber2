@@ -7,9 +7,17 @@
 QT       += core gui uitools widgets network
 
 qtHaveModule(gamepad){
-		QT += gamepad
-		DEFINES += USE_GAMEPAD
+	QT += gamepad
+	DEFINES += USE_GAMEPAD
 }
+
+exists( /usr/include/OpenEXR ) {
+	INCLUDEPATH += "/usr/include/OpenEXR"
+	QMAKE_CXXFLAGS += -lIlmImf
+	LIBS += -lIlmImf
+	DEFINES += USE_EXR
+}
+
 
 TARGET = mandelbulber2 
 TEMPLATE = app
