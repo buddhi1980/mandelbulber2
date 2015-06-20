@@ -45,6 +45,7 @@ public:
 	parameterContainer::enumMorphType GetMorphType(int row);
 	void ChangeMorphType(int row, parameterContainer::enumMorphType morphType);
 	void UpdateLimitsForFrameRange(void);
+	QList<int> CheckForCollisions(double minDist);
 
 private slots:
 	void slotAddKeyframe();

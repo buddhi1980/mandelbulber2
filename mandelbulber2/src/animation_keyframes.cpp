@@ -375,22 +375,40 @@ void cKeyframeAnimation::RenderKeyframes()
 		return;
 	}
 
+	//updating parameters
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	gUndo.Store(gPar, gParFractal, NULL, keyframes);
 
 	keyframes->SetFramesPerKeyframe(gPar->Get<int>("frames_per_keyframe"));
 
+	//checking for collisions
+	QList<int> listOfCollisions = CheckForCollisions(1e-6); //TODO edit field to setup threshold for collision detection
+	if(listOfCollisions.size() > 0)
+	{
+		QString collisionText;
+		for(int i = 0; i < listOfCollisions.size(); i++)
+		{
+			collisionText += QString("%1").arg(listOfCollisions.at(i));
+			if(i < listOfCollisions.size() - 1) collisionText += QString(", ");
+		}
+		cErrorMessage::showMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
+	}
+
+	//preparing Render Job
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
 
 	renderJob->Init(cRenderJob::flightAnim);
 	mainInterface->stopRequest = false;
 
+	//destination for frames
 	QString framesDir = gPar->Get<QString>("anim_keyframe_dir");
 
+	//prepare progress bar for animation
 	mainInterface->progressBarAnimation->show();
 	cProgressText progressText;
 	progressText.ResetTimer();
 
+	//range of keyframes to render
 	int startFrame = gPar->Get<int>("keyframe_first_to_render");
 	int endFrame = gPar->Get<int>("keyframe_last_to_render");
 
@@ -407,10 +425,9 @@ void cKeyframeAnimation::RenderKeyframes()
 		}
 		keyframes->ModifyFrame(index, frame);
 	}
-
 	int unrenderedTotal = keyframes->GetUnrenderedTotal();
 
-
+	//message if all frames are already rendered
 	if(keyframes->GetNumberOfFrames() > 0 && unrenderedTotal == 0){
 		QMessageBox::StandardButton reply;
 		reply = QMessageBox::question(
@@ -431,8 +448,10 @@ void cKeyframeAnimation::RenderKeyframes()
 		}
 	}
 
+	//total number of frames
 	int totalFrames = keyframes->GetNumberOfFrames() * keyframes->GetFramesPerKeyframe();
 
+	//main loop for rendering of frames
 	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
 	{
 		//-------------- rendering of interpolated keyframes ----------------
@@ -875,5 +894,36 @@ void cKeyframeAnimation::slotMovedSliderLastFrame(int value)
 {
 	if(value < ui->spinboxInt_keyframe_first_to_render->value())
 		ui->spinboxInt_keyframe_first_to_render->setValue(value);
+}
+
+QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
+{
+	QList<int> listOfCollisions;
+	cParameterContainer tempPar = *gPar;
+	cFractalContainer tempFractPar = *gParFractal;
+
+	for(int key = 0; key < keyframes->GetNumberOfFrames(); key++)
+	{
+		ProgressStatusText(QObject::tr("Checking for collissions"),
+				QObject::tr("Checking for collissions on keframe # %1").arg(key),
+				(double)key / (keyframes->GetNumberOfFrames() - 1.0),
+				ui->statusbar, mainInterface->progressBar);
+
+		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
+		{
+			int frameIndex = key * keyframes->GetFramesPerKeyframe() + subindex;
+			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, &tempPar, &tempFractPar);
+			tempPar.Set("frame_no", frameIndex);
+			CVector3 point = tempPar.Get<CVector3>("camera");
+			double dist = mainInterface->GetDistanceForPoint(point, &tempPar, &tempFractPar);
+			if(dist < minDist)
+			{
+				listOfCollisions.append(frameIndex);
+			}
+		}
+	}
+	ProgressStatusText(QObject::tr("Checking for collissions"), QObject::tr("Checking for collisions finished"), 1.0, ui->statusbar, mainInterface->progressBar);
+
+	return listOfCollisions;
 }
 
