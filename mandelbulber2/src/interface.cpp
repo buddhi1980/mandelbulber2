@@ -1725,6 +1725,9 @@ void cInterface::ResetView()
 	//calculate size of the fractal in random directions
 	double maxDist = 0.0;
 
+	cParamRender *params = new cParamRender(gPar);
+	cFourFractals *fourFractals = new cFourFractals(gParFractal, gPar);
+
 	for(int i = 0; i<50; i++)
 	{
 		ProgressStatusText(QObject::tr("Reseting view"), QObject::tr("Fractal size calculation"), i / 50.0, mainWindow->ui->statusbar, progressBar);
@@ -1732,10 +1735,13 @@ void cInterface::ResetView()
 		direction.Normalize();
 		double distStep = 0.0;
 		double scan;
+
 		for (scan = 100.0; scan > 0; scan -= distStep)
 		{
 			CVector3 point = direction * scan;
-			double dist = GetDistanceForPoint(point, &parTemp, gParFractal);
+			sDistanceIn in(point, 0, false);
+			sDistanceOut out;
+			double dist = CalculateDistance(*params, *fourFractals, in, &out);
 			if (dist < 0.1)
 			{
 				break;
@@ -1747,6 +1753,9 @@ void cInterface::ResetView()
 		if (scan > maxDist) maxDist = scan;
 	}
 	ProgressStatusText(QObject::tr("Reseting view"), QObject::tr("Done"), 100.0, mainWindow->ui->statusbar, progressBar);
+
+	delete params;
+	delete fourFractals;
 
 	double newCameraDist = maxDist / fov * 2.0 * sqrt(2);
 	if(perspType == params::perspFishEye || perspType == params::perspFishEyeCut || perspType == params::perspEquirectangular)
