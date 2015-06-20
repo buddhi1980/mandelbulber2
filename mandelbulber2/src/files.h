@@ -49,6 +49,39 @@ enum enumImageType
 	IMAGE_TYPE_PNG_16_WITH_ALPHA,
 };
 
+enum enumImageFileType
+{
+	IMAGE_FILE_TYPE_PNG = 1,
+	IMAGE_FILE_TYPE_JPG = 2,
+	IMAGE_FILE_TYPE_EXR = 3
+};
+
+enum enumImageContentType
+{
+	IMAGE_CONTENT_COLOR = 1,
+	IMAGE_CONTENT_ALPHA = 2,
+	IMAGE_CONTENT_ZBUFFER = 3
+};
+
+enum enumImageChannelQualityType
+{
+	IMAGE_CHANNEL_QUALITY_8 = 8,
+	IMAGE_CHANNEL_QUALITY_16 = 16,
+	IMAGE_CHANNEL_QUALITY_32 = 32
+};
+
+struct structSaveImageChannel {
+	structSaveImageChannel() : contentType((enumImageContentType)0), channelQuality((enumImageChannelQualityType)0), postfix("") {}
+	structSaveImageChannel(
+		enumImageContentType _contentType,
+		enumImageChannelQualityType _channelQuality,
+		QString _postfix):
+		contentType(_contentType), channelQuality(_channelQuality), postfix(_postfix) {}
+
+	enumImageContentType contentType;
+	enumImageChannelQualityType channelQuality;
+	QString postfix;
+};
 
 std::string IndexFilename(const char* filename, const char* extension, int number);
 //METHODDEF(void) my_error_exit(j_common_ptr cinfo);
@@ -65,5 +98,11 @@ void SaveMainImage(QString filename, enumImageType imageType);
 bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality);
 void SaveZBuffer(QString filename, cImage *image);
 void SaveZBuffer(QString filename, cImage *image, float minZ, float maxZ);
+
+void SaveImage(QString filename, enumImageFileType filetype, cImage *image);
+void SaveImage(QString filename, enumImageFileType filetype, cImage *image, QMap<enumImageContentType, structSaveImageChannel> imageConfig);
+#ifdef USE_EXR
+void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structSaveImageChannel> imageConfig);
+#endif /* USE_EXR */
 
 #endif /* FILES_H_ */

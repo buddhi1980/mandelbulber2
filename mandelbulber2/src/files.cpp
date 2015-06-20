@@ -28,6 +28,15 @@
 #include "error_message.hpp"
 #include "global_data.hpp"
 
+#ifdef USE_EXR
+#include <ImfAttribute.h>
+#include <ImfInputFile.h>
+#include <ImfOutputFile.h>
+#include <ImfChannelList.h>
+#include <ImfFrameBuffer.h>
+#include <half.h>
+#endif // USE_EXR
+
 using namespace std;
 
 string logfileName;
@@ -744,3 +753,147 @@ bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, i
 	return result;
 }
 
+#ifdef USE_EXR
+void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structSaveImageChannel> imageConfig)
+{
+	// TODO different qualities
+	int width = image->GetWidth();
+	int height = image->GetHeight();
+
+	Imf::Header header(width, height);
+	Imf::FrameBuffer frameBuffer;
+
+	header.compression() = Imf::ZIP_COMPRESSION;
+
+	if(imageConfig.contains(IMAGE_CONTENT_COLOR))
+	{
+		// add rgb channel header
+		header.channels().insert("R", Imf::Channel(Imf::FLOAT));
+		header.channels().insert("G", Imf::Channel(Imf::FLOAT));
+		header.channels().insert("B", Imf::Channel(Imf::FLOAT));
+
+		sRGBfloat *imageFloat = new sRGBfloat[(unsigned long int)width * height];
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				unsigned long int ptr = x+y*width;
+				sRGB16 pixel = image->GetPixelImage16(x, y);
+				imageFloat[ptr].R = 1.0 * pixel.R / 65536;
+				imageFloat[ptr].G = 1.0 * pixel.G / 65536;
+				imageFloat[ptr].B = 1.0 * pixel.B / 65536;
+			}
+		}
+
+		// point EXR frame buffer to rgb
+		size_t compSize = sizeof(Imf::FLOAT);
+		frameBuffer.insert("R", Imf::Slice(Imf::FLOAT, (char *)imageFloat + 0 * compSize, 3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("G", Imf::Slice(Imf::FLOAT, (char *)imageFloat + 1 * compSize, 3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("B", Imf::Slice(Imf::FLOAT, (char *)imageFloat + 2 * compSize, 3 * compSize, 3 * width * compSize));
+	}
+
+	if(imageConfig.contains(IMAGE_CONTENT_ALPHA))
+	{
+		// add alpha channel header
+		header.channels().insert("A", Imf::Channel(Imf::FLOAT));
+
+		float *alphaFloat = new float[(unsigned long int)width * height];
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				unsigned long int ptr = x+y*width;
+				alphaFloat[ptr] = 1.0 * image->GetPixelAlpha(x, y) / 256;
+			}
+		}
+
+		// point EXR frame buffer to alpha
+		frameBuffer.insert("A", Imf::Slice(Imf::FLOAT, (char *)alphaFloat, sizeof(half), width * sizeof(half)));
+	}
+
+	if(imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
+	{
+		// add z Buffer channel header
+		header.channels().insert("Z", Imf::Channel(Imf::FLOAT));
+
+		// point EXR frame buffer to z buffer
+		float* zBuffer = image->GetZBufferPtr();
+		frameBuffer.insert("Z", Imf::Slice(Imf::FLOAT, (char *)zBuffer, sizeof(half), width * sizeof(half)));
+	}
+
+	Imf::OutputFile file(filename.toStdString().c_str(), header);
+	file.setFrameBuffer(frameBuffer);
+	file.writePixels(height);
+}
+#endif /* USE_EXR */
+
+void SaveImage(QString filename, enumImageFileType filetype, cImage *image)
+{
+	QMap<enumImageContentType, structSaveImageChannel> imageConfig;
+	QStringList imageChannelNames;
+	imageChannelNames << "color" << "alpha" << "zbuffer";
+	// read image config from preferences
+	for(int i = 0; i < imageChannelNames.size(); i++)
+	{
+		QString imageChannelName = imageChannelNames.at(i);
+		if(gPar->Get<bool>(imageChannelName + "_enabled"))
+		{
+			enumImageContentType contentType = (enumImageContentType)i;
+			enumImageChannelQualityType channelQuality = (enumImageChannelQualityType)gPar->Get<int>(imageChannelName + "_quality");
+			QString postfix = gPar->Get<QString>(imageChannelName + "_postfix");
+			imageConfig.insert(contentType, structSaveImageChannel(contentType, channelQuality, postfix));
+		}
+	}
+	return SaveImage(filename, filetype, image, imageConfig);
+}
+
+void SaveImage(QString filename, enumImageFileType filetype, cImage *image, QMap<enumImageContentType, structSaveImageChannel> imageConfig)
+{
+	switch(filetype){
+		case IMAGE_FILE_TYPE_JPG:
+		{
+			if(imageConfig.contains(IMAGE_CONTENT_COLOR))
+			{
+				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_COLOR].postfix + ".jpg";
+				SaveJPEGQt(fullFilename, image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(), gPar->Get<int>("jpeg_quality"));
+			}
+			// TODO other
+		}
+		break;
+
+		case IMAGE_FILE_TYPE_PNG:
+		{
+			// TODO all possible cases / more simple with generalized png function?
+			if(imageConfig.contains(IMAGE_CONTENT_COLOR))
+			{
+				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_COLOR].postfix + ".jpg";
+				if(imageConfig[IMAGE_CONTENT_COLOR].channelQuality == IMAGE_CHANNEL_QUALITY_8)
+				{
+					SavePNG(fullFilename, image->GetWidth(), image->GetHeight(), image->ConvertTo8bit());
+				}
+				else
+				{
+					if(gPar->Get<bool>("append_alpha_png"))
+					{
+						SavePNG16Alpha(fullFilename, image->GetWidth(), image->GetHeight(), image);
+					}
+					else
+					{
+						SavePNG16(fullFilename, image->GetWidth(), image->GetHeight(), image->GetImage16Ptr());
+					}
+				}
+			}
+		}
+		break;
+
+		case IMAGE_FILE_TYPE_EXR:
+		{
+			#ifdef USE_EXR
+			SaveEXR(filename, image, imageConfig);
+			#endif /* USE_EXR */
+		}
+		break;
+	}
+}

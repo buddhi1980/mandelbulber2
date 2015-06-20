@@ -220,6 +220,10 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG16()));
 	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG16Alpha()));
 	QApplication::connect(mainWindow->ui->actionSave_zBuffer_as_PNG_16_bit, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImageZBuffer()));
+#ifdef USE_EXR
+	// QApplication::connect(mainWindow->ui->actionSave_as_EXR, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImageEXR()));
+#endif // USE_EXR
+
 	QApplication::connect(mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
 	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutMandelbulber()));
 	QApplication::connect(mainWindow->ui->actionAbout_ThirdParty, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutThirdParty()));
