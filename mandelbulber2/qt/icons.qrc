@@ -17,6 +17,10 @@
     <file>icons/system-shutdown.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
+    <file>tooltips_images/image - shader - orbit trap lights.jpg</file>
+    <file>tooltips_images/god rays.jpg</file>
+    <file>tooltips_images/image - shader - shadow cone 0.jpeg</file>
+    <file>tooltips_images/image - shader - shadow cone 5.jpg</file>
     <file>tooltips_images/image - shader - iterfog - 4 - 1000.jpg</file>
     <file>tooltips_images/image - shader - iterfog - 4 - 4000.jpg</file>
     <file>tooltips_images/image - shader - iterfog - 4 - 16000.jpg</file>
