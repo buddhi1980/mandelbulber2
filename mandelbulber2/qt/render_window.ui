@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1181</width>
-           <height>611</height>
+           <width>1164</width>
+           <height>519</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -230,6 +230,7 @@
     <addaction name="actionSave_as_PNG_16_bit"/>
     <addaction name="actionSave_as_PNG_16_bit_with_alpha_channel"/>
     <addaction name="actionSave_zBuffer_as_PNG_16_bit"/>
+    <addaction name="actionSave_as_EXR"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -338,7 +339,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>325</width>
+          <width>339</width>
           <height>437</height>
          </rect>
         </property>
@@ -1158,8 +1159,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>157</width>
-          <height>128</height>
+          <width>174</width>
+          <height>206</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -1542,7 +1543,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-265</y>
+          <y>0</y>
           <width>177</width>
           <height>752</height>
          </rect>
@@ -2813,7 +2814,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>325</width>
+          <width>339</width>
           <height>129</height>
          </rect>
         </property>
@@ -2883,7 +2884,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>275</width>
+                  <width>291</width>
                   <height>700</height>
                  </rect>
                 </property>
@@ -4069,8 +4070,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>291</width>
-                  <height>162</height>
+                  <width>226</width>
+                  <height>172</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -4397,8 +4398,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>277</width>
-                  <height>469</height>
+                  <width>196</width>
+                  <height>511</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -5237,8 +5238,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>291</width>
-                  <height>194</height>
+                  <width>273</width>
+                  <height>202</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5483,8 +5484,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>277</width>
-                  <height>1162</height>
+                  <width>265</width>
+                  <height>1246</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -7439,7 +7440,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>325</width>
+          <width>339</width>
           <height>305</height>
          </rect>
         </property>
@@ -7527,9 +7528,9 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-80</y>
-                      <width>269</width>
-                      <height>413</height>
+                      <y>0</y>
+                      <width>217</width>
+                      <height>429</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -8125,8 +8126,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>269</width>
-                      <height>413</height>
+                      <width>217</width>
+                      <height>429</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -8715,9 +8716,9 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-80</y>
-                      <width>269</width>
-                      <height>413</height>
+                      <y>0</y>
+                      <width>217</width>
+                      <height>429</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -9300,8 +9301,8 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-45</y>
-                      <width>267</width>
+                      <y>0</y>
+                      <width>281</width>
                       <height>429</height>
                      </rect>
                     </property>
@@ -9882,9 +9883,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-33</y>
-                  <width>277</width>
-                  <height>413</height>
+                  <y>0</y>
+                  <width>208</width>
+                  <height>435</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -11026,8 +11027,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>277</width>
-                  <height>345</height>
+                  <width>207</width>
+                  <height>351</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -11570,7 +11571,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-329</y>
+          <y>0</y>
           <width>339</width>
           <height>794</height>
          </rect>
@@ -12678,7 +12679,7 @@ and water):</string>
        <item>
         <widget class="QTabWidget" name="tabWidgetFlightKeyframe">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_flight_animation">
           <attribute name="title">
@@ -12849,8 +12850,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
-                  <height>268</height>
+                  <width>338</width>
+                  <height>290</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -12911,6 +12912,11 @@ and water):</string>
                      <item>
                       <property name="text">
                        <string>PNG 16 bit with alpha</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>EXR</string>
                       </property>
                      </item>
                     </widget>
@@ -13596,7 +13602,7 @@ and water):</string>
                   <x>0</x>
                   <y>0</y>
                   <width>314</width>
-                  <height>157</height>
+                  <height>247</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -13664,6 +13670,11 @@ and water):</string>
                      <item>
                       <property name="text">
                        <string>PNG 16 bit with alpha</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>EXR</string>
                       </property>
                      </item>
                     </widget>
@@ -14326,6 +14337,15 @@ and water):</string>
    </property>
    <property name="text">
     <string>Save zBuffer as PNG 16 bit</string>
+   </property>
+  </action>
+  <action name="actionSave_as_EXR">
+   <property name="icon">
+    <iconset theme="document-save-as" resource="icons.qrc">
+     <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Save as EXR</string>
    </property>
   </action>
  </widget>
