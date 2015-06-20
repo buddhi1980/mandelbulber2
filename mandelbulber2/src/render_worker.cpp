@@ -138,6 +138,7 @@ void cRenderWorker::doWork(void)
 			sRGBAfloat resultShader;
 			sRGBAfloat objectColour;
 			double depth = 1e20;
+			double opacity = 1.0;
 
 			//raymarching loop (reflections)
 
@@ -172,6 +173,7 @@ void cRenderWorker::doWork(void)
 				objectColour = recursionOut.objectColour;
 				depth = recursionOut.rayMarchingOut.depth;
 				if(!recursionOut.found) depth = 1e20;
+				opacity = recursionOut.fogOpacity;
 			}
 
 			sRGBfloat pixel2;
@@ -179,6 +181,7 @@ void cRenderWorker::doWork(void)
 			pixel2.G = resultShader.G;
 			pixel2.B = resultShader.B;
 			unsigned short alpha = resultShader.A * 65535;
+			unsigned short opacity16 = opacity * 65535;
 
 			sRGB8 colour;
 			colour.R = objectColour.R * 255;
@@ -193,6 +196,7 @@ void cRenderWorker::doWork(void)
 					image->PutPixelColour(screenPoint.x + xx, screenPoint.y + yy, colour);
 					image->PutPixelAlpha(screenPoint.x + xx, screenPoint.y + yy, alpha);
 					image->PutPixelZBuffer(screenPoint.x + xx, screenPoint.y + yy, (float) depth);
+					image->PutPixelOpacity(screenPoint.x + xx, screenPoint.y + yy, opacity16);
 				}
 			}
 
@@ -716,6 +720,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 	out.objectColour = objectColour;
 	out.resultShader = resultShader;
 	out.found = (shaderInputData.depth == 1e20) ? false : true;
+	out.fogOpacity = opacityOut.R;
 
 	return out;
 }
