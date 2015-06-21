@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/system">
+    <file>icons/dialog-ok-apply.png</file>
     <file>icons/mandelbulber.png</file>
     <file>icons/edit-undo.png</file>
     <file>icons/edit-redo.png</file>
