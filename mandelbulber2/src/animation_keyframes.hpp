@@ -61,6 +61,7 @@ private slots:
 	void slotExportKeyframesToFlight();
 	void slotMovedSliderFirstFrame(int value);
 	void slotMovedSliderLastFrame(int value);
+	void slotValidate();
 
 private:
 	void PrepareTable();

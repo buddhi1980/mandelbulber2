@@ -44,6 +44,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 	QApplication::connect(ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
 	QApplication::connect(ui->pushButton_refresh_keyframe_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
 	QApplication::connect(ui->pushButton_keyframe_to_flight_export, SIGNAL(clicked()), this, SLOT(slotExportKeyframesToFlight()));
+	QApplication::connect(ui->pushButton_check_for_collisions, SIGNAL(clicked()), this, SLOT(slotValidate()));
 
 	QApplication::connect(ui->button_selectAnimKeyframeImageDir, SIGNAL(clicked()), this, SLOT(slotSelectKeyframeAnimImageDir()));
 	QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
@@ -382,16 +383,19 @@ void cKeyframeAnimation::RenderKeyframes()
 	keyframes->SetFramesPerKeyframe(gPar->Get<int>("frames_per_keyframe"));
 
 	//checking for collisions
-	QList<int> listOfCollisions = CheckForCollisions(1e-6); //TODO edit field to setup threshold for collision detection
-	if(listOfCollisions.size() > 0)
+	if(gPar->Get<bool>("keyframe_auto_validate"))
 	{
-		QString collisionText;
-		for(int i = 0; i < listOfCollisions.size(); i++)
+		QList<int> listOfCollisions = CheckForCollisions(gPar->Get<double>("keyframe_collision_thresh"));
+		if(listOfCollisions.size() > 0)
 		{
-			collisionText += QString("%1").arg(listOfCollisions.at(i));
-			if(i < listOfCollisions.size() - 1) collisionText += QString(", ");
+			QString collisionText;
+			for(int i = 0; i < listOfCollisions.size(); i++)
+			{
+				collisionText += QString("%1").arg(listOfCollisions.at(i));
+				if(i < listOfCollisions.size() - 1) collisionText += QString(", ");
+			}
+			cErrorMessage::showMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
 		}
-		cErrorMessage::showMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
 	}
 
 	//preparing Render Job
@@ -927,3 +931,29 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 	return listOfCollisions;
 }
 
+void cKeyframeAnimation::slotValidate()
+{
+	//updating parameters
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+
+	keyframes->SetFramesPerKeyframe(gPar->Get<int>("frames_per_keyframe"));
+
+	//checking for collisions
+	QList<int> listOfCollisions = CheckForCollisions(gPar->Get<double>("keyframe_collision_thresh"));
+	if(listOfCollisions.size() > 0)
+	{
+		QString collisionText;
+		for(int i = 0; i < listOfCollisions.size(); i++)
+		{
+			collisionText += QString("%1").arg(listOfCollisions.at(i));
+			if(i < listOfCollisions.size() - 1) collisionText += QString(", ");
+		}
+		cErrorMessage::showMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
+	}
+	else
+	{
+		cErrorMessage::showMessage(QObject::tr("No collisions detected\n"), cErrorMessage::infoMessage);
+	}
+
+}
