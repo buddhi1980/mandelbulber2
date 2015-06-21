@@ -174,6 +174,8 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->pushButton_add_primitive_sphere, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
 	QApplication::connect(mainWindow->ui->pushButton_add_primitive_water, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
 	QApplication::connect(mainWindow->ui->pushButton_add_primitive_torus, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_undo, SIGNAL(clicked()), mainWindow, SLOT(slotMenuUndo()));
+	QApplication::connect(mainWindow->ui->pushButton_redo, SIGNAL(clicked()), mainWindow, SLOT(slotMenuRedo()));
 
 	QApplication::connect(mainWindow->ui->pushButton_randomize, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonRandomize()));
 	QApplication::connect(mainWindow->ui->pushButton_randomPalette, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewRandomPalette()));

@@ -1168,7 +1168,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="0" column="0" colspan="2">
         <widget class="QLabel" name="label_gamepad_no_device">
          <property name="text">
           <string>no device attached</string>
@@ -1532,6 +1532,20 @@
        <property name="horizontalSpacing">
         <number>2</number>
        </property>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushButton_stop">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Terminate rendering&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>STOP</string>
+         </property>
+         <property name="icon">
+          <iconset theme="process-stop" resource="icons.qrc">
+           <normaloff>:/system/icons/process-stop.svg</normaloff>:/system/icons/process-stop.svg</iconset>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
         <widget class="QPushButton" name="pushButton_render">
          <property name="toolTip">
@@ -1546,17 +1560,31 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="pushButton_stop">
+       <item row="1" column="0">
+        <widget class="QPushButton" name="pushButton_undo">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Terminate rendering&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start rendering of image based on actual settings&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>STOP</string>
+          <string>UNDO</string>
          </property>
          <property name="icon">
-          <iconset theme="process-stop" resource="icons.qrc">
-           <normaloff>:/system/icons/process-stop.svg</normaloff>:/system/icons/process-stop.svg</iconset>
+          <iconset theme="edit-undo" resource="icons.qrc">
+           <normaloff>:/system/icons/edit-undo.png</normaloff>:/system/icons/edit-undo.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="pushButton_redo">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start rendering of image based on actual settings&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>REDO</string>
+         </property>
+         <property name="icon">
+          <iconset theme="edit-redo" resource="icons.qrc">
+           <normaloff>:/system/icons/edit-redo.png</normaloff>:/system/icons/edit-redo.png</iconset>
          </property>
         </widget>
        </item>
@@ -11733,7 +11761,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-173</y>
+          <y>0</y>
           <width>339</width>
           <height>794</height>
          </rect>
