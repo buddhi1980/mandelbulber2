@@ -142,7 +142,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 			if(betaTexture < 0)
 			{
 				betaTexture = -betaTexture;
-				alphaTexture += M_PI;
+				alphaTexture = M_PI - alphaTexture;
 				offset = texWidth;
 			}
 			double texX = 0.5 * texWidth + cos(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texWidth * 0.5 + offset;

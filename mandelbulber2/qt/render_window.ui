@@ -1191,7 +1191,7 @@
           <x>0</x>
           <y>0</y>
           <width>174</width>
-          <height>206</height>
+          <height>194</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -2874,7 +2874,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>4</number>
+            <number>0</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -4098,7 +4098,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>226</width>
                   <height>172</height>
                  </rect>
                 </property>
@@ -4426,7 +4426,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>196</width>
                   <height>511</height>
                  </rect>
                 </property>
@@ -5314,6 +5314,9 @@ to target:</string>
                       </property>
                       <item row="1" column="1">
                        <widget class="MyColorButton" name="colorButton_background_color_2" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of background at horizon&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
@@ -5335,6 +5338,9 @@ to target:</string>
                       </item>
                       <item row="0" column="1">
                        <widget class="MyColorButton" name="colorButton_background_color_1" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of background at zenith&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
@@ -5349,6 +5355,9 @@ to target:</string>
                       </item>
                       <item row="2" column="1">
                        <widget class="MyColorButton" name="colorButton_background_color_3" native="true">
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of background at nadir&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                         <property name="text" stdset="0">
                          <string>PushButton</string>
                         </property>
@@ -5361,6 +5370,9 @@ to target:</string>
                  </item>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_textured_background">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables covering of background sphere with selected image.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - backhround texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="title">
                     <string>Textured background</string>
                    </property>
@@ -5409,6 +5421,9 @@ to target:</string>
                           <verstretch>0</verstretch>
                          </sizepolicy>
                         </property>
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to the background image. Acceptable formats are BMP, GIF, JPG, PNG&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
                        </widget>
                       </item>
                       <item row="0" column="0">
@@ -5432,6 +5447,9 @@ to target:</string>
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It decides, how texture will be mapped on background sphere&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Equirectangular: &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Texture has to be created used equirectangular projection. It's the most popular format for textures dedicated for sphere mapping.&lt;br/&gt;Example:&lt;br/&gt;&lt;/span&gt;&lt;img src=&quot;:/tooltips/tooltips_images/equirectangular_bkg.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Double hemisphere:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Texture has to be created as a pair of images of hemispheres. Mapping has to be the same as &lt;span style=&quot; font-style:italic;&quot;&gt;Full dome projection&lt;/span&gt; (or &lt;span style=&quot; font-style:italic;&quot;&gt;Fish eye&lt;/span&gt;)&lt;br/&gt;Example texture with indicated axes and directions:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/full_dome_bkg_axes.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <item>
                          <property name="text">
@@ -5512,7 +5530,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>265</width>
                   <height>1246</height>
                  </rect>
                 </property>
@@ -7687,7 +7705,7 @@ to target:</string>
              <item>
               <widget class="QTabWidget" name="tabWidget_fractals">
                <property name="currentIndex">
-                <number>3</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="tab_fractal_formula_1">
                 <attribute name="title">
@@ -8316,7 +8334,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>429</height>
                      </rect>
                     </property>
@@ -8907,7 +8925,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>429</height>
                      </rect>
                     </property>
@@ -9492,7 +9510,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>429</height>
                      </rect>
                     </property>
@@ -10074,7 +10092,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>208</width>
                   <height>435</height>
                  </rect>
                 </property>
@@ -11217,7 +11235,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>207</width>
                   <height>351</height>
                  </rect>
                 </property>
@@ -13040,7 +13058,7 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>338</width>
+                  <width>224</width>
                   <height>290</height>
                  </rect>
                 </property>

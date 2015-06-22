@@ -18,6 +18,9 @@
     <file>icons/system-shutdown.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
+    <file>tooltips_images/equirectangular_bkg.jpg</file>
+    <file>tooltips_images/full_dome_bkg_axes.png</file>
+    <file>tooltips_images/image - shader - backhround texture.jpg</file>
     <file>tooltips_images/image - shader - orbit trap lights.jpg</file>
     <file>tooltips_images/god rays.jpg</file>
     <file>tooltips_images/image - shader - shadow cone 0.jpeg</file>
