@@ -82,6 +82,10 @@ public:
 	{
 		return CVector3(x * scalar, y * scalar, z * scalar);
 	}
+	inline CVector3 operator*(const CVector3 &vector) const
+	{
+		return CVector3(x * vector.x, y * vector.y, z * vector.z);
+	}
 	inline CVector3 operator/(const double &scalar) const
 	{
 		return CVector3(x / scalar, y / scalar, z / scalar);
@@ -112,6 +116,13 @@ public:
 		x *= scalar;
 		y *= scalar;
 		z *= scalar;
+		return *this;
+	}
+	inline CVector3& operator*=(const CVector3 &vector)
+	{
+		x *= vector.x;
+		y *= vector.y;
+		z *= vector.z;
 		return *this;
 	}
 	inline CVector3& operator/=(const double &scalar)
