@@ -163,6 +163,27 @@ struct sMsltoeSym2
 {
 	double y_multiplier;
 };
+struct sFractalMandelbulb5
+{
+        bool absPreaddEnabled;
+        int absPreaddIterations;
+        CVector3 absPreadd;
+        CVector3 preadd;
+        double power;
+        double alphaAngleOffset;
+        double betaAngleOffset;
+        CVector3 constantMultiplier;
+        CVector3 juliaAddConstant;
+        bool boxFoldEnabled;
+        int boxFoldIterations;
+        double foldingLimit;
+        double foldingValue;
+        bool mainRotationEnabled;
+        int mainRotationIterations;
+        CVector3 rotationMain;
+        CRotationMatrix mainRot;
+
+};
 
 class cFractal
 {
@@ -180,6 +201,7 @@ public:
 	sFractalAexion aexion;
 	sFractalBuffalo buffalo;
 	sMsltoeSym2 msltoeSym2;
+    sFractalMandelbulb5 mandelbulb5;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

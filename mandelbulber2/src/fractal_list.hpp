@@ -73,7 +73,8 @@ enum enumFractalFormula
   quickdudley = 48,
   lkmitch = 49,
   makin3d2 = 50,
-  msltoesym2 = 51
+  msltoesym2 = 51,
+  mandelbulb5 = 52,
 };
 
 enum enumDEType

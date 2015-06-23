@@ -678,6 +678,96 @@ void MsltoeSym2(CVector3 &z, const cFractal *fractal)
     z.z = newz;
 }
 
+void Mandelbulb5Iteration(CVector3 &z , CVector3 &c, int &i, const cFractal *fractal, sMandelbulbAux &aux)
+{
+    if (fractal->mandelbulb5.absPreaddEnabled)
+          {
+
+     if(i<fractal->mandelbulb5.absPreaddIterations)
+               {  ;
+                }
+                else
+                {
+
+               z =   z + fractal->mandelbulb5.absPreadd;
+               z.x = fabs(z.x);
+               z.y = fabs(z.y);
+               z.z = fabs(z.z);
+               }
+
+           }
+
+        z +=  fractal->mandelbulb5.preadd;
+
+        double th0 = asin(z.z / aux.r) + fractal->mandelbulb5.betaAngleOffset;
+        double ph0 = atan2(z.y, z.x) + fractal->mandelbulb5.alphaAngleOffset;
+        double rp = pow(aux.r, fractal->mandelbulb5.power - 1.0);
+        double th = th0 * fractal->mandelbulb5.power;
+        double ph = ph0 * fractal->mandelbulb5.power;
+        double cth = cos(th);
+
+
+        aux.r_dz = rp * aux.r_dz * fractal->mandelbulb5.power + 1.0;
+        rp *= aux.r;
+        z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
+
+
+//c=c *1.0f;
+       // z +=  c * fractal->mandelbulb5.constantMultiplier;
+z.x += c.x * fractal->mandelbulb5.constantMultiplier.x;
+z.y += c.y * fractal->mandelbulb5.constantMultiplier.y;
+z.z += c.z * fractal->mandelbulb5.constantMultiplier.z;
+
+        z+=  fractal->mandelbulb5.juliaAddConstant;
+
+        if (fractal->mandelbulb5.boxFoldEnabled)
+        {
+            if(i<fractal->mandelbulb5.boxFoldIterations)
+           {  ;
+            }
+            else
+            {
+
+                if (z.x > fractal->mandelbulb5.foldingLimit)
+                {
+                        z.x = fractal->mandelbulb5.foldingValue - z.x;
+                }
+                else if (z.x < -fractal->mandelbulb5.foldingLimit)
+                {
+                        z.x = -fractal->mandelbulb5.foldingValue - z.x;
+                }
+                if (z.y > fractal->mandelbulb5.foldingLimit)
+                {
+                        z.y = fractal->mandelbulb5.foldingValue - z.y;
+                }
+                else if (z.y < -fractal->mandelbulb5.foldingLimit)
+                {
+                        z.y = -fractal->mandelbulb5.foldingValue - z.y;
+                }
+                if (z.z > fractal->mandelbulb5.foldingLimit)
+                {
+                        z.z = fractal->mandelbulb5.foldingValue - z.z;
+                }
+                else if (z.z < -fractal->mandelbulb5.foldingLimit)
+                {
+                        z.z = -fractal->mandelbulb5.foldingValue - z.z;
+                }
+               if(fractal->mandelbulb5.mainRotationEnabled)
+                {
+                    if(i< fractal->mandelbulb5.mainRotationIterations)
+                    { ;
+                     }
+                      else
+                    {
+                      z = fractal->mandelbulb5.mainRot.RotateVector(z);
+                 }
+               }
+             }
+        }
+}
+
+
+
 /* GeneralizedFoldBox, ref: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/ */
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux)
 {

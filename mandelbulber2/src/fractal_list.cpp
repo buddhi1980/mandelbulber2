@@ -33,6 +33,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbulb 2", "mandelbulb2", mandelbulb2, deltaDE));
 	fractalList->append(sFractalDescription("Mandelbulb 3", "mandelbulb3", mandelbulb3, deltaDE));
 	fractalList->append(sFractalDescription("Mandelbulb 4", "mandelbulb4", mandelbulb4, deltaDE));
+    fractalList->append(sFractalDescription("Mandelbulb 5", "mandelbulb5", mandelbulb5, analitycDE));
 	fractalList->append(sFractalDescription("Mandelbulb Classic Power 2", "mandelbulb_power_2", fast_mandelbulb_power2, deltaDE));
 	fractalList->append(sFractalDescription("Xenodreambuie's formula", "xenodreambuie", xenodreambuie, deltaDE));
 	fractalList->append(sFractalDescription("Mandelbox", "mandelbox", mandelbox, analitycDE));
@@ -54,4 +55,5 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Lkmitch", "lkmitch", lkmitch, deltaDE));
 	fractalList->append(sFractalDescription("Makin3D-2", "makin3d2", makin3d2, deltaDE));
 	fractalList->append(sFractalDescription("MsltoeSym2", "msltoesym2", msltoesym2, deltaDE));
+
 }
