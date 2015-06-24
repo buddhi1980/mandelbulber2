@@ -680,16 +680,12 @@ void MsltoeSym2(CVector3 &z, const cFractal *fractal)
 
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sMandelbulbAux &aux)
 {
-	if (fractal->mandelbulb5.absPreaddEnabled)
+	if (fractal->mandelbulb5.absPreaddEnabled && i >= fractal->mandelbulb5.absPreaddIterations)
 	{
-
-		if (i >= fractal->mandelbulb5.absPreaddIterations)
-		{
-			z = z + fractal->mandelbulb5.absPreadd;
-			z.x = fabs(z.x);
-			z.y = fabs(z.y);
-			z.z = fabs(z.z);
-		}
+		z = z + fractal->mandelbulb5.absPreadd;
+		z.x = fabs(z.x);
+		z.y = fabs(z.y);
+		z.z = fabs(z.z);
 	}
 
 	z += fractal->mandelbulb5.preadd;
@@ -705,47 +701,25 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
 	rp *= aux.r;
 	z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 
-	z +=  c * fractal->mandelbulb5.constantMultiplierVect;
+	z += c * fractal->mandelbulb5.constantMultiplierVect;
 
 	z += fractal->mandelbulb5.juliaAddConstant;
 
-	if (fractal->mandelbulb5.boxFoldEnabled)
+	if (fractal->mandelbulb5.boxFoldEnabled && i >= fractal->mandelbulb5.boxFoldIterations)
 	{
-		if (i >= fractal->mandelbulb5.boxFoldIterations)
-		{
-			if (z.x > fractal->mandelbulb5.foldingLimit)
-			{
-				z.x = fractal->mandelbulb5.foldingValue - z.x;
-			}
-			else if (z.x < -fractal->mandelbulb5.foldingLimit)
-			{
-				z.x = -fractal->mandelbulb5.foldingValue - z.x;
-			}
-			if (z.y > fractal->mandelbulb5.foldingLimit)
-			{
-				z.y = fractal->mandelbulb5.foldingValue - z.y;
-			}
-			else if (z.y < -fractal->mandelbulb5.foldingLimit)
-			{
-				z.y = -fractal->mandelbulb5.foldingValue - z.y;
-			}
-			if (z.z > fractal->mandelbulb5.foldingLimit)
-			{
-				z.z = fractal->mandelbulb5.foldingValue - z.z;
-			}
-			else if (z.z < -fractal->mandelbulb5.foldingLimit)
-			{
-				z.z = -fractal->mandelbulb5.foldingValue - z.z;
-			}
-		}
+		if (z.x > fractal->mandelbulb5.foldingLimit) z.x = fractal->mandelbulb5.foldingValue - z.x;
+		else if (z.x < -fractal->mandelbulb5.foldingLimit) z.x = -fractal->mandelbulb5.foldingValue - z.x;
+
+		if (z.y > fractal->mandelbulb5.foldingLimit) z.y = fractal->mandelbulb5.foldingValue - z.y;
+		else if (z.y < -fractal->mandelbulb5.foldingLimit) z.y = -fractal->mandelbulb5.foldingValue - z.y;
+
+		if (z.z > fractal->mandelbulb5.foldingLimit) z.z = fractal->mandelbulb5.foldingValue - z.z;
+		else if (z.z < -fractal->mandelbulb5.foldingLimit) z.z = -fractal->mandelbulb5.foldingValue - z.z;
 	}
 
-	if (fractal->mandelbulb5.mainRotationEnabled)
+	if (fractal->mandelbulb5.mainRotationEnabled && i >= fractal->mandelbulb5.mainRotationIterations)
 	{
-		if (i >= fractal->mandelbulb5.mainRotationIterations)
-		{
-			z = fractal->mandelbulb5.mainRot.RotateVector(z);
-		}
+		z = fractal->mandelbulb5.mainRot.RotateVector(z);
 	}
 }
 
