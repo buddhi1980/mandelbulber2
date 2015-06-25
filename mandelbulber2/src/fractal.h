@@ -173,7 +173,6 @@ struct sFractalMandelbulb5
 	double power;
 	double alphaAngleOffset;
 	double betaAngleOffset;
-	CVector3 constantMultiplierVect;
 	CVector3 juliaAddConstant;
 	bool boxFoldEnabled;
 	int boxFoldIterations;

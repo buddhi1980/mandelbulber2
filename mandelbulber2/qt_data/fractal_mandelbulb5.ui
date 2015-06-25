@@ -430,28 +430,6 @@ Constant</string>
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="7" column="2">
-      <widget class="QSlider" name="slider3_mandelbulb5_constantMultiplier_z">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QLabel" name="label_3">
        <property name="text">
@@ -459,41 +437,13 @@ Constant</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="2" colspan="2">
+     <item row="4" column="2" colspan="2">
       <widget class="MyLineEdit" name="vect3_mandelbulb5_juliaAddConstant_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_mandelbulb5_constantMultiplier_z">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
@@ -516,10 +466,20 @@ Constant</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="1">
+     <item row="5" column="1">
       <widget class="QLabel" name="label_13">
        <property name="text">
         <string>y:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2" colspan="2">
+      <widget class="MyLineEdit" name="vect3_mandelbulb5_juliaAddConstant_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
       </widget>
      </item>
@@ -564,100 +524,10 @@ Constant</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="2" colspan="2">
-      <widget class="MyLineEdit" name="vect3_mandelbulb5_juliaAddConstant_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="1">
+     <item row="6" column="1">
       <widget class="QLabel" name="label_15">
        <property name="text">
         <string>z:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_mandelbulb5_constantMultiplier_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QLabel" name="label_115">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>x:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_mandelbulb5_constantMultiplier_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0" rowspan="4">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Constant 
-Multiplier</string>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -680,29 +550,7 @@ Multiplier</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="2">
-      <widget class="QSlider" name="slider3_mandelbulb5_constantMultiplier_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
+     <item row="4" column="1">
       <widget class="QLabel" name="label_6">
        <property name="text">
         <string>x:</string>
@@ -713,28 +561,6 @@ Multiplier</string>
       <widget class="QLabel" name="label_11">
        <property name="text">
         <string>z:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="2">
-      <widget class="QSlider" name="slider3_mandelbulb5_constantMultiplier_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -757,33 +583,7 @@ Multiplier</string>
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
-      <widget class="QLabel" name="label_117">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>z:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0" colspan="4">
-      <widget class="Line" name="line_4">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="2" colspan="2">
+     <item row="6" column="2" colspan="2">
       <widget class="MyLineEdit" name="vect3_mandelbulb5_juliaAddConstant_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -793,20 +593,7 @@ Multiplier</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QLabel" name="label_116">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>y:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0" colspan="4">
+     <item row="3" column="0" colspan="4">
       <widget class="Line" name="line_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -821,7 +608,7 @@ Constant</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="0" rowspan="3">
+     <item row="4" column="0" rowspan="3">
       <widget class="QLabel" name="label_5">
        <property name="text">
         <string>Julia
@@ -1292,12 +1079,6 @@ Constant</string>
   <tabstop>spinbox3_mandelbulb5_preadd_y</tabstop>
   <tabstop>slider3_mandelbulb5_preadd_z</tabstop>
   <tabstop>spinbox3_mandelbulb5_preadd_z</tabstop>
-  <tabstop>slider3_mandelbulb5_constantMultiplier_x</tabstop>
-  <tabstop>spinbox3_mandelbulb5_constantMultiplier_x</tabstop>
-  <tabstop>slider3_mandelbulb5_constantMultiplier_y</tabstop>
-  <tabstop>spinbox3_mandelbulb5_constantMultiplier_y</tabstop>
-  <tabstop>slider3_mandelbulb5_constantMultiplier_z</tabstop>
-  <tabstop>spinbox3_mandelbulb5_constantMultiplier_z</tabstop>
   <tabstop>vect3_mandelbulb5_juliaAddConstant_x</tabstop>
   <tabstop>vect3_mandelbulb5_juliaAddConstant_y</tabstop>
   <tabstop>vect3_mandelbulb5_juliaAddConstant_z</tabstop>

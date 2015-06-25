@@ -262,7 +262,6 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			case menger_sponge:
 			case kaleidoscopicIFS:
 			case aexion:
-      case mandelbulb5:
 			{
 				break;
 			}

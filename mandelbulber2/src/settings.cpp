@@ -479,7 +479,7 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 	QString parameterName = line.left(firstSpace);
 	QString value = line.mid(firstSpace + 1, semicolon - firstSpace - 1);
 
-	parameterName = Compatibility(parameterName);
+	Compatibility(parameterName, value);
 
 	if(parameterName.left(parameterName.indexOf('_')) == "primitive")
 	{
@@ -525,30 +525,36 @@ bool cSettings::CheckSection(QString text, QString &section)
 	return false;
 }
 
-QString cSettings::Compatibility(const QString &old)
+void cSettings::Compatibility(QString &name, QString &value)
 {
-	QString newName = old;
 	if (fileVersion <= 2.01)
 	{
-		if (old.indexOf("aux_light_predefined") >= 0)
+		if (name.indexOf("aux_light_predefined") >= 0)
 		{
-			newName.replace("aux_light_predefined", "aux_light");
+			name.replace("aux_light_predefined", "aux_light");
 		}
 
-		if (old == QString("volumetric_light_intensity_0"))
+		if (name == QString("volumetric_light_intensity_0"))
 		{
-			newName = QString("main_light_volumetric_intensity");
+			name = QString("main_light_volumetric_intensity");
 		}
-		else if(old == QString("volumetric_light_enabled_0"))
+		else if(name == QString("volumetric_light_enabled_0"))
 		{
-			newName = QString("main_light_volumetric_enabled");
+			name = QString("main_light_volumetric_enabled");
 		}
-		else if(old.indexOf("volumetric_light") >= 0)
+		else if(name.indexOf("volumetric_light") >= 0)
 		{
-			newName.replace("volumetric_light", "aux_light_volumetric");
+			name.replace("volumetric_light", "aux_light_volumetric");
 		}
 	}
-	return newName;
+	else if (fileVersion <= 2.04)
+	{
+		if (name == QString("fractal_constant_factor"))
+		{
+			QString newValue = value + " " + value + " " + value;
+			value = newValue;
+		}
+	}
 }
 
 bool cSettings::DecodeFramesHeader(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)

@@ -701,7 +701,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
 	rp *= aux.r;
 	z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 
-	z += c * fractal->mandelbulb5.constantMultiplierVect;
+	//z += c * fractal->mandelbulb5.constantMultiplierVect;
 
 	z += fractal->mandelbulb5.juliaAddConstant;
 

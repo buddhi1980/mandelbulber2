@@ -5266,7 +5266,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>273</width>
                   <height>202</height>
                  </rect>
                 </property>
@@ -10092,8 +10092,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>208</width>
-                  <height>435</height>
+                  <width>289</width>
+                  <height>481</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -10255,15 +10255,8 @@ to target:</string>
                    <property name="spacing">
                     <number>2</number>
                    </property>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_135">
-                     <property name="text">
-                      <string>Constant multiplier:</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="0" column="1">
-                    <widget class="QSlider" name="slider_fractal_constant_factor">
+                    <widget class="QSlider" name="slider3_fractal_constant_factor_x">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                        <horstretch>0</horstretch>
@@ -10285,7 +10278,7 @@ to target:</string>
                     </widget>
                    </item>
                    <item row="0" column="2">
-                    <widget class="MyDoubleSpinBox" name="spinbox_fractal_constant_factor">
+                    <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_x">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                        <horstretch>0</horstretch>
@@ -10309,6 +10302,113 @@ to target:</string>
                      </property>
                      <property name="singleStep">
                       <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QSlider" name="slider3_fractal_constant_factor_z">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimum">
+                      <number>-500</number>
+                     </property>
+                     <property name="maximum">
+                      <number>500</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_y">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-1000.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>1000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="2">
+                    <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_z">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="prefix">
+                      <string/>
+                     </property>
+                     <property name="suffix">
+                      <string/>
+                     </property>
+                     <property name="decimals">
+                      <number>2</number>
+                     </property>
+                     <property name="minimum">
+                      <double>-1000.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>1000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.100000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QSlider" name="slider3_fractal_constant_factor_y">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimum">
+                      <number>-500</number>
+                     </property>
+                     <property name="maximum">
+                      <number>500</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0" rowspan="3">
+                    <widget class="QLabel" name="label_135">
+                     <property name="text">
+                      <string>Constant multiplier:</string>
                      </property>
                     </widget>
                    </item>
@@ -14890,8 +14990,8 @@ and water):</string>
   <tabstop>vect3_julia_c_y</tabstop>
   <tabstop>vect3_julia_c_z</tabstop>
   <tabstop>pushButton_get_julia_constant</tabstop>
-  <tabstop>slider_fractal_constant_factor</tabstop>
-  <tabstop>spinbox_fractal_constant_factor</tabstop>
+  <tabstop>slider3_fractal_constant_factor_x</tabstop>
+  <tabstop>spinbox3_fractal_constant_factor_x</tabstop>
   <tabstop>vect3_fractal_position_x</tabstop>
   <tabstop>vect3_fractal_position_y</tabstop>
   <tabstop>vect3_fractal_position_z</tabstop>

@@ -113,7 +113,7 @@ using namespace parameterContainer;
 	par->addParam("julia_c", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("N", 250, 1, 65536, morphLinear, paramStandard);
 	par->addParam("minN", 1, 0, 65536, morphLinear, paramStandard);
-	par->addParam("fractal_constant_factor", 1.0, morphLinear, paramStandard);
+	par->addParam("fractal_constant_factor", CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
 	par->addParam("detail_level", 1.0, 1e-8, 1e8, morphLinear, paramStandard);
 	par->addParam("DE_thresh", 0.01, 1e-15, 1e5, morphLinear, paramStandard); //old name was 'quality'
 	par->addParam("smoothness", 1.0, 1e-15, 1e15, morphLinear, paramStandard);
@@ -448,7 +448,6 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("mandelbulb5_power", 9.0, morphAkima, paramStandard);
 	par->addParam("mandelbulb5_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("mandelbulb5_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
-	par->addParam("mandelbulb5_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("mandelbulb5_juliaAddConstant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("mandelbulb5_box_fold_enabled", false, morphLinear, paramStandard);
 	par->addParam("mandelbulb5_box_fold_iterations", 0, morphLinear, paramStandard);

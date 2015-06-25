@@ -168,7 +168,7 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
 	}
 
-	common.constantMultiplier = container->Get<double>("fractal_constant_factor");
+	common.constantMultiplier = container->Get<CVector3>("fractal_constant_factor");
 	common.fakeLightsMaxIter = container->Get<double>("fake_lights_max_iter");
 	common.fakeLightsMinIter = container->Get<double>("fake_lights_min_iter");
 	common.fakeLightsOrbitTrap = container->Get<CVector3>("fake_lights_orbit_trap");

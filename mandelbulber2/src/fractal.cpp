@@ -108,7 +108,6 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelbulb5.absPreaddIterations = container->Get<int>("mandelbulb5_absPreadd_iterations");
 	mandelbulb5.preadd = container->Get<CVector3>("mandelbulb5_preadd");
 	mandelbulb5.power = container->Get<double>("mandelbulb5_power");
-	mandelbulb5.constantMultiplierVect = container->Get<CVector3>("mandelbulb5_constantMultiplier");
 	mandelbulb5.juliaAddConstant = container->Get<CVector3>("mandelbulb5_juliaAddConstant");
 	mandelbulb5.foldingLimit = container->Get<double>("mandelbulb5_folding_limit");
 	mandelbulb5.foldingValue = container->Get<double>("mandelbulb5_folding_value");
@@ -120,8 +119,6 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelbulb5.mainRotationEnabled = container->Get<bool>("mandelbulb5_main_rotation_enabled");
 	mandelbulb5.mainRotationIterations = container->Get<int>("mandelbulb5_main_rotation_iterations");
 	mandelbulb5.rotationMain = container->Get<CVector3>("mandelbulb5_rotation_main");
-
-
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();
