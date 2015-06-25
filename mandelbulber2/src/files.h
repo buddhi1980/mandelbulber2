@@ -65,9 +65,9 @@ enum enumImageContentType
 
 enum enumImageChannelQualityType
 {
-	IMAGE_CHANNEL_QUALITY_8 = 8,
-	IMAGE_CHANNEL_QUALITY_16 = 16,
-	IMAGE_CHANNEL_QUALITY_32 = 32
+	IMAGE_CHANNEL_QUALITY_8 = 0,
+	IMAGE_CHANNEL_QUALITY_16 = 1,
+	IMAGE_CHANNEL_QUALITY_32 = 2
 };
 
 struct structSaveImageChannel {

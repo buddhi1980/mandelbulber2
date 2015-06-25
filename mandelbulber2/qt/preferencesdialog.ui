@@ -38,9 +38,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-9</y>
-        <width>407</width>
-        <height>435</height>
+        <y>0</y>
+        <width>423</width>
+        <height>431</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -345,7 +345,7 @@
              </widget>
             </item>
             <item row="1" column="2">
-             <widget class="QLineEdit" name="lineEdit_color_postfix">
+             <widget class="MyLineEdit" name="text_color_postfix">
               <property name="text">
                <string/>
               </property>
@@ -359,9 +359,9 @@
              </widget>
             </item>
             <item row="2" column="2">
-             <widget class="QLineEdit" name="lineEdit_alpha_postfix">
+             <widget class="MyLineEdit" name="text_alpha_postfix">
               <property name="text">
-               <string>_alpha</string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -383,9 +383,9 @@
              </widget>
             </item>
             <item row="3" column="2">
-             <widget class="QLineEdit" name="lineEdit_zbuffer_postfix">
+             <widget class="MyLineEdit" name="text_zbuffer_postfix">
               <property name="text">
-               <string>_zbuffer</string>
+               <string/>
               </property>
              </widget>
             </item>
