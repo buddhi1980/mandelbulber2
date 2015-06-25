@@ -88,6 +88,7 @@ std::string IndexFilename(const char* filename, const char* extension, int numbe
 void SavePNG(QString filename, int width, int height, png_byte *image);
 void SavePNG16(QString filename, int width, int height, sRGB16* image16);
 void SavePNG16Alpha(QString filename, int width, int height, cImage *image);
+void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha = false);
 void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
 bool FileIfExists(const char *filename);
 int fcopy(const char *source, const char *dest);

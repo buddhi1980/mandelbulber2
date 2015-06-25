@@ -435,6 +435,167 @@ void SavePNG16Alpha(QString filename, int width, int height, cImage *image)
 	fclose(fp);
 }
 
+void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha)
+{
+	int width = image->GetWidth();
+	int height = image->GetHeight();
+
+	/* create file */
+	FILE *fp = fopen(filename.toUtf8().constData(), "wb");
+	if (!fp)
+	{
+		fprintf(stderr, "[write_png_file] File %s could not be opened for writing", filename.toUtf8().constData());
+		return;
+	}
+
+	/* initialize stuff */
+	png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+
+	if (!png_ptr)
+	{
+		fprintf(stderr, "[write_png_file] png_create_write_struct failed");
+		fclose(fp);
+		return;
+	}
+
+	png_info *info_ptr = png_create_info_struct(png_ptr);
+	if (!info_ptr)
+	{
+		fprintf(stderr, "[write_png_file] png_create_info_struct failed");
+		fclose(fp);
+		return;
+	}
+
+	if (setjmp(png_jmpbuf(png_ptr)))
+	{
+		fprintf(stderr, "[write_png_file] Error during init_io");
+		fclose(fp);
+		return;
+	}
+
+	png_init_io(png_ptr, fp);
+
+	/* write header */
+	if (setjmp(png_jmpbuf(png_ptr)))
+	{
+		fprintf(stderr, "[write_png_file] Error during writing header");
+		fclose(fp);
+		return;
+	}
+
+	int qualitySize;
+	switch(imageChannel.channelQuality){
+		case IMAGE_CHANNEL_QUALITY_8: qualitySize = 8; break;
+		case IMAGE_CHANNEL_QUALITY_16: qualitySize = 16; break;
+		default: qualitySize = 8; break;
+	}
+	int qualitySizeByte = qualitySize / 8;
+
+	int colorType;
+	switch(imageChannel.contentType){
+		case IMAGE_CONTENT_COLOR: colorType = appendAlpha ? PNG_COLOR_TYPE_RGB_ALPHA : PNG_COLOR_TYPE_RGB; break;
+		case IMAGE_CONTENT_ALPHA: colorType = PNG_COLOR_TYPE_GRAY; break;
+		case IMAGE_CONTENT_ZBUFFER: colorType = PNG_COLOR_TYPE_GRAY; break;
+		default: colorType = PNG_COLOR_TYPE_RGB; break;
+	}
+
+	png_set_IHDR(png_ptr, info_ptr, width, height, qualitySize, colorType, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+
+	png_write_info(png_ptr, info_ptr);
+	png_set_swap(png_ptr);
+
+	/* write bytes */
+	if (setjmp(png_jmpbuf(png_ptr)))
+	{
+		fprintf(stderr, "[write_png_file] Error during writing bytes");
+		fclose(fp);
+		return;
+	}
+
+	png_bytep *row_pointers = new png_bytep[height];
+
+	int pixelSize = qualitySizeByte;
+
+	switch(imageChannel.contentType){
+		case IMAGE_CONTENT_COLOR: pixelSize *= appendAlpha ? 4 : 3; break;
+		case IMAGE_CONTENT_ALPHA: pixelSize *= 1; break;
+		case IMAGE_CONTENT_ZBUFFER: pixelSize *= 1; break;
+	}
+
+	char *colorPtr = new char[(unsigned long int)width * height * pixelSize];
+
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			unsigned long int ptr = (x + y * width) * pixelSize;
+			switch(imageChannel.contentType){
+				case IMAGE_CONTENT_COLOR:
+				{
+					if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+					{
+						sRGB16 pixel = image->GetPixelImage16(x, y);
+						colorPtr[ptr] = pixel.R;
+						colorPtr[ptr+1*pixelSize] = pixel.G;
+						colorPtr[ptr+2*pixelSize] = pixel.B;
+						if(appendAlpha)
+						{
+							colorPtr[ptr+3*pixelSize] = image->GetPixelAlpha(x, y);
+						}
+					}
+					else
+					{
+						sRGB8 pixel = image->GetPixelColor(x, y);
+						colorPtr[ptr] = pixel.R;
+						colorPtr[ptr+1*pixelSize] = pixel.G;
+						colorPtr[ptr+2*pixelSize] = pixel.B;
+						if(appendAlpha)
+						{
+							colorPtr[ptr+3*pixelSize] = (char)image->GetPixelAlpha(x, y) / 256;
+						}
+					}
+				}
+				break;
+				case IMAGE_CONTENT_ALPHA:
+				{
+					short pixel = image->GetPixelAlpha(x, y);
+					if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+					{
+						char pixel8 = pixel / 256;
+						colorPtr[ptr] = pixel8;
+					}
+					else
+					{
+						colorPtr[ptr] = pixel;
+					}
+				}
+				break;
+				case IMAGE_CONTENT_ZBUFFER:
+				{
+					// TODO
+				}
+			}
+		}
+		row_pointers[y] = (png_byte*) &colorPtr[y * width];
+	}
+
+	png_write_image(png_ptr, row_pointers);
+
+	/* end write */
+	if (setjmp(png_jmpbuf(png_ptr)))
+	{
+		fprintf(stderr, "[write_png_file] Error during end of write");
+	}
+	else
+	{
+		png_write_end(png_ptr, NULL);
+	}
+
+	delete[] row_pointers;
+
+	fclose(fp);
+}
+
 void SaveMainImage(QString filename, enumImageType imageType)
 {
 	switch(imageType){
@@ -851,6 +1012,7 @@ void SaveImage(QString filename, enumImageFileType filetype, cImage *image)
 
 void SaveImage(QString filename, enumImageFileType filetype, cImage *image, QMap<enumImageContentType, structSaveImageChannel> imageConfig)
 {
+	image->ConvertTo8bit();
 	switch(filetype){
 		case IMAGE_FILE_TYPE_JPG:
 		{
@@ -865,25 +1027,21 @@ void SaveImage(QString filename, enumImageFileType filetype, cImage *image, QMap
 
 		case IMAGE_FILE_TYPE_PNG:
 		{
-			// TODO all possible cases / more simple with generalized png function?
 			if(imageConfig.contains(IMAGE_CONTENT_COLOR))
 			{
-				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_COLOR].postfix + ".jpg";
-				if(imageConfig[IMAGE_CONTENT_COLOR].channelQuality == IMAGE_CHANNEL_QUALITY_8)
-				{
-					SavePNG(fullFilename, image->GetWidth(), image->GetHeight(), image->ConvertTo8bit());
-				}
-				else
-				{
-					if(gPar->Get<bool>("append_alpha_png"))
-					{
-						SavePNG16Alpha(fullFilename, image->GetWidth(), image->GetHeight(), image);
-					}
-					else
-					{
-						SavePNG16(fullFilename, image->GetWidth(), image->GetHeight(), image->GetImage16Ptr());
-					}
-				}
+				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_COLOR].postfix + ".png";
+				bool appendAlpha = imageConfig.contains(IMAGE_CONTENT_ALPHA) &&  gPar->Get<bool>("append_alpha_png");
+				SavePNG(fullFilename, image, imageConfig[IMAGE_CONTENT_COLOR], appendAlpha);
+			}
+			if(imageConfig.contains(IMAGE_CONTENT_ALPHA) && !(gPar->Get<bool>("append_alpha_png") && imageConfig.contains(IMAGE_CONTENT_COLOR)))
+			{
+				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ALPHA].postfix + ".png";
+				SavePNG(fullFilename, image, imageConfig[IMAGE_CONTENT_ALPHA]);
+			}
+			if(imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
+			{
+				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ZBUFFER].postfix + ".png";
+				SavePNG(fullFilename, image, imageConfig[IMAGE_CONTENT_ZBUFFER]);
 			}
 		}
 		break;
