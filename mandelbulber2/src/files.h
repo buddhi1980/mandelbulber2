@@ -58,9 +58,9 @@ enum enumImageFileType
 
 enum enumImageContentType
 {
-	IMAGE_CONTENT_COLOR = 1,
-	IMAGE_CONTENT_ALPHA = 2,
-	IMAGE_CONTENT_ZBUFFER = 3
+	IMAGE_CONTENT_COLOR = 0,
+	IMAGE_CONTENT_ALPHA = 1,
+	IMAGE_CONTENT_ZBUFFER = 2
 };
 
 enum enumImageChannelQualityType
