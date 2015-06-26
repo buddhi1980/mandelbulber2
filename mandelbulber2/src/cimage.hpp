@@ -71,12 +71,14 @@ public:
 
   inline sRGBfloat GetPixelImage(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return imageFloat[x + y * width]; else return BlackFloat();}
   inline sRGB16 GetPixelImage16(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return image16[x + y * width]; else return Black16();}
+	inline sRGB8 GetPixelImage8(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return image8[x + y * width]; else return Black8();}
   inline short int GetPixelAlpha(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return alphaBuffer[x + y * width]; else return 0;}
   inline short int GetPixelOpacity(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return opacityBuffer[x + y * width]; else return 0;}
   inline sRGB8 GetPixelColor(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return colourBuffer[x + y * width]; else return Black8();}
   inline float GetPixelZBuffer(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return zBuffer[x + y * width]; else return 1e20;}
 
   sRGB16* GetImage16Ptr(void) {return image16;}
+	sRGB8* GetImage8Ptr(void) {return image8;}
   unsigned short* GetAlphaBufPtr(void) {return alphaBuffer;}
   float* GetZBufferPtr(void) {return zBuffer;}
   sRGB8* GetColorPtr(void) {return colourBuffer;}

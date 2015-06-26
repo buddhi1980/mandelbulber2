@@ -513,6 +513,7 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 	}
 
 	png_bytep *row_pointers = new png_bytep[height];
+	char *colorPtr = NULL;
 
 	int pixelSize = qualitySizeByte;
 
@@ -522,61 +523,87 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 		case IMAGE_CONTENT_ZBUFFER: pixelSize *= 1; break;
 	}
 
-	char *colorPtr = new char[(unsigned long int)width * height * pixelSize];
+	bool directOnBuffer = false;
+	if(imageChannel.contentType == IMAGE_CONTENT_COLOR && !appendAlpha) directOnBuffer = true;
 
-	for (int y = 0; y < height; y++)
+	if(directOnBuffer)
 	{
-		for (int x = 0; x < width; x++)
+		for (int y = 0; y < height; y++)
 		{
-			unsigned long int ptr = (x + y * width) * pixelSize;
 			switch(imageChannel.contentType){
 				case IMAGE_CONTENT_COLOR:
 				{
 					if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
-						sRGB16 pixel = image->GetPixelImage16(x, y);
-						colorPtr[ptr] = pixel.R;
-						colorPtr[ptr+1*pixelSize] = pixel.G;
-						colorPtr[ptr+2*pixelSize] = pixel.B;
-						if(appendAlpha)
-						{
-							colorPtr[ptr+3*pixelSize] = image->GetPixelAlpha(x, y);
-						}
+						row_pointers[y] = (png_byte*) &image->GetImage16Ptr()[y * width * 3];
 					}
 					else
 					{
-						sRGB8 pixel = image->GetPixelColor(x, y);
-						colorPtr[ptr] = pixel.R;
-						colorPtr[ptr+1*pixelSize] = pixel.G;
-						colorPtr[ptr+2*pixelSize] = pixel.B;
-						if(appendAlpha)
-						{
-							colorPtr[ptr+3*pixelSize] = (char)image->GetPixelAlpha(x, y) / 256;
-						}
+						row_pointers[y] = (png_byte*) &image->GetImage8Ptr()[y * width * 3];
 					}
 				}
 				break;
-				case IMAGE_CONTENT_ALPHA:
-				{
-					short pixel = image->GetPixelAlpha(x, y);
-					if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
-					{
-						char pixel8 = pixel / 256;
-						colorPtr[ptr] = pixel8;
-					}
-					else
-					{
-						colorPtr[ptr] = pixel;
-					}
-				}
-				break;
-				case IMAGE_CONTENT_ZBUFFER:
-				{
-					// TODO
-				}
 			}
 		}
-		row_pointers[y] = (png_byte*) &colorPtr[y * width];
+	}
+	else
+	{
+		colorPtr = new char[(unsigned long int)width * height * pixelSize];
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				unsigned long int ptr = (x + y * width) * pixelSize;
+				switch(imageChannel.contentType){
+					case IMAGE_CONTENT_COLOR:
+					{
+						if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+						{
+							if(appendAlpha)
+							{
+								sRGB16 pixel = image->GetPixelImage16(x, y);
+								colorPtr[ptr] = pixel.R;
+								colorPtr[ptr+1*pixelSize] = pixel.G;
+								colorPtr[ptr+2*pixelSize] = pixel.B;
+								colorPtr[ptr+3*pixelSize] = image->GetPixelAlpha(x, y);
+							}
+						}
+						else
+						{
+							if(appendAlpha)
+							{
+								sRGB8 pixel = image->GetPixelImage8(x, y);
+								colorPtr[ptr] = pixel.R;
+								colorPtr[ptr+1*pixelSize] = pixel.G;
+								colorPtr[ptr+2*pixelSize] = pixel.B;
+								colorPtr[ptr+3*pixelSize] = (char)image->GetPixelAlpha(x, y) / 256;
+							}
+						}
+					}
+					break;
+					case IMAGE_CONTENT_ALPHA:
+					{
+						short pixel = image->GetPixelAlpha(x, y);
+						if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+						{
+							char pixel8 = pixel / 256;
+							colorPtr[ptr] = pixel8;
+						}
+						else
+						{
+							colorPtr[ptr] = pixel;
+						}
+					}
+					break;
+					case IMAGE_CONTENT_ZBUFFER:
+					{
+						// TODO
+					}
+				}
+			}
+			row_pointers[y] = (png_byte*) &colorPtr[y * width];
+		}
 	}
 
 	png_write_image(png_ptr, row_pointers);
@@ -592,6 +619,7 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 	}
 
 	delete[] row_pointers;
+	if(colorPtr) delete[] colorPtr;
 
 	fclose(fp);
 }
