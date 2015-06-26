@@ -66,21 +66,23 @@ public:
 	inline void PutPixelImage16(int x, int y, sRGB16 pixel)	{if (x >= 0 && x < width && y >= 0 && y < height) image16[x + y * width] = pixel;}
 	inline void PutPixelColour(int x, int y, sRGB8 pixel)	{if (x >= 0 && x < width && y >= 0 && y < height) colourBuffer[x + y * width] = pixel;}
 	inline void PutPixelZBuffer(int x, int y, float pixel) {if (x >= 0 && x < width && y >= 0 && y < height) zBuffer[x + y * width] = pixel;}
-	inline void PutPixelAlpha(int x, int y, unsigned short pixel) {if (x >= 0 && x < width && y >= 0 && y < height) alphaBuffer[x + y * width] = pixel;}
+	inline void PutPixelAlpha(int x, int y, unsigned short pixel) {if (x >= 0 && x < width && y >= 0 && y < height) alphaBuffer16[x + y * width] = pixel;}
 	inline void PutPixelOpacity(int x, int y, unsigned short pixel) {if (x >= 0 && x < width && y >= 0 && y < height) opacityBuffer[x + y * width] = pixel;}
 
   inline sRGBfloat GetPixelImage(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return imageFloat[x + y * width]; else return BlackFloat();}
   inline sRGB16 GetPixelImage16(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return image16[x + y * width]; else return Black16();}
 	inline sRGB8 GetPixelImage8(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return image8[x + y * width]; else return Black8();}
-  inline short int GetPixelAlpha(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return alphaBuffer[x + y * width]; else return 0;}
+	inline short int GetPixelAlpha(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return alphaBuffer16[x + y * width]; else return 0;}
+	inline unsigned char GetPixelAlpha8(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return alphaBuffer8[x + y * width]; else return 0;}
   inline short int GetPixelOpacity(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return opacityBuffer[x + y * width]; else return 0;}
   inline sRGB8 GetPixelColor(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return colourBuffer[x + y * width]; else return Black8();}
   inline float GetPixelZBuffer(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return zBuffer[x + y * width]; else return 1e20;}
 
   sRGB16* GetImage16Ptr(void) {return image16;}
 	sRGB8* GetImage8Ptr(void) {return image8;}
-  unsigned short* GetAlphaBufPtr(void) {return alphaBuffer;}
-  float* GetZBufferPtr(void) {return zBuffer;}
+	unsigned short* GetAlphaBufPtr(void) {return alphaBuffer16;}
+	unsigned char* GetAlphaBufPtr8(void) {return alphaBuffer8;}
+	float* GetZBufferPtr(void) {return zBuffer;}
   sRGB8* GetColorPtr(void) {return colourBuffer;}
   unsigned short* GetOpacityPtr(void) {return opacityBuffer;}
   size_t GetZBufferSize(void) {return sizeof(float) * height * width;}
@@ -99,6 +101,7 @@ public:
   sImageAdjustments* GetImageAdjustments(void) {return &adj;}
 
   unsigned char* ConvertTo8bit(void);
+	unsigned char* ConvertAlphaTo8bit(void);
   unsigned char* CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
   void UpdatePreview(QList<int> *list = NULL);
   unsigned char* GetPreviewPtr(void);
@@ -128,7 +131,8 @@ private:
 	sRGB16 *image16;
 	sRGBfloat *imageFloat;
 
-	unsigned short *alphaBuffer;
+	unsigned char *alphaBuffer8;
+	unsigned short *alphaBuffer16;
 	unsigned short *opacityBuffer;
 	sRGB8 *colourBuffer;
 	float *zBuffer;

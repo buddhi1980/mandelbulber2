@@ -40,7 +40,8 @@ cImage::cImage(int w, int h, bool low_mem)
 	image8 = NULL;
 	image16 = NULL;
 	imageFloat = NULL;
-	alphaBuffer = NULL;
+	alphaBuffer8 = NULL;
+	alphaBuffer16 = NULL;
 	opacityBuffer = NULL;
 	colourBuffer = NULL;
 	zBuffer = NULL;
@@ -67,8 +68,10 @@ cImage::~cImage()
 	image16 = NULL;
 	if(image8) delete[] image8;
 	image8 = NULL;
-	if(alphaBuffer) delete[] alphaBuffer;
-	alphaBuffer = NULL;
+	if(alphaBuffer8) delete[] alphaBuffer8;
+	alphaBuffer8 = NULL;
+	if(alphaBuffer16) delete[] alphaBuffer16;
+	alphaBuffer16 = NULL;
 	if(opacityBuffer) delete[] opacityBuffer;
 	opacityBuffer = NULL;
 	if(colourBuffer) delete[] colourBuffer;
@@ -96,7 +99,8 @@ bool cImage::AllocMem(void)
 			image16 = new sRGB16[width * height];
 			image8 = new sRGB8[width * height];
 			zBuffer = new float[width * height];
-			alphaBuffer = new unsigned short[width * height];
+			alphaBuffer8 = new unsigned char[width * height];
+			alphaBuffer16 = new unsigned short[width * height];
 			opacityBuffer = new unsigned short[width * height];
 			colourBuffer = new sRGB8[width * height];
 			ClearImage();
@@ -134,8 +138,10 @@ bool cImage::ChangeSize(int w, int h)
 		image16 = NULL;
 		if (image8) delete[] image8;
 		image8 = NULL;
-		if (alphaBuffer) delete[] alphaBuffer;
-		alphaBuffer = NULL;
+		if (alphaBuffer8) delete[] alphaBuffer8;
+		alphaBuffer8 = NULL;
+		if (alphaBuffer16) delete[] alphaBuffer16;
+		alphaBuffer16 = NULL;
 		if (opacityBuffer) delete[] opacityBuffer;
 		opacityBuffer = NULL;
 		if (colourBuffer) delete[] colourBuffer;
@@ -154,7 +160,8 @@ void cImage::ClearImage(void)
 	memset(imageFloat, 0, (unsigned long int)sizeof(sRGBfloat) * width * height);
 	memset(image16, 0, (unsigned long int)sizeof(sRGB16) * width * height);
 	memset(image8, 0, (unsigned long int)sizeof(sRGB8) * width * height);
-	memset(alphaBuffer, 0, (unsigned long int)sizeof(unsigned short) * width * height);
+	memset(alphaBuffer8, 0, (unsigned long int)sizeof(unsigned char) * width * height);
+	memset(alphaBuffer16, 0, (unsigned long int)sizeof(unsigned short) * width * height);
 	memset(opacityBuffer, 0, (unsigned long int)sizeof(unsigned short) * width * height);
 	memset(colourBuffer, 0, (unsigned long int)sizeof(sRGB8) * width * height);
 
@@ -239,13 +246,14 @@ int cImage::GetUsedMB(void)
 	long int mb = 0;
 
 	long int zBufferSize = (long int) width * height * sizeof(float);
-	long int alphaSize = (long int) width * height * sizeof(unsigned short);
+	long int alphaSize16 = (long int) width * height * sizeof(unsigned short);
+	long int alphaSize8 = (long int) width * height * sizeof(unsigned char);
 	long int imageFloatSize = (long int) width * height * sizeof(sRGBfloat);
 	long int image16Size = (long int) width * height * sizeof(sRGB16);
 	long int image8Size = (long int) width * height * sizeof(sRGB8);
 	long int colorSize = (long int) width * height * sizeof(sRGB8);
 	long int opacitySize = (long int) width * height * sizeof(unsigned short);
-	mb = (long int) (zBufferSize + alphaSize + image16Size + image8Size + imageFloatSize + colorSize + opacitySize) / 1024 / 1024;
+	mb = (long int) (zBufferSize + alphaSize16 + alphaSize8 + image16Size + image8Size + imageFloatSize + colorSize + opacitySize) / 1024 / 1024;
 
 	return mb;
 }
@@ -267,6 +275,17 @@ unsigned char* cImage::ConvertTo8bit(void)
 	unsigned char* ptr = (unsigned char*) image8;
 	return ptr;
 }
+
+unsigned char* cImage::ConvertAlphaTo8bit(void)
+{
+	for (long int i = 0; i < width * height; i++)
+	{
+		alphaBuffer8[i] = alphaBuffer16[i] / 256;
+	}
+	unsigned char* ptr = (unsigned char*) alphaBuffer8;
+	return ptr;
+}
+
 
 sRGB8 cImage::Interpolation(float x, float y)
 {
@@ -459,7 +478,7 @@ void cImage::Squares(int y, int pFactor)
 		sRGBfloat pixelTemp = imageFloat[x + y * width];
 		float zBufferTemp = zBuffer[x + y * width];
 		sRGB8 colourTemp = colourBuffer[x + y * width];
-		unsigned short alphaTemp = alphaBuffer[x + y * width];
+		unsigned short alphaTemp = alphaBuffer16[x + y * width];
 		unsigned short opacityTemp = opacityBuffer[x + y * width];
 
 		for (int yy = 0; yy < pFactor; yy++)
@@ -470,7 +489,7 @@ void cImage::Squares(int y, int pFactor)
 				imageFloat[x + xx + (y + yy) * width] = pixelTemp;
 				zBuffer[x + xx + (y + yy) * width] = zBufferTemp;
 				colourBuffer[x + xx + (y + yy) * width] = colourTemp;
-				alphaBuffer[x + xx + (y + yy) * width] = alphaTemp;
+				alphaBuffer16[x + xx + (y + yy) * width] = alphaTemp;
 				opacityBuffer[x + xx + (y + yy) * width] = opacityTemp;
 			}
 		}

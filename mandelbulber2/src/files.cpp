@@ -525,25 +525,40 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 
 	bool directOnBuffer = false;
 	if(imageChannel.contentType == IMAGE_CONTENT_COLOR && !appendAlpha) directOnBuffer = true;
+	if(imageChannel.contentType == IMAGE_CONTENT_ALPHA) directOnBuffer = true;
 
 	if(directOnBuffer)
 	{
+		switch(imageChannel.contentType){
+			case IMAGE_CONTENT_COLOR:
+			{
+				if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+				{
+					colorPtr = (char*) image->GetImage16Ptr();
+				}
+				else
+				{
+					colorPtr = (char*) image->ConvertTo8bit();
+				}
+			}
+			break;
+			case IMAGE_CONTENT_ALPHA:
+			{
+				if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+				{
+					colorPtr = (char*) image->GetAlphaBufPtr();
+				}
+				else
+				{
+					colorPtr = (char*) image->ConvertAlphaTo8bit();
+				}
+			}
+			break;
+		}
+
 		for (int y = 0; y < height; y++)
 		{
-			switch(imageChannel.contentType){
-				case IMAGE_CONTENT_COLOR:
-				{
-					if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
-					{
-						row_pointers[y] = (png_byte*) &image->GetImage16Ptr()[y * width * 3];
-					}
-					else
-					{
-						row_pointers[y] = (png_byte*) &image->GetImage8Ptr()[y * width * 3];
-					}
-				}
-				break;
-			}
+			row_pointers[y] = (png_byte*) &colorPtr[y * width * pixelSize];
 		}
 	}
 	else
@@ -562,37 +577,24 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 						{
 							if(appendAlpha)
 							{
-								sRGB16 pixel = image->GetPixelImage16(x, y);
-								colorPtr[ptr] = pixel.R;
-								colorPtr[ptr+1*pixelSize] = pixel.G;
-								colorPtr[ptr+2*pixelSize] = pixel.B;
-								colorPtr[ptr+3*pixelSize] = image->GetPixelAlpha(x, y);
+								sRGBA16* typedColorPtr = (sRGBA16*) &colorPtr[ptr];
+								*typedColorPtr = sRGBA16(image->GetPixelImage16(x, y));
+								typedColorPtr->A = image->GetPixelAlpha(x, y);
 							}
 						}
 						else
 						{
 							if(appendAlpha)
 							{
-								sRGB8 pixel = image->GetPixelImage8(x, y);
-								colorPtr[ptr] = pixel.R;
-								colorPtr[ptr+1*pixelSize] = pixel.G;
-								colorPtr[ptr+2*pixelSize] = pixel.B;
-								colorPtr[ptr+3*pixelSize] = (char)image->GetPixelAlpha(x, y) / 256;
+								if( x == 0 && y == 0)
+								{
+									image->ConvertAlphaTo8bit();
+									image->ConvertTo8bit();
+								}
+								sRGBA8* typedColorPtr = (sRGBA8*) &colorPtr[ptr];
+								*typedColorPtr = sRGBA8(image->GetPixelImage8(x, y));
+								typedColorPtr->A = image->GetPixelAlpha8(x, y);
 							}
-						}
-					}
-					break;
-					case IMAGE_CONTENT_ALPHA:
-					{
-						short pixel = image->GetPixelAlpha(x, y);
-						if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
-						{
-							char pixel8 = pixel / 256;
-							colorPtr[ptr] = pixel8;
-						}
-						else
-						{
-							colorPtr[ptr] = pixel;
 						}
 					}
 					break;
@@ -602,7 +604,7 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 					}
 				}
 			}
-			row_pointers[y] = (png_byte*) &colorPtr[y * width];
+			row_pointers[y] = (png_byte*) &colorPtr[y * width * pixelSize];
 		}
 	}
 
@@ -619,7 +621,7 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 	}
 
 	delete[] row_pointers;
-	if(colorPtr) delete[] colorPtr;
+	// if(colorPtr) delete[] colorPtr;
 
 	fclose(fp);
 }
@@ -1040,7 +1042,6 @@ void SaveImage(QString filename, enumImageFileType filetype, cImage *image)
 
 void SaveImage(QString filename, enumImageFileType filetype, cImage *image, QMap<enumImageContentType, structSaveImageChannel> imageConfig)
 {
-	image->ConvertTo8bit();
 	switch(filetype){
 		case IMAGE_FILE_TYPE_JPG:
 		{
@@ -1055,13 +1056,16 @@ void SaveImage(QString filename, enumImageFileType filetype, cImage *image, QMap
 
 		case IMAGE_FILE_TYPE_PNG:
 		{
+			bool appendAlpha = gPar->Get<bool>("append_alpha_png")
+					&& imageConfig.contains(IMAGE_CONTENT_COLOR)
+					&& imageConfig.contains(IMAGE_CONTENT_ALPHA);
+
 			if(imageConfig.contains(IMAGE_CONTENT_COLOR))
 			{
 				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_COLOR].postfix + ".png";
-				bool appendAlpha = imageConfig.contains(IMAGE_CONTENT_ALPHA) &&  gPar->Get<bool>("append_alpha_png");
 				SavePNG(fullFilename, image, imageConfig[IMAGE_CONTENT_COLOR], appendAlpha);
 			}
-			if(imageConfig.contains(IMAGE_CONTENT_ALPHA) && !(gPar->Get<bool>("append_alpha_png") && imageConfig.contains(IMAGE_CONTENT_COLOR)))
+			if(imageConfig.contains(IMAGE_CONTENT_ALPHA) && !appendAlpha)
 			{
 				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ALPHA].postfix + ".png";
 				SavePNG(fullFilename, image, imageConfig[IMAGE_CONTENT_ALPHA]);

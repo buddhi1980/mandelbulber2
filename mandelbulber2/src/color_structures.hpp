@@ -35,8 +35,10 @@ template <typename T>
 struct tsRGBA
 {
 		T R, G, B, A;
+
 		tsRGBA(T r, T g, T b, T a) : R(r), G(g), B(b), A(a) {}
 		tsRGBA() {R = 0; G = 0; B = 0; A = 0;}
+		tsRGBA(tsRGB<T> rgb) : R(rgb.R), G(rgb.G), B(rgb.B), A(0) {}
 };
 
 // explicitly define contructor for rgba with regards to max value of Opacity
