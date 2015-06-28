@@ -11,9 +11,10 @@ qtHaveModule(gamepad){
     DEFINES += USE_GAMEPAD
 }
 
-exists( /usr/include/OpenEXR ) {
-	INCLUDEPATH += "/usr/include/OpenEXR"
-	QMAKE_CXXFLAGS += -lIlmImf
+CONFIG += link_pkgconfig
+packagesExist(IlmBase)
+{
+	PKGCONFIG += IlmBase
 	LIBS += -lIlmImf -lHalf
 	DEFINES += USE_EXR
 }
