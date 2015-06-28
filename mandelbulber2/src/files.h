@@ -97,6 +97,7 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size);
 std::string removeFileExtension(const std::string &filename);
 void SaveMainImage(QString filename, enumImageType imageType);
 bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality);
+bool SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width, int height, int quality);
 void SaveZBuffer(QString filename, cImage *image);
 void SaveZBuffer(QString filename, cImage *image, float minZ, float maxZ);
 
@@ -107,3 +108,4 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 #endif /* USE_EXR */
 
 #endif /* FILES_H_ */
+

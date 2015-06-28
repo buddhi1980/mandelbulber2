@@ -969,6 +969,30 @@ bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, i
 	return result;
 }
 
+bool SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width, int height, int quality)
+{
+	QImage *qimage = new QImage(width, height, QImage::Format_Grayscale8);
+
+	for(int line = 0; line < height; line++)
+	{
+		unsigned char *linePointer = &image[line * width];
+		unsigned char *qScanLine = qimage->scanLine(line);
+		memcpy(qScanLine, linePointer, sizeof(unsigned char) * width);
+	}
+
+	QFile file(filename);
+	file.open(QIODevice::WriteOnly);
+	bool result = qimage->save(&file, "JPEG", quality);
+	if (!result)
+	{
+		cErrorMessage::showMessage(QObject::tr("Can't save image to JPEG file!\n") + filename + "\n" + file.errorString(), cErrorMessage::errorMessage);
+	}
+	file.close();
+	delete qimage;
+	return result;
+}
+
+
 #ifdef USE_EXR
 void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structSaveImageChannel> imageConfig)
 {
@@ -983,30 +1007,50 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 
 	if(imageConfig.contains(IMAGE_CONTENT_COLOR))
 	{
+		Imf::PixelType imfQuality =
+				imageConfig[IMAGE_CONTENT_COLOR].channelQuality == IMAGE_CHANNEL_QUALITY_32 ?
+				Imf::FLOAT : Imf::HALF;
+
 		// add rgb channel header
-		header.channels().insert("R", Imf::Channel(Imf::FLOAT));
-		header.channels().insert("G", Imf::Channel(Imf::FLOAT));
-		header.channels().insert("B", Imf::Channel(Imf::FLOAT));
+		header.channels().insert("R", Imf::Channel(imfQuality));
+		header.channels().insert("G", Imf::Channel(imfQuality));
+		header.channels().insert("B", Imf::Channel(imfQuality));
 
-		sRGBfloat *imageFloat = new sRGBfloat[(unsigned long int)width * height];
-
+		int pixelSize = sizeof(tsRGB<half>);
+		if(imfQuality == Imf::FLOAT) pixelSize *= 2;
+		char* colorPtr = new char[(unsigned long int)width * height * pixelSize];
 		for (int y = 0; y < height; y++)
 		{
 			for (int x = 0; x < width; x++)
 			{
-				unsigned long int ptr = x+y*width;
-				sRGB16 pixel = image->GetPixelImage16(x, y);
-				imageFloat[ptr].R = 1.0 * pixel.R / 65536;
-				imageFloat[ptr].G = 1.0 * pixel.G / 65536;
-				imageFloat[ptr].B = 1.0 * pixel.B / 65536;
+				unsigned long int ptr = (x + y * width) * pixelSize;
+				if(imfQuality == Imf::FLOAT)
+				{
+					sRGBfloat* typedColorPtr = (sRGBfloat*) &colorPtr[ptr];
+					sRGB16 pixel = image->GetPixelImage16(x, y);
+					typedColorPtr->R = (1.0 / 65536.0) * pixel.R;
+					typedColorPtr->G = (1.0 / 65536.0) * pixel.G;
+					typedColorPtr->B = (1.0 / 65536.0) * pixel.B;
+				}
+				else
+				{
+					tsRGB<half>* typedColorPtr = (tsRGB<half>*) &colorPtr[ptr];
+					sRGB16 pixel = image->GetPixelImage16(x, y);
+					// FIXME: this does not work, but gives strange error:
+					// :-1: Fehler: files.o: undefined reference to symbol '_ZN4half5_eLutE'
+					// /usr/lib/x86_64-linux-gnu/libHalf.so.6:-1: Fehler: error adding symbols: DSO missing from command line
+					// typedColorPtr->R = (1.0 / 65536.0) * pixel.R;
+					// typedColorPtr->G = (1.0 / 65536.0) * pixel.G;
+					// typedColorPtr->B = (1.0 / 65536.0) * pixel.B;
+				}
 			}
 		}
 
 		// point EXR frame buffer to rgb
-		size_t compSize = sizeof(Imf::FLOAT);
-		frameBuffer.insert("R", Imf::Slice(Imf::FLOAT, (char *)imageFloat + 0 * compSize, 3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("G", Imf::Slice(Imf::FLOAT, (char *)imageFloat + 1 * compSize, 3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("B", Imf::Slice(Imf::FLOAT, (char *)imageFloat + 2 * compSize, 3 * compSize, 3 * width * compSize));
+		size_t compSize = sizeof(imfQuality);
+		frameBuffer.insert("R", Imf::Slice(imfQuality, (char *)colorPtr + 0 * compSize, 3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("G", Imf::Slice(imfQuality, (char *)colorPtr + 1 * compSize, 3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("B", Imf::Slice(imfQuality, (char *)colorPtr + 2 * compSize, 3 * compSize, 3 * width * compSize));
 	}
 
 	if(imageConfig.contains(IMAGE_CONTENT_ALPHA))
@@ -1020,7 +1064,7 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 		{
 			for (int x = 0; x < width; x++)
 			{
-				unsigned long int ptr = x+y*width;
+				unsigned long int ptr = x + y * width;
 				alphaFloat[ptr] = 1.0 * image->GetPixelAlpha(x, y) / 256;
 			}
 		}
@@ -1075,7 +1119,15 @@ void SaveImage(QString filename, enumImageFileType filetype, cImage *image, QMap
 				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_COLOR].postfix + ".jpg";
 				SaveJPEGQt(fullFilename, image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(), gPar->Get<int>("jpeg_quality"));
 			}
-			// TODO other
+			if(imageConfig.contains(IMAGE_CONTENT_ALPHA))
+			{
+				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ALPHA].postfix + ".jpg";
+				SaveJPEGQtGreyscale(fullFilename, image->ConvertAlphaTo8bit(), image->GetWidth(), image->GetHeight(), gPar->Get<int>("jpeg_quality"));
+			}
+			if(imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
+			{
+				// TODO
+			}
 		}
 		break;
 
