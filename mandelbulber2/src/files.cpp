@@ -483,6 +483,12 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 		return;
 	}
 
+	if(imageChannel.channelQuality != IMAGE_CHANNEL_QUALITY_8 && imageChannel.channelQuality != IMAGE_CHANNEL_QUALITY_16)
+	{
+		// for PNG no more than 16 bit per channel possible
+		imageChannel.channelQuality = IMAGE_CHANNEL_QUALITY_16;
+	}
+
 	int qualitySize;
 	switch(imageChannel.channelQuality){
 		case IMAGE_CHANNEL_QUALITY_8: qualitySize = 8; break;
@@ -554,6 +560,11 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 				}
 			}
 			break;
+			case IMAGE_CONTENT_ZBUFFER:
+			{
+				// zbuffer is float, so direct buffer write is not applicable
+			}
+			break;
 		}
 
 		for (int y = 0; y < height; y++)
@@ -598,10 +609,24 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 						}
 					}
 					break;
+					case IMAGE_CONTENT_ALPHA:
+						// all alpha savings to PNG happen directly on buffers in cimage
+					break;
 					case IMAGE_CONTENT_ZBUFFER:
 					{
-						// TODO
+						// TODO: map between min and max and normalize zBuffer logarithmically
+						if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+						{
+							unsigned short* typedColorPtr = (unsigned short*) &colorPtr[ptr];
+							*typedColorPtr = (unsigned short)(65536 * image->GetPixelZBuffer(x, y));
+						}
+						else
+						{
+							unsigned char* typedColorPtr = (unsigned char*) &colorPtr[ptr];
+							*typedColorPtr = (unsigned char)(256 * image->GetPixelZBuffer(x, y));
+						}
 					}
+					break;
 				}
 			}
 			row_pointers[y] = (png_byte*) &colorPtr[y * width * pixelSize];
@@ -621,7 +646,7 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 	}
 
 	delete[] row_pointers;
-	// if(colorPtr) delete[] colorPtr;
+	if(colorPtr) delete[] colorPtr;
 
 	fclose(fp);
 }
