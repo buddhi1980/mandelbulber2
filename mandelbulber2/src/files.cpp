@@ -1039,9 +1039,6 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 				{
 					tsRGB<half>* typedColorPtr = (tsRGB<half>*) &colorPtr[ptr];
 					sRGB16 pixel = image->GetPixelImage16(x, y);
-					// FIXME: this does not work, but gives strange error:
-					// :-1: Fehler: files.o: undefined reference to symbol '_ZN4half5_eLutE'
-					// /usr/lib/x86_64-linux-gnu/libHalf.so.6:-1: Fehler: error adding symbols: DSO missing from command line
 					typedColorPtr->R = (1.0 / 65536.0) * pixel.R;
 					typedColorPtr->G = (1.0 / 65536.0) * pixel.G;
 					typedColorPtr->B = (1.0 / 65536.0) * pixel.B;
@@ -1050,7 +1047,7 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 		}
 
 		// point EXR frame buffer to rgb
-		size_t compSize = sizeof(imfQuality);
+		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
 		frameBuffer.insert("R", Imf::Slice(imfQuality, (char *)colorPtr + 0 * compSize, 3 * compSize, 3 * width * compSize));
 		frameBuffer.insert("G", Imf::Slice(imfQuality, (char *)colorPtr + 1 * compSize, 3 * compSize, 3 * width * compSize));
 		frameBuffer.insert("B", Imf::Slice(imfQuality, (char *)colorPtr + 2 * compSize, 3 * compSize, 3 * width * compSize));
