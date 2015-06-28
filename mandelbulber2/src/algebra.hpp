@@ -177,6 +177,18 @@ public:
 	double z;
 };
 
+inline CVector3 operator*(double scalar, CVector3 vector)
+{
+	return CVector3(vector.x * scalar, vector.y * scalar, vector.z * scalar);
+}
+
+inline CVector3 operator/(double scalar, CVector3 vector)
+{
+	return CVector3(vector.x / scalar, vector.y / scalar, vector.z / scalar);
+}
+
+/************************* vector 2D **********************/
+
 template <typename T>
 class CVector2
 {
@@ -257,6 +269,19 @@ public:
 	T x;
 	T y;
 };
+
+template <typename T>
+inline CVector2<T> operator*(T scalar, CVector2<T> vector)
+{
+	return CVector2<T>(vector.x * scalar, vector.y * scalar);
+}
+
+template <typename T>
+inline CVector2<T> operator/(T scalar, CVector2<T> vector)
+{
+	return CVector2<T>(vector.x / scalar, vector.y / scalar);
+}
+
 
 /************************* matrix 3x3 (fast) *****************/
 class CMatrix33
