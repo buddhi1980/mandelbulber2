@@ -971,7 +971,10 @@ bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, i
 
 bool SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width, int height, int quality)
 {
-	QImage *qimage = new QImage(width, height, QImage::Format_Grayscale8);
+	QImage *qimage = new QImage(width, height, QImage::Format_Indexed8);
+	QVector<QRgb> my_table;
+	for(int i = 0; i < 256; i++) my_table.push_back(qRgb(i,i,i));
+	qimage->setColorTable(my_table);
 
 	for(int line = 0; line < height; line++)
 	{
