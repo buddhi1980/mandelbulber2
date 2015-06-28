@@ -14,7 +14,7 @@ qtHaveModule(gamepad){
 exists( /usr/include/OpenEXR ) {
 	INCLUDEPATH += "/usr/include/OpenEXR"
 	QMAKE_CXXFLAGS += -lIlmImf
-	LIBS += -lIlmImf
+	LIBS += -lIlmImf -lHalf
 	DEFINES += USE_EXR
 }
 
