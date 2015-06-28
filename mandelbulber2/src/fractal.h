@@ -166,23 +166,51 @@ struct sMsltoeSym2
 
 struct sFractalMandelbulb5
 {
-	bool absPreaddEnabled;
-	int absPreaddIterations;
-	CVector3 absPreadd;
-	CVector3 preadd;
-	double power;
-	double alphaAngleOffset;
-	double betaAngleOffset;
-	CVector3 juliaAddConstant;
-	bool boxFoldEnabled;
-	int boxFoldIterations;
-	double foldingLimit;
-	double foldingValue;
-	bool mainRotationEnabled;
-	int mainRotationIterations;
-	CVector3 rotationMain;
-	CRotationMatrix mainRot;
+    bool boxFold1Enabled;
+    int boxFold1StartIterations;
+    int boxFold1StopIterations;
+    double boxFold1FoldingLimit;
+    double boxFold1FoldingValue;
+    bool absAdditionConstant1Enabled;
+    bool absAdditionConstant1Enabledx;
+    bool absAdditionConstant1Enabledy;
+    bool absAdditionConstant1Enabledz;
+    int absAdditionConstant1StartIterations;
+    int absAdditionConstant1StopIterations;
+    CVector3 absAdditionConstant1;
+    bool additionConstant1Enabled;
+    int additionConstant1StartIterations;
+    int additionConstant1StopIterations;
+    CVector3 additionConstant1;
+    bool mainFormula1Enabled;
+    int mainFormula1StartIterations;
+    int mainFormula1StopIterations;
+    double power;
+    double alphaAngleOffset;
+    double betaAngleOffset;
+    bool constantMultiplierEnabled;
+    int constantMultiplierStartIterations;
+    int constantMultiplierStopIterations;
+    CVector3 constantMultiplierVect;
+    bool additionConstant2Enabled;
+    int additionConstant2StartIterations;
+    int additionConstant2StopIterations;
+    CVector3 additionConstant2;
+    bool boxFold2Enabled;
+    int boxFold2StartIterations;
+    int boxFold2StopIterations;
+    double boxFold2FoldingLimit;
+    double boxFold2FoldingValue;
+    CVector3 temp;
+    int weight;
+    bool mainRotation1Enabled;
+    int mainRotation1StartIterations;
+    int mainRotation1StopIterations;
+    CVector3 mainRotation1;
+    CRotationMatrix mainRot;
 };
+
+
 
 class cFractal
 {

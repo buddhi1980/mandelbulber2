@@ -680,48 +680,72 @@ void MsltoeSym2(CVector3 &z, const cFractal *fractal)
 
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sMandelbulbAux &aux)
 {
-	if (fractal->mandelbulb5.absPreaddEnabled && i >= fractal->mandelbulb5.absPreaddIterations)
-	{
-		z = z + fractal->mandelbulb5.absPreadd;
-		z.x = fabs(z.x);
-		z.y = fabs(z.y);
-		z.z = fabs(z.z);
-	}
-
-	z += fractal->mandelbulb5.preadd;
-
-	double th0 = asin(z.z / aux.r) + fractal->mandelbulb5.betaAngleOffset;
-	double ph0 = atan2(z.y, z.x) + fractal->mandelbulb5.alphaAngleOffset;
-	double rp = pow(aux.r, fractal->mandelbulb5.power - 1.0);
-	double th = th0 * fractal->mandelbulb5.power;
-	double ph = ph0 * fractal->mandelbulb5.power;
-	double cth = cos(th);
-
-	aux.r_dz = rp * aux.r_dz * fractal->mandelbulb5.power + 1.0;
-	rp *= aux.r;
-	z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
-
-	//z += c * fractal->mandelbulb5.constantMultiplierVect;
-
-	z += fractal->mandelbulb5.juliaAddConstant;
-
-	if (fractal->mandelbulb5.boxFoldEnabled && i >= fractal->mandelbulb5.boxFoldIterations)
-	{
-		if (z.x > fractal->mandelbulb5.foldingLimit) z.x = fractal->mandelbulb5.foldingValue - z.x;
-		else if (z.x < -fractal->mandelbulb5.foldingLimit) z.x = -fractal->mandelbulb5.foldingValue - z.x;
-
-		if (z.y > fractal->mandelbulb5.foldingLimit) z.y = fractal->mandelbulb5.foldingValue - z.y;
-		else if (z.y < -fractal->mandelbulb5.foldingLimit) z.y = -fractal->mandelbulb5.foldingValue - z.y;
-
-		if (z.z > fractal->mandelbulb5.foldingLimit) z.z = fractal->mandelbulb5.foldingValue - z.z;
-		else if (z.z < -fractal->mandelbulb5.foldingLimit) z.z = -fractal->mandelbulb5.foldingValue - z.z;
-	}
-
-	if (fractal->mandelbulb5.mainRotationEnabled && i >= fractal->mandelbulb5.mainRotationIterations)
-	{
-		z = fractal->mandelbulb5.mainRot.RotateVector(z);
-	}
+    if (fractal->mandelbulb5.boxFold1Enabled && i >= fractal->mandelbulb5.boxFold1StartIterations && i < fractal->mandelbulb5.boxFold1StopIterations)
+    {
+        if (z.x > fractal->mandelbulb5.boxFold1FoldingLimit) z.x = fractal->mandelbulb5.boxFold1FoldingValue - z.x;
+        else if (z.x < -fractal->mandelbulb5.boxFold1FoldingLimit) z.x = -fractal->mandelbulb5.boxFold1FoldingValue - z.x;
+        if (z.y > fractal->mandelbulb5.boxFold1FoldingLimit) z.y = fractal->mandelbulb5.boxFold1FoldingValue - z.y;
+        else if (z.y < -fractal->mandelbulb5.boxFold1FoldingLimit) z.y = -fractal->mandelbulb5.boxFold1FoldingValue - z.y;
+        if (z.z > fractal->mandelbulb5.boxFold1FoldingLimit) z.z = fractal->mandelbulb5.boxFold1FoldingValue - z.z;
+        else if (z.z < -fractal->mandelbulb5.boxFold1FoldingLimit) z.z = -fractal->mandelbulb5.boxFold1FoldingValue - z.z;
+    }
+    if (fractal->mandelbulb5.absAdditionConstant1Enabled && i >= fractal->mandelbulb5.absAdditionConstant1StartIterations && i < fractal->mandelbulb5.absAdditionConstant1StopIterations)
+        {
+        z+= fractal->mandelbulb5.absAdditionConstant1;
+        if (fractal->mandelbulb5.absAdditionConstant1Enabledx)
+        {
+                z.x = fabs(z.x);
+        }
+        if (fractal->mandelbulb5.absAdditionConstant1Enabledy)
+        {
+                z.y = fabs(z.y);
+        }
+        if (fractal->mandelbulb5.absAdditionConstant1Enabledz)
+        {
+                z.z = fabs(z.z);
+        }
+        }
+    if (fractal->mandelbulb5.additionConstant1Enabled && i >= fractal->mandelbulb5.additionConstant1StartIterations && i < fractal->mandelbulb5.additionConstant1StopIterations)
+    {
+    z += fractal->mandelbulb5.additionConstant1;
+    }
+    if (fractal->mandelbulb5.mainFormula1Enabled && i >= fractal->mandelbulb5.mainFormula1StartIterations && i < fractal->mandelbulb5.mainFormula1StopIterations)
+    {
+        double th0 = asin(z.z / aux.r) + fractal->mandelbulb5.betaAngleOffset;
+        double ph0 = atan2(z.y, z.x) + fractal->mandelbulb5.alphaAngleOffset;
+        double rp = pow(aux.r, fractal->mandelbulb5.power - 1.0);
+        double th = th0 * fractal->mandelbulb5.power;
+        double ph = ph0 * fractal->mandelbulb5.power;
+        double cth = cos(th);
+        aux.r_dz = rp * aux.r_dz * fractal->mandelbulb5.power + 1.0;
+        rp *= aux.r;
+        z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
+    }
+    if (fractal->mandelbulb5.mainRotation1Enabled && i >= fractal->mandelbulb5.mainRotation1StartIterations && i < fractal->mandelbulb5.mainRotation1StopIterations)
+    {
+        z = fractal->mandelbulb5.mainRot.RotateVector(z);
+    }
+    if (fractal->mandelbulb5.constantMultiplierEnabled && i >= fractal->mandelbulb5.constantMultiplierStartIterations && i < fractal->mandelbulb5.constantMultiplierStopIterations)
+    {
+    z += c * fractal->mandelbulb5.constantMultiplierVect;
+    }
+    if (fractal->mandelbulb5.additionConstant2Enabled && i >= fractal->mandelbulb5.additionConstant2StartIterations && i < fractal->mandelbulb5.additionConstant2StopIterations)
+    {
+    z += fractal->mandelbulb5.additionConstant2;
+    }
+  //fractal->mandelbulb5.temp = z;
+    if (fractal->mandelbulb5.boxFold2Enabled && i >= fractal->mandelbulb5.boxFold2StartIterations && i < fractal->mandelbulb5.boxFold2StopIterations)
+        {
+        if (z.x > fractal->mandelbulb5.boxFold2FoldingLimit) z.x = fractal->mandelbulb5.boxFold2FoldingValue - z.x;
+        else if (z.x < -fractal->mandelbulb5.boxFold2FoldingLimit) z.x = -fractal->mandelbulb5.boxFold2FoldingValue - z.x;
+        if (z.y > fractal->mandelbulb5.boxFold2FoldingLimit) z.y = fractal->mandelbulb5.boxFold2FoldingValue - z.y;
+        else if (z.y < -fractal->mandelbulb5.boxFold2FoldingLimit) z.y = -fractal->mandelbulb5.boxFold2FoldingValue - z.y;
+        if (z.z > fractal->mandelbulb5.boxFold2FoldingLimit) z.z = fractal->mandelbulb5.boxFold2FoldingValue - z.z;
+        else if (z.z < -fractal->mandelbulb5.boxFold2FoldingLimit) z.z = -fractal->mandelbulb5.boxFold2FoldingValue - z.z;
+    }
+   // z = fractal->mandelbulb5.temp + ((z - fractal->mandelbulb5.temp)  * (fractal-> mandelbulb5.weight/100));
 }
+
 
 
 /* GeneralizedFoldBox, ref: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/ */
