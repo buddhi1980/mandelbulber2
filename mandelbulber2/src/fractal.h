@@ -201,8 +201,7 @@ struct sFractalMandelbulb5
     int boxFold2StopIterations;
     double boxFold2FoldingLimit;
     double boxFold2FoldingValue;
-    CVector3 temp;
-    int weight;
+    double weight;
     bool mainRotation1Enabled;
     int mainRotation1StartIterations;
     int mainRotation1StopIterations;
