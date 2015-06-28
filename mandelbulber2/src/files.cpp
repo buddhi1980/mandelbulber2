@@ -998,8 +998,7 @@ bool SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width, int 
 
 #ifdef USE_EXR
 void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structSaveImageChannel> imageConfig)
-{
-	// TODO different qualities
+{	
 	int width = image->GetWidth();
 	int height = image->GetHeight();
 
@@ -1010,11 +1009,11 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 
 	if(imageConfig.contains(IMAGE_CONTENT_COLOR))
 	{
+		// add rgb channel header
 		Imf::PixelType imfQuality =
 				imageConfig[IMAGE_CONTENT_COLOR].channelQuality == IMAGE_CHANNEL_QUALITY_32 ?
 				Imf::FLOAT : Imf::HALF;
 
-		// add rgb channel header
 		header.channels().insert("R", Imf::Channel(imfQuality));
 		header.channels().insert("G", Imf::Channel(imfQuality));
 		header.channels().insert("B", Imf::Channel(imfQuality));
@@ -1056,31 +1055,72 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 	if(imageConfig.contains(IMAGE_CONTENT_ALPHA))
 	{
 		// add alpha channel header
-		header.channels().insert("A", Imf::Channel(Imf::FLOAT));
+		Imf::PixelType imfQuality =
+				imageConfig[IMAGE_CONTENT_COLOR].channelQuality == IMAGE_CHANNEL_QUALITY_32 ?
+				Imf::FLOAT : Imf::HALF;
 
-		float *alphaFloat = new float[(unsigned long int)width * height];
+		header.channels().insert("A", Imf::Channel(imfQuality));
+
+		int pixelSize = sizeof(half);
+		if(imfQuality == Imf::FLOAT) pixelSize *= 2;
+		char* colorPtr = new char[(unsigned long int)width * height * pixelSize];
 
 		for (int y = 0; y < height; y++)
 		{
 			for (int x = 0; x < width; x++)
 			{
 				unsigned long int ptr = x + y * width;
-				alphaFloat[ptr] = 1.0 * image->GetPixelAlpha(x, y) / 256;
+
+				if(imfQuality == Imf::FLOAT)
+				{
+					float* typedColorPtr = (float*) &colorPtr[ptr];
+					*typedColorPtr = image->GetPixelAlpha(x, y) / 256.0;
+				}
+				else
+				{
+					half* typedColorPtr = (half*) &colorPtr[ptr];
+					*typedColorPtr = image->GetPixelAlpha(x, y) / 256.0;
+				}
 			}
 		}
-
 		// point EXR frame buffer to alpha
-		frameBuffer.insert("A", Imf::Slice(Imf::FLOAT, (char *)alphaFloat, sizeof(half), width * sizeof(half)));
+		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
+		frameBuffer.insert("A", Imf::Slice(imfQuality, (char *)colorPtr, compSize, width * compSize));
 	}
 
 	if(imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
 	{
 		// add z Buffer channel header
-		header.channels().insert("Z", Imf::Channel(Imf::FLOAT));
+		// add rgb channel header
+		Imf::PixelType imfQuality =
+				imageConfig[IMAGE_CONTENT_COLOR].channelQuality == IMAGE_CHANNEL_QUALITY_32 ?
+				Imf::FLOAT : Imf::HALF;
+
+		header.channels().insert("Z", Imf::Channel(imfQuality));
 
 		// point EXR frame buffer to z buffer
-		float* zBuffer = image->GetZBufferPtr();
-		frameBuffer.insert("Z", Imf::Slice(Imf::FLOAT, (char *)zBuffer, sizeof(half), width * sizeof(half)));
+		if(imfQuality == Imf::FLOAT)
+		{
+			// direct on buffer
+			float* zBuffer = image->GetZBufferPtr();
+			frameBuffer.insert("Z", Imf::Slice(Imf::FLOAT, (char *)zBuffer, sizeof(half), width * sizeof(half)));
+		}
+		else
+		{
+			int pixelSize = sizeof(half);
+			char* colorPtr = new char[(unsigned long int)width * height * pixelSize];
+
+			for (int y = 0; y < height; y++)
+			{
+				for (int x = 0; x < width; x++)
+				{
+					unsigned long int ptr = x + y * width;
+					half* typedColorPtr = (half*) &colorPtr[ptr];
+					*typedColorPtr = image->GetPixelZBuffer(x, y);
+				}
+			}
+			frameBuffer.insert("Z", Imf::Slice(imfQuality, (char *)colorPtr, sizeof(half), width * sizeof(half)));
+		}
 	}
 
 	Imf::OutputFile file(filename.toStdString().c_str(), header);
