@@ -1042,9 +1042,9 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 					// FIXME: this does not work, but gives strange error:
 					// :-1: Fehler: files.o: undefined reference to symbol '_ZN4half5_eLutE'
 					// /usr/lib/x86_64-linux-gnu/libHalf.so.6:-1: Fehler: error adding symbols: DSO missing from command line
-					// typedColorPtr->R = (1.0 / 65536.0) * pixel.R;
-					// typedColorPtr->G = (1.0 / 65536.0) * pixel.G;
-					// typedColorPtr->B = (1.0 / 65536.0) * pixel.B;
+					typedColorPtr->R = (1.0 / 65536.0) * pixel.R;
+					typedColorPtr->G = (1.0 / 65536.0) * pixel.G;
+					typedColorPtr->B = (1.0 / 65536.0) * pixel.B;
 				}
 			}
 		}
