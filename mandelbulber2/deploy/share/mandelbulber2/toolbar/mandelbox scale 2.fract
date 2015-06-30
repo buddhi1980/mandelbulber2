@@ -8,7 +8,7 @@ camera_rotation 29.99999999999996 -18.17962234301114 0;
 camera_top -0.1559985171788036 0.2701973576590945 0.9500830756055272;
 formula_1 8;
 target 0 0 -1.58057123480107;
-view_distance_max 37.95853865751351;
+view_distance_max 50.0;
 [fractal_1]
 [fractal_2]
 [fractal_3]

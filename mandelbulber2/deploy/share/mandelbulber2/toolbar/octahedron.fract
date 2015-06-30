@@ -7,7 +7,7 @@ camera_distance_to_target 2.3;
 camera_rotation 11.565 -9.999999999999989 0;
 camera_top -0.03481289900076248 0.1701227547102634 0.9848077530122081;
 formula_1 10;
-view_distance_max 3.468462503315997;
+view_distance_max 50.0;
 [fractal_1]
 IFS_abs_x true;
 IFS_abs_y true;

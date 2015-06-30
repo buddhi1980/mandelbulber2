@@ -4,7 +4,7 @@
 [main_parameters]
 camera 1.183596487396162 -2.367192974792324 0.7890643249307747;
 camera_distance_to_target 2.761725137257712;
-view_distance_max 3.73814242342185;
+view_distance_max 50.0;
 [fractal_1]
 [fractal_2]
 [fractal_3]
