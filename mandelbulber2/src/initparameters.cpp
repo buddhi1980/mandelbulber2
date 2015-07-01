@@ -463,7 +463,7 @@ par->addParam("mandelbulb5_mainFormula1_stop_iterations", 250, morphLinear, para
 par->addParam("mandelbulb5_power", 9.0, morphAkima, paramStandard);
 par->addParam("mandelbulb5_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 par->addParam("mandelbulb5_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
-par->addParam("mandelbulb5_constantMultiplier_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_constantMultiplier_enabled", true, morphLinear, paramStandard);
 par->addParam("mandelbulb5_constantMultiplier_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_constantMultiplier_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
@@ -482,6 +482,10 @@ par->addParam("mandelbulb5_main_rotation1_enabled", false, morphLinear, paramSta
 par->addParam("mandelbulb5_main_rotation1_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_main_rotation1_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_main_rotation1", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+par->addParam("mandelbulb5_main_rotation2_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation2_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation2_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation2", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 
 
 	WriteLog("Fractal parameters initialization finished");

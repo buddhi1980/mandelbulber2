@@ -206,7 +206,12 @@ struct sFractalMandelbulb5
     int mainRotation1StartIterations;
     int mainRotation1StopIterations;
     CVector3 mainRotation1;
-    CRotationMatrix mainRot;
+    CRotationMatrix mainRot1;
+    bool mainRotation2Enabled;
+    int mainRotation2StartIterations;
+    int mainRotation2StopIterations;
+    CVector3 mainRotation2;
+    CRotationMatrix mainRot2;
 };
 
 
