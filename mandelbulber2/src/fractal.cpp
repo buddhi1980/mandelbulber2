@@ -143,6 +143,10 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelbulb5.boxFold2FoldingLimit = container->Get<double>("mandelbulb5_box_fold2_folding_limit");
 	mandelbulb5.boxFold2FoldingValue = container->Get<double>("mandelbulb5_box_fold2_folding_value");
 	mandelbulb5.weight = container->Get<double>("mandelbulb5_weight");
+  mandelbulb5.mainRotation2Enabled = container->Get<bool>("mandelbulb5_main_rotation2_enabled");
+  mandelbulb5.mainRotation2StartIterations = container->Get<int>("mandelbulb5_main_rotation2_start_iterations");
+  mandelbulb5.mainRotation2StopIterations = container->Get<int>("mandelbulb5_main_rotation2_stop_iterations");
+  mandelbulb5.mainRotation2 = container->Get<CVector3>("mandelbulb5_main_rotation2");
 
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");
@@ -178,7 +182,8 @@ void cFractal::RecalculateFractalParams(void)
 
     mandelbulb5.alphaAngleOffset *= M_PI / 180.0;
     mandelbulb5.betaAngleOffset *= M_PI / 180.0;
-    mandelbulb5.mainRot.SetRotation2(mandelbulb5.mainRotation1 * (M_PI / 180.0));
+    mandelbulb5.mainRot1.SetRotation2(mandelbulb5.mainRotation1 * (M_PI / 180.0));
+    mandelbulb5.mainRot2.SetRotation2(mandelbulb5.mainRotation2 * (M_PI / 180.0));
 
 
 	//Generalized Fold Box precalculated vectors

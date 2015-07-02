@@ -8,7 +8,7 @@ camera_rotation 29.99999999999996 -30 0;
 camera_top -0.2499999999999994 0.433012701892219 0.8660254037844389;
 coloring_palette_offset 8.210000000000001;
 formula_1 7;
-view_distance_max 6.633346777152619;
+view_distance_max 50.0;
 [fractal_1]
 [fractal_2]
 [fractal_3]

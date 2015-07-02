@@ -1,0 +1,42 @@
+# Mandelbulber settings file
+# version 2.04
+# only modified parameters
+[main_parameters]
+aux_light_colour_1 ff00 d000 5700;
+aux_light_colour_2 7000 5700 ff00;
+aux_light_colour_3 4500 ff00 6400;
+aux_light_enabled_1 true;
+aux_light_enabled_2 true;
+aux_light_enabled_3 true;
+aux_light_intensity_1 0,74131;
+aux_light_intensity_2 0,194984;
+aux_light_intensity_3 0,2;
+aux_light_position_1 0 0 0;
+aux_light_position_2 0,68 0,68 0,68;
+aux_light_position_3 -0,68 -0,68 0,68;
+background_color_1 0 0 0;
+background_color_2 0 0 0;
+background_color_3 0 0 0;
+camera 2,459708585093147 -4,260340241194689 2,840226827463123;
+camera_distance_to_target 3,548129999999999;
+camera_rotation 29,99999999999996 -29,99999999999996 0;
+camera_top -0,2499999999999994 0,433012701892219 0,8660254037844389;
+coloring_palette_offset 8,210000000000001;
+DE_factor 0,0524807;
+formula_1 7;
+hdr true;
+image_width 600;
+iteration_fog_enable true;
+iteration_fog_opacity 1230,27;
+iteration_fog_opacity_trim 3;
+penetrating_lights false;
+target 0,9233232271283079 -1,599242741194689 1,066161827463125;
+view_distance_max 6,633346777152619;
+[fractal_1]
+alpha_angle_offset 90;
+beta_angle_offset 90;
+mandelbox_scale -2;
+power 2;
+[fractal_2]
+[fractal_3]
+[fractal_4]

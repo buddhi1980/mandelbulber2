@@ -6,7 +6,7 @@ camera 1.486015714285714 -2.972031428571429 0.9906771428571416;
 camera_distance_to_target 4.89779;
 camera_top -0.1277753129999879 0.2555506259999764 0.9583148474999099;
 formula_1 10;
-view_distance_max 6.637647593408449;
+view_distance_max 50.0;
 [fractal_1]
 IFS_abs_x true;
 IFS_abs_y true;

@@ -725,7 +725,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
 	}
 	if (fractal->mandelbulb5.mainRotation1Enabled && i >= fractal->mandelbulb5.mainRotation1StartIterations && i < fractal->mandelbulb5.mainRotation1StopIterations)
 	{
-		z = fractal->mandelbulb5.mainRot.RotateVector(z);
+    z = fractal->mandelbulb5.mainRot1.RotateVector(z);
 	}
 	if (fractal->mandelbulb5.constantMultiplierEnabled && i >= fractal->mandelbulb5.constantMultiplierStartIterations && i < fractal->mandelbulb5.constantMultiplierStopIterations)
 	{
@@ -735,6 +735,10 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
 	{
 		z += fractal->mandelbulb5.additionConstant2;
 	}
+  if (fractal->mandelbulb5.mainRotation2Enabled && i >= fractal->mandelbulb5.mainRotation2StartIterations && i < fractal->mandelbulb5.mainRotation2StopIterations)
+  {
+    z = fractal->mandelbulb5.mainRot2.RotateVector(z);
+  }
 	CVector3 temp = z;
 	if (fractal->mandelbulb5.boxFold2Enabled && i >= fractal->mandelbulb5.boxFold2StartIterations && i < fractal->mandelbulb5.boxFold2StopIterations)
 	{

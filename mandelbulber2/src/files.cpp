@@ -1019,51 +1019,54 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 		header.channels().insert("B", Imf::Channel(imfQuality));
 
 		int pixelSize = sizeof(tsRGB<half>);
-		if(imfQuality == Imf::FLOAT) pixelSize *= 2;
-		char* colorPtr = new char[(unsigned long int)width * height * pixelSize];
+		if(imfQuality == Imf::FLOAT) sizeof(tsRGB<float>);
+		char* buffer = new char[(unsigned long int)width * height * pixelSize];
+		tsRGB<half>* halfPointer = (tsRGB<half>*) buffer;
+		tsRGB<float>* floatPointer = (tsRGB<float>*) buffer;
+
 		for (int y = 0; y < height; y++)
 		{
 			for (int x = 0; x < width; x++)
 			{
-				unsigned long int ptr = (x + y * width) * pixelSize;
+				unsigned long int ptr = (x + y * width);
 				if(imfQuality == Imf::FLOAT)
 				{
-					sRGBfloat* typedColorPtr = (sRGBfloat*) &colorPtr[ptr];
 					sRGB16 pixel = image->GetPixelImage16(x, y);
-					typedColorPtr->R = (1.0 / 65536.0) * pixel.R;
-					typedColorPtr->G = (1.0 / 65536.0) * pixel.G;
-					typedColorPtr->B = (1.0 / 65536.0) * pixel.B;
+					floatPointer[ptr].R = (1.0 / 65536.0) * pixel.R;
+					floatPointer[ptr].G = (1.0 / 65536.0) * pixel.G;
+					floatPointer[ptr].B = (1.0 / 65536.0) * pixel.B;
 				}
 				else
 				{
-					tsRGB<half>* typedColorPtr = (tsRGB<half>*) &colorPtr[ptr];
 					sRGB16 pixel = image->GetPixelImage16(x, y);
-					typedColorPtr->R = (1.0 / 65536.0) * pixel.R;
-					typedColorPtr->G = (1.0 / 65536.0) * pixel.G;
-					typedColorPtr->B = (1.0 / 65536.0) * pixel.B;
+					halfPointer[ptr].R = (1.0 / 65536.0) * pixel.R;
+					halfPointer[ptr].G = (1.0 / 65536.0) * pixel.G;
+					halfPointer[ptr].B = (1.0 / 65536.0) * pixel.B;
 				}
 			}
 		}
 
 		// point EXR frame buffer to rgb
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-		frameBuffer.insert("R", Imf::Slice(imfQuality, (char *)colorPtr + 0 * compSize, 3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("G", Imf::Slice(imfQuality, (char *)colorPtr + 1 * compSize, 3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("B", Imf::Slice(imfQuality, (char *)colorPtr + 2 * compSize, 3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("R", Imf::Slice(imfQuality, (char *)buffer + 0 * compSize, 3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("G", Imf::Slice(imfQuality, (char *)buffer + 1 * compSize, 3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("B", Imf::Slice(imfQuality, (char *)buffer + 2 * compSize, 3 * compSize, 3 * width * compSize));
 	}
 
 	if(imageConfig.contains(IMAGE_CONTENT_ALPHA))
 	{
 		// add alpha channel header
 		Imf::PixelType imfQuality =
-				imageConfig[IMAGE_CONTENT_COLOR].channelQuality == IMAGE_CHANNEL_QUALITY_32 ?
+				imageConfig[IMAGE_CONTENT_ALPHA].channelQuality == IMAGE_CHANNEL_QUALITY_32 ?
 				Imf::FLOAT : Imf::HALF;
 
 		header.channels().insert("A", Imf::Channel(imfQuality));
 
 		int pixelSize = sizeof(half);
-		if(imfQuality == Imf::FLOAT) pixelSize *= 2;
-		char* colorPtr = new char[(unsigned long int)width * height * pixelSize];
+		if(imfQuality == Imf::FLOAT) sizeof(float);
+		char* buffer = new char[(unsigned long int)width * height * pixelSize];
+		half* halfPointer = (half*) buffer;
+		float* floatPointer = (float*) buffer;
 
 		for (int y = 0; y < height; y++)
 		{
@@ -1073,19 +1076,17 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 
 				if(imfQuality == Imf::FLOAT)
 				{
-					float* typedColorPtr = (float*) &colorPtr[ptr];
-					*typedColorPtr = image->GetPixelAlpha(x, y) / 256.0;
+					floatPointer[ptr] = image->GetPixelAlpha(x, y) / 65536.0;
 				}
 				else
 				{
-					half* typedColorPtr = (half*) &colorPtr[ptr];
-					*typedColorPtr = image->GetPixelAlpha(x, y) / 256.0;
+					halfPointer[ptr] = image->GetPixelAlpha(x, y) / 65536.0;
 				}
 			}
 		}
 		// point EXR frame buffer to alpha
 		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-		frameBuffer.insert("A", Imf::Slice(imfQuality, (char *)colorPtr, compSize, width * compSize));
+		frameBuffer.insert("A", Imf::Slice(imfQuality, (char *)buffer, compSize, width * compSize));
 	}
 
 	if(imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
@@ -1093,7 +1094,7 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 		// add z Buffer channel header
 		// add rgb channel header
 		Imf::PixelType imfQuality =
-				imageConfig[IMAGE_CONTENT_COLOR].channelQuality == IMAGE_CHANNEL_QUALITY_32 ?
+				imageConfig[IMAGE_CONTENT_ZBUFFER].channelQuality == IMAGE_CHANNEL_QUALITY_32 ?
 				Imf::FLOAT : Imf::HALF;
 
 		header.channels().insert("Z", Imf::Channel(imfQuality));
@@ -1108,18 +1109,18 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 		else
 		{
 			int pixelSize = sizeof(half);
-			char* colorPtr = new char[(unsigned long int)width * height * pixelSize];
+			char* buffer = new char[(unsigned long int)width * height * pixelSize];
+			half* halfPointer = (half*) buffer;
 
 			for (int y = 0; y < height; y++)
 			{
 				for (int x = 0; x < width; x++)
 				{
 					unsigned long int ptr = x + y * width;
-					half* typedColorPtr = (half*) &colorPtr[ptr];
-					*typedColorPtr = image->GetPixelZBuffer(x, y);
+					halfPointer[ptr] = image->GetPixelZBuffer(x, y);
 				}
 			}
-			frameBuffer.insert("Z", Imf::Slice(imfQuality, (char *)colorPtr, sizeof(half), width * sizeof(half)));
+			frameBuffer.insert("Z", Imf::Slice(imfQuality, (char *)buffer, sizeof(half), width * sizeof(half)));
 		}
 	}
 

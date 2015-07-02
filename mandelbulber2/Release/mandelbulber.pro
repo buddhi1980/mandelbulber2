@@ -12,8 +12,7 @@ qtHaveModule(gamepad){
 }
 
 CONFIG += link_pkgconfig
-packagesExist(IlmBase)
-{
+packagesExist(IlmBase) {
 	PKGCONFIG += IlmBase
 	LIBS += -lIlmImf -lHalf
 	DEFINES += USE_EXR

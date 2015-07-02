@@ -323,19 +323,19 @@ using namespace parameterContainer;
 	par->addParam("ui_font_size", 9, 5, 50, morphNone, paramApp);
 
 	//image file configuration
-	par->addParam("color_enabled", true, morphNone, paramStandard);
-	par->addParam("alpha_enabled", false, morphNone, paramStandard);
-	par->addParam("zbuffer_enabled", false, morphNone, paramStandard);
+	par->addParam("color_enabled", true, morphNone, paramApp);
+	par->addParam("alpha_enabled", false, morphNone, paramApp);
+	par->addParam("zbuffer_enabled", false, morphNone, paramApp);
 
-	par->addParam("color_quality", (int)IMAGE_CHANNEL_QUALITY_16, morphNone, paramStandard);
-	par->addParam("alpha_quality", (int)IMAGE_CHANNEL_QUALITY_8, morphNone, paramStandard);
-	par->addParam("zbuffer_quality", (int)IMAGE_CHANNEL_QUALITY_32, morphNone, paramStandard);
+	par->addParam("color_quality", (int)IMAGE_CHANNEL_QUALITY_16, morphNone, paramApp);
+	par->addParam("alpha_quality", (int)IMAGE_CHANNEL_QUALITY_8, morphNone, paramApp);
+	par->addParam("zbuffer_quality", (int)IMAGE_CHANNEL_QUALITY_32, morphNone, paramApp);
 
-	par->addParam("color_postfix", QString(""), morphNone, paramStandard);
-	par->addParam("alpha_postfix", QString("_alpha"), morphNone, paramStandard);
-	par->addParam("zbuffer_postfix", QString("_zbuffer"), morphNone, paramStandard);
+	par->addParam("color_postfix", QString(""), morphNone, paramApp);
+	par->addParam("alpha_postfix", QString("_alpha"), morphNone, paramApp);
+	par->addParam("zbuffer_postfix", QString("_zbuffer"), morphNone, paramApp);
 
-	par->addParam("append_alpha_png", true, morphNone, paramStandard);
+	par->addParam("append_alpha_png", true, morphNone, paramApp);
 	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
 
 #ifdef CLSUPPORT
@@ -464,7 +464,7 @@ par->addParam("mandelbulb5_mainFormula1_stop_iterations", 250, morphLinear, para
 par->addParam("mandelbulb5_power", 9.0, morphAkima, paramStandard);
 par->addParam("mandelbulb5_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 par->addParam("mandelbulb5_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
-par->addParam("mandelbulb5_constantMultiplier_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_constantMultiplier_enabled", true, morphLinear, paramStandard);
 par->addParam("mandelbulb5_constantMultiplier_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_constantMultiplier_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
@@ -483,6 +483,10 @@ par->addParam("mandelbulb5_main_rotation1_enabled", false, morphLinear, paramSta
 par->addParam("mandelbulb5_main_rotation1_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_main_rotation1_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_main_rotation1", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+par->addParam("mandelbulb5_main_rotation2_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation2_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation2_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation2", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 
 
 	WriteLog("Fractal parameters initialization finished");
