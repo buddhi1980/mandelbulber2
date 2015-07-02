@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>429</width>
-    <height>460</height>
+    <width>430</width>
+    <height>505</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,8 +39,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>423</width>
-        <height>431</height>
+        <width>424</width>
+        <height>470</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -182,24 +182,7 @@
             <property name="spacing">
              <number>2</number>
             </property>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_6">
-              <property name="text">
-               <string>UI Style type</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QComboBox" name="comboBox_ui_style_type"/>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>UI Skin</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
+            <item row="2" column="1">
              <widget class="QComboBox" name="comboBox_ui_skin">
               <item>
                <property name="text">
@@ -218,14 +201,31 @@
               </item>
              </widget>
             </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>UI Style type</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="comboBox_ui_style_type"/>
+            </item>
             <item row="2" column="0">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>UI Skin</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
              <widget class="QLabel" name="label_7">
               <property name="text">
                <string>UI font size (pixels)</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
+            <item row="3" column="1">
              <widget class="MySpinBox" name="spinboxInt_ui_font_size">
               <property name="minimum">
                <number>5</number>
@@ -234,6 +234,16 @@
                <number>50</number>
               </property>
              </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_11">
+              <property name="text">
+               <string>Language</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="comboBox_language"/>
             </item>
            </layout>
           </item>

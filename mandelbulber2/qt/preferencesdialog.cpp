@@ -14,9 +14,23 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
 	ui->comboBox_ui_style_type->addItems(QStyleFactory::keys());
 	ui->comboBox_ui_style_type->setCurrentIndex(gPar->Get<int>("ui_style_type"));
 	ui->comboBox_ui_skin->setCurrentIndex(gPar->Get<int>("ui_skin"));
+	ui->comboBox_language->addItems(systemData.supportedLanguages.values());
+
+	if(systemData.supportedLanguages.contains(gPar->Get<QString>("language")))
+	{
+		QString value = systemData.supportedLanguages[gPar->Get<QString>("language")];
+		int index = ui->comboBox_language->findText(value);
+		ui->comboBox_language->setCurrentIndex(index);
+	}
+	else
+	{
+		int index = ui->comboBox_language->findText(systemData.locale.name());
+		ui->comboBox_language->setCurrentIndex(index);
+	}
 
 	connect(ui->comboBox_ui_style_type, SIGNAL(currentIndexChanged(int)), this, SLOT(on_comboBox_ui_style_type(int)));
 	connect(ui->comboBox_ui_skin, SIGNAL(currentIndexChanged(int)), this, SLOT(on_comboBox_ui_skin(int)));
+	connect(ui->comboBox_language, SIGNAL(currentIndexChanged(int)), this, SLOT(on_comboBox_language(int)));
 }
 
 cPreferencesDialog::~cPreferencesDialog()
@@ -70,4 +84,13 @@ void cPreferencesDialog::on_comboBox_ui_skin(int index)
 {
 	gPar->Set<int>("ui_skin", index);
 	UpdateUISkin();
+}
+
+
+void cPreferencesDialog::on_comboBox_language(int index)
+{
+	QString value = ui->comboBox_language->currentText();
+	QString key = systemData.supportedLanguages.key(value);
+	gPar->Set<QString>("language", key);
+	UpdateLanguage();
 }

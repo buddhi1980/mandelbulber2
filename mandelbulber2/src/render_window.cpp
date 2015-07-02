@@ -1503,6 +1503,18 @@ void RenderWindow::closeEvent(QCloseEvent * event)
 	}
 }
 
+void RenderWindow::changeEvent(QEvent* event)
+{
+		if (event->type() == QEvent::LanguageChange)
+		{
+				// retranslate designer form (single inheritance approach)
+				ui->retranslateUi(this);
+		}
+
+		// remember to call base class implementation
+		QMainWindow::changeEvent(event);
+}
+
 void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
 {
 	ProgressStatusText(text, progressText, progress, ui->statusbar, gMainInterface->progressBar);

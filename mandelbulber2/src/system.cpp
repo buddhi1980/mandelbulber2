@@ -101,6 +101,11 @@ bool InitSystem(void)
 	systemData.decimalPoint = systemLocale.decimalPoint();
 	WriteLogString("Decimal point", QString(systemData.decimalPoint));
 
+	systemData.supportedLanguages.insert("en_EN", "English");
+	systemData.supportedLanguages.insert("pl_PL", "Polski");
+	systemData.supportedLanguages.insert("de_DE", "Deutsch");
+	systemData.supportedLanguages.insert("it_IT", "Italiano");
+
 	return true;
 }
 
@@ -415,4 +420,26 @@ void UpdateUISkin (void)
 	}
 	// set ui skin
 	gApplication->setPalette(palette);
+}
+
+void UpdateLanguage (void)
+{
+	// Set language from locale
+	WriteLog("Prepare translator");
+	static QTranslator main_translator;
+	static QTranslator qt_data_translator;
+
+	QString locale = systemData.locale.name();
+	if(systemData.supportedLanguages.contains(gPar->Get<QString>("language")))
+	{
+		locale = gPar->Get<QString>("language");
+	}
+
+	WriteLogString("locale", locale);
+	main_translator.load(locale, systemData.sharedDir + QDir::separator() + "language");
+	qt_data_translator.load("qt_data_" + locale, systemData.sharedDir + QDir::separator() + "language");
+
+	WriteLog("Instaling translator");
+	gApplication->installTranslator(&main_translator);
+	gApplication->installTranslator(&qt_data_translator);
 }

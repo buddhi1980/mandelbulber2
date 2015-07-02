@@ -47,19 +47,6 @@ int main(int argc, char *argv[])
 	gApplication->setOrganizationName("Mandelbulber");
 	gApplication->setApplicationName("Mandelbulber");
 
-	// Set language from locale
-	WriteLog("Prepare translator");
-	QTranslator main_translator;
-	QTranslator qt_data_translator;
-	QString locale = systemData.locale.name();
-	WriteLogString("locale", locale);
-	main_translator.load(locale, systemData.sharedDir + QDir::separator() + "language");
-	qt_data_translator.load("qt_data_" + locale, systemData.sharedDir + QDir::separator() + "language");
-
-	WriteLog("Instaling translator");
-	gApplication->installTranslator(&main_translator);
-	gApplication->installTranslator(&qt_data_translator);
-
 	//registering types for queued connections
 	qRegisterMetaType<cStatistics>("cStatistics");
 	qRegisterMetaType<QList<QByteArray> >("QList<QByteArray>");
@@ -105,6 +92,8 @@ int main(int argc, char *argv[])
 	UpdateUIStyle();
 
 	UpdateUISkin();
+
+	UpdateLanguage();
 
 	gMainInterface->ShowUi();
 

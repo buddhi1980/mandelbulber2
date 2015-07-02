@@ -317,6 +317,7 @@ using namespace parameterContainer;
 	par->addParam("default_settings_path", systemData.dataDirectory + "settings", morphNone, paramApp);
 
 	//----------------------- preferences ---------------------
+	par->addParam("language", QString("unknown"), morphNone, paramApp);
 	par->addParam("ui_style_type", -1, morphNone, paramApp);
 	par->addParam("ui_skin", -1, morphNone, paramApp);
 	par->addParam("ui_font_size", 9, 5, 50, morphNone, paramApp);

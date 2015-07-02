@@ -55,6 +55,7 @@ struct sSystem
 	QString lastImagePaletteFile;
 	QString thumbnailDir;
 	QString autosaveFile;
+	QHash<QString, QString> supportedLanguages;
 	int numberOfThreads;
 	bool noGui;
 	QChar decimalPoint;
@@ -86,5 +87,6 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 void UpdateDefaultPaths();
 void UpdateUIStyle();
 void UpdateUISkin();
+void UpdateLanguage();
 
 #endif /* SYSTEM_HPP_ */
