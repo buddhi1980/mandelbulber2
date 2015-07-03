@@ -108,6 +108,13 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelbulb5.boxFold1StopIterations = container->Get<int>("mandelbulb5_box_fold1_stop_iterations");
 	mandelbulb5.boxFold1FoldingLimit = container->Get<double>("mandelbulb5_box_fold1_folding_limit");
 	mandelbulb5.boxFold1FoldingValue = container->Get<double>("mandelbulb5_box_fold1_folding_value");
+  mandelbulb5.absTwoAdditionConstant1 = container->Get<CVector3>("mandelbulb5_absTwoAdditionConstant1");
+  mandelbulb5.absTwoAdditionConstant1Enabled = container->Get<bool>("mandelbulb5_absTwoAdditionConstant1_enabled");
+  mandelbulb5.absTwoAdditionConstant1Enabledx = container->Get<bool>("mandelbulb5_absTwoAdditionConstant1_enabled_x");
+  mandelbulb5.absTwoAdditionConstant1Enabledy = container->Get<bool>("mandelbulb5_absTwoAdditionConstant1_enabled_y");
+  mandelbulb5.absTwoAdditionConstant1Enabledz = container->Get<bool>("mandelbulb5_absTwoAdditionConstant1_enabled_z");
+  mandelbulb5.absTwoAdditionConstant1StartIterations = container->Get<int>("mandelbulb5_absTwoAdditionConstant1_start_iterations");
+  mandelbulb5.absTwoAdditionConstant1StopIterations = container->Get<int>("mandelbulb5_absTwoAdditionConstant1_stop_iterations");
 	mandelbulb5.absAdditionConstant1 = container->Get<CVector3>("mandelbulb5_absAdditionConstant1");
 	mandelbulb5.absAdditionConstant1Enabled = container->Get<bool>("mandelbulb5_absAdditionConstant1_enabled");
 	mandelbulb5.absAdditionConstant1Enabledx = container->Get<bool>("mandelbulb5_absAdditionConstant1_enabled_x");

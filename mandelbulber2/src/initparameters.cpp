@@ -441,12 +441,19 @@ void InitFractalParams(cParameterContainer *par)
 
 	par->addParam("msltoesym2_y_multiplier", 1.0, morphLinear, paramStandard);
 
-    // Mandelbulb5
+  // Mandelbulb5
 par->addParam("mandelbulb5_box_fold1_enabled", false, morphLinear, paramStandard);
 par->addParam("mandelbulb5_box_fold1_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_box_fold1_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_box_fold1_folding_limit", 1.0, morphAkima, paramStandard);
 par->addParam("mandelbulb5_box_fold1_folding_value", 2.0, morphAkima, paramStandard);
+par->addParam("mandelbulb5_absTwoAdditionConstant1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_absTwoAdditionConstant1_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absTwoAdditionConstant1_enabled_x", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absTwoAdditionConstant1_enabled_y", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absTwoAdditionConstant1_enabled_z", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absTwoAdditionConstant1_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absTwoAdditionConstant1_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_absAdditionConstant1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 par->addParam("mandelbulb5_absAdditionConstant1_enabled", false, morphLinear, paramStandard);
 par->addParam("mandelbulb5_absAdditionConstant1_enabled_x", false, morphLinear, paramStandard);

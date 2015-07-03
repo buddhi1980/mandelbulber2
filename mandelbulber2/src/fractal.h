@@ -171,6 +171,13 @@ struct sFractalMandelbulb5
     int boxFold1StopIterations;
     double boxFold1FoldingLimit;
     double boxFold1FoldingValue;
+    bool absTwoAdditionConstant1Enabled;
+    bool absTwoAdditionConstant1Enabledx;
+    bool absTwoAdditionConstant1Enabledy;
+    bool absTwoAdditionConstant1Enabledz;
+    int absTwoAdditionConstant1StartIterations;
+    int absTwoAdditionConstant1StopIterations;
+    CVector3 absTwoAdditionConstant1;
     bool absAdditionConstant1Enabled;
     bool absAdditionConstant1Enabledx;
     bool absAdditionConstant1Enabledy;
