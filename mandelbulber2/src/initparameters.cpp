@@ -458,6 +458,13 @@ par->addParam("mandelbulb5_absTwoAdditionConstant1_enabled_y", false, morphLinea
 par->addParam("mandelbulb5_absTwoAdditionConstant1_enabled_z", false, morphLinear, paramStandard);
 par->addParam("mandelbulb5_absTwoAdditionConstant1_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_absTwoAdditionConstant1_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absTwoNegAdditionConstant2", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_absTwoNegAdditionConstant2_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absTwoNegAdditionConstant2_enabled_x", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absTwoNegAdditionConstant2_enabled_y", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absTwoNegAdditionConstant2_enabled_z", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absTwoNegAdditionConstant2_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absTwoNegAdditionConstant2_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_absThreeAdditionConstant1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 par->addParam("mandelbulb5_absThreeAdditionConstant1_enabled", false, morphLinear, paramStandard);
 par->addParam("mandelbulb5_absThreeAdditionConstant1_enabled_x", false, morphLinear, paramStandard);
@@ -465,6 +472,15 @@ par->addParam("mandelbulb5_absThreeAdditionConstant1_enabled_y", false, morphLin
 par->addParam("mandelbulb5_absThreeAdditionConstant1_enabled_z", false, morphLinear, paramStandard);
 par->addParam("mandelbulb5_absThreeAdditionConstant1_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_absThreeAdditionConstant1_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absThreeAdditionTwoConstantA1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_absThreeAdditionTwoConstantB1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_absThreeAdditionTwoConstantC1", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_enabled_x", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_enabled_y", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_enabled_z", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_absAdditionConstant1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 par->addParam("mandelbulb5_absAdditionConstant1_enabled", false, morphLinear, paramStandard);
 par->addParam("mandelbulb5_absAdditionConstant1_enabled_x", false, morphLinear, paramStandard);
@@ -506,8 +522,11 @@ par->addParam("mandelbulb5_box_fold2_start_iterations", 0, morphLinear, paramSta
 par->addParam("mandelbulb5_box_fold2_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_box_fold2_folding_limit", 1.0, morphAkima, paramStandard);
 par->addParam("mandelbulb5_box_fold2_folding_value", 2.0, morphAkima, paramStandard);
-par->addParam("mandelbulb5_box_fold2_temp", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 par->addParam("mandelbulb5_box_fold2_weight", 1.0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation3_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation3_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation3_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation3", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 
 
 	WriteLog("Fractal parameters initialization finished");

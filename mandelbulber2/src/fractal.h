@@ -190,6 +190,13 @@ struct sFractalMandelbulb5
     int absTwoAdditionConstant1StartIterations;
     int absTwoAdditionConstant1StopIterations;
     CVector3 absTwoAdditionConstant1;
+    bool absTwoNegAdditionConstant2Enabled;
+    bool absTwoNegAdditionConstant2Enabledx;
+    bool absTwoNegAdditionConstant2Enabledy;
+    bool absTwoNegAdditionConstant2Enabledz;
+    int absTwoNegAdditionConstant2StartIterations;
+    int absTwoNegAdditionConstant2StopIterations;
+    CVector3 absTwoNegAdditionConstant2;
     bool absThreeAdditionConstant1Enabled;
     bool absThreeAdditionConstant1Enabledx;
     bool absThreeAdditionConstant1Enabledy;
@@ -197,6 +204,15 @@ struct sFractalMandelbulb5
     int absThreeAdditionConstant1StartIterations;
     int absThreeAdditionConstant1StopIterations;
     CVector3 absThreeAdditionConstant1;
+    bool absThreeAdditionTwoConstant1Enabled;
+    bool absThreeAdditionTwoConstant1Enabledx;
+    bool absThreeAdditionTwoConstant1Enabledy;
+    bool absThreeAdditionTwoConstant1Enabledz;
+    int absThreeAdditionTwoConstant1StartIterations;
+    int absThreeAdditionTwoConstant1StopIterations;
+    CVector3 absThreeAdditionTwoConstantA1;
+    CVector3 absThreeAdditionTwoConstantB1;
+    CVector3 absThreeAdditionTwoConstantC1;
     bool additionConstant1Enabled;
     int additionConstant1StartIterations;
     int additionConstant1StopIterations;
@@ -233,6 +249,12 @@ struct sFractalMandelbulb5
     double boxFold2FoldingLimit;
     double boxFold2FoldingValue;
     double boxFold2Weight;
+    bool mainRotation3Enabled;
+    int mainRotation3StartIterations;
+    int mainRotation3StopIterations;
+    CVector3 mainRotation3;
+    CRotationMatrix mainRot3;
+
 };
 
 

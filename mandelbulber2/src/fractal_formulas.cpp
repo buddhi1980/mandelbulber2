@@ -715,15 +715,31 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
   {
     if (fractal->mandelbulb5.absTwoAdditionConstant1Enabledx)
     {
-      z.x = (fabs(z.x + fractal->mandelbulb5.absTwoAdditionConstant1.x)+(z.x - fractal->mandelbulb5.absTwoAdditionConstant1.x) -z.x);
+      z.x = fabs(z.x + fractal->mandelbulb5.absTwoAdditionConstant1.x) - fractal->mandelbulb5.absTwoAdditionConstant1.x;
     }
     if (fractal->mandelbulb5.absTwoAdditionConstant1Enabledy)
     {
-      z.y = (fabs(z.y + fractal->mandelbulb5.absTwoAdditionConstant1.y)+(z.y - fractal->mandelbulb5.absTwoAdditionConstant1.y) -z.y);
+      z.y = fabs(z.y + fractal->mandelbulb5.absTwoAdditionConstant1.y) - fractal->mandelbulb5.absTwoAdditionConstant1.y;
     }
     if (fractal->mandelbulb5.absTwoAdditionConstant1Enabledz)
     {
-      z.z = (fabs(z.z + fractal->mandelbulb5.absTwoAdditionConstant1.z)+(z.z - fractal->mandelbulb5.absTwoAdditionConstant1.z) -z.z);
+      z.z = fabs(z.z + fractal->mandelbulb5.absTwoAdditionConstant1.z) - fractal->mandelbulb5.absTwoAdditionConstant1.z;
+    }
+  }
+  if (fractal->mandelbulb5.absTwoNegAdditionConstant2Enabled && i >= fractal->mandelbulb5.absTwoNegAdditionConstant2StartIterations
+      && i < fractal->mandelbulb5.absTwoNegAdditionConstant2StopIterations)
+  {
+    if (fractal->mandelbulb5.absTwoNegAdditionConstant2Enabledx)
+    {
+      z.x = (fabs(z.x + fractal->mandelbulb5.absTwoNegAdditionConstant2.x)-(2.0 * z.x - fractal->mandelbulb5.absTwoNegAdditionConstant2.x));
+    }
+    if (fractal->mandelbulb5.absTwoNegAdditionConstant2Enabledy)
+    {
+      z.y = (fabs(z.y + fractal->mandelbulb5.absTwoNegAdditionConstant2.y)-(2.0 * z.y - fractal->mandelbulb5.absTwoNegAdditionConstant2.y));
+    }
+    if (fractal->mandelbulb5.absTwoNegAdditionConstant2Enabledz)
+    {
+      z.z = (fabs(z.z + fractal->mandelbulb5.absTwoNegAdditionConstant2.z)-(2.0 * z.z - fractal->mandelbulb5.absTwoNegAdditionConstant2.z));
     }
   }
   if (fractal->mandelbulb5.absThreeAdditionConstant1Enabled && i >= fractal->mandelbulb5.absThreeAdditionConstant1StartIterations
@@ -742,11 +758,26 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
       z.z = fabs(z.z + fractal->mandelbulb5.absThreeAdditionConstant1.z)-fabs(z.z - fractal->mandelbulb5.absThreeAdditionConstant1.z) -z.z;
     }
   }
-
-	if (fractal->mandelbulb5.additionConstant1Enabled && i >= fractal->mandelbulb5.additionConstant1StartIterations && i < fractal->mandelbulb5.additionConstant1StopIterations)
-	{
-		z += fractal->mandelbulb5.additionConstant1;
-	}
+  if (fractal->mandelbulb5.absThreeAdditionTwoConstant1Enabled && i >= fractal->mandelbulb5.absThreeAdditionTwoConstant1StartIterations
+      && i < fractal->mandelbulb5.absThreeAdditionTwoConstant1StopIterations)
+  {
+    if (fractal->mandelbulb5.absThreeAdditionTwoConstant1Enabledx)
+    {
+      z.x = fabs(z.x + fractal->mandelbulb5.absThreeAdditionTwoConstantA1.x)-fabs(z.x - fractal->mandelbulb5.absThreeAdditionTwoConstantB1.x) - (z.x * fractal->mandelbulb5.absThreeAdditionTwoConstantC1.x);
+    }
+    if (fractal->mandelbulb5.absThreeAdditionTwoConstant1Enabledy)
+    {
+      z.y = fabs(z.y + fractal->mandelbulb5.absThreeAdditionTwoConstantA1.y)-fabs(z.y - fractal->mandelbulb5.absThreeAdditionTwoConstantB1.y) - (z.y * fractal->mandelbulb5.absThreeAdditionTwoConstantC1.y);
+    }
+    if (fractal->mandelbulb5.absThreeAdditionTwoConstant1Enabledz)
+    {
+      z.z = fabs(z.z + fractal->mandelbulb5.absThreeAdditionTwoConstantA1.z)-fabs(z.z - fractal->mandelbulb5.absThreeAdditionTwoConstantB1.z) - (z.z * fractal->mandelbulb5.absThreeAdditionTwoConstantC1.z);
+    }
+  }
+  if (fractal->mandelbulb5.additionConstant1Enabled && i >= fractal->mandelbulb5.additionConstant1StartIterations && i < fractal->mandelbulb5.additionConstant1StopIterations)
+  {
+    z += fractal->mandelbulb5.additionConstant1;
+  }
 	if (fractal->mandelbulb5.mainFormula1Enabled && i >= fractal->mandelbulb5.mainFormula1StartIterations && i < fractal->mandelbulb5.mainFormula1StopIterations)
 	{
 		aux.r = z.Length();
@@ -799,6 +830,10 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
 		else if (z.z < -fractal->mandelbulb5.boxFold2FoldingLimit) z.z = -fractal->mandelbulb5.boxFold2FoldingValue - z.z;
 	}
   z = temp + ((z - temp)  * (fractal-> mandelbulb5.boxFold2Weight));
+  if (fractal->mandelbulb5.mainRotation3Enabled && i >= fractal->mandelbulb5.mainRotation3StartIterations && i < fractal->mandelbulb5.mainRotation3StopIterations)
+  {
+    z = fractal->mandelbulb5.mainRot3.RotateVector(z);
+  }
 }
 
 
