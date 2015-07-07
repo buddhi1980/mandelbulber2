@@ -535,16 +535,17 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 
 	if(directOnBuffer)
 	{
+		char *directPointer = NULL;
 		switch(imageChannel.contentType){
 			case IMAGE_CONTENT_COLOR:
 			{
 				if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 				{
-					colorPtr = (char*) image->GetImage16Ptr();
+					directPointer = (char*) image->GetImage16Ptr();
 				}
 				else
 				{
-					colorPtr = (char*) image->ConvertTo8bit();
+					directPointer = (char*) image->ConvertTo8bit();
 				}
 			}
 			break;
@@ -552,11 +553,11 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 			{
 				if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 				{
-					colorPtr = (char*) image->GetAlphaBufPtr();
+					directPointer = (char*) image->GetAlphaBufPtr();
 				}
 				else
 				{
-					colorPtr = (char*) image->ConvertAlphaTo8bit();
+					directPointer = (char*) image->ConvertAlphaTo8bit();
 				}
 			}
 			break;
@@ -569,7 +570,7 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 
 		for (int y = 0; y < height; y++)
 		{
-			row_pointers[y] = (png_byte*) &colorPtr[y * width * pixelSize];
+			row_pointers[y] = (png_byte*) &directPointer[y * width * pixelSize];
 		}
 	}
 	else
@@ -1172,7 +1173,10 @@ void SaveImage(QString filename, enumImageFileType filetype, cImage *image)
 			imageConfig.insert(contentType, structSaveImageChannel(contentType, channelQuality, postfix));
 		}
 	}
-	return SaveImage(filename, filetype, image, imageConfig);
+	QFileInfo fi(filename);
+	QString fileWithoutExtension = fi.path() + QDir::separator() + fi.baseName();
+	qDebug() << fileWithoutExtension;
+	return SaveImage(fileWithoutExtension, filetype, image, imageConfig);
 }
 
 void SaveImage(QString filename, enumImageFileType filetype, cImage *image, QMap<enumImageContentType, structSaveImageChannel> imageConfig)
