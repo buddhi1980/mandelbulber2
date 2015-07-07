@@ -576,6 +576,22 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 	{
 		colorPtr = new char[(unsigned long int)width * height * pixelSize];
 
+		// calculate min / max values from zbuffer range
+		float minZ = 1.0e50;
+		float maxZ = 0.0;
+		if(imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)
+		{
+			float *zbuffer = image->GetZBufferPtr();
+			unsigned int size = width * height;
+			for (unsigned int i = 0; i < size; i++)
+			{
+				float z = zbuffer[i];
+				if (z > maxZ && z < 1e19) maxZ = z;
+				if (z < minZ) minZ = z;
+			}
+		}
+		double kZ = log(maxZ / minZ);
+
 		for (int y = 0; y < height; y++)
 		{
 			for (int x = 0; x < width; x++)
@@ -614,16 +630,25 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 					break;
 					case IMAGE_CONTENT_ZBUFFER:
 					{
-						// TODO: map between min and max and normalize zBuffer logarithmically
 						if(imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 						{
+							float z = image->GetPixelZBuffer(x, y);
+							float z1 = log(z / minZ) / kZ;
+							int intZ = z1 * 60000;
+							if (z > 1e19) intZ = 65535;
+
 							unsigned short* typedColorPtr = (unsigned short*) &colorPtr[ptr];
-							*typedColorPtr = (unsigned short)(65536 * image->GetPixelZBuffer(x, y));
+							*typedColorPtr = (unsigned short)(intZ);
 						}
 						else
 						{
+							float z = image->GetPixelZBuffer(x, y);
+							float z1 = log(z / minZ) / kZ;
+							int intZ = z1 * 240;
+							if (z > 1e19) intZ = 255;
+
 							unsigned char* typedColorPtr = (unsigned char*) &colorPtr[ptr];
-							*typedColorPtr = (unsigned char)(256 * image->GetPixelZBuffer(x, y));
+							*typedColorPtr = (unsigned char)(intZ);
 						}
 					}
 					break;
@@ -1019,7 +1044,7 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 		header.channels().insert("B", Imf::Channel(imfQuality));
 
 		int pixelSize = sizeof(tsRGB<half>);
-		if(imfQuality == Imf::FLOAT) sizeof(tsRGB<float>);
+		if(imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
 		char* buffer = new char[(unsigned long int)width * height * pixelSize];
 		tsRGB<half>* halfPointer = (tsRGB<half>*) buffer;
 		tsRGB<float>* floatPointer = (tsRGB<float>*) buffer;
@@ -1063,7 +1088,7 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 		header.channels().insert("A", Imf::Channel(imfQuality));
 
 		int pixelSize = sizeof(half);
-		if(imfQuality == Imf::FLOAT) sizeof(float);
+		if(imfQuality == Imf::FLOAT) pixelSize = sizeof(float);
 		char* buffer = new char[(unsigned long int)width * height * pixelSize];
 		half* halfPointer = (half*) buffer;
 		float* floatPointer = (float*) buffer;
