@@ -1130,7 +1130,7 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 		{
 			// direct on buffer
 			float* zBuffer = image->GetZBufferPtr();
-			frameBuffer.insert("Z", Imf::Slice(Imf::FLOAT, (char *)zBuffer, sizeof(half), width * sizeof(half)));
+			frameBuffer.insert("Z", Imf::Slice(Imf::FLOAT, (char *)zBuffer, sizeof(float), width * sizeof(float)));
 		}
 		else
 		{
