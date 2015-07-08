@@ -72,7 +72,7 @@ public:
   inline sRGBfloat GetPixelImage(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return imageFloat[x + y * width]; else return BlackFloat();}
   inline sRGB16 GetPixelImage16(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return image16[x + y * width]; else return Black16();}
 	inline sRGB8 GetPixelImage8(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return image8[x + y * width]; else return Black8();}
-	inline short int GetPixelAlpha(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return alphaBuffer16[x + y * width]; else return 0;}
+	inline unsigned short int GetPixelAlpha(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return alphaBuffer16[x + y * width]; else return 0;}
 	inline unsigned char GetPixelAlpha8(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return alphaBuffer8[x + y * width]; else return 0;}
   inline short int GetPixelOpacity(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return opacityBuffer[x + y * width]; else return 0;}
   inline sRGB8 GetPixelColor(int x, int y)  {if (x >= 0 && x < width && y >= 0 && y < height) return colourBuffer[x + y * width]; else return Black8();}
