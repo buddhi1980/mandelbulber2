@@ -1118,7 +1118,6 @@ void SaveEXR(QString filename, cImage* image, QMap<enumImageContentType, structS
 	if(imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
 	{
 		// add z Buffer channel header
-		// add rgb channel header
 		Imf::PixelType imfQuality =
 				imageConfig[IMAGE_CONTENT_ZBUFFER].channelQuality == IMAGE_CHANNEL_QUALITY_32 ?
 				Imf::FLOAT : Imf::HALF;
@@ -1228,7 +1227,8 @@ void SaveImage(QString filename, enumImageFileType filetype, cImage *image, QMap
 		case IMAGE_FILE_TYPE_EXR:
 		{
 			#ifdef USE_EXR
-			SaveEXR(filename, image, imageConfig);
+			QString fullFilename = filename + ".exr";
+			SaveEXR(fullFilename, image, imageConfig);
 			#endif /* USE_EXR */
 		}
 		break;
