@@ -153,9 +153,11 @@ void MyColorButton::mousePressEvent(QMouseEvent *event)
 		QColor color(colorRGB.R / 256, colorRGB.G / 256, colorRGB.B / 256);
 		colorDialog.setCurrentColor(color);
 		colorDialog.setWindowTitle(QString("Edit color: " + parameterName));
-		colorDialog.exec();
-		color = colorDialog.currentColor();
-		colorRGB = sRGB(color.red() * 256, color.green() * 256, color.blue() * 256);
-		SetColor(colorRGB);
+		if(colorDialog.exec() == QDialog::Accepted)
+		{
+			color = colorDialog.currentColor();
+			colorRGB = sRGB(color.red() * 256, color.green() * 256, color.blue() * 256);
+			SetColor(colorRGB);
+		}
 	}
 }
