@@ -29,7 +29,6 @@ private slots:
 
 		void on_comboBox_ui_skin(int index);
 
-		void on_comboBox_language(int index);
 
 private:
     Ui::cPreferencesDialog *ui;
