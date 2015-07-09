@@ -108,10 +108,12 @@ void ColorPaletteWidget::mousePressEvent(QMouseEvent *event)
 		QColor color(colorRGB.R, colorRGB.G, colorRGB.B);
 		colorDialog.setCurrentColor(color);
 		colorDialog.setWindowTitle(QString("Edit color # ") + QString::number(index + 1));
-		colorDialog.exec();
-		color = colorDialog.currentColor();
-		colorRGB = sRGB(color.red(), color.green(), color.blue());
-		palette.ChangeColor(index, colorRGB);
+		if(colorDialog.exec() == QDialog::Accepted)
+		{
+			color = colorDialog.currentColor();
+			colorRGB = sRGB(color.red(), color.green(), color.blue());
+			palette.ChangeColor(index, colorRGB);
+		}
 	}
 }
 
