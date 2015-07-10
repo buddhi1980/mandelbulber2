@@ -1022,6 +1022,7 @@ void cInterface::StartRender(void)
 	QThread *thread = new QThread; //deleted by deleteLater()
 	renderJob->moveToThread(thread);
 	QObject::connect(thread, SIGNAL(started()), renderJob, SLOT(slotExecute()));
+	thread->setObjectName("RenderJob");
 	thread->start();
 
 	QObject::connect(renderJob, SIGNAL(finished()), renderJob, SLOT(deleteLater()));

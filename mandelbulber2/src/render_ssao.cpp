@@ -107,7 +107,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		QObject::connect(thread[i], SIGNAL(started()), worker[i], SLOT(doWork()));
 		QObject::connect(worker[i], SIGNAL(finished()), thread[i], SLOT(quit()));
 		QObject::connect(worker[i], SIGNAL(finished()), worker[i], SLOT(deleteLater()));
-
+		thread[i]->setObjectName("SSAOWorker #" + QString::number(i));
 		thread[i]->start();
 		WriteLog(QString("Thread ") + QString::number(i) + " started");
 	}

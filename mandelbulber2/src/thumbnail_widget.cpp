@@ -160,6 +160,7 @@ void cThumbnailWidget::slotRender()
 	while(renderJob->GetRunningJobCount() > systemData.numberOfThreads * 5)
 	{
 	}
+	thread->setObjectName("ThumbnailWorker");
 	thread->start();
 
 	QObject::connect(renderJob, SIGNAL(finished()), renderJob, SLOT(deleteLater()));
