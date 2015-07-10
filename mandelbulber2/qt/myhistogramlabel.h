@@ -26,22 +26,34 @@
 #include <QtGui>
 #include <QtCore>
 #include <QLabel>
+#include <QtDesigner/QtDesigner>
 #include "../src/parameters.hpp"
 #include "../src/histogram.hpp"
 
-class MyHistogramLabel : public QLabel
+class QDESIGNER_WIDGET_EXPORT MyHistogramLabel : public QLabel
 {
 	Q_OBJECT
+	Q_PROPERTY( QColor dbarColor READ GetBarcolor WRITE SetBarcolor )
+	Q_PROPERTY( QColor dbackgroundColor READ GetBackgroundcolor WRITE SetBackgroundcolor )
+	Q_PROPERTY( QColor dlegendColor READ GetLegendcolor WRITE SetLegendcolor )
+	Q_PROPERTY( QColor dmaxColor READ GetMaxcolor WRITE SetMaxcolor )
 
 public:
 	MyHistogramLabel(QWidget *parent = 0);
 	~MyHistogramLabel();
 
+	void SetBarcolor(const QColor& c){ barColor = c; }
+	QColor GetBarcolor(){ return barColor; }
 
-	void SetBarcolor(QColor c){ barColor = c; }
-	void SetBackgroundcolor(QColor c){ backgroundColor = c; }
-	void SetLegendcolor(QColor c){ legendColor = c; }
-	void SetMaxcolor(QColor c){ maxColor = c; }
+	void SetBackgroundcolor(const QColor& c){ backgroundColor = c; }
+	QColor GetBackgroundcolor(){ return backgroundColor; }
+
+	void SetLegendcolor(const QColor& c){ legendColor = c; }
+	QColor GetLegendcolor(){ return legendColor; }
+
+	void SetMaxcolor(const QColor& c){ maxColor = c; }
+	QColor GetMaxcolor(){ return maxColor; }
+
 	void UpdateHistogram(const cHistogram &histData);
 
 protected:
