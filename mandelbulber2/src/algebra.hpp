@@ -132,6 +132,10 @@ public:
 		z /= scalar;
 		return *this;
 	}
+	inline bool operator==(const CVector3 &vector)
+	{
+		return (x == vector.x) ? ((y == vector.y) ? ((z == vector.z) ? true : false) : false) : false;
+	}
 	inline double Length() const
 	{
 		return sqrt(x * x + y * y + z * z);

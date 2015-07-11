@@ -34,7 +34,14 @@ void cCameraTarget::SetCameraTargetRotation(CVector3 _camera, CVector3 _target, 
 	camera = _camera;
 	target = _target;
 
-	forwardVector = (target - camera);
+	if(camera == target)
+	{
+		forwardVector = CVector3(0.0, 1.0, 0.0);
+	}
+	else
+	{
+		forwardVector = (target - camera);
+	}
 	forwardVector.Normalize();
 	distance = (target - camera).Length();
 	yaw = forwardVector.GetAlpha() - 0.5*M_PI;
@@ -66,13 +73,18 @@ void cCameraTarget::SetCameraTargetTop(CVector3 _camera, CVector3 _target, CVect
 	camera = _camera;
 	target = _target;
 
-	forwardVector = (target - camera);
+	if(camera == target)
+	{
+		forwardVector = CVector3(0.0, 1.0, 0.0);
+	}
+	else
+	{
+		forwardVector = (target - camera);
+	}
 	forwardVector.Normalize();
 	distance = (target - camera).Length();
 	yaw = forwardVector.GetAlpha() - 0.5*M_PI;
 	pitch = forwardVector.GetBeta();
-
-
 
 	CVector3 topVectorTemp = _top;
 	topVectorTemp.Normalize();
