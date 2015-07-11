@@ -1774,7 +1774,7 @@ void cInterface::ResetView()
 	CVector3 newCamera = forwardVector * newCameraDist * (-1.0);
 	gPar->Set("camera", newCamera);
 	gPar->Set("camera_distance_to_target", newCameraDist);
-	gPar->Set("view_distance_max", newCameraDist + maxDist);
+	gPar->Set("view_distance_max", (newCameraDist + maxDist) * 2.0);
 	SynchronizeInterface(gPar, gParFractal, cInterface::write);
 	gUndo.Store(gPar, gParFractal);
 	StartRender();
