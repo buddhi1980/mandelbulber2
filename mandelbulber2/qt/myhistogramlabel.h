@@ -26,17 +26,12 @@
 #include <QtGui>
 #include <QtCore>
 #include <QLabel>
-#include <QtDesigner/QtDesigner>
 #include "../src/parameters.hpp"
 #include "../src/histogram.hpp"
 
-class QDESIGNER_WIDGET_EXPORT MyHistogramLabel : public QLabel
+class MyHistogramLabel : public QLabel
 {
 	Q_OBJECT
-	Q_PROPERTY( QColor dbarColor READ GetBarcolor WRITE SetBarcolor )
-	Q_PROPERTY( QColor dbackgroundColor READ GetBackgroundcolor WRITE SetBackgroundcolor )
-	Q_PROPERTY( QColor dlegendColor READ GetLegendcolor WRITE SetLegendcolor )
-	Q_PROPERTY( QColor dmaxColor READ GetMaxcolor WRITE SetMaxcolor )
 
 public:
 	MyHistogramLabel(QWidget *parent = 0);

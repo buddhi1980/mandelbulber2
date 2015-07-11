@@ -1528,7 +1528,7 @@ void RenderWindow::slotMenuProgramSettings()
 
 void RenderWindow::slotUpdateStatistics(cStatistics stat)
 {
-	ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0)); // TODO move to setup
+	ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0));
 	ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);
 	ui->label_histogram_iter->UpdateHistogram(stat.histogramIterations);
 
