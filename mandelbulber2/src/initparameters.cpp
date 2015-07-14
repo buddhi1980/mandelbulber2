@@ -447,86 +447,130 @@ par->addParam("mandelbulb5_box_fold1_start_iterations", 0, morphLinear, paramSta
 par->addParam("mandelbulb5_box_fold1_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_box_fold1_folding_limit", 1.0, morphAkima, paramStandard);
 par->addParam("mandelbulb5_box_fold1_folding_value", 2.0, morphAkima, paramStandard);
+par->addParam("mandelbulb5_box_fold1_weight", 1.0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_main_rotation1_enabled", false, morphLinear, paramStandard);
 par->addParam("mandelbulb5_main_rotation1_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_main_rotation1_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_main_rotation1", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-par->addParam("mandelbulb5_absTwoAdditionConstant1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-par->addParam("mandelbulb5_absTwoAdditionConstant1_enabled", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absTwoAdditionConstant1_enabled_x", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absTwoAdditionConstant1_enabled_y", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absTwoAdditionConstant1_enabled_z", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absTwoAdditionConstant1_start_iterations", 0, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absTwoAdditionConstant1_stop_iterations", 250, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absTwoNegAdditionConstant2", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-par->addParam("mandelbulb5_absTwoNegAdditionConstant2_enabled", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absTwoNegAdditionConstant2_enabled_x", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absTwoNegAdditionConstant2_enabled_y", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absTwoNegAdditionConstant2_enabled_z", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absTwoNegAdditionConstant2_start_iterations", 0, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absTwoNegAdditionConstant2_stop_iterations", 250, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant1_enabled", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant1_enabled_x", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant1_enabled_y", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant1_enabled_z", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant1_start_iterations", 0, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant1_stop_iterations", 250, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionTwoConstantA1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionTwoConstantB1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionTwoConstantC1", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_enabled", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_enabled_x", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_enabled_y", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_enabled_z", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_start_iterations", 0, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionTwoConstant1_stop_iterations", 250, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absAdditionConstant1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-par->addParam("mandelbulb5_absAdditionConstant1_enabled", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absAdditionConstant1_enabled_x", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absAdditionConstant1_enabled_y", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absAdditionConstant1_enabled_z", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absAdditionConstant1_start_iterations", 0, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absAdditionConstant1_stop_iterations", 250, morphLinear, paramStandard);
-par->addParam("mandelbulb5_additionConstant1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_main_rotation1_weight", 1.0, morphLinear, paramStandard);
+
+par->addParam("mandelbulb5_fabsAddConstant1_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsAddConstant1_enabled_x", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsAddConstant1_enabled_y", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsAddConstant1_enabled_z", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsAddConstant1_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsAddConstant1_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsAddConstant1A", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsAddConstant1B", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsAddConstant1C", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsAddConstant1_weight", 1.0, morphLinear, paramStandard);
+
+par->addParam("mandelbulb5_constantMultiplier1_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_constantMultiplier1_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_constantMultiplier1_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_constantMultiplier1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_constantMultiplier1_weight", 1.0, morphLinear, paramStandard);
+
+par->addParam("mandelbulb5_fabsSubConstant1_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsSubConstant1_enabled_x", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsSubConstant1_enabled_y", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsSubConstant1_enabled_z", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsSubConstant1_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsSubConstant1_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsSubConstant1A", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsSubConstant1B", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsSubConstant1_weight", 1.0, morphLinear, paramStandard);
+
+par->addParam("mandelbulb5_fabsFormulaZAB1A", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaZAB1B", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaZAB1C", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaZAB1_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaZAB1_enabled_x", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaZAB1_enabled_y", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaZAB1_enabled_z", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaZAB1_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaZAB1_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaZAB1_weight", 1.0, morphLinear, paramStandard);
+
+par->addParam("mandelbulb5_fabsFormulaAB1_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB1_enabled_x", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB1_enabled_y", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB1_enabled_z", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB1_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB1_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB1A", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB1B", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB1_weight", 1.0, morphLinear, paramStandard);
+
+
+par->addParam("mandelbulb5_fabsFormulaABCD1A", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaABCD1B", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaABCD1C", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaABCD1D", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaABCD1_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaABCD1_enabled_x", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaABCD1_enabled_y", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaABCD1_enabled_z", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaABCD1_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaABCD1_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaABCD1_weight", 1.0, morphLinear, paramStandard);
+
 par->addParam("mandelbulb5_additionConstant1_enabled", false, morphLinear, paramStandard);
 par->addParam("mandelbulb5_additionConstant1_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_additionConstant1_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_additionConstant1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_additionConstant1_weight", 1.0, morphLinear, paramStandard);
+
+par->addParam("mandelbulb5_main_rotation2_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation2_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation2_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation2", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+par->addParam("mandelbulb5_main_rotation2_weight", 1.0, morphLinear, paramStandard);
+
 par->addParam("mandelbulb5_mainFormula1_enabled", true, morphLinear, paramStandard);
 par->addParam("mandelbulb5_mainFormula1_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_mainFormula1_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_power", 9.0, morphAkima, paramStandard);
 par->addParam("mandelbulb5_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 par->addParam("mandelbulb5_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
-par->addParam("mandelbulb5_main_rotation2_enabled", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_main_rotation2_start_iterations", 0, morphLinear, paramStandard);
-par->addParam("mandelbulb5_main_rotation2_stop_iterations", 250, morphLinear, paramStandard);
-par->addParam("mandelbulb5_main_rotation2", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-par->addParam("mandelbulb5_constantMultiplier_enabled", true, morphLinear, paramStandard);
-par->addParam("mandelbulb5_constantMultiplier_start_iterations", 0, morphLinear, paramStandard);
-par->addParam("mandelbulb5_constantMultiplier_stop_iterations", 250, morphLinear, paramStandard);
-par->addParam("mandelbulb5_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_mainFormula1_weight", 1.0, morphLinear, paramStandard);
+
+par->addParam("mandelbulb5_main_rotation3_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation3_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation3_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_main_rotation3", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+par->addParam("mandelbulb5_main_rotation3_weight", 1.0, morphLinear, paramStandard);
+
+par->addParam("mandelbulb5_constantMultiplier2_enabled", true, morphLinear, paramStandard);
+par->addParam("mandelbulb5_constantMultiplier2_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_constantMultiplier2_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_constantMultiplier2", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_constantMultiplier2_weight", 1.0, morphLinear, paramStandard);
+
 par->addParam("mandelbulb5_additionConstant2_enabled", false, morphLinear, paramStandard);
 par->addParam("mandelbulb5_additionConstant2_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_additionConstant2_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_additionConstant2", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant2", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant2_enabled", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant2_enabled_x", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant2_enabled_y", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant2_enabled_z", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant2_start_iterations", 0, morphLinear, paramStandard);
-par->addParam("mandelbulb5_absThreeAdditionConstant2_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_additionConstant2_weight", 1.0, morphLinear, paramStandard);
+
+
+par->addParam("mandelbulb5_fabsFormulaAB2_enabled", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB2_enabled_x", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB2_enabled_y", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB2_enabled_z", false, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB2_start_iterations", 0, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB2_stop_iterations", 250, morphLinear, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB2A", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB2B", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+par->addParam("mandelbulb5_fabsFormulaAB2_weight", 1.0, morphLinear, paramStandard);
+
 par->addParam("mandelbulb5_box_fold2_enabled", false, morphLinear, paramStandard);
 par->addParam("mandelbulb5_box_fold2_start_iterations", 0, morphLinear, paramStandard);
 par->addParam("mandelbulb5_box_fold2_stop_iterations", 250, morphLinear, paramStandard);
 par->addParam("mandelbulb5_box_fold2_folding_limit", 1.0, morphAkima, paramStandard);
 par->addParam("mandelbulb5_box_fold2_folding_value", 2.0, morphAkima, paramStandard);
 par->addParam("mandelbulb5_box_fold2_weight", 1.0, morphLinear, paramStandard);
-par->addParam("mandelbulb5_main_rotation3_enabled", false, morphLinear, paramStandard);
-par->addParam("mandelbulb5_main_rotation3_start_iterations", 0, morphLinear, paramStandard);
-par->addParam("mandelbulb5_main_rotation3_stop_iterations", 250, morphLinear, paramStandard);
-par->addParam("mandelbulb5_main_rotation3", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+
 
 
 	WriteLog("Fractal parameters initialization finished");

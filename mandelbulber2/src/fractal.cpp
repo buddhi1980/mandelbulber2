@@ -108,86 +108,132 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelbulb5.boxFold1StopIterations = container->Get<int>("mandelbulb5_box_fold1_stop_iterations");
 	mandelbulb5.boxFold1FoldingLimit = container->Get<double>("mandelbulb5_box_fold1_folding_limit");
 	mandelbulb5.boxFold1FoldingValue = container->Get<double>("mandelbulb5_box_fold1_folding_value");
+  mandelbulb5.boxFold1Weight = container->Get<double>("mandelbulb5_box_fold1_weight");
+
   mandelbulb5.mainRotation1Enabled = container->Get<bool>("mandelbulb5_main_rotation1_enabled");
   mandelbulb5.mainRotation1StartIterations = container->Get<int>("mandelbulb5_main_rotation1_start_iterations");
   mandelbulb5.mainRotation1StopIterations = container->Get<int>("mandelbulb5_main_rotation1_stop_iterations");
   mandelbulb5.mainRotation1 = container->Get<CVector3>("mandelbulb5_main_rotation1");
-  mandelbulb5.absTwoAdditionConstant1 = container->Get<CVector3>("mandelbulb5_absTwoAdditionConstant1");
-  mandelbulb5.absTwoAdditionConstant1Enabled = container->Get<bool>("mandelbulb5_absTwoAdditionConstant1_enabled");
-  mandelbulb5.absTwoAdditionConstant1Enabledx = container->Get<bool>("mandelbulb5_absTwoAdditionConstant1_enabled_x");
-  mandelbulb5.absTwoAdditionConstant1Enabledy = container->Get<bool>("mandelbulb5_absTwoAdditionConstant1_enabled_y");
-  mandelbulb5.absTwoAdditionConstant1Enabledz = container->Get<bool>("mandelbulb5_absTwoAdditionConstant1_enabled_z");
-  mandelbulb5.absTwoAdditionConstant1StartIterations = container->Get<int>("mandelbulb5_absTwoAdditionConstant1_start_iterations");
-  mandelbulb5.absTwoAdditionConstant1StopIterations = container->Get<int>("mandelbulb5_absTwoAdditionConstant1_stop_iterations");
-  mandelbulb5.absTwoNegAdditionConstant2 = container->Get<CVector3>("mandelbulb5_absTwoNegAdditionConstant2");
-  mandelbulb5.absTwoNegAdditionConstant2Enabled = container->Get<bool>("mandelbulb5_absTwoNegAdditionConstant2_enabled");
-  mandelbulb5.absTwoNegAdditionConstant2Enabledx = container->Get<bool>("mandelbulb5_absTwoNegAdditionConstant2_enabled_x");
-  mandelbulb5.absTwoNegAdditionConstant2Enabledy = container->Get<bool>("mandelbulb5_absTwoNegAdditionConstant2_enabled_y");
-  mandelbulb5.absTwoNegAdditionConstant2Enabledz = container->Get<bool>("mandelbulb5_absTwoNegAdditionConstant2_enabled_z");
-  mandelbulb5.absTwoNegAdditionConstant2StartIterations = container->Get<int>("mandelbulb5_absTwoNegAdditionConstant2_start_iterations");
-  mandelbulb5.absTwoNegAdditionConstant2StopIterations = container->Get<int>("mandelbulb5_absTwoNegAdditionConstant2_stop_iterations");
-  mandelbulb5.absThreeAdditionConstant1 = container->Get<CVector3>("mandelbulb5_absThreeAdditionConstant1");
-  mandelbulb5.absThreeAdditionConstant1Enabled = container->Get<bool>("mandelbulb5_absThreeAdditionConstant1_enabled");
-  mandelbulb5.absThreeAdditionConstant1Enabledx = container->Get<bool>("mandelbulb5_absThreeAdditionConstant1_enabled_x");
-  mandelbulb5.absThreeAdditionConstant1Enabledy = container->Get<bool>("mandelbulb5_absThreeAdditionConstant1_enabled_y");
-  mandelbulb5.absThreeAdditionConstant1Enabledz = container->Get<bool>("mandelbulb5_absThreeAdditionConstant1_enabled_z");
-  mandelbulb5.absThreeAdditionConstant1StartIterations = container->Get<int>("mandelbulb5_absThreeAdditionConstant1_start_iterations");
-  mandelbulb5.absThreeAdditionConstant1StopIterations = container->Get<int>("mandelbulb5_absThreeAdditionConstant1_stop_iterations");
-  mandelbulb5.absThreeAdditionTwoConstantA1 = container->Get<CVector3>("mandelbulb5_absThreeAdditionTwoConstantA1");
-  mandelbulb5.absThreeAdditionTwoConstantB1 = container->Get<CVector3>("mandelbulb5_absThreeAdditionTwoConstantB1");
-  mandelbulb5.absThreeAdditionTwoConstantC1 = container->Get<CVector3>("mandelbulb5_absThreeAdditionTwoConstantC1");
-  mandelbulb5.absThreeAdditionTwoConstant1Enabled = container->Get<bool>("mandelbulb5_absThreeAdditionTwoConstant1_enabled");
-  mandelbulb5.absThreeAdditionTwoConstant1Enabledx = container->Get<bool>("mandelbulb5_absThreeAdditionTwoConstant1_enabled_x");
-  mandelbulb5.absThreeAdditionTwoConstant1Enabledy = container->Get<bool>("mandelbulb5_absThreeAdditionTwoConstant1_enabled_y");
-  mandelbulb5.absThreeAdditionTwoConstant1Enabledz = container->Get<bool>("mandelbulb5_absThreeAdditionTwoConstant1_enabled_z");
-  mandelbulb5.absThreeAdditionTwoConstant1StartIterations = container->Get<int>("mandelbulb5_absThreeAdditionTwoConstant1_start_iterations");
-  mandelbulb5.absThreeAdditionTwoConstant1StopIterations = container->Get<int>("mandelbulb5_absThreeAdditionTwoConstant1_stop_iterations");
-	mandelbulb5.absAdditionConstant1 = container->Get<CVector3>("mandelbulb5_absAdditionConstant1");
-	mandelbulb5.absAdditionConstant1Enabled = container->Get<bool>("mandelbulb5_absAdditionConstant1_enabled");
-	mandelbulb5.absAdditionConstant1Enabledx = container->Get<bool>("mandelbulb5_absAdditionConstant1_enabled_x");
-	mandelbulb5.absAdditionConstant1Enabledy = container->Get<bool>("mandelbulb5_absAdditionConstant1_enabled_y");
-	mandelbulb5.absAdditionConstant1Enabledz = container->Get<bool>("mandelbulb5_absAdditionConstant1_enabled_z");
-	mandelbulb5.absAdditionConstant1StartIterations = container->Get<int>("mandelbulb5_absAdditionConstant1_start_iterations");
-	mandelbulb5.absAdditionConstant1StopIterations = container->Get<int>("mandelbulb5_absAdditionConstant1_stop_iterations");
+  mandelbulb5.mainRotation1Weight = container->Get<double>("mandelbulb5_main_rotation1_weight");
+
+
+  mandelbulb5.fabsAddConstant1Enabled = container->Get<bool>("mandelbulb5_fabsAddConstant1_enabled");
+  mandelbulb5.fabsAddConstant1Enabledx = container->Get<bool>("mandelbulb5_fabsAddConstant1_enabled_x");
+  mandelbulb5.fabsAddConstant1Enabledy = container->Get<bool>("mandelbulb5_fabsAddConstant1_enabled_y");
+  mandelbulb5.fabsAddConstant1Enabledz = container->Get<bool>("mandelbulb5_fabsAddConstant1_enabled_z");
+  mandelbulb5.fabsAddConstant1StartIterations = container->Get<int>("mandelbulb5_fabsAddConstant1_start_iterations");
+  mandelbulb5.fabsAddConstant1StopIterations = container->Get<int>("mandelbulb5_fabsAddConstant1_stop_iterations");
+  mandelbulb5.fabsAddConstant1A = container->Get<CVector3>("mandelbulb5_fabsAddConstant1A");
+  mandelbulb5.fabsAddConstant1B = container->Get<CVector3>("mandelbulb5_fabsAddConstant1B");
+  mandelbulb5.fabsAddConstant1C = container->Get<CVector3>("mandelbulb5_fabsAddConstant1C");
+  mandelbulb5.fabsAddConstant1Weight = container->Get<double>("mandelbulb5_fabsAddConstant1_weight");
+
+
+  mandelbulb5.constantMultiplier1Enabled = container->Get<bool>("mandelbulb5_constantMultiplier1_enabled");
+  mandelbulb5.constantMultiplier1StartIterations = container->Get<int>("mandelbulb5_constantMultiplier1_start_iterations");
+  mandelbulb5.constantMultiplier1StopIterations = container->Get<int>("mandelbulb5_constantMultiplier1_stop_iterations");
+  mandelbulb5.constantMultiplier1Vect = container->Get<CVector3>("mandelbulb5_constantMultiplier1");
+  mandelbulb5.constantMultiplier1Weight = container->Get<double>("mandelbulb5_constantMultiplier1_weight");
+
+  mandelbulb5.fabsSubConstant1A = container->Get<CVector3>("mandelbulb5_fabsSubConstant1A");
+  mandelbulb5.fabsSubConstant1B = container->Get<CVector3>("mandelbulb5_fabsSubConstant1B");
+  mandelbulb5.fabsSubConstant1Enabled = container->Get<bool>("mandelbulb5_fabsSubConstant1_enabled");
+  mandelbulb5.fabsSubConstant1Enabledx = container->Get<bool>("mandelbulb5_fabsSubConstant1_enabled_x");
+  mandelbulb5.fabsSubConstant1Enabledy = container->Get<bool>("mandelbulb5_fabsSubConstant1_enabled_y");
+  mandelbulb5.fabsSubConstant1Enabledz = container->Get<bool>("mandelbulb5_fabsSubConstant1_enabled_z");
+  mandelbulb5.fabsSubConstant1StartIterations = container->Get<int>("mandelbulb5_fabsSubConstant1_start_iterations");
+  mandelbulb5.fabsSubConstant1StopIterations = container->Get<int>("mandelbulb5_fabsSubConstant1_stop_iterations");
+  mandelbulb5.fabsSubConstant1Weight = container->Get<double>("mandelbulb5_fabsSubConstant1_weight");
+
+  mandelbulb5.fabsFormulaZAB1A = container->Get<CVector3>("mandelbulb5_fabsFormulaZAB1A");
+  mandelbulb5.fabsFormulaZAB1B = container->Get<CVector3>("mandelbulb5_fabsFormulaZAB1B");
+  mandelbulb5.fabsFormulaZAB1C = container->Get<CVector3>("mandelbulb5_fabsFormulaZAB1C");
+  mandelbulb5.fabsFormulaZAB1Enabled = container->Get<bool>("mandelbulb5_fabsFormulaZAB1_enabled");
+  mandelbulb5.fabsFormulaZAB1Enabledx = container->Get<bool>("mandelbulb5_fabsFormulaZAB1_enabled_x");
+  mandelbulb5.fabsFormulaZAB1Enabledy = container->Get<bool>("mandelbulb5_fabsFormulaZAB1_enabled_y");
+  mandelbulb5.fabsFormulaZAB1Enabledz = container->Get<bool>("mandelbulb5_fabsFormulaZAB1_enabled_z");
+  mandelbulb5.fabsFormulaZAB1StartIterations = container->Get<int>("mandelbulb5_fabsFormulaZAB1_start_iterations");
+  mandelbulb5.fabsFormulaZAB1StopIterations = container->Get<int>("mandelbulb5_fabsFormulaZAB1_stop_iterations");
+  mandelbulb5.fabsFormulaZAB1Weight = container->Get<double>("mandelbulb5_fabsFormulaZAB1_weight");
+
+
+  mandelbulb5.fabsFormulaAB1A = container->Get<CVector3>("mandelbulb5_fabsFormulaAB1A");
+  mandelbulb5.fabsFormulaAB1B = container->Get<CVector3>("mandelbulb5_fabsFormulaAB1B");
+  mandelbulb5.fabsFormulaAB1Enabled = container->Get<bool>("mandelbulb5_fabsFormulaAB1_enabled");
+  mandelbulb5.fabsFormulaAB1Enabledx = container->Get<bool>("mandelbulb5_fabsFormulaAB1_enabled_x");
+  mandelbulb5.fabsFormulaAB1Enabledy = container->Get<bool>("mandelbulb5_fabsFormulaAB1_enabled_y");
+  mandelbulb5.fabsFormulaAB1Enabledz = container->Get<bool>("mandelbulb5_fabsFormulaAB1_enabled_z");
+  mandelbulb5.fabsFormulaAB1StartIterations = container->Get<int>("mandelbulb5_fabsFormulaAB1_start_iterations");
+  mandelbulb5.fabsFormulaAB1StopIterations = container->Get<int>("mandelbulb5_fabsFormulaAB1_stop_iterations");
+  mandelbulb5.fabsFormulaAB1Weight = container->Get<double>("mandelbulb5_fabsFormulaAB1_weight");
+
+  mandelbulb5.fabsFormulaABCD1A = container->Get<CVector3>("mandelbulb5_fabsFormulaABCD1A");
+  mandelbulb5.fabsFormulaABCD1B = container->Get<CVector3>("mandelbulb5_fabsFormulaABCD1B");
+  mandelbulb5.fabsFormulaABCD1C = container->Get<CVector3>("mandelbulb5_fabsFormulaABCD1C");
+  mandelbulb5.fabsFormulaABCD1D = container->Get<CVector3>("mandelbulb5_fabsFormulaABCD1D");
+  mandelbulb5.fabsFormulaABCD1Enabled = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_enabled");
+  mandelbulb5.fabsFormulaABCD1Enabledx = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_enabled_x");
+  mandelbulb5.fabsFormulaABCD1Enabledy = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_enabled_y");
+  mandelbulb5.fabsFormulaABCD1Enabledz = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_enabled_z");
+  mandelbulb5.fabsFormulaABCD1StartIterations = container->Get<int>("mandelbulb5_fabsFormulaABCD1_start_iterations");
+  mandelbulb5.fabsFormulaABCD1StopIterations = container->Get<int>("mandelbulb5_fabsFormulaABCD1_stop_iterations");
+  mandelbulb5.fabsFormulaABCD1Weight = container->Get<double>("mandelbulb5_fabsFormulaABCD1_weight");
+
 	mandelbulb5.additionConstant1 = container->Get<CVector3>("mandelbulb5_additionConstant1");
 	mandelbulb5.additionConstant1Enabled = container->Get<bool>("mandelbulb5_additionConstant1_enabled");
 	mandelbulb5.additionConstant1StartIterations = container->Get<int>("mandelbulb5_additionConstant1_start_iterations");
 	mandelbulb5.additionConstant1StopIterations = container->Get<int>("mandelbulb5_additionConstant1_stop_iterations");
+  mandelbulb5.additionConstant1Weight = container->Get<double>("mandelbulb5_additionConstant1_weight");
+
+  mandelbulb5.mainRotation2Enabled = container->Get<bool>("mandelbulb5_main_rotation2_enabled");
+  mandelbulb5.mainRotation2StartIterations = container->Get<int>("mandelbulb5_main_rotation2_start_iterations");
+  mandelbulb5.mainRotation2StopIterations = container->Get<int>("mandelbulb5_main_rotation2_stop_iterations");
+  mandelbulb5.mainRotation2 = container->Get<CVector3>("mandelbulb5_main_rotation2");
+  mandelbulb5.mainRotation2Weight = container->Get<double>("mandelbulb5_main_rotation2_weight");
+
 	mandelbulb5.power = container->Get<double>("mandelbulb5_power");
 	mandelbulb5.alphaAngleOffset = container->Get<double>("mandelbulb5_alpha_angle_offset");
 	mandelbulb5.betaAngleOffset = container->Get<double>("mandelbulb5_beta_angle_offset");
 	mandelbulb5.mainFormula1Enabled = container->Get<bool>("mandelbulb5_mainFormula1_enabled");
 	mandelbulb5.mainFormula1StartIterations = container->Get<int>("mandelbulb5_mainFormula1_start_iterations");
 	mandelbulb5.mainFormula1StopIterations = container->Get<int>("mandelbulb5_mainFormula1_stop_iterations");
-  mandelbulb5.mainRotation2Enabled = container->Get<bool>("mandelbulb5_main_rotation2_enabled");
-  mandelbulb5.mainRotation2StartIterations = container->Get<int>("mandelbulb5_main_rotation2_start_iterations");
-  mandelbulb5.mainRotation2StopIterations = container->Get<int>("mandelbulb5_main_rotation2_stop_iterations");
-  mandelbulb5.mainRotation2 = container->Get<CVector3>("mandelbulb5_main_rotation2");
-	mandelbulb5.constantMultiplierVect = container->Get<CVector3>("mandelbulb5_constantMultiplier");
-	mandelbulb5.constantMultiplierEnabled = container->Get<bool>("mandelbulb5_constantMultiplier_enabled");
-	mandelbulb5.constantMultiplierStartIterations = container->Get<int>("mandelbulb5_constantMultiplier_start_iterations");
-	mandelbulb5.constantMultiplierStopIterations = container->Get<int>("mandelbulb5_constantMultiplier_stop_iterations");
+  mandelbulb5.mainFormula1Weight = container->Get<double>("mandelbulb5_mainFormula1_weight");
+
+  mandelbulb5.mainRotation3Enabled = container->Get<bool>("mandelbulb5_main_rotation3_enabled");
+  mandelbulb5.mainRotation3StartIterations = container->Get<int>("mandelbulb5_main_rotation3_start_iterations");
+  mandelbulb5.mainRotation3StopIterations = container->Get<int>("mandelbulb5_main_rotation3_stop_iterations");
+  mandelbulb5.mainRotation3 = container->Get<CVector3>("mandelbulb5_main_rotation3");
+  mandelbulb5.mainRotation3Weight = container->Get<double>("mandelbulb5_main_rotation3_weight");
+
+  mandelbulb5.constantMultiplier2Vect = container->Get<CVector3>("mandelbulb5_constantMultiplier2");
+  mandelbulb5.constantMultiplier2Enabled = container->Get<bool>("mandelbulb5_constantMultiplier2_enabled");
+  mandelbulb5.constantMultiplier2StartIterations = container->Get<int>("mandelbulb5_constantMultiplier2_start_iterations");
+  mandelbulb5.constantMultiplier2StopIterations = container->Get<int>("mandelbulb5_constantMultiplier2_stop_iterations");
+  mandelbulb5.constantMultiplier2Weight = container->Get<double>("mandelbulb5_constantMultiplier2_weight");
+
 	mandelbulb5.additionConstant2 = container->Get<CVector3>("mandelbulb5_additionConstant2");
 	mandelbulb5.additionConstant2Enabled = container->Get<bool>("mandelbulb5_additionConstant2_enabled");
 	mandelbulb5.additionConstant2StartIterations = container->Get<int>("mandelbulb5_additionConstant2_start_iterations");
 	mandelbulb5.additionConstant2StopIterations = container->Get<int>("mandelbulb5_additionConstant2_stop_iterations");
-  mandelbulb5.absThreeAdditionConstant2 = container->Get<CVector3>("mandelbulb5_absThreeAdditionConstant2");
-  mandelbulb5.absThreeAdditionConstant2Enabled = container->Get<bool>("mandelbulb5_absThreeAdditionConstant2_enabled");
-  mandelbulb5.absThreeAdditionConstant2Enabledx = container->Get<bool>("mandelbulb5_absThreeAdditionConstant2_enabled_x");
-  mandelbulb5.absThreeAdditionConstant2Enabledy = container->Get<bool>("mandelbulb5_absThreeAdditionConstant2_enabled_y");
-  mandelbulb5.absThreeAdditionConstant2Enabledz = container->Get<bool>("mandelbulb5_absThreeAdditionConstant2_enabled_z");
-  mandelbulb5.absThreeAdditionConstant2StartIterations = container->Get<int>("mandelbulb5_absThreeAdditionConstant2_start_iterations");
-  mandelbulb5.absThreeAdditionConstant2StopIterations = container->Get<int>("mandelbulb5_absThreeAdditionConstant2_stop_iterations");
+  mandelbulb5.additionConstant2Weight = container->Get<double>("mandelbulb5_additionConstant2_weight");
+
+  mandelbulb5.fabsFormulaAB2A = container->Get<CVector3>("mandelbulb5_fabsFormulaAB2A");
+  mandelbulb5.fabsFormulaAB2B = container->Get<CVector3>("mandelbulb5_fabsFormulaAB2B");
+  mandelbulb5.fabsFormulaAB2Enabled = container->Get<bool>("mandelbulb5_fabsFormulaAB2_enabled");
+  mandelbulb5.fabsFormulaAB2Enabledx = container->Get<bool>("mandelbulb5_fabsFormulaAB2_enabled_x");
+  mandelbulb5.fabsFormulaAB2Enabledy = container->Get<bool>("mandelbulb5_fabsFormulaAB2_enabled_y");
+  mandelbulb5.fabsFormulaAB2Enabledz = container->Get<bool>("mandelbulb5_fabsFormulaAB2_enabled_z");
+  mandelbulb5.fabsFormulaAB2StartIterations = container->Get<int>("mandelbulb5_fabsFormulaAB2_start_iterations");
+  mandelbulb5.fabsFormulaAB2StopIterations = container->Get<int>("mandelbulb5_fabsFormulaAB2_stop_iterations");
+  mandelbulb5.fabsFormulaAB2Weight = container->Get<double>("mandelbulb5_fabsFormulaAB2_weight");
+
 	mandelbulb5.boxFold2Enabled = container->Get<bool>("mandelbulb5_box_fold2_enabled");
 	mandelbulb5.boxFold2StartIterations = container->Get<int>("mandelbulb5_box_fold2_start_iterations");
 	mandelbulb5.boxFold2StopIterations = container->Get<int>("mandelbulb5_box_fold2_stop_iterations");
 	mandelbulb5.boxFold2FoldingLimit = container->Get<double>("mandelbulb5_box_fold2_folding_limit");
 	mandelbulb5.boxFold2FoldingValue = container->Get<double>("mandelbulb5_box_fold2_folding_value");
   mandelbulb5.boxFold2Weight = container->Get<double>("mandelbulb5_box_fold2_weight");
-  mandelbulb5.mainRotation3Enabled = container->Get<bool>("mandelbulb5_main_rotation3_enabled");
-  mandelbulb5.mainRotation3StartIterations = container->Get<int>("mandelbulb5_main_rotation3_start_iterations");
-  mandelbulb5.mainRotation3StopIterations = container->Get<int>("mandelbulb5_main_rotation3_stop_iterations");
-  mandelbulb5.mainRotation3 = container->Get<CVector3>("mandelbulb5_main_rotation3");
+
 
 
 
