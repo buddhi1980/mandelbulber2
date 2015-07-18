@@ -677,24 +677,6 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 	fclose(fp);
 }
 
-void SaveMainImage(QString filename, enumImageType imageType)
-{
-	switch(imageType){
-		case IMAGE_TYPE_JPG:
-			SaveJPEGQt(filename, gMainInterface->mainImage->ConvertTo8bit(), gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), 90);
-		break;
-		case IMAGE_TYPE_PNG:
-			SavePNG(filename, gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), gMainInterface->mainImage->ConvertTo8bit());
-		break;
-		case IMAGE_TYPE_PNG_16:
-			SavePNG16(filename, gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), gMainInterface->mainImage->GetImage16Ptr());
-		break;
-		case IMAGE_TYPE_PNG_16_WITH_ALPHA:
-			SavePNG16Alpha(filename, gMainInterface->mainImage->GetWidth(), gMainInterface->mainImage->GetHeight(), gMainInterface->mainImage);
-		break;
-	}
-}
-
 bool FileIfExists(const char *filename)
 {
 	FILE *file;

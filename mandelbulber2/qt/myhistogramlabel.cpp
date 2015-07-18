@@ -112,7 +112,7 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 					QString("min: ")	+ GetShortNumberDisplay(minIndex)
 					+ QString(", extr: ")	+ GetShortNumberDisplay(extrIndex)
 					+ QString(", max: ")	+ GetShortNumberDisplay(maxIndex)
-					+ QString(", avg:")	+ QString::number((double)histData.GetSum() / histData.GetCount()));
+					+ QString(", avg: ")	+ QString::number((double)histData.GetSum() / histData.GetCount()));
 
 	}
 }

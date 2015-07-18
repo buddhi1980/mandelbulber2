@@ -345,7 +345,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		}
 
 		QString filename = GetFlightFilename(index);
-		SaveMainImage(filename, (enumImageType)gPar->Get<double>("flight_animation_image_type"));
+		SaveImage(filename, (enumImageFileType)gPar->Get<int>("flight_animation_image_type"), gMainInterface->mainImage);
 		index++;
 	}
 
@@ -610,7 +610,7 @@ void cFlightAnimation::RenderFlight()
 		if (!result) break;
 
 		QString filename = GetFlightFilename(index);
-		SaveMainImage(filename, (enumImageType)gPar->Get<double>("flight_animation_image_type"));
+		SaveImage(filename, (enumImageFileType)gPar->Get<int>("flight_animation_image_type"), gMainInterface->mainImage);
 	}
 	ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, mainInterface->progressBarAnimation);
 }
@@ -946,15 +946,16 @@ void cFlightAnimation::slotRefreshTable()
 QString cFlightAnimation::GetFlightFilename(int index)
 {
 	QString filename = gPar->Get<QString>("anim_flight_dir") + "frame_" + QString("%1").arg(index, 5, 10, QChar('0'));
-	switch((enumImageType)gPar->Get<double>("flight_animation_image_type"))
+	switch((enumImageFileType)gPar->Get<double>("flight_animation_image_type"))
 	{
-		case IMAGE_TYPE_JPG:
+		case IMAGE_FILE_TYPE_JPG:
 			filename += QString(".jpg");
 		break;
-		case IMAGE_TYPE_PNG:
-		case IMAGE_TYPE_PNG_16:
-		case IMAGE_TYPE_PNG_16_WITH_ALPHA:
+		case IMAGE_FILE_TYPE_PNG:
 			filename += QString(".png");
+		break;
+		case IMAGE_FILE_TYPE_EXR:
+			filename += QString(".exr");
 		break;
 	}
 	return filename;

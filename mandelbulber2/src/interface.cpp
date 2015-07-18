@@ -218,10 +218,9 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionLoad_example, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadExample()));
 	QApplication::connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber, SIGNAL(triggered()), mainWindow, SLOT(slotImportOldSettings()));
 	QApplication::connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImageJPEG()));
-	QApplication::connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG8()));
+	QApplication::connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG()));
 	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG16()));
 	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG16Alpha()));
-	QApplication::connect(mainWindow->ui->actionSave_zBuffer_as_PNG_16_bit, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImageZBuffer()));
 #ifdef USE_EXR
 	QApplication::connect(mainWindow->ui->actionSave_as_EXR, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImageEXR()));
 #endif // USE_EXR

@@ -327,7 +327,7 @@ using namespace parameterContainer;
 	par->addParam("alpha_enabled", false, morphNone, paramApp);
 	par->addParam("zbuffer_enabled", false, morphNone, paramApp);
 
-	par->addParam("color_quality", (int)IMAGE_CHANNEL_QUALITY_16, morphNone, paramApp);
+	par->addParam("color_quality", (int)IMAGE_CHANNEL_QUALITY_8, morphNone, paramApp);
 	par->addParam("alpha_quality", (int)IMAGE_CHANNEL_QUALITY_8, morphNone, paramApp);
 	par->addParam("zbuffer_quality", (int)IMAGE_CHANNEL_QUALITY_32, morphNone, paramApp);
 

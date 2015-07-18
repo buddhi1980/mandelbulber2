@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
-    <height>505</height>
+    <width>423</width>
+    <height>576</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,8 +39,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>424</width>
-        <height>476</height>
+        <width>417</width>
+        <height>541</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -275,6 +275,16 @@
           <property name="bottomMargin">
            <number>2</number>
           </property>
+          <item>
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>These settings affect
+Save as JPG/PNG actions and saving animation frames.
+JPG format is limited to 8-bit.
+32-bit format is available only in EXR format</string>
+            </property>
+           </widget>
+          </item>
           <item>
            <layout class="QGridLayout" name="gridLayout_4">
             <property name="spacing">

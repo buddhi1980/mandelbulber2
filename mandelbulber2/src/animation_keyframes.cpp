@@ -504,7 +504,7 @@ void cKeyframeAnimation::RenderKeyframes()
 			int result = renderJob->Execute();
 			if(!result) break;
 			QString filename = GetKeyframeFilename(index, subindex);
-			SaveMainImage(filename, (enumImageType)gPar->Get<double>("keyframe_animation_image_type"));
+			SaveImage(filename, (enumImageFileType)gPar->Get<int>("keyframe_animation_image_type"), gMainInterface->mainImage);
 		}
 		//--------------------------------------------------------------------
 
@@ -808,15 +808,16 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subindex)
 {
 	int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
 	QString filename = gPar->Get<QString>("anim_keyframe_dir") + "frame_" + QString("%1").arg(frameIndex, 5, 10, QChar('0'));
-	switch((enumImageType)gPar->Get<double>("keyframe_animation_image_type"))
+	switch((enumImageFileType)gPar->Get<double>("keyframe_animation_image_type"))
 	{
-		case IMAGE_TYPE_JPG:
+		case IMAGE_FILE_TYPE_JPG:
 			filename += QString(".jpg");
 		break;
-		case IMAGE_TYPE_PNG:
-		case IMAGE_TYPE_PNG_16:
-		case IMAGE_TYPE_PNG_16_WITH_ALPHA:
+		case IMAGE_FILE_TYPE_PNG:
 			filename += QString(".png");
+		break;
+		case IMAGE_FILE_TYPE_EXR:
+			filename += QString(".exr");
 		break;
 	}
 	return filename;

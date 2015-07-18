@@ -41,19 +41,11 @@ extern "C"
 
 extern std::string logfileName;
 
-enum enumImageType
-{
-	IMAGE_TYPE_JPG,
-	IMAGE_TYPE_PNG,
-	IMAGE_TYPE_PNG_16,
-	IMAGE_TYPE_PNG_16_WITH_ALPHA,
-};
-
 enum enumImageFileType
 {
-	IMAGE_FILE_TYPE_PNG = 1,
-	IMAGE_FILE_TYPE_JPG = 2,
-	IMAGE_FILE_TYPE_EXR = 3
+	IMAGE_FILE_TYPE_PNG = 0,
+	IMAGE_FILE_TYPE_JPG = 1,
+	IMAGE_FILE_TYPE_EXR = 2
 };
 
 enum enumImageContentType
@@ -95,7 +87,7 @@ int fcopy(const char *source, const char *dest);
 void BufferNormalize16(sRGB16 *buffer, unsigned int size);
 //void SaveAllImageLayers(const char *filename, cImage *image);
 std::string removeFileExtension(const std::string &filename);
-void SaveMainImage(QString filename, enumImageType imageType);
+
 bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality);
 bool SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width, int height, int quality);
 void SaveZBuffer(QString filename, cImage *image);
