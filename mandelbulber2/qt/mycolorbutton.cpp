@@ -130,13 +130,12 @@ sRGB MyColorButton::GetDefault()
 	{
 		defaultValue = parameterContainer->GetDefault<sRGB>(parameterName);
 		gotDefault = true;
+
+		QString toolTipText = toolTip();
+		toolTipText += "\nParameter name: " + parameterName + "<br>";
+		toolTipText += "Default: rgb(" + QString::number(defaultValue.R / 256) + ", " + QString::number(defaultValue.G / 256) + ", " + QString::number(defaultValue.B / 256) + ")";
+		setToolTip(toolTipText);
 	}
-
-	QString toolTipText = toolTip();
-	toolTipText += "\nParameter name: " + parameterName + "<br>";
-	toolTipText += "Default: rgb(" + QString::number(defaultValue.R / 256) + ", " + QString::number(defaultValue.G / 256) + ", " + QString::number(defaultValue.B / 256) + ")";
-	setToolTip(toolTipText);
-
 	return defaultValue;
 }
 
