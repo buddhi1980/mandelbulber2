@@ -214,7 +214,9 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionShow_statistics_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionShow_gamepad_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveSettings()));
+	QApplication::connect(mainWindow->ui->actionSave_settings_to_clipboard, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveSettingsToClipboard()));
 	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadSettings()));
+	QApplication::connect(mainWindow->ui->actionLoad_settings_from_clipboard, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadSettingsFromClipboard()));
 	QApplication::connect(mainWindow->ui->actionLoad_example, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadExample()));
 	QApplication::connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber, SIGNAL(triggered()), mainWindow, SLOT(slotImportOldSettings()));
 	QApplication::connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImageJPEG()));

@@ -128,6 +128,7 @@ private slots:
 	void slotMenuAboutThirdParty();
 	void slotMenuLoadExample();
 	void slotMenuLoadSettings();
+	void slotMenuLoadSettingsFromClipboard();
 	void slotMenuRedo();
 	void slotMenuResetDocksPositions();
 	void slotMenuSaveDocksPositions();
@@ -141,6 +142,7 @@ private slots:
 	void slotMenuSaveImagePNG16Alpha();
 
 	void slotMenuSaveSettings();
+	void slotMenuSaveSettingsToClipboard();
 	void slotMenuUndo();
 	void slotUpdateDocksandToolbarbyAction();
 	void slotUpdateDocksandToolbarbyView();

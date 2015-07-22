@@ -245,6 +245,12 @@ bool cSettings::SaveToFile(QString filename)
 	}
 }
 
+bool cSettings::SaveToClipboard()
+{
+	QClipboard *clipboard = QApplication::clipboard();
+	clipboard->setText(settingsText);
+}
+
 bool cSettings::LoadFromFile(QString filename)
 {
 	settingsText.clear();
@@ -287,6 +293,12 @@ bool cSettings::LoadFromString(const QString &_settingsText)
 	hashCrypt.addData(settingsText.toUtf8());
 	hash = hashCrypt.result();
 	return true;
+}
+
+bool cSettings::LoadFromClipboard()
+{
+	QClipboard *clipboard = QApplication::clipboard();
+	return LoadFromString(clipboard->text());
 }
 
 void cSettings::DecodeHeader(QStringList &separatedText)

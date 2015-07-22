@@ -559,6 +559,14 @@ void RenderWindow::slotMenuSaveSettings()
 	}
 }
 
+void RenderWindow::slotMenuSaveSettingsToClipboard()
+{
+	cSettings parSettings(cSettings::formatCondensedText);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+	parSettings.SaveToClipboard();
+}
+
 void RenderWindow::slotMenuLoadSettings()
 {
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read); //update appParam before loading new settings
@@ -584,6 +592,25 @@ void RenderWindow::slotMenuLoadSettings()
 		gMainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = filename;
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
+		gFlightAnimation->RefreshTable();
+		gKeyframeAnimation->RefreshTable();
+	}
+}
+
+void RenderWindow::slotMenuLoadSettingsFromClipboard()
+{
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read); //update appParam before loading new settings
+
+	cSettings parSettings(cSettings::formatFullText);
+
+	if(parSettings.LoadFromClipboard())
+	{
+		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+		gMainInterface->RebuildPrimitives(gPar);
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		gMainInterface->ComboMouseClickUpdate();
+		systemData.lastSettingsFile = "from clipboard";
+		this->setWindowTitle(QString("Mandelbulber (") + "from clipboard" + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();
 	}
