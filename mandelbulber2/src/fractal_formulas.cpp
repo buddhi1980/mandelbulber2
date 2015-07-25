@@ -893,7 +893,13 @@ if (fractal->mandelbulb5.fabsFormulaAB1Enabled && i >= fractal->mandelbulb5.fabs
 		else if (z.y < -fractal->mandelbulb5.boxFold2FoldingLimit) z.y = -fractal->mandelbulb5.boxFold2FoldingValue - z.y;
 		if (z.z > fractal->mandelbulb5.boxFold2FoldingLimit) z.z = fractal->mandelbulb5.boxFold2FoldingValue - z.z;
 		else if (z.z < -fractal->mandelbulb5.boxFold2FoldingLimit) z.z = -fractal->mandelbulb5.boxFold2FoldingValue - z.z;
-    z = temp + ((z - temp)  * (fractal-> mandelbulb5.boxFold2Weight));
+
+		//weight function which provides controlled length of z vector
+		double length1 = temp.Length();
+		double length2 = z.Length();
+		double lenInterp = length1 + ((length2 - length1) * fractal-> mandelbulb5.boxFold2Weight);
+    CVector3 zTemp2 = temp + ((z - temp)  * (fractal-> mandelbulb5.boxFold2Weight));
+    z = (zTemp2 / zTemp2.Length()) * lenInterp;
   }
 
 }
