@@ -107,6 +107,7 @@ int main(int argc, char *argv[])
 	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainWindow);
 
 	//write parameters to ui
+	gMainInterface->ComboMouseClickUpdate();
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 	gMainInterface->ComboMouseClickUpdate();
 
