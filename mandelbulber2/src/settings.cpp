@@ -245,7 +245,7 @@ bool cSettings::SaveToFile(QString filename)
 	}
 }
 
-bool cSettings::SaveToClipboard()
+void cSettings::SaveToClipboard()
 {
 	QClipboard *clipboard = QApplication::clipboard();
 	clipboard->setText(settingsText);

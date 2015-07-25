@@ -43,7 +43,7 @@ public:
 	cSettings(enumFormat _format);
 	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
 	bool SaveToFile(QString filename);
-	bool SaveToClipboard();
+	void SaveToClipboard();
 	bool LoadFromFile(QString filename);
 	bool LoadFromString(const QString &_settingsText);
 	bool LoadFromClipboard();
