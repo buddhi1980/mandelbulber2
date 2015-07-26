@@ -86,4 +86,7 @@ CVector3 RefractVector(const CVector3 &normal, const CVector3 &incident, double 
 double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, double n2);
 inline double LimitAngle(double angle) {return fmod(fmod(angle - 180.0, 360.0) + 360.0, 360.0) - 180.0;}
 
+//Smooth transistion between two vectors with vector length control
+CVector3 SmoothCVector3(const CVector3 &v1, const CVector3 &v2, double k);
+
 #endif /* COMMON_MATH_H_ */

@@ -193,3 +193,36 @@ double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, 
 }
 
 //----------------------------------------
+
+//Smooth transistion between two vectors with vector length control
+CVector3 SmoothCVector3(const CVector3 &v1, const CVector3 &v2, double k)
+{
+	CVector3 result;
+	double nk = 1.0 - k;
+
+	if(k <= 0.0)
+	{
+		result = v1;
+	}
+	else if (k >= 1.0)
+	{
+		result = v2;
+	}
+	else
+	{
+		double length1 = v1.Length();
+		double length2 = v2.Length();
+		double lenInterp = length1 * nk + length2 * k;
+		CVector3 vTemp = v1 * nk + v2 * k;
+		double lengthTemp = vTemp.Length();
+		if(lengthTemp > 0.0)
+		{
+			result = (vTemp / lengthTemp) * lenInterp;
+		}
+		else
+		{
+			result = v1;
+		}
+	}
+	return result;
+}

@@ -692,7 +692,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
 		else if (z.y < -fractal->mandelbulb5.boxFold1FoldingLimit) z.y = -fractal->mandelbulb5.boxFold1FoldingValue - z.y;
 		if (z.z > fractal->mandelbulb5.boxFold1FoldingLimit) z.z = fractal->mandelbulb5.boxFold1FoldingValue - z.z;
 		else if (z.z < -fractal->mandelbulb5.boxFold1FoldingLimit) z.z = -fractal->mandelbulb5.boxFold1FoldingValue - z.z;
-    z = temp + ((z - temp)  * (fractal-> mandelbulb5.boxFold1Weight));
+    z = SmoothCVector3(temp, z, fractal-> mandelbulb5.boxFold1Weight);
 	}
     //mainRotation1
   if (fractal->mandelbulb5.mainRotation1Enabled && i >= fractal->mandelbulb5.mainRotation1StartIterations && i < fractal->mandelbulb5.mainRotation1StopIterations)
@@ -894,12 +894,8 @@ if (fractal->mandelbulb5.fabsFormulaAB1Enabled && i >= fractal->mandelbulb5.fabs
 		if (z.z > fractal->mandelbulb5.boxFold2FoldingLimit) z.z = fractal->mandelbulb5.boxFold2FoldingValue - z.z;
 		else if (z.z < -fractal->mandelbulb5.boxFold2FoldingLimit) z.z = -fractal->mandelbulb5.boxFold2FoldingValue - z.z;
 
-		//weight function which provides controlled length of z vector
-		double length1 = temp.Length();
-		double length2 = z.Length();
-		double lenInterp = length1 + ((length2 - length1) * fractal-> mandelbulb5.boxFold2Weight);
-    CVector3 zTemp2 = temp + ((z - temp)  * (fractal-> mandelbulb5.boxFold2Weight));
-    z = (zTemp2 / zTemp2.Length()) * lenInterp;
+		//weight function
+    z = SmoothCVector3(temp, z, fractal-> mandelbulb5.boxFold2Weight);
   }
 
 }
