@@ -34,6 +34,7 @@ public:
 	cHistogram& operator=(const cHistogram &source);
 	~cHistogram();
 	void Resize(int size);
+	void Clear();
 
 	inline void Add(int index)
 	{

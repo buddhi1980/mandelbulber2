@@ -26,6 +26,7 @@ public:
 	double GetNumberOfIterationsPerPixel() {return (double)totalNumberOfIterations / numberOfRenderedPixels;}
 	double GetNumberOfIterationsPerSecond() {return (double)totalNumberOfIterations / time;}
 	double GetMissedDEPercentage() {return (double)missedDE / numberOfRaymarchings * 100.0;}
+	void Reset();
 };
 
 #endif /* MANDELBULBER2_SRC_STATISTICS_H_ */

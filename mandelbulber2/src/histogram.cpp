@@ -100,3 +100,11 @@ void cHistogram::Copy(const cHistogram &source)
 		data[i] = source.data[i];
 	}
 }
+
+void cHistogram::Clear()
+{
+	for(int i = 0; i <= histSize; i++)
+	{
+		data[i] = 0;
+	}
+}

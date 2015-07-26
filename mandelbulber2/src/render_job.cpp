@@ -299,6 +299,7 @@ bool cRenderJob::Execute(void)
 	//initialize histograms
 	renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
 	renderData->statistics.histogramStepCount.Resize(1000);
+	renderData->statistics.Reset();
 
 	//create and execute renderer
 	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image, parentObject);
