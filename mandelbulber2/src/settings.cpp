@@ -159,7 +159,7 @@ void cSettings::CreateAnimationString(QString &text, const QString &headerText, 
 				{
 					switch(parameterList[i].morphType)
 					{
-						case morphNone: text += "morphAkima"; break;
+						case morphNone: text += "morphNone"; break;
 						case morphLinear: text += "morphLinear"; break;
 						case morphLinearAngle: text += "morphLinearAngle"; break;
 						case morphCatMullRom: text += "morphCatMullRom"; break;
