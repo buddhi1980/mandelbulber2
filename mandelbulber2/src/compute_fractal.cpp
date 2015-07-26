@@ -115,149 +115,152 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		//temporary vector for weight function
 		CVector3 tempZ = z;
 
-		//calls for fractal formulas
-		switch (fractal->formula)
+		if (!four.IsHybrid() || four.GetWeight(sequence) > 0.0)
 		{
-			case mandelbulb:
+			//calls for fractal formulas
+			switch (fractal->formula)
 			{
-				bulbAux[sequence].r = r;
-				MandelbulbIteration(z, fractal, bulbAux[sequence]);
-				break;
+				case mandelbulb:
+				{
+					bulbAux[sequence].r = r;
+					MandelbulbIteration(z, fractal, bulbAux[sequence]);
+					break;
+				}
+				case mandelbulb2:
+				{
+					bulbAux[sequence].r = r;
+					Mandelbulbulb2Iteration(z, bulbAux[sequence]);
+					break;
+				}
+				case mandelbulb3:
+				{
+					bulbAux[sequence].r = r;
+					Mandelbulbulb3Iteration(z, bulbAux[sequence]);
+					break;
+				}
+				case mandelbulb4:
+				{
+					bulbAux[sequence].r = r;
+					Mandelbulbulb4Iteration(z, fractal, bulbAux[sequence]);
+					break;
+				}
+				case fast_mandelbulb_power2:
+				{
+					MandelbulbulbPower2Iteration(z);
+					break;
+				}
+				case xenodreambuie:
+				{
+					bulbAux[sequence].r = r;
+					XenodreambuieIteration(z, fractal, bulbAux[sequence]);
+					break;
+				}
+				case mandelbox:
+				{
+					MandelboxIteration(z, fractal, mandelboxAux[sequence]);
+					break;
+				}
+				case mandelboxVaryScale4D:
+				{
+					MandelboxVaryScale4DIteration(z, w, fractal, mandelboxAux[sequence]);
+					break;
+				}
+				case smoothMandelbox:
+				{
+					SmoothMandelboxIteration(z, fractal, mandelboxAux[sequence]);
+					break;
+				}
+				case boxFoldBulbPow2:
+				{
+					BoxFoldBulbPow2Iteration(z, fractal);
+					break;
+				}
+				case menger_sponge:
+				{
+					MengerSpongeIteration(z, ifsAux[sequence]);
+					break;
+				}
+				case kaleidoscopicIFS:
+				{
+					KaleidoscopicIFSIteration(z, fractal, ifsAux[sequence]);
+					break;
+				}
+				case aexion:
+				{
+					aexionAux[sequence].iterNo = i;
+					AexionIteration(z, w, fractal, aexionAux[sequence]);
+					break;
+				}
+				case hypercomplex:
+				{
+					HypercomplexIteration(z, w);
+					break;
+				}
+				case quaternion:
+				{
+					QuaternionIteration(z, w);
+					break;
+				}
+				case benesi:
+				{
+					BenesiIteration(z, c);
+					break;
+				}
+				case bristorbrot:
+				{
+					BristorbrotIteration(z);
+					break;
+				}
+				case ides:
+				{
+					IdesIteration(z);
+					break;
+				}
+				case ides2:
+				{
+					Ides2Iteration(z, c);
+					break;
+				}
+				case buffalo:
+				{
+					BuffaloIteration(z, fractal);
+					break;
+				}
+				case quickdudley:
+				{
+					QuickDudleyIteration(z);
+					break;
+				}
+				case lkmitch:
+				{
+					LkmitchIteration(z);
+					break;
+				}
+				case makin3d2:
+				{
+					Makin3D2Iteration(z);
+					break;
+				}
+				case msltoesym2:
+				{
+					MsltoeSym2(z, fractal);
+					break;
+				}
+				case generalizedFoldBox:
+				{
+					GeneralizedFoldBoxIteration(z, fractal, mandelboxAux[sequence]);
+					break;
+				}
+				case mandelbulb5:
+				{
+					bulbAux[sequence].r = r;
+					Mandelbulb5Iteration(z, c, i, fractal, bulbAux[sequence]);
+					break;
+				}
+				default:
+					z = CVector3(0.0, 0.0, 0.0);
+					break;
 			}
-			case mandelbulb2:
-			{
-				bulbAux[sequence].r = r;
-				Mandelbulbulb2Iteration(z, bulbAux[sequence]);
-				break;
-			}
-			case mandelbulb3:
-			{
-				bulbAux[sequence].r = r;
-				Mandelbulbulb3Iteration(z, bulbAux[sequence]);
-				break;
-			}
-			case mandelbulb4:
-			{
-				bulbAux[sequence].r = r;
-				Mandelbulbulb4Iteration(z, fractal, bulbAux[sequence]);
-				break;
-			}
-			case fast_mandelbulb_power2:
-			{
-				MandelbulbulbPower2Iteration(z);
-				break;
-			}
-			case xenodreambuie:
-			{
-				bulbAux[sequence].r = r;
-				XenodreambuieIteration(z, fractal, bulbAux[sequence]);
-				break;
-			}
-			case mandelbox:
-			{
-				MandelboxIteration(z, fractal, mandelboxAux[sequence]);
-				break;
-			}
-			case mandelboxVaryScale4D:
-			{
-				MandelboxVaryScale4DIteration(z, w, fractal, mandelboxAux[sequence]);
-				break;
-			}
-			case smoothMandelbox:
-			{
-				SmoothMandelboxIteration(z, fractal, mandelboxAux[sequence]);
-				break;
-			}
-			case boxFoldBulbPow2:
-			{
-				BoxFoldBulbPow2Iteration(z, fractal);
-				break;
-			}
-			case menger_sponge:
-			{
-				MengerSpongeIteration(z, ifsAux[sequence]);
-				break;
-			}
-			case kaleidoscopicIFS:
-			{
-				KaleidoscopicIFSIteration(z, fractal, ifsAux[sequence]);
-				break;
-			}
-			case aexion:
-			{
-				aexionAux[sequence].iterNo = i;
-				AexionIteration(z, w, fractal, aexionAux[sequence]);
-				break;
-			}
-			case hypercomplex:
-			{
-				HypercomplexIteration(z, w);
-				break;
-			}
-			case quaternion:
-			{
-				QuaternionIteration(z, w);
-				break;
-			}
-			case benesi:
-			{
-				BenesiIteration(z, c);
-				break;
-			}
-			case bristorbrot:
-			{
-				BristorbrotIteration(z);
-				break;
-			}
-			case ides:
-			{
-				IdesIteration(z);
-				break;
-			}
-			case ides2:
-			{
-				Ides2Iteration(z, c);
-				break;
-			}
-			case buffalo:
-			{
-				BuffaloIteration(z, fractal);
-				break;
-			}
-			case quickdudley:
-			{
-				QuickDudleyIteration(z);
-				break;
-			}
-			case lkmitch:
-			{
-				LkmitchIteration(z);
-				break;
-			}
-			case makin3d2:
-			{
-				Makin3D2Iteration(z);
-				break;
-			}
-			case msltoesym2:
-			{
-				MsltoeSym2(z, fractal);
-				break;
-			}
-			case generalizedFoldBox:
-			{
-				GeneralizedFoldBoxIteration(z, fractal, mandelboxAux[sequence]);
-				break;
-			}
-			case mandelbulb5:
-			{
-				bulbAux[sequence].r = r;
-				Mandelbulb5Iteration(z, c, i, fractal, bulbAux[sequence]);
-				break;
-			}
-			default:
-				z = CVector3(0.0, 0.0, 0.0);
-				break;
 		}
 
 		//addition of constant
