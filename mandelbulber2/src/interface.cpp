@@ -977,6 +977,19 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 		mainWindow->ui->spinboxInt_formula_iterations_4->setVisible(false);
 		mainWindow->ui->sliderInt_formula_iterations_4->setVisible(false);
 
+		mainWindow->ui->label_formula_weight_1->setVisible(false);
+		mainWindow->ui->spinbox_formula_weight_1->setVisible(false);
+		mainWindow->ui->slider_formula_weight_1->setVisible(false);
+		mainWindow->ui->label_formula_weight_2->setVisible(false);
+		mainWindow->ui->spinbox_formula_weight_2->setVisible(false);
+		mainWindow->ui->slider_formula_weight_2->setVisible(false);
+		mainWindow->ui->label_formula_weight_3->setVisible(false);
+		mainWindow->ui->spinbox_formula_weight_3->setVisible(false);
+		mainWindow->ui->slider_formula_weight_3->setVisible(false);
+		mainWindow->ui->label_formula_weight_4->setVisible(false);
+		mainWindow->ui->spinbox_formula_weight_4->setVisible(false);
+		mainWindow->ui->slider_formula_weight_4->setVisible(false);
+
 		mainWindow->ui->frame_iterations_formula_2->setEnabled(false);
 		mainWindow->ui->frame_iterations_formula_3->setEnabled(false);
 		mainWindow->ui->frame_iterations_formula_4->setEnabled(false);

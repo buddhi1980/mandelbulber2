@@ -22,6 +22,7 @@
 
 #include "compute_fractal.hpp"
 #include "fractal_formulas.hpp"
+#include "common_math.h"
 
 
 //temporary functions for performance profiling
@@ -110,6 +111,9 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			sequence = four.GetSequence(i);
 		}
 		const cFractal *fractal = four.GetFractal(sequence);
+
+		//temporary vector for weight function
+		CVector3 tempZ = z;
 
 		//calls for fractal formulas
 		switch (fractal->formula)
@@ -279,6 +283,11 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				}
 				break;
 			}
+		}
+
+		if(four.IsHybrid())
+		{
+			z = SmoothCVector3(tempZ, z, four.GetWeight(sequence));
 		}
 
 		//r calculation

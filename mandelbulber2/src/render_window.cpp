@@ -504,6 +504,19 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 	ui->spinboxInt_formula_iterations_4->setVisible(state);
 	ui->sliderInt_formula_iterations_4->setVisible(state);
 
+	ui->label_formula_weight_1->setVisible(state);
+	ui->spinbox_formula_weight_1->setVisible(state);
+	ui->slider_formula_weight_1->setVisible(state);
+	ui->label_formula_weight_2->setVisible(state);
+	ui->spinbox_formula_weight_2->setVisible(state);
+	ui->slider_formula_weight_2->setVisible(state);
+	ui->label_formula_weight_3->setVisible(state);
+	ui->spinbox_formula_weight_3->setVisible(state);
+	ui->slider_formula_weight_3->setVisible(state);
+	ui->label_formula_weight_4->setVisible(state);
+	ui->spinbox_formula_weight_4->setVisible(state);
+	ui->slider_formula_weight_4->setVisible(state);
+
 	ui->frame_iterations_formula_2->setEnabled(state);
 	ui->frame_iterations_formula_3->setEnabled(state);
 	ui->frame_iterations_formula_4->setEnabled(state);

@@ -878,6 +878,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	ui->pushButton_flight_refresh_table->animateClick();
 }
 
+//TODO needed to update limits when prames per key is changed
 void cKeyframeAnimation::UpdateLimitsForFrameRange(void)
 {
 	int framesPerKey = ui->spinboxInt_frames_per_keyframe->value();

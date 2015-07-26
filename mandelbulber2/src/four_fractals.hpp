@@ -40,6 +40,7 @@ public:
 	int GetSequence(int i) const;
 	bool IsHybrid() const {return isHybrid;}
 	fractal::enumDEType GetDEType(int formulaIndex) const;
+	double GetWeight(int formulaIndex) const {return formulaWeight[formulaIndex];}
 
 private:
 	fractal::enumDEType DEType[NUMBER_OF_FRACTALS];
@@ -47,6 +48,7 @@ private:
 	void CreateSequence(const cParameterContainer *generalPar);
 	int maxN;
 	bool isHybrid;
+	double formulaWeight[NUMBER_OF_FRACTALS];
 };
 
 

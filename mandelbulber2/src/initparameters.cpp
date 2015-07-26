@@ -93,6 +93,11 @@ using namespace parameterContainer;
 	par->addParam("formula_iterations", 3, 1, 1, 65536, morphNone, paramStandard);
 	par->addParam("formula_iterations", 4, 1, 1, 65536, morphNone, paramStandard);
 
+	for(int i=1; i <= NUMBER_OF_FRACTALS; i++)
+	{
+		par->addParam("formula_weight", i, 1.0, 0.0, 1.0, morphAkima, paramStandard);
+	}
+
 	//bolean operators
 	par->addParam("boolean_operators", false, morphLinear, paramStandard);
 	par->addParam("boolean_operator", 1, (int)params::booleanOperatorOR, morphLinear, paramStandard);
@@ -100,7 +105,7 @@ using namespace parameterContainer;
 	par->addParam("boolean_operator", 3, (int)params::booleanOperatorOR, morphLinear, paramStandard);
 
 	//fractal transform
-	for(int i = 1; i <= 4; i++)
+	for(int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 	{
 		par->addParam("formula_position", i, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 		par->addParam("formula_rotation", i, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);

@@ -56,6 +56,7 @@ cFourFractals::cFourFractals(const cFractalContainer *par, const cParameterConta
 	{
 		fourFractals[i] = new cFractal(&par->at(i));
 		fourFractals[i]->formula = (fractal::enumFractalFormula) generalPar->Get<int>("formula", i + 1);
+		formulaWeight[i] = generalPar->Get<double>("formula_weight", i + 1);
 	}
 
 	maxN = generalPar->Get<int>("N");
