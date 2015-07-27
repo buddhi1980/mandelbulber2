@@ -578,6 +578,7 @@ void RenderWindow::slotMenuSaveSettingsToClipboard()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 	parSettings.SaveToClipboard();
+	cErrorMessage::showMessage(QObject::tr("Settings saved to clipboard"), cErrorMessage::infoMessage);
 }
 
 void RenderWindow::slotMenuLoadSettings()
@@ -626,6 +627,10 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 		this->setWindowTitle(QString("Mandelbulber (") + "from clipboard" + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();
+	}
+	else
+	{
+		cErrorMessage::showMessage(QObject::tr("Cannot load settings from clipboard!"), cErrorMessage::errorMessage, gMainInterface->mainWindow);
 	}
 }
 

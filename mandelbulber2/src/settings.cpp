@@ -247,6 +247,7 @@ bool cSettings::SaveToFile(QString filename)
 
 void cSettings::SaveToClipboard()
 {
+	WriteLog("Save settings to clipboard");
 	QClipboard *clipboard = QApplication::clipboard();
 	clipboard->setText(settingsText);
 }
@@ -297,6 +298,7 @@ bool cSettings::LoadFromString(const QString &_settingsText)
 
 bool cSettings::LoadFromClipboard()
 {
+	WriteLog("Load settings from clipboard");
 	QClipboard *clipboard = QApplication::clipboard();
 	return LoadFromString(clipboard->text());
 }
