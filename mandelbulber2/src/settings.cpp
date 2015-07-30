@@ -68,10 +68,10 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 		}
 
 		//flight animation
-		CreateAnimationString(settingsText, QString("frames"), *frames);
+		CreateAnimationString(settingsText, QString("frames"), frames);
 
 		//keyframe animation
-		CreateAnimationString(settingsText, QString("keyframes"), *keyframes);
+		CreateAnimationString(settingsText, QString("keyframes"), keyframes);
 	}
 	textPrepared = true;
 
@@ -86,14 +86,14 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 	return settingsText.size();
 }
 
-void cSettings::CreateAnimationString(QString &text, const QString &headerText, const cAnimationFrames &frames)
+void cSettings::CreateAnimationString(QString &text, const QString &headerText, const cAnimationFrames *frames)
 {
-	if (&frames)
+	if (frames)
 	{
-		if (frames.GetNumberOfFrames() > 0)
+		if (frames->GetNumberOfFrames() > 0)
 		{
 			text += "[" + headerText + "]\n";
-			QList<cAnimationFrames::sParameterDescription> parameterList = frames.GetListOfUsedParameters();
+			QList<cAnimationFrames::sParameterDescription> parameterList = frames->GetListOfUsedParameters();
 			//header
 			text += "frame;";
 			for (int i = 0; i < parameterList.size(); ++i)
@@ -121,28 +121,28 @@ void cSettings::CreateAnimationString(QString &text, const QString &headerText, 
 				}
 			}
 			text += "\n";
-			for (int f = 0; f < frames.GetNumberOfFrames(); ++f)
+			for (int f = 0; f < frames->GetNumberOfFrames(); ++f)
 			{
 				text += QString::number(f) + ";";
 				for (int i = 0; i < parameterList.size(); ++i)
 				{
 					if (parameterList[i].varType == parameterContainer::typeVector3)
 					{
-						CVector3 val = frames.GetFrame(f).parameters.Get<CVector3>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						CVector3 val = frames->GetFrame(f).parameters.Get<CVector3>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
 						text += QString("%L1").arg(val.x, 0, 'g', 16) + ";";
 						text += QString("%L1").arg(val.y, 0, 'g', 16) + ";";
 						text += QString("%L1").arg(val.z, 0, 'g', 16);
 					}
 					else if (parameterList[i].varType == parameterContainer::typeRgb)
 					{
-						sRGB val = frames.GetFrame(f).parameters.Get<sRGB>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						sRGB val = frames->GetFrame(f).parameters.Get<sRGB>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
 						text += QString::number(val.R) + ";";
 						text += QString::number(val.G) + ";";
 						text += QString::number(val.B);
 					}
 					else
 					{
-						text += frames.GetFrame(f).parameters.Get<QString>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						text += frames->GetFrame(f).parameters.Get<QString>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
 					}
 
 					if (i != parameterList.size() - 1)

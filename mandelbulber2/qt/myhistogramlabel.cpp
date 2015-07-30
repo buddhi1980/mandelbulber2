@@ -98,7 +98,7 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter)
 			painter.drawRect(
 				QRect(legendWidthP1 + i * drawWidth / size,
 					drawHeight - height,
-					ceil(1.0 * drawWidth / size),
+					floor(1.0 * drawWidth / size),
 					height)
 			);
 		}

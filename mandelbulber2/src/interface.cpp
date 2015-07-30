@@ -1519,7 +1519,7 @@ double cInterface::GetDistanceForPoint(CVector3 point)
 
 void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode)
 {
-	WriteLog("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: " + button);
+	WriteLog(QString("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: ") + button);
 	//get data from interface
 
 	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)mode.at(0).toInt();
