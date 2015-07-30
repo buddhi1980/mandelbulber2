@@ -1,0 +1,26 @@
+# these commands are utility commands for the mandelbulber project
+#
+# if not otherwise noted these commands are meant to be executed 
+# in the mandelbulber root directory (mandelbulber2)
+
+
+### language system ###
+# language system requires language tools of qt
+# updating of ts files (first step before editing language entries)
+lupdate qt_data/*.ui -ts language/qt_data_*.ts
+lupdate Debug/mandelbulber.pro
+
+# modify language files
+linguist language/[language to edit].ts
+
+# generation of binary files used by the program
+lrelease language/[language to generate].ts
+
+### optimization of images ###
+# optimize jpg images and compress to 80%
+find . -name '*.jp*g' -print0 | xargs -0 jpegoptim -ftn -m80
+
+# optimize png images
+find . -name '*.png' -print0 | xargs -0 optipng -o7
+
+
