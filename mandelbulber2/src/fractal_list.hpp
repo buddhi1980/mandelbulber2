@@ -75,6 +75,7 @@ enum enumFractalFormula
   makin3d2 = 50,
   msltoesym2 = 51,
   mandelbulb5 = 52,
+  mandelbox103 = 53,
 };
 
 enum enumDEType

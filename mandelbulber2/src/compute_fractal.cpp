@@ -257,6 +257,12 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 					Mandelbulb5Iteration(z, c, i, fractal, bulbAux[sequence]);
 					break;
 				}
+      case mandelbox103:
+      {
+        Mandelbox103Iteration(z, c, i, fractal, mandelboxAux[sequence]);
+        break;
+      }
+
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
 					break;
@@ -270,7 +276,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			case kaleidoscopicIFS:
 			case aexion:
       case mandelbulb5:
-
+      case mandelbox103:
 			{
 				break;
 			}
@@ -353,6 +359,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			case smoothMandelbox:
 			case mandelboxVaryScale4D:
 			case generalizedFoldBox:
+      case mandelbox103:
 				out->distance = r / fabs(mandelboxAux[fractalIndex].mboxDE * foldDE);
 				break;
 			case menger_sponge:
@@ -398,7 +405,9 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				case generalizedFoldBox:
 					out->colorIndex = mandelboxAux[fractalIndex].mboxColor * 100.0 + r * defaultFractal->mandelbox.colorFactorR * foldColor;
 					break;
-
+        case mandelbox103:
+          out->colorIndex = minimumR * i * 30;
+        break;
 				case menger_sponge:
 				case kaleidoscopicIFS:
 					out->colorIndex = minimumR * 1000.0;

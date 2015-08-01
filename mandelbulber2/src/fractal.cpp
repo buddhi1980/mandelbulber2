@@ -234,7 +234,143 @@ cFractal::cFractal(const cParameterContainer *container)
 	mandelbulb5.boxFold2FoldingValue = container->Get<double>("mandelbulb5_box_fold2_folding_value");
   mandelbulb5.boxFold2Weight = container->Get<double>("mandelbulb5_box_fold2_weight");
 
+  mandelbox103.boxFold1Enabled = container->Get<bool>("mandelbox103_box_fold1_enabled");
+  mandelbox103.boxFold1WeightEnabled = container->Get<bool>("mandelbox103_box_fold1_weight_enabled");
+  mandelbox103.boxFold1StartIterations = container->Get<int>("mandelbox103_box_fold1_start_iterations");
+  mandelbox103.boxFold1StopIterations = container->Get<int>("mandelbox103_box_fold1_stop_iterations");
+  mandelbox103.boxFold1FoldingLimit = container->Get<double>("mandelbox103_box_fold1_folding_limit");
+  mandelbox103.boxFold1FoldingValue = container->Get<double>("mandelbox103_box_fold1_folding_value");
+  mandelbox103.boxFold1Weight = container->Get<double>("mandelbox103_box_fold1_weight");
+  mandelbox103.sphericalFold1Enabled = container->Get<bool>("mandelbox103_sphericalFold1_enabled");
+  mandelbox103.sphericalFold1WeightEnabled = container->Get<bool>("mandelbox103_sphericalFold1_weight_enabled");
+  mandelbox103.sphericalFold1RadMin = container->Get<double>("mandelbox103_sphericalFold1_min_radius");
+  mandelbox103.sphericalFold1RadFixed = container->Get<double>("mandelbox103_sphericalFold1_fixed_radius");
+  mandelbox103.sphericalFold1StartIterations = container->Get<int>("mandelbox103_sphericalFold1_start_iterations");
+  mandelbox103.sphericalFold1StopIterations = container->Get<int>("mandelbox103_sphericalFold1_stop_iterations");
+  mandelbox103.sphericalFold1Weight = container->Get<double>("mandelbox103_sphericalFold1_weight");
+  mandelbox103.scale1Enabled = container->Get<bool>("mandelbox103_scale1_enabled");
+  mandelbox103.scale1StartIterations = container->Get<int>("mandelbox103_scale1_start_iterations");
+  mandelbox103.scale1StopIterations = container->Get<int>("mandelbox103_scale1_stop_iterations");
+  mandelbox103.scale1 = container->Get<double>("mandelbox103_scale1");
+  mandelbox103.mainRotation1Enabled = container->Get<bool>("mandelbox103_main_rotation1_enabled");
+  mandelbox103.mainRotation1WeightEnabled = container->Get<bool>("mandelbox103_main_rotation1_weight_enabled");
+  mandelbox103.mainRotation1StartIterations = container->Get<int>("mandelbox103_main_rotation1_start_iterations");
+  mandelbox103.mainRotation1StopIterations = container->Get<int>("mandelbox103_main_rotation1_stop_iterations");
+  mandelbox103.mainRotation1 = container->Get<CVector3>("mandelbox103_main_rotation1");
+  mandelbox103.mainRotation1Weight = container->Get<double>("mandelbox103_main_rotation1_weight");
 
+  mandelbox103.fabsAddConstant1Enabled = container->Get<bool>("mandelbox103_fabsAddConstant1_enabled");
+  mandelbox103.fabsAddConstant1WeightEnabled = container->Get<bool>("mandelbox103_fabsAddConstant1_weight_enabled");
+  mandelbox103.fabsAddConstant1Enabledx = container->Get<bool>("mandelbox103_fabsAddConstant1_enabled_x");
+  mandelbox103.fabsAddConstant1Enabledy = container->Get<bool>("mandelbox103_fabsAddConstant1_enabled_y");
+  mandelbox103.fabsAddConstant1Enabledz = container->Get<bool>("mandelbox103_fabsAddConstant1_enabled_z");
+  mandelbox103.fabsAddConstant1StartIterations = container->Get<int>("mandelbox103_fabsAddConstant1_start_iterations");
+  mandelbox103.fabsAddConstant1StopIterations = container->Get<int>("mandelbox103_fabsAddConstant1_stop_iterations");
+  mandelbox103.fabsAddConstant1A = container->Get<CVector3>("mandelbox103_fabsAddConstant1A");
+  mandelbox103.fabsAddConstant1B = container->Get<CVector3>("mandelbox103_fabsAddConstant1B");
+  mandelbox103.fabsAddConstant1C = container->Get<CVector3>("mandelbox103_fabsAddConstant1C");
+  mandelbox103.fabsAddConstant1Weight = container->Get<double>("mandelbox103_fabsAddConstant1_weight");
+
+  mandelbox103.constantMultiplier1Enabled = container->Get<bool>("mandelbox103_constantMultiplier1_enabled");
+  mandelbox103.constantMultiplier1WeightEnabled = container->Get<bool>("mandelbox103_constantMultiplier1_weight_enabled");
+  mandelbox103.constantMultiplier1StartIterations = container->Get<int>("mandelbox103_constantMultiplier1_start_iterations");
+  mandelbox103.constantMultiplier1StopIterations = container->Get<int>("mandelbox103_constantMultiplier1_stop_iterations");
+  mandelbox103.constantMultiplier1Vect = container->Get<CVector3>("mandelbox103_constantMultiplier1");
+  mandelbox103.constantMultiplier1Weight = container->Get<double>("mandelbox103_constantMultiplier1_weight");
+  mandelbox103.additionConstant1Enabled = container->Get<bool>("mandelbox103_additionConstant1_enabled");
+  mandelbox103.additionConstant1WeightEnabled = container->Get<bool>("mandelbox103_additionConstant1_weight_enabled");
+  mandelbox103.additionConstant1StartIterations = container->Get<int>("mandelbox103_additionConstant1_start_iterations");
+  mandelbox103.additionConstant1StopIterations = container->Get<int>("mandelbox103_additionConstant1_stop_iterations");
+  mandelbox103.additionConstant1Weight = container->Get<double>("mandelbox103_additionConstant1_weight");
+  mandelbox103.additionConstant1 = container->Get<CVector3>("mandelbox103_additionConstant1");
+
+  mandelbox103.fabsFormulaABCD1A = container->Get<CVector3>("mandelbox103_fabsFormulaABCD1A");
+  mandelbox103.fabsFormulaABCD1B = container->Get<CVector3>("mandelbox103_fabsFormulaABCD1B");
+  mandelbox103.fabsFormulaABCD1C = container->Get<CVector3>("mandelbox103_fabsFormulaABCD1C");
+  mandelbox103.fabsFormulaABCD1D = container->Get<CVector3>("mandelbox103_fabsFormulaABCD1D");
+  mandelbox103.fabsFormulaABCD1Enabled = container->Get<bool>("mandelbox103_fabsFormulaABCD1_enabled");
+  mandelbox103.fabsFormulaABCD1WeightEnabled = container->Get<bool>("mandelbox103_fabsFormulaABCD1_weight_enabled");
+  mandelbox103.fabsFormulaABCD1EnabledAx = container->Get<bool>("mandelbox103_fabsFormulaABCD1_enabled_Ax");
+  mandelbox103.fabsFormulaABCD1EnabledAy = container->Get<bool>("mandelbox103_fabsFormulaABCD1_enabled_Ay");
+  mandelbox103.fabsFormulaABCD1EnabledAz = container->Get<bool>("mandelbox103_fabsFormulaABCD1_enabled_Az");
+  mandelbox103.fabsFormulaABCD1EnabledBx = container->Get<bool>("mandelbox103_fabsFormulaABCD1_enabled_Bx");
+  mandelbox103.fabsFormulaABCD1EnabledBy = container->Get<bool>("mandelbox103_fabsFormulaABCD1_enabled_By");
+  mandelbox103.fabsFormulaABCD1EnabledBz = container->Get<bool>("mandelbox103_fabsFormulaABCD1_enabled_Bz");
+  mandelbox103.fabsFormulaABCD1StartIterations = container->Get<int>("mandelbox103_fabsFormulaABCD1_start_iterations");
+  mandelbox103.fabsFormulaABCD1StopIterations = container->Get<int>("mandelbox103_fabsFormulaABCD1_stop_iterations");
+  mandelbox103.fabsFormulaABCD1Weight = container->Get<double>("mandelbox103_fabsFormulaABCD1_weight");
+
+  mandelbox103.boxFold2Enabled = container->Get<bool>("mandelbox103_box_fold2_enabled");
+  mandelbox103.boxFold2WeightEnabled = container->Get<bool>("mandelbox103_box_fold2_weight_enabled");
+  mandelbox103.boxFold2StartIterations = container->Get<int>("mandelbox103_box_fold2_start_iterations");
+  mandelbox103.boxFold2StopIterations = container->Get<int>("mandelbox103_box_fold2_stop_iterations");
+  mandelbox103.boxFold2FoldingLimit = container->Get<double>("mandelbox103_box_fold2_folding_limit");
+  mandelbox103.boxFold2FoldingValue = container->Get<double>("mandelbox103_box_fold2_folding_value");
+  mandelbox103.boxFold2Weight = container->Get<double>("mandelbox103_box_fold2_weight");
+  mandelbox103.sphericalFold2RadMin = container->Get<double>("mandelbox103_sphericalFold2_min_radius");
+  mandelbox103.sphericalFold2RadFixed = container->Get<double>("mandelbox103_sphericalFold2_fixed_radius");
+  mandelbox103.sphericalFold2Enabled = container->Get<bool>("mandelbox103_sphericalFold2_enabled");
+  mandelbox103.sphericalFold2WeightEnabled = container->Get<bool>("mandelbox103_sphericalFold2_weight_enabled");
+  mandelbox103.sphericalFold2StartIterations = container->Get<int>("mandelbox103_sphericalFold2_start_iterations");
+  mandelbox103.sphericalFold2StopIterations = container->Get<int>("mandelbox103_sphericalFold2_stop_iterations");
+  mandelbox103.sphericalFold2Weight = container->Get<double>("mandelbox103_sphericalFold2_weight");
+  mandelbox103.scale2Enabled = container->Get<bool>("mandelbox103_scale2_enabled");
+  mandelbox103.scale2StartIterations = container->Get<int>("mandelbox103_scale2_start_iterations");
+  mandelbox103.scale2StopIterations = container->Get<int>("mandelbox103_scale2_stop_iterations");
+  mandelbox103.scale2 = container->Get<double>("mandelbox103_scale2");
+
+  mandelbox103.mainRotation2Enabled = container->Get<bool>("mandelbox103_main_rotation2_enabled");
+  mandelbox103.mainRotation2WeightEnabled = container->Get<bool>("mandelbox103_main_rotation2_weight_enabled");
+  mandelbox103.mainRotation2StartIterations = container->Get<int>("mandelbox103_main_rotation2_start_iterations");
+  mandelbox103.mainRotation2StopIterations = container->Get<int>("mandelbox103_main_rotation2_stop_iterations");
+  mandelbox103.mainRotation2 = container->Get<CVector3>("mandelbox103_main_rotation2");
+  mandelbox103.mainRotation2Weight = container->Get<double>("mandelbox103_main_rotation2_weight");
+
+
+  mandelbox103.constantMultiplier2Vect = container->Get<CVector3>("mandelbox103_constantMultiplier2");
+  mandelbox103.constantMultiplier2Enabled = container->Get<bool>("mandelbox103_constantMultiplier2_enabled");
+  mandelbox103.constantMultiplier2WeightEnabled = container->Get<bool>("mandelbox103_constantMultiplier2_weight_enabled");
+  mandelbox103.constantMultiplier2StartIterations = container->Get<int>("mandelbox103_constantMultiplier2_start_iterations");
+  mandelbox103.constantMultiplier2StopIterations = container->Get<int>("mandelbox103_constantMultiplier2_stop_iterations");
+  mandelbox103.constantMultiplier2Weight = container->Get<double>("mandelbox103_constantMultiplier2_weight");
+  mandelbox103.additionConstant2 = container->Get<CVector3>("mandelbox103_additionConstant2");
+  mandelbox103.additionConstant2Enabled = container->Get<bool>("mandelbox103_additionConstant2_enabled");
+  mandelbox103.additionConstant2WeightEnabled = container->Get<bool>("mandelbox103_additionConstant2_weight_enabled");
+  mandelbox103.additionConstant2StartIterations = container->Get<int>("mandelbox103_additionConstant2_start_iterations");
+  mandelbox103.additionConstant2StopIterations = container->Get<int>("mandelbox103_additionConstant2_stop_iterations");
+  mandelbox103.additionConstant2Weight = container->Get<double>("mandelbox103_additionConstant2_weight");
+
+  mandelbox103.mainRotation3Enabled = container->Get<bool>("mandelbox103_main_rotation3_enabled");
+  mandelbox103.mainRotation3WeightEnabled = container->Get<bool>("mandelbox103_main_rotation3_weight_enabled");
+  mandelbox103.mainRotation3StartIterations = container->Get<int>("mandelbox103_main_rotation3_start_iterations");
+  mandelbox103.mainRotation3StopIterations = container->Get<int>("mandelbox103_main_rotation3_stop_iterations");
+  mandelbox103.mainRotation3 = container->Get<CVector3>("mandelbox103_main_rotation3");
+  mandelbox103.mainRotation3Weight = container->Get<double>("mandelbox103_main_rotation3_weight");
+
+  mandelbox103.fabsFormulaABCD2A = container->Get<CVector3>("mandelbox103_fabsFormulaABCD2A");
+  mandelbox103.fabsFormulaABCD2B = container->Get<CVector3>("mandelbox103_fabsFormulaABCD2B");
+  mandelbox103.fabsFormulaABCD2C = container->Get<CVector3>("mandelbox103_fabsFormulaABCD2C");
+  mandelbox103.fabsFormulaABCD2D = container->Get<CVector3>("mandelbox103_fabsFormulaABCD2D");
+  mandelbox103.fabsFormulaABCD2Enabled = container->Get<bool>("mandelbox103_fabsFormulaABCD2_enabled");
+  mandelbox103.fabsFormulaABCD2WeightEnabled = container->Get<bool>("mandelbox103_fabsFormulaABCD2_weight_enabled");
+  mandelbox103.fabsFormulaABCD2EnabledAx = container->Get<bool>("mandelbox103_fabsFormulaABCD2_enabled_Ax");
+  mandelbox103.fabsFormulaABCD2EnabledAy = container->Get<bool>("mandelbox103_fabsFormulaABCD2_enabled_Ay");
+  mandelbox103.fabsFormulaABCD2EnabledAz = container->Get<bool>("mandelbox103_fabsFormulaABCD2_enabled_Az");
+  mandelbox103.fabsFormulaABCD2EnabledBx = container->Get<bool>("mandelbox103_fabsFormulaABCD2_enabled_Bx");
+  mandelbox103.fabsFormulaABCD2EnabledBy = container->Get<bool>("mandelbox103_fabsFormulaABCD2_enabled_By");
+  mandelbox103.fabsFormulaABCD2EnabledBz = container->Get<bool>("mandelbox103_fabsFormulaABCD2_enabled_Bz");
+  mandelbox103.fabsFormulaABCD2StartIterations = container->Get<int>("mandelbox103_fabsFormulaABCD2_start_iterations");
+  mandelbox103.fabsFormulaABCD2StopIterations = container->Get<int>("mandelbox103_fabsFormulaABCD2_stop_iterations");
+  mandelbox103.fabsFormulaABCD2Weight = container->Get<double>("mandelbox103_fabsFormulaABCD2_weight");
+
+  mandelbox103.iterationWeight1ConstantA = container->Get<double>("mandelbox103_iterationWeight1_constantA");
+  mandelbox103.iterationWeight1ConstantB = container->Get<double>("mandelbox103_iterationWeight1_constantB");
+  mandelbox103.iterationWeight1ConstantZ = container->Get<double>("mandelbox103_iterationWeight1_constantZ");
+  mandelbox103.iterationWeight1Enabled = container->Get<bool>("mandelbox103_iterationWeight1_enabled");
+  mandelbox103.iterationWeight1WeightEnabled = container->Get<bool>("mandelbox103_iterationWeight1_weight_enabled");
+  mandelbox103.iterationWeight1IterationA = container->Get<int>("mandelbox103_iterationWeight1_iterationA");
+  mandelbox103.iterationWeight1IterationB = container->Get<int>("mandelbox103_iterationWeight1_iterationB");
+  mandelbox103.iterationWeight1Weight = container->Get<double>("mandelbox103_iterationWeight1_weight");
 
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");
@@ -273,6 +409,17 @@ void cFractal::RecalculateFractalParams(void)
   mandelbulb5.mainRot1.SetRotation2(mandelbulb5.mainRotation1 * (M_PI / 180.0));
   mandelbulb5.mainRot2.SetRotation2(mandelbulb5.mainRotation2 * (M_PI / 180.0));
   mandelbulb5.mainRot3.SetRotation2(mandelbulb5.mainRotation3 * (M_PI / 180.0));
+
+
+  mandelbox103.mainRot1.SetRotation2(mandelbox103.mainRotation1 * (M_PI / 180.0));
+  mandelbox103.mainRot2.SetRotation2(mandelbox103.mainRotation2 * (M_PI / 180.0));
+  mandelbox103.mainRot3.SetRotation2(mandelbox103.mainRotation3 * (M_PI / 180.0));
+  mandelbox103.sphericalFold1fR2 = mandelbox103.sphericalFold1RadFixed * mandelbox103.sphericalFold1RadFixed;
+  mandelbox103.sphericalFold1mR2 = mandelbox103.sphericalFold1RadMin * mandelbox103.sphericalFold1RadMin;
+  mandelbox103.sphericalFold1MboxFactor1 = mandelbox103.sphericalFold1fR2 / mandelbox103.sphericalFold1mR2;
+  mandelbox103.sphericalFold2fR2 = mandelbox103.sphericalFold2RadFixed * mandelbox103.sphericalFold2RadFixed;
+  mandelbox103.sphericalFold2mR2 = mandelbox103.sphericalFold2RadMin * mandelbox103.sphericalFold2RadMin;
+  mandelbox103.sphericalFold2MboxFactor1 = mandelbox103.sphericalFold2fR2 / mandelbox103.sphericalFold2mR2;
 
 	//Generalized Fold Box precalculated vectors
 	double sqrt_i3 = 1.0/sqrt(3.0);
