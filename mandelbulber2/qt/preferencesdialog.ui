@@ -278,8 +278,8 @@
           <item>
            <widget class="QLabel" name="label_12">
             <property name="text">
-             <string>These settings affect
-Save as JPG/PNG actions and saving animation frames.
+             <string>These settings affect &quot;Save as JPG/PNG&quot; actions
+ and saving animation frames.
 JPG format is limited to 8-bit.
 32-bit format is available only in EXR format</string>
             </property>
@@ -523,14 +523,14 @@ JPG format is limited to 8-bit.
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>mylineedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>myspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>mylineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
