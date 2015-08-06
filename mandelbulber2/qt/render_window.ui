@@ -67,7 +67,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1082</width>
+           <width>991</width>
            <height>657</height>
           </rect>
          </property>
@@ -371,7 +371,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>395</width>
+          <width>486</width>
           <height>504</height>
          </rect>
         </property>
@@ -2843,7 +2843,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>411</width>
+          <width>502</width>
           <height>145</height>
          </rect>
         </property>
@@ -2912,8 +2912,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>355</width>
+                  <y>-407</y>
+                  <width>446</width>
                   <height>833</height>
                  </rect>
                 </property>
@@ -3608,7 +3608,7 @@ to target:</string>
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coloring of fractal surface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                    <property name="title">
-                    <string>Surface color</string>
+                    <string>Surface color       .            :            .            :            .            :            .            |            .       </string>
                    </property>
                    <property name="checkable">
                     <bool>true</bool>
@@ -4099,7 +4099,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>355</width>
+                  <width>446</width>
                   <height>203</height>
                  </rect>
                 </property>
@@ -4427,7 +4427,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>355</width>
+                  <width>446</width>
                   <height>612</height>
                  </rect>
                 </property>
@@ -5267,7 +5267,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>355</width>
+                  <width>446</width>
                   <height>207</height>
                  </rect>
                 </property>
@@ -5531,7 +5531,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>355</width>
+                  <width>446</width>
                   <height>1467</height>
                  </rect>
                 </property>
@@ -7649,7 +7649,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>395</width>
+          <width>486</width>
           <height>334</height>
          </rect>
         </property>
@@ -7738,7 +7738,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>331</width>
+                      <width>422</width>
                       <height>494</height>
                      </rect>
                     </property>
@@ -8395,7 +8395,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>331</width>
+                      <width>422</width>
                       <height>494</height>
                      </rect>
                     </property>
@@ -9046,7 +9046,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>331</width>
+                      <width>422</width>
                       <height>494</height>
                      </rect>
                     </property>
@@ -9691,7 +9691,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>331</width>
+                      <width>422</width>
                       <height>494</height>
                      </rect>
                     </property>
@@ -10275,6 +10275,13 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
+                          <item row="3" column="0">
+                           <widget class="QLabel" name="label_174">
+                            <property name="text">
+                             <string>scale:</string>
+                            </property>
+                           </widget>
+                          </item>
                          </layout>
                         </item>
                        </layout>
@@ -10333,7 +10340,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>339</width>
+                  <width>430</width>
                   <height>544</height>
                  </rect>
                 </property>
@@ -11576,7 +11583,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>339</width>
+                  <width>430</width>
                   <height>378</height>
                  </rect>
                 </property>
@@ -12120,8 +12127,8 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-188</y>
-          <width>395</width>
+          <y>0</y>
+          <width>486</width>
           <height>890</height>
          </rect>
         </property>
