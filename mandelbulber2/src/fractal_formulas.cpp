@@ -1012,8 +1012,6 @@ if (fractal->mandelbulb5.fabsFormulaAB1Enabled && i >= fractal->mandelbulb5.fabs
       z = SmoothCVector3(temp, z, fractal-> mandelbulb5.boxFold2Weight);
     }
   }
-
-
 }
 
 void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sMandelboxAux &aux)
@@ -1171,7 +1169,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //boxFold; 2
   if (fractal->mandelbox103.boxFold2Enabled && i >= fractal->mandelbox103.boxFold2StartIterations && i < fractal->mandelbox103.boxFold2StopIterations)
   {
-    //temp = z;
+    temp = z;
     if (z.x > fractal->mandelbox103.boxFold2FoldingLimit) z.x = fractal->mandelbox103.boxFold2FoldingValue - z.x;
     else if (z.x < -fractal->mandelbox103.boxFold2FoldingLimit) z.x = -fractal->mandelbox103.boxFold2FoldingValue - z.x;
     if (z.y > fractal->mandelbox103.boxFold2FoldingLimit) z.y = fractal->mandelbox103.boxFold2FoldingValue - z.y;
