@@ -52,6 +52,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+//TODO add x2 and :2 buttons for increasing / decreasing image resolution
+
 RenderWindow::RenderWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::RenderWindow)
@@ -450,6 +452,8 @@ void RenderWindow::slotChangedComboImageScale(int index)
 		gMainInterface->mainImage->CreatePreview(scale, areaWidth, areaHeight, gMainInterface->renderedImage);
 		gMainInterface->mainImage->UpdatePreview();
 		gMainInterface->renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(), gMainInterface->mainImage->GetPreviewHeight());
+
+		gPar->Set("image_preview_scale", index);
 	}
 }
 
