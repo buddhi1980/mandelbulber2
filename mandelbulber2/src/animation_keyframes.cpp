@@ -568,6 +568,15 @@ void cKeyframeAnimation::RenderFrame(int index)
 {
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	keyframes->GetFrameAndConsolidate(index, gPar, gParFractal);
+
+	//recalulation of camera rotation and distance (just for display purposes)
+	CVector3 camera = gPar->Get<CVector3>("camera");
+	CVector3 target = gPar->Get<CVector3>("target");
+	CVector3 top = gPar->Get<CVector3>("camera_top");
+	cCameraTarget cameraTarget(camera, target, top);
+	gPar->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
+	gPar->Set("camera_distance_to_target", cameraTarget.GetDistance());
+
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
 	gPar->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
