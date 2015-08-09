@@ -46,6 +46,7 @@ int main(int argc, char *argv[])
 	gApplication = new QApplication(argc, argv);
 	gApplication->setOrganizationName("Mandelbulber");
 	gApplication->setApplicationName("Mandelbulber");
+	gApplication->setApplicationVersion(MANDELBULBER_VERSION_STRING);
 
 	//registering types for queued connections
 	qRegisterMetaType<cStatistics>("cStatistics");
@@ -66,6 +67,13 @@ int main(int argc, char *argv[])
 	//create internal database with parameters
 	gPar = new cParameterContainer;
 	gParFractal = new cFractalContainer;
+
+	//Allocate container for animation frames
+	gAnimFrames = new cAnimationFrames;
+
+	//Allocate container for key frames
+	gKeyframes = new cKeyframes;
+
 	gPar->SetContainerName("main");
 	InitParams(gPar);
 	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
@@ -88,20 +96,13 @@ int main(int argc, char *argv[])
 	}
 
 	UpdateDefaultPaths();
-
 	UpdateUIStyle();
-
 	UpdateUISkin();
-
 	UpdateLanguage();
 
+	QString cliTODO = ReadCLI();
+
 	gMainInterface->ShowUi();
-
-	//Allocate container for animation frames
-	gAnimFrames = new cAnimationFrames;
-
-	//Allocate container for key frames
-	gKeyframes = new cKeyframes;
 
 	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainWindow);
 	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainWindow);
@@ -112,6 +113,8 @@ int main(int argc, char *argv[])
 	gMainInterface->ComboMouseClickUpdate();
 
 	gMainInterface->AutoRecovery();
+
+	if(cliTODO != "") ProcessCLI(cliTODO);
 
 	//start main Qt loop
 	WriteLog("application->exec()");

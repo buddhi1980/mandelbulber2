@@ -52,10 +52,12 @@ public:
 	QString GetFlightFilename(int index);
 	void UpdateLimitsForFrameRange(void);
 
+public slots:
+	void slotRenderFlight();
+
 private slots:
 	void slotRecordFlight();
 	void slotContinueRecording();
-	void slotRenderFlight();
 	void slotIncreaseSpeed();
 	void slotDecreaseSpeed();
 	void slotFlightStrafe(CVector2<double> _strafe);

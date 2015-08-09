@@ -30,6 +30,7 @@
 #include <ctime>
 #include <QTextStream>
 #include "global_data.hpp"
+#include "settings.hpp"
 
 //#define CLSUPPORT
 
@@ -442,4 +443,185 @@ void UpdateLanguage (void)
 	WriteLog("Instaling translator");
 	gApplication->installTranslator(&main_translator);
 	gApplication->installTranslator(&qt_data_translator);
+}
+
+QString ReadCLI (void)
+{
+	QCommandLineParser parser;
+	// text from http://sourceforge.net/projects/mandelbulber/
+	parser.setApplicationDescription("Mandelbulber is an easy to use, "
+		"handy application designed to help you render 3D Mandelbrot fractals called Mandelbulb "
+		"and some other kind of 3D fractals like Mandelbox, Bulbbox, Juliabulb, Menger Sponge");
+	parser.addHelpOption();
+	parser.addVersionOption();
+	QCommandLineOption noguiOption(QStringList() << "n" << "nogui",
+		QCoreApplication::translate("main", "Start program without GUI."));
+	QCommandLineOption animationOption(QStringList() << "m" << "mode",
+		QCoreApplication::translate("main", "Set <Mode> of animation (flight / keyframe), default is flight."),
+		QCoreApplication::translate("main", "MODE"));
+	QCommandLineOption startOption(QStringList() << "s" << "start",
+		QCoreApplication::translate("main", "Start rendering from frame number <N>."),
+		QCoreApplication::translate("main", "N"));
+	QCommandLineOption endOption(QStringList() << "e" << "end",
+		QCoreApplication::translate("main", "Stop rendering on frame number <N>."),
+		QCoreApplication::translate("main", "N"));
+	QCommandLineOption overrideOption(QStringList() << "o" << "override",
+		QCoreApplication::translate("main", "Override item '<key>' from settings file with new value '<value>'."),
+		QCoreApplication::translate("main", "KEY=VALUE"));
+	QCommandLineOption formatOption(QStringList() << "f" << "format",
+		QCoreApplication::translate("main", "Image output format:\n"
+			"jpg - JPEG format\n"
+			"png - PNG format\n"
+			"png16 - 16-bit PNG format\n"
+			"png16alpha - 16-bit PNG with alpha channel format"),
+		QCoreApplication::translate("main", "FORMAT"));
+	QCommandLineOption resOption(QStringList() << "r" << "res",
+		QCoreApplication::translate("main", "Override image resolution."),
+		QCoreApplication::translate("main", "WIDTHxHEIGHT"));
+	QCommandLineOption fpkOption("fpk",
+		QCoreApplication::translate("main", "Override frames per key parameter."),
+		QCoreApplication::translate("main", "N"));
+	QCommandLineOption hostOption(QStringList() << "H" << "host",
+		QCoreApplication::translate("main", "Set application as a client connected to server of given Host address"
+			"(Host can be of type IPv4, IPv6 and Domain name address)."),
+		QCoreApplication::translate("main", "N.N.N.N"));
+	QCommandLineOption portOption(QStringList() << "p" << "port",
+		QCoreApplication::translate("main", "Set network port number for Netrender (default 5555)."),
+		QCoreApplication::translate("main", "N"));
+	parser.addPositionalArgument("settings_file", QCoreApplication::translate("main",
+		"file with fractal settings (program also tries\nto find file in ./mandelbulber/settings directory)\n"
+		"When settings_file is put as command argument then program will start in noGUI mode"
+	));
+
+	parser.addOption(noguiOption);
+	parser.addOption(animationOption);
+	parser.addOption(startOption);
+	parser.addOption(endOption);
+	parser.addOption(overrideOption);
+	parser.addOption(formatOption);
+	parser.addOption(resOption);
+	parser.addOption(fpkOption);
+	parser.addOption(hostOption);
+	parser.addOption(portOption);
+
+	// Process the actual command line arguments given by the user
+	parser.process(*gApplication);
+	const QStringList args = parser.positionalArguments();
+
+	bool nogui = parser.isSet(noguiOption);
+	QString animationMode = parser.value(animationOption);
+	QString startFrameText = parser.value(startOption);
+	QString endFrameText = parser.value(endOption);
+	QString overrideParametersText = parser.value(overrideOption);
+	QString imageFileFormat = parser.value(formatOption);
+	QString resolution = parser.value(resOption);
+	QString fpkText = parser.value(fpkOption);
+	QString host = parser.value(hostOption);
+	QString portText = parser.value(portOption);
+
+	bool checkParse = true;
+
+	if(args.size() > 0){
+		// file specified -> load it
+		QString filename = args[0];
+		if(!QFile::exists(filename))
+		{
+			// try to find settings in default settings path
+			filename = systemData.dataDirectory + "settings" + QDir::separator() + filename;
+		}
+		if(QFile::exists(filename))
+		{
+			cSettings parSettings(cSettings::formatFullText);
+			parSettings.LoadFromFile(filename);
+			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+		}
+		else
+		{
+			WriteLog("Cannot load file!\n");
+			parser.showHelp(-10);
+		}
+	}
+
+	if(overrideParametersText != "")
+	{
+		QStringList overrideParameters = overrideParametersText.split(QRegExp("\\s"));
+		for(int i = 0; i < overrideParameters.size(); i++)
+		{
+			QStringList overrideParameter = overrideParameters[i].split(QRegExp("\\="));
+			if(overrideParameter.size() == 2){
+				// TODO -> set proper type
+				// gPar->Set(overrideParameter[0], overrideParameter[1]);
+			}
+		}
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	}
+
+	// check netrender
+	if(host != "")
+	{
+		int port = gPar->Get<int>("netrender_client_remote_port");
+		gPar->Set("netrender_client_remote_address", host);
+		if(portText != "")
+		{
+			port = portText.toInt(&checkParse);
+			if(!checkParse || port <= 0){
+				WriteLog("Specified port is invalid\n");
+				parser.showHelp(-11);
+			}
+			gPar->Set("netrender_client_remote_port", port);
+		}
+		return "netrender";
+	}
+
+	// animation rendering
+	if(startFrameText != "" || endFrameText != "")
+	{
+		int startFrame = startFrameText.toInt(&checkParse);
+		int endFrame = endFrameText.toInt(&checkParse);
+		if(!checkParse || startFrame < 0 || endFrame < startFrame){
+			WriteLog("Specified startframe or endframe not valid\n"
+							 "(need to be > 0, endframe > startframe)");
+			parser.showHelp(-12);
+		}
+
+		if(animationMode == "flight" || animationMode == "")
+		{
+			gPar->Set("flight_first_to_render", startFrame);
+			gPar->Set("flight_last_to_render", endFrame);
+			return "flight";
+
+		}
+		else if(animationMode == "keyframe")
+		{
+			gPar->Set("keyframe_first_to_render", startFrame);
+			gPar->Set("keyframe_last_to_render", endFrame);
+			return "keyframe";
+		}
+		else
+		{
+			WriteLog("Unknown mode: " + animationMode + "\n");
+			parser.showHelp(-13);
+		}
+	}
+	// TODO handle nogui overrideParametersText imageFileFormat resolution fpkText
+	return "";
+}
+
+void ProcessCLI (QString cliTODO)
+{
+	if(cliTODO == "netrender")
+	{
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		gNetRender->SetClient(gPar->Get<QString>("netrender_client_remote_address"), gPar->Get<int>("netrender_client_remote_port"));
+	}
+	else if(cliTODO == "flight")
+	{
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		return gFlightAnimation->slotRenderFlight();
+	}
+	else if(cliTODO == "keyframe")
+	{
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		return gKeyframeAnimation->slotRenderKeyframes();
+	}
 }

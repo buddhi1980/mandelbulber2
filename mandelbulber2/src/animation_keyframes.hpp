@@ -47,12 +47,14 @@ public:
 	void UpdateLimitsForFrameRange(void);
 	QList<int> CheckForCollisions(double minDist);
 
+public slots:
+	void slotRenderKeyframes();
+
 private slots:
 	void slotAddKeyframe();
 	void slotInsertKeyframe();
 	void slotDeleteKeyframe();
 	void slotModifyKeyframe();
-	void slotRenderKeyframes();
 	void slotSelectKeyframeAnimImageDir();
 	void slotTableCellChanged(int row, int column);
 	void slotDeleteAllImages();
