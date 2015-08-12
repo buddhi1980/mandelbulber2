@@ -76,6 +76,7 @@ enum enumFractalFormula
   msltoesym2 = 51,
   mandelbulb5 = 52,
   mandelbox103 = 53,
+  quaternion104 = 54,
 };
 
 enum enumDEType

@@ -54,7 +54,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	double r = z.Length();
 	CVector3 c = z;
 	double minimumR = 1e20;
-	double w = 0.0;
+  double w = 0.0;
 	double orbitTrapTotal = 0.0;
 	double foldColor = 1.0;
 	double foldDE = 1.0;
@@ -262,6 +262,11 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
         Mandelbox103Iteration(z, c, i, fractal, mandelboxAux[sequence]);
         break;
       }
+      case quaternion104:
+      {
+        Quaternion104Iteration(z, c, i, w, fractal);
+        break;
+      }
 
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
@@ -277,6 +282,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			case aexion:
       case mandelbulb5:
       case mandelbox103:
+      case quaternion104:
 			{
 				break;
 			}
@@ -353,6 +359,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		{
 			case mandelbulb:
 			case mandelbulb5:
+
 				out->distance = 0.5 * r * log(r) / bulbAux[fractalIndex].r_dz;
 				break;
 			case mandelbox:
