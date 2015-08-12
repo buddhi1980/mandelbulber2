@@ -198,6 +198,15 @@ struct sFractalMandelbulb5
     double fabsAddConstant1Weight;
     double fabsAddConstant1OldWeight;
 
+    bool mandelbulb1Enabled;
+    //bool mandelbulb1WeightEnabled;
+    int mandelbulb1StartIterations;
+    int mandelbulb1StopIterations;
+    double mandelbulb1Power;
+    double mandelbulb1AlphaAngleOffset;
+    double mandelbulb1BetaAngleOffset;
+    //double mandelbulb1Weight;
+
     bool constantMultiplier1Enabled;
     bool constantMultiplier1WeightEnabled;
     int constantMultiplier1StartIterations;
@@ -232,6 +241,13 @@ struct sFractalMandelbulb5
     double fabsFormulaZAB1Weight;
     double fabsFormulaZAB1OldWeight;
 
+    bool additionConstant1Enabled;
+    bool additionConstant1WeightEnabled;
+    int additionConstant1StartIterations;
+    int additionConstant1StopIterations;
+    CVector3 additionConstant1;
+    double additionConstant1Weight;
+
     bool fabsFormulaAB1Enabled;
     bool fabsFormulaAB1WeightEnabled;
     bool fabsFormulaAB1OldWeightEnabled;
@@ -244,6 +260,14 @@ struct sFractalMandelbulb5
     CVector3 fabsFormulaAB1B;
     double fabsFormulaAB1Weight;
     double fabsFormulaAB1OldWeight;
+
+    bool mainRotation2Enabled;
+    bool mainRotation2WeightEnabled;
+    int mainRotation2StartIterations;
+    int mainRotation2StopIterations;
+    CVector3 mainRotation2;
+    CRotationMatrix mainRot2;
+    double mainRotation2Weight;
 
     bool fabsFormulaABCD1Enabled;
     bool fabsFormulaABCD1WeightEnabled;
@@ -263,29 +287,15 @@ struct sFractalMandelbulb5
     double fabsFormulaABCD1Weight;
     double fabsFormulaABCD1OldWeight;
 
-    bool additionConstant1Enabled;
-    bool additionConstant1WeightEnabled;
-    int additionConstant1StartIterations;
-    int additionConstant1StopIterations;
-    CVector3 additionConstant1;
-    double additionConstant1Weight;
 
-    bool mainRotation2Enabled;
-    bool mainRotation2WeightEnabled;
-    int mainRotation2StartIterations;
-    int mainRotation2StopIterations;
-    CVector3 mainRotation2;
-    CRotationMatrix mainRot2;
-    double mainRotation2Weight;
-
-    bool mainFormula1Enabled;
-    //bool mainFormula1WeightEnabled;
-    int mainFormula1StartIterations;
-    int mainFormula1StopIterations;
-    double power;
-    double alphaAngleOffset;
-    double betaAngleOffset;
-    //double mainFormula1Weight;
+    bool mandelbulb2Enabled;
+    //bool mandelbulb2WeightEnabled;
+    int mandelbulb2StartIterations;
+    int mandelbulb2StopIterations;
+    double mandelbulb2Power;
+    double mandelbulb2AlphaAngleOffset;
+    double mandelbulb2BetaAngleOffset;
+    //double mandelbulb2Weight;
 
     bool mainRotation3Enabled;
     bool mainRotation3WeightEnabled;

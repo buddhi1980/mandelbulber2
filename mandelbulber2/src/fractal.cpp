@@ -134,6 +134,16 @@ cFractal::cFractal(const cParameterContainer *container)
   mandelbulb5.fabsAddConstant1Weight = container->Get<double>("mandelbulb5_fabsAddConstant1_weight");
   mandelbulb5.fabsAddConstant1OldWeight = container->Get<double>("mandelbulb5_fabsAddConstant1_old_weight");
 
+  mandelbulb5.mandelbulb1Power = container->Get<double>("mandelbulb5_mandelbulb1_power");
+  mandelbulb5.mandelbulb1AlphaAngleOffset = container->Get<double>("mandelbulb5_mandelbulb1_alpha_angle_offset");
+  mandelbulb5.mandelbulb1BetaAngleOffset = container->Get<double>("mandelbulb5_mandelbulb1_beta_angle_offset");
+  mandelbulb5.mandelbulb1Enabled = container->Get<bool>("mandelbulb5_mandelbulb1_enabled");
+  //mandelbulb5.mandelbulb1WeightEnabled = container->Get<bool>("mandelbulb5_mandelbulb1_weight_enabled");
+  mandelbulb5.mandelbulb1StartIterations = container->Get<int>("mandelbulb5_mandelbulb1_start_iterations");
+  mandelbulb5.mandelbulb1StopIterations = container->Get<int>("mandelbulb5_mandelbulb1_stop_iterations");
+  //mandelbulb5.mandelbulb1Weight = container->Get<double>("mandelbulb5_mandelbulb1_weight");
+
+
   mandelbulb5.constantMultiplier1Enabled = container->Get<bool>("mandelbulb5_constantMultiplier1_enabled");
   mandelbulb5.constantMultiplier1WeightEnabled = container->Get<bool>("mandelbulb5_constantMultiplier1_weight_enabled");
   mandelbulb5.constantMultiplier1StartIterations = container->Get<int>("mandelbulb5_constantMultiplier1_start_iterations");
@@ -168,6 +178,13 @@ cFractal::cFractal(const cParameterContainer *container)
   mandelbulb5.fabsFormulaZAB1Weight = container->Get<double>("mandelbulb5_fabsFormulaZAB1_weight");
   mandelbulb5.fabsFormulaZAB1OldWeight = container->Get<double>("mandelbulb5_fabsFormulaZAB1_old_weight");
 
+  mandelbulb5.additionConstant1 = container->Get<CVector3>("mandelbulb5_additionConstant1");
+  mandelbulb5.additionConstant1Enabled = container->Get<bool>("mandelbulb5_additionConstant1_enabled");
+  mandelbulb5.additionConstant1WeightEnabled = container->Get<bool>("mandelbulb5_additionConstant1_weight_enabled");
+  mandelbulb5.additionConstant1StartIterations = container->Get<int>("mandelbulb5_additionConstant1_start_iterations");
+  mandelbulb5.additionConstant1StopIterations = container->Get<int>("mandelbulb5_additionConstant1_stop_iterations");
+  mandelbulb5.additionConstant1Weight = container->Get<double>("mandelbulb5_additionConstant1_weight");
+
   mandelbulb5.fabsFormulaAB1A = container->Get<CVector3>("mandelbulb5_fabsFormulaAB1A");
   mandelbulb5.fabsFormulaAB1B = container->Get<CVector3>("mandelbulb5_fabsFormulaAB1B");
   mandelbulb5.fabsFormulaAB1Enabled = container->Get<bool>("mandelbulb5_fabsFormulaAB1_enabled");
@@ -180,6 +197,13 @@ cFractal::cFractal(const cParameterContainer *container)
   mandelbulb5.fabsFormulaAB1StopIterations = container->Get<int>("mandelbulb5_fabsFormulaAB1_stop_iterations");
   mandelbulb5.fabsFormulaAB1Weight = container->Get<double>("mandelbulb5_fabsFormulaAB1_weight");
   mandelbulb5.fabsFormulaAB1OldWeight = container->Get<double>("mandelbulb5_fabsFormulaAB1_old_weight");
+
+  mandelbulb5.mainRotation2Enabled = container->Get<bool>("mandelbulb5_main_rotation2_enabled");
+  mandelbulb5.mainRotation2WeightEnabled = container->Get<bool>("mandelbulb5_main_rotation2_weight_enabled");
+  mandelbulb5.mainRotation2StartIterations = container->Get<int>("mandelbulb5_main_rotation2_start_iterations");
+  mandelbulb5.mainRotation2StopIterations = container->Get<int>("mandelbulb5_main_rotation2_stop_iterations");
+  mandelbulb5.mainRotation2 = container->Get<CVector3>("mandelbulb5_main_rotation2");
+  mandelbulb5.mainRotation2Weight = container->Get<double>("mandelbulb5_main_rotation2_weight");
 
   mandelbulb5.fabsFormulaABCD1A = container->Get<CVector3>("mandelbulb5_fabsFormulaABCD1A");
   mandelbulb5.fabsFormulaABCD1B = container->Get<CVector3>("mandelbulb5_fabsFormulaABCD1B");
@@ -199,28 +223,15 @@ cFractal::cFractal(const cParameterContainer *container)
   mandelbulb5.fabsFormulaABCD1Weight = container->Get<double>("mandelbulb5_fabsFormulaABCD1_weight");
   mandelbulb5.fabsFormulaABCD1OldWeight = container->Get<double>("mandelbulb5_fabsFormulaABCD1_old_weight");
 
-  mandelbulb5.additionConstant1 = container->Get<CVector3>("mandelbulb5_additionConstant1");
-  mandelbulb5.additionConstant1Enabled = container->Get<bool>("mandelbulb5_additionConstant1_enabled");
-  mandelbulb5.additionConstant1WeightEnabled = container->Get<bool>("mandelbulb5_additionConstant1_weight_enabled");
-  mandelbulb5.additionConstant1StartIterations = container->Get<int>("mandelbulb5_additionConstant1_start_iterations");
-  mandelbulb5.additionConstant1StopIterations = container->Get<int>("mandelbulb5_additionConstant1_stop_iterations");
-  mandelbulb5.additionConstant1Weight = container->Get<double>("mandelbulb5_additionConstant1_weight");
 
-  mandelbulb5.mainRotation2Enabled = container->Get<bool>("mandelbulb5_main_rotation2_enabled");
-  mandelbulb5.mainRotation2WeightEnabled = container->Get<bool>("mandelbulb5_main_rotation2_weight_enabled");
-  mandelbulb5.mainRotation2StartIterations = container->Get<int>("mandelbulb5_main_rotation2_start_iterations");
-  mandelbulb5.mainRotation2StopIterations = container->Get<int>("mandelbulb5_main_rotation2_stop_iterations");
-  mandelbulb5.mainRotation2 = container->Get<CVector3>("mandelbulb5_main_rotation2");
-  mandelbulb5.mainRotation2Weight = container->Get<double>("mandelbulb5_main_rotation2_weight");
-
-  mandelbulb5.power = container->Get<double>("mandelbulb5_power");
-  mandelbulb5.alphaAngleOffset = container->Get<double>("mandelbulb5_alpha_angle_offset");
-  mandelbulb5.betaAngleOffset = container->Get<double>("mandelbulb5_beta_angle_offset");
-  mandelbulb5.mainFormula1Enabled = container->Get<bool>("mandelbulb5_mainFormula1_enabled");
-  //mandelbulb5.mainFormula1WeightEnabled = container->Get<bool>("mandelbulb5_mainFormula1_weight_enabled");
-  mandelbulb5.mainFormula1StartIterations = container->Get<int>("mandelbulb5_mainFormula1_start_iterations");
-  mandelbulb5.mainFormula1StopIterations = container->Get<int>("mandelbulb5_mainFormula1_stop_iterations");
-  //mandelbulb5.mainFormula1Weight = container->Get<double>("mandelbulb5_mainFormula1_weight");
+  mandelbulb5.mandelbulb2Power = container->Get<double>("mandelbulb5_mandelbulb2_power");
+  mandelbulb5.mandelbulb2AlphaAngleOffset = container->Get<double>("mandelbulb5_mandelbulb2_alpha_angle_offset");
+  mandelbulb5.mandelbulb2BetaAngleOffset = container->Get<double>("mandelbulb5_mandelbulb2_beta_angle_offset");
+  mandelbulb5.mandelbulb2Enabled = container->Get<bool>("mandelbulb5_mandelbulb2_enabled");
+  //mandelbulb5.mandelbulb2WeightEnabled = container->Get<bool>("mandelbulb5_mandelbulb2_weight_enabled");
+  mandelbulb5.mandelbulb2StartIterations = container->Get<int>("mandelbulb5_mandelbulb2_start_iterations");
+  mandelbulb5.mandelbulb2StopIterations = container->Get<int>("mandelbulb5_mandelbulb2_stop_iterations");
+  //mandelbulb5.mandelbulb2Weight = container->Get<double>("mandelbulb5_mandelbulb2_weight");
 
   mandelbulb5.mainRotation3Enabled = container->Get<bool>("mandelbulb5_main_rotation3_enabled");
   mandelbulb5.mainRotation3WeightEnabled = container->Get<bool>("mandelbulb5_main_rotation3_weight_enabled");
@@ -601,8 +612,10 @@ void cFractal::RecalculateFractalParams(void)
 	bulb.alphaAngleOffset *= M_PI / 180.0;
 	bulb.betaAngleOffset *= M_PI / 180.0;
 
-  mandelbulb5.alphaAngleOffset *= M_PI / 180.0;
-  mandelbulb5.betaAngleOffset *= M_PI / 180.0;
+  mandelbulb5.mandelbulb1AlphaAngleOffset *= M_PI / 180.0;
+  mandelbulb5.mandelbulb1BetaAngleOffset *= M_PI / 180.0;
+  mandelbulb5.mandelbulb2AlphaAngleOffset *= M_PI / 180.0;
+  mandelbulb5.mandelbulb2BetaAngleOffset *= M_PI / 180.0;
   mandelbulb5.mainRot1.SetRotation2(mandelbulb5.mainRotation1 * (M_PI / 180.0));
   mandelbulb5.mainRot2.SetRotation2(mandelbulb5.mainRotation2 * (M_PI / 180.0));
   mandelbulb5.mainRot3.SetRotation2(mandelbulb5.mainRotation3 * (M_PI / 180.0));

@@ -747,6 +747,21 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
       z = SmoothCVector3(temp, z, fractal-> mandelbulb5.fabsAddConstant1Weight);
     }
   }
+  //MAIN FORMULA 1
+  if (fractal->mandelbulb5.mandelbulb1Enabled && i >= fractal->mandelbulb5.mandelbulb1StartIterations && i < fractal->mandelbulb5.mandelbulb1StopIterations)
+  {
+    temp = z;
+    aux.r = z.Length();
+    double th0 = asin(z.z / aux.r) + fractal->mandelbulb5.mandelbulb1BetaAngleOffset;
+    double ph0 = atan2(z.y, z.x) + fractal->mandelbulb5.mandelbulb1AlphaAngleOffset;
+    double rp = pow(aux.r, fractal->mandelbulb5.mandelbulb1Power - 1.0);
+    double th = th0 * fractal->mandelbulb5.mandelbulb1Power;
+    double ph = ph0 * fractal->mandelbulb5.mandelbulb1Power;
+    double cth = cos(th);
+    aux.r_dz = rp * aux.r_dz * fractal->mandelbulb5.mandelbulb1Power + 1.0;
+    rp *= aux.r;
+    z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
+  }
       // z = z + ( c * const.); 1
   if (fractal->mandelbulb5.constantMultiplier1Enabled && i >= fractal->mandelbulb5.constantMultiplier1StartIterations && i < fractal->mandelbulb5.constantMultiplier1StopIterations)
   {
@@ -858,6 +873,17 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
       z = SmoothCVector3(temp, z, fractal-> mandelbulb5.fabsFormulaAB1Weight);
     }
   }
+  //mainRotation; 2
+  if (fractal->mandelbulb5.mainRotation2Enabled && i >= fractal->mandelbulb5.mainRotation2StartIterations && i < fractal->mandelbulb5.mainRotation2StopIterations)
+  {
+    temp = z;
+    z = fractal->mandelbulb5.mainRot2.RotateVector(z);
+    //weight function
+    if (fractal->mandelbulb5.mainRotation2WeightEnabled)
+    {
+      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.mainRotation2Weight);
+    }
+  }
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 1
   if (fractal->mandelbulb5.fabsFormulaABCD1Enabled && i >= fractal->mandelbulb5.fabsFormulaABCD1StartIterations
       && i < fractal->mandelbulb5.fabsFormulaABCD1StopIterations)
@@ -901,30 +927,20 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
       z = SmoothCVector3(temp, z, fractal-> mandelbulb5.fabsFormulaABCD1Weight);
     }
   }
-  //mainRotation; 2
-  if (fractal->mandelbulb5.mainRotation2Enabled && i >= fractal->mandelbulb5.mainRotation2StartIterations && i < fractal->mandelbulb5.mainRotation2StopIterations)
-  {
-    temp = z;
-    z = fractal->mandelbulb5.mainRot2.RotateVector(z);
-    //weight function
-    if (fractal->mandelbulb5.mainRotation2WeightEnabled)
-    {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.mainRotation2Weight);
-    }
-  }
 
-  //MAIN FORMULA
-  if (fractal->mandelbulb5.mainFormula1Enabled && i >= fractal->mandelbulb5.mainFormula1StartIterations && i < fractal->mandelbulb5.mainFormula1StopIterations)
+
+  //MAIN FORMULA 2
+  if (fractal->mandelbulb5.mandelbulb2Enabled && i >= fractal->mandelbulb5.mandelbulb2StartIterations && i < fractal->mandelbulb5.mandelbulb2StopIterations)
   {
     temp = z;
     aux.r = z.Length();
-    double th0 = asin(z.z / aux.r) + fractal->mandelbulb5.betaAngleOffset;
-    double ph0 = atan2(z.y, z.x) + fractal->mandelbulb5.alphaAngleOffset;
-    double rp = pow(aux.r, fractal->mandelbulb5.power - 1.0);
-    double th = th0 * fractal->mandelbulb5.power;
-    double ph = ph0 * fractal->mandelbulb5.power;
+    double th0 = asin(z.z / aux.r) + fractal->mandelbulb5.mandelbulb2BetaAngleOffset;
+    double ph0 = atan2(z.y, z.x) + fractal->mandelbulb5.mandelbulb2AlphaAngleOffset;
+    double rp = pow(aux.r, fractal->mandelbulb5.mandelbulb2Power - 1.0);
+    double th = th0 * fractal->mandelbulb5.mandelbulb2Power;
+    double ph = ph0 * fractal->mandelbulb5.mandelbulb2Power;
     double cth = cos(th);
-    aux.r_dz = rp * aux.r_dz * fractal->mandelbulb5.power + 1.0;
+    aux.r_dz = rp * aux.r_dz * fractal->mandelbulb5.mandelbulb2Power + 1.0;
     rp *= aux.r;
     z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
   }

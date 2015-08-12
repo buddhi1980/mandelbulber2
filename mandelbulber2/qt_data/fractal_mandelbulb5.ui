@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>648</width>
+    <width>687</width>
     <height>3862</height>
    </rect>
   </property>
@@ -1229,6 +1229,288 @@
       </item>
       <item>
        <widget class="Line" name="line_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyGroupBox" name="groupCheck_mandelbulb5_mandelbulb1_enabled">
+     <property name="title">
+      <string>Enable MANDELBULB FORMULA</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0,0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_6">
+        <property name="topMargin">
+         <number>5</number>
+        </property>
+        <item row="0" column="4">
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="3">
+         <widget class="MySpinBox" name="spinboxInt_mandelbulb5_mandelbulb1_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_26">
+          <property name="text">
+           <string>Start at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="MySpinBox" name="spinboxInt_mandelbulb5_mandelbulb1_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="6">
+         <widget class="QLabel" name="label_113">
+          <property name="text">
+           <string>Copy ONE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_27">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_15">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Alpha angle offset:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>Beta angle offset:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Power:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSlider" name="slider_mandelbulb5_mandelbulb1_alpha_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbulb5_mandelbulb1_alpha_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-36000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>36000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QSlider" name="slider_mandelbulb5_mandelbulb1_beta_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbulb5_mandelbulb1_beta_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-36000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>36000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbulb5_mandelbulb1_power">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSlider" name="slider_mandelbulb5_mandelbulb1_power">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>2000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_13">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -3456,6 +3738,293 @@
     </widget>
    </item>
    <item>
+    <widget class="MyGroupBox" name="groupCheck_mandelbulb5_main_rotation2_enabled">
+     <property name="title">
+      <string>Enable Main Rotation; </string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_15" stretch="0,0,0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_20">
+        <item row="0" column="7">
+         <widget class="QLabel" name="label_114">
+          <property name="text">
+           <string>Copy TWO</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_31">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MySpinBox" name="spinboxInt_mandelbulb5_main_rotation2_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="MySpinBox" name="spinboxInt_mandelbulb5_main_rotation2_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QCheckBox" name="checkBox_mandelbulb5_main_rotation2_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_30">
+          <property name="text">
+           <string>Start at iteration :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="6">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbulb5_main_rotation2_weight">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <spacer name="horizontalSpacer_11">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_21">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="2" column="2">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbulb5_main_rotation2_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-180.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>180.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_40">
+          <property name="text">
+           <string>gamma</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_41">
+          <property name="text">
+           <string>beta</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_42">
+          <property name="text">
+           <string>alpha</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QDial" name="dial3_mandelbulb5_main_rotation2_y">
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QDial" name="dial3_mandelbulb5_main_rotation2_z">
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbulb5_main_rotation2_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-180.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>180.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QDial" name="dial3_mandelbulb5_main_rotation2_x">
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbulb5_main_rotation2_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-180.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>180.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_14">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_mandelbulb5_fabsFormulaABCD1_enabled">
      <property name="title">
       <string>Enable  z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.D ); </string>
@@ -4249,301 +4818,14 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbulb5_main_rotation2_enabled">
-     <property name="title">
-      <string>Enable Main Rotation; </string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_15" stretch="0,0,0">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_20">
-        <item row="0" column="7">
-         <widget class="QLabel" name="label_114">
-          <property name="text">
-           <string>Copy TWO</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_31">
-          <property name="text">
-           <string>Stop at iteration:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbulb5_main_rotation2_stop_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbulb5_main_rotation2_start_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="5">
-         <widget class="QCheckBox" name="checkBox_mandelbulb5_main_rotation2_weight_enabled">
-          <property name="text">
-           <string>Enable weight:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_30">
-          <property name="text">
-           <string>Start at iteration :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbulb5_main_rotation2_weight">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>1.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <spacer name="horizontalSpacer_11">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_21">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="2" column="2">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbulb5_main_rotation2_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>-180.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>180.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_40">
-          <property name="text">
-           <string>gamma</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_41">
-          <property name="text">
-           <string>beta</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_42">
-          <property name="text">
-           <string>alpha</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QDial" name="dial3_mandelbulb5_main_rotation2_y">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QDial" name="dial3_mandelbulb5_main_rotation2_z">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbulb5_main_rotation2_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>-180.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>180.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QDial" name="dial3_mandelbulb5_main_rotation2_x">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbulb5_main_rotation2_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>-180.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>180.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_14">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbulb5_mainFormula1_enabled">
+    <widget class="MyGroupBox" name="groupCheck_mandelbulb5_mandelbulb2_enabled">
      <property name="title">
       <string>Enable MANDELBULB FORMULA</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_21" stretch="0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -4560,12 +4842,12 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_6">
+       <layout class="QGridLayout" name="gridLayout_7">
         <property name="topMargin">
          <number>5</number>
         </property>
         <item row="0" column="4">
-         <spacer name="horizontalSpacer_4">
+         <spacer name="horizontalSpacer_10">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -4578,7 +4860,7 @@
          </spacer>
         </item>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbulb5_mainFormula1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_mandelbulb5_mandelbulb2_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4591,14 +4873,14 @@
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_26">
+         <widget class="QLabel" name="label_51">
           <property name="text">
            <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbulb5_mainFormula1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_mandelbulb5_mandelbulb2_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4611,14 +4893,14 @@
          </widget>
         </item>
         <item row="0" column="6">
-         <widget class="QLabel" name="label_113">
+         <widget class="QLabel" name="label_117">
           <property name="text">
            <string>Copy TWO</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="label_27">
+         <widget class="QLabel" name="label_54">
           <property name="text">
            <string>Stop at iteration:</string>
           </property>
@@ -4627,33 +4909,33 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_15">
+       <layout class="QGridLayout" name="gridLayout_30">
         <property name="spacing">
          <number>2</number>
         </property>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_5">
+         <widget class="QLabel" name="label_64">
           <property name="text">
            <string>Alpha angle offset:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_9">
+         <widget class="QLabel" name="label_65">
           <property name="text">
            <string>Beta angle offset:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_7">
+         <widget class="QLabel" name="label_71">
           <property name="text">
            <string>Power:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSlider" name="slider_mandelbulb5_alpha_angle_offset">
+         <widget class="QSlider" name="slider_mandelbulb5_mandelbulb2_alpha_angle_offset">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4678,7 +4960,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbulb5_alpha_angle_offset">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbulb5_mandelbulb2_alpha_angle_offset">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4706,7 +4988,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QSlider" name="slider_mandelbulb5_beta_angle_offset">
+         <widget class="QSlider" name="slider_mandelbulb5_mandelbulb2_beta_angle_offset">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4731,7 +5013,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbulb5_beta_angle_offset">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbulb5_mandelbulb2_beta_angle_offset">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4759,7 +5041,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbulb5_power">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbulb5_mandelbulb2_power">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4787,7 +5069,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSlider" name="slider_mandelbulb5_power">
+         <widget class="QSlider" name="slider_mandelbulb5_mandelbulb2_power">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4808,7 +5090,7 @@
        </layout>
       </item>
       <item>
-       <widget class="Line" name="line_13">
+       <widget class="Line" name="line_15">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
