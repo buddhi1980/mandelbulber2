@@ -134,7 +134,7 @@ public:
 	}
 	inline bool operator==(const CVector3 &vector)
 	{
-		return (x == vector.x) ? ((y == vector.y) ? ((z == vector.z) ? true : false) : false) : false;
+		return x == vector.x && y == vector.y && z == vector.z;
 	}
 	inline double Length() const
 	{
@@ -190,6 +190,60 @@ inline CVector3 operator/(double scalar, CVector3 vector)
 {
 	return CVector3(vector.x / scalar, vector.y / scalar, vector.z / scalar);
 }
+
+/************************* vector 4D **********************/
+class CVector4
+{
+public:
+	inline CVector4(){ w = 0; x = 0; y = 0; z = 0; }
+	inline CVector4(double _w, double _x, double _y, double _z) { w = _w; x = _x; y = _y; z = _z; }
+	inline CVector4(const CVector4 &v) { w = v.w; x = v.x; y = v.y; z = v.z; }
+	inline CVector4(const double v[4]) { w = v[0]; x = v[1]; y = v[2]; z = v[3]; }
+	inline CVector4 operator+(const CVector4 &v) const { return CVector4(w + v.w, x + v.x, y + v.y, z + v.z); }
+	inline CVector4 operator-(const CVector4 &v) const { return CVector4(w - v.w, x - v.x, y - v.y, z - v.z); }
+	inline CVector4 operator*(const double &s) const { return CVector4(w * s, x * s, y * s, z * s); }
+	inline CVector4 operator*(const CVector4 &v) const { return CVector4(w * v.w, x * v.x, y * v.y, z * v.z); }
+	inline CVector4 operator/(const double &s) const { return CVector4(w / s, x / s, y / s, z / s); }
+	inline CVector4& operator=(const CVector4 &v) { w = v.w; x = v.x; y = v.y; z = v.z; return *this; }
+	inline CVector4& operator+=(const CVector4 &v) { w += v.w; x += v.x; y += v.y; z += v.z; return *this; }
+	inline CVector4& operator-=(const CVector4 &v) { w -= v.w; x -= v.x; y -= v.y; z -= v.z; return *this; }
+	inline CVector4& operator*=(const double &s) { w *= s; x *= s; y *= s; z *= s; return *this; }
+	inline CVector4& operator*=(const CVector4 &v) { w *= v.w; x *= v.x; y *= v.y; z *= v.z; return *this; }
+	inline CVector4& operator/=(const double &s) { w /= s; x /= s; y /= s; z /= s; return *this; }
+	inline bool operator==(const CVector4 &v) { return w == v.w && x == v.x && y == v.y && z == v.z; }
+	inline double Length() const { return sqrt(w * w + x * x + y * y + z * z); }
+	inline double Dot(const CVector4& v) const { return w * v.w + x * v.x + y * v.y + z * v.z; }
+
+	inline double Normalize() {
+		double norm = 1.0 / Length();
+		w = w * norm; x = x * norm; y = y * norm; z = z * norm;
+		return norm;
+	}
+	inline CVector4 operator%(const CVector4 &vector) const
+	{
+		return CVector4(
+			(vector.w > 0.0 ? fmod(w, vector.w) : w),
+			(vector.x > 0.0 ? fmod(x, vector.x) : x),
+			(vector.y > 0.0 ? fmod(y, vector.y) : y),
+			(vector.z > 0.0 ? fmod(z, vector.z) : z)
+		);
+	}
+	inline CVector4 mod(const CVector4 &v) const
+	{
+		if (v.Length() == 0.0) return *this;
+		return (((*this - v * 0.5) % v) + v) % v - v * 0.5;
+	}
+	QString Debug() const
+	{
+		return QString("[")
+			+ QString::number(w) + QString(", ")
+			+ QString::number(x) + QString(", ")
+			+ QString::number(y) + QString(", ")
+			+ QString::number(z)+ QString("]");
+	}
+
+	double w, x, y, z;
+};
 
 /************************* vector 2D **********************/
 
