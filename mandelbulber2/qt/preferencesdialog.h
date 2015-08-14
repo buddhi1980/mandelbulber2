@@ -1,6 +1,8 @@
 #ifndef PREFERENCESDIALOG_H
 #define PREFERENCESDIALOG_H
 
+//TODO add 'Clear thumbnail cache function'
+
 #include <QDialog>
 #include "../src/global_data.hpp"
 

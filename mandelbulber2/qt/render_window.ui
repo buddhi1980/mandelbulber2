@@ -6033,7 +6033,7 @@ to target:</string>
                       <item row="0" column="0">
                        <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_1">
                         <property name="title">
-                         <string>Light #1</string>
+                         <string>Light #&amp;1</string>
                         </property>
                         <property name="checkable">
                          <bool>true</bool>
@@ -6219,7 +6219,7 @@ to target:</string>
                       <item row="0" column="1">
                        <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_2">
                         <property name="title">
-                         <string>Light #2</string>
+                         <string>Light #&amp;2</string>
                         </property>
                         <property name="checkable">
                          <bool>true</bool>
@@ -6405,7 +6405,7 @@ to target:</string>
                       <item row="1" column="0">
                        <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_3">
                         <property name="title">
-                         <string>Light #3</string>
+                         <string>Light #&amp;3</string>
                         </property>
                         <property name="checkable">
                          <bool>true</bool>
@@ -6591,7 +6591,7 @@ to target:</string>
                       <item row="1" column="1">
                        <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_4">
                         <property name="title">
-                         <string>Light #4</string>
+                         <string>Light #&amp;4</string>
                         </property>
                         <property name="checkable">
                          <bool>true</bool>
@@ -7675,7 +7675,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
