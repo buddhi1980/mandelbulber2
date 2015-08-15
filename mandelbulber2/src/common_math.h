@@ -89,4 +89,9 @@ inline double LimitAngle(double angle) {return fmod(fmod(angle - 180.0, 360.0) +
 //Smooth transistion between two vectors with vector length control
 CVector3 SmoothCVector3(const CVector3 &v1, const CVector3 &v2, double k);
 
+//Smooth transistion between two CVector4's with vector length control
+CVector4 SmoothCVector4(const CVector4 &v1, const CVector4 &v2, double k);
+
+
+
 #endif /* COMMON_MATH_H_ */
