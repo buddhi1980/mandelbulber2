@@ -1160,27 +1160,27 @@ Czy usunąć istniejące klatki?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="257"/>
         <source>I&amp;mage</source>
-        <translation type="unfinished"></translation>
+        <translation>Obraz</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="284"/>
         <source>&amp;View</source>
-        <translation type="unfinished"></translation>
+        <translation>View</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="299"/>
         <source>A&amp;bout</source>
-        <translation type="unfinished"></translation>
+        <translation>O programie</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="336"/>
         <source>&amp;Image adjustments</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawienia obrazu</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1119"/>
         <source>&amp;Gamepad</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamepad</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1258"/>
@@ -1237,27 +1237,27 @@ Czy usunąć istniejące klatki?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="1506"/>
         <source>&amp;Navigation</source>
-        <translation type="unfinished"></translation>
+        <translation>Nawigacja</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1567"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Discard last change of settings and start rendering of image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anuluje ostatnie zmiany ustawień i zaczyna renderowanie obrazu&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1570"/>
         <source>UNDO</source>
-        <translation type="unfinished"></translation>
+        <translation>COFNIJ</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1581"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Redo last revoked change of settings and start rendering of image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ponawia ostatnio cofniętą zmianę i zaczyna renderowanie&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1584"/>
         <source>REDO</source>
-        <translation type="unfinished"></translation>
+        <translation>PRZYWRÓĆ</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1780"/>
@@ -1272,7 +1272,7 @@ Czy usunąć istniejące klatki?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="1917"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of camera / target movement mode&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Move camera and target&lt;/span&gt; - moves camera and target by the same distance&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move camera and target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; - moves only camera. Target stays in the same prace. Camera rotates to look at stationary target.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Move target - moves only target. Camera stays in the same place. Camera rotates to look at moving target.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wybór trybu przemieszczania kamery / celu&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Przemieść kamerę i cel&lt;/span&gt; - przesuwa kamerę i cel o tę samą odległość&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move camera and target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Przemieść kamerę&lt;/span&gt; - pesuwa tylko kamerę. Cel pozostaje w tym samym miejscu. Kamera obraca się aby patrzeć na stacjonarny cel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Przemieść cel - przesuwa tylko cel. Kamera pozostaje w tym samym miejscu. Kamera obraca się aby patrzeć na poruszający się cel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1921"/>
@@ -1299,37 +1299,37 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="1964"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance between camera and target&lt;/p&gt;&lt;p&gt;In&lt;span style=&quot; font-style:italic;&quot;&gt; Move camera and target&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; modes it moves camera closer/further from target.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontroluje odległość między kamerą i celem&lt;/p&gt;&lt;p&gt;W trybach&lt;span style=&quot; font-style:italic;&quot;&gt; Przemieśc kamerę i cel&lt;/span&gt; i &lt;span style=&quot; font-style:italic;&quot;&gt;Przemieść kamerę&lt;/span&gt; przybliża lub oddala kamerę od celu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2018"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target to the right by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Przesuwa kamerę lub cel w prawo o dystans ustawiony parameterem &lt;span style=&quot; font-style:italic;&quot;&gt;krok&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2050"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target to the left by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Przesuwa kamerę lub cel w lewo o dystans ustawiony parameterem &lt;span style=&quot; font-style:italic;&quot;&gt;krok&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2088"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target up by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Przesuwa kamerę lub cel w górę o dystans ustawiony parameterem &lt;span style=&quot; font-style:italic;&quot;&gt;krok&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2132"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target forward by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Przesuwa kamerę lub cel do przodu o dystans ustawiony parameterem &lt;span style=&quot; font-style:italic;&quot;&gt;krok&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2164"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target backwards by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Przesuwa kamerę lub cel w tył o dystans ustawiony parameterem &lt;span style=&quot; font-style:italic;&quot;&gt;krok&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2196"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target down by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Przesuwa kamerę lub cel w dół o dystans ustawiony parameterem &lt;span style=&quot; font-style:italic;&quot;&gt;krok&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2247"/>
@@ -1339,12 +1339,12 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="2260"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Step for camera or target movement.&lt;/p&gt;&lt;p&gt;It can be relative or absolute step.&lt;/p&gt;&lt;p&gt;If it is set relative then movement distance equals &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; multiplied by actual distance to the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Krok o jaki przemieszcza się kamera lub cel.&lt;/p&gt;&lt;p&gt;Może być bezwzględny lub względny.&lt;/p&gt;&lt;p&gt;Jeśli krok jest względny to dystans przemieszcania jest równy &lt;span style=&quot; font-style:italic;&quot;&gt;krok&lt;/span&gt; pomnozony przez aktualny dystans kamery do powierzchni fraktala.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2303"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for movement step calculation.&lt;/p&gt;&lt;p&gt;If it is set relative then movement distance equals  &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; multiplied by actual distance to fractal surface. This is the preferred mode.&lt;/p&gt;&lt;p&gt;If it is set absolute then movement equals step set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wybór trybu obliczania kroku przemieszczania.&lt;/p&gt;&lt;p&gt;Jeśli krok jest względny to dystans przemieszcania jest równy  &lt;span style=&quot; font-style:italic;&quot;&gt;krok&lt;/span&gt; pomnozony przez aktualny dystans kamery do powierzchni fraktala.&lt;/p&gt;&lt;p&gt;Jeśli krok jest bezwzględny to dystans przemieszcania jest równy parametrowi &lt;span style=&quot; font-style:italic;&quot;&gt;krok&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2307"/>
@@ -1364,7 +1364,7 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="2466"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll right&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Przechył w prawo&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2581"/>
@@ -1384,7 +1384,7 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="2656"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for rotation modes&lt;/p&gt;&lt;p&gt;Fixed roll angle - rotates camera using world axes. This mode does not change the roll angle but can be difficult to predict when camera is upside down or almost in vertical orientation.&lt;/p&gt;&lt;p&gt;Straight rotation - rotates camera using actual camera axes. This mode rotates camera in a more intuitive way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wybór trybu obrotu&lt;/p&gt;&lt;p&gt;Stałe przechylenie - obraca kamerę użuwając globalnego układu współrzędnych. Ten tryb obrotu nie zmienia kąta przechylenia, ale może byc trudny do przewidzenia gdy kamera jest do góry nogami lub ustawiona prawie pionowo.&lt;/p&gt;&lt;p&gt;Prosty obrót - obraca kamerę wokół aktualego układu współrzędnych skojarzonego z kamerą. Ten tryb obraca kamerę w bardziej intuicyjny sposób.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2660"/>
@@ -1651,12 +1651,12 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="544"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Force image proportion&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wymuszenie proporcji obrazu&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="588"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Presets for rendered image size&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wstępne ustawienia wielkości renderowanego obrazu&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="745"/>
@@ -1666,22 +1666,22 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="780"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrast of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrast obrazu&lt;/p&gt;&lt;p&gt;Użyj przycisku &lt;span style=&quot; font-style:italic;&quot;&gt;Nanieś zmiany&lt;/span&gt; aby zaktualizować obraz&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="808"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma obrazu&lt;/p&gt;&lt;p&gt;Użyj przycisku &lt;span style=&quot; font-style:italic;&quot;&gt;Nanieś zmiany&lt;/span&gt; aby zaktualizować obraz&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="843"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jasność obrazu&lt;/p&gt;&lt;p&gt;Użyj przycisku &lt;span style=&quot; font-style:italic;&quot;&gt;Nanieś zmiany&lt;/span&gt; aby zaktualizować obraz&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="942"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Apply changes of image colors&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nanieś zmiany ustawień obrazu&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="995"/>
@@ -2837,12 +2837,12 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="15010"/>
         <source>&amp;Undo</source>
-        <translation>Wróć</translation>
+        <translation>Cofnij</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15022"/>
         <source>&amp;Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Przywróć</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15034"/>
