@@ -1332,48 +1332,39 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     }
   }
 }
-void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const cFractal *fractal)
+void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal)
 {
-    CVector3 temp = z;
-    CVector3 tempW = z * 0;
-    CVector3 vectW = z * 0;
-    vectW.x = w;
-    vectW.y = 0.0;
-    vectW.z = 0.0;
-    CVector3 tempA = z * 0;
-    CVector3 tempB = z * 0;
-    CVector3 zA = z * 0;
-    CVector3 zB = z * 0;
+    CVector4 temp = z;
+    CVector4 tempA;
+    CVector4 tempB;
+    CVector4 zA;
+    CVector4 zB;
 
 
     //boxFold1
   if (fractal->quaternion104.boxFold1Enabled && i >= fractal->quaternion104.boxFold1StartIterations && i < fractal->quaternion104.boxFold1StopIterations)
   {
     temp = z;
-    tempW = vectW;
     if (z.x > fractal->quaternion104.boxFold1FoldingLimit) z.x = fractal->quaternion104.boxFold1FoldingValue - z.x;
     else if (z.x < -fractal->quaternion104.boxFold1FoldingLimit) z.x = -fractal->quaternion104.boxFold1FoldingValue - z.x;
     if (z.y > fractal->quaternion104.boxFold1FoldingLimit) z.y = fractal->quaternion104.boxFold1FoldingValue - z.y;
     else if (z.y < -fractal->quaternion104.boxFold1FoldingLimit) z.y = -fractal->quaternion104.boxFold1FoldingValue - z.y;
     if (z.z > fractal->quaternion104.boxFold1FoldingLimit) z.z = fractal->quaternion104.boxFold1FoldingValue - z.z;
     else if (z.z < -fractal->quaternion104.boxFold1FoldingLimit) z.z = -fractal->quaternion104.boxFold1FoldingValue - z.z;
-    //if (vectW.x > fractal->quaternion104.boxFold1FoldingLimit) vectW.x = fractal->quaternion104.boxFold1FoldingValue - vectW.x;
-    //else if (vectW.x < -fractal->quaternion104.boxFold1FoldingLimit) vectW.x = -fractal->quaternion104.boxFold1FoldingValue -vectW.x;
+    if (z.w > fractal->quaternion104.boxFold1FoldingLimit) z.w = fractal->quaternion104.boxFold1FoldingValue - z.w;
+    else if (z.w < -fractal->quaternion104.boxFold1FoldingLimit) z.w = -fractal->quaternion104.boxFold1FoldingValue - z.w;
 
     //weight function
     if (fractal->quaternion104.boxFold1WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> quaternion104.boxFold1Weight);
-      //vectW = SmoothCVector3(tempW, vectW, fractal-> quaternion104.boxFold1Weight);
     }
   }
   // sphericalFold1
   if (fractal->quaternion104.sphericalFold1Enabled && i >= fractal->quaternion104.sphericalFold1StartIterations && i < fractal->quaternion104.sphericalFold1StopIterations)
   {
     temp = z;
-    tempW = vectW;
     double r2 = z.Dot(z);
-    double rW2 = vectW.Dot(vectW);
     if (r2 < fractal->quaternion104.sphericalFold1mR2)
     {
       z *= fractal->quaternion104.sphericalFold1MboxFactor1;
@@ -1383,33 +1374,24 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
       double tglad_factor2 = fractal->quaternion104.sphericalFold1fR2 / r2;
       z *= tglad_factor2;
     }
-    if (rW2 < fractal->quaternion104.sphericalFold1mR2)
-    {
-      vectW.x *= fractal->quaternion104.sphericalFold1MboxFactor1;
-    }
-    else if (rW2 < fractal->quaternion104.sphericalFold1fR2)
-    {
-      double tglad_factor2 = fractal->quaternion104.sphericalFold1fR2 / rW2;
-      vectW.x *= tglad_factor2;
-    }
+
     //weight function
     if (fractal->quaternion104.sphericalFold1WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> quaternion104.sphericalFold1Weight);
-      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.sphericalFold1Weight);
     }
   }
   //scale; 1
   if (fractal->quaternion104.scale1Enabled && i >= fractal->quaternion104.scale1StartIterations && i < fractal->quaternion104.scale1StopIterations)
   {
     z = z * fractal->quaternion104.scale1;
-    vectW.x = vectW.x * fractal->quaternion104.scale1W;
   }
     //mainRotation1
   if (fractal->quaternion104.mainRotation1Enabled && i >= fractal->quaternion104.mainRotation1StartIterations && i < fractal->quaternion104.mainRotation1StopIterations)
   {
     temp = z;
-    z = fractal->quaternion104.mainRot1.RotateVector(z);
+    //TODO 4D rotation
+    z = CVector4(fractal->quaternion104.mainRot1.RotateVector(z.GetXYZ()), z.w);
     if (fractal->quaternion104.mainRotation1WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> quaternion104.mainRotation1Weight);
@@ -1420,9 +1402,8 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
       && i < fractal->quaternion104.fabsAddConstant1StopIterations)
   {
     temp = z;
-    tempW = vectW;
     z += fractal->quaternion104.fabsAddConstant1A;
-    vectW.x += fractal->quaternion104.fabsAddConstant1AW;
+
     if (fractal->quaternion104.fabsAddConstant1Enabledx)
     {
       z.x = fabs(z.x);
@@ -1437,31 +1418,30 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     }
     if (fractal->quaternion104.fabsAddConstant1WEnabled)
     {
-      vectW.x = fabs( vectW.x);
+      z.w = fabs(z.w);
     }
     z = ( z * fractal->quaternion104.fabsAddConstant1B ) + ( temp * fractal->quaternion104.fabsAddConstant1C );
-    vectW = (vectW * fractal->quaternion104.fabsAddConstant1B ) + ( tempW * fractal->quaternion104.fabsAddConstant1C );
     //weight function
     if (fractal->quaternion104.fabsAddConstant1WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> quaternion104.fabsAddConstant1Weight);
-      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.fabsAddConstant1Weight);
     }
   }
   // quaternion; 1
   if (fractal->quaternion104.quaternion1Enabled && i >= fractal->quaternion104.quaternion1StartIterations && i < fractal->quaternion104.quaternion1StopIterations)
   {
     temp = z;
-    tempW = vectW;
-    CVector3 newz( fractal->quaternion104.quaternion1FactorConstantVect.x * (z.x * z.x - z.y * z.y - z.z * z.z - vectW.x * vectW.x),  fractal->quaternion104.quaternion1FactorConstantVect.y * z.x * z.y,  fractal->quaternion104.quaternion1FactorConstantVect.z * z.x * z.z);
-    double neww = fractal->quaternion104.quaternion1FactorConstantW * z.x * vectW.x;
+    CVector4 newz( 	fractal->quaternion104.quaternion1FactorConstantVect.x * (z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w),
+    								fractal->quaternion104.quaternion1FactorConstantVect.y * z.x * z.y,
+										fractal->quaternion104.quaternion1FactorConstantVect.z * z.x * z.z,
+										fractal->quaternion104.quaternion1FactorConstantVect.w * z.x * z.w
+										);
     z = newz;
-    vectW.x = neww;
+
     //weight function
     if (fractal->quaternion104.quaternion1WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> quaternion104.quaternion1Weight);
-      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.quaternion1Weight);
     }
   }
       // z = z + ( c * const.); 1
@@ -1479,15 +1459,12 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
   if (fractal->quaternion104.additionConstant1Enabled && i >= fractal->quaternion104.additionConstant1StartIterations && i < fractal->quaternion104.additionConstant1StopIterations)
   {
     temp = z;
-    tempW = vectW;
 
     z += fractal->quaternion104.additionConstant1;
-    vectW.x += fractal->quaternion104.additionConstant1W;
     //weight function
     if (fractal->quaternion104.additionConstant1WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> quaternion104.additionConstant1Weight);
-      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.additionConstant1Weight);
     }
   }
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 1
@@ -1522,6 +1499,9 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
       tempB.z = fabs(z.z - fractal->quaternion104.fabsFormulaABCD1B.z);
     }
     z.z = tempA.z - tempB.z + (z.z * fractal->quaternion104.fabsFormulaABCD1C.z + fractal->quaternion104.fabsFormulaABCD1D.z);
+
+    //TODO missing W component
+
     //weight function
     if (fractal->quaternion104.fabsFormulaABCD1WeightEnabled)
     {
@@ -1534,16 +1514,16 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
   if (fractal->quaternion104.quaternion2Enabled && i >= fractal->quaternion104.quaternion2StartIterations && i < fractal->quaternion104.quaternion2StopIterations)
   {
     temp = z;
-    tempW = vectW;
-    CVector3 newz( fractal->quaternion104.quaternion2FactorConstantVect.x * (z.x * z.x - z.y * z.y - z.z * z.z - vectW.x * vectW.x),  fractal->quaternion104.quaternion2FactorConstantVect.y * z.x * z.y,  fractal->quaternion104.quaternion2FactorConstantVect.z * z.x * z.z);
-    double neww = fractal->quaternion104.quaternion2FactorConstantW * z.x * vectW.x;
+    CVector4 newz( 	fractal->quaternion104.quaternion2FactorConstantVect.x * (z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w),
+    								fractal->quaternion104.quaternion2FactorConstantVect.y * z.x * z.y,
+										fractal->quaternion104.quaternion2FactorConstantVect.z * z.x * z.z,
+										fractal->quaternion104.quaternion2FactorConstantVect.w * z.x * z.w);
     z = newz;
-    vectW.x = neww;
+
     //weight function
     if (fractal->quaternion104.quaternion2WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> quaternion104.quaternion2Weight);
-      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.quaternion2Weight);
     }
   }
 
@@ -1556,28 +1536,26 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.constantMultiplier2WeightEnabled)
     {
-    z = SmoothCVector(temp, z, fractal-> quaternion104.constantMultiplier2Weight);
+    	z = SmoothCVector(temp, z, fractal-> quaternion104.constantMultiplier2Weight);
     }
   }
   // z = z + const; 2
   if (fractal->quaternion104.additionConstant2Enabled && i >= fractal->quaternion104.additionConstant2StartIterations && i < fractal->quaternion104.additionConstant2StopIterations)
   {
     temp = z;
-    tempW = vectW;
     z += fractal->quaternion104.additionConstant2;
-    vectW.x += fractal->quaternion104.additionConstant2W;
     //weight function
     if (fractal->quaternion104.additionConstant2WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> quaternion104.additionConstant2Weight);
-      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.additionConstant2Weight);
     }
   }
   //mainRotation2
   if (fractal->quaternion104.mainRotation2Enabled && i >= fractal->quaternion104.mainRotation2StartIterations && i < fractal->quaternion104.mainRotation2StopIterations)
   {
     temp = z;
-    z = fractal->quaternion104.mainRot2.RotateVector(z);
+    //TODO 4D rotation
+    z = CVector4(fractal->quaternion104.mainRot2.RotateVector(z.GetXYZ()), z.w);
     //weight function
     if (fractal->quaternion104.mainRotation2WeightEnabled)
     {
@@ -1588,20 +1566,18 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
   if (fractal->quaternion104.boxFold2Enabled && i >= fractal->quaternion104.boxFold2StartIterations && i < fractal->quaternion104.boxFold2StopIterations)
   {
     temp = z;
-    tempW = vectW;
     if (z.x > fractal->quaternion104.boxFold2FoldingLimit) z.x = fractal->quaternion104.boxFold2FoldingValue - z.x;
     else if (z.x < -fractal->quaternion104.boxFold2FoldingLimit) z.x = -fractal->quaternion104.boxFold2FoldingValue - z.x;
     if (z.y > fractal->quaternion104.boxFold2FoldingLimit) z.y = fractal->quaternion104.boxFold2FoldingValue - z.y;
     else if (z.y < -fractal->quaternion104.boxFold2FoldingLimit) z.y = -fractal->quaternion104.boxFold2FoldingValue - z.y;
     if (z.z > fractal->quaternion104.boxFold2FoldingLimit) z.z = fractal->quaternion104.boxFold2FoldingValue - z.z;
     else if (z.z < -fractal->quaternion104.boxFold2FoldingLimit) z.z = -fractal->quaternion104.boxFold2FoldingValue - z.z;
-    if (vectW.x > fractal->quaternion104.boxFold2FoldingLimit) vectW.x = fractal->quaternion104.boxFold2FoldingValue - vectW.x;
-    else if (vectW.x < -fractal->quaternion104.boxFold2FoldingLimit) vectW.x = -fractal->quaternion104.boxFold2FoldingValue -vectW.x;
+    if (z.w > fractal->quaternion104.boxFold2FoldingLimit) z.w = fractal->quaternion104.boxFold2FoldingValue - z.w;
+    else if (z.w < -fractal->quaternion104.boxFold2FoldingLimit) z.w = -fractal->quaternion104.boxFold2FoldingValue - z.w;
     //weight function
     if (fractal->quaternion104.boxFold2WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> quaternion104.boxFold2Weight);
-      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.boxFold2Weight);
     }
   }
   // sphericalFold2
@@ -1637,7 +1613,7 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
   if (fractal->quaternion104.mainRotation3Enabled && i >= fractal->quaternion104.mainRotation3StartIterations && i < fractal->quaternion104.mainRotation3StopIterations)
   {
     temp = z;
-    z = fractal->quaternion104.mainRot3.RotateVector(z);
+    z = CVector4(fractal->quaternion104.mainRot3.RotateVector(z.GetXYZ()), z.w);
     //weight function
     if (fractal->quaternion104.mainRotation3WeightEnabled)
     {
@@ -1676,6 +1652,9 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
       tempB.z = fabs(z.z - fractal->quaternion104.fabsFormulaABCD2B.z);
     }
     z.z = tempA.z - tempB.z + (z.z * fractal->quaternion104.fabsFormulaABCD2C.z + fractal->quaternion104.fabsFormulaABCD2D.z);
+
+    //TODO missing W component
+
     //weight function
     if (fractal->quaternion104.fabsFormulaABCD2WeightEnabled)
     {
@@ -1701,7 +1680,6 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     z = SmoothCVector(temp, z, fractal-> quaternion104.iterationWeight1Weight);
     }
   }
-  w =vectW.x;
 }
 
 

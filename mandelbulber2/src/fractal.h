@@ -523,7 +523,7 @@ struct sFractalQuaternion104
     double sphericalFold1Weight;
 
     bool scale1Enabled;
-    CVector3 scale1;
+    CVector4 scale1;
     double scale1W;
     int scale1StartIterations;
     int scale1StopIterations;
@@ -544,34 +544,29 @@ struct sFractalQuaternion104
     bool fabsAddConstant1WEnabled;
     int fabsAddConstant1StartIterations;
     int fabsAddConstant1StopIterations;
-    CVector3 fabsAddConstant1A;
-    CVector3 fabsAddConstant1B;
-    CVector3 fabsAddConstant1C;
-    double fabsAddConstant1AW;
-    double fabsAddConstant1BW;
-    double fabsAddConstant1CW;
+    CVector4 fabsAddConstant1A;
+    CVector4 fabsAddConstant1B;
+    CVector4 fabsAddConstant1C;
     double fabsAddConstant1Weight;
 
     bool quaternion1Enabled;
     bool quaternion1WeightEnabled;
     int quaternion1StartIterations;
     int quaternion1StopIterations;
-    CVector3 quaternion1FactorConstantVect;
-    double quaternion1FactorConstantW;
+    CVector4 quaternion1FactorConstantVect;
     double quaternion1Weight;
     bool constantMultiplier1Enabled;
     bool constantMultiplier1WeightEnabled;
     int constantMultiplier1StartIterations;
     int constantMultiplier1StopIterations;
-    CVector3 constantMultiplier1Vect;
+    CVector4 constantMultiplier1Vect;
 
     double constantMultiplier1Weight;
     bool additionConstant1Enabled;
     bool additionConstant1WeightEnabled;
     int additionConstant1StartIterations;
     int additionConstant1StopIterations;
-    CVector3 additionConstant1;
-    double additionConstant1W;
+    CVector4 additionConstant1;
     double additionConstant1Weight;
 
     bool fabsFormulaABCD1Enabled;
@@ -595,23 +590,21 @@ struct sFractalQuaternion104
     bool quaternion2WeightEnabled;
     int quaternion2StartIterations;
     int quaternion2StopIterations;
-    CVector3 quaternion2FactorConstantVect;
-    double quaternion2FactorConstantW;
+    CVector4 quaternion2FactorConstantVect;
     double quaternion2Weight;
 
     bool constantMultiplier2Enabled;
     bool constantMultiplier2WeightEnabled;
     int constantMultiplier2StartIterations;
     int constantMultiplier2StopIterations;
-    CVector3 constantMultiplier2Vect;
+    CVector4 constantMultiplier2Vect;
     double constantMultiplier2Weight;
 
     bool additionConstant2Enabled;
     bool additionConstant2WeightEnabled;
     int additionConstant2StartIterations;
     int additionConstant2StopIterations;
-    CVector3 additionConstant2;
-    double additionConstant2W;
+    CVector4 additionConstant2;
     double additionConstant2Weight;
 
     bool mainRotation2Enabled;

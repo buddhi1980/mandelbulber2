@@ -127,7 +127,7 @@ bool cRenderJob::Init(enumMode _mode)
 	}
 
 	totalNumberOfCPUs = systemData.numberOfThreads;
-	//totalNumberOfCPUs = 1;
+	totalNumberOfCPUs = 1;
 
 	WriteLog("Init renderData");
 	//aux renderer data

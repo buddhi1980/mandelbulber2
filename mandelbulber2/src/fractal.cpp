@@ -435,8 +435,7 @@ cFractal::cFractal(const cParameterContainer *container)
   quaternion104.scale1Enabled = container->Get<bool>("quaternion104_scale1_enabled");
   quaternion104.scale1StartIterations = container->Get<int>("quaternion104_scale1_start_iterations");
   quaternion104.scale1StopIterations = container->Get<int>("quaternion104_scale1_stop_iterations");
-  quaternion104.scale1 = container->Get<CVector3>("quaternion104_scale1");
-  quaternion104.scale1W = container->Get<double>("quaternion104_scale1W");
+  quaternion104.scale1 = CVector4(container->Get<CVector3>("quaternion104_scale1"), container->Get<double>("quaternion104_scale1W"));
 
   quaternion104.mainRotation1Enabled = container->Get<bool>("quaternion104_main_rotation1_enabled");
   quaternion104.mainRotation1WeightEnabled = container->Get<bool>("quaternion104_main_rotation1_weight_enabled");
@@ -452,16 +451,12 @@ cFractal::cFractal(const cParameterContainer *container)
   quaternion104.fabsAddConstant1WEnabled = container->Get<bool>("quaternion104_fabsAddConstant1W_enabled");
   quaternion104.fabsAddConstant1StartIterations = container->Get<int>("quaternion104_fabsAddConstant1_start_iterations");
   quaternion104.fabsAddConstant1StopIterations = container->Get<int>("quaternion104_fabsAddConstant1_stop_iterations");
-  quaternion104.fabsAddConstant1A = container->Get<CVector3>("quaternion104_fabsAddConstant1A");
-  quaternion104.fabsAddConstant1B = container->Get<CVector3>("quaternion104_fabsAddConstant1B");
-  quaternion104.fabsAddConstant1C = container->Get<CVector3>("quaternion104_fabsAddConstant1C");
-  quaternion104.fabsAddConstant1AW = container->Get<bool>("quaternion104_fabsAddConstant1AW");
-  quaternion104.fabsAddConstant1BW = container->Get<bool>("quaternion104_fabsAddConstant1BW");
-  quaternion104.fabsAddConstant1CW = container->Get<bool>("quaternion104_fabsAddConstant1CW");
+  quaternion104.fabsAddConstant1A = CVector4(container->Get<CVector3>("quaternion104_fabsAddConstant1A"), container->Get<double>("quaternion104_fabsAddConstant1AW"));
+  quaternion104.fabsAddConstant1B = CVector4(container->Get<CVector3>("quaternion104_fabsAddConstant1A"), container->Get<double>("quaternion104_fabsAddConstant1BW"));
+  quaternion104.fabsAddConstant1C = CVector4(container->Get<CVector3>("quaternion104_fabsAddConstant1A"), container->Get<double>("quaternion104_fabsAddConstant1CW"));
   quaternion104.fabsAddConstant1Weight = container->Get<double>("quaternion104_fabsAddConstant1_weight");
 
-  quaternion104.quaternion1FactorConstantVect = container->Get<CVector3>("quaternion104_quaternion1_factorConstantVect");
-  quaternion104.quaternion1FactorConstantW = container->Get<double>("quaternion104_quaternion1_factorConstantW");
+  quaternion104.quaternion1FactorConstantVect = CVector4(container->Get<CVector3>("quaternion104_quaternion1_factorConstantVect"), container->Get<double>("quaternion104_quaternion1_factorConstantW"));
   quaternion104.quaternion1Enabled = container->Get<bool>("quaternion104_quaternion1_enabled");
   quaternion104.quaternion1WeightEnabled = container->Get<bool>("quaternion104_quaternion1_weight_enabled");
   quaternion104.quaternion1StartIterations = container->Get<int>("quaternion104_quaternion1_start_iterations");
@@ -472,15 +467,14 @@ cFractal::cFractal(const cParameterContainer *container)
   quaternion104.constantMultiplier1WeightEnabled = container->Get<bool>("quaternion104_constantMultiplier1_weight_enabled");
   quaternion104.constantMultiplier1StartIterations = container->Get<int>("quaternion104_constantMultiplier1_start_iterations");
   quaternion104.constantMultiplier1StopIterations = container->Get<int>("quaternion104_constantMultiplier1_stop_iterations");
-  quaternion104.constantMultiplier1Vect = container->Get<CVector3>("quaternion104_constantMultiplier1");
+  quaternion104.constantMultiplier1Vect = CVector4(container->Get<CVector3>("quaternion104_constantMultiplier1"), 0.0); //TODO constant multiplier 4D
   quaternion104.constantMultiplier1Weight = container->Get<double>("quaternion104_constantMultiplier1_weight");
   quaternion104.additionConstant1Enabled = container->Get<bool>("quaternion104_additionConstant1_enabled");
   quaternion104.additionConstant1WeightEnabled = container->Get<bool>("quaternion104_additionConstant1_weight_enabled");
   quaternion104.additionConstant1StartIterations = container->Get<int>("quaternion104_additionConstant1_start_iterations");
   quaternion104.additionConstant1StopIterations = container->Get<int>("quaternion104_additionConstant1_stop_iterations");
   quaternion104.additionConstant1Weight = container->Get<double>("quaternion104_additionConstant1_weight");
-  quaternion104.additionConstant1 = container->Get<CVector3>("quaternion104_additionConstant1");
-  quaternion104.additionConstant1W = container->Get<double>("quaternion104_additionConstant1_w");
+  quaternion104.additionConstant1 = CVector4(container->Get<CVector3>("quaternion104_additionConstant1"), container->Get<double>("quaternion104_additionConstant1_w"));
 
   quaternion104.fabsFormulaABCD1A = container->Get<CVector3>("quaternion104_fabsFormulaABCD1A");
   quaternion104.fabsFormulaABCD1B = container->Get<CVector3>("quaternion104_fabsFormulaABCD1B");
@@ -498,23 +492,21 @@ cFractal::cFractal(const cParameterContainer *container)
   quaternion104.fabsFormulaABCD1StopIterations = container->Get<int>("quaternion104_fabsFormulaABCD1_stop_iterations");
   quaternion104.fabsFormulaABCD1Weight = container->Get<double>("quaternion104_fabsFormulaABCD1_weight");
 
-  quaternion104.quaternion2FactorConstantVect = container->Get<CVector3>("quaternion104_quaternion2_factorConstantVect");
-  quaternion104.quaternion2FactorConstantW = container->Get<double>("quaternion104_quaternion2_factorConstantW");
+  quaternion104.quaternion2FactorConstantVect = CVector4(container->Get<CVector3>("quaternion104_quaternion2_factorConstantVect"), container->Get<double>("quaternion104_quaternion2_factorConstantW"));
   quaternion104.quaternion2Enabled = container->Get<bool>("quaternion104_quaternion2_enabled");
   quaternion104.quaternion2WeightEnabled = container->Get<bool>("quaternion104_quaternion2_weight_enabled");
   quaternion104.quaternion2StartIterations = container->Get<int>("quaternion104_quaternion2_start_iterations");
   quaternion104.quaternion2StopIterations = container->Get<int>("quaternion104_quaternion2_stop_iterations");
   quaternion104.quaternion2Weight = container->Get<double>("quaternion104_quaternion2_weight");
 
-  quaternion104.constantMultiplier2Vect = container->Get<CVector3>("quaternion104_constantMultiplier2");
+  quaternion104.constantMultiplier2Vect = CVector4(container->Get<CVector3>("quaternion104_constantMultiplier2"), 0.0); //TODO constant multiplier 4D
   quaternion104.constantMultiplier2Enabled = container->Get<bool>("quaternion104_constantMultiplier2_enabled");
   quaternion104.constantMultiplier2WeightEnabled = container->Get<bool>("quaternion104_constantMultiplier2_weight_enabled");
   quaternion104.constantMultiplier2StartIterations = container->Get<int>("quaternion104_constantMultiplier2_start_iterations");
   quaternion104.constantMultiplier2StopIterations = container->Get<int>("quaternion104_constantMultiplier2_stop_iterations");
   quaternion104.constantMultiplier2Weight = container->Get<double>("quaternion104_constantMultiplier2_weight");
 
-  quaternion104.additionConstant2 = container->Get<CVector3>("quaternion104_additionConstant2");
-  quaternion104.additionConstant2W = container->Get<double>("quaternion104_additionConstant2_w");
+  quaternion104.additionConstant2 = CVector4(container->Get<CVector3>("quaternion104_additionConstant2"), container->Get<double>("quaternion104_additionConstant2_w"));
   quaternion104.additionConstant2Enabled = container->Get<bool>("quaternion104_additionConstant2_enabled");
   quaternion104.additionConstant2WeightEnabled = container->Get<bool>("quaternion104_additionConstant2_weight_enabled");
   quaternion104.additionConstant2StartIterations = container->Get<int>("quaternion104_additionConstant2_start_iterations");
