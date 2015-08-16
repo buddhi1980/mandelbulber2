@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1085</width>
-           <height>724</height>
+           <width>1078</width>
+           <height>722</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -249,7 +249,7 @@
      <x>0</x>
      <y>0</y>
      <width>1741</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -371,8 +371,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>416</width>
-          <height>442</height>
+          <width>410</width>
+          <height>430</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -1191,8 +1191,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>174</width>
-          <height>296</height>
+          <width>176</width>
+          <height>292</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -1603,9 +1603,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>177</width>
-          <height>721</height>
+          <y>-435</y>
+          <width>175</width>
+          <height>709</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -2662,7 +2662,7 @@ to target:</string>
                 </item>
                 <item>
                  <property name="text">
-                  <string>Staight rotation</string>
+                  <string>Straight rotation</string>
                  </property>
                 </item>
                </widget>
@@ -2843,8 +2843,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>430</width>
-          <height>163</height>
+          <width>428</width>
+          <height>158</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2913,8 +2913,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>408</width>
-                  <height>702</height>
+                  <width>401</width>
+                  <height>714</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -4099,8 +4099,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>380</width>
-                  <height>174</height>
+                  <width>220</width>
+                  <height>169</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -4427,8 +4427,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>380</width>
-                  <height>513</height>
+                  <width>200</width>
+                  <height>514</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -5267,8 +5267,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>380</width>
-                  <height>202</height>
+                  <width>280</width>
+                  <height>190</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5531,8 +5531,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>380</width>
-                  <height>1248</height>
+                  <width>261</width>
+                  <height>1221</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -7649,8 +7649,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>416</width>
-          <height>305</height>
+          <width>410</width>
+          <height>293</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -7738,8 +7738,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
-                      <height>452</height>
+                      <width>213</width>
+                      <height>436</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -8395,8 +8395,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
-                      <height>452</height>
+                      <width>213</width>
+                      <height>436</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -9046,8 +9046,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
-                      <height>452</height>
+                      <width>213</width>
+                      <height>436</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -9691,8 +9691,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>358</width>
-                      <height>452</height>
+                      <width>213</width>
+                      <height>436</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -10340,8 +10340,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
-                  <height>482</height>
+                  <width>357</width>
+                  <height>464</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -11583,8 +11583,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>366</width>
-                  <height>354</height>
+                  <width>205</width>
+                  <height>357</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -12128,8 +12128,8 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>416</width>
-          <height>796</height>
+          <width>410</width>
+          <height>769</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -13454,8 +13454,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>341</width>
-                  <height>291</height>
+                  <width>222</width>
+                  <height>306</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -14284,8 +14284,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>258</height>
+                  <width>339</width>
+                  <height>255</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
