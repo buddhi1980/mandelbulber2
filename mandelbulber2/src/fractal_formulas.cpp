@@ -703,7 +703,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.boxFold1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.boxFold1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.boxFold1Weight);
     }
   }
     //mainRotation1
@@ -714,7 +714,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.mainRotation1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.mainRotation1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.mainRotation1Weight);
     }
   }
     //(fabs( z + const1A.) * const1.B) + z * constC.;
@@ -744,7 +744,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.fabsAddConstant1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.fabsAddConstant1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.fabsAddConstant1Weight);
     }
   }
   //MAIN FORMULA 1
@@ -770,7 +770,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.constantMultiplier1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.constantMultiplier1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.constantMultiplier1Weight);
     }
   }
     //  -fabs( z - constA.) * const.B;
@@ -800,7 +800,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.fabsSubConstant1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.fabsSubConstant1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.fabsSubConstant1Weight);
     }
   }
   // z = fabs( z + const.A ) + ( z * const.B ) + const.C; 1
@@ -830,7 +830,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.fabsFormulaZAB1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.fabsFormulaZAB1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.fabsFormulaZAB1Weight);
     }
   }
   // z = z + const; 1
@@ -841,7 +841,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.additionConstant1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.additionConstant1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.additionConstant1Weight);
     }
   }
 
@@ -870,7 +870,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.fabsFormulaAB1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.fabsFormulaAB1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.fabsFormulaAB1Weight);
     }
   }
   //mainRotation; 2
@@ -881,7 +881,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.mainRotation2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.mainRotation2Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.mainRotation2Weight);
     }
   }
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 1
@@ -924,7 +924,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.fabsFormulaABCD1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.fabsFormulaABCD1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.fabsFormulaABCD1Weight);
     }
   }
 
@@ -952,7 +952,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.mainRotation3WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.mainRotation3Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.mainRotation3Weight);
     }
   }
     // z = z + c * const; 2
@@ -963,7 +963,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.constantMultiplier2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.constantMultiplier2Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.constantMultiplier2Weight);
     }
   }
 
@@ -975,7 +975,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.additionConstant2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.additionConstant2Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.additionConstant2Weight);
     }
   }
 
@@ -1004,7 +1004,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.fabsFormulaAB2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.fabsFormulaAB2Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.fabsFormulaAB2Weight);
     }
   }
     //boxFold; 2
@@ -1025,7 +1025,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
     //weight function
     if (fractal->mandelbulb5.boxFold2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbulb5.boxFold2Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbulb5.boxFold2Weight);
     }
   }
 }
@@ -1052,7 +1052,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.boxFold1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbox103.boxFold1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbox103.boxFold1Weight);
     }
   }
   // sphericalFold1
@@ -1074,7 +1074,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
       if (fractal->mandelbox103.sphericalFold1WeightEnabled)
       {
-        z = SmoothCVector3(temp, z, fractal-> mandelbox103.sphericalFold1Weight);
+        z = SmoothCVector(temp, z, fractal-> mandelbox103.sphericalFold1Weight);
         double nkaux = 1.0 - ( fractal-> mandelbox103.sphericalFold1Weight);
         aux.mboxDE = ( temp2 * nkaux )  + ( aux.mboxDE  *  fractal-> mandelbox103.sphericalFold1Weight);
       }
@@ -1093,7 +1093,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     z = fractal->mandelbox103.mainRot1.RotateVector(z);
     if (fractal->mandelbox103.mainRotation1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbox103.mainRotation1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbox103.mainRotation1Weight);
     }
   }
     //(fabs( z + const1A.) * const1.B) + z * constC.;
@@ -1118,7 +1118,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.fabsAddConstant1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbox103.fabsAddConstant1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbox103.fabsAddConstant1Weight);
     }
   }
       // z = z + ( c * const.); 1
@@ -1129,7 +1129,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.constantMultiplier1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbox103.constantMultiplier1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbox103.constantMultiplier1Weight);
     }
   }
   // z = z + const; 1
@@ -1140,7 +1140,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.additionConstant1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbox103.additionConstant1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbox103.additionConstant1Weight);
     }
   }
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 1
@@ -1178,7 +1178,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.fabsFormulaABCD1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbox103.fabsFormulaABCD1Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbox103.fabsFormulaABCD1Weight);
     }
   }
   //MAIN FORMULA
@@ -1195,7 +1195,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.boxFold2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbox103.boxFold2Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbox103.boxFold2Weight);
     }
   }
   // sphericalFold2
@@ -1218,7 +1218,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.sphericalFold2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbox103.sphericalFold2Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbox103.sphericalFold2Weight);
       //aux.mboxDE = temp2 + ( aux.mboxDE - temp2) * ( fractal-> mandelbox103.sphericalFold2Weight);
       double nkaux = 1.0 - ( fractal-> mandelbox103.sphericalFold2Weight);
       aux.mboxDE = ( temp2 * nkaux )  + ( aux.mboxDE  *  fractal-> mandelbox103.sphericalFold2Weight);
@@ -1238,7 +1238,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.mainRotation2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbox103.mainRotation2Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbox103.mainRotation2Weight);
     }
   }
     // z = z + c * const; 2
@@ -1249,7 +1249,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.constantMultiplier2WeightEnabled)
     {
-    z = SmoothCVector3(temp, z, fractal-> mandelbox103.constantMultiplier2Weight);
+    z = SmoothCVector(temp, z, fractal-> mandelbox103.constantMultiplier2Weight);
     }
   }
   // z = z + const; 2
@@ -1260,7 +1260,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.additionConstant2WeightEnabled)
     {
-    z = SmoothCVector3(temp, z, fractal-> mandelbox103.additionConstant2Weight);
+    z = SmoothCVector(temp, z, fractal-> mandelbox103.additionConstant2Weight);
     }
   }
   //mainRotation; 3
@@ -1271,7 +1271,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.mainRotation3WeightEnabled)
     {
-    z = SmoothCVector3(temp, z, fractal-> mandelbox103.mainRotation3Weight);
+    z = SmoothCVector(temp, z, fractal-> mandelbox103.mainRotation3Weight);
     }
   }
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
@@ -1309,7 +1309,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.fabsFormulaABCD2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> mandelbox103.fabsFormulaABCD2Weight);
+      z = SmoothCVector(temp, z, fractal-> mandelbox103.fabsFormulaABCD2Weight);
     }
   }
   // Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);1
@@ -1328,7 +1328,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     //weight function
     if (fractal->mandelbox103.iterationWeight1WeightEnabled)
     {
-    z = SmoothCVector3(temp, z, fractal-> mandelbox103.iterationWeight1Weight);
+    z = SmoothCVector(temp, z, fractal-> mandelbox103.iterationWeight1Weight);
     }
   }
 }
@@ -1363,7 +1363,7 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.boxFold1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.boxFold1Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.boxFold1Weight);
       //vectW = SmoothCVector3(tempW, vectW, fractal-> quaternion104.boxFold1Weight);
     }
   }
@@ -1395,8 +1395,8 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.sphericalFold1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.sphericalFold1Weight);
-      vectW = SmoothCVector3(tempW, vectW, fractal-> quaternion104.sphericalFold1Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.sphericalFold1Weight);
+      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.sphericalFold1Weight);
     }
   }
   //scale; 1
@@ -1412,7 +1412,7 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     z = fractal->quaternion104.mainRot1.RotateVector(z);
     if (fractal->quaternion104.mainRotation1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.mainRotation1Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.mainRotation1Weight);
     }
   }
     //(fabs( z + const1A.) * const1.B) + z * constC.;
@@ -1444,8 +1444,8 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.fabsAddConstant1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.fabsAddConstant1Weight);
-      vectW = SmoothCVector3(tempW, vectW, fractal-> quaternion104.fabsAddConstant1Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.fabsAddConstant1Weight);
+      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.fabsAddConstant1Weight);
     }
   }
   // quaternion; 1
@@ -1460,8 +1460,8 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.quaternion1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.quaternion1Weight);
-      vectW = SmoothCVector3(tempW, vectW, fractal-> quaternion104.quaternion1Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.quaternion1Weight);
+      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.quaternion1Weight);
     }
   }
       // z = z + ( c * const.); 1
@@ -1472,7 +1472,7 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.constantMultiplier1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.constantMultiplier1Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.constantMultiplier1Weight);
     }
   }
   // z = z + const; 1
@@ -1486,8 +1486,8 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.additionConstant1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.additionConstant1Weight);
-      vectW = SmoothCVector3(tempW, vectW, fractal-> quaternion104.additionConstant1Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.additionConstant1Weight);
+      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.additionConstant1Weight);
     }
   }
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 1
@@ -1525,7 +1525,7 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.fabsFormulaABCD1WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.fabsFormulaABCD1Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.fabsFormulaABCD1Weight);
     }
   }
   //MAIN FORMULA
@@ -1542,8 +1542,8 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.quaternion2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.quaternion2Weight);
-      vectW = SmoothCVector3(tempW, vectW, fractal-> quaternion104.quaternion2Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.quaternion2Weight);
+      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.quaternion2Weight);
     }
   }
 
@@ -1556,7 +1556,7 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.constantMultiplier2WeightEnabled)
     {
-    z = SmoothCVector3(temp, z, fractal-> quaternion104.constantMultiplier2Weight);
+    z = SmoothCVector(temp, z, fractal-> quaternion104.constantMultiplier2Weight);
     }
   }
   // z = z + const; 2
@@ -1569,8 +1569,8 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.additionConstant2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.additionConstant2Weight);
-      vectW = SmoothCVector3(tempW, vectW, fractal-> quaternion104.additionConstant2Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.additionConstant2Weight);
+      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.additionConstant2Weight);
     }
   }
   //mainRotation2
@@ -1581,7 +1581,7 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.mainRotation2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.mainRotation2Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.mainRotation2Weight);
     }
   }
     //boxFold; 2
@@ -1600,8 +1600,8 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.boxFold2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.boxFold2Weight);
-      vectW = SmoothCVector3(tempW, vectW, fractal-> quaternion104.boxFold2Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.boxFold2Weight);
+      vectW = SmoothCVector(tempW, vectW, fractal-> quaternion104.boxFold2Weight);
     }
   }
   // sphericalFold2
@@ -1623,7 +1623,7 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.sphericalFold2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.sphericalFold2Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.sphericalFold2Weight);
     }
   }
   //scale; 2
@@ -1641,7 +1641,7 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.mainRotation3WeightEnabled)
     {
-    z = SmoothCVector3(temp, z, fractal-> quaternion104.mainRotation3Weight);
+    z = SmoothCVector(temp, z, fractal-> quaternion104.mainRotation3Weight);
     }
   }
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
@@ -1679,7 +1679,7 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.fabsFormulaABCD2WeightEnabled)
     {
-      z = SmoothCVector3(temp, z, fractal-> quaternion104.fabsFormulaABCD2Weight);
+      z = SmoothCVector(temp, z, fractal-> quaternion104.fabsFormulaABCD2Weight);
     }
   }
   // Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);1
@@ -1698,7 +1698,7 @@ void Quaternion104Iteration(CVector3 &z, CVector3 &c, int &i, double &w, const c
     //weight function
     if (fractal->quaternion104.iterationWeight1WeightEnabled)
     {
-    z = SmoothCVector3(temp, z, fractal-> quaternion104.iterationWeight1Weight);
+    z = SmoothCVector(temp, z, fractal-> quaternion104.iterationWeight1Weight);
     }
   }
   w =vectW.x;

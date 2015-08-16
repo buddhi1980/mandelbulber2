@@ -302,7 +302,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 
 		if(four.IsHybrid())
 		{
-			z = SmoothCVector3(tempZ, z, four.GetWeight(sequence));
+			z = SmoothCVector(tempZ, z, four.GetWeight(sequence));
 		}
 
 		//r calculation

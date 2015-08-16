@@ -195,9 +195,10 @@ double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, 
 //----------------------------------------
 
 //Smooth transistion between two vectors with vector length control
-CVector3 SmoothCVector3(const CVector3 &v1, const CVector3 &v2, double k)
+template <typename T>
+T SmoothCVector(const T &v1, const T &v2, double k)
 {
-	CVector3 result;
+	T result;
 	double nk = 1.0 - k;
 
 	if(k <= 0.0)
@@ -213,7 +214,7 @@ CVector3 SmoothCVector3(const CVector3 &v1, const CVector3 &v2, double k)
 		double length1 = v1.Length();
 		double length2 = v2.Length();
 		double lenInterp = length1 * nk + length2 * k;
-		CVector3 vTemp = v1 * nk + v2 * k;
+		T vTemp = v1 * nk + v2 * k;
 		double lengthTemp = vTemp.Length();
 		if(lengthTemp > 0.0)
 		{
@@ -226,37 +227,8 @@ CVector3 SmoothCVector3(const CVector3 &v1, const CVector3 &v2, double k)
 	}
 	return result;
 }
+template CVector2<double> SmoothCVector(const CVector2<double> &v1, const CVector2<double> &v2, double k);
+template CVector3 SmoothCVector(const CVector3 &v1, const CVector3 &v2, double k);
+template CVector4 SmoothCVector(const CVector4 &v1, const CVector4 &v2, double k);
 
-//----------------------------------------
-//Smooth transistion between two CVector4's with vector length control
-CVector4 SmoothCVector4(const CVector4 &v1, const CVector4 &v2, double k)
-{
-  CVector4 result;
-  double nk = 1.0 - k;
-  if(k <= 0.0)
-  {
-      result = v1;
-  }
-  else if (k >= 1.0)
-  {
-      result = v2;
-  }
-  else
-  {
-    double length1 = v1.Length();
-    double length2 = v2.Length();
-    double lenInterp = length1 * nk + length2 * k;
-    CVector4 vTemp = v1 * nk + v2 * k;
-    double lengthTemp = vTemp.Length();
-    if(lengthTemp > 0.0)
-    {
-      result = (vTemp / lengthTemp) * lenInterp;
-    }
-    else
-    {
-      result = v1;
-    }
-  }
-  return result;
-}
 
