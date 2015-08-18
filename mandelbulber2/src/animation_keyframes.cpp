@@ -920,7 +920,7 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 	for(int key = 0; key < keyframes->GetNumberOfFrames(); key++)
 	{
 		ProgressStatusText(QObject::tr("Checking for collissions"),
-				QObject::tr("Checking for collissions on keframe # %1").arg(key),
+				QObject::tr("Checking for collissions on keyframe # %1").arg(key),
 				(double)key / (keyframes->GetNumberOfFrames() - 1.0),
 				ui->statusbar, mainInterface->progressBar);
 

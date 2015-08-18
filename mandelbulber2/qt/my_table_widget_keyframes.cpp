@@ -62,7 +62,7 @@ void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point)
 	{
 		if(column < columnCount() - 1)
 		{
-			interpolateForward = menu->addAction(tr("Interpolate next frames"));
+			interpolateForward = menu->addAction(tr("Interpolate next keyframes"));
 		}
 	}
 

@@ -2118,7 +2118,7 @@ void cInterface::AutoRecovery()
 		reply = QMessageBox::question(
 			mainWindow->ui->centralwidget,
 			QObject::tr("Auto recovery"),
-			QObject::tr("Application haven't been closed properly\nDo you want to recover your latest work?"),
+			QObject::tr("Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes|QMessageBox::No);
 
 		if (reply == QMessageBox::Yes)
