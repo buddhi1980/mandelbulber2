@@ -44,17 +44,17 @@
     <message>
         <location filename="../qt/color_palette_widget.cpp" line="138"/>
         <source>Reset to default</source>
-        <translation type="unfinished">Auf Standardwert zurücksetzen</translation>
+        <translation>Auf Standardwert zurücksetzen</translation>
     </message>
     <message>
         <location filename="../qt/color_palette_widget.cpp" line="139"/>
         <source>Add to flight animation</source>
-        <translation type="unfinished">Zur Fluganimation hinzufügen</translation>
+        <translation>Zur Fluganimation hinzufügen</translation>
     </message>
     <message>
         <location filename="../qt/color_palette_widget.cpp" line="140"/>
         <source>Add to keyframe animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Zur Keyframeanimation hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -72,7 +72,7 @@
     <message>
         <location filename="../qt/mycheckbox.cpp" line="33"/>
         <source>Add to keyframe animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Zur Keyframeanimation hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -90,7 +90,7 @@
     <message>
         <location filename="../qt/mycolorbutton.cpp" line="57"/>
         <source>Add to keyframe animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Zur Keyframeanimation hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -108,7 +108,7 @@
     <message>
         <location filename="../qt/mydoublespinbox.cpp" line="34"/>
         <source>Add to keyframe animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Zur Keyframeanimation hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -126,7 +126,7 @@
     <message>
         <location filename="../qt/mygroupbox.cpp" line="33"/>
         <source>Add to keyframe animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Zur Keyframeanimation hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -144,7 +144,7 @@
     <message>
         <location filename="../qt/mylineedit.cpp" line="34"/>
         <source>Add to keyframe animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Zur Keyframeanimation hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -162,7 +162,7 @@
     <message>
         <location filename="../qt/myspinbox.cpp" line="34"/>
         <source>Add to keyframe animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Zur Keyframeanimation hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -209,77 +209,81 @@
         <location filename="../qt/my_table_widget_keyframes.cpp" line="59"/>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="95"/>
         <source>Render this keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Diesen Keyframe rendern</translation>
+    </message>
+    <message>
+        <source>Interpolate next frames</source>
+        <translation type="obsolete">Nächste Frames interpolieren</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="65"/>
-        <source>Interpolate next frames</source>
-        <translation type="unfinished">Nächste Frames interpolieren</translation>
+        <source>Interpolate next keyframes</source>
+        <translation>Nächste Keyframes interpolieren</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="96"/>
         <source>Delete this keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Diesen Keyframe löschen</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="97"/>
         <source>Delete all keyframes to here</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Keyframes bis hier löschen</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="98"/>
         <source>Delete all keyframes from here</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Keyframes von hier aus löschen</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="136"/>
         <source>Remove &apos;%1&apos; from animation</source>
-        <translation type="unfinished">Lösche &apos;%1&apos; von der Animation</translation>
+        <translation>Lösche &apos;%1&apos; von der Animation</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="137"/>
         <source>Interpolation type</source>
-        <translation type="unfinished"></translation>
+        <translation>Interpolationstyp</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="138"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="139"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Linear</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="140"/>
         <source>Linear angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Linear Winkel</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="141"/>
         <source>CatMulRom</source>
-        <translation type="unfinished"></translation>
+        <translation>CatMulRom</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="142"/>
         <source>CatMulRom angle</source>
-        <translation type="unfinished"></translation>
+        <translation>CatMulRom Winkel</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="143"/>
         <source>Akima</source>
-        <translation type="unfinished"></translation>
+        <translation>Akima</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="144"/>
         <source>Akima angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Akima Winkel</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="210"/>
         <source>Refresh all thumbnails</source>
-        <translation type="unfinished">Alle Thumbnails aktualisieren</translation>
+        <translation>Alle Thumbnails aktualisieren</translation>
     </message>
 </context>
 <context>
@@ -299,7 +303,7 @@
     <message>
         <location filename="../src/progress_text.cpp" line="70"/>
         <source>Done %1%, elapsed: %2, estimated to end: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Fortschritt %1%, vergangen: %2, voraussichtlich noch: %3</translation>
     </message>
     <message>
         <location filename="../src/progress_text.cpp" line="77"/>
@@ -370,7 +374,7 @@ File version: </source>
     <message>
         <location filename="../src/settings.cpp" line="653"/>
         <source>Wrong number of interpolation columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Falsche Anzahl an Interpolationsspalten</translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="706"/>
@@ -566,13 +570,14 @@ File version: </source>
     <message>
         <location filename="../src/interface.cpp" line="2120"/>
         <source>Auto recovery</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto Recovery</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="2121"/>
-        <source>Application haven&apos;t been closed properly
+        <source>Application has not been closed properly
 Do you want to recover your latest work?</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Programm wurde beim letzten mal nicht richtig geschlossen.
+Den letzten Stand wiederherstellen?</translation>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="58"/>
@@ -724,13 +729,14 @@ Soll der Bilderordner geleert werden?</translation>
     <message>
         <location filename="../src/animation_flight.cpp" line="974"/>
         <source>Export flight to keyframes</source>
-        <translation type="unfinished"></translation>
+        <translation>Flug zu Keyframe exportieren</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="975"/>
         <source>There are already captured keyframes present.
 Discard current keyframes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Es sind bereits aufgenommene Keyframes vorhanden.
+Aktuelle Keyframes verwerfen?</translation>
     </message>
     <message>
         <location filename="../src/player_widget.cpp" line="103"/>
@@ -756,67 +762,70 @@ Ist bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</transla
     <message>
         <location filename="../src/animation_keyframes.cpp" line="119"/>
         <source>No keyframe selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Keyframes selektiert</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="397"/>
         <location filename="../src/animation_keyframes.cpp" line="963"/>
         <source>Camera collides with fractal at folowing frames:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Die Kamera kollidiert mit dem Fraktal an folgenden Frames:
+</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="475"/>
         <source>Rendering animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendere Animation</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="862"/>
         <source>Export keyframes to flight</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyframes zu Flug exportieren</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="863"/>
         <source>There are already captured flight frames present.
 Discard current flight frames ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Es sind bereits aufgenommene Flugframes vorhanden.
+Aktuelle Flugframes verwerfen?</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="881"/>
         <source>Exporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportiere</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="922"/>
         <location filename="../src/animation_keyframes.cpp" line="940"/>
         <source>Checking for collissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Prüfe auf Kollisionen</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="923"/>
-        <source>Checking for collissions on keframe # %1</source>
-        <translation type="unfinished"></translation>
+        <source>Checking for collissions on keyframe # %1</source>
+        <translation>Prüfe auf Kollisionen bei Keyframe # %1</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="940"/>
         <source>Checking for collisions finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Kollisionsprüfung beendet</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="967"/>
         <source>No collisions detected
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Kollisionen erkannt
+</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="585"/>
         <source>Settings saved to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen in Zwischenablage gespeichert</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="637"/>
         <source>Cannot load settings from clipboard!</source>
-        <translation type="unfinished"></translation>
+        <translation>Kann die Einstellungen nicht aus Zwischenablage laden!</translation>
     </message>
 </context>
 <context>
@@ -1379,9 +1388,8 @@ to target:</source>
         <translation>Fester Roll Winkel</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="2665"/>
         <source>Staight rotation</source>
-        <translation>Gerade Rotation</translation>
+        <translation type="vanished">Gerade Rotation</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1381"/>
@@ -1850,6 +1858,11 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2633"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Modes of camera rotation&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Rotate camera&lt;/span&gt; - rotates the camera by moving the target around the camera&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate target around camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;Rotate around target - rotates the camera by moving camera around the target&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate camera around target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="2665"/>
+        <source>Straight rotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2592,7 +2605,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="10742"/>
         <source>Fractal position:</source>
-        <translation type="unfinished"></translation>
+        <translation>Position des Fraktals:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="11043"/>
@@ -2862,11 +2875,6 @@ to target:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="14244"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;Refreshes animation table and key frame previews.&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../qt/render_window.ui" line="14264"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Checks if there is no collision between camera and fractal at all interpolated frames.&lt;/p&gt;&lt;p&gt;Collision is defined as event where distance of camera to fractal object is lower than &lt;span style=&quot; font-style:italic;&quot;&gt;collision distance&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
@@ -2874,12 +2882,12 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="14267"/>
         <source>Validate</source>
-        <translation type="unfinished"></translation>
+        <translation>Validiere</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14312"/>
         <source>collission distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kollisionsdistanz</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14374"/>
@@ -2899,7 +2907,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="14612"/>
         <source>Validate before render</source>
-        <translation type="unfinished"></translation>
+        <translation>Validiere vor dem Rendern</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14668"/>
@@ -2909,7 +2917,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="14721"/>
         <source>Histogram of fractal iteration count</source>
-        <translation type="unfinished"></translation>
+        <translation>Histogramm von fraktalen Iterationsschritten</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14760"/>
@@ -3181,7 +3189,7 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="13516"/>
         <location filename="../qt/render_window.ui" line="14360"/>
         <source>EXR</source>
-        <translation type="unfinished"></translation>
+        <translation>EXR</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13524"/>
@@ -3208,6 +3216,11 @@ to target:</source>
         <location filename="../qt/render_window.ui" line="13574"/>
         <source>speed control:</source>
         <translation>Geschwindigkeitssteuerung:</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="14244"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Refreshes animation table and keyframe previews.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14879"/>
@@ -3974,17 +3987,17 @@ und Wasser):</translation>
     <message>
         <location filename="../src/render_window.cpp" line="824"/>
         <source>EXR images (*.exr)</source>
-        <translation type="unfinished"></translation>
+        <translation>EXR Bilder (*.exr)</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="835"/>
         <source>Saving EXR image started</source>
-        <translation type="unfinished"></translation>
+        <translation>EXR Speichern gestartet</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="838"/>
         <source>Saving EXR image finished</source>
-        <translation type="unfinished"></translation>
+        <translation>EXR Speichern beendet</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="885"/>
@@ -4072,7 +4085,8 @@ und Wasser):</translation>
         <location filename="../src/rendered_image_widget.cpp" line="127"/>
         <source>
 Mouse wheel - light fov / bkw</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Mausrad - Licht FOV / BKW</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="130"/>
@@ -4152,26 +4166,21 @@ Leertaste - Pause</translation>
         <location filename="../src/animation_keyframes.cpp" line="217"/>
         <location filename="../src/animation_keyframes.cpp" line="219"/>
         <source>preview</source>
-        <translation type="unfinished">Vorschau</translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="542"/>
         <source>Refreshing animation frames</source>
-        <translation type="unfinished">Animationsframes aktualisieren</translation>
+        <translation>Animationsframes aktualisieren</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="881"/>
         <source>Exporting keyframes to flight</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyframes zu Flug exportieren</translation>
     </message>
 </context>
 <context>
     <name>cPreferencesDialog</name>
-    <message>
-        <location filename="../qt/preferencesdialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="65"/>
         <source>Default file paths</source>
@@ -4195,94 +4204,96 @@ Leertaste - Pause</translation>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="224"/>
         <source>UI font size (pixels)</source>
-        <translation type="unfinished"></translation>
+        <translation>UI Schriftgröße (Pixel)</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="241"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprache</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="248"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sprache der Programmtexte.&lt;/p&gt;&lt;p&gt;Sie müssen die Anwendung neu starten, um die Änderungen zu übernehmen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="260"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value will be ignored, since JPG only supports 8 bit precision.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file with appended postfix.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit or 16 bit (32 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 16 bit or 32 bit (8 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;The postfix will be ignored since all image channels will be saved to one file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert wird ignoriert, da JPG nur 8-Bit-Genauigkeit unterstützt.&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 8-Bit oder 16-Bit einnehmen (32-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;Einzige Ausnahme kann der Alphakanal sein:&lt;/p&gt;&lt;p&gt;Wenn sowohl Farb- als auch Alpha-Kanal ausgewählt sind und &amp;quot;Alpha an das Bild anhängen (nur bei PNG)&amp;quot; angewählt ist, dann wird Farbe + Alpha zu einem RGBA-Bild mit Qualität und Postfix vom Farbkanal gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 16-Bit oder 32-Bit einnehmen (8-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Der Postfix wird ignoriert, da alle Bildkanäle in einer Datei gespeichert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="263"/>
         <source>Image Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildeinstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="284"/>
         <source>These settings affect &quot;Save as JPG/PNG/EXR&quot; actions
  and saving animation frames.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Einstellungen beeinflussen 
+&quot;Speichern als JPG/PNG/EXR&quot;
+und das Speichern der Animationsframes.</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="297"/>
         <source>Z Buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Z Buffer</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="305"/>
         <location filename="../qt/preferencesdialog.ui" line="324"/>
         <location filename="../qt/preferencesdialog.ui" line="343"/>
         <source>8 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>8 bit</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="310"/>
         <location filename="../qt/preferencesdialog.ui" line="329"/>
         <location filename="../qt/preferencesdialog.ui" line="348"/>
         <source>16 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>16 bit</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="315"/>
         <location filename="../qt/preferencesdialog.ui" line="334"/>
         <location filename="../qt/preferencesdialog.ui" line="353"/>
         <source>32 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>32 bit</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="361"/>
         <source>Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>Alpha</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="368"/>
         <source>Quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualität</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="382"/>
         <source>Postfix</source>
-        <translation type="unfinished"></translation>
+        <translation>Postfix</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="396"/>
         <source>Image Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildkanal</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="403"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="425"/>
         <source>Misc Image Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Diverse Bildeinstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="487"/>
         <source>Append alpha to image (only PNG)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alpha an das Bild anhängen (nur bei PNG)</translation>
     </message>
     <message>
         <source>Image quality</source>
@@ -4297,6 +4308,11 @@ Leertaste - Pause</translation>
         <location filename="../qt/preferencesdialog.ui" line="162"/>
         <source>System Look and Feel</source>
         <translation>Darstellung</translation>
+    </message>
+    <message>
+        <location filename="../qt/preferencesdialog.ui" line="14"/>
+        <source>Program Settings</source>
+        <translation>Programm Einstellungen</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="207"/>
@@ -4326,17 +4342,17 @@ Leertaste - Pause</translation>
     <message>
         <location filename="../qt/preferencesdialog.cpp" line="55"/>
         <source>Select default directory for images</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardordner für Bilder wählen</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.cpp" line="64"/>
         <source>Select default directory for settings files</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardordner für Einstellungen wählen</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.cpp" line="73"/>
         <source>Select default directory for textures</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardordner für Texturen wählen</translation>
     </message>
 </context>
 <context>
