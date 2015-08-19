@@ -1416,7 +1416,7 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
     {
       z.z = fabs(z.z);
     }
-    if (fractal->quaternion104.fabsAddConstant1WEnabled)
+    if (fractal->quaternion104.fabsAddConstant1Enabledw)
     {
       z.w = fabs(z.w);
     }
@@ -1472,6 +1472,8 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
       && i < fractal->quaternion104.fabsFormulaABCD1StopIterations)
   {
     temp = z;
+    tempA = z * 0;
+    tempB = z * 0;
     if (fractal->quaternion104.fabsFormulaABCD1EnabledAx)
     {
       tempA.x = fabs(z.x + fractal->quaternion104.fabsFormulaABCD1A.x);
@@ -1499,8 +1501,15 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
       tempB.z = fabs(z.z - fractal->quaternion104.fabsFormulaABCD1B.z);
     }
     z.z = tempA.z - tempB.z + (z.z * fractal->quaternion104.fabsFormulaABCD1C.z + fractal->quaternion104.fabsFormulaABCD1D.z);
-
-    //TODO missing W component
+    if (fractal->quaternion104.fabsFormulaABCD1EnabledAw)
+    {
+      tempA.w = fabs(z.w + fractal->quaternion104.fabsFormulaABCD1A.w);
+    }
+    if (fractal->quaternion104.fabsFormulaABCD1EnabledBw)
+    {
+      tempB.w = fabs(z.w - fractal->quaternion104.fabsFormulaABCD1B.w);
+    }
+    z.w = tempA.w - tempB.w + (z.w * fractal->quaternion104.fabsFormulaABCD1C.w + fractal->quaternion104.fabsFormulaABCD1D.w);
 
     //weight function
     if (fractal->quaternion104.fabsFormulaABCD1WeightEnabled)
@@ -1625,6 +1634,8 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
       && i < fractal->quaternion104.fabsFormulaABCD2StopIterations)
   {
     temp = z;
+    tempA = z * 0;
+    tempB = z * 0;
     if (fractal->quaternion104.fabsFormulaABCD2EnabledAx)
     {
       tempA.x = fabs(z.x + fractal->quaternion104.fabsFormulaABCD2A.x);
@@ -1652,8 +1663,15 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
       tempB.z = fabs(z.z - fractal->quaternion104.fabsFormulaABCD2B.z);
     }
     z.z = tempA.z - tempB.z + (z.z * fractal->quaternion104.fabsFormulaABCD2C.z + fractal->quaternion104.fabsFormulaABCD2D.z);
-
-    //TODO missing W component
+    if (fractal->quaternion104.fabsFormulaABCD2EnabledAw)
+    {
+      tempA.w = fabs(z.w + fractal->quaternion104.fabsFormulaABCD2A.w);
+    }
+    if (fractal->quaternion104.fabsFormulaABCD2EnabledBw)
+    {
+      tempB.w = fabs(z.w - fractal->quaternion104.fabsFormulaABCD2B.w);
+    }
+    z.w = tempA.w - tempB.w + (z.w * fractal->quaternion104.fabsFormulaABCD2C.w + fractal->quaternion104.fabsFormulaABCD2D.w);
 
     //weight function
     if (fractal->quaternion104.fabsFormulaABCD2WeightEnabled)

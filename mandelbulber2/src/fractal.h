@@ -524,7 +524,7 @@ struct sFractalQuaternion104
 
     bool scale1Enabled;
     CVector4 scale1;
-    double scale1W;
+    //double scale1W;
     int scale1StartIterations;
     int scale1StopIterations;
 
@@ -541,7 +541,7 @@ struct sFractalQuaternion104
     bool fabsAddConstant1Enabledx;
     bool fabsAddConstant1Enabledy;
     bool fabsAddConstant1Enabledz;
-    bool fabsAddConstant1WEnabled;
+    bool fabsAddConstant1Enabledw;
     int fabsAddConstant1StartIterations;
     int fabsAddConstant1StopIterations;
     CVector4 fabsAddConstant1A;
@@ -555,13 +555,14 @@ struct sFractalQuaternion104
     int quaternion1StopIterations;
     CVector4 quaternion1FactorConstantVect;
     double quaternion1Weight;
+
     bool constantMultiplier1Enabled;
     bool constantMultiplier1WeightEnabled;
     int constantMultiplier1StartIterations;
     int constantMultiplier1StopIterations;
     CVector4 constantMultiplier1Vect;
-
     double constantMultiplier1Weight;
+
     bool additionConstant1Enabled;
     bool additionConstant1WeightEnabled;
     int additionConstant1StartIterations;
@@ -574,15 +575,21 @@ struct sFractalQuaternion104
     bool fabsFormulaABCD1EnabledAx;
     bool fabsFormulaABCD1EnabledAy;
     bool fabsFormulaABCD1EnabledAz;
+    bool fabsFormulaABCD1EnabledAw;
     bool fabsFormulaABCD1EnabledBx;
     bool fabsFormulaABCD1EnabledBy;
     bool fabsFormulaABCD1EnabledBz;
+    bool fabsFormulaABCD1EnabledBw;
     int fabsFormulaABCD1StartIterations;
     int fabsFormulaABCD1StopIterations;
-    CVector3 fabsFormulaABCD1A;
-    CVector3 fabsFormulaABCD1B;
-    CVector3 fabsFormulaABCD1C;
-    CVector3 fabsFormulaABCD1D;
+    CVector4 fabsFormulaABCD1A;
+    CVector4 fabsFormulaABCD1B;
+    CVector4 fabsFormulaABCD1C;
+    CVector4 fabsFormulaABCD1D;
+    double fabsFormulaABCD1AW;
+    double fabsFormulaABCD1BW;
+    double fabsFormulaABCD1CW;
+    double fabsFormulaABCD1DW;
     double fabsFormulaABCD1Weight;
 
     // main formula
@@ -652,15 +659,21 @@ struct sFractalQuaternion104
     bool fabsFormulaABCD2EnabledAx;
     bool fabsFormulaABCD2EnabledAy;
     bool fabsFormulaABCD2EnabledAz;
+    bool fabsFormulaABCD2EnabledAw;
     bool fabsFormulaABCD2EnabledBx;
     bool fabsFormulaABCD2EnabledBy;
     bool fabsFormulaABCD2EnabledBz;
+    bool fabsFormulaABCD2EnabledBw;
     int fabsFormulaABCD2StartIterations;
     int fabsFormulaABCD2StopIterations;
-    CVector3 fabsFormulaABCD2A;
-    CVector3 fabsFormulaABCD2B;
-    CVector3 fabsFormulaABCD2C;
-    CVector3 fabsFormulaABCD2D;
+    CVector4 fabsFormulaABCD2A;
+    CVector4 fabsFormulaABCD2B;
+    CVector4 fabsFormulaABCD2C;
+    CVector4 fabsFormulaABCD2D;
+    double fabsFormulaABCD2AW;
+    double fabsFormulaABCD2BW;
+    double fabsFormulaABCD2CW;
+    double fabsFormulaABCD2DW;
     double fabsFormulaABCD2Weight;
 
     bool iterationWeight1Enabled;

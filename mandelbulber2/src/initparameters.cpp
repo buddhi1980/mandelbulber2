@@ -802,7 +802,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("quaternion104_fabsAddConstant1CW", 0.0, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsAddConstant1_weight", 1.0, morphLinear, paramStandard);
 
-  par->addParam("quaternion104_quaternion1_enabled", false, morphLinear, paramStandard);
+  par->addParam("quaternion104_quaternion1_enabled", true, morphLinear, paramStandard);
   par->addParam("quaternion104_quaternion1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_quaternion1_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("quaternion104_quaternion1_stop_iterations", 250, morphLinear, paramStandard);
@@ -810,11 +810,11 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("quaternion104_quaternion1_factorConstantW", 2.0, morphAkima, paramStandard);
   par->addParam("quaternion104_quaternion1_weight", 1.0, morphLinear, paramStandard);
 
-  par->addParam("quaternion104_constantMultiplier1_enabled", false, morphLinear, paramStandard);
+  par->addParam("quaternion104_constantMultiplier1_enabled", true, morphLinear, paramStandard);
   par->addParam("quaternion104_constantMultiplier1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_constantMultiplier1_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("quaternion104_constantMultiplier1_stop_iterations", 250, morphLinear, paramStandard);
-  par->addParam("quaternion104_constantMultiplier1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("quaternion104_constantMultiplier1", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("quaternion104_constantMultiplier1_weight", 1.0, morphLinear, paramStandard);
 
   par->addParam("quaternion104_additionConstant1_enabled", false, morphLinear, paramStandard);
@@ -822,26 +822,32 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("quaternion104_additionConstant1_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("quaternion104_additionConstant1_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("quaternion104_additionConstant1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-  par->addParam("quaternion104_additionConstant1_w", 0.0, morphAkima, paramStandard);
+  par->addParam("quaternion104_additionConstant1W", 0.0, morphAkima, paramStandard);
   par->addParam("quaternion104_additionConstant1_weight", 1.0, morphLinear, paramStandard);
 
   par->addParam("quaternion104_fabsFormulaABCD1A", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1B", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1C", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1D", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD1AW", 0.0, morphAkima, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD1BW", 0.0, morphAkima, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD1CW", 1.0, morphAkima, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD1DW", 0.0, morphAkima, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_enabled_Ax", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_enabled_Ay", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_enabled_Az", false, morphLinear, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD1_enabled_Aw", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_enabled_Bx", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_enabled_By", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_enabled_Bz", false, morphLinear, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD1_enabled_Bw", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_weight", 1.0, morphLinear, paramStandard);
 
-  par->addParam("quaternion104_quaternion2_enabled", true, morphLinear, paramStandard);
+  par->addParam("quaternion104_quaternion2_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_quaternion2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_quaternion2_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("quaternion104_quaternion2_stop_iterations", 250, morphLinear, paramStandard);
@@ -850,7 +856,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("quaternion104_quaternion2_weight", 1.0, morphLinear, paramStandard);
 
 
-  par->addParam("quaternion104_constantMultiplier2_enabled", true, morphLinear, paramStandard);
+  par->addParam("quaternion104_constantMultiplier2_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_constantMultiplier2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_constantMultiplier2_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("quaternion104_constantMultiplier2_stop_iterations", 250, morphLinear, paramStandard);
@@ -862,7 +868,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("quaternion104_additionConstant2_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("quaternion104_additionConstant2_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("quaternion104_additionConstant2", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-  par->addParam("quaternion104_additionConstant2_w", 0.0, morphAkima, paramStandard);
+  par->addParam("quaternion104_additionConstant2W", 0.0, morphAkima, paramStandard);
   par->addParam("quaternion104_additionConstant2_weight", 1.0, morphLinear, paramStandard);
 
   par->addParam("quaternion104_main_rotation2_enabled", false, morphLinear, paramStandard);
@@ -904,14 +910,20 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("quaternion104_fabsFormulaABCD2B", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2C", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2D", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD2AW", 0.0, morphAkima, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD2BW", 0.0, morphAkima, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD2CW", 1.0, morphAkima, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD2DW", 0.0, morphAkima, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2_enabled_Ax", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2_enabled_Ay", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2_enabled_Az", false, morphLinear, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD2_enabled_Aw", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2_enabled_Bx", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2_enabled_By", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2_enabled_Bz", false, morphLinear, paramStandard);
+  par->addParam("quaternion104_fabsFormulaABCD2_enabled_Bw", false, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD2_weight", 1.0, morphLinear, paramStandard);
