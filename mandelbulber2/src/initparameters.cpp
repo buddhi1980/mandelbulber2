@@ -620,21 +620,21 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("mandelbulb5_box_fold2_old_weight", 1.0, morphLinear, paramStandard);
 
   // Mandelbox103
-  par->addParam("mandelbox103_box_fold1_enabled", false, morphLinear, paramStandard);
+  par->addParam("mandelbox103_box_fold1_enabled", true, morphLinear, paramStandard);
   par->addParam("mandelbox103_box_fold1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("mandelbox103_box_fold1_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("mandelbox103_box_fold1_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("mandelbox103_box_fold1_folding_limit", 1.0, morphAkima, paramStandard);
   par->addParam("mandelbox103_box_fold1_folding_value", 2.0, morphAkima, paramStandard);
   par->addParam("mandelbox103_box_fold1_weight", 1.0, morphLinear, paramStandard);
-  par->addParam("mandelbox103_sphericalFold1_enabled", false, morphLinear, paramStandard);
+  par->addParam("mandelbox103_sphericalFold1_enabled", true, morphLinear, paramStandard);
   par->addParam("mandelbox103_sphericalFold1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("mandelbox103_sphericalFold1_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("mandelbox103_sphericalFold1_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("mandelbox103_sphericalFold1_min_radius", 0.5, morphAkima, paramStandard);
   par->addParam("mandelbox103_sphericalFold1_fixed_radius", 1.0, morphAkima, paramStandard);
   par->addParam("mandelbox103_sphericalFold1_weight", 1.0, morphLinear, paramStandard);
-  par->addParam("mandelbox103_scale1_enabled", false, morphLinear, paramStandard);
+  par->addParam("mandelbox103_scale1_enabled", true, morphLinear, paramStandard);
   par->addParam("mandelbox103_scale1_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("mandelbox103_scale1_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("mandelbox103_scale1", -1.5, morphAkima, paramStandard);
@@ -656,11 +656,11 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("mandelbox103_fabsAddConstant1C", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("mandelbox103_fabsAddConstant1_weight", 1.0, morphLinear, paramStandard);
 
-  par->addParam("mandelbox103_constantMultiplier1_enabled", false, morphLinear, paramStandard);
+  par->addParam("mandelbox103_constantMultiplier1_enabled", true, morphLinear, paramStandard);
   par->addParam("mandelbox103_constantMultiplier1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("mandelbox103_constantMultiplier1_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("mandelbox103_constantMultiplier1_stop_iterations", 250, morphLinear, paramStandard);
-  par->addParam("mandelbox103_constantMultiplier1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("mandelbox103_constantMultiplier1", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("mandelbox103_constantMultiplier1_weight", 1.0, morphLinear, paramStandard);
   par->addParam("mandelbox103_additionConstant1_enabled", false, morphLinear, paramStandard);
   par->addParam("mandelbox103_additionConstant1_weight_enabled", false, morphLinear, paramStandard);
@@ -685,21 +685,21 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("mandelbox103_fabsFormulaABCD1_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("mandelbox103_fabsFormulaABCD1_weight", 1.0, morphLinear, paramStandard);
 
-  par->addParam("mandelbox103_box_fold2_enabled", true, morphLinear, paramStandard);
+  par->addParam("mandelbox103_box_fold2_enabled", false, morphLinear, paramStandard);
   par->addParam("mandelbox103_box_fold2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("mandelbox103_box_fold2_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("mandelbox103_box_fold2_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("mandelbox103_box_fold2_folding_limit", 1.0, morphAkima, paramStandard);
   par->addParam("mandelbox103_box_fold2_folding_value", 2.0, morphAkima, paramStandard);
   par->addParam("mandelbox103_box_fold2_weight", 1.0, morphLinear, paramStandard);
-  par->addParam("mandelbox103_sphericalFold2_enabled", true, morphLinear, paramStandard);
+  par->addParam("mandelbox103_sphericalFold2_enabled", false, morphLinear, paramStandard);
   par->addParam("mandelbox103_sphericalFold2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("mandelbox103_sphericalFold2_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("mandelbox103_sphericalFold2_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("mandelbox103_sphericalFold2_min_radius", 0.5, morphAkima, paramStandard);
   par->addParam("mandelbox103_sphericalFold2_fixed_radius", 1.0, morphAkima, paramStandard);
   par->addParam("mandelbox103_sphericalFold2_weight", 1.0, morphLinear, paramStandard);
-  par->addParam("mandelbox103_scale2_enabled", true, morphLinear, paramStandard);
+  par->addParam("mandelbox103_scale2_enabled", false, morphLinear, paramStandard);
   par->addParam("mandelbox103_scale2_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("mandelbox103_scale2_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("mandelbox103_scale2", -1.5, morphAkima, paramStandard);
@@ -711,7 +711,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("mandelbox103_main_rotation2", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
   par->addParam("mandelbox103_main_rotation2_weight", 1.0, morphLinear, paramStandard);
 
-  par->addParam("mandelbox103_constantMultiplier2_enabled", true, morphLinear, paramStandard);
+  par->addParam("mandelbox103_constantMultiplier2_enabled", false, morphLinear, paramStandard);
   par->addParam("mandelbox103_constantMultiplier2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("mandelbox103_constantMultiplier2_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("mandelbox103_constantMultiplier2_stop_iterations", 250, morphLinear, paramStandard);
@@ -847,6 +847,13 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("quaternion104_fabsFormulaABCD1_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("quaternion104_fabsFormulaABCD1_weight", 1.0, morphLinear, paramStandard);
 
+  par->addParam("quaternion104_main_rotation2_enabled", false, morphLinear, paramStandard);
+  par->addParam("quaternion104_main_rotation2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("quaternion104_main_rotation2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("quaternion104_main_rotation2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("quaternion104_main_rotation2", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("quaternion104_main_rotation2_weight", 1.0, morphLinear, paramStandard);
+
   par->addParam("quaternion104_quaternion2_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_quaternion2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_quaternion2_start_iterations", 0, morphLinear, paramStandard);
@@ -854,7 +861,6 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("quaternion104_quaternion2_factorConstantVect", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("quaternion104_quaternion2_factorConstantW", 2.0, morphAkima, paramStandard);
   par->addParam("quaternion104_quaternion2_weight", 1.0, morphLinear, paramStandard);
-
 
   par->addParam("quaternion104_constantMultiplier2_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_constantMultiplier2_weight_enabled", false, morphLinear, paramStandard);
@@ -870,13 +876,6 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("quaternion104_additionConstant2", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("quaternion104_additionConstant2W", 0.0, morphAkima, paramStandard);
   par->addParam("quaternion104_additionConstant2_weight", 1.0, morphLinear, paramStandard);
-
-  par->addParam("quaternion104_main_rotation2_enabled", false, morphLinear, paramStandard);
-  par->addParam("quaternion104_main_rotation2_weight_enabled", false, morphLinear, paramStandard);
-  par->addParam("quaternion104_main_rotation2_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("quaternion104_main_rotation2_stop_iterations", 250, morphLinear, paramStandard);
-  par->addParam("quaternion104_main_rotation2", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-  par->addParam("quaternion104_main_rotation2_weight", 1.0, morphLinear, paramStandard);
 
   par->addParam("quaternion104_box_fold2_enabled", false, morphLinear, paramStandard);
   par->addParam("quaternion104_box_fold2_weight_enabled", false, morphLinear, paramStandard);

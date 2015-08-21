@@ -1517,6 +1517,18 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
       z = SmoothCVector(temp, z, fractal-> quaternion104.fabsFormulaABCD1Weight);
     }
   }
+  //mainRotation2
+  if (fractal->quaternion104.mainRotation2Enabled && i >= fractal->quaternion104.mainRotation2StartIterations && i < fractal->quaternion104.mainRotation2StopIterations)
+  {
+    temp = z;
+    //TODO 4D rotation
+    z = CVector4(fractal->quaternion104.mainRot2.RotateVector(z.GetXYZ()), z.w);
+    //weight function
+    if (fractal->quaternion104.mainRotation2WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> quaternion104.mainRotation2Weight);
+    }
+  }
   //MAIN FORMULA
 
   // quaternion; 2
@@ -1559,18 +1571,7 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
       z = SmoothCVector(temp, z, fractal-> quaternion104.additionConstant2Weight);
     }
   }
-  //mainRotation2
-  if (fractal->quaternion104.mainRotation2Enabled && i >= fractal->quaternion104.mainRotation2StartIterations && i < fractal->quaternion104.mainRotation2StopIterations)
-  {
-    temp = z;
-    //TODO 4D rotation
-    z = CVector4(fractal->quaternion104.mainRot2.RotateVector(z.GetXYZ()), z.w);
-    //weight function
-    if (fractal->quaternion104.mainRotation2WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> quaternion104.mainRotation2Weight);
-    }
-  }
+
     //boxFold; 2
   if (fractal->quaternion104.boxFold2Enabled && i >= fractal->quaternion104.boxFold2StartIterations && i < fractal->quaternion104.boxFold2StopIterations)
   {

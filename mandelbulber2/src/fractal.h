@@ -347,6 +347,7 @@ struct sFractalMandelbulb5
 
 struct sFractalMandelbox103
 {
+    // main mandelbox formula 1
     bool boxFold1Enabled;
     bool boxFold1WeightEnabled;
     int boxFold1StartIterations;
@@ -421,6 +422,7 @@ struct sFractalMandelbox103
     CVector3 fabsFormulaABCD1D;
     double fabsFormulaABCD1Weight;
 
+    // main mandelbox formula 2
     bool boxFold2Enabled;
     bool boxFold2WeightEnabled;
     int boxFold2StartIterations;
@@ -524,7 +526,6 @@ struct sFractalQuaternion104
 
     bool scale1Enabled;
     CVector4 scale1;
-    //double scale1W;
     int scale1StartIterations;
     int scale1StopIterations;
 
@@ -549,6 +550,7 @@ struct sFractalQuaternion104
     CVector4 fabsAddConstant1C;
     double fabsAddConstant1Weight;
 
+    // main quaternion formula 1
     bool quaternion1Enabled;
     bool quaternion1WeightEnabled;
     int quaternion1StartIterations;
@@ -592,7 +594,15 @@ struct sFractalQuaternion104
     double fabsFormulaABCD1DW;
     double fabsFormulaABCD1Weight;
 
-    // main formula
+    bool mainRotation2Enabled;
+    bool mainRotation2WeightEnabled;
+    int mainRotation2StartIterations;
+    int mainRotation2StopIterations;
+    CVector3 mainRotation2;
+    CRotationMatrix mainRot2;
+    double mainRotation2Weight;
+
+    // main quaternion formula 2
     bool quaternion2Enabled;
     bool quaternion2WeightEnabled;
     int quaternion2StartIterations;
@@ -613,14 +623,6 @@ struct sFractalQuaternion104
     int additionConstant2StopIterations;
     CVector4 additionConstant2;
     double additionConstant2Weight;
-
-    bool mainRotation2Enabled;
-    bool mainRotation2WeightEnabled;
-    int mainRotation2StartIterations;
-    int mainRotation2StopIterations;
-    CVector3 mainRotation2;
-    CRotationMatrix mainRot2;
-    double mainRotation2Weight;
 
     bool boxFold2Enabled;
     bool boxFold2WeightEnabled;
