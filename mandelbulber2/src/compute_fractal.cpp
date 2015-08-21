@@ -267,6 +267,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
         CVector4 z4D(z, w);
       	Quaternion104Iteration(z4D, CVector4(c, 0.0), i, fractal);
         z = z4D.GetXYZ();
+        w = z4D.w;
         break;
       }
 
