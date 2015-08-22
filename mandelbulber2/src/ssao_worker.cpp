@@ -45,12 +45,12 @@ void cSSAOWorker::doWork()
 	int width = image->GetWidth();
 	int height = image->GetHeight();
 
-	double *cosinus = new double[quality];
-	double *sinus = new double[quality];
+	double *cosine = new double[quality];
+	double *sine = new double[quality];
 	for (int i = 0; i < quality; i++)
 	{
-		sinus[i] = sin((double) i / quality * 2.0 * M_PI);
-		cosinus[i] = cos((double) i / quality * 2.0 * M_PI);
+		sine[i] = sin((double) i / quality * 2.0 * M_PI);
+		cosine[i] = cos((double) i / quality * 2.0 * M_PI);
 	}
 
 	double scale_factor = (double) width / (quality * quality) / 2.0;
@@ -124,8 +124,8 @@ void cSSAOWorker::doWork()
 
 				for (int angle = 0; angle < quality; angle++)
 				{
-					double ca = cosinus[angle];
-					double sa = sinus[angle];
+					double ca = cosine[angle];
+					double sa = sine[angle];
 
 					double max_diff = -1e50;
 
@@ -211,8 +211,8 @@ void cSSAOWorker::doWork()
 
 		if(threadData->stopRequest)	break;
 	}
-	delete[] sinus;
-	delete[] cosinus;
+	delete[] sine;
+	delete[] cosine;
 
 	//emit signal to main thread when finished
 	emit finished();

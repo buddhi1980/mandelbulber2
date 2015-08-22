@@ -35,7 +35,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_mandelbox103_box_fold1_enabled">
      <property name="title">
-      <string>Enable Box Fold;</string>
+      <string>Box fold</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5893,5 +5893,230 @@
  <resources>
   <include location="../qt/icons.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_mandelbox103_box_fold1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_box_fold1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>330</x>
+     <y>52</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>54</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_sphericalFold1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_sphericalFold1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>354</x>
+     <y>205</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_main_rotation1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_main_rotation1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>364</x>
+     <y>484</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>418</x>
+     <y>489</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_constantMultiplier1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_constantMultiplier1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>336</x>
+     <y>945</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>395</x>
+     <y>945</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_additionConstant1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_additionConstant1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>333</x>
+     <y>1085</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>419</x>
+     <y>1093</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_fabsFormulaABCD1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>332</x>
+     <y>1227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>396</x>
+     <y>1229</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_box_fold2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_box_fold2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>364</x>
+     <y>1562</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>420</x>
+     <y>1567</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_sphericalFold2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_sphericalFold2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>336</x>
+     <y>1724</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>402</x>
+     <y>1722</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_main_rotation2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_main_rotation2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>360</x>
+     <y>2002</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>410</x>
+     <y>1998</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_constantMultiplier2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_constantMultiplier2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>315</x>
+     <y>2212</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>417</x>
+     <y>2207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_additionConstant2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_additionConstant2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>348</x>
+     <y>2362</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>419</x>
+     <y>2366</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_main_rotation3_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_main_rotation3_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>366</x>
+     <y>2494</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>416</x>
+     <y>2499</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_fabsFormulaABCD2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>318</x>
+     <y>2680</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>403</x>
+     <y>2687</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_iterationWeight1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_iterationWeight1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>543</x>
+     <y>3013</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>615</x>
+     <y>3014</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

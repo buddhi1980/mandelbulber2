@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * cThumbnail class - thumnail rendering
+ * cThumbnail class - thumbnail rendering
  *
  * Copyright (C) 2014 Krzysztof Marczak
  *

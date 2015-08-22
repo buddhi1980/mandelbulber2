@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * system data - place for system funtions and definition of default file paths
+ * system data - place for system functions and definition of default file paths
  *
  * Copyright (C) 2014 Krzysztof Marczak
  *

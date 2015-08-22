@@ -161,9 +161,9 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 			double texX = alphaTexture / (2.0 * M_PI) * data->textures.backgroundTexture.Width();
 			double texY = (betaTexture / (M_PI) + 0.5) * data->textures.backgroundTexture.Height();
 			sRGB8 pixel = data->textures.backgroundTexture.Pixel(texX, texY);
-			pixel2.R = pixel.R/256.0;
-			pixel2.G = pixel.G/256.0;
-			pixel2.B = pixel.B/256.0;
+			pixel2.R = pixel.R / 256.0;
+ 			pixel2.G = pixel.G / 256.0;
+			pixel2.B = pixel.B / 256.0;
 		}
 	}
 	else
@@ -190,9 +190,9 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 			pixel.B = (params->background_color2.B * Ngrad + params->background_color1.B * grad);
 		}
 
-		pixel2.R = pixel.R/65536.0;
-		pixel2.G = pixel.G/65536.0;
-		pixel2.B = pixel.B/65536.0;
+		pixel2.R = pixel.R / 65536.0;
+		pixel2.G = pixel.G / 65536.0;
+		pixel2.B = pixel.B / 65536.0;
 		pixel2.A = 0.0;
 	}
 
@@ -610,7 +610,7 @@ sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input)
 		sDistanceIn distanceIn(pointTemp, input.distThresh, false);
 		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
-		aoTemp += 1.0 / (pow(2.0, i)) * (scan - params->ambientOcclusionFastTune * dist) / input.distThresh;
+		aoTemp += 1.0 / pow(2.0, i) * (scan - params->ambientOcclusionFastTune * dist) / input.distThresh;
 	}
 	double ao = 1.0 - 0.2 * aoTemp;
 	if (ao < 0) ao = 0;
@@ -646,7 +646,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 
 			if (params->iterFogEnabled)
 			{
-				opacity = IterOpacity(dist * 2.0,distanceOut.iters, params->N, params->iterFogOpacityTrim,
+				opacity = IterOpacity(dist * 2.0, distanceOut.iters, params->N, params->iterFogOpacityTrim,
 						params->iterFogOpacity);
 			}
 			else
@@ -836,8 +836,8 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
   	if(r > 1e20)
   	{
     	smooth = (L - log(log(sqrt(r)) / log(N)) / log(p));
-      nrKol = smooth * 50.0;
-      nrKol = abs(nrKol) % (248*256);
+    	nrKol = smooth * 50.0;
+    	nrKol = abs(nrKol) % (248*256);
   		break;
   	}
   }

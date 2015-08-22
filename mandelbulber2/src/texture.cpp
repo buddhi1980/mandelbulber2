@@ -136,7 +136,7 @@ sRGB8 cTexture::Pixel(double x, double y)
 
 sRGB8 cTexture::Interpolation(double x, double y)
 {
-	sRGB8 kolor;
+	sRGB8 color;
 	int ix = x;
 	int iy = y;
 	double rx = (x - (int) x);
@@ -145,10 +145,10 @@ sRGB8 cTexture::Interpolation(double x, double y)
 	sRGB8 k2 = bitmap[iy * width + ix + 1];
 	sRGB8 k3 = bitmap[(iy + 1) * width + ix];
 	sRGB8 k4 = bitmap[(iy + 1) * width + ix + 1];
-	kolor.R = (k1.R * (1.0 - rx) * (1.0 - ry) + k2.R * (rx) * (1.0 - ry) + k3.R * (1.0 - rx) * ry + k4.R * (rx * ry));
-	kolor.G = (k1.G * (1.0 - rx) * (1.0 - ry) + k2.G * (rx) * (1.0 - ry) + k3.G * (1.0 - rx) * ry + k4.G * (rx * ry));
-	kolor.B = (k1.B * (1.0 - rx) * (1.0 - ry) + k2.B * (rx) * (1.0 - ry) + k3.B * (1.0 - rx) * ry + k4.B * (rx * ry));
-	return kolor;
+	color.R = (k1.R * (1.0 - rx) * (1.0 - ry) + k2.R * (rx) * (1.0 - ry) + k3.R * (1.0 - rx) * ry + k4.R * (rx * ry));
+	color.G = (k1.G * (1.0 - rx) * (1.0 - ry) + k2.G * (rx) * (1.0 - ry) + k3.G * (1.0 - rx) * ry + k4.G * (rx * ry));
+	color.B = (k1.B * (1.0 - rx) * (1.0 - ry) + k2.B * (rx) * (1.0 - ry) + k3.B * (1.0 - rx) * ry + k4.B * (rx * ry));
+	return color;
 }
 
 sRGB8 cTexture::FastPixel(int x, int y)
