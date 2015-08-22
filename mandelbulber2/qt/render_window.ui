@@ -1603,7 +1603,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-435</y>
+          <y>0</y>
           <width>175</width>
           <height>709</height>
          </rect>
@@ -4099,7 +4099,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>220</width>
+                  <width>375</width>
                   <height>169</height>
                  </rect>
                 </property>
@@ -4427,7 +4427,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>200</width>
+                  <width>375</width>
                   <height>514</height>
                  </rect>
                 </property>
@@ -5267,7 +5267,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>280</width>
+                  <width>375</width>
                   <height>190</height>
                  </rect>
                 </property>
@@ -5531,7 +5531,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>261</width>
+                  <width>375</width>
                   <height>1221</height>
                  </rect>
                 </property>
@@ -7738,7 +7738,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>213</width>
+                      <width>349</width>
                       <height>436</height>
                      </rect>
                     </property>
@@ -11583,7 +11583,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>205</width>
+                  <width>357</width>
                   <height>357</height>
                  </rect>
                 </property>
@@ -12127,7 +12127,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-513</y>
           <width>410</width>
           <height>769</height>
          </rect>
@@ -12805,7 +12805,7 @@ and water):</string>
             </size>
            </property>
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Thus feature allows to connect multiple computers into network and to share rendering jobs.&lt;/p&gt;&lt;p&gt;The same image or animation can be rendered using unlimited number of computers. In this way there can be increased computing power.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature allows to connect multiple computers into network and to share rendering jobs.&lt;/p&gt;&lt;p&gt;The same image or animation can be rendered using unlimited number of computers. In this way there can be increased computing power.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="title">
             <string>NetRender</string>
@@ -13055,7 +13055,7 @@ and water):</string>
                     </sizepolicy>
                    </property>
                    <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Internet port number which will be used for server. This port has to be not blocked by firewall or passed through a router.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Internet port number which will be used for server. This port has to be not blocked by firewall or should be passed through a router.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                    <property name="minimum">
                     <number>1</number>
@@ -13454,7 +13454,7 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>222</width>
+                  <width>359</width>
                   <height>306</height>
                  </rect>
                 </property>
