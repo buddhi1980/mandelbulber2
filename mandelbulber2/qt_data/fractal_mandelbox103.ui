@@ -109,6 +109,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_box_fold1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -326,6 +329,9 @@
         </item>
         <item row="0" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_sphericalFold1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -745,6 +751,9 @@
         </item>
         <item row="0" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_main_rotation1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1084,6 +1093,9 @@
         </item>
         <item row="1" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_fabsAddConstant1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1244,7 +1256,7 @@
         <item row="1" column="0">
          <widget class="QCheckBox" name="checkBox_mandelbox103_fabsAddConstant1_enabled_y">
           <property name="text">
-           <string>Enable fabs</string>
+           <string>fabs Y</string>
           </property>
          </widget>
         </item>
@@ -1270,7 +1282,7 @@
         <item row="2" column="0">
          <widget class="QCheckBox" name="checkBox_mandelbox103_fabsAddConstant1_enabled_z">
           <property name="text">
-           <string>Enable fabs</string>
+           <string>fabs Z</string>
           </property>
          </widget>
         </item>
@@ -1299,7 +1311,7 @@
         <item row="0" column="0">
          <widget class="QCheckBox" name="checkBox_mandelbox103_fabsAddConstant1_enabled_x">
           <property name="text">
-           <string>Enable fabs</string>
+           <string>fabs X</string>
           </property>
          </widget>
         </item>
@@ -1692,6 +1704,9 @@
         </item>
         <item row="1" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_constantMultiplier1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1963,6 +1978,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_additionConstant1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2297,6 +2315,9 @@
         </item>
         <item row="0" column="7">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_fabsFormulaABCD1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3061,6 +3082,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_box_fold2_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3284,6 +3308,9 @@
         </item>
         <item row="0" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_sphericalFold2_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3724,6 +3751,9 @@
         </item>
         <item row="0" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_main_rotation2_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4010,6 +4040,9 @@
         </item>
         <item row="0" column="7">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_constantMultiplier2_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4268,6 +4301,9 @@
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_additionConstant2_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4567,6 +4603,9 @@
         </item>
         <item row="0" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_main_rotation3_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4896,6 +4935,9 @@
         </item>
         <item row="0" column="7">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_fabsFormulaABCD2_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5587,6 +5629,9 @@
        <layout class="QGridLayout" name="gridLayout_19">
         <item row="0" column="6">
          <widget class="QCheckBox" name="checkBox_mandelbox103_iterationWeight1_weight_enabled">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -5594,6 +5639,9 @@
         </item>
         <item row="0" column="7">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_iterationWeight1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5901,12 +5949,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>330</x>
-     <y>52</y>
+     <x>450</x>
+     <y>55</y>
     </hint>
     <hint type="destinationlabel">
-     <x>390</x>
-     <y>54</y>
+     <x>511</x>
+     <y>57</y>
     </hint>
    </hints>
   </connection>
@@ -5917,12 +5965,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>354</x>
-     <y>205</y>
+     <x>466</x>
+     <y>180</y>
     </hint>
     <hint type="destinationlabel">
-     <x>421</x>
-     <y>208</y>
+     <x>531</x>
+     <y>182</y>
     </hint>
    </hints>
   </connection>
@@ -5933,12 +5981,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>364</x>
-     <y>484</y>
+     <x>466</x>
+     <y>424</y>
     </hint>
     <hint type="destinationlabel">
-     <x>418</x>
-     <y>489</y>
+     <x>531</x>
+     <y>426</y>
     </hint>
    </hints>
   </connection>
@@ -5949,12 +5997,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>336</x>
-     <y>945</y>
+     <x>450</x>
+     <y>924</y>
     </hint>
     <hint type="destinationlabel">
-     <x>395</x>
-     <y>945</y>
+     <x>511</x>
+     <y>926</y>
     </hint>
    </hints>
   </connection>
@@ -5965,12 +6013,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>333</x>
-     <y>1085</y>
+     <x>466</x>
+     <y>1065</y>
     </hint>
     <hint type="destinationlabel">
-     <x>419</x>
-     <y>1093</y>
+     <x>531</x>
+     <y>1067</y>
     </hint>
    </hints>
   </connection>
@@ -5981,12 +6029,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>332</x>
-     <y>1227</y>
+     <x>450</x>
+     <y>1206</y>
     </hint>
     <hint type="destinationlabel">
-     <x>396</x>
-     <y>1229</y>
+     <x>511</x>
+     <y>1208</y>
     </hint>
    </hints>
   </connection>
@@ -5997,12 +6045,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>364</x>
-     <y>1562</y>
+     <x>462</x>
+     <y>1586</y>
     </hint>
     <hint type="destinationlabel">
-     <x>420</x>
-     <y>1567</y>
+     <x>527</x>
+     <y>1588</y>
     </hint>
    </hints>
   </connection>
@@ -6013,12 +6061,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>336</x>
-     <y>1724</y>
+     <x>462</x>
+     <y>1713</y>
     </hint>
     <hint type="destinationlabel">
-     <x>402</x>
-     <y>1722</y>
+     <x>527</x>
+     <y>1715</y>
     </hint>
    </hints>
   </connection>
@@ -6029,12 +6077,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>360</x>
-     <y>2002</y>
+     <x>466</x>
+     <y>1957</y>
     </hint>
     <hint type="destinationlabel">
-     <x>410</x>
-     <y>1998</y>
+     <x>531</x>
+     <y>1959</y>
     </hint>
    </hints>
   </connection>
@@ -6045,12 +6093,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>315</x>
-     <y>2212</y>
+     <x>466</x>
+     <y>2165</y>
     </hint>
     <hint type="destinationlabel">
-     <x>417</x>
-     <y>2207</y>
+     <x>531</x>
+     <y>2167</y>
     </hint>
    </hints>
   </connection>
@@ -6061,12 +6109,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>348</x>
-     <y>2362</y>
+     <x>466</x>
+     <y>2306</y>
     </hint>
     <hint type="destinationlabel">
-     <x>419</x>
-     <y>2366</y>
+     <x>531</x>
+     <y>2308</y>
     </hint>
    </hints>
   </connection>
@@ -6077,12 +6125,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>366</x>
-     <y>2494</y>
+     <x>466</x>
+     <y>2447</y>
     </hint>
     <hint type="destinationlabel">
-     <x>416</x>
-     <y>2499</y>
+     <x>531</x>
+     <y>2449</y>
     </hint>
    </hints>
   </connection>
@@ -6093,12 +6141,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>318</x>
-     <y>2680</y>
+     <x>450</x>
+     <y>2650</y>
     </hint>
     <hint type="destinationlabel">
-     <x>403</x>
-     <y>2687</y>
+     <x>511</x>
+     <y>2652</y>
     </hint>
    </hints>
   </connection>
@@ -6113,8 +6161,696 @@
      <y>3013</y>
     </hint>
     <hint type="destinationlabel">
-     <x>615</x>
-     <y>3014</y>
+     <x>611</x>
+     <y>3027</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_mandelbox103_fabsAddConstant1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>408</x>
+     <y>616</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>483</x>
+     <y>619</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsAddConstant1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>650</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>189</x>
+     <y>650</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsAddConstant1B_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>63</x>
+     <y>647</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>723</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsAddConstant1C_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>646</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>173</x>
+     <y>802</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsAddConstant1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>34</x>
+     <y>640</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>609</x>
+     <y>653</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsAddConstant1B_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>44</x>
+     <y>645</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>617</x>
+     <y>725</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsAddConstant1C_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>651</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>611</x>
+     <y>809</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsAddConstant1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>669</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>210</x>
+     <y>678</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsAddConstant1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>670</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>619</x>
+     <y>675</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsAddConstant1B_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>63</x>
+     <y>678</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>753</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsAddConstant1B_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>673</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>611</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsAddConstant1C_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>35</x>
+     <y>668</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>178</x>
+     <y>823</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsAddConstant1C_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>672</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>611</x>
+     <y>828</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsAddConstant1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>695</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>197</x>
+     <y>699</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsAddConstant1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>693</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>614</x>
+     <y>706</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsAddConstant1B_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>62</x>
+     <y>695</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>197</x>
+     <y>775</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsAddConstant1B_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>696</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>780</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsAddConstant1C_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>699</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>222</x>
+     <y>856</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsAddConstant1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsAddConstant1C_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>700</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>625</x>
+     <y>855</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Ax</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD2A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>2670</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>171</x>
+     <y>2670</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Ax</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>2668</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>621</x>
+     <y>2669</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Ay</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD2A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>45</x>
+     <y>2690</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>155</x>
+     <y>2693</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Ay</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>53</x>
+     <y>2696</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>617</x>
+     <y>2700</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Az</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD2A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>38</x>
+     <y>2716</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>158</x>
+     <y>2722</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Az</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>54</x>
+     <y>2721</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>630</x>
+     <y>2731</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Bx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD2B_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>32</x>
+     <y>2745</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>212</x>
+     <y>2748</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Bx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2B_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>2740</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>619</x>
+     <y>2749</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_By</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD2B_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>2774</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>2775</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_By</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2B_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>2773</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>633</x>
+     <y>2782</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Bz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD2B_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>2799</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>178</x>
+     <y>2800</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Bz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2B_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>46</x>
+     <y>2796</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>634</x>
+     <y>2806</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Ax</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>1223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>164</x>
+     <y>1227</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Ax</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>56</x>
+     <y>1227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>593</x>
+     <y>1228</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Ay</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>53</x>
+     <y>1246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>195</x>
+     <y>1253</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Ay</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>54</x>
+     <y>1254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>617</x>
+     <y>1252</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Az</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>1274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>146</x>
+     <y>1281</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Az</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>1273</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>609</x>
+     <y>1281</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Bx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD1B_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>55</x>
+     <y>1296</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>187</x>
+     <y>1301</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Bx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1B_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>56</x>
+     <y>1300</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>600</x>
+     <y>1307</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_By</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD1B_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>1329</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>180</x>
+     <y>1329</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_By</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1B_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>1329</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>596</x>
+     <y>1331</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Bz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_mandelbox103_fabsFormulaABCD1B_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>56</x>
+     <y>1357</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>181</x>
+     <y>1359</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Bz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1B_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>44</x>
+     <y>1353</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>614</x>
+     <y>1357</y>
     </hint>
    </hints>
   </connection>
