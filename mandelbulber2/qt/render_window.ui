@@ -2912,8 +2912,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>401</width>
+                  <y>-360</y>
+                  <width>375</width>
                   <height>714</height>
                  </rect>
                 </property>
@@ -3608,7 +3608,7 @@ to target:</string>
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coloring of fractal surface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                    <property name="title">
-                    <string>Surface color       .            :            .            :            .            :            .            |            .       </string>
+                    <string>Surface color</string>
                    </property>
                    <property name="checkable">
                     <bool>true</bool>
@@ -4099,7 +4099,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>220</width>
+                  <width>375</width>
                   <height>169</height>
                  </rect>
                 </property>
@@ -13454,7 +13454,7 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>359</width>
+                  <width>222</width>
                   <height>306</height>
                  </rect>
                 </property>
