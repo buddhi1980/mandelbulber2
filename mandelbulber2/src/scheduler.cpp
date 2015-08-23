@@ -239,7 +239,7 @@ double cScheduler::PercentDone()
 	return percent_done;
 }
 
-bool cScheduler::ProgresiveNextStep()
+bool cScheduler::ProgressiveNextStep()
 {
 	progressiveStep /= 2;
 	progressivePass ++;

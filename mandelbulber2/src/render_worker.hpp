@@ -69,7 +69,7 @@ private:
 	};
 
 
-	//ambient occlussion data
+	//ambient occlusion data
 	struct sVectorsAround
 	{
 		double alpha;

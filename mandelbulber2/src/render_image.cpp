@@ -263,7 +263,7 @@ bool cRenderer::RenderImage()
 			delete thread[i];
 		}
 	}
-	while(scheduler->ProgresiveNextStep());
+	while(scheduler->ProgressiveNextStep());
 
 	//send last rendered lines
 	if(image->IsMainImage() && gNetRender->IsClient() && gNetRender->GetStatus() == CNetRender::netRender_WORKING)

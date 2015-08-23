@@ -41,7 +41,7 @@ public:
 
 	enum enumMode
 	{
-		still, keframeAnim, flightAnim, flightAnimRecord
+		still, keyframeAnim, flightAnim, flightAnimRecord
 	};
 
 	bool Init(enumMode _mode);

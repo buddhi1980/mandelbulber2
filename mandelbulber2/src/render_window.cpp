@@ -61,7 +61,7 @@ RenderWindow::RenderWindow(QWidget *parent) :
     ui->setupUi(this);
   	fractalWidgets = new QWidget*[4];
 
-  	//store defauly geometry and state
+  	//store default geometry and state
   	defaultGeometry = saveGeometry();
   	defaultState = saveState();
 
@@ -940,7 +940,7 @@ void RenderWindow::slotPressedButtonSelectLightMapTexture()
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
 	dialog.selectFile(gPar->Get<QString>("file_lightmap"));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
-	dialog.setWindowTitle(tr("Select texture for ambient occlussion light map..."));
+	dialog.setWindowTitle(tr("Select texture for ambient occlusion light map..."));
 	QStringList filenames;
 	if(dialog.exec())
 	{
@@ -987,7 +987,7 @@ void RenderWindow::slotEditedLineEditLightMapTexture(const QString &text)
 	gMainInterface->ShowImageInLabel(ui->label_lightmapTextureView, text);
 }
 
-void RenderWindow::slotChangedComboAmbientOcclussionMode(int index)
+void RenderWindow::slotChangedComboAmbientOcclusionMode(int index)
 {
 	bool enabled = index == params::AOmodeMultipeRays ? true : false;
 	ui->frame_lightmap_texture->setEnabled(enabled);
@@ -1042,7 +1042,7 @@ void RenderWindow::slotChangedComboImageProportion(int index)
 	}
 }
 
-void RenderWindow::slotPressedResolutionPresset()
+void RenderWindow::slotPressedResolutionPreset()
 {
 	int width = 0, height = 0;
 	enumImageProporton proportion = proportionFree;
@@ -1159,7 +1159,7 @@ void RenderWindow::slotMouseMovedOnImage(int x, int y)
 	//CVector2<int> point(x, y);
 }
 
-void RenderWindow::slotMouceClickOnImage(int x, int y, Qt::MouseButton button)
+void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button)
 {
 	int index = ui->comboBox_mouse_click_function->currentIndex();
 	QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
@@ -1248,7 +1248,7 @@ void RenderWindow::slotKeyReleaseOnImage(Qt::Key key)
 	(void)key;
 }
 
-void RenderWindow::slotMouseWheelRotatedonImage(int delta)
+void RenderWindow::slotMouseWheelRotatedOnImage(int delta)
 {
 	int index = ui->comboBox_mouse_click_function->currentIndex();
 	QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
@@ -1777,7 +1777,7 @@ void RenderWindow::slotGamepadZ() {
 	{
 		if(gamepad.buttonA())
 		{
-			emit gMainInterface->renderedImage->flightSpeedIncease();
+			emit gMainInterface->renderedImage->flightSpeedIncrease();
 		}
 		else
 		{

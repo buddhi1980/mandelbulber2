@@ -150,7 +150,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->button_selectEnvMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectEnvMapTexture()));
 	QApplication::connect(mainWindow->ui->button_selectLightMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectLightMapTexture()));
 	QApplication::connect(mainWindow->ui->checkBox_show_cursor, SIGNAL(stateChanged(int)), mainWindow, SLOT(slotChangedCheckBoxCursorVisibility(int)));
-	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboAmbientOcclussionMode(int)));
+	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboAmbientOcclusionMode(int)));
 	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
 	QApplication::connect(mainWindow->ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboPerspectiveType(int)));
 	QApplication::connect(mainWindow->ui->logedit_aux_light_manual_placement_dist, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditManualLightPlacementDistance(const QString&)));
@@ -192,15 +192,15 @@ void cInterface::ConnectSignals(void)
 
 	//image resolution
 	QApplication::connect(mainWindow->ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageProportion(int)));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1080, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1200, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1440, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_2160, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_240, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_4320, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_480, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_600, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_720, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPresset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1080, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1200, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1440, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_2160, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_240, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_4320, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_480, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_600, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_720, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
 	QApplication::connect(mainWindow->ui->spinboxInt_image_height, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotImageHeightChanged(int)));
 
 	//menu actions
@@ -247,10 +247,10 @@ void cInterface::ConnectSignals(void)
 
 	//rendered image widget
 	QApplication::connect(renderedImage, SIGNAL(mouseMoved(int, int)), mainWindow, SLOT(slotMouseMovedOnImage(int, int)));
-	QApplication::connect(renderedImage, SIGNAL(singleClick(int, int, Qt::MouseButton)), mainWindow, SLOT(slotMouceClickOnImage(int, int, Qt::MouseButton)));
+	QApplication::connect(renderedImage, SIGNAL(singleClick(int, int, Qt::MouseButton)), mainWindow, SLOT(slotMouseClickOnImage(int, int, Qt::MouseButton)));
 	QApplication::connect(renderedImage, SIGNAL(keyPress(Qt::Key)), mainWindow, SLOT(slotKeyPressOnImage(Qt::Key)));
 	QApplication::connect(renderedImage, SIGNAL(keyRelease(Qt::Key)), mainWindow, SLOT(slotKeyReleaseOnImage(Qt::Key)));
-	QApplication::connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow, SLOT(slotMouseWheelRotatedonImage(int)));
+	QApplication::connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow, SLOT(slotMouseWheelRotatedOnImage(int)));
 
 	//NetRender
 	QApplication::connect(mainWindow->ui->bu_netrender_connect, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderClientConnect()));

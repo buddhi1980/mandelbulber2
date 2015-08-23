@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * cRenderSSAO class - renders Screen Space Ambient Occlussion effect
+ * cRenderSSAO class - renders Screen Space Ambient Occlusion effect
  *
  * Copyright (C) 2014 Krzysztof Marczak
  *

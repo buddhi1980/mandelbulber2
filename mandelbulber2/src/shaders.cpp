@@ -837,7 +837,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
   	{
     	smooth = (L - log(log(sqrt(r)) / log(N)) / log(p));
     	nrKol = smooth * 50.0;
-    	nrKol = abs(nrKol) % (248*256);
+    	nrKol = abs(nrKol) % (248 * 256);
   		break;
   	}
   }

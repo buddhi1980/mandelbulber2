@@ -41,9 +41,9 @@ public:
 	void MarkReceivedLines(const QList<int> &lineNumbers);
 	void UpdateDoneLines(const QList<int> &done);
 
-	int GetProgresiveStep() {return progressiveStep;}
-	int GetProgresivePass() {return progressivePass;}
-	bool ProgresiveNextStep();
+	int GetProgressiveStep() {return progressiveStep;}
+	int GetProgressivePass() {return progressivePass;}
+	bool ProgressiveNextStep();
 	QList<int> CreateDoneList();
 	bool IsLineDoneByServer(int line);
 

@@ -404,7 +404,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		inOut->stepBuff[i].point = point;
 		//qDebug() << "i" << i << "dist" << inOut->stepBuff[i].distance << "iters" << inOut->stepBuff[i].iters << "distThresh" << inOut->stepBuff[i].distThresh << "step" << inOut->stepBuff[i].step << "point" << inOut->stepBuff[i].point.Debug();
 		(*inOut->buffCount) = i + 1;
-		scan += step / in.direction.Length(); //divided by length of view Vector to elimitate overstepping when fov is big
+		scan += step / in.direction.Length(); //divided by length of view Vector to eliminate overstepping when fov is big
 		if (scan > in.maxScan)
 		{
 			break;
@@ -613,7 +613,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 				sRayMarchingIn rayMarchingIn;
 				sRayMarchingInOut rayMarchingInOut;
 
-				//calculate new direction of relfection
+				//calculate new direction of reflection
 				CVector3 newDirection = ReflectionVector(vn, in.rayMarchingIn.direction);
 				CVector3 newPoint = point + newDirection * shaderInputData.distThresh;
 
@@ -677,7 +677,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 			resultShader.B = reflectShader.B * reflect * reflectance + (1.0 - reflect * reflectance) * resultShader.B;
 		}
 	}
-	else //if fobject not found then calculate background
+	else //if object not found then calculate background
 	{
 		backgroundShader = BackgroundShader(shaderInputData);
 		resultShader = backgroundShader;
@@ -686,7 +686,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 
 	sRGBAfloat opacityOut;
 
-	if(in.calcInside) //if now is traced object interior, then there is calculated absorbtion of light
+	if(in.calcInside) //if the object interior is traced, then the absorption of light has to be calculated
 	{
 		for(int index = shaderInputData.stepCount - 1; index > 0; index--)
 		{

@@ -47,7 +47,7 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 	QApplication::connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this, SLOT(slotSelectAnimFlightImageDir()));
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightStrafe(CVector2<double>)), this, SLOT(slotFlightStrafe(CVector2<double>)));
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightYawAndPitch(CVector2<double>)), this, SLOT(slotFlightYawAndPitch(CVector2<double>)));
-	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightSpeedIncease()), this, SLOT(slotIncreaseSpeed()));
+	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightSpeedIncrease()), this, SLOT(slotIncreaseSpeed()));
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightSpeedDecrease()), this, SLOT(slotDecreaseSpeed()));
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightRotation(double)), this, SLOT(slotFlightRotation(double)));
 	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightPause()), this, SLOT(slotRecordPause()));

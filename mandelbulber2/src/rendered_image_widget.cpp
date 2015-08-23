@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * RenderedImage class - extension for QWidget class. Widged prepared for displaying rendered image and 3D cursor
+ * RenderedImage class - extension for QWidget class. Widget prepared for displaying rendered image and 3D cursor
  *
  * Copyright (C) 2014 Krzysztof Marczak
  *
@@ -362,7 +362,7 @@ void RenderedImage::mousePressEvent(QMouseEvent * event)
 	{
 		if(event->button() == Qt::LeftButton)
 		{
-			emit flightSpeedIncease();
+			emit flightSpeedIncrease();
 		}
 		else if(event->button() == Qt::RightButton)
 		{

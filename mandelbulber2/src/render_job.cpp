@@ -281,7 +281,7 @@ bool cRenderJob::Execute(void)
 	//qDebug() << "runningJobs" << runningJobs;
 
 	inProgress = true;
-	*renderData->stopRequest = false;
+	renderData->stopRequest = false;
 
 	WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs));
 
