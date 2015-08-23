@@ -51,6 +51,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 
 	QApplication::connect(ui->spinboxInt_keyframe_first_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderFirstFrame(int)));
 	QApplication::connect(ui->spinboxInt_keyframe_last_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderLastFrame(int)));
+	QApplication::connect(ui->spinboxInt_frames_per_keyframe, SIGNAL(valueChanged(int)), this, SLOT(UpdateLimitsForFrameRange()));
 
 	table = ui->tableWidget_keyframe_animation;
 
@@ -887,7 +888,6 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	ui->pushButton_flight_refresh_table->animateClick();
 }
 
-//TODO needed to update limits when frames per key is changed
 void cKeyframeAnimation::UpdateLimitsForFrameRange(void)
 {
 	int framesPerKey = ui->spinboxInt_frames_per_keyframe->value();

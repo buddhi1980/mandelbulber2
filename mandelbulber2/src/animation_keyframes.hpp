@@ -44,10 +44,10 @@ public:
 	void InterpolateForward(int row, int column);
 	parameterContainer::enumMorphType GetMorphType(int row);
 	void ChangeMorphType(int row, parameterContainer::enumMorphType morphType);
-	void UpdateLimitsForFrameRange(void);
 	QList<int> CheckForCollisions(double minDist);
 
 public slots:
+	void UpdateLimitsForFrameRange();
 	void slotRenderKeyframes();
 
 private slots:
