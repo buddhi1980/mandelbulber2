@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
 	UpdateUISkin();
 	UpdateLanguage();
 
-	QString cliTODO = ReadCLI();
+	// QString cliTODO = ReadCLI();
 
 	gMainInterface->ShowUi();
 
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
 
 	gMainInterface->AutoRecovery();
 
-	if(cliTODO != "") ProcessCLI(cliTODO);
+	// if(cliTODO != "") ProcessCLI(cliTODO);
 
 	//start main Qt loop
 	WriteLog("application->exec()");
