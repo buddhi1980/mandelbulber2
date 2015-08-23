@@ -1091,8 +1091,8 @@ void RenderWindow::slotPressedImagesizeIncrease()
 {
 	int width = ui->spinboxInt_image_width->value();
 	int height = ui->spinboxInt_image_height->value();
-	width *= sqrt(2);
-	height *= sqrt(2);
+	width *= 2;
+	height *= 2;
 	ui->spinboxInt_image_width->setValue(width);
 	ui->spinboxInt_image_height->setValue(height);
 }
@@ -1101,8 +1101,8 @@ void RenderWindow::slotPressedImagesizeDecrease()
 {
 	int width = ui->spinboxInt_image_width->value();
 	int height = ui->spinboxInt_image_height->value();
-	width /= sqrt(2);
-	height /= sqrt(2);
+	width /= 2;
+	height /= 2;
 	ui->spinboxInt_image_width->setValue(width);
 	ui->spinboxInt_image_height->setValue(height);
 }

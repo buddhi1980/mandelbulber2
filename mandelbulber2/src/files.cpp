@@ -1177,7 +1177,7 @@ void SaveImage(QString filename, enumImageFileType filetype, cImage *image, QMap
 			}
 			if(imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
 			{
-				// TODO
+				// JPG cannot save zbuffer (loss of precision to strong)
 			}
 		}
 		break;
