@@ -95,7 +95,7 @@ bool cRenderer::RenderImage()
 		}
 		else
 		{
-			threadData[i].startLine = (image->GetHeight()/data->numberOfThreads) * i / scheduler->GetProgresiveStep() * scheduler->GetProgresiveStep();
+			threadData[i].startLine = (image->GetHeight()/data->numberOfThreads) * i / scheduler->GetProgressiveStep() * scheduler->GetProgressiveStep();
 		}
 		threadData[i].scheduler = scheduler;
 	}
@@ -112,7 +112,7 @@ bool cRenderer::RenderImage()
 	WriteLog("Start rendering");
 	do
 	{
-		WriteLogDouble("Progressive loop", scheduler->GetProgresiveStep());
+		WriteLogDouble("Progressive loop", scheduler->GetProgressiveStep());
 		for (int i = 0; i < data->numberOfThreads; i++)
 		{
 			WriteLog(QString("Thread ") + QString::number(i) + " create");
@@ -163,7 +163,7 @@ bool cRenderer::RenderImage()
 			//refresh image
 			if (!data->doNotRefresh && image->IsPreview() && listToRefresh.size() > 0)
 			{
-				if (timerRefresh.elapsed() > lastRefreshTime && (scheduler->GetProgresivePass() > 1 || useNetRender))
+				if (timerRefresh.elapsed() > lastRefreshTime && (scheduler->GetProgressivePass() > 1 || useNetRender))
 				{
 					timerRefresh.restart();
 					QSet<int> set_listTorefresh = listToRefresh.toSet(); //removing duplicates
@@ -179,7 +179,7 @@ bool cRenderer::RenderImage()
 						{
 							cRenderSSAO rendererSSAO(params, data, image);
 							if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-							rendererSSAO.setProgressive(scheduler->GetProgresiveStep());
+							rendererSSAO.setProgressive(scheduler->GetProgressiveStep());
 							rendererSSAO.RenderSSAO(&listToRefresh);
 						}
 					}

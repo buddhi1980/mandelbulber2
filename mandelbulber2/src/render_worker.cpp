@@ -102,7 +102,7 @@ void cRenderWorker::doWork(void)
 		if (ys < data->screenRegion.y1 || ys > data->screenRegion.y2) continue;
 
 		//main loop for x
-		for (int xs = 0; xs < width; xs += scheduler->GetProgresiveStep())
+		for (int xs = 0; xs < width; xs += scheduler->GetProgressiveStep())
 		{
 
 			//break if by coincidence this thread started rendering the same line as some other
@@ -113,7 +113,7 @@ void cRenderWorker::doWork(void)
 				break;
 			}
 
-			if (scheduler->GetProgresivePass() > 1 && xs % (scheduler->GetProgresiveStep() * 2) == 0 && ys % (scheduler->GetProgresiveStep() * 2) == 0) continue;
+			if (scheduler->GetProgressivePass() > 1 && xs % (scheduler->GetProgressiveStep() * 2) == 0 && ys % (scheduler->GetProgressiveStep() * 2) == 0) continue;
 
 			//skip if pixel is out of region;
 			if (xs < data->screenRegion.x1 || xs > data->screenRegion.x2) continue;
@@ -188,9 +188,9 @@ void cRenderWorker::doWork(void)
 			colour.G = objectColour.G * 255;
 			colour.B = objectColour.B * 255;
 
-			for (int xx = 0; xx < scheduler->GetProgresiveStep(); ++xx)
+			for (int xx = 0; xx < scheduler->GetProgressiveStep(); ++xx)
 			{
-				for (int yy = 0; yy < scheduler->GetProgresiveStep(); ++yy)
+				for (int yy = 0; yy < scheduler->GetProgressiveStep(); ++yy)
 				{
 					image->PutPixelImage(screenPoint.x + xx, screenPoint.y + yy, pixel2);
 					image->PutPixelColour(screenPoint.x + xx, screenPoint.y + yy, colour);
