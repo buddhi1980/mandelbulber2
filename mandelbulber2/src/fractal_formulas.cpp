@@ -1548,30 +1548,6 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
     }
   }
 
-
-    // z = z + c * const; 2
-  if (fractal->quaternion104.constantMultiplier2Enabled && i >= fractal->quaternion104.constantMultiplier2StartIterations && i < fractal->quaternion104.constantMultiplier2StopIterations)
-  {
-    temp = z;
-    z += c * fractal->quaternion104.constantMultiplier2Vect;
-    //weight function
-    if (fractal->quaternion104.constantMultiplier2WeightEnabled)
-    {
-    	z = SmoothCVector(temp, z, fractal-> quaternion104.constantMultiplier2Weight);
-    }
-  }
-  // z = z + const; 2
-  if (fractal->quaternion104.additionConstant2Enabled && i >= fractal->quaternion104.additionConstant2StartIterations && i < fractal->quaternion104.additionConstant2StopIterations)
-  {
-    temp = z;
-    z += fractal->quaternion104.additionConstant2;
-    //weight function
-    if (fractal->quaternion104.additionConstant2WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> quaternion104.additionConstant2Weight);
-    }
-  }
-
     //boxFold; 2
   if (fractal->quaternion104.boxFold2Enabled && i >= fractal->quaternion104.boxFold2StartIterations && i < fractal->quaternion104.boxFold2StopIterations)
   {
@@ -1628,6 +1604,29 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
     if (fractal->quaternion104.mainRotation3WeightEnabled)
     {
     z = SmoothCVector(temp, z, fractal-> quaternion104.mainRotation3Weight);
+    }
+  }
+
+    // z = z + c * const; 2
+  if (fractal->quaternion104.constantMultiplier2Enabled && i >= fractal->quaternion104.constantMultiplier2StartIterations && i < fractal->quaternion104.constantMultiplier2StopIterations)
+  {
+    temp = z;
+    z += c * fractal->quaternion104.constantMultiplier2Vect;
+    //weight function
+    if (fractal->quaternion104.constantMultiplier2WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> quaternion104.constantMultiplier2Weight);
+    }
+  }
+  // z = z + const; 2
+  if (fractal->quaternion104.additionConstant2Enabled && i >= fractal->quaternion104.additionConstant2StartIterations && i < fractal->quaternion104.additionConstant2StopIterations)
+  {
+    temp = z;
+    z += fractal->quaternion104.additionConstant2;
+    //weight function
+    if (fractal->quaternion104.additionConstant2WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> quaternion104.additionConstant2Weight);
     }
   }
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
