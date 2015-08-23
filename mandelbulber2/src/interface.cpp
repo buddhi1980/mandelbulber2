@@ -201,6 +201,8 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_480, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
 	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_600, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
 	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_720, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_imagesize_increase, SIGNAL(clicked()), mainWindow, SLOT(slotPressedImagesizeIncrease()));
+	QApplication::connect(mainWindow->ui->pushButton_imagesize_decrease, SIGNAL(clicked()), mainWindow, SLOT(slotPressedImagesizeDecrease()));
 	QApplication::connect(mainWindow->ui->spinboxInt_image_height, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotImageHeightChanged(int)));
 
 	//menu actions

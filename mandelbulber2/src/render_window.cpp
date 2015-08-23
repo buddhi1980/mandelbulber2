@@ -52,8 +52,6 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-//TODO add x2 and :2 buttons for increasing / decreasing image resolution
-
 RenderWindow::RenderWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::RenderWindow)
@@ -1087,6 +1085,26 @@ void RenderWindow::slotPressedResolutionPreset()
 	ui->spinboxInt_image_width->setValue(width);
 	ui->spinboxInt_image_height->setValue(height);
 	ui->comboBox_image_proportion->setCurrentIndex(proportion);
+}
+
+void RenderWindow::slotPressedImagesizeIncrease()
+{
+	int width = ui->spinboxInt_image_width->value();
+	int height = ui->spinboxInt_image_height->value();
+	width *= sqrt(2);
+	height *= sqrt(2);
+	ui->spinboxInt_image_width->setValue(width);
+	ui->spinboxInt_image_height->setValue(height);
+}
+
+void RenderWindow::slotPressedImagesizeDecrease()
+{
+	int width = ui->spinboxInt_image_width->value();
+	int height = ui->spinboxInt_image_height->value();
+	width /= sqrt(2);
+	height /= sqrt(2);
+	ui->spinboxInt_image_width->setValue(width);
+	ui->spinboxInt_image_height->setValue(height);
 }
 
 void RenderWindow::slotImageHeightChanged(int value)

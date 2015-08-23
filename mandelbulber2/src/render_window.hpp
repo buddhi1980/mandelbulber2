@@ -160,6 +160,8 @@ private slots:
 	//resolution
 	void slotChangedComboImageProportion(int index);
 	void slotPressedResolutionPreset();
+	void slotPressedImagesizeIncrease();
+	void slotPressedImagesizeDecrease();
 	void slotImageHeightChanged(int value);
 
 	//rendered image widget
