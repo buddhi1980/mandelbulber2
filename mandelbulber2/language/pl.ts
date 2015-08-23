@@ -1719,7 +1719,7 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="4128"/>
         <source>Ray-traced reflections and transparency</source>
-        <translation>Śledzone promienie odbić i przezroczystości</translation>
+        <translation>Śledzenie promieni światła dla odbić i przezroczystości</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4207"/>
@@ -2394,78 +2394,65 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="13438"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exports flight path to keyframe animation. There is used &lt;span style=&quot; font-style:italic;&quot;&gt;Keyframe animation/frames per keyframe&lt;/span&gt; parameter to dermine how many frames will be exported as new keyframes. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Eksport animacji lotu do animacji z klatkami kluczowymi. Parametr &lt;span style=&quot; font-style:italic;&quot;&gt;Animacja z klatkami kluczowymi/klatek na klatkę kluczową&lt;/span&gt; decyduje co która klatka będzie wyeksportowana jako klatka kluczowa. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13516"/>
         <location filename="../qt/render_window.ui" line="14360"/>
         <source>EXR</source>
-        <translation type="unfinished"></translation>
+        <translation>EXR</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13544"/>
         <location filename="../qt/render_window.ui" line="14393"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets where will be stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ściezka do miejsca, gdzie będą przechowywane zrenderowane klatki animacji.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13557"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Determines how camera speed will be calculated.&lt;/p&gt;&lt;p&gt;In &lt;span style=&quot; font-style:italic;&quot;&gt;Relative to distance&lt;/span&gt; mode, camera speed will decrease when camera will be closer to fractal surface. This mode will help you to not colide with fractal. In this mode you can still control speed by &lt;span style=&quot; font-style:italic;&quot;&gt;speed&lt;/span&gt; parameter and by mouse buttons.&lt;/p&gt;&lt;p&gt;In Constant mode, camera speed is only controled by &lt;span style=&quot; font-style:italic;&quot;&gt;speed&lt;/span&gt; parameter and mouse buttons&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Decyduje jak ma byc obliczana prędkość kamery.&lt;/p&gt;&lt;p&gt;W trybie &lt;span style=&quot; font-style:italic;&quot;&gt;Według odległości&lt;/span&gt;, prędkość kamery będzie malała podczas zbliżania się do powierzchni fraktala. Ten tryb pomaga Ci nie zdeżyć się z fraktalem. W tym trybie możesz nadal kontrolować prędkość za pomocą parametru&lt;span style=&quot; font-style:italic;&quot;&gt;Prędkość&lt;/span&gt; i przyciskami myszy.&lt;/p&gt;&lt;p&gt;W trybie &lt;i&gt;Stała&lt;/i&gt;, prędkość kamery zależy tylko od parametru &lt;span style=&quot; font-style:italic;&quot;&gt;Prędkość&lt;/span&gt; i może być zmieniana przyciskami myszy.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13587"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls flight speed. &lt;/p&gt;&lt;p&gt;If you click left mouse button, speed will be increased&lt;/p&gt;&lt;p&gt;If you click right mouse button, speed will be decreased&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontroluje prędkość lotu. &lt;/p&gt;&lt;p&gt;Jak podczas lotu wciśniesz lewy przycisk myszy, to prędkość zostanie zwiększona&lt;/p&gt;&lt;p&gt;Jak wciśniesz prawy przycisk, prędkość będzie zwiększona.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13664"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Inertia of camera. &lt;/p&gt;&lt;p&gt;Higher inertia makes fight more smooth but more difficult to change speed or direction.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bezwładność kamery. &lt;/p&gt;&lt;p&gt;Większa bezwładnośc sprawia, że lot jest bardziej płynny, ale może utrudnić zmianę prędkości i kierunku lotu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13733"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameters controls frame rate during flight path recording. Higher value gives slower rendering but more detailed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr kontroluje czas przeznaczany na renderowanie jednej klatki podczas nagrywania trasy lotu. Wyższa wartość skutkuje wolniejszym renderowaniem ale obraz zawiera więcej detali.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13790"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation speed of camera&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Prędkość obrotu kamery&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13818"/>
         <location filename="../qt/render_window.ui" line="14406"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of previews in animation table.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktywuje renderowanie podglądów w tabeli animacji&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13841"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll speed of camera&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Prędkość przechylania kamery&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13869"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter is needed to be enabled if you want to record flight path in parts. It allows to continue recording of flight with the same speed like it was on latest frame.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="13911"/>
-        <location filename="../qt/render_window.ui" line="13961"/>
-        <location filename="../qt/render_window.ui" line="14460"/>
-        <location filename="../qt/render_window.ui" line="14492"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limits range of oframes to render&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt/render_window.ui" line="14036"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature is for renering animations besad on interpolated key frames.&lt;/p&gt;&lt;p&gt;You can setup any number of key frames, where will be different camera position, evironment parameter values or fractal parameters. During rendering of animation, will be calculated intermediate frames, so there is not needed to setup every animation frame. &lt;/p&gt;&lt;p&gt;There is possible to add parameters for animation (like fractal power, light position, etc...) and edit them in the table view. To add parameter to animation you need to right click on edit fied of selected parameter and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to keyframe animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Each parameter can have assigned different type of interpolation.&lt;/p&gt;&lt;p&gt;There is possible to edit animation by adding or modyfing key frames, and also directly in animation table.&lt;/p&gt;&lt;p&gt;Animation is stored in settings file in CSV format, so there is possible to edit animation in external tools (e.g speadsheet editor or text editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr powinien być aktywny jeśli planujesz nagrywanie trasy przelotu na raty. Pozwala on na kontynuowanie lotu z taką samą prędkością i kierunkiem jak na ostatniej klatce.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14088"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert keyframe before selected keyframe&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Umieszcza klatkę kluczową przed zaznaczoną.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14128"/>
@@ -2475,97 +2462,97 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="14148"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Play alredy rendered animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Odtwarza wcześniej zrenderowaną animację.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14168"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts rendering of animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rozpoczęcie renderowania animacji&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14208"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Export all keyframes to &lt;span style=&quot; font-style:italic;&quot;&gt;Flight animation&lt;/span&gt;. All keyframes will be interpolated. &lt;/p&gt;&lt;p&gt;This feature will allow to edit each animation frame separately in Flight animation editor (or external CSV editor) &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Eksportuje wszystkie klatki kluczowe do &lt;span style=&quot; font-style:italic;&quot;&gt;Animacji lotu&lt;/span&gt;. Wszystkie klatki kluczowe zostaną interpolowane. &lt;/p&gt;&lt;p&gt;To narzędzie pozwoli na edycję każdej klatki animacji oddzielnie w edytorze &lt;i&gt;Animacji lotu&lt;/i&gt; (lub w zewnętrznym edytorze plików CSV)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14224"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete all rendered frames in animation folder ( selected by &lt;span style=&quot; font-style:italic;&quot;&gt;path for keyframes)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kasuje wszytkie zrenderowane klatki animacji z wybranego folderu (&lt;span style=&quot; font-style:italic;&quot;&gt;Klatki animacji&lt;/span&gt;). &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14264"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Checks if there is no collision between camera and fractal at all interpolated frames.&lt;/p&gt;&lt;p&gt;Collision is defined as event where distance of camera to fractal object is lower than &lt;span style=&quot; font-style:italic;&quot;&gt;collision distance&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sprawdzanie czy nie ma kolizji pomiędzy kamerą i fraktalem na wszystkich zinterpolowanych klatkach animacji.&lt;/p&gt;&lt;p&gt;Kolizja jest zdefiniowana jako zdażenie, gdzie odległość między kamerą a fraktalem jest mniejsza niż parametr &lt;span style=&quot; font-style:italic;&quot;&gt;odległość kolizji&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14267"/>
         <source>Validate</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprawdź</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14312"/>
         <source>collission distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>odległość kolizji:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14374"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It sets how many frames will be interpolated for each keyframe. &lt;/p&gt;&lt;p&gt;Total number of animation frames is &apos;number of keyframes&apos; multiplied by &apos;frames per keyframe&apos; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ten parametr ustala ile klatek będzie interpolowanych pomiędzy kolejnymi klatkami kluczownymi. &lt;/p&gt;&lt;p&gt;Całkowita ilość klatek animacji jest równa &apos;ilość klatek animacji&apos; pomnożona przez &apos;klatek na klatkę kluczową&apos; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14596"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum distance between camera and fractal which is allowed during &lt;span style=&quot; font-style:italic;&quot;&gt;Validate&lt;/span&gt; function (collision detection)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimalna odległość pomiędzy kamerą i fraktalem, która jest dozwolona podczas użycia funkcji &lt;span style=&quot; font-style:italic;&quot;&gt;Sprawdź&lt;/span&gt; (detekcja kolizji)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt; </translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14609"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable checking for collisions before starting rendering of animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia sprawdzanie występowania kolizji przed rozpoczęciem renderowania animacji.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14612"/>
         <source>Validate before render</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprawdź przed renderowaniem</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14668"/>
         <source>&amp;Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Statystyki</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14721"/>
         <source>Histogram of fractal iteration count</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitogram ilości iteracji funkcji fraktala</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14815"/>
         <source>Total number of iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>Całkowita ilość iteracji</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14820"/>
         <source>Number of iterations per pixel</source>
-        <translation type="unfinished"></translation>
+        <translation>Ilość iteracji na piksel</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14825"/>
         <source>Number of iterations per second</source>
-        <translation type="unfinished"></translation>
+        <translation>Ilość iteracji na sekundę</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14830"/>
         <source>Percentage of wrong distance estimations</source>
-        <translation type="unfinished"></translation>
+        <translation>Procent źle policzonych estymacji dystansu</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14835"/>
         <source>Distance of camera to fractal surface</source>
-        <translation type="unfinished"></translation>
+        <translation>Odległość kamery od powierzchni fraktala</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14840"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartość</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14845"/>
@@ -2574,82 +2561,82 @@ kamery od celu:</translation>
         <location filename="../qt/render_window.ui" line="14860"/>
         <location filename="../qt/render_window.ui" line="14865"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14879"/>
         <source>&amp;Save as JPG...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako JPG...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14888"/>
         <source>Save &amp;as PNG...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako PNG...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14897"/>
         <source>Save as &amp;PNG 16 bit...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako PNG 16-bit...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14906"/>
         <source>Save as PNG &amp;16 bit with alpha channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako PNG 16-bit z kanałem alfa</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14915"/>
         <source>&amp;Load settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytaj ustawienia...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14924"/>
         <source>Load settings &amp;from clipboard...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytaj ustawienia ze schowka</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14933"/>
         <source>&amp;Save settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz ustawienia</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14942"/>
         <source>Save settings &amp;to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz ustawienia do schowka</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14963"/>
         <source>&amp;Program Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawienia programu</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14972"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyjście</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14977"/>
         <source>&amp;Save window state</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz układ okna</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14982"/>
         <source>&amp;Default docks positions</source>
-        <translation type="unfinished"></translation>
+        <translation>Domyślne ustawienie doków</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14987"/>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>O Qt...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14992"/>
         <source>About &amp;Third Party</source>
-        <translation type="unfinished"></translation>
+        <translation>O osobach trzecich...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15001"/>
         <source>&amp;About Mandelbulber</source>
-        <translation type="unfinished"></translation>
+        <translation>O Mandelbulber...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15010"/>
@@ -2664,47 +2651,47 @@ kamery od celu:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="15034"/>
         <source>&amp;Import settings from old Mandelbulber (v1.21)...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaimportuj ustawienia ze starego Mandelbulber (v1.21)...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15043"/>
         <source>Load &amp;example...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytaj przykład...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15051"/>
         <source>Show &amp;animation dock</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetl dok z animacją</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15062"/>
         <source>Show &amp;gamepad dock</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetl dok gamepadem</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15073"/>
         <source>Show &amp;Info dock</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż dok z informacjami</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15084"/>
         <source>Show &amp;toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż pasek narzędzi</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15092"/>
         <source>Sta&amp;ck all docks</source>
-        <translation type="unfinished"></translation>
+        <translation>Ułuż wszystkie doki na stosie</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15100"/>
         <source>S&amp;how statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż statystyki</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15109"/>
         <source>Save as &amp;EXR</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako EXR...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="8216"/>
@@ -2890,7 +2877,7 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="2951"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fractal interior&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kolor wnętrza fraktala&lt;/p&gt;&lt;p&gt;Aby użyć ten efekt, uaktywnij &lt;i&gt;Śledzenie promieni światła dla odbić i przezroczystości&lt;/i&gt; w zakładce&lt;span style=&quot; font-style:italic;&quot;&gt;Śledzenie promieni.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3014"/>
@@ -3425,6 +3412,14 @@ płaszcyzny i wody):</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qt/render_window.ui" line="13911"/>
+        <location filename="../qt/render_window.ui" line="13961"/>
+        <location filename="../qt/render_window.ui" line="14460"/>
+        <location filename="../qt/render_window.ui" line="14492"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limits range of frames to render&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../qt/render_window.ui" line="13980"/>
         <location filename="../qt/render_window.ui" line="14479"/>
         <source>first frame to render:</source>
@@ -3434,6 +3429,11 @@ płaszcyzny i wody):</translation>
         <location filename="../qt/render_window.ui" line="13987"/>
         <location filename="../qt/render_window.ui" line="14558"/>
         <source>last frame to render:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="14036"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature is for rendering animations based on interpolated key frames.&lt;/p&gt;&lt;p&gt;You can setup any number of key frames, where will be different camera position, evironment parameter values or fractal parameters. During rendering of animation, will be calculated intermediate frames, so there is not needed to setup every animation frame. &lt;/p&gt;&lt;p&gt;There is possible to add parameters for animation (like fractal power, light position, etc...) and edit them in the table view. To add parameter to animation you need to right click on edit fied of selected parameter and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to keyframe animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Each parameter can have assigned different type of interpolation.&lt;/p&gt;&lt;p&gt;There is possible to edit animation by adding or modyfing key frames, and also directly in animation table.&lt;/p&gt;&lt;p&gt;Animation is stored in settings file in CSV format, so there is possible to edit animation in external tools (e.g speadsheet editor or text editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3484,7 +3484,7 @@ płaszcyzny i wody):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="14319"/>
         <source>frames per keyframe:</source>
-        <translation type="unfinished"></translation>
+        <translation>klatek na klatkę kluczową</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14760"/>

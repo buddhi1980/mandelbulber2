@@ -141,7 +141,7 @@ using namespace parameterContainer;
 	par->addParam("box_folding_limit", 1.0, morphLinear, paramStandard);
 	par->addParam("box_folding_value", 2.0, morphLinear, paramStandard);
 	par->addParam("spherical_folding", false, morphLinear, paramStandard);
-	par->addParam("spherical_folding_outher", 1.0, morphLinear, paramStandard);
+	par->addParam("spherical_folding_outer", 1.0, morphLinear, paramStandard);
 	par->addParam("spherical_folding_inner", 0.5, morphLinear, paramStandard);
 	par->addParam("c_add", -1.3, morphLinear, paramStandard);
 
