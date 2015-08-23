@@ -513,7 +513,7 @@ void cMorph::NearestNeighbourAngle(QList<double*> vals)
 		if(fabs(*vals[i] - *vals[i-1]) > 180.0)
 		{
 			// need to adjust next angle
-			deltacircle = *vals[i] < *vals[i-1] ? 1 : -1;
+			deltaCircle = *vals[i] < *vals[i-1] ? 1 : -1;
 			for(int j = i; j < vals.size(); j++)
 			{
 				*vals[j] += deltaCircle * 360.0;
