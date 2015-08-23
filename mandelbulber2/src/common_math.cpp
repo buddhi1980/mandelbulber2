@@ -194,7 +194,7 @@ double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, 
 
 //----------------------------------------
 
-//Smooth transistion between two vectors with vector length control
+//Smooth transition between two vectors with vector length control
 template <typename T>
 T SmoothCVector(const T &v1, const T &v2, double k)
 {

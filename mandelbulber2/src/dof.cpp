@@ -108,7 +108,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 					sizeCompare = size1 / size2;
 				}
 
-				if (sizeCompare > 0.9) //originaly was 0.7, but 0.9 will give better quality
+				if (sizeCompare > 0.9) //originally was 0.7, but 0.9 will give better quality
 				{
 					done = true;
 				}

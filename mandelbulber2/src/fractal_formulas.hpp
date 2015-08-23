@@ -53,10 +53,10 @@ struct sAexionAux
 
 
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
-void Mandelbulbulb2Iteration(CVector3 &z, sMandelbulbAux &aux);
-void Mandelbulbulb3Iteration(CVector3 &z, sMandelbulbAux &aux);
-void Mandelbulbulb4Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
-void MandelbulbulbPower2Iteration(CVector3 &z);
+void Mandelbulb2Iteration(CVector3 &z, sMandelbulbAux &aux);
+void Mandelbulb3Iteration(CVector3 &z, sMandelbulbAux &aux);
+void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
+void MandelbulbPower2Iteration(CVector3 &z);
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
 void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux);
 void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux);

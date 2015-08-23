@@ -11439,7 +11439,7 @@ to target:</string>
                    </widget>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QSlider" name="slider_spherical_folding_outher">
+                   <widget class="QSlider" name="slider_spherical_folding_outer">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                       <horstretch>0</horstretch>
@@ -11458,7 +11458,7 @@ to target:</string>
                    </widget>
                   </item>
                   <item row="0" column="2">
-                   <widget class="MyDoubleSpinBox" name="spinbox_spherical_folding_outher">
+                   <widget class="MyDoubleSpinBox" name="spinbox_spherical_folding_outer">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                       <horstretch>0</horstretch>

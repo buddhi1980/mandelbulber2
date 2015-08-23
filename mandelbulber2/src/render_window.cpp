@@ -1000,7 +1000,7 @@ void RenderWindow::slotChangedComboImageProportion(int index)
 {
 	bool enableSlider = false;
 	double ratio = 1.0;
-	enumImageProporton proportionSelection = (enumImageProporton)index;
+	enumImageProportion proportionSelection = (enumImageProportion)index;
 
 	switch(proportionSelection)
 	{
@@ -1045,7 +1045,7 @@ void RenderWindow::slotChangedComboImageProportion(int index)
 void RenderWindow::slotPressedResolutionPreset()
 {
 	int width = 0, height = 0;
-	enumImageProporton proportion = proportionFree;
+	enumImageProportion proportion = proportionFree;
 	QString buttonName = this->sender()->objectName();
 	if(buttonName == QString("pushButton_resolution_preset_480"))
 	{

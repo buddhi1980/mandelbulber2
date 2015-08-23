@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * CVector2, CVector3 and CMatrix33 classes - vector and matrix manimulation
+ * CVector2, CVector3 and CMatrix33 classes - vector and matrix manipulation
  *
  * Copyright (C) 2014 Krzysztof Marczak
  *

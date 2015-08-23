@@ -153,7 +153,7 @@ void cSSAOWorker::doWork()
 						}
 						else if (perspectiveType == params::perspEquirectangular)
 						{
-							xx2 = M_PI * (xx / width - 0.5) * aspectRatio; //--------- do sprawdzenia
+							xx2 = M_PI * (xx / width - 0.5) * aspectRatio;
 							yy2 = M_PI * (yy / height - 0.5);
 							xx2 = sin(fov * xx2) * cos(fov * yy2) * z2;
 							yy2 = sin(fov * yy2) * z2;

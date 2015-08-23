@@ -28,14 +28,14 @@
 cColorPalette::cColorPalette()
 {
 	palette.clear();
-	isIntialized = false;
+	isInitialized = false;
 	paletteSize = 0;
 }
 
 void cColorPalette::AppendColor(const sRGB &color)
 {
 	palette.append(color);
-	isIntialized = true;
+	isInitialized = true;
 	paletteSize = palette.size();
 }
 
@@ -73,34 +73,34 @@ cColorPalette::cColorPalette(int size, int randomSeed, double saturation)
 		palette.append(color);
 	}
 	paletteSize = palette.size();
-	isIntialized = true;
+	isInitialized = true;
 }
 
 sRGB cColorPalette::IndexToColour(int index) const
 {
 	sRGB colour(255, 255, 255);
-	if (isIntialized)
+	if (isInitialized)
 	{
 		double R1, R2, G1, G2, B1, B2;
 		double RK, GK, BK;
 
-		int kol, delta;
+		int col, delta;
 		if (index < 0)
 		{
 			colour = palette.last();
 		}
 		else
 		{
-			kol = (index / 256) % paletteSize;
-			int kolplus1 = (kol + 1) % paletteSize;
-			if (kol < paletteSize)
+			col = (index / 256) % paletteSize;
+			int colplus1 = (col + 1) % paletteSize;
+			if (col < paletteSize)
 			{
-				R1 = palette[kol].R;
-				G1 = palette[kol].G;
-				B1 = palette[kol].B;
-				R2 = palette[kolplus1].R;
-				G2 = palette[kolplus1].G;
-				B2 = palette[kolplus1].B;
+				R1 = palette[col].R;
+				G1 = palette[col].G;
+				B1 = palette[col].B;
+				R2 = palette[colplus1].R;
+				G2 = palette[colplus1].G;
+				B2 = palette[colplus1].B;
 				RK = (R2 - R1) / 256.0;
 				GK = (G2 - G1) / 256.0;
 				BK = (B2 - B1) / 256.0;
@@ -121,7 +121,7 @@ sRGB cColorPalette::IndexToColour(int index) const
 sRGB cColorPalette::GetColor(int index) const
 {
 	sRGB colour(255, 255, 255);
-	if (isIntialized)
+	if (isInitialized)
 	{
 		if(index >= 0 && index < paletteSize)
 		{

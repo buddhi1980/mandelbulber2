@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastain Jennen
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
  */
 
 #ifndef COLOR_STRUCTURES_HPP_
@@ -40,7 +40,7 @@ struct tsRGBA
 		tsRGBA(tsRGB<T> rgb) : R(rgb.R), G(rgb.G), B(rgb.B), A(0) {}
 };
 
-// explicitly define contructor for rgba with regards to max value of Opacity
+// explicitly define constructor for rgba with regards to max value of Opacity
 template <> inline tsRGBA<unsigned char>::tsRGBA(){R = 0; G = 0; B = 0, A = (unsigned char)255;}
 template <> inline tsRGBA<unsigned short>::tsRGBA(){R = 0; G = 0; B = 0, A = (unsigned short)65535;}
 template <> inline tsRGBA<float>::tsRGBA(){R = 0.0; G = 0.0; B = 0.0, A = 1.0;}

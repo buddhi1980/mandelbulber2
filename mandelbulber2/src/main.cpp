@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 	qRegisterMetaType<cFractalContainer>("cFractalContainer");
 	qRegisterMetaType<sTextures>("sTextures");
 
-	//Create default directiories and copy all needed files
+	//create default directories and copy all needed files
 	WriteLog("CreateDefaultFolders()");
 	if(!CreateDefaultFolders())
 	{

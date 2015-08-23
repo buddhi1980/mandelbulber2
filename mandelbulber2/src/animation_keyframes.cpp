@@ -187,7 +187,7 @@ void cKeyframeAnimation::PrepareTable()
 {
 	//manual delete of all cellWidgets
 	//FIXME deleting of cell widgets doesn't work properly. QTableWidgets don't free memory when clear() or removeCellWidget is used
-	//It calls destructors for cell widgets only wnen QTable widget is destroyed.
+	//It calls destructors for cell widgets only when QTable widget is destroyed.
 	//even if cThumbnailWidget destructors are called, there is still some copy of widget inside the table.
 
 //	for(int i = 1; i < table->columnCount(); i++)
@@ -480,7 +480,7 @@ void cKeyframeAnimation::RenderKeyframes()
 			if(mainInterface->stopRequest) break;
 			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, gPar, gParFractal);
 
-			//recalulation of camera rotation and distance (just for display purposes)
+			//recalculation of camera rotation and distance (just for display purposes)
 			CVector3 camera = gPar->Get<CVector3>("camera");
 			CVector3 target = gPar->Get<CVector3>("target");
 			CVector3 top = gPar->Get<CVector3>("camera_top");
@@ -569,7 +569,7 @@ void cKeyframeAnimation::RenderFrame(int index)
 	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	keyframes->GetFrameAndConsolidate(index, gPar, gParFractal);
 
-	//recalulation of camera rotation and distance (just for display purposes)
+	//recalculation of camera rotation and distance (just for display purposes)
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 top = gPar->Get<CVector3>("camera_top");
@@ -725,7 +725,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	using namespace parameterContainer;
 	enumVarType type = frame.parameters.GetVarType(parameterName);
 
-	bool valueIsInterer = false;
+	bool valueIsInteger = false;
 	bool valueIsDouble = false;
 	bool valueIsText = false;
 	int valueInteger = 0;
@@ -745,7 +745,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 		case typeInt:
 		case typeRgb:
 		{
-			valueIsInterer = true;
+			valueIsInteger = true;
 			valueInteger = cellText.toInt();
 			//qDebug() << valueInteger;
 			break;
@@ -766,22 +766,22 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 		}
 	}
 
-	int finallInteger = 0;
-	double finallDouble = 0.0;
+	int finalInteger = 0;
+	double finalDouble = 0.0;
 	double integerStep = 0.0;
 	double doubleStep = 0.0;
 
-	if(valueIsInterer)
+	if(valueIsInteger)
 	{
-		finallInteger = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame",
+		finalInteger = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame",
 				valueInteger, 0, 2147483647, 1, &ok);
-		integerStep = (double)(finallInteger - valueInteger) / numberOfFrames;
+		integerStep = (double)(finalInteger - valueInteger) / numberOfFrames;
 	}
 	else if(valueIsDouble)
 	{
-		finallDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
+		finalDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
 				QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
-		doubleStep = (finallDouble - valueDouble) / numberOfFrames;
+		doubleStep = (finalDouble - valueDouble) / numberOfFrames;
 	}
 
 	if(!ok) return;
@@ -789,7 +789,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	for(int i = column; i < lastFrame; i++)
 	{
 		QString newCellText;
-		if(valueIsInterer)
+		if(valueIsInteger)
 		{
 			int newValue = integerStep * i + valueInteger;
 			newCellText = QString::number(newValue);
@@ -887,7 +887,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	ui->pushButton_flight_refresh_table->animateClick();
 }
 
-//TODO needed to update limits when prames per key is changed
+//TODO needed to update limits when frames per key is changed
 void cKeyframeAnimation::UpdateLimitsForFrameRange(void)
 {
 	int framesPerKey = ui->spinboxInt_frames_per_keyframe->value();

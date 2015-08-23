@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastain Jennen
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
  */
 
 #include "interface.hpp"
@@ -1865,7 +1865,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		primitiveWidget->setObjectName(QString("widgetui_") + primitiveFullName);
 		layoutGroupBox->addWidget(primitiveWidget);
 
-		//put widget into layuot
+		//put widget into layout
 		QVBoxLayout *primitivesLayout = mainWindow->ui->verticalLayout_primitives;
 		primitivesLayout->addWidget(mainWidget);
 

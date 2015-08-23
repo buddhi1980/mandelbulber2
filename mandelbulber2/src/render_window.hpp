@@ -209,7 +209,7 @@ private:
 	QGamepad gamepad;
 #endif
 
-	enum enumImageProporton
+	enum enumImageProportion
 	{
 		proportionFree = 0,
 		proportion1_1 = 1,

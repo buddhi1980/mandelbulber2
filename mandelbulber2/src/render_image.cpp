@@ -166,8 +166,8 @@ bool cRenderer::RenderImage()
 				if (timerRefresh.elapsed() > lastRefreshTime && (scheduler->GetProgressivePass() > 1 || useNetRender))
 				{
 					timerRefresh.restart();
-					QSet<int> set_listTorefresh = listToRefresh.toSet(); //removing duplicates
-					listToRefresh = set_listTorefresh.toList();
+					QSet<int> set_listToRefresh = listToRefresh.toSet(); //removing duplicates
+					listToRefresh = set_listToRefresh.toList();
 					qSort(listToRefresh);
 					listToSend += listToRefresh;
 

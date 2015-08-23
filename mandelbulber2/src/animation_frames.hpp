@@ -35,7 +35,7 @@ public:
 	{
 		sAnimationFrame() : alreadyRendered(false) {};
 		cParameterContainer parameters;
-		QPixmap thumnail;
+		QPixmap thumbnail;
 		bool alreadyRendered;
 		QList<bool> alreadyRenderedSubFrames;
 	};

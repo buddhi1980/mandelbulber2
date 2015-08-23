@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * file opration functions
+ * file operation functions
  *
  * Copyright (C) 2014 Krzysztof Marczak
  *

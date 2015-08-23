@@ -161,7 +161,7 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux
 
 }
 
-void Mandelbulbulb2Iteration(CVector3 &z, sMandelbulbAux &aux)
+void Mandelbulb2Iteration(CVector3 &z, sMandelbulbAux &aux)
 {
 	double temp, tempR;
 	tempR = sqrt(z.x * z.x + z.y * z.y);
@@ -188,7 +188,7 @@ void Mandelbulbulb2Iteration(CVector3 &z, sMandelbulbAux &aux)
 	z = z * aux.r;
 }
 
-void Mandelbulbulb3Iteration(CVector3 &z, sMandelbulbAux &aux)
+void Mandelbulb3Iteration(CVector3 &z, sMandelbulbAux &aux)
 {
 	double temp, tempR;
 
@@ -214,7 +214,7 @@ void Mandelbulbulb3Iteration(CVector3 &z, sMandelbulbAux &aux)
 	z = z * aux.r;
 }
 
-void Mandelbulbulb4Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
+void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
 {
 	double rp = pow(aux.r, fractal->bulb.power - 1);
 
@@ -230,7 +230,7 @@ void Mandelbulbulb4Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAu
 	z = rotM.RotateVector(z) * rp;
 }
 
-void MandelbulbulbPower2Iteration(CVector3 &z)
+void MandelbulbPower2Iteration(CVector3 &z)
 {
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
@@ -1766,7 +1766,7 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelbo
 	{
 		b = solid;
 		c = L.Dot(Nv[i]);
-		// A bit subtile here. a_r must be positive and I want to avoid divide by zero.
+		// A bit subtle here. a_r must be positive and I want to avoid divide by zero.
 		if ((c > 0) && ((a * c) > b))
 		{
 			side = i;
@@ -1795,7 +1795,7 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelbo
 			{
 				b = solid - Y.Dot(Nv[i]);
 				c = L.Dot(Nv[i]);
-				// A bit subtile here. a_r must be positive and I want to avoid divide by zero.
+				// A bit subtle here. a_r must be positive and I want to avoid divide by zero.
 				if ((c > 0) && ((a * c) > b))
 				{
 					side = i;
@@ -1813,7 +1813,7 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelbo
 			// The axis of rotation is define by the cross product of Nv_m and Nv_r and
 			// the intersection of the line between Nv_m and Nv_r and  Xmr_intersect.
 			CVector3 L_r = Nv_m.Cross(Nv_r);
-			// The closest point betwee z and the line of rotation can be found by minimizing
+			// The closest point between z and the line of rotation can be found by minimizing
 			// the square of the distance (D) between z and the line
 			// X = Xmr_intersect + L_r * a_rmin.
 			// Setting dD/da_rmin equal to zero and solving for a_rmin.
@@ -1957,7 +1957,7 @@ void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor
 
 void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor, double &foldDE, double r)
 {
-	double fR2_2 = foldings->sphericalOuther * foldings->sphericalOuther;
+	double fR2_2 = foldings->sphericalOuter * foldings->sphericalOuter;
 	double mR2_2 = foldings->sphericalInner * foldings->sphericalInner;
 	double r2_2 = r * r;
 	double fold_factor1_2 = fR2_2 / mR2_2;

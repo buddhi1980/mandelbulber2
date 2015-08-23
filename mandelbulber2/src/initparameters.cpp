@@ -98,7 +98,7 @@ using namespace parameterContainer;
 		par->addParam("formula_weight", i, 1.0, 0.0, 1.0, morphAkima, paramStandard);
 	}
 
-	//bolean operators
+	//boolean operators
 	par->addParam("boolean_operators", false, morphLinear, paramStandard);
 	par->addParam("boolean_operator", 1, (int)params::booleanOperatorOR, morphLinear, paramStandard);
 	par->addParam("boolean_operator", 2, (int)params::booleanOperatorOR, morphLinear, paramStandard);

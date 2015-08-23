@@ -40,7 +40,7 @@ public:
 
 private:
 	QVector<sRGB> palette;
-	bool isIntialized;
+	bool isInitialized;
 	int paletteSize;
 };
 

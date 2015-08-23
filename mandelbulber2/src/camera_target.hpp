@@ -61,7 +61,7 @@ private:
 	CVector3 topVector;
 	CVector3 rightVector;
 
-	//probably should be implemented vector wich will indicate actual top direction!
+	//probably should be implemented vector which will indicate actual top direction!
 };
 
 

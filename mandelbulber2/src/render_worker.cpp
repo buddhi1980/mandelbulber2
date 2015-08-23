@@ -142,7 +142,7 @@ void cRenderWorker::doWork(void)
 
 			//raymarching loop (reflections)
 
-			if (!hemisphereCut) //in fulldome mode, will not render pixels out of the fuldome
+			if (!hemisphereCut) //in fulldome mode, will not render pixels out of the fulldome
 			{
 				sRayRecursionIn recursionIn;
 

@@ -118,7 +118,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 								}
 
 							}
-							else //if ouside 2nd
+							else //if outside of 2nd
 							{
 								if(in.detailSize * limit - distTemp > distance)
 								{
@@ -130,7 +130,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 								if(distance < 0) distance = 0;
 							}
 						}
-						else //if ouside 1st
+						else //if outside of 1st
 						{
 							//
 						}

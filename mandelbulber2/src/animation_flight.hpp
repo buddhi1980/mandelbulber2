@@ -61,7 +61,7 @@ private slots:
 	void slotIncreaseSpeed();
 	void slotDecreaseSpeed();
 	void slotFlightStrafe(CVector2<double> _strafe);
-	void slotFlightYawAndPitch(CVector2<double> _yawAndPtch);
+	void slotFlightYawAndPitch(CVector2<double> _yawAndPitch);
 	void slotFlightRotation(double direction);
 	void slotSelectAnimFlightImageDir();
 	void slotTableCellChanged(int row, int column);

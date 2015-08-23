@@ -27,9 +27,9 @@
 
 struct sFractalFoldings
 {
-	double boxLimit; //paramters of TGlad's folding
+	double boxLimit; //parameters of TGlad's folding
 	double boxValue;
-	double sphericalOuther;
+	double sphericalOuter;
 	double sphericalInner;
 	bool boxEnable;
 	bool sphericalEnable;

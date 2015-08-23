@@ -129,24 +129,24 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				case mandelbulb2:
 				{
 					bulbAux[sequence].r = r;
-					Mandelbulbulb2Iteration(z, bulbAux[sequence]);
+					Mandelbulb2Iteration(z, bulbAux[sequence]);
 					break;
 				}
 				case mandelbulb3:
 				{
 					bulbAux[sequence].r = r;
-					Mandelbulbulb3Iteration(z, bulbAux[sequence]);
+					Mandelbulb3Iteration(z, bulbAux[sequence]);
 					break;
 				}
 				case mandelbulb4:
 				{
 					bulbAux[sequence].r = r;
-					Mandelbulbulb4Iteration(z, fractal, bulbAux[sequence]);
+					Mandelbulb4Iteration(z, fractal, bulbAux[sequence]);
 					break;
 				}
 				case fast_mandelbulb_power2:
 				{
-					MandelbulbulbPower2Iteration(z);
+					MandelbulbPower2Iteration(z);
 					break;
 				}
 				case xenodreambuie:

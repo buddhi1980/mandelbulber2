@@ -504,8 +504,10 @@ double cMorph::AkimaInterpolate(const double factor, double v1, double v2, doubl
 void cMorph::NearestNeighbourAngle(QList<double*> vals)
 {
 	// modify angles, so that each successive value is not more than 180deg (absolute) away from last value
-	// two consecutive angles shall be not more than 360 degress apart
-	int deltacircle = 0;
+	// two consecutive angles shall be not more than 360 degrees apart
+	// TODO @sebastian: reduce complexity to O(n)
+
+	int deltaCircle = 0;
 	for(int i = 1; i < vals.size(); i++)
 	{
 		if(fabs(*vals[i] - *vals[i-1]) > 180.0)
@@ -514,7 +516,7 @@ void cMorph::NearestNeighbourAngle(QList<double*> vals)
 			deltacircle = *vals[i] < *vals[i-1] ? 1 : -1;
 			for(int j = i; j < vals.size(); j++)
 			{
-				*vals[j] += deltacircle * 360.0;
+				*vals[j] += deltaCircle * 360.0;
 			}
 		}
 	}
