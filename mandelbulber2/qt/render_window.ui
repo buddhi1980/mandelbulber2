@@ -593,16 +593,16 @@
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_increase_decrease">
                  <item>
-                  <widget class="QPushButton" name="pushButton_imagesize_increase">
+                  <widget class="QToolButton" name="pushButton_imagesize_increase">
                    <property name="text">
-                    <string>x2</string>
+                    <string>×2</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_imagesize_decrease">
+                  <widget class="QToolButton" name="pushButton_imagesize_decrease">
                    <property name="text">
-                    <string>:2</string>
+                    <string>÷2</string>
                    </property>
                   </widget>
                  </item>
