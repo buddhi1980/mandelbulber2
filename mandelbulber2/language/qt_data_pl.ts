@@ -1552,18 +1552,18 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/primitive_water.ui" line="136"/>
         <source>Wave speed (anim.):</source>
-        <translation>Prędkośc fali 
+        <translation>Prędkość fali 
 (animacja):</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_water.ui" line="233"/>
         <source>Wave amplitude:</source>
-        <translation>Aplituda fali:</translation>
+        <translation>Amplituda fali:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_water.ui" line="463"/>
         <source>Wave length:</source>
-        <translation>Długośc fali:</translation>
+        <translation>Długość fali:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_water.ui" line="470"/>
@@ -1584,7 +1584,7 @@ sferycznego:</translation>
     </message>
     <message>
         <source>Invert Y</source>
-        <translation>Odrwrócenie Y</translation>
+        <translation>Odwrócenie Y</translation>
     </message>
     <message>
         <source>Scale Z</source>
@@ -1635,7 +1635,7 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="119"/>
         <source>Positive Z component</source>
-        <translation>Doatnia składowa Z</translation>
+        <translation>Dodatnia składowa Z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2.ui" line="72"/>
