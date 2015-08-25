@@ -30,40 +30,28 @@ using namespace fractal;
 
 QString PrimitiveNames(enumObjectType primitiveType)
 {
-	QString name;
 	switch (primitiveType) {
 		case objPlane:
-			name = "plane";
-			break;
+			return "plane";
 		case objWater:
-			name = "water";
-			break;
+			return "water";
 		case objSphere:
-			name = "sphere";
-			break;
+			return "sphere";
 		case objBox:
-			name = "box";
-			break;
+			return "box";
 		case objRectangle:
-			name = "rectangle";
-			break;
+			return "rectangle";
 		case objCircle:
-			name = "circle";
-			break;
+			return "circle";
 		case objCone:
-			name = "cone";
-			break;
+			return "cone";
 		case objCylinder:
-			name = "cylinder";
-			break;
+			return "cylinder";
 		case objTorus:
-			name = "torus";
-			break;
-
+			return "torus";
 		default:
-			break;
+			return "";
 	}
-	return name;
 }
 
 enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
@@ -96,7 +84,6 @@ enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
 cPrimitives::cPrimitives(const cParameterContainer *par)
 {
 	WriteLog("cPrimitives::cPrimitives(const cParameterContainer *par) started");
-
 	isAnyPrimitive = false;
 
 	QList<QString> listOfParameters = par->GetListOfParameters();
@@ -295,15 +282,15 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 
 double cPrimitives::PrimitivePlane(CVector3 _point, const sPrimitivePlane &plane) const
 {
-	CVector3 relativePoint = _point - plane.position;
-	CVector3 point = plane.rotationMatrix.RotateVector(relativePoint);
+	CVector3 point = _point - plane.position;
+	point = plane.rotationMatrix.RotateVector(point);
 	double dist = point.z;
 	return plane.empty ? fabs(dist) : dist;
 }
 
 double cPrimitives::PrimitiveBox(CVector3 _point, const sPrimitiveBox &box) const
 {
-	CVector3 point = (_point - box.position);
+	CVector3 point = _point - box.position;
 	point = box.rotationMatrix.RotateVector(point);
 	point = point.mod(box.repeat);
 	if(box.empty)
@@ -326,15 +313,17 @@ double cPrimitives::PrimitiveBox(CVector3 _point, const sPrimitiveBox &box) cons
 
 double cPrimitives::PrimitiveSphere(CVector3 _point, const sPrimitiveSphere &sphere) const
 {
-	//TODO add rotation for repeat operator
-	double dist = (_point - sphere.position).mod(sphere.repeat ).Length() - sphere.radius;
+	CVector3 point = _point - sphere.position;
+	point = sphere.rotationMatrix.RotateVector(point);
+	point = point.mod(sphere.repeat);
+	double dist = point.Length() - sphere.radius;
 	return sphere.empty ? fabs(dist) : dist;
 }
 
 double cPrimitives::PrimitiveRectangle(CVector3 _point, const sPrimitiveRectangle &rectangle) const
 {
-	CVector3 relativePoint = _point - rectangle.position;
-	CVector3 point = rectangle.rotationMatrix.RotateVector(relativePoint);
+	CVector3 point = _point - rectangle.position;
+	point = rectangle.rotationMatrix.RotateVector(point);
 	CVector3 boxTemp;
 	boxTemp.x = max(fabs(point.x) - rectangle.width * 0.5, 0.0);
 	boxTemp.y = max(fabs(point.y) - rectangle.height * 0.5, 0.0);
@@ -344,30 +333,30 @@ double cPrimitives::PrimitiveRectangle(CVector3 _point, const sPrimitiveRectangl
 
 double cPrimitives::PrimitiveCylinder(CVector3 _point, const sPrimitiveCylinder &cylinder) const
 {
-	CVector3 point = (_point - cylinder.position);
+	CVector3 point = _point - cylinder.position;
 	point = cylinder.rotationMatrix.RotateVector(point);
 	point = point.mod(cylinder.repeat);
 
 	CVector2<double> cylTemp(point.x, point.y);
 	double dist = cylTemp.Length() - cylinder.radius;
 	if(!cylinder.caps) dist = fabs(dist);
-	dist = max(fabs(point.z) - cylinder.height*0.5, dist);
+	dist = max(fabs(point.z) - cylinder.height * 0.5, dist);
 	return cylinder.empty ? fabs(dist) : dist;
 }
 
 double cPrimitives::PrimitiveCircle(CVector3 _point, const sPrimitiveCircle &circle) const
 {
-	CVector3 relativePoint = _point - circle.position;
-	CVector3 point = circle.rotationMatrix.RotateVector(relativePoint);
-	CVector2<double> cylTemp(point.x, point.y);
-	double distTemp = cylTemp.Length() - circle.radius;
+	CVector3 point = _point - circle.position;
+	point = circle.rotationMatrix.RotateVector(point);
+	CVector2<double> circTemp(point.x, point.y);
+	double distTemp = circTemp.Length() - circle.radius;
 	distTemp = max(fabs(point.z), distTemp);
 	return distTemp;
 }
 
 double cPrimitives::PrimitiveCone(CVector3 _point, const sPrimitiveCone &cone) const
 {
-	CVector3 point = (_point - cone.position);
+	CVector3 point = _point - cone.position;
 	point = cone.rotationMatrix.RotateVector(point);
 	point = point.mod(cone.repeat);
 
@@ -384,8 +373,8 @@ double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water
 {
 	//TODO to use rendering technique from here: //https://www.shadertoy.com/view/Ms2SD1
 
-	CVector3 relativePoint = _point - water.position;
-	CVector3 point = water.rotationMatrix.RotateVector(relativePoint);
+	CVector3 point = _point - water.position;
+	point = water.rotationMatrix.RotateVector(point);
 
 	double planeDistance = point.z;
 	if(planeDistance < water.amplitude * 10.0)
@@ -417,7 +406,7 @@ double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water
 
 double cPrimitives::PrimitiveTorus(CVector3 _point, const sPrimitiveTorus &torus) const
 {
-	CVector3 point = (_point - torus.position);
+	CVector3 point = _point - torus.position;
 	point = torus.rotationMatrix.RotateVector(point);
 	point = point.mod(torus.repeat);
 
@@ -464,7 +453,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 				double distTemp = PrimitiveBox(point2, box);
 				if (distTemp < distance)
 				{
-					closestObject = objPlane;
+					closestObject = objBox;
 					color = box.color;
 					reflect = box.reflect;
 				}
@@ -480,7 +469,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 				double distTemp = PrimitiveRectangle(point2, rectangle);
 				if (distTemp < distance)
 				{
-					closestObject = objPlane;
+					closestObject = objRectangle;
 					color = rectangle.color;
 					reflect = rectangle.reflect;
 				}
@@ -496,7 +485,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 				double distTemp = PrimitiveSphere(point2, sphere);
 				if (distTemp < distance)
 				{
-					closestObject = objPlane;
+					closestObject = objSphere;
 					color = sphere.color;
 					reflect = sphere.reflect;
 				}
@@ -512,7 +501,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 				double distTemp = PrimitiveCylinder(point2, cylinder);
 				if (distTemp < distance)
 				{
-					closestObject = objPlane;
+					closestObject = objCylinder;
 					color = cylinder.color;
 					reflect = cylinder.reflect;
 				}
@@ -528,7 +517,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 				double distTemp = PrimitiveCircle(point2, circle);
 				if (distTemp < distance)
 				{
-					closestObject = objPlane;
+					closestObject = objCircle;
 					color = circle.color;
 					reflect = circle.reflect;
 				}
@@ -544,7 +533,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 				double distTemp = PrimitiveCone(point2, cone);
 				if (distTemp < distance)
 				{
-					closestObject = objPlane;
+					closestObject = objCone;
 					color = cone.color;
 					reflect = cone.reflect;
 				}
@@ -560,7 +549,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 				double distTemp = PrimitiveWater(point, water);
 				if (distTemp < distance)
 				{
-					closestObject = objPlane;
+					closestObject = objWater;
 					color = water.color;
 					reflect = water.reflect;
 				}
@@ -576,7 +565,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 				double distTemp = PrimitiveTorus(point2, torus);
 				if (distTemp < distance)
 				{
-					closestObject = objPlane;
+					closestObject = objTorus;
 					color = torus.color;
 					reflect = torus.reflect;
 				}

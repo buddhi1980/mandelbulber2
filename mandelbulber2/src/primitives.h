@@ -45,10 +45,9 @@ struct sPrimitiveItem
 	QString name;
 };
 
-struct sPrimitivePlane
+struct sPrimitiveBasic
 {
 	bool enable;
-	bool empty;
 	CVector3 position;
 	CVector3 rotation;
 	CRotationMatrix rotationMatrix;
@@ -56,124 +55,73 @@ struct sPrimitivePlane
 	sRGB color;
 };
 
-struct sPrimitiveBox
+struct sPrimitivePlane : sPrimitiveBasic
 {
-	bool enable;
 	bool empty;
-	CVector3 position;
+};
+
+struct sPrimitiveBox : sPrimitiveBasic
+{
+	bool empty;
 	CVector3 size;
 	double rounding;
-	double reflect;
-	CVector3 rotation;
-	CRotationMatrix rotationMatrix;
-	sRGB color;
 	CVector3 repeat;
 };
 
-struct sPrimitiveSphere
+struct sPrimitiveSphere : sPrimitiveBasic
 {
-	bool enable;
 	bool empty;
-	CVector3 position;
 	double radius;
-	double reflect;
-	CVector3 rotation;
-	CRotationMatrix rotationMatrix;
-	sRGB color;
 	CVector3 repeat;
 };
 
-struct sPrimitiveWater
+struct sPrimitiveWater : sPrimitiveBasic
 {
-	bool enable;
 	bool empty;
-	CVector3 position;
 	double amplitude;
 	double animSpeed;
 	double length;
-	double reflect;
-	CVector3 rotation;
-	CRotationMatrix rotationMatrix;
 	int iterations;
 	int animFrame;
-	sRGB color;
 };
 
-struct sPrimitiveCone
+struct sPrimitiveCone : sPrimitiveBasic
 {
-	bool enable;
 	bool empty;
 	bool caps;
-	CVector3 position;
 	double radius;
 	double height;
-	double reflect;
 	CVector2<double> wallNormal;
-	CVector3 rotation;
-	CRotationMatrix rotationMatrix;
-	sRGB color;
 	CVector3 repeat;
 };
 
-struct sPrimitiveCylinder
+struct sPrimitiveCylinder : sPrimitiveBasic
 {
-	bool enable;
 	bool empty;
 	bool caps;
-	CVector3 position;
 	double radius;
 	double height;
-	double reflect;
-	CVector3 rotation;
-	CRotationMatrix rotationMatrix;
-	sRGB color;
 	CVector3 repeat;
 };
 
-struct sPrimitiveCircle
+struct sPrimitiveTorus : sPrimitiveBasic
 {
-	bool enable;
-	CVector3 position;
-	double radius;
-	double reflect;
-	CVector3 rotation;
-	CRotationMatrix rotationMatrix;
-	sRGB color;
-};
-
-struct sPrimitiveRectangle
-{
-	bool enable;
-	CVector3 position;
-	double height;
-	double width;
-	double reflect;
-	CVector3 rotation;
-	CRotationMatrix rotationMatrix;
-	sRGB color;
-};
-
-struct sPrimitiveTorus
-{
-	bool enable;
 	bool empty;
-	CVector3 position;
 	double radius;
 	double tube_radius;
-	double reflect;
-	CVector3 rotation;
-	CRotationMatrix rotationMatrix;
-	sRGB color;
 	CVector3 repeat;
 };
 
+struct sPrimitiveCircle : sPrimitiveBasic
+{
+	double radius;
+};
 
-double PrimitivePlane(CVector3 point, CVector3 centre, CVector3 normal);
-double PrimitiveInvertedBox(CVector3 point, CVector3 center, CVector3 size);
-double PrimitiveBox(CVector3 point, CVector3 center, CVector3 size);
-double PrimitiveSphere(CVector3 point, CVector3 center, double radius);
-double PrimitiveInvertedSphere(CVector3 point, CVector3 center, double radius);
-double PrimitiveWater(CVector3 point, double height, double amplitude, double length, double rotation, int iterations, double animSpeed, int frame);
+struct sPrimitiveRectangle : sPrimitiveBasic
+{
+	double height;
+	double width;
+};
 
 QString PrimitiveNames(fractal::enumObjectType primitiveType);
 
