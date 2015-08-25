@@ -135,6 +135,7 @@ using namespace parameterContainer;
 	par->addParam("linear_DE_mode", false, morphLinear, paramStandard);
 	par->addParam("constant_DE_threshold", false, morphLinear, paramStandard);
 	par->addParam("hybrid_fractal_enable", false, morphNone, paramStandard);
+	par->addParam("bailout", 1e2, 1.0, 1e15, morphLinear, paramStandard);
 
 	//foldings
 	par->addParam("box_folding", false, morphLinear, paramStandard);

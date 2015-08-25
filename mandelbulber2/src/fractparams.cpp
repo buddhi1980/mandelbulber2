@@ -184,6 +184,7 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 	common.juliaMode = container->Get<bool>("julia_mode");
 	common.mRotFractalRotation.SetRotation2(common.fractalRotation / 180.0 * M_PI);
 	common.repeat = container->Get<CVector3>("repeat");
+	common.bailout = container->Get<double>("bailout");
 
 	//formula = Get<int>("tile_number");
 }

@@ -314,7 +314,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		//escape conditions
 		if (Mode == calcModeNormal)
 		{
-			if (r > 1e2)
+			if (r > in.common.bailout)
 			{
 				out->maxiter = false;
 				break;
@@ -322,7 +322,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		}
 		else if (Mode == calcModeDeltaDE1)
 		{
-			if (r > 1e10)
+			if (r > in.common.bailout)
 			{
 				out->maxiter = false;
 				break;
