@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="pl">
+<TS version="2.0" language="pl">
 <context>
     <name>Form</name>
     <message>
@@ -90,7 +90,7 @@
     </message>
     <message>
         <source>Octahedron / Cube</source>
-        <translation type="vanished">Ośmiościan / Sześcian</translation>
+        <translation>Ośmiościan / Sześcian</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="93"/>
@@ -149,12 +149,12 @@
         <location filename="../qt_data/fractal_ifs.ui" line="5181"/>
         <location filename="../qt_data/fractal_ifs.ui" line="5233"/>
         <source>alpha:</source>
-        <translation type="unfinished"></translation>
+        <translation>alfa:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1169"/>
         <source>#4</source>
-        <translation type="unfinished"></translation>
+        <translation>#4</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1308"/>
@@ -167,7 +167,7 @@
         <location filename="../qt_data/fractal_ifs.ui" line="4995"/>
         <location filename="../qt_data/fractal_ifs.ui" line="5447"/>
         <source>gamma:</source>
-        <translation type="unfinished"></translation>
+        <translation>gamma:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1434"/>
@@ -180,32 +180,32 @@
         <location filename="../qt_data/fractal_ifs.ui" line="4923"/>
         <location filename="../qt_data/fractal_ifs.ui" line="5223"/>
         <source>beta:</source>
-        <translation type="unfinished"></translation>
+        <translation>beta:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="1631"/>
         <source>#3</source>
-        <translation type="unfinished"></translation>
+        <translation>#3</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3938"/>
         <source>#8</source>
-        <translation type="unfinished"></translation>
+        <translation>#8</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3973"/>
         <source>#6</source>
-        <translation type="unfinished"></translation>
+        <translation>#6</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="4448"/>
         <source>#2</source>
-        <translation type="unfinished"></translation>
+        <translation>#2</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="5086"/>
         <source>#5</source>
-        <translation type="unfinished"></translation>
+        <translation>#5</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="336"/>
@@ -220,20 +220,20 @@
         <location filename="../qt_data/fractal_ifs.ui" line="2331"/>
         <location filename="../qt_data/fractal_ifs.ui" line="2423"/>
         <location filename="../qt_data/fractal_ifs.ui" line="2732"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1774"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2141"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4105"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4393"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1789"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2159"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4138"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4429"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="334"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1692"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3227"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5558"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5849"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="861"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="811"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2464"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2838"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4239"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4508"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5694"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5963"/>
         <location filename="../qt_data/primitive_box.ui" line="292"/>
         <location filename="../qt_data/primitive_box.ui" line="488"/>
         <location filename="../qt_data/primitive_circle.ui" line="98"/>
@@ -264,20 +264,20 @@
         <location filename="../qt_data/fractal_ifs.ui" line="2976"/>
         <location filename="../qt_data/fractal_ifs.ui" line="3530"/>
         <location filename="../qt_data/fractal_ifs.ui" line="4528"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1732"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2167"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4063"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4448"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1747"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2185"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4096"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4484"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="110"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1650"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3234"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5516"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5904"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="854"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="782"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2422"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2831"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4197"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4582"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5652"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6037"/>
         <location filename="../qt_data/primitive_box.ui" line="164"/>
         <location filename="../qt_data/primitive_box.ui" line="478"/>
         <location filename="../qt_data/primitive_circle.ui" line="229"/>
@@ -298,17 +298,17 @@
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="88"/>
         <source>OctCube</source>
-        <translation type="unfinished"></translation>
+        <translation>OctCube</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="98"/>
         <source>Box6</source>
-        <translation type="unfinished"></translation>
+        <translation>Sześcian 6</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="103"/>
         <source>Box5</source>
-        <translation type="unfinished"></translation>
+        <translation>Sześcian 5</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="177"/>
@@ -323,10 +323,10 @@
         <location filename="../qt_data/fractal_ifs.ui" line="4284"/>
         <location filename="../qt_data/fractal_ifs.ui" line="4397"/>
         <location filename="../qt_data/fractal_ifs.ui" line="4502"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1767"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2115"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4098"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4400"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1782"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2133"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4131"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4436"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="126"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1685"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3163"/>
@@ -335,8 +335,8 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="703"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2457"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2805"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4232"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4534"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5687"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5989"/>
         <location filename="../qt_data/primitive_box.ui" line="312"/>
         <location filename="../qt_data/primitive_box.ui" line="461"/>
         <location filename="../qt_data/primitive_circle.ui" line="239"/>
@@ -384,9 +384,9 @@
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="659"/>
         <location filename="../qt_data/fractal_ifs.ui" line="543"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="851"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3780"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4656"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="860"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3810"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4695"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="608"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="940"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="973"/>
@@ -398,8 +398,8 @@
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3903"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5237"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1022"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4835"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5804"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4039"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5211"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="459"/>
         <source>beta</source>
         <translation>beta</translation>
@@ -407,9 +407,9 @@
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="697"/>
         <location filename="../qt_data/fractal_ifs.ui" line="581"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="861"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3790"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4666"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="870"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3820"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4705"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="646"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="930"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1056"/>
@@ -421,8 +421,8 @@
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3913"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5247"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1032"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4845"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5814"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4049"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5221"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="497"/>
         <source>alpha</source>
         <translation>alfa</translation>
@@ -430,9 +430,9 @@
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="720"/>
         <location filename="../qt_data/fractal_ifs.ui" line="604"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="841"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3770"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4646"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="850"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3800"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4685"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="669"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="950"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="1092"/>
@@ -444,8 +444,8 @@
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3893"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5227"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1012"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4825"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5794"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4029"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5201"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="520"/>
         <source>gamma</source>
         <translation>gamma</translation>
@@ -481,7 +481,7 @@
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2369"/>
         <source>#1</source>
-        <translation type="unfinished"></translation>
+        <translation>#1</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2859"/>
@@ -509,12 +509,12 @@
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="2885"/>
         <source>#9</source>
-        <translation type="unfinished"></translation>
+        <translation>#9</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3053"/>
         <source>#7</source>
-        <translation type="unfinished"></translation>
+        <translation>#7</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_ifs.ui" line="3762"/>
@@ -522,28 +522,27 @@
         <translation>Obrót</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="38"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2966"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2987"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="38"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6473"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="38"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4990"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4562"/>
         <source>Enable Box Fold;</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie sześcienne</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="67"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="398"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="742"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1081"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1689"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2021"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2234"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3721"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3961"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4340"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4593"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4833"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="404"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="748"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1090"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1701"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2039"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2252"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3748"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3991"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4376"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4632"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4872"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="74"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="346"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="714"/>
@@ -567,25 +566,30 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="2379"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2711"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2969"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3727"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4095"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4474"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4776"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5741"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5981"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3980"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4220"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5148"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5550"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5929"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6187"/>
         <source>Start at iteration :</source>
-        <translation type="unfinished"></translation>
+        <translation>Start na iteracji :</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="38"/>
+        <source>Box fold</source>
+        <translation>Zawijanie sześcienne</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="87"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="352"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="613"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="794"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1074"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1682"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2008"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2287"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5620"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="358"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="619"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="803"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1083"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1694"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2026"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2305"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5668"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="94"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="398"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="707"/>
@@ -605,42 +609,42 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="2372"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2698"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="3022"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6768"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7180"/>
         <source>Copy ONE</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopia 1</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="135"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1960"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3045"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4333"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="138"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1975"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3066"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4369"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="142"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3028"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5809"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6545"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="135"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2650"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4467"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5069"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4641"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5922"/>
         <source>Stop at Iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop na iteracji:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="155"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="405"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="827"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1110"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1718"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2041"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2294"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2992"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3337"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3681"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4049"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4360"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4550"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4893"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5591"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="158"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="411"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="836"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1122"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1733"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2059"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2312"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3013"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3364"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3708"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4082"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4396"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4586"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4932"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5636"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="67"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="431"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="654"/>
@@ -664,52 +668,52 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="2408"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2731"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="3029"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3815"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4183"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4494"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4736"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5016"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5361"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5698"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6041"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6739"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3940"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4308"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4588"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4933"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5105"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5638"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5949"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6247"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7151"/>
         <source>Enable weight:</source>
-        <translation type="unfinished"></translation>
+        <translation>Użyj wagi:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="232"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3163"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="235"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3187"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="61"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="232"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6686"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="232"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5187"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4759"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="61"/>
         <source>Box folding value:</source>
         <translation>Wartość zawijania 
 sześciennego:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="288"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3226"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="291"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3250"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="288"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5250"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4822"/>
         <source>Enable Spherical Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawijanie sferyczne</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="359"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="620"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="774"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1041"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1649"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2267"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3317"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3552"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3688"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4000"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4557"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4866"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="365"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="626"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="783"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1050"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1661"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2285"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3344"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3579"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3715"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4030"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4593"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4905"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="378"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="674"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1325"/>
@@ -730,106 +734,106 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1994"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2339"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="3002"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3766"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4134"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4743"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5341"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5576"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5705"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6014"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3947"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4259"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4913"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5112"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5428"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5589"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6220"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatrzymaj na iteracji:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="419"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3464"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="425"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3491"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="419"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5488"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5060"/>
         <source>Fixed Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stały promień:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="426"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3401"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="432"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3428"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="426"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5425"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4997"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksymalny promień:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="551"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3483"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="557"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3510"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="551"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5507"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5359"/>
         <source>Enable Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="593"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3006"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3268"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3525"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="599"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3027"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3292"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3552"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1298"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4878"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="593"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5030"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5292"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5549"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4602"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4864"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5401"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Start na iteracji:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="675"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3607"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5631"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="681"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3634"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5483"/>
         <source>Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="716"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="722"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="320"/>
         <source>Enable Main Rotation;</source>
-        <translation type="unfinished"></translation>
+        <translation>Główna rotacja</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="999"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1008"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="603"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1170"/>
         <source>Enable z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C; </source>
-        <translation type="unfinished"></translation>
+        <translation>funkcja z = ( fabs( z + const.A ) * const.B ) + z * const.C; </translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1124"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2738"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5323"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1136"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2759"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5365"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="742"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2849"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4535"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1361"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3473"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6471"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3499"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6677"/>
         <source>Cx:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cx:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1131"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2461"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5024"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1143"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2482"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5066"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="749"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2002"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2496"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3400"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4243"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1368"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3196"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6172"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3241"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6400"/>
         <source>Bz:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bz:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1179"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2468"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5031"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1191"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2489"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5073"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="797"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2038"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2539"/>
@@ -837,15 +841,15 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4250"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6326"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1394"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3203"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6179"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3248"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6407"/>
         <source>Ay:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ay:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1233"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2435"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5010"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1245"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2456"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5052"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="804"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2162"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2572"/>
@@ -853,15 +857,15 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4229"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6319"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1759"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3170"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6158"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3736"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6374"/>
         <source>Az:</source>
-        <translation type="unfinished"></translation>
+        <translation>Az:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1240"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2475"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5038"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1252"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2496"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5080"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="836"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2086"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2546"/>
@@ -869,15 +873,12 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4794"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6108"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1426"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3210"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6186"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3274"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6414"/>
         <source>Ax:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ax:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1247"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1273"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1302"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="865"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="872"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="898"/>
@@ -892,12 +893,27 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1510"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1766"/>
         <source>Enable fabs</source>
-        <translation type="unfinished"></translation>
+        <translation>fabs</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1331"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2428"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5017"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1259"/>
+        <source>fabs Y</source>
+        <translation>fabs Y</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1285"/>
+        <source>fabs Z</source>
+        <translation>fabs Z</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1314"/>
+        <source>fabs X</source>
+        <translation>fabs X</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1343"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2449"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5059"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="728"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2009"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2489"/>
@@ -905,15 +921,15 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4236"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6287"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1517"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3163"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6165"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3212"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6367"/>
         <source>Bx:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bx:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1426"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2373"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4936"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1438"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2394"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4978"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="735"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2093"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2503"/>
@@ -921,72 +937,72 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4162"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6352"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1612"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3108"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6084"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3179"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6312"/>
         <source>By:</source>
-        <translation type="unfinished"></translation>
+        <translation>By:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1452"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2818"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5422"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1464"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2839"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5464"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1056"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2813"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4634"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1660"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3553"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6570"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3579"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6779"/>
         <source>Cz:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cz:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1459"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2811"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5396"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1471"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2832"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5438"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1063"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2842"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4608"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1667"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3546"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6544"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3550"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6750"/>
         <source>Cy:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cy:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1607"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1619"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1525"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2297"/>
         <source>Enable z =  z +  ( c * const. ); </source>
-        <translation type="unfinished"></translation>
+        <translation>z =  z +  ( c * const. ); </translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="1915"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="1930"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2963"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2605"/>
         <source>Enable z = z + ( const.); </source>
-        <translation type="unfinished"></translation>
+        <translation>z = z + ( const.); </translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2205"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4804"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2223"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4843"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2940"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5952"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6158"/>
         <source>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D); </source>
-        <translation type="unfinished"></translation>
+        <translation>z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D); </translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2330"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2337"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2366"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2399"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2652"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2947"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4929"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4962"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5237"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5532"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5539"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5546"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2351"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2358"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2387"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2420"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2673"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2968"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4971"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5004"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5279"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5574"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5581"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5588"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3516"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3542"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3571"/>
@@ -999,137 +1015,141 @@ sześciennego:</translation>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6115"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6166"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6381"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3065"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="3072"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3101"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3134"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3387"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3682"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6077"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6110"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6385"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6680"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6687"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6694"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3136"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3143"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3172"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3186"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3391"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3708"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3715"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6305"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6338"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6591"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6915"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6922"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6929"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6996"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7024"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącz</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2866"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5451"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2887"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5493"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4663"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3601"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6599"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3627"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6834"/>
         <source>Dz:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dz:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2873"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5458"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2894"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5500"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4677"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3608"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6606"/>
-        <source>Dx:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2899"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5484"/>
-        <location filename="../qt_data/fractal_mandelbulb5.ui" line="4703"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="3634"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6632"/>
-        <source>Dy:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6841"/>
+        <source>Dx:</source>
+        <translation>Dx:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="2999"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3310"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3545"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3674"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4007"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4294"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4886"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="2920"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5526"/>
+        <location filename="../qt_data/fractal_mandelbulb5.ui" line="4703"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3660"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6867"/>
+        <source>Dy:</source>
+        <translation>Dy:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3020"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3337"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3572"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3701"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4037"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4330"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4925"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3769"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4898"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5467"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5770"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6059"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6499"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3773"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4141"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4428"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4729"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5023"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5334"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5569"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6034"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3933"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4266"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4595"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4906"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5421"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5596"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5883"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6240"/>
         <source>Copy TWO</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopia 2</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3648"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4524"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3675"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4560"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3743"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5105"/>
         <source>Enable Main Rotation; </source>
-        <translation type="unfinished"></translation>
+        <translation>Główna rotacja</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3935"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3965"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5385"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4069"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5524"/>
         <source>Enable z =  z + c * const.; </source>
-        <translation type="unfinished"></translation>
+        <translation>z =  z + c * const.; </translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4246"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4279"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5699"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4380"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5835"/>
         <source>Enable z = z + const.;</source>
-        <translation type="unfinished"></translation>
+        <translation>z = z + const.;</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="4564"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="4600"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5145"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5712"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5119"/>
         <source>Copy THREE</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopia 3</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5565"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6713"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5607"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7125"/>
         <source>Enable Iteration Weight.;  z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);</source>
-        <translation type="unfinished"></translation>
+        <translation>Enable Iteration Weight.;  z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5797"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6945"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5845"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7357"/>
         <source>zA after itr.:</source>
-        <translation type="unfinished"></translation>
+        <translation>zA po itr.:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5804"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6952"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5852"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7364"/>
         <source>Constant Z:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stała Z:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5811"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6959"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5859"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7371"/>
         <source>Constant A:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stała A:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5837"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="6985"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5885"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7397"/>
         <source>zB after itr.:</source>
-        <translation type="unfinished"></translation>
+        <translation>zB po itr.:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="5857"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="7005"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="5905"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7417"/>
         <source>Constant B:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stała B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="139"/>
@@ -1141,13 +1161,13 @@ fixed radius:</source>
 zawijania sferycznego:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="225"/>
-        <location filename="../qt_data/fractal_mandelbox103.ui" line="3128"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="228"/>
+        <location filename="../qt_data/fractal_mandelbox103.ui" line="3152"/>
         <location filename="../qt_data/fractal_mandelbox.ui" line="136"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="225"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6651"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="225"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5152"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4724"/>
         <location filename="../qt_data/fractal_smooth_mandelbox.ui" line="186"/>
         <source>Box folding limit:</source>
         <translation>Granica zawijania
@@ -1207,17 +1227,17 @@ sferycznego:</translation>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="484"/>
         <source>Solid:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stały:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="491"/>
         <source>Box type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ bryły:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="498"/>
         <source>Melt:</source>
-        <translation type="unfinished"></translation>
+        <translation>Roztopiony:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="791"/>
@@ -1277,7 +1297,7 @@ sferycznego:</translation>
     </message>
     <message>
         <source>Generalized FoldBox Type</source>
-        <translation type="vanished">Typ Generalized FoldBox</translation>
+        <translation>Typ Generalized FoldBox</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="68"/>
@@ -1291,11 +1311,11 @@ sferycznego:</translation>
     </message>
     <message>
         <source>Box 6</source>
-        <translation type="vanished">Sześcian 6</translation>
+        <translation>Sześcian 6</translation>
     </message>
     <message>
         <source>Box 5</source>
-        <translation type="vanished">Sześcian 5</translation>
+        <translation>Sześcian 5</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox_vary_scale_4d.ui" line="61"/>
@@ -1434,6 +1454,7 @@ sferycznego:</translation>
     </message>
     <message>
         <location filename="../qt_data/primitive_box.ui" line="377"/>
+        <location filename="../qt_data/primitive_rectangle.ui" line="342"/>
         <source>depth (y):</source>
         <translation>głębokość (y):</translation>
     </message>
@@ -1510,7 +1531,6 @@ sferycznego:</translation>
         <translation>Zakończenia</translation>
     </message>
     <message>
-        <location filename="../qt_data/primitive_rectangle.ui" line="342"/>
         <source>height (y):</source>
         <translation>wysokość (z):</translation>
     </message>
@@ -1552,75 +1572,75 @@ sferycznego:</translation>
     </message>
     <message>
         <source>Scale X</source>
-        <translation type="vanished">Skala X</translation>
+        <translation>Skala X</translation>
     </message>
     <message>
         <source>Invert Z</source>
-        <translation type="vanished">Odwrócenie Z</translation>
+        <translation>Odwrócenie Z</translation>
     </message>
     <message>
         <source>Invert X</source>
-        <translation type="vanished">Odwrócenie X</translation>
+        <translation>Odwrócenie X</translation>
     </message>
     <message>
         <source>Invert Y</source>
-        <translation type="vanished">Odrwrócenie Y</translation>
+        <translation>Odrwrócenie Y</translation>
     </message>
     <message>
         <source>Scale Z</source>
-        <translation type="vanished">Skala Z</translation>
+        <translation>Skala Z</translation>
     </message>
     <message>
         <source>Scale Y</source>
-        <translation type="vanished">Skala Y</translation>
+        <translation>Skala Y</translation>
     </message>
     <message>
         <source>Offset X</source>
-        <translation type="vanished">Przesunięcie X</translation>
+        <translation>Przesunięcie X</translation>
     </message>
     <message>
         <source>Offset Y</source>
-        <translation type="vanished">Przesunięcie Y</translation>
+        <translation>Przesunięcie Y</translation>
     </message>
     <message>
         <source>Offset Z</source>
-        <translation type="vanished">Przesunięcie Z</translation>
+        <translation>Przesunięcie Z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="41"/>
         <location filename="../qt_data/fractal_buffalo.ui" line="67"/>
         <source>PreAbs(x)</source>
-        <translation type="unfinished"></translation>
+        <translation>PreAbs(x)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="54"/>
         <source>PreAbs(y)</source>
-        <translation type="unfinished"></translation>
+        <translation>PreAbs(y)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="80"/>
         <source>Abs(x)</source>
-        <translation type="unfinished"></translation>
+        <translation>Abs(x)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="93"/>
         <source>Abs(y)</source>
-        <translation type="unfinished"></translation>
+        <translation>Abs(y)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="106"/>
         <source>Abs(z)</source>
-        <translation type="unfinished"></translation>
+        <translation>Abs(z)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_buffalo.ui" line="119"/>
         <source>Positive Z component</source>
-        <translation type="unfinished"></translation>
+        <translation>Doatnia składowa Z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_msltoesym2.ui" line="72"/>
         <source>Y scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala Y:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="308"/>
@@ -1632,110 +1652,122 @@ sferycznego:</translation>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6454"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6768"/>
         <source>Enable old weight:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stara waga:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1243"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4823"/>
         <source>Enable MANDELBULB FORMULA</source>
-        <translation type="unfinished"></translation>
+        <translation>WZÓR MANDELBULB</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1833"/>
         <source>Enable z =  - fabs( z - const.A )   *  const.B; </source>
-        <translation type="unfinished"></translation>
+        <translation>z =  - fabs( z - const.A )   *  const.B; </translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2323"/>
         <source>Enable  z =  fabs( z + const.A )  +  ( z  * const.B )  +  const.C ;</source>
-        <translation type="unfinished"></translation>
+        <translation>z =  fabs( z + const.A )  +  ( z  * const.B )  +  const.C ;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3253"/>
         <source>Enable z = fabs( z + const.A) - fabs( z - const.B ) - z; </source>
-        <translation type="unfinished"></translation>
+        <translation>z = fabs( z + const.A) - fabs( z - const.B ) - z; </translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4030"/>
         <source>Enable  z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.D ); </source>
-        <translation type="unfinished"></translation>
+        <translation>z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.D ); </translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5980"/>
         <source>Enable z = fabs( z + const.A ) - fabs( z - const.B ) - z; </source>
-        <translation type="unfinished"></translation>
+        <translation>z = fabs( z + const.A ) - fabs( z - const.B ) - z; </translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6220"/>
         <source>B:</source>
-        <translation type="unfinished"></translation>
+        <translation>B:</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="868"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="818"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2921"/>
         <source>w:</source>
-        <translation type="unfinished"></translation>
+        <translation>w:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="887"/>
         <source>Enable Main 3D Rotation;</source>
-        <translation type="unfinished"></translation>
+        <translation>Główna rotacja;</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1773"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3722"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7017"/>
         <source>Aw:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aw:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1821"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3729"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7003"/>
         <source>Bw:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bw:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1910"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3065"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="7010"/>
         <source>Cw:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cw:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1929"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3701"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4194"/>
         <source>MAIN FORMULA Quaternion; </source>
-        <translation type="unfinished"></translation>
+        <translation>Główny wzór QUATERNION</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2057"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3829"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4322"/>
         <source>z.y factor</source>
-        <translation type="unfinished"></translation>
+        <translation>współczynnik z.y</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2092"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3864"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4357"/>
         <source>z.x factor:</source>
-        <translation type="unfinished"></translation>
+        <translation>współczynnik z.x:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2099"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="3871"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4364"/>
         <source>z.z factor</source>
-        <translation type="unfinished"></translation>
+        <translation>współczynnik z.z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2228"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4000"/>
-        <source>w factor</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="4443"/>
+        <source>z.w factor</source>
+        <translation>współczynnik z.w</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4665"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3847"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6827"/>
+        <source>Dw:</source>
+        <translation>Dw:</translation>
+    </message>
+    <message>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="6120"/>
         <source>w</source>
-        <translation type="unfinished"></translation>
+        <translation>w</translation>
     </message>
     <message>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="4703"/>
-        <location filename="../qt_data/fractal_quaternion104.ui" line="5672"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="3907"/>
+        <location filename="../qt_data/fractal_quaternion104.ui" line="5079"/>
         <source>Enable Main 3D Rotation; </source>
-        <translation type="unfinished"></translation>
+        <translation>Główna rotacja</translation>
     </message>
 </context>
 </TS>

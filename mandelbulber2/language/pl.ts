@@ -1739,6 +1739,16 @@ kamery od celu:</translation>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Przerwanie renderowania&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
+        <location filename="../qt/render_window.ui" line="598"/>
+        <source>×2</source>
+        <translation>×2</translation>
+    </message>
+    <message>
+        <location filename="../qt/render_window.ui" line="605"/>
+        <source>÷2</source>
+        <translation>÷2</translation>
+    </message>
+    <message>
         <location filename="../qt/render_window.ui" line="1664"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;These parameters and gauges controls position of camera and point where the camera is looking at (target)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/Camera target.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Te parametry i przyciski kontrolują pozycję kamery i punktu, na który kamera spogląda, zwanego celem&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/Camera target.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -3067,12 +3077,10 @@ płaszcyzny i wody):</translation>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tym przyciskiem można podwoić rozdzielczośc obrazu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="598"/>
         <source>x2</source>
         <translation>x2</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="605"/>
         <source>:2</source>
         <translation>:2</translation>
     </message>
@@ -4074,7 +4082,8 @@ animacji lotu</translation>
         <location filename="../src/rendered_image_widget.cpp" line="127"/>
         <source>
 Mouse wheel - light fov / bkw</source>
-        <translation>Rolka myszy - światło przód / tył</translation>
+        <translation>
+Rolka myszy - światło przód / tył</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="130"/>
@@ -4198,7 +4207,7 @@ spacja - pauza</translation>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="162"/>
         <source>System Look and Feel</source>
-        <translation>Wygląd programu:</translation>
+        <translation>Wygląd programu</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="189"/>
@@ -4255,7 +4264,7 @@ spacja - pauza</translation>
         <source>These settings affect &quot;Save as JPG/PNG/EXR&quot; actions
  and saving animation frames.</source>
         <translation>Te ustawienia mają wpływ na funkcje &quot;Zapisz jako JPG/PNG/EXR&quot;
-oraz zapis klatek animacji</translation>
+oraz zapis klatek animacji.</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="297"/>
@@ -4344,22 +4353,22 @@ oraz zapis klatek animacji</translation>
     <message>
         <location filename="../src/system.cpp" line="458"/>
         <source>Start program without GUI.</source>
-        <translation>Start programu bez graficznego interfejsu użytkownika</translation>
+        <translation>Start programu bez graficznego interfejsu użytkownika.</translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="460"/>
         <source>Set &lt;Mode&gt; of animation (flight / keyframe), default is flight.</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="461"/>
         <source>MODE</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="463"/>
         <source>Start rendering from frame number &lt;N&gt;.</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="464"/>
@@ -4367,22 +4376,22 @@ oraz zapis klatek animacji</translation>
         <location filename="../src/system.cpp" line="483"/>
         <location filename="../src/system.cpp" line="490"/>
         <source>N</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="466"/>
         <source>Stop rendering on frame number &lt;N&gt;.</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="469"/>
         <source>Override item &apos;&lt;key&gt;&apos; from settings file with new value &apos;&lt;value&gt;&apos;.</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="470"/>
         <source>KEY=VALUE</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="472"/>
@@ -4391,49 +4400,49 @@ jpg - JPEG format
 png - PNG format
 png16 - 16-bit PNG format
 png16alpha - 16-bit PNG with alpha channel format</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="477"/>
         <source>FORMAT</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="479"/>
         <source>Override image resolution.</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="480"/>
         <source>WIDTHxHEIGHT</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="482"/>
         <source>Override frames per key parameter.</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="485"/>
         <source>Set application as a client connected to server of given Host address(Host can be of type IPv4, IPv6 and Domain name address).</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="487"/>
         <source>N.N.N.N</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="489"/>
         <source>Set network port number for Netrender (default 5555).</source>
-        <translation></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../src/system.cpp" line="491"/>
         <source>file with fractal settings (program also tries
 to find file in ./mandelbulber/settings directory)
 When settings_file is put as command argument then program will start in noGUI mode</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
