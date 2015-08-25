@@ -37,8 +37,8 @@ using namespace parameterContainer;
 	WriteLog("Parameters initialization started: " + par->GetContainerName());
 
 	//image
-	par->addParam("image_width", 800, 32, 1000000, morphNone, paramStandard);
-	par->addParam("image_height", 600, 32, 1000000, morphNone, paramStandard);
+	par->addParam("image_width", 800, 32, 65535, morphNone, paramStandard);
+	par->addParam("image_height", 600, 32, 65535, morphNone, paramStandard);
 	par->addParam("tiles", 1, 1, 64, morphNone, paramStandard);
 	par->addParam("tile_number", 0, morphNone, paramStandard);
 	par->addParam("image_proportion", 0, morphNone, paramNoSave);

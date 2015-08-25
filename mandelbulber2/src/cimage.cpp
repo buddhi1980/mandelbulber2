@@ -62,22 +62,7 @@ cImage::cImage(int w, int h, bool low_mem)
 
 cImage::~cImage()
 {
-	if(imageFloat) delete[] imageFloat;
-	imageFloat = NULL;
-	if(image16) delete[] image16;
-	image16 = NULL;
-	if(image8) delete[] image8;
-	image8 = NULL;
-	if(alphaBuffer8) delete[] alphaBuffer8;
-	alphaBuffer8 = NULL;
-	if(alphaBuffer16) delete[] alphaBuffer16;
-	alphaBuffer16 = NULL;
-	if(opacityBuffer) delete[] opacityBuffer;
-	opacityBuffer = NULL;
-	if(colourBuffer) delete[] colourBuffer;
-	colourBuffer = NULL;
-	if(zBuffer) delete[] zBuffer;
-	zBuffer = NULL;
+	FreeImage();
 	if(gammaTable) delete[] gammaTable;
 	gammaTable = NULL;
 	if (previewAllocated)
@@ -107,7 +92,10 @@ bool cImage::AllocMem(void)
 		}
 		catch (std::bad_alloc& ba)
 		{
-			std::cerr << "bad_alloc caught: " << ba.what() << std::endl;
+			width = 0;
+			height = 0;
+			FreeImage();
+			qCritical() << "bad_alloc caught in cimage: " << ba.what() << ", maybe required image dimension to big?";
 			return false;
 		}
 	}
@@ -132,24 +120,9 @@ bool cImage::ChangeSize(int w, int h)
 {
 	if(w != width || h != height)
 	{
-		if (imageFloat) delete[] imageFloat;
-		imageFloat = NULL;
-		if (image16) delete[] image16;
-		image16 = NULL;
-		if (image8) delete[] image8;
-		image8 = NULL;
-		if (alphaBuffer8) delete[] alphaBuffer8;
-		alphaBuffer8 = NULL;
-		if (alphaBuffer16) delete[] alphaBuffer16;
-		alphaBuffer16 = NULL;
-		if (opacityBuffer) delete[] opacityBuffer;
-		opacityBuffer = NULL;
-		if (colourBuffer) delete[] colourBuffer;
-		colourBuffer = NULL;
-		if (zBuffer) delete[] zBuffer;
-		zBuffer = NULL;
 		width = w;
 		height = h;
+		FreeImage();
 		return AllocMem();
 	}
 	return true;
@@ -167,6 +140,26 @@ void cImage::ClearImage(void)
 
 	for (long int i = 0; i < width * height; ++i)
 		zBuffer[i] = 1e20;
+}
+
+void cImage::FreeImage(void)
+{
+	if (imageFloat) delete[] imageFloat;
+	imageFloat = NULL;
+	if (image16) delete[] image16;
+	image16 = NULL;
+	if (image8) delete[] image8;
+	image8 = NULL;
+	if (alphaBuffer8) delete[] alphaBuffer8;
+	alphaBuffer8 = NULL;
+	if (alphaBuffer16) delete[] alphaBuffer16;
+	alphaBuffer16 = NULL;
+	if (opacityBuffer) delete[] opacityBuffer;
+	opacityBuffer = NULL;
+	if (colourBuffer) delete[] colourBuffer;
+	colourBuffer = NULL;
+	if (zBuffer) delete[] zBuffer;
+	zBuffer = NULL;
 }
 
 sRGB16 cImage::CalculatePixel(sRGBfloat pixel)

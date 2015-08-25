@@ -1029,7 +1029,12 @@ void cInterface::StartRender(void)
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, mainWindow, renderedImage); //deleted by deleteLater()
 
-	renderJob->Init(cRenderJob::still);
+	if(!renderJob->Init(cRenderJob::still))
+	{
+		mainImage->ReleaseImage();
+		cErrorMessage::showMessage(QObject::tr("Cannot init renderJob, see log output for more information."), cErrorMessage::errorMessage);
+		return;
+	}
 
 	//show distance in statistics table
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);

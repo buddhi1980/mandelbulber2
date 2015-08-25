@@ -432,7 +432,7 @@
                  <number>32</number>
                 </property>
                 <property name="maximum">
-                 <number>65536</number>
+                 <number>65535</number>
                 </property>
                 <property name="singleStep">
                  <number>8</number>
@@ -451,7 +451,7 @@
                  <number>32</number>
                 </property>
                 <property name="maximum">
-                 <number>16000</number>
+                 <number>65535</number>
                 </property>
                 <property name="singleStep">
                  <number>8</number>
@@ -490,7 +490,7 @@
                  <number>32</number>
                 </property>
                 <property name="maximum">
-                 <number>16000</number>
+                 <number>65535</number>
                 </property>
                 <property name="singleStep">
                  <number>8</number>
@@ -518,7 +518,7 @@
                  <number>32</number>
                 </property>
                 <property name="maximum">
-                 <number>65536</number>
+                 <number>65535</number>
                 </property>
                 <property name="singleStep">
                  <number>8</number>
