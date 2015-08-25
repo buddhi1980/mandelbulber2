@@ -336,8 +336,8 @@ double cPrimitives::PrimitiveRectangle(CVector3 _point, const sPrimitiveRectangl
 	CVector3 relativePoint = _point - rectangle.position;
 	CVector3 point = rectangle.rotationMatrix.RotateVector(relativePoint);
 	CVector3 boxTemp;
-	boxTemp.x = max(fabs(point.x) - rectangle.height * 0.5, 0.0);
-	boxTemp.y = max(fabs(point.y) - rectangle.width * 0.5, 0.0);
+	boxTemp.x = max(fabs(point.x) - rectangle.width * 0.5, 0.0);
+	boxTemp.y = max(fabs(point.y) - rectangle.height * 0.5, 0.0);
 	boxTemp.z = fabs(point.z);
 	return boxTemp.Length();
 }
