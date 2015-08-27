@@ -625,6 +625,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	forwardVector = forwardVector.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), cameraRotation.x);
 
 	CVector3 camera, target;
+	if(oldData->doubles.zoom <= 1e-13)  oldData->doubles.zoom = 1e-13;
 	if(oldData->perspectiveType == threePoint)
 	{
 		camera = vp - forwardVector * (1.0 / oldData->doubles.persp * oldData->doubles.zoom);
@@ -654,7 +655,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("julia_c", oldData->fractal.doubles.julia);
 	par->Set("N", oldData->fractal.doubles.N);
 	par->Set("minN", oldData->fractal.minN);
-	par->Set("fractal_constant_factor", oldData->fractal.doubles.constantFactor);
+	par->Set("fractal_constant_factor", CVector3(oldData->fractal.doubles.constantFactor, oldData->fractal.doubles.constantFactor, oldData->fractal.doubles.constantFactor));
 	par->Set("detail_level", oldData->doubles.quality);
 	par->Set("DE_thresh", oldData->doubles.quality);
 	par->Set("smoothness", oldData->doubles.smoothness);
