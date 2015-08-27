@@ -847,7 +847,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("box_folding_limit", oldData->fractal.doubles.foldingLimit);
 	par->Set("box_folding_value", oldData->fractal.doubles.foldingValue);
 	par->Set("spherical_folding", oldData->fractal.sphericalFoldingMode);
-	par->Set("spherical_folding_outher", oldData->fractal.doubles.foldingSphericalFixed);
+	par->Set("spherical_folding_outer", oldData->fractal.doubles.foldingSphericalFixed);
 	par->Set("spherical_folding_inner", oldData->fractal.doubles.foldingSphericalMin);
 
 	//fractal parameters
