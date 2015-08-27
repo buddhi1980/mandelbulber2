@@ -32,7 +32,7 @@ namespace oldSettings
 {
 
 const char* axis_names[] = {"X", "Y", "Z"};
-const char* component_names[] = {"alpha", "beta", "gamma"};
+const char* component_names[] = {"alfa", "beta", "gamma"};
 
 cOldSettings::cOldSettings()
 {
