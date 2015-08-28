@@ -1,0 +1,65 @@
+# Mandelbulber settings file
+# version 2.03
+# only modified parameters
+[main_parameters]
+aux_light_colour_1 4000 8c00 e800;
+aux_light_enabled_1 true;
+aux_light_intensity_1 6.301053722078718e-05;
+aux_light_position_1 0.3381739986085147 -1.715855932567917 0.2579374519200971;
+aux_light_volumetric_enabled_1 true;
+aux_light_volumetric_intensity_1 0.301995;
+brightness 0.65;
+camera 0.4169418115322946 -1.729969915990622 0.2618935216634992;
+camera_distance_to_target 0.02376882135129548;
+camera_rotation 61.05010426060358 0.1983947080509088 4.071109992273301e-13;
+camera_top 0.003029954749911975 -0.001676069245859633 0.9999940050650786;
+DE_factor 0.114815;
+detail_level 0.269153;
+DOF_focus 0.04085512086749077;
+DOF_radius 21.35;
+fog_color_1 ff00 0 0;
+fog_color_2 ff00 0 0;
+fog_color_3 ff00 ff00 0;
+formula_1 10;
+gamma 0.41;
+glow_color_1 ff00 ff00 7f00;
+glow_color_2 aa00 ff00 7f00;
+glow_intensity 13.1826;
+hdr true;
+image_height 720;
+image_width 1280;
+main_light_intensity 0.23;
+penetrating_lights false;
+primitive_sphere_1_color dd00 dd00 6e00;
+primitive_sphere_1_position 0.3834782626761729 -1.695 0.2596740012638447;
+primitive_sphere_1_radius 0.009772370000000001;
+primitive_sphere_1_reflection 0.32;
+primitive_torus_1_color ff00 ff00 7f00;
+primitive_torus_1_enabled true;
+primitive_torus_1_position 0.3834782626761729 -1.697 0.2596740012638447;
+primitive_torus_1_radius 0.009772370000000001;
+primitive_torus_1_reflection 0.34;
+primitive_torus_1_rotation 48.99 43.96 -51.95;
+primitive_torus_1_tube_radius 0.00269153;
+raytraced_reflections true;
+target 0.3961431876084962 -1.718464815488359 0.2619758243913706;
+view_distance_max 3.468462503315997;
+volumetric_fog_colour_1_distance 0.005946841675289404;
+volumetric_fog_colour_2_distance 0.01189368335057881;
+volumetric_fog_distance_factor 0.01189368335057881;
+volumetric_fog_enabled true;
+[fractal_1]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_5 1 -1 0;
+IFS_direction_6 1 0 -1;
+IFS_direction_7 0 1 -1;
+IFS_edge 0.75 0.75 0;
+IFS_edge_enabled true;
+IFS_enabled_5 true;
+IFS_enabled_6 true;
+IFS_enabled_7 true;
+[fractal_2]
+[fractal_3]
+[fractal_4]

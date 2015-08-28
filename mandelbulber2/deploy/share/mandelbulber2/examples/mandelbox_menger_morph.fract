@@ -1,0 +1,55 @@
+# Mandelbulber settings file
+# version 2.05
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+anim_keyframe_dir /home/krzysztof/.mandelbulber/images/MernerMandelboxMorph/;
+background_color_2 0 0 0;
+background_color_3 a700 3700 a700;
+camera 1,472759338361165 -2,94551867672233 0,9818395589074436;
+camera_distance_to_target 3,436438456176052;
+camera_rotation 26,56505117707794 -16,60154959902025 0;
+camera_top -0,1277753129999879 0,2555506259999764 0,9583148474999099;
+coloring_palette_size 5;
+coloring_random_seed 156797;
+coloring_speed 0,2;
+DE_factor 0,8;
+flight_last_to_render 0;
+formula_1 7;
+formula_2 8;
+formula_3 10;
+formula_weight_2 0;
+formula_weight_3 0;
+hybrid_fractal_enable true;
+image_height 768;
+image_width 1024;
+keyframe_last_to_render 600;
+linear_DE_mode true;
+surface_color_palette 6fd08d d2282c de6082 c7e7b3 b70028 ;
+view_distance_max 23,76282331836471;
+[fractal_1]
+[fractal_2]
+mandelbox_scale -2;
+[fractal_3]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_0 2,618 1 -1,618;
+IFS_direction_1 -1,618 2,618 1;
+IFS_direction_2 1 -1,618 2,618;
+IFS_enabled_0 true;
+IFS_enabled_1 true;
+IFS_enabled_2 true;
+IFS_offset 1 1 1;
+IFS_scale 2,618;
+[fractal_4]
+[keyframes]
+frame;main_camera_x;main_camera_y;main_camera_z;main_target_x;main_target_y;main_target_z;main_camera_top_x;main_camera_top_y;main_camera_top_z;main_formula_weight_1;main_formula_weight_2;main_DE_factor;main_formula_iterations_1;main_formula_iterations_2;main_formula_weight_3
+0;1,472759338361165;-2,94551867672233;0,9818395589074436;0;0;0;-0,1277753129999879;0,2555506259999764;0,9583148474999099;1;0;0,8;1;1;0
+1;2,142857142857143;-4,285714285714286;1,428571428571429;-0,7440234438905957;-0,4533987593798958;0,02170320998255959;-0,1277753129999879;0,2555506259999764;0,9583148474999099;0,5;0,5;0,3;1;1;0
+2;2,620006751026353;-5,240013502052705;1,746671167350902;-0,4665929477707387;-0,2582212656086691;0,006646611126213342;-0,1277753129999879;0,2555506259999764;0,9583148474999099;0;1;0,8;2;2;0
+3;2,431545201531915;-4,668945838347724;1,569258250430315;-0,7440234438905957;-0,4533987593798958;0,02170320998255959;-0,127775312999987;0,2555506259999761;0,9583148474999099;0;0,5;0,4;2;2;0,5
+4;1,61468442046625;-3,229368840932501;1,076456280310834;0;0;0;-0,1277753129999879;0,2555506259999764;0,9583148474999099;0;0;0,9;1;1;1
+5;1,472759338361165;-2,94551867672233;0,9818395589074436;0;0;0;-0,1277753129999879;0,2555506259999764;0,9583148474999099;0,5;0;0,4;1;1;0,5
+6;1,472759338361165;-2,94551867672233;0,9818395589074436;0;0;0;-0,1277753129999879;0,2555506259999764;0,9583148474999099;1;0;0,8;2;2;0
+interpolation;morphAkima;morphAkima;morphAkima;morphLinear;morphLinear;morphLinear;morphNone;morphNone;morphLinear
