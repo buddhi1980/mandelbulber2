@@ -758,6 +758,7 @@ void RenderWindow::slotMenuAboutMandelbulber()
 	text += "programmers:<br>";
 	text +=	"Krzysztof Marczak<br>";
 	text +=	"Sebastian Jennen<br>";
+	text +=	"Graeme McLaren<br>";
 	text += "<br>";
 	text += "Thanks to many friends from <a href=\"http://www.fractalforums.com\">www.fractalforums.com</a> for help<br>";
 	text += "<br>";

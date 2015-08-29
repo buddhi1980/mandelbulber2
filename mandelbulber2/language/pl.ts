@@ -4330,7 +4330,7 @@ oraz zapis klatek animacji.</translation>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="487"/>
         <source>Append alpha to image (only PNG)</source>
-        <translation>Dodaj kanał alpha do obrazi (tylko PNG)</translation>
+        <translation type="unfinished">Dodaj kanał alpha do obrazu (tylko PNG)</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.cpp" line="55"/>

@@ -1,7 +1,7 @@
-MANDELBULBER 2.04
+MANDELBULBER 2.05
 
 project leader: Krzysztof Marczak
-project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa, Sebastian Jennen
+project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa, Sebastian Jennen, Graeme McLaren
 
 contact: buddhi1980@gmail.com
 www: http://www.mandelbulber.com
@@ -24,7 +24,7 @@ packages needed to compile: qt5-default, libpng12-dev, qttools5-dev, qttools5-de
 for gamepad support (which is optional) there are needed additional packages:
 qt5base-private-dev, libsdl2-dev
 
-additionalyy you need to compile qtgamepad module (needed at least Qt5 5
+additionally you need to compile qtgamepad module (needed at least Qt5 5
 
 git clone http://code.qt.io/cgit/qt-labs/qtgamepad.git
 cd qtgamepad
@@ -52,12 +52,14 @@ please type:
 
 4. TESTED ON:
 
-- Debian Jessy x64
+- Debian Stretch x64
 - gcc 4.9
-- Qt 5.3.2
+- Qt 5.4.2
 
 5. USAGE
 
 Please visit: http://wiki.mandelbulber.com/index.php?title=Main_Page
 
 Actually there is only available documentation for old Mandelbulber (v1)
+
+A lot of useful information you can find in tooltips.

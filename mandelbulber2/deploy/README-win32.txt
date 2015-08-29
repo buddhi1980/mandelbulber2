@@ -1,7 +1,7 @@
-MANDELBULBER 2.04
+MANDELBULBER 2.05
 
 project leader: Krzysztof Marczak
-project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa, Sebastian Jennen
+project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa, Sebastian Jennen, Graeme McLaren
 
 contact: buddhi1980@gmail.com
 www: http://www.mandelbulber.com
@@ -27,9 +27,12 @@ Copy this folder somewhere and run Mandelbulber2.exe or run Mandelbulber v2-2.xx
 - Windows Vista
 - Windows 7
 - Windows 8
+- Windows 10
 
 5. USAGE
 
 Please visit: http://wiki.mandelbulber.com/index.php?title=Main_Page
 
 Actually there is only available documentation for old Mandelbulber (v1)
+
+A lot of useful information you can find in tooltips.
