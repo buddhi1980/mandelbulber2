@@ -1,0 +1,104 @@
+#!/bin/bash
+#
+# bash script to create destination structure of files/directories to be ready for release new version
+# arguments: 
+# 1: version number
+# 2: destination directory
+# example: ./make-package.sh 2.05 /home/me/ReleasedMandelbulbers
+
+if [ $# = 2 ]
+then
+	#source dir as current directory
+	sourceDir=${PWD}
+	sourceDataDir="/home/krzysztof/.mandelbulber"
+	
+	#names of destination folders
+	destNameLinux="mandelbulber2-"$1
+	destNameWin="mandelbulber2-win32-"$1
+	destNameWin64="mandelbulber2-win64-"$1
+
+	releaseDir="$2"
+	cd "$releaseDir"
+	
+	#clear already created folders
+	rm -r "$destNameLinux"
+	rm -r "$destNameWin"
+	rm -r "$destNameWin64"
+	
+	#making directories
+	mkdir -vp "$destNameLinux"
+	mkdir -vp "$destNameWin"
+	mkdir -vp "$destNameWin64"
+	
+	#copying README file
+	cp -vu "$sourceDir/deploy/README" "$destNameLinux"
+	sed -e 's/$/\r/' "$sourceDir/deploy/README-win32.txt" > "$destNameWin/README.txt"
+	sed -e 's/$/\r/' "$sourceDir/deploy/README-win32.txt" > "$destNameWin64/README.txt"
+	
+	#copying NEWS file
+	cp -vu "$sourceDir/deploy/NEWS" "$destNameLinux"
+	sed -e 's/$/\r/' "$sourceDir/deploy/NEWS" > "$destNameWin/NEWS.txt"
+	sed -e 's/$/\r/' "$sourceDir/deploy/NEWS" > "$destNameWin64/NEWS.txt"
+	
+	#copying COPYING file
+	cp -vu "$sourceDir/deploy/COPYING" "$destNameLinux"
+	sed -e 's/$/\r/' "$sourceDir/deploy/COPYING" > "$destNameWin/COPYING.txt"
+	sed -e 's/$/\r/' "$sourceDir/deploy/COPYING" > "$destNameWin64/COPYING.txt"
+	
+	#copying install scripts
+	cp -vu "$sourceDir/deploy/linux/install" "$destNameLinux"
+	cp -vu "$sourceDir/deploy/linux/uninstall" "$destNameLinux"
+	#sed -e 's/$/\r/' "$sourceDir/deploy/win32/install.bat" > "$destNameWin/install.bat"
+
+	#copying desktop file
+	cp -vu "$sourceDir/deploy/linux/mandelbulber2.desktop" "$destNameLinux"
+	cp -vu "$sourceDir/deploy/win32/mandelbulber2.ico" "$destNameWin"
+	cp -vu "$sourceDir/deploy/win64/mandelbulber2.ico" "$destNameWin64"
+	
+	#copying share folder
+	mkdir -vp "$destNameLinux/usr/"
+	cp -vurL "$sourceDir/deploy/share" "$destNameLinux/usr/"
+	cp -vurL "$sourceDir/deploy/share/mandelbulber2/"* "$destNameWin/"
+	cp -vurL "$sourceDir/deploy/share/mandelbulber2/"* "$destNameWin64/"
+	
+	#copuing source files
+	mkdir -vp "$destNameWin/source"
+	
+	cp -vurL "$sourceDir/src/" "$destNameLinux/"
+	cp -vurL "$sourceDir/src/" "$destNameWin/source"
+	cp -vurL "$sourceDir/src/" "$destNameWin64/source"
+	
+	cp -vurL "$sourceDir/qt/" "$destNameLinux/"
+	cp -vurL "$sourceDir/qt/" "$destNameWin/source"
+	cp -vurL "$sourceDir/qt/" "$destNameWin64/source"
+	
+	#create bin folder
+	mkdir -vp "$destNameLinux/usr/bin"
+	
+	#copying makefiles
+	mkdir -vp "$destNameLinux/makefiles"
+	mkdir -vp "$destNameWin/source/makefiles"
+	mkdir -vp "$destNameWin64/source/makefiles"
+	
+	cp -vu "$sourceDir/Release/mandelbulber.pro" "$destNameLinux/makefiles/"
+	cp -vu "$sourceDir/Release/mandelbulber.pro" "$destNameWin/source/makefiles/"
+	cp -vu "$sourceDir/Release/mandelbulber.pro" "$destNameWin64/source/makefiles/"
+
+	#copying DLL files
+	cp -vur "$sourceDir/deploy/win32/dll/"* "$destNameWin"
+	cp -vur "$sourceDir/deploy/win64/dll/"* "$destNameWin64"
+	
+	#copying windows exe files (needed to be compiled before)
+	cp -vu "$sourceDir/build-mandelbulber-MinGwQt-Release/release/mandelbulber2.exe" "$destNameWin"
+	cp -vu "$sourceDir/build-mandelbulber-MinGw64Qt-Release/release/mandelbulber2.exe" "$destNameWin64"
+	
+	cd "$releaseDir"
+	
+	#delete temporary svn files
+	find . -name .svn -prune -exec rm -rf "{}" \;
+	
+	echo release prepared
+else
+	echo syntax: newrelease2.sh [number_new] [destination]
+fi
+	
