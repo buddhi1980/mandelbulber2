@@ -1434,7 +1434,7 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
     CVector4 newz( 	fractal->quaternion104.quaternion1FactorConstantVect.x * (z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w),
     								fractal->quaternion104.quaternion1FactorConstantVect.y * z.x * z.y,
 										fractal->quaternion104.quaternion1FactorConstantVect.z * z.x * z.z,
-										fractal->quaternion104.quaternion1FactorConstantVect.w * z.x * z.w
+                    fractal->quaternion104.quaternion1FactorConstantVect.w * z.w
 										);
     z = newz;
 
@@ -1538,7 +1538,7 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
     CVector4 newz( 	fractal->quaternion104.quaternion2FactorConstantVect.x * (z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w),
     								fractal->quaternion104.quaternion2FactorConstantVect.y * z.x * z.y,
 										fractal->quaternion104.quaternion2FactorConstantVect.z * z.x * z.z,
-										fractal->quaternion104.quaternion2FactorConstantVect.w * z.x * z.w);
+                    fractal->quaternion104.quaternion2FactorConstantVect.w * z.w);
     z = newz;
 
     //weight function
