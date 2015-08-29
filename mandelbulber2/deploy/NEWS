@@ -1,5 +1,59 @@
 Version history
 
+v2.05
+- added keyframe animation feature. There is possible to define keyframes and interpolate different parameters between them.
+- added UI for keyframe animation with table where is possible to edit each parameter.
+- implemented different interpolation types for animation: Akima, Catmull-Rom, Linear. Prepared interpolation for angular parameters.
+- added selection of interpolation type for each parameter separately
+- added possibility to animate color palette
+- added saving of animation into *.fract file in CSV format
+- possible to change image format for saving animation frames
+- added exporting of flight animation to keyframe animation and vice versa
+- added camera collision detection before rendering of keyframe animation
+- added tooltips in English, German and Polish languages (a lot of documentation here)
+- histograms moved to separate dock widget
+- added saving of zBuffer into PNG 16-bit and EXR floating point format (EXR supported only under Linux). zBuffer is normalized and mapped logarithmically
+- added Program Settings dialog
+- added settings for default file paths
+- added JPG quality settings
+- in preferences dialog can be defined which layers (color, zBuffer, alpha) will be attached to saved image and which bit precision will be used
+- UI skin, style and font size can be set in settings dialog
+- added selection of program language in preferences dialog
+- added render statistics table (under histograms)
+- improved placement of auxiliary lights
+- added auto-recovery function (possible to recover work after application crash)
+- added experimental gamepad control for recording flight animations
+- added 'GeneralizedFoldBox' formula
+- added 'Mandelbulb5' formula (much extended Mandelbulb formula)
+- added 'Mandelbox - extended' formula
+- added 'Quaternion - extended' formula
+- Added 'bailout' parameter to be able to change escape condition fractal iteration loop. By default for deltaDE it was 1e10, but lower value increases rendering speed even 5 times without loosing quality.
+- added weight function for hybrid fractal components. On each fractal tab there is setting for weight (only available when hybrid mode is enabled). 
+- constant multiplier parameter changed to 3D vector type
+- increased precision of some QSpinBox edit fields
+- optimized reset view function (now is 100x faster!)
+- added UNDO and REDO buttons below RENDER button
+- increased view_distance_max to 50.0 for all toolbar presets
+- increased view_distance_max calculated by ResetView function
+- added new example files (also with animations)
+- added loading/saving setting from/to clipboard as text (possible to copy/paste settings on community forums)
+- added x2 :2 buttons for increase/decrease image resolution
+- named Threads to monitor cpu / mem / ... by thread
+- fixes issues with compatibility witch clang
+- fixed bug: corrected problems found by Coverity Scan
+- fixed bug: transform function for primitive objects didn't affected repeat operator
+- fixed bug: alpha channel was always blank
+- fixed bug: many typos corrected
+- fixed bug: animation player crashed when in animation folder were non-image files
+- fixed bug: program crashed when attempted to edit text in preview cell in Animation Flight table.
+- fixed bug: program didn't consider locale settings for decimal points
+- fixed bug: render of main image could start multiple times after frequent clicks on RENDER button
+- fixed bug: Added waiting for all clients to be ready. It's needed for animation rendering, because sometimes client is not enough fast to take new job
+- fixed bug: when rendering of animation was stopped there was saved incomplete image
+- fixed bug: if QColorDialog was closed by 'Cancel' button it also took color and updated button color.
+- fixed bug: if camera and target had the same coordinates, it produced NaN values for camera angles and top vector
+- fixed bug: default value of color was repeated many times in MyColorButton tooltip
+
 v2.04
 - added ray-traced transparency and Fresnel's refraction
 - added NetRender - rendering of the same image or animation on multiple machines over the TCP/IP network (Internet, local LAN).
