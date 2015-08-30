@@ -911,6 +911,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	fractal->at(0).Set("mandelbox_vary_rpower", oldData->fractal.mandelbox.doubles.vary4D.rPower);
 	fractal->at(0).Set("mandelbox_vary_wadd", oldData->fractal.mandelbox.doubles.vary4D.wadd);
 
+	fractal->at(0).Set("mandelbox_generalized_fold_type", (int)oldData->fractal.genFoldBox.type);
+
 	fractal->at(0).Set("boxfold_bulbpow2_folding_factor", oldData->fractal.doubles.FoldingIntPowFoldFactor);
 	fractal->at(0).Set("boxfold_bulbpow2_z_factor", oldData->fractal.doubles.FoldingIntPowZfactor);
 
