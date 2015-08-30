@@ -919,6 +919,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	fractal->at(1) = fractal->at(2) = fractal->at(3) = fractal->at(0);
 
 	//converting hybrid fractals
+
 	if(oldData->fractal.formula == hybrid)
 	{
 		QList<int> fractalsListTemp;
@@ -1006,6 +1007,12 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 		{
 			par->Set("hybrid_fractal_enable", true);
 		}
+	}
+
+	if(oldData->fractal.IFS.foldingMode)
+	{
+		par->Set("hybrid_fractal_enable", true);
+		par->Set("formula", 2, (int)fractal::kaleidoscopicIFS);
 	}
 }
 
