@@ -551,6 +551,7 @@ void RenderWindow::slotMenuSaveSettings()
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 
 	QFileDialog dialog(this);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
@@ -590,6 +591,7 @@ void RenderWindow::slotMenuLoadSettings()
 	cSettings parSettings(cSettings::formatFullText);
 
 	PreviewFileDialog dialog(this);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
@@ -641,6 +643,7 @@ void RenderWindow::slotMenuLoadExample()
 	cSettings parSettings(cSettings::formatFullText);
 
 	PreviewFileDialog dialog(this);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(systemData.sharedDir + QDir::separator() + "examples" + QDir::separator());
@@ -669,6 +672,7 @@ void RenderWindow::slotImportOldSettings()
 	cSettings parSettings(cSettings::formatFullText);
 
 	QFileDialog dialog(this);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
