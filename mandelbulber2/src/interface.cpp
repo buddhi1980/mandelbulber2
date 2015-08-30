@@ -127,6 +127,14 @@ void cInterface::ShowUi(void)
 
 	mainWindow->ui->groupBox_netrender_client_config->setVisible(false);
 
+  #ifndef USE_EXR
+	{
+		mainWindow->ui->actionSave_as_EXR->setVisible(false);
+		mainWindow->ui->comboBox_keyframe_animation_image_type->removeItem(2);
+		mainWindow->ui->comboBox_flight_animation_image_type->removeItem(2);
+	}
+  #endif
+
 	renderedImage->show();
 
 	//loading default ui for all fractal components
