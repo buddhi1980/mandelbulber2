@@ -3,6 +3,6 @@ install:
   - sudo apt-get install libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgsl0-dev libgsl0ldbl
 
 script:
-  - cd makefiles
+  - cd mandelbulber/Release
   - qmake mandelbulber.pro
   - make
