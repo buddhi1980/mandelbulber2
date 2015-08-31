@@ -13,6 +13,6 @@ addons:
       - libgsl0ldbl
 
 script:
-  - cd mandelbulber/Release
+  - cd mandelbulber2/Release
   - qmake mandelbulber.pro
   - make
