@@ -30,6 +30,7 @@ v2.05
 - Added 'bailout' parameter to be able to change escape condition fractal iteration loop. By default for deltaDE it was 1e10, but lower value increases rendering speed even 5 times without loosing quality.
 - added weight function for hybrid fractal components. On each fractal tab there is setting for weight (only available when hybrid mode is enabled). 
 - constant multiplier parameter changed to 3D vector type
+- improved importing old settings from Mandelbulber 1.21
 - increased precision of some QSpinBox edit fields
 - optimized reset view function (now is 100x faster!)
 - added UNDO and REDO buttons below RENDER button

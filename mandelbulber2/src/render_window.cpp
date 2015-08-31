@@ -1652,7 +1652,7 @@ void RenderWindow::slotNetRenderClientListUpdate()
 	if(table->columnCount() == 0)
 	{
 		QStringList header;
-		header << tr("Name") << tr("Host") << tr("Worker") << tr("Status") << tr("Rendered");
+		header << tr("Name") << tr("Host") << tr("CPUs") << tr("Status") << tr("Lines done");
 		table->setColumnCount(header.size());
 		table->setHorizontalHeaderLabels(header);
 	}
