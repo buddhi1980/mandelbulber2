@@ -10,16 +10,26 @@ if [ $# = 2 ]
 then
 	#source dir as current directory
 	sourceDir=${PWD}
-	sourceDataDir="/home/krzysztof/.mandelbulber"
+	releaseDir="$2"
+
+	if [ ! -f "$sourceDir/make-package.sh" ]; then
+		echo "this script has to be executed in mandelbulber root directory";
+		exit 2;
+	fi
+
+	# create release dir, if not already exists
+	mkdir -vp "$releaseDir"
+	if [ ! -d "$releaseDir" ]; then
+		echo "could not create releaseDir: $releaseDir";
+		exit 3;
+	fi
+	cd "$releaseDir"
 	
 	#names of destination folders
 	destNameLinux="mandelbulber2-"$1
 	destNameWin="mandelbulber2-win32-"$1
 	destNameWin64="mandelbulber2-win64-"$1
 
-	releaseDir="$2"
-	cd "$releaseDir"
-	
 	#clear already created folders
 	rm -r "$destNameLinux"
 	rm -r "$destNameWin"
@@ -61,7 +71,7 @@ then
 	cp -vurL "$sourceDir/deploy/share/mandelbulber2/"* "$destNameWin/"
 	cp -vurL "$sourceDir/deploy/share/mandelbulber2/"* "$destNameWin64/"
 	
-	#copuing source files
+	#copying source files
 	mkdir -vp "$destNameWin/source"
 	
 	cp -vurL "$sourceDir/src/" "$destNameLinux/"
@@ -97,8 +107,8 @@ then
 	#delete temporary svn files
 	find . -name .svn -prune -exec rm -rf "{}" \;
 	
-	echo release prepared
+	echo release prepared to ${PWD}
 else
-	echo syntax: newrelease2.sh [number_new] [destination]
+	echo syntax: make-package.sh [number_new] [destination]
 fi
 	
