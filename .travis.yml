@@ -11,6 +11,7 @@ addons:
       - qttools5-dev-tools
       - libgsl0-dev
       - libgsl0ldbl
+      - libgomp1
 
 script:
   - cd mandelbulber2/Release
