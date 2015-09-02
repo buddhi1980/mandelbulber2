@@ -1,0 +1,77 @@
+# Mandelbulber settings file
+# version 2.05
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+ambient_occlusion_quality 2;
+aux_light_position_1 3 -3 -3;
+aux_light_position_4 0 -1 3;
+aux_light_volumetric_intensity_1 100;
+aux_light_volumetric_intensity_2 100;
+aux_light_volumetric_intensity_3 100;
+aux_light_volumetric_intensity_4 100;
+basic_fog_visibility 1e-14;
+camera -0,02392993586013682 -2,023685422377458 1,96923528991116;
+camera_distance_to_target 0,003810394756896774;
+camera_rotation 30,00000000000037 19,99999999999998 0;
+camera_top 0,1710100716628361 -0,2961981327260224 0,9396926207859086;
+coloring_palette_size 255;
+coloring_random_seed 400540;
+DE_factor 0,7;
+DE_thresh 1;
+DOF_enabled true;
+DOF_focus 0,03702922910451911;
+flight_last_to_render 0;
+fog_color_1 94c2 8192 62fb;
+fog_color_2 39b9 5a6f 812e;
+formula_1 8;
+fov 1,2;
+gamma 0,7;
+glow_intensity 1;
+image_height 1080;
+image_width 1920;
+iteration_fog_color_1 94c2 8192 62fb;
+iteration_fog_color_1_maxiter 82;
+iteration_fog_color_2 39b9 5a6f 812e;
+iteration_fog_color_2_maxiter 165;
+julia_c -1,665932939401317 -2,036362420883563 -1,601962329679927;
+julia_mode true;
+keyframe_last_to_render 0;
+legacy_coordinate_system true;
+main_light_alpha -70;
+main_light_beta -10;
+main_light_intensity 0,7;
+main_light_volumetric_intensity 100;
+stereo_eye_distance 0,1;
+surface_color_palette 5db978 bf6f02 6dff69 413eaa e8c55f 8967d5 32ad00 7381a0 19f7ee ac36be ffff4c 29d21c bda296 a90b2a 4100 8f6bc0 8fdabf f561f5 2fff38 ad2e2c 918445 e2c2ba 5dff5c 9534be f463f5 648a48 6257b7 800052 8fc4c8 9a956c 93b4bc c85ae5 5370d9 285058 84ec99 d30062 ff7531 ff9356 17e13d 37ff3c 7c053d 3777f7 8ab6ff a26f00 f53644 dfb077 96b9b8 93b005 7b085a ebbcdf 7155 44ad9a 6a659d 15141c c0c725 4e0038 2eb800 3c7f01 5bc265 3aca6a ac847e 82843f 92146 78d5cd d2ebff 4b007f f63467 a679c4 e92edb b51c98 a646c5 ff78cc 157fa4 995966 509062 304d70 9a6aac 9b5953 3bb4b6 1a6fac 52c0 cc47ff a83e29 b2c04f 7445ff 692200 d0020 9c1fc4 a1b459 c0284f caddf6 b65e25 650000 4f2f23 82bb4f 82bb6e 81d881 2e0021 f936a6 578e90 e5fb60 41ab e0c80 2f5646 2fc825 a52623 41aefb 4c9b9a 87eb43 19dbda cf4100 d360db f4cc22 f94c24 c500a0 782d00 446093 183d 6a2bc1 6b7bd1 41eeef 1a0048 a2e ae96df a421d1 693ebe d4e97b 180058 338edc 8c2f84 91ffac 9884ce 9791d6 9c60cb bdba05 9caa 27838f ff6ccf d122f 73da77 5739aa 724ee4 90069 a53165 b600ac 95ae42 bd6d21 f60c8 966e16 e9ff80 fff037 33afd8 8c6c9f 8cfa5 87ff36 77ffff 3a0000 1cc0 51ffed 6b4510 2007e 3b03 2a17df 37ffcc 1acbc1 7300 779620 106572 7e096e 8fbcff f2ff81 ff58cb ff7a3a ff4e3d e861d5 aa2c25 84e217 550085 1852 71fffc 2a100 bc0081 8ea4ff c41ea7 13d162 ff482f 91b2ff 6fb2bf 84c5c2 bd5b24 bf0053 6d6051 10910f 940000 78b58a 513368 1b2b fbd45d bfb283 ffd89a 74b442 6d0000 ddca45 4eff83 53e863 555990 50c03 934dc2 0 2b4cff 204e 4d00cf ff5ee6 d291b6 ffff41 7009a1 9d0c ac0000 acea97 e15da2 986553 c2d633 db5d3b 2ba27a 5ba35f b4802a 277e00 9b497e bcdf8f f7ff5d 568cfb 438aed 4f6eff b60009 ba2c1e efff23 ffc164 c6c1a8 3d929a ce39dd 7dc100 3b7ee9 820080 1ecf42 374d99 20b8 953558 bf86d7 53dee8 68dda3 bd267f ab00 7ce7ab 1428 0 ffffff ;
+target -0,02572023577780545 -2,02058453195927 1,970538521672041;
+view_distance_max 112,7596462607809;
+volumetric_fog_colour_1_distance 0,01092806949028248;
+volumetric_fog_colour_2_distance 0,02185613898056496;
+volumetric_fog_distance_factor 0,02185613898056496;
+volumetric_fog_enabled true;
+[fractal_1]
+mandelbox_folding_min_radius 0,1;
+mandelbox_generalized_fold_type 1;
+mandelbox_main_rotation_enabled true;
+mandelbox_rotation_main 3 6 10;
+mandelbox_scale -1,2;
+[fractal_2]
+mandelbox_folding_min_radius 0,1;
+mandelbox_generalized_fold_type 1;
+mandelbox_main_rotation_enabled true;
+mandelbox_rotation_main 3 6,000000000000001 10;
+mandelbox_scale -1,2;
+[fractal_3]
+mandelbox_folding_min_radius 0,1;
+mandelbox_generalized_fold_type 1;
+mandelbox_main_rotation_enabled true;
+mandelbox_rotation_main 3 6,000000000000001 10;
+mandelbox_scale -1,2;
+[fractal_4]
+mandelbox_folding_min_radius 0,1;
+mandelbox_generalized_fold_type 1;
+mandelbox_main_rotation_enabled true;
+mandelbox_rotation_main 3 6,000000000000001 10;
+mandelbox_scale -1,2;

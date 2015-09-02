@@ -1,0 +1,74 @@
+# Mandelbulber settings file
+# version 2.05
+# only modified parameters
+[main_parameters]
+ambient_occlusion 0,2;
+ambient_occlusion_enabled true;
+ambient_occlusion_quality 7;
+analityc_DE_mode false;
+aux_light_enabled_1 true;
+aux_light_enabled_2 true;
+aux_light_intensity 0,5;
+aux_light_intensity_1 0,0003773393564277267;
+aux_light_intensity_2 0,0001492192852096241;
+aux_light_position_1 -0,1241793559508756 -0,5381256308394401 -0,3165260994536657;
+aux_light_position_2 -0,1609083052212774 -0,3799500944814496 -0,2621916717919179;
+aux_light_position_4 0 -1 3;
+aux_light_visibility 5;
+aux_light_visibility_size 0,5;
+aux_light_volumetric_intensity_1 100;
+aux_light_volumetric_intensity_2 100;
+aux_light_volumetric_intensity_3 100;
+aux_light_volumetric_intensity_4 100;
+background_color_1 c14 0 557e;
+background_color_2 0 0 0;
+basic_fog_visibility 8,128305161640995e-13;
+camera -0,2830258772024536 -0,5804387491807524 -0,3725779149604639;
+camera_distance_to_target 3,086419755492676e-09;
+camera_rotation -49,99999931168008 30,00000033140247 0;
+camera_top -0,3830222215356697 -0,321393812664505 0,8660254008924065;
+coloring_palette_offset 41,4;
+coloring_palette_size 255;
+coloring_random_seed 123456;
+DE_factor 0,5;
+DE_thresh 1;
+DOF_focus 6,744569000000016e-07;
+DOF_radius 13,3;
+flight_last_to_render 0;
+fog_color_1 0 0 0;
+formula_1 11;
+fov 1,2;
+glow_color_1 0 703a ffff;
+glow_color_2 ffff ffff ffff;
+glow_intensity 1;
+hdr true;
+image_height 400;
+image_width 600;
+iteration_fog_color_1 0 0 0;
+iteration_fog_color_1_maxiter 82;
+iteration_fog_color_2 0 7530 ffff;
+iteration_fog_color_2_maxiter 165;
+julia_c -0,5017795055187926 -0,1854695189489393 -0,4725646167301689;
+julia_mode true;
+keyframe_last_to_render 0;
+legacy_coordinate_system true;
+main_light_beta -45;
+main_light_intensity 0,3;
+main_light_volumetric_intensity 100;
+stereo_eye_distance 0,1;
+surface_color_palette 757a59 494622 616034 5d5741 908f74 464e1c 484b3a 433a2c 6e6846 5b5539 675546 8d8f68 48472b 6f6d6c 453d30 4a401f 6d694b 7f6554 a79775 8f8261 786947 5e5137 2c2b1c 242116 5f5036 211f1a 201f1a 7c6d44 5e523e 81664b c19875 604228 9b8b7b 695346 775f48 836556 ad8e68 bc9278 9e816b 644935 93592d 997f61 d9ae92 ad9781 a89b6e 71653a 3a3829 bf8855 8a6b66 8f6a4d e7b091 eda461 f6cb9e 9a5b34 a37f53 b18981 ffe2b0 a06739 fdb58f f6cebb c78e74 8d4f41 773c2b 8f4b29 663d3c 6c3e28 7a5430 ad8050 ba794d 8e6c4b 6d434c 6c4838 8d7166 ae9789 635147 866c59 75654a 76674e 897a6a 9d867b b99778 e9bb93 6c5152 734c45 72452e 725c46 816449 9d716b 9f7d71 86643f 9c746a a17765 b88581 5b4338 75655c 8b775a 5d4236 8a6342 a69153 b69764 646e45 5a5b59 5c5a5d 3f3725 483d24 2f2c1a 8c7757 54503c 5d523c 292a24 42442d fdefd2 575954 42453a 575756 605c5b 544e4e 42423a 3f3f38 3b392e 302925 433d3d 404034 443833 5a512a 9a9059 60593c 7b683c a9885c a78754 6e523b 5f4e21 49401a 4c3b24 777042 392e1a 4b3f31 343725 40393d 51484d 5f5e5e 585a58 4f5052 5b595a 706d71 656f72 54544d 6e6c42 9c8c60 787855 f1f2e1 bfba95 706d48 ede1c9 958257 af9264 9a8d95 474345 f1e0c8 d0dffe 8b6671 efeafb fbfeff bdafb2 e2ecff f8fdfe fefefd ffffff fefefe fafbfd ffffff f9f7f9 fefefc fefdfb 7d9bc9 d3c7c9 8092b3 8182aa e1f6f8 c2cad1 6a6ba4 f8faf7 b9b493 454647 b2a7a5 3d3932 433e3c 8f908b c1cf86 e7efd5 d7e1e0 586f76 9ab5ca 8ba2c0 a1bbe1 7a6a53 6d6568 d5ced8 47453f 978f88 daf4f8 93a3d5 7d879a dcebfd f2feff cbbcbc f0f6ff e9f9f9 c4dcf8 b6c9f2 c9d8ec c2c2b5 33312e 59524a 817970 e3ecfa aec2de c2bf99 d3dcda 72884f a1b695 a1b78a 656350 54492f c5c2aa c0b49e e9d4a8 6d6d4e 827e5e 232517 43452f 605551 595d60 585f5c 726d65 90835c b0b194 a8b46c c5ce99 acb76b 899253 525b1c 90a43e b4c273 776f40 a18a5e b3884d ada863 52552a 636f33 60623d 48431c 8d9661 545a37 454c2a 575c30 ;
+target -0,2830258751548797 -0,5804387474626339 -0,372577913417254;
+view_distance_max 7,429396713275203;
+volumetric_fog_density 0;
+[fractal_1]
+mandelbox_generalized_fold_type 1;
+power 2;
+[fractal_2]
+mandelbox_generalized_fold_type 1;
+power 2;
+[fractal_3]
+mandelbox_generalized_fold_type 1;
+power 2;
+[fractal_4]
+mandelbox_generalized_fold_type 1;
+power 2;

@@ -1,0 +1,69 @@
+# Mandelbulber settings file
+# version 2.05
+# only modified parameters
+[main_parameters]
+ambient_occlusion 0,2;
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 0;
+ambient_occlusion_quality 2;
+aux_light_colour_1 d158 4575 e5b;
+aux_light_enabled_1 true;
+aux_light_intensity_1 2,664135695980186e-06;
+aux_light_position_1 -0,3752790131440781 -1,985350956891497 -1,297315935740765;
+aux_light_position_4 0 -1 3;
+aux_light_volumetric_intensity_1 100;
+aux_light_volumetric_intensity_2 100;
+aux_light_volumetric_intensity_3 100;
+aux_light_volumetric_intensity_4 100;
+background_color_2 0 95a2 ffff;
+background_color_3 0 95a2 ffff;
+basic_fog_visibility 1e-14;
+camera -0,4055322974736049 -1,98972877910899 -1,302716913647198;
+camera_distance_to_target 1,234567886833774e-09;
+camera_rotation -80,00243059984223 -9,305490992204525 -43,28258978348358;
+camera_top -0,003098141394969292 0,6956222604954736 0,7184010524930098;
+coloring_palette_offset 144,6;
+coloring_palette_size 255;
+coloring_speed 2;
+DE_factor 0,3;
+DE_thresh 1;
+DOF_focus 1,479108388168207e-14;
+flight_last_to_render 0;
+fog_color_1 ffff ffff ffff;
+fog_color_2 ffff ffff ffff;
+formula_1 10;
+glow_enabled false;
+glow_intensity 0;
+image_height 1080;
+image_width 1920;
+iteration_fog_color_1_maxiter 82;
+iteration_fog_color_2_maxiter 165;
+iteration_fog_enable true;
+iteration_fog_opacity 150000;
+iteration_fog_opacity_trim 14;
+keyframe_last_to_render 0;
+legacy_coordinate_system true;
+main_light_alpha 120;
+main_light_beta -30;
+main_light_colour bb42 c64f d13d;
+main_light_intensity 1,4;
+main_light_volumetric_intensity 100;
+stereo_eye_distance 0,1;
+surface_color_palette 393a3d 67645f 4d4138 4e4637 2a282d 736f67 605342 514a39 2f2629 1d1c18 5f5c47 60593b 5b543e 26171b 786753 635234 a0605 f0f11 22231c 655e53 494743 717273 3e3936 373328 545449 6b6f5d 777766 59585b 7e8386 5c6563 686b66 828981 e0f11 50908 4c564c 4b554d 52504e 404740 464a43 464746 41423c 414339 373532 111715 221e1f 19171b 140f13 29322f 4d5e5a 494f50 424341 858b8d 3e4b62 5b5f65 5e6163 5c6669 545959 576363 5a636a 55636c 5c646a 636e6b 676c6c 636d70 57606a 666a73 61666a 626b73 6c7475 606b6a 686b71 5e6a6e 606974 4f5a5a 414a45 525f68 5d6868 687075 5e6364 5b686e 5d626b 5d6567 5f646a 656b72 596163 576564 575e69 54605b 545b5f 4b5656 4a5259 2 10001 302 903 43474f 4f576a 596178 20252c 554d54 524c50 403d49 27292a 1d2322 1e191e 222223 28312e 3a443f 2b323d 243331 333a39 1d2625 25302d 36373b 2f3638 342f30 3f4444 2b2c2e 4a3a36 212524 36362c 1e2021 1b1f20 131617 131416 1c2222 61635e 2e352e 1c161a 263031 191819 3b4943 3c454b 2e3835 293332 505c5f 212224 262c2c 484d55 627274 636a63 afafaa 8f906e 8f9088 62695f 808379 777768 989181 363636 38403b b7b9a3 8a7f54 4a4d47 3a4134 7a7a6f 404941 b7b9a3 949787 8c8f78 999a81 797d7a fefffa cfbeac 95755d f1ead9 a89c93 9f9691 c6beb2 736c5f f8eddb fdfbe9 969178 787773 395e88 fdffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff fefefe ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff ffffff fbfffe fefefa ffffff cfebf4 ffffff ffffff ffffff fdfffd feffff a69e8e 5c584c 646465 928c7e a09d92 948986 6b6660 625e5b 332726 24211f 9d9e90 514a3a 53423d 756d5b 5d5c5c 5a5f4f 383431 24221f 51111 403d37 5a564d 5a5548 474647 808073 5f5c5c 383b31 514b45 4c453e 5b5449 46362f 2d2d2a 484d4b 5f5f52 504f47 616061 ;
+target -0,4055322962737837 -1,989728778897482 -1,302716913846826;
+view_distance_max 8,436633622913154;
+volumetric_fog_density 0;
+[fractal_1]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_0 0,58 0,58 -0,58;
+IFS_direction_1 0,53 0,76 0,38;
+IFS_direction_2 0 -0,82 0,57;
+IFS_enabled_0 true;
+IFS_enabled_1 true;
+IFS_menger_sponge_mode true;
+IFS_offset 0,5 2 1,3;
+[fractal_2]
+[fractal_3]
+[fractal_4]

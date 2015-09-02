@@ -1,0 +1,78 @@
+# Mandelbulber settings file
+# version 2.05
+# only modified parameters
+[main_parameters]
+ambient_occlusion 2;
+ambient_occlusion_mode 1;
+ambient_occlusion_quality 2;
+aux_light_colour_1 8555 be06 2546;
+aux_light_enabled_1 true;
+aux_light_intensity_1 1,00009557392695e-05;
+aux_light_position_1 0,3916989771420805 -2,343567140143334 0,3665075869588915;
+aux_light_position_4 0 -1 3;
+aux_light_volumetric_intensity_2 100;
+aux_light_volumetric_intensity_3 100;
+aux_light_volumetric_intensity_4 100;
+background_color_1 5f15 0 0;
+background_color_2 5f15 0 0;
+background_color_3 5f15 0 0;
+basic_fog_visibility 1e-14;
+camera 0,3658340922846139 -2,37658334142451 0,3506343960896552;
+camera_distance_to_target 1,371740935773909e-10;
+camera_rotation -8,7465935146537 29,93554054328316 -6,798226032254939;
+camera_top -0,1923471878049936 -0,4717538522961849 0,8604945451234538;
+coloring_palette_offset 108,4;
+coloring_palette_size 255;
+coloring_random_seed 524398;
+coloring_saturation 0,3;
+coloring_speed 0,5;
+DE_factor 0,3;
+DE_thresh 1;
+DOF_focus 1,479108388168207e-14;
+flight_last_to_render 0;
+fog_color_1 ffff ffff ffff;
+fog_color_2 ffff ffff ffff;
+formula_1 10;
+glow_enabled false;
+glow_intensity 0;
+image_height 1080;
+image_width 1920;
+iteration_fog_color_1_maxiter 9;
+iteration_fog_color_2_maxiter 19;
+iteration_fog_enable true;
+iteration_fog_opacity 15000;
+iteration_fog_opacity_trim 18;
+julia_c -0,4984369080656399 -1,974873395278608 1,499205505032492;
+keyframe_last_to_render 0;
+legacy_coordinate_system true;
+main_light_beta -45;
+main_light_colour f877 3d35 3d35;
+main_light_intensity 0,7;
+main_light_volumetric_intensity 100;
+N 30;
+reflections_max 2;
+stereo_eye_distance 0,1;
+surface_color_palette 7f677c 68649a 3d1f2a 93a2c2 7f6d7b 4d4a38 55535d bbbad1 e5c4d7 bdbaa5 aaa0b8 7a6599 30261f 391f0e 478b61 4f3c09 ae8f8c 6e5633 53484b 6e5947 4a7e6b a7cfaa 504e36 7f8275 5e4e43 81a1b7 acc5ac bedfda c4143 634063 4f5953 c6ffc8 e2edeb 8b9fa4 877259 43300 687f6b 1b2934 878bb9 226631 90a574 afcfa0 545a49 858ab7 bfd9b1 705232 cad8a7 917769 2a3820 5f6595 94666b d8bdfb bacf85 7c5e7a e8d3d4 796c6b ecd4c5 f3c7e2 62816d c09da8 68769d a69cb1 662f55 9f778e a9b19c 6066a6 76553d 9b8d69 ffb7ea 706b8a 41395d 3a284d 374768 435747 385c71 9cd8d0 4b2930 694254 4b3438 310e22 a18ac4 f0cdbc 36 573b1d a2d8aa 94c495 af849c 74545e b0a8e2 240104 5d9986 203c43 81596e 94796c 97a367 481754 caf4bb be868f ede2ec 718286 542048 7c975c 401621 635e70 a37b66 bbaec5 638499 aec8d4 6f5661 66836d 443926 5b5a43 caece4 bbcbcb 8d564b 4b4c7b e4d1cd 16490f 39381b 8da78a deb9e9 d4b8b9 958c6e 86978a 134e1a 69484f 826c82 736c68 4a2921 433b61 e9f2d8 441d33 b193b4 a883b5 c5bf87 5f707a d3d4a6 94e0b c2b2d0 573f71 7f864b 5ea063 3c1420 410c4e 864e74 d4b6b3 839ec6 a7b579 704580 8b88c2 bab4eb 1e4b2f 470440 c8b4c3 b6a094 656a89 d7e5e9 8e7f79 ecd0bb 92500 3f535a 2d4361 fdc2d1 5b3d41 40482b 79a17e 233817 616688 8bb4cf 2d6638 2a14 a59298 98807c b2d8ac 515189 48552f 4a8c74 505725 aeb1a5 2a7069 6d6285 5b515e c1b994 babcd2 141229 d1b5ba 7c755b 3e1c2a d7baca 25413a 3b5b25 9f7f87 ddfcef 5f5672 515465 280045 e00 71a9a0 9fac6c 99afaa dfcdc7 32481e ade0e2 d5d6d2 afeacb 5e3765 599459 8c9a85 2a5a30 d4cccf d6dbe8 5e6851 80979b 614548 2a3f36 270813 ba9a9b 7e82a1 aa8abd 5e2d51 805b5a b3b6ae a59391 757e3d 859380 808d52 544c75 16171a 686c3a ebb2c3 d496a0 a57070 4d3a4a 4a6c70 7f5f68 2d3a13 7d7162 a2a48b 998b66 a983ad 77647b b2cdc2 d7d6de 74568a 532c5e 804d81 aebd85 6c5d9f c9d6e4 6a6e83 e4b5b6 705982 1d2c2a 1428 0 ffffff ;
+target 0,3658340923026904 -2,376583341307019 0,3506343961581086;
+view_distance_max 18,27360955786645;
+volumetric_fog_colour_1_distance 0,007492558619201352;
+volumetric_fog_colour_2_distance 0,0149851172384027;
+volumetric_fog_density 0;
+volumetric_fog_distance_factor 0,0149851172384027;
+[fractal_1]
+IFS_direction_0 0,71 0,71 0;
+IFS_direction_1 0,71 0 0,71;
+IFS_direction_2 0 0,71 0,71;
+IFS_direction_3 0,71 -0,71 0;
+IFS_direction_4 0,71 0 -0,71;
+IFS_direction_5 0 0,71 -0,71;
+IFS_edge 2 0 0;
+IFS_edge_enabled true;
+IFS_enabled_1 true;
+IFS_enabled_4 true;
+IFS_enabled_5 true;
+IFS_offset 1 0,4 0;
+IFS_scale 1,8;
+[fractal_2]
+[fractal_3]
+[fractal_4]

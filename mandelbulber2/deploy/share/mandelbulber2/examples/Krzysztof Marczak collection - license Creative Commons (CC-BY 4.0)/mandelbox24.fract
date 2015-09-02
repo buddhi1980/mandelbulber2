@@ -1,0 +1,74 @@
+# Mandelbulber settings file
+# version 2.05
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_quality 6;
+aux_light_position_1 3 -3 -3;
+aux_light_position_4 0 -1 3;
+aux_light_volumetric_intensity_1 100;
+aux_light_volumetric_intensity_2 100;
+aux_light_volumetric_intensity_3 100;
+aux_light_volumetric_intensity_4 100;
+basic_fog_color 474a 58db 8d90;
+basic_fog_visibility 1,258925411794166e-11;
+camera -0,8836539124368368 -0,9105990235723502 -3,803039804655234;
+camera_distance_to_target 0,000533333333333415;
+camera_rotation -30,00000000000139 10,00000000000681 0;
+camera_top -0,08682408883352732 -0,1503837331805345 0,9848077530121875;
+coloring_palette_offset 194,8;
+coloring_palette_size 255;
+coloring_random_seed 433277;
+coloring_speed 3;
+DE_thresh 1;
+DOF_focus 1,479108388168207e-14;
+flight_last_to_render 0;
+fog_color_1 0 0 0;
+formula_1 8;
+fov 1,2;
+fractal_constant_factor 1,8 1,8 1,8;
+glow_intensity 1;
+image_height 1200;
+image_width 1600;
+iteration_fog_color_1 0 0 0;
+iteration_fog_color_1_maxiter 82;
+iteration_fog_color_2 0 7530 ffff;
+iteration_fog_color_2_maxiter 165;
+keyframe_last_to_render 0;
+legacy_coordinate_system true;
+main_light_alpha 90;
+main_light_beta -10;
+main_light_volumetric_intensity 100;
+stereo_eye_distance 0,1;
+surface_color_palette c7dffb c3defb c7defc c5dcfb c7dffc c7defd c5dffb c8dcfd dbf4f2 84b5af 434f49 4d5951 778382 6a8888 7b8885 65706b 435750 738688 7e9697 8eada7 849e9f 212a27 1f2523 242d2c 4a5653 505a59 575d59 53615c 54615b 6b706d 596463 6a7273 2e3b3c 2f3330 445454 3d4245 313f3f 405050 4e5a5b 4f5b57 465c60 141f19 242e29 454948 363937 415e5a 5b6768 788388 677a7a 242623 3f4140 565c5a 556567 434240 766e6f 889392 8a9898 839597 728687 6f7b7d 767e81 828d8b 778585 788283 6b777d 6c777a 788a8a 728687 7b8d8d 72858c 6d8285 708081 717f82 738186 768686 74858a 6d7f81 6d7f83 7c9193 849897 7f9091 9ba4a2 788e8f 788a8e 828b8a 6e6b66 4c6258 58595d 6b7b7a 4c4646 374b47 65797a 848e93 5a716b 4e5551 334240 2e302b 191d19 677172 456062 718083 757e83 5e6d6b 697673 757e7d 737c7b 697470 414647 5a6360 344036 353e3c 282e2b 384442 161b21 3d3f41 2f3632 313d37 2f3a36 383f3d 374239 39453b 1a201e 2b3151 7f9ca1 92a7a6 7c9293 42493e 57696a 687c73 768a85 7f9995 6d8074 57695d 749e94 1c221e 191a19 141615 f1212 131512 141615 121514 141817 141615 161616 191917 151514 171918 181b1a 191918 121615 161817 161616 151a17 151515 171717 1d1d1b 161616 151716 161712 121615 1a1d19 1b1d19 1c1e1b 282b24 333b29 698176 433d31 141816 161a19 242632 85a59a 8aac9e 9eb9ab 98b6aa 819a8d 516a52 3d4543 556064 495a50 424f4f 67708d 769398 96afa9 92b1ab 8dad9e 89a294 87aaa3 7e9f97 68827b 6a8177 4a5e56 3d503d 2e3d30 262f24 9fbda1 6d7f66 4c6447 3f5e4a 2f3f35 313f32 6d3f3a fbfefb eff7e2 d4f4e4 789b7b 4b725c 68a279 749d75 b8d5f2 bbd5f6 b9d6f6 b9d4f5 bad7f5 bcd6f4 b8d6f4 bdd7f8 bad7f7 bcd6f7 bdd7f9 bad4f5 bed8f7 bcd7f5 bcd8f6 bfd7f6 bdd8f6 bfd8f7 bdd9f7 c0dbf9 c1d9f9 c1daf9 c2dbfa c2dbf9 c1daf9 c3dafa c2dbfa c2d9f9 c4dbf8 c3dcfa c5dcfc c3ddfb c6ddfc c6ddfc c3ddfa c5ddfb c3defb c5dcfb c3dafa c2dafb c6defb c3dffb c5ddfc c5dcfb c4ddfb c6ddfc c5defa c5defc ;
+target -0,8833912970360335 -0,9101441603553089 -3,802947192293811;
+volumetric_fog_density 0;
+[fractal_1]
+power 8;
+[fractal_2]
+mandelbox_rotation_main 4,047388429201489e-302 0 0;
+mandelbox_rotation_neg_1 4,047392412755174e-302 0 0;
+mandelbox_rotation_neg_2 4,047394405170607e-302 0 0;
+mandelbox_rotation_neg_3 4,047398388724292e-302 0 0;
+mandelbox_rotation_pos_1 4,047400381139726e-302 0 0;
+mandelbox_rotation_pos_2 4,047404364693411e-302 0 0;
+mandelbox_rotation_pos_3 4,047406357108845e-302 0 0;
+power 8;
+[fractal_3]
+mandelbox_rotation_main 4,047388429201489e-302 0 0;
+mandelbox_rotation_neg_1 4,047392412755174e-302 0 0;
+mandelbox_rotation_neg_2 4,047394405170607e-302 0 0;
+mandelbox_rotation_neg_3 4,047398388724292e-302 0 0;
+mandelbox_rotation_pos_1 4,047400381139726e-302 0 0;
+mandelbox_rotation_pos_2 4,047404364693411e-302 0 0;
+mandelbox_rotation_pos_3 4,047406357108845e-302 0 0;
+power 8;
+[fractal_4]
+mandelbox_rotation_main 4,047388429201489e-302 0 0;
+mandelbox_rotation_neg_1 4,047392412755174e-302 0 0;
+mandelbox_rotation_neg_2 4,047394405170607e-302 0 0;
+mandelbox_rotation_neg_3 4,047398388724292e-302 0 0;
+mandelbox_rotation_pos_1 4,047400381139726e-302 0 0;
+mandelbox_rotation_pos_2 4,047404364693411e-302 0 0;
+mandelbox_rotation_pos_3 4,047406357108845e-302 0 0;
+power 8;

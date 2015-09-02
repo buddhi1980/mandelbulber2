@@ -1,0 +1,94 @@
+# Mandelbulber settings file
+# version 2.05
+# only modified parameters
+[main_parameters]
+ambient_occlusion 0;
+ambient_occlusion_mode 1;
+analityc_DE_mode false;
+aux_light_position_1 3 -3 -3;
+aux_light_position_4 0 -1 3;
+aux_light_volumetric_intensity_1 100;
+aux_light_volumetric_intensity_2 100;
+aux_light_volumetric_intensity_3 100;
+aux_light_volumetric_intensity_4 100;
+basic_fog_visibility 1,54882;
+camera -0,002428249194274638 -0,7204035088127888 -0,08133004894819584;
+camera_distance_to_target 1,333333443653828e-10;
+camera_rotation 0 0 0;
+camera_top 0 0 1;
+coloring_palette_size 255;
+coloring_random_seed 284915;
+DE_thresh 1;
+DOF_enabled true;
+DOF_focus 0,01093212328851221;
+flight_last_to_render 0;
+fog_color_1 0 0 0;
+formula_1 3;
+formula_2 10;
+fov 1,2;
+glow_intensity 0,933254;
+hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
+iteration_fog_color_1 0 0 0;
+iteration_fog_color_1_maxiter 82;
+iteration_fog_color_2 0 7530 ffff;
+iteration_fog_color_2_maxiter 165;
+julia_c -0,9 0 0;
+julia_mode true;
+keyframe_last_to_render 0;
+legacy_coordinate_system true;
+main_light_beta -45;
+main_light_intensity 0,7;
+main_light_volumetric_intensity 100;
+raytraced_reflections true;
+reflect 0,6;
+reflections_max 3;
+smoothness 2;
+specular 2;
+stereo_eye_distance 0,1;
+surface_color_palette be00 be968c ffb29a 76fdf7 6e4ebf e1a68f 6ba55b 63ff23 a500ae ab5722 ffbd92 5c2b40 961c83 f646c4 134745 15338d 8e9d9c 834d6d 5146ff 8c72e3 8861b9 c29920 fa7f44 e1ffff 688e3f ffe1d9 9e6789 df736f 207445 ff70b7 cbd7ee 58962a 105596 ff5aff efd338 5ebf89 8100 ffe1f9 5f8fdc 60428f 41d000 9000a eb69e3 ff4e76 d97af1 ff9230 e406 6c6d 759ecd b3fb8c 131e3f 7fc7ff ffcac7 42dd52 811847 ecff61 7d00bc 3d83 5cc300 a5ffec 5f4020 85db5 b53c8e 12aa9f e3a2ff ffc2ff 85002f adc733 3c89ca e27b00 be87ff 5cd1b6 69c6fb 703e c9cee6 b83cf0 938817 7d8284 a022a5 3300 d09e17 3e85aa 347079 a46000 708489 e5ecd9 42b2c6 933e 406400 8eff3d c0d2f5 44ec21 70a967 4200a8 c292dc 5f53e4 f4ffc8 bd88c4 67c604 c83a62 866c06 8e009a 8d8c28 f1ffbb eb49d9 ffd96b 6433e3 482119 c3552e a12f28 8217c9 368411 90ada6 b13d19 3bc70f 75b53f 3fb1 8cf6be c8685 2bb87b de9be5 62882f e0cfff 51ff54 1bc681 ff8d28 784d 510022 2eb013 c7d1ff e9000 7f2953 694ee2 518100 6abde5 e141ff 0 d0f3d7 d9ff81 f8c00 c4c07e 66a2cf 9aefd9 b05d1b e281a2 383d6e 5de239 5a19c5 cc3561 a6343 2df7a6 46b3ad 1a3587 991c51 fa8658 65004e 5af2e2 5b2be9 319ea0 9a96f4 feae62 a68f3f f274b8 7626ef 4aff73 b3910 ab84bb 15aa05 e1d40 fffbad 665c8b 6d659f 20caef 40 db745a 3475ff 8c4832 26c376 d3b500 6c91 3c874f a1cb32 f5c26 89004e 62afd2 895ff4 14e499 593452 2dff6d d69622 ff7235 6b91ff 6cff8e 54714b 2aba75 4620b5 bdabaa 6af59b 56ec4 edb50 a29f00 3d7676 b000 aa783c 8f517a 3cff32 51ce99 cd0dd5 c4ec74 4ed735 5c004f 99b900 36c4 19ce2b ff355c 40305d ffe4e1 399435 ffff63 a939b3 aeb6e2 ce58ce 45e24d e07838 6fff49 c58392 4dbb1b fffacf 656765 4f004f fffb55 839de2 78d940 158a82 72ca7c 7500c7 ac75ff 43f93 2400c0 8ec15c abac39 51d564 8ccdff 9196b5 c32b 4a0561 347e7a 19b07f 258149 1f75df 61ffcf 8d7527 b5ce53 f4d4d1 31ff99 ffffff ;
+target -0,002428249194274638 -0,7204035086794555 -0,08133004894819584;
+textured_background true;
+view_distance_max 6,328182767211591;
+volumetric_fog_density 0;
+[fractal_1]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_0 0,7071067811865476 -0,7071067811865476 0;
+IFS_direction_1 0,7071067811865476 0 -0,7071067811865476;
+IFS_direction_2 0 0,7071067811865476 -0,7071067811865476;
+IFS_enabled_2 true;
+IFS_scale 1;
+mandelbox_generalized_fold_type 1;
+[fractal_2]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_0 0,707 -0,707 0;
+IFS_direction_1 0,707 0 -0,707;
+IFS_direction_2 0 0,707 -0,707;
+IFS_enabled_2 true;
+IFS_scale 1;
+mandelbox_generalized_fold_type 1;
+[fractal_3]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_0 0,7071067811865476 -0,7071067811865476 0;
+IFS_direction_1 0,7071067811865476 0 -0,7071067811865476;
+IFS_direction_2 0 0,7071067811865476 -0,7071067811865476;
+IFS_enabled_2 true;
+IFS_scale 1;
+mandelbox_generalized_fold_type 1;
+[fractal_4]
+IFS_abs_x true;
+IFS_abs_y true;
+IFS_abs_z true;
+IFS_direction_0 0,7071067811865476 -0,7071067811865476 0;
+IFS_direction_1 0,7071067811865476 0 -0,7071067811865476;
+IFS_direction_2 0 0,7071067811865476 -0,7071067811865476;
+IFS_enabled_2 true;
+IFS_scale 1;
+mandelbox_generalized_fold_type 1;
