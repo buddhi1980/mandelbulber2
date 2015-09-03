@@ -1275,7 +1275,7 @@ Aktuelle Flugframes verwerfen?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="1935"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of camera / target movement mode&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Move camera and target&lt;/span&gt; - moves camera and target by the same distance&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move camera and target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; - moves only camera. Target stays in the same prace. Camera rotates to look at stationary target.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Move target - moves only target. Camera stays in the same place. Camera rotates to look at moving target.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl Kamera / Ziel Bewegungsmodus&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera und Ziel bewegen&lt;/span&gt; -Bewegt Kamera und Ziel um dieselbe Distanz&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move camera and target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera bewegen&lt;/span&gt; - Bewegt nur die Kamera. Ziel bleibt fix. Kamera rotiert um stationäres Ziel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Ziel bewegen -Bewegt nur das Ziel. Kamera bleibt fix. StationäreKamera rbeobachtet bewegtes Ziel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1939"/>
@@ -1301,7 +1301,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="1982"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance between camera and target&lt;/p&gt;&lt;p&gt;In&lt;span style=&quot; font-style:italic;&quot;&gt; Move camera and target&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; modes it moves camera closer/further from target.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrolliert die Distanz zwischen Kamera und Ziel&lt;/p&gt;&lt;p&gt;Bei&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera und Ziel bewegen&lt;/span&gt; und &lt;span style=&quot; font-style:italic;&quot;&gt;Kamera bewegen&lt;/span&gt; Modus bewegt es die Kamera näher heran / weiter weg vom Ziel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2036"/>
@@ -1341,12 +1341,12 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2278"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Step for camera or target movement.&lt;/p&gt;&lt;p&gt;It can be relative or absolute step.&lt;/p&gt;&lt;p&gt;If it is set relative then movement distance equals &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; multiplied by actual distance to the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Schritt für Kamera oder Ziel Bewegung.&lt;/p&gt;&lt;p&gt;Der Schritt kann relativ oder absolut angegeben werden.&lt;/p&gt;&lt;p&gt;Wenn es relativ gesetzt ist, dann ist die Bewegungsdistanz gleich des &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; mal aktueller Distanz zur Fraktaloberfläche.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2321"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for movement step calculation.&lt;/p&gt;&lt;p&gt;If it is set relative then movement distance equals  &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; multiplied by actual distance to fractal surface. This is the preferred mode.&lt;/p&gt;&lt;p&gt;If it is set absolute then movement equals step set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl der Bewegungsschritt Berechnung.&lt;/p&gt;&lt;p&gt;Wenn es relativ gesetzt ist, dann ist die Bewegungsdistanz gleich des &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; mal aktueller Distanz zur Fraktaloberfläche. Das ist der preferierte Modus.&lt;/p&gt;&lt;p&gt;Wenn es absolut gesetzt ist, dann ist die Bewegungsdistanz gleich &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; Parameter. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2325"/>
@@ -1386,7 +1386,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2674"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for rotation modes&lt;/p&gt;&lt;p&gt;Fixed roll angle - rotates camera using world axes. This mode does not change the roll angle but can be difficult to predict when camera is upside down or almost in vertical orientation.&lt;/p&gt;&lt;p&gt;Straight rotation - rotates camera using actual camera axes. This mode rotates camera in a more intuitive way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl des Rotationsmodus&lt;/p&gt;&lt;p&gt;Fester  Roll Winkel - rotiert die Kamera nach Weltachsen. Dieser Modus verändert den Roll Winkel nicht, kann aber schwer vorhersehbares Verhalten zeigen, wenn die Kamera auf dem Kopf oder nahezu vertikal ausgerichtet ist.&lt;/p&gt;&lt;p&gt;Gerade Rotation - Rotiert die Kamera nach eingentlichen Kameraachsen. Dieser Modus rotiert die Kamera auf eine intuitivere Art und Weise.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2678"/>
@@ -1462,42 +1462,42 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2969"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fractal interior&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbe des Fraktal Interiors&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab angewählt sein.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3032"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of light reflection effect&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab or environment mapping&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensität des Lichtreflektion Effekts&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab, oder Umgebungsmapping angewählt sein.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3112"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;angle of incidence effects intensity&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;shading 0.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;shading 1.0 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensitätdes Einfallswinkel Effekts&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Schattierung 0.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Schattierung 1.0 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3234"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparency of fractal surface&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparenz der Fraktaloberfläche&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab angewählt sein.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3288"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparency of fractal interior.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparenz des Fraktalinteriors&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab angewählt sein.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3301"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Index of refraction of fractal object&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;p&gt;Example values: vacuum 1.0; glass.1.5; water 1.35; diamond 2.41&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brechungsindex des fraktalen Objektes&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab angewählt sein.&lt;/p&gt;&lt;p&gt;Beispielwerte: Vakuum 1,0 - Glas 1,5 - Wasser 1,35 - Diamant 2,41&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3354"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled the reflectance is calculated from Fresnel&apos;s equations. In other words reflectance depends on angle of incidence of ray.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wenn diese Option aktiviert ist, dann wird die Reflektion aus der Fresnel&apos;schen-Gleichungen berechnet. Mit anderen Worten hängt die Reflektion vom Einfallswinkel des Strahles ab.&lt;/p&gt;&lt;p&gt;Um diesen Effekt anzuwenden, müssen Raytraced Reflektionen im &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; Tab angewählt sein.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3366"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settings for scattered light effect&lt;/p&gt;&lt;p&gt;Types of ambient occlusion effect:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Screen Space Ambient Occlusion (SSAO)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Multiple rays&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Fast&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion high quality.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion fast mode.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;SSAO - relatively fast post-effect based on z-Buffer&lt;/p&gt;&lt;p&gt;Multiple rays - based on calculation of rays in different directions. It uses texture to create colored light map. This effect slows down rendering.&lt;/p&gt;&lt;p&gt;Fast - simple and fast method to calculate scattered light effect. This the least accurate effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enstellungen für Streulicht-Effekt&lt;/p&gt;&lt;p&gt;Arten des Umgebungsverduckung Effektes:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Screen Space Ambient Occlusion (SSAO)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Mehrere Strahlen&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Schnell&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion high quality.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion fast mode.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;SSAO - relativ schneller Nachbearbeitungseffekt basierend auf Z-Buffer&lt;/p&gt;&lt;p&gt;Mehrere Strahlen - basiert auf Berechung der Strahlen in verschiedenen Richtungen. Es wird eine Textur verwendet, um die farbliche Lichtmap zu erzeugen. Dieser Effekt verlangsamt das Rendering.&lt;/p&gt;&lt;p&gt;Schnell - Einfache und schnelle Methode um den Streulicht-Effekt zu berechnen. Dies ist der am wenigsten akkurate Effekt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3369"/>
@@ -1620,7 +1620,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4004"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Environment mapping is an image-based lighting technique for approximating the appearance of a reflective surface by means of a precomputed texture image. The texture is used to store the image of the distant environment surrounding the rendered object.&lt;/p&gt;&lt;p&gt;To adjust effect intensity use &lt;span style=&quot; font-style:italic;&quot;&gt;reflection&lt;/span&gt; slider&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Umgebungsmapping ist eine Bild-basierte Beleuchtungstechnik um die Erscheinung einer reflektierenden Oberfläche  aus einer Textur heraus zu approximieren. Die Textur wird verwendet, um das Bild der fernen Umgebung des gerenderten Objekt zu speichern.&lt;/p&gt;&lt;p&gt;Die Intensität des Effektes kann am &lt;span style=&quot; font-style:italic;&quot;&gt;Reflektion&lt;/span&gt; Slider eingestellt werden&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4007"/>
@@ -1675,7 +1675,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4389"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setting of focus distance by mouse pointer. &lt;/p&gt;&lt;p&gt;Click on this button and then point the object on image which you want to appear in focus.&lt;/p&gt;&lt;p&gt;After using it don&apos;t forget to change &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mouse click function&lt;/span&gt; to continue work with the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setzen der Fokusdistanz per Mauszeiger. &lt;/p&gt;&lt;p&gt;Klicken Sie auf diesen Knopf, und klicken Sie dann das Objekt auf dem Bild, das scharf erscheinen soll.&lt;/p&gt;&lt;p&gt;Nach der Einstellung nicht vergessen unter &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mausklick Funktion&lt;/span&gt; den gewünschten Bearbeitungsschritt anzupassen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4392"/>
@@ -1875,7 +1875,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2651"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Modes of camera rotation&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Rotate camera&lt;/span&gt; - rotates the camera by moving the target around the camera&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate target around camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;Rotate around target - rotates the camera by moving camera around the target&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate camera around target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Modi der Kamera Rotation&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera rotieren&lt;/span&gt; - rotiert die Kamera indem das Ziel um die Kamera bewegt wird&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate target around camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;Um Ziel rotieren - rotiert die Kamera indem sie um das Ziel bewegt wird&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate camera around target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2683"/>
@@ -1885,17 +1885,17 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2739"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of camera around yaw axis (left &amp;lt;-&amp;gt; right)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation der Kamera um Gier-Achse (links &amp;lt;-&amp;gt; rechts)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2759"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of camera around pitch axis (up &amp;lt;-&amp;gt; down)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation der Kamera um Nick-Achse (hoch &amp;lt;-&amp;gt; runter)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2779"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of camera around roll axis (rotates image left &amp;lt;-&amp;gt; right)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation der Kamera um Roll-Achse (rotiert das Bild links herum &amp;lt;-&amp;gt; rechts herum)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2906"/>
@@ -1910,12 +1910,12 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="3004"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of scattered light&lt;/p&gt;&lt;p&gt;example of effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensität des Streulicht Effektes&lt;/p&gt;&lt;p&gt;Beispiel des Effektes:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3140"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;specularity effect&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;specularity 0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;specularity 5 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Glanz Effekt&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Glanz 0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Glanz 5 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - specularity 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3214"/>
@@ -1940,52 +1940,52 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="3485"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of method to calculate ambient occlusion effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl der Methode zur Berechnung des Umgebungsverdeckung Effektes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3513"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter controls brightness of fast ambient occlusion effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dieser Parameter steuert die Helligkeit des schnellen Umgebungsverdeckung Effektes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3626"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coloring of fractal surface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Einfärbung der Fraktaloberfläche&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3671"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Random seed for palette generator&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rendern abbrechen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Zufallsstartwert für den Palettengenerator&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3701"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Saturation of colors in random color palette &lt;/p&gt;&lt;p&gt;To apply changes of saturation, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbsättigung der Zufallspalette &lt;/p&gt;&lt;p&gt;Um die Änderungen der Sättigung anzuwenden, klicken Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Erzeuge neue Zufallspalette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3751"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color palette speed sets frequency of color changing&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;speed 0.3&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;speed 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;speed 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 0.3.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbgeschwindigkeit setzt die Frequenz der Farbänderung&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 0,3&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 1,0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Geschwindigkeit 5,0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 0.3.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3788"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Grab color palette from selected picture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hole Farbpalette aus ausgewähltem Bild&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3888"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of colors used in color palette.&lt;/p&gt;&lt;p&gt;To apply changes of palette size, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anzahl der Farben in der Farbpalette &lt;/p&gt;&lt;p&gt;Um die Änderungen der Palettengröße anzuwenden, klicken Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Erzeuge neue Zufallspalette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3936"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift of color palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Versatz der Farbpalette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3989"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate new random seed and palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generiere neuen Zufallsstartwert und Farbpalette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4146"/>
@@ -1995,37 +1995,37 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4225"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Depth of field is the effect in which objects within some range of distances in a scene appear in focus, and objects nearer or farther than this range appear out of focus.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tiefenschärfe ist der Effekt in der Objekte innerhalb eines gewissen Bereichs von Abständen in einer Szene im Fokus erscheinen, und Objekte näher oder weiter als dieser Bereich unscharf erscheinen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4302"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It&apos;s the distance where objects appear in focus.&lt;/p&gt;&lt;p&gt;Distance can be set bu using button &lt;span style=&quot; font-style:italic;&quot;&gt;Set focus distance by mouse&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;low focus distance&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;high focus distance&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Das ist die Distanz in der Objekte im Fokus erscheinen.&lt;/p&gt;&lt;p&gt;Die Distanz kann mit Klick auf &lt;span style=&quot; font-style:italic;&quot;&gt;Setze Fokusdistanz per Maus&lt;/span&gt; gesetzt werden&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;geringe Fokusdistanz&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;hohe Fokusdistanz&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4337"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of DOF effect (average radius of blur)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;radius = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;radius = 50&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 50.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensität des Tiefenschärfe Effektes (Durchschnittsradius der Unschärfe)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Radius = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Radius = 50&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 50.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4373"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Update image after changes of DOF settings. Can be updated even after image rendering.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Das Bild nach der Änderung der Tiefenschärfe Parameter updaten. Kann sogar nach dem Bildrender angewandt werden&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4471"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables fog effect. Density of fog is constant over entire space.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - fog.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert Nebeleffekt. Die Nebeldichte ist über den ganzen Raum konstant.&lt;/p&gt;&lt;p&gt;Beispiel:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - fog.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4528"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Visibility distance of fog. Visibility can be set by using &apos;&lt;span style=&quot; font-style:italic;&quot;&gt;Set visibility distance by mouse&apos;&lt;/span&gt; button&lt;/p&gt;&lt;p&gt;Lower value gives denser fog,&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sichtbarkeitsdistanz des Nebels. Sichtbarkeit kann mit Klick auf &apos;&lt;span style=&quot; font-style:italic;&quot;&gt;Setze Sichtbarkeitsdistanz per Maus&lt;/span&gt; Knopf gesetzt werden.&lt;/p&gt;&lt;p&gt;Ein kleinerer Wert gibt einen dichteren Nebel&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4545"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbe des Nebels&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4555"/>
@@ -2035,7 +2035,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4570"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets visibility distance using mouse pointer. Point the object which should be the fathrthest visible.&lt;/p&gt;&lt;p&gt;After using it don&apos;t forget to chage &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mouse click function&lt;/span&gt; to continue work with the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setzen der Sichtbarkeitsdistanz per Mauszeiger. &lt;/p&gt;&lt;p&gt;Klicken Sie auf diesen Knopf, und klicken Sie dann das Objekt auf dem Bild, das am weitesten sichtbar erscheinen soll.&lt;/p&gt;&lt;p&gt;Nach der Einstellung nicht vergessen unter &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mausklick Funktion&lt;/span&gt; den gewünschten Bearbeitungsschritt anzupassen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4573"/>
@@ -2045,7 +2045,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4583"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Glow effect based on ray-marching step count&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - glow.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Leuchteffekt basierend auf Raymarching Schritt Anzahl&lt;/p&gt;&lt;p&gt;Beispiel:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - glow.jpeg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4586"/>
@@ -2071,12 +2071,12 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4629"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of bright areas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbe der hellen Areale&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4658"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of dark areas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbe der dunklen Areale&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4668"/>
@@ -2092,12 +2092,12 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4681"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensität des Effekts&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4693"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fog where density depends on distance from fractal surface.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Example of high values of distance&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Examples of low values of distance &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow 2.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nebel bei dem die Dichte von der Distanz zur Fraktaloberfläche abhängt.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Beispiel für hohen Wert der Distanz&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Beispiel für tiefen Wert der Distanz&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow 2.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4696"/>
@@ -2107,7 +2107,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4731"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Density of fog. Higher value gives denser fog. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dichte des Nebels. Höherer Wert gibt dichteren Nebel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4738"/>
@@ -2127,17 +2127,17 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4784"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum distance from fractal surface where color #2 is used and minimum where color #3  is used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximale Distanz zur Fraktaloberfläche bis zu derFarbe #2 verwendet wird und  Minimalwert ab der Farbe #3  verwendet wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4791"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used from fractal surface to distance #1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbe des Nebels der zwischen Fraktaloberfläche und Distanz #1 verwendet wird&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4826"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum distance from fractal surface where color #1 is used&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximale Distanz zur Fraktaloberfläche bis zu derFarbe #1 verwendet wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4852"/>
@@ -2147,7 +2147,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4866"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used between distance #1  and distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbe des Nebels der zwischen Distanz #1 und Distanz #2 verwendet wird&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4876"/>
@@ -2159,7 +2159,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4883"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used farther than distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Farbe des Nebels der weiter als Distanz #2 verwendet wird&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4899"/>
@@ -4053,12 +4053,12 @@ und Wasser):</translation>
     <message>
         <location filename="../src/render_window.cpp" line="1655"/>
         <source>CPUs</source>
-        <translation type="unfinished"></translation>
+        <translation>CPUs</translation>
     </message>
     <message>
         <location filename="../src/render_window.cpp" line="1655"/>
         <source>Lines done</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeilen fertig</translation>
     </message>
     <message>
         <source>Select texture for ambient occlussion light map...</source>
