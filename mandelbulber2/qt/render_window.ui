@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1741</width>
-    <height>1259</height>
+    <width>1600</width>
+    <height>1000</height>
    </rect>
   </property>
   <property name="font">
@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1162</width>
-           <height>724</height>
+           <width>1021</width>
+           <height>601</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -248,7 +248,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1741</width>
+     <width>1600</width>
      <height>19</height>
     </rect>
    </property>
@@ -1210,7 +1210,7 @@
           <x>0</x>
           <y>0</y>
           <width>174</width>
-          <height>296</height>
+          <height>235</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -2862,7 +2862,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>163</height>
+          <height>130</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2930,7 +2930,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-76</y>
+                  <y>0</y>
                   <width>303</width>
                   <height>702</height>
                  </rect>
@@ -4445,7 +4445,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>196</width>
+                  <width>303</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5285,7 +5285,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>273</width>
+                  <width>303</width>
                   <height>202</height>
                  </rect>
                 </property>
@@ -5548,8 +5548,8 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>265</width>
+                  <y>-407</y>
+                  <width>303</width>
                   <height>1248</height>
                  </rect>
                 </property>
@@ -7693,7 +7693,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -7724,7 +7724,7 @@ to target:</string>
              <item>
               <widget class="QTabWidget" name="tabWidget_fractals">
                <property name="currentIndex">
-                <number>0</number>
+                <number>3</number>
                </property>
                <widget class="QWidget" name="tab_fractal_formula_1">
                 <attribute name="title">
@@ -7756,7 +7756,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -8413,7 +8413,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9064,7 +9064,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9709,7 +9709,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -11601,7 +11601,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
+                  <width>289</width>
                   <height>354</height>
                  </rect>
                 </property>
@@ -13517,7 +13517,7 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>224</width>
+                  <width>341</width>
                   <height>291</height>
                  </rect>
                 </property>
@@ -14347,8 +14347,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>258</height>
+                  <width>303</width>
+                  <height>187</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -15240,11 +15240,14 @@ and water):</string>
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>checkBox_keyframe_auto_validate</tabstop>
   <tabstop>sliderInt_image_width</tabstop>
   <tabstop>spinboxInt_image_width</tabstop>
   <tabstop>sliderInt_image_height</tabstop>
   <tabstop>spinboxInt_image_height</tabstop>
   <tabstop>comboBox_image_proportion</tabstop>
+  <tabstop>pushButton_imagesize_increase</tabstop>
+  <tabstop>pushButton_imagesize_decrease</tabstop>
   <tabstop>pushButton_resolution_preset_480</tabstop>
   <tabstop>pushButton_resolution_preset_720</tabstop>
   <tabstop>pushButton_resolution_preset_1080</tabstop>
@@ -15266,7 +15269,9 @@ and water):</string>
   <tabstop>spinbox_fov</tabstop>
   <tabstop>comboBox_perspective_type</tabstop>
   <tabstop>checkBox_legacy_coordinate_system</tabstop>
-  <tabstop>scrollArea_6</tabstop>
+  <tabstop>scrollArea_2</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>tableWidget_statistics</tabstop>
   <tabstop>slider_shading</tabstop>
   <tabstop>spinbox_shading</tabstop>
   <tabstop>slider_specular</tabstop>
@@ -15275,6 +15280,13 @@ and water):</string>
   <tabstop>spinbox_ambient_occlusion</tabstop>
   <tabstop>slider_reflect</tabstop>
   <tabstop>spinbox_reflect</tabstop>
+  <tabstop>slider_transparency_of_surface</tabstop>
+  <tabstop>spinbox_transparency_of_surface</tabstop>
+  <tabstop>logslider_transparency_of_interior</tabstop>
+  <tabstop>logedit_transparency_of_interior</tabstop>
+  <tabstop>slider_transparency_index_of_refraction</tabstop>
+  <tabstop>spinbox_transparency_index_of_refraction</tabstop>
+  <tabstop>checkBox_fresnel_reflectance</tabstop>
   <tabstop>groupCheck_ambient_occlusion_enabled</tabstop>
   <tabstop>sliderInt_ambient_occlusion_quality</tabstop>
   <tabstop>spinboxInt_ambient_occlusion_quality</tabstop>
@@ -15299,6 +15311,8 @@ and water):</string>
   <tabstop>groupCheck_env_mapping_enable</tabstop>
   <tabstop>text_file_envmap</tabstop>
   <tabstop>button_selectEnvMapTexture</tabstop>
+  <tabstop>tabWidget_2</tabstop>
+  <tabstop>scrollArea_7</tabstop>
   <tabstop>groupCheck_raytraced_reflections</tabstop>
   <tabstop>sliderInt_reflections_max</tabstop>
   <tabstop>spinboxInt_reflections_max</tabstop>
@@ -15310,6 +15324,7 @@ and water):</string>
   <tabstop>pushButton_DOF_update</tabstop>
   <tabstop>pushButton_DOF_set_focus</tabstop>
   <tabstop>groupCheck_basic_fog_enabled</tabstop>
+  <tabstop>scrollArea_8</tabstop>
   <tabstop>logslider_basic_fog_visibility</tabstop>
   <tabstop>logedit_basic_fog_visibility</tabstop>
   <tabstop>pushButton_set_fog_by_mouse</tabstop>
@@ -15358,32 +15373,32 @@ and water):</string>
   <tabstop>spinbox_shadows_cone_angle</tabstop>
   <tabstop>checkBox_main_light_position_relative</tabstop>
   <tabstop>groupCheck_aux_light_enabled_1</tabstop>
-  <tabstop>vect3_aux_light_position_1_x</tabstop>
-  <tabstop>vect3_aux_light_position_1_y</tabstop>
-  <tabstop>vect3_aux_light_position_1_z</tabstop>
-  <tabstop>logedit_aux_light_intensity_1</tabstop>
-  <tabstop>logslider_aux_light_intensity_1</tabstop>
-  <tabstop>pushButton_place_light_by_mouse_1</tabstop>
   <tabstop>groupCheck_aux_light_enabled_2</tabstop>
+  <tabstop>vect3_aux_light_position_1_x</tabstop>
   <tabstop>vect3_aux_light_position_2_x</tabstop>
+  <tabstop>vect3_aux_light_position_1_y</tabstop>
   <tabstop>vect3_aux_light_position_2_y</tabstop>
+  <tabstop>vect3_aux_light_position_1_z</tabstop>
   <tabstop>vect3_aux_light_position_2_z</tabstop>
+  <tabstop>logedit_aux_light_intensity_1</tabstop>
   <tabstop>logedit_aux_light_intensity_2</tabstop>
+  <tabstop>logslider_aux_light_intensity_1</tabstop>
   <tabstop>logslider_aux_light_intensity_2</tabstop>
+  <tabstop>pushButton_place_light_by_mouse_1</tabstop>
   <tabstop>pushButton_place_light_by_mouse_2</tabstop>
   <tabstop>groupCheck_aux_light_enabled_3</tabstop>
-  <tabstop>vect3_aux_light_position_3_x</tabstop>
-  <tabstop>vect3_aux_light_position_3_y</tabstop>
-  <tabstop>vect3_aux_light_position_3_z</tabstop>
-  <tabstop>logedit_aux_light_intensity_3</tabstop>
-  <tabstop>logslider_aux_light_intensity_3</tabstop>
-  <tabstop>pushButton_place_light_by_mouse_3</tabstop>
   <tabstop>groupCheck_aux_light_enabled_4</tabstop>
+  <tabstop>vect3_aux_light_position_3_x</tabstop>
   <tabstop>vect3_aux_light_position_4_x</tabstop>
+  <tabstop>vect3_aux_light_position_3_y</tabstop>
   <tabstop>vect3_aux_light_position_4_y</tabstop>
+  <tabstop>vect3_aux_light_position_3_z</tabstop>
   <tabstop>vect3_aux_light_position_4_z</tabstop>
+  <tabstop>logedit_aux_light_intensity_3</tabstop>
   <tabstop>logedit_aux_light_intensity_4</tabstop>
+  <tabstop>logslider_aux_light_intensity_3</tabstop>
   <tabstop>logslider_aux_light_intensity_4</tabstop>
+  <tabstop>pushButton_place_light_by_mouse_3</tabstop>
   <tabstop>pushButton_place_light_by_mouse_4</tabstop>
   <tabstop>logslider_aux_light_visibility</tabstop>
   <tabstop>logedit_aux_light_visibility</tabstop>
@@ -15420,11 +15435,92 @@ and water):</string>
   <tabstop>vect3_fake_lights_orbit_trap_x</tabstop>
   <tabstop>vect3_fake_lights_orbit_trap_y</tabstop>
   <tabstop>vect3_fake_lights_orbit_trap_z</tabstop>
+  <tabstop>scrollAreaForImage</tabstop>
+  <tabstop>tabWidgetFlightKeyframe</tabstop>
+  <tabstop>tabWidget_fractal</tabstop>
+  <tabstop>scrollArea_5</tabstop>
   <tabstop>tabWidget_fractals</tabstop>
-  <tabstop>comboBox_formula_1</tabstop>
-  <tabstop>spinboxInt_formula_iterations_1</tabstop>
-  <tabstop>sliderInt_formula_iterations_1</tabstop>
+  <tabstop>scrollArea_6</tabstop>
   <tabstop>scrollArea_fractal_1</tabstop>
+  <tabstop>comboBox_formula_1</tabstop>
+  <tabstop>sliderInt_formula_iterations_1</tabstop>
+  <tabstop>spinboxInt_formula_iterations_1</tabstop>
+  <tabstop>slider_formula_weight_1</tabstop>
+  <tabstop>spinbox_formula_weight_1</tabstop>
+  <tabstop>vect3_formula_position_1_x</tabstop>
+  <tabstop>vect3_formula_position_1_y</tabstop>
+  <tabstop>vect3_formula_position_1_z</tabstop>
+  <tabstop>logslider_formula_scale_1</tabstop>
+  <tabstop>logedit_formula_scale_1</tabstop>
+  <tabstop>dial3_formula_rotation_1_x</tabstop>
+  <tabstop>spinboxd3_formula_rotation_1_x</tabstop>
+  <tabstop>dial3_formula_rotation_1_y</tabstop>
+  <tabstop>spinboxd3_formula_rotation_1_y</tabstop>
+  <tabstop>dial3_formula_rotation_1_z</tabstop>
+  <tabstop>spinboxd3_formula_rotation_1_z</tabstop>
+  <tabstop>vect3_formula_repeat_1_x</tabstop>
+  <tabstop>vect3_formula_repeat_1_y</tabstop>
+  <tabstop>vect3_formula_repeat_1_z</tabstop>
+  <tabstop>scrollArea_fractal_2</tabstop>
+  <tabstop>comboBox_formula_2</tabstop>
+  <tabstop>sliderInt_formula_iterations_2</tabstop>
+  <tabstop>spinboxInt_formula_iterations_2</tabstop>
+  <tabstop>slider_formula_weight_2</tabstop>
+  <tabstop>spinbox_formula_weight_2</tabstop>
+  <tabstop>vect3_formula_position_2_x</tabstop>
+  <tabstop>vect3_formula_position_2_y</tabstop>
+  <tabstop>vect3_formula_position_2_z</tabstop>
+  <tabstop>logslider_formula_scale_2</tabstop>
+  <tabstop>logedit_formula_scale_2</tabstop>
+  <tabstop>dial3_formula_rotation_2_x</tabstop>
+  <tabstop>spinboxd3_formula_rotation_2_x</tabstop>
+  <tabstop>dial3_formula_rotation_2_y</tabstop>
+  <tabstop>spinboxd3_formula_rotation_2_y</tabstop>
+  <tabstop>dial3_formula_rotation_2_z</tabstop>
+  <tabstop>spinboxd3_formula_rotation_2_z</tabstop>
+  <tabstop>vect3_formula_repeat_2_x</tabstop>
+  <tabstop>vect3_formula_repeat_2_y</tabstop>
+  <tabstop>vect3_formula_repeat_2_z</tabstop>
+  <tabstop>scrollArea_fractal_3</tabstop>
+  <tabstop>comboBox_formula_3</tabstop>
+  <tabstop>sliderInt_formula_iterations_3</tabstop>
+  <tabstop>spinboxInt_formula_iterations_3</tabstop>
+  <tabstop>slider_formula_weight_3</tabstop>
+  <tabstop>spinbox_formula_weight_3</tabstop>
+  <tabstop>vect3_formula_position_3_x</tabstop>
+  <tabstop>vect3_formula_position_3_y</tabstop>
+  <tabstop>vect3_formula_position_3_z</tabstop>
+  <tabstop>logslider_formula_scale_3</tabstop>
+  <tabstop>logedit_formula_scale_3</tabstop>
+  <tabstop>dial3_formula_rotation_3_x</tabstop>
+  <tabstop>spinboxd3_formula_rotation_3_x</tabstop>
+  <tabstop>dial3_formula_rotation_3_y</tabstop>
+  <tabstop>spinboxd3_formula_rotation_3_y</tabstop>
+  <tabstop>dial3_formula_rotation_3_z</tabstop>
+  <tabstop>spinboxd3_formula_rotation_3_z</tabstop>
+  <tabstop>vect3_formula_repeat_3_x</tabstop>
+  <tabstop>vect3_formula_repeat_3_y</tabstop>
+  <tabstop>vect3_formula_repeat_3_z</tabstop>
+  <tabstop>scrollArea_fractal_4</tabstop>
+  <tabstop>comboBox_formula_4</tabstop>
+  <tabstop>sliderInt_formula_iterations_4</tabstop>
+  <tabstop>spinboxInt_formula_iterations_4</tabstop>
+  <tabstop>slider_formula_weight_4</tabstop>
+  <tabstop>spinbox_formula_weight_4</tabstop>
+  <tabstop>vect3_formula_position_4_x</tabstop>
+  <tabstop>vect3_formula_position_4_y</tabstop>
+  <tabstop>vect3_formula_position_4_z</tabstop>
+  <tabstop>logslider_formula_scale_4</tabstop>
+  <tabstop>logedit_formula_scale_4</tabstop>
+  <tabstop>dial3_formula_rotation_4_x</tabstop>
+  <tabstop>spinboxd3_formula_rotation_4_x</tabstop>
+  <tabstop>dial3_formula_rotation_4_y</tabstop>
+  <tabstop>spinboxd3_formula_rotation_4_y</tabstop>
+  <tabstop>dial3_formula_rotation_4_z</tabstop>
+  <tabstop>spinboxd3_formula_rotation_4_z</tabstop>
+  <tabstop>vect3_formula_repeat_4_x</tabstop>
+  <tabstop>vect3_formula_repeat_4_y</tabstop>
+  <tabstop>vect3_formula_repeat_4_z</tabstop>
   <tabstop>scrollArea_11</tabstop>
   <tabstop>groupCheck_julia_mode</tabstop>
   <tabstop>vect3_julia_c_x</tabstop>
@@ -15433,6 +15529,10 @@ and water):</string>
   <tabstop>pushButton_get_julia_constant</tabstop>
   <tabstop>slider3_fractal_constant_factor_x</tabstop>
   <tabstop>spinbox3_fractal_constant_factor_x</tabstop>
+  <tabstop>slider3_fractal_constant_factor_y</tabstop>
+  <tabstop>spinbox3_fractal_constant_factor_y</tabstop>
+  <tabstop>slider3_fractal_constant_factor_z</tabstop>
+  <tabstop>spinbox3_fractal_constant_factor_z</tabstop>
   <tabstop>vect3_fractal_position_x</tabstop>
   <tabstop>vect3_fractal_position_y</tabstop>
   <tabstop>vect3_fractal_position_z</tabstop>
@@ -15447,6 +15547,20 @@ and water):</string>
   <tabstop>vect3_repeat_z</tabstop>
   <tabstop>checkBox_hybrid_fractal_enable</tabstop>
   <tabstop>checkBox_linear_DE_mode</tabstop>
+  <tabstop>groupCheck_boolean_operators</tabstop>
+  <tabstop>comboBox_boolean_operator_1</tabstop>
+  <tabstop>comboBox_boolean_operator_2</tabstop>
+  <tabstop>comboBox_boolean_operator_3</tabstop>
+  <tabstop>groupCheck_box_folding</tabstop>
+  <tabstop>slider_box_folding_limit</tabstop>
+  <tabstop>spinbox_box_folding_limit</tabstop>
+  <tabstop>slider_box_folding_value</tabstop>
+  <tabstop>spinbox_box_folding_value</tabstop>
+  <tabstop>groupCheck_spherical_folding</tabstop>
+  <tabstop>slider_spherical_folding_outer</tabstop>
+  <tabstop>spinbox_spherical_folding_outer</tabstop>
+  <tabstop>slider_spherical_folding_inner</tabstop>
+  <tabstop>spinbox_spherical_folding_inner</tabstop>
   <tabstop>scrollArea_primitives</tabstop>
   <tabstop>pushButton_add_primitive_rectangle</tabstop>
   <tabstop>pushButton_add_primitive_circle</tabstop>
@@ -15466,8 +15580,11 @@ and water):</string>
   <tabstop>spinboxd3_all_primitives_rotation_y</tabstop>
   <tabstop>dial3_all_primitives_rotation_z</tabstop>
   <tabstop>spinboxd3_all_primitives_rotation_z</tabstop>
+  <tabstop>scrollArea_3</tabstop>
   <tabstop>sliderInt_N</tabstop>
   <tabstop>spinboxInt_N</tabstop>
+  <tabstop>logslider_bailout</tabstop>
+  <tabstop>logedit_bailout</tabstop>
   <tabstop>logslider_detail_level</tabstop>
   <tabstop>logedit_detail_level</tabstop>
   <tabstop>logslider_DE_factor</tabstop>
@@ -15491,9 +15608,31 @@ and water):</string>
   <tabstop>vect3_limit_max_x</tabstop>
   <tabstop>vect3_limit_max_y</tabstop>
   <tabstop>vect3_limit_max_z</tabstop>
+  <tabstop>combo_netrender_mode</tabstop>
+  <tabstop>text_netrender_client_remote_address</tabstop>
+  <tabstop>spinboxInt_netrender_client_remote_port</tabstop>
+  <tabstop>bu_netrender_connect</tabstop>
+  <tabstop>bu_netrender_disconnect</tabstop>
+  <tabstop>spinboxInt_netrender_server_local_port</tabstop>
+  <tabstop>bu_netrender_start_server</tabstop>
+  <tabstop>bu_netrender_stop_server</tabstop>
+  <tabstop>tableWidget_netrender_connected_clients</tabstop>
+  <tabstop>comboBox_image_preview_scale</tabstop>
+  <tabstop>checkBox_show_cursor</tabstop>
+  <tabstop>comboBox_mouse_click_function</tabstop>
+  <tabstop>comboBox_gamepad_device</tabstop>
+  <tabstop>scrollArea_gamepad</tabstop>
+  <tabstop>sl_gamepad_movement_x</tabstop>
+  <tabstop>sl_gamepad_movement_y</tabstop>
+  <tabstop>sl_gamepad_movement_z</tabstop>
+  <tabstop>sl_gamepad_angle_yaw</tabstop>
+  <tabstop>sl_gamepad_angle_pitch</tabstop>
+  <tabstop>sl_gamepad_angle_roll</tabstop>
   <tabstop>pushButton_render</tabstop>
   <tabstop>pushButton_stop</tabstop>
-  <tabstop>scrollArea_gamepad</tabstop>
+  <tabstop>pushButton_undo</tabstop>
+  <tabstop>pushButton_redo</tabstop>
+  <tabstop>scrollArea_4</tabstop>
   <tabstop>vect3_camera_x</tabstop>
   <tabstop>vect3_camera_y</tabstop>
   <tabstop>vect3_camera_z</tabstop>
@@ -15525,8 +15664,21 @@ and water):</string>
   <tabstop>vect3_camera_rotation_x</tabstop>
   <tabstop>vect3_camera_rotation_y</tabstop>
   <tabstop>vect3_camera_rotation_z</tabstop>
-  <tabstop>comboBox_image_preview_scale</tabstop>
-  <tabstop>checkBox_show_cursor</tabstop>
+  <tabstop>pushButton_render_flight</tabstop>
+  <tabstop>pushButton_record_flight</tabstop>
+  <tabstop>pushButton_continue_recording</tabstop>
+  <tabstop>tableWidget_flightAnimation</tabstop>
+  <tabstop>pushButton_show_animation</tabstop>
+  <tabstop>pushButton_delete_all_images</tabstop>
+  <tabstop>pushButton_flight_refresh_table</tabstop>
+  <tabstop>pushButton_flight_to_keyframe_export</tabstop>
+  <tabstop>scrollArea_flyght_animation_parameters</tabstop>
+  <tabstop>logslider_flight_speed</tabstop>
+  <tabstop>logedit_flight_speed</tabstop>
+  <tabstop>slider_flight_inertia</tabstop>
+  <tabstop>spinbox_flight_inertia</tabstop>
+  <tabstop>slider_flight_rotation_speed</tabstop>
+  <tabstop>spinbox_flight_rotation_speed</tabstop>
   <tabstop>slider_flight_roll_speed</tabstop>
   <tabstop>spinbox_flight_roll_speed</tabstop>
   <tabstop>comboBox_flight_speed_control</tabstop>
@@ -15534,31 +15686,37 @@ and water):</string>
   <tabstop>spinbox_flight_sec_per_frame</tabstop>
   <tabstop>text_anim_flight_dir</tabstop>
   <tabstop>button_selectAnimFlightImageDir</tabstop>
+  <tabstop>comboBox_flight_animation_image_type</tabstop>
+  <tabstop>sliderInt_flight_first_to_render</tabstop>
+  <tabstop>spinboxInt_flight_first_to_render</tabstop>
+  <tabstop>sliderInt_flight_last_to_render</tabstop>
+  <tabstop>spinboxInt_flight_last_to_render</tabstop>
   <tabstop>checkBox_flight_show_thumbnails</tabstop>
   <tabstop>checkBox_flight_add_speeds</tabstop>
-  <tabstop>scrollArea_flyght_animation_parameters</tabstop>
-  <tabstop>scrollArea</tabstop>
-  <tabstop>tabWidget_2</tabstop>
-  <tabstop>scrollArea_7</tabstop>
-  <tabstop>tabWidget_fractal</tabstop>
-  <tabstop>scrollArea_8</tabstop>
-  <tabstop>scrollAreaForImage</tabstop>
-  <tabstop>tabWidgetFlightKeyframe</tabstop>
-  <tabstop>tableWidget_flightAnimation</tabstop>
-  <tabstop>scrollArea_2</tabstop>
-  <tabstop>scrollArea_5</tabstop>
-  <tabstop>pushButton_render_flight</tabstop>
-  <tabstop>pushButton_record_flight</tabstop>
-  <tabstop>pushButton_continue_recording</tabstop>
-  <tabstop>pushButton_show_animation</tabstop>
-  <tabstop>pushButton_delete_all_images</tabstop>
-  <tabstop>pushButton_flight_refresh_table</tabstop>
-  <tabstop>logslider_flight_speed</tabstop>
-  <tabstop>logedit_flight_speed</tabstop>
-  <tabstop>slider_flight_inertia</tabstop>
-  <tabstop>spinbox_flight_inertia</tabstop>
-  <tabstop>slider_flight_rotation_speed</tabstop>
-  <tabstop>spinbox_flight_rotation_speed</tabstop>
+  <tabstop>pushButton_render_keyframe_animation</tabstop>
+  <tabstop>pushButton_check_for_collisions</tabstop>
+  <tabstop>pushButton_refresh_keyframe_table</tabstop>
+  <tabstop>tableWidget_keyframe_animation</tabstop>
+  <tabstop>pushButton_insert_keyframe</tabstop>
+  <tabstop>pushButton_add_keyframe</tabstop>
+  <tabstop>pushButton_delete_keyframe</tabstop>
+  <tabstop>pushButton_modify_keyframe</tabstop>
+  <tabstop>pushButton_show_keyframe_animation</tabstop>
+  <tabstop>pushButton_delete_all_keyframe_images</tabstop>
+  <tabstop>pushButton_keyframe_to_flight_export</tabstop>
+  <tabstop>scrollArea_keyframe_animation_parameters</tabstop>
+  <tabstop>sliderInt_frames_per_keyframe</tabstop>
+  <tabstop>spinboxInt_frames_per_keyframe</tabstop>
+  <tabstop>logslider_keyframe_collision_thresh</tabstop>
+  <tabstop>logedit_keyframe_collision_thresh</tabstop>
+  <tabstop>text_anim_keyframe_dir</tabstop>
+  <tabstop>button_selectAnimKeyframeImageDir</tabstop>
+  <tabstop>comboBox_keyframe_animation_image_type</tabstop>
+  <tabstop>sliderInt_keyframe_first_to_render</tabstop>
+  <tabstop>spinboxInt_keyframe_first_to_render</tabstop>
+  <tabstop>sliderInt_keyframe_last_to_render</tabstop>
+  <tabstop>spinboxInt_keyframe_last_to_render</tabstop>
+  <tabstop>checkBox_show_keyframe_thumbnails</tabstop>
  </tabstops>
  <resources>
   <include location="icons.qrc"/>

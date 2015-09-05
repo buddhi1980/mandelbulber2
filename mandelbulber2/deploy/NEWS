@@ -11,6 +11,7 @@ v2.05
 - added exporting of flight animation to keyframe animation and vice versa
 - added camera collision detection before rendering of keyframe animation
 - added tooltips in English, German and Polish languages (a lot of documentation here)
+- added big bundle of example settings files
 - histograms moved to separate dock widget
 - added saving of zBuffer into PNG 16-bit and EXR floating point format (EXR supported only under Linux). zBuffer is normalized and mapped logarithmically
 - added Program Settings dialog
