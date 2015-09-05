@@ -529,7 +529,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="38"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="4990"/>
         <source>Enable Box Fold;</source>
-        <translation type="unfinished"></translation>
+        <translation>Box Faltung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="67"/>
@@ -574,7 +574,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="5741"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="5981"/>
         <source>Start at iteration :</source>
-        <translation type="unfinished"></translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="87"/>
@@ -607,7 +607,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3022"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6768"/>
         <source>Copy ONE</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopie EINS</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="135"/>
@@ -623,7 +623,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="4467"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="5069"/>
         <source>Stop at Iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="155"/>
@@ -674,7 +674,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="6041"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6739"/>
         <source>Enable weight:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gewichtung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="232"/>
@@ -694,7 +694,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="288"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="5250"/>
         <source>Enable Spherical Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Spherische Faltung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="359"/>
@@ -737,7 +737,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="5705"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6014"/>
         <source>Stop at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stoppe bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="419"/>
@@ -745,7 +745,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="419"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="5488"/>
         <source>Fixed Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixer Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="426"/>
@@ -753,7 +753,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="426"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="5425"/>
         <source>Minimum Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimaler Radius:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="551"/>
@@ -761,7 +761,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="551"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="5507"/>
         <source>Enable Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="593"/>
@@ -775,27 +775,27 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="5292"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="5549"/>
         <source>Start at iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Starte bei Iteration:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="675"/>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="3607"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="5631"/>
         <source>Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalierung</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="716"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="320"/>
         <source>Enable Main Rotation;</source>
-        <translation type="unfinished"></translation>
+        <translation>Hauptrotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="999"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="603"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1170"/>
         <source>Enable z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C; </source>
-        <translation type="unfinished"></translation>
+        <translation>z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1124"/>
@@ -808,7 +808,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3473"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6471"/>
         <source>Cx:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cx:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1131"/>
@@ -823,7 +823,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3196"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6172"/>
         <source>Bz:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bz:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1179"/>
@@ -839,7 +839,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3203"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6179"/>
         <source>Ay:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ay:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1233"/>
@@ -855,7 +855,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3170"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6158"/>
         <source>Az:</source>
-        <translation type="unfinished"></translation>
+        <translation>Az:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1240"/>
@@ -871,7 +871,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3210"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6186"/>
         <source>Ax:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ax:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1247"/>
@@ -891,7 +891,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="1510"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1766"/>
         <source>Enable fabs</source>
-        <translation type="unfinished"></translation>
+        <translation>Fabs</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1331"/>
@@ -907,7 +907,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3163"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6165"/>
         <source>Bx:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bx:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1426"/>
@@ -923,7 +923,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3108"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6084"/>
         <source>By:</source>
-        <translation type="unfinished"></translation>
+        <translation>By:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1452"/>
@@ -936,7 +936,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3553"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6570"/>
         <source>Cz:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cz:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1459"/>
@@ -949,21 +949,21 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3546"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6544"/>
         <source>Cy:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cy:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1607"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1525"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2297"/>
         <source>Enable z =  z +  ( c * const. ); </source>
-        <translation type="unfinished"></translation>
+        <translation>z =  z +  ( c * const. )</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="1915"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2963"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2605"/>
         <source>Enable z = z + ( const.); </source>
-        <translation type="unfinished"></translation>
+        <translation>z = z + ( const.)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="2205"/>
@@ -971,7 +971,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="2940"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="5952"/>
         <source>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D); </source>
-        <translation type="unfinished"></translation>
+        <translation>z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="2330"/>
@@ -1011,7 +1011,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="6687"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6694"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviere</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="2866"/>
@@ -1020,7 +1020,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3601"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6599"/>
         <source>Dz:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dz:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="2873"/>
@@ -1029,7 +1029,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3608"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6606"/>
         <source>Dx:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dx:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="2899"/>
@@ -1038,7 +1038,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="3634"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6632"/>
         <source>Dy:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dy:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="2999"/>
@@ -1063,7 +1063,7 @@
         <location filename="../qt_data/fractal_quaternion104.ui" line="5569"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6034"/>
         <source>Copy TWO</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopie ZWEI</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="3648"/>
@@ -1071,64 +1071,64 @@
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3743"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5105"/>
         <source>Enable Main Rotation; </source>
-        <translation type="unfinished"></translation>
+        <translation>Hauptrotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="3935"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5385"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="4069"/>
         <source>Enable z =  z + c * const.; </source>
-        <translation type="unfinished"></translation>
+        <translation>z =  z + c * const.</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="4246"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5699"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="4380"/>
         <source>Enable z = z + const.;</source>
-        <translation type="unfinished"></translation>
+        <translation>z = z + ( const.)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="4564"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5145"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="5712"/>
         <source>Copy THREE</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopie DREI</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="5565"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6713"/>
         <source>Enable Iteration Weight.;  z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);</source>
-        <translation type="unfinished"></translation>
+        <translation>Iterationsgewicht:  z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B)</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="5797"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6945"/>
         <source>zA after itr.:</source>
-        <translation type="unfinished"></translation>
+        <translation>zA nach Itr.:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="5804"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6952"/>
         <source>Constant Z:</source>
-        <translation type="unfinished"></translation>
+        <translation>Konstante Z:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="5811"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6959"/>
         <source>Constant A:</source>
-        <translation type="unfinished"></translation>
+        <translation>Konstante A:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="5837"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="6985"/>
         <source>zB after itr.:</source>
-        <translation type="unfinished"></translation>
+        <translation>zB nach Itr.:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbox103.ui" line="5857"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="7005"/>
         <source>Constant B:</source>
-        <translation type="unfinished"></translation>
+        <translation>Konstante B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_generalized_fold_box.ui" line="139"/>
@@ -1640,110 +1640,110 @@ Offset:</translation>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6454"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6768"/>
         <source>Enable old weight:</source>
-        <translation type="unfinished"></translation>
+        <translation>Alte Gewichtung:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1243"/>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4823"/>
         <source>Enable MANDELBULB FORMULA</source>
-        <translation type="unfinished"></translation>
+        <translation>MANDELBULB FORMEL</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="1833"/>
         <source>Enable z =  - fabs( z - const.A )   *  const.B; </source>
-        <translation type="unfinished"></translation>
+        <translation> z =  - fabs( z - const.A )   *  const.B</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="2323"/>
         <source>Enable  z =  fabs( z + const.A )  +  ( z  * const.B )  +  const.C ;</source>
-        <translation type="unfinished"></translation>
+        <translation>z =  fabs( z + const.A )  +  ( z  * const.B )  +  const.C</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="3253"/>
         <source>Enable z = fabs( z + const.A) - fabs( z - const.B ) - z; </source>
-        <translation type="unfinished"></translation>
+        <translation> z = fabs( z + const.A) - fabs( z - const.B ) - z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="4030"/>
         <source>Enable  z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.D ); </source>
-        <translation type="unfinished"></translation>
+        <translation> z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.D )</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="5980"/>
         <source>Enable z = fabs( z + const.A ) - fabs( z - const.B ) - z; </source>
-        <translation type="unfinished"></translation>
+        <translation> z = fabs( z + const.A ) - fabs( z - const.B ) - z</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_mandelbulb5.ui" line="6220"/>
         <source>B:</source>
-        <translation type="unfinished"></translation>
+        <translation>B:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="868"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2921"/>
         <source>w:</source>
-        <translation type="unfinished"></translation>
+        <translation>w:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="887"/>
         <source>Enable Main 3D Rotation;</source>
-        <translation type="unfinished"></translation>
+        <translation>Haupt 3D Rotation</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1773"/>
         <source>Aw:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aw:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1821"/>
         <source>Bw:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bw:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1910"/>
         <source>Cw:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cw:</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="1929"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="3701"/>
         <source>MAIN FORMULA Quaternion; </source>
-        <translation type="unfinished"></translation>
+        <translation>QUATERNION FORMEL</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2057"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="3829"/>
         <source>z.y factor</source>
-        <translation type="unfinished"></translation>
+        <translation>z.y Faktor</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2092"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="3864"/>
         <source>z.x factor:</source>
-        <translation type="unfinished"></translation>
+        <translation>z.x Faktor</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2099"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="3871"/>
         <source>z.z factor</source>
-        <translation type="unfinished"></translation>
+        <translation>z.z Faktor</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="2228"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="4000"/>
         <source>w factor</source>
-        <translation type="unfinished"></translation>
+        <translation>w Faktor</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="4665"/>
         <source>w</source>
-        <translation type="unfinished"></translation>
+        <translation>w</translation>
     </message>
     <message>
         <location filename="../qt_data/fractal_quaternion104.ui" line="4703"/>
         <location filename="../qt_data/fractal_quaternion104.ui" line="5672"/>
         <source>Enable Main 3D Rotation; </source>
-        <translation type="unfinished"></translation>
+        <translation>Haupt 3D Rotation</translation>
     </message>
 </context>
 </TS>
