@@ -230,7 +230,7 @@ void DeleteAllFilesFromDirectory(QString folder, QString filterExpression)
 		{
 			folderIterator.next();
 			if(folderIterator.fileName() == "." || folderIterator.fileName() == "..") continue;
-			if(folderIterator.fileName().contains(rx))
+			if(rx.exactMatch(folderIterator.fileName()))
 			{
 				if(QFile::remove(folderIterator.filePath()))
 				{

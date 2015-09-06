@@ -1,8 +1,6 @@
 #ifndef PREFERENCESDIALOG_H
 #define PREFERENCESDIALOG_H
 
-//TODO add 'Clear thumbnail cache function'
-
 #include <QDialog>
 #include "../src/global_data.hpp"
 
@@ -26,6 +24,8 @@ private slots:
     void on_pushButton_select_settings_path_clicked();
 
     void on_pushButton_select_textures_path_clicked();
+
+		void on_pushButton_clear_thumbnail_cache_clicked();
 
 		void on_comboBox_ui_style_type(int index);
 

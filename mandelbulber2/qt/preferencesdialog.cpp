@@ -2,6 +2,7 @@
 #include "ui_preferencesdialog.h"
 #include <QtCore>
 #include <QFileDialog>
+#include <QMessageBox>
 
 cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
   QDialog(parent),
@@ -75,6 +76,31 @@ void cPreferencesDialog::on_pushButton_select_textures_path_clicked()
   {
   	ui->text_default_textures_path->setText(dir);
   }
+}
+
+void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
+{
+	QDir thumbnailDir(systemData.thumbnailDir);
+	thumbnailDir.setFilter( QDir::AllEntries | QDir::NoDotAndDotDot );
+	int thumbnailDirCount = thumbnailDir.count();
+
+	//confirmation dialog before clearing
+	QMessageBox::StandardButton reply;
+	reply = QMessageBox::question(
+		NULL,
+		QObject::tr("Are you sure to clear the thumbnail cache?"),
+		QObject::tr("There are currently %1 thumbnails cached. These will be deleted and rerendered when necessary.\n Clear now?").arg(thumbnailDirCount),
+		QMessageBox::Yes|QMessageBox::No);
+
+	if (reply == QMessageBox::Yes)
+	{
+		// match exact 32 char hash images, example filename: c0ad626d8c25ab6a25c8d19a53960c8a.png
+		DeleteAllFilesFromDirectory(systemData.thumbnailDir, "????????????????????????????????.*");
+	}
+	else
+	{
+		return;
+	}
 }
 
 void cPreferencesDialog::on_comboBox_ui_style_type(int index)

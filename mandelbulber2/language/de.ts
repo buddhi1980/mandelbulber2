@@ -833,6 +833,24 @@ Aktuelle Flugframes verwerfen?</translation>
         <source>Cannot load settings from clipboard!</source>
         <translation>Kann die Einstellungen nicht aus Zwischenablage laden!</translation>
     </message>
+    <message>
+        <location filename="../qt/preferencesdialog.cpp" line="91"/>
+        <source>Are you sure to clear the thumbnail cache?</source>
+        <translation>Sind Sie sicher, dass Sie den Thumbnail Cache löschen wollen?</translation>
+    </message>
+    <message>
+        <location filename="../qt/preferencesdialog.cpp" line="92"/>
+        <source>There are currently %1 thumbnails cached. These will be deleted and rerendered when necessary.
+ Clear now?</source>
+        <translation>Zur Zeit werden %1 Thumbnails gecachet. Diese werden gelöscht und neu gerendert, wenn sie benötigt werden.
+Jetzt löschen?</translation>
+    </message>
+    <message>
+        <source>There are currently %1 thumbnails cached, these will be deleted and rerendered when necessary.
+ Clear now?</source>
+        <translation type="vanished">Zur Zeit werden %1 Thumbnails gecache, diese werden gelöscht und neu gerendert, wenn sie benötigt werden.
+Jetzt löschen?</translation>
+    </message>
 </context>
 <context>
     <name>RenderWindow</name>
@@ -4330,6 +4348,11 @@ und das Speichern der Animationsframes.</translation>
         <translation>Alpha an das Bild anhängen (nur bei PNG)</translation>
     </message>
     <message>
+        <location filename="../qt/preferencesdialog.ui" line="499"/>
+        <source>Clear thumbnail cache</source>
+        <translation>Thumbnail Cache löschen</translation>
+    </message>
+    <message>
         <source>Image quality</source>
         <translation type="vanished">Bildqualität</translation>
     </message>
@@ -4374,17 +4397,17 @@ und das Speichern der Animationsframes.</translation>
         <translation>Hell</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.cpp" line="55"/>
+        <location filename="../qt/preferencesdialog.cpp" line="56"/>
         <source>Select default directory for images</source>
         <translation>Standardordner für Bilder wählen</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.cpp" line="64"/>
+        <location filename="../qt/preferencesdialog.cpp" line="65"/>
         <source>Select default directory for settings files</source>
         <translation>Standardordner für Einstellungen wählen</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.cpp" line="73"/>
+        <location filename="../qt/preferencesdialog.cpp" line="74"/>
         <source>Select default directory for textures</source>
         <translation>Standardordner für Texturen wählen</translation>
     </message>

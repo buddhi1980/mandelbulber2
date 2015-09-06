@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>483</width>
-    <height>576</height>
+    <height>586</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,7 +40,7 @@
         <x>0</x>
         <y>0</y>
         <width>477</width>
-        <height>545</height>
+        <height>555</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -491,6 +491,13 @@
            </layout>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_clear_thumbnail_cache">
+         <property name="text">
+          <string>Clear thumbnail cache</string>
+         </property>
         </widget>
        </item>
        <item>
