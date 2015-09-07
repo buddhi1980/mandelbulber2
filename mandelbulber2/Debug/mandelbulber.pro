@@ -139,6 +139,8 @@ QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_LFLAGS_RELEASE -= -O1 -fopenmp
 
 QMAKE_CXXFLAGS += -msse2 -ffast-math -fopenmp
+# test hardcoded lib path for gsl in travis container 
+QMAKE_CXXFLAGS += -I/usr/include/gsl
 
 LIBS += -lpng -lgsl -lgslcblas -fopenmp
 win32:LIBS += -lz
