@@ -3,7 +3,6 @@
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-anim_keyframe_dir /home/krzysztof/.mandelbulber/images/MernerMandelboxMorph/;
 background_color_2 0 0 0;
 background_color_3 a700 3700 a700;
 camera 1,472759338361165 -2,94551867672233 0,9818395589074436;
