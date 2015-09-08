@@ -94,9 +94,8 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset theme="folder">
-                <normaloff/>
-               </iconset>
+               <iconset theme="folder" resource="icons.qrc">
+                <normaloff>:/system/icons/folder.svg</normaloff>:/system/icons/folder.svg</iconset>
               </property>
              </widget>
             </item>
@@ -113,9 +112,8 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset theme="folder">
-                <normaloff/>
-               </iconset>
+               <iconset theme="folder" resource="icons.qrc">
+                <normaloff>:/system/icons/folder.svg</normaloff>:/system/icons/folder.svg</iconset>
               </property>
              </widget>
             </item>
@@ -145,9 +143,8 @@
                <string/>
               </property>
               <property name="icon">
-               <iconset theme="folder">
-                <normaloff/>
-               </iconset>
+               <iconset theme="folder" resource="icons.qrc">
+                <normaloff>:/system/icons/folder.svg</normaloff>:/system/icons/folder.svg</iconset>
               </property>
              </widget>
             </item>
@@ -576,4 +573,7 @@
    </hints>
   </connection>
  </connections>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
 </ui>

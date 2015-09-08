@@ -16,6 +16,7 @@
     <file>icons/video-x-generic.svg</file>
     <file>icons/preferences-system.svg</file>
     <file>icons/system-shutdown.svg</file>
+    <file>icons/folder.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
     <file>tooltips_images/equirectangular_bkg.jpg</file>

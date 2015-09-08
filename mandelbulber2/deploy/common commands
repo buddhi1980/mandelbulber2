@@ -23,4 +23,13 @@ find . -name '*.jp*g' -print0 | xargs -0 jpegoptim -ftn -m80
 # optimize png images
 find . -name '*.png' -print0 | xargs -0 optipng -o7
 
-
+# new icons
+# icons are part of the tango theme, in order to add new icons
+# the used icons need to be shipped for non linux systems
+# in order to do so:
+# 1. get the tango icon pack from here
+# --> http://tango.freedesktop.org/Tango_Icon_Library
+# 2. get the desired icon from scalable folder and add it to qt/icons
+# 3. add reference analog to other system icons in qt/icons.qrc
+# 4. use icon analogue to other icons in ui file
+# 5. add svg file to git
