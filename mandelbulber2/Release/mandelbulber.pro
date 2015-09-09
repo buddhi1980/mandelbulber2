@@ -132,13 +132,17 @@ TRANSLATIONS = ../language/en.ts\
                ../language/de.ts\
                ../language/pl.ts
 
+QMAKE_CXXFLAGS += $$(CXXFLAGS)
+QMAKE_CFLAGS += $$(CFLAGS)
+QMAKE_LFLAGS += $$(LDFLAGS)
+
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3
  
 QMAKE_LFLAGS_RELEASE -= -O1
 win32:QMAKE_LFLAGS_RELEASE -= -fopenmp
 
-QMAKE_CXXFLAGS += -msse2 -ffast-math -fopenmp
+QMAKE_CXXFLAGS += -ffast-math -fopenmp
 # test hardcoded lib path for gsl in travis container 
 QMAKE_CXXFLAGS += -I/usr/include/gsl
 
