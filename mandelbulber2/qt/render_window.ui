@@ -9709,7 +9709,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -12145,7 +12145,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-431</y>
           <width>339</width>
           <height>818</height>
          </rect>
@@ -12908,7 +12908,7 @@ and water):</string>
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QComboBox" name="combo_netrender_mode">
+               <widget class="QComboBox" name="comboBox_netrender_mode">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
@@ -15608,7 +15608,7 @@ and water):</string>
   <tabstop>vect3_limit_max_x</tabstop>
   <tabstop>vect3_limit_max_y</tabstop>
   <tabstop>vect3_limit_max_z</tabstop>
-  <tabstop>combo_netrender_mode</tabstop>
+  <tabstop>comboBox_netrender_mode</tabstop>
   <tabstop>text_netrender_client_remote_address</tabstop>
   <tabstop>spinboxInt_netrender_client_remote_port</tabstop>
   <tabstop>bu_netrender_connect</tabstop>
