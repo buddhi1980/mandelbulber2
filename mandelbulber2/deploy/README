@@ -21,17 +21,6 @@ LICENCE: GNU GPL v3.0
 packages needed to run: libqt5gui5, libpng12-0, libgsl0ldbl, libgomp1
 packages needed to compile: qt5-default, libpng12-dev, qttools5-dev, qttools5-dev-tools, libgsl0-dev, libgsl0ldbl, libgomp1
 
-for gamepad support (which is optional) there are needed additional packages:
-qt5base-private-dev, libsdl2-dev
-
-additionally you need to compile qtgamepad module (needed at least Qt5 5
-
-git clone http://code.qt.io/cgit/qt-labs/qtgamepad.git
-cd qtgamepad
-qmake
-make
-make docs
-sudo make install
 
 On Ubuntu or Debian: 
 apt-get install libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgsl0-dev libgsl0ldbl libgomp1
@@ -43,6 +32,17 @@ qmake mandelbulber.pro
 make all
 cd ..
 
+for gamepad support (which is optional and actually works only under Linux) there are needed additional packages:
+qt5base-private-dev, libsdl2-dev
+
+additionally you need to compile qtgamepad module (needed at least Qt5 5
+git clone http://code.qt.io/cgit/qt-labs/qtgamepad.git
+cd qtgamepad
+qmake
+make
+make docs
+sudo make install
+
 3. INSTALLATION
 
 please type:
@@ -53,7 +53,7 @@ please type:
 4. TESTED ON:
 
 - Debian Stretch x64
-- gcc 4.9
+- gcc 4.9, 5.2
 - Qt 5.4.2
 
 5. USAGE

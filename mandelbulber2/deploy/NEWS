@@ -23,7 +23,7 @@ v2.05
 - added render statistics table (under histograms)
 - improved placement of auxiliary lights
 - added auto-recovery function (possible to recover work after application crash)
-- added experimental gamepad control for recording flight animations
+- added experimental gamepad control for recording flight animations (actually works under Linux with Qt5.5)
 - added 'GeneralizedFoldBox' formula
 - added 'Mandelbulb5' formula (much extended Mandelbulb formula)
 - added 'Mandelbox - extended' formula
