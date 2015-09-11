@@ -157,7 +157,21 @@ bool cRenderer::RenderImage()
 
 			if(data->enableConsoleOutput)
 			{
-				out << progressTxt << QString("\r");
+				QString text = progressTxt;
+				if(systemData.terminalWidth > 0)
+				{
+					int freeWidth = systemData.terminalWidth - text.length() - 2;
+					int intProgress = freeWidth * percentDone;
+					text += "[";
+					text += QString(intProgress, '*');
+					text += QString(freeWidth - intProgress, '-');
+					text += QString("]\r");
+				}
+				else
+				{
+					text += QString("\n");
+				}
+				out << text;
 				out.flush();
 			}
 

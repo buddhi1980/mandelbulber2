@@ -60,6 +60,7 @@ struct sSystem
 	bool noGui;
 	QChar decimalPoint;
 	QLocale locale;
+	int terminalWidth;
 };
 
 struct sActualFileNames

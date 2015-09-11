@@ -32,6 +32,10 @@
 #include "global_data.hpp"
 #include "settings.hpp"
 
+#include <sys/ioctl.h>
+#include <stdio.h>
+#include <unistd.h>
+
 //#define CLSUPPORT
 
 sSystem systemData;
@@ -106,6 +110,16 @@ bool InitSystem(void)
 	systemData.supportedLanguages.insert("pl_PL", "Polski");
 	systemData.supportedLanguages.insert("de_DE", "Deutsch");
 	systemData.supportedLanguages.insert("it_IT", "Italiano");
+
+	//get number of columns of console
+#ifdef WIN32
+	systemData.terminalWidth = 80;
+#else
+  struct winsize w;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	systemData.terminalWidth = w.ws_col;
+#endif
+
 
 	return true;
 }
