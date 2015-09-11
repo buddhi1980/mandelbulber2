@@ -34,26 +34,29 @@
 
 cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), keyframes(_frames)
 {
-	ui = mainInterface->mainWindow->ui;
-	QApplication::connect(ui->pushButton_add_keyframe, SIGNAL(clicked()), this, SLOT(slotAddKeyframe()));
-	QApplication::connect(ui->pushButton_insert_keyframe, SIGNAL(clicked()), this, SLOT(slotInsertKeyframe()));
-	QApplication::connect(ui->pushButton_delete_keyframe, SIGNAL(clicked()), this, SLOT(slotDeleteKeyframe()));
-	QApplication::connect(ui->pushButton_modify_keyframe, SIGNAL(clicked()), this, SLOT(slotModifyKeyframe()));
-	QApplication::connect(ui->pushButton_render_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotRenderKeyframes()));
-	QApplication::connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
-	QApplication::connect(ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
-	QApplication::connect(ui->pushButton_refresh_keyframe_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
-	QApplication::connect(ui->pushButton_keyframe_to_flight_export, SIGNAL(clicked()), this, SLOT(slotExportKeyframesToFlight()));
-	QApplication::connect(ui->pushButton_check_for_collisions, SIGNAL(clicked()), this, SLOT(slotValidate()));
+	if(mainInterface->mainWindow)
+	{
+		ui = mainInterface->mainWindow->ui;
+		QApplication::connect(ui->pushButton_add_keyframe, SIGNAL(clicked()), this, SLOT(slotAddKeyframe()));
+		QApplication::connect(ui->pushButton_insert_keyframe, SIGNAL(clicked()), this, SLOT(slotInsertKeyframe()));
+		QApplication::connect(ui->pushButton_delete_keyframe, SIGNAL(clicked()), this, SLOT(slotDeleteKeyframe()));
+		QApplication::connect(ui->pushButton_modify_keyframe, SIGNAL(clicked()), this, SLOT(slotModifyKeyframe()));
+		QApplication::connect(ui->pushButton_render_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotRenderKeyframes()));
+		QApplication::connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
+		QApplication::connect(ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
+		QApplication::connect(ui->pushButton_refresh_keyframe_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
+		QApplication::connect(ui->pushButton_keyframe_to_flight_export, SIGNAL(clicked()), this, SLOT(slotExportKeyframesToFlight()));
+		QApplication::connect(ui->pushButton_check_for_collisions, SIGNAL(clicked()), this, SLOT(slotValidate()));
 
-	QApplication::connect(ui->button_selectAnimKeyframeImageDir, SIGNAL(clicked()), this, SLOT(slotSelectKeyframeAnimImageDir()));
-	QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
+		QApplication::connect(ui->button_selectAnimKeyframeImageDir, SIGNAL(clicked()), this, SLOT(slotSelectKeyframeAnimImageDir()));
+		QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
 
-	QApplication::connect(ui->spinboxInt_keyframe_first_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderFirstFrame(int)));
-	QApplication::connect(ui->spinboxInt_keyframe_last_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderLastFrame(int)));
-	QApplication::connect(ui->spinboxInt_frames_per_keyframe, SIGNAL(valueChanged(int)), this, SLOT(UpdateLimitsForFrameRange()));
+		QApplication::connect(ui->spinboxInt_keyframe_first_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderFirstFrame(int)));
+		QApplication::connect(ui->spinboxInt_keyframe_last_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderLastFrame(int)));
+		QApplication::connect(ui->spinboxInt_frames_per_keyframe, SIGNAL(valueChanged(int)), this, SLOT(UpdateLimitsForFrameRange()));
 
-	table = ui->tableWidget_keyframe_animation;
+		table = ui->tableWidget_keyframe_animation;
+	}
 
 	//add default parameters for animation
 	if (keyframes->GetListOfUsedParameters().size() == 0)
@@ -61,7 +64,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		keyframes->AddAnimatedParameter("camera", gPar->GetAsOneParameter("camera"));
 		keyframes->AddAnimatedParameter("target", gPar->GetAsOneParameter("target"));
 		keyframes->AddAnimatedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
-		PrepareTable();
+		if(mainInterface->mainWindow)
+			PrepareTable();
 	}
 }
 

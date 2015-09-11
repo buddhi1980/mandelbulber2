@@ -18,6 +18,7 @@ public:
 
 	void ReadCLI(void);
 	void ProcessCLI(void);
+	bool isNoGUI(void) {return cliData.nogui;}
 private:
 	struct sCliData
 	{

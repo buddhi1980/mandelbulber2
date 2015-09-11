@@ -34,29 +34,32 @@
 
 cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), frames(_frames)
 {
-	ui = mainInterface->mainWindow->ui;
-	QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
-	QApplication::connect(ui->pushButton_continue_recording, SIGNAL(clicked()), this, SLOT(slotContinueRecording()));
-	QApplication::connect(ui->pushButton_render_flight, SIGNAL(clicked()), this, SLOT(slotRenderFlight()));
-	QApplication::connect(ui->pushButton_delete_all_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
-	QApplication::connect(ui->pushButton_show_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
-	QApplication::connect(ui->pushButton_flight_refresh_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
-	QApplication::connect(ui->pushButton_flight_to_keyframe_export, SIGNAL(clicked()), this, SLOT(slotExportFlightToKeyframes()));
+	if(mainInterface->mainWindow)
+	{
+		ui = mainInterface->mainWindow->ui;
+		QApplication::connect(ui->pushButton_record_flight, SIGNAL(clicked()), this, SLOT(slotRecordFlight()));
+		QApplication::connect(ui->pushButton_continue_recording, SIGNAL(clicked()), this, SLOT(slotContinueRecording()));
+		QApplication::connect(ui->pushButton_render_flight, SIGNAL(clicked()), this, SLOT(slotRenderFlight()));
+		QApplication::connect(ui->pushButton_delete_all_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
+		QApplication::connect(ui->pushButton_show_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
+		QApplication::connect(ui->pushButton_flight_refresh_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
+		QApplication::connect(ui->pushButton_flight_to_keyframe_export, SIGNAL(clicked()), this, SLOT(slotExportFlightToKeyframes()));
 
 
-	QApplication::connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this, SLOT(slotSelectAnimFlightImageDir()));
-	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightStrafe(CVector2<double>)), this, SLOT(slotFlightStrafe(CVector2<double>)));
-	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightYawAndPitch(CVector2<double>)), this, SLOT(slotFlightYawAndPitch(CVector2<double>)));
-	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightSpeedIncrease()), this, SLOT(slotIncreaseSpeed()));
-	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightSpeedDecrease()), this, SLOT(slotDecreaseSpeed()));
-	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightRotation(double)), this, SLOT(slotFlightRotation(double)));
-	QApplication::connect(mainInterface->renderedImage, SIGNAL(flightPause()), this, SLOT(slotRecordPause()));
-	QApplication::connect(ui->tableWidget_flightAnimation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
+		QApplication::connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this, SLOT(slotSelectAnimFlightImageDir()));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightStrafe(CVector2<double>)), this, SLOT(slotFlightStrafe(CVector2<double>)));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightYawAndPitch(CVector2<double>)), this, SLOT(slotFlightYawAndPitch(CVector2<double>)));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightSpeedIncrease()), this, SLOT(slotIncreaseSpeed()));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightSpeedDecrease()), this, SLOT(slotDecreaseSpeed()));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightRotation(double)), this, SLOT(slotFlightRotation(double)));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightPause()), this, SLOT(slotRecordPause()));
+		QApplication::connect(ui->tableWidget_flightAnimation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
 
-	QApplication::connect(ui->spinboxInt_flight_first_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderFirstFrame(int)));
-	QApplication::connect(ui->spinboxInt_flight_last_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderLastFrame(int)));
+		QApplication::connect(ui->spinboxInt_flight_first_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderFirstFrame(int)));
+		QApplication::connect(ui->spinboxInt_flight_last_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderLastFrame(int)));
 
-	table = ui->tableWidget_flightAnimation;
+		table = ui->tableWidget_flightAnimation;
+	}
 	linearSpeedSp = 0.0;
 	rotationDirection = 0;
 	recordPause = false;

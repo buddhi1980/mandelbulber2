@@ -106,23 +106,41 @@ int main(int argc, char *argv[])
 
 	commandLineInterface.ReadCLI();
 
-	gMainInterface->ShowUi();
+	if(!commandLineInterface.isNoGUI())
+		gMainInterface->ShowUi();
 
 	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainWindow);
 	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainWindow);
 
 	//write parameters to ui
-	gMainInterface->ComboMouseClickUpdate();
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-	gMainInterface->ComboMouseClickUpdate();
+	if(!commandLineInterface.isNoGUI())
+	{
+	  gMainInterface->ComboMouseClickUpdate();
+	  gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	  gMainInterface->ComboMouseClickUpdate();
+	}
 
 	gMainInterface->AutoRecovery();
 
 	commandLineInterface.ProcessCLI();
 
+	//TODO just for testing noGUI (will be removed later)
+	if(commandLineInterface.isNoGUI())
+	{
+		bool stopRequest;
+		cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+		cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &stopRequest);
+		renderJob->Init(cRenderJob::still);
+		renderJob->Execute();
+		SaveImage(systemData.dataDirectory + "images/test.jpg", IMAGE_FILE_TYPE_JPG, image);
+		qDebug() << "Rendering finished";
+	}
+
 	//start main Qt loop
 	WriteLog("application->exec()");
-	int result = gApplication->exec();
+	int result;
+	if(!commandLineInterface.isNoGUI())
+		result = gApplication->exec();
 
 	//clean objects when exit
 	delete gPar; gPar = NULL;
