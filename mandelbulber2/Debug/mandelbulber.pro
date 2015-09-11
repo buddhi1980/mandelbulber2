@@ -31,6 +31,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/camera_target.cpp\
 			../src/compute_fractal.cpp\
 			../src/color_palette.cpp\
+			../src/command_line_interface.cpp\
 			../src/cimage.cpp\
 			../src/common_math.cpp\
 			../src/dof.cpp\

@@ -88,7 +88,5 @@ void UpdateDefaultPaths();
 void UpdateUIStyle();
 void UpdateUISkin();
 void UpdateLanguage();
-QString ReadCLI();
-void ProcessCLI(QString cliTODO);
 
 #endif /* SYSTEM_HPP_ */

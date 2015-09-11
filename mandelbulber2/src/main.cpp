@@ -29,6 +29,8 @@
 #include "undo.h"
 #include "global_data.hpp"
 #include "settings.hpp"
+#include "command_line_interface.hpp"
+
 #include <qapplication.h>
 
 int main(int argc, char *argv[])
@@ -47,6 +49,8 @@ int main(int argc, char *argv[])
 	gApplication->setOrganizationName("Mandelbulber");
 	gApplication->setApplicationName("Mandelbulber");
 	gApplication->setApplicationVersion(MANDELBULBER_VERSION_STRING);
+
+	cCommandLineInterface commandLineInterface(gApplication);
 
 	//registering types for queued connections
 	qRegisterMetaType<cStatistics>("cStatistics");
@@ -100,7 +104,7 @@ int main(int argc, char *argv[])
 	UpdateUISkin();
 	UpdateLanguage();
 
-	// QString cliTODO = ReadCLI();
+	commandLineInterface.ReadCLI();
 
 	gMainInterface->ShowUi();
 
@@ -114,7 +118,7 @@ int main(int argc, char *argv[])
 
 	gMainInterface->AutoRecovery();
 
-	// if(cliTODO != "") ProcessCLI(cliTODO);
+	commandLineInterface.ProcessCLI();
 
 	//start main Qt loop
 	WriteLog("application->exec()");
