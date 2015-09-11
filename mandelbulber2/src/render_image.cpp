@@ -155,6 +155,12 @@ bool cRenderer::RenderImage()
 			statusText = QObject::tr("Rendering image in progress");
 			progressTxt = progressText.getText(percentDone);
 
+			if(data->enableConsoleOutput)
+			{
+				out << progressTxt << QString("\r");
+				out.flush();
+			}
+
 			if(parentObject)
 			{
 				emit updateProgressAndStatus(statusText, progressTxt, percentDone);

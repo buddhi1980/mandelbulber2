@@ -130,9 +130,12 @@ int main(int argc, char *argv[])
 		bool stopRequest;
 		cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 		cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &stopRequest);
+		renderJob->EnableConsoleOutput();
 		renderJob->Init(cRenderJob::still);
 		renderJob->Execute();
 		SaveImage(systemData.dataDirectory + "images/test.jpg", IMAGE_FILE_TYPE_JPG, image);
+		delete renderJob;
+		delete image;
 		qDebug() << "Rendering finished";
 	}
 

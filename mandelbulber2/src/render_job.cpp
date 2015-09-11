@@ -63,6 +63,7 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	parentObject = _parent;
 
 	beQuiet = false;
+	enableConsoleOutput = false;
 
 	id++;
 	//qDebug() << "Id" << id;
@@ -135,6 +136,7 @@ bool cRenderJob::Init(enumMode _mode)
 	renderData = new sRenderData;
 	renderData->rendererID = id;
 	renderData->numberOfThreads = totalNumberOfCPUs;
+	renderData->enableConsoleOutput = enableConsoleOutput;
 
 	//set image region to render
 	if(paramsContainer->Get<bool>("legacy_coordinate_system"))

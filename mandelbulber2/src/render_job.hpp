@@ -56,6 +56,7 @@ public:
 	static int GetRunningJobCount() {return runningJobs;}
 	void ForceNumberOfThreads(int noOfThreads) {totalNumberOfCPUs = noOfThreads; renderData->numberOfThreads = noOfThreads;}
 	void BeQuiet() {beQuiet = true;}
+	void EnableConsoleOutput() {enableConsoleOutput = true;}
 
 public slots:
 	void slotExecute();
@@ -81,6 +82,7 @@ private:
 	sRenderData *renderData;
 	bool *stopRequest;
 	bool beQuiet;
+	bool enableConsoleOutput;
 
 	static int id; //global identifier of actual rendering job
 	static int runningJobs;
