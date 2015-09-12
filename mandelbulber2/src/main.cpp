@@ -139,14 +139,6 @@ int main(int argc, char *argv[])
 
 	commandLineInterface.ProcessCLI();
 
-	//TODO just for testing noGUI (will be removed later)
-	if(commandLineInterface.isNoGUI())
-	{
-		//TODO this has to be moved to ProcessCLI
-		cHeadless headless;
-		headless.RenderStillImage();
-	}
-
 	//start main Qt loop
 	WriteLog("application->exec()");
 	int result = 0;

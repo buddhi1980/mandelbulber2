@@ -8,7 +8,7 @@
  * This file is part of Mandelbulber.
  *
  * Mandelbulber is free software: you can redistribute it and/or modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * GNU General Public License clias published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
  *
  * Mandelbulber is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
@@ -25,19 +25,16 @@
 #include <QtCore>
 #include <qapplication.h>
 
-namespace cli
-{
-	enum cliTODOMode
-	{
-		bootOnly, netrender, keyframe, flight, still
-	};
-}
-
 class cCommandLineInterface
 {
 public:
 	cCommandLineInterface(QCoreApplication *qapplication);
 	~cCommandLineInterface();
+
+	enum cliTODOMode
+	{
+		modeBootOnly, modeNetrender, modeKeyframe, modeFlight, modeStill
+	};
 
 	void ReadCLI(void);
 	void ProcessCLI(void);
@@ -59,7 +56,7 @@ private:
 
 	QCommandLineParser parser;
 	QStringList args;
-	cli::cliTODOMode cliTODO;
+	cliTODOMode cliTODO;
 };
 
 #endif /* MANDELBULBER2_SRC_CCOMMANDLINEINTERFACE_HPP_ */

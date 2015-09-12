@@ -8,6 +8,7 @@
 #include "command_line_interface.hpp"
 #include "global_data.hpp"
 #include "settings.hpp"
+#include "headless.h"
 
 cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 {
@@ -81,6 +82,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.fpkText = parser.value(fpkOption);
 	cliData.host = parser.value(hostOption);
 	cliData.portText = parser.value(portOption);
+
+	cliTODO = modeBootOnly;
 }
 
 cCommandLineInterface::~cCommandLineInterface()
@@ -124,7 +127,6 @@ void cCommandLineInterface::ReadCLI (void)
 				// gPar->Set(overrideParameter[0], overrideParameter[1]);
 			}
 		}
-		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 	}
 
 	// check netrender
@@ -141,7 +143,7 @@ void cCommandLineInterface::ReadCLI (void)
 			}
 			gPar->Set("netrender_client_remote_port", port);
 		}
-		cliTODO = cli::netrender;
+		cliTODO = modeNetrender;
 		return;
 	}
 
@@ -160,14 +162,14 @@ void cCommandLineInterface::ReadCLI (void)
 		{
 			gPar->Set("flight_first_to_render", startFrame);
 			gPar->Set("flight_last_to_render", endFrame);
-			cliTODO = cli::flight;
+			cliTODO = modeFlight;
 			return;
 		}
 		else if(cliData.animationMode == "keyframe")
 		{
 			gPar->Set("keyframe_first_to_render", startFrame);
 			gPar->Set("keyframe_last_to_render", endFrame);
-			cliTODO = cli::keyframe;
+			cliTODO = modeKeyframe;
 			return;
 		}
 		else
@@ -207,33 +209,39 @@ void cCommandLineInterface::ReadCLI (void)
 		gPar->Set("frames_per_keyframe", fpk);
 	}
 
+	if(cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight)
+	{
+		cliTODO = modeStill;
+		return;
+	}
+
 	// TODO handle nogui overrideParametersText imageFileFormat
-	cliTODO = cli::bootOnly;
+	cliTODO = modeBootOnly;
 }
 
 void cCommandLineInterface::ProcessCLI (void)
 {
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 	switch(cliTODO)
 	{
-		case cli::netrender:
+		case modeNetrender:
 		{
 			gNetRender->SetClient(gPar->Get<QString>("netrender_client_remote_address"), gPar->Get<int>("netrender_client_remote_port"));
 			break;
 		}
-		case cli::flight:
+		case modeFlight:
 		{
 			return gFlightAnimation->slotRenderFlight();
 			break;
 		}
-		case cli::keyframe:
+		case modeKeyframe:
 		{
 			return gKeyframeAnimation->slotRenderKeyframes();
 			break;
 		}
-		case cli::still:
+		case modeStill:
 		{
-			return gMainInterface->StartRender();
+			cHeadless headless;
+			headless.RenderStillImage();
 			break;
 		}
 	}
