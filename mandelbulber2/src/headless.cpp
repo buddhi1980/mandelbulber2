@@ -30,6 +30,7 @@ void cHeadless::RenderStillImage(void)
 	renderJob->EnableConsoleOutput();
 	renderJob->Init(cRenderJob::still);
 	renderJob->Execute();
+	//TODO saving in different image formats
 	SaveImage(systemData.dataDirectory + "images/test.jpg", IMAGE_FILE_TYPE_JPG, image);
 	delete renderJob;
 	delete image;

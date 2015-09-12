@@ -13,7 +13,7 @@
 class cCommandLineInterface
 {
 public:
-	cCommandLineInterface(QApplication *qapplication);
+	cCommandLineInterface(QCoreApplication *qapplication);
 	~cCommandLineInterface();
 
 	void ReadCLI(void);

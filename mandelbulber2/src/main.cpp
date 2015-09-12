@@ -46,12 +46,23 @@ int main(int argc, char *argv[])
 	gMainInterface = new cInterface;
 
 	WriteLog("Prepare QApplication");
-	gApplication = new QApplication(argc, argv);
+	QCoreApplication *gCoreApplication = new QCoreApplication(argc, argv);
+
+	cCommandLineInterface commandLineInterface(gApplication);
+
+	if(commandLineInterface.isNoGUI())
+	{
+		gApplication = qobject_cast<QApplication *>(gCoreApplication);
+	}
+	else
+	{
+		delete gCoreApplication;
+		gApplication = new QApplication(argc, argv);
+	}
+
 	gApplication->setOrganizationName("Mandelbulber");
 	gApplication->setApplicationName("Mandelbulber");
 	gApplication->setApplicationVersion(MANDELBULBER_VERSION_STRING);
-
-	cCommandLineInterface commandLineInterface(gApplication);
 
 	//registering types for queued connections
 	qRegisterMetaType<cStatistics>("cStatistics");
@@ -101,8 +112,11 @@ int main(int argc, char *argv[])
 	}
 
 	UpdateDefaultPaths();
-	UpdateUIStyle();
-	UpdateUISkin();
+	if(!commandLineInterface.isNoGUI())
+	{
+		UpdateUIStyle();
+		UpdateUISkin();
+	}
 	UpdateLanguage();
 
 	commandLineInterface.ReadCLI();
@@ -135,7 +149,7 @@ int main(int argc, char *argv[])
 
 	//start main Qt loop
 	WriteLog("application->exec()");
-	int result;
+	int result = 0;
 	if(!commandLineInterface.isNoGUI())
 		result = gApplication->exec();
 

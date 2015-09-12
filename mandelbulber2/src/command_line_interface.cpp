@@ -9,7 +9,7 @@
 #include "global_data.hpp"
 #include "settings.hpp"
 
-cCommandLineInterface::cCommandLineInterface(QApplication *qapplication)
+cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 {
 	// text from http://sourceforge.net/projects/mandelbulber/
 
