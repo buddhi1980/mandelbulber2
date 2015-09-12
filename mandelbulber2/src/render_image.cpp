@@ -31,6 +31,7 @@
 #include "error_message.hpp"
 #include "render_ssao.h"
 #include "global_data.hpp"
+#include "headless.h"
 
 cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image, QObject *_parentObject) : QObject()
 {
@@ -50,7 +51,6 @@ cRenderer::~cRenderer()
 
 bool cRenderer::RenderImage()
 {
-	QTextStream out(stdout);
 	WriteLog("cRenderer::RenderImage()");
 
 	image->SetImageParameters(params->imageAdjustments);
@@ -157,22 +157,7 @@ bool cRenderer::RenderImage()
 
 			if(data->enableConsoleOutput)
 			{
-				QString text = progressTxt;
-				if(systemData.terminalWidth > 0)
-				{
-					int freeWidth = systemData.terminalWidth - text.length() - 2;
-					int intProgress = freeWidth * percentDone;
-					text += "[";
-					text += QString(intProgress, '*');
-					text += QString(freeWidth - intProgress, '-');
-					text += QString("]\r");
-				}
-				else
-				{
-					text += QString("\n");
-				}
-				out << text;
-				out.flush();
+				cHeadless::RenderingProgressOutput(progressTxt, percentDone);
 			}
 
 			if(parentObject)

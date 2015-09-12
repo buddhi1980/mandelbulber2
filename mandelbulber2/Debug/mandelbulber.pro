@@ -46,6 +46,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/global_data.cpp\
 			../src/initparameters.cpp\
 			../src/interface.cpp\
+			../src/headless.cpp\
 			../src/histogram.cpp\
 			../src/keyframes.cpp\
 			../src/lights.cpp\
