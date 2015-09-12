@@ -109,7 +109,6 @@ bool InitSystem(void)
 	systemData.supportedLanguages.insert("en_EN", "English");
 	systemData.supportedLanguages.insert("pl_PL", "Polski");
 	systemData.supportedLanguages.insert("de_DE", "Deutsch");
-	systemData.supportedLanguages.insert("it_IT", "Italiano");
 
 	//get number of columns of console
 #ifdef WIN32
