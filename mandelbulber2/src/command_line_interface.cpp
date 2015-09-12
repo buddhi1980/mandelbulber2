@@ -12,7 +12,6 @@
 cCommandLineInterface::cCommandLineInterface(QApplication *qapplication)
 {
 	// text from http://sourceforge.net/projects/mandelbulber/
-
 	parser.setApplicationDescription("Mandelbulber is an easy to use, "
 		"handy application designed to help you render 3D Mandelbrot fractals called Mandelbulb "
 		"and some other kind of 3D fractals like Mandelbox, Bulbbox, Juliabulb, Menger Sponge");
@@ -142,7 +141,7 @@ void cCommandLineInterface::ReadCLI (void)
 			}
 			gPar->Set("netrender_client_remote_port", port);
 		}
-		cliTODO = "netrender";
+		cliTODO = cli::netrender;
 		return;
 	}
 
@@ -161,14 +160,14 @@ void cCommandLineInterface::ReadCLI (void)
 		{
 			gPar->Set("flight_first_to_render", startFrame);
 			gPar->Set("flight_last_to_render", endFrame);
-			cliTODO = "flight";
+			cliTODO = cli::flight;
 			return;
 		}
 		else if(cliData.animationMode == "keyframe")
 		{
 			gPar->Set("keyframe_first_to_render", startFrame);
 			gPar->Set("keyframe_last_to_render", endFrame);
-			cliTODO = "keyframe";
+			cliTODO = cli::keyframe;
 			return;
 		}
 		else
@@ -177,28 +176,65 @@ void cCommandLineInterface::ReadCLI (void)
 			parser.showHelp(-13);
 		}
 	}
-	// TODO handle nogui overrideParametersText imageFileFormat resolution fpkText
-	cliTODO = "";
+
+	// specified resolution
+	if(cliData.resolution != "")
+	{
+		QStringList resolutionParameters = cliData.resolution.split(QRegExp("x"));
+		if(resolutionParameters.size() == 2)
+		{
+			int xRes = resolutionParameters[0].toInt(&checkParse);
+			int yRes = resolutionParameters[1].toInt(&checkParse);
+			if(!checkParse || xRes <= 0 || yRes <= 0){
+				WriteLog("Specified resolution not valid\n"
+								 "both dimensions need to be > 0");
+				parser.showHelp(-14);
+			}
+			gPar->Set("image_width", xRes);
+			gPar->Set("image_height", yRes);
+		}
+	}
+
+	// specified frames per keyframe
+	if(cliData.fpkText != "")
+	{
+		int fpk = cliData.fpkText.toInt(&checkParse);
+		if(!checkParse || fpk <= 0){
+			WriteLog("Specified frames per key not valid\n"
+							 "need to be > 0");
+			parser.showHelp(-15);
+		}
+		gPar->Set("frames_per_keyframe", fpk);
+	}
+
+	// TODO handle nogui overrideParametersText imageFileFormat
+	cliTODO = cli::bootOnly;
 }
 
 void cCommandLineInterface::ProcessCLI (void)
 {
-	if(cliTODO != "")
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	switch(cliTODO)
 	{
-		if(cliTODO == "netrender")
+		case cli::netrender:
 		{
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 			gNetRender->SetClient(gPar->Get<QString>("netrender_client_remote_address"), gPar->Get<int>("netrender_client_remote_port"));
+			break;
 		}
-		else if(cliTODO == "flight")
+		case cli::flight:
 		{
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 			return gFlightAnimation->slotRenderFlight();
+			break;
 		}
-		else if(cliTODO == "keyframe")
+		case cli::keyframe:
 		{
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 			return gKeyframeAnimation->slotRenderKeyframes();
+			break;
+		}
+		case cli::still:
+		{
+			return gMainInterface->StartRender();
+			break;
 		}
 	}
 }
