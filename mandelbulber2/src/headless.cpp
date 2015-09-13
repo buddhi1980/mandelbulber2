@@ -42,19 +42,20 @@ void cHeadless::RenderStillImage(void)
 	qDebug() << "Rendering finished";
 }
 
-void cHeadless::RenderingProgressOutput(const QString &progressTxt, double percentDone)
+void cHeadless::RenderingProgressOutput(const QString &progressTxt, double percentDone, bool newLine)
 {
-	//TODO some nicer output
 	QTextStream out(stdout);
-	QString text = progressTxt;
+	QString text = formatLine(progressTxt) + " ";
 	if(systemData.terminalWidth > 0)
 	{
-		int freeWidth = systemData.terminalWidth - text.length() - 2;
+		int freeWidth = systemData.terminalWidth - progressTxt.length() - 3;
 		int intProgress = freeWidth * percentDone;
-		text += "[";
-		text += QString(intProgress, '*');
-		text += QString(freeWidth - intProgress, '-');
-		text += QString("]\r");
+		text += colorize("[", ansiBlue, noExplicitColor, true);
+		text += colorize(QString(intProgress, '#'), ansiGreen, noExplicitColor, true);
+		text += QString(freeWidth - intProgress, ' ');
+		text += colorize("]", ansiBlue, noExplicitColor, true);
+		text += "\r";
+		if(newLine) text += "\n";
 	}
 	else
 	{
@@ -62,4 +63,70 @@ void cHeadless::RenderingProgressOutput(const QString &progressTxt, double perce
 	}
 	out << text;
 	out.flush();
+}
+
+QString cHeadless::colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor, bool bold)
+{
+	// more info on ANSI escape codes here: https://en.wikipedia.org/wiki/ANSI_escape_code
+#ifdef WIN32 /* WINDOWS */
+	return text;
+#else
+	QStringList ansiSequence;
+	if(foregroundcolor != noExplicitColor) ansiSequence << QString::number(foregroundcolor + 30);
+	if(backgroundColor != noExplicitColor) ansiSequence << QString::number(backgroundColor + 40);
+	if(bold) ansiSequence << "1";
+
+	if(ansiSequence.size() == 0) return text;
+
+	QString colorizedString = "\033["; // start ANSI escape sequence
+	colorizedString += ansiSequence.join(";");
+	colorizedString += "m"; // end ANSI escape sequence
+	colorizedString += text;
+	colorizedString += "\033[0m"; // reset color and bold after string
+	return colorizedString;
+#endif
+}
+
+QString cHeadless::formatLine(const QString& text)
+{
+#ifdef WIN32 /* WINDOWS */
+	return text;
+#else
+	QList<QRegularExpression> reType;
+	reType.append(QRegularExpression("^(Done )(.*?)(, )(elapsed: )(.*?)(, )(estimated to end: )(.*)"));
+	reType.append(QRegularExpression("^(Gotowe )(.*?)(, )(upłynęło: )(.*?)(, )(do końca: )(.*)"));
+	reType.append(QRegularExpression("^(Fortschritt )(.*?)(, )(vergangen: )(.*?)(, )(voraussichtlich noch: )(.*)"));
+
+	reType.append(QRegularExpression("^(.*?)( Done)(, )(total time: )(.*)"));
+	reType.append(QRegularExpression("^(.*?)( gotowe)(, )(całkowity czas: )(.*)"));
+	reType.append(QRegularExpression("^(.*?)( Fertig)(, )(Gesamtzeit: )(.*)"));
+
+	QRegularExpressionMatch matchType;
+	for(int i = 0; i < reType.size(); i++){
+		matchType = reType.at(i).match(text);
+		if (matchType.hasMatch()) break;
+	}
+
+	if (!matchType.hasMatch())
+	{
+		return text;
+	}
+
+	QString out = "";
+	out += colorize(matchType.captured(1), noExplicitColor, noExplicitColor, false);
+	out += colorize(matchType.captured(2), noExplicitColor, noExplicitColor, true);
+	out += colorize(matchType.captured(3), noExplicitColor, noExplicitColor, false);
+
+	out += colorize(matchType.captured(4), ansiGreen, noExplicitColor, false);
+	out += colorize(matchType.captured(5), ansiGreen, noExplicitColor, true);
+
+	if(matchType.lastCapturedIndex() == 8)
+	{
+		out += colorize(matchType.captured(6), noExplicitColor, noExplicitColor, false);
+		out += colorize(matchType.captured(7), ansiBlue, noExplicitColor, false);
+		out += colorize(matchType.captured(8), ansiBlue, noExplicitColor, true);
+	}
+
+	return out;
+#endif
 }
