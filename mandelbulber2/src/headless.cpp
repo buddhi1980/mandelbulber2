@@ -51,7 +51,7 @@ void cHeadless::RenderingProgressOutput(const QString &progressTxt, double perce
 		int freeWidth = systemData.terminalWidth - progressTxt.length() - 3;
 		int intProgress = freeWidth * percentDone;
 		text += colorize("[", ansiBlue, noExplicitColor, true);
-		text += colorize(QString(intProgress, '#'), ansiGreen, noExplicitColor, true);
+		text += colorize(QString(intProgress, '#'), ansiMagenta, noExplicitColor, true);
 		text += QString(freeWidth - intProgress, ' ');
 		text += colorize("]", ansiBlue, noExplicitColor, true);
 		text += "\r";
@@ -123,8 +123,8 @@ QString cHeadless::formatLine(const QString& text)
 	if(matchType.lastCapturedIndex() == 8)
 	{
 		out += colorize(matchType.captured(6), noExplicitColor, noExplicitColor, false);
-		out += colorize(matchType.captured(7), ansiBlue, noExplicitColor, false);
-		out += colorize(matchType.captured(8), ansiBlue, noExplicitColor, true);
+		out += colorize(matchType.captured(7), ansiCyan, noExplicitColor, false);
+		out += colorize(matchType.captured(8), ansiCyan, noExplicitColor, true);
 	}
 
 	return out;
