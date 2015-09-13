@@ -55,22 +55,20 @@ bool cRenderer::RenderImage()
 
 	image->SetImageParameters(params->imageAdjustments);
 
-	bool useNetRender = (gNetRender->IsClient() || gNetRender->IsServer()) && image->IsMainImage();
-
 	int progressiveSteps;
-	if((data->doNotRefresh && data->maxRenderTime > 1e10) || useNetRender)
-			progressiveSteps = 0;
-	else
+	if(data->configuration.UseProgressive())
 		progressiveSteps = (int)(log((double)max(image->GetWidth(), image->GetHeight())) / log(2.0))-3;
+	else
+		progressiveSteps = 0;
 
 	if(progressiveSteps < 0) progressiveSteps = 0;
 	int progressive = pow(2.0, (double)progressiveSteps - 1);
 	if (progressive == 0) progressive = 1;
 
 	//prepare multiple threads
-	QThread **thread = new QThread*[data->numberOfThreads];
-	cRenderWorker::sThreadData *threadData = new cRenderWorker::sThreadData[data->numberOfThreads];
-	cRenderWorker **worker= new cRenderWorker*[data->numberOfThreads];
+	QThread **thread = new QThread*[data->configuration.GetNumberOfThreads()];
+	cRenderWorker::sThreadData *threadData = new cRenderWorker::sThreadData[data->configuration.GetNumberOfThreads()];
+	cRenderWorker **worker= new cRenderWorker*[data->configuration.GetNumberOfThreads()];
 
 	if(scheduler) delete scheduler;
 	scheduler = new cScheduler(image->GetHeight(), progressive);
@@ -78,10 +76,10 @@ bool cRenderer::RenderImage()
 	cProgressText progressText;
 	progressText.ResetTimer();
 
-	for(int i=0; i < data->numberOfThreads; i++)
+	for(int i=0; i < data->configuration.GetNumberOfThreads(); i++)
 	{
 		threadData[i].id = i + 1;
-		if(useNetRender)
+		if(data->configuration.UseNetRender())
 		{
 			if(i < data->netRenderStartingPositions.size())
 			{
@@ -95,7 +93,7 @@ bool cRenderer::RenderImage()
 		}
 		else
 		{
-			threadData[i].startLine = (image->GetHeight()/data->numberOfThreads) * i / scheduler->GetProgressiveStep() * scheduler->GetProgressiveStep();
+			threadData[i].startLine = (image->GetHeight()/data->configuration.GetNumberOfThreads()) * i / scheduler->GetProgressiveStep() * scheduler->GetProgressiveStep();
 		}
 		threadData[i].scheduler = scheduler;
 	}
@@ -113,7 +111,7 @@ bool cRenderer::RenderImage()
 	do
 	{
 		WriteLogDouble("Progressive loop", scheduler->GetProgressiveStep());
-		for (int i = 0; i < data->numberOfThreads; i++)
+		for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 		{
 			WriteLog(QString("Thread ") + QString::number(i) + " create");
 			thread[i] = new QThread;
@@ -129,19 +127,19 @@ bool cRenderer::RenderImage()
 
 		while (!scheduler->AllLinesDone())
 		{
-			if(parentObject)
+			if(parentObject) //TODO check if processing events will be needed for noGUI
 			{
 				gApplication->processEvents();
 			}
 
-			if (*data->stopRequest || progressText.getTime() > data->maxRenderTime)
+			if (*data->stopRequest || progressText.getTime() > data->configuration.GetMaxRenderTime())
 			{
 				scheduler->Stop();
 			}
 
 			Wait(100); //wait 100ms
 
-			if(!data->doNotRefresh)
+			if(data->configuration.UseRefreshRenderedList())
 			{
 				//get list of last rendered lines
 				QList<int> list = scheduler->GetLastRenderedLines();
@@ -155,7 +153,7 @@ bool cRenderer::RenderImage()
 			statusText = QObject::tr("Rendering image in progress");
 			progressTxt = progressText.getText(percentDone);
 
-			if(data->enableConsoleOutput)
+			if(data->configuration.UseConsoleOutput())
 			{
 				cHeadless::RenderingProgressOutput(progressTxt, percentDone);
 			}
@@ -166,9 +164,9 @@ bool cRenderer::RenderImage()
 			}
 
 			//refresh image
-			if (!data->doNotRefresh && image->IsPreview() && listToRefresh.size() > 0)
+			if (listToRefresh.size() > 0)
 			{
-				if (timerRefresh.elapsed() > lastRefreshTime && (scheduler->GetProgressivePass() > 1 || useNetRender))
+				if (timerRefresh.elapsed() > lastRefreshTime && (scheduler->GetProgressivePass() > 1 || !data->configuration.UseProgressive()))
 				{
 					timerRefresh.restart();
 					QSet<int> set_listToRefresh = listToRefresh.toSet(); //removing duplicates
@@ -178,11 +176,11 @@ bool cRenderer::RenderImage()
 
 					image->CompileImage(&listToRefresh);
 
-					if(!useNetRender)
+					if(data->configuration.UseRenderTimeEffects())
 					{
 						if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 						{
-							cRenderSSAO rendererSSAO(params, data, image);
+							cRenderSSAO rendererSSAO(params, data, image, data->configuration);
 							if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 							rendererSSAO.setProgressive(scheduler->GetProgressiveStep());
 							rendererSSAO.RenderSSAO(&listToRefresh);
@@ -190,8 +188,12 @@ bool cRenderer::RenderImage()
 					}
 
 					image->ConvertTo8bit();
-					image->UpdatePreview(&listToRefresh);
-					image->GetImageWidget()->update();
+
+					if(data->configuration.UseImageRefresh())
+					{
+						image->UpdatePreview(&listToRefresh);
+						image->GetImageWidget()->update();
+					}
 
 					if(image->IsMainImage())
 					{
@@ -200,7 +202,7 @@ bool cRenderer::RenderImage()
 					}
 
 					//sending rendered lines to NetRender server
-					if(image->IsMainImage() && gNetRender->IsClient() && gNetRender->GetStatus() == CNetRender::netRender_WORKING)
+					if(data->configuration.UseNetRender() && gNetRender->IsClient() && gNetRender->GetStatus() == CNetRender::netRender_WORKING)
 					{
 						if(netRemderAckReceived) //is ACK was already received. Server is ready to take new data
 						{
@@ -230,10 +232,10 @@ bool cRenderer::RenderImage()
 						}
 					}
 
-					if(image->IsMainImage() && gNetRender->IsServer())
+					if(data->configuration.UseNetRender() && gNetRender->IsServer())
 					{
 						QList<int> toDoList = scheduler->CreateDoneList();
-						if(toDoList.size() > data->numberOfThreads)
+						if(toDoList.size() > data->configuration.GetNumberOfThreads())
 						{
 							for(int c = 0; c < gNetRender->GetClientCount(); c++)
 							{
@@ -242,13 +244,10 @@ bool cRenderer::RenderImage()
 						}
 					}
 
-					if(useNetRender)
-						lastRefreshTime = timerRefresh.elapsed() * 100 / (listToRefresh.size());
-					else
-						lastRefreshTime = timerRefresh.elapsed() * 1000 / (listToRefresh.size());
+					lastRefreshTime = timerRefresh.elapsed() * data->configuration.GetRefreshRate() / (listToRefresh.size());
 
 					//do not refresh and send data too often
-					if(useNetRender)
+					if(data->configuration.UseNetRender())
 					{
 						if(lastRefreshTime < 500) lastRefreshTime = 500;
 					}
@@ -258,7 +257,8 @@ bool cRenderer::RenderImage()
 				} //timerRefresh
 			} //isPreview
 		}//while scheduler
-		for (int i = 0; i < data->numberOfThreads; i++)
+
+		for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 		{
 			while(thread[i]->isRunning())
 			{
@@ -271,7 +271,7 @@ bool cRenderer::RenderImage()
 	while(scheduler->ProgressiveNextStep());
 
 	//send last rendered lines
-	if(image->IsMainImage() && gNetRender->IsClient() && gNetRender->GetStatus() == CNetRender::netRender_WORKING)
+	if(data->configuration.UseNetRender() && gNetRender->IsClient() && gNetRender->GetStatus() == CNetRender::netRender_WORKING)
 	{
 		if (netRemderAckReceived)
 		{
@@ -300,7 +300,7 @@ bool cRenderer::RenderImage()
 		}
 	}
 
-	if(useNetRender)
+	if(data->configuration.UseNetRender())
 	{
 		if(gNetRender->IsClient()) {
 			gNetRender->SetStatus(CNetRender::netRender_READY);
@@ -316,11 +316,11 @@ bool cRenderer::RenderImage()
 	WriteLog("image->CompileImage()");
 	image->CompileImage();
 
-	if(!(gNetRender->IsClient() && image->IsMainImage()))
+	if(!(gNetRender->IsClient() && data->configuration.UseNetRender()))
 	{
 		if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 		{
-			cRenderSSAO rendererSSAO(params, data, image);
+			cRenderSSAO rendererSSAO(params, data, image, data->configuration);
 			if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 			rendererSSAO.RenderSSAO();
 		}

@@ -406,7 +406,10 @@ void cKeyframeAnimation::RenderKeyframes()
 	//preparing Render Job
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
 
-	renderJob->Init(cRenderJob::flightAnim);
+	cRenderingConfiguration config;
+	config.EnableNetRender();
+
+	renderJob->Init(cRenderJob::keyframeAnim, config);
 	mainInterface->stopRequest = false;
 
 	//destination for frames

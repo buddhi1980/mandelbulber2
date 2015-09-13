@@ -44,7 +44,7 @@ public:
 		still, keyframeAnim, flightAnim, flightAnimRecord
 	};
 
-	bool Init(enumMode _mode);
+	bool Init(enumMode _mode, const cRenderingConfiguration &config);
 	bool Execute();
 	cImage* GetImagePtr() {return image;}
 	int GetNumberOfCPUs() {return totalNumberOfCPUs;};
@@ -52,11 +52,8 @@ public:
 	void ChangeCameraTargetPosition(cCameraTarget &cameraTarget);
 
 	void UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal);
-	void SetMaxRenderTime(double time);
+	void UpdateConfig(const cRenderingConfiguration &config) {renderData->configuration = config;}
 	static int GetRunningJobCount() {return runningJobs;}
-	void ForceNumberOfThreads(int noOfThreads) {totalNumberOfCPUs = noOfThreads; renderData->numberOfThreads = noOfThreads;}
-	void BeQuiet() {beQuiet = true;}
-	void EnableConsoleOutput() {enableConsoleOutput = true;}
 
 public slots:
 	void slotExecute();
@@ -81,8 +78,6 @@ private:
 	QWidget *imageWidget;
 	sRenderData *renderData;
 	bool *stopRequest;
-	bool beQuiet;
-	bool enableConsoleOutput;
 
 	static int id; //global identifier of actual rendering job
 	static int runningJobs;

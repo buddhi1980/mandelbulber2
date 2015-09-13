@@ -27,14 +27,15 @@
 #include "global_data.hpp"
 #include "system.hpp"
 
-cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image) : QObject()
+cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image, const cRenderingConfiguration config) : QObject()
 {
 	params = _params;
 	data = _renderData;
 	image = _image;
-	quiet = false;
+	quiet = false; //TODO SSAO quiet mode
 	qualityFactor = 1.0;
 	progressive = 0;
+	numberOfThreads = config.GetNumberOfThreads();
 }
 
 cRenderSSAO::~cRenderSSAO()
@@ -46,9 +47,9 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 {
 	WriteLog("cRenderSSAO::RenderSSAO()");
 	//prepare multiple threads
-	QThread **thread = new QThread*[data->numberOfThreads];
-	cSSAOWorker::sThreadData *threadData = new cSSAOWorker::sThreadData[data->numberOfThreads];
-	cSSAOWorker **worker= new cSSAOWorker*[data->numberOfThreads];
+	QThread **thread = new QThread*[numberOfThreads];
+	cSSAOWorker::sThreadData *threadData = new cSSAOWorker::sThreadData[numberOfThreads];
+	cSSAOWorker **worker= new cSSAOWorker*[numberOfThreads];
 
 	cProgressText progressText;
 	progressText.ResetTimer();
@@ -57,11 +58,11 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	QList<int> *lists = NULL;
 	if(list)
 	{
-		lists = new QList<int>[data->numberOfThreads];
+		lists = new QList<int>[numberOfThreads];
 		for(int i=0; i<list->size(); i++)
 		{
 			int y = list->at(i);
-			int mod = y % data->numberOfThreads;
+			int mod = y % numberOfThreads;
 			lists[mod].append(y);
 		}
 	}
@@ -78,10 +79,10 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	int quality = params->ambientOcclusionQuality * params->ambientOcclusionQuality * qualityFactor;
 	if (quality < 3) quality = 3;
 
-	for(int i=0; i < data->numberOfThreads; i++)
+	for(int i=0; i < numberOfThreads; i++)
 	{
 		threadData[i].startLine = i;
-		threadData[i].noOfThreads = data->numberOfThreads;
+		threadData[i].noOfThreads = numberOfThreads;
 		threadData[i].quality = quality;
 		threadData[i].done = 0;
 		threadData[i].progressive = progressive;
@@ -98,7 +99,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 
 	WriteLog("Start rendering SSAO");
 
-	for (int i = 0; i < data->numberOfThreads; i++)
+	for (int i = 0; i < numberOfThreads; i++)
 	{
 		WriteLog(QString("Thread ") + QString::number(i) + " create");
 		thread[i] = new QThread;
@@ -131,7 +132,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 
 		if (*data->stopRequest)
 		{
-			for(int i = 0; i < data->numberOfThreads; i++)
+			for(int i = 0; i < numberOfThreads; i++)
 				threadData[i].stopRequest = true;
 			if(!list)
 			{
@@ -141,7 +142,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		}
 
 		totalDone = 0;
-		for(int i = 0; i < data->numberOfThreads; i++)
+		for(int i = 0; i < numberOfThreads; i++)
 		{
 			totalDone += threadData[i].done;
 		}
@@ -155,7 +156,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		}
 	}
 
-	for (int i = 0; i < data->numberOfThreads; i++)
+	for (int i = 0; i < numberOfThreads; i++)
 	{
 		while(thread[i]->isRunning())
 		{

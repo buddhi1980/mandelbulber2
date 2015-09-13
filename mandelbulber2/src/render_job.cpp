@@ -62,9 +62,6 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	stopRequest = _stopRequest;
 	parentObject = _parent;
 
-	beQuiet = false;
-	enableConsoleOutput = false;
-
 	id++;
 	//qDebug() << "Id" << id;
 
@@ -82,7 +79,7 @@ cRenderJob::~cRenderJob()
 	WriteLog("Job finished and closed");
 }
 
-bool cRenderJob::Init(enumMode _mode)
+bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 {
 	WriteLog("cRenderJob::Init id = " + QString::number(id));
 
@@ -135,8 +132,7 @@ bool cRenderJob::Init(enumMode _mode)
 	if(renderData) delete renderData;
 	renderData = new sRenderData;
 	renderData->rendererID = id;
-	renderData->numberOfThreads = totalNumberOfCPUs;
-	renderData->enableConsoleOutput = enableConsoleOutput;
+	renderData->configuration = config;
 
 	//set image region to render
 	if(paramsContainer->Get<bool>("legacy_coordinate_system"))
@@ -172,20 +168,18 @@ bool cRenderJob::Init(enumMode _mode)
 	else
 	{
 		if(paramsContainer->Get<bool>("textured_background"))
-			renderData->textures.backgroundTexture = cTexture(paramsContainer->Get<QString>("file_background"), beQuiet);
+			renderData->textures.backgroundTexture = cTexture(paramsContainer->Get<QString>("file_background"), config.UseIgnoreErrors());
 
 		if(paramsContainer->Get<bool>("env_mapping_enable"))
-			renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"), beQuiet);
+			renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"), config.UseIgnoreErrors());
 
 		if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
-			renderData->textures.lightmapTexture = cTexture(paramsContainer->Get<QString>("file_lightmap"), beQuiet);
+			renderData->textures.lightmapTexture = cTexture(paramsContainer->Get<QString>("file_lightmap"), config.UseIgnoreErrors());
 	}
 
 	//assign stop handler
 	renderData->stopRequest = stopRequest;
 
-	//set doNotRefresh flag
-	if((mode == flightAnimRecord || mode == flightAnim) && (!gNetRender->IsClient() && !gNetRender->IsServer())) renderData->doNotRefresh = true;
 	ready = true;
 
 	return true;
@@ -243,13 +237,13 @@ bool cRenderJob::Execute(void)
 			int clientIndex = 0;
 			int clientWorkerIndex = 0;
 
-			int workersCount = gNetRender->getTotalWorkerCount() + renderData->numberOfThreads;
+			int workersCount = gNetRender->getTotalWorkerCount() + renderData->configuration.GetNumberOfThreads();
 
 			QList<int> startingPositionsToSend;
 
 			for(int i = 0; i < workersCount; i++)
 			{
-				if(i < renderData->numberOfThreads)
+				if(i < renderData->configuration.GetNumberOfThreads())
 				{
 					renderData->netRenderStartingPositions.append(i * image->GetHeight() / workersCount);
 				}
@@ -365,18 +359,6 @@ void cRenderJob::UpdateParameters(const cParameterContainer *_params, const cFra
 {
 	*paramsContainer = *_params;
 	*fractalContainer = *_fractal;
-}
-
-void cRenderJob::SetMaxRenderTime(double time)
-{
-	if(renderData)
-	{
-		renderData->maxRenderTime = time;
-	}
-	else
-	{
-		qCritical() << "cRenderJob::SetMaxRenderTime(double time): renderData not set";
-	}
 }
 
 void cRenderJob::ReduceDetail()

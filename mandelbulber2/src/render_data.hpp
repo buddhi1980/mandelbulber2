@@ -29,30 +29,27 @@
 #include <QProgressBar>
 #include <QStatusBar>
 #include "statistics.h"
+#include "rendering_configuration.hpp"
 
 struct sRenderData
 {
 	sRenderData() :
-			rendererID(0), numberOfThreads(0), stopRequest(NULL),
-			maxRenderTime(1e50), doNotRefresh(false), enableConsoleOutput(false),
+			rendererID(0), stopRequest(NULL),
 			lastPercentage(1.0), reduceDetail(1.0)
 	{};
 
 	int rendererID;
-	int numberOfThreads;
 	cRegion<int> screenRegion;
 	cRegion<double> imageRegion;
 	sTextures textures;
 	cColorPalette palette;
 	cLights lights;
 	bool *stopRequest;
-	double maxRenderTime;
-	bool doNotRefresh;
-	bool enableConsoleOutput;
 	double lastPercentage;
 	double reduceDetail;
 	cStatistics statistics;
 	QList<int> netRenderStartingPositions;
+	cRenderingConfiguration configuration;
 };
 
 #endif /* RENDER_DATA_HPP_ */

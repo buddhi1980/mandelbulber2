@@ -27,8 +27,13 @@ void cHeadless::RenderStillImage(void)
 	bool stopRequest;
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &stopRequest);
-	renderJob->EnableConsoleOutput();
-	renderJob->Init(cRenderJob::still);
+
+	cRenderingConfiguration config;
+	config.EnableConsoleOutput();
+	config.DisableRefresh();
+	config.DisableProgressiveRender();
+
+	renderJob->Init(cRenderJob::still, config);
 	renderJob->Execute();
 	//TODO saving in different image formats
 	SaveImage(systemData.dataDirectory + "images/test.jpg", IMAGE_FILE_TYPE_JPG, image);

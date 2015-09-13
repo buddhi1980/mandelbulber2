@@ -32,11 +32,10 @@ class cRenderSSAO : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image);
+	cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image, const cRenderingConfiguration config);
 	~cRenderSSAO();
 
 	void RenderSSAO(QList<int> *list = NULL);
-	void setQuiet() {quiet = true;}
 	void setProgressive(double step) {progressive = step;}
 
 private:
@@ -46,6 +45,7 @@ private:
 	bool quiet;
 	double qualityFactor;
 	int progressive;
+	int numberOfThreads;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

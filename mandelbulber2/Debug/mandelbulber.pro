@@ -69,6 +69,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/render_ssao.cpp\
 			../src/render_window.cpp\
 			../src/render_worker.cpp\
+			../src/rendering_configuration.cpp\
 			../src/scheduler.cpp\
 			../src/settings.cpp\
 			../src/shaders.cpp\

@@ -186,7 +186,12 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	//setup of rendering engine
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
 
-	renderJob->Init(cRenderJob::flightAnimRecord);
+	cRenderingConfiguration config;
+	config.DisableRefresh();
+	double maxRenderTime = gPar->Get<double>("flight_sec_per_frame");;
+	config.SetMaxRenderTime(maxRenderTime);
+
+	renderJob->Init(cRenderJob::flightAnimRecord, config);
 	mainInterface->stopRequest = false;
 
 	//vector for speed and rotation control
@@ -211,9 +216,6 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	CVector3 top = gPar->Get<CVector3>("camera_top");
 
 	cCameraTarget cameraTarget(cameraPosition, target, top);
-
-	double maxRenderTime = gPar->Get<double>("flight_sec_per_frame");;
-	renderJob->SetMaxRenderTime(maxRenderTime);
 
 	linearSpeedSp = gPar->Get<double>("flight_speed");
 	enumSpeedMode speedMode = (enumSpeedMode)gPar->Get<double>("flight_speed_control");
@@ -247,8 +249,10 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			rotationSpeedSp =  gPar->Get<double>("flight_rotation_speed")/100.0;
 			rollSpeedSp =  gPar->Get<double>("flight_roll_speed")/100.0;
 			inertia = gPar->Get<double>("flight_inertia");
+
 			double maxRenderTime = gPar->Get<double>("flight_sec_per_frame");;
-			renderJob->SetMaxRenderTime(maxRenderTime);
+			config.SetMaxRenderTime(maxRenderTime);
+			renderJob->UpdateConfig(config);
 
 			if(mainInterface->stopRequest) break;
 		}
@@ -529,7 +533,10 @@ void cFlightAnimation::RenderFlight()
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
 
-	renderJob->Init(cRenderJob::flightAnim);
+	cRenderingConfiguration config;
+	config.EnableNetRender();
+
+	renderJob->Init(cRenderJob::flightAnim, config);
 	mainInterface->stopRequest = false;
 
 	QString framesDir = gPar->Get<QString>("anim_flight_dir");

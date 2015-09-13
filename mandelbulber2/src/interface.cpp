@@ -1037,7 +1037,10 @@ void cInterface::StartRender(void)
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, mainWindow, renderedImage); //deleted by deleteLater()
 
-	if(!renderJob->Init(cRenderJob::still))
+	cRenderingConfiguration config;
+	config.EnableNetRender();
+
+	if(!renderJob->Init(cRenderJob::still, config))
 	{
 		mainImage->ReleaseImage();
 		cErrorMessage::showMessage(QObject::tr("Cannot init renderJob, see log output for more information."), cErrorMessage::errorMessage);
@@ -1450,9 +1453,9 @@ void cInterface::RefreshMainImage()
 	{
 		cParamRender params(gPar);
 		sRenderData data;
-		data.numberOfThreads = systemData.numberOfThreads;
+		cRenderingConfiguration config;
 		data.stopRequest = &stopRequest;
-		cRenderSSAO rendererSSAO(&params, &data, mainImage);
+		cRenderSSAO rendererSSAO(&params, &data, mainImage, config);
 		QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 
 		rendererSSAO.RenderSSAO();
