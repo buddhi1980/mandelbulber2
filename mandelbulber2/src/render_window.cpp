@@ -1758,7 +1758,7 @@ void RenderWindow::slotGamepadPitch(double value) {
 	ui->sl_gamepad_angle_pitch->setValue(-100 + 200 * value);
 	CVector2<double> yawPitch(value, gamepad.axisLeftY());
 	yawPitch = (yawPitch * 2) - CVector2<double>(1, 1);
-	emit gMainInterface->renderedImage->flightYawAndPitch(yawPitch);
+	emit gMainInterface->renderedImage->YawAndPitchChanged(yawPitch);
 }
 
 void RenderWindow::slotGamepadYaw(double value) {
@@ -1766,14 +1766,14 @@ void RenderWindow::slotGamepadYaw(double value) {
 	ui->sl_gamepad_angle_yaw->setValue(-100 + 200 * value);
 	CVector2<double> yawPitch(gamepad.axisLeftX(), value);
 	yawPitch = (yawPitch * 2) - CVector2<double>(1, 1);
-	emit gMainInterface->renderedImage->flightYawAndPitch(yawPitch);
+	emit gMainInterface->renderedImage->YawAndPitchChanged(yawPitch);
 }
 
 void RenderWindow::slotGamepadRoll() {
 	double value = 0.5 + (gamepad.buttonR2() - gamepad.buttonL2()) / 2.0;
 	WriteLog("Gamepad - slotGamepadRoll | value: " + QString::number(value));
 	ui->sl_gamepad_angle_roll->setValue(-100 + 200 * value);
-	emit gMainInterface->renderedImage->flightRotation(value * 2.0 - 1.0);
+	emit gMainInterface->renderedImage->RotationChanged(value * 2.0 - 1.0);
 }
 
 void RenderWindow::slotGamepadX(double value) {
@@ -1781,7 +1781,7 @@ void RenderWindow::slotGamepadX(double value) {
 	ui->sl_gamepad_movement_x->setValue(-100 + 200 * value);
 	CVector2<double> strafe(value, gamepad.axisRightY());
 	strafe = (strafe * 2) - CVector2<double>(1, 1);
-	emit gMainInterface->renderedImage->flightStrafe(strafe);
+	emit gMainInterface->renderedImage->StrafeChanged(strafe);
 }
 
 void RenderWindow::slotGamepadY(double value) {
@@ -1789,7 +1789,7 @@ void RenderWindow::slotGamepadY(double value) {
 	ui->sl_gamepad_movement_y->setValue(-100 + 200 * value);
 	CVector2<double> strafe(gamepad.axisRightX(), value);
 	strafe = (strafe * 2) - CVector2<double>(1, 1);
-	emit gMainInterface->renderedImage->flightStrafe(strafe);
+	emit gMainInterface->renderedImage->StrafeChanged(strafe);
 }
 
 void RenderWindow::slotGamepadZ() {
@@ -1800,11 +1800,11 @@ void RenderWindow::slotGamepadZ() {
 	{
 		if(gamepad.buttonA())
 		{
-			emit gMainInterface->renderedImage->flightSpeedIncrease();
+			emit gMainInterface->renderedImage->SpeedChanged(1.1);
 		}
 		else
 		{
-			emit gMainInterface->renderedImage->flightSpeedDecrease();
+			emit gMainInterface->renderedImage->SpeedChanged(0.9);
 		}
 	}
 }

@@ -43,6 +43,7 @@ private:
 	struct sCliData
 	{
 		bool nogui;
+		bool server;
 		QString animationMode;
 		QString startFrameText;
 		QString endFrameText;

@@ -45,16 +45,18 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	QCommandLineOption fpkOption("fpk",
 		QCoreApplication::translate("main", "Override frames per key parameter."),
 		QCoreApplication::translate("main", "N"));
+	QCommandLineOption serverOption(QStringList() << "S" << "server",
+		QCoreApplication::translate("main", "Set application as a server listening for clients."));
 	QCommandLineOption hostOption(QStringList() << "H" << "host",
 		QCoreApplication::translate("main", "Set application as a client connected to server of given Host address"
-			"(Host can be of type IPv4, IPv6 and Domain name address)."),
+			" (Host can be of type IPv4, IPv6 and Domain name address)."),
 		QCoreApplication::translate("main", "N.N.N.N"));
 	QCommandLineOption portOption(QStringList() << "p" << "port",
 		QCoreApplication::translate("main", "Set network port number for Netrender (default 5555)."),
 		QCoreApplication::translate("main", "N"));
 	parser.addPositionalArgument("settings_file", QCoreApplication::translate("main",
 		"file with fractal settings (program also tries\nto find file in ./mandelbulber/settings directory)\n"
-		"When settings_file is put as command argument then program will start in noGUI mode"
+		"When settings_file is put as a command line argument then program will start in noGUI mode"
 	));
 
 	parser.addOption(noguiOption);
@@ -65,6 +67,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(formatOption);
 	parser.addOption(resOption);
 	parser.addOption(fpkOption);
+	parser.addOption(serverOption);
 	parser.addOption(hostOption);
 	parser.addOption(portOption);
 
@@ -80,6 +83,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.imageFileFormat = parser.value(formatOption);
 	cliData.resolution = parser.value(resOption);
 	cliData.fpkText = parser.value(fpkOption);
+	cliData.server = parser.isSet(serverOption);
 	cliData.host = parser.value(hostOption);
 	cliData.portText = parser.value(portOption);
 
@@ -94,8 +98,45 @@ cCommandLineInterface::~cCommandLineInterface()
 void cCommandLineInterface::ReadCLI (void)
 {
 	bool checkParse = true;
+	bool settingsSpecified = false;
+
+	// check netrender server / client
+	if(cliData.server)
+	{
+		int port = gPar->Get<int>("netrender_server_local_port");
+
+		if(cliData.portText != "")
+		{
+			port = cliData.portText.toInt(&checkParse);
+			if(!checkParse || port <= 0){
+				WriteLog("Specified port is invalid\n");
+				parser.showHelp(-10);
+			}
+			gPar->Set("netrender_server_local_port", port);
+		}
+		cliData.nogui = true; systemData.noGui = true;
+		gNetRender->SetServer(gPar->Get<int>("netrender_server_local_port"));
+	}
+	else if(cliData.host != "")
+	{
+		int port = gPar->Get<int>("netrender_client_remote_port");
+		gPar->Set("netrender_client_remote_address", cliData.host);
+		if(cliData.portText != "")
+		{
+			port = cliData.portText.toInt(&checkParse);
+			if(!checkParse || port <= 0){
+				WriteLog("Specified port is invalid\n");
+				parser.showHelp(-11);
+			}
+			gPar->Set("netrender_client_remote_port", port);
+		}
+		cliData.nogui = true; systemData.noGui = true;
+		cliTODO = modeNetrender;
+		return;
+	}
 
 	if(args.size() > 0){
+		// TODO for future development -> load multiple settings file to queue
 		// file specified -> load it
 		QString filename = args[0];
 		if(!QFile::exists(filename))
@@ -108,11 +149,12 @@ void cCommandLineInterface::ReadCLI (void)
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.LoadFromFile(filename);
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+			settingsSpecified = true;
 		}
 		else
 		{
 			WriteLog("Cannot load file!\n");
-			parser.showHelp(-10);
+			parser.showHelp(-12);
 		}
 	}
 
@@ -129,56 +171,6 @@ void cCommandLineInterface::ReadCLI (void)
 		}
 	}
 
-	// check netrender
-	if(cliData.host != "")
-	{
-		int port = gPar->Get<int>("netrender_client_remote_port");
-		gPar->Set("netrender_client_remote_address", cliData.host);
-		if(cliData.portText != "")
-		{
-			port = cliData.portText.toInt(&checkParse);
-			if(!checkParse || port <= 0){
-				WriteLog("Specified port is invalid\n");
-				parser.showHelp(-11);
-			}
-			gPar->Set("netrender_client_remote_port", port);
-		}
-		cliTODO = modeNetrender;
-		return;
-	}
-
-	// animation rendering
-	if(cliData.startFrameText != "" || cliData.endFrameText != "")
-	{
-		int startFrame = cliData.startFrameText.toInt(&checkParse);
-		int endFrame = cliData.endFrameText.toInt(&checkParse);
-		if(!checkParse || startFrame < 0 || endFrame < startFrame){
-			WriteLog("Specified startframe or endframe not valid\n"
-							 "(need to be > 0, endframe > startframe)");
-			parser.showHelp(-12);
-		}
-
-		if(cliData.animationMode == "flight" || cliData.animationMode == "")
-		{
-			gPar->Set("flight_first_to_render", startFrame);
-			gPar->Set("flight_last_to_render", endFrame);
-			cliTODO = modeFlight;
-			return;
-		}
-		else if(cliData.animationMode == "keyframe")
-		{
-			gPar->Set("keyframe_first_to_render", startFrame);
-			gPar->Set("keyframe_last_to_render", endFrame);
-			cliTODO = modeKeyframe;
-			return;
-		}
-		else
-		{
-			WriteLog("Unknown mode: " + cliData.animationMode + "\n");
-			parser.showHelp(-13);
-		}
-	}
-
 	// specified resolution
 	if(cliData.resolution != "")
 	{
@@ -190,7 +182,7 @@ void cCommandLineInterface::ReadCLI (void)
 			if(!checkParse || xRes <= 0 || yRes <= 0){
 				WriteLog("Specified resolution not valid\n"
 								 "both dimensions need to be > 0");
-				parser.showHelp(-14);
+				parser.showHelp(-13);
 			}
 			gPar->Set("image_width", xRes);
 			gPar->Set("image_height", yRes);
@@ -204,9 +196,49 @@ void cCommandLineInterface::ReadCLI (void)
 		if(!checkParse || fpk <= 0){
 			WriteLog("Specified frames per key not valid\n"
 							 "need to be > 0");
-			parser.showHelp(-15);
+			parser.showHelp(-14);
 		}
 		gPar->Set("frames_per_keyframe", fpk);
+	}
+
+	// animation rendering
+	if(cliData.startFrameText != "" || cliData.endFrameText != "")
+	{
+		int startFrame = cliData.startFrameText.toInt(&checkParse);
+		int endFrame = cliData.endFrameText.toInt(&checkParse);
+		if(!checkParse || startFrame < 0 || endFrame < startFrame){
+			WriteLog("Specified startframe or endframe not valid\n"
+							 "(need to be > 0, endframe > startframe)");
+			parser.showHelp(-15);
+		}
+
+		if(cliData.animationMode == "flight" || cliData.animationMode == "")
+		{
+			gPar->Set("flight_first_to_render", startFrame);
+			gPar->Set("flight_last_to_render", endFrame);
+			cliData.nogui = true; systemData.noGui = true;
+			cliTODO = modeFlight;
+			return;
+		}
+		else if(cliData.animationMode == "keyframe")
+		{
+			gPar->Set("keyframe_first_to_render", startFrame);
+			gPar->Set("keyframe_last_to_render", endFrame);
+			cliData.nogui = true; systemData.noGui = true;
+			cliTODO = modeKeyframe;
+			return;
+		}
+		else
+		{
+			WriteLog("Unknown mode: " + cliData.animationMode + "\n");
+			parser.showHelp(-15);
+		}
+	}
+
+	if(!settingsSpecified && cliData.nogui && cliTODO != modeNetrender)
+	{
+		WriteLog("You have to specify a settings file, for this configuration!");
+		parser.showHelp(-16);
 	}
 
 	if(cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight)

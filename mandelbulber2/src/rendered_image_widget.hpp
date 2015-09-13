@@ -75,12 +75,11 @@ struct sFlightData
 	CVector2<double> GetLastMousePositionScaled(void);
 
 signals:
-	void flightSpeedIncrease();
-	void flightSpeedDecrease();
-	void flightStrafe(CVector2<double> arrows);
-	void flightYawAndPitch(CVector2<double> yawAndPitch);
-	void flightRotation(double direction);
-	void flightPause();
+	void SpeedChanged(double amount);
+	void StrafeChanged(CVector2<double> arrows);
+	void YawAndPitchChanged(CVector2<double> yawAndPitch);
+	void RotationChanged(double direction);
+	void Pause();
 
 protected:
 	void paintEvent(QPaintEvent *event);
