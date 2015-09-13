@@ -356,6 +356,11 @@ bool cRenderer::RenderImage()
 		emit updateStatistics(data->statistics);
 	}
 
+	if(data->enableConsoleOutput)
+	{
+		cHeadless::RenderingProgressOutput(progressTxt, percentDone, true);
+	}
+
 	if(parentObject)
 	{
 		emit updateProgressAndStatus(statusText, progressTxt, percentDone);
