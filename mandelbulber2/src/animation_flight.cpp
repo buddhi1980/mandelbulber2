@@ -47,12 +47,11 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 
 
 		QApplication::connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this, SLOT(slotSelectAnimFlightImageDir()));
-		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightStrafe(CVector2<double>)), this, SLOT(slotFlightStrafe(CVector2<double>)));
-		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightYawAndPitch(CVector2<double>)), this, SLOT(slotFlightYawAndPitch(CVector2<double>)));
-		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightSpeedIncrease()), this, SLOT(slotIncreaseSpeed()));
-		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightSpeedDecrease()), this, SLOT(slotDecreaseSpeed()));
-		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightRotation(double)), this, SLOT(slotFlightRotation(double)));
-		QApplication::connect(mainInterface->renderedImage, SIGNAL(flightPause()), this, SLOT(slotRecordPause()));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(StrafeChanged(CVector2<double>)), this, SLOT(slotFlightStrafe(CVector2<double>)));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(YawAndPitchChanged(CVector2<double>)), this, SLOT(slotFlightYawAndPitch(CVector2<double>)));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(SpeedChanged(double)), this, SLOT(slotChangeSpeed(double)));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(RotationChanged(double)), this, SLOT(slotFlightRotation(double)));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(Pause()), this, SLOT(slotRecordPause()));
 		QApplication::connect(ui->tableWidget_flightAnimation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
 
 		QApplication::connect(ui->spinboxInt_flight_first_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderFirstFrame(int)));
@@ -272,7 +271,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		}
 		else
 		{
-			CVector3 direction;
+			CVector3 direction = cameraTarget.GetForwardVector();
 			if(strafe.x != 0)
 			{
 				direction += cameraTarget.GetRightVector() * strafe.x;
@@ -706,18 +705,10 @@ void cFlightAnimation::slotFlightYawAndPitch(CVector2<double> _yawAndPitch)
 	yawAndPitch = _yawAndPitch;
 }
 
-void cFlightAnimation::slotIncreaseSpeed()
+void cFlightAnimation::slotChangeSpeed(double amount)
 {
 	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::read);
-	linearSpeedSp = gPar->Get<double>("flight_speed") * 1.1;
-	gPar->Set("flight_speed", linearSpeedSp);
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::write);
-}
-
-void cFlightAnimation::slotDecreaseSpeed()
-{
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::read);
-	linearSpeedSp = gPar->Get<double>("flight_speed") * 0.9;
+	linearSpeedSp = gPar->Get<double>("flight_speed") * amount;
 	gPar->Set("flight_speed", linearSpeedSp);
 	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::write);
 }

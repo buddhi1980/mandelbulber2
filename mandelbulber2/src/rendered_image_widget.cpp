@@ -339,7 +339,7 @@ void RenderedImage::mouseMoveEvent(QMouseEvent * event)
 	CVector2<double> yawAndPitch;
 	yawAndPitch.x = ((double)lastMousePosition.x / image->GetPreviewWidth() - 0.5) * 2.0;
 	yawAndPitch.y = ((double)lastMousePosition.y / image->GetPreviewHeight() - 0.5) * 2.0;
-	emit flightYawAndPitch(yawAndPitch);
+	emit YawAndPitchChanged(yawAndPitch);
 
 	if(params)
 	{
@@ -362,11 +362,11 @@ void RenderedImage::mousePressEvent(QMouseEvent * event)
 	{
 		if(event->button() == Qt::LeftButton)
 		{
-			emit flightSpeedIncrease();
+			emit SpeedChanged(1.1);
 		}
 		else if(event->button() == Qt::RightButton)
 		{
-			emit flightSpeedDecrease();
+			emit SpeedChanged(0.9);
 		}
 	}
 	else
@@ -411,36 +411,36 @@ void RenderedImage::keyPressEvent(QKeyEvent * event)
 			if(key == Qt::Key_Up)
 			{
 				keyArrows.y += 1;
-				emit(flightStrafe(keyArrows));
+				emit StrafeChanged(keyArrows);
 			}
 			else if(key == Qt::Key_Down)
 			{
 				keyArrows.y -= 1;
-				emit(flightStrafe(keyArrows));
+				emit StrafeChanged(keyArrows);
 			}
 			else if(key == Qt::Key_Left)
 			{
 				keyArrows.x -= 1;
-				emit(flightStrafe(keyArrows));
+				emit StrafeChanged(keyArrows);
 			}
 			else if(key == Qt::Key_Right)
 			{
 				keyArrows.x += 1;
-				emit(flightStrafe(keyArrows));
+				emit StrafeChanged(keyArrows);
 			}
 			else if(key == Qt::Key_Z)
 			{
 				flightRotationDirection = 1;
-				emit(flightRotation(flightRotationDirection));
+				emit RotationChanged(flightRotationDirection);
 			}
 			else if(key == Qt::Key_X)
 			{
 				flightRotationDirection = -1;
-				emit(flightRotation(flightRotationDirection));
+				emit RotationChanged(flightRotationDirection);
 			}
 			else if(key == Qt::Key_Space)
 			{
-				emit flightPause();
+				emit Pause();
 			}
 
 		}
@@ -465,32 +465,32 @@ void RenderedImage::keyReleaseEvent(QKeyEvent * event)
 			if(key == Qt::Key_Up)
 			{
 				keyArrows.y -= 1;
-				emit(flightStrafe(keyArrows));
+				emit StrafeChanged(keyArrows);
 			}
 			else if(key == Qt::Key_Down)
 			{
 				keyArrows.y += 1;
-				emit(flightStrafe(keyArrows));
+				emit StrafeChanged(keyArrows);
 			}
 			else if(key == Qt::Key_Left)
 			{
 				keyArrows.x += 1;
-				emit(flightStrafe(keyArrows));
+				emit StrafeChanged(keyArrows);
 			}
 			else if(key == Qt::Key_Right)
 			{
 				keyArrows.x -= 1;
-				emit(flightStrafe(keyArrows));
+				emit StrafeChanged(keyArrows);
 			}
 			else if(key == Qt::Key_Z)
 			{
 				flightRotationDirection = 0;
-				emit(flightRotation(flightRotationDirection));
+				emit RotationChanged(flightRotationDirection);
 			}
 			else if(key == Qt::Key_X)
 			{
 				flightRotationDirection = 0;
-				emit(flightRotation(flightRotationDirection));
+				emit RotationChanged(flightRotationDirection);
 			}
 
 		}
