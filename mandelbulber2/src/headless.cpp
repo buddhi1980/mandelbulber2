@@ -10,8 +10,9 @@
 #include "files.h"
 #include "render_job.hpp"
 #include "global_data.hpp"
+#include "interface.hpp"
 
-cHeadless::cHeadless()
+cHeadless::cHeadless() : QObject()
 {
 	// TODO Auto-generated constructor stub
 
@@ -22,24 +23,34 @@ cHeadless::~cHeadless()
 	// TODO Auto-generated destructor stub
 }
 
-void cHeadless::RenderStillImage(void)
+void cHeadless::RenderStillImage(bool isNetRender)
 {
-	bool stopRequest;
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &stopRequest);
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
 
 	cRenderingConfiguration config;
 	config.EnableConsoleOutput();
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
+	config.EnableNetRender();
 
 	renderJob->Init(cRenderJob::still, config);
 	renderJob->Execute();
-	//TODO saving in different image formats
-	SaveImage(systemData.dataDirectory + "images/test.jpg", IMAGE_FILE_TYPE_JPG, image);
+
+	if(!isNetRender)
+	{
+		//TODO saving in different image formats
+		SaveImage(systemData.dataDirectory + "images/test.jpg", IMAGE_FILE_TYPE_JPG, image);
+	}
 	delete renderJob;
 	delete image;
 	qDebug() << "Rendering finished";
+	emit finished();
+}
+
+void cHeadless::slotNetRender()
+{
+	RenderStillImage(true);
 }
 
 void cHeadless::RenderingProgressOutput(const QString &progressTxt, double percentDone, bool newLine)

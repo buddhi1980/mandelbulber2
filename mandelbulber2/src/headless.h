@@ -10,8 +10,9 @@
 
 #include <QtCore>
 
-class cHeadless
+class cHeadless : public QObject
 {
+	Q_OBJECT
 public:
 	cHeadless();
 	~cHeadless();
@@ -23,10 +24,18 @@ public:
 		ansiBlue = 4, ansiMagenta = 5, ansiCyan = 6, ansiWhite = 7
 	};
 
-	void RenderStillImage(void);
+	void RenderStillImage(bool isNetRender = false);
+	void RenderStillImageAsNetRenderClient(void);
 	static void RenderingProgressOutput(const QString &progressTxt, double percentDone, bool newLine = false);
 	static QString colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor = noExplicitColor, bool bold = false);
 	static QString formatLine(const QString& text);
+
+	public slots:
+	void slotNetRender();
+
+	signals:
+	void finished();
+
 };
 
 #endif /* MANDELBULBER2_SRC_HEADLESS_H_ */

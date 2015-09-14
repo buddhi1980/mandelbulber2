@@ -133,9 +133,9 @@ int main(int argc, char *argv[])
 	  gMainInterface->ComboMouseClickUpdate();
 	  gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 	  gMainInterface->ComboMouseClickUpdate();
-	}
 
-	gMainInterface->AutoRecovery();
+		gMainInterface->AutoRecovery();
+	}
 
 	commandLineInterface.ProcessCLI();
 

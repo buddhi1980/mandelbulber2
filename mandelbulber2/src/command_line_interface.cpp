@@ -258,6 +258,7 @@ void cCommandLineInterface::ProcessCLI (void)
 		case modeNetrender:
 		{
 			gNetRender->SetClient(gPar->Get<QString>("netrender_client_remote_address"), gPar->Get<int>("netrender_client_remote_port"));
+			gApplication->exec();
 			break;
 		}
 		case modeFlight:

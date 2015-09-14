@@ -127,7 +127,7 @@ bool cRenderer::RenderImage()
 
 		while (!scheduler->AllLinesDone())
 		{
-			if(parentObject) //TODO check if processing events will be needed for noGUI
+			if(parentObject || data->configuration.UseNetRender()) //TODO check if processing events will be needed for noGUI
 			{
 				gApplication->processEvents();
 			}

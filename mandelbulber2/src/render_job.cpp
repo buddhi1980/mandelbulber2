@@ -224,7 +224,7 @@ bool cRenderJob::Execute(void)
 	image->BlockImage();
 
 	//send settings to all NetRender clients
-	if(image->IsMainImage())
+	if(renderData->configuration.UseNetRender())
 	{
 		if(gNetRender->IsServer())
 		{
@@ -309,7 +309,7 @@ bool cRenderJob::Execute(void)
 		if(parentObject) QObject::connect(renderer, SIGNAL(updateStatistics(cStatistics)), parentObject, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 
-	if(image->IsMainImage())
+	if(renderData->configuration.UseNetRender())
 	{
 		if(gNetRender->IsClient())
 		{

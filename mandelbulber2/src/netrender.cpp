@@ -29,6 +29,7 @@
 #include "global_data.hpp"
 #include "interface.hpp"
 #include "error_message.hpp"
+#include "headless.h"
 
 CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
 {
@@ -208,6 +209,12 @@ void CNetRender::SetClient(QString address, int portNo)
 	reconnectTimer->start();
 	WriteLog("NetRender - Client Setup, link to server: " + address + ", port: " + QString::number(portNo));
 	emit NotifyStatus();
+
+	if(systemData.noGui)
+	{
+		QTextStream out(stdout);
+		out << "NetRender - Client Setup, link to server: " + address + ", port: " + QString::number(portNo) + "\n";
+	}
 }
 
 void CNetRender::ServerDisconnected()
@@ -215,6 +222,12 @@ void CNetRender::ServerDisconnected()
 	status = netRender_ERROR;
 	emit NotifyStatus();
 	reconnectTimer->start();
+
+	if(systemData.noGui)
+	{
+		QTextStream out(stdout);
+		qWarning() << "Connection lost";
+	}
 }
 
 void CNetRender::TryServerConnect()
@@ -426,8 +439,26 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					parSettings.LoadFromString(settingsText);
 					parSettings.Decode(gPar, gParFractal);
 
-					gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-					gMainInterface->StartRender();
+					if(!systemData.noGui)
+					{
+						gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+						gMainInterface->StartRender();
+					}
+					else
+					{
+						//in noGui mode it must be started as separate thread to be able to process event loop
+						cHeadless *headless = new cHeadless;
+
+						QThread *thread = new QThread; //deleted by deleteLater()
+						headless->moveToThread(thread);
+						QObject::connect(thread, SIGNAL(started()), headless, SLOT(slotNetRender()));
+						thread->setObjectName("RenderJob");
+						thread->start();
+
+						QObject::connect(headless, SIGNAL(finished()), headless, SLOT(deleteLater()));
+						QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+					}
+
 				}
 				else
 				{

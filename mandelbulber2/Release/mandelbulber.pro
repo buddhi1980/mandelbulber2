@@ -122,6 +122,7 @@ HEADERS  += ../src/render_window.hpp\
 			../src/render_ssao.h\
 			../src/dof.hpp\
 			../src/netrender.hpp \
+			../src/headless.h\
     	../qt/preferencesdialog.h
 
 FORMS    += ../qt/render_window.ui \
