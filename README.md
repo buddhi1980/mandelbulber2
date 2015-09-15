@@ -24,8 +24,8 @@ The possibilties are literally **infinite**!
 - program compiled for x86 and x64 CPUs (Linux, Windows, OS X)
 - simple 3D navigator
 - network rendering
-- key-frame animation of all parameters (not yet in v2, currently under development)
-- OpenCL support (not yet in v2)
+- key-frame animation of all parameters
+- OpenCL support (not yet in v2, soon to be added)
 
 
 ![GUI](https://raw.githubusercontent.com/buddhi1980/mandelbulber2/wiki/assets/images/mandelbulberGUI.jpg)
