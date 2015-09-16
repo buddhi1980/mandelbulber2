@@ -78,6 +78,7 @@ bool InitSystem(void);
 void WriteLog(QString text);
 void WriteLogDouble(QString text, double value);
 void WriteLogString(QString text, QString value);
+void handle_winch(int sig);
 int get_cpu_count();
 bool CreateDefaultFolders(void);
 bool CreateDirectory(QString name);

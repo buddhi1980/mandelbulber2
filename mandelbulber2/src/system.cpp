@@ -36,6 +36,10 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#ifndef WIN32
+#include <signal.h>
+#endif
+
 //#define CLSUPPORT
 
 sSystem systemData;
@@ -114,13 +118,21 @@ bool InitSystem(void)
 #ifdef WIN32
 	systemData.terminalWidth = 80;
 #else
-  struct winsize w;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	systemData.terminalWidth = w.ws_col;
+	handle_winch(-1);
 #endif
 
-
 	return true;
+}
+
+// SIGWINCH is called when the window is resized.
+void handle_winch(int sig){
+#ifndef WIN32
+	signal(SIGWINCH, SIG_IGN);
+	struct winsize w;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	systemData.terminalWidth = w.ws_col;
+	signal(SIGWINCH, handle_winch);
+#endif
 }
 
 int get_cpu_count()
