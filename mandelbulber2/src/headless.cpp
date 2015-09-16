@@ -59,13 +59,13 @@ void cHeadless::RenderingProgressOutput(const QString &progressTxt, double perce
 	QString text = formatLine(progressTxt) + " ";
 	if(systemData.terminalWidth > 0)
 	{
-		int freeWidth = systemData.terminalWidth - progressTxt.length() - 3;
+		int freeWidth = systemData.terminalWidth - progressTxt.length() - 4;
 		int intProgress = freeWidth * percentDone;
+		text = "\r" + text;
 		text += colorize("[", ansiBlue, noExplicitColor, true);
 		text += colorize(QString(intProgress, '#'), ansiMagenta, noExplicitColor, true);
 		text += QString(freeWidth - intProgress, ' ');
 		text += colorize("]", ansiBlue, noExplicitColor, true);
-		text += "\r";
 		if(newLine) text += "\n";
 	}
 	else
