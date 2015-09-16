@@ -54,6 +54,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	QCommandLineOption portOption(QStringList() << "p" << "port",
 		QCoreApplication::translate("main", "Set network port number for Netrender (default 5555)."),
 		QCoreApplication::translate("main", "N"));
+	QCommandLineOption noColorOption(QStringList() << "C" << "no-cli-color",
+		QCoreApplication::translate("main", "Start program without ANSI colors, when execution on CLI."));
 	parser.addPositionalArgument("settings_file", QCoreApplication::translate("main",
 		"file with fractal settings (program also tries\nto find file in ./mandelbulber/settings directory)\n"
 		"When settings_file is put as a command line argument then program will start in noGUI mode"
@@ -70,6 +72,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(serverOption);
 	parser.addOption(hostOption);
 	parser.addOption(portOption);
+	parser.addOption(noColorOption);
 
 	// Process the actual command line arguments given by the user
 	parser.process(*qapplication);
@@ -86,6 +89,12 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.server = parser.isSet(serverOption);
 	cliData.host = parser.value(hostOption);
 	cliData.portText = parser.value(portOption);
+
+#ifdef WIN32 /* WINDOWS */
+	systemData.useColor = false;
+#else
+	systemData.useColor = !parser.isSet(noColorOption);
+#endif  /* WINDOWS */
 
 	cliTODO = modeBootOnly;
 }

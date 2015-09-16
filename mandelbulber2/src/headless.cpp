@@ -82,6 +82,8 @@ QString cHeadless::colorize(QString text, ansiColor foregroundcolor, ansiColor b
 #ifdef WIN32 /* WINDOWS */
 	return text;
 #else
+	if(!systemData.useColor) return text;
+
 	QStringList ansiSequence;
 	if(foregroundcolor != noExplicitColor) ansiSequence << QString::number(foregroundcolor + 30);
 	if(backgroundColor != noExplicitColor) ansiSequence << QString::number(backgroundColor + 40);
@@ -103,6 +105,7 @@ QString cHeadless::formatLine(const QString& text)
 #ifdef WIN32 /* WINDOWS */
 	return text;
 #else
+	if(!systemData.useColor) return text;
 	QList<QRegularExpression> reType;
 	reType.append(QRegularExpression("^(Done )(.*?)(, )(elapsed: )(.*?)(, )(estimated to end: )(.*)"));
 	reType.append(QRegularExpression("^(Gotowe )(.*?)(, )(upłynęło: )(.*?)(, )(do końca: )(.*)"));

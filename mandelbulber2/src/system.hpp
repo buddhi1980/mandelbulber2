@@ -61,6 +61,7 @@ struct sSystem
 	QChar decimalPoint;
 	QLocale locale;
 	int terminalWidth;
+	bool useColor;
 };
 
 struct sActualFileNames
