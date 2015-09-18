@@ -79,6 +79,7 @@ signals:
 	void StrafeChanged(CVector2<double> arrows);
 	void YawAndPitchChanged(CVector2<double> yawAndPitch);
 	void RotationChanged(double direction);
+	void ShiftModeChanged(bool shiftPressed);
 	void Pause();
 
 protected:

@@ -58,10 +58,11 @@ public slots:
 private slots:
 	void slotRecordFlight();
 	void slotContinueRecording();
-	void slotChangeSpeed(double amount);
+	void slotFlightChangeSpeed(double amount);
 	void slotFlightStrafe(CVector2<double> _strafe);
 	void slotFlightYawAndPitch(CVector2<double> _yawAndPitch);
 	void slotFlightRotation(double direction);
+	void slotOrthogonalStrafe(bool _orthogonalStrafe);
 	void slotSelectAnimFlightImageDir();
 	void slotTableCellChanged(int row, int column);
 	void slotDeleteAllImages();
@@ -87,6 +88,7 @@ private:
 	CVector2<double> strafe;
 	CVector2<double> yawAndPitch;
 	double rotationDirection;
+	bool orthogonalStrafe;
 	double linearSpeedSp;
 	//QList<cThumbnailWidget*> thumbnailWidgets;
 	bool recordPause;

@@ -442,6 +442,10 @@ void RenderedImage::keyPressEvent(QKeyEvent * event)
 			{
 				emit Pause();
 			}
+			else if(key == Qt::Key_Shift)
+			{
+				emit ShiftModeChanged(true);
+			}
 
 		}
 		else
@@ -492,7 +496,10 @@ void RenderedImage::keyReleaseEvent(QKeyEvent * event)
 				flightRotationDirection = 0;
 				emit RotationChanged(flightRotationDirection);
 			}
-
+			else if(key == Qt::Key_Shift)
+			{
+				emit ShiftModeChanged(false);
+			}
 		}
 		else
 		{

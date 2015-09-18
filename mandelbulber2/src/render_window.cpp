@@ -68,6 +68,7 @@ RenderWindow::RenderWindow(QWidget *parent) :
 		QApplication::connect(&gamepad, SIGNAL(axisLeftYChanged(double)), this, SLOT(slotGamepadYaw(double)));
 		QApplication::connect(&gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadRoll()));
 		QApplication::connect(&gamepad, SIGNAL(buttonR2Changed(double)), this, SLOT(slotGamepadRoll()));
+		QApplication::connect(&gamepad, SIGNAL(buttonL1Changed(bool)), gMainInterface->renderedImage, SLOT(ShiftModeChanged(bool)));
 
 		QApplication::connect(&gamepad, SIGNAL(axisRightXChanged(double)), this, SLOT(slotGamepadX(double)));
 		QApplication::connect(&gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadY(double)));

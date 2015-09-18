@@ -49,9 +49,10 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 		QApplication::connect(ui->button_selectAnimFlightImageDir, SIGNAL(clicked()), this, SLOT(slotSelectAnimFlightImageDir()));
 		QApplication::connect(mainInterface->renderedImage, SIGNAL(StrafeChanged(CVector2<double>)), this, SLOT(slotFlightStrafe(CVector2<double>)));
 		QApplication::connect(mainInterface->renderedImage, SIGNAL(YawAndPitchChanged(CVector2<double>)), this, SLOT(slotFlightYawAndPitch(CVector2<double>)));
-		QApplication::connect(mainInterface->renderedImage, SIGNAL(SpeedChanged(double)), this, SLOT(slotChangeSpeed(double)));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(SpeedChanged(double)), this, SLOT(slotFlightChangeSpeed(double)));
 		QApplication::connect(mainInterface->renderedImage, SIGNAL(RotationChanged(double)), this, SLOT(slotFlightRotation(double)));
 		QApplication::connect(mainInterface->renderedImage, SIGNAL(Pause()), this, SLOT(slotRecordPause()));
+		QApplication::connect(mainInterface->renderedImage, SIGNAL(ShiftModeChanged(bool)), this, SLOT(slotOrthogonalStrafe(bool)));
 		QApplication::connect(ui->tableWidget_flightAnimation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
 
 		QApplication::connect(ui->spinboxInt_flight_first_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderFirstFrame(int)));
@@ -275,7 +276,9 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		}
 		else
 		{
-			CVector3 direction = cameraTarget.GetForwardVector();
+			CVector3 direction;
+			if(!orthogonalStrafe) direction = cameraTarget.GetForwardVector();
+
 			if(strafe.x != 0)
 			{
 				direction += cameraTarget.GetRightVector() * strafe.x;
@@ -712,7 +715,7 @@ void cFlightAnimation::slotFlightYawAndPitch(CVector2<double> _yawAndPitch)
 	yawAndPitch = _yawAndPitch;
 }
 
-void cFlightAnimation::slotChangeSpeed(double amount)
+void cFlightAnimation::slotFlightChangeSpeed(double amount)
 {
 	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::read);
 	linearSpeedSp = gPar->Get<double>("flight_speed") * amount;
@@ -723,6 +726,11 @@ void cFlightAnimation::slotChangeSpeed(double amount)
 void cFlightAnimation::slotFlightRotation(double direction)
 {
 	rotationDirection = direction;
+}
+
+void cFlightAnimation::slotOrthogonalStrafe(bool _orthogonalStrafe)
+{
+	orthogonalStrafe = _orthogonalStrafe;
 }
 
 void cFlightAnimation::slotSelectAnimFlightImageDir()
