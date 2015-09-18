@@ -23,6 +23,7 @@
 
 #include "render_window.hpp"
 #include "interface.hpp"
+#include "initparameters.hpp"
 #include "fractal_list.hpp"
 #include "system.hpp"
 #include "settings.hpp"
@@ -1508,17 +1509,92 @@ void RenderWindow::slotUpdateDocksandToolbarbyView()
 		ui->actionShow_gamepad_dock->setChecked(ui->dockWidget_gamepad_dock->isVisible());
 	}
 }
+
+//adds dynamic actions to the toolbar (example settings)
+void RenderWindow::slotPopulateToolbar()
+{
+	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) started");
+	QDir toolbarDir = QDir(systemData.dataDirectory + "toolbar");
+	QStringList toolbarFiles = toolbarDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
+	QSignalMapper *mapPresetsFromExamples = new QSignalMapper(this);
+	ui->toolBar->setIconSize(QSize(40,40));
+
+	QList<QAction *> actions = ui->toolBar->actions();
+	for(int i = 0; i < actions.size(); i++){
+		if(actions.at(i)->objectName() == "preset")
+			ui->toolBar->removeAction(actions.at(i));
+	}
+
+	for(int i = 0; i < toolbarFiles.size(); i++)
+	{
+		QString filename = systemData.dataDirectory + "toolbar/" + toolbarFiles.at(i);
+		QPixmap pixmap;
+		QIcon icon;
+		if (QFileInfo(filename).suffix() == QString("fract"))
+		{
+			WriteLogString("Generating thumbnail for preset", filename);
+			cSettings parSettings(cSettings::formatFullText);
+			parSettings.BeQuiet(true);
+			if (parSettings.LoadFromFile(filename))
+			{
+				cParameterContainer *par = new cParameterContainer;
+				cFractalContainer *parFractal = new cFractalContainer;
+				InitParams(par);
+				for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
+					InitFractalParams(&parFractal->at(i));
+				if(parSettings.Decode(par, parFractal))
+				{
+					cThumbnail thumbnail(par, parFractal, 120, 120, parSettings.GetHashCode());
+					pixmap = thumbnail.Render();
+					icon.addPixmap(pixmap.scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+				}
+				delete par;
+				delete parFractal;
+			}
+		}
+
+		QAction *action = new QAction(QObject::tr("Toolbar settings: ") + filename, this);
+		action->setIcon(icon);
+		action->setObjectName("preset");
+		ui->toolBar->addAction(action);
+
+		mapPresetsFromExamples->setMapping(action, filename);
+		QApplication::connect(action, SIGNAL(triggered()), mapPresetsFromExamples, SLOT (map()));
+		QApplication::connect(mapPresetsFromExamples, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadPreset(QString)));
+
+		gApplication->processEvents();
+	}
+	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) finished");
+}
+
+void RenderWindow::slotPresetAddToToolbar()
+{
+	cSettings parSettings(cSettings::formatCondensedText);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+	QString filename = systemData.dataDirectory + "toolbar/" + parSettings.GetHashCode() + ".fract";
+	parSettings.SaveToFile(filename);
+	slotPopulateToolbar();
+}
+
 void RenderWindow::slotMenuLoadPreset(QString filename)
 {
-	cSettings parSettings(cSettings::formatFullText);
-
-	parSettings.LoadFromFile(filename);
-	parSettings.Decode(gPar, gParFractal);
-	gMainInterface->RebuildPrimitives(gPar);
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-	gMainInterface->ComboMouseClickUpdate();
-	systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator() + QFileInfo(filename).fileName();
-	this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
+	if(ui->actionRemove_Settings_from_Toolbar->isChecked())
+	{
+		QFile::remove(filename);
+		slotPopulateToolbar();
+	}
+	else
+	{
+		cSettings parSettings(cSettings::formatFullText);
+		parSettings.LoadFromFile(filename);
+		parSettings.Decode(gPar, gParFractal);
+		gMainInterface->RebuildPrimitives(gPar);
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		gMainInterface->ComboMouseClickUpdate();
+		systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator() + QFileInfo(filename).fileName();
+		this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
+	}
 }
 
 void RenderWindow::slotQuit()

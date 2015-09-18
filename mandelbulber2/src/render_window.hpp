@@ -147,6 +147,8 @@ private slots:
 	void slotUpdateDocksandToolbarbyAction();
 	void slotUpdateDocksandToolbarbyView();
 	void slotStackAllDocks();
+	void slotPopulateToolbar();
+	void slotPresetAddToToolbar();
 
 	//textures
 	void slotPressedButtonSelectBackgroundTexture();

@@ -2820,6 +2820,8 @@ to target:</string>
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionAdd_Settings_to_Toolbar"/>
+   <addaction name="actionRemove_Settings_from_Toolbar"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget_effects">
    <property name="features">
@@ -15170,6 +15172,27 @@ and water):</string>
    </property>
    <property name="text">
     <string>Save as &amp;EXR</string>
+   </property>
+  </action>
+  <action name="actionAdd_Settings_to_Toolbar">
+   <property name="icon">
+    <iconset theme="list-add" resource="icons.qrc">
+     <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
+   </property> 
+   <property name="text">
+    <string>Add Settings to Toolbar</string>
+   </property>
+  </action>
+  <action name="actionRemove_Settings_from_Toolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="list-remove" resource="icons.qrc">
+     <normaloff>:/system/icons/list-remove.svg</normaloff>:/system/icons/list-remove.svg</iconset>
+   </property> 
+   <property name="text">
+    <string>Remove Settings from Toolbar</string>
    </property>
   </action>
  </widget>

@@ -17,6 +17,8 @@
     <file>icons/preferences-system.svg</file>
     <file>icons/system-shutdown.svg</file>
     <file>icons/folder.svg</file>
+    <file>icons/list-add.svg</file>
+    <file>icons/list-remove.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
     <file>tooltips_images/equirectangular_bkg.jpg</file>

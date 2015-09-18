@@ -143,7 +143,7 @@ void cInterface::ShowUi(void)
 
 	ComboMouseClickUpdate();
 
-	PopulateToolbar(mainWindow, mainWindow->ui->toolBar);
+	mainWindow->slotPopulateToolbar();
 
 	WriteLog("cInterface::ConnectSignals(void)");
 	ConnectSignals();
@@ -309,6 +309,8 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->dockWidget_info, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 	QApplication::connect(mainWindow->ui->dockWidget_histogram, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 	QApplication::connect(mainWindow->ui->dockWidget_gamepad_dock, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+
+	QApplication::connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()), mainWindow, SLOT(slotPresetAddToToolbar()));
 
 	#ifdef USE_GAMEPAD
 	// ------------ gamepad -----------
@@ -2037,55 +2039,6 @@ void cInterface::ComboMouseClickUpdate()
 	{
 		combo->setCurrentIndex(lastIndex);
 	}
-}
-
-//adds dynamic actions to the toolbar (example settings)
-void cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar)
-{
-	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) started");
-	QDir toolbarDir = QDir(systemData.dataDirectory + "toolbar");
-	QStringList toolbarFiles = toolbarDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
-	QSignalMapper *mapPresetsFromExamples = new QSignalMapper(window);
-	toolBar->setIconSize(QSize(40,40));
-	for(int i = 0; i < toolbarFiles.size(); i++)
-	{
-		QString filename = systemData.dataDirectory + "toolbar/" + toolbarFiles.at(i);
-		QPixmap pixmap;
-		QIcon icon;
-		if (QFileInfo(filename).suffix() == QString("fract"))
-		{
-			WriteLogString("Generating thumbnail for preset", filename);
-			cSettings parSettings(cSettings::formatFullText);
-			parSettings.BeQuiet(true);
-			if (parSettings.LoadFromFile(filename))
-			{
-				cParameterContainer *par = new cParameterContainer;
-				cFractalContainer *parFractal = new cFractalContainer;
-				InitParams(par);
-				for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
-					InitFractalParams(&parFractal->at(i));
-				if(parSettings.Decode(par, parFractal))
-				{
-					cThumbnail thumbnail(par, parFractal, 120, 120, parSettings.GetHashCode());
-					pixmap = thumbnail.Render();
-					icon.addPixmap(pixmap.scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-				}
-				delete par;
-				delete parFractal;
-			}
-		}
-
-		QAction *action = new QAction(QObject::tr("Toolbar settings: ") + filename, window);
-		action->setIcon(icon);
-		toolBar->addAction(action);
-
-		mapPresetsFromExamples->setMapping(action, filename);
-		QApplication::connect(action, SIGNAL(triggered()), mapPresetsFromExamples, SLOT (map()));
-		QApplication::connect(mapPresetsFromExamples, SIGNAL(mapped(QString)), window, SLOT(slotMenuLoadPreset(QString)));
-
-		gApplication->processEvents();
-	}
-	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) finished");
 }
 
 bool cInterface::QuitApplicationDialog()
