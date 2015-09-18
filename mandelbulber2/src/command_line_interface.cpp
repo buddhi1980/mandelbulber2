@@ -21,7 +21,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	QCommandLineOption noguiOption(QStringList() << "n" << "nogui",
 		QCoreApplication::translate("main", "Start program without GUI."));
 	QCommandLineOption animationOption(QStringList() << "m" << "mode",
-		QCoreApplication::translate("main", "Set <Mode> of animation (flight / keyframe), default is flight."),
+		QCoreApplication::translate("main", "Set <MODE> of animation (flight / keyframe), default is flight."),
 		QCoreApplication::translate("main", "MODE"));
 	QCommandLineOption startOption(QStringList() << "s" << "start",
 		QCoreApplication::translate("main", "Start rendering from frame number <N>."),
@@ -30,7 +30,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "Stop rendering on frame number <N>."),
 		QCoreApplication::translate("main", "N"));
 	QCommandLineOption overrideOption(QStringList() << "o" << "override",
-		QCoreApplication::translate("main", "Override item '<key>' from settings file with new value '<value>'."),
+		QCoreApplication::translate("main", "Override item '<KEY>' from settings file with new value '<value>'."),
 		QCoreApplication::translate("main", "KEY=VALUE"));
 	QCommandLineOption formatOption(QStringList() << "f" << "format",
 		QCoreApplication::translate("main", "Image output format:\n"

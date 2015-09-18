@@ -4,37 +4,37 @@
 <context>
     <name>CNetRender</name>
     <message>
-        <location filename="../src/netrender.cpp" line="710"/>
+        <location filename="../src/netrender.cpp" line="741"/>
         <source>DISABLED</source>
         <translation>AUS</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="711"/>
+        <location filename="../src/netrender.cpp" line="742"/>
         <source>READY</source>
         <translation>BEREIT</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="712"/>
+        <location filename="../src/netrender.cpp" line="743"/>
         <source>WORKING</source>
         <translation>ARBEITET</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="713"/>
+        <location filename="../src/netrender.cpp" line="744"/>
         <source>NEW</source>
         <translation>NEU</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="714"/>
+        <location filename="../src/netrender.cpp" line="745"/>
         <source>(RE-)CONNECTING</source>
         <translation>(WIEDER-)VERBINDEN</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="715"/>
+        <location filename="../src/netrender.cpp" line="746"/>
         <source>ERROR</source>
         <translation>FEHLER</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="717"/>
+        <location filename="../src/netrender.cpp" line="748"/>
         <source>UNKNOWN</source>
         <translation>UNBEKANNT</translation>
     </message>
@@ -390,7 +390,7 @@ File version: </source>
         <location filename="../src/texture.cpp" line="47"/>
         <source>Can&apos;t load texture!
 </source>
-        <translation>Textur konnten icht geladen werden!</translation>
+        <translation>Textur konnte nicht geladen werden!</translation>
     </message>
     <message>
         <location filename="../src/texture.cpp" line="100"/>
@@ -458,11 +458,11 @@ File version: </source>
         <location filename="../src/files.cpp" line="999"/>
         <source>Can&apos;t save image to JPEG file!
 </source>
-        <translation>Konnte Bild nicht als JPEG Daten speichern!</translation>
+        <translation>Konnte Bild nicht als JPEG Datei speichern!</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1017"/>
-        <location filename="../src/interface.cpp" line="1915"/>
+        <location filename="../src/interface.cpp" line="1918"/>
         <source>Can&apos;t open file </source>
         <translation>Kann Datei nicht öffnen </translation>
     </message>
@@ -472,123 +472,124 @@ File version: </source>
         <translation>Fraktal UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1043"/>
+        <location filename="../src/interface.cpp" line="1046"/>
         <source>Cannot init renderJob, see log output for more information.</source>
         <translation>renderJob kann nicht gestartet werden, siehe Log Output für weitere Informationen.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1769"/>
-        <location filename="../src/interface.cpp" line="1791"/>
+        <location filename="../src/interface.cpp" line="1772"/>
+        <location filename="../src/interface.cpp" line="1794"/>
         <source>Reseting view</source>
         <translation>Ansicht wird zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1769"/>
+        <location filename="../src/interface.cpp" line="1772"/>
         <source>Fractal size calculation</source>
         <translation>Fraktalgröße berechnen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1791"/>
+        <location filename="../src/interface.cpp" line="1794"/>
         <source>Done</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1855"/>
+        <location filename="../src/interface.cpp" line="1858"/>
         <source>Set position of </source>
         <translation>Setze Position von </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1859"/>
+        <location filename="../src/interface.cpp" line="1862"/>
         <source>Delete </source>
         <translation>Lösche </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1915"/>
+        <location filename="../src/interface.cpp" line="1918"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
         <translation>Primitive Objekte UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1991"/>
+        <location filename="../src/interface.cpp" line="1994"/>
         <source>No action</source>
         <translation>Keine Aktion</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1994"/>
+        <location filename="../src/interface.cpp" line="1997"/>
         <source>Move the camera</source>
         <translation>Kamera bewegen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1997"/>
+        <location filename="../src/interface.cpp" line="2000"/>
         <source>Set fog visibility</source>
         <translation>Nebelsichtbarkeit setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2000"/>
+        <location filename="../src/interface.cpp" line="2003"/>
         <source>Set DOF focus</source>
         <translation>Tiefenschärfefokus setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2003"/>
+        <location filename="../src/interface.cpp" line="2006"/>
         <source>Get Julia constant</source>
         <translation>Julia Konstante holen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2006"/>
+        <location filename="../src/interface.cpp" line="2009"/>
         <source>Place light #1</source>
         <translation>Setze Licht #1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2009"/>
+        <location filename="../src/interface.cpp" line="2012"/>
         <source>Place light #2</source>
         <translation>Setze Licht #2</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2012"/>
+        <location filename="../src/interface.cpp" line="2015"/>
         <source>Place light #3</source>
         <translation>Setze Licht #3</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2015"/>
+        <location filename="../src/interface.cpp" line="2018"/>
         <source>Place light #4</source>
         <translation>Setze Licht #4</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2023"/>
+        <location filename="../src/interface.cpp" line="2026"/>
         <source>Place </source>
         <translation>Setze </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2075"/>
+        <location filename="../src/interface.cpp" line="2078"/>
         <source>Toolbar settings: </source>
         <translation>Toolbar Einstellungen:</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2094"/>
+        <location filename="../src/interface.cpp" line="2097"/>
         <source>Are you sure to close the application?</source>
         <translation>Anwendung beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2097"/>
+        <location filename="../src/interface.cpp" line="2100"/>
         <source>Quit?</source>
         <translation>Beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2135"/>
+        <location filename="../src/interface.cpp" line="2138"/>
         <source>Auto recovery</source>
         <translation>Auto Recovery</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2136"/>
+        <location filename="../src/interface.cpp" line="2139"/>
         <source>Application has not been closed properly
 Do you want to recover your latest work?</source>
-        <translation>Das Programm wurde beim letzten mal nicht richtig geschlossen.
+        <translation>Das Programm wurde beim letzten Mal nicht richtig geschlossen.
 Den letzten Stand wiederherstellen?</translation>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="58"/>
         <source>Can&apos;t import old settings
 </source>
-        <translation>Kann alte Einstellungen nicht importieren</translation>
+        <translation>Kann alte Einstellungen nicht importieren
+</translation>
     </message>
     <message>
         <location filename="../src/old_settings.cpp" line="58"/>
@@ -603,93 +604,93 @@ Den letzten Stand wiederherstellen?</translation>
         <translation>Hybridfraktal kann nicht konvertiert werden</translation>
     </message>
     <message>
-        <location filename="../src/render_image.cpp" line="155"/>
+        <location filename="../src/render_image.cpp" line="153"/>
         <source>Rendering image in progress</source>
         <translation>Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../src/render_image.cpp" line="344"/>
-        <location filename="../src/render_ssao.cpp" line="170"/>
+        <location filename="../src/render_image.cpp" line="349"/>
+        <location filename="../src/render_ssao.cpp" line="171"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="101"/>
-        <location filename="../src/render_job.cpp" line="154"/>
+        <location filename="../src/render_job.cpp" line="99"/>
+        <location filename="../src/render_job.cpp" line="152"/>
         <source>Initialization</source>
         <translation>Initialisierung</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="101"/>
+        <location filename="../src/render_job.cpp" line="99"/>
         <source>Setting up image buffers</source>
         <translation>Bildpuffer einrichten</translation>
     </message>
     <message>
-        <location filename="../src/render_job.cpp" line="154"/>
+        <location filename="../src/render_job.cpp" line="152"/>
         <source>Loading textures</source>
         <translation>Lade Texturen</translation>
     </message>
     <message>
-        <location filename="../src/render_ssao.cpp" line="150"/>
+        <location filename="../src/render_ssao.cpp" line="151"/>
         <source>Rendering SSAO effect in progress</source>
         <translation>Rendere SSAO Effekt</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="99"/>
-        <location filename="../src/animation_keyframes.cpp" line="177"/>
+        <location filename="../src/animation_flight.cpp" line="102"/>
+        <location filename="../src/animation_keyframes.cpp" line="181"/>
         <source>No frames to render</source>
         <translation>Keine Frames zu Rendern</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="121"/>
+        <location filename="../src/animation_flight.cpp" line="124"/>
         <source>Are you sure to start recording of new animation?</source>
         <translation>Eine neue Animation aufnehmen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="122"/>
-        <location filename="../src/animation_flight.cpp" line="558"/>
-        <location filename="../src/animation_flight.cpp" line="820"/>
-        <location filename="../src/animation_keyframes.cpp" line="442"/>
-        <location filename="../src/animation_keyframes.cpp" line="697"/>
+        <location filename="../src/animation_flight.cpp" line="125"/>
+        <location filename="../src/animation_flight.cpp" line="570"/>
+        <location filename="../src/animation_flight.cpp" line="829"/>
+        <location filename="../src/animation_keyframes.cpp" line="449"/>
+        <location filename="../src/animation_keyframes.cpp" line="704"/>
         <source>This will delete all images in the image folder.
 Proceed?</source>
         <translation>Das wird alle Bilder im Bildordner löschen.
 Fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="138"/>
+        <location filename="../src/animation_flight.cpp" line="141"/>
         <source>No frames recorded before. Unable to continue.</source>
         <translation>Noch keine Frames aufgenommen. Kann nicht fortfahren.</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="146"/>
-        <location filename="../src/animation_flight.cpp" line="520"/>
-        <location filename="../src/animation_keyframes.cpp" line="376"/>
+        <location filename="../src/animation_flight.cpp" line="149"/>
+        <location filename="../src/animation_flight.cpp" line="529"/>
+        <location filename="../src/animation_keyframes.cpp" line="380"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
-        <translation>Renderingengine ist beschäfting. Unfertige Renders anhalten, bevor neue gestartet werden</translation>
+        <translation>Renderingengine ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor neue gestartet werden können.</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="150"/>
+        <location filename="../src/animation_flight.cpp" line="153"/>
         <source>Recordning flight path</source>
         <translation>Flug aufzeichnen</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="228"/>
-        <location filename="../src/animation_flight.cpp" line="234"/>
+        <location filename="../src/animation_flight.cpp" line="233"/>
+        <location filename="../src/animation_flight.cpp" line="239"/>
         <source>Recording flight animation</source>
         <translation>Fluganimation aufzeichnen</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="556"/>
-        <location filename="../src/animation_flight.cpp" line="819"/>
-        <location filename="../src/animation_keyframes.cpp" line="440"/>
-        <location filename="../src/animation_keyframes.cpp" line="696"/>
+        <location filename="../src/animation_flight.cpp" line="568"/>
+        <location filename="../src/animation_flight.cpp" line="828"/>
+        <location filename="../src/animation_keyframes.cpp" line="447"/>
+        <location filename="../src/animation_keyframes.cpp" line="703"/>
         <source>Truncate Image Folder</source>
         <translation>Bilderordner leeren</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="557"/>
-        <location filename="../src/animation_keyframes.cpp" line="441"/>
+        <location filename="../src/animation_flight.cpp" line="569"/>
+        <location filename="../src/animation_keyframes.cpp" line="448"/>
         <source>The animation has already been rendered completely.
  Do you want to purge the output folder?
 </source>
@@ -697,48 +698,48 @@ Fortsetzen?</translation>
 Soll der Bilderordner geleert werden?</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="577"/>
+        <location filename="../src/animation_flight.cpp" line="589"/>
         <source>Animation start</source>
         <translation>Animationsstart</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="577"/>
-        <location filename="../src/animation_keyframes.cpp" line="477"/>
+        <location filename="../src/animation_flight.cpp" line="589"/>
+        <location filename="../src/animation_keyframes.cpp" line="484"/>
         <location filename="../src/player_widget.cpp" line="167"/>
         <source>Frame %1 of %2</source>
         <translation>Frame %1 von %2</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="615"/>
-        <location filename="../src/animation_keyframes.cpp" line="513"/>
+        <location filename="../src/animation_flight.cpp" line="627"/>
+        <location filename="../src/animation_keyframes.cpp" line="520"/>
         <source>Animation finished</source>
         <translation>Animation beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="644"/>
-        <location filename="../src/animation_keyframes.cpp" line="543"/>
+        <location filename="../src/animation_flight.cpp" line="656"/>
+        <location filename="../src/animation_keyframes.cpp" line="550"/>
         <source>Refreshing animation</source>
         <translation>Animationsframes werden aktualisiert</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="731"/>
-        <location filename="../src/animation_keyframes.cpp" line="608"/>
+        <location filename="../src/animation_flight.cpp" line="740"/>
+        <location filename="../src/animation_keyframes.cpp" line="615"/>
         <source>Animation Image Folder</source>
         <translation>Ordner für Animationsbilder</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="734"/>
-        <location filename="../src/animation_keyframes.cpp" line="611"/>
+        <location filename="../src/animation_flight.cpp" line="743"/>
+        <location filename="../src/animation_keyframes.cpp" line="618"/>
         <source>Choose Animation Image Folder</source>
         <translation>Wähle Ordner für Animationsbilder</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="974"/>
+        <location filename="../src/animation_flight.cpp" line="983"/>
         <source>Export flight to keyframes</source>
         <translation>Flug zu Keyframe exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="975"/>
+        <location filename="../src/animation_flight.cpp" line="984"/>
         <source>There are already captured keyframes present.
 Discard current keyframes?</source>
         <translation>Es sind bereits aufgenommene Keyframes vorhanden.
@@ -750,88 +751,90 @@ Aktuelle Keyframes verwerfen?</translation>
         <translation>Keine Frames zum abspielen</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="66"/>
+        <location filename="../src/netrender.cpp" line="67"/>
         <source>NetRender - address already in use.
 
 Is there already a mandelbulber server instance running on this port?</source>
         <translation>NetRender - Adresse schon in Benutzung
 
-Ist bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</translation>
+Wurde bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</translation>
     </message>
     <message>
-        <location filename="../src/netrender.cpp" line="72"/>
+        <location filename="../src/netrender.cpp" line="73"/>
         <source>NetRender - SetServer Error:
 
 </source>
-        <translation>NetRender - SetServer Fehler:</translation>
+        <translation>NetRender - SetServer Fehler:
+
+</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="120"/>
+        <location filename="../src/animation_keyframes.cpp" line="124"/>
         <source>No keyframe selected</source>
         <translation>Keine Keyframes selektiert</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="398"/>
-        <location filename="../src/animation_keyframes.cpp" line="963"/>
+        <location filename="../src/animation_keyframes.cpp" line="402"/>
+        <location filename="../src/animation_keyframes.cpp" line="970"/>
         <source>Camera collides with fractal at folowing frames:
 </source>
         <translation>Die Kamera kollidiert mit dem Fraktal an folgenden Frames:
 </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="476"/>
+        <location filename="../src/animation_keyframes.cpp" line="483"/>
         <source>Rendering animation</source>
         <translation>Rendere Animation</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="863"/>
+        <location filename="../src/animation_keyframes.cpp" line="870"/>
         <source>Export keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="864"/>
+        <location filename="../src/animation_keyframes.cpp" line="871"/>
         <source>There are already captured flight frames present.
 Discard current flight frames ?</source>
         <translation>Es sind bereits aufgenommene Flugframes vorhanden.
 Aktuelle Flugframes verwerfen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="882"/>
+        <location filename="../src/animation_keyframes.cpp" line="889"/>
         <source>Exporting</source>
         <translation>Exportiere</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="922"/>
-        <location filename="../src/animation_keyframes.cpp" line="940"/>
+        <location filename="../src/animation_keyframes.cpp" line="929"/>
+        <location filename="../src/animation_keyframes.cpp" line="947"/>
         <source>Checking for collissions</source>
         <translation>Prüfe auf Kollisionen</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="923"/>
+        <location filename="../src/animation_keyframes.cpp" line="930"/>
         <source>Checking for collissions on keyframe # %1</source>
         <translation>Prüfe auf Kollisionen bei Keyframe # %1</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="940"/>
+        <location filename="../src/animation_keyframes.cpp" line="947"/>
         <source>Checking for collisions finished</source>
         <translation>Kollisionsprüfung beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="967"/>
+        <location filename="../src/animation_keyframes.cpp" line="974"/>
         <source>No collisions detected
 </source>
         <translation>Keine Kollisionen erkannt
 </translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="584"/>
+        <location filename="../src/render_window.cpp" line="585"/>
         <source>Settings saved to clipboard</source>
         <translation>Einstellungen in Zwischenablage gespeichert</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="637"/>
+        <location filename="../src/render_window.cpp" line="638"/>
         <source>Cannot load settings from clipboard!</source>
-        <translation>Kann die Einstellungen nicht aus Zwischenablage laden!</translation>
+        <translation>Kann die Einstellungen nicht aus der Zwischenablage laden!</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.cpp" line="91"/>
@@ -1053,7 +1056,7 @@ Jetzt löschen?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="848"/>
         <source>Gamma:</source>
-        <translation></translation>
+        <translation>Gamma:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="883"/>
@@ -1068,7 +1071,7 @@ Jetzt löschen?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="950"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;High dynamic range effect. Reduces brightness of the brightest pixels to prevent oversaturation.&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;High dynamic range Effekt. Reduziert die Helligkeit der hellsten Pixel um Überbelichtung zu verhindern.&lt;/p&gt;&lt;p&gt;Verwenden Sie den &lt;span style=&quot; font-style:italic;&quot;&gt;Einstellungen übernehmen&lt;/span&gt; Knopf um das Bild zu aktualisieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;High dynamic range Effekt. Reduziert die Helligkeit der hellsten Pixel um Überbelichtung zu verhindern.&lt;/p&gt;&lt;p&gt;Verwenden Sie den &lt;span style=&quot; font-style:italic;&quot;&gt;Einstellungen übernehmen&lt;/span&gt; Knopf, um das Bild zu aktualisieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="953"/>
@@ -1094,7 +1097,7 @@ Jetzt löschen?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="1069"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Type of perspective projection.&lt;/p&gt;&lt;p&gt;- Three-point perspective  projection, has two vanishing points on the horizon line and one on zenith or nadir&lt;/p&gt;&lt;p&gt;- Fish eye - simulates fish eye camera. &lt;span style=&quot; font-style:italic;&quot;&gt;Field of view&lt;/span&gt; = 1.0 corresponds to 180 degree&lt;/p&gt;&lt;p&gt;- Equirectangular - is dedicated to render 360 degree panoramas. Image proportion should be set to 2:1 and &lt;span style=&quot; font-style:italic;&quot;&gt;Field of view&lt;/span&gt; = 1.0&lt;/p&gt;&lt;p&gt;- Fulldome - is dedicated to render images for displaying in fulldome.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Art der perspektivischen Projektion&lt;/p&gt;&lt;p&gt;- Dreipunkt perspektivische Projektion, hat zwei Fluchtpunkte auf der Horizontlinie und eine auf Zenit oder Nadir.&lt;/p&gt;&lt;p&gt;- Fischauge - simuliert Fischaugenkamera, &lt;span style=&quot;font-style: italic;&quot;&gt;Sichtfeld&lt;/span&gt;=1,0 entspricht 180-Grad&lt;/p&gt;&lt;p&gt;- Gleichwinklig - eignet sich zur Generierung von 360-Grad-Panoramen. Das Seitenverhältnis sollte auf 2:1 gesetzt werden und das&lt;span style = &quot;font-style: italic;&quot;&gt; Sichtfeld&lt;/span&gt;=1,0&lt;/p&gt;&lt;p&gt;- Vollkuppel - eignet sich für die Darstellung in Vollkuppel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Art der perspektivischen Projektion&lt;/p&gt;&lt;p&gt;- Dreipunkt perspektivische Projektion, hat zwei Fluchtpunkte auf der Horizontlinie und eine auf dem Zenit oder Nadir.&lt;/p&gt;&lt;p&gt;- Fischauge - simuliert Fischaugenkamera, das &lt;span style=&quot;font-style: italic;&quot;&gt;Sichtfeld&lt;/span&gt;=1,0 entspricht 180-Grad&lt;/p&gt;&lt;p&gt;- Gleichwinklig - eignet sich zur Generierung von 360-Grad-Panoramen. Das Seitenverhältnis sollte auf 2:1 gesetzt werden und das&lt;span style = &quot;font-style: italic;&quot;&gt; Sichtfeld&lt;/span&gt;=1,0&lt;/p&gt;&lt;p&gt;- Vollkuppel - eignet sich für die Darstellung in Vollkuppel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1073"/>
@@ -1120,7 +1123,7 @@ Jetzt löschen?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="1096"/>
         <source>Perspective type:</source>
-        <translation>Perspektive:</translation>
+        <translation>Art der Perspektive:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1105"/>
@@ -1135,12 +1138,12 @@ Jetzt löschen?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="1574"/>
         <source>RENDER</source>
-        <translation></translation>
+        <translation>RENDER</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1560"/>
         <source>STOP</source>
-        <translation></translation>
+        <translation>STOP</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1656"/>
@@ -1176,7 +1179,7 @@ Jetzt löschen?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="218"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for action which will be executed after clicking on the image&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;No action - blocks functionality of mouse pointer&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Move the camera - moves the camera or target (depends on movement and rotation mode)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set fog visibility - sets visibility distance for basic fog effect&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set DOF focus - sets object which will appear in focus&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Get Julia constant - gets value of constant for Julia fractal&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Place light #n - places light in selected place (mouse wheel controls distance from fractal) &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl der Aktion die bei einem Klick auf das Bild ausgeführt wird&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Keine Aktion - Blockt die Funktionalität des Mausklicks&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Kamera bewegen - Bewegt die Kamera order das Zie (hängt ab von Bewegungs- und Rotationsmodus)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Nebelsichtbarkeit setzen - Setzt die Sichtbarkeitsdistanz des Basisnebel Effektes&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Tiefenschärfefokus setzen - Setzt den Punkt der im Fokus liegt&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Julia Konstante holen - Holt den Wert der Konstante für das Julia Fraktal&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Setze Licht #n - Platziert das Licht am selektierten Ort (Mausrad steuert die Distanz zum Fraktal) &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl der Aktion die bei einem Klick auf das Bild ausgeführt wird&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Keine Aktion - Blockt die Funktionalität des Mausklicks&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Kamera bewegen - Bewegt die Kamera oder das Zie (hängt ab von Bewegungs- und Rotationsmodus)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Nebelsichtbarkeit setzen - Setzt die Sichtbarkeitsdistanz des Basisnebel Effektes&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Tiefenschärfefokus setzen - Setzt den Punkt der im Fokus liegt&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Julia Konstante holen - Holt den Wert der Konstante für das Julia Fraktal&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Setze Licht #n - Platziert das Licht am selektierten Ort (Mausrad steuert die Distanz zum Fraktal) &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="257"/>
@@ -1263,22 +1266,22 @@ Jetzt löschen?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="1585"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Discard last change of settings and start rendering of image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Verwerfe letzte Einstellungsänderung und starte Rendern des Bildes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Verwerfe letzte Einstellungsänderung und starte das Rendern des Bildes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1588"/>
         <source>UNDO</source>
-        <translation>Rückgängig</translation>
+        <translation>UNDO</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1599"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Redo last revoked change of settings and start rendering of image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Letzte rückgängig gemachte Änderung wiederherstellen und starte Rendern des Bildes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Letzte rückgängig gemachte Änderung wiederherstellen und das Rendern des Bildes neu starten.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1602"/>
         <source>REDO</source>
-        <translation>Wiederholen</translation>
+        <translation>REDO</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1798"/>
@@ -1293,7 +1296,7 @@ Jetzt löschen?</translation>
     <message>
         <location filename="../qt/render_window.ui" line="1935"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of camera / target movement mode&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Move camera and target&lt;/span&gt; - moves camera and target by the same distance&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move camera and target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; - moves only camera. Target stays in the same prace. Camera rotates to look at stationary target.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Move target - moves only target. Camera stays in the same place. Camera rotates to look at moving target.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl Kamera / Ziel Bewegungsmodus&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera und Ziel bewegen&lt;/span&gt; -Bewegt Kamera und Ziel um dieselbe Distanz&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move camera and target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera bewegen&lt;/span&gt; - Bewegt nur die Kamera. Ziel bleibt fix. Kamera rotiert um stationäres Ziel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Ziel bewegen -Bewegt nur das Ziel. Kamera bleibt fix. StationäreKamera rbeobachtet bewegtes Ziel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl Kamera / Ziel Bewegungsmodus&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera und Ziel bewegen&lt;/span&gt; -Bewegt Kamera und Ziel um dieselbe Distanz&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move camera and target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera bewegen&lt;/span&gt; - Bewegt nur die Kamera. Ziel bleibt fix. Kamera rotiert um stationäres Ziel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Ziel bewegen -Bewegt nur das Ziel. Kamera bleibt fix. Stationäre Kamera rbeobachtet bewegtes Ziel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1939"/>
@@ -1359,12 +1362,12 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2278"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Step for camera or target movement.&lt;/p&gt;&lt;p&gt;It can be relative or absolute step.&lt;/p&gt;&lt;p&gt;If it is set relative then movement distance equals &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; multiplied by actual distance to the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Schritt für Kamera oder Ziel Bewegung.&lt;/p&gt;&lt;p&gt;Der Schritt kann relativ oder absolut angegeben werden.&lt;/p&gt;&lt;p&gt;Wenn es relativ gesetzt ist, dann ist die Bewegungsdistanz gleich des &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; mal aktueller Distanz zur Fraktaloberfläche.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Schritt für Kamera oder Ziel Bewegung.&lt;/p&gt;&lt;p&gt;Der Schritt kann relativ oder absolut angegeben werden.&lt;/p&gt;&lt;p&gt;Wenn er relativ gesetzt ist, dann ist die Bewegungsdistanz gleich dem &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; mal aktueller Distanz zur Fraktaloberfläche.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2321"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for movement step calculation.&lt;/p&gt;&lt;p&gt;If it is set relative then movement distance equals  &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; multiplied by actual distance to fractal surface. This is the preferred mode.&lt;/p&gt;&lt;p&gt;If it is set absolute then movement equals step set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl der Bewegungsschritt Berechnung.&lt;/p&gt;&lt;p&gt;Wenn es relativ gesetzt ist, dann ist die Bewegungsdistanz gleich des &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; mal aktueller Distanz zur Fraktaloberfläche. Das ist der preferierte Modus.&lt;/p&gt;&lt;p&gt;Wenn es absolut gesetzt ist, dann ist die Bewegungsdistanz gleich &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; Parameter. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl der Bewegungsschritt Berechnung.&lt;/p&gt;&lt;p&gt;Wenn es relativ gesetzt ist, dann ist die Bewegungsdistanz gleich dem &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; mal aktueller Distanz zur Fraktaloberfläche. Das ist der präferierte Modus.&lt;/p&gt;&lt;p&gt;Wenn es absolut gesetzt ist, dann ist die Bewegungsdistanz gleich dem &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; Parameter. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2325"/>
@@ -1404,7 +1407,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="2674"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for rotation modes&lt;/p&gt;&lt;p&gt;Fixed roll angle - rotates camera using world axes. This mode does not change the roll angle but can be difficult to predict when camera is upside down or almost in vertical orientation.&lt;/p&gt;&lt;p&gt;Straight rotation - rotates camera using actual camera axes. This mode rotates camera in a more intuitive way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl des Rotationsmodus&lt;/p&gt;&lt;p&gt;Fester  Roll Winkel - rotiert die Kamera nach Weltachsen. Dieser Modus verändert den Roll Winkel nicht, kann aber schwer vorhersehbares Verhalten zeigen, wenn die Kamera auf dem Kopf oder nahezu vertikal ausgerichtet ist.&lt;/p&gt;&lt;p&gt;Gerade Rotation - Rotiert die Kamera nach eingentlichen Kameraachsen. Dieser Modus rotiert die Kamera auf eine intuitivere Art und Weise.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl des Rotationsmodus&lt;/p&gt;&lt;p&gt;Fester  Roll Winkel - rotiert die Kamera nach Weltachsen. Dieser Modus verändert den Roll Winkel nicht, kann aber schwer vorhersehbares Verhalten zeigen, wenn die Kamera auf dem Kopf oder nahezu vertikal ausgerichtet ist.&lt;/p&gt;&lt;p&gt;Gerade Rotation - Rotiert die Kamera nach eigentlichen Kameraachsen. Dieser Modus rotiert die Kamera auf eine intuitivere Art und Weise.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="2678"/>
@@ -1460,7 +1463,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="3073"/>
         <source>Ambient occlusion:</source>
-        <translation>Umgebungsverdunklung:</translation>
+        <translation>Umgebungsverdeckung:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3080"/>
@@ -1490,7 +1493,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="3112"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;angle of incidence effects intensity&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;shading 0.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;shading 1.0 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensitätdes Einfallswinkel Effekts&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Schattierung 0.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Schattierung 1.0 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensität des Einfallswinkel Effekts&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Schattierung 0.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Schattierung 1.0 &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - shading 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3234"/>
@@ -1515,7 +1518,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="3366"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settings for scattered light effect&lt;/p&gt;&lt;p&gt;Types of ambient occlusion effect:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Screen Space Ambient Occlusion (SSAO)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Multiple rays&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Fast&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion high quality.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion fast mode.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;SSAO - relatively fast post-effect based on z-Buffer&lt;/p&gt;&lt;p&gt;Multiple rays - based on calculation of rays in different directions. It uses texture to create colored light map. This effect slows down rendering.&lt;/p&gt;&lt;p&gt;Fast - simple and fast method to calculate scattered light effect. This the least accurate effect.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enstellungen für Streulicht-Effekt&lt;/p&gt;&lt;p&gt;Arten des Umgebungsverduckung Effektes:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Screen Space Ambient Occlusion (SSAO)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Mehrere Strahlen&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Schnell&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion high quality.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion fast mode.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;SSAO - relativ schneller Nachbearbeitungseffekt basierend auf Z-Buffer&lt;/p&gt;&lt;p&gt;Mehrere Strahlen - basiert auf Berechung der Strahlen in verschiedenen Richtungen. Es wird eine Textur verwendet, um die farbliche Lichtmap zu erzeugen. Dieser Effekt verlangsamt das Rendering.&lt;/p&gt;&lt;p&gt;Schnell - Einfache und schnelle Methode um den Streulicht-Effekt zu berechnen. Dies ist der am wenigsten akkurate Effekt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enstellungen für Streulicht-Effekt&lt;/p&gt;&lt;p&gt;Arten des Umgebungsverdeckung Effektes:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Screen Space Ambient Occlusion (SSAO)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Mehrere Strahlen&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Schnell&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion high quality.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - ambient occlusion fast mode.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;SSAO - relativ schneller Nachbearbeitungseffekt basierend auf Z-Buffer&lt;/p&gt;&lt;p&gt;Mehrere Strahlen - basiert auf Berechung der Strahlen in verschiedenen Richtungen. Es wird eine Textur verwendet, um eine farbliche Lichtmap zu erzeugen. Dieser Effekt verlangsamt das Rendering.&lt;/p&gt;&lt;p&gt;Schnell - Einfache und schnelle Methode um den Streulicht-Effekt zu berechnen. Dies ist der am wenigsten akkurate Effekt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3369"/>
@@ -1638,7 +1641,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4004"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Environment mapping is an image-based lighting technique for approximating the appearance of a reflective surface by means of a precomputed texture image. The texture is used to store the image of the distant environment surrounding the rendered object.&lt;/p&gt;&lt;p&gt;To adjust effect intensity use &lt;span style=&quot; font-style:italic;&quot;&gt;reflection&lt;/span&gt; slider&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Umgebungsmapping ist eine Bild-basierte Beleuchtungstechnik um die Erscheinung einer reflektierenden Oberfläche  aus einer Textur heraus zu approximieren. Die Textur wird verwendet, um das Bild der fernen Umgebung des gerenderten Objekt zu speichern.&lt;/p&gt;&lt;p&gt;Die Intensität des Effektes kann am &lt;span style=&quot; font-style:italic;&quot;&gt;Reflektion&lt;/span&gt; Slider eingestellt werden&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Umgebungsmapping ist eine Bild-basierte Beleuchtungstechnik um die Erscheinung einer reflektierenden Oberfläche  aus einer Textur heraus zu approximieren. Die Textur wird verwendet, um das Bild der fernen Umgebung des gerenderten Objekt zu speichern.&lt;/p&gt;&lt;p&gt;Die Intensität des Effektes kann am &lt;span style=&quot; font-style:italic;&quot;&gt;Reflektion&lt;/span&gt; Regler eingestellt werden&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4007"/>
@@ -1693,7 +1696,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4389"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setting of focus distance by mouse pointer. &lt;/p&gt;&lt;p&gt;Click on this button and then point the object on image which you want to appear in focus.&lt;/p&gt;&lt;p&gt;After using it don&apos;t forget to change &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mouse click function&lt;/span&gt; to continue work with the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setzen der Fokusdistanz per Mauszeiger. &lt;/p&gt;&lt;p&gt;Klicken Sie auf diesen Knopf, und klicken Sie dann das Objekt auf dem Bild, das scharf erscheinen soll.&lt;/p&gt;&lt;p&gt;Nach der Einstellung nicht vergessen unter &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mausklick Funktion&lt;/span&gt; den gewünschten Bearbeitungsschritt anzupassen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setzen der Fokusdistanz per Mauszeiger. &lt;/p&gt;&lt;p&gt;Klicken Sie auf diesen Knopf und klicken Sie dann das Objekt auf dem Bild, das scharf erscheinen soll.&lt;/p&gt;&lt;p&gt;Nach der Einstellung nicht vergessen unter &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mausklick Funktion&lt;/span&gt; den gewünschten Bearbeitungsschritt anzupassen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4392"/>
@@ -1764,17 +1767,17 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="798"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrast of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrast des Bildes&lt;/p&gt;&lt;p&gt;Verwenden Sie den &lt;span style=&quot; font-style:italic;&quot;&gt;Einstellungen übernehmen&lt;/span&gt; Knopf um das Bild zu aktualisieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrast des Bildes&lt;/p&gt;&lt;p&gt;Verwenden Sie den &lt;span style=&quot; font-style:italic;&quot;&gt;Einstellungen übernehmen&lt;/span&gt; Knopf, um das Bild zu aktualisieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="826"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma des Bildes&lt;/p&gt;&lt;p&gt;Verwenden Sie den &lt;span style=&quot; font-style:italic;&quot;&gt;Einstellungen übernehmen&lt;/span&gt; Knopf um das Bild zu aktualisieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma des Bildes&lt;/p&gt;&lt;p&gt;Verwenden Sie den &lt;span style=&quot; font-style:italic;&quot;&gt;Einstellungen übernehmen&lt;/span&gt; Knopf, um das Bild zu aktualisieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="861"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Helligkeit des Bildes&lt;/p&gt;&lt;p&gt;Verwenden Sie den &lt;span style=&quot; font-style:italic;&quot;&gt;Einstellungen übernehmen&lt;/span&gt; Knopf um das Bild zu aktualisieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Helligkeit des Bildes&lt;/p&gt;&lt;p&gt;Verwenden Sie den &lt;span style=&quot; font-style:italic;&quot;&gt;Einstellungen übernehmen&lt;/span&gt; Knopf, um das Bild zu aktualisieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="960"/>
@@ -1784,7 +1787,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="1013"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Field of view of camera. Higher value gives wider view.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sichtfeld der Kamera. Höherer Wert gibt weitwinkligere Ansicht.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sichtfeld der Kamera. Ein höherer Wert gibt eine weitwinkligere Ansicht.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Gamepad</source>
@@ -1838,7 +1841,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="1653"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;These parameters and gauges controls position of camera and point where the camera is looking at (target)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/Camera target.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Parameter und  Bedienelemente editieren Position der Kamera und den Punkt, auf den die Kamera gerichtet ist (Ziel)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/Camera target.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Parameter und  Bedienelemente editieren die Position der Kamera und den Punkt, auf den die Kamera gerichtet ist (Ziel)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/Camera target.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1677"/>
@@ -1953,7 +1956,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="3357"/>
         <source>Fresnel&apos;s equations for reflectance</source>
-        <translation>Fresnelsche Brechungsgleichung</translation>
+        <translation>Fresnel&apos;sche Brechungsgleichung</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3485"/>
@@ -1988,7 +1991,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="3788"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Grab color palette from selected picture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hole Farbpalette aus ausgewähltem Bild&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hole die Farbpalette aus dem ausgewähltem Bild&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="3888"/>
@@ -2018,7 +2021,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4302"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It&apos;s the distance where objects appear in focus.&lt;/p&gt;&lt;p&gt;Distance can be set bu using button &lt;span style=&quot; font-style:italic;&quot;&gt;Set focus distance by mouse&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;low focus distance&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;high focus distance&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Das ist die Distanz in der Objekte im Fokus erscheinen.&lt;/p&gt;&lt;p&gt;Die Distanz kann mit Klick auf &lt;span style=&quot; font-style:italic;&quot;&gt;Setze Fokusdistanz per Maus&lt;/span&gt; gesetzt werden&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;geringe Fokusdistanz&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;hohe Fokusdistanz&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Das ist die Distanz in der Objekte im Fokus erscheinen.&lt;/p&gt;&lt;p&gt;Die Distanz kann mit Klick auf &lt;span style=&quot; font-style:italic;&quot;&gt;Setze Fokusdistanz per Maus&lt;/span&gt; gesetzt werden.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;geringe Fokusdistanz&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;hohe Fokusdistanz&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4337"/>
@@ -2115,7 +2118,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4693"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fog where density depends on distance from fractal surface.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Example of high values of distance&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Examples of low values of distance &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow 2.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nebel bei dem die Dichte von der Distanz zur Fraktaloberfläche abhängt.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Beispiel für hohen Wert der Distanz&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Beispiel für tiefen Wert der Distanz&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow 2.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nebel bei dem die Dichte von der Distanz zur Fraktaloberfläche abhängt.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Beispiel für einen hohen Wert der Distanz&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Beispiel für einen tiefen Wert der Distanz&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - distance glow 2.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4696"/>
@@ -2145,7 +2148,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4784"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum distance from fractal surface where color #2 is used and minimum where color #3  is used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximale Distanz zur Fraktaloberfläche bis zu derFarbe #2 verwendet wird und  Minimalwert ab der Farbe #3  verwendet wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximale Distanz zur Fraktaloberfläche bis zu der Farbe #2 verwendet wird und Minimalwert ab der Farbe #3  verwendet wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4791"/>
@@ -2182,7 +2185,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="4899"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts density of fog to distance from fractal surface. Higher value givers fog which reaches further from fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrollirt das Verhältnis von Nebeldichte im Verhältnis zur istanz zur Fraktaloberfläche. Ein höherer Wert ergibt Nebel der weiter vom Fraktal weg reicht.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrolliert das Verhältnis von Nebeldichte zur Distanz zur Fraktaloberfläche. Ein höherer Wert ergibt Nebel der weiter vom Fraktal weg reicht.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="4931"/>
@@ -2297,7 +2300,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="5471"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It determines, how texture will be mapped on background sphere&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Equirectangular: &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Texture has to be created used equirectangular projection. It&apos;s the most popular format for textures dedicated for sphere mapping.&lt;br/&gt;Example:&lt;br/&gt;&lt;/span&gt;&lt;img src=&quot;:/tooltips/tooltips_images/equirectangular_bkg.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Double hemisphere:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Texture has to be created as a pair of images of hemispheres. Mapping has to be the same as &lt;span style=&quot; font-style:italic;&quot;&gt;Full dome projection&lt;/span&gt; (or &lt;span style=&quot; font-style:italic;&quot;&gt;Fish eye&lt;/span&gt;)&lt;br/&gt;Example texture with indicated axes and directions:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/full_dome_bkg_axes.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Legt fest, wie die Textur auf die Hintergrund Sphäre gemapped wird.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Gleichwinklig: &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Die Textur liegt als gleichwinklige Projektion vor. Es ist das beliebteste Format für Texturen das für Sphere Mapping verwendet wird.&lt;br/&gt;Example:&lt;br/&gt;&lt;/span&gt;&lt;img src=&quot;:/tooltips/tooltips_images/equirectangular_bkg.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Doppelhemisphäre:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Die Textur liegt als Paar von hemisphären Projektionen vor. Das Mapping muss gleich &lt;span style=&quot; font-style:italic;&quot;&gt;Vollkuppel&lt;/span&gt; (oder &lt;span style=&quot; font-style:italic;&quot;&gt;Fischauge&lt;/span&gt;) sein.&lt;br/&gt;Beispieltextur mit angegeben Achsen und Richtungen:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/full_dome_bkg_axes.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Legt fest, wie die Textur auf die Hintergrund Sphäre gemapped wird.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Gleichwinklig: &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Die Textur liegt als gleichwinklige Projektion vor. Es ist das beliebteste Format für Texturen das für sphärisches Mapping verwendet wird.&lt;br/&gt;Beispiel:&lt;br/&gt;&lt;/span&gt;&lt;img src=&quot;:/tooltips/tooltips_images/equirectangular_bkg.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Doppelhemisphäre:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Die Textur liegt als Paar von hemisphären Projektionen vor. Das Mapping muss gleich &lt;span style=&quot; font-style:italic;&quot;&gt;Vollkuppel&lt;/span&gt; (oder &lt;span style=&quot; font-style:italic;&quot;&gt;Fischauge&lt;/span&gt;) sein.&lt;br/&gt;Beispieltextur mit angegeben Achsen und Richtungen:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/full_dome_bkg_axes.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5480"/>
@@ -2388,7 +2391,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="5881"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter moves main light source higher / lower. &lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Position relative to camera&lt;/span&gt; is off and angle is zero then light is set on X-Y plane (horizon).&lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Position relative to camera&lt;/span&gt; is on and angle is zero then light is on local horizon. When it&apos;s +90, then is over the camera. When it&apos;s -90, then is under the camera. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dieser Parameter bewegt die Lichtquelle nach open / unten. &lt;/p&gt;&lt;p&gt;Wenn &lt;span style=&quot; font-style:italic;&quot;&gt;Position relativ zur Kamera&lt;/span&gt; aus ist und der Winkel Null, dann befindet sich die Lichtquelle auf der X-Y-Ebene (Horizont).&lt;/p&gt;&lt;p&gt;Wenn &lt;span style=&quot; font-style:italic;&quot;&gt;Position relativ zur Kamera&lt;/span&gt; an ist und der Winkel Null, dann befindet sich die Lichtquelle auf dem lokalen Horizont. Wenn der Winkel +90°, dann befindet sich die Lichtquelle über der Kamera. Wenn der Winkel -90°, dann befindet sich die Lichtquelle unter der Kamera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dieser Parameter bewegt die Lichtquelle nach oben / unten. &lt;/p&gt;&lt;p&gt;Wenn &lt;span style=&quot; font-style:italic;&quot;&gt;Position relativ zur Kamera&lt;/span&gt; aus ist und der Winkel Null, dann befindet sich die Lichtquelle auf der X-Y-Ebene (Horizont).&lt;/p&gt;&lt;p&gt;Wenn &lt;span style=&quot; font-style:italic;&quot;&gt;Position relativ zur Kamera&lt;/span&gt; an ist und der Winkel Null, dann befindet sich die Lichtquelle auf dem lokalen Horizont. Wenn der Winkel +90°, dann befindet sich die Lichtquelle über der Kamera. Wenn der Winkel -90°, dann befindet sich die Lichtquelle unter der Kamera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="5912"/>
@@ -2475,12 +2478,12 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="6940"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance from fractal surface where light will be placed with mouse pointer. When it&apos;s zero, the light will be set on fractal surface. Higher value moves the light towards the camera.&lt;/p&gt;&lt;p&gt;This parameter can be controlled with mouse scroll.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;CSteuert die Distanz von der Fraktaloberfläche an der die Lichter per Mauszeiger platziert werden. Wenn der Wert Null ist, wird das Licht direkt auf die Fraktaloberfläche gesetzt. Ein höherer Wert bewegt das Licht Richtung Kamera.&lt;/p&gt;&lt;p&gt;Dieser Parameter kann per Mausscroll gesteuert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Steuert die Distanz von der Fraktaloberfläche an der die Lichter per Mauszeiger platziert werden. Wenn der Wert Null ist, wird das Licht direkt auf die Fraktaloberfläche gesetzt. Ein höherer Wert bewegt das Licht Richtung Kamera.&lt;/p&gt;&lt;p&gt;Dieser Parameter kann per Mausscroll gesteuert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6955"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Parameters of visible light rays, often named  quot;God Raysquot; effect.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/god rays.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Parameter von sichtbaren Lichtstrahlen, oft auch quot;God Raysquot; Effekt genannt.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/god rays.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Parameter von sichtbaren Lichtstrahlen, oft auch quot;God Raysquot; Effekt genannt.&lt;/p&gt;&lt;p&gt;Beispiel:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/god rays.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="6958"/>
@@ -2823,7 +2826,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="13121"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Internet port number which will be used for server. This port has to be not blocked by firewall or should be passed through a router.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Internet Port Nummer, die für den Server verwendet wird.Dieser Port darf nicht durch die Firewall geblockt sein, oder sollte durch den Router einen Passthrough erhalten.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Internet Port Nummer, die für den Server verwendet wird. Dieser Port darf nicht durch die Firewall geblockt sein, oder sollte durch den Router einen Passthrough erhalten.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13134"/>
@@ -2853,7 +2856,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="13650"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls flight speed. &lt;/p&gt;&lt;p&gt;If you click left mouse button, speed will be increased&lt;/p&gt;&lt;p&gt;If you click right mouse button, speed will be decreased&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrolliert die Fluggeschwindigkeit.&lt;/p&gt;&lt;p&gt;Wenn der linke Mausklick ausgeführt wird, dann wird die Geschwindigkeit erhöht.&lt;/p&gt;&lt;p&gt;IWenn der linke Mausklick ausgeführt wird, dann wird die Geschwindigkeit verringert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrolliert die Fluggeschwindigkeit.&lt;/p&gt;&lt;p&gt;Wenn der linke Mausklick ausgeführt wird, dann wird die Geschwindigkeit erhöht.&lt;/p&gt;&lt;p&gt;Wenn der rechte Mausklick ausgeführt wird, dann wird die Geschwindigkeit verringert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13727"/>
@@ -2919,7 +2922,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="14327"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Checks if there is no collision between camera and fractal at all interpolated frames.&lt;/p&gt;&lt;p&gt;Collision is defined as event where distance of camera to fractal object is lower than &lt;span style=&quot; font-style:italic;&quot;&gt;collision distance&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Prüft bei allen interpolierten Frames ob es zu Kollisionen der Kamera mit der Fraktaloberfläche kommt.&lt;/p&gt;&lt;p&gt;Eine Kollision ist so definiert, dass die Distanz der Kamera zur Fraktaloberfläche kleiner ist als der &lt;span style=&quot; font-style:italic;&quot;&gt;Kollisionsdistanz&lt;/span&gt; Parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Prüft bei allen interpolierten Frames, ob es zu Kollisionen der Kamera mit der Fraktaloberfläche kommt.&lt;/p&gt;&lt;p&gt;Eine Kollision ist so definiert, dass die Distanz der Kamera zur Fraktaloberfläche kleiner ist als der &lt;span style=&quot; font-style:italic;&quot;&gt;Kollisionsdistanz&lt;/span&gt; Parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14330"/>
@@ -2929,7 +2932,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="14375"/>
         <source>collission distance:</source>
-        <translation>Kollisionsdistanz</translation>
+        <translation>Kollisionsdistanz:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14437"/>
@@ -3077,17 +3080,17 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="12236"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;All objects closer than this distance won&apos;t be visible&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Alle Objekte näher als diese Distanz sind nciht sichtbar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Alle Objekte näher als diese Distanz sind nicht sichtbar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12265"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes fractals empty inside. It gives interesting results when there is rendered cross section of fractal using &lt;span style=&quot; font-style:italic;&quot;&gt;Limits (box)&lt;/span&gt; feature. &lt;/p&gt;&lt;p&gt;This effect is very slow to render because iterations stop at high number inside the fractal. It&apos;s good to reduce Max. fractal iterations to speed up rendering.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;interior mode enabled&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;interior mode disabled&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Macht das Fraktal von innen hohl. Dieser Effekt gibt interessante Ergebnisse, wenn der Querschnitt mit &lt;span style=&quot; font-style:italic;&quot;&gt;Grenzen (Box)&lt;/span&gt; Funktion erzeugt wird.&lt;/p&gt;&lt;p&gt;Dieser effekt ist sehr langsam zu rendern, da die Iteartionen erst an einem hohen Wert innerhalb des Fraktals stoppen. Es ist hilfreich den Wert von Max. fraktale Iterationen zu vermindern, um das Rendern zu beschleunigen.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Interior Modus aktiviert&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Interior Modus deaktiviert&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Macht das Fraktal von innen hohl. Dieser Effekt gibt interessante Ergebnisse, wenn der Querschnitt mit &lt;span style=&quot; font-style:italic;&quot;&gt;Grenzen (Box)&lt;/span&gt; Funktion erzeugt wird.&lt;/p&gt;&lt;p&gt;Dieser Effekt ist sehr langsam zu rendern, da die Iteartionen erst an einem hohen Wert innerhalb des Fraktals stoppen. Es ist hilfreich den Wert von Max. fraktale Iterationen zu vermindern, um das Rendern zu beschleunigen.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Interior Modus aktiviert&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Interior Modus deaktiviert&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12281"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter has the biggest influence on overall quality of image and rendering speed.&lt;/p&gt;&lt;p&gt;Higher value gives faster rendering but more noise on image.&lt;/p&gt;&lt;p&gt;When rays are traced, for each step there are estimated distances to the fractal surface. Optimally , the jump distance for every ray-marching step would be equal to the estimated distance. This would produce a small number of steps and good quality. However the distance can be only estimated, so it&apos;s not always accurate. It can produce oversteppings which will be visible on the image as random noise.&lt;/p&gt;&lt;p&gt;In some cases you need to adjust  this parameter to find a balance between acceptable image quality and a reasonable rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;step multiplier = 1.0 (optimal - good quality and fast)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;step multiplier = 5 (visible strong noise on image)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 4.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;As a quality indicator, the&lt;span style=&quot; font-style:italic;&quot;&gt;Percentage of wrong distance estimations&lt;/span&gt; ( visible in &lt;span style=&quot; font-style:italic;&quot;&gt;Statistics&lt;/span&gt; dock ) can be used . &lt;/p&gt;&lt;p&gt;To optimize this parameter the histograms of iteration count and ray-marching step count,  can be used .&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dieser Parameter hat den größten Einfluss auf die Bildqualität insgesamt und die Renderzeit.&lt;/p&gt;&lt;p&gt;Ein höherer Wert gibt ein schnelleres Rendern, aber auch mehr Rauschen.&lt;/p&gt;&lt;p&gt;Wenn Raytracing aktiviert ist, dann wird für jeden Schritt die Distanz zur Fraktaloberfläche geschätzt. Optimal wäre es, wenn jeder Raymarching Schritt gleich der geschätzten Distanz wäre. Das würde eine kleine Schrittanzahl und eine hohe Qualität ergeben. Jedoch kann der Abstand nur geschätzt werden, so ist es nicht immer genau. Es kann zu Überschreitungen kommen, die auf dem Bild als zufälliges Rauschen sichtbar werden.&lt;/p&gt;&lt;p&gt;In manchen Fällen muss dieser Wert angepasst werden, um ein Gleichgewicht zwischen akzeptabler Bildqualität und einer angemessenen Renderzeit zu finden.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Schritt Multiplikator = 1.0 (optimal - gute Qualität und schnell)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Schritt Multiplikator = 5 (sichtbar starkes Rauschen auf dem Bild)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 4.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Der Wert von &lt;span style=&quot; font-style:italic;&quot;&gt;Prozentsatz falscher Distanzermittlungen&lt;/span&gt; ( sichtbar im &lt;span style=&quot; font-style:italic;&quot;&gt;Statistik&lt;/span&gt; Dock ) kann hierfür als Qualitätsindikator herangezogen werden . &lt;/p&gt;&lt;p&gt;Die Histogramme von &lt;span style=&quot; font-style:italic;&quot;&gt;fraktalen Iterationsschritten&lt;/span&gt; und &lt;span style=&quot; font-style:italic;&quot;&gt;Raymarching Schritt Anzahl&lt;/span&gt; können weiterhin verwendet werden, um diesen Wert zu optimieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dieser Parameter hat den größten Einfluss auf die Bildqualität insgesamt und die Renderzeit.&lt;/p&gt;&lt;p&gt;Ein höherer Wert gibt ein schnelleres Rendern, aber auch mehr Rauschen.&lt;/p&gt;&lt;p&gt;Wenn Raytracing aktiviert ist, dann wird für jeden Schritt die Distanz zur Fraktaloberfläche geschätzt. Optimal wäre es, wenn jeder Raymarching Schritt gleich der geschätzten Distanz wäre. Das würde eine kleine Schrittanzahl und eine hohe Qualität ergeben. Jedoch kann der Abstand nur geschätzt werden, so ist es nicht immer genau. Es kann zu Überschreitungen kommen, die auf dem Bild als zufälliges Rauschen sichtbar werden.&lt;/p&gt;&lt;p&gt;In manchen Fällen muss dieser Wert angepasst werden, um einen Kompromiss zwischen akzeptabler Bildqualität und einer angemessenen Renderzeit zu finden.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;Schritt Multiplikator = 1.0 (optimal - gute Qualität und schnell)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;Schritt Multiplikator = 5 (sichtbar starkes Rauschen auf dem Bild)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 4.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Der Wert von &lt;span style=&quot; font-style:italic;&quot;&gt;Prozentsatz falscher Distanzermittlungen&lt;/span&gt; ( sichtbar im &lt;span style=&quot; font-style:italic;&quot;&gt;Statistik&lt;/span&gt; Dock ) kann hierfür als Qualitätsindikator herangezogen werden . &lt;/p&gt;&lt;p&gt;Die Histogramme von &lt;span style=&quot; font-style:italic;&quot;&gt;fraktalen Iterationsschritten&lt;/span&gt; und &lt;span style=&quot; font-style:italic;&quot;&gt;Raymarching Schritt Anzahl&lt;/span&gt; können weiterhin verwendet werden, um diesen Wert zu optimieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="12368"/>
@@ -3169,17 +3172,17 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="13329"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature is for renering flight through animations.&lt;/p&gt;&lt;p&gt;In record flight mode the camera is operated like in flight simulator game. It recomended to use low image resolution for better rendering performace. Flight path is recorded.&lt;/p&gt;&lt;p&gt;Render animation button start rendering in of recorded flight path. For rendering you can select higher image resolution.&lt;/p&gt;&lt;p&gt;There is possible to add parameters for animation (like fractal power, light position, etc...) and edit them in the table view. To add parameter to animation you need to right click on edit fied of selected parameter and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to flight animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Animation is stored in settings file in CSV format, so there is possible to edit animation in external tools (e.g speadsheet editor or text editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Funktion ist für das Rendern des Flugs durch Animationen. &lt;/p&gt;&lt;p&gt; Im Flugaufnahme-Modus wird die Kamera wie in einem im Flug-Simulator-Spiel betrieben. Es wird empfohlen eine niedrige Bildauflösung zu verwenden, um eine bessere Render Performace vzu erreichen. Der Flugpfad wird währenddessen aufgenommen.&lt;/p&gt;&lt;p&gt;Der Render Animation Knopf startet das Rendern der aufgezeichneten Flugbahn. Zum Rendern können Sie eine höhere Bildauflösung zu wählen.&lt;/p&gt;&lt;p&gt;Es ist möglich, Parameter für die Animation (wie fraktale Power, Lichtposition, etc ...) hinzuzufügen und diese in der Tabellenansicht zu bearbeiten. Um Parameter als animierte Werte hinzuzufügen, müssen Sie einen Rechtsklick auf den gewünschten Parameter ausführen und aus dem Kontextmenü &lt;span style=&quot; font-style:italic;&quot;&gt;Zur Fluganimation hinzufügen&lt;/span&gt; auswählen.&lt;/p&gt;&lt;p&gt;Die Animation wird in der Einstellungsdatei im CSV Format gespeichert, dadurch ist es möglich die Animation mit externen Tools zu bearbeiten (z.B. Speadsheet Editor oder Text Editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Funktion ist für das Rendern des Flugs durch Animationen. &lt;/p&gt;&lt;p&gt; Im Flugaufnahme-Modus wird die Kamera wie in einem Flug-Simulator-Spiel betrieben. Es wird empfohlen eine niedrige Bildauflösung zu verwenden, um eine bessere Render Performace zu erreichen. Die Flugbahn wird währenddessen aufgenommen.&lt;/p&gt;&lt;p&gt;Der Render Animation Knopf startet das Rendern der aufgezeichneten Flugbahn. Zum Rendern können Sie eine höhere Bildauflösung zu wählen.&lt;/p&gt;&lt;p&gt;Es ist möglich, Parameter für die Animation (wie fraktale Power, Lichtposition, etc ...) hinzuzufügen und diese in der Tabellenansicht zu bearbeiten. Um Parameter als animierte Werte hinzuzufügen, müssen Sie einen Rechtsklick auf den gewünschten Parameter ausführen und aus dem Kontextmenü &lt;span style=&quot; font-style:italic;&quot;&gt;Zur Fluganimation hinzufügen&lt;/span&gt; auswählen.&lt;/p&gt;&lt;p&gt;Die Animation wird in der Einstellungsdatei im CSV Format gespeichert, dadurch ist es möglich die Animation mit externen Tools zu bearbeiten (z.B. Speadsheet Editor oder Text Editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13381"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts rendering of previously recorded flight path&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet das Rendern von einem vorher aufgenommenen Flugpfad&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet das Rendern von einer vorher aufgenommenen Flugbahn&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13401"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts recording flight path. &lt;/p&gt;&lt;p&gt;There is recomended to decrease image resolution for better rendering performance.&lt;/p&gt;&lt;p&gt;As a controler there is used mouse pointer. &lt;br/&gt;By moving of mouse pointer you can change flight direction.&lt;br/&gt;Left mouse button increases flight speed. Right mouse button decreases speed.&lt;br/&gt;Arrow keys moves camera up, dow, left and right (strafe)&lt;br/&gt;Z and X keys rotates the camera (roll)&lt;br/&gt;Spacebar pauses recording of flight path. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet die Aufnahme des Flugpfades. &lt;/p&gt;&lt;p&gt;Es wird empfohlen, die Bildauflösung während der Aufnahme zu verringern, um eine bessere Renderperformance zu erreichen.&lt;/p&gt;&lt;p&gt;Der Mauszeiger kann als Controller des Flugs verwendet werden. &lt;br/&gt;Mit der Bewegung des Mauszeigers über dem Bild kann die Flugrichtung geändert werden.&lt;br/&gt;Linke Maustaste erhöht Fluggeschwindigkeit. Rechte Maustaste verringert Fluggeschwindigkeit.&lt;br/&gt;Die Pfeil-Tasten bewegen die Kamera nach oben, unten, links und rechts (seitlich)&lt;br/&gt;Tasten Z und X drehen die Kamera (Rolle)&lt;br/&gt;Leertaste pausiert die Aufzeichnung des Fluges. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet die Aufnahme der Flugbahn. &lt;/p&gt;&lt;p&gt;Es wird empfohlen, die Bildauflösung während der Aufnahme zu verringern, um eine bessere Renderperformance zu erreichen.&lt;/p&gt;&lt;p&gt;Der Mauszeiger kann als Controller des Flugs verwendet werden. &lt;br/&gt;Mit der Bewegung des Mauszeigers über dem Bild kann die Flugrichtung geändert werden.&lt;br/&gt;Linke Maustaste erhöht Fluggeschwindigkeit. Rechte Maustaste verringert Fluggeschwindigkeit.&lt;br/&gt;Die Pfeil-Tasten bewegen die Kamera nach oben, unten, links und rechts (seitlich)&lt;br/&gt;Tasten Z und X drehen die Kamera (Rolle)&lt;br/&gt;Leertaste pausiert die Aufzeichnung des Fluges. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13421"/>
@@ -3204,7 +3207,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="13501"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exports flight path to keyframe animation. There is used &lt;span style=&quot; font-style:italic;&quot;&gt;Keyframe animation/frames per keyframe&lt;/span&gt; parameter to dermine how many frames will be exported as new keyframes. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Den Flugpfad zur &lt;span style=&quot; font-style:italic;&quot;&gt;Keyframeanimation&lt;/span&gt; exportieren. Es wird der&lt;span style=&quot; font-style:italic;&quot;&gt;Keyframe Animation / Frames pro Keyframe&lt;/span&gt; Parameter verwendet, um festzulegen welcher N-te Flugframe als Keyframe exportiert wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Flugbahn zur &lt;span style=&quot; font-style:italic;&quot;&gt;Keyframeanimation&lt;/span&gt; exportieren. Es wird der&lt;span style=&quot; font-style:italic;&quot;&gt;Keyframe Animation / Frames pro Keyframe&lt;/span&gt; Parameter verwendet, um festzulegen welcher N-te Flugframe als Keyframe exportiert wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13545"/>
@@ -3237,7 +3240,7 @@ to target:</source>
     <message>
         <location filename="../qt/render_window.ui" line="13620"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Determines how camera speed will be calculated.&lt;/p&gt;&lt;p&gt;In &lt;span style=&quot; font-style:italic;&quot;&gt;Relative to distance&lt;/span&gt; mode, camera speed will decrease when camera will be closer to fractal surface. This mode will help you to not colide with fractal. In this mode you can still control speed by &lt;span style=&quot; font-style:italic;&quot;&gt;speed&lt;/span&gt; parameter and by mouse buttons.&lt;/p&gt;&lt;p&gt;In Constant mode, camera speed is only controled by &lt;span style=&quot; font-style:italic;&quot;&gt;speed&lt;/span&gt; parameter and mouse buttons&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Legt fest wie die Kamerageschwindigkeit berechnet wird.&lt;/p&gt;&lt;p&gt;In &lt;span style=&quot; font-style:italic;&quot;&gt;Relativ zu Distanz&lt;/span&gt; Modus, nimmt die Geschwindigkeit Kamera ab, wenn die Kamera näher an die Fraktaloberfläche geführt wird. Dieser Modus wird Ihnen helfen, nicht mit dem Fractal zu kollidieren. In diesem Modus können Sie immer noch die Geschwindigkeit über den &lt;span style=&quot; font-style:italic;&quot;&gt;Geschwindigkeit&lt;/span&gt; Parameter und die Mausknöpfe steuern.&lt;/p&gt;&lt;p&gt;In &lt;span style=&quot; font-style:italic;&quot;&gt;Konstant&lt;/span&gt; Modus wird die Kamera Geschwindigkeit lediglich durch den &lt;span style=&quot; font-style:italic;&quot;&gt;Geschwindigkeit&lt;/span&gt; Parameter und die Mausknöpfe gesteuert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Legt fest wie die Kamerageschwindigkeit berechnet wird.&lt;/p&gt;&lt;p&gt;In &lt;span style=&quot; font-style:italic;&quot;&gt;Relativ zu Distanz&lt;/span&gt; Modus, nimmt die Geschwindigkeit der Kamera ab, wenn die Kamera näher an die Fraktaloberfläche geführt wird. Dieser Modus wird Ihnen helfen, nicht mit dem Fractal zu kollidieren. In diesem Modus können Sie immer noch die Geschwindigkeit über den &lt;span style=&quot; font-style:italic;&quot;&gt;Geschwindigkeit&lt;/span&gt; Parameter und die Mausknöpfe steuern.&lt;/p&gt;&lt;p&gt;In &lt;span style=&quot; font-style:italic;&quot;&gt;Konstant&lt;/span&gt; Modus wird die Kamera Geschwindigkeit lediglich durch den &lt;span style=&quot; font-style:italic;&quot;&gt;Geschwindigkeit&lt;/span&gt; Parameter und die Mausknöpfe gesteuert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13637"/>
@@ -3435,7 +3438,7 @@ to target:</source>
         <translation>Strg+Y</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="681"/>
+        <location filename="../src/render_window.cpp" line="682"/>
         <source>Import settings from old Mandelbulber (v1.21)...</source>
         <translation>Einstellungen von alten Mandelbulber Dateien (v1.21)...</translation>
     </message>
@@ -3731,7 +3734,7 @@ und Wasser):</translation>
         <location filename="../qt/render_window.ui" line="13552"/>
         <location filename="../qt/render_window.ui" line="14396"/>
         <source>image type:</source>
-        <translation>Bild typ:</translation>
+        <translation>Bildtyp:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13574"/>
@@ -3762,7 +3765,7 @@ und Wasser):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="13840"/>
         <source>roll speed:</source>
-        <translation>Gier Geschwindigkeit:</translation>
+        <translation>Roll Geschwindigkeit:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="13884"/>
@@ -3792,7 +3795,7 @@ und Wasser):</translation>
         <location filename="../qt/render_window.ui" line="14050"/>
         <location filename="../qt/render_window.ui" line="14621"/>
         <source>last frame to render:</source>
-        <translation>letzter  Renderframe:</translation>
+        <translation>letzter Renderframe:</translation>
     </message>
     <message>
         <source>Insert keyframe before selected keyframe</source>
@@ -3874,7 +3877,7 @@ und Wasser):</translation>
     <message>
         <location filename="../qt/render_window.ui" line="14898"/>
         <source>Distance of camera to fractal surface</source>
-        <translation>Distanz von Kamera zu Fraktaloberfläche</translation>
+        <translation>Distanz von Kamera zur Fraktaloberfläche</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="14903"/>
@@ -3907,7 +3910,7 @@ und Wasser):</translation>
         <translation type="vanished">PNG 16 bit mit Alpha speichern</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="600"/>
+        <location filename="../src/render_window.cpp" line="601"/>
         <source>Load settings...</source>
         <translation>Einstellungen laden...</translation>
     </message>
@@ -3950,150 +3953,150 @@ und Wasser):</translation>
         <translation type="vanished">Über Mandelbulber</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="556"/>
-        <location filename="../src/render_window.cpp" line="596"/>
-        <location filename="../src/render_window.cpp" line="648"/>
-        <location filename="../src/render_window.cpp" line="677"/>
+        <location filename="../src/render_window.cpp" line="557"/>
+        <location filename="../src/render_window.cpp" line="597"/>
+        <location filename="../src/render_window.cpp" line="649"/>
+        <location filename="../src/render_window.cpp" line="678"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="560"/>
+        <location filename="../src/render_window.cpp" line="561"/>
         <source>Save settings...</source>
         <translation>Einstellungen speichern...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="652"/>
+        <location filename="../src/render_window.cpp" line="653"/>
         <source>Load example settings...</source>
         <translation>Lade Beispiel Einstellungen...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="778"/>
+        <location filename="../src/render_window.cpp" line="779"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
         <translation>JPEG Bilder (*.jpg *.jpeg)</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="782"/>
-        <location filename="../src/render_window.cpp" line="806"/>
-        <location filename="../src/render_window.cpp" line="831"/>
-        <location filename="../src/render_window.cpp" line="856"/>
-        <location filename="../src/render_window.cpp" line="881"/>
+        <location filename="../src/render_window.cpp" line="783"/>
+        <location filename="../src/render_window.cpp" line="807"/>
+        <location filename="../src/render_window.cpp" line="832"/>
+        <location filename="../src/render_window.cpp" line="857"/>
+        <location filename="../src/render_window.cpp" line="882"/>
         <source>Save image to %1 file...</source>
         <translation>Speichere Bild als %1 Datei...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="789"/>
-        <location filename="../src/render_window.cpp" line="792"/>
-        <location filename="../src/render_window.cpp" line="813"/>
-        <location filename="../src/render_window.cpp" line="816"/>
-        <location filename="../src/render_window.cpp" line="838"/>
-        <location filename="../src/render_window.cpp" line="841"/>
-        <location filename="../src/render_window.cpp" line="863"/>
-        <location filename="../src/render_window.cpp" line="867"/>
+        <location filename="../src/render_window.cpp" line="790"/>
+        <location filename="../src/render_window.cpp" line="793"/>
+        <location filename="../src/render_window.cpp" line="814"/>
+        <location filename="../src/render_window.cpp" line="817"/>
+        <location filename="../src/render_window.cpp" line="839"/>
+        <location filename="../src/render_window.cpp" line="842"/>
+        <location filename="../src/render_window.cpp" line="864"/>
+        <location filename="../src/render_window.cpp" line="868"/>
         <source>Saving %1 image</source>
         <translation>Speichere %1 Bild</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="789"/>
+        <location filename="../src/render_window.cpp" line="790"/>
         <source>Saving image started</source>
         <translation>Speichern gestartet</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="792"/>
+        <location filename="../src/render_window.cpp" line="793"/>
         <source>Saving image finished</source>
         <translation>Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="802"/>
-        <location filename="../src/render_window.cpp" line="852"/>
-        <location filename="../src/render_window.cpp" line="877"/>
+        <location filename="../src/render_window.cpp" line="803"/>
+        <location filename="../src/render_window.cpp" line="853"/>
+        <location filename="../src/render_window.cpp" line="878"/>
         <source>PNG images (*.png)</source>
         <translation>PNG Bilder (*.png)</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="813"/>
-        <location filename="../src/render_window.cpp" line="863"/>
-        <location filename="../src/render_window.cpp" line="888"/>
+        <location filename="../src/render_window.cpp" line="814"/>
+        <location filename="../src/render_window.cpp" line="864"/>
+        <location filename="../src/render_window.cpp" line="889"/>
         <source>Saving PNG image started</source>
         <translation>PNG Speichern gestartet</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="816"/>
-        <location filename="../src/render_window.cpp" line="867"/>
-        <location filename="../src/render_window.cpp" line="892"/>
+        <location filename="../src/render_window.cpp" line="817"/>
+        <location filename="../src/render_window.cpp" line="868"/>
+        <location filename="../src/render_window.cpp" line="893"/>
         <source>Saving PNG image finished</source>
         <translation>PNG Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="827"/>
+        <location filename="../src/render_window.cpp" line="828"/>
         <source>EXR images (*.exr)</source>
         <translation>EXR Bilder (*.exr)</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="838"/>
+        <location filename="../src/render_window.cpp" line="839"/>
         <source>Saving EXR image started</source>
         <translation>EXR Speichern gestartet</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="841"/>
+        <location filename="../src/render_window.cpp" line="842"/>
         <source>Saving EXR image finished</source>
         <translation>EXR Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="888"/>
-        <location filename="../src/render_window.cpp" line="892"/>
+        <location filename="../src/render_window.cpp" line="889"/>
+        <location filename="../src/render_window.cpp" line="893"/>
         <source>Saving image to %1 ...</source>
         <translation>Speichere Bild als %1 ...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="902"/>
-        <location filename="../src/render_window.cpp" line="922"/>
-        <location filename="../src/render_window.cpp" line="942"/>
-        <location filename="../src/render_window.cpp" line="962"/>
+        <location filename="../src/render_window.cpp" line="903"/>
+        <location filename="../src/render_window.cpp" line="923"/>
+        <location filename="../src/render_window.cpp" line="943"/>
+        <location filename="../src/render_window.cpp" line="963"/>
         <source>Images (*.jpg *.jpeg *.png *.bmp)</source>
         <translation>Bilder (*.jpg *.jpeg *.png *.bmp)</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="906"/>
+        <location filename="../src/render_window.cpp" line="907"/>
         <source>Select background texture...</source>
         <translation>Wähle Hintergrundtextur...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="926"/>
+        <location filename="../src/render_window.cpp" line="927"/>
         <source>Select texture for environment mapping effect...</source>
         <translation>Wähle Textur für Umgebungsmapping Effekt...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="946"/>
+        <location filename="../src/render_window.cpp" line="947"/>
         <source>Select texture for ambient occlusion light map...</source>
-        <translation>Wähle Textur für Umgebungsverdunklung Lichtmap...</translation>
+        <translation>Wähle Textur für Umgebungsverdeckung Lichtmap...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="1655"/>
+        <location filename="../src/render_window.cpp" line="1656"/>
         <source>CPUs</source>
         <translation>CPUs</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="1655"/>
+        <location filename="../src/render_window.cpp" line="1656"/>
         <source>Lines done</source>
         <translation>Zeilen fertig</translation>
     </message>
     <message>
         <source>Select texture for ambient occlussion light map...</source>
-        <translation type="vanished">Wähle Textur für Umgebungsverdunklung Lichtmap...</translation>
+        <translation type="vanished">Wähle Textur für Umgebungsverdeckung Lichtmap...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="966"/>
+        <location filename="../src/render_window.cpp" line="967"/>
         <source>Select image to grab colors...</source>
         <translation>Wähle Bild zum Farben holen...</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="1655"/>
+        <location filename="../src/render_window.cpp" line="1656"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="1655"/>
+        <location filename="../src/render_window.cpp" line="1656"/>
         <source>Host</source>
         <translation>Host</translation>
     </message>
@@ -4102,7 +4105,7 @@ und Wasser):</translation>
         <translation type="vanished">Worker</translation>
     </message>
     <message>
-        <location filename="../src/render_window.cpp" line="1655"/>
+        <location filename="../src/render_window.cpp" line="1656"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
@@ -4186,28 +4189,28 @@ Leertaste - Pause</translation>
 <context>
     <name>cFlightAnimation</name>
     <message>
-        <location filename="../src/animation_flight.cpp" line="150"/>
+        <location filename="../src/animation_flight.cpp" line="153"/>
         <source>waiting 3 seconds</source>
         <translation>3 Sekunden warten</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="228"/>
+        <location filename="../src/animation_flight.cpp" line="233"/>
         <source>Recording flight animation. Frame: </source>
         <translation>Fluganimation aufzeichnen. Frame: </translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="234"/>
+        <location filename="../src/animation_flight.cpp" line="239"/>
         <source>Paused. Frame: </source>
         <translation>Pausiert. Frame: </translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="404"/>
-        <location filename="../src/animation_flight.cpp" line="406"/>
+        <location filename="../src/animation_flight.cpp" line="413"/>
+        <location filename="../src/animation_flight.cpp" line="415"/>
         <source>preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="644"/>
+        <location filename="../src/animation_flight.cpp" line="656"/>
         <source>Refreshing animation frames</source>
         <translation>Animationsframes aktualisieren</translation>
     </message>
@@ -4215,18 +4218,18 @@ Leertaste - Pause</translation>
 <context>
     <name>cKeyframeAnimation</name>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="218"/>
-        <location filename="../src/animation_keyframes.cpp" line="220"/>
+        <location filename="../src/animation_keyframes.cpp" line="222"/>
+        <location filename="../src/animation_keyframes.cpp" line="224"/>
         <source>preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="543"/>
+        <location filename="../src/animation_keyframes.cpp" line="550"/>
         <source>Refreshing animation frames</source>
         <translation>Animationsframes aktualisieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="882"/>
+        <location filename="../src/animation_keyframes.cpp" line="889"/>
         <source>Exporting keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
@@ -4239,47 +4242,47 @@ Leertaste - Pause</translation>
         <translation>Standard Dateipfade</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="106"/>
+        <location filename="../qt/preferencesdialog.ui" line="105"/>
         <source>Settings:</source>
         <translation>Einstellungen:</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="125"/>
+        <location filename="../qt/preferencesdialog.ui" line="123"/>
         <source>Images:</source>
         <translation>Bilder:</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="135"/>
+        <location filename="../qt/preferencesdialog.ui" line="133"/>
         <source>Textures:</source>
         <translation>Texturen:</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="224"/>
+        <location filename="../qt/preferencesdialog.ui" line="221"/>
         <source>UI font size (pixels)</source>
         <translation>UI Schriftgröße (Pixel)</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="241"/>
+        <location filename="../qt/preferencesdialog.ui" line="238"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="248"/>
+        <location filename="../qt/preferencesdialog.ui" line="245"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sprache der Programmtexte.&lt;/p&gt;&lt;p&gt;Sie müssen die Anwendung neu starten, um die Änderungen zu übernehmen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="260"/>
+        <location filename="../qt/preferencesdialog.ui" line="257"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value will be ignored, since JPG only supports 8 bit precision.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file with appended postfix.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit or 16 bit (32 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 16 bit or 32 bit (8 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;The postfix will be ignored since all image channels will be saved to one file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert wird ignoriert, da JPG nur 8-Bit-Genauigkeit unterstützt.&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 8-Bit oder 16-Bit einnehmen (32-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;Einzige Ausnahme kann der Alphakanal sein:&lt;/p&gt;&lt;p&gt;Wenn sowohl Farb- als auch Alpha-Kanal ausgewählt sind und &amp;quot;Alpha an das Bild anhängen (nur bei PNG)&amp;quot; angewählt ist, dann wird Farbe + Alpha zu einem RGBA-Bild mit Qualität und Postfix vom Farbkanal gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 16-Bit oder 32-Bit einnehmen (8-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Der Postfix wird ignoriert, da alle Bildkanäle in einer Datei gespeichert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="263"/>
+        <location filename="../qt/preferencesdialog.ui" line="260"/>
         <source>Image Settings</source>
         <translation>Bildeinstellungen</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="284"/>
+        <location filename="../qt/preferencesdialog.ui" line="281"/>
         <source>These settings affect &quot;Save as JPG/PNG/EXR&quot; actions
  and saving animation frames.</source>
         <translation>Diese Einstellungen beeinflussen 
@@ -4287,68 +4290,68 @@ Leertaste - Pause</translation>
 und das Speichern der Animationsframes.</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="297"/>
+        <location filename="../qt/preferencesdialog.ui" line="294"/>
         <source>Z Buffer</source>
         <translation>Z Buffer</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="305"/>
-        <location filename="../qt/preferencesdialog.ui" line="324"/>
-        <location filename="../qt/preferencesdialog.ui" line="343"/>
+        <location filename="../qt/preferencesdialog.ui" line="302"/>
+        <location filename="../qt/preferencesdialog.ui" line="321"/>
+        <location filename="../qt/preferencesdialog.ui" line="340"/>
         <source>8 bit</source>
         <translation>8 bit</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="310"/>
-        <location filename="../qt/preferencesdialog.ui" line="329"/>
-        <location filename="../qt/preferencesdialog.ui" line="348"/>
+        <location filename="../qt/preferencesdialog.ui" line="307"/>
+        <location filename="../qt/preferencesdialog.ui" line="326"/>
+        <location filename="../qt/preferencesdialog.ui" line="345"/>
         <source>16 bit</source>
         <translation>16 bit</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="315"/>
-        <location filename="../qt/preferencesdialog.ui" line="334"/>
-        <location filename="../qt/preferencesdialog.ui" line="353"/>
+        <location filename="../qt/preferencesdialog.ui" line="312"/>
+        <location filename="../qt/preferencesdialog.ui" line="331"/>
+        <location filename="../qt/preferencesdialog.ui" line="350"/>
         <source>32 bit</source>
         <translation>32 bit</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="361"/>
+        <location filename="../qt/preferencesdialog.ui" line="358"/>
         <source>Alpha</source>
         <translation>Alpha</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="368"/>
+        <location filename="../qt/preferencesdialog.ui" line="365"/>
         <source>Quality</source>
         <translation>Qualität</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="382"/>
+        <location filename="../qt/preferencesdialog.ui" line="379"/>
         <source>Postfix</source>
         <translation>Postfix</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="396"/>
+        <location filename="../qt/preferencesdialog.ui" line="393"/>
         <source>Image Channel</source>
         <translation>Bildkanal</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="403"/>
+        <location filename="../qt/preferencesdialog.ui" line="400"/>
         <source>Color</source>
         <translation>Farbe</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="425"/>
+        <location filename="../qt/preferencesdialog.ui" line="422"/>
         <source>Misc Image Settings</source>
         <translation>Diverse Bildeinstellungen</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="487"/>
+        <location filename="../qt/preferencesdialog.ui" line="484"/>
         <source>Append alpha to image (only PNG)</source>
         <translation>Alpha an das Bild anhängen (nur bei PNG)</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="499"/>
+        <location filename="../qt/preferencesdialog.ui" line="496"/>
         <source>Clear thumbnail cache</source>
         <translation>Thumbnail Cache löschen</translation>
     </message>
@@ -4357,12 +4360,12 @@ und das Speichern der Animationsframes.</translation>
         <translation type="vanished">Bildqualität</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="451"/>
+        <location filename="../qt/preferencesdialog.ui" line="448"/>
         <source>JPEG quality:</source>
         <translation>JPEG Qualität:</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="162"/>
+        <location filename="../qt/preferencesdialog.ui" line="159"/>
         <source>System Look and Feel</source>
         <translation>Darstellung</translation>
     </message>
@@ -4372,27 +4375,27 @@ und das Speichern der Animationsframes.</translation>
         <translation>Programm Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="207"/>
+        <location filename="../qt/preferencesdialog.ui" line="204"/>
         <source>UI Style type</source>
         <translation>Oberfläche</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="217"/>
+        <location filename="../qt/preferencesdialog.ui" line="214"/>
         <source>UI Skin</source>
         <translation>Skin</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="189"/>
+        <location filename="../qt/preferencesdialog.ui" line="186"/>
         <source>normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="194"/>
+        <location filename="../qt/preferencesdialog.ui" line="191"/>
         <source>dark</source>
         <translation>Dunkel</translation>
     </message>
     <message>
-        <location filename="../qt/preferencesdialog.ui" line="199"/>
+        <location filename="../qt/preferencesdialog.ui" line="196"/>
         <source>light</source>
         <translation>Hell</translation>
     </message>
@@ -4415,98 +4418,122 @@ und das Speichern der Animationsframes.</translation>
 <context>
     <name>main</name>
     <message>
-        <location filename="../src/system.cpp" line="458"/>
+        <location filename="../src/command_line_interface.cpp" line="22"/>
         <source>Start program without GUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Starte das Programm ohne GUI.</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="460"/>
         <source>Set &lt;Mode&gt; of animation (flight / keyframe), default is flight.</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Setze &lt;Modus&gt; der Animation (flight / keyframe), Standardwert ist flight.</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="461"/>
+        <location filename="../src/command_line_interface.cpp" line="25"/>
         <source>MODE</source>
-        <translation type="unfinished"></translation>
+        <translation>MODUS</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="463"/>
+        <location filename="../src/command_line_interface.cpp" line="27"/>
         <source>Start rendering from frame number &lt;N&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Starte Rendern bei Frame Nummer &lt;N&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="464"/>
-        <location filename="../src/system.cpp" line="467"/>
-        <location filename="../src/system.cpp" line="483"/>
-        <location filename="../src/system.cpp" line="490"/>
+        <location filename="../src/command_line_interface.cpp" line="28"/>
+        <location filename="../src/command_line_interface.cpp" line="31"/>
+        <location filename="../src/command_line_interface.cpp" line="47"/>
+        <location filename="../src/command_line_interface.cpp" line="56"/>
         <source>N</source>
-        <translation type="unfinished"></translation>
+        <translation>N</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="466"/>
+        <location filename="../src/command_line_interface.cpp" line="30"/>
         <source>Stop rendering on frame number &lt;N&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Stoppe Rendern bei Frame Nummer &lt;N&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="469"/>
         <source>Override item &apos;&lt;key&gt;&apos; from settings file with new value &apos;&lt;value&gt;&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Überschreibe Parameter &apos;&lt;Schlüssel&gt;&apos; der Einstellungsdatei mit dem Wert &apos;&lt;Wert&gt;&apos;.</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="470"/>
+        <location filename="../src/command_line_interface.cpp" line="34"/>
         <source>KEY=VALUE</source>
-        <translation type="unfinished"></translation>
+        <translation>SCHLÜSSEL=WERT</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="472"/>
+        <location filename="../src/command_line_interface.cpp" line="36"/>
         <source>Image output format:
 jpg - JPEG format
 png - PNG format
 png16 - 16-bit PNG format
 png16alpha - 16-bit PNG with alpha channel format</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildausgabeformat:
+jpg - JPEG Format
+png - PNG Format
+png16 - 16-Bit PNG Format
+png16alpha - 16-Bit PNG mit Alpha-Kanal Format</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="477"/>
+        <location filename="../src/command_line_interface.cpp" line="41"/>
         <source>FORMAT</source>
-        <translation type="unfinished"></translation>
+        <translation>FORMAT</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="479"/>
+        <location filename="../src/command_line_interface.cpp" line="43"/>
         <source>Override image resolution.</source>
-        <translation type="unfinished"></translation>
+        <translation>Überschreibe Bildauflösung.</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="480"/>
+        <location filename="../src/command_line_interface.cpp" line="44"/>
         <source>WIDTHxHEIGHT</source>
-        <translation type="unfinished"></translation>
+        <translation>BREITExHÖHE</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="482"/>
+        <location filename="../src/command_line_interface.cpp" line="46"/>
         <source>Override frames per key parameter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Überschreibe Frames pro Keyframe Parameter.</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="485"/>
-        <source>Set application as a client connected to server of given Host address(Host can be of type IPv4, IPv6 and Domain name address).</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/command_line_interface.cpp" line="49"/>
+        <source>Set application as a server listening for clients.</source>
+        <translation>Setze Instanz als Server und horche auf Clients.</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="487"/>
-        <source>N.N.N.N</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/command_line_interface.cpp" line="51"/>
+        <source>Set application as a client connected to server of given Host address (Host can be of type IPv4, IPv6 and Domain name address).</source>
+        <translation>Setze Instanz als Client und verbinde mit dem Server an Host Adresse (Host kann als IPv4, IPv6 und Domain Namen Adresse angegeben werden).</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="489"/>
-        <source>Set network port number for Netrender (default 5555).</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/command_line_interface.cpp" line="58"/>
+        <source>Start program without ANSI colors, when execution on CLI.</source>
+        <translation>Starte Programm ohne ANSI Farben, wenn es auf der Befehlszeile ausgeführt wird.</translation>
     </message>
     <message>
-        <location filename="../src/system.cpp" line="491"/>
+        <location filename="../src/command_line_interface.cpp" line="59"/>
         <source>file with fractal settings (program also tries
 to find file in ./mandelbulber/settings directory)
-When settings_file is put as command argument then program will start in noGUI mode</source>
-        <translation type="unfinished"></translation>
+When settings_file is put as a command line argument then program will start in noGUI mode</source>
+        <translation>Datei mit Fraktal-Einstellungen (Programm versucht auch
+die Datei in ./mandelbulber/settings zu finden)
+Wenn Einstellungsdatei als Befehlszeilenargument angegeben wird dann wird das Programm in No-GUI Modus gestartet.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="53"/>
+        <source>N.N.N.N</source>
+        <translation>N.N.N.N</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="24"/>
+        <source>Set &lt;MODE&gt; of animation (flight / keyframe), default is flight.</source>
+        <translation>Setze &lt;MODUS&gt; der Animation (flight / keyframe), Standardwert ist flight.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="33"/>
+        <source>Override item &apos;&lt;KEY&gt;&apos; from settings file with new value &apos;&lt;value&gt;&apos;.</source>
+        <translation>Überschreibe Parameter &apos;&lt;SCHLÜSSEL&gt;&apos; der Einstellungsdatei mit dem Wert &apos;&lt;WERT&gt;&apos;.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="55"/>
+        <source>Set network port number for Netrender (default 5555).</source>
+        <translation>Setze Netzwerk Port Nummer für Netrender (Standardwert: 5555).</translation>
     </message>
 </context>
 </TS>
