@@ -1560,10 +1560,9 @@ void RenderWindow::slotPopulateToolbar()
 
 		mapPresetsFromExamples->setMapping(action, filename);
 		QApplication::connect(action, SIGNAL(triggered()), mapPresetsFromExamples, SLOT (map()));
-		QApplication::connect(mapPresetsFromExamples, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadPreset(QString)));
-
 		gApplication->processEvents();
 	}
+	QApplication::connect(mapPresetsFromExamples, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadPreset(QString)));
 	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) finished");
 }
 
