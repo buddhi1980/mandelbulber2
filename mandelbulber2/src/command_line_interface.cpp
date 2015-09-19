@@ -125,6 +125,19 @@ void cCommandLineInterface::ReadCLI (void)
 		}
 		cliData.nogui = true; systemData.noGui = true;
 		gNetRender->SetServer(gPar->Get<int>("netrender_server_local_port"));
+		QElapsedTimer timer;
+		timer.start();
+
+		if(systemData.noGui)
+		{
+			QTextStream out(stdout);
+			out << "NetRender - Waiting for clients\n";
+		}
+
+		while(timer.elapsed() < 5000)
+		{
+			gApplication->processEvents();
+		}
 	}
 	else if(cliData.host != "")
 	{
@@ -163,6 +176,7 @@ void cCommandLineInterface::ReadCLI (void)
 		else
 		{
 			WriteLog("Cannot load file!\n");
+			qCritical() << "\nSetting file " << filename << " not found\n";
 			parser.showHelp(-12);
 		}
 	}

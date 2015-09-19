@@ -23,7 +23,7 @@ cHeadless::~cHeadless()
 	// TODO Auto-generated destructor stub
 }
 
-void cHeadless::RenderStillImage(bool isNetRender)
+void cHeadless::RenderStillImage(bool isNetRenderClient)
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
@@ -37,7 +37,7 @@ void cHeadless::RenderStillImage(bool isNetRender)
 	renderJob->Init(cRenderJob::still, config);
 	renderJob->Execute();
 
-	if(!isNetRender)
+	if(!isNetRenderClient)
 	{
 		//TODO saving in different image formats
 		SaveImage(systemData.dataDirectory + "images/test.jpg", IMAGE_FILE_TYPE_JPG, image);

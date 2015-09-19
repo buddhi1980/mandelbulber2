@@ -80,6 +80,13 @@ void CNetRender::SetServer(qint32 portNo)
 		connect(server, SIGNAL(newConnection()), this, SLOT(HandleNewConnection()));
 		deviceType = netRender_SERVER;
 		WriteLog("NetRender - Server Setup on localhost, port: " + QString::number(portNo));
+
+		if(systemData.noGui)
+		{
+			QTextStream out(stdout);
+			out << "NetRender - Server Setup on localhost, port: " + QString::number(portNo) + "\n";
+		}
+
 		status = netRender_NEW;
 		emit NewStatusServer();
 	}
@@ -374,6 +381,13 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			if(*(qint32*)inMsg->payload.data() == version)
 			{
 				WriteLog("NetRender - version matches (" + QString::number(version) + "), connection established");
+
+				if(systemData.noGui)
+				{
+					QTextStream out(stdout);
+					out << "NetRender - version matches (" + QString::number(version) + "), connection established\n";
+				}
+
 				// server version matches, send worker count
 				outMsg.command = netRender_WORKER;
 				QDataStream stream(&outMsg.payload, QIODevice::WriteOnly);
@@ -550,6 +564,15 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				if(clients[index].status == netRender_NEW) clients[index].status = netRender_READY;
 				WriteLog("NetRender - new Client #" + QString::number(index) + "(" + clients[index].name + " - " + clients[index].socket->peerAddress().toString() + ")");
 				emit ClientsChanged(index);
+
+				if(systemData.noGui)
+				{
+					QTextStream out(stdout);
+					out << "NetRender - Client connected: Name: " + clients[index].name;
+					out << " IP: " + clients[index].socket->peerAddress().toString();
+					out << " CPUs: " + QString::number(clients[index].clientWorkerCount) +  "\n";
+				}
+
 				break;
 			}
 			case netRender_DATA:

@@ -115,7 +115,10 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 			image->UpdatePreview();
 			if(hasQWidget) imageWidget->update();
 		}
+	}
 
+	if(config.UseNetRender())
+	{
 		//connect signals
 		if(gNetRender->IsServer())
 		{
