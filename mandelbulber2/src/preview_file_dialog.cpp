@@ -28,6 +28,7 @@
 #include "initparameters.hpp"
 #include "thumbnail_widget.h"
 #include "progress_text.hpp"
+#include "global_data.hpp"
 
 PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 {
@@ -52,11 +53,15 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
   progressBar->setAlignment(Qt::AlignCenter);
   progressBar->hide();
 
+	presetAddButton = new QPushButton;
+	presetAddButton->setText(tr("Add to presets"));
+
 	vboxlayout->addWidget(checkbox);
 	vboxlayout->addWidget(preview);
 	vboxlayout->addWidget(thumbWidget);
 	vboxlayout->addWidget(progressBar);
 	vboxlayout->addWidget(info);
+	vboxlayout->addWidget(presetAddButton);
 
 	thumbWidget->show();
 	vboxlayout -> addStretch();
@@ -66,6 +71,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	gridlayout->addLayout(vboxlayout, 1, 3, 3, 1);
 
 	connect(this, SIGNAL(currentChanged(const QString&)), this, SLOT(OnCurrentChanged(const QString&)));
+	connect(presetAddButton, SIGNAL(clicked()), this, SLOT(OnPresetAdd()));
 	connect(thumbWidget, SIGNAL(thumbnailRendered()), this, SLOT(slotHideProgressBar()));
 }
 
@@ -75,10 +81,18 @@ PreviewFileDialog::~PreviewFileDialog()
 	delete preview;
 	delete info;
 	delete progressBar;
+	delete presetAddButton;
 }
 
-void PreviewFileDialog::OnCurrentChanged(const QString & filename)
+void PreviewFileDialog::OnPresetAdd()
 {
+	fcopy(filename, systemData.dataDirectory + "toolbar/" + QFileInfo(filename).fileName());
+	gMainInterface->mainWindow->slotPopulateToolbar();
+}
+
+void PreviewFileDialog::OnCurrentChanged(const QString & _filename)
+{
+	filename = _filename;
 	QPixmap pixmap;
 	if (QFileInfo(filename).suffix() == QString("fract"))
 	{
