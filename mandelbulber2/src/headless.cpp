@@ -54,24 +54,36 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 
 	//TODO saving in different image formats
 
+	QFileInfo fi(filename);
+	filename = fi.path() + QDir::separator() + fi.baseName();
+
+	QString ext;
+
 	if(imageFileFormat == "jpg")
 	{
-		SaveImage(filename, IMAGE_FILE_TYPE_JPG, image);
+		ext = ".jpg";
+		SaveImage(filename + ext, IMAGE_FILE_TYPE_JPG, image);
 	}
 	else if(imageFileFormat == "png16")
 	{
-		SaveImage(filename, IMAGE_FILE_TYPE_PNG, image);
+		ext = ".png";
+		SaveImage(filename + ext, IMAGE_FILE_TYPE_PNG, image);
 	}
 	else if(imageFileFormat == "png16")
 	{
+		ext = ".png";
 		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
-		SavePNG(filename, image, saveImageChannel, false);
+		SavePNG(filename + ext, image, saveImageChannel, false);
 	}
 	else if(imageFileFormat == "png16alpha")
 	{
+		ext = ".png";
 		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
-		SavePNG(filename, image, saveImageChannel, true);
+		SavePNG(filename + ext, image, saveImageChannel, true);
 	}
+
+	QTextStream out(stdout);
+	out << "Image saved to: " << filename << ext << "\n";
 
 	delete renderJob;
 	delete image;
