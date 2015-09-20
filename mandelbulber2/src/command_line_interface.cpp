@@ -278,7 +278,7 @@ void cCommandLineInterface::ReadCLI (void)
 		{
 			gPar->Set("flight_first_to_render", startFrame);
 			gPar->Set("flight_last_to_render", endFrame);
-			if(cliData.imageFileFormat != "") gPar->Set("anim_flight_dir", cliData.outputText);
+			if(cliData.outputText != "") gPar->Set("anim_flight_dir", cliData.outputText);
 			cliData.nogui = true; systemData.noGui = true;
 			cliTODO = modeFlight;
 			return;
@@ -287,7 +287,7 @@ void cCommandLineInterface::ReadCLI (void)
 		{
 			gPar->Set("keyframe_first_to_render", startFrame);
 			gPar->Set("keyframe_last_to_render", endFrame);
-			if(cliData.imageFileFormat != "") gPar->Set("anim_keyframe_dir", cliData.outputText);
+			if(cliData.outputText != "") gPar->Set("anim_keyframe_dir", cliData.outputText);
 			cliData.nogui = true; systemData.noGui = true;
 			cliTODO = modeKeyframe;
 			return;
@@ -307,7 +307,7 @@ void cCommandLineInterface::ReadCLI (void)
 
 	if(cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight)
 	{
-		//creatinf output filename if it's not specified
+		//creating output filename if it's not specified
 		if(cliData.outputText == "")
 		{
 			cliData.outputText = gPar->Get<QString>("default_image_path") + QDir::separator();
@@ -317,7 +317,7 @@ void cCommandLineInterface::ReadCLI (void)
 		return;
 	}
 
-	// TODO handle nogui overrideParametersText
+	// TODO handle overrideParametersText
 	cliTODO = modeBootOnly;
 }
 
