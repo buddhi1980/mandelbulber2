@@ -77,6 +77,7 @@ enum enumFractalFormula
   mandelbulb5 = 52,
   mandelbox103 = 53,
   quaternion104 = 54,
+  mengerSponge105 = 55,
 };
 
 enum enumDEType

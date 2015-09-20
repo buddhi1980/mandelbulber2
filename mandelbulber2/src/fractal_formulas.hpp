@@ -83,6 +83,6 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &fol
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sMandelbulbAux &aux);
 void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal,  sMandelboxAux &aux);
 void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal);
-
+void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sIFSAux &aux);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

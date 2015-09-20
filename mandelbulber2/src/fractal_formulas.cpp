@@ -1699,6 +1699,382 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
     }
   }
 }
+void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sIFSAux &aux)
+{
+    CVector3 temp = z;
+    //double temp2 = aux.mboxDE;
+    CVector3 tempA = z * 0;
+    CVector3 tempB = z * 0;
+    CVector3 zA = z * 0;
+    CVector3 zB = z * 0;
+    //boxFold1
+  if (fractal->mengerSponge105.boxFold1Enabled && i >= fractal->mengerSponge105.boxFold1StartIterations && i < fractal->mengerSponge105.boxFold1StopIterations)
+  {
+    temp = z;
+    if (z.x > fractal->mengerSponge105.boxFold1FoldingLimit) z.x = fractal->mengerSponge105.boxFold1FoldingValue - z.x;
+    else if (z.x < -fractal->mengerSponge105.boxFold1FoldingLimit) z.x = -fractal->mengerSponge105.boxFold1FoldingValue - z.x;
+    if (z.y > fractal->mengerSponge105.boxFold1FoldingLimit) z.y = fractal->mengerSponge105.boxFold1FoldingValue - z.y;
+    else if (z.y < -fractal->mengerSponge105.boxFold1FoldingLimit) z.y = -fractal->mengerSponge105.boxFold1FoldingValue - z.y;
+    if (z.z > fractal->mengerSponge105.boxFold1FoldingLimit) z.z = fractal->mengerSponge105.boxFold1FoldingValue - z.z;
+    else if (z.z < -fractal->mengerSponge105.boxFold1FoldingLimit) z.z = -fractal->mengerSponge105.boxFold1FoldingValue - z.z;
+    //weight function
+    if (fractal->mengerSponge105.boxFold1WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.boxFold1Weight);
+    }
+  }
+  // sphericalFold1
+  if (fractal->mengerSponge105.sphericalFold1Enabled && i >= fractal->mengerSponge105.sphericalFold1StartIterations && i < fractal->mengerSponge105.sphericalFold1StopIterations)
+  {
+    temp = z;
+    double r2 = z.Dot(z);
+    if (r2 < fractal->mengerSponge105.sphericalFold1mR2)
+      {
+      z *= fractal->mengerSponge105.sphericalFold1MboxFactor1;
+      //aux.mboxDE *= fractal->mengerSponge105.sphericalFold1MboxFactor1;
+    }
+    else if (r2 < fractal->mengerSponge105.sphericalFold1fR2)
+    {
+      double tglad_factor2 = fractal->mengerSponge105.sphericalFold1fR2 / r2;
+      z *= tglad_factor2;
+      //aux.mboxDE *= tglad_factor2;
+    }
+    //weight function
+      if (fractal->mengerSponge105.sphericalFold1WeightEnabled)
+      {
+        z = SmoothCVector(temp, z, fractal-> mengerSponge105.sphericalFold1Weight);
+       // double nkaux = 1.0 - ( fractal-> mengerSponge105.sphericalFold1Weight);
+       // aux.mboxDE = ( temp2 * nkaux )  + ( aux.mboxDE  *  fractal-> mengerSponge105.sphericalFold1Weight);
+      }
+  }
+  //scale; 1
+  if (fractal->mengerSponge105.scale1Enabled && i >= fractal->mengerSponge105.scale1StartIterations && i < fractal->mengerSponge105.scale1StopIterations)
+  {
+    temp = z;
+    z = z * fractal->mengerSponge105.scale1;
+    //aux.mboxDE = aux.mboxDE * fabs(fractal->mengerSponge105.scale1) + 1.0;
+  }
+    //mainRotation1
+  if (fractal->mengerSponge105.mainRotation1Enabled && i >= fractal->mengerSponge105.mainRotation1StartIterations && i < fractal->mengerSponge105.mainRotation1StopIterations)
+  {
+    temp = z;
+    z = fractal->mengerSponge105.mainRot1.RotateVector(z);
+    if (fractal->mengerSponge105.mainRotation1WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.mainRotation1Weight);
+    }
+  }
+    //(fabs( z + const1A.) * const1.B) + z * constC.;
+  if (fractal->mengerSponge105.fabsAddConstant1Enabled && i >= fractal->mengerSponge105.fabsAddConstant1StartIterations
+      && i < fractal->mengerSponge105.fabsAddConstant1StopIterations)
+  {
+    temp = z;
+    z += fractal->mengerSponge105.fabsAddConstant1A;
+    if (fractal->mengerSponge105.fabsAddConstant1Enabledx)
+    {
+      z.x = fabs(z.x);
+    }
+    if (fractal->mengerSponge105.fabsAddConstant1Enabledy)
+    {
+      z.y = fabs(z.y);
+    }
+    if (fractal->mengerSponge105.fabsAddConstant1Enabledz)
+    {
+      z.z = fabs(z.z);
+    }
+    z = ( z * fractal->mengerSponge105.fabsAddConstant1B ) + ( temp * fractal->mengerSponge105.fabsAddConstant1C );
+    //weight function
+    if (fractal->mengerSponge105.fabsAddConstant1WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.fabsAddConstant1Weight);
+    }
+  }
+      // z = z + ( c * const.); 1
+  if (fractal->mengerSponge105.constantMultiplier1Enabled && i >= fractal->mengerSponge105.constantMultiplier1StartIterations && i < fractal->mengerSponge105.constantMultiplier1StopIterations)
+  {
+    temp = z;
+    z += c * fractal->mengerSponge105.constantMultiplier1Vect;
+    //weight function
+    if (fractal->mengerSponge105.constantMultiplier1WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.constantMultiplier1Weight);
+    }
+  }
+  // z = z + const; 1
+  if (fractal->mengerSponge105.additionConstant1Enabled && i >= fractal->mengerSponge105.additionConstant1StartIterations && i < fractal->mengerSponge105.additionConstant1StopIterations)
+  {
+    temp = z;
+    z += fractal->mengerSponge105.additionConstant1;
+    //weight function
+    if (fractal->mengerSponge105.additionConstant1WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.additionConstant1Weight);
+    }
+  }
+  //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 1
+  if (fractal->mengerSponge105.fabsFormulaABCD1Enabled && i >= fractal->mengerSponge105.fabsFormulaABCD1StartIterations
+      && i < fractal->mengerSponge105.fabsFormulaABCD1StopIterations)
+  {
+    temp = z;
+    if (fractal->mengerSponge105.fabsFormulaABCD1EnabledAx)
+    {
+      tempA.x = fabs(z.x + fractal->mengerSponge105.fabsFormulaABCD1A.x);
+    }
+    if (fractal->mengerSponge105.fabsFormulaABCD1EnabledBx)
+    {
+      tempB.x = fabs(z.x - fractal->mengerSponge105.fabsFormulaABCD1B.x);
+    }
+    z.x = tempA.x - tempB.x + (z.x * fractal->mengerSponge105.fabsFormulaABCD1C.x + fractal->mengerSponge105.fabsFormulaABCD1D.x);
+    if (fractal->mengerSponge105.fabsFormulaABCD1EnabledAy)
+    {
+      tempA.y = fabs(z.y + fractal->mengerSponge105.fabsFormulaABCD1A.y);
+    }
+    if (fractal->mengerSponge105.fabsFormulaABCD1EnabledBy)
+    {
+      tempB.y = fabs(z.y - fractal->mengerSponge105.fabsFormulaABCD1B.y);
+    }
+    z.y = tempA.y - tempB.y + (z.y * fractal->mengerSponge105.fabsFormulaABCD1C.y + fractal->mengerSponge105.fabsFormulaABCD1D.y);
+    if (fractal->mengerSponge105.fabsFormulaABCD1EnabledAz)
+    {
+      tempA.z = fabs(z.z + fractal->mengerSponge105.fabsFormulaABCD1A.z);
+    }
+    if (fractal->mengerSponge105.fabsFormulaABCD1EnabledBz)
+    {
+      tempB.z = fabs(z.z - fractal->mengerSponge105.fabsFormulaABCD1B.z);
+    }
+    z.z = tempA.z - tempB.z + (z.z * fractal->mengerSponge105.fabsFormulaABCD1C.z + fractal->mengerSponge105.fabsFormulaABCD1D.z);
+    //weight function
+    if (fractal->mengerSponge105.fabsFormulaABCD1WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.fabsFormulaABCD1Weight);
+    }
+  }
+  //MAIN FORMULA
+  //MENGER SPONGE
+  if (fractal->mengerSponge105.mengerSponge1Enabled && i >= fractal->mengerSponge105.mengerSponge1StartIterations && i < fractal->mengerSponge105.mengerSponge1StopIterations)
+  {
+    temp = z;
+    double tempMS;
+    z.x = fabs(z.x);
+    z.y = fabs(z.y);
+    z.z = fabs(z.z);
+    if (z.x - z.y < 0)
+    {
+            tempMS = z.y;
+            z.y = z.x;
+            z.x = tempMS;
+    }
+    if (z.x - z.z < 0)
+    {
+            tempMS = z.z;
+            z.z = z.x;
+            z.x = tempMS;
+    }
+    if (z.y - z.z < 0)
+    {
+            tempMS = z.z;
+            z.z = z.y;
+            z.y = tempMS;
+    }
+    z *= 3.0  * fractal->mengerSponge105.mengerSponge1ConstantZ;
+    z.x -= 2.0 * fractal->mengerSponge105.mengerSponge1FactorConstantVect.x;
+    z.y -= 2.0 * fractal->mengerSponge105.mengerSponge1FactorConstantVect.y;
+    if (z.z > 1.0) z.z -= 2.0 * fractal->mengerSponge105.mengerSponge1FactorConstantVect.z;
+    aux.ifsDE *= 3.0 * fractal->mengerSponge105.mengerSponge1ConstantZ;
+    //* fractal->mengerSponge105.mengerSponge1FactorConstantVect.z
+    //weight function
+    if (fractal->mengerSponge105.mengerSponge1WeightEnabled)
+    {
+    z = SmoothCVector(temp, z, fractal-> mengerSponge105.mengerSponge1Weight);
+    }
+  }
+    //boxFold; 2
+  if (fractal->mengerSponge105.boxFold2Enabled && i >= fractal->mengerSponge105.boxFold2StartIterations && i < fractal->mengerSponge105.boxFold2StopIterations)
+  {
+    temp = z;
+    if (z.x > fractal->mengerSponge105.boxFold2FoldingLimit) z.x = fractal->mengerSponge105.boxFold2FoldingValue - z.x;
+    else if (z.x < -fractal->mengerSponge105.boxFold2FoldingLimit) z.x = -fractal->mengerSponge105.boxFold2FoldingValue - z.x;
+    if (z.y > fractal->mengerSponge105.boxFold2FoldingLimit) z.y = fractal->mengerSponge105.boxFold2FoldingValue - z.y;
+    else if (z.y < -fractal->mengerSponge105.boxFold2FoldingLimit) z.y = -fractal->mengerSponge105.boxFold2FoldingValue - z.y;
+    if (z.z > fractal->mengerSponge105.boxFold2FoldingLimit) z.z = fractal->mengerSponge105.boxFold2FoldingValue - z.z;
+    else if (z.z < -fractal->mengerSponge105.boxFold2FoldingLimit) z.z = -fractal->mengerSponge105.boxFold2FoldingValue - z.z;
+    //weight function
+    if (fractal->mengerSponge105.boxFold2WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.boxFold2Weight);
+    }
+  }
+  // sphericalFold2
+  if (fractal->mengerSponge105.sphericalFold2Enabled && i >= fractal->mengerSponge105.sphericalFold2StartIterations && i < fractal->mengerSponge105.sphericalFold2StopIterations)
+  {
+    temp = z;
+    //temp2 = aux.mboxDE;
+    double r2 = z.Dot(z);
+    if (r2 < fractal->mengerSponge105.sphericalFold2mR2)
+      {
+      z *= fractal->mengerSponge105.sphericalFold2MboxFactor1;
+      //aux.mboxDE *= fractal->mengerSponge105.sphericalFold2MboxFactor1;
+    }
+    else if (r2 < fractal->mengerSponge105.sphericalFold2fR2)
+    {
+      double tglad_factor2 = fractal->mengerSponge105.sphericalFold2fR2 / r2;
+      z *= tglad_factor2;
+      //aux.mboxDE *= tglad_factor2;
+    }
+    //weight function
+    if (fractal->mengerSponge105.sphericalFold2WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.sphericalFold2Weight);
+      //aux.mboxDE = temp2 + ( aux.mboxDE - temp2) * ( fractal-> mengerSponge105.sphericalFold2Weight);
+      //double nkaux = 1.0 - ( fractal-> mengerSponge105.sphericalFold2Weight);
+      //aux.mboxDE = ( temp2 * nkaux )  + ( aux.mboxDE  *  fractal-> mengerSponge105.sphericalFold2Weight);
+    }
+  }
+  //scale; 2
+  if (fractal->mengerSponge105.scale2Enabled && i >= fractal->mengerSponge105.scale2StartIterations && i < fractal->mengerSponge105.scale2StopIterations)
+  {
+    z = z * fractal->mengerSponge105.scale2;
+    //aux.mboxDE = aux.mboxDE * fabs(fractal->mengerSponge105.scale2) + 1.0;
+  }
+  //mainRotation2
+  if (fractal->mengerSponge105.mainRotation2Enabled && i >= fractal->mengerSponge105.mainRotation2StartIterations && i < fractal->mengerSponge105.mainRotation2StopIterations)
+  {
+    temp = z;
+    z = fractal->mengerSponge105.mainRot2.RotateVector(z);
+    //weight function
+    if (fractal->mengerSponge105.mainRotation2WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.mainRotation2Weight);
+    }
+  }
+    // z = z + c * const; 2
+  if (fractal->mengerSponge105.constantMultiplier2Enabled && i >= fractal->mengerSponge105.constantMultiplier2StartIterations && i < fractal->mengerSponge105.constantMultiplier2StopIterations)
+  {
+    temp = z;
+    z += c * fractal->mengerSponge105.constantMultiplier2Vect;
+    //weight function
+    if (fractal->mengerSponge105.constantMultiplier2WeightEnabled)
+    {
+    z = SmoothCVector(temp, z, fractal-> mengerSponge105.constantMultiplier2Weight);
+    }
+  }
+  // z = z + const; 2
+  if (fractal->mengerSponge105.additionConstant2Enabled && i >= fractal->mengerSponge105.additionConstant2StartIterations && i < fractal->mengerSponge105.additionConstant2StopIterations)
+  {
+    temp = z;
+    z += fractal->mengerSponge105.additionConstant2;
+    //weight function
+    if (fractal->mengerSponge105.additionConstant2WeightEnabled)
+    {
+    z = SmoothCVector(temp, z, fractal-> mengerSponge105.additionConstant2Weight);
+    }
+  }
+  //MENGER SPONGE
+  if (fractal->mengerSponge105.mengerSponge2Enabled && i >= fractal->mengerSponge105.mengerSponge2StartIterations && i < fractal->mengerSponge105.mengerSponge2StopIterations)
+  {
+    temp = z;
+    double tempMS;
+    z.x = fabs(z.x);
+    z.y = fabs(z.y);
+    z.z = fabs(z.z);
+    if (z.x - z.y < 0)
+    {
+            tempMS = z.y;
+            z.y = z.x;
+            z.x = tempMS;
+    }
+    if (z.x - z.z < 0)
+    {
+            tempMS = z.z;
+            z.z = z.x;
+            z.x = tempMS;
+    }
+    if (z.y - z.z < 0)
+    {
+            tempMS = z.z;
+            z.z = z.y;
+            z.y = tempMS;
+    }
+    z *= 3.0 * fractal->mengerSponge105.mengerSponge2ConstantZ;
+    z.x -= 2.0 * fractal->mengerSponge105.mengerSponge2FactorConstantVect.x;
+    z.y -= 2.0 * fractal->mengerSponge105.mengerSponge2FactorConstantVect.y;
+    if (z.z > 1.0) z.z -= 2.0 * fractal->mengerSponge105.mengerSponge2FactorConstantVect.z;
+    aux.ifsDE *= 3.0 * fractal->mengerSponge105.mengerSponge2ConstantZ;
+    //weight function
+    if (fractal->mengerSponge105.mengerSponge2WeightEnabled)
+    {
+    z = SmoothCVector(temp, z, fractal-> mengerSponge105.mengerSponge2Weight);
+    }
+  }
+  //mainRotation; 3
+  if (fractal->mengerSponge105.mainRotation3Enabled && i >= fractal->mengerSponge105.mainRotation3StartIterations && i < fractal->mengerSponge105.mainRotation3StopIterations)
+  {
+    temp = z;
+    z = fractal->mengerSponge105.mainRot3.RotateVector(z);
+    //weight function
+    if (fractal->mengerSponge105.mainRotation3WeightEnabled)
+    {
+    z = SmoothCVector(temp, z, fractal-> mengerSponge105.mainRotation3Weight);
+    }
+  }
+  //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
+  if (fractal->mengerSponge105.fabsFormulaABCD2Enabled && i >= fractal->mengerSponge105.fabsFormulaABCD2StartIterations
+      && i < fractal->mengerSponge105.fabsFormulaABCD2StopIterations)
+  {
+    temp = z;
+    if (fractal->mengerSponge105.fabsFormulaABCD2EnabledAx)
+    {
+      tempA.x = fabs(z.x + fractal->mengerSponge105.fabsFormulaABCD2A.x);
+    }
+    if (fractal->mengerSponge105.fabsFormulaABCD2EnabledBx)
+    {
+      tempB.x = fabs(z.x - fractal->mengerSponge105.fabsFormulaABCD2B.x);
+    }
+    z.x = tempA.x - tempB.x + (z.x * fractal->mengerSponge105.fabsFormulaABCD2C.x + fractal->mengerSponge105.fabsFormulaABCD2D.x);
+    if (fractal->mengerSponge105.fabsFormulaABCD2EnabledAy)
+    {
+      tempA.y = fabs(z.y + fractal->mengerSponge105.fabsFormulaABCD2A.y);
+    }
+    if (fractal->mengerSponge105.fabsFormulaABCD2EnabledBy)
+    {
+      tempB.y = fabs(z.y - fractal->mengerSponge105.fabsFormulaABCD2B.y);
+    }
+    z.y = tempA.y - tempB.y + (z.y * fractal->mengerSponge105.fabsFormulaABCD2C.y + fractal->mengerSponge105.fabsFormulaABCD2D.y);
+    if (fractal->mengerSponge105.fabsFormulaABCD2EnabledAz)
+    {
+      tempA.z = fabs(z.z + fractal->mengerSponge105.fabsFormulaABCD2A.z);
+    }
+    if (fractal->mengerSponge105.fabsFormulaABCD2EnabledBz)
+    {
+      tempB.z = fabs(z.z - fractal->mengerSponge105.fabsFormulaABCD2B.z);
+    }
+    z.z = tempA.z - tempB.z + (z.z * fractal->mengerSponge105.fabsFormulaABCD2C.z + fractal->mengerSponge105.fabsFormulaABCD2D.z);
+    //weight function
+    if (fractal->mengerSponge105.fabsFormulaABCD2WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.fabsFormulaABCD2Weight);
+    }
+  }
+  // Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);1
+  if (fractal->mengerSponge105.iterationWeight1Enabled )
+  {
+    temp = z;
+    if ( i== fractal->mengerSponge105.iterationWeight1IterationA)
+    {
+      zA = z;
+    }
+    if (i == (fractal->mengerSponge105.iterationWeight1IterationB))
+    {
+      zB = z;
+    }
+    z = (z * fractal->mengerSponge105.iterationWeight1ConstantZ) + (zA * fractal->mengerSponge105.iterationWeight1ConstantA) + ( zB * fractal->mengerSponge105.iterationWeight1ConstantB);
+    //weight function
+    if (fractal->mengerSponge105.iterationWeight1WeightEnabled)
+    {
+    z = SmoothCVector(temp, z, fractal-> mengerSponge105.iterationWeight1Weight);
+    }
+  }
+}
 
 
 
