@@ -24,6 +24,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "fractparams.hpp"
+#include "common_math.h"
 
 cSSAOWorker::cSSAOWorker(const cParamRender *_params, sThreadData *_threadData, const sRenderData *_data, cImage *_image)
 {
@@ -124,8 +125,18 @@ void cSSAOWorker::doWork()
 
 				for (int angle = 0; angle < quality; angle++)
 				{
-					double ca = cosine[angle];
-					double sa = sine[angle];
+					double ca, sa;
+					if(params->SSAO_random_mode)
+					{
+						double angle = Random(62831) / 10000.0;
+						ca = cos(angle);
+						sa = sin(angle);
+					}
+					else
+					{
+						ca = cosine[angle];
+						sa = sine[angle];
+					}
 
 					double max_diff = -1e50;
 

@@ -110,6 +110,7 @@ public:
 	bool raytracedReflections;
 	bool shadow; //enable shadows
 	bool slowShading; //enable fake gradient calculation for shading
+	bool SSAO_random_mode;
 	bool texturedBackground; //enable testured background
 	bool volumetricLightEnabled[5];
 	bool volumetricLightAnyEnabled;

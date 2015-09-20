@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1600</width>
-    <height>1000</height>
+    <height>1171</height>
    </rect>
   </property>
   <property name="font">
@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>1021</width>
-           <height>465</height>
+           <height>616</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -1210,7 +1210,7 @@
           <x>0</x>
           <y>0</y>
           <width>174</width>
-          <height>165</height>
+          <height>239</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -2863,8 +2863,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>129</height>
+          <width>353</width>
+          <height>273</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2932,9 +2932,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>291</width>
-                  <height>702</height>
+                  <y>-140</y>
+                  <width>303</width>
+                  <height>722</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -3537,6 +3537,22 @@ to target:</string>
                      </layout>
                     </item>
                     <item>
+                     <widget class="MyCheckBox" name="checkBox_SSAO_random_mode">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables random directions of ray vectors&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                      <property name="text">
+                       <string>SSAO random mode</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
                      <widget class="QFrame" name="frame_lightmap_texture">
                       <property name="enabled">
                        <bool>false</bool>
@@ -4119,8 +4135,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>227</width>
-                  <height>174</height>
+                  <width>317</width>
+                  <height>259</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -4447,7 +4463,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>196</width>
+                  <width>303</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5287,8 +5303,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>273</width>
-                  <height>202</height>
+                  <width>317</width>
+                  <height>259</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5551,7 +5567,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>265</width>
+                  <width>303</width>
                   <height>1248</height>
                  </rect>
                 </property>
@@ -8415,7 +8431,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9066,7 +9082,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9711,7 +9727,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -10360,7 +10376,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>210</width>
+                  <width>289</width>
                   <height>482</height>
                  </rect>
                 </property>
@@ -11603,7 +11619,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
+                  <width>289</width>
                   <height>354</height>
                  </rect>
                 </property>
@@ -12147,7 +12163,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-431</y>
+          <y>0</y>
           <width>339</width>
           <height>818</height>
          </rect>
@@ -13519,7 +13535,7 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>224</width>
+                  <width>341</width>
                   <height>291</height>
                  </rect>
                 </property>
@@ -15178,7 +15194,7 @@ and water):</string>
    <property name="icon">
     <iconset theme="list-add" resource="icons.qrc">
      <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
-   </property> 
+   </property>
    <property name="text">
     <string>Add Settings to Toolbar</string>
    </property>
@@ -15190,7 +15206,7 @@ and water):</string>
    <property name="icon">
     <iconset theme="list-remove" resource="icons.qrc">
      <normaloff>:/system/icons/list-remove.svg</normaloff>:/system/icons/list-remove.svg</iconset>
-   </property> 
+   </property>
    <property name="text">
     <string>Remove Settings from Toolbar</string>
    </property>

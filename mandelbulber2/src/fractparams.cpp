@@ -111,6 +111,7 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 	slowShading = container->Get<bool>("slow_shading");
 	smoothness = container->Get<double>("smoothness");
 	specular = container->Get<double>("specular");
+	SSAO_random_mode = container->Get<bool>("SSAO_random_mode");
 	target = container->Get<CVector3>("target");
 	target = container->Get<CVector3>("target");
 	texturedBackground = container->Get<bool>("textured_background");
