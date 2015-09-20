@@ -258,6 +258,10 @@ void cCommandLineInterface::ReadCLI (void)
 			parser.showHelp(-15);
 		}
 	}
+	else
+	{
+		cliData.imageFileFormat = "jpg";
+	}
 
 	// animation rendering
 	if(cliData.startFrameText != "" || cliData.endFrameText != "")
@@ -301,10 +305,11 @@ void cCommandLineInterface::ReadCLI (void)
 
 	if(cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight)
 	{
-		if(cliData.imageFileFormat == "")
+		//creatinf output filename if it's not specified
+		if(cliData.outputText == "")
 		{
-			WriteLog("You have to specify an image file format");
-			parser.showHelp(-19);
+			cliData.outputText = gPar->Get<QString>("default_image_path") + QDir::separator();
+			cliData.outputText += QFileInfo(systemData.lastSettingsFile).completeBaseName();
 		}
 		cliTODO = modeStill;
 		return;

@@ -1156,7 +1156,6 @@ void SaveImage(QString filename, enumImageFileType filetype, cImage *image)
 	}
 	QFileInfo fi(filename);
 	QString fileWithoutExtension = fi.path() + QDir::separator() + fi.baseName();
-	qDebug() << fileWithoutExtension;
 	return SaveImage(fileWithoutExtension, filetype, image, imageConfig);
 }
 
