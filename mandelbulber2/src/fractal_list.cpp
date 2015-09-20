@@ -57,4 +57,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("MsltoeSym2", "msltoesym2", msltoesym2, deltaDE));
   fractalList->append(sFractalDescription("Mandelbox - extended", "mandelbox103", mandelbox103, analitycDE));
   fractalList->append(sFractalDescription("Quaternion - extended", "quaternion104", quaternion104, deltaDE));
+  fractalList->append(sFractalDescription("Menger Sponge - extended", "menger_sponge105", mengerSponge105, analitycDE));
+
 }
