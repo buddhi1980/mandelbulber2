@@ -18,6 +18,8 @@ packagesExist(IlmBase) {
 	DEFINES += USE_EXR
 }
 
+DEFINES += QT_MESSAGELOGCONTEXT
+
 TARGET = mandelbulber2 
 TEMPLATE = app
 

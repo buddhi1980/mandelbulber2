@@ -126,6 +126,7 @@ bool InitSystem(void)
 
 // SIGWINCH is called when the window is resized.
 void handle_winch(int sig){
+	(void)sig;
 #ifndef WIN32
 	signal(SIGWINCH, SIG_IGN);
 	struct winsize w;
@@ -363,15 +364,15 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
         text = QString("Debug: ") + QString(localMsg.constData());
         break;
     case QtWarningMsg:
-        fprintf(stderr, "Warning: %s\n(%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        fprintf(stderr, "Warning: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file, context.line, context.function);
         text = QString("Warning: ") + QString(localMsg.constData()) + " (" + context.file + ":" + QString::number(context.line) + ", " + context.function;
         break;
     case QtCriticalMsg:
-        fprintf(stderr, "Critical: %s\n(%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        fprintf(stderr, "Critical: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file, context.line, context.function);
         text = QString("Critical: ") + QString(localMsg.constData()) + " (" + context.file + ":" + QString::number(context.line) + ", " + context.function;
         break;
     case QtFatalMsg:
-        fprintf(stderr, "Fatal: %s\n(%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+        fprintf(stderr, "Fatal: %s\n(%s:%u, %s)\n\n", localMsg.constData(), context.file, context.line, context.function);
         text = QString("Fatal: ") + QString(localMsg.constData()) + " (" + context.file + ":" + QString::number(context.line) + ", " + context.function;
         abort();
     }

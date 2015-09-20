@@ -22,6 +22,7 @@
 
 #include "error_message.hpp"
 #include <QMessageBox>
+#include "headless.h"
 
 void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidget *parent)
 {
@@ -64,6 +65,25 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 		}
 		messageBox->exec();
 		delete messageBox;
+	}
+	else
+	{
+		QTextStream out(stdout);
+		QString header;
+		if (messageType == warningMessage)
+		{
+			header = cHeadless::colorize((QObject::tr("Mandelbulber warning: ")), cHeadless::ansiMagenta, cHeadless::noExplicitColor, true);
+		}
+		else if (messageType == errorMessage)
+		{
+			header = cHeadless::colorize((QObject::tr("Mandelbulber error: ")), cHeadless::ansiRed, cHeadless::noExplicitColor, true);
+		}
+		else if (messageType == infoMessage)
+		{
+			header = cHeadless::colorize((QObject::tr("Mandelbulber information: ")), cHeadless::ansiGreen, cHeadless::noExplicitColor, true);
+		}
+
+		out << header << messageText;
 	}
 }
 

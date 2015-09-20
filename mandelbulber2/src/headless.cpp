@@ -44,7 +44,6 @@ void cHeadless::RenderStillImage(bool isNetRenderClient)
 	}
 	delete renderJob;
 	delete image;
-	qDebug() << "Rendering finished";
 	emit finished();
 }
 
