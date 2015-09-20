@@ -53,15 +53,18 @@ void cHeadless::slotNetRender()
 	RenderStillImage(true);
 }
 
-void cHeadless::RenderingProgressOutput(const QString &progressTxt, double percentDone, bool newLine)
+void cHeadless::RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone, bool newLine)
 {
 	QTextStream out(stdout);
-	QString text = formatLine(progressTxt) + " ";
+	QString formatedText = formatLine(progressTxt) + " ";
+	QString text;
 	if(systemData.terminalWidth > 0)
 	{
-		int freeWidth = systemData.terminalWidth - progressTxt.length() - 4;
+		int freeWidth = systemData.terminalWidth - progressTxt.length() - header.length() - 6;
 		int intProgress = freeWidth * percentDone;
-		text = "\r" + text;
+		text = "\r";
+		text += colorize(header + ": ", ansiYellow, noExplicitColor, true);
+		text += formatedText;
 		text += colorize("[", ansiBlue, noExplicitColor, true);
 		text += colorize(QString(intProgress, '#'), ansiMagenta, noExplicitColor, true);
 		text += QString(freeWidth - intProgress, ' ');

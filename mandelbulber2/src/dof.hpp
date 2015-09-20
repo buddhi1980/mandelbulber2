@@ -26,6 +26,7 @@
 #include "cimage.hpp"
 #include <QProgressBar>
 #include <QStatusBar>
+#include "rendering_configuration.hpp"
 
 class cPostRenderingDOF: public QObject
 {
@@ -39,9 +40,10 @@ private:
 		TYPE z;
 		int i;
 	};
+	bool enableConsoleOutput;
 
 public:
-	cPostRenderingDOF(cImage *_image);
+	cPostRenderingDOF(cImage *_image, const cRenderingConfiguration config);
 
 	void Render(double deep, double neutral, bool *stopRequest);
 	template <class T> void QuickSortZBuffer(sSortZ<T> *dane, int l, int p);

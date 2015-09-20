@@ -1457,7 +1457,7 @@ void cInterface::RefreshMainImage()
 		sRenderData data;
 		cRenderingConfiguration config;
 		data.stopRequest = &stopRequest;
-		cRenderSSAO rendererSSAO(&params, &data, mainImage, config);
+		cRenderSSAO rendererSSAO(&params, &data, mainImage);
 		QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 
 		rendererSSAO.RenderSSAO();
@@ -1466,7 +1466,8 @@ void cInterface::RefreshMainImage()
 	if(gPar->Get<bool>("DOF_enabled"))
 	{
 		cParamRender params(gPar);
-		cPostRenderingDOF dof(mainImage);
+		cRenderingConfiguration config;
+		cPostRenderingDOF dof(mainImage, config);
 		QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		dof.Render(params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0, params.DOFFocus, &stopRequest);
 	}

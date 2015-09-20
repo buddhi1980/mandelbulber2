@@ -155,7 +155,7 @@ bool cRenderer::RenderImage()
 
 			if(data->configuration.UseConsoleOutput())
 			{
-				cHeadless::RenderingProgressOutput(progressTxt, percentDone);
+				cHeadless::RenderingProgressOutput("Rendering image", progressTxt, percentDone);
 			}
 
 			if(parentObject)
@@ -180,7 +180,7 @@ bool cRenderer::RenderImage()
 					{
 						if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 						{
-							cRenderSSAO rendererSSAO(params, data, image, data->configuration);
+							cRenderSSAO rendererSSAO(params, data, image);
 							if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 							rendererSSAO.setProgressive(scheduler->GetProgressiveStep());
 							rendererSSAO.RenderSSAO(&listToRefresh);
@@ -320,13 +320,13 @@ bool cRenderer::RenderImage()
 	{
 		if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 		{
-			cRenderSSAO rendererSSAO(params, data, image, data->configuration);
+			cRenderSSAO rendererSSAO(params, data, image);
 			if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 			rendererSSAO.RenderSSAO();
 		}
 		if(params->DOFEnabled && !*data->stopRequest)
 		{
-			cPostRenderingDOF dof(image);
+			cPostRenderingDOF dof(image, data->configuration);
 			if(parentObject) QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 			dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->stopRequest);
 		}
@@ -358,7 +358,7 @@ bool cRenderer::RenderImage()
 
 	if(data->configuration.UseConsoleOutput())
 	{
-		cHeadless::RenderingProgressOutput(progressTxt, percentDone, true);
+		cHeadless::RenderingProgressOutput("Rendering done", progressTxt, percentDone, true);
 	}
 
 	if(parentObject)

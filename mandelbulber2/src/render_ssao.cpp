@@ -26,8 +26,9 @@
 #include "ssao_worker.h"
 #include "global_data.hpp"
 #include "system.hpp"
+#include "headless.h"
 
-cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image, const cRenderingConfiguration config) : QObject()
+cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image) : QObject()
 {
 	params = _params;
 	data = _renderData;
@@ -35,7 +36,8 @@ cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_render
 	quiet = false; //TODO SSAO quiet mode
 	qualityFactor = 1.0;
 	progressive = 0;
-	numberOfThreads = config.GetNumberOfThreads();
+	numberOfThreads = data->configuration.GetNumberOfThreads();
+	enableConsoleOutput = data->configuration.UseConsoleOutput();
 }
 
 cRenderSSAO::~cRenderSSAO()
@@ -150,6 +152,12 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		double percentDone = (double) totalDone / toDo;
 		statusText = QObject::tr("Rendering SSAO effect in progress");
 		progressTxt = progressText.getText(percentDone);
+
+		if(enableConsoleOutput)
+		{
+			cHeadless::RenderingProgressOutput("Rendering SSAO", progressTxt, percentDone, false);
+		}
+
 		if(!quiet)
 		{
 			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
