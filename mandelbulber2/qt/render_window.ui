@@ -15196,7 +15196,7 @@ and water):</string>
      <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
    </property>
    <property name="text">
-    <string>Add Settings to Toolbar</string>
+    <string>Add current settings to toolbar</string>
    </property>
   </action>
   <action name="actionRemove_Settings_from_Toolbar">
@@ -15206,6 +15206,9 @@ and water):</string>
    <property name="icon">
     <iconset theme="list-remove" resource="icons.qrc">
      <normaloff>:/system/icons/list-remove.svg</normaloff>:/system/icons/list-remove.svg</iconset>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove settings from toolbar&lt;/p&gt;&lt;p&gt;When this button is pressed and you click on a settings button, this setting will be removed from the toolbar.&lt;/p&gt;&lt;p&gt;When this button is not pressed and you click on a settings button, this setting will be loaded.&lt;/p&gt;&lt;p&gt;Click on this button to toggle between 'deletion' and 'load' mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
     <string>Remove Settings from Toolbar</string>

@@ -138,6 +138,7 @@ void RenderedImage::DisplayCoordinates()
 			text += tr("\narrow keys - strafe");
 			text += tr("\nz, x keys - roll");
 			text += tr("\nspacebar - pause");
+			text += tr("\nhold shift key - orthogonal strafe");
 			break;
 		case clickDoNothing:
 			text  = "";
