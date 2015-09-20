@@ -25,7 +25,7 @@ public:
 	};
 
 	void RenderStillImage(bool isNetRender = false);
-	void RenderStillImageAsNetRenderClient(void);
+	void RenderFlightAnimation();
 	static void RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone, bool newLine = false);
 	static QString colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor = noExplicitColor, bool bold = false);
 	static QString formatLine(const QString& text);

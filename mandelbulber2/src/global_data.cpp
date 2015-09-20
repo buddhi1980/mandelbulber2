@@ -22,12 +22,12 @@
 
 #include "global_data.hpp"
 
-cParameterContainer *gPar;
-cFractalContainer *gParFractal;
-cAnimationFrames *gAnimFrames;
-cKeyframes *gKeyframes;
-cInterface *gMainInterface;
-cFlightAnimation *gFlightAnimation;
-cKeyframeAnimation *gKeyframeAnimation;
-QApplication *gApplication;
-CNetRender *gNetRender;
+cParameterContainer *gPar = NULL;
+cFractalContainer *gParFractal = NULL;
+cAnimationFrames *gAnimFrames = NULL;
+cKeyframes *gKeyframes = NULL;
+cInterface *gMainInterface = NULL;
+cFlightAnimation *gFlightAnimation = NULL;
+cKeyframeAnimation *gKeyframeAnimation = NULL;
+QApplication *gApplication = NULL;
+CNetRender *gNetRender = NULL;

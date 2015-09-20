@@ -9,6 +9,7 @@
 #include "global_data.hpp"
 #include "settings.hpp"
 #include "headless.h"
+#include "error_message.hpp"
 
 cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 {
@@ -118,7 +119,7 @@ void cCommandLineInterface::ReadCLI (void)
 		{
 			port = cliData.portText.toInt(&checkParse);
 			if(!checkParse || port <= 0){
-				WriteLog("Specified port is invalid\n");
+				cErrorMessage::showMessage("Specified port is invalid\n", cErrorMessage::errorMessage);
 				parser.showHelp(-10);
 			}
 			gPar->Set("netrender_server_local_port", port);
@@ -147,7 +148,7 @@ void cCommandLineInterface::ReadCLI (void)
 		{
 			port = cliData.portText.toInt(&checkParse);
 			if(!checkParse || port <= 0){
-				WriteLog("Specified port is invalid\n");
+				cErrorMessage::showMessage("Specified port is invalid\n", cErrorMessage::errorMessage);
 				parser.showHelp(-11);
 			}
 			gPar->Set("netrender_client_remote_port", port);
@@ -175,7 +176,7 @@ void cCommandLineInterface::ReadCLI (void)
 		}
 		else
 		{
-			WriteLog("Cannot load file!\n");
+			cErrorMessage::showMessage("Cannot load file!\n", cErrorMessage::errorMessage);
 			qCritical() << "\nSetting file " << filename << " not found\n";
 			parser.showHelp(-12);
 		}
@@ -230,8 +231,8 @@ void cCommandLineInterface::ReadCLI (void)
 		int startFrame = cliData.startFrameText.toInt(&checkParse);
 		int endFrame = cliData.endFrameText.toInt(&checkParse);
 		if(!checkParse || startFrame < 0 || endFrame < startFrame){
-			WriteLog("Specified startframe or endframe not valid\n"
-							 "(need to be > 0, endframe > startframe)");
+			cErrorMessage::showMessage("Specified startframe or endframe not valid\n"
+							 "(need to be > 0, endframe > startframe)", cErrorMessage::errorMessage);
 			parser.showHelp(-15);
 		}
 
@@ -286,7 +287,8 @@ void cCommandLineInterface::ProcessCLI (void)
 		}
 		case modeFlight:
 		{
-			return gFlightAnimation->slotRenderFlight();
+			cHeadless headless;
+			headless.RenderFlightAnimation();
 			break;
 		}
 		case modeKeyframe:

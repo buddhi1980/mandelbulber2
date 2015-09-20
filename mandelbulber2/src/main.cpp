@@ -122,10 +122,11 @@ int main(int argc, char *argv[])
 	commandLineInterface.ReadCLI();
 
 	if(!commandLineInterface.isNoGUI())
+	{
 		gMainInterface->ShowUi();
-
-	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainWindow);
-	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainWindow);
+		gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainImage, gMainInterface->mainWindow);
+		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainWindow);
+	}
 
 	//write parameters to ui
 	if(!commandLineInterface.isNoGUI())
@@ -148,8 +149,8 @@ int main(int argc, char *argv[])
 	//clean objects when exit
 	delete gPar; gPar = NULL;
 	delete gParFractal;
-	delete gFlightAnimation;
-	delete gKeyframeAnimation;
+	if(gFlightAnimation) delete gFlightAnimation;
+	if(gKeyframeAnimation) delete gKeyframeAnimation;
 	delete gAnimFrames;
 	delete gKeyframes;
 	delete gNetRender;

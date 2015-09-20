@@ -31,17 +31,18 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 	QTextStream outErr(stderr);
 
 	QString messageText;
-	if (messageType == warningMessage) messageText = QObject::tr("Warning");
-	else if (messageType == errorMessage) messageText = QObject::tr("Error");
-	else if (messageType == infoMessage) messageText = QObject::tr("Note");
-
-	messageText += ": ";
-	messageText += text;
-
-	WriteLog(messageText);
 
 	if (qobject_cast<QApplication *>(gApplication))
 	{
+		if (messageType == warningMessage) messageText = QObject::tr("Warning");
+		else if (messageType == errorMessage) messageText = QObject::tr("Error");
+		else if (messageType == infoMessage) messageText = QObject::tr("Note");
+
+		messageText += ": ";
+		messageText += text;
+
+		WriteLog(messageText);
+
 		if (messageType == warningMessage) outErr << messageText + "\n"  << flush;
 		else if (messageType == errorMessage) outErr << messageText + "\n" << flush;
 		else if (messageType == infoMessage) out << messageText + "\n";
@@ -73,15 +74,18 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 		QString header;
 		if (messageType == warningMessage)
 		{
-			header = cHeadless::colorize((QObject::tr("Mandelbulber warning: ")), cHeadless::ansiMagenta, cHeadless::noExplicitColor, true);
+			header = cHeadless::colorize((QObject::tr("Warning: ")), cHeadless::ansiMagenta, cHeadless::noExplicitColor, true);
+			messageText = cHeadless::colorize(text, cHeadless::ansiMagenta, cHeadless::noExplicitColor, false);
 		}
 		else if (messageType == errorMessage)
 		{
-			header = cHeadless::colorize((QObject::tr("Mandelbulber error: ")), cHeadless::ansiRed, cHeadless::noExplicitColor, true);
+			header = cHeadless::colorize((QObject::tr("Error: ")), cHeadless::ansiRed, cHeadless::noExplicitColor, true);
+			messageText = cHeadless::colorize(text, cHeadless::ansiRed, cHeadless::noExplicitColor, false);
 		}
 		else if (messageType == infoMessage)
 		{
-			header = cHeadless::colorize((QObject::tr("Mandelbulber information: ")), cHeadless::ansiGreen, cHeadless::noExplicitColor, true);
+			header = cHeadless::colorize((QObject::tr("Note: ")), cHeadless::ansiGreen, cHeadless::noExplicitColor, true);
+			messageText = cHeadless::colorize(text, cHeadless::ansiGreen, cHeadless::noExplicitColor, false);
 		}
 
 		out << header << messageText << "\n";

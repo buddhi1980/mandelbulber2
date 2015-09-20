@@ -32,7 +32,7 @@
 #include <QInputDialog>
 #include "undo.h"
 
-cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), frames(_frames)
+cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, cImage *_image, QObject *parent) : QObject(parent), mainInterface(_interface), frames(_frames)
 {
 	if(mainInterface->mainWindow)
 	{
@@ -60,9 +60,11 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 
 		table = ui->tableWidget_flightAnimation;
 	}
+	image = _image;
 	linearSpeedSp = 0.0;
 	rotationDirection = 0;
 	recordPause = false;
+	orthogonalStrafe = false;
 }
 
 void cFlightAnimation::slotRecordFlight()
@@ -144,7 +146,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	}
 
 	//check if main image is not used by other rendering process
-	if(mainInterface->mainImage->IsUsed())
+	if(image->IsUsed())
 	{
 		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
 		return;
@@ -354,7 +356,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		}
 
 		QString filename = GetFlightFilename(index);
-		SaveImage(filename, (enumImageFileType)gPar->Get<int>("flight_animation_image_type"), gMainInterface->mainImage);
+		SaveImage(filename, (enumImageFileType)gPar->Get<int>("flight_animation_image_type"), image);
 		index++;
 	}
 
@@ -371,7 +373,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 void cFlightAnimation::UpdateThumbnailFromImage(int index)
 {
 	table->blockSignals(true);
-	QImage qimage((const uchar*)mainInterface->mainImage->ConvertTo8bit(), mainInterface->mainImage->GetWidth(), mainInterface->mainImage->GetHeight(), mainInterface->mainImage->GetWidth()*sizeof(sRGB8), QImage::Format_RGB888);
+	QImage qimage((const uchar*)image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(), image->GetWidth()*sizeof(sRGB8), QImage::Format_RGB888);
 	QPixmap pixmap;
 	pixmap.convertFromImage(qimage);
 	QIcon icon(pixmap.scaled(QSize(100, 70), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
@@ -524,26 +526,39 @@ int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame)
 
 void cFlightAnimation::RenderFlight()
 {
-	if(mainInterface->mainImage->IsUsed())
+	if(image->IsUsed())
 	{
 		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
 		return;
 	}
 
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	gUndo.Store(gPar, gParFractal, frames, NULL);
+	if(!systemData.noGui)
+	{
+		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+		gUndo.Store(gPar, gParFractal, frames, NULL);
+	}
 
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
+
+	if(systemData.noGui)
+	{
+		config.EnableConsoleOutput();
+		config.DisableRefresh();
+		config.DisableProgressiveRender();
+		config.EnableNetRender();
+	}
 
 	renderJob->Init(cRenderJob::flightAnim, config);
 	mainInterface->stopRequest = false;
 
 	QString framesDir = gPar->Get<QString>("anim_flight_dir");
 
-	mainInterface->progressBarAnimation->show();
+	if(!systemData.noGui)
+		mainInterface->progressBarAnimation->show();
+
 	cProgressText progressText;
 	progressText.ResetTimer();
 
@@ -586,8 +601,11 @@ void cFlightAnimation::RenderFlight()
 		double percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
 		QString progressTxt = progressText.getText(percentDoneFrame);
 
-		ProgressStatusText(QObject::tr("Animation start"), QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt, percentDoneFrame,
-				ui->statusbar, mainInterface->progressBarAnimation);
+		if (!systemData.noGui)
+		{
+			ProgressStatusText(QObject::tr("Animation start"), QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt, percentDoneFrame,
+					ui->statusbar, mainInterface->progressBarAnimation);
+		}
 
 		// Skip already rendered frames
 		if (frames->GetFrame(index).alreadyRendered)
@@ -604,11 +622,15 @@ void cFlightAnimation::RenderFlight()
 
 		if (mainInterface->stopRequest) break;
 		frames->GetFrameAndConsolidate(index, gPar, gParFractal);
-		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
-		//show distance in statistics table
-		double distance = mainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
-		ui->tableWidget_statistics->item(4, 0)->setText(QString("%L1").arg(distance));
+		if (!systemData.noGui)
+		{
+			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+			//show distance in statistics table
+			double distance = mainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
+			ui->tableWidget_statistics->item(4, 0)->setText(QString("%L1").arg(distance));
+		}
 
 		if(gNetRender->IsServer())
 		{
@@ -622,7 +644,7 @@ void cFlightAnimation::RenderFlight()
 		if (!result) break;
 
 		QString filename = GetFlightFilename(index);
-		SaveImage(filename, (enumImageFileType)gPar->Get<int>("flight_animation_image_type"), gMainInterface->mainImage);
+		SaveImage(filename, (enumImageFileType)gPar->Get<int>("flight_animation_image_type"), image);
 	}
 	ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, mainInterface->progressBarAnimation);
 }

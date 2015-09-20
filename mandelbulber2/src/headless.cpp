@@ -47,6 +47,13 @@ void cHeadless::RenderStillImage(bool isNetRenderClient)
 	emit finished();
 }
 
+void cHeadless::RenderFlightAnimation()
+{
+	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, image, NULL);
+	return gFlightAnimation->slotRenderFlight();
+}
+
 void cHeadless::slotNetRender()
 {
 	RenderStillImage(true);

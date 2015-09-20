@@ -39,7 +39,7 @@ public:
 	 speedConstant
  };
 
-	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, QObject *parent = 0);
+	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, cImage *_image, QObject *parent = 0);
 	void RecordFlight(bool continueRecording);
 	void RenderFlight();
 	void RenderFrame(int index);
@@ -81,6 +81,7 @@ private:
 	cInterface *mainInterface;
 	Ui::RenderWindow *ui;
 	cAnimationFrames *frames;
+	cImage *image;
 	QStringList tableRowNames;
 	QVector<int> parameterRows; //position of parameter in table
 	QVector<int> rowParameter; //index of parameter in row
