@@ -173,6 +173,7 @@ void cCommandLineInterface::ReadCLI (void)
 			parSettings.LoadFromFile(filename);
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			settingsSpecified = true;
+			systemData.lastSettingsFile = filename;
 		}
 		else
 		{

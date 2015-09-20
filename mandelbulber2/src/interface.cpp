@@ -145,6 +145,8 @@ void cInterface::ShowUi(void)
 
 	mainWindow->slotPopulateToolbar();
 
+	mainWindow->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
+
 	WriteLog("cInterface::ConnectSignals(void)");
 	ConnectSignals();
 	WriteLog("cInterface::ConnectSignals(void) finished");
