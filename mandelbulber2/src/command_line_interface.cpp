@@ -48,6 +48,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	QCommandLineOption overrideOption(QStringList() << "O" << "override",
 		QCoreApplication::translate("main", "Override item '<KEY>' from settings file with new value '<value>'."),
 		QCoreApplication::translate("main", "KEY=VALUE"));
+	QCommandLineOption listOption(QStringList() << "L" << "list",
+		QCoreApplication::translate("main", "List all possible parameters '<KEY>' with corresponding default value '<value>'."));
 	QCommandLineOption formatOption(QStringList() << "f" << "format",
 		QCoreApplication::translate("main", "Image output format:\n"
 			"jpg - JPEG format\n"
@@ -87,6 +89,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(startOption);
 	parser.addOption(endOption);
 	parser.addOption(overrideOption);
+	parser.addOption(listOption);
 	parser.addOption(formatOption);
 	parser.addOption(resOption);
 	parser.addOption(fpkOption);
@@ -111,6 +114,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.host = parser.value(hostOption);
 	cliData.portText = parser.value(portOption);
 	cliData.outputText = parser.value(outputOption);
+	cliData.listParameters = parser.isSet(listOption);
 
 #ifdef WIN32 /* WINDOWS */
 	systemData.useColor = false;
@@ -130,6 +134,21 @@ void cCommandLineInterface::ReadCLI (void)
 {
 	bool checkParse = true;
 	bool settingsSpecified = false;
+
+	// list parameters only
+	if(cliData.listParameters)
+	{
+		QList<QString> listOfParameters = gPar->GetListOfParameters();
+		qDebug() << "list of parameters:";
+		qDebug() << "KEY=VALUE";
+		for(int i = 0; i < listOfParameters.size(); i++)
+		{
+			QString parameterName = listOfParameters.at(i);
+			QString defaultValue = gPar->GetDefault<QString>(parameterName);
+			qDebug() << parameterName + "=" + defaultValue;
+		}
+		exit(0);
+	}
 
 	// check netrender server / client
 	if(cliData.server)
@@ -204,6 +223,7 @@ void cCommandLineInterface::ReadCLI (void)
 		}
 	}
 
+	// overwriting parameters
 	if(cliData.overrideParametersText != "")
 	{
 		QStringList overrideParameters = cliData.overrideParametersText.split(QRegExp("\\s"));
@@ -211,8 +231,7 @@ void cCommandLineInterface::ReadCLI (void)
 		{
 			QStringList overrideParameter = overrideParameters[i].split(QRegExp("\\="));
 			if(overrideParameter.size() == 2){
-				// TODO -> set proper type
-				// gPar->Set(overrideParameter[0], overrideParameter[1]);
+				gPar->Set(overrideParameter[0], overrideParameter[1]);
 			}
 		}
 	}

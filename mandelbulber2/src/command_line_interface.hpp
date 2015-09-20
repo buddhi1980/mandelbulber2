@@ -44,6 +44,7 @@ private:
 	{
 		bool nogui;
 		bool server;
+		bool listParameters;
 		QString animationMode;
 		QString startFrameText;
 		QString endFrameText;
