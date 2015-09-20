@@ -39,7 +39,7 @@ public:
 		ansiBlue = 4, ansiMagenta = 5, ansiCyan = 6, ansiWhite = 7
 	};
 
-	void RenderStillImage(bool isNetRender = false);
+	void RenderStillImage(QString filename, QString imageFileFormat);
 	void RenderFlightAnimation();
 	static void RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone, bool newLine = false);
 	static QString colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor = noExplicitColor, bool bold = false);

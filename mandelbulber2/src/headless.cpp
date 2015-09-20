@@ -38,7 +38,7 @@ cHeadless::~cHeadless()
 	// TODO Auto-generated destructor stub
 }
 
-void cHeadless::RenderStillImage(bool isNetRenderClient)
+void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
@@ -52,11 +52,27 @@ void cHeadless::RenderStillImage(bool isNetRenderClient)
 	renderJob->Init(cRenderJob::still, config);
 	renderJob->Execute();
 
-	if(!isNetRenderClient)
+	//TODO saving in different image formats
+
+	if(imageFileFormat == "jpg")
 	{
-		//TODO saving in different image formats
-		SaveImage(systemData.dataDirectory + "images/test.jpg", IMAGE_FILE_TYPE_JPG, image);
+		SaveImage(filename, IMAGE_FILE_TYPE_JPG, image);
 	}
+	else if(imageFileFormat == "png16")
+	{
+		SaveImage(filename, IMAGE_FILE_TYPE_PNG, image);
+	}
+	else if(imageFileFormat == "png16")
+	{
+		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
+		SavePNG(filename, image, saveImageChannel, false);
+	}
+	else if(imageFileFormat == "png16alpha")
+	{
+		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
+		SavePNG(filename, image, saveImageChannel, true);
+	}
+
 	delete renderJob;
 	delete image;
 	emit finished();
@@ -71,7 +87,21 @@ void cHeadless::RenderFlightAnimation()
 
 void cHeadless::slotNetRender()
 {
-	RenderStillImage(true);
+	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
+
+	cRenderingConfiguration config;
+	config.EnableConsoleOutput();
+	config.DisableRefresh();
+	config.DisableProgressiveRender();
+	config.EnableNetRender();
+
+	renderJob->Init(cRenderJob::still, config);
+	renderJob->Execute();
+
+	delete renderJob;
+	delete image;
+	emit finished();
 }
 
 void cHeadless::RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone, bool newLine)

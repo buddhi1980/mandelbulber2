@@ -53,6 +53,7 @@ private:
 		QString fpkText;
 		QString host;
 		QString portText;
+		QString outputText;
 	} cliData;
 
 	QCommandLineParser parser;

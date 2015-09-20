@@ -72,12 +72,17 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "N"));
 	QCommandLineOption noColorOption(QStringList() << "C" << "no-cli-color",
 		QCoreApplication::translate("main", "Start program without ANSI colors, when execution on CLI."));
+	QCommandLineOption outputOption(QStringList() << "o" << "output",
+		QCoreApplication::translate("main", "Save rendered image(s) to this file / folder."),
+		QCoreApplication::translate("main", "N"));
+
 	parser.addPositionalArgument("settings_file", QCoreApplication::translate("main",
 		"file with fractal settings (program also tries\nto find file in ./mandelbulber/settings directory)\n"
 		"When settings_file is put as a command line argument then program will start in noGUI mode"
 	));
 
 	parser.addOption(noguiOption);
+	parser.addOption(outputOption);
 	parser.addOption(animationOption);
 	parser.addOption(startOption);
 	parser.addOption(endOption);
@@ -105,6 +110,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.server = parser.isSet(serverOption);
 	cliData.host = parser.value(hostOption);
 	cliData.portText = parser.value(portOption);
+	cliData.outputText = parser.value(outputOption);
 
 #ifdef WIN32 /* WINDOWS */
 	systemData.useColor = false;
@@ -241,6 +247,18 @@ void cCommandLineInterface::ReadCLI (void)
 		gPar->Set("frames_per_keyframe", fpk);
 	}
 
+	// specified image file format
+	if(cliData.imageFileFormat != "")
+	{
+		QStringList allowedImageFileFormat;
+		allowedImageFileFormat << "jpg" << "png" << "png16" << "png16alpha";
+		if(!allowedImageFileFormat.contains(cliData.imageFileFormat)){
+			WriteLog("Specified imageFileFormat is not valid\n"
+							 "allowed formats are: " + allowedImageFileFormat.join(", "));
+			parser.showHelp(-15);
+		}
+	}
+
 	// animation rendering
 	if(cliData.startFrameText != "" || cliData.endFrameText != "")
 	{
@@ -249,7 +267,7 @@ void cCommandLineInterface::ReadCLI (void)
 		if(!checkParse || startFrame < 0 || endFrame < startFrame){
 			cErrorMessage::showMessage("Specified startframe or endframe not valid\n"
 							 "(need to be > 0, endframe > startframe)", cErrorMessage::errorMessage);
-			parser.showHelp(-15);
+			parser.showHelp(-16);
 		}
 
 		if(cliData.animationMode == "flight" || cliData.animationMode == "")
@@ -271,23 +289,28 @@ void cCommandLineInterface::ReadCLI (void)
 		else
 		{
 			WriteLog("Unknown mode: " + cliData.animationMode + "\n");
-			parser.showHelp(-15);
+			parser.showHelp(-17);
 		}
 	}
 
 	if(!settingsSpecified && cliData.nogui && cliTODO != modeNetrender)
 	{
 		WriteLog("You have to specify a settings file, for this configuration!");
-		parser.showHelp(-16);
+		parser.showHelp(-18);
 	}
 
 	if(cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight)
 	{
+		if(cliData.imageFileFormat == "")
+		{
+			WriteLog("You have to specify an image file format");
+			parser.showHelp(-19);
+		}
 		cliTODO = modeStill;
 		return;
 	}
 
-	// TODO handle nogui overrideParametersText imageFileFormat
+	// TODO handle nogui overrideParametersText
 	cliTODO = modeBootOnly;
 }
 
@@ -315,7 +338,7 @@ void cCommandLineInterface::ProcessCLI (void)
 		case modeStill:
 		{
 			cHeadless headless;
-			headless.RenderStillImage();
+			headless.RenderStillImage(cliData.outputText, cliData.imageFileFormat);
 			break;
 		}
 	}
