@@ -45,7 +45,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	QCommandLineOption endOption(QStringList() << "e" << "end",
 		QCoreApplication::translate("main", "Stop rendering on frame number <N>."),
 		QCoreApplication::translate("main", "N"));
-	QCommandLineOption overrideOption(QStringList() << "o" << "override",
+	QCommandLineOption overrideOption(QStringList() << "O" << "override",
 		QCoreApplication::translate("main", "Override item '<KEY>' from settings file with new value '<value>'."),
 		QCoreApplication::translate("main", "KEY=VALUE"));
 	QCommandLineOption formatOption(QStringList() << "f" << "format",
