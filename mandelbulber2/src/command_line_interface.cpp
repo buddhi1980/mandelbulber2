@@ -276,8 +276,8 @@ void cCommandLineInterface::ReadCLI (void)
 			int xRes = resolutionParameters[0].toInt(&checkParse);
 			int yRes = resolutionParameters[1].toInt(&checkParse);
 			if(!checkParse || xRes <= 0 || yRes <= 0){
-				WriteLog("Specified resolution not valid\n"
-								 "both dimensions need to be > 0");
+				cErrorMessage::showMessage("Specified resolution not valid\n"
+						"both dimensions need to be > 0", cErrorMessage::errorMessage);
 				parser.showHelp(-13);
 			}
 			gPar->Set("image_width", xRes);
@@ -290,8 +290,8 @@ void cCommandLineInterface::ReadCLI (void)
 	{
 		int fpk = cliData.fpkText.toInt(&checkParse);
 		if(!checkParse || fpk <= 0){
-			WriteLog("Specified frames per key not valid\n"
-							 "need to be > 0");
+			cErrorMessage::showMessage("Specified frames per key not valid\n"
+					 "need to be > 0", cErrorMessage::errorMessage);
 			parser.showHelp(-14);
 		}
 		gPar->Set("frames_per_keyframe", fpk);
@@ -303,8 +303,8 @@ void cCommandLineInterface::ReadCLI (void)
 		QStringList allowedImageFileFormat;
 		allowedImageFileFormat << "jpg" << "png" << "png16" << "png16alpha";
 		if(!allowedImageFileFormat.contains(cliData.imageFileFormat)){
-			WriteLog("Specified imageFileFormat is not valid\n"
-							 "allowed formats are: " + allowedImageFileFormat.join(", "));
+			cErrorMessage::showMessage("Specified imageFileFormat is not valid\n"
+					 "allowed formats are: " + allowedImageFileFormat.join(", "), cErrorMessage::errorMessage);
 			parser.showHelp(-15);
 		}
 	}
