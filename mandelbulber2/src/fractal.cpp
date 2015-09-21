@@ -578,6 +578,14 @@ cFractal::cFractal(const cParameterContainer *container)
   quaternion104.iterationWeight1Weight = container->Get<double>("quaternion104_iterationWeight1_weight");
 
   //mengerSponge105
+
+  mengerSponge105.boxOffset1Enabled = container->Get<bool>("menger_sponge105_boxOffset1_enabled");
+  mengerSponge105.boxOffset1WeightEnabled = container->Get<bool>("menger_sponge105_boxOffset1_weight_enabled");
+  mengerSponge105.boxOffset1StartIterations = container->Get<int>("menger_sponge105_boxOffset1_start_iterations");
+  mengerSponge105.boxOffset1StopIterations = container->Get<int>("menger_sponge105_boxOffset1_stop_iterations");
+  mengerSponge105.boxOffset1Weight = container->Get<double>("menger_sponge105_boxOffset1_weight");
+  mengerSponge105.boxOffset1 = container->Get<CVector3>("menger_sponge105_boxOffset1");
+
   mengerSponge105.boxFold1Enabled = container->Get<bool>("menger_sponge105_box_fold1_enabled");
   mengerSponge105.boxFold1WeightEnabled = container->Get<bool>("menger_sponge105_box_fold1_weight_enabled");
   mengerSponge105.boxFold1StartIterations = container->Get<int>("menger_sponge105_box_fold1_start_iterations");
@@ -585,6 +593,17 @@ cFractal::cFractal(const cParameterContainer *container)
   mengerSponge105.boxFold1FoldingLimit = container->Get<double>("menger_sponge105_box_fold1_folding_limit");
   mengerSponge105.boxFold1FoldingValue = container->Get<double>("menger_sponge105_box_fold1_folding_value");
   mengerSponge105.boxFold1Weight = container->Get<double>("menger_sponge105_box_fold1_weight");
+
+  mengerSponge105.sphericalOffset1Enabled = container->Get<bool>("menger_sponge105_sphericalOffset1_enabled");
+  mengerSponge105.sphericalOffset1WeightEnabled = container->Get<bool>("menger_sponge105_sphericalOffset1_weight_enabled");
+  mengerSponge105.sphericalOffset1OffsetRadius = container->Get<double>("menger_sponge105_sphericalOffset1_offset_radius");
+  mengerSponge105.sphericalOffset1StartIterations = container->Get<int>("menger_sponge105_sphericalOffset1_start_iterations");
+  mengerSponge105.sphericalOffset1StopIterations = container->Get<int>("menger_sponge105_sphericalOffset1_stop_iterations");
+  mengerSponge105.sphericalOffset1Weight = container->Get<double>("menger_sponge105_sphericalOffset1_weight");
+  mengerSponge105.scale1Enabled = container->Get<bool>("menger_sponge105_scale1_enabled");
+  mengerSponge105.scale1StartIterations = container->Get<int>("menger_sponge105_scale1_start_iterations");
+  mengerSponge105.scale1StopIterations = container->Get<int>("menger_sponge105_scale1_stop_iterations");
+  mengerSponge105.scale1 = container->Get<double>("menger_sponge105_scale1");
   mengerSponge105.sphericalFold1Enabled = container->Get<bool>("menger_sponge105_sphericalFold1_enabled");
   mengerSponge105.sphericalFold1WeightEnabled = container->Get<bool>("menger_sponge105_sphericalFold1_weight_enabled");
   mengerSponge105.sphericalFold1RadMin = container->Get<double>("menger_sponge105_sphericalFold1_min_radius");
@@ -592,10 +611,7 @@ cFractal::cFractal(const cParameterContainer *container)
   mengerSponge105.sphericalFold1StartIterations = container->Get<int>("menger_sponge105_sphericalFold1_start_iterations");
   mengerSponge105.sphericalFold1StopIterations = container->Get<int>("menger_sponge105_sphericalFold1_stop_iterations");
   mengerSponge105.sphericalFold1Weight = container->Get<double>("menger_sponge105_sphericalFold1_weight");
-  mengerSponge105.scale1Enabled = container->Get<bool>("menger_sponge105_scale1_enabled");
-  mengerSponge105.scale1StartIterations = container->Get<int>("menger_sponge105_scale1_start_iterations");
-  mengerSponge105.scale1StopIterations = container->Get<int>("menger_sponge105_scale1_stop_iterations");
-  mengerSponge105.scale1 = container->Get<double>("menger_sponge105_scale1");
+
   mengerSponge105.mainRotation1Enabled = container->Get<bool>("menger_sponge105_main_rotation1_enabled");
   mengerSponge105.mainRotation1WeightEnabled = container->Get<bool>("menger_sponge105_main_rotation1_weight_enabled");
   mengerSponge105.mainRotation1StartIterations = container->Get<int>("menger_sponge105_main_rotation1_start_iterations");
@@ -640,6 +656,13 @@ cFractal::cFractal(const cParameterContainer *container)
   mengerSponge105.fabsFormulaABCD1StartIterations = container->Get<int>("menger_sponge105_fabsFormulaABCD1_start_iterations");
   mengerSponge105.fabsFormulaABCD1StopIterations = container->Get<int>("menger_sponge105_fabsFormulaABCD1_stop_iterations");
   mengerSponge105.fabsFormulaABCD1Weight = container->Get<double>("menger_sponge105_fabsFormulaABCD1_weight");
+  mengerSponge105.mainRotation2Enabled = container->Get<bool>("menger_sponge105_main_rotation2_enabled");
+  mengerSponge105.mainRotation2WeightEnabled = container->Get<bool>("menger_sponge105_main_rotation2_weight_enabled");
+  mengerSponge105.mainRotation2StartIterations = container->Get<int>("menger_sponge105_main_rotation2_start_iterations");
+  mengerSponge105.mainRotation2StopIterations = container->Get<int>("menger_sponge105_main_rotation2_stop_iterations");
+  mengerSponge105.mainRotation2 = container->Get<CVector3>("menger_sponge105_main_rotation2");
+  mengerSponge105.mainRotation2Weight = container->Get<double>("menger_sponge105_main_rotation2_weight");
+
   mengerSponge105.mengerSponge1ConstantZ = container->Get<double>("menger_sponge105_mengerSponge1_constantZ");
   mengerSponge105.mengerSponge1FactorConstantVect = container->Get<CVector3>("menger_sponge105_mengerSponge1_factorConstantVect");
   mengerSponge105.mengerSponge1Enabled = container->Get<bool>("menger_sponge105_mengerSponge1_enabled");
@@ -647,6 +670,14 @@ cFractal::cFractal(const cParameterContainer *container)
   mengerSponge105.mengerSponge1StartIterations = container->Get<int>("menger_sponge105_mengerSponge1_start_iterations");
   mengerSponge105.mengerSponge1StopIterations = container->Get<int>("menger_sponge105_mengerSponge1_stop_iterations");
   mengerSponge105.mengerSponge1Weight = container->Get<double>("menger_sponge105_mengerSponge1_weight");
+
+  mengerSponge105.boxOffset2Enabled = container->Get<bool>("menger_sponge105_boxOffset2_enabled");
+  mengerSponge105.boxOffset2WeightEnabled = container->Get<bool>("menger_sponge105_boxOffset2_weight_enabled");
+  mengerSponge105.boxOffset2StartIterations = container->Get<int>("menger_sponge105_boxOffset2_start_iterations");
+  mengerSponge105.boxOffset2StopIterations = container->Get<int>("menger_sponge105_boxOffset2_stop_iterations");
+  mengerSponge105.boxOffset2Weight = container->Get<double>("menger_sponge105_boxOffset2_weight");
+  mengerSponge105.boxOffset2 = container->Get<CVector3>("menger_sponge105_boxOffset2");
+
   mengerSponge105.boxFold2Enabled = container->Get<bool>("menger_sponge105_box_fold2_enabled");
   mengerSponge105.boxFold2WeightEnabled = container->Get<bool>("menger_sponge105_box_fold2_weight_enabled");
   mengerSponge105.boxFold2StartIterations = container->Get<int>("menger_sponge105_box_fold2_start_iterations");
@@ -654,6 +685,18 @@ cFractal::cFractal(const cParameterContainer *container)
   mengerSponge105.boxFold2FoldingLimit = container->Get<double>("menger_sponge105_box_fold2_folding_limit");
   mengerSponge105.boxFold2FoldingValue = container->Get<double>("menger_sponge105_box_fold2_folding_value");
   mengerSponge105.boxFold2Weight = container->Get<double>("menger_sponge105_box_fold2_weight");
+
+  mengerSponge105.sphericalOffset2Enabled = container->Get<bool>("menger_sponge105_sphericalOffset2_enabled");
+  mengerSponge105.sphericalOffset2WeightEnabled = container->Get<bool>("menger_sponge105_sphericalOffset2_weight_enabled");
+  mengerSponge105.sphericalOffset2OffsetRadius = container->Get<double>("menger_sponge105_sphericalOffset2_offset_radius");
+  mengerSponge105.sphericalOffset2StartIterations = container->Get<int>("menger_sponge105_sphericalOffset2_start_iterations");
+  mengerSponge105.sphericalOffset2StopIterations = container->Get<int>("menger_sponge105_sphericalOffset2_stop_iterations");
+  mengerSponge105.sphericalOffset2Weight = container->Get<double>("menger_sponge105_sphericalOffset2_weight");
+  mengerSponge105.scale2Enabled = container->Get<bool>("menger_sponge105_scale2_enabled");
+  mengerSponge105.scale2StartIterations = container->Get<int>("menger_sponge105_scale2_start_iterations");
+  mengerSponge105.scale2StopIterations = container->Get<int>("menger_sponge105_scale2_stop_iterations");
+  mengerSponge105.scale2 = container->Get<double>("menger_sponge105_scale2");
+
   mengerSponge105.sphericalFold2RadMin = container->Get<double>("menger_sponge105_sphericalFold2_min_radius");
   mengerSponge105.sphericalFold2RadFixed = container->Get<double>("menger_sponge105_sphericalFold2_fixed_radius");
   mengerSponge105.sphericalFold2Enabled = container->Get<bool>("menger_sponge105_sphericalFold2_enabled");
@@ -661,16 +704,8 @@ cFractal::cFractal(const cParameterContainer *container)
   mengerSponge105.sphericalFold2StartIterations = container->Get<int>("menger_sponge105_sphericalFold2_start_iterations");
   mengerSponge105.sphericalFold2StopIterations = container->Get<int>("menger_sponge105_sphericalFold2_stop_iterations");
   mengerSponge105.sphericalFold2Weight = container->Get<double>("menger_sponge105_sphericalFold2_weight");
-  mengerSponge105.scale2Enabled = container->Get<bool>("menger_sponge105_scale2_enabled");
-  mengerSponge105.scale2StartIterations = container->Get<int>("menger_sponge105_scale2_start_iterations");
-  mengerSponge105.scale2StopIterations = container->Get<int>("menger_sponge105_scale2_stop_iterations");
-  mengerSponge105.scale2 = container->Get<double>("menger_sponge105_scale2");
-  mengerSponge105.mainRotation2Enabled = container->Get<bool>("menger_sponge105_main_rotation2_enabled");
-  mengerSponge105.mainRotation2WeightEnabled = container->Get<bool>("menger_sponge105_main_rotation2_weight_enabled");
-  mengerSponge105.mainRotation2StartIterations = container->Get<int>("menger_sponge105_main_rotation2_start_iterations");
-  mengerSponge105.mainRotation2StopIterations = container->Get<int>("menger_sponge105_main_rotation2_stop_iterations");
-  mengerSponge105.mainRotation2 = container->Get<CVector3>("menger_sponge105_main_rotation2");
-  mengerSponge105.mainRotation2Weight = container->Get<double>("menger_sponge105_main_rotation2_weight");
+
+
   mengerSponge105.constantMultiplier2Vect = container->Get<CVector3>("menger_sponge105_constantMultiplier2");
   mengerSponge105.constantMultiplier2Enabled = container->Get<bool>("menger_sponge105_constantMultiplier2_enabled");
   mengerSponge105.constantMultiplier2WeightEnabled = container->Get<bool>("menger_sponge105_constantMultiplier2_weight_enabled");

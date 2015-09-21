@@ -687,8 +687,16 @@ struct sFractalQuaternion104
     double iterationWeight1ConstantB;
     double iterationWeight1Weight;
 };
+    //----------------------------------------------------------
 struct sFractalMengerSponge105
 {
+    bool boxOffset1Enabled;
+    bool boxOffset1WeightEnabled;
+    int boxOffset1StartIterations;
+    int boxOffset1StopIterations;
+    CVector3 boxOffset1;
+    double boxOffset1Weight;
+
     bool boxFold1Enabled;
     bool boxFold1WeightEnabled;
     int boxFold1StartIterations;
@@ -696,6 +704,17 @@ struct sFractalMengerSponge105
     double boxFold1FoldingLimit;
     double boxFold1FoldingValue;
     double boxFold1Weight;
+
+    bool sphericalOffset1Enabled;
+    bool sphericalOffset1WeightEnabled;
+    double sphericalOffset1OffsetRadius;
+    int sphericalOffset1StartIterations;
+    int sphericalOffset1StopIterations;
+    double sphericalOffset1Weight;
+    bool scale1Enabled;
+    double scale1;
+    int scale1StartIterations;
+    int scale1StopIterations;
     bool sphericalFold1Enabled;
     bool sphericalFold1WeightEnabled;
     double sphericalFold1RadMin;
@@ -706,10 +725,7 @@ struct sFractalMengerSponge105
     int sphericalFold1StartIterations;
     int sphericalFold1StopIterations;
     double sphericalFold1Weight;
-    bool scale1Enabled;
-    double scale1;
-    int scale1StartIterations;
-    int scale1StopIterations;
+
     bool mainRotation1Enabled;
     bool mainRotation1WeightEnabled;
     int mainRotation1StartIterations;
@@ -755,6 +771,13 @@ struct sFractalMengerSponge105
     CVector3 fabsFormulaABCD1C;
     CVector3 fabsFormulaABCD1D;
     double fabsFormulaABCD1Weight;
+    bool mainRotation2Enabled;
+    bool mainRotation2WeightEnabled;
+    int mainRotation2StartIterations;
+    int mainRotation2StopIterations;
+    CVector3 mainRotation2;
+    CRotationMatrix mainRot2;
+    double mainRotation2Weight;
     // main mengerSponge1 formula 1
     bool mengerSponge1Enabled;
     bool mengerSponge1WeightEnabled;
@@ -763,6 +786,12 @@ struct sFractalMengerSponge105
     double mengerSponge1ConstantZ;
     CVector3 mengerSponge1FactorConstantVect;
     double mengerSponge1Weight;
+    bool boxOffset2Enabled;
+    bool boxOffset2WeightEnabled;
+    int boxOffset2StartIterations;
+    int boxOffset2StopIterations;
+    CVector3 boxOffset2;
+    double boxOffset2Weight;
     bool boxFold2Enabled;
     bool boxFold2WeightEnabled;
     int boxFold2StartIterations;
@@ -770,6 +799,18 @@ struct sFractalMengerSponge105
     double boxFold2FoldingLimit;
     double boxFold2FoldingValue;
     double boxFold2Weight;
+
+    bool sphericalOffset2Enabled;
+    bool sphericalOffset2WeightEnabled;
+    double sphericalOffset2OffsetRadius;
+    int sphericalOffset2StartIterations;
+    int sphericalOffset2StopIterations;
+    double sphericalOffset2Weight;
+    bool scale2Enabled;
+    double scale2;
+    int scale2StartIterations;
+    int scale2StopIterations;
+
     bool sphericalFold2Enabled;
     bool sphericalFold2WeightEnabled;
     double sphericalFold2RadMin;
@@ -780,17 +821,7 @@ struct sFractalMengerSponge105
     int sphericalFold2StartIterations;
     int sphericalFold2StopIterations;
     double sphericalFold2Weight;
-    bool scale2Enabled;
-    double scale2;
-    int scale2StartIterations;
-    int scale2StopIterations;
-    bool mainRotation2Enabled;
-    bool mainRotation2WeightEnabled;
-    int mainRotation2StartIterations;
-    int mainRotation2StopIterations;
-    CVector3 mainRotation2;
-    CRotationMatrix mainRot2;
-    double mainRotation2Weight;
+
     bool constantMultiplier2Enabled;
     bool constantMultiplier2WeightEnabled;
     int constantMultiplier2StartIterations;
