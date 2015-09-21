@@ -49,7 +49,7 @@ bool cRenderingConfiguration::UseImageRefresh() const
 
 bool cRenderingConfiguration::UseProgressive() const
 {
-	return enableProgressiveRender && UseImageRefresh() && !UseNetRender();
+	return enableProgressiveRender && !UseNetRender();
 }
 
 int cRenderingConfiguration::GetNumberOfThreads() const

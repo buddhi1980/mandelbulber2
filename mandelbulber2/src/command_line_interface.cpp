@@ -140,14 +140,27 @@ void cCommandLineInterface::ReadCLI (void)
 	if(cliData.listParameters)
 	{
 		QList<QString> listOfParameters = gPar->GetListOfParameters();
-		qDebug() << "list of parameters:";
-		qDebug() << "KEY=VALUE";
+		QTextStream out(stdout);
+		out << cHeadless::colorize("\nList of main parameters:\n", cHeadless::ansiYellow, cHeadless::noExplicitColor, true);
+		out << "KEY=VALUE\n";
 		for(int i = 0; i < listOfParameters.size(); i++)
 		{
 			QString parameterName = listOfParameters.at(i);
 			QString defaultValue = gPar->GetDefault<QString>(parameterName);
-			qDebug() << parameterName + "=" + defaultValue;
+			out << parameterName + "=" + defaultValue + "\n";
 		}
+
+		QList<QString> listOfFractalParameters = gParFractal->at(0).GetListOfParameters();
+		out << cHeadless::colorize("\nList of fractal parameters:\n", cHeadless::ansiYellow, cHeadless::noExplicitColor, true);
+
+		for(int i = 0; i < listOfFractalParameters.size(); i++)
+		{
+			QString parameterName = listOfFractalParameters.at(i);
+			QString defaultValue = gParFractal->at(0).GetDefault<QString>(parameterName);
+			out << parameterName + "=" + defaultValue + "\n";
+		}
+
+		out.flush();
 		exit(0);
 	}
 
