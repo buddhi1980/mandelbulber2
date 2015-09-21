@@ -46,7 +46,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "Stop rendering on frame number <N>."),
 		QCoreApplication::translate("main", "N"));
 	QCommandLineOption overrideOption(QStringList() << "O" << "override",
-		QCoreApplication::translate("main", "Override item '<KEY>' from settings file with new value '<value>'."),
+		QCoreApplication::translate("main", "Override item '<KEY>' from settings file with new value '<value>'."
+		"Specify multiple KEY=VALUE pairs by separating with a '#' (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues"),
 		QCoreApplication::translate("main", "KEY=VALUE"));
 	QCommandLineOption listOption(QStringList() << "L" << "list",
 		QCoreApplication::translate("main", "List all possible parameters '<KEY>' with corresponding default value '<value>'."));
@@ -226,12 +227,12 @@ void cCommandLineInterface::ReadCLI (void)
 	// overwriting parameters
 	if(cliData.overrideParametersText != "")
 	{
-		QStringList overrideParameters = cliData.overrideParametersText.split(QRegExp("\\s"));
+		QStringList overrideParameters = cliData.overrideParametersText.split("#", QString::SkipEmptyParts);
 		for(int i = 0; i < overrideParameters.size(); i++)
 		{
 			QStringList overrideParameter = overrideParameters[i].split(QRegExp("\\="));
 			if(overrideParameter.size() == 2){
-				gPar->Set(overrideParameter[0], overrideParameter[1]);
+				gPar->Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());
 			}
 		}
 	}
