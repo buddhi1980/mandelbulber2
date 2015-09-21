@@ -74,21 +74,21 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 		QString header;
 		if (messageType == warningMessage)
 		{
-			header = cHeadless::colorize((QObject::tr("Warning: ")), cHeadless::ansiMagenta, cHeadless::noExplicitColor, true);
+			header = cHeadless::colorize((QObject::tr("\nWarning: ")), cHeadless::ansiMagenta, cHeadless::noExplicitColor, true);
 			messageText = cHeadless::colorize(text, cHeadless::ansiMagenta, cHeadless::noExplicitColor, false);
 		}
 		else if (messageType == errorMessage)
 		{
-			header = cHeadless::colorize((QObject::tr("Error: ")), cHeadless::ansiRed, cHeadless::noExplicitColor, true);
+			header = cHeadless::colorize((QObject::tr("\nError: ")), cHeadless::ansiRed, cHeadless::noExplicitColor, true);
 			messageText = cHeadless::colorize(text, cHeadless::ansiRed, cHeadless::noExplicitColor, false);
 		}
 		else if (messageType == infoMessage)
 		{
-			header = cHeadless::colorize((QObject::tr("Note: ")), cHeadless::ansiGreen, cHeadless::noExplicitColor, true);
+			header = cHeadless::colorize((QObject::tr("\nNote: ")), cHeadless::ansiGreen, cHeadless::noExplicitColor, true);
 			messageText = cHeadless::colorize(text, cHeadless::ansiGreen, cHeadless::noExplicitColor, false);
 		}
 
-		out << header << messageText << "\n";
+		out << header << messageText << "\n\n";
 	}
 }
 

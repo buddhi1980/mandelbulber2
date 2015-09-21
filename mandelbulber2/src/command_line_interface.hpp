@@ -45,7 +45,8 @@ private:
 		bool nogui;
 		bool server;
 		bool listParameters;
-		QString animationMode;
+		bool keyframe;
+		bool flight;
 		QString startFrameText;
 		QString endFrameText;
 		QString overrideParametersText;

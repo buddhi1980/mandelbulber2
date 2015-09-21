@@ -90,7 +90,7 @@ QString cProgressText::TimeString(qint64 time)
 
 	QString time_s_str, time_min_str, time_h_str, time_d_str;
 
-	time_s_str = QString::number(fmod(time_s, 60.0), 'f', 2) + "s";
+	time_s_str = QString::number(fmod(time_s, 60.0), 'f', 1) + "s";
 
 	if(time_min > 0) time_min_str = QString::number(time_min % 60) + "m ";
 	if(time_h > 0) time_h_str = QString::number(time_h % 24) + "h ";

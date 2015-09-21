@@ -36,21 +36,29 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addVersionOption();
 	QCommandLineOption noguiOption(QStringList() << "n" << "nogui",
 		QCoreApplication::translate("main", "Start program without GUI."));
-	QCommandLineOption animationOption(QStringList() << "m" << "mode",
-		QCoreApplication::translate("main", "Set <MODE> of animation (flight / keyframe), default is flight."),
-		QCoreApplication::translate("main", "MODE"));
+
+	QCommandLineOption keyframeOption(QStringList() << "K" << "keyframe",
+		QCoreApplication::translate("main", "Render keyframe animation"));
+
+	QCommandLineOption flightOption(QStringList() << "F" << "flight",
+		QCoreApplication::translate("main", "Render flight animation"));
+
 	QCommandLineOption startOption(QStringList() << "s" << "start",
 		QCoreApplication::translate("main", "Start rendering from frame number <N>."),
 		QCoreApplication::translate("main", "N"));
+
 	QCommandLineOption endOption(QStringList() << "e" << "end",
 		QCoreApplication::translate("main", "Stop rendering on frame number <N>."),
 		QCoreApplication::translate("main", "N"));
+
 	QCommandLineOption overrideOption(QStringList() << "O" << "override",
 		QCoreApplication::translate("main", "Override item '<KEY>' from settings file with new value '<value>'."
 		"Specify multiple KEY=VALUE pairs by separating with a '#' (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues"),
 		QCoreApplication::translate("main", "KEY=VALUE"));
+
 	QCommandLineOption listOption(QStringList() << "L" << "list",
 		QCoreApplication::translate("main", "List all possible parameters '<KEY>' with corresponding default value '<value>'."));
+
 	QCommandLineOption formatOption(QStringList() << "f" << "format",
 		QCoreApplication::translate("main", "Image output format:\n"
 			"jpg - JPEG format\n"
@@ -58,23 +66,30 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 			"png16 - 16-bit PNG format\n"
 			"png16alpha - 16-bit PNG with alpha channel format"),
 		QCoreApplication::translate("main", "FORMAT"));
+
 	QCommandLineOption resOption(QStringList() << "r" << "res",
 		QCoreApplication::translate("main", "Override image resolution."),
 		QCoreApplication::translate("main", "WIDTHxHEIGHT"));
+
 	QCommandLineOption fpkOption("fpk",
 		QCoreApplication::translate("main", "Override frames per key parameter."),
 		QCoreApplication::translate("main", "N"));
+
 	QCommandLineOption serverOption(QStringList() << "S" << "server",
 		QCoreApplication::translate("main", "Set application as a server listening for clients."));
+
 	QCommandLineOption hostOption(QStringList() << "H" << "host",
 		QCoreApplication::translate("main", "Set application as a client connected to server of given Host address"
 			" (Host can be of type IPv4, IPv6 and Domain name address)."),
 		QCoreApplication::translate("main", "N.N.N.N"));
+
 	QCommandLineOption portOption(QStringList() << "p" << "port",
 		QCoreApplication::translate("main", "Set network port number for Netrender (default 5555)."),
 		QCoreApplication::translate("main", "N"));
+
 	QCommandLineOption noColorOption(QStringList() << "C" << "no-cli-color",
 		QCoreApplication::translate("main", "Start program without ANSI colors, when execution on CLI."));
+
 	QCommandLineOption outputOption(QStringList() << "o" << "output",
 		QCoreApplication::translate("main", "Save rendered image(s) to this file / folder."),
 		QCoreApplication::translate("main", "N"));
@@ -86,7 +101,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 
 	parser.addOption(noguiOption);
 	parser.addOption(outputOption);
-	parser.addOption(animationOption);
+	parser.addOption(keyframeOption);
+	parser.addOption(flightOption);
 	parser.addOption(startOption);
 	parser.addOption(endOption);
 	parser.addOption(overrideOption);
@@ -104,7 +120,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	args = parser.positionalArguments();
 
 	cliData.nogui = parser.isSet(noguiOption);
-	cliData.animationMode = parser.value(animationOption);
+	cliData.keyframe = parser.isSet(keyframeOption);
+	cliData.flight = parser.isSet(flightOption);
 	cliData.startFrameText = parser.value(startOption);
 	cliData.endFrameText = parser.value(endOption);
 	cliData.overrideParametersText = parser.value(overrideOption);
@@ -296,40 +313,133 @@ void cCommandLineInterface::ReadCLI (void)
 		cliData.imageFileFormat = "jpg";
 	}
 
-	// animation rendering
-	if(cliData.startFrameText != "" || cliData.endFrameText != "")
+	//flight animation
+	if(cliData.flight)
 	{
-		int startFrame = cliData.startFrameText.toInt(&checkParse);
-		int endFrame = cliData.endFrameText.toInt(&checkParse);
-		if(!checkParse || startFrame < 0 || endFrame < startFrame){
-			cErrorMessage::showMessage("Specified startframe or endframe not valid\n"
-							 "(need to be > 0, endframe > startframe)", cErrorMessage::errorMessage);
-			parser.showHelp(-16);
-		}
-
-		if(cliData.animationMode == "flight" || cliData.animationMode == "")
+		if(gAnimFrames->GetNumberOfFrames() > 0)
 		{
-			gPar->Set("flight_first_to_render", startFrame);
-			gPar->Set("flight_last_to_render", endFrame);
-			if(cliData.outputText != "") gPar->Set("anim_flight_dir", cliData.outputText);
-			cliData.nogui = true; systemData.noGui = true;
 			cliTODO = modeFlight;
-			return;
-		}
-		else if(cliData.animationMode == "keyframe")
-		{
-			gPar->Set("keyframe_first_to_render", startFrame);
-			gPar->Set("keyframe_last_to_render", endFrame);
-			if(cliData.outputText != "") gPar->Set("anim_keyframe_dir", cliData.outputText);
 			cliData.nogui = true; systemData.noGui = true;
-			cliTODO = modeKeyframe;
-			return;
 		}
 		else
 		{
-			WriteLog("Unknown mode: " + cliData.animationMode + "\n");
-			parser.showHelp(-17);
+			cErrorMessage::showMessage("There are no flight animation frames in specified settings file", cErrorMessage::errorMessage);
+			parser.showHelp(-16);
 		}
+	}
+
+	//keyframe animation
+	if(cliData.keyframe)
+	{
+		if(cliTODO == modeFlight)
+		{
+			cErrorMessage::showMessage("You cannot render keyframe animation at the same time as flight animation", cErrorMessage::errorMessage);
+		}
+		else
+		{
+			if(gKeyframes->GetNumberOfFrames() > 0)
+			{
+				cliTODO = modeKeyframe;
+				cliData.nogui = true; systemData.noGui = true;
+			}
+			else
+			{
+				cErrorMessage::showMessage("There are no keyframes in specified settings file", cErrorMessage::errorMessage);
+				parser.showHelp(-17);
+			}
+		}
+	}
+
+	// start frame of animation
+	if (cliData.startFrameText != "")
+	{
+		int startFrame = cliData.startFrameText.toInt(&checkParse);
+		if (cliTODO == modeFlight)
+		{
+			if (startFrame <= gAnimFrames->GetNumberOfFrames())
+			{
+				gPar->Set("flight_first_to_render", startFrame);
+			}
+			else
+			{
+				cErrorMessage::showMessage(QString("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()), cErrorMessage::errorMessage);
+				parser.showHelp(-18);
+			}
+		}
+
+		if (cliTODO == modeKeyframe)
+		{
+			int numberOfFrames = gKeyframes->GetNumberOfFrames() * gKeyframes->GetFramesPerKeyframe();
+			if (startFrame <= numberOfFrames)
+			{
+				gPar->Set("keyframe_first_to_render", startFrame);
+			}
+			else
+			{
+				cErrorMessage::showMessage(QString("Animation has only %1 frames").arg(numberOfFrames), cErrorMessage::errorMessage);
+				parser.showHelp(-19);
+			}
+		}
+	}
+
+	// end frame of animation
+	if (cliData.endFrameText != "")
+	{
+		int endFrame = cliData.endFrameText.toInt(&checkParse);
+		if (cliTODO == modeFlight)
+		{
+			if (endFrame <= gAnimFrames->GetNumberOfFrames())
+			{
+				if (endFrame > gPar->Get<int>("flight_first_to_render"))
+				{
+					gPar->Set("flight_last_to_render", endFrame);
+				}
+				else
+				{
+					cErrorMessage::showMessage(QString("End frame has to be greater than start frame which is %1").arg(gPar->Get<int>("flight_first_to_render")),
+							cErrorMessage::errorMessage);
+					parser.showHelp(-20);
+				}
+			}
+			else
+			{
+				cErrorMessage::showMessage(QString("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()), cErrorMessage::errorMessage);
+				parser.showHelp(-21);
+			}
+		}
+
+		if (cliTODO == modeKeyframe)
+		{
+			int numberOfFrames = gKeyframes->GetNumberOfFrames() * gKeyframes->GetFramesPerKeyframe();
+			if (endFrame <= numberOfFrames)
+			{
+				if (endFrame > gPar->Get<int>("keyframe_first_to_render"))
+				{
+					gPar->Set("keyframe_last_to_render", endFrame);
+				}
+				else
+				{
+					cErrorMessage::showMessage(QString("End frame has to be greater than start frame which is %1").arg(gPar->Get<int>("keyframe_first_to_render")),
+							cErrorMessage::errorMessage);
+					parser.showHelp(-22);
+				}
+			}
+			else
+			{
+				cErrorMessage::showMessage(QString("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()), cErrorMessage::errorMessage);
+				parser.showHelp(-23);
+			}
+		}
+	}
+
+	//folder for animation frames
+	if(cliData.outputText != "" && cliTODO == modeFlight)
+	{
+		gPar->Set("anim_flight_dir", cliData.outputText);
+	}
+	if(cliData.outputText != "" && cliTODO == modeKeyframe)
+	{
+		gPar->Set("anim_keyframe_dir", cliData.outputText);
 	}
 
 	if(!settingsSpecified && cliData.nogui && cliTODO != modeNetrender)
@@ -349,9 +459,6 @@ void cCommandLineInterface::ReadCLI (void)
 		cliTODO = modeStill;
 		return;
 	}
-
-	// TODO handle overrideParametersText
-	cliTODO = modeBootOnly;
 }
 
 void cCommandLineInterface::ProcessCLI (void)
