@@ -940,6 +940,14 @@ void InitFractalParams(cParameterContainer *par)
 
   // menger_sponge105
 
+  par->addParam("menger_sponge105_mengerSponge1_enabled", true, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge1_constantZ", 1.0, morphAkima, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge1_factorConstantVect", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge1_weight", 1.0, morphLinear, paramStandard);
+
   par->addParam("menger_sponge105_boxOffset1_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_boxOffset1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_boxOffset1_start_iterations", 0, morphLinear, paramStandard);
@@ -960,11 +968,9 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("menger_sponge105_sphericalOffset1_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("menger_sponge105_sphericalOffset1_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("menger_sponge105_sphericalOffset1_offset_radius", 0, morphAkima, paramStandard);
+  par->addParam("menger_sponge105_sphericalOffset1_scale", 1.0, morphLinear, paramStandard);
   par->addParam("menger_sponge105_sphericalOffset1_weight", 1.0, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_scale1_enabled", false, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_scale1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_scale1_stop_iterations", 250, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_scale1", 1.0, morphAkima, paramStandard);
+
   par->addParam("menger_sponge105_sphericalFold1_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_sphericalFold1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_sphericalFold1_start_iterations", 0, morphLinear, paramStandard);
@@ -972,7 +978,10 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("menger_sponge105_sphericalFold1_min_radius", 0.5, morphAkima, paramStandard);
   par->addParam("menger_sponge105_sphericalFold1_fixed_radius", 1.0, morphAkima, paramStandard);
   par->addParam("menger_sponge105_sphericalFold1_weight", 1.0, morphLinear, paramStandard);
-
+  par->addParam("menger_sponge105_scale1_enabled", false, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_scale1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_scale1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_scale1", 1.0, morphAkima, paramStandard);
   par->addParam("menger_sponge105_main_rotation1_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_main_rotation1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_main_rotation1_start_iterations", 0, morphLinear, paramStandard);
@@ -990,6 +999,18 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("menger_sponge105_fabsAddConstant1B", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("menger_sponge105_fabsAddConstant1C", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("menger_sponge105_fabsAddConstant1_weight", 1.0, morphLinear, paramStandard);
+
+  par->addParam("menger_sponge105_boxConstantMultiplier1_enabled", false, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier1_fabs_enabledX", true, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier1_fabs_enabledY", true, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier1_fabs_enabledZ", true, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier1_weight", 1.0, morphLinear, paramStandard);
+
+
   par->addParam("menger_sponge105_constantMultiplier1_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_constantMultiplier1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_constantMultiplier1_start_iterations", 0, morphLinear, paramStandard);
@@ -1023,13 +1044,14 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("menger_sponge105_main_rotation2_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("menger_sponge105_main_rotation2", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
   par->addParam("menger_sponge105_main_rotation2_weight", 1.0, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge1_enabled", true, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge1_weight_enabled", false, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge1_stop_iterations", 250, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge1_constantZ", 1.0, morphAkima, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge1_factorConstantVect", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge1_weight", 1.0, morphLinear, paramStandard);
+
+  par->addParam("menger_sponge105_mengerSponge2_enabled", false, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge2_constantZ", 1.0, morphAkima, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge2_factorConstantVect", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge2_weight", 1.0, morphLinear, paramStandard);
   par->addParam("menger_sponge105_boxOffset2_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_boxOffset2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_boxOffset2_start_iterations", 0, morphLinear, paramStandard);
@@ -1051,11 +1073,8 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("menger_sponge105_sphericalOffset2_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("menger_sponge105_sphericalOffset2_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("menger_sponge105_sphericalOffset2_offset_radius", 0, morphAkima, paramStandard);
+  par->addParam("menger_sponge105_sphericalOffset2_scale", 1.0, morphLinear, paramStandard);
   par->addParam("menger_sponge105_sphericalOffset2_weight", 1.0, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_scale2_enabled", false, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_scale2_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_scale2_stop_iterations", 250, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_scale2", 1.0, morphAkima, paramStandard);
 
 
   par->addParam("menger_sponge105_sphericalFold2_enabled", false, morphLinear, paramStandard);
@@ -1065,7 +1084,19 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("menger_sponge105_sphericalFold2_min_radius", 0.5, morphAkima, paramStandard);
   par->addParam("menger_sponge105_sphericalFold2_fixed_radius", 1.0, morphAkima, paramStandard);
   par->addParam("menger_sponge105_sphericalFold2_weight", 1.0, morphLinear, paramStandard);
-
+  par->addParam("menger_sponge105_scale2_enabled", false, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_scale2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_scale2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_scale2", 1.0, morphAkima, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier2_enabled", false, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier2_fabs_enabledX", true, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier2_fabs_enabledY", true, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier2_fabs_enabledZ", true, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier2", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("menger_sponge105_boxConstantMultiplier2_weight", 1.0, morphLinear, paramStandard);
   par->addParam("menger_sponge105_constantMultiplier2_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_constantMultiplier2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_constantMultiplier2_start_iterations", 0, morphLinear, paramStandard);
@@ -1078,13 +1109,14 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("menger_sponge105_additionConstant2_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("menger_sponge105_additionConstant2", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("menger_sponge105_additionConstant2_weight", 1.0, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge2_enabled", false, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge2_weight_enabled", false, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge2_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge2_stop_iterations", 250, morphLinear, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge2_constantZ", 1.0, morphAkima, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge2_factorConstantVect", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-  par->addParam("menger_sponge105_mengerSponge2_weight", 1.0, morphLinear, paramStandard);
+
+  par->addParam("menger_sponge105_mengerSponge3_enabled", false, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge3_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge3_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge3_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge3_constantZ", 1.0, morphAkima, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge3_factorConstantVect", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("menger_sponge105_mengerSponge3_weight", 1.0, morphLinear, paramStandard);
   par->addParam("menger_sponge105_main_rotation3_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_main_rotation3_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("menger_sponge105_main_rotation3_start_iterations", 0, morphLinear, paramStandard);

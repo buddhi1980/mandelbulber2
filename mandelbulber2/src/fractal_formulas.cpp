@@ -1703,36 +1703,68 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
 void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sIFSAux &aux)
 {
     CVector3 temp = z;
-    double temp2 = aux.ifsDE;
-    CVector3 tempBO;
+    double tempAuxDE = aux.ifsDE;
+    CVector3 tempFAB;
     CVector3 tempA = z * 0;
     CVector3 tempB = z * 0;
     CVector3 zA = z * 0;
     CVector3 zB = z * 0;
 
-   //boxOffset 1
+    //MENGER SPONGE 1
+  if (fractal->mengerSponge105.mengerSponge1Enabled && i >= fractal->mengerSponge105.mengerSponge1StartIterations && i < fractal->mengerSponge105.mengerSponge1StopIterations)
+  {
+    temp = z;
+    double tempMS;
+    z.x = fabs(z.x);
+    z.y = fabs(z.y);
+    z.z = fabs(z.z);
+    if (z.x - z.y < 0)
+    {
+      tempMS = z.y;
+      z.y = z.x;
+      z.x = tempMS;
+    }
+    if (z.x - z.z < 0)
+    {
+      tempMS = z.z;
+      z.z = z.x;
+      z.x = tempMS;
+    }
+    if (z.y - z.z < 0)
+    {
+      tempMS = z.z;
+      z.z = z.y;
+      z.y = tempMS;
+    }
+    z *= 3.0  * fractal->mengerSponge105.mengerSponge1ConstantZ;
+    z.x -= 2.0 * fractal->mengerSponge105.mengerSponge1FactorConstantVect.x;
+    z.y -= 2.0 * fractal->mengerSponge105.mengerSponge1FactorConstantVect.y;
+    if (z.z > 1.0) z.z -= 2.0 * fractal->mengerSponge105.mengerSponge1FactorConstantVect.z;
+    aux.ifsDE *= 3.0 * fractal->mengerSponge105.mengerSponge1ConstantZ;
+    //weight function
+    if (fractal->mengerSponge105.mengerSponge1WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.mengerSponge1Weight);
+    }
+  }
+
+
+    //boxOffset 1
   if (fractal->mengerSponge105.boxOffset1Enabled && i >= fractal->mengerSponge105.boxOffset1StartIterations && i < fractal->mengerSponge105.boxOffset1StopIterations)
   {
     temp = z;
-
-    tempBO = z;
-    if ( tempBO.x > 0 ) z.x = z.x + fractal->mengerSponge105.boxOffset1.x;
+    if ( z.x > 0 ) z.x = z.x + fractal->mengerSponge105.boxOffset1.x;
     else z.x = z.x - fractal->mengerSponge105.boxOffset1.x;
-    if ( tempBO.y > 0 ) z.y = z.y + fractal->mengerSponge105.boxOffset1.y;
+    if ( z.y > 0 ) z.y = z.y + fractal->mengerSponge105.boxOffset1.y;
     else z.y = z.y - fractal->mengerSponge105.boxOffset1.y;
-    if ( tempBO.z > 0 ) z.z = z.z + fractal->mengerSponge105.boxOffset1.z;
+    if ( z.z > 0 ) z.z = z.z + fractal->mengerSponge105.boxOffset1.z;
     else z.z = z.z - fractal->mengerSponge105.boxOffset1.z;
-
     //weight function
     if (fractal->mengerSponge105.boxOffset1WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> mengerSponge105.boxOffset1Weight);
     }
   }
-
-
-
-
     //boxFold1
   if (fractal->mengerSponge105.boxFold1Enabled && i >= fractal->mengerSponge105.boxFold1StartIterations && i < fractal->mengerSponge105.boxFold1StopIterations)
   {
@@ -1754,25 +1786,21 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
   {
     temp = z;
     double lengthTempZ = -z.Length();
-    z = z * (1 + (fractal->mengerSponge105.sphericalOffset1OffsetRadius/lengthTempZ));
-   // aux.ifsDE = aux.ifsDE + fractal->mengerSponge105.sphericalOffset1OffsetRadius;
+    z *= 1 + fractal->mengerSponge105.sphericalOffset1OffsetRadius/lengthTempZ;
+    z *= fractal-> mengerSponge105.sphericalOffset1Scale;
+    aux.ifsDE = aux.ifsDE * fabs(fractal-> mengerSponge105.sphericalOffset2Scale) + 1.0;
     //weight function
     if (fractal->mengerSponge105.sphericalOffset1WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> mengerSponge105.sphericalOffset1Weight);
     }
   }
-  //scale; 1
-  if (fractal->mengerSponge105.scale1Enabled && i >= fractal->mengerSponge105.scale1StartIterations && i < fractal->mengerSponge105.scale1StopIterations)
-  {
-    temp = z;
-    z = z * fractal->mengerSponge105.scale1;
-    aux.ifsDE = aux.ifsDE * fabs(fractal->mengerSponge105.scale1) + 1.0;
-  }
+
   // sphericalFold1
   if (fractal->mengerSponge105.sphericalFold1Enabled && i >= fractal->mengerSponge105.sphericalFold1StartIterations && i < fractal->mengerSponge105.sphericalFold1StopIterations)
   {
     temp = z;
+    tempAuxDE = aux.ifsDE;
     double r2 = z.Dot(z);
     if (r2 < fractal->mengerSponge105.sphericalFold1mR2)
       {
@@ -1790,10 +1818,16 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
       {
         z = SmoothCVector(temp, z, fractal-> mengerSponge105.sphericalFold1Weight);
         double nkaux = 1.0 - ( fractal-> mengerSponge105.sphericalFold1Weight);
-        aux.ifsDE = ( temp2 * nkaux )  + ( aux.ifsDE  *  fractal-> mengerSponge105.sphericalFold1Weight);
+        aux.ifsDE = ( tempAuxDE * nkaux )  + ( aux.ifsDE  *  fractal-> mengerSponge105.sphericalFold1Weight);
       }
   }
-
+  //scale; 1
+  if (fractal->mengerSponge105.scale1Enabled && i >= fractal->mengerSponge105.scale1StartIterations && i < fractal->mengerSponge105.scale1StopIterations)
+  {
+    temp = z;
+    z = z * fractal->mengerSponge105.scale1;
+    aux.ifsDE = aux.ifsDE * fabs(fractal->mengerSponge105.scale1) + 1.0;
+  }
     //mainRotation1
   if (fractal->mengerSponge105.mainRotation1Enabled && i >= fractal->mengerSponge105.mainRotation1StartIterations && i < fractal->mengerSponge105.mainRotation1StopIterations)
   {
@@ -1829,6 +1863,37 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
       z = SmoothCVector(temp, z, fractal-> mengerSponge105.fabsAddConstant1Weight);
     }
   }
+  //boxConstantMultiplier with enable fabs c , if (z > 0)  z = z +  (fabs(c) * const. );  else  z = z - fabs(c) * const. ); 1
+ if (fractal->mengerSponge105.boxConstantMultiplier1Enabled && i >= fractal->mengerSponge105.boxConstantMultiplier1StartIterations && i < fractal->mengerSponge105.boxConstantMultiplier1StopIterations)
+ {
+   temp = z;
+   tempFAB = c ;
+   if (fractal->mengerSponge105.boxConstantMultiplier1FabsEnabledX)
+   {
+     tempFAB.x = fabs(tempFAB.x);
+   }
+   if (fractal->mengerSponge105.boxConstantMultiplier1FabsEnabledY)
+   {
+     tempFAB.y = fabs(tempFAB.y);
+   }
+   if (fractal->mengerSponge105.boxConstantMultiplier1FabsEnabledZ)
+   {
+     tempFAB.z = fabs(tempFAB.z);
+   }
+   tempFAB *= fractal->mengerSponge105.boxConstantMultiplier1;
+
+   if ( z.x > 0 ) z.x += tempFAB.x;
+   else z.x -= tempFAB.x;
+   if ( z.y > 0 ) z.y += tempFAB.y;
+   else z.y -= tempFAB.y;
+   if ( z.z > 0 ) z.z += tempFAB.z;
+   else z.z -= tempFAB.z;
+   //weight function
+   if (fractal->mengerSponge105.boxConstantMultiplier1WeightEnabled)
+   {
+     z = SmoothCVector(temp, z, fractal-> mengerSponge105.boxConstantMultiplier1Weight);
+   }
+ }
       // z = z + ( c * const.); 1
   if (fractal->mengerSponge105.constantMultiplier1Enabled && i >= fractal->mengerSponge105.constantMultiplier1StartIterations && i < fractal->mengerSponge105.constantMultiplier1StopIterations)
   {
@@ -1901,8 +1966,9 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
     }
   }
 
-  //MENGER SPONGE 1
-  if (fractal->mengerSponge105.mengerSponge1Enabled && i >= fractal->mengerSponge105.mengerSponge1StartIterations && i < fractal->mengerSponge105.mengerSponge1StopIterations)
+
+  //MENGER SPONGE 2
+  if (fractal->mengerSponge105.mengerSponge2Enabled && i >= fractal->mengerSponge105.mengerSponge2StartIterations && i < fractal->mengerSponge105.mengerSponge2StopIterations)
   {
     temp = z;
     double tempMS;
@@ -1911,31 +1977,31 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
     z.z = fabs(z.z);
     if (z.x - z.y < 0)
     {
-            tempMS = z.y;
-            z.y = z.x;
-            z.x = tempMS;
+      tempMS = z.y;
+      z.y = z.x;
+      z.x = tempMS;
     }
     if (z.x - z.z < 0)
     {
-            tempMS = z.z;
-            z.z = z.x;
-            z.x = tempMS;
+      tempMS = z.z;
+      z.z = z.x;
+      z.x = tempMS;
     }
     if (z.y - z.z < 0)
     {
-            tempMS = z.z;
-            z.z = z.y;
-            z.y = tempMS;
+      tempMS = z.z;
+      z.z = z.y;
+      z.y = tempMS;
     }
-    z *= 3.0  * fractal->mengerSponge105.mengerSponge1ConstantZ;
-    z.x -= 2.0 * fractal->mengerSponge105.mengerSponge1FactorConstantVect.x;
-    z.y -= 2.0 * fractal->mengerSponge105.mengerSponge1FactorConstantVect.y;
-    if (z.z > 1.0) z.z -= 2.0 * fractal->mengerSponge105.mengerSponge1FactorConstantVect.z;
-    aux.ifsDE *= 3.0 * fractal->mengerSponge105.mengerSponge1ConstantZ;
+    z *= 3.0 * fractal->mengerSponge105.mengerSponge2ConstantZ;
+    z.x -= 2.0 * fractal->mengerSponge105.mengerSponge2FactorConstantVect.x;
+    z.y -= 2.0 * fractal->mengerSponge105.mengerSponge2FactorConstantVect.y;
+    if (z.z > 1.0) z.z -= 2.0 * fractal->mengerSponge105.mengerSponge2FactorConstantVect.z;
+    aux.ifsDE *= 3.0 * fractal->mengerSponge105.mengerSponge2ConstantZ;
     //weight function
-    if (fractal->mengerSponge105.mengerSponge1WeightEnabled)
+    if (fractal->mengerSponge105.mengerSponge2WeightEnabled)
     {
-    z = SmoothCVector(temp, z, fractal-> mengerSponge105.mengerSponge1Weight);
+    z = SmoothCVector(temp, z, fractal-> mengerSponge105.mengerSponge2Weight);
     }
   }
   //boxOffset 2
@@ -1943,12 +2009,11 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
  {
    temp = z;
 
-   tempBO = z;
-   if ( tempBO.x > 0 ) z.x = z.x + fractal->mengerSponge105.boxOffset2.x;
+   if ( z.x > 0 ) z.x = z.x + fractal->mengerSponge105.boxOffset2.x;
    else z.x = z.x - fractal->mengerSponge105.boxOffset2.x;
-   if ( tempBO.y > 0 ) z.y = z.y + fractal->mengerSponge105.boxOffset2.y;
+   if ( z.y > 0 ) z.y = z.y + fractal->mengerSponge105.boxOffset2.y;
    else z.y = z.y - fractal->mengerSponge105.boxOffset2.y;
-   if ( tempBO.z > 0 ) z.z = z.z + fractal->mengerSponge105.boxOffset2.z;
+   if ( z.z > 0 ) z.z = z.z + fractal->mengerSponge105.boxOffset2.z;
    else z.z = z.z - fractal->mengerSponge105.boxOffset2.z;
 
    //weight function
@@ -1979,25 +2044,21 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
   {
     temp = z;
     double lengthTempZ = -z.Length();
-    z = z * (1 + (fractal->mengerSponge105.sphericalOffset2OffsetRadius/lengthTempZ));
-   // aux.ifsDE = aux.ifsDE + fractal->mengerSponge105.sphericalOffset1OffsetRadius;
+    z *= 1 + (fractal->mengerSponge105.sphericalOffset2OffsetRadius/lengthTempZ);
+    z *= fractal-> mengerSponge105.sphericalOffset2Scale;
+    aux.ifsDE = aux.ifsDE * fabs(fractal-> mengerSponge105.sphericalOffset2Scale) + 1.0;
     //weight function
     if (fractal->mengerSponge105.sphericalOffset2WeightEnabled)
     {
       z = SmoothCVector(temp, z, fractal-> mengerSponge105.sphericalOffset2Weight);
     }
   }
-  //scale; 2
-  if (fractal->mengerSponge105.scale2Enabled && i >= fractal->mengerSponge105.scale2StartIterations && i < fractal->mengerSponge105.scale2StopIterations)
-  {
-    z = z * fractal->mengerSponge105.scale2;
-    aux.ifsDE = aux.ifsDE * fabs(fractal->mengerSponge105.scale2) + 1.0;
-  }
+
   // sphericalFold2
   if (fractal->mengerSponge105.sphericalFold2Enabled && i >= fractal->mengerSponge105.sphericalFold2StartIterations && i < fractal->mengerSponge105.sphericalFold2StopIterations)
   {
     temp = z;
-    //temp2 = aux.mboxDE;
+    tempAuxDE = aux.ifsDE;
     double r2 = z.Dot(z);
     if (r2 < fractal->mengerSponge105.sphericalFold2mR2)
       {
@@ -2015,11 +2076,47 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
     {
       z = SmoothCVector(temp, z, fractal-> mengerSponge105.sphericalFold2Weight);
       double nkaux = 1.0 - ( fractal-> mengerSponge105.sphericalFold2Weight);
-      aux.ifsDE = ( temp2 * nkaux )  + ( aux.ifsDE  *  fractal-> mengerSponge105.sphericalFold2Weight);
+      aux.ifsDE = (  tempAuxDE * nkaux )  + ( aux.ifsDE  *  fractal-> mengerSponge105.sphericalFold2Weight);
     }
   }
+  //scale; 2
+  if (fractal->mengerSponge105.scale2Enabled && i >= fractal->mengerSponge105.scale2StartIterations && i < fractal->mengerSponge105.scale2StopIterations)
+  {
+    z = z * fractal->mengerSponge105.scale2;
+    aux.ifsDE = aux.ifsDE * fabs(fractal->mengerSponge105.scale2) + 1.0;
+  }
+  //boxConstantMultiplier with enable fabs 2
+ if (fractal->mengerSponge105.boxConstantMultiplier2Enabled && i >= fractal->mengerSponge105.boxConstantMultiplier2StartIterations && i < fractal->mengerSponge105.boxConstantMultiplier2StopIterations)
+ {
+    temp = z;
+    tempFAB = c;
+    if (fractal->mengerSponge105.boxConstantMultiplier2FabsEnabledX)
+    {
+      tempFAB.x = fabs(tempFAB.x);
+    }
+    if (fractal->mengerSponge105.boxConstantMultiplier2FabsEnabledY)
+    {
+      tempFAB.y = fabs(tempFAB.y);
+    }
+    if (fractal->mengerSponge105.boxConstantMultiplier2FabsEnabledZ)
+    {
+      tempFAB.z = fabs(tempFAB.z);
+    }
 
+      tempFAB *= fractal->mengerSponge105.boxConstantMultiplier2;
 
+    if ( z.x > 0 ) z.x += tempFAB.x;
+    else z.x -= tempFAB.x;
+    if ( z.y > 0 ) z.y += tempFAB.y;
+    else z.y -= tempFAB.y;
+    if ( z.z > 0 ) z.z += tempFAB.z;
+    else z.z -= tempFAB.z;
+    //weight function
+    if (fractal->mengerSponge105.boxConstantMultiplier2WeightEnabled)
+    {
+      z = SmoothCVector(temp, z, fractal-> mengerSponge105.boxConstantMultiplier2Weight);
+    }
+ }
     // z = z + c * const; 2
   if (fractal->mengerSponge105.constantMultiplier2Enabled && i >= fractal->mengerSponge105.constantMultiplier2StartIterations && i < fractal->mengerSponge105.constantMultiplier2StopIterations)
   {
@@ -2042,8 +2139,9 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
     z = SmoothCVector(temp, z, fractal-> mengerSponge105.additionConstant2Weight);
     }
   }
-  //MENGER SPONGE 2
-  if (fractal->mengerSponge105.mengerSponge2Enabled && i >= fractal->mengerSponge105.mengerSponge2StartIterations && i < fractal->mengerSponge105.mengerSponge2StopIterations)
+
+  //MENGER SPONGE 3
+  if (fractal->mengerSponge105.mengerSponge3Enabled && i >= fractal->mengerSponge105.mengerSponge3StartIterations && i < fractal->mengerSponge105.mengerSponge3StopIterations)
   {
     temp = z;
     double tempMS;
@@ -2052,31 +2150,31 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
     z.z = fabs(z.z);
     if (z.x - z.y < 0)
     {
-            tempMS = z.y;
-            z.y = z.x;
-            z.x = tempMS;
+      tempMS = z.y;
+      z.y = z.x;
+      z.x = tempMS;
     }
     if (z.x - z.z < 0)
     {
-            tempMS = z.z;
-            z.z = z.x;
-            z.x = tempMS;
+      tempMS = z.z;
+      z.z = z.x;
+      z.x = tempMS;
     }
     if (z.y - z.z < 0)
     {
-            tempMS = z.z;
-            z.z = z.y;
-            z.y = tempMS;
+      tempMS = z.z;
+      z.z = z.y;
+      z.y = tempMS;
     }
-    z *= 3.0 * fractal->mengerSponge105.mengerSponge2ConstantZ;
-    z.x -= 2.0 * fractal->mengerSponge105.mengerSponge2FactorConstantVect.x;
-    z.y -= 2.0 * fractal->mengerSponge105.mengerSponge2FactorConstantVect.y;
-    if (z.z > 1.0) z.z -= 2.0 * fractal->mengerSponge105.mengerSponge2FactorConstantVect.z;
-    aux.ifsDE *= 3.0 * fractal->mengerSponge105.mengerSponge2ConstantZ;
+    z *= 3.0 * fractal->mengerSponge105.mengerSponge3ConstantZ;
+    z.x -= 2.0 * fractal->mengerSponge105.mengerSponge3FactorConstantVect.x;
+    z.y -= 2.0 * fractal->mengerSponge105.mengerSponge3FactorConstantVect.y;
+    if (z.z > 1.0) z.z -= 2.0 * fractal->mengerSponge105.mengerSponge3FactorConstantVect.z;
+    aux.ifsDE *= 3.0 * fractal->mengerSponge105.mengerSponge3ConstantZ;
     //weight function
-    if (fractal->mengerSponge105.mengerSponge2WeightEnabled)
+    if (fractal->mengerSponge105.mengerSponge3WeightEnabled)
     {
-    z = SmoothCVector(temp, z, fractal-> mengerSponge105.mengerSponge2Weight);
+    z = SmoothCVector(temp, z, fractal-> mengerSponge105.mengerSponge3Weight);
     }
   }
   //mainRotation; 3
