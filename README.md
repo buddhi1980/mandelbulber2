@@ -12,7 +12,7 @@ Explore trigonometric, hypercomplex, mandelbox, IFS and many other 3D fractals.
 
 Render with a great palette of customized shaders and create stunning images and videos.
 
-The possibilties are literally **infinite**!
+The possibilities are literally **infinite**!
 
 ![Test Render](https://raw.githubusercontent.com/buddhi1980/mandelbulber2/wiki/assets/images/mandelbulberTestrender.jpg)
 
