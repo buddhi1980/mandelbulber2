@@ -33,9 +33,9 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_quaternion104_box_fold1_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_box_fold1_enabled">
      <property name="title">
-      <string>Enable Box Fold;</string>
+      <string>Enable &amp;Box Fold;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -69,7 +69,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_quaternion104_box_fold1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_box_fold1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -89,7 +89,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_quaternion104_box_fold1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_box_fold1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -108,7 +108,7 @@
          </widget>
         </item>
         <item row="0" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox_quaternion104_box_fold1_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_box_fold1_weight">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -150,7 +150,7 @@
          </spacer>
         </item>
         <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_quaternion104_box_fold1_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_box_fold1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -164,7 +164,7 @@
          <number>2</number>
         </property>
         <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_quaternion104_box_fold1_folding_value">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_box_fold1_folding_value">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -192,7 +192,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_quaternion104_box_fold1_folding_limit">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_box_fold1_folding_limit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -234,7 +234,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSlider" name="slider_quaternion104_box_fold1_folding_value">
+         <widget class="QSlider" name="slider_transform_box_fold1_folding_value">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -256,7 +256,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSlider" name="slider_quaternion104_box_fold1_folding_limit">
+         <widget class="QSlider" name="slider_transform_box_fold1_folding_limit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -285,7 +285,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_quaternion104_sphericalFold1_enabled">
      <property name="title">
-      <string>Enable Spherical Fold</string>
+      <string>Enab&amp;le Spherical Fold</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -884,7 +884,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_quaternion104_main_rotation1_enabled">
      <property name="title">
-      <string>Enable Main 3D Rotation;</string>
+      <string>Enable Main &amp;3D Rotation;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1926,7 +1926,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_quaternion104_quaternion1_enabled">
      <property name="title">
-      <string>MAIN FORMULA Quaternion; </string>
+      <string>&amp;MAIN FORMULA Quaternion; </string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3904,7 +3904,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_quaternion104_main_rotation2_enabled">
      <property name="title">
-      <string>Enable Main 3D Rotation; </string>
+      <string>Enable Main 3D &amp;Rotation; </string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -4191,7 +4191,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_quaternion104_quaternion2_enabled">
      <property name="title">
-      <string>MAIN FORMULA Quaternion; </string>
+      <string>MAIN FORMULA &amp;Quaternion; </string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -4559,7 +4559,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_quaternion104_box_fold2_enabled">
      <property name="title">
-      <string>Enable Box Fold;</string>
+      <string>Enable Bo&amp;x Fold;</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5076,7 +5076,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_quaternion104_main_rotation3_enabled">
      <property name="title">
-      <string>Enable Main 3D Rotation; </string>
+      <string>Enable Main 3D Ro&amp;tation; </string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -7122,7 +7122,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_quaternion104_iterationWeight1_enabled">
      <property name="title">
-      <string>Enable Iteration Weight.;  z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);</string>
+      <string>Enable &amp;Iteration Weight.;  z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

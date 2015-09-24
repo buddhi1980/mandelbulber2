@@ -80,6 +80,10 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelbo
 
 void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor);
 void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor, double &foldDE, double r);
+
+void boxFoldTransfrom3D(const sTransformBoxFold &boxFold, CVector3 &z, int i);
+void boxFoldTransfrom4D(const sTransformBoxFold &boxFold, CVector4 &z, int i);
+
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sMandelbulbAux &aux);
 void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal,  sMandelboxAux &aux);
 void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal);

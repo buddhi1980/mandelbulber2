@@ -715,7 +715,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_menger_sponge105_box_fold1_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_box_fold1_enabled">
      <property name="title">
       <string>Enable &amp;Box Fold</string>
      </property>
@@ -751,7 +751,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_menger_sponge105_box_fold1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_box_fold1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -771,7 +771,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_menger_sponge105_box_fold1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_box_fold1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -790,7 +790,7 @@
          </widget>
         </item>
         <item row="0" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox_menger_sponge105_box_fold1_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_box_fold1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -835,7 +835,7 @@
          </spacer>
         </item>
         <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_menger_sponge105_box_fold1_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_box_fold1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -849,7 +849,7 @@
          <number>2</number>
         </property>
         <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_menger_sponge105_box_fold1_folding_value">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_box_fold1_folding_value">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -877,7 +877,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_menger_sponge105_box_fold1_folding_limit">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_box_fold1_folding_limit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -919,7 +919,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSlider" name="slider_menger_sponge105_box_fold1_folding_value">
+         <widget class="QSlider" name="slider_transform_box_fold1_folding_value">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -941,7 +941,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSlider" name="slider_menger_sponge105_box_fold1_folding_limit">
+         <widget class="QSlider" name="slider_transform_box_fold1_folding_limit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5499,7 +5499,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_menger_sponge105_sphericalOffset2_enabled">
      <property name="title">
-      <string>Enable z = z * (1 + offset/length (z) );</string>
+      <string>Enable z = z * (1 + offset/&amp;length (z) );</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -8535,7 +8535,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_menger_sponge105_iterationWeight1_enabled">
      <property name="title">
-      <string>Enable Iteration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B);</string>
+      <string>Enable I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B);</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -8872,9 +8872,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>checkBox_menger_sponge105_box_fold1_weight_enabled</sender>
+   <sender>checkBox_transform_box_fold1_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_menger_sponge105_box_fold1_weight</receiver>
+   <receiver>spinbox_transform_box_fold1_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">

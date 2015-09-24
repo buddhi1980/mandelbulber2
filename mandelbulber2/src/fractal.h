@@ -164,18 +164,33 @@ struct sMsltoeSym2
 	double y_multiplier;
 };
 
+struct sTransformControl
+{
+  bool enabled;
+  bool weightEnabled;
+  bool oldWeightEnabled;
+	int startIterations;
+  int stopIterations;
+  double weight;
+  double oldWeight;
+};
+
+
+struct sTransformBoxFold
+{
+	sTransformControl control;
+	double foldingLimit;
+  double foldingValue;
+};
+
+struct sFractalTransform
+{
+	sTransformBoxFold boxFold1;
+	//TODO here will be more transforms
+};
+
 struct sFractalMandelbulb5
 {
-    bool boxFold1Enabled;
-    bool boxFold1WeightEnabled;
-    bool boxFold1OldWeightEnabled;
-    int boxFold1StartIterations;
-    int boxFold1StopIterations;
-    double boxFold1FoldingLimit;
-    double boxFold1FoldingValue;
-    double boxFold1Weight;
-    double boxFold1OldWeight;
-
     bool mainRotation1Enabled;
     bool mainRotation1WeightEnabled;
     int mainRotation1StartIterations;
@@ -347,15 +362,6 @@ struct sFractalMandelbulb5
 
 struct sFractalMandelbox103
 {
-    // main mandelbox formula 1
-    bool boxFold1Enabled;
-    bool boxFold1WeightEnabled;
-    int boxFold1StartIterations;
-    int boxFold1StopIterations;
-    double boxFold1FoldingLimit;
-    double boxFold1FoldingValue;
-    double boxFold1Weight;
-
     bool sphericalFold1Enabled;
     bool sphericalFold1WeightEnabled;
     double sphericalFold1RadMin;
@@ -505,14 +511,6 @@ struct sFractalMandelbox103
 };
 struct sFractalQuaternion104
 {
-    bool boxFold1Enabled;
-    bool boxFold1WeightEnabled;
-    int boxFold1StartIterations;
-    int boxFold1StopIterations;
-    double boxFold1FoldingLimit;
-    double boxFold1FoldingValue;
-    double boxFold1Weight;
-
     bool sphericalFold1Enabled;
     bool sphericalFold1WeightEnabled;
     double sphericalFold1RadMin;
@@ -705,14 +703,6 @@ struct sFractalMengerSponge105
     int boxOffset1StopIterations;
     CVector3 boxOffset1;
     double boxOffset1Weight;
-
-    bool boxFold1Enabled;
-    bool boxFold1WeightEnabled;
-    int boxFold1StartIterations;
-    int boxFold1StopIterations;
-    double boxFold1FoldingLimit;
-    double boxFold1FoldingValue;
-    double boxFold1Weight;
 
     bool sphericalOffset1Enabled;
     bool sphericalOffset1WeightEnabled;
@@ -929,6 +919,7 @@ public:
   sFractalMandelbox103 mandelbox103;
   sFractalQuaternion104 quaternion104;
   sFractalMengerSponge105 mengerSponge105;
+  sFractalTransform transform;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

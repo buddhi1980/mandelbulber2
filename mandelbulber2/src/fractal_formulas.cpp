@@ -678,6 +678,58 @@ void MsltoeSym2(CVector3 &z, const cFractal *fractal)
     z.z = newz;
 }
 
+//boxFold transform
+void boxFoldTransfrom3D(const sTransformBoxFold &boxFold, CVector3 &z, int i)
+{
+  if (boxFold.control.enabled && i >= boxFold.control.startIterations && i < boxFold.control.stopIterations)
+  {
+    CVector3 temp = z;
+    if (z.x > boxFold.foldingLimit) z.x = boxFold.foldingValue - z.x;
+    else if (z.x < -boxFold.foldingLimit) z.x = -boxFold.foldingValue - z.x;
+    if (z.y > boxFold.foldingLimit) z.y = boxFold.foldingValue - z.y;
+    else if (z.y < -boxFold.foldingLimit) z.y = -boxFold.foldingValue - z.y;
+    if (z.z > boxFold.foldingLimit) z.z = boxFold.foldingValue - z.z;
+    else if (z.z < -boxFold.foldingLimit) z.z = -boxFold.foldingValue - z.z;
+    //old weight function
+    if (boxFold.control.oldWeightEnabled)
+    {
+      z = temp + ((z - temp)  * (boxFold.control.oldWeight));
+    }
+    //weight function
+    if (boxFold.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, boxFold.control.weight);
+    }
+  }
+}
+
+//boxFold transform
+void boxFoldTransfrom4D(const sTransformBoxFold &boxFold, CVector4 &z, int i)
+{
+  if (boxFold.control.enabled && i >= boxFold.control.startIterations && i < boxFold.control.stopIterations)
+  {
+    CVector4 temp = z;
+    if (z.x > boxFold.foldingLimit) z.x = boxFold.foldingValue - z.x;
+    else if (z.x < -boxFold.foldingLimit) z.x = -boxFold.foldingValue - z.x;
+    if (z.y > boxFold.foldingLimit) z.y = boxFold.foldingValue - z.y;
+    else if (z.y < -boxFold.foldingLimit) z.y = -boxFold.foldingValue - z.y;
+    if (z.z > boxFold.foldingLimit) z.z = boxFold.foldingValue - z.z;
+    else if (z.z < -boxFold.foldingLimit) z.z = -boxFold.foldingValue - z.z;
+    if (z.w > boxFold.foldingLimit) z.w = boxFold.foldingValue - z.w;
+    else if (z.w < -boxFold.foldingLimit) z.w = -boxFold.foldingValue - z.w;
+    //old weight function
+    if (boxFold.control.oldWeightEnabled)
+    {
+      z = temp + ((z - temp)  * (boxFold.control.oldWeight));
+    }
+    //weight function
+    if (boxFold.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, boxFold.control.weight);
+    }
+  }
+}
+
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sMandelbulbAux &aux)
 {
     CVector3 temp = z;
@@ -686,26 +738,8 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
 
 
     //boxFold1
-  if (fractal->mandelbulb5.boxFold1Enabled && i >= fractal->mandelbulb5.boxFold1StartIterations && i < fractal->mandelbulb5.boxFold1StopIterations)
-  {
-    temp = z;
-    if (z.x > fractal->mandelbulb5.boxFold1FoldingLimit) z.x = fractal->mandelbulb5.boxFold1FoldingValue - z.x;
-    else if (z.x < -fractal->mandelbulb5.boxFold1FoldingLimit) z.x = -fractal->mandelbulb5.boxFold1FoldingValue - z.x;
-    if (z.y > fractal->mandelbulb5.boxFold1FoldingLimit) z.y = fractal->mandelbulb5.boxFold1FoldingValue - z.y;
-    else if (z.y < -fractal->mandelbulb5.boxFold1FoldingLimit) z.y = -fractal->mandelbulb5.boxFold1FoldingValue - z.y;
-    if (z.z > fractal->mandelbulb5.boxFold1FoldingLimit) z.z = fractal->mandelbulb5.boxFold1FoldingValue - z.z;
-    else if (z.z < -fractal->mandelbulb5.boxFold1FoldingLimit) z.z = -fractal->mandelbulb5.boxFold1FoldingValue - z.z;
-    //old weight function
-    if (fractal->mandelbulb5.boxFold1OldWeightEnabled)
-    {
-      z = temp + ((z - temp)  * (fractal-> mandelbulb5.boxFold1OldWeight));
-    }
-    //weight function
-    if (fractal->mandelbulb5.boxFold1WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> mandelbulb5.boxFold1Weight);
-    }
-  }
+    boxFoldTransfrom3D(fractal->transform.boxFold1, z, i);
+
     //mainRotation1
   if (fractal->mandelbulb5.mainRotation1Enabled && i >= fractal->mandelbulb5.mainRotation1StartIterations && i < fractal->mandelbulb5.mainRotation1StopIterations)
   {
@@ -1040,21 +1074,8 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
     CVector3 zB = z * 0;
 
     //boxFold1
-  if (fractal->mandelbox103.boxFold1Enabled && i >= fractal->mandelbox103.boxFold1StartIterations && i < fractal->mandelbox103.boxFold1StopIterations)
-  {
-    temp = z;
-    if (z.x > fractal->mandelbox103.boxFold1FoldingLimit) z.x = fractal->mandelbox103.boxFold1FoldingValue - z.x;
-    else if (z.x < -fractal->mandelbox103.boxFold1FoldingLimit) z.x = -fractal->mandelbox103.boxFold1FoldingValue - z.x;
-    if (z.y > fractal->mandelbox103.boxFold1FoldingLimit) z.y = fractal->mandelbox103.boxFold1FoldingValue - z.y;
-    else if (z.y < -fractal->mandelbox103.boxFold1FoldingLimit) z.y = -fractal->mandelbox103.boxFold1FoldingValue - z.y;
-    if (z.z > fractal->mandelbox103.boxFold1FoldingLimit) z.z = fractal->mandelbox103.boxFold1FoldingValue - z.z;
-    else if (z.z < -fractal->mandelbox103.boxFold1FoldingLimit) z.z = -fractal->mandelbox103.boxFold1FoldingValue - z.z;
-    //weight function
-    if (fractal->mandelbox103.boxFold1WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> mandelbox103.boxFold1Weight);
-    }
-  }
+    boxFoldTransfrom3D(fractal->transform.boxFold1, z, i);
+
   // sphericalFold1
   if (fractal->mandelbox103.sphericalFold1Enabled && i >= fractal->mandelbox103.sphericalFold1StartIterations && i < fractal->mandelbox103.sphericalFold1StopIterations)
   {
@@ -1342,24 +1363,8 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
 
 
     //boxFold1
-  if (fractal->quaternion104.boxFold1Enabled && i >= fractal->quaternion104.boxFold1StartIterations && i < fractal->quaternion104.boxFold1StopIterations)
-  {
-    temp = z;
-    if (z.x > fractal->quaternion104.boxFold1FoldingLimit) z.x = fractal->quaternion104.boxFold1FoldingValue - z.x;
-    else if (z.x < -fractal->quaternion104.boxFold1FoldingLimit) z.x = -fractal->quaternion104.boxFold1FoldingValue - z.x;
-    if (z.y > fractal->quaternion104.boxFold1FoldingLimit) z.y = fractal->quaternion104.boxFold1FoldingValue - z.y;
-    else if (z.y < -fractal->quaternion104.boxFold1FoldingLimit) z.y = -fractal->quaternion104.boxFold1FoldingValue - z.y;
-    if (z.z > fractal->quaternion104.boxFold1FoldingLimit) z.z = fractal->quaternion104.boxFold1FoldingValue - z.z;
-    else if (z.z < -fractal->quaternion104.boxFold1FoldingLimit) z.z = -fractal->quaternion104.boxFold1FoldingValue - z.z;
-    if (z.w > fractal->quaternion104.boxFold1FoldingLimit) z.w = fractal->quaternion104.boxFold1FoldingValue - z.w;
-    else if (z.w < -fractal->quaternion104.boxFold1FoldingLimit) z.w = -fractal->quaternion104.boxFold1FoldingValue - z.w;
+    boxFoldTransfrom4D(fractal->transform.boxFold1, z, i);
 
-    //weight function
-    if (fractal->quaternion104.boxFold1WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> quaternion104.boxFold1Weight);
-    }
-  }
   // sphericalFold1
   if (fractal->quaternion104.sphericalFold1Enabled && i >= fractal->quaternion104.sphericalFold1StartIterations && i < fractal->quaternion104.sphericalFold1StopIterations)
   {
@@ -1766,21 +1771,8 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
     }
   }
     //boxFold1
-  if (fractal->mengerSponge105.boxFold1Enabled && i >= fractal->mengerSponge105.boxFold1StartIterations && i < fractal->mengerSponge105.boxFold1StopIterations)
-  {
-    temp = z;
-    if (z.x > fractal->mengerSponge105.boxFold1FoldingLimit) z.x = fractal->mengerSponge105.boxFold1FoldingValue - z.x;
-    else if (z.x < -fractal->mengerSponge105.boxFold1FoldingLimit) z.x = -fractal->mengerSponge105.boxFold1FoldingValue - z.x;
-    if (z.y > fractal->mengerSponge105.boxFold1FoldingLimit) z.y = fractal->mengerSponge105.boxFold1FoldingValue - z.y;
-    else if (z.y < -fractal->mengerSponge105.boxFold1FoldingLimit) z.y = -fractal->mengerSponge105.boxFold1FoldingValue - z.y;
-    if (z.z > fractal->mengerSponge105.boxFold1FoldingLimit) z.z = fractal->mengerSponge105.boxFold1FoldingValue - z.z;
-    else if (z.z < -fractal->mengerSponge105.boxFold1FoldingLimit) z.z = -fractal->mengerSponge105.boxFold1FoldingValue - z.z;
-    //weight function
-    if (fractal->mengerSponge105.boxFold1WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> mengerSponge105.boxFold1Weight);
-    }
-  }
+  boxFoldTransfrom3D(fractal->transform.boxFold1, z, i);
+
   // sphericalOffset1
   if (fractal->mengerSponge105.sphericalOffset1Enabled && i >= fractal->mengerSponge105.sphericalOffset1StartIterations && i < fractal->mengerSponge105.sphericalOffset1StopIterations)
   {

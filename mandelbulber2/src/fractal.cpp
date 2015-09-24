@@ -103,15 +103,15 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	msltoeSym2.y_multiplier = container->Get<double>("msltoesym2_y_multiplier");
 
-  mandelbulb5.boxFold1Enabled = container->Get<bool>("mandelbulb5_box_fold1_enabled");
-  mandelbulb5.boxFold1WeightEnabled = container->Get<bool>("mandelbulb5_box_fold1_weight_enabled");
-  mandelbulb5.boxFold1OldWeightEnabled = container->Get<bool>("mandelbulb5_box_fold1_old_weight_enabled");
-  mandelbulb5.boxFold1StartIterations = container->Get<int>("mandelbulb5_box_fold1_start_iterations");
-  mandelbulb5.boxFold1StopIterations = container->Get<int>("mandelbulb5_box_fold1_stop_iterations");
-  mandelbulb5.boxFold1FoldingLimit = container->Get<double>("mandelbulb5_box_fold1_folding_limit");
-  mandelbulb5.boxFold1FoldingValue = container->Get<double>("mandelbulb5_box_fold1_folding_value");
-  mandelbulb5.boxFold1Weight = container->Get<double>("mandelbulb5_box_fold1_weight");
-  mandelbulb5.boxFold1OldWeight = container->Get<double>("mandelbulb5_box_fold1_old_weight");
+  transform.boxFold1.control.enabled = container->Get<bool>("transform_box_fold1_enabled");
+  transform.boxFold1.control.weightEnabled = container->Get<bool>("transform_box_fold1_weight_enabled");
+  transform.boxFold1.control.oldWeightEnabled = container->Get<bool>("transform_box_fold1_old_weight_enabled");
+  transform.boxFold1.control.startIterations = container->Get<int>("transform_box_fold1_start_iterations");
+  transform.boxFold1.control.stopIterations = container->Get<int>("transform_box_fold1_stop_iterations");
+  transform.boxFold1.foldingLimit = container->Get<double>("transform_box_fold1_folding_limit");
+  transform.boxFold1.foldingValue = container->Get<double>("transform_box_fold1_folding_value");
+  transform.boxFold1.control.weight = container->Get<double>("transform_box_fold1_weight");
+  transform.boxFold1.control.oldWeight = container->Get<double>("transform_box_fold1_old_weight");
 
   mandelbulb5.mainRotation1Enabled = container->Get<bool>("mandelbulb5_main_rotation1_enabled");
   mandelbulb5.mainRotation1WeightEnabled = container->Get<bool>("mandelbulb5_main_rotation1_weight_enabled");
@@ -279,13 +279,6 @@ cFractal::cFractal(const cParameterContainer *container)
 
 
     //mandelbox103
-  mandelbox103.boxFold1Enabled = container->Get<bool>("mandelbox103_box_fold1_enabled");
-  mandelbox103.boxFold1WeightEnabled = container->Get<bool>("mandelbox103_box_fold1_weight_enabled");
-  mandelbox103.boxFold1StartIterations = container->Get<int>("mandelbox103_box_fold1_start_iterations");
-  mandelbox103.boxFold1StopIterations = container->Get<int>("mandelbox103_box_fold1_stop_iterations");
-  mandelbox103.boxFold1FoldingLimit = container->Get<double>("mandelbox103_box_fold1_folding_limit");
-  mandelbox103.boxFold1FoldingValue = container->Get<double>("mandelbox103_box_fold1_folding_value");
-  mandelbox103.boxFold1Weight = container->Get<double>("mandelbox103_box_fold1_weight");
   mandelbox103.sphericalFold1Enabled = container->Get<bool>("mandelbox103_sphericalFold1_enabled");
   mandelbox103.sphericalFold1WeightEnabled = container->Get<bool>("mandelbox103_sphericalFold1_weight_enabled");
   mandelbox103.sphericalFold1RadMin = container->Get<double>("mandelbox103_sphericalFold1_min_radius");
@@ -418,13 +411,6 @@ cFractal::cFractal(const cParameterContainer *container)
   mandelbox103.iterationWeight1Weight = container->Get<double>("mandelbox103_iterationWeight1_weight");
 
   //quaternion104
-  quaternion104.boxFold1Enabled = container->Get<bool>("quaternion104_box_fold1_enabled");
-  quaternion104.boxFold1WeightEnabled = container->Get<bool>("quaternion104_box_fold1_weight_enabled");
-  quaternion104.boxFold1StartIterations = container->Get<int>("quaternion104_box_fold1_start_iterations");
-  quaternion104.boxFold1StopIterations = container->Get<int>("quaternion104_box_fold1_stop_iterations");
-  quaternion104.boxFold1FoldingLimit = container->Get<double>("quaternion104_box_fold1_folding_limit");
-  quaternion104.boxFold1FoldingValue = container->Get<double>("quaternion104_box_fold1_folding_value");
-  quaternion104.boxFold1Weight = container->Get<double>("quaternion104_box_fold1_weight");
   quaternion104.sphericalFold1Enabled = container->Get<bool>("quaternion104_sphericalFold1_enabled");
   quaternion104.sphericalFold1WeightEnabled = container->Get<bool>("quaternion104_sphericalFold1_weight_enabled");
   quaternion104.sphericalFold1RadMin = container->Get<double>("quaternion104_sphericalFold1_min_radius");
@@ -593,14 +579,6 @@ cFractal::cFractal(const cParameterContainer *container)
   mengerSponge105.boxOffset1StopIterations = container->Get<int>("menger_sponge105_boxOffset1_stop_iterations");
   mengerSponge105.boxOffset1Weight = container->Get<double>("menger_sponge105_boxOffset1_weight");
   mengerSponge105.boxOffset1 = container->Get<CVector3>("menger_sponge105_boxOffset1");
-
-  mengerSponge105.boxFold1Enabled = container->Get<bool>("menger_sponge105_box_fold1_enabled");
-  mengerSponge105.boxFold1WeightEnabled = container->Get<bool>("menger_sponge105_box_fold1_weight_enabled");
-  mengerSponge105.boxFold1StartIterations = container->Get<int>("menger_sponge105_box_fold1_start_iterations");
-  mengerSponge105.boxFold1StopIterations = container->Get<int>("menger_sponge105_box_fold1_stop_iterations");
-  mengerSponge105.boxFold1FoldingLimit = container->Get<double>("menger_sponge105_box_fold1_folding_limit");
-  mengerSponge105.boxFold1FoldingValue = container->Get<double>("menger_sponge105_box_fold1_folding_value");
-  mengerSponge105.boxFold1Weight = container->Get<double>("menger_sponge105_box_fold1_weight");
 
   mengerSponge105.sphericalOffset1Enabled = container->Get<bool>("menger_sponge105_sphericalOffset1_enabled");
   mengerSponge105.sphericalOffset1WeightEnabled = container->Get<bool>("menger_sponge105_sphericalOffset1_weight_enabled");
