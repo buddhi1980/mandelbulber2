@@ -277,6 +277,12 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
         break;
       }
 
+			case platonicSolid:
+			{
+				PlatonicSolidIteration(z, fractal);
+				break;
+			}
+
 
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
@@ -370,7 +376,6 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		{
 			case mandelbulb:
 			case mandelbulb5:
-
 				out->distance = 0.5 * r * log(r) / bulbAux[fractalIndex].r_dz;
 				break;
 			case mandelbox:

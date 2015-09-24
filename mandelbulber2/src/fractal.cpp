@@ -793,6 +793,11 @@ cFractal::cFractal(const cParameterContainer *container)
   mengerSponge105.iterationWeight1IterationB = container->Get<int>("menger_sponge105_iterationWeight1_iterationB");
   mengerSponge105.iterationWeight1Weight = container->Get<double>("menger_sponge105_iterationWeight1_weight");
 
+	//platonic_solid
+
+	platonicSolid.frequency = container->Get<double>("platonic_solid_frequency");
+	platonicSolid.amplitude = container->Get<double>("platonic_solid_amplitude");
+	platonicSolid.rhoMul = container->Get<double>("platonic_solid_rhoMul");
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();

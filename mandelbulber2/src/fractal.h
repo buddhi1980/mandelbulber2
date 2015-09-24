@@ -907,7 +907,13 @@ struct sFractalMengerSponge105
     double iterationWeight1Weight;
 };
 
-
+//----------------------------------------------------------
+struct sFractalPlatonicSolid
+{
+	double frequency;
+	double amplitude;
+	double rhoMul;
+};
 
 class cFractal
 {
@@ -929,6 +935,7 @@ public:
   sFractalMandelbox103 mandelbox103;
   sFractalQuaternion104 quaternion104;
   sFractalMengerSponge105 mengerSponge105;
+	sFractalPlatonicSolid platonicSolid;
 
 #ifdef CLSUPPORT
 	double customParameters[15];
