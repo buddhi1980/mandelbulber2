@@ -210,3 +210,13 @@ QString cHeadless::formatLine(const QString& text)
 	return out;
 #endif
 }
+
+bool cHeadless::ConfirmMessage(QString message)
+{
+	QTextStream out(stdout);
+	QTextStream in(stdin);
+	out << message << " y/n\n";
+	out.flush();
+	QString response = in.readLine().toLower();
+	return (response  == "y");
+}

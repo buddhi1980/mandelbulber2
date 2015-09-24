@@ -579,20 +579,19 @@ void cFlightAnimation::RenderFlight()
 
 	if(frames->GetNumberOfFrames() > 0 && unrenderedTotal == 0){
 		bool deletePreviousRender = false;
+		QString questionTitle = QObject::tr("Truncate Image Folder");
+		QString questionText = QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
+				+ QObject::tr("This will delete all images in the image folder.\nProceed?");
+
 		if (!systemData.noGui)
 		{
 			QMessageBox::StandardButton reply;
-			reply = QMessageBox::question(
-				ui->centralwidget,
-				QObject::tr("Truncate Image Folder"),
-				QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
-				+ QObject::tr("This will delete all images in the image folder.\nProceed?"),
-				QMessageBox::Yes|QMessageBox::No);
-			deletePreviousRender = reply == QMessageBox::Yes;
+			reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, QMessageBox::Yes|QMessageBox::No);
+			deletePreviousRender = (reply == QMessageBox::Yes);
 		}
 		else
 		{
-			deletePreviousRender = false; // TODO request on cli
+			deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
 		}
 
 		if (deletePreviousRender)

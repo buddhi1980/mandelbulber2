@@ -153,12 +153,12 @@ void cCommandLineInterface::ReadCLI (void)
 {
 	bool checkParse = true;
 	bool settingsSpecified = false;
+	QTextStream out(stdout);
 
 	// list parameters only
 	if(cliData.listParameters)
 	{
 		QList<QString> listOfParameters = gPar->GetListOfParameters();
-		QTextStream out(stdout);
 		out << cHeadless::colorize("\nList of main parameters:\n", cHeadless::ansiYellow, cHeadless::noExplicitColor, true);
 		out << "KEY=VALUE\n";
 		for(int i = 0; i < listOfParameters.size(); i++)
@@ -203,7 +203,6 @@ void cCommandLineInterface::ReadCLI (void)
 
 		if(systemData.noGui)
 		{
-			QTextStream out(stdout);
 			out << "NetRender - Waiting for clients\n";
 		}
 
