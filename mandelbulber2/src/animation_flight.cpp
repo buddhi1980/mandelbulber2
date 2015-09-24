@@ -26,6 +26,7 @@
 #include "system.hpp"
 #include "error_message.hpp"
 #include "progress_text.hpp"
+#include "headless.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include "thumbnail_widget.h"
@@ -577,15 +578,24 @@ void cFlightAnimation::RenderFlight()
 	int unrenderedTotal = frames->GetUnrenderedTotal();
 
 	if(frames->GetNumberOfFrames() > 0 && unrenderedTotal == 0){
-		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			ui->centralwidget,
-			QObject::tr("Truncate Image Folder"),
-			QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
-			+ QObject::tr("This will delete all images in the image folder.\nProceed?"),
-			QMessageBox::Yes|QMessageBox::No);
+		bool deletePreviousRender = false;
+		if (!systemData.noGui)
+		{
+			QMessageBox::StandardButton reply;
+			reply = QMessageBox::question(
+				ui->centralwidget,
+				QObject::tr("Truncate Image Folder"),
+				QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
+				+ QObject::tr("This will delete all images in the image folder.\nProceed?"),
+				QMessageBox::Yes|QMessageBox::No);
+			deletePreviousRender = reply == QMessageBox::Yes;
+		}
+		else
+		{
+			deletePreviousRender = false; // TODO request on cli
+		}
 
-		if (reply == QMessageBox::Yes)
+		if (deletePreviousRender)
 		{
 			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"), "frame_?????.*");
 			return RenderFlight();
@@ -601,12 +611,6 @@ void cFlightAnimation::RenderFlight()
 		double percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
 		QString progressTxt = progressText.getText(percentDoneFrame);
 
-		if (!systemData.noGui)
-		{
-			ProgressStatusText(QObject::tr("Animation start"), QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt, percentDoneFrame,
-					ui->statusbar, mainInterface->progressBarAnimation);
-		}
-
 		// Skip already rendered frames
 		if (frames->GetFrame(index).alreadyRendered)
 		{
@@ -618,6 +622,16 @@ void cFlightAnimation::RenderFlight()
 			index--;
 			//qDebug() << QObject::tr("Skip already rendered frame(s) %1 - %2").arg(firstMissing).arg(index);
 			continue;
+		}
+
+		if (!systemData.noGui)
+		{
+			ProgressStatusText(QObject::tr("Animation start"), QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt, percentDoneFrame,
+					ui->statusbar, mainInterface->progressBarAnimation);
+		}
+		else
+		{
+			cHeadless::RenderingProgressOutput(QObject::tr("Animation start"), QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt, percentDoneFrame, true);
 		}
 
 		if (mainInterface->stopRequest) break;
@@ -646,7 +660,15 @@ void cFlightAnimation::RenderFlight()
 		QString filename = GetFlightFilename(index);
 		SaveImage(filename, (enumImageFileType)gPar->Get<int>("flight_animation_image_type"), image);
 	}
-	ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, mainInterface->progressBarAnimation);
+
+	if (!systemData.noGui)
+	{
+		ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, mainInterface->progressBarAnimation);
+	}
+	else
+	{
+		cHeadless::RenderingProgressOutput(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, true);
+	}
 }
 
 void cFlightAnimation::RefreshTable()
