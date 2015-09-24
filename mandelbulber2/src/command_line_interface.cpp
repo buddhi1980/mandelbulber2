@@ -53,7 +53,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 
 	QCommandLineOption overrideOption(QStringList() << "O" << "override",
 		QCoreApplication::translate("main", "Override item '<KEY>' from settings file with new value '<value>'."
-		"Specify multiple KEY=VALUE pairs by separating with a '#' (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues"),
+			"Specify multiple KEY=VALUE pairs by separating with a '#' (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues"
+			"Override fractal parameter in the form 'fractal<N>_KEY=VALUE' with <N> as index of fractal"),
 		QCoreApplication::translate("main", "KEY=VALUE"));
 
 	QCommandLineOption listOption(QStringList() << "L" << "list",
@@ -260,9 +261,25 @@ void cCommandLineInterface::ReadCLI (void)
 		QStringList overrideParameters = cliData.overrideParametersText.split("#", QString::SkipEmptyParts);
 		for(int i = 0; i < overrideParameters.size(); i++)
 		{
+			int fractalIndex = -1;
+			QRegularExpression reType("^fractal([0-9]+)_(.*)$");
+			QRegularExpressionMatch matchType = reType.match(overrideParameters[i]);
+			if (matchType.hasMatch())
+			{
+				fractalIndex = matchType.captured(1).toInt() - 1;
+				overrideParameters[i] = matchType.captured(2);
+			}
 			QStringList overrideParameter = overrideParameters[i].split(QRegExp("\\="));
-			if(overrideParameter.size() == 2){
-				gPar->Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());
+			if(overrideParameter.size() == 2)
+			{
+				if(fractalIndex >= 0 && fractalIndex < NUMBER_OF_FRACTALS)
+				{
+					gParFractal->at(fractalIndex).Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());
+				}
+				else
+				{
+					gPar->Set(overrideParameter[0].trimmed(), overrideParameter[1].trimmed());
+				}
 			}
 		}
 	}

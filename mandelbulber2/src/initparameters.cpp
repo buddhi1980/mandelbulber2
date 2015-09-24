@@ -1125,8 +1125,11 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("menger_sponge105_iterationWeight1_constantZ", 1.0, morphLinear, paramStandard);
   par->addParam("menger_sponge105_iterationWeight1_weight", 1.0, morphLinear, paramStandard);
 
+	// platonic_solid
 
-
+	par->addParam("platonic_solid_frequency", 1.0, morphAkima, paramStandard);
+	par->addParam("platonic_solid_amplitude", 1.0, morphAkima, paramStandard);
+	par->addParam("platonic_solid_rhoMul", 1.0, morphAkima, paramStandard);
 
 	WriteLog("Fractal parameters initialization finished");
 }

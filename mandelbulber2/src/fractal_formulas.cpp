@@ -2239,7 +2239,15 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
   }
 }
 
-
+void PlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
+{
+	double rho = sqrt(z.Length()); // the radius
+	double theta = cos(fractal->platonicSolid.frequency * z.x) * sin(fractal->platonicSolid.frequency * z.y)
+			+ cos(fractal->platonicSolid.frequency * z.y) * sin(fractal->platonicSolid.frequency * z.z)
+			+ cos(fractal->platonicSolid.frequency * z.z) * sin(fractal->platonicSolid.frequency * z.x);
+	double r = theta * fractal->platonicSolid.amplitude + rho * fractal->platonicSolid.rhoMul;
+	z *= r;
+}
 
 /* GeneralizedFoldBox, ref: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/ */
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux)
