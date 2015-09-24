@@ -1,8 +1,9 @@
 ![Banner](https://raw.githubusercontent.com/buddhi1980/mandelbulber2/wiki/assets/images/mandelbulberBanner.png)
-[![Coverity Scan](https://scan.coverity.com/projects/4723/badge.svg?flat=1)]
-(https://scan.coverity.com/projects/mandelbulber-v2)
-[![Build Status](https://travis-ci.org/buddhi1980/mandelbulber2.svg)]
-(https://travis-ci.org/buddhi1980/mandelbulber2)
+
+|Coverity Scan|Build Status|
+|:-:|:-:|
+|[![Coverity Scan](https://scan.coverity.com/projects/4723/badge.svg?flat=1)](https://scan.coverity.com/projects/mandelbulber-v2)|[![Build Status](https://travis-ci.org/buddhi1980/mandelbulber2.svg)](https://travis-ci.org/buddhi1980/mandelbulber2)|
+
 ## What this is
 
 Mandelbulber generates 3-dimensional fractals.
@@ -11,7 +12,7 @@ Explore trigonometric, hypercomplex, mandelbox, IFS and many other 3D fractals.
 
 Render with a great palette of customized shaders and create stunning images and videos.
 
-The possibilties are literally **infinite**!
+The possibilities are literally **infinite**!
 
 ![Test Render](https://raw.githubusercontent.com/buddhi1980/mandelbulber2/wiki/assets/images/mandelbulberTestrender.jpg)
 
