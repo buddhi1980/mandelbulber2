@@ -32,7 +32,7 @@
 #include <QInputDialog>
 #include "undo.h"
 
-cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent) : QObject(parent), mainInterface(_interface), keyframes(_frames)
+cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image, QObject *parent) : QObject(parent), mainInterface(_interface), keyframes(_frames)
 {
 	if(mainInterface->mainWindow)
 	{
@@ -56,17 +56,19 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		QApplication::connect(ui->spinboxInt_frames_per_keyframe, SIGNAL(valueChanged(int)), this, SLOT(UpdateLimitsForFrameRange()));
 
 		table = ui->tableWidget_keyframe_animation;
+
+		//add default parameters for animation
+		if (keyframes->GetListOfUsedParameters().size() == 0)
+		{
+			keyframes->AddAnimatedParameter("camera", gPar->GetAsOneParameter("camera"));
+			keyframes->AddAnimatedParameter("target", gPar->GetAsOneParameter("target"));
+			keyframes->AddAnimatedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
+			if(mainInterface->mainWindow)
+				PrepareTable();
+		}
 	}
 
-	//add default parameters for animation
-	if (keyframes->GetListOfUsedParameters().size() == 0)
-	{
-		keyframes->AddAnimatedParameter("camera", gPar->GetAsOneParameter("camera"));
-		keyframes->AddAnimatedParameter("target", gPar->GetAsOneParameter("target"));
-		keyframes->AddAnimatedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
-		if(mainInterface->mainWindow)
-			PrepareTable();
-	}
+	image = _image;
 }
 
 void cKeyframeAnimation::slotAddKeyframe()
@@ -375,39 +377,53 @@ QColor cKeyframeAnimation::MorphType2Color(parameterContainer::enumMorphType mor
 
 void cKeyframeAnimation::RenderKeyframes()
 {
-	if(mainInterface->mainImage->IsUsed())
+	if(image->IsUsed())
 	{
 		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
 		return;
 	}
 
 	//updating parameters
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+	if(!systemData.noGui)
+	{
+		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+		gUndo.Store(gPar, gParFractal, NULL, keyframes);
+	}
 
 	keyframes->SetFramesPerKeyframe(gPar->Get<int>("frames_per_keyframe"));
 
 	//checking for collisions
-	if(gPar->Get<bool>("keyframe_auto_validate"))
+	if(!systemData.noGui)
 	{
-		QList<int> listOfCollisions = CheckForCollisions(gPar->Get<double>("keyframe_collision_thresh"));
-		if(listOfCollisions.size() > 0)
+		if(gPar->Get<bool>("keyframe_auto_validate"))
 		{
-			QString collisionText;
-			for(int i = 0; i < listOfCollisions.size(); i++)
+			QList<int> listOfCollisions = CheckForCollisions(gPar->Get<double>("keyframe_collision_thresh"));
+			if(listOfCollisions.size() > 0)
 			{
-				collisionText += QString("%1").arg(listOfCollisions.at(i));
-				if(i < listOfCollisions.size() - 1) collisionText += QString(", ");
+				QString collisionText;
+				for(int i = 0; i < listOfCollisions.size(); i++)
+				{
+					collisionText += QString("%1").arg(listOfCollisions.at(i));
+					if(i < listOfCollisions.size() - 1) collisionText += QString(", ");
+				}
+				cErrorMessage::showMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
 			}
-			cErrorMessage::showMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
 		}
 	}
 
 	//preparing Render Job
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
+
+	if(systemData.noGui)
+	{
+		config.EnableConsoleOutput();
+		config.DisableRefresh();
+		config.DisableProgressiveRender();
+		config.EnableNetRender();
+	}
 
 	renderJob->Init(cRenderJob::keyframeAnim, config);
 	mainInterface->stopRequest = false;
@@ -416,7 +432,9 @@ void cKeyframeAnimation::RenderKeyframes()
 	QString framesDir = gPar->Get<QString>("anim_keyframe_dir");
 
 	//prepare progress bar for animation
+	if(!systemData.noGui)
 	mainInterface->progressBarAnimation->show();
+
 	cProgressText progressText;
 	progressText.ResetTimer();
 
@@ -480,10 +498,17 @@ void cKeyframeAnimation::RenderKeyframes()
 			double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / unrenderedTotal;
 			QString progressTxt = progressText.getText(percentDoneFrame);
 
-			ProgressStatusText(QObject::tr("Rendering animation"),
-				QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
-				percentDoneFrame,
-				ui->statusbar, mainInterface->progressBarAnimation);
+			if (!systemData.noGui)
+			{
+				ProgressStatusText(QObject::tr("Rendering animation"),
+					QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
+					percentDoneFrame,
+					ui->statusbar, mainInterface->progressBarAnimation);
+			}
+			else
+			{
+				//TODO progress information for CLI
+			}
 
 			if(mainInterface->stopRequest) break;
 			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, gPar, gParFractal);
@@ -496,11 +521,14 @@ void cKeyframeAnimation::RenderKeyframes()
 			gPar->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
 			gPar->Set("camera_distance_to_target", cameraTarget.GetDistance());
 
-			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+			if (!systemData.noGui)
+			{
+				mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
-			//show distance in statistics table
-			double distance = mainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
-			ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
+				//show distance in statistics table
+				double distance = mainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
+				ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
+			}
 
 			if(gNetRender->IsServer())
 			{
@@ -512,12 +540,20 @@ void cKeyframeAnimation::RenderKeyframes()
 			int result = renderJob->Execute();
 			if(!result) break;
 			QString filename = GetKeyframeFilename(index, subindex);
-			SaveImage(filename, (enumImageFileType)gPar->Get<int>("keyframe_animation_image_type"), gMainInterface->mainImage);
+			SaveImage(filename, (enumImageFileType)gPar->Get<int>("keyframe_animation_image_type"), image);
 		}
 		//--------------------------------------------------------------------
 
 	}
-	ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, mainInterface->progressBarAnimation);
+
+	if (!systemData.noGui)
+	{
+		ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, mainInterface->progressBarAnimation);
+	}
+	else
+	{
+		//TODO progress information for CLI
+	}
 }
 
 void cKeyframeAnimation::RefreshTable()
