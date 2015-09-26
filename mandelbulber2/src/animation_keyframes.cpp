@@ -26,6 +26,7 @@
 #include "system.hpp"
 #include "error_message.hpp"
 #include "progress_text.hpp"
+#include "headless.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include "thumbnail_widget.h"
@@ -507,7 +508,11 @@ void cKeyframeAnimation::RenderKeyframes()
 			}
 			else
 			{
-				//TODO progress information for CLI
+				cHeadless::RenderingProgressOutput(
+					QObject::tr("Rendering animation"),
+					QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
+					percentDoneFrame,
+					true);
 			}
 
 			if(mainInterface->stopRequest) break;
@@ -552,7 +557,7 @@ void cKeyframeAnimation::RenderKeyframes()
 	}
 	else
 	{
-		//TODO progress information for CLI
+		cHeadless::RenderingProgressOutput(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, true);
 	}
 }
 
