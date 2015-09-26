@@ -128,13 +128,15 @@ void cHeadless::RenderingProgressOutput(const QString &header, const QString &pr
 {
 	QTextStream out(stdout);
 	QString formatedText = formatLine(progressTxt) + " ";
+	QString useHeader = header;
 	QString text;
 	if(systemData.terminalWidth > 0)
 	{
-		int freeWidth = systemData.terminalWidth - progressTxt.length() - header.length() - 6;
+		if(useHeader != "") useHeader += ": ";
+		int freeWidth = systemData.terminalWidth - progressTxt.length() - useHeader.length() - 4;
 		int intProgress = freeWidth * percentDone;
 		text = "\r";
-		text += colorize(header + ": ", ansiYellow, noExplicitColor, true);
+		text += colorize(useHeader, ansiYellow, noExplicitColor, true);
 		text += formatedText;
 		text += colorize("[", ansiBlue, noExplicitColor, true);
 		text += colorize(QString(intProgress, '#'), ansiMagenta, noExplicitColor, true);
@@ -227,4 +229,28 @@ bool cHeadless::ConfirmMessage(QString message)
 	out.flush();
 	QString response = in.readLine().toLower();
 	return (response  == "y");
+}
+
+void cHeadless::MoveCursor(int leftRight, int downUp)
+{
+#ifdef WIN32 /* WINDOWS */
+	return;
+#else
+	QTextStream out(stdout);
+	if(leftRight != 0)
+	{
+		QString code = "\033[";
+		code += (leftRight > 0) ? QString::number(leftRight) : QString::number(leftRight * -1);
+		code += (leftRight > 0) ? "C" : "D";
+		out << code;
+	}
+	if(downUp != 0)
+	{
+		QString code = "\033[";
+		code += (downUp > 0) ? QString::number(downUp) : QString::number(downUp * -1);
+		code += (downUp > 0) ? "B" : "A";
+		out << code;
+	}
+	out.flush();
+#endif
 }

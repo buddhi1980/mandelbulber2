@@ -509,7 +509,7 @@ void cKeyframeAnimation::RenderKeyframes()
 			else
 			{
 				cHeadless::RenderingProgressOutput(
-					QObject::tr("Rendering animation"),
+					"",
 					QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
 					percentDoneFrame,
 					true);
@@ -546,6 +546,7 @@ void cKeyframeAnimation::RenderKeyframes()
 			if(!result) break;
 			QString filename = GetKeyframeFilename(index, subindex);
 			SaveImage(filename, (enumImageFileType)gPar->Get<int>("keyframe_animation_image_type"), image);
+			if (systemData.noGui) cHeadless::MoveCursor(0, -2);
 		}
 		//--------------------------------------------------------------------
 
@@ -558,6 +559,7 @@ void cKeyframeAnimation::RenderKeyframes()
 	else
 	{
 		cHeadless::RenderingProgressOutput(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, true);
+		cHeadless::MoveCursor(0, 2);
 	}
 }
 

@@ -630,7 +630,11 @@ void cFlightAnimation::RenderFlight()
 		}
 		else
 		{
-			cHeadless::RenderingProgressOutput(QObject::tr("Animation start"), QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt, percentDoneFrame, true);
+			cHeadless::RenderingProgressOutput(
+				"",
+				QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
+				percentDoneFrame,
+				true);
 		}
 
 		if (mainInterface->stopRequest) break;
@@ -658,6 +662,7 @@ void cFlightAnimation::RenderFlight()
 
 		QString filename = GetFlightFilename(index);
 		SaveImage(filename, (enumImageFileType)gPar->Get<int>("flight_animation_image_type"), image);
+		if (systemData.noGui) cHeadless::MoveCursor(0, -2);
 	}
 
 	if (!systemData.noGui)
@@ -665,8 +670,9 @@ void cFlightAnimation::RenderFlight()
 		ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, mainInterface->progressBarAnimation);
 	}
 	else
-	{
+	{		
 		cHeadless::RenderingProgressOutput(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, true);
+		cHeadless::MoveCursor(0, 2);
 	}
 }
 

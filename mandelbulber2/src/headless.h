@@ -46,6 +46,7 @@ public:
 	static QString colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor = noExplicitColor, bool bold = false);
 	static QString formatLine(const QString& text);
 	static bool ConfirmMessage(QString message);
+	static void MoveCursor(int leftRight, int downUp);
 
 	public slots:
 	void slotNetRender();
