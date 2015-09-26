@@ -61,6 +61,11 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 
 		table = ui->tableWidget_flightAnimation;
 	}
+	else
+	{
+		ui = NULL;
+		table = NULL;
+	}
 	image = _image;
 	linearSpeedSp = 0.0;
 	rotationDirection = 0;

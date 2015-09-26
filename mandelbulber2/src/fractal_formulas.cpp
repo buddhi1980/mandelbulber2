@@ -1780,7 +1780,7 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
     double lengthTempZ = -z.Length();
     z *= 1 + fractal->mengerSponge105.sphericalOffset1OffsetRadius/lengthTempZ;
     z *= fractal-> mengerSponge105.sphericalOffset1Scale;
-    aux.ifsDE = aux.ifsDE * fabs(fractal-> mengerSponge105.sphericalOffset2Scale) + 1.0;
+    aux.ifsDE = aux.ifsDE * fabs(fractal-> mengerSponge105.sphericalOffset1Scale) + 1.0;
     //weight function
     if (fractal->mengerSponge105.sphericalOffset1WeightEnabled)
     {

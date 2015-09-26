@@ -68,6 +68,11 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 				PrepareTable();
 		}
 	}
+	else
+	{
+		ui = NULL;
+		table = NULL;
+	}
 
 	image = _image;
 }
