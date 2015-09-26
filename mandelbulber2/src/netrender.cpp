@@ -228,12 +228,15 @@ void CNetRender::ServerDisconnected()
 {
 	status = netRender_ERROR;
 	emit NotifyStatus();
+
+	gMainInterface->stopRequest = true;
+
 	reconnectTimer->start();
 
 	if(systemData.noGui)
 	{
 		QTextStream out(stdout);
-		qWarning() << "Connection lost";
+		cErrorMessage::showMessage(QString("Connection lost"), cErrorMessage::errorMessage);
 	}
 }
 
