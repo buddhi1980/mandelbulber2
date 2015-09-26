@@ -41,6 +41,7 @@ public:
 
 	void RenderStillImage(QString filename, QString imageFileFormat);
 	void RenderFlightAnimation();
+	void RenderKeyframeAnimation();
 	static void RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone, bool newLine = false);
 	static QString colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor = noExplicitColor, bool bold = false);
 	static QString formatLine(const QString& text);

@@ -33,7 +33,7 @@ class cKeyframeAnimation : public QObject
  Q_OBJECT
 
 public:
-	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, QObject *parent = 0);
+	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image, QObject *parent = 0);
 	void RenderKeyframes();
 	void RenderFrame(int index);
 	void RefreshTable();
@@ -77,6 +77,7 @@ private:
 	cInterface *mainInterface;
 	Ui::RenderWindow *ui;
 	cKeyframes *keyframes;
+	cImage *image;
 	QStringList tableRowNames;
 	QVector<int> parameterRows; //position of parameter in table
 	QVector<int> rowParameter; //index of parameter in row

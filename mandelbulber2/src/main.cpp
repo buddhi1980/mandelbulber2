@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
 	{
 		gMainInterface->ShowUi();
 		gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainImage, gMainInterface->mainWindow);
-		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainWindow);
+		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainImage, gMainInterface->mainWindow);
 	}
 
 	//write parameters to ui

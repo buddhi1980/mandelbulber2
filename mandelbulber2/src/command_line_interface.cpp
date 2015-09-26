@@ -52,8 +52,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "N"));
 
 	QCommandLineOption overrideOption(QStringList() << "O" << "override",
-		QCoreApplication::translate("main", "Override item '<KEY>' from settings file with new value '<value>'."
-			"Specify multiple KEY=VALUE pairs by separating with a '#' (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues"
+		QCoreApplication::translate("main", "Override item '<KEY>' from settings file with new value '<value>'.\n"
+			"Specify multiple KEY=VALUE pairs by separating with a '#' (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues\n"
 			"Override fractal parameter in the form 'fractal<N>_KEY=VALUE' with <N> as index of fractal"),
 		QCoreApplication::translate("main", "KEY=VALUE"));
 
@@ -385,7 +385,7 @@ void cCommandLineInterface::ReadCLI (void)
 
 		if (cliTODO == modeKeyframe)
 		{
-			int numberOfFrames = gKeyframes->GetNumberOfFrames() * gKeyframes->GetFramesPerKeyframe();
+			int numberOfFrames = gKeyframes->GetNumberOfFrames() * gPar->Get<int>("frames_per_keyframe");;
 			if (startFrame <= numberOfFrames)
 			{
 				gPar->Set("keyframe_first_to_render", startFrame);
@@ -426,7 +426,7 @@ void cCommandLineInterface::ReadCLI (void)
 
 		if (cliTODO == modeKeyframe)
 		{
-			int numberOfFrames = gKeyframes->GetNumberOfFrames() * gKeyframes->GetFramesPerKeyframe();
+			int numberOfFrames = gKeyframes->GetNumberOfFrames() * gPar->Get<int>("frames_per_keyframe");
 			if (endFrame <= numberOfFrames)
 			{
 				if (endFrame > gPar->Get<int>("keyframe_first_to_render"))
@@ -442,7 +442,7 @@ void cCommandLineInterface::ReadCLI (void)
 			}
 			else
 			{
-				cErrorMessage::showMessage(QString("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()), cErrorMessage::errorMessage);
+				cErrorMessage::showMessage(QString("Animation has only %1 frames").arg(numberOfFrames), cErrorMessage::errorMessage);
 				parser.showHelp(-23);
 			}
 		}
@@ -495,7 +495,8 @@ void cCommandLineInterface::ProcessCLI (void)
 		}
 		case modeKeyframe:
 		{
-			return gKeyframeAnimation->slotRenderKeyframes();
+			cHeadless headless;
+			headless.RenderKeyframeAnimation();
 			break;
 		}
 		case modeStill:

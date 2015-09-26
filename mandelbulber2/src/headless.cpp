@@ -97,6 +97,14 @@ void cHeadless::RenderFlightAnimation()
 	return gFlightAnimation->slotRenderFlight();
 }
 
+void cHeadless::RenderKeyframeAnimation()
+{
+	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, image, NULL);
+	return gKeyframeAnimation->slotRenderKeyframes();
+}
+
+
 void cHeadless::slotNetRender()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
