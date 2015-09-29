@@ -85,33 +85,39 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &fol
 void additionConstantTransform3D(const sTransformAdditionConstant &additionConstant, CVector3 &z, int i);
 void additionConstantTransform4D(const sTransformAdditionConstant &additionConstant, CVector4 &z, int i);
 void boxConstantMultiplierTransform3D(const sTransformBoxConstantMultiplier &boxConstantMultiplier, CVector3 &z,CVector3 &c, int i);
+
+
+void boxFoldOriginalTransform3D(const sTransformBoxFoldOriginal &boxFoldOriginal, CVector3 &z, int i);
 void boxFoldTransform3D(const sTransformBoxFold &boxFold, CVector3 &z, int i);
 void boxFoldTransform4D(const sTransformBoxFold &boxFold, CVector4 &z, int i);
 void boxOffsetTransform3D(const sTransformBoxOffset &boxOffset, CVector3 &z, int i);
+void constantMultiplierOriginalTransform3D(const sTransformConstantMultiplierOriginal &constantMultiplierOriginal, CVector3 &z, CVector3 &c, int i);
+void constantMultiplierOriginalTransform4D(const sTransformConstantMultiplierOriginal &constantMultiplierOriginal, CVector4 &z, const CVector4 &c, int i);
 void constantMultiplierTransform3D(const sTransformConstantMultiplier &constantMultiplier, CVector3 &z, CVector3 &c, int i);
+void constantMultiplierTransform4D(const sTransformConstantMultiplier &constantMultiplier, CVector4 &z, const CVector4 &c, int i);
 void fabsAddConstantTransform3D(const sTransformFabsAddConstant &fabsAddConstant, CVector3 &z, int i);
 void fabsAddConstantTransform4D(const sTransformFabsAddConstant &fabsAddConstant, CVector4 &z, int i);
 void fabsFormulaABCDTransform3D(const sTransformFabsFormulaABCD &fabsFormulaABCD, CVector3 &z, int i);
 void fabsFormulaABCDTransform4D(const sTransformFabsFormulaABCD &fabsFormulaABCD, CVector4 &z, int i);
 void iterationWeightTransform3D(const sTransformIterationWeight &iterationWeight, CVector3 &z, int i);
-void iterationWeightTransform4D(const sTransformIterationWeight &iterationWeight, CVector3 &z, int i);
+void iterationWeightTransform4D(const sTransformIterationWeight &iterationWeight, CVector4 &z, int i);
 void mainRotationTransform3D(const sTransformMainRotation &mainRotation, CVector3 &z, int i);
+void mainRotationTransform4D(const sTransformMainRotation &mainRotation, CVector4 &z, int i);
 void mengerSpongeOriginalTransform3D(const sTransformMengerSpongeOriginal &mengerSpongeOriginal, CVector3 &z, int i, sIFSAux &aux);
 void mengerSpongeTransform3D(const sTransformMengerSponge &mengerSponge, CVector3 &z, int i, sIFSAux &aux);
+void quaternionOriginalTransform4D(const sTransformQuaternionOriginal &quaternionOriginal, CVector4 &z, int i);
+void quaternionTransform4D(const sTransformQuaternion &quaternion, CVector4 &z, int i);
 void scaleTransform3D(const sTransformScale &scale, CVector3 &z, int i, sIFSAux &aux);
 void scaleTransform4D(const sTransformScale &scale, CVector4 &z, int i, sIFSAux &aux);
-
-// hmmm sometime we want Mbox aux
 void sphericalFold3D(const sTransformSphericalFold &sphericalFold, CVector3 &z, int i, sIFSAux &aux);
-//
 void sphericalFold4D(const sTransformSphericalFold &sphericalFold, CVector4 &z, int i);
 void sphericalOffset3D(const sTransformSphericalOffset &sphericalOffset, CVector3 &z, int i, sIFSAux &aux);
 
-
+// hmmm sometime we want Mbox aux
 
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sMandelbulbAux &aux);
 void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal,  sMandelboxAux &aux);
-void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal);
+void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal,sIFSAux &aux);
 void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sIFSAux &aux);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

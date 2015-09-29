@@ -163,7 +163,7 @@ struct sMsltoeSym2
 {
 	double y_multiplier;
 };
-
+  //-----------------------------------
 struct sTransformControl
 {
   bool enabled;
@@ -191,6 +191,12 @@ struct sTransformBoxConstantMultiplier
   bool boxConstantMultiplierFabsEnabledZ;
   CVector3 boxConstantMultiplier;
 };
+struct sTransformBoxFoldOriginal
+{
+  sTransformControl control;
+  double foldingLimit;
+  double foldingValue;
+};
 struct sTransformBoxFold
 {
   sTransformControl control;
@@ -202,12 +208,20 @@ struct sTransformBoxOffset
   sTransformControl control;
   CVector3 boxOffset;
 };
+struct sTransformConstantMultiplierOriginal
+{
+  sTransformControl control;
+  CVector3 constantMultiplierVect;
+  //extra for 4D
+  CVector4 constantMultiplierVect4D;
+};
 struct sTransformConstantMultiplier
 {
   sTransformControl control;
   CVector3 constantMultiplierVect;
+  //extra for 4D
+  CVector4 constantMultiplierVect4D;
 };
-
 struct sTransformFabsAddConstant
 {
   sTransformControl control;
@@ -260,6 +274,7 @@ struct sTransformMainRotation
   CVector3 mainRotation;
   CRotationMatrix mainRot;
 };
+
 struct sTransformMengerSpongeOriginal
 {
   sTransformControl control;
@@ -271,6 +286,16 @@ struct sTransformMengerSponge
   sTransformControl control;
   double mengerSpongeConstantZ;
   CVector3 mengerSpongeFactorConstantVect;
+};
+struct sTransformQuaternionOriginal
+{
+  sTransformControl control;
+  CVector4  quaternionOriginalFactorConstant;
+};
+struct sTransformQuaternion
+{
+  sTransformControl control;
+  CVector4 quaternionFactorConstant;
 };
 struct sTransformScale
 {
@@ -302,12 +327,14 @@ struct sFractalTransform
   sTransformAdditionConstant additionConstant2;
   sTransformBoxConstantMultiplier boxConstantMultiplier1;
   sTransformBoxConstantMultiplier boxConstantMultiplier2;
+  sTransformBoxFoldOriginal boxFoldOriginal1;
   sTransformBoxFold boxFold1;
   sTransformBoxFold boxFold2;
   sTransformBoxOffset boxOffset1;
   sTransformBoxOffset boxOffset2;
-  sTransformConstantMultiplier  constantMultiplier1 ;
-  sTransformConstantMultiplier  constantMultiplier2 ;
+  sTransformConstantMultiplierOriginal constantMultiplierOriginal1;
+  sTransformConstantMultiplier  constantMultiplier1;
+  sTransformConstantMultiplier  constantMultiplier2;
   sTransformFabsAddConstant fabsAddConstant1;
   sTransformFabsFormulaABCD fabsFormulaABCD1;
   sTransformFabsFormulaABCD fabsFormulaABCD2;
@@ -318,6 +345,8 @@ struct sFractalTransform
   sTransformMengerSpongeOriginal mengerSpongeOriginal1;
   sTransformMengerSponge mengerSponge1;
   sTransformMengerSponge mengerSponge2;
+  sTransformQuaternionOriginal quaternionOriginal1;
+  sTransformQuaternion quaternion1;
   sTransformScale scale1;
   sTransformScale scale2;
   sTransformSphericalFold sphericalFold1;
