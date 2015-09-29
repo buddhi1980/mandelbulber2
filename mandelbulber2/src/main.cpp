@@ -119,6 +119,8 @@ int main(int argc, char *argv[])
 	}
 	UpdateLanguage();
 
+	gQueue = new cQueue(systemData.dataDirectory + "queue.txt", systemData.dataDirectory + "queue");
+
 	commandLineInterface.ReadCLI();
 
 	if(!commandLineInterface.isNoGUI())
@@ -155,6 +157,7 @@ int main(int argc, char *argv[])
 	delete gKeyframes;
 	delete gNetRender;
 	delete gMainInterface;
+	delete gQueue;
 	delete gApplication;
 	return result;
 }

@@ -31,3 +31,4 @@ cFlightAnimation *gFlightAnimation = NULL;
 cKeyframeAnimation *gKeyframeAnimation = NULL;
 QApplication *gApplication = NULL;
 CNetRender *gNetRender = NULL;
+cQueue *gQueue = NULL;

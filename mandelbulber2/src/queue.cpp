@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * Global variables
+ * cQueye - class to manage rendering queue
  *
  * Copyright (C) 2014 Krzysztof Marczak
  *
@@ -17,33 +17,19 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with Mandelbulber. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen
  */
 
-
-#ifndef SRC_GLOBAL_DATA_HPP_
-#define SRC_GLOBAL_DATA_HPP_
-
-#include "parameters.hpp"
-#include "fractal_container.hpp"
-#include "animation_frames.hpp"
-#include "animation_flight.hpp"
-#include "animation_keyframes.hpp"
-#include "keyframes.hpp"
-#include "interface.hpp"
-#include "netrender.hpp"
 #include "queue.hpp"
 
-extern cParameterContainer *gPar;
-extern cFractalContainer *gParFractal;
-extern cAnimationFrames *gAnimFrames;
-extern cKeyframes *gKeyframes;
-extern cInterface *gMainInterface;
-extern cFlightAnimation *gFlightAnimation;
-extern cKeyframeAnimation *gKeyframeAnimation;
-extern QApplication *gApplication;
-extern CNetRender *gNetRender;
-extern cQueue *gQueue;
+cQueue::cQueue(const QString &_queueListFileName, const QString &_queueFolder)
+{
+	// TODO Auto-generated constructor stub
 
+}
 
-#endif /* SRC_GLOBAL_DATA_HPP_ */
+cQueue::~cQueue()
+{
+	// TODO Auto-generated destructor stub
+}
+

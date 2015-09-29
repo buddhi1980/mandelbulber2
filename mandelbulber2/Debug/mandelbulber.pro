@@ -62,6 +62,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/primitives.cpp\
 			../src/progress_text.cpp\
 			../src/preview_file_dialog.cpp\
+			../src/queue.cpp\
 			../src/random.cpp\
 			../src/render_image.cpp\
 			../src/rendered_image_widget.cpp\
