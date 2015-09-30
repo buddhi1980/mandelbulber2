@@ -75,17 +75,41 @@ void boxConstantMultiplierTransform3D(const sTransformBoxConstantMultiplier &box
 }
 
 //boxFoldOriginal transform 3D
-void boxFoldOriginalTransform3D(const sTransformBoxFoldOriginal &boxFoldOriginal, CVector3 &z, int i)
+void boxFoldOriginalTransform3D(const sTransformBoxFoldOriginal &boxFoldOriginal, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (boxFoldOriginal.control.enabled && i >= boxFoldOriginal.control.startIterations && i < boxFoldOriginal.control.stopIterations)
 	{
 		CVector3 temp = z;
-		if (z.x > boxFoldOriginal.foldingLimit) z.x = boxFoldOriginal.foldingValue - z.x;
-		else if (z.x < -boxFoldOriginal.foldingLimit) z.x = -boxFoldOriginal.foldingValue - z.x;
-		if (z.y > boxFoldOriginal.foldingLimit) z.y = boxFoldOriginal.foldingValue - z.y;
-		else if (z.y < -boxFoldOriginal.foldingLimit) z.y = -boxFoldOriginal.foldingValue - z.y;
-		if (z.z > boxFoldOriginal.foldingLimit) z.z = boxFoldOriginal.foldingValue - z.z;
-		else if (z.z < -boxFoldOriginal.foldingLimit) z.z = -boxFoldOriginal.foldingValue - z.z;
+		if (z.x > boxFoldOriginal.foldingLimit)
+		{
+			z.x = boxFoldOriginal.foldingValue - z.x;
+			aux.color += boxFoldOriginal.color.factor.x;
+		}
+		else if (z.x < -boxFoldOriginal.foldingLimit)
+		{
+			z.x = -boxFoldOriginal.foldingValue - z.x;
+			aux.color += boxFoldOriginal.color.factor.x;
+		}
+		if (z.y > boxFoldOriginal.foldingLimit)
+		{
+			z.y = boxFoldOriginal.foldingValue - z.y;
+			aux.color += boxFoldOriginal.color.factor.y;
+		}
+		else if (z.y < -boxFoldOriginal.foldingLimit)
+		{
+			z.y = -boxFoldOriginal.foldingValue - z.y;
+			aux.color += boxFoldOriginal.color.factor.y;
+		}
+		if (z.z > boxFoldOriginal.foldingLimit)
+		{
+			z.z = boxFoldOriginal.foldingValue - z.z;
+			aux.color += boxFoldOriginal.color.factor.z;
+		}
+		else if (z.z < -boxFoldOriginal.foldingLimit)
+		{
+			z.z = -boxFoldOriginal.foldingValue - z.z;
+			aux.color += boxFoldOriginal.color.factor.z;
+		}
 		//oldOriginal weight function
 		if (boxFoldOriginal.control.oldWeightEnabled)
 		{
@@ -100,17 +124,41 @@ void boxFoldOriginalTransform3D(const sTransformBoxFoldOriginal &boxFoldOriginal
 }
 
 //boxFold transform 3D
-void boxFoldTransform3D(const sTransformBoxFold &boxFold, CVector3 &z, int i)
+void boxFoldTransform3D(const sTransformBoxFold &boxFold, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (boxFold.control.enabled && i >= boxFold.control.startIterations && i < boxFold.control.stopIterations)
 	{
 		CVector3 temp = z;
-		if (z.x > boxFold.foldingLimit) z.x = boxFold.foldingValue - z.x;
-		else if (z.x < -boxFold.foldingLimit) z.x = -boxFold.foldingValue - z.x;
-		if (z.y > boxFold.foldingLimit) z.y = boxFold.foldingValue - z.y;
-		else if (z.y < -boxFold.foldingLimit) z.y = -boxFold.foldingValue - z.y;
-		if (z.z > boxFold.foldingLimit) z.z = boxFold.foldingValue - z.z;
-		else if (z.z < -boxFold.foldingLimit) z.z = -boxFold.foldingValue - z.z;
+		if (z.x > boxFold.foldingLimit)
+		{
+			z.x = boxFold.foldingValue - z.x;
+			aux.color += boxFold.color.factor.x;
+		}
+		else if (z.x < -boxFold.foldingLimit)
+		{
+			z.x = -boxFold.foldingValue - z.x;
+			aux.color += boxFold.color.factor.x;
+		}
+		if (z.y > boxFold.foldingLimit)
+		{
+			z.y = boxFold.foldingValue - z.y;
+			aux.color += boxFold.color.factor.y;
+		}
+		else if (z.y < -boxFold.foldingLimit)
+		{
+			z.y = -boxFold.foldingValue - z.y;
+			aux.color += boxFold.color.factor.y;
+		}
+		if (z.z > boxFold.foldingLimit)
+		{
+			z.z = boxFold.foldingValue - z.z;
+			aux.color += boxFold.color.factor.z;
+		}
+		else if (z.z < -boxFold.foldingLimit)
+		{
+			z.z = -boxFold.foldingValue - z.z;
+			aux.color += boxFold.color.factor.z;
+		}
 		//old weight function
 		if (boxFold.control.oldWeightEnabled)
 		{
@@ -125,17 +173,41 @@ void boxFoldTransform3D(const sTransformBoxFold &boxFold, CVector3 &z, int i)
 }
 
 //boxFold transform 4D
-void boxFoldTransform4D(const sTransformBoxFold &boxFold, CVector4 &z, int i)
+void boxFoldTransform4D(const sTransformBoxFold &boxFold, CVector4 &z, int i, sExtendedAux &aux)
 {
 	if (boxFold.control.enabled && i >= boxFold.control.startIterations && i < boxFold.control.stopIterations)
 	{
 		CVector4 temp = z;
-		if (z.x > boxFold.foldingLimit) z.x = boxFold.foldingValue - z.x;
-		else if (z.x < -boxFold.foldingLimit) z.x = -boxFold.foldingValue - z.x;
-		if (z.y > boxFold.foldingLimit) z.y = boxFold.foldingValue - z.y;
-		else if (z.y < -boxFold.foldingLimit) z.y = -boxFold.foldingValue - z.y;
-		if (z.z > boxFold.foldingLimit) z.z = boxFold.foldingValue - z.z;
-		else if (z.z < -boxFold.foldingLimit) z.z = -boxFold.foldingValue - z.z;
+		if (z.x > boxFold.foldingLimit)
+		{
+			z.x = boxFold.foldingValue - z.x;
+			aux.color += boxFold.color.factor.x;
+		}
+		else if (z.x < -boxFold.foldingLimit)
+		{
+			z.x = -boxFold.foldingValue - z.x;
+			aux.color += boxFold.color.factor.x;
+		}
+		if (z.y > boxFold.foldingLimit)
+		{
+			z.y = boxFold.foldingValue - z.y;
+			aux.color += boxFold.color.factor.y;
+		}
+		else if (z.y < -boxFold.foldingLimit)
+		{
+			z.y = -boxFold.foldingValue - z.y;
+			aux.color += boxFold.color.factor.y;
+		}
+		if (z.z > boxFold.foldingLimit)
+		{
+			z.z = boxFold.foldingValue - z.z;
+			aux.color += boxFold.color.factor.z;
+		}
+		else if (z.z < -boxFold.foldingLimit)
+		{
+			z.z = -boxFold.foldingValue - z.z;
+			aux.color += boxFold.color.factor.z;
+		}
 		if (z.w > boxFold.foldingLimit) z.w = boxFold.foldingValue - z.w;
 		else if (z.w < -boxFold.foldingLimit) z.w = -boxFold.foldingValue - z.w;
 		//old weight function
@@ -152,17 +224,41 @@ void boxFoldTransform4D(const sTransformBoxFold &boxFold, CVector4 &z, int i)
 }
 
 //boxOffset transform 3D
-void boxOffsetTransform3D(const sTransformBoxOffset &boxOffset, CVector3 &z, int i)
+void boxOffsetTransform3D(const sTransformBoxOffset &boxOffset, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (boxOffset.control.enabled && i >= boxOffset.control.startIterations && i < boxOffset.control.stopIterations)
 	{
 		CVector3 temp = z;
-		if (z.x > 0) z.x = z.x + boxOffset.boxOffset.x;
-		else z.x = z.x - boxOffset.boxOffset.x;
-		if (z.y > 0) z.y = z.y + boxOffset.boxOffset.y;
-		else z.y = z.y - boxOffset.boxOffset.y;
-		if (z.z > 0) z.z = z.z + boxOffset.boxOffset.z;
-		else z.z = z.z - boxOffset.boxOffset.z;
+		if (z.x > 0)
+		{
+			z.x = z.x + boxOffset.boxOffset.x;
+			aux.color += boxOffset.color.factor.x;
+		}
+		else
+		{
+			z.x = z.x - boxOffset.boxOffset.x;
+			aux.color += boxOffset.color.factor.x;
+		}
+		if (z.y > 0)
+		{
+			z.y = z.y + boxOffset.boxOffset.y;
+			aux.color += boxOffset.color.factor.y;
+		}
+		else
+		{
+			z.y = z.y - boxOffset.boxOffset.y;
+			aux.color += boxOffset.color.factor.y;
+		}
+		if (z.z > 0)
+		{
+			z.z = z.z + boxOffset.boxOffset.z;
+			aux.color += boxOffset.color.factor.z;
+		}
+		else
+		{
+			z.z = z.z - boxOffset.boxOffset.z;
+			aux.color += boxOffset.color.factor.z;
+		}
 		//weight function
 		if (boxOffset.control.weightEnabled)
 		{
@@ -556,7 +652,7 @@ void iterationWeightTransform4D(const sTransformIterationWeight &iterationWeight
 }
 
 // mandelbulb Original 3D
-void mandelbulbOriginalTransform3D(const sTransformMandelbulbOriginal &mandelbulbOriginal, CVector3 &z, int i, sMandelbulbAux &aux)
+void mandelbulbOriginalTransform3D(const sTransformMandelbulbOriginal &mandelbulbOriginal, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (mandelbulbOriginal.control.enabled && i >= mandelbulbOriginal.control.startIterations && i < mandelbulbOriginal.control.stopIterations)
 	{
@@ -580,7 +676,7 @@ void mandelbulbOriginalTransform3D(const sTransformMandelbulbOriginal &mandelbul
 }
 
 // mandelbulb 3D
-void mandelbulbTransform3D(const sTransformMandelbulb &mandelbulb, CVector3 &z, int i, sMandelbulbAux &aux)
+void mandelbulbTransform3D(const sTransformMandelbulb &mandelbulb, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (mandelbulb.control.enabled && i >= mandelbulb.control.startIterations && i < mandelbulb.control.stopIterations)
 	{
@@ -636,7 +732,7 @@ void mainRotationTransform4D(const sTransformMainRotation &mainRotation, CVector
 	}
 }
 
-void mengerSpongeOriginalTransform3D(const sTransformMengerSpongeOriginal &mengerSpongeOriginal, CVector3 &z, int i, sIFSAux &aux)
+void mengerSpongeOriginalTransform3D(const sTransformMengerSpongeOriginal &mengerSpongeOriginal, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (mengerSpongeOriginal.control.enabled && i >= mengerSpongeOriginal.control.startIterations && i < mengerSpongeOriginal.control.stopIterations)
 	{
@@ -668,7 +764,7 @@ void mengerSpongeOriginalTransform3D(const sTransformMengerSpongeOriginal &menge
 		z.x -= 2.0 * mengerSpongeOriginal.mengerSpongeOriginalFactorConstantVect.x;
 		z.y -= 2.0 * mengerSpongeOriginal.mengerSpongeOriginalFactorConstantVect.y;
 		if (z.z > 1.0) z.z -= 2.0 * mengerSpongeOriginal.mengerSpongeOriginalFactorConstantVect.z;
-		aux.ifsDE *= 3.0 * mengerSpongeOriginal.mengerSpongeOriginalConstantZ;
+		aux.DE *= 3.0 * mengerSpongeOriginal.mengerSpongeOriginalConstantZ;
 
 		//weight function
 		if (mengerSpongeOriginal.control.weightEnabled)
@@ -680,7 +776,7 @@ void mengerSpongeOriginalTransform3D(const sTransformMengerSpongeOriginal &menge
 	}
 }
 
-void mengerSpongeTransform3D(const sTransformMengerSponge &mengerSponge, CVector3 &z, int i, sIFSAux &aux)
+void mengerSpongeTransform3D(const sTransformMengerSponge &mengerSponge, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (mengerSponge.control.enabled && i >= mengerSponge.control.startIterations && i < mengerSponge.control.stopIterations)
 	{
@@ -712,7 +808,7 @@ void mengerSpongeTransform3D(const sTransformMengerSponge &mengerSponge, CVector
 		z.x -= 2.0 * mengerSponge.mengerSpongeFactorConstantVect.x;
 		z.y -= 2.0 * mengerSponge.mengerSpongeFactorConstantVect.y;
 		if (z.z > 1.0) z.z -= 2.0 * mengerSponge.mengerSpongeFactorConstantVect.z;
-		aux.ifsDE *= 3.0 * mengerSponge.mengerSpongeConstantZ;
+		aux.DE *= 3.0 * mengerSponge.mengerSpongeConstantZ;
 
 		//weight function
 		if (mengerSponge.control.weightEnabled)
@@ -760,140 +856,140 @@ void quaternionTransform4D(const sTransformQuaternion &quaternion, CVector4 &z, 
 }
 
 //scaleOriginal transform 3D
-void scaleOriginalTransform3D(const sTransformScaleOriginal &scaleOriginal, CVector3 &z, int i, sIFSAux &aux)
+void scaleOriginalTransform3D(const sTransformScaleOriginal &scaleOriginal, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (scaleOriginal.control.enabled && i >= scaleOriginal.control.startIterations && i < scaleOriginal.control.stopIterations)
 	{
 		z = z * scaleOriginal.scaleOriginal;
-		aux.ifsDE = aux.ifsDE * fabs(scaleOriginal.scaleOriginal) + 1.0;
+		aux.DE = aux.DE * fabs(scaleOriginal.scaleOriginal) + 1.0;
 	}
 }
 
 //scale transform 3D
-void scaleTransform3D(const sTransformScale &scale, CVector3 &z, int i, sIFSAux &aux)
+void scaleTransform3D(const sTransformScale &scale, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (scale.control.enabled && i >= scale.control.startIterations && i < scale.control.stopIterations)
 	{
 		z = z * scale.scale;
-		aux.ifsDE = aux.ifsDE * fabs(scale.scale) + 1.0;
+		aux.DE = aux.DE * fabs(scale.scale) + 1.0;
 	}
 }
 
 //scale transform 4D
-void scaleTransform4D(const sTransformScale &scale, CVector4 &z, int i, sIFSAux &aux)
+void scaleTransform4D(const sTransformScale &scale, CVector4 &z, int i, sExtendedAux &aux)
 {
 	if (scale.control.enabled && i >= scale.control.startIterations && i < scale.control.stopIterations)
 	{
 		z = z * scale.scale;
-		aux.ifsDE = aux.ifsDE * fabs(scale.scale) + 1.0;
+		aux.DE = aux.DE * fabs(scale.scale) + 1.0;
 	}
 }
 
 //sphericalFoldOriginal transform 3D
-void sphericalFoldOriginalTransform3D(const sTransformSphericalFoldOriginal &sphericalFoldOriginal, CVector3 &z, int i, sIFSAux &aux)
+void sphericalFoldOriginalTransform3D(const sTransformSphericalFoldOriginal &sphericalFoldOriginal, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (sphericalFoldOriginal.control.enabled && i >= sphericalFoldOriginal.control.startIterations && i < sphericalFoldOriginal.control.stopIterations)
 	{
 		CVector3 temp = z;
-		double tempAuxDE = aux.ifsDE;
+		double tempAuxDE = aux.DE;
 		double r2 = z.Dot(z);
 		if (r2 < sphericalFoldOriginal.mR2)
 		{
 			z *= sphericalFoldOriginal.mboxFactor1;
-			aux.ifsDE *= sphericalFoldOriginal.mboxFactor1;
+			aux.DE *= sphericalFoldOriginal.mboxFactor1;
 		}
 		else if (r2 < sphericalFoldOriginal.fR2)
 		{
 			double tglad_factor2 = sphericalFoldOriginal.fR2 / r2;
 			z *= tglad_factor2;
-			aux.ifsDE *= tglad_factor2;
+			aux.DE *= tglad_factor2;
 		}
 		//aux weight function
 		if (sphericalFoldOriginal.control.weightEnabled)
 		{
 			z = SmoothCVector(temp, z, sphericalFoldOriginal.control.weight);
 			double nkaux = 1.0 - (sphericalFoldOriginal.control.weight);
-			aux.ifsDE = (tempAuxDE * nkaux) + (aux.ifsDE * sphericalFoldOriginal.control.weight);
+			aux.DE = (tempAuxDE * nkaux) + (aux.DE * sphericalFoldOriginal.control.weight);
 		}
 	}
 }
 
 //sphericalFold transform 3D
-void sphericalFoldTransform3D(const sTransformSphericalFold &sphericalFold, CVector3 &z, int i, sIFSAux &aux)
+void sphericalFoldTransform3D(const sTransformSphericalFold &sphericalFold, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (sphericalFold.control.enabled && i >= sphericalFold.control.startIterations && i < sphericalFold.control.stopIterations)
 	{
 		CVector3 temp = z;
-		double tempAuxDE = aux.ifsDE;
+		double tempAuxDE = aux.DE;
 		double r2 = z.Dot(z);
 		if (r2 < sphericalFold.mR2)
 		{
 			z *= sphericalFold.mboxFactor1;
-			aux.ifsDE *= sphericalFold.mboxFactor1;
+			aux.DE *= sphericalFold.mboxFactor1;
 		}
 		else if (r2 < sphericalFold.fR2)
 		{
 			double tglad_factor2 = sphericalFold.fR2 / r2;
 			z *= tglad_factor2;
-			aux.ifsDE *= tglad_factor2;
+			aux.DE *= tglad_factor2;
 		}
 		//aux weight function
 		if (sphericalFold.control.weightEnabled)
 		{
 			z = SmoothCVector(temp, z, sphericalFold.control.weight);
 			double nkaux = 1.0 - (sphericalFold.control.weight);
-			aux.ifsDE = (tempAuxDE * nkaux) + (aux.ifsDE * sphericalFold.control.weight);
+			aux.DE = (tempAuxDE * nkaux) + (aux.DE * sphericalFold.control.weight);
 		}
 	}
 }
 
 //sphericalFold transform 4D
-void sphericalFoldTransform4D(const sTransformSphericalFold &sphericalFold, CVector4 &z, int i, sIFSAux &aux)
+void sphericalFoldTransform4D(const sTransformSphericalFold &sphericalFold, CVector4 &z, int i, sExtendedAux &aux)
 {
 	if (sphericalFold.control.enabled && i >= sphericalFold.control.startIterations && i < sphericalFold.control.stopIterations)
 	{
 		CVector4 temp = z;
-		double tempAuxDE = aux.ifsDE;
+		double tempAuxDE = aux.DE;
 		double r2 = z.Dot(z);
 		if (r2 < sphericalFold.mR2)
 		{
 			z *= sphericalFold.mboxFactor1;
-			aux.ifsDE *= sphericalFold.mboxFactor1;
+			aux.DE *= sphericalFold.mboxFactor1;
 		}
 		else if (r2 < sphericalFold.fR2)
 		{
 			double tglad_factor2 = sphericalFold.fR2 / r2;
 			z *= tglad_factor2;
-			aux.ifsDE *= tglad_factor2;
+			aux.DE *= tglad_factor2;
 		}
 		//aux weight function
 		if (sphericalFold.control.weightEnabled)
 		{
 			z = SmoothCVector(temp, z, sphericalFold.control.weight);
 			double nkaux = 1.0 - (sphericalFold.control.weight);
-			aux.ifsDE = (tempAuxDE * nkaux) + (aux.ifsDE * sphericalFold.control.weight);
+			aux.DE = (tempAuxDE * nkaux) + (aux.DE * sphericalFold.control.weight);
 		}
 	}
 }
 
 //sphericalOffset transform 3D
-void sphericalOffsetTransform3D(const sTransformSphericalOffset &sphericalOffset, CVector3 &z, int i, sIFSAux &aux)
+void sphericalOffsetTransform3D(const sTransformSphericalOffset &sphericalOffset, CVector3 &z, int i, sExtendedAux &aux)
 {
 	if (sphericalOffset.control.enabled && i >= sphericalOffset.control.startIterations && i < sphericalOffset.control.stopIterations)
 	{
 		CVector3 temp = z;
-		double tempAuxDE = aux.ifsDE;
+		double tempAuxDE = aux.DE;
 		double lengthTempZ = -z.Length();
 		z *= 1 + sphericalOffset.offsetRadius / lengthTempZ;
 		z *= sphericalOffset.scale;
-		aux.ifsDE = aux.ifsDE * fabs(sphericalOffset.scale) + 1.0;
+		aux.DE = aux.DE * fabs(sphericalOffset.scale) + 1.0;
 
 		//weight function
 		if (sphericalOffset.control.weightEnabled)
 		{
 			z = SmoothCVector(temp, z, sphericalOffset.control.weight);
 			double nkaux = 1.0 - (sphericalOffset.control.weight);
-			aux.ifsDE = (tempAuxDE * nkaux) + (aux.ifsDE * sphericalOffset.control.weight);
+			aux.DE = (tempAuxDE * nkaux) + (aux.DE * sphericalOffset.control.weight);
 		}
 	}
 }
