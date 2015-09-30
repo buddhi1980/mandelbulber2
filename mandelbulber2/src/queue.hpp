@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * cQueye - class to manage rendering queue
+ * cQueue - class to manage rendering queue
  *
  * Copyright (C) 2014 Krzysztof Marczak
  *
@@ -31,14 +31,30 @@
 class cQueue
 {
 public:
+	enum enumRenderType {
+		still, flight, keyframe
+	};
+
+	struct structQueueItem {
+		structQueueItem(
+			enumRenderType _renderType,
+			QString _filename):
+			renderType(_renderType), filename(_filename) {}
+
+		enumRenderType renderType;
+		QString filename;
+	};
+
 	cQueue(const QString &_queueListFileName, const QString &_queueFolder); //initializes queue and create necessary files and folders
 	~cQueue();
 
-	void Append(const QString &filename); //add new fractal to queue
-	void Append(const cParameterContainer &par, const cFractalContainer &fract); //add new fractal to queur
+	void Append(const QString &filename, enumRenderType renderType = still); //add new fractal to queue
+	// void Append(const cParameterContainer &par, const cFractalContainer &fract); //add new fractal to queue
+	void Append(enumRenderType renderType = still); //add current settings to queue
 	bool Get(const cParameterContainer &par, const cFractalContainer &fract); //get next fractal from queue
 
-	QStringList GetList(); //returns list of fractals to render
+	QList<structQueueItem> GetListFromQueueFile(); //returns list of fractals to render from queue file
+	QStringList GetListFromFileSystem(); //returns list of fractals to render from file system
 
 	QStringList DeleteOrphanedFiles(); //find and delete files which are not on the list
 	QStringList AddOrphanedFilesToList(); //add orphaned files from queue folder to the end of the list
@@ -46,9 +62,9 @@ public:
 private:
 	void SaveToQueueFolder(const QString &filename, const cParameterContainer &par, const cFractalContainer &fract);
 
-	QString GetNextFromList(); //gives next filename
+	structQueueItem GetNextFromList(); //gives next filename
 	void EraseFirstLineFromList(); //erases first line from list when fractal is taken
-	void AddToList(const QString &filename); //add filename to the end of list
+	void AddToList(const QString &filename, enumRenderType renderType = still); //add filename to the end of list
 
 	bool ValidateEntry(const QString &filename); //checks if
 
