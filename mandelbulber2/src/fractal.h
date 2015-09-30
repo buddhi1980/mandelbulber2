@@ -49,6 +49,32 @@ enum enumOCLDEMode
 };
 }
 
+struct sMandelbulbAux
+{
+	double r_dz;
+	double r;
+};
+
+struct sMandelboxAux
+{
+	double mboxDE;
+	double mboxColor;
+	double actualScale;
+};
+
+struct sIFSAux
+{
+	double ifsDE;
+};
+
+struct sAexionAux
+{
+	CVector3 c;
+	double cw;
+	int iterNo;
+};
+
+
 struct sFractalGeneralizedFoldBox
 {
 	fractal::enumGeneralizedFoldBoxType type;
