@@ -103,6 +103,7 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	msltoeSym2.y_multiplier = container->Get<double>("msltoesym2_y_multiplier");
 
+    //  transform parameters-----------------------
   transform.additionConstant1.control.enabled = container->Get<bool>("transform_additionConstant1_enabled");
   transform.additionConstant1.control.weightEnabled = container->Get<bool>("transform_additionConstant1_weight_enabled");
   transform.additionConstant1.control.startIterations = container->Get<int>("transform_additionConstant1_start_iterations");
@@ -118,7 +119,6 @@ cFractal::cFractal(const cParameterContainer *container)
   //extra for 4D
   transform.additionConstant1.additionConstant4D = CVector4(container->Get<CVector3>("transform_additionConstant1"), container->Get<double>("transform_additionConstant1W"));
   transform.additionConstant2.additionConstant4D = CVector4(container->Get<CVector3>("transform_additionConstant2"), container->Get<double>("transform_additionConstant2W"));
-
 
   transform.boxConstantMultiplier1.control.enabled = container->Get<bool>("transform_boxConstantMultiplier1_enabled");
   transform.boxConstantMultiplier1.boxConstantMultiplierFabsEnabledX = container->Get<bool>("transform_boxConstantMultiplier1_fabs_enabledX");
@@ -148,8 +148,6 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.boxFoldOriginal1.foldingValue = container->Get<double>("transform_mandelbox_folding_value");
   transform.boxFoldOriginal1.control.weight = container->Get<double>("transform_box_foldOriginal1_weight");
   transform.boxFoldOriginal1.control.oldWeight = container->Get<double>("transform_box_foldOriginal1_old_weight");
-
-
 
   transform.boxFold1.control.enabled = container->Get<bool>("transform_box_fold1_enabled");
   transform.boxFold1.control.weightEnabled = container->Get<bool>("transform_box_fold1_weight_enabled");
@@ -182,8 +180,6 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.boxOffset2.control.stopIterations = container->Get<int>("transform_boxOffset2_stop_iterations");
   transform.boxOffset2.control.weight = container->Get<double>("transform_boxOffset2_weight");
   transform.boxOffset2.boxOffset = container->Get<CVector3>("transform_boxOffset2");
-
-
 
   transform.constantMultiplierOriginal1.constantMultiplierVect = container->Get<CVector3>("transform_constantMultiplierOriginal1");
   transform.constantMultiplierOriginal1.control.enabled = container->Get<bool>("transform_constantMultiplierOriginal1_enabled");
@@ -228,12 +224,38 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.fabsAddConstant1.fabsAddConstant4DB = CVector4(container->Get<CVector3>("transform_fabsAddConstant1B"), container->Get<double>("transform_fabsAddConstant1BW"));
   transform.fabsAddConstant1.fabsAddConstant4DC = CVector4(container->Get<CVector3>("transform_fabsAddConstant1C"), container->Get<double>("transform_fabsAddConstant1CW"));
 
+  transform.fabsFormulaAB1.control.enabled = container->Get<bool>("transform_fabsFormulaAB1_enabled");
+  transform.fabsFormulaAB1.control.weightEnabled = container->Get<bool>("transform_fabsFormulaAB1_weight_enabled");
+  transform.fabsFormulaAB1.control.oldWeightEnabled = container->Get<bool>("transform_fabsFormulaAB1_old_weight_enabled");
+  transform.fabsFormulaAB1.fabsFormulaABEnabledx = container->Get<bool>("transform_fabsFormulaAB1_enabled_x");
+  transform.fabsFormulaAB1.fabsFormulaABEnabledy = container->Get<bool>("transform_fabsFormulaAB1_enabled_y");
+  transform.fabsFormulaAB1.fabsFormulaABEnabledz = container->Get<bool>("transform_fabsFormulaAB1_enabled_z");
+  transform.fabsFormulaAB1.control.startIterations = container->Get<int>("transform_fabsFormulaAB1_start_iterations");
+  transform.fabsFormulaAB1.control.stopIterations = container->Get<int>("transform_fabsFormulaAB1_stop_iterations");
+  transform.fabsFormulaAB1.fabsFormulaABConstantA = container->Get<CVector3>("transform_fabsFormulaAB1A");
+  transform.fabsFormulaAB1.fabsFormulaABConstantB = container->Get<CVector3>("transform_fabsFormulaAB1B");
+  transform.fabsFormulaAB1.control.weight = container->Get<double>("transform_fabsFormulaAB1_weight");
+  transform.fabsFormulaAB1.control.oldWeight = container->Get<double>("transform_fabsFormulaAB1_old_weight");
+  transform.fabsFormulaAB2.control.enabled = container->Get<bool>("transform_fabsFormulaAB2_enabled");
+  transform.fabsFormulaAB2.control.weightEnabled = container->Get<bool>("transform_fabsFormulaAB2_weight_enabled");
+  transform.fabsFormulaAB2.control.oldWeightEnabled = container->Get<bool>("transform_fabsFormulaAB2_old_weight_enabled");
+  transform.fabsFormulaAB2.fabsFormulaABEnabledx = container->Get<bool>("transform_fabsFormulaAB2_enabled_x");
+  transform.fabsFormulaAB2.fabsFormulaABEnabledy = container->Get<bool>("transform_fabsFormulaAB2_enabled_y");
+  transform.fabsFormulaAB2.fabsFormulaABEnabledz = container->Get<bool>("transform_fabsFormulaAB2_enabled_z");
+  transform.fabsFormulaAB2.control.startIterations = container->Get<int>("transform_fabsFormulaAB2_start_iterations");
+  transform.fabsFormulaAB2.control.stopIterations = container->Get<int>("transform_fabsFormulaAB2_stop_iterations");
+  transform.fabsFormulaAB2.fabsFormulaABConstantA = container->Get<CVector3>("transform_fabsFormulaAB2A");
+  transform.fabsFormulaAB2.fabsFormulaABConstantB = container->Get<CVector3>("transform_fabsFormulaAB2B");
+  transform.fabsFormulaAB2.control.weight = container->Get<double>("transform_fabsFormulaAB2_weight");
+  transform.fabsFormulaAB2.control.oldWeight = container->Get<double>("transform_fabsFormulaAB2_old_weight");
+
   transform.fabsFormulaABCD1.fabsFormulaABCDA = container->Get<CVector3>("transform_fabsFormulaABCD1A");
   transform.fabsFormulaABCD1.fabsFormulaABCDB = container->Get<CVector3>("transform_fabsFormulaABCD1B");
   transform.fabsFormulaABCD1.fabsFormulaABCDC = container->Get<CVector3>("transform_fabsFormulaABCD1C");
   transform.fabsFormulaABCD1.fabsFormulaABCDD = container->Get<CVector3>("transform_fabsFormulaABCD1D");
   transform.fabsFormulaABCD1.control.enabled = container->Get<bool>("transform_fabsFormulaABCD1_enabled");
   transform.fabsFormulaABCD1.control.weightEnabled = container->Get<bool>("transform_fabsFormulaABCD1_weight_enabled");
+  transform.fabsFormulaABCD1.control.oldWeightEnabled = container->Get<bool>("transform_fabsFormulaABCD1_old_weight_enabled");
   transform.fabsFormulaABCD1.fabsFormulaABCDEnabledAx = container->Get<bool>("transform_fabsFormulaABCD1_enabled_Ax");
   transform.fabsFormulaABCD1.fabsFormulaABCDEnabledAy = container->Get<bool>("transform_fabsFormulaABCD1_enabled_Ay");
   transform.fabsFormulaABCD1.fabsFormulaABCDEnabledAz = container->Get<bool>("transform_fabsFormulaABCD1_enabled_Az");
@@ -243,12 +265,15 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.fabsFormulaABCD1.control.startIterations = container->Get<int>("transform_fabsFormulaABCD1_start_iterations");
   transform.fabsFormulaABCD1.control.stopIterations = container->Get<int>("transform_fabsFormulaABCD1_stop_iterations");
   transform.fabsFormulaABCD1.control.weight = container->Get<double>("transform_fabsFormulaABCD1_weight");
+  transform.fabsFormulaABCD1.control.oldWeight = container->Get<double>("transform_fabsFormulaABCD1_old_weight");
+
   transform.fabsFormulaABCD2.fabsFormulaABCDA = container->Get<CVector3>("transform_fabsFormulaABCD2A");
   transform.fabsFormulaABCD2.fabsFormulaABCDB = container->Get<CVector3>("transform_fabsFormulaABCD2B");
   transform.fabsFormulaABCD2.fabsFormulaABCDC = container->Get<CVector3>("transform_fabsFormulaABCD2C");
   transform.fabsFormulaABCD2.fabsFormulaABCDD = container->Get<CVector3>("transform_fabsFormulaABCD2D");
   transform.fabsFormulaABCD2.control.enabled = container->Get<bool>("transform_fabsFormulaABCD2_enabled");
   transform.fabsFormulaABCD2.control.weightEnabled = container->Get<bool>("transform_fabsFormulaABCD2_weight_enabled");
+  transform.fabsFormulaABCD2.control.oldWeightEnabled = container->Get<bool>("transform_fabsFormulaABCD2_old_weight_enabled");
   transform.fabsFormulaABCD2.fabsFormulaABCDEnabledAx = container->Get<bool>("transform_fabsFormulaABCD2_enabled_Ax");
   transform.fabsFormulaABCD2.fabsFormulaABCDEnabledAy = container->Get<bool>("transform_fabsFormulaABCD2_enabled_Ay");
   transform.fabsFormulaABCD2.fabsFormulaABCDEnabledAz = container->Get<bool>("transform_fabsFormulaABCD2_enabled_Az");
@@ -258,6 +283,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.fabsFormulaABCD2.control.startIterations = container->Get<int>("transform_fabsFormulaABCD2_start_iterations");
   transform.fabsFormulaABCD2.control.stopIterations = container->Get<int>("transform_fabsFormulaABCD2_stop_iterations");
   transform.fabsFormulaABCD2.control.weight = container->Get<double>("transform_fabsFormulaABCD2_weight");
+  transform.fabsFormulaABCD2.control.oldWeight = container->Get<double>("transform_fabsFormulaABCD2_old_weight");
 // extra for 4D
   transform.fabsFormulaABCD1.fabsFormulaABCD4DA = CVector4(container->Get<CVector3>("transform_fabsFormulaABCD1A"), container->Get<double>("transform_fabsFormulaABCD1AW")) ;
   transform.fabsFormulaABCD1.fabsFormulaABCD4DB = CVector4(container->Get<CVector3>("transform_fabsFormulaABCD1B"), container->Get<double>("transform_fabsFormulaABCD1BW"));
@@ -272,6 +298,32 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.fabsFormulaABCD2.fabsFormulaABCDEnabledAw = container->Get<bool>("transform_fabsFormulaABCD2_enabled_Aw");
   transform.fabsFormulaABCD2.fabsFormulaABCDEnabledBw = container->Get<bool>("transform_fabsFormulaABCD2_enabled_Bw");
 
+  transform.fabsFormulaZAB1.control.enabled = container->Get<bool>("transform_fabsFormulaZAB1_enabled");
+  transform.fabsFormulaZAB1.control.weightEnabled = container->Get<bool>("transform_fabsFormulaZAB1_weight_enabled");
+  transform.fabsFormulaZAB1.control.oldWeightEnabled = container->Get<bool>("transform_fabsFormulaZAB1_old_weight_enabled");
+  transform.fabsFormulaZAB1.fabsFormulaZABEnabledx = container->Get<bool>("transform_fabsFormulaZAB1_enabled_x");
+  transform.fabsFormulaZAB1.fabsFormulaZABEnabledy = container->Get<bool>("transform_fabsFormulaZAB1_enabled_y");
+  transform.fabsFormulaZAB1.fabsFormulaZABEnabledz = container->Get<bool>("transform_fabsFormulaZAB1_enabled_z");
+  transform.fabsFormulaZAB1.control.startIterations = container->Get<int>("transform_fabsFormulaZAB1_start_iterations");
+  transform.fabsFormulaZAB1.control.stopIterations = container->Get<int>("transform_fabsFormulaZAB1_stop_iterations");
+  transform.fabsFormulaZAB1.fabsFormulaZABConstantA = container->Get<CVector3>("transform_fabsFormulaZAB1A");
+  transform.fabsFormulaZAB1.fabsFormulaZABConstantB = container->Get<CVector3>("transform_fabsFormulaZAB1B");
+  transform.fabsFormulaZAB1.fabsFormulaZABConstantC = container->Get<CVector3>("transform_fabsFormulaZAB1C");
+  transform.fabsFormulaZAB1.control.weight = container->Get<double>("transform_fabsFormulaZAB1_weight");
+  transform.fabsFormulaZAB1.control.oldWeight = container->Get<double>("transform_fabsFormulaZAB1_old_weight");
+
+  transform.fabsSubConstant1.control.enabled = container->Get<bool>("transform_fabsSubConstant1_enabled");
+  transform.fabsSubConstant1.control.weightEnabled = container->Get<bool>("transform_fabsSubConstant1_weight_enabled");
+  transform.fabsSubConstant1.control.oldWeightEnabled = container->Get<bool>("transform_fabsSubConstant1_old_weight_enabled");
+  transform.fabsSubConstant1.fabsSubConstantEnabledx = container->Get<bool>("transform_fabsSubConstant1_enabled_x");
+  transform.fabsSubConstant1.fabsSubConstantEnabledy = container->Get<bool>("transform_fabsSubConstant1_enabled_y");
+  transform.fabsSubConstant1.fabsSubConstantEnabledz = container->Get<bool>("transform_fabsSubConstant1_enabled_z");
+  transform.fabsSubConstant1.control.startIterations = container->Get<int>("transform_fabsSubConstant1_start_iterations");
+  transform.fabsSubConstant1.control.stopIterations = container->Get<int>("transform_fabsSubConstant1_stop_iterations");
+  transform.fabsSubConstant1.fabsSubConstantA = container->Get<CVector3>("transform_fabsSubConstant1A");
+  transform.fabsSubConstant1.fabsSubConstantB = container->Get<CVector3>("transform_fabsSubConstant1B");
+  transform.fabsSubConstant1.control.weight = container->Get<double>("transform_fabsSubConstant1_weight");
+
   transform.iterationWeight1.iterationWeightConstantA = container->Get<double>("transform_iterationWeight1_constantA");
   transform.iterationWeight1.iterationWeightConstantB = container->Get<double>("transform_iterationWeight1_constantB");
   transform.iterationWeight1.iterationWeightConstantZ = container->Get<double>("transform_iterationWeight1_constantZ");
@@ -280,6 +332,24 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.iterationWeight1.iterationWeightIterationA = container->Get<int>("transform_iterationWeight1_iterationA");
   transform.iterationWeight1.iterationWeightIterationB = container->Get<int>("transform_iterationWeight1_iterationB");
   transform.iterationWeight1.control.weight = container->Get<double>("transform_iterationWeight1_weight");
+
+  transform.mandelbulbOriginal1.power = container->Get<double>("transform_power");
+  transform.mandelbulbOriginal1.alphaAngleOffset = container->Get<double>("transform_alpha_angle_offset");
+  transform.mandelbulbOriginal1.betaAngleOffset = container->Get<double>("transform_beta_angle_offset");
+  transform.mandelbulbOriginal1.control.enabled = container->Get<bool>("transform_mandelbulbOriginal1_enabled");
+  transform.mandelbulbOriginal1.control.weightEnabled = container->Get<bool>("transform_mandelbulbOriginal1_weight_enabled");
+  transform.mandelbulbOriginal1.control.startIterations = container->Get<int>("transform_mandelbulbOriginal1_start_iterations");
+  transform.mandelbulbOriginal1.control.stopIterations = container->Get<int>("transform_mandelbulbOriginal1_stop_iterations");
+  transform.mandelbulbOriginal1.control.weight = container->Get<double>("transform_mandelbulbOriginal1_weight");
+
+  transform.mandelbulb1.mandelbulbPower = container->Get<double>("transform_mandelbulb1_power");
+  transform.mandelbulb1.mandelbulbAlphaAngleOffset = container->Get<double>("transform_mandelbulb1_alpha_angle_offset");
+  transform.mandelbulb1.mandelbulbBetaAngleOffset = container->Get<double>("transform_mandelbulb1_beta_angle_offset");
+  transform.mandelbulb1.control.enabled = container->Get<bool>("transform_mandelbulb1_enabled");
+  transform.mandelbulb1.control.weightEnabled = container->Get<bool>("transform_mandelbulb1_weight_enabled");
+  transform.mandelbulb1.control.startIterations = container->Get<int>("transform_mandelbulb1_start_iterations");
+  transform.mandelbulb1.control.stopIterations = container->Get<int>("transform_mandelbulb1_stop_iterations");
+  transform.mandelbulb1.control.weight = container->Get<double>("transform_mandelbulb1_weight");
 
   transform.mainRotation1.control.enabled = container->Get<bool>("transform_main_rotation1_enabled");
   transform.mainRotation1.control.weightEnabled = container->Get<bool>("transform_main_rotation1_weight_enabled");
@@ -376,148 +446,6 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.sphericalOffset2.control.weight = container->Get<double>("transform_sphericalOffset2_weight");
 
 //----------------------------------
-  mandelbulb5.mandelbulb1Power = container->Get<double>("mandelbulb5_mandelbulb1_power");
-  mandelbulb5.mandelbulb1AlphaAngleOffset = container->Get<double>("mandelbulb5_mandelbulb1_alpha_angle_offset");
-  mandelbulb5.mandelbulb1BetaAngleOffset = container->Get<double>("mandelbulb5_mandelbulb1_beta_angle_offset");
-  mandelbulb5.mandelbulb1Enabled = container->Get<bool>("mandelbulb5_mandelbulb1_enabled");
-  //mandelbulb5.mandelbulb1WeightEnabled = container->Get<bool>("mandelbulb5_mandelbulb1_weight_enabled");
-  mandelbulb5.mandelbulb1StartIterations = container->Get<int>("mandelbulb5_mandelbulb1_start_iterations");
-  mandelbulb5.mandelbulb1StopIterations = container->Get<int>("mandelbulb5_mandelbulb1_stop_iterations");
-  //mandelbulb5.mandelbulb1Weight = container->Get<double>("mandelbulb5_mandelbulb1_weight");
-
-
-  mandelbulb5.constantMultiplier1Enabled = container->Get<bool>("mandelbulb5_constantMultiplier1_enabled");
-  mandelbulb5.constantMultiplier1WeightEnabled = container->Get<bool>("mandelbulb5_constantMultiplier1_weight_enabled");
-  mandelbulb5.constantMultiplier1StartIterations = container->Get<int>("mandelbulb5_constantMultiplier1_start_iterations");
-  mandelbulb5.constantMultiplier1StopIterations = container->Get<int>("mandelbulb5_constantMultiplier1_stop_iterations");
-  mandelbulb5.constantMultiplier1Vect = container->Get<CVector3>("mandelbulb5_constantMultiplier1");
-  mandelbulb5.constantMultiplier1Weight = container->Get<double>("mandelbulb5_constantMultiplier1_weight");
-
-  mandelbulb5.fabsSubConstant1A = container->Get<CVector3>("mandelbulb5_fabsSubConstant1A");
-  mandelbulb5.fabsSubConstant1B = container->Get<CVector3>("mandelbulb5_fabsSubConstant1B");
-  mandelbulb5.fabsSubConstant1Enabled = container->Get<bool>("mandelbulb5_fabsSubConstant1_enabled");
-  mandelbulb5.fabsSubConstant1WeightEnabled = container->Get<bool>("mandelbulb5_fabsSubConstant1_weight_enabled");
-  mandelbulb5.fabsSubConstant1OldWeightEnabled = container->Get<bool>("mandelbulb5_fabsSubConstant1_old_weight_enabled");
-  mandelbulb5.fabsSubConstant1Enabledx = container->Get<bool>("mandelbulb5_fabsSubConstant1_enabled_x");
-  mandelbulb5.fabsSubConstant1Enabledy = container->Get<bool>("mandelbulb5_fabsSubConstant1_enabled_y");
-  mandelbulb5.fabsSubConstant1Enabledz = container->Get<bool>("mandelbulb5_fabsSubConstant1_enabled_z");
-  mandelbulb5.fabsSubConstant1StartIterations = container->Get<int>("mandelbulb5_fabsSubConstant1_start_iterations");
-  mandelbulb5.fabsSubConstant1StopIterations = container->Get<int>("mandelbulb5_fabsSubConstant1_stop_iterations");
-  mandelbulb5.fabsSubConstant1Weight = container->Get<double>("mandelbulb5_fabsSubConstant1_weight");
-  mandelbulb5.fabsSubConstant1OldWeight = container->Get<double>("mandelbulb5_fabsSubConstant1_old_weight");
-
-  mandelbulb5.fabsFormulaZAB1A = container->Get<CVector3>("mandelbulb5_fabsFormulaZAB1A");
-  mandelbulb5.fabsFormulaZAB1B = container->Get<CVector3>("mandelbulb5_fabsFormulaZAB1B");
-  mandelbulb5.fabsFormulaZAB1C = container->Get<CVector3>("mandelbulb5_fabsFormulaZAB1C");
-  mandelbulb5.fabsFormulaZAB1Enabled = container->Get<bool>("mandelbulb5_fabsFormulaZAB1_enabled");
-  mandelbulb5.fabsFormulaZAB1WeightEnabled = container->Get<bool>("mandelbulb5_fabsFormulaZAB1_weight_enabled");
-  mandelbulb5.fabsFormulaZAB1OldWeightEnabled = container->Get<bool>("mandelbulb5_fabsFormulaZAB1_old_weight_enabled");
-  mandelbulb5.fabsFormulaZAB1Enabledx = container->Get<bool>("mandelbulb5_fabsFormulaZAB1_enabled_x");
-  mandelbulb5.fabsFormulaZAB1Enabledy = container->Get<bool>("mandelbulb5_fabsFormulaZAB1_enabled_y");
-  mandelbulb5.fabsFormulaZAB1Enabledz = container->Get<bool>("mandelbulb5_fabsFormulaZAB1_enabled_z");
-  mandelbulb5.fabsFormulaZAB1StartIterations = container->Get<int>("mandelbulb5_fabsFormulaZAB1_start_iterations");
-  mandelbulb5.fabsFormulaZAB1StopIterations = container->Get<int>("mandelbulb5_fabsFormulaZAB1_stop_iterations");
-  mandelbulb5.fabsFormulaZAB1Weight = container->Get<double>("mandelbulb5_fabsFormulaZAB1_weight");
-  mandelbulb5.fabsFormulaZAB1OldWeight = container->Get<double>("mandelbulb5_fabsFormulaZAB1_old_weight");
-
-  mandelbulb5.additionConstant1 = container->Get<CVector3>("mandelbulb5_additionConstant1");
-  mandelbulb5.additionConstant1Enabled = container->Get<bool>("mandelbulb5_additionConstant1_enabled");
-  mandelbulb5.additionConstant1WeightEnabled = container->Get<bool>("mandelbulb5_additionConstant1_weight_enabled");
-  mandelbulb5.additionConstant1StartIterations = container->Get<int>("mandelbulb5_additionConstant1_start_iterations");
-  mandelbulb5.additionConstant1StopIterations = container->Get<int>("mandelbulb5_additionConstant1_stop_iterations");
-  mandelbulb5.additionConstant1Weight = container->Get<double>("mandelbulb5_additionConstant1_weight");
-
-  mandelbulb5.fabsFormulaAB1A = container->Get<CVector3>("mandelbulb5_fabsFormulaAB1A");
-  mandelbulb5.fabsFormulaAB1B = container->Get<CVector3>("mandelbulb5_fabsFormulaAB1B");
-  mandelbulb5.fabsFormulaAB1Enabled = container->Get<bool>("mandelbulb5_fabsFormulaAB1_enabled");
-  mandelbulb5.fabsFormulaAB1WeightEnabled = container->Get<bool>("mandelbulb5_fabsFormulaAB1_weight_enabled");
-  mandelbulb5.fabsFormulaAB1OldWeightEnabled = container->Get<bool>("mandelbulb5_fabsFormulaAB1_old_weight_enabled");
-  mandelbulb5.fabsFormulaAB1Enabledx = container->Get<bool>("mandelbulb5_fabsFormulaAB1_enabled_x");
-  mandelbulb5.fabsFormulaAB1Enabledy = container->Get<bool>("mandelbulb5_fabsFormulaAB1_enabled_y");
-  mandelbulb5.fabsFormulaAB1Enabledz = container->Get<bool>("mandelbulb5_fabsFormulaAB1_enabled_z");
-  mandelbulb5.fabsFormulaAB1StartIterations = container->Get<int>("mandelbulb5_fabsFormulaAB1_start_iterations");
-  mandelbulb5.fabsFormulaAB1StopIterations = container->Get<int>("mandelbulb5_fabsFormulaAB1_stop_iterations");
-  mandelbulb5.fabsFormulaAB1Weight = container->Get<double>("mandelbulb5_fabsFormulaAB1_weight");
-  mandelbulb5.fabsFormulaAB1OldWeight = container->Get<double>("mandelbulb5_fabsFormulaAB1_old_weight");
-
-  mandelbulb5.mainRotation2Enabled = container->Get<bool>("mandelbulb5_main_rotation2_enabled");
-  mandelbulb5.mainRotation2WeightEnabled = container->Get<bool>("mandelbulb5_main_rotation2_weight_enabled");
-  mandelbulb5.mainRotation2StartIterations = container->Get<int>("mandelbulb5_main_rotation2_start_iterations");
-  mandelbulb5.mainRotation2StopIterations = container->Get<int>("mandelbulb5_main_rotation2_stop_iterations");
-  mandelbulb5.mainRotation2 = container->Get<CVector3>("mandelbulb5_main_rotation2");
-  mandelbulb5.mainRotation2Weight = container->Get<double>("mandelbulb5_main_rotation2_weight");
-
-  mandelbulb5.fabsFormulaABCD1A = container->Get<CVector3>("mandelbulb5_fabsFormulaABCD1A");
-  mandelbulb5.fabsFormulaABCD1B = container->Get<CVector3>("mandelbulb5_fabsFormulaABCD1B");
-  mandelbulb5.fabsFormulaABCD1C = container->Get<CVector3>("mandelbulb5_fabsFormulaABCD1C");
-  mandelbulb5.fabsFormulaABCD1D = container->Get<CVector3>("mandelbulb5_fabsFormulaABCD1D");
-  mandelbulb5.fabsFormulaABCD1Enabled = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_enabled");
-  mandelbulb5.fabsFormulaABCD1WeightEnabled = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_weight_enabled");
-  mandelbulb5.fabsFormulaABCD1OldWeightEnabled = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_old_weight_enabled");
-  mandelbulb5.fabsFormulaABCD1EnabledAx = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_enabled_Ax");
-  mandelbulb5.fabsFormulaABCD1EnabledAy = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_enabled_Ay");
-  mandelbulb5.fabsFormulaABCD1EnabledAz = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_enabled_Az");
-  mandelbulb5.fabsFormulaABCD1EnabledBx = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_enabled_Bx");
-  mandelbulb5.fabsFormulaABCD1EnabledBy = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_enabled_By");
-  mandelbulb5.fabsFormulaABCD1EnabledBz = container->Get<bool>("mandelbulb5_fabsFormulaABCD1_enabled_Bz");
-  mandelbulb5.fabsFormulaABCD1StartIterations = container->Get<int>("mandelbulb5_fabsFormulaABCD1_start_iterations");
-  mandelbulb5.fabsFormulaABCD1StopIterations = container->Get<int>("mandelbulb5_fabsFormulaABCD1_stop_iterations");
-  mandelbulb5.fabsFormulaABCD1Weight = container->Get<double>("mandelbulb5_fabsFormulaABCD1_weight");
-  mandelbulb5.fabsFormulaABCD1OldWeight = container->Get<double>("mandelbulb5_fabsFormulaABCD1_old_weight");
-
-
-  mandelbulb5.mandelbulb2Power = container->Get<double>("mandelbulb5_mandelbulb2_power");
-  mandelbulb5.mandelbulb2AlphaAngleOffset = container->Get<double>("mandelbulb5_mandelbulb2_alpha_angle_offset");
-  mandelbulb5.mandelbulb2BetaAngleOffset = container->Get<double>("mandelbulb5_mandelbulb2_beta_angle_offset");
-  mandelbulb5.mandelbulb2Enabled = container->Get<bool>("mandelbulb5_mandelbulb2_enabled");
-  //mandelbulb5.mandelbulb2WeightEnabled = container->Get<bool>("mandelbulb5_mandelbulb2_weight_enabled");
-  mandelbulb5.mandelbulb2StartIterations = container->Get<int>("mandelbulb5_mandelbulb2_start_iterations");
-  mandelbulb5.mandelbulb2StopIterations = container->Get<int>("mandelbulb5_mandelbulb2_stop_iterations");
-  //mandelbulb5.mandelbulb2Weight = container->Get<double>("mandelbulb5_mandelbulb2_weight");
-
-  mandelbulb5.mainRotation3Enabled = container->Get<bool>("mandelbulb5_main_rotation3_enabled");
-  mandelbulb5.mainRotation3WeightEnabled = container->Get<bool>("mandelbulb5_main_rotation3_weight_enabled");
-  mandelbulb5.mainRotation3StartIterations = container->Get<int>("mandelbulb5_main_rotation3_start_iterations");
-  mandelbulb5.mainRotation3StopIterations = container->Get<int>("mandelbulb5_main_rotation3_stop_iterations");
-  mandelbulb5.mainRotation3 = container->Get<CVector3>("mandelbulb5_main_rotation3");
-  mandelbulb5.mainRotation3Weight = container->Get<double>("mandelbulb5_main_rotation3_weight");
-
-  mandelbulb5.constantMultiplier2Vect = container->Get<CVector3>("mandelbulb5_constantMultiplier2");
-  mandelbulb5.constantMultiplier2Enabled = container->Get<bool>("mandelbulb5_constantMultiplier2_enabled");
-  mandelbulb5.constantMultiplier2WeightEnabled = container->Get<bool>("mandelbulb5_constantMultiplier2_weight_enabled");
-  mandelbulb5.constantMultiplier2StartIterations = container->Get<int>("mandelbulb5_constantMultiplier2_start_iterations");
-  mandelbulb5.constantMultiplier2StopIterations = container->Get<int>("mandelbulb5_constantMultiplier2_stop_iterations");
-  mandelbulb5.constantMultiplier2Weight = container->Get<double>("mandelbulb5_constantMultiplier2_weight");
-
-  mandelbulb5.additionConstant2 = container->Get<CVector3>("mandelbulb5_additionConstant2");
-  mandelbulb5.additionConstant2Enabled = container->Get<bool>("mandelbulb5_additionConstant2_enabled");
-  mandelbulb5.additionConstant2WeightEnabled = container->Get<bool>("mandelbulb5_additionConstant2_weight_enabled");
-  mandelbulb5.additionConstant2StartIterations = container->Get<int>("mandelbulb5_additionConstant2_start_iterations");
-  mandelbulb5.additionConstant2StopIterations = container->Get<int>("mandelbulb5_additionConstant2_stop_iterations");
-  mandelbulb5.additionConstant2Weight = container->Get<double>("mandelbulb5_additionConstant2_weight");
-
-  mandelbulb5.fabsFormulaAB2A = container->Get<CVector3>("mandelbulb5_fabsFormulaAB2A");
-  mandelbulb5.fabsFormulaAB2B = container->Get<CVector3>("mandelbulb5_fabsFormulaAB2B");
-  mandelbulb5.fabsFormulaAB2Enabled = container->Get<bool>("mandelbulb5_fabsFormulaAB2_enabled");
-  mandelbulb5.fabsFormulaAB2WeightEnabled = container->Get<bool>("mandelbulb5_fabsFormulaAB2_weight_enabled");
-  mandelbulb5.fabsFormulaAB2OldWeightEnabled = container->Get<bool>("mandelbulb5_fabsFormulaAB2_old_weight_enabled");
-  mandelbulb5.fabsFormulaAB2Enabledx = container->Get<bool>("mandelbulb5_fabsFormulaAB2_enabled_x");
-  mandelbulb5.fabsFormulaAB2Enabledy = container->Get<bool>("mandelbulb5_fabsFormulaAB2_enabled_y");
-  mandelbulb5.fabsFormulaAB2Enabledz = container->Get<bool>("mandelbulb5_fabsFormulaAB2_enabled_z");
-  mandelbulb5.fabsFormulaAB2StartIterations = container->Get<int>("mandelbulb5_fabsFormulaAB2_start_iterations");
-  mandelbulb5.fabsFormulaAB2StopIterations = container->Get<int>("mandelbulb5_fabsFormulaAB2_stop_iterations");
-  mandelbulb5.fabsFormulaAB2Weight = container->Get<double>("mandelbulb5_fabsFormulaAB2_weight");
-  mandelbulb5.fabsFormulaAB2OldWeight = container->Get<double>("mandelbulb5_fabsFormulaAB2_old_weight");
-
-  mandelbulb5.boxFold2Enabled = container->Get<bool>("mandelbulb5_box_fold2_enabled");
-  mandelbulb5.boxFold2WeightEnabled = container->Get<bool>("mandelbulb5_box_fold2_weight_enabled");
-  mandelbulb5.boxFold2OldWeightEnabled = container->Get<bool>("mandelbulb5_box_fold2_old_weight_enabled");
-  mandelbulb5.boxFold2StartIterations = container->Get<int>("mandelbulb5_box_fold2_start_iterations");
-  mandelbulb5.boxFold2StopIterations = container->Get<int>("mandelbulb5_box_fold2_stop_iterations");
-  mandelbulb5.boxFold2FoldingLimit = container->Get<double>("mandelbulb5_box_fold2_folding_limit");
-  mandelbulb5.boxFold2FoldingValue = container->Get<double>("mandelbulb5_box_fold2_folding_value");
-  mandelbulb5.boxFold2Weight = container->Get<double>("mandelbulb5_box_fold2_weight");
-  mandelbulb5.boxFold2OldWeight = container->Get<double>("mandelbulb5_box_fold2_old_weight");
 
 
     //mandelbox103
@@ -679,12 +607,6 @@ void cFractal::RecalculateFractalParams(void)
   bulb.alphaAngleOffset *= M_PI / 180.0;
   bulb.betaAngleOffset *= M_PI / 180.0;
 
-  mandelbulb5.mandelbulb1AlphaAngleOffset *= M_PI / 180.0;
-  mandelbulb5.mandelbulb1BetaAngleOffset *= M_PI / 180.0;
-  mandelbulb5.mandelbulb2AlphaAngleOffset *= M_PI / 180.0;
-  mandelbulb5.mandelbulb2BetaAngleOffset *= M_PI / 180.0;
-
-
   mandelbox103.sphericalFold1fR2 = mandelbox103.sphericalFold1RadFixed * mandelbox103.sphericalFold1RadFixed;
   mandelbox103.sphericalFold1mR2 = mandelbox103.sphericalFold1RadMin * mandelbox103.sphericalFold1RadMin;
   mandelbox103.sphericalFold1MboxFactor1 = mandelbox103.sphericalFold1fR2 / mandelbox103.sphericalFold1mR2;
@@ -692,20 +614,15 @@ void cFractal::RecalculateFractalParams(void)
   mandelbox103.sphericalFold2mR2 = mandelbox103.sphericalFold2RadMin * mandelbox103.sphericalFold2RadMin;
   mandelbox103.sphericalFold2MboxFactor1 = mandelbox103.sphericalFold2fR2 / mandelbox103.sphericalFold2mR2;
 
+  transform.mandelbulbOriginal1.alphaAngleOffset *= M_PI / 180.0;
+  transform.mandelbulbOriginal1.betaAngleOffset *= M_PI / 180.0;
 
-  quaternion104.sphericalFold1fR2 = quaternion104.sphericalFold1RadFixed * quaternion104.sphericalFold1RadFixed;
-  quaternion104.sphericalFold1mR2 = quaternion104.sphericalFold1RadMin * quaternion104.sphericalFold1RadMin;
-  quaternion104.sphericalFold1MboxFactor1 = quaternion104.sphericalFold1fR2 / quaternion104.sphericalFold1mR2;
-  quaternion104.sphericalFold2fR2 = quaternion104.sphericalFold2RadFixed * quaternion104.sphericalFold2RadFixed;
-  quaternion104.sphericalFold2mR2 = quaternion104.sphericalFold2RadMin * quaternion104.sphericalFold2RadMin;
-  quaternion104.sphericalFold2MboxFactor1 = quaternion104.sphericalFold2fR2 / quaternion104.sphericalFold2mR2;
-
-
+  transform.mandelbulb1.mandelbulbAlphaAngleOffset *= M_PI / 180.0;
+  transform.mandelbulb1.mandelbulbBetaAngleOffset *= M_PI / 180.0;
 
   transform.mainRotation1.mainRot.SetRotation2(transform.mainRotation1.mainRotation * (M_PI / 180.0));
   transform.mainRotation2.mainRot.SetRotation2(transform.mainRotation2.mainRotation * (M_PI / 180.0));
   transform.mainRotation3.mainRot.SetRotation2(transform.mainRotation3.mainRotation * (M_PI / 180.0));
-
 
   transform.sphericalFold1.fR2 = transform.sphericalFold1.radFixed * transform.sphericalFold1.radFixed;
   transform.sphericalFold1.mR2 = transform.sphericalFold1.radMin * transform.sphericalFold1.radMin;

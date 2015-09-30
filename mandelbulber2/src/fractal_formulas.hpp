@@ -97,10 +97,17 @@ void constantMultiplierTransform3D(const sTransformConstantMultiplier &constantM
 void constantMultiplierTransform4D(const sTransformConstantMultiplier &constantMultiplier, CVector4 &z, const CVector4 &c, int i);
 void fabsAddConstantTransform3D(const sTransformFabsAddConstant &fabsAddConstant, CVector3 &z, int i);
 void fabsAddConstantTransform4D(const sTransformFabsAddConstant &fabsAddConstant, CVector4 &z, int i);
+void fabsFormulaABTransform3D(const sTransformFabsFormulaAB &fabsFormulaAB, CVector3 &z, int i);
 void fabsFormulaABCDTransform3D(const sTransformFabsFormulaABCD &fabsFormulaABCD, CVector3 &z, int i);
 void fabsFormulaABCDTransform4D(const sTransformFabsFormulaABCD &fabsFormulaABCD, CVector4 &z, int i);
+void fabsFormulaZABTransform3D(const sTransformFabsFormulaZAB &fabsFormulaZAB, CVector3 &z, int i);
+void fabsSubConstantTransform3D(const sTransformFabsSubConstant &fabsSubConstant, CVector3 &z, int i);
 void iterationWeightTransform3D(const sTransformIterationWeight &iterationWeight, CVector3 &z, int i);
 void iterationWeightTransform4D(const sTransformIterationWeight &iterationWeight, CVector4 &z, int i);
+
+
+void mandelbulbTransform3D(const sTransformMandelbulb &mandelbulb, CVector3 &z, int i, sMandelbulbAux &aux);
+void mandelbulbOriginalTransform3D(const sTransformMandelbulbOriginal &mandelbulbOriginal, CVector3 &z, int i, sMandelbulbAux &aux);
 void mainRotationTransform3D(const sTransformMainRotation &mainRotation, CVector3 &z, int i);
 void mainRotationTransform4D(const sTransformMainRotation &mainRotation, CVector4 &z, int i);
 void mengerSpongeOriginalTransform3D(const sTransformMengerSpongeOriginal &mengerSpongeOriginal, CVector3 &z, int i, sIFSAux &aux);

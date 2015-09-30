@@ -163,7 +163,7 @@ struct sMsltoeSym2
 {
 	double y_multiplier;
 };
-  //-----------------------------------
+  //----------------------Structure Transform---------------------------------
 struct sTransformControl
 {
   bool enabled;
@@ -237,7 +237,16 @@ struct sTransformFabsAddConstant
   CVector4 fabsAddConstant4DB;
   CVector4 fabsAddConstant4DC;
 };
-
+struct sTransformFabsFormulaAB
+{
+  sTransformControl control;
+  bool fabsFormulaABEnabledx;
+  bool fabsFormulaABEnabledy;
+  bool fabsFormulaABEnabledz;
+  bool fabsFormulaABEnabledw;
+  CVector3 fabsFormulaABConstantA;
+  CVector3 fabsFormulaABConstantB;
+};
 struct sTransformFabsFormulaABCD
 {
   sTransformControl control;
@@ -259,6 +268,27 @@ struct sTransformFabsFormulaABCD
   bool fabsFormulaABCDEnabledAw;
   bool fabsFormulaABCDEnabledBw;
 };
+struct sTransformFabsFormulaZAB
+{
+  sTransformControl control;
+  bool fabsFormulaZABEnabledx;
+  bool fabsFormulaZABEnabledy;
+  bool fabsFormulaZABEnabledz;
+  CVector3 fabsFormulaZABConstantA;
+  CVector3 fabsFormulaZABConstantB;
+  CVector3 fabsFormulaZABConstantC;
+};
+struct sTransformFabsSubConstant
+{
+  sTransformControl control;
+  bool fabsSubConstantEnabledx;
+  bool fabsSubConstantEnabledy;
+  bool fabsSubConstantEnabledz;
+  bool fabsSubConstantEnabledw;
+  CVector3 fabsSubConstantA;
+  CVector3 fabsSubConstantB;
+};
+
 struct sTransformIterationWeight
 {
   sTransformControl control;
@@ -268,6 +298,23 @@ struct sTransformIterationWeight
   double iterationWeightConstantA;
   double iterationWeightConstantB;
 };
+struct sTransformMandelbulbOriginal
+{
+  sTransformControl control;
+  double power;
+  double alphaAngleOffset;
+  double betaAngleOffset;
+  double gammaAngleOffset;
+};
+struct sTransformMandelbulb
+{
+  sTransformControl control;
+  double mandelbulbPower;
+  double mandelbulbAlphaAngleOffset;
+  double mandelbulbBetaAngleOffset;
+};
+
+
 struct sTransformMainRotation
 {
   sTransformControl control;
@@ -335,10 +382,17 @@ struct sFractalTransform
   sTransformConstantMultiplierOriginal constantMultiplierOriginal1;
   sTransformConstantMultiplier  constantMultiplier1;
   sTransformConstantMultiplier  constantMultiplier2;
+
   sTransformFabsAddConstant fabsAddConstant1;
+  sTransformFabsFormulaAB fabsFormulaAB1;
+  sTransformFabsFormulaAB fabsFormulaAB2;
   sTransformFabsFormulaABCD fabsFormulaABCD1;
   sTransformFabsFormulaABCD fabsFormulaABCD2;
+  sTransformFabsFormulaZAB fabsFormulaZAB1;
+  sTransformFabsSubConstant fabsSubConstant1;
   sTransformIterationWeight iterationWeight1;
+  sTransformMandelbulbOriginal  mandelbulbOriginal1;
+  sTransformMandelbulb  mandelbulb1;
   sTransformMainRotation mainRotation1;
   sTransformMainRotation mainRotation2;
   sTransformMainRotation mainRotation3;
@@ -643,197 +697,12 @@ struct sFractalMandelbox103
 };
 struct sFractalQuaternion104
 {
-    bool sphericalFold1Enabled;
-    bool sphericalFold1WeightEnabled;
-    double sphericalFold1RadMin;
-    double sphericalFold1RadFixed;
-    double sphericalFold1fR2;
-    double sphericalFold1mR2;
-    double sphericalFold1MboxFactor1;
-    int sphericalFold1StartIterations;
-    int sphericalFold1StopIterations;
-    double sphericalFold1Weight;
 
-    bool scale1Enabled;
-    CVector4 scale1;
-    int scale1StartIterations;
-    int scale1StopIterations;
 
-    bool mainRotation1Enabled;
-    bool mainRotation1WeightEnabled;
-    int mainRotation1StartIterations;
-    int mainRotation1StopIterations;
-    CVector3 mainRotation1;
-    CRotationMatrix mainRot1;
-    double mainRotation1Weight;
-
-    bool fabsAddConstant1Enabled;
-    bool fabsAddConstant1WeightEnabled;
-    bool fabsAddConstant1Enabledx;
-    bool fabsAddConstant1Enabledy;
-    bool fabsAddConstant1Enabledz;
-    bool fabsAddConstant1Enabledw;
-    int fabsAddConstant1StartIterations;
-    int fabsAddConstant1StopIterations;
-    CVector4 fabsAddConstant1A;
-    CVector4 fabsAddConstant1B;
-    CVector4 fabsAddConstant1C;
-    double fabsAddConstant1Weight;
-
-    // main quaternion formula 1
-    bool quaternion1Enabled;
-    bool quaternion1WeightEnabled;
-    int quaternion1StartIterations;
-    int quaternion1StopIterations;
-    CVector4 quaternion1FactorConstantVect;
-    double quaternion1Weight;
-
-    bool constantMultiplier1Enabled;
-    bool constantMultiplier1WeightEnabled;
-    int constantMultiplier1StartIterations;
-    int constantMultiplier1StopIterations;
-    CVector4 constantMultiplier1Vect;
-    double constantMultiplier1Weight;
-
-    bool additionConstant1Enabled;
-    bool additionConstant1WeightEnabled;
-    int additionConstant1StartIterations;
-    int additionConstant1StopIterations;
-    CVector4 additionConstant1;
-    double additionConstant1Weight;
-
-    bool fabsFormulaABCD1Enabled;
-    bool fabsFormulaABCD1WeightEnabled;
-    bool fabsFormulaABCD1EnabledAx;
-    bool fabsFormulaABCD1EnabledAy;
-    bool fabsFormulaABCD1EnabledAz;
-    bool fabsFormulaABCD1EnabledAw;
-    bool fabsFormulaABCD1EnabledBx;
-    bool fabsFormulaABCD1EnabledBy;
-    bool fabsFormulaABCD1EnabledBz;
-    bool fabsFormulaABCD1EnabledBw;
-    int fabsFormulaABCD1StartIterations;
-    int fabsFormulaABCD1StopIterations;
-    CVector4 fabsFormulaABCD1A;
-    CVector4 fabsFormulaABCD1B;
-    CVector4 fabsFormulaABCD1C;
-    CVector4 fabsFormulaABCD1D;
-    double fabsFormulaABCD1AW;
-    double fabsFormulaABCD1BW;
-    double fabsFormulaABCD1CW;
-    double fabsFormulaABCD1DW;
-    double fabsFormulaABCD1Weight;
-
-    bool mainRotation2Enabled;
-    bool mainRotation2WeightEnabled;
-    int mainRotation2StartIterations;
-    int mainRotation2StopIterations;
-    CVector3 mainRotation2;
-    CRotationMatrix mainRot2;
-    double mainRotation2Weight;
-
-    // main quaternion formula 2
-    bool quaternion2Enabled;
-    bool quaternion2WeightEnabled;
-    int quaternion2StartIterations;
-    int quaternion2StopIterations;
-    CVector4 quaternion2FactorConstantVect;
-    double quaternion2Weight;
-
-    bool constantMultiplier2Enabled;
-    bool constantMultiplier2WeightEnabled;
-    int constantMultiplier2StartIterations;
-    int constantMultiplier2StopIterations;
-    CVector4 constantMultiplier2Vect;
-    double constantMultiplier2Weight;
-
-    bool additionConstant2Enabled;
-    bool additionConstant2WeightEnabled;
-    int additionConstant2StartIterations;
-    int additionConstant2StopIterations;
-    CVector4 additionConstant2;
-    double additionConstant2Weight;
-
-    bool sphericalFold2Enabled;
-    bool sphericalFold2WeightEnabled;
-    double sphericalFold2RadMin;
-    double sphericalFold2RadFixed;
-    double sphericalFold2fR2;
-    double sphericalFold2mR2;
-    double sphericalFold2MboxFactor1;
-    int sphericalFold2StartIterations;
-    int sphericalFold2StopIterations;
-    double sphericalFold2Weight;
-
-    bool scale2Enabled;
-    double scale2;
-    int scale2StartIterations;
-    int scale2StopIterations;
-
-    bool mainRotation3Enabled;
-    bool mainRotation3WeightEnabled;
-    int mainRotation3StartIterations;
-    int mainRotation3StopIterations;
-    CVector3 mainRotation3;
-    CRotationMatrix mainRot3;
-    double mainRotation3Weight;
-
-    bool fabsFormulaABCD2Enabled;
-    bool fabsFormulaABCD2WeightEnabled;
-    bool fabsFormulaABCD2EnabledAx;
-    bool fabsFormulaABCD2EnabledAy;
-    bool fabsFormulaABCD2EnabledAz;
-    bool fabsFormulaABCD2EnabledAw;
-    bool fabsFormulaABCD2EnabledBx;
-    bool fabsFormulaABCD2EnabledBy;
-    bool fabsFormulaABCD2EnabledBz;
-    bool fabsFormulaABCD2EnabledBw;
-    int fabsFormulaABCD2StartIterations;
-    int fabsFormulaABCD2StopIterations;
-    CVector4 fabsFormulaABCD2A;
-    CVector4 fabsFormulaABCD2B;
-    CVector4 fabsFormulaABCD2C;
-    CVector4 fabsFormulaABCD2D;
-    double fabsFormulaABCD2AW;
-    double fabsFormulaABCD2BW;
-    double fabsFormulaABCD2CW;
-    double fabsFormulaABCD2DW;
-    double fabsFormulaABCD2Weight;
-
-    bool iterationWeight1Enabled;
-    bool iterationWeight1WeightEnabled;
-    int iterationWeight1IterationA;
-    int iterationWeight1IterationB;
-    double iterationWeight1ConstantZ;
-    double iterationWeight1ConstantA;
-    double iterationWeight1ConstantB;
-    double iterationWeight1Weight;
 };
     //----------------------------------------------------------
 struct sFractalMengerSponge105
 {
-    // main mengerSponge1 formula 1
-
-
-
-
-
-
-
-
-
-
-    // main mengerSponge2 formula 2
-
-
-
-
-
-
-    // main mengerSponge2 formula 3
-
-
-
 
 };
 
