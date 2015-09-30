@@ -1377,25 +1377,7 @@ void mengerSpongeTransform3D(const sTransformMengerSponge &mengerSponge, CVector
     }
   }
 }
-//scale transform 3D
-void scaleTransform3D(const sTransformScale &scale, CVector3 &z, int i, sIFSAux &aux)
-{
-  if (scale.control.enabled && i >= scale.control.startIterations && i < scale.control.stopIterations)
-  {
-    CVector3 temp = z;
-    double tempAuxDE = aux.ifsDE;
-    z = z * scale.scale;
-    aux.ifsDE = aux.ifsDE * fabs(scale.scale) + 1.0;
 
-   //weight function
-    if (scale.control.weightEnabled)
-    {
-      z = SmoothCVector(temp, z, scale.control.weight);
-      double nkaux = 1.0 - ( scale.control.weight);
-      aux.ifsDE = ( tempAuxDE * nkaux )  + ( aux.ifsDE  *  scale.control.weight);
-    }
-  }
-}
 //quaternion transform 4D
 void quaternionOriginalTransform4D(const sTransformQuaternionOriginal &quaternionOriginal, CVector4 &z, int i)
 {
@@ -1434,25 +1416,63 @@ void quaternionTransform4D(const sTransformQuaternion &quaternion, CVector4 &z, 
     }
   }
 }
+//scaleOriginal transform 3D
+void scaleOriginalTransform3D(const sTransformScaleOriginal &scaleOriginal, CVector3 &z, int i, sIFSAux &aux
+)
+{
+  if (scaleOriginal.control.enabled && i >= scaleOriginal.control.startIterations && i < scaleOriginal.control.stopIterations)
+  {
+    z = z * scaleOriginal.scaleOriginal;
+     aux.ifsDE =  aux.ifsDE * fabs(scaleOriginal.scaleOriginal) + 1.0;
+  }
+}
+//scale transform 3D
+void scaleTransform3D(const sTransformScale &scale, CVector3 &z, int i, sIFSAux &aux)
+{
+  if (scale.control.enabled && i >= scale.control.startIterations && i < scale.control.stopIterations)
+  {
+    z = z * scale.scale;
+    aux.ifsDE = aux.ifsDE * fabs(scale.scale) + 1.0;
+  }
+}
 //scale transform 4D
 void scaleTransform4D(const sTransformScale &scale, CVector4 &z, int i, sIFSAux &aux)
 {
   if (scale.control.enabled && i >= scale.control.startIterations && i < scale.control.stopIterations)
   {
-    CVector4 temp = z;
-    double tempAuxDE = aux.ifsDE;
     z = z * scale.scale;
     aux.ifsDE = aux.ifsDE * fabs(scale.scale) + 1.0;
-
-   //weight function
-    if (scale.control.weightEnabled)
+  }
+}
+//sphericalFoldOriginal transform 3D
+void sphericalFoldOriginalTransform3D(const sTransformSphericalFoldOriginal &sphericalFoldOriginal, CVector3 &z, int i, sIFSAux &aux)
+{
+  if (sphericalFoldOriginal.control.enabled && i >= sphericalFoldOriginal.control.startIterations && i < sphericalFoldOriginal.control.stopIterations)
+  {
+    CVector3 temp = z;
+    double tempAuxDE = aux.ifsDE;
+    double r2 = z.Dot(z);
+    if (r2 < sphericalFoldOriginal.mR2)
+      {
+      z *= sphericalFoldOriginal.mboxFactor1;
+      aux.ifsDE *= sphericalFoldOriginal.mboxFactor1;
+    }
+    else if (r2 < sphericalFoldOriginal.fR2)
     {
-      z = SmoothCVector(temp, z, scale.control.weight);
-      double nkaux = 1.0 - ( scale.control.weight);
-      aux.ifsDE = ( tempAuxDE * nkaux )  + ( aux.ifsDE  *  scale.control.weight);
+      double tglad_factor2 = sphericalFoldOriginal.fR2 / r2;
+      z *= tglad_factor2;
+      aux.ifsDE *= tglad_factor2;
+    }
+   //aux weight function
+    if (sphericalFoldOriginal.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, sphericalFoldOriginal.control.weight);
+      double nkaux = 1.0 - ( sphericalFoldOriginal.control.weight);
+      aux.ifsDE = ( tempAuxDE * nkaux )  + ( aux.ifsDE  *  sphericalFoldOriginal.control.weight);
     }
   }
 }
+
 //sphericalFold transform 3D
 void sphericalFoldTransform3D(const sTransformSphericalFold &sphericalFold, CVector3 &z, int i, sIFSAux &aux)
 {
@@ -1535,32 +1555,28 @@ void sphericalOffsetTransform3D(const sTransformSphericalOffset &sphericalOffset
 
 
 
-  //--------------------------------------------
+  //------------MANDELBULB EXTENDED--------------------------------
 
 
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sMandelbulbAux &aux)
 {
-    CVector3 temp = z;
-    CVector3 tempA = z * 0;
-    CVector3 tempB = z * 0;
+  //boxFold1
+  boxFoldTransform3D(fractal->transform.boxFold1, z, i);
 
-    //boxFold1
-    boxFoldTransform3D(fractal->transform.boxFold1, z, i);
+  //mainRotation1
+  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
 
-    //mainRotation1
-    mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+  // z =(fabs( z + const1A.) * const1.B) + z * constC.;
+  fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
 
-    // z =(fabs( z + const1A.) * const1.B) + z * constC.;
-    fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
+  //MAIN FORMULA ORIGINAL1
+  // mandelbulb 3D 1
+  mandelbulbOriginalTransform3D(fractal->transform.mandelbulbOriginal1, z, i, aux);
 
-    //MAIN FORMULA ORIGINAL1
-    // mandelbulb 3D 1
-     mandelbulbOriginalTransform3D(fractal->transform.mandelbulbOriginal1, z, i, aux);
+  // z = z + ( c * const.); 1
+  constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 
-    // z = z + ( c * const.); 1
-    constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
-
-    //  -fabs( z - constA.) * const.B;
+  //  -fabs( z - constA.) * const.B;
   fabsSubConstantTransform3D(fractal->transform.fabsSubConstant1, z, i);
 
   // z = fabs( z + const.A ) + ( z * const.B ) + const.C; 1
@@ -1573,13 +1589,13 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
   fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB1, z, i);
 
   //mainRotation; 2
-    mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
+  mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
 
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
-    fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
+  fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
 
   // mandelbulb 3D 1
-   mandelbulbTransform3D(fractal->transform.mandelbulb1, z, i, aux);
+  mandelbulbTransform3D(fractal->transform.mandelbulb1, z, i, aux);
 
   //mainRotation; 3
   mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
@@ -1595,267 +1611,68 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
 
     //boxFold; 2
   boxFoldTransform3D(fractal->transform.boxFold2, z, i);
-}
-
-void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sMandelboxAux &aux)
+  }
+  // -------------- MANDELBOX EXTENDED----------------------------
+void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sIFSAux &aux)
 {
-    CVector3 temp = z;
-    double temp2 = aux.mboxDE;
-    CVector3 tempA = z * 0;
-    CVector3 tempB = z * 0;
-    CVector3 zA = z * 0;
-    CVector3 zB = z * 0;
 
-    //boxFold1
-     boxFoldOriginalTransform3D(fractal->transform.boxFoldOriginal1, z, i);
+  //boxFold1 Original (enabled); 1
+   boxFoldOriginalTransform3D(fractal->transform.boxFoldOriginal1, z, i);
+
+  // sphericalFold1 Original (enabled); 1
+   sphericalFoldOriginalTransform3D(fractal->transform.sphericalFoldOriginal1, z, i, aux);
+
+  //scale Original (enabled); 1
+   scaleOriginalTransform3D(fractal->transform.scaleOriginal1, z, i, aux);
+
+  //mainRotation1
+  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+
+  //(fabs( z + const1A.) * const1.B) + z * constC.;
+  fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
+
+    // z = z + ( c * const.); Original (enabled); 1
+  constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
+
+  // z = z + const; 1
+  additionConstantTransform3D(fractal->transform.additionConstant1, z, i);
+
+
+  //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 1
+  fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD1, z, i);
+
+  //MAIN FORMULA
+  //boxFold; 1
+  boxFoldTransform3D(fractal->transform.boxFold1, z, i);
 
   // sphericalFold1
-  if (fractal->mandelbox103.sphericalFold1Enabled && i >= fractal->mandelbox103.sphericalFold1StartIterations && i < fractal->mandelbox103.sphericalFold1StopIterations)
-  {
-    temp = z;
-    double r2 = z.Dot(z);
-    if (r2 < fractal->mandelbox103.sphericalFold1mR2)
-      {
-      z *= fractal->mandelbox103.sphericalFold1MboxFactor1;
-      aux.mboxDE *= fractal->mandelbox103.sphericalFold1MboxFactor1;
-    }
-    else if (r2 < fractal->mandelbox103.sphericalFold1fR2)
-    {
-      double tglad_factor2 = fractal->mandelbox103.sphericalFold1fR2 / r2;
-      z *= tglad_factor2;
-      aux.mboxDE *= tglad_factor2;
-    }
-    //weight function
-      if (fractal->mandelbox103.sphericalFold1WeightEnabled)
-      {
-        z = SmoothCVector(temp, z, fractal-> mandelbox103.sphericalFold1Weight);
-        double nkaux = 1.0 - ( fractal-> mandelbox103.sphericalFold1Weight);
-        aux.mboxDE = ( temp2 * nkaux )  + ( aux.mboxDE  *  fractal-> mandelbox103.sphericalFold1Weight);
-      }
-  }
+  sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
+
   //scale; 1
-  if (fractal->mandelbox103.scale1Enabled && i >= fractal->mandelbox103.scale1StartIterations && i < fractal->mandelbox103.scale1StopIterations)
-  {
-    temp = z;
-    z = z * fractal->mandelbox103.scale1;
-    aux.mboxDE = aux.mboxDE * fabs(fractal->mandelbox103.scale1) + 1.0;
-  }
-    //mainRotation1
-  if (fractal->mandelbox103.mainRotation1Enabled && i >= fractal->mandelbox103.mainRotation1StartIterations && i < fractal->mandelbox103.mainRotation1StopIterations)
-  {
-    temp = z;
-    z = fractal->mandelbox103.mainRot1.RotateVector(z);
-    if (fractal->mandelbox103.mainRotation1WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> mandelbox103.mainRotation1Weight);
-    }
-  }
+  scaleTransform3D(fractal->transform.scale1, z, i, aux);
 
-    //(fabs( z + const1A.) * const1.B) + z * constC.;
-    fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
-
-
-      // z = z + ( c * const.); 1
-  if (fractal->mandelbox103.constantMultiplier1Enabled && i >= fractal->mandelbox103.constantMultiplier1StartIterations && i < fractal->mandelbox103.constantMultiplier1StopIterations)
-  {
-    temp = z;
-    z += c * fractal->mandelbox103.constantMultiplier1Vect;
-    //weight function
-    if (fractal->mandelbox103.constantMultiplier1WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> mandelbox103.constantMultiplier1Weight);
-    }
-  }
-  // z = z + const; 1
-  if (fractal->mandelbox103.additionConstant1Enabled && i >= fractal->mandelbox103.additionConstant1StartIterations && i < fractal->mandelbox103.additionConstant1StopIterations)
-  {
-    temp = z;
-    z += fractal->mandelbox103.additionConstant1;
-    //weight function
-    if (fractal->mandelbox103.additionConstant1WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> mandelbox103.additionConstant1Weight);
-    }
-  }
-  //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 1
-  if (fractal->mandelbox103.fabsFormulaABCD1Enabled && i >= fractal->mandelbox103.fabsFormulaABCD1StartIterations
-      && i < fractal->mandelbox103.fabsFormulaABCD1StopIterations)
-  {
-    temp = z;
-    if (fractal->mandelbox103.fabsFormulaABCD1EnabledAx)
-    {
-      tempA.x = fabs(z.x + fractal->mandelbox103.fabsFormulaABCD1A.x);
-    }
-    if (fractal->mandelbox103.fabsFormulaABCD1EnabledBx)
-    {
-      tempB.x = fabs(z.x - fractal->mandelbox103.fabsFormulaABCD1B.x);
-    }
-    z.x = tempA.x - tempB.x + (z.x * fractal->mandelbox103.fabsFormulaABCD1C.x + fractal->mandelbox103.fabsFormulaABCD1D.x);
-    if (fractal->mandelbox103.fabsFormulaABCD1EnabledAy)
-    {
-      tempA.y = fabs(z.y + fractal->mandelbox103.fabsFormulaABCD1A.y);
-    }
-    if (fractal->mandelbox103.fabsFormulaABCD1EnabledBy)
-    {
-      tempB.y = fabs(z.y - fractal->mandelbox103.fabsFormulaABCD1B.y);
-    }
-    z.y = tempA.y - tempB.y + (z.y * fractal->mandelbox103.fabsFormulaABCD1C.y + fractal->mandelbox103.fabsFormulaABCD1D.y);
-    if (fractal->mandelbox103.fabsFormulaABCD1EnabledAz)
-    {
-      tempA.z = fabs(z.z + fractal->mandelbox103.fabsFormulaABCD1A.z);
-    }
-    if (fractal->mandelbox103.fabsFormulaABCD1EnabledBz)
-    {
-      tempB.z = fabs(z.z - fractal->mandelbox103.fabsFormulaABCD1B.z);
-    }
-    z.z = tempA.z - tempB.z + (z.z * fractal->mandelbox103.fabsFormulaABCD1C.z + fractal->mandelbox103.fabsFormulaABCD1D.z);
-    //weight function
-    if (fractal->mandelbox103.fabsFormulaABCD1WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> mandelbox103.fabsFormulaABCD1Weight);
-    }
-  }
-  //MAIN FORMULA
-    //boxFold; 2
-    boxFoldTransform3D(fractal->transform.boxFold1, z, i);
-
-  // sphericalFold2
-  if (fractal->mandelbox103.sphericalFold2Enabled && i >= fractal->mandelbox103.sphericalFold2StartIterations && i < fractal->mandelbox103.sphericalFold2StopIterations)
-  {
-    temp = z;
-    temp2 = aux.mboxDE;
-    double r2 = z.Dot(z);
-    if (r2 < fractal->mandelbox103.sphericalFold2mR2)
-      {
-      z *= fractal->mandelbox103.sphericalFold2MboxFactor1;
-      aux.mboxDE *= fractal->mandelbox103.sphericalFold2MboxFactor1;
-    }
-    else if (r2 < fractal->mandelbox103.sphericalFold2fR2)
-    {
-      double tglad_factor2 = fractal->mandelbox103.sphericalFold2fR2 / r2;
-      z *= tglad_factor2;
-      aux.mboxDE *= tglad_factor2;
-    }
-    //weight function
-    if (fractal->mandelbox103.sphericalFold2WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> mandelbox103.sphericalFold2Weight);
-      //aux.mboxDE = temp2 + ( aux.mboxDE - temp2) * ( fractal-> mandelbox103.sphericalFold2Weight);
-      double nkaux = 1.0 - ( fractal-> mandelbox103.sphericalFold2Weight);
-      aux.mboxDE = ( temp2 * nkaux )  + ( aux.mboxDE  *  fractal-> mandelbox103.sphericalFold2Weight);
-    }
-  }
-  //scale; 2
-  if (fractal->mandelbox103.scale2Enabled && i >= fractal->mandelbox103.scale2StartIterations && i < fractal->mandelbox103.scale2StopIterations)
-  {
-    z = z * fractal->mandelbox103.scale2;
-    aux.mboxDE = aux.mboxDE * fabs(fractal->mandelbox103.scale2) + 1.0;
-  }
   //mainRotation2
-  if (fractal->mandelbox103.mainRotation2Enabled && i >= fractal->mandelbox103.mainRotation2StartIterations && i < fractal->mandelbox103.mainRotation2StopIterations)
-  {
-    temp = z;
-    z = fractal->mandelbox103.mainRot2.RotateVector(z);
-    //weight function
-    if (fractal->mandelbox103.mainRotation2WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> mandelbox103.mainRotation2Weight);
-    }
-  }
-    // z = z + c * const; 2
-  if (fractal->mandelbox103.constantMultiplier2Enabled && i >= fractal->mandelbox103.constantMultiplier2StartIterations && i < fractal->mandelbox103.constantMultiplier2StopIterations)
-  {
-    temp = z;
-    z += c * fractal->mandelbox103.constantMultiplier2Vect;
-    //weight function
-    if (fractal->mandelbox103.constantMultiplier2WeightEnabled)
-    {
-    z = SmoothCVector(temp, z, fractal-> mandelbox103.constantMultiplier2Weight);
-    }
-  }
-  // z = z + const; 2
-  if (fractal->mandelbox103.additionConstant2Enabled && i >= fractal->mandelbox103.additionConstant2StartIterations && i < fractal->mandelbox103.additionConstant2StopIterations)
-  {
-    temp = z;
-    z += fractal->mandelbox103.additionConstant2;
-    //weight function
-    if (fractal->mandelbox103.additionConstant2WeightEnabled)
-    {
-    z = SmoothCVector(temp, z, fractal-> mandelbox103.additionConstant2Weight);
-    }
-  }
-  //mainRotation; 3
-  if (fractal->mandelbox103.mainRotation3Enabled && i >= fractal->mandelbox103.mainRotation3StartIterations && i < fractal->mandelbox103.mainRotation3StopIterations)
-  {
-    temp = z;
-    z = fractal->mandelbox103.mainRot3.RotateVector(z);
-    //weight function
-    if (fractal->mandelbox103.mainRotation3WeightEnabled)
-    {
-    z = SmoothCVector(temp, z, fractal-> mandelbox103.mainRotation3Weight);
-    }
-  }
-  //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
-  if (fractal->mandelbox103.fabsFormulaABCD2Enabled && i >= fractal->mandelbox103.fabsFormulaABCD2StartIterations
-      && i < fractal->mandelbox103.fabsFormulaABCD2StopIterations)
-  {
-    temp = z;
-    if (fractal->mandelbox103.fabsFormulaABCD2EnabledAx)
-    {
-      tempA.x = fabs(z.x + fractal->mandelbox103.fabsFormulaABCD2A.x);
-    }
-    if (fractal->mandelbox103.fabsFormulaABCD2EnabledBx)
-    {
-      tempB.x = fabs(z.x - fractal->mandelbox103.fabsFormulaABCD2B.x);
-    }
-    z.x = tempA.x - tempB.x + (z.x * fractal->mandelbox103.fabsFormulaABCD2C.x + fractal->mandelbox103.fabsFormulaABCD2D.x);
-    if (fractal->mandelbox103.fabsFormulaABCD2EnabledAy)
-    {
-      tempA.y = fabs(z.y + fractal->mandelbox103.fabsFormulaABCD2A.y);
-    }
-    if (fractal->mandelbox103.fabsFormulaABCD2EnabledBy)
-    {
-      tempB.y = fabs(z.y - fractal->mandelbox103.fabsFormulaABCD2B.y);
-    }
-    z.y = tempA.y - tempB.y + (z.y * fractal->mandelbox103.fabsFormulaABCD2C.y + fractal->mandelbox103.fabsFormulaABCD2D.y);
-    if (fractal->mandelbox103.fabsFormulaABCD2EnabledAz)
-    {
-      tempA.z = fabs(z.z + fractal->mandelbox103.fabsFormulaABCD2A.z);
-    }
-    if (fractal->mandelbox103.fabsFormulaABCD2EnabledBz)
-    {
-      tempB.z = fabs(z.z - fractal->mandelbox103.fabsFormulaABCD2B.z);
-    }
-    z.z = tempA.z - tempB.z + (z.z * fractal->mandelbox103.fabsFormulaABCD2C.z + fractal->mandelbox103.fabsFormulaABCD2D.z);
-    //weight function
-    if (fractal->mandelbox103.fabsFormulaABCD2WeightEnabled)
-    {
-      z = SmoothCVector(temp, z, fractal-> mandelbox103.fabsFormulaABCD2Weight);
-    }
-  }
-  // Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);1
-  if (fractal->mandelbox103.iterationWeight1Enabled )
-  {
-    temp = z;
-    if ( i== fractal->mandelbox103.iterationWeight1IterationA)
-    {
-      zA = z;
-    }
-    if (i == (fractal->mandelbox103.iterationWeight1IterationB))
-    {
-      zB = z;
-    }
-    z = (z * fractal->mandelbox103.iterationWeight1ConstantZ) + (zA * fractal->mandelbox103.iterationWeight1ConstantA) + ( zB * fractal->mandelbox103.iterationWeight1ConstantB);
-    //weight function
-    if (fractal->mandelbox103.iterationWeight1WeightEnabled)
-    {
-    z = SmoothCVector(temp, z, fractal-> mandelbox103.iterationWeight1Weight);
-    }
-  }
-}
-void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal, sIFSAux &aux )
-{
+  mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
 
+  // z = z + c * const; 1
+  constantMultiplierTransform3D(fractal->transform.constantMultiplier1, z, c, i);
+
+  // z = z + const; 2
+  additionConstantTransform3D(fractal->transform.additionConstant2, z, i);
+
+  //mainRotation; 3
+  mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
+
+  //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
+  fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
+
+  // Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);1
+  iterationWeightTransform3D(fractal->transform.iterationWeight1, z, i);
+  }
+
+  // -------------- QUATERNION EXTENDED----------------------------
+  void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal, sIFSAux &aux )
+  {
   //boxFold1
   boxFoldTransform4D(fractal->transform.boxFold1, z, i);
 
@@ -1867,7 +1684,6 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
 
   //mainRotation1
   mainRotationTransform4D(fractal->transform.mainRotation1, z, i);
-
 
   //(fabs( z + const1A.) * const1.B) + z * constC.;
   fabsAddConstantTransform4D(fractal->transform.fabsAddConstant1, z, i);
@@ -1912,11 +1728,11 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
   fabsFormulaABCDTransform4D(fractal->transform.fabsFormulaABCD2, z, i);
 
-
   // Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);
   iterationWeightTransform4D(fractal->transform.iterationWeight1, z, i);
-}
-    //-------------------------------------------------------------------------------------------------------------------------------
+  }
+
+   // -------------- MENGER SPONGE EXTENDED----------------------------
 void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sIFSAux &aux)
 {
   //mengerSpongeORIGINAL1 Enabled

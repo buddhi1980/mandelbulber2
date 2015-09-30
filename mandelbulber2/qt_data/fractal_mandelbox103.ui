@@ -289,9 +289,9 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_sphericalFold1_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_sphericalFoldOriginal1_enabled">
      <property name="title">
-      <string>Enab&amp;le Spherical Fold;</string>
+      <string>Enab&amp;le Spherical Fold; ORIGINAL</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -318,7 +318,7 @@
          <number>5</number>
         </property>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_sphericalFold1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_sphericalFoldOriginal1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -331,7 +331,7 @@
          </widget>
         </item>
         <item row="0" column="5">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_sphericalFold1_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_sphericalFoldOriginal1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -383,7 +383,7 @@
          </spacer>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_sphericalFold1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_sphericalFoldOriginal1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -409,7 +409,7 @@
          </widget>
         </item>
         <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_sphericalFold1_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_sphericalFoldOriginal1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -437,7 +437,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSlider" name="slider_mandelbox103_sphericalFold1_fixed_radius">
+         <widget class="QSlider" name="slider_transform_mandelbox_folding_fixed_radius">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -462,7 +462,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_sphericalFold1_fixed_radius">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbox_folding_fixed_radius">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -490,7 +490,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSlider" name="slider_mandelbox103_sphericalFold1_min_radius">
+         <widget class="QSlider" name="slider_transform_mandelbox_folding_min_radius">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -515,7 +515,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_sphericalFold1_min_radius">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbox_folding_min_radius">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -555,9 +555,9 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_scale1_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_scaleOriginal1_enabled">
      <property name="title">
-      <string>Enable Scale;</string>
+      <string>Enable Scale; ORIGINAL</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -584,7 +584,7 @@
          <number>5</number>
         </property>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_scale1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_scaleOriginal1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -604,7 +604,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_scale1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_scaleOriginal1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -651,7 +651,7 @@
          <number>2</number>
         </property>
         <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_scale1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbox_scale">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -686,7 +686,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSlider" name="slider_mandelbox103_scale1">
+         <widget class="QSlider" name="slider_transform_mandelbox_scale">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -720,7 +720,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_main_rotation1_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_main_rotation1_enabled">
      <property name="title">
       <string>Enable &amp;Main Rotation;</string>
      </property>
@@ -753,7 +753,7 @@
          </widget>
         </item>
         <item row="0" column="5">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_main_rotation1_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_main_rotation1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -788,7 +788,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_main_rotation1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -808,7 +808,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_main_rotation1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -834,7 +834,7 @@
          </spacer>
         </item>
         <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_main_rotation1_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_main_rotation1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -878,7 +878,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QDial" name="dial3_mandelbox103_main_rotation1_y">
+         <widget class="QDial" name="dial3_transform_main_rotation1_y">
           <property name="minimum">
            <number>-18000</number>
           </property>
@@ -891,7 +891,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QDial" name="dial3_mandelbox103_main_rotation1_z">
+         <widget class="QDial" name="dial3_transform_main_rotation1_z">
           <property name="minimum">
            <number>-18000</number>
           </property>
@@ -904,7 +904,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox103_main_rotation1_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_main_rotation1_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -932,7 +932,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QDial" name="dial3_mandelbox103_main_rotation1_x">
+         <widget class="QDial" name="dial3_transform_main_rotation1_x">
           <property name="minimum">
            <number>-18000</number>
           </property>
@@ -945,7 +945,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox103_main_rotation1_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_main_rotation1_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -973,7 +973,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox103_main_rotation1_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_main_rotation1_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1013,9 +1013,9 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_constantMultiplier1_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplierOriginal1_enabled">
      <property name="title">
-      <string>Enable z =  z +  ( c * const. ); </string>
+      <string>Enable z =  z +  ( c * const. );  ORIGINAL</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1062,7 +1062,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_constantMultiplier1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_constantMultiplierOriginal1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1075,7 +1075,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_constantMultiplier1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_constantMultiplierOriginal1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1102,7 +1102,7 @@
          </widget>
         </item>
         <item row="1" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_constantMultiplier1_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_constantMultiplierOriginal1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -1127,7 +1127,7 @@
          </widget>
         </item>
         <item row="1" column="4">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_constantMultiplier1_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_constantMultiplierOriginal1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -1148,7 +1148,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_constantMultiplier1_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_constantMultiplierOriginal1_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1190,7 +1190,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_constantMultiplier1_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_constantMultiplierOriginal1_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1218,7 +1218,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_constantMultiplier1_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_constantMultiplierOriginal1_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1246,7 +1246,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_constantMultiplier1_y">
+         <widget class="QSlider" name="slider3_transform_constantMultiplierOriginal1_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1268,7 +1268,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_constantMultiplier1_x">
+         <widget class="QSlider" name="slider3_transform_constantMultiplierOriginal1_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -1290,7 +1290,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_constantMultiplier1_z">
+         <widget class="QSlider" name="slider3_transform_constantMultiplierOriginal1_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1324,7 +1324,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_additionConstant1_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_additionConstant1_enabled">
      <property name="title">
       <string>Enable z = z +  const.; </string>
      </property>
@@ -1356,7 +1356,7 @@
          <number>0</number>
         </property>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_additionConstant1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_additionConstant1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1376,7 +1376,7 @@
          </widget>
         </item>
         <item row="0" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_additionConstant1_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_additionConstant1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -1401,7 +1401,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_additionConstant1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_additionConstant1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1453,7 +1453,7 @@
          </spacer>
         </item>
         <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_additionConstant1_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_additionConstant1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -1467,7 +1467,7 @@
          <number>2</number>
         </property>
         <item row="2" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_additionConstant1_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_additionConstant1_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1486,7 +1486,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_additionConstant1_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_additionConstant1_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1505,7 +1505,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_additionConstant1_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_additionConstant1_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1534,7 +1534,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QSlider" name="slider3_mandelbox103_additionConstant1_z">
+         <widget class="QSlider" name="slider3_transform_additionConstant1_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1560,7 +1560,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSlider" name="slider3_mandelbox103_additionConstant1_x">
+         <widget class="QSlider" name="slider3_transform_additionConstant1_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1586,7 +1586,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSlider" name="slider3_mandelbox103_additionConstant1_y">
+         <widget class="QSlider" name="slider3_transform_additionConstant1_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1617,7 +1617,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_fabsFormulaABCD1_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaABCD1_enabled">
      <property name="title">
       <string>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D); </string>
      </property>
@@ -1653,7 +1653,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_fabsFormulaABCD1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_fabsFormulaABCD1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1686,7 +1686,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_fabsFormulaABCD1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_fabsFormulaABCD1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1706,14 +1706,14 @@
          </widget>
         </item>
         <item row="0" column="6">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD1_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="7">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_fabsFormulaABCD1_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsFormulaABCD1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -1752,7 +1752,7 @@
          </widget>
         </item>
         <item row="9" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1C_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1C_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1774,7 +1774,7 @@
          </widget>
         </item>
         <item row="6" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1B_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1B_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1803,7 +1803,7 @@
          </widget>
         </item>
         <item row="8" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1C_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1C_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1832,7 +1832,7 @@
          </widget>
         </item>
         <item row="13" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1D_y">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1D_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1851,7 +1851,7 @@
          </widget>
         </item>
         <item row="14" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1D_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1D_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1887,7 +1887,7 @@
          </widget>
         </item>
         <item row="14" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1D_z">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1D_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1913,7 +1913,7 @@
          </widget>
         </item>
         <item row="13" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1D_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1D_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1935,7 +1935,7 @@
          </widget>
         </item>
         <item row="12" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1D_x">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1D_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1954,21 +1954,21 @@
          </widget>
         </item>
         <item row="5" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD1_enabled_By">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD1_enabled_By">
           <property name="text">
            <string>Enable</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD1_enabled_Ax">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD1_enabled_Ax">
           <property name="text">
            <string>Enable</string>
           </property>
          </widget>
         </item>
         <item row="5" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1B_y">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1B_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2001,7 +2001,7 @@
          </widget>
         </item>
         <item row="12" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1D_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1D_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2037,7 +2037,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1A_z">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1A_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2063,7 +2063,7 @@
          </widget>
         </item>
         <item row="0" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1A_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1A_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2085,7 +2085,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1A_x">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1A_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2110,7 +2110,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1A_y">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1A_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2129,7 +2129,7 @@
          </widget>
         </item>
         <item row="6" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1B_z">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1B_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2148,7 +2148,7 @@
          </widget>
         </item>
         <item row="1" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1A_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1A_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2170,7 +2170,7 @@
          </widget>
         </item>
         <item row="4" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1B_x">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1B_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2189,7 +2189,7 @@
          </widget>
         </item>
         <item row="2" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1A_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1A_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2211,14 +2211,14 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD1_enabled_Az">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD1_enabled_Az">
           <property name="text">
            <string>Enable</string>
           </property>
          </widget>
         </item>
         <item row="5" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1B_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1B_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2240,7 +2240,7 @@
          </widget>
         </item>
         <item row="8" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1C_x">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1C_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2259,7 +2259,7 @@
          </widget>
         </item>
         <item row="4" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1B_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1B_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2281,7 +2281,7 @@
          </widget>
         </item>
         <item row="9" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1C_y">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1C_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2300,7 +2300,7 @@
          </widget>
         </item>
         <item row="10" column="3">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD1C_z">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1C_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2319,21 +2319,21 @@
          </widget>
         </item>
         <item row="6" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD1_enabled_Bz">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD1_enabled_Bz">
           <property name="text">
            <string>Enable</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD1_enabled_Bx">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD1_enabled_Bx">
           <property name="text">
            <string>Enable</string>
           </property>
          </widget>
         </item>
         <item row="10" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD1C_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1C_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2355,7 +2355,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD1_enabled_Ay">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD1_enabled_Ay">
           <property name="text">
            <string>Enable</string>
           </property>
@@ -2665,7 +2665,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_sphericalFold2_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_sphericalFold1_enabled">
      <property name="title">
       <string>Enable Spherical Fold</string>
      </property>
@@ -2694,7 +2694,7 @@
          <number>5</number>
         </property>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_sphericalFold2_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_sphericalFold1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2714,7 +2714,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_sphericalFold2_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_sphericalFold1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2727,7 +2727,7 @@
          </widget>
         </item>
         <item row="0" column="5">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_sphericalFold2_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_sphericalFold1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -2754,7 +2754,7 @@
         <item row="0" column="7">
          <widget class="QLabel" name="label_163">
           <property name="text">
-           <string>Copy TWO</string>
+           <string>Copy ONE</string>
           </property>
          </widget>
         </item>
@@ -2779,7 +2779,7 @@
          </spacer>
         </item>
         <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_sphericalFold2_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_sphericalFold1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -2793,7 +2793,7 @@
          <number>2</number>
         </property>
         <item row="0" column="1">
-         <widget class="QSlider" name="slider_mandelbox103_sphericalFold2_fixed_radius">
+         <widget class="QSlider" name="slider_transform_sphericalFold1_fixed_radius">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2818,7 +2818,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSlider" name="slider_mandelbox103_sphericalFold2_min_radius">
+         <widget class="QSlider" name="slider_transform_sphericalFold1_min_radius">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2850,7 +2850,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_sphericalFold2_fixed_radius">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_sphericalFold1_fixed_radius">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2878,7 +2878,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_sphericalFold2_min_radius">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_sphericalFold1_min_radius">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2925,7 +2925,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_scale2_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_scale1_enabled">
      <property name="title">
       <string>Enable Scale</string>
      </property>
@@ -2954,7 +2954,7 @@
          <number>5</number>
         </property>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_scale2_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_scale1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2974,7 +2974,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_scale2_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_scale1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2989,7 +2989,7 @@
         <item row="0" column="6">
          <widget class="QLabel" name="label_169">
           <property name="text">
-           <string>Copy TWO</string>
+           <string>Copy ONE</string>
           </property>
          </widget>
         </item>
@@ -3021,7 +3021,7 @@
          <number>2</number>
         </property>
         <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_scale2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_scale1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3056,7 +3056,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSlider" name="slider_mandelbox103_scale2">
+         <widget class="QSlider" name="slider_transform_scale1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3090,7 +3090,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_main_rotation2_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_main_rotation2_enabled">
      <property name="title">
       <string>Enable Main &amp;Rotation; </string>
      </property>
@@ -3123,7 +3123,7 @@
          </widget>
         </item>
         <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_main_rotation2_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_main_rotation2_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -3137,7 +3137,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_main_rotation2_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation2_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3150,7 +3150,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_main_rotation2_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation2_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3170,7 +3170,7 @@
          </widget>
         </item>
         <item row="0" column="5">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_main_rotation2_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_main_rotation2_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -3245,7 +3245,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QDial" name="dial3_mandelbox103_main_rotation2_y">
+         <widget class="QDial" name="dial3_transform_main_rotation2_y">
           <property name="minimum">
            <number>-18000</number>
           </property>
@@ -3258,7 +3258,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QDial" name="dial3_mandelbox103_main_rotation2_z">
+         <widget class="QDial" name="dial3_transform_main_rotation2_z">
           <property name="minimum">
            <number>-18000</number>
           </property>
@@ -3271,7 +3271,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox103_main_rotation2_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_main_rotation2_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3299,7 +3299,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QDial" name="dial3_mandelbox103_main_rotation2_x">
+         <widget class="QDial" name="dial3_transform_main_rotation2_x">
           <property name="minimum">
            <number>-18000</number>
           </property>
@@ -3312,7 +3312,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox103_main_rotation2_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_main_rotation2_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3340,7 +3340,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox103_main_rotation2_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_main_rotation2_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3380,7 +3380,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_constantMultiplier2_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplier1_enabled">
      <property name="title">
       <string>Enable z =  z + ( c * const. ); </string>
      </property>
@@ -3413,7 +3413,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_constantMultiplier2_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_constantMultiplier1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3426,7 +3426,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_constantMultiplier2_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_constantMultiplier1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3454,12 +3454,12 @@
         <item row="0" column="9">
          <widget class="QLabel" name="label_111">
           <property name="text">
-           <string>Copy TWO</string>
+           <string>Copy ONE</string>
           </property>
          </widget>
         </item>
         <item row="0" column="7">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_constantMultiplier2_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_constantMultiplier1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -3497,7 +3497,7 @@
          </spacer>
         </item>
         <item row="0" column="6">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_constantMultiplier2_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_constantMultiplier1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -3518,7 +3518,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_constantMultiplier2_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_constantMultiplier1_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3560,7 +3560,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_constantMultiplier2_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_constantMultiplier1_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3588,7 +3588,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_constantMultiplier2_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_constantMultiplier1_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3616,7 +3616,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_constantMultiplier2_y">
+         <widget class="QSlider" name="slider3_transform_constantMultiplier1_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3638,7 +3638,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_constantMultiplier2_x">
+         <widget class="QSlider" name="slider3_transform_constantMultiplier1_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -3660,7 +3660,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_constantMultiplier2_z">
+         <widget class="QSlider" name="slider3_transform_constantMultiplier1_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3694,7 +3694,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_additionConstant2_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_additionConstant2_enabled">
      <property name="title">
       <string>Enable z = z +  const.;</string>
      </property>
@@ -3720,7 +3720,7 @@
       <item>
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="5">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_additionConstant2_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_additionConstant2_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -3752,7 +3752,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_additionConstant2_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_additionConstant2_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3765,7 +3765,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_additionConstant2_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_additionConstant2_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3811,7 +3811,7 @@
          </spacer>
         </item>
         <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_additionConstant2_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_additionConstant2_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -3825,7 +3825,7 @@
          <number>2</number>
         </property>
         <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_additionConstant2_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_additionConstant2_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3858,7 +3858,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_additionConstant2_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_additionConstant2_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3877,7 +3877,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_additionConstant2_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_additionConstant2_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3906,7 +3906,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_additionConstant2_y">
+         <widget class="QSlider" name="slider3_transform_additionConstant2_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3925,7 +3925,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_additionConstant2_x">
+         <widget class="QSlider" name="slider3_transform_additionConstant2_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3944,7 +3944,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_additionConstant2_z">
+         <widget class="QSlider" name="slider3_transform_additionConstant2_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3975,7 +3975,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_main_rotation3_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_main_rotation3_enabled">
      <property name="title">
       <string>Enable Main Ro&amp;tation; </string>
      </property>
@@ -4001,7 +4001,7 @@
       <item>
        <layout class="QGridLayout" name="gridLayout_23">
         <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_main_rotation3_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_main_rotation3_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
@@ -4022,7 +4022,7 @@
          </widget>
         </item>
         <item row="0" column="5">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_main_rotation3_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_main_rotation3_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -4054,7 +4054,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_main_rotation3_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation3_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4067,7 +4067,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_main_rotation3_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation3_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4130,7 +4130,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QDial" name="dial3_mandelbox103_main_rotation3_y">
+         <widget class="QDial" name="dial3_transform_main_rotation3_y">
           <property name="minimum">
            <number>-18000</number>
           </property>
@@ -4143,7 +4143,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QDial" name="dial3_mandelbox103_main_rotation3_z">
+         <widget class="QDial" name="dial3_transform_main_rotation3_z">
           <property name="minimum">
            <number>-18000</number>
           </property>
@@ -4156,7 +4156,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox103_main_rotation3_x">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_main_rotation3_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4184,7 +4184,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QDial" name="dial3_mandelbox103_main_rotation3_x">
+         <widget class="QDial" name="dial3_transform_main_rotation3_x">
           <property name="minimum">
            <number>-18000</number>
           </property>
@@ -4197,7 +4197,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox103_main_rotation3_z">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_main_rotation3_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4225,7 +4225,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox103_main_rotation3_y">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_main_rotation3_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4265,7 +4265,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_fabsFormulaABCD2_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaABCD2_enabled">
      <property name="title">
       <string>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D); </string>
      </property>
@@ -4301,7 +4301,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_fabsFormulaABCD2_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_fabsFormulaABCD2_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4334,7 +4334,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_fabsFormulaABCD2_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_fabsFormulaABCD2_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4354,14 +4354,14 @@
          </widget>
         </item>
         <item row="0" column="6">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD2_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="7">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_fabsFormulaABCD2_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsFormulaABCD2_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -4393,7 +4393,7 @@
          <number>2</number>
         </property>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD2_enabled_Ay">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_Ay">
           <property name="text">
            <string>Enable</string>
           </property>
@@ -4407,7 +4407,7 @@
          </widget>
         </item>
         <item row="5" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2B_y">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2B_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4426,14 +4426,14 @@
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD2_enabled_Ax">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_Ax">
           <property name="text">
            <string>Enable</string>
           </property>
          </widget>
         </item>
         <item row="12" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2D_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2D_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4469,7 +4469,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2A_z">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2A_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4509,7 +4509,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2A_x">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2A_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4534,7 +4534,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2A_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2A_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4556,7 +4556,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2A_y">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2A_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4575,7 +4575,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2A_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2A_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4597,7 +4597,7 @@
          </widget>
         </item>
         <item row="6" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2B_z">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2B_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4616,7 +4616,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2A_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2A_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4638,7 +4638,7 @@
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2B_x">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2B_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4657,14 +4657,14 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD2_enabled_Az">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_Az">
           <property name="text">
            <string>Enable</string>
           </property>
          </widget>
         </item>
         <item row="5" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2B_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2B_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4686,7 +4686,7 @@
          </widget>
         </item>
         <item row="4" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2B_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2B_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4708,7 +4708,7 @@
          </widget>
         </item>
         <item row="8" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2C_x">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2C_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4727,7 +4727,7 @@
          </widget>
         </item>
         <item row="9" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2C_y">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2C_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4746,7 +4746,7 @@
          </widget>
         </item>
         <item row="10" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2C_z">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2C_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4772,7 +4772,7 @@
          </widget>
         </item>
         <item row="6" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2B_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2B_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4794,7 +4794,7 @@
          </widget>
         </item>
         <item row="10" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2C_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2C_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4816,7 +4816,7 @@
          </widget>
         </item>
         <item row="9" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2C_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2C_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4838,7 +4838,7 @@
          </widget>
         </item>
         <item row="8" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2C_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2C_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4874,7 +4874,7 @@
          </widget>
         </item>
         <item row="13" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2D_y">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2D_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4893,7 +4893,7 @@
          </widget>
         </item>
         <item row="14" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2D_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2D_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4929,7 +4929,7 @@
          </widget>
         </item>
         <item row="14" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2D_z">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2D_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4955,7 +4955,7 @@
          </widget>
         </item>
         <item row="13" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox103_fabsFormulaABCD2D_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2D_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4977,7 +4977,7 @@
          </widget>
         </item>
         <item row="12" column="2">
-         <widget class="QSlider" name="slider3_mandelbox103_fabsFormulaABCD2D_x">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2D_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4996,21 +4996,21 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD2_enabled_Bx">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_Bx">
           <property name="text">
            <string>Enable</string>
           </property>
          </widget>
         </item>
         <item row="5" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD2_enabled_By">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_By">
           <property name="text">
            <string>Enable</string>
           </property>
          </widget>
         </item>
         <item row="6" column="0">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_fabsFormulaABCD2_enabled_Bz">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_Bz">
           <property name="text">
            <string>Enable</string>
           </property>
@@ -5050,7 +5050,7 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_mandelbox103_iterationWeight1_enabled">
+    <widget class="MyGroupBox" name="groupCheck_transform_iterationWeight1_enabled">
      <property name="title">
       <string>Enable &amp;Iteration Weight.;  z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);</string>
      </property>
@@ -5076,7 +5076,7 @@
       <item>
        <layout class="QGridLayout" name="gridLayout_19">
         <item row="0" column="6">
-         <widget class="QCheckBox" name="checkBox_mandelbox103_iterationWeight1_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_iterationWeight1_weight_enabled">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -5086,7 +5086,7 @@
          </widget>
         </item>
         <item row="0" column="7">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_iterationWeight1_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_iterationWeight1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -5138,7 +5138,7 @@
          <number>2</number>
         </property>
         <item row="0" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_iterationWeight1_constantA">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_iterationWeight1_constantA">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5166,7 +5166,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QSlider" name="slider_mandelbox103_iterationWeight1_constantZ">
+         <widget class="QSlider" name="slider_transform_iterationWeight1_constantZ">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5188,7 +5188,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QSlider" name="slider_mandelbox103_iterationWeight1_constantB">
+         <widget class="QSlider" name="slider_transform_iterationWeight1_constantB">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5210,7 +5210,7 @@
          </widget>
         </item>
         <item row="1" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_iterationWeight1_constantB">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_iterationWeight1_constantB">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5238,7 +5238,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QSlider" name="slider_mandelbox103_iterationWeight1_constantA">
+         <widget class="QSlider" name="slider_transform_iterationWeight1_constantA">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -5260,7 +5260,7 @@
          </widget>
         </item>
         <item row="2" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox103_iterationWeight1_constantZ">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_iterationWeight1_constantZ">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5309,7 +5309,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_iterationWeight1_iterationA">
+         <widget class="MySpinBox" name="spinboxInt_transform_iterationWeight1_iterationA">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5335,7 +5335,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_mandelbox103_iterationWeight1_iterationB">
+         <widget class="MySpinBox" name="spinboxInt_transform_iterationWeight1_iterationB">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5407,9 +5407,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_sphericalFold1_weight_enabled</sender>
+   <sender>checkBox_transform_sphericalFoldOriginal1_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_sphericalFold1_weight</receiver>
+   <receiver>spinbox_transform_sphericalFoldOriginal1_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5423,9 +5423,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_main_rotation1_weight_enabled</sender>
+   <sender>checkBox_transform_main_rotation1_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_main_rotation1_weight</receiver>
+   <receiver>spinbox_transform_main_rotation1_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5439,9 +5439,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_constantMultiplier1_weight_enabled</sender>
+   <sender>checkBox_transform_constantMultiplierOriginal1_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_constantMultiplier1_weight</receiver>
+   <receiver>spinbox_transform_constantMultiplierOriginal1_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5455,9 +5455,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_additionConstant1_weight_enabled</sender>
+   <sender>checkBox_transform_additionConstant1_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_additionConstant1_weight</receiver>
+   <receiver>spinbox_transform_additionConstant1_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5471,9 +5471,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_weight_enabled</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_fabsFormulaABCD1_weight</receiver>
+   <receiver>spinbox_transform_fabsFormulaABCD1_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5503,9 +5503,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_sphericalFold2_weight_enabled</sender>
+   <sender>checkBox_transform_sphericalFold1_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_sphericalFold2_weight</receiver>
+   <receiver>spinbox_transform_sphericalFold1_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5519,9 +5519,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_main_rotation2_weight_enabled</sender>
+   <sender>checkBox_transform_main_rotation2_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_main_rotation2_weight</receiver>
+   <receiver>spinbox_transform_main_rotation2_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5535,9 +5535,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_constantMultiplier2_weight_enabled</sender>
+   <sender>checkBox_transform_constantMultiplier1_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_constantMultiplier2_weight</receiver>
+   <receiver>spinbox_transform_constantMultiplier1_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5551,9 +5551,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_additionConstant2_weight_enabled</sender>
+   <sender>checkBox_transform_additionConstant2_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_additionConstant2_weight</receiver>
+   <receiver>spinbox_transform_additionConstant2_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5567,9 +5567,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_main_rotation3_weight_enabled</sender>
+   <sender>checkBox_transform_main_rotation3_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_main_rotation3_weight</receiver>
+   <receiver>spinbox_transform_main_rotation3_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5583,9 +5583,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_weight_enabled</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_fabsFormulaABCD2_weight</receiver>
+   <receiver>spinbox_transform_fabsFormulaABCD2_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5599,9 +5599,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_iterationWeight1_weight_enabled</sender>
+   <sender>checkBox_transform_iterationWeight1_weight_enabled</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox_mandelbox103_iterationWeight1_weight</receiver>
+   <receiver>spinbox_transform_iterationWeight1_weight</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5615,9 +5615,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Ax</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_Ax</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD2A_x</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD2A_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5631,9 +5631,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Ax</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_Ax</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2A_x</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD2A_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5647,9 +5647,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Ay</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_Ay</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD2A_y</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD2A_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5663,9 +5663,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Ay</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_Ay</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2A_y</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD2A_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5679,9 +5679,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Az</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_Az</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD2A_z</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD2A_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5695,9 +5695,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Az</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_Az</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2A_z</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD2A_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5711,9 +5711,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Bx</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_Bx</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD2B_x</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD2B_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5727,9 +5727,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Bx</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_Bx</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2B_x</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD2B_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5743,9 +5743,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_By</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_By</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD2B_y</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD2B_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5759,9 +5759,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_By</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_By</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2B_y</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD2B_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5775,9 +5775,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Bz</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_Bz</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD2B_z</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD2B_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5791,9 +5791,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD2_enabled_Bz</sender>
+   <sender>checkBox_transform_fabsFormulaABCD2_enabled_Bz</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD2B_z</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD2B_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5807,9 +5807,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Ax</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Ax</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD1A_x</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD1A_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5823,9 +5823,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Ax</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Ax</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1A_x</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD1A_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5839,9 +5839,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Ay</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Ay</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD1A_y</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD1A_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5855,9 +5855,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Ay</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Ay</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1A_y</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD1A_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5871,9 +5871,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Az</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Az</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD1A_z</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD1A_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5887,9 +5887,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Az</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Az</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1A_z</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD1A_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5903,9 +5903,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Bx</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Bx</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD1B_x</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD1B_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5919,9 +5919,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Bx</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Bx</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1B_x</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD1B_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5935,9 +5935,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_By</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_By</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD1B_y</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD1B_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5951,9 +5951,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_By</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_By</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1B_y</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD1B_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5967,9 +5967,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Bz</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Bz</sender>
    <signal>toggled(bool)</signal>
-   <receiver>slider3_mandelbox103_fabsFormulaABCD1B_z</receiver>
+   <receiver>slider3_transform_fabsFormulaABCD1B_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -5983,9 +5983,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_mandelbox103_fabsFormulaABCD1_enabled_Bz</sender>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Bz</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_mandelbox103_fabsFormulaABCD1B_z</receiver>
+   <receiver>spinbox3_transform_fabsFormulaABCD1B_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">

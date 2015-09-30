@@ -259,7 +259,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				}
       case mandelbox103:
       {
-        Mandelbox103Iteration(z, c, i, fractal, mandelboxAux[sequence]);
+        Mandelbox103Iteration(z, c, i, fractal, ifsAux[sequence]);
         break;
       }
       case quaternion104:
@@ -382,9 +382,14 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			case smoothMandelbox:
 			case mandelboxVaryScale4D:
 			case generalizedFoldBox:
-      case mandelbox103:
 				out->distance = r / fabs(mandelboxAux[fractalIndex].mboxDE * foldDE);
 				break;
+
+      case mandelbox103:
+        out->distance = r / fabs(ifsAux[fractalIndex].ifsDE * foldDE);
+        break;
+
+
 			case menger_sponge:
       case mengerSponge105:
 			case kaleidoscopicIFS:

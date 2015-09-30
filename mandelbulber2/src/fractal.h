@@ -344,11 +344,26 @@ struct sTransformQuaternion
   sTransformControl control;
   CVector4 quaternionFactorConstant;
 };
+struct sTransformScaleOriginal
+{
+  sTransformControl control;
+  double scaleOriginal;
+};
 struct sTransformScale
 {
   sTransformControl control;
   double scale;
 };
+struct sTransformSphericalFoldOriginal
+{
+  sTransformControl control;
+  double radMin;
+  double radFixed;
+  double fR2;
+  double mR2;
+  double mboxFactor1;
+};
+
 struct sTransformSphericalFold
 {
   sTransformControl control;
@@ -358,6 +373,7 @@ struct sTransformSphericalFold
   double mR2;
   double mboxFactor1;
 };
+
 struct sTransformSphericalOffset
 {
   sTransformControl control;
@@ -401,8 +417,10 @@ struct sFractalTransform
   sTransformMengerSponge mengerSponge2;
   sTransformQuaternionOriginal quaternionOriginal1;
   sTransformQuaternion quaternion1;
+  sTransformScaleOriginal scaleOriginal1;
   sTransformScale scale1;
   sTransformScale scale2;
+  sTransformSphericalFoldOriginal sphericalFoldOriginal1;
   sTransformSphericalFold sphericalFold1;
   sTransformSphericalFold sphericalFold2;
   sTransformSphericalOffset sphericalOffset1;
