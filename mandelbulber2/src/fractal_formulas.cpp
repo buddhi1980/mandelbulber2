@@ -49,7 +49,7 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux
 		if (z.x > fractal->mandelbox.foldingLimit)
 		{
 			z.x = fractal->mandelbox.foldingValue - z.x;
-			aux.mboxColor += fractal->mandelbox.colorFactor.x;
+			aux.mboxColor += fractal->mandelbox.color.factor.x;
 			lockout = true;
 		}
 		z = fractal->mandelbox.rotinv[0][0].RotateVector(z);
@@ -58,7 +58,7 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux
 		if (!lockout && z.x < -fractal->mandelbox.foldingLimit)
 		{
 			z.x = -fractal->mandelbox.foldingValue - z.x;
-			aux.mboxColor += fractal->mandelbox.colorFactor.x;
+			aux.mboxColor += fractal->mandelbox.color.factor.x;
 		}
 		z = fractal->mandelbox.rotinv[1][0].RotateVector(z);
 
@@ -67,7 +67,7 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux
 		if (z.y > fractal->mandelbox.foldingLimit)
 		{
 			z.y = fractal->mandelbox.foldingValue - z.y;
-			aux.mboxColor += fractal->mandelbox.colorFactor.y;
+			aux.mboxColor += fractal->mandelbox.color.factor.y;
 			lockout = true;
 		}
 		z = fractal->mandelbox.rotinv[0][1].RotateVector(z);
@@ -76,7 +76,7 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux
 		if (!lockout && z.y < -fractal->mandelbox.foldingLimit)
 		{
 			z.y = -fractal->mandelbox.foldingValue - z.y;
-			aux.mboxColor += fractal->mandelbox.colorFactor.y;
+			aux.mboxColor += fractal->mandelbox.color.factor.y;
 		}
 		z = fractal->mandelbox.rotinv[1][1].RotateVector(z);
 
@@ -85,7 +85,7 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux
 		if (z.z > fractal->mandelbox.foldingLimit)
 		{
 			z.z = fractal->mandelbox.foldingValue - z.z;
-			aux.mboxColor += fractal->mandelbox.colorFactor.z;
+			aux.mboxColor += fractal->mandelbox.color.factor.z;
 			lockout = true;
 		}
 		z = fractal->mandelbox.rotinv[0][2].RotateVector(z);
@@ -94,7 +94,7 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux
 		if (!lockout && z.z < -fractal->mandelbox.foldingLimit)
 		{
 			z.z = -fractal->mandelbox.foldingValue - z.z;
-			aux.mboxColor += fractal->mandelbox.colorFactor.z;
+			aux.mboxColor += fractal->mandelbox.color.factor.z;
 		}
 		z = fractal->mandelbox.rotinv[1][2].RotateVector(z);
 	}
@@ -103,32 +103,32 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux
 		if (z.x > fractal->mandelbox.foldingLimit)
 		{
 			z.x = fractal->mandelbox.foldingValue - z.x;
-			aux.mboxColor += fractal->mandelbox.colorFactor.x;
+			aux.mboxColor += fractal->mandelbox.color.factor.x;
 		}
 		else if (z.x < -fractal->mandelbox.foldingLimit)
 		{
 			z.x = -fractal->mandelbox.foldingValue - z.x;
-			aux.mboxColor += fractal->mandelbox.colorFactor.x;
+			aux.mboxColor += fractal->mandelbox.color.factor.x;
 		}
 		if (z.y > fractal->mandelbox.foldingLimit)
 		{
 			z.y = fractal->mandelbox.foldingValue - z.y;
-			aux.mboxColor += fractal->mandelbox.colorFactor.y;
+			aux.mboxColor += fractal->mandelbox.color.factor.y;
 		}
 		else if (z.y < -fractal->mandelbox.foldingLimit)
 		{
 			z.y = -fractal->mandelbox.foldingValue - z.y;
-			aux.mboxColor += fractal->mandelbox.colorFactor.y;
+			aux.mboxColor += fractal->mandelbox.color.factor.y;
 		}
 		if (z.z > fractal->mandelbox.foldingLimit)
 		{
 			z.z = fractal->mandelbox.foldingValue - z.z;
-			aux.mboxColor += fractal->mandelbox.colorFactor.z;
+			aux.mboxColor += fractal->mandelbox.color.factor.z;
 		}
 		else if (z.z < -fractal->mandelbox.foldingLimit)
 		{
 			z.z = -fractal->mandelbox.foldingValue - z.z;
-			aux.mboxColor += fractal->mandelbox.colorFactor.z;
+			aux.mboxColor += fractal->mandelbox.color.factor.z;
 		}
 	}
 
@@ -140,14 +140,14 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux
 	{
 		z *= fractal->mandelbox.mboxFactor1;
 		aux.mboxDE *= fractal->mandelbox.mboxFactor1;
-		aux.mboxColor += fractal->mandelbox.colorFactorSp1;
+		aux.mboxColor += fractal->mandelbox.color.factorSp1;
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
 		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
 		z *= tglad_factor2;
 		aux.mboxDE *= tglad_factor2;
-		aux.mboxColor += fractal->mandelbox.colorFactorSp2;
+		aux.mboxColor += fractal->mandelbox.color.factorSp2;
 	}
 
 	z -= fractal->mandelbox.offset;
@@ -306,19 +306,19 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAu
 	double zk2 = SmoothConditionALessB(z.x, -fractal->mandelbox.foldingLimit, sm);
 	z.x = z.x * (1.0 - zk1) + (fractal->mandelbox.foldingValue - z.x) * zk1;
 	z.x = z.x * (1.0 - zk2) + (-fractal->mandelbox.foldingValue - z.x) * zk2;
-	aux.mboxColor += (zk1 + zk2) * fractal->mandelbox.colorFactor.x;
+	aux.mboxColor += (zk1 + zk2) * fractal->mandelbox.color.factor.x;
 
 	double zk3 = SmoothConditionAGreaterB(z.y, fractal->mandelbox.foldingLimit, sm);
 	double zk4 = SmoothConditionALessB(z.y, -fractal->mandelbox.foldingLimit, sm);
 	z.y = z.y * (1.0 - zk3) + (fractal->mandelbox.foldingValue - z.y) * zk3;
 	z.y = z.y * (1.0 - zk4) + (-fractal->mandelbox.foldingValue - z.y) * zk4;
-	aux.mboxColor += (zk3 + zk4) * fractal->mandelbox.colorFactor.y;
+	aux.mboxColor += (zk3 + zk4) * fractal->mandelbox.color.factor.y;
 
 	double zk5 = SmoothConditionAGreaterB(z.z, fractal->mandelbox.foldingLimit, sm);
 	double zk6 = SmoothConditionALessB(z.z, -fractal->mandelbox.foldingLimit, sm);
 	z.z = z.z * (1.0 - zk5) + (fractal->mandelbox.foldingValue - z.z) * zk5;
 	z.z = z.z * (1.0 - zk6) + (-fractal->mandelbox.foldingValue - z.z) * zk6;
-	aux.mboxColor += (zk5 + zk6) * fractal->mandelbox.colorFactor.z;
+	aux.mboxColor += (zk5 + zk6) * fractal->mandelbox.color.factor.z;
 
 	double r = z.Length();
 	double r2 = r * r;
@@ -331,8 +331,8 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAu
 	z = z * (1.0 - rk21) + z * (tglad_factor2 * rk21);
 	aux.mboxDE = aux.mboxDE * (1.0 - rk1) + aux.mboxDE * (fractal->mandelbox.mboxFactor1 * rk1);
 	aux.mboxDE = aux.mboxDE * (1.0 - rk21) + aux.mboxDE * (tglad_factor2 * rk21);
-	aux.mboxColor += rk1 * fractal->mandelbox.colorFactorSp1;
-	aux.mboxColor += rk21 * fractal->mandelbox.colorFactorSp2;
+	aux.mboxColor += rk1 * fractal->mandelbox.color.factorSp1;
+	aux.mboxColor += rk21 * fractal->mandelbox.color.factorSp2;
 
 	z = fractal->mandelbox.mainRot.RotateVector(z);
 	z = z * fractal->mandelbox.scale;
@@ -432,20 +432,20 @@ void MandelboxVaryScale4DIteration(CVector3 &z, double &w, const cFractal *fract
 	z.y = fabs(z.y + fractal->mandelboxVary4D.fold) - fabs(z.y - fractal->mandelboxVary4D.fold) - z.y;
 	z.z = fabs(z.z + fractal->mandelboxVary4D.fold) - fabs(z.z - fractal->mandelboxVary4D.fold) - z.z;
 	w = fabs(w + fractal->mandelboxVary4D.fold) - fabs(w - fractal->mandelboxVary4D.fold) - w;
-	if (z.x != oldz.x) aux.mboxColor += fractal->mandelbox.colorFactor.x;
-	if (z.y != oldz.y) aux.mboxColor += fractal->mandelbox.colorFactor.y;
-	if (z.z != oldz.z) aux.mboxColor += fractal->mandelbox.colorFactor.z;
+	if (z.x != oldz.x) aux.mboxColor += fractal->mandelbox.color.factor.x;
+	if (z.y != oldz.y) aux.mboxColor += fractal->mandelbox.color.factor.y;
+	if (z.z != oldz.z) aux.mboxColor += fractal->mandelbox.color.factor.z;
 	double rr = pow(z.x * z.x + z.y * z.y + z.z * z.z + w * w, fractal->mandelboxVary4D.rPower);
 	double m = aux.actualScale;
 	if (rr < fractal->mandelboxVary4D.minR * fractal->mandelboxVary4D.minR)
 	{
 		m = aux.actualScale / (fractal->mandelboxVary4D.minR * fractal->mandelboxVary4D.minR);
-		aux.mboxColor += fractal->mandelbox.colorFactorSp1;
+		aux.mboxColor += fractal->mandelbox.color.factorSp1;
 	}
 	else if (rr < 1.0)
 	{
 		m = aux.actualScale / rr;
-		aux.mboxColor += fractal->mandelbox.colorFactorSp2;
+		aux.mboxColor += fractal->mandelbox.color.factorSp2;
 	}
 	z = z * m;
 	w = w * m + fractal->mandelboxVary4D.wadd;
@@ -680,10 +680,10 @@ void MsltoeSym2(CVector3 &z, const cFractal *fractal)
 }
 
 //------------MANDELBULB EXTENDED--------------------------------
-void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sMandelbulbAux &aux)
+void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
 	//boxFold1
-	boxFoldTransform3D(fractal->transform.boxFold1, z, i);
+	boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
 
 	//mainRotation1
 	mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
@@ -732,14 +732,14 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
 	fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB2, z, i);
 
 	//boxFold; 2
-	boxFoldTransform3D(fractal->transform.boxFold2, z, i);
+	boxFoldTransform3D(fractal->transform.boxFold2, z, i, aux);
 }
 
 // -------------- MANDELBOX EXTENDED----------------------------
-void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sIFSAux &aux)
+void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
 	//boxFold1 Original (enabled); 1
-	boxFoldOriginalTransform3D(fractal->transform.boxFoldOriginal1, z, i);
+	boxFoldOriginalTransform3D(fractal->transform.boxFoldOriginal1, z, i, aux);
 
 	// sphericalFold1 Original (enabled); 1
 	sphericalFoldOriginalTransform3D(fractal->transform.sphericalFoldOriginal1, z, i, aux);
@@ -764,7 +764,7 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
 
 	//MAIN FORMULA
 	//boxFold; 1
-	boxFoldTransform3D(fractal->transform.boxFold1, z, i);
+	boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
 
 	// sphericalFold1
 	sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
@@ -792,10 +792,10 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
 }
 
 // -------------- QUATERNION EXTENDED----------------------------
-void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal, sIFSAux &aux)
+void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
 	//boxFold1
-	boxFoldTransform4D(fractal->transform.boxFold1, z, i);
+	boxFoldTransform4D(fractal->transform.boxFold1, z, i, aux);
 
 	// sphericalFold1
 	sphericalFoldTransform4D(fractal->transform.sphericalFold1, z, i, aux);
@@ -829,7 +829,7 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
 	quaternionTransform4D(fractal->transform.quaternion1, z, i);
 
 	//boxFold; 2
-	boxFoldTransform4D(fractal->transform.boxFold2, z, i);
+	boxFoldTransform4D(fractal->transform.boxFold2, z, i, aux);
 
 	// sphericalFold2
 	sphericalFoldTransform4D(fractal->transform.sphericalFold2, z, i, aux);
@@ -854,16 +854,16 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
 }
 
 // -------------- MENGER SPONGE EXTENDED----------------------------
-void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sIFSAux &aux)
+void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
 	//mengerSpongeORIGINAL1 Enabled
 	mengerSpongeOriginalTransform3D(fractal->transform.mengerSpongeOriginal1, z, i, aux);
 
 	//boxOffset1
-	boxOffsetTransform3D(fractal->transform.boxOffset1, z, i);
+	boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
 
 	//boxFold1
-	boxFoldTransform3D(fractal->transform.boxFold1, z, i);
+	boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
 
 	// sphericalOffset1
 	sphericalOffsetTransform3D(fractal->transform.sphericalOffset1, z, i, aux);
@@ -899,10 +899,10 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 	mengerSpongeTransform3D(fractal->transform.mengerSponge1, z, i, aux);
 
 	//boxOffset 2
-	boxOffsetTransform3D(fractal->transform.boxOffset2, z, i);
+	boxOffsetTransform3D(fractal->transform.boxOffset2, z, i, aux);
 
 	//boxFold2
-	boxFoldTransform3D(fractal->transform.boxFold2, z, i);
+	boxFoldTransform3D(fractal->transform.boxFold2, z, i, aux);
 
 	// sphericalOffset2
 	sphericalOffsetTransform3D(fractal->transform.sphericalOffset2, z, i, aux);
@@ -1104,7 +1104,7 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelbo
 				{
 					double z2X_mag = z2X.Length();
 					z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
-					aux.mboxColor += fractal->mandelbox.colorFactor.z;
+					aux.mboxColor += fractal->mandelbox.color.factor.z;
 				}
 			}
 			else
@@ -1116,7 +1116,7 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelbo
 				{
 					double z2X_mag = z2X.Length();
 					z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
-					aux.mboxColor += fractal->mandelbox.colorFactor.y;
+					aux.mboxColor += fractal->mandelbox.color.factor.y;
 				}
 			}
 
@@ -1129,7 +1129,7 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelbo
 			{
 				double z2X_mag = z2X.Length();
 				z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
-				aux.mboxColor += fractal->mandelbox.colorFactor.x;
+				aux.mboxColor += fractal->mandelbox.color.factor.x;
 			}
 		}
 	} // outside solid
@@ -1143,14 +1143,14 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelbo
 	{
 		z *= fractal->mandelbox.mboxFactor1;
 		aux.mboxDE *= fractal->mandelbox.mboxFactor1;
-		aux.mboxColor += fractal->mandelbox.colorFactorSp1;
+		aux.mboxColor += fractal->mandelbox.color.factorSp1;
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
 		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
 		z *= tglad_factor2;
 		aux.mboxDE *= tglad_factor2;
-		aux.mboxColor += fractal->mandelbox.colorFactorSp2;
+		aux.mboxColor += fractal->mandelbox.color.factorSp2;
 	}
 
 	z -= fractal->mandelbox.offset;

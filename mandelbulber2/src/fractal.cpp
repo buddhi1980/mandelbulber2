@@ -49,10 +49,10 @@ cFractal::cFractal(const cParameterContainer *container)
 		mandelbox.rotation[1][i-1] = container->Get<CVector3>("mandelbox_rotation_pos", i);
 	}
 
-	mandelbox.colorFactor = container->Get<CVector3>("mandelbox_color");
-	mandelbox.colorFactorR = container->Get<double>("mandelbox_color_R");
-	mandelbox.colorFactorSp1 = container->Get<double>("mandelbox_color_Sp1");
-	mandelbox.colorFactorSp2 = container->Get<double>("mandelbox_color_Sp2");
+	mandelbox.color.factor = container->Get<CVector3>("mandelbox_color");
+	mandelbox.color.factorR = container->Get<double>("mandelbox_color_R");
+	mandelbox.color.factorSp1 = container->Get<double>("mandelbox_color_Sp1");
+	mandelbox.color.factorSp2 = container->Get<double>("mandelbox_color_Sp2");
 	mandelbox.rotationsEnabled = container->Get<double>("mandelbox_rotations_enabled");
 	mandelbox.mainRotationEnabled = container->Get<double>("mandelbox_main_rotation_enabled");
 
@@ -148,6 +148,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.boxFoldOriginal1.foldingValue = container->Get<double>("transform_mandelbox_folding_value");
   transform.boxFoldOriginal1.control.weight = container->Get<double>("transform_box_foldOriginal1_weight");
   transform.boxFoldOriginal1.control.oldWeight = container->Get<double>("transform_box_foldOriginal1_old_weight");
+  transform.boxFoldOriginal1.color = mandelbox.color;
 
   transform.boxFold1.control.enabled = container->Get<bool>("transform_box_fold1_enabled");
   transform.boxFold1.control.weightEnabled = container->Get<bool>("transform_box_fold1_weight_enabled");
@@ -158,6 +159,8 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.boxFold1.foldingValue = container->Get<double>("transform_box_fold1_folding_value");
   transform.boxFold1.control.weight = container->Get<double>("transform_box_fold1_weight");
   transform.boxFold1.control.oldWeight = container->Get<double>("transform_box_fold1_old_weight");
+  transform.boxFold1.color = mandelbox.color;
+
   transform.boxFold2.control.enabled = container->Get<bool>("transform_box_fold2_enabled");
   transform.boxFold2.control.weightEnabled = container->Get<bool>("transform_box_fold2_weight_enabled");
   transform.boxFold2.control.oldWeightEnabled = container->Get<bool>("transform_box_fold2_old_weight_enabled");
@@ -167,6 +170,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.boxFold2.foldingValue = container->Get<double>("transform_box_fold2_folding_value");
   transform.boxFold2.control.weight = container->Get<double>("transform_box_fold2_weight");
   transform.boxFold2.control.oldWeight = container->Get<double>("transform_box_fold2_old_weight");
+  transform.boxFold2.color = mandelbox.color;
 
   transform.boxOffset1.control.enabled = container->Get<bool>("transform_boxOffset1_enabled");
   transform.boxOffset1.control.weightEnabled = container->Get<bool>("transform_boxOffset1_weight_enabled");
@@ -174,12 +178,14 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.boxOffset1.control.stopIterations = container->Get<int>("transform_boxOffset1_stop_iterations");
   transform.boxOffset1.control.weight = container->Get<double>("transform_boxOffset1_weight");
   transform.boxOffset1.boxOffset = container->Get<CVector3>("transform_boxOffset1");
+  transform.boxOffset1.color = mandelbox.color;
   transform.boxOffset2.control.enabled = container->Get<bool>("transform_boxOffset2_enabled");
   transform.boxOffset2.control.weightEnabled = container->Get<bool>("transform_boxOffset2_weight_enabled");
   transform.boxOffset2.control.startIterations = container->Get<int>("transform_boxOffset2_start_iterations");
   transform.boxOffset2.control.stopIterations = container->Get<int>("transform_boxOffset2_stop_iterations");
   transform.boxOffset2.control.weight = container->Get<double>("transform_boxOffset2_weight");
   transform.boxOffset2.boxOffset = container->Get<CVector3>("transform_boxOffset2");
+  transform.boxOffset2.color = mandelbox.color;
 
   transform.constantMultiplierOriginal1.constantMultiplierVect = container->Get<CVector3>("transform_constantMultiplierOriginal1");
   transform.constantMultiplierOriginal1.control.enabled = container->Get<bool>("transform_constantMultiplierOriginal1_enabled");
