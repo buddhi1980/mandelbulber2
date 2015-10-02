@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1021</width>
-           <height>616</height>
+           <width>941</width>
+           <height>542</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -249,7 +249,7 @@
      <x>0</x>
      <y>0</y>
      <width>1600</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -371,8 +371,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>442</height>
+          <width>395</width>
+          <height>504</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -1209,8 +1209,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>174</width>
-          <height>239</height>
+          <width>205</width>
+          <height>192</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -1622,8 +1622,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>177</width>
-          <height>721</height>
+          <width>197</width>
+          <height>799</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -2863,8 +2863,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>273</height>
+          <width>395</width>
+          <height>131</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2932,9 +2932,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-140</y>
-                  <width>303</width>
-                  <height>722</height>
+                  <y>0</y>
+                  <width>339</width>
+                  <height>856</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -4135,8 +4135,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>259</height>
+                  <width>339</width>
+                  <height>203</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -4463,8 +4463,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
-                  <height>513</height>
+                  <width>339</width>
+                  <height>612</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -5303,8 +5303,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>259</height>
+                  <width>339</width>
+                  <height>207</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5567,8 +5567,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
-                  <height>1248</height>
+                  <width>339</width>
+                  <height>1467</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -7685,8 +7685,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>305</height>
+          <width>395</width>
+          <height>334</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -7774,8 +7774,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
-                      <height>452</height>
+                      <width>331</width>
+                      <height>494</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -8431,8 +8431,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
-                      <height>452</height>
+                      <width>331</width>
+                      <height>494</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -9082,8 +9082,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
-                      <height>452</height>
+                      <width>331</width>
+                      <height>494</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -9727,8 +9727,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
-                      <height>452</height>
+                      <width>331</width>
+                      <height>494</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -10376,8 +10376,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
-                  <height>482</height>
+                  <width>339</width>
+                  <height>544</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -11619,8 +11619,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
-                  <height>354</height>
+                  <width>339</width>
+                  <height>378</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -12164,8 +12164,8 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>818</height>
+          <width>395</width>
+          <height>921</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -13344,7 +13344,7 @@ and water):</string>
          </property>
          <widget class="QWidget" name="tab_flight_animation">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature is for renering flight through animations.&lt;/p&gt;&lt;p&gt;In record flight mode the camera is operated like in flight simulator game. It recomended to use low image resolution for better rendering performace. Flight path is recorded.&lt;/p&gt;&lt;p&gt;Render animation button start rendering in of recorded flight path. For rendering you can select higher image resolution.&lt;/p&gt;&lt;p&gt;There is possible to add parameters for animation (like fractal power, light position, etc...) and edit them in the table view. To add parameter to animation you need to right click on edit fied of selected parameter and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to flight animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Animation is stored in settings file in CSV format, so there is possible to edit animation in external tools (e.g speadsheet editor or text editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature is for rendering animations by interpolating between keyframes.&lt;/p&gt;&lt;p&gt;You can set up multiple keyframes, each with different parameters (i.e.camera positions, environment parameter values and fractal parameters).Intermediate frames will be calculated during rendering of the animation. &lt;/p&gt;&lt;p&gt; In the animation table you can delete keyframe(s) and edit the keyframe parameters  (like fractal power, light position, etc..)  To add a parameter to animation table,  right click in the formula tab on the selected parameter's edit field and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to keyframe animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;It is possible to edit animation by adding or modyfing key frames, and also directly in animation table.&lt;/p&gt;&lt;p&gt;Each parameter can have assigned different type of interpolation (right click on animation parameter name.)&lt;/p&gt;&lt;p&gt;Animation is stored in a settings file in CSV format, therefore it is possible to edit the animation with external tools (e.g spreadsheet editor or text editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <attribute name="title">
            <string>Flight animation</string>
@@ -13535,8 +13535,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>341</width>
-                  <height>291</height>
+                  <width>408</width>
+                  <height>365</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -13560,7 +13560,7 @@ and water):</string>
                    <item row="6" column="0">
                     <widget class="QLabel" name="label_path_for_images">
                      <property name="text">
-                      <string>Path for images:</string>
+                      <string>path for images:</string>
                      </property>
                     </widget>
                    </item>
@@ -14114,7 +14114,8 @@ and water):</string>
          </widget>
          <widget class="QWidget" name="tab_keyframe_animation">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature is for rendering animations based on interpolated key frames.&lt;/p&gt;&lt;p&gt;You can setup any number of key frames, where will be different camera position, evironment parameter values or fractal parameters. During rendering of animation, will be calculated intermediate frames, so there is not needed to setup every animation frame. &lt;/p&gt;&lt;p&gt;There is possible to add parameters for animation (like fractal power, light position, etc...) and edit them in the table view. To add parameter to animation you need to right click on edit fied of selected parameter and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to keyframe animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Each parameter can have assigned different type of interpolation.&lt;/p&gt;&lt;p&gt;There is possible to edit animation by adding or modyfing key frames, and also directly in animation table.&lt;/p&gt;&lt;p&gt;Animation is stored in settings file in CSV format, so there is possible to edit animation in external tools (e.g speadsheet editor or text editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature is for rendering animations by interpolating between keyframes.&lt;/p&gt;&lt;p&gt;You can create multiple keyframes, each with different parameters (i.e.camera positions, environment parameter values and fractal parameters). Intermediate frames will be calculated during rendering of the animation. &lt;/p&gt;&lt;p&gt;To add a keyframe to the animation table, click &lt;span style=&quot; font-style:italic;&quot;&gt;Add keyframe.&lt;/span&gt; To add a parameter, right click in the formula tab on the selected parameter's edit field and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to keyframe animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;In the table you can delete keyframe(s) and edit keyframe parameters (like fractal power, light position, etc..) Edit an animation by adding, inserting, deleting keyframes, and modifying parameters in the animation table.&lt;/p&gt;&lt;p&gt;Each parameter can have assigned different type of interpolation (right click on animation parameter name.)&lt;/p&gt;&lt;p&gt;Animation is stored in a settings file in CSV format, therefore it is possible to edit animation with external tools (e.g spreadsheet editor or text editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</string>
           </property>
           <attribute name="title">
            <string>Keyframe animation</string>
@@ -14226,7 +14227,7 @@ and water):</string>
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Play alredy rendered animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Play rendered animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="text">
                   <string>Show Animation</string>
@@ -14286,7 +14287,7 @@ and water):</string>
                   </sizepolicy>
                  </property>
                  <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Export all keyframes to &lt;span style=&quot; font-style:italic;&quot;&gt;Flight animation&lt;/span&gt;. All keyframes will be interpolated. &lt;/p&gt;&lt;p&gt;This feature will allow to edit each animation frame separately in Flight animation editor (or external CSV editor) &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Export all keyframes to &lt;span style=&quot; font-style:italic;&quot;&gt;Flight animation&lt;/span&gt;. All keyframes will be interpolated. &lt;/p&gt;&lt;p&gt;This feature will allow editing of each animation frame separately in Flight animation editor (or external CSV editor) &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="text">
                   <string>Export to Flight</string>
@@ -14365,8 +14366,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>258</height>
+                  <width>376</width>
+                  <height>306</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -14390,7 +14391,7 @@ and water):</string>
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_221">
                      <property name="text">
-                      <string>collission distance:</string>
+                      <string>collision distance:</string>
                      </property>
                     </widget>
                    </item>
@@ -14404,7 +14405,7 @@ and water):</string>
                    <item row="2" column="0">
                     <widget class="QLabel" name="label_177">
                      <property name="text">
-                      <string>Path for images:</string>
+                      <string>path for images:</string>
                      </property>
                     </widget>
                    </item>
@@ -14471,7 +14472,7 @@ and water):</string>
                       </sizepolicy>
                      </property>
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets where will be stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -14484,10 +14485,10 @@ and water):</string>
                       </sizepolicy>
                      </property>
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of previews in animation table.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of keyframe previews in the animation table.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="text">
-                      <string>Show thumbnails</string>
+                      <string>Show keyframe preview thumbnails</string>
                      </property>
                     </widget>
                    </item>
@@ -15207,11 +15208,11 @@ and water):</string>
     <iconset theme="list-remove" resource="icons.qrc">
      <normaloff>:/system/icons/list-remove.svg</normaloff>:/system/icons/list-remove.svg</iconset>
    </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove settings from toolbar&lt;/p&gt;&lt;p&gt;When this button is pressed and you click on a settings button, this setting will be removed from the toolbar.&lt;/p&gt;&lt;p&gt;When this button is not pressed and you click on a settings button, this setting will be loaded.&lt;/p&gt;&lt;p&gt;Click on this button to toggle between 'deletion' and 'load' mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
    <property name="text">
     <string>Remove Settings from Toolbar</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove settings from toolbar&lt;/p&gt;&lt;p&gt;When this button is pressed and you click on a settings button, this setting will be removed from the toolbar.&lt;/p&gt;&lt;p&gt;When this button is not pressed and you click on a settings button, this setting will be loaded.&lt;/p&gt;&lt;p&gt;Click on this button to toggle between 'deletion' and 'load' mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </action>
  </widget>
