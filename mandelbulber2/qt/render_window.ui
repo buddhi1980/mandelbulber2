@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>941</width>
-           <height>542</height>
+           <width>1021</width>
+           <height>616</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -249,7 +249,7 @@
      <x>0</x>
      <y>0</y>
      <width>1600</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -371,8 +371,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>395</width>
-          <height>504</height>
+          <width>339</width>
+          <height>442</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -1209,8 +1209,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>205</width>
-          <height>192</height>
+          <width>174</width>
+          <height>241</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -1622,8 +1622,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>197</width>
-          <height>799</height>
+          <width>177</width>
+          <height>721</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -2863,8 +2863,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>395</width>
-          <height>131</height>
+          <width>353</width>
+          <height>136</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2933,8 +2933,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>339</width>
-                  <height>856</height>
+                  <width>303</width>
+                  <height>722</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -4135,8 +4135,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>339</width>
-                  <height>203</height>
+                  <width>227</width>
+                  <height>174</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -4463,8 +4463,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>339</width>
-                  <height>612</height>
+                  <width>196</width>
+                  <height>513</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -5303,8 +5303,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>339</width>
-                  <height>207</height>
+                  <width>273</width>
+                  <height>202</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5567,8 +5567,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>339</width>
-                  <height>1467</height>
+                  <width>265</width>
+                  <height>1248</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -7684,9 +7684,9 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>395</width>
-          <height>334</height>
+          <y>-96</y>
+          <width>339</width>
+          <height>305</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -7742,7 +7742,7 @@ to target:</string>
              <item>
               <widget class="QTabWidget" name="tabWidget_fractals">
                <property name="currentIndex">
-                <number>0</number>
+                <number>3</number>
                </property>
                <widget class="QWidget" name="tab_fractal_formula_1">
                 <attribute name="title">
@@ -7773,9 +7773,9 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>0</y>
-                      <width>331</width>
-                      <height>494</height>
+                      <y>-87</y>
+                      <width>281</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -7992,7 +7992,7 @@ to target:</string>
                      <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_1">
                        <property name="title">
-                        <string>Transform</string>
+                        <string>Transform (fractal positioning)</string>
                        </property>
                        <layout class="QVBoxLayout" name="verticalLayout_22">
                         <property name="spacing">
@@ -8431,8 +8431,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>331</width>
-                      <height>494</height>
+                      <width>281</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -8649,7 +8649,7 @@ to target:</string>
                      <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_2">
                        <property name="title">
-                        <string>Transform</string>
+                        <string>Transform (fractal positioning)</string>
                        </property>
                        <layout class="QVBoxLayout" name="verticalLayout_85">
                         <property name="spacing">
@@ -9082,8 +9082,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>331</width>
-                      <height>494</height>
+                      <width>281</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -9294,7 +9294,7 @@ to target:</string>
                      <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_3">
                        <property name="title">
-                        <string>Transform</string>
+                        <string>Transform (fractal positioning)</string>
                        </property>
                        <layout class="QVBoxLayout" name="verticalLayout_88">
                         <property name="spacing">
@@ -9727,8 +9727,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>331</width>
-                      <height>494</height>
+                      <width>281</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -9939,7 +9939,7 @@ to target:</string>
                      <item>
                       <widget class="QGroupBox" name="groupBox_formula_transform_4">
                        <property name="title">
-                        <string>Transform</string>
+                        <string>Transform (fractal positioning)</string>
                        </property>
                        <layout class="QVBoxLayout" name="verticalLayout_91">
                         <property name="spacing">
@@ -10376,8 +10376,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>339</width>
-                  <height>544</height>
+                  <width>210</width>
+                  <height>482</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -11619,8 +11619,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>339</width>
-                  <height>378</height>
+                  <width>207</width>
+                  <height>354</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -12164,8 +12164,8 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>395</width>
-          <height>921</height>
+          <width>339</width>
+          <height>818</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -13336,11 +13336,8 @@ and water):</string>
        </property>
        <item>
         <widget class="QTabWidget" name="tabWidgetFlightKeyframe">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for image format for animation frames.&lt;/p&gt;&lt;p&gt;For more image format settings go to to &lt;span style=&quot; font-style:italic;&quot;&gt;File/Program settings&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_flight_animation">
           <property name="toolTip">
@@ -13534,9 +13531,9 @@ and water):</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-30</y>
-                  <width>408</width>
-                  <height>365</height>
+                  <y>0</y>
+                  <width>224</width>
+                  <height>291</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -14366,8 +14363,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>376</width>
-                  <height>306</height>
+                  <width>317</width>
+                  <height>258</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">

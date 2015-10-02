@@ -227,9 +227,9 @@ void cKeyframeAnimation::CreateRowsInTable()
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
 	table->setIconSize(QSize(100, 70));
 	table->insertRow(0);
-	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("preview")));
+	table->setVerticalHeaderItem(0, new QTableWidgetItem(tr("Keyframe\npreviews")));
 	table->setRowHeight(0, 70);
-	tableRowNames.append(tr("preview"));
+	tableRowNames.append(tr("Keyframe\npreviews"));
 
 	rowParameter.clear();
 	rowParameter.append(-1);
