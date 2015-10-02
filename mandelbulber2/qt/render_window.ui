@@ -1132,6 +1132,108 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dockWidget_queue_dock">
+   <property name="windowTitle">
+    <string>Queue</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="MyGroupBox" name="group_queue_options">
+    <property name="title">
+     <string>Queue Actions</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_dockqueuecontent">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_queue_options">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="horizontalSpacing">
+        <number>2</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pushButton_queue_add_current_settings">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Creates a settings file from the current program settings, saves it to the queue folder and adds the entry to the queue list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Add current settings</string>
+         </property>
+         <property name="icon">
+          <iconset theme="list-add" resource="icons.qrc">
+           <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushButton_queue_add_from_file">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copies the selected source file to the queue folder and adds the entry to the queue list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Add from file</string>
+         </property>
+         <property name="icon">
+          <iconset theme="list-add" resource="icons.qrc">
+           <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="pushButton_queue_render_queue">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Render all unfinished elements in the queue list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Render queue</string>
+         </property>
+         <property name="icon">
+          <iconset theme="applications-graphics" resource="icons.qrc">
+           <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_queue_list">
+       <property name="text">
+        <string>Queue list</string>
+       </property>
+      </widget>
+     </item>
+    <item>
+     <widget class="QTableWidget" name="tableWidget_queue_list">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QAbstractScrollArea::AdjustToContents</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <widget class="QDockWidget" name="dockWidget_gamepad_dock">
    <property name="windowTitle">
     <string>&amp;Gamepad</string>
