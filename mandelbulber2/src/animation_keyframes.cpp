@@ -449,7 +449,7 @@ void cKeyframeAnimation::RenderKeyframes()
 	int endFrame = gPar->Get<int>("keyframe_last_to_render");
 
 	// Check if frames have already been rendered
-	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
+	for(int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 	{
 		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
 		frame.alreadyRenderedSubFrames.clear();
@@ -464,7 +464,7 @@ void cKeyframeAnimation::RenderKeyframes()
 	int unrenderedTotal = keyframes->GetUnrenderedTotal();
 
 	//message if all frames are already rendered
-	if(keyframes->GetNumberOfFrames() > 0 && unrenderedTotal == 0){
+	if(keyframes->GetNumberOfFrames() - 1 > 0 && unrenderedTotal == 0){
 		QMessageBox::StandardButton reply;
 		reply = QMessageBox::question(
 			ui->centralwidget,
@@ -485,10 +485,10 @@ void cKeyframeAnimation::RenderKeyframes()
 	}
 
 	//total number of frames
-	int totalFrames = keyframes->GetNumberOfFrames() * keyframes->GetFramesPerKeyframe();
+	int totalFrames = (keyframes->GetNumberOfFrames() - 1) * keyframes->GetFramesPerKeyframe();
 
 	//main loop for rendering of frames
-	for(int index = 0; index < keyframes->GetNumberOfFrames(); ++index)
+	for(int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 	{
 		//-------------- rendering of interpolated keyframes ----------------
 		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
@@ -946,7 +946,8 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 void cKeyframeAnimation::UpdateLimitsForFrameRange(void)
 {
 	int framesPerKey = ui->spinboxInt_frames_per_keyframe->value();
-	int noOfFrames = keyframes->GetNumberOfFrames() * framesPerKey;
+	int noOfFrames = (keyframes->GetNumberOfFrames() - 1) * framesPerKey;
+	if (noOfFrames < 0) noOfFrames = 0;
 
 	ui->spinboxInt_keyframe_first_to_render->setMaximum(noOfFrames);
 	ui->sliderInt_keyframe_first_to_render->setMaximum(noOfFrames);
@@ -972,7 +973,7 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 	cParameterContainer tempPar = *gPar;
 	cFractalContainer tempFractPar = *gParFractal;
 
-	for(int key = 0; key < keyframes->GetNumberOfFrames(); key++)
+	for(int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
 		ProgressStatusText(QObject::tr("Checking for collissions"),
 				QObject::tr("Checking for collissions on keyframe # %1").arg(key),

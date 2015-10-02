@@ -385,7 +385,9 @@ void cCommandLineInterface::ReadCLI (void)
 
 		if (cliTODO == modeKeyframe)
 		{
-			int numberOfFrames = gKeyframes->GetNumberOfFrames() * gPar->Get<int>("frames_per_keyframe");;
+			int numberOfFrames = (gKeyframes->GetNumberOfFrames() - 1) * gPar->Get<int>("frames_per_keyframe");
+			if (numberOfFrames < 0) numberOfFrames = 0;
+
 			if (startFrame <= numberOfFrames)
 			{
 				gPar->Set("keyframe_first_to_render", startFrame);
@@ -426,7 +428,9 @@ void cCommandLineInterface::ReadCLI (void)
 
 		if (cliTODO == modeKeyframe)
 		{
-			int numberOfFrames = gKeyframes->GetNumberOfFrames() * gPar->Get<int>("frames_per_keyframe");
+			int numberOfFrames = (gKeyframes->GetNumberOfFrames() - 1) * gPar->Get<int>("frames_per_keyframe");
+			if (numberOfFrames < 0) numberOfFrames = 0;
+
 			if (endFrame <= numberOfFrames)
 			{
 				if (endFrame > gPar->Get<int>("keyframe_first_to_render"))

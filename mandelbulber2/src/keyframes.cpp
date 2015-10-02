@@ -111,7 +111,7 @@ void cKeyframes::GetInterpolatedFrameAndConsolidate(int index, cParameterContain
 
 int cKeyframes::GetUnrenderedTotal()
 {
-		return GetUnrenderedTillIndex(frames.count() * GetFramesPerKeyframe() - 1);
+		return GetUnrenderedTillIndex((frames.count() - 1) * GetFramesPerKeyframe());
 }
 
 int cKeyframes::GetUnrenderedTillIndex(int frameIndex)
