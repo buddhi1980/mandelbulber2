@@ -72,6 +72,7 @@ private slots:
 	void slotExportFlightToKeyframes();
 	void slotMovedSliderFirstFrame(int value);
 	void slotMovedSliderLastFrame(int value);
+	void slotCellDoubleClicked(int row, int column);
 
 private:
 	void PrepareTable();

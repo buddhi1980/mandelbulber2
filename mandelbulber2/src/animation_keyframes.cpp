@@ -56,6 +56,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		QApplication::connect(ui->spinboxInt_keyframe_last_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderLastFrame(int)));
 		QApplication::connect(ui->spinboxInt_frames_per_keyframe, SIGNAL(valueChanged(int)), this, SLOT(UpdateLimitsForFrameRange()));
 
+		QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(slotCellDoubleClicked(int, int)));
+
 		table = ui->tableWidget_keyframe_animation;
 
 		//add default parameters for animation
@@ -1023,4 +1025,12 @@ void cKeyframeAnimation::slotValidate()
 		cErrorMessage::showMessage(QObject::tr("No collisions detected\n"), cErrorMessage::infoMessage);
 	}
 
+}
+
+void cKeyframeAnimation::slotCellDoubleClicked(int row, int column)
+{
+	if(row == 0)
+	{
+		RenderFrame(column);
+	}
 }

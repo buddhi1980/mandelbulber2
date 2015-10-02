@@ -59,6 +59,8 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 		QApplication::connect(ui->spinboxInt_flight_first_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderFirstFrame(int)));
 		QApplication::connect(ui->spinboxInt_flight_last_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderLastFrame(int)));
 
+		QApplication::connect(ui->tableWidget_flightAnimation, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(slotCellDoubleClicked(int, int)));
+
 		table = ui->tableWidget_flightAnimation;
 	}
 	else
@@ -1078,3 +1080,10 @@ void cFlightAnimation::slotMovedSliderLastFrame(int value)
 		ui->spinboxInt_flight_first_to_render->setValue(value);
 }
 
+void cFlightAnimation::slotCellDoubleClicked(int row, int column)
+{
+	if(row == 0)
+	{
+		RenderFrame(column);
+	}
+}
