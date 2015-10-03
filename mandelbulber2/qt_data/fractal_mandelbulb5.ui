@@ -5002,6 +5002,9 @@
         </item>
         <item row="15" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsFormulaABCD1_old_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
