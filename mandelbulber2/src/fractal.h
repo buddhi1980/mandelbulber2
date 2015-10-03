@@ -399,6 +399,7 @@ struct sTransformScale
 struct sTransformSphericalFoldOriginal
 {
   sTransformControl control;
+  sFoldColor color;
   double radMin;
   double radFixed;
   double fR2;
@@ -409,6 +410,7 @@ struct sTransformSphericalFoldOriginal
 struct sTransformSphericalFold
 {
   sTransformControl control;
+  sFoldColor color;
   double radMin;
   double radFixed;
   double fR2;

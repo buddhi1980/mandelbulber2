@@ -433,6 +433,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.sphericalFoldOriginal1.control.startIterations = container->Get<int>("transform_sphericalFoldOriginal1_start_iterations");
   transform.sphericalFoldOriginal1.control.stopIterations = container->Get<int>("transform_sphericalFoldOriginal1_stop_iterations");
   transform.sphericalFoldOriginal1.control.weight = container->Get<double>("transform_sphericalFoldOriginal1_weight");
+  transform.sphericalFoldOriginal1.color = mandelbox.color;
 
   transform.sphericalFold1.control.enabled = container->Get<bool>("transform_sphericalFold1_enabled");
   transform.sphericalFold1.control.weightEnabled = container->Get<bool>("transform_sphericalFold1_weight_enabled");
@@ -441,6 +442,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.sphericalFold1.control.startIterations = container->Get<int>("transform_sphericalFold1_start_iterations");
   transform.sphericalFold1.control.stopIterations = container->Get<int>("transform_sphericalFold1_stop_iterations");
   transform.sphericalFold1.control.weight = container->Get<double>("transform_sphericalFold1_weight");
+  transform.sphericalFold1.color = mandelbox.color;
   transform.sphericalFold2.control.enabled = container->Get<bool>("transform_sphericalFold2_enabled");
   transform.sphericalFold2.control.weightEnabled = container->Get<bool>("transform_sphericalFold2_weight_enabled");
   transform.sphericalFold2.radMin = container->Get<double>("transform_sphericalFold2_min_radius");
@@ -448,6 +450,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.sphericalFold2.control.startIterations = container->Get<int>("transform_sphericalFold2_start_iterations");
   transform.sphericalFold2.control.stopIterations = container->Get<int>("transform_sphericalFold2_stop_iterations");
   transform.sphericalFold2.control.weight = container->Get<double>("transform_sphericalFold2_weight");
+  transform.sphericalFold2.color = mandelbox.color;
 
   transform.sphericalOffset1.control.enabled = container->Get<bool>("transform_sphericalOffset1_enabled");
   transform.sphericalOffset1.control.weightEnabled = container->Get<bool>("transform_sphericalOffset1_weight_enabled");

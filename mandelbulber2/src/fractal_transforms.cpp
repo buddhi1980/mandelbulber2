@@ -892,17 +892,20 @@ void sphericalFoldOriginalTransform3D(const sTransformSphericalFoldOriginal &sph
 	{
 		CVector3 temp = z;
 		double tempAuxDE = aux.DE;
+		double tempAuxColor = aux.color;
 		double r2 = z.Dot(z);
 		if (r2 < sphericalFoldOriginal.mR2)
 		{
 			z *= sphericalFoldOriginal.mboxFactor1;
 			aux.DE *= sphericalFoldOriginal.mboxFactor1;
+			aux.color += sphericalFoldOriginal.color.factorSp1;
 		}
 		else if (r2 < sphericalFoldOriginal.fR2)
 		{
 			double tglad_factor2 = sphericalFoldOriginal.fR2 / r2;
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
+			aux.color += sphericalFoldOriginal.color.factorSp2;
 		}
 		//aux weight function
 		if (sphericalFoldOriginal.control.weightEnabled)
@@ -910,6 +913,7 @@ void sphericalFoldOriginalTransform3D(const sTransformSphericalFoldOriginal &sph
 			z = SmoothCVector(temp, z, sphericalFoldOriginal.control.weight);
 			double nkaux = 1.0 - (sphericalFoldOriginal.control.weight);
 			aux.DE = (tempAuxDE * nkaux) + (aux.DE * sphericalFoldOriginal.control.weight);
+			aux.color = (tempAuxDE * nkaux) + (aux.color * sphericalFoldOriginal.control.weight);
 		}
 	}
 }
@@ -926,12 +930,14 @@ void sphericalFoldTransform3D(const sTransformSphericalFold &sphericalFold, CVec
 		{
 			z *= sphericalFold.mboxFactor1;
 			aux.DE *= sphericalFold.mboxFactor1;
+			aux.color += sphericalFold.color.factorSp1;
 		}
 		else if (r2 < sphericalFold.fR2)
 		{
 			double tglad_factor2 = sphericalFold.fR2 / r2;
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
+			aux.color += sphericalFold.color.factorSp1;
 		}
 		//aux weight function
 		if (sphericalFold.control.weightEnabled)
@@ -939,6 +945,7 @@ void sphericalFoldTransform3D(const sTransformSphericalFold &sphericalFold, CVec
 			z = SmoothCVector(temp, z, sphericalFold.control.weight);
 			double nkaux = 1.0 - (sphericalFold.control.weight);
 			aux.DE = (tempAuxDE * nkaux) + (aux.DE * sphericalFold.control.weight);
+			aux.color = (tempAuxDE * nkaux) + (aux.color * sphericalFold.control.weight);
 		}
 	}
 }
@@ -955,12 +962,14 @@ void sphericalFoldTransform4D(const sTransformSphericalFold &sphericalFold, CVec
 		{
 			z *= sphericalFold.mboxFactor1;
 			aux.DE *= sphericalFold.mboxFactor1;
+			aux.color += sphericalFold.color.factorSp1;
 		}
 		else if (r2 < sphericalFold.fR2)
 		{
 			double tglad_factor2 = sphericalFold.fR2 / r2;
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
+			aux.color += sphericalFold.color.factorSp1;
 		}
 		//aux weight function
 		if (sphericalFold.control.weightEnabled)
@@ -968,6 +977,7 @@ void sphericalFoldTransform4D(const sTransformSphericalFold &sphericalFold, CVec
 			z = SmoothCVector(temp, z, sphericalFold.control.weight);
 			double nkaux = 1.0 - (sphericalFold.control.weight);
 			aux.DE = (tempAuxDE * nkaux) + (aux.DE * sphericalFold.control.weight);
+			aux.color = (tempAuxDE * nkaux) + (aux.color * sphericalFold.control.weight);
 		}
 	}
 }
