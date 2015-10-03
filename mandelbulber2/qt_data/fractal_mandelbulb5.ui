@@ -116,6 +116,9 @@
         </item>
         <item row="0" column="7">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_box_fold1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -279,6 +282,9 @@
         </item>
         <item row="2" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_box_fold1_old_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -347,31 +353,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_main_rotation1_weight">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>1.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-          <property name="value">
-           <double>0.000000000000000</double>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="2">
          <widget class="QLabel" name="label_20">
           <property name="text">
@@ -413,6 +394,41 @@
          </widget>
         </item>
         <item row="0" column="7">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_main_rotation1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+          <property name="value">
+           <double>0.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="6">
+         <widget class="QCheckBox" name="checkBox_transform_main_rotation1_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
          <spacer name="horizontalSpacer_5">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -424,13 +440,6 @@
            </size>
           </property>
          </spacer>
-        </item>
-        <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_transform_main_rotation1_weight_enabled">
-          <property name="text">
-           <string>Enable weight:</string>
-          </property>
-         </widget>
         </item>
        </layout>
       </item>
@@ -635,6 +644,9 @@
         </property>
         <item row="1" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsAddConstant1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -802,6 +814,9 @@
         </item>
         <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsAddConstant1A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -831,6 +846,9 @@
         </item>
         <item row="2" column="2">
          <widget class="QSlider" name="slider3_transform_fabsAddConstant1A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -857,6 +875,9 @@
         </item>
         <item row="0" column="2">
          <widget class="QSlider" name="slider3_transform_fabsAddConstant1A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -889,6 +910,9 @@
         </item>
         <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsAddConstant1A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -918,6 +942,9 @@
         </item>
         <item row="1" column="2">
          <widget class="QSlider" name="slider3_transform_fabsAddConstant1A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -937,6 +964,9 @@
         </item>
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsAddConstant1A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1219,6 +1249,9 @@
         </item>
         <item row="11" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsAddConstant1_old_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1356,6 +1389,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbulbOriginal1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1572,7 +1608,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplierOriginal1_enabled">
      <property name="title">
-      <string>Enable z =  z +  ( c * const. );  ORIGINAL</string>
+      <string>Enable z =  z +  ( c * const. );  ORI&amp;GINAL</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1647,6 +1683,9 @@
         </item>
         <item row="1" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_constantMultiplierOriginal1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1908,6 +1947,9 @@
         </property>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsSubConstant1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1995,28 +2037,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsSubConstant1A_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
       <item>
@@ -2048,6 +2068,9 @@
         </item>
         <item row="0" column="2">
          <widget class="QSlider" name="slider3_transform_fabsSubConstant1A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2106,6 +2129,9 @@
         </item>
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsSubConstant1A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2142,6 +2168,9 @@
         </item>
         <item row="1" column="2">
          <widget class="QSlider" name="slider3_transform_fabsSubConstant1A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2161,6 +2190,9 @@
         </item>
         <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsSubConstant1A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2218,6 +2250,9 @@
         </item>
         <item row="2" column="2">
          <widget class="QSlider" name="slider3_transform_fabsSubConstant1A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2335,6 +2370,9 @@
         </item>
         <item row="7" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsSubConstant1_old_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2359,6 +2397,31 @@
          <widget class="Line" name="line_18">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsSubConstant1A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -2418,6 +2481,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsFormulaZAB1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2613,6 +2679,9 @@
         </item>
         <item row="2" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaZAB1A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2639,6 +2708,9 @@
         </item>
         <item row="0" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaZAB1A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2664,6 +2736,9 @@
         </item>
         <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaZAB1A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2686,6 +2761,9 @@
         </item>
         <item row="1" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaZAB1A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2731,6 +2809,9 @@
         </item>
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaZAB1A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2753,6 +2834,9 @@
         </item>
         <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaZAB1A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2982,6 +3066,9 @@
         </item>
         <item row="11" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsFormulaZAB1_old_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3102,6 +3189,9 @@
         </item>
         <item row="0" column="7">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_additionConstant1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3403,6 +3493,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsFormulaAB1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3445,6 +3538,9 @@
         </property>
         <item row="7" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsFormulaAB1_old_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3547,6 +3643,9 @@
         </item>
         <item row="2" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaAB1A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3587,6 +3686,9 @@
         </item>
         <item row="0" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaAB1A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3619,6 +3721,9 @@
         </item>
         <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaAB1A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3648,6 +3753,9 @@
         </item>
         <item row="1" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaAB1A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3667,6 +3775,9 @@
         </item>
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaAB1A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3710,6 +3821,9 @@
         </item>
         <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaAB1A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -3897,6 +4011,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_main_rotation2_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4200,6 +4317,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsFormulaABCD1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4250,6 +4370,9 @@
         </item>
         <item row="5" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1B_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4291,6 +4414,9 @@
         </item>
         <item row="2" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4331,6 +4457,9 @@
         </item>
         <item row="0" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4356,6 +4485,9 @@
         </item>
         <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4378,6 +4510,9 @@
         </item>
         <item row="1" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4397,6 +4532,9 @@
         </item>
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4419,6 +4557,9 @@
         </item>
         <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4441,6 +4582,9 @@
         </item>
         <item row="4" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1B_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4460,6 +4604,9 @@
         </item>
         <item row="6" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaABCD1B_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4479,6 +4626,9 @@
         </item>
         <item row="5" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1B_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4508,6 +4658,9 @@
         </item>
         <item row="4" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1B_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -4594,6 +4747,9 @@
         </item>
         <item row="6" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD1B_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5001,6 +5157,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbulb1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5276,6 +5435,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_main_rotation3_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5605,6 +5767,9 @@
         </item>
         <item row="0" column="7">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_constantMultiplier1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -5879,6 +6044,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_additionConstant2_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -6197,6 +6365,9 @@
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsFormulaAB2_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -6304,6 +6475,9 @@
         </item>
         <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaAB2A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -6333,6 +6507,9 @@
         </item>
         <item row="0" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaAB2A_x">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -6384,6 +6561,9 @@
         </item>
         <item row="2" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaAB2A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -6403,6 +6583,9 @@
         </item>
         <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaAB2A_z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -6457,6 +6640,9 @@
         </item>
         <item row="1" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaAB2A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -6516,6 +6702,9 @@
         </item>
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaAB2A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -6538,6 +6727,9 @@
         </item>
         <item row="7" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsFormulaAB2_old_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -6635,7 +6827,7 @@
       </property>
       <item>
        <layout class="QGridLayout" name="gridLayout_14">
-        <item row="0" column="9">
+        <item row="0" column="8">
          <widget class="QLabel" name="label_108">
           <property name="text">
            <string>Copy TWO</string>
@@ -6688,21 +6880,11 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="8">
-         <spacer name="horizontalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="0" column="7">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_box_fold2_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -6875,6 +7057,9 @@
         </item>
         <item row="2" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_box_fold2_old_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -6943,9 +7128,1364 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>groupCheck_transform_box_fold1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_box_fold1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_box_fold1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_box_fold1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_box_fold1_weight</tabstop>
+  <tabstop>slider_transform_box_fold1_folding_limit</tabstop>
+  <tabstop>spinbox_transform_box_fold1_folding_limit</tabstop>
+  <tabstop>slider_transform_box_fold1_folding_value</tabstop>
+  <tabstop>spinbox_transform_box_fold1_folding_value</tabstop>
+  <tabstop>checkBox_transform_box_fold1_old_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_box_fold1_old_weight</tabstop>
+  <tabstop>groupCheck_transform_main_rotation1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_main_rotation1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_main_rotation1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_main_rotation1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_main_rotation1_weight</tabstop>
+  <tabstop>dial3_transform_main_rotation1_x</tabstop>
+  <tabstop>spinboxd3_transform_main_rotation1_x</tabstop>
+  <tabstop>dial3_transform_main_rotation1_y</tabstop>
+  <tabstop>spinboxd3_transform_main_rotation1_y</tabstop>
+  <tabstop>dial3_transform_main_rotation1_z</tabstop>
+  <tabstop>spinboxd3_transform_main_rotation1_z</tabstop>
+  <tabstop>groupCheck_transform_fabsAddConstant1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_fabsAddConstant1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_fabsAddConstant1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_fabsAddConstant1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsAddConstant1_weight</tabstop>
+  <tabstop>checkBox_transform_fabsAddConstant1_enabled_x</tabstop>
+  <tabstop>slider3_transform_fabsAddConstant1A_x</tabstop>
+  <tabstop>spinbox3_transform_fabsAddConstant1A_x</tabstop>
+  <tabstop>checkBox_transform_fabsAddConstant1_enabled_y</tabstop>
+  <tabstop>slider3_transform_fabsAddConstant1A_y</tabstop>
+  <tabstop>spinbox3_transform_fabsAddConstant1A_y</tabstop>
+  <tabstop>checkBox_transform_fabsAddConstant1_enabled_z</tabstop>
+  <tabstop>slider3_transform_fabsAddConstant1A_z</tabstop>
+  <tabstop>spinbox3_transform_fabsAddConstant1A_z</tabstop>
+  <tabstop>slider3_transform_fabsAddConstant1B_x</tabstop>
+  <tabstop>spinbox3_transform_fabsAddConstant1B_x</tabstop>
+  <tabstop>slider3_transform_fabsAddConstant1B_y</tabstop>
+  <tabstop>spinbox3_transform_fabsAddConstant1B_y</tabstop>
+  <tabstop>slider3_transform_fabsAddConstant1B_z</tabstop>
+  <tabstop>spinbox3_transform_fabsAddConstant1B_z</tabstop>
+  <tabstop>slider3_transform_fabsAddConstant1C_x</tabstop>
+  <tabstop>spinbox3_transform_fabsAddConstant1C_x</tabstop>
+  <tabstop>slider3_transform_fabsAddConstant1C_y</tabstop>
+  <tabstop>spinbox3_transform_fabsAddConstant1C_y</tabstop>
+  <tabstop>slider3_transform_fabsAddConstant1C_z</tabstop>
+  <tabstop>spinbox3_transform_fabsAddConstant1C_z</tabstop>
+  <tabstop>checkBox_transform_fabsAddConstant1_old_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsAddConstant1_old_weight</tabstop>
+  <tabstop>groupCheck_transform_mandelbulbOriginal1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_mandelbulbOriginal1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_mandelbulbOriginal1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_mandelbulbOriginal1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_mandelbulbOriginal1_weight</tabstop>
+  <tabstop>slider_transform_power</tabstop>
+  <tabstop>spinbox_transform_power</tabstop>
+  <tabstop>slider_transform_alpha_angle_offset</tabstop>
+  <tabstop>spinbox_transform_alpha_angle_offset</tabstop>
+  <tabstop>slider_transform_beta_angle_offset</tabstop>
+  <tabstop>spinbox_transform_beta_angle_offset</tabstop>
+  <tabstop>groupCheck_transform_constantMultiplierOriginal1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_constantMultiplierOriginal1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_constantMultiplierOriginal1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_constantMultiplierOriginal1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_constantMultiplierOriginal1_weight</tabstop>
+  <tabstop>slider3_transform_constantMultiplierOriginal1_x</tabstop>
+  <tabstop>spinbox3_transform_constantMultiplierOriginal1_x</tabstop>
+  <tabstop>slider3_transform_constantMultiplierOriginal1_y</tabstop>
+  <tabstop>spinbox3_transform_constantMultiplierOriginal1_y</tabstop>
+  <tabstop>slider3_transform_constantMultiplierOriginal1_z</tabstop>
+  <tabstop>spinbox3_transform_constantMultiplierOriginal1_z</tabstop>
+  <tabstop>groupCheck_transform_fabsSubConstant1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_fabsSubConstant1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_fabsSubConstant1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_fabsSubConstant1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsSubConstant1_weight</tabstop>
+  <tabstop>checkBox_transform_fabsSubConstant1_enabled_x</tabstop>
+  <tabstop>slider3_transform_fabsSubConstant1A_x</tabstop>
+  <tabstop>spinbox3_transform_fabsSubConstant1A_x</tabstop>
+  <tabstop>checkBox_transform_fabsSubConstant1_enabled_y</tabstop>
+  <tabstop>slider3_transform_fabsSubConstant1A_y</tabstop>
+  <tabstop>spinbox3_transform_fabsSubConstant1A_y</tabstop>
+  <tabstop>checkBox_transform_fabsSubConstant1_enabled_z</tabstop>
+  <tabstop>slider3_transform_fabsSubConstant1A_z</tabstop>
+  <tabstop>spinbox3_transform_fabsSubConstant1A_z</tabstop>
+  <tabstop>slider3_transform_fabsSubConstant1B_x</tabstop>
+  <tabstop>spinbox3_transform_fabsSubConstant1B_x</tabstop>
+  <tabstop>slider3_transform_fabsSubConstant1B_y</tabstop>
+  <tabstop>spinbox3_transform_fabsSubConstant1B_y</tabstop>
+  <tabstop>slider3_transform_fabsSubConstant1B_z</tabstop>
+  <tabstop>spinbox3_transform_fabsSubConstant1B_z</tabstop>
+  <tabstop>checkBox_transform_fabsSubConstant1_old_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsSubConstant1_old_weight</tabstop>
+  <tabstop>groupCheck_transform_fabsFormulaZAB1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_fabsFormulaZAB1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_fabsFormulaZAB1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaZAB1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsFormulaZAB1_weight</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaZAB1_enabled_x</tabstop>
+  <tabstop>slider3_transform_fabsFormulaZAB1A_x</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaZAB1A_x</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaZAB1_enabled_y</tabstop>
+  <tabstop>slider3_transform_fabsFormulaZAB1A_y</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaZAB1A_y</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaZAB1_enabled_z</tabstop>
+  <tabstop>slider3_transform_fabsFormulaZAB1A_z</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaZAB1A_z</tabstop>
+  <tabstop>slider3_transform_fabsFormulaZAB1B_x</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaZAB1B_x</tabstop>
+  <tabstop>slider3_transform_fabsFormulaZAB1B_y</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaZAB1B_y</tabstop>
+  <tabstop>slider3_transform_fabsFormulaZAB1B_z</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaZAB1B_z</tabstop>
+  <tabstop>slider3_transform_fabsFormulaZAB1C_x</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaZAB1C_x</tabstop>
+  <tabstop>slider3_transform_fabsFormulaZAB1C_y</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaZAB1C_y</tabstop>
+  <tabstop>slider3_transform_fabsFormulaZAB1C_z</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaZAB1C_z</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaZAB1_old_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsFormulaZAB1_old_weight</tabstop>
+  <tabstop>groupCheck_transform_additionConstant1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_additionConstant1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_additionConstant1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_additionConstant1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_additionConstant1_weight</tabstop>
+  <tabstop>slider3_transform_additionConstant1_x</tabstop>
+  <tabstop>spinbox3_transform_additionConstant1_x</tabstop>
+  <tabstop>slider3_transform_additionConstant1_y</tabstop>
+  <tabstop>spinbox3_transform_additionConstant1_y</tabstop>
+  <tabstop>slider3_transform_additionConstant1_z</tabstop>
+  <tabstop>spinbox3_transform_additionConstant1_z</tabstop>
+  <tabstop>groupCheck_transform_fabsFormulaAB1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_fabsFormulaAB1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_fabsFormulaAB1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaAB1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsFormulaAB1_weight</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaAB1_enabled_x</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB1A_x</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB1A_x</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaAB1_enabled_y</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB1A_y</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB1A_y</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaAB1_enabled_z</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB1A_z</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB1A_z</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB1B_x</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB1B_x</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB1B_y</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB1B_y</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB1B_z</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB1B_z</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaAB1_old_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsFormulaAB1_old_weight</tabstop>
+  <tabstop>groupCheck_transform_main_rotation2_enabled</tabstop>
+  <tabstop>spinboxInt_transform_main_rotation2_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_main_rotation2_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_main_rotation2_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_main_rotation2_weight</tabstop>
+  <tabstop>dial3_transform_main_rotation2_x</tabstop>
+  <tabstop>dial3_transform_main_rotation2_y</tabstop>
+  <tabstop>dial3_transform_main_rotation2_z</tabstop>
+  <tabstop>spinboxd3_transform_main_rotation2_x</tabstop>
+  <tabstop>spinboxd3_transform_main_rotation2_y</tabstop>
+  <tabstop>spinboxd3_transform_main_rotation2_z</tabstop>
+  <tabstop>groupCheck_transform_fabsFormulaABCD1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_fabsFormulaABCD1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_fabsFormulaABCD1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaABCD1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsFormulaABCD1_weight</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaABCD1_enabled_Ax</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1A_x</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1A_x</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaABCD1_enabled_Ay</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1A_y</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1A_y</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaABCD1_enabled_Az</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1A_z</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1A_z</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaABCD1_enabled_Bx</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1B_x</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1B_x</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaABCD1_enabled_By</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1B_y</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1B_y</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaABCD1_enabled_Bz</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1B_z</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1B_z</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1C_x</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1C_x</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1C_y</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1C_y</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1C_z</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1C_z</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1D_x</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1D_x</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1D_y</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1D_y</tabstop>
+  <tabstop>slider3_transform_fabsFormulaABCD1D_z</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaABCD1D_z</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaABCD1_old_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsFormulaABCD1_old_weight</tabstop>
+  <tabstop>groupCheck_transform_mandelbulb1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_mandelbulb1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_mandelbulb1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_mandelbulb1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_mandelbulb1_weight</tabstop>
+  <tabstop>slider_transform_mandelbulb1_power</tabstop>
+  <tabstop>spinbox_transform_mandelbulb1_power</tabstop>
+  <tabstop>slider_transform_mandelbulb1_alpha_angle_offset</tabstop>
+  <tabstop>spinbox_transform_mandelbulb1_alpha_angle_offset</tabstop>
+  <tabstop>slider_transform_mandelbulb1_beta_angle_offset</tabstop>
+  <tabstop>spinbox_transform_mandelbulb1_beta_angle_offset</tabstop>
+  <tabstop>groupCheck_transform_main_rotation3_enabled</tabstop>
+  <tabstop>spinboxInt_transform_main_rotation3_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_main_rotation3_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_main_rotation3_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_main_rotation3_weight</tabstop>
+  <tabstop>dial3_transform_main_rotation3_x</tabstop>
+  <tabstop>dial3_transform_main_rotation3_y</tabstop>
+  <tabstop>dial3_transform_main_rotation3_z</tabstop>
+  <tabstop>spinboxd3_transform_main_rotation3_x</tabstop>
+  <tabstop>spinboxd3_transform_main_rotation3_y</tabstop>
+  <tabstop>spinboxd3_transform_main_rotation3_z</tabstop>
+  <tabstop>groupCheck_transform_constantMultiplier1_enabled</tabstop>
+  <tabstop>spinboxInt_transform_constantMultiplier1_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_constantMultiplier1_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_constantMultiplier1_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_constantMultiplier1_weight</tabstop>
+  <tabstop>slider3_transform_constantMultiplier1_x</tabstop>
+  <tabstop>spinbox3_transform_constantMultiplier1_x</tabstop>
+  <tabstop>slider3_transform_constantMultiplier1_y</tabstop>
+  <tabstop>spinbox3_transform_constantMultiplier1_y</tabstop>
+  <tabstop>slider3_transform_constantMultiplier1_z</tabstop>
+  <tabstop>spinbox3_transform_constantMultiplier1_z</tabstop>
+  <tabstop>groupCheck_transform_additionConstant2_enabled</tabstop>
+  <tabstop>spinboxInt_transform_additionConstant2_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_additionConstant2_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_additionConstant2_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_additionConstant2_weight</tabstop>
+  <tabstop>slider3_transform_additionConstant2_x</tabstop>
+  <tabstop>spinbox3_transform_additionConstant2_x</tabstop>
+  <tabstop>slider3_transform_additionConstant2_y</tabstop>
+  <tabstop>spinbox3_transform_additionConstant2_y</tabstop>
+  <tabstop>slider3_transform_additionConstant2_z</tabstop>
+  <tabstop>spinbox3_transform_additionConstant2_z</tabstop>
+  <tabstop>groupCheck_transform_fabsFormulaAB2_enabled</tabstop>
+  <tabstop>spinboxInt_transform_fabsFormulaAB2_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_fabsFormulaAB2_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaAB2_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsFormulaAB2_weight</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaAB2_enabled_x</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB2A_x</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB2A_x</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaAB2_enabled_y</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB2A_y</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB2A_y</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaAB2_enabled_z</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB2A_z</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB2A_z</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB2B_x</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB2B_x</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB2B_y</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB2B_y</tabstop>
+  <tabstop>slider3_transform_fabsFormulaAB2B_z</tabstop>
+  <tabstop>spinbox3_transform_fabsFormulaAB2B_z</tabstop>
+  <tabstop>checkBox_transform_fabsFormulaAB2_old_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_fabsFormulaAB2_old_weight</tabstop>
+  <tabstop>groupCheck_transform_box_fold2_enabled</tabstop>
+  <tabstop>spinboxInt_transform_box_fold2_start_iterations</tabstop>
+  <tabstop>spinboxInt_transform_box_fold2_stop_iterations</tabstop>
+  <tabstop>checkBox_transform_box_fold2_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_box_fold2_weight</tabstop>
+  <tabstop>slider_transform_box_fold2_folding_limit</tabstop>
+  <tabstop>spinbox_transform_box_fold2_folding_limit</tabstop>
+  <tabstop>slider_transform_box_fold2_folding_value</tabstop>
+  <tabstop>spinbox_transform_box_fold2_folding_value</tabstop>
+  <tabstop>checkBox_transform_box_fold2_old_weight_enabled</tabstop>
+  <tabstop>spinbox_transform_box_fold2_old_weight</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../home/graeme/git/mandelbulber2/mandelbulber2/qt/icons.qrc"/>
   <include location="../../../../home/graeme/git/mandelbulber2/mandelbulber2/qt/icons.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transform_box_fold1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_box_fold1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>467</x>
+     <y>59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>594</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_main_rotation1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_main_rotation1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>455</x>
+     <y>213</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsAddConstant1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsAddConstant1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>465</x>
+     <y>420</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>587</x>
+     <y>425</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_mandelbulbOriginal1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_mandelbulbOriginal1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>459</x>
+     <y>768</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>592</x>
+     <y>770</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_constantMultiplierOriginal1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_constantMultiplierOriginal1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>465</x>
+     <y>950</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>575</x>
+     <y>946</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsSubConstant1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsSubConstant1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>468</x>
+     <y>1115</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>569</x>
+     <y>1108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaZAB1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsFormulaZAB1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>470</x>
+     <y>1355</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>573</x>
+     <y>1359</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_additionConstant1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_additionConstant1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>462</x>
+     <y>1702</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>580</x>
+     <y>1703</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsFormulaAB1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>463</x>
+     <y>1863</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>575</x>
+     <y>1865</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_main_rotation2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_main_rotation2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>464</x>
+     <y>2101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>570</x>
+     <y>2106</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsFormulaABCD1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>2309</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>2310</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_mandelbulb1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_mandelbulb1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>459</x>
+     <y>2735</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>590</x>
+     <y>2739</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_constantMultiplier1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_constantMultiplier1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>541</x>
+     <y>3124</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>581</x>
+     <y>3125</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_additionConstant2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_additionConstant2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>546</x>
+     <y>3309</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>582</x>
+     <y>3309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsFormulaAB2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>546</x>
+     <y>3471</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>583</x>
+     <y>3470</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_box_fold2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_box_fold2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>476</x>
+     <y>3735</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>575</x>
+     <y>3735</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsAddConstant1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsAddConstant1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>14</x>
+     <y>452</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>234</x>
+     <y>451</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsAddConstant1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsAddConstant1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>451</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>607</x>
+     <y>452</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsAddConstant1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsAddConstant1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>21</x>
+     <y>478</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>183</x>
+     <y>479</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsAddConstant1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsAddConstant1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>61</x>
+     <y>477</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>611</x>
+     <y>479</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsAddConstant1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsAddConstant1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>12</x>
+     <y>501</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>501</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsAddConstant1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsAddConstant1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>54</x>
+     <y>503</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>610</x>
+     <y>505</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_box_fold1_old_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_box_fold1_old_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>596</x>
+     <y>164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>647</x>
+     <y>166</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaZAB1_old_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsFormulaZAB1_old_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>571</x>
+     <y>1619</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>622</x>
+     <y>1620</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaZAB1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaZAB1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>18</x>
+     <y>1383</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>143</x>
+     <y>1386</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaZAB1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaZAB1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>52</x>
+     <y>1381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>617</x>
+     <y>1385</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaZAB1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaZAB1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>21</x>
+     <y>1408</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>1412</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaZAB1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaZAB1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>39</x>
+     <y>1411</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>604</x>
+     <y>1411</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaZAB1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaZAB1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>1434</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>237</x>
+     <y>1440</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaZAB1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaZAB1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>61</x>
+     <y>1432</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>627</x>
+     <y>1437</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_old_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsFormulaABCD1_old_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>572</x>
+     <y>2647</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>2653</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsSubConstant1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsSubConstant1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>16</x>
+     <y>1142</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>214</x>
+     <y>1143</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsSubConstant1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsSubConstant1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>1145</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>623</x>
+     <y>1146</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsSubConstant1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsSubConstant1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>18</x>
+     <y>1164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>186</x>
+     <y>1169</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsSubConstant1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsSubConstant1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>52</x>
+     <y>1169</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>630</x>
+     <y>1173</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsSubConstant1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsSubConstant1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>30</x>
+     <y>1190</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>166</x>
+     <y>1190</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsSubConstant1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsSubConstant1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>1190</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>626</x>
+     <y>1195</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_main_rotation3_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_main_rotation3_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>449</x>
+     <y>2900</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>565</x>
+     <y>2898</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_box_fold2_old_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_box_fold2_old_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>589</x>
+     <y>3835</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>633</x>
+     <y>3837</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB2_old_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsFormulaAB2_old_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>571</x>
+     <y>3651</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>613</x>
+     <y>3651</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB2_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaAB2A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>19</x>
+     <y>3495</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>310</x>
+     <y>3500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB2_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaAB2A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>3497</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>605</x>
+     <y>3495</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB2_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaAB2A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>21</x>
+     <y>3520</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>340</x>
+     <y>3522</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB2_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaAB2A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>36</x>
+     <y>3521</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>619</x>
+     <y>3522</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB2_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaAB2A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>21</x>
+     <y>3549</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>249</x>
+     <y>3551</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB2_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaAB2A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>35</x>
+     <y>3541</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>633</x>
+     <y>3551</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Ax</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaABCD1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>19</x>
+     <y>2339</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>226</x>
+     <y>2335</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Ax</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaABCD1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>32</x>
+     <y>2336</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>645</x>
+     <y>2338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Ay</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaABCD1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>15</x>
+     <y>2352</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>2359</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Ay</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaABCD1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>53</x>
+     <y>2360</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>617</x>
+     <y>2363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Az</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaABCD1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>18</x>
+     <y>2383</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>267</x>
+     <y>2385</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Az</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaABCD1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>2388</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>621</x>
+     <y>2389</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Bx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaABCD1B_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>17</x>
+     <y>2415</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>169</x>
+     <y>2417</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Bx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaABCD1B_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>31</x>
+     <y>2418</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>600</x>
+     <y>2419</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_By</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaABCD1B_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>18</x>
+     <y>2441</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>2441</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_By</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaABCD1B_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>42</x>
+     <y>2442</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>608</x>
+     <y>2443</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Bz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaABCD1B_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>19</x>
+     <y>2464</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>213</x>
+     <y>2468</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaABCD1_enabled_Bz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaABCD1B_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>2469</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>630</x>
+     <y>2470</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaAB1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>12</x>
+     <y>1888</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>282</x>
+     <y>1892</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB1_enabled_x</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaAB1A_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>31</x>
+     <y>1889</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>623</x>
+     <y>1891</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaAB1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>27</x>
+     <y>1914</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>180</x>
+     <y>1917</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB1_enabled_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaAB1A_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>41</x>
+     <y>1914</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>598</x>
+     <y>1916</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>slider3_transform_fabsFormulaAB1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>1940</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>245</x>
+     <y>1941</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB1_enabled_z</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transform_fabsFormulaAB1A_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>1939</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>608</x>
+     <y>1942</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsFormulaAB1_old_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsFormulaAB1_old_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>568</x>
+     <y>2040</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>616</x>
+     <y>2044</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsSubConstant1_old_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsSubConstant1_old_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>577</x>
+     <y>1299</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>615</x>
+     <y>1301</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_fabsAddConstant1_old_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_fabsAddConstant1_old_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>573</x>
+     <y>687</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>615</x>
+     <y>687</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
