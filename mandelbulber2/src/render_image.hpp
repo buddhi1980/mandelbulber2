@@ -34,7 +34,7 @@ class cRenderer : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image, QObject *_parentObject);
+	cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image);
 	~cRenderer();
 	bool RenderImage();
 
@@ -45,7 +45,6 @@ private:
 	const cFourFractals *fractal;
 	sRenderData *data;
 	cImage *image;
-	QObject *parentObject;
 	cScheduler *scheduler;
 	bool netRemderAckReceived;
 
@@ -53,6 +52,7 @@ public slots:
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
 	void ToDoListArrived(QList<int> done);
 	void AckReceived();
+	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 
 	signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

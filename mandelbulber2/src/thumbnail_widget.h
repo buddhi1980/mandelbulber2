@@ -31,7 +31,7 @@ class cThumbnailWidget: public QWidget
 {
 	Q_OBJECT
 public:
-	cThumbnailWidget(int _width, int _height, QObject *_parentWithProgressBar, QWidget *parent);
+	cThumbnailWidget(int _width, int _height, QWidget *parent);
 	~cThumbnailWidget();
 	void AssignParameters(const cParameterContainer &_params, const cFractalContainer &_fractal);
 	void UseOneCPUCore(bool onlyOne) {useOneCPUCore = onlyOne;}
@@ -46,6 +46,9 @@ private slots:
 	void slotFullyRendered();
 	void slotRandomRender();
 
+public slots:
+  void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+
 private:
 	cImage *image;
 	cParameterContainer *params;
@@ -57,13 +60,13 @@ private:
 	bool stopRequest;
 	bool isRendered;
 	bool hasParameters;
-	QObject *parentWithProgressBar;
 	bool useOneCPUCore;
 	QTimer *timer; //timer for random trigger for rendering (renders thumbnail even when is not visible)
 
 signals:
 	void renderRequest();
 	void thumbnailRendered();
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 };
 
 #endif /* QT_THUMBNAIL_WIDGET_H_ */

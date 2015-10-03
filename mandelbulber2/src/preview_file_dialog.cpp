@@ -44,7 +44,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	preview->setAlignment(Qt::AlignCenter);
 	preview->setObjectName("label_preview");
 
-	thumbWidget = new cThumbnailWidget(200, 200, this, this);
+	thumbWidget = new cThumbnailWidget(200, 200, this);
 
 	info = new QLabel("");
 
@@ -73,6 +73,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	connect(this, SIGNAL(currentChanged(const QString&)), this, SLOT(OnCurrentChanged(const QString&)));
 	connect(presetAddButton, SIGNAL(clicked()), this, SLOT(OnPresetAdd()));
 	connect(thumbWidget, SIGNAL(thumbnailRendered()), this, SLOT(slotHideProgressBar()));
+	connect(thumbWidget, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 }
 
 PreviewFileDialog::~PreviewFileDialog()

@@ -34,7 +34,7 @@ class cRenderJob : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QObject *_parent = NULL, QWidget *_qwidget = NULL);
+	cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QWidget *_qwidget = NULL);
 	~cRenderJob();
 	//QWidtet *parent is needed to connect signals for refreshing progress and status bar.
 	//If _parent is not NULL then parent has to have slot slotUpdateProgressAndStatus()
@@ -57,9 +57,10 @@ public:
 
 public slots:
 	void slotExecute();
+	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void slotUpdateStatistics(cStatistics);
 
 private:
-	QObject *parentObject;
 	bool InitImage(int w, int h);
 	void ReduceDetail();
 
@@ -86,6 +87,7 @@ private:
 	void finished();
 	void fullyRendered();
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void updateStatistics(cStatistics statistics);
 	void updateImage();
 	void SendNetRenderJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures);
 	void SendNetRenderSetup(int clientIndex, int id, QList<int> startingPositions);

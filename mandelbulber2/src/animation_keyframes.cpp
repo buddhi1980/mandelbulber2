@@ -113,7 +113,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 
 		if(ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
 			thumbWidget->UseOneCPUCore(false);
 			thumbWidget->AssignParameters(*gPar, *gParFractal);
 			table->setCellWidget(0, newColumn, thumbWidget);
@@ -160,7 +160,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 
 		if(ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
 			thumbWidget->UseOneCPUCore(false);
 			thumbWidget->AssignParameters(*gPar, *gParFractal);
 			table->setCellWidget(0, newColumn, thumbWidget);
@@ -420,7 +420,12 @@ void cKeyframeAnimation::RenderKeyframes()
 	}
 
 	//preparing Render Job
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &mainInterface->stopRequest, mainInterface->renderedImage);
+	if(mainInterface->mainWindow)
+	{
+		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
+	}
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -588,7 +593,7 @@ void cKeyframeAnimation::RefreshTable()
 
 		if(ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
 			thumbWidget->UseOneCPUCore(true);
 			keyframes->GetFrameAndConsolidate(i, &tempPar, &tempFract);
 			tempPar.Set("frame_no", keyframes->GetFramesPerKeyframe() * i);
@@ -728,7 +733,7 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 
 			if (!thumbWidget)
 			{
-				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
 				thumbWidget->UseOneCPUCore(true);
 				thumbWidget->AssignParameters(tempPar, tempFract);
 				table->setCellWidget(0, column, thumbWidget);

@@ -33,13 +33,12 @@
 #include "global_data.hpp"
 #include "headless.h"
 
-cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image, QObject *_parentObject) : QObject()
+cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image) : QObject()
 {
 	params = _params;
 	fractal = _fractal;
 	data = _renderData;
 	image = _image;
-	parentObject = _parentObject;
 	scheduler = NULL;
 	netRemderAckReceived = true;
 }
@@ -127,10 +126,7 @@ bool cRenderer::RenderImage()
 
 		while (!scheduler->AllLinesDone())
 		{
-			if(parentObject || data->configuration.UseNetRender()) //TODO check if processing events will be needed for noGUI
-			{
-				gApplication->processEvents();
-			}
+			gApplication->processEvents();
 
 			if (*data->stopRequest || progressText.getTime() > data->configuration.GetMaxRenderTime())
 			{
@@ -158,10 +154,7 @@ bool cRenderer::RenderImage()
 				cHeadless::RenderingProgressOutput("Rendering image", progressTxt, percentDone);
 			}
 
-			if(parentObject)
-			{
-				emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-			}
+			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 
 			//refresh image
 			if (listToRefresh.size() > 0)
@@ -181,7 +174,7 @@ bool cRenderer::RenderImage()
 						if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 						{
 							cRenderSSAO rendererSSAO(params, data, image);
-							if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+							connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 							rendererSSAO.setProgressive(scheduler->GetProgressiveStep());
 							rendererSSAO.RenderSSAO(&listToRefresh);
 						}
@@ -321,13 +314,13 @@ bool cRenderer::RenderImage()
 		if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 		{
 			cRenderSSAO rendererSSAO(params, data, image);
-			if(parentObject) QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+			connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 			rendererSSAO.RenderSSAO();
 		}
 		if(params->DOFEnabled && !*data->stopRequest)
 		{
 			cPostRenderingDOF dof(image, data->configuration);
-			if(parentObject) QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+			connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 			dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->stopRequest);
 		}
 	}
@@ -361,10 +354,7 @@ bool cRenderer::RenderImage()
 		cHeadless::RenderingProgressOutput("Rendering done", progressTxt, percentDone, true);
 	}
 
-	if(parentObject)
-	{
-		emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-	}
+	emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 
 	delete[] thread;
 	delete[] threadData;
@@ -438,4 +428,9 @@ void cRenderer::ToDoListArrived(QList<int> toDo)
 void cRenderer::AckReceived()
 {
 	netRemderAckReceived = true;
+}
+
+void cRenderer::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
+{
+	emit updateProgressAndStatus(text, progressText, progress);
 }

@@ -29,7 +29,7 @@
 #include "progress_text.hpp"
 #include "error_message.hpp"
 
-cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QObject *_parent, QWidget *_qwidget) : QObject()
+cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QWidget *_qwidget) : QObject()
 {
 	WriteLog("cRenderJob::cRenderJob");
 	image = _image;
@@ -60,7 +60,6 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	renderData = NULL;
 	useSizeFromImage = false;
 	stopRequest = _stopRequest;
-	parentObject = _parent;
 
 	id++;
 	//qDebug() << "Id" << id;
@@ -94,11 +93,8 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 
-	if (parentObject)
-	{
-		emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
-		gApplication->processEvents();
-	}
+	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
+	gApplication->processEvents();
 
 	if(!InitImage(width, height))
 	{
@@ -150,11 +146,8 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 
 	//textures are deleted with destruction of renderData
 
-	if(parentObject)
-	{
-		emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
-		gApplication->processEvents();
-	}
+	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
+	gApplication->processEvents();
 
 	if(gNetRender->IsClient())
 	{
@@ -301,15 +294,14 @@ bool cRenderJob::Execute(void)
 	renderData->statistics.Reset();
 
 	//create and execute renderer
-	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image, parentObject);
+	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image);
 
 	//connect signal for progress bar update
-	if(parentObject) QObject::connect(this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-	if(parentObject) QObject::connect(renderer, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), parentObject, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	connect(renderer, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 
 	if(image->IsMainImage())
 	{
-		if(parentObject) QObject::connect(renderer, SIGNAL(updateStatistics(cStatistics)), parentObject, SLOT(slotUpdateStatistics(cStatistics)));
+		QObject::connect(renderer, SIGNAL(updateStatistics(cStatistics)), this, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 
 	if(renderData->configuration.UseNetRender())
@@ -381,4 +373,14 @@ void cRenderJob::slotExecute()
 {
 	Execute();
 	emit finished();
+}
+
+void cRenderJob::slotUpdateStatistics(cStatistics statistics)
+{
+	emit updateStatistics(statistics);
+}
+
+void cRenderJob::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
+{
+	emit updateProgressAndStatus(text, progressText, progress);
 }

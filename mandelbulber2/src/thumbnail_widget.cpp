@@ -30,7 +30,7 @@
 #include "common_math.h"
 #include "system.hpp"
 
-cThumbnailWidget::cThumbnailWidget(int _width, int _height, QObject *_parentWithProgressBar, QWidget *parent) : QWidget(parent)
+cThumbnailWidget::cThumbnailWidget(int _width, int _height, QWidget *parent) : QWidget(parent)
 {
 	tWidth = _width;
 	tHeight = _height;
@@ -42,7 +42,6 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, QObject *_parentWith
 	stopRequest = false;
 	isRendered = false;
 	hasParameters = false;
-	parentWithProgressBar = _parentWithProgressBar;
 	connect(this, SIGNAL(renderRequest()), this, SLOT(slotRender()));
 	params = new cParameterContainer;
 	fractal = new cFractalContainer;
@@ -145,7 +144,8 @@ void cThumbnailWidget::slotRender()
 	Wait(Random(100) + 50);
 	stopRequest = false;
 
-	cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, parentWithProgressBar, (QWidget*)this);
+	cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, (QWidget*)this);
+	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 
 	renderJob->UseSizeFromImage(true);
 
@@ -195,6 +195,11 @@ void cThumbnailWidget::slotRandomRender()
 		isRendered = true;
 		slotRender();
 	}
+}
+
+void cThumbnailWidget::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
+{
+	emit updateProgressAndStatus(text, progressText, progress);
 }
 
 int cThumbnailWidget::instanceCount = 0;

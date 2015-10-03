@@ -194,7 +194,12 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	mainInterface->renderedImage->setClickMode(clickMode);
 
 	//setup of rendering engine
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->renderedImage);
+	if(mainInterface->mainWindow)
+	{
+		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
+	}
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -546,7 +551,13 @@ void cFlightAnimation::RenderFlight()
 		gUndo.Store(gPar, gParFractal, frames, NULL);
 	}
 
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &mainInterface->stopRequest, mainInterface->mainWindow, mainInterface->renderedImage);
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &mainInterface->stopRequest, mainInterface->renderedImage);
+
+	if(mainInterface->mainWindow)
+	{
+		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
+	}
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -701,7 +712,7 @@ void cFlightAnimation::RefreshTable()
 
 		if(ui->checkBox_flight_show_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
 			thumbWidget->UseOneCPUCore(true);
 			frames->GetFrameAndConsolidate(i, &tempPar, &tempFract);
 			thumbWidget->AssignParameters(tempPar, tempFract);
@@ -859,7 +870,7 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 			if (!thumbWidget)
 			{
-				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, NULL, table);
+				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
 				thumbWidget->UseOneCPUCore(true);
 				thumbWidget->AssignParameters(tempPar, tempFract);
 				table->setCellWidget(0, column, thumbWidget);

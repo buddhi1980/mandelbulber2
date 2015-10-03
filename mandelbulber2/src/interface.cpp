@@ -1039,7 +1039,10 @@ void cInterface::StartRender(void)
 	progressBarAnimation->hide();
 	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, mainWindow, renderedImage); //deleted by deleteLater()
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage); //deleted by deleteLater()
+
+	mainWindow->connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	mainWindow->connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
