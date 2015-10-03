@@ -815,7 +815,7 @@
         <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsAddConstant1A_z">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -847,7 +847,7 @@
         <item row="2" column="2">
          <widget class="QSlider" name="slider3_transform_fabsAddConstant1A_z">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -876,7 +876,7 @@
         <item row="0" column="2">
          <widget class="QSlider" name="slider3_transform_fabsAddConstant1A_x">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -911,7 +911,7 @@
         <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsAddConstant1A_x">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -943,7 +943,7 @@
         <item row="1" column="2">
          <widget class="QSlider" name="slider3_transform_fabsAddConstant1A_y">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -965,7 +965,7 @@
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsAddConstant1A_y">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2069,7 +2069,7 @@
         <item row="0" column="2">
          <widget class="QSlider" name="slider3_transform_fabsSubConstant1A_x">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -2130,7 +2130,7 @@
         <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsSubConstant1A_y">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2169,7 +2169,7 @@
         <item row="1" column="2">
          <widget class="QSlider" name="slider3_transform_fabsSubConstant1A_y">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -2191,7 +2191,7 @@
         <item row="2" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsSubConstant1A_z">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2251,7 +2251,7 @@
         <item row="2" column="2">
          <widget class="QSlider" name="slider3_transform_fabsSubConstant1A_z">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -2403,7 +2403,7 @@
         <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsSubConstant1A_x">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4222,7 +4222,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaABCD1_enabled">
      <property name="title">
-      <string>Enable  z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.D ); </string>
+      <string>Enable  z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.&amp;D ); </string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -7671,102 +7671,6 @@
     <hint type="destinationlabel">
      <x>575</x>
      <y>3735</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transform_fabsAddConstant1_enabled_x</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>slider3_transform_fabsAddConstant1A_x</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>14</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>234</x>
-     <y>451</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transform_fabsAddConstant1_enabled_x</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transform_fabsAddConstant1A_x</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>43</x>
-     <y>451</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>607</x>
-     <y>452</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transform_fabsAddConstant1_enabled_y</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>slider3_transform_fabsAddConstant1A_y</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>21</x>
-     <y>478</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>183</x>
-     <y>479</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transform_fabsAddConstant1_enabled_y</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transform_fabsAddConstant1A_y</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>61</x>
-     <y>477</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>611</x>
-     <y>479</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transform_fabsAddConstant1_enabled_z</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>slider3_transform_fabsAddConstant1A_z</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>12</x>
-     <y>501</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>185</x>
-     <y>501</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transform_fabsAddConstant1_enabled_z</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transform_fabsAddConstant1A_z</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>54</x>
-     <y>503</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>610</x>
-     <y>505</y>
     </hint>
    </hints>
   </connection>
