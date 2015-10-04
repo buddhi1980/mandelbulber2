@@ -308,6 +308,7 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 	int newColumn = index;
 	if(index == -1) newColumn =	table->columnCount();
 	table->insertColumn(newColumn);
+	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(QString::number(newColumn)));
 
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
 
