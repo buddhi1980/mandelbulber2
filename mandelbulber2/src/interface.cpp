@@ -306,11 +306,21 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->logslider_camera_distance_to_target, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotCameraDistanceSlider(int)));
 	QApplication::connect(mainWindow->ui->comboBox_camera_absolute_distance_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotMovementStepModeChanged(int)));
 
-	QApplication::connect(mainWindow->ui->dockWidget_animation, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+	//Queue
+	QApplication::connect(mainWindow->ui->pushButton_queue_add_current_settings, SIGNAL(clicked()), mainWindow, SLOT(slotQueueAddCurrentSettings()));
+	QApplication::connect(mainWindow->ui->pushButton_queue_add_from_file, SIGNAL(clicked()), mainWindow, SLOT(slotQueueAddFromFile()));
+	QApplication::connect(gQueue, SIGNAL(queueChanged()), mainWindow, SLOT(slotQueueListUpdate()));
+	QApplication::connect(gQueue, SIGNAL(queueChanged(int)), mainWindow, SLOT(slotQueueListUpdate(int)));
+	QApplication::connect(gQueue, SIGNAL(queueChanged(int, int)), mainWindow, SLOT(slotQueueListUpdate(int, int)));
+
+	//DockWidgets and Toolbar
+	QApplication::connect(mainWindow->ui->bu_netrender_connect, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderClientConnect()));
 	QApplication::connect(mainWindow->ui->toolBar, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+	QApplication::connect(mainWindow->ui->dockWidget_animation, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 	QApplication::connect(mainWindow->ui->dockWidget_info, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 	QApplication::connect(mainWindow->ui->dockWidget_histogram, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 	QApplication::connect(mainWindow->ui->dockWidget_gamepad_dock, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+	QApplication::connect(mainWindow->ui->dockWidget_queue_dock, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
 
 	QApplication::connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()), mainWindow, SLOT(slotPresetAddToToolbar()));
 

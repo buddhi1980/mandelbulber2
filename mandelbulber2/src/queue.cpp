@@ -52,26 +52,45 @@ cQueue::~cQueue()
 	// nothing to be done
 }
 
-void cQueue::Append(const QString &filename, enumRenderType renderType){
+void cQueue::Append(const QString &filename, enumRenderType renderType)
+{
 	//add new fractal to queue
-	// TODO
+	if (QFileInfo(filename).suffix() == QString("fract"))
+	{
+		cSettings parSettings(cSettings::formatFullText);
+		parSettings.BeQuiet(true);
+		if (parSettings.LoadFromFile(filename))
+		{
+			QString filenameQueue = "queue_" + parSettings.GetHashCode() + ".fract";
+			parSettings.SaveToFile(queueFolder + "/" + filenameQueue);
+			AddToList(filenameQueue, renderType);
+			emit queueChanged();
+		}
+	}
 }
 
-void cQueue::Append(enumRenderType renderType){
+void cQueue::Append(enumRenderType renderType)
+{
 	//add current settings to queue
-	WriteLog("Queue append started");
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 	QString filename = "queue_" + parSettings.GetHashCode() + ".fract";
 	parSettings.SaveToFile(queueFolder + "/" + filename);
 	AddToList(filename, renderType);
-	WriteLog("Queue append finished");
-
+	emit queueChanged();
 }
 
-bool cQueue::Get(const cParameterContainer &par, const cFractalContainer &fract){
+bool cQueue::Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes)
+{
 	//get next fractal from queue
-	// TODO
+	structQueueItem queueItem = GetNextFromList();
+	if(queueItem.filename == "") return false; // reached end of list
+	cSettings parSettings(cSettings::formatCondensedText);
+
+	if (parSettings.LoadFromFile(queueItem.filename))
+	{
+		parSettings.Decode(par, fractPar, frames, keyframes);
+	}
 	return false;
 }
 
@@ -80,9 +99,11 @@ QList<cQueue::structQueueItem> cQueue::GetListFromQueueFile()
 	//returns list of fractals to render
 	QList<structQueueItem> queueList;
 	QFile file(queueListFileName);
-	if (file.open(QIODevice::ReadOnly)) {
+	if (file.open(QIODevice::ReadOnly))
+	{
 		QTextStream in(&file);
-		while (!in.atEnd()) {
+		while (!in.atEnd())
+		{
 			QString line = in.readLine().trimmed();
 			if(line.startsWith("#") || line == "") continue;
 			QRegularExpression reType("^(.*?\.fract) (still|keyframe|flight)?$");
@@ -90,15 +111,13 @@ QList<cQueue::structQueueItem> cQueue::GetListFromQueueFile()
 			if (matchType.hasMatch())
 			{
 				enumRenderType renderType;
-				if(matchType.captured(2) == "still") renderType = still;
-				else if(matchType.captured(2) == "keyframe") renderType = keyframe;
-				else if(matchType.captured(2) == "flight") renderType = flight;
-				else renderType = still;
+				if(matchType.captured(2) == "still") renderType = queue_STILL;
+				else if(matchType.captured(2) == "keyframe") renderType = queue_KEYFRAME;
+				else if(matchType.captured(2) == "flight") renderType = queue_FLIGHT;
+				else renderType = queue_STILL;
 				queueList << structQueueItem(renderType, matchType.captured(1));
 			}
-			else{
-				qWarning() << "wrong format in line: " << line;
-			}
+			else qWarning() << "wrong format in line: " << line;
 		}
 		file.close();
 	}
@@ -192,10 +211,10 @@ cQueue::structQueueItem cQueue::GetNextFromList()
 			if (matchType.hasMatch())
 			{
 				enumRenderType renderType;
-				if(matchType.captured(2) == "still") renderType = still;
-				else if(matchType.captured(2) == "keyframe") renderType = keyframe;
-				else if(matchType.captured(2) == "flight") renderType = flight;
-				else renderType = still;
+				if(matchType.captured(2) == "still") renderType = queue_STILL;
+				else if(matchType.captured(2) == "keyframe") renderType = queue_KEYFRAME;
+				else if(matchType.captured(2) == "flight") renderType = queue_FLIGHT;
+				else renderType = queue_STILL;
 				return structQueueItem(renderType, matchType.captured(1));
 			}
 			else
@@ -203,7 +222,7 @@ cQueue::structQueueItem cQueue::GetNextFromList()
 		}
 		file.close();
 	}
-	return structQueueItem(still, "");
+	return structQueueItem(queue_STILL, "");
 }
 
 void cQueue::EraseFirstLineFromList()
@@ -221,9 +240,9 @@ void cQueue::AddToList(const QString &filename, enumRenderType renderType)
 		QTextStream stream(&file);
 		QString renderTypeString = "";
 		switch(renderType){
-			case still: renderTypeString = "still"; break;
-			case keyframe: renderTypeString = "keyframe"; break;
-			case flight: renderTypeString = "flight"; break;
+			case queue_STILL: renderTypeString = "still"; break;
+			case queue_KEYFRAME: renderTypeString = "keyframe"; break;
+			case queue_FLIGHT: renderTypeString = "flight"; break;
 			default: renderTypeString = "still"; break;
 		}
 		stream << "\n" << filename << " " << renderTypeString;
@@ -243,4 +262,26 @@ void cQueue::DeleteFileFromQueue(const QString &filename)
 {
 	//delete file from queue folder
 	//TODO
+}
+
+QString cQueue::GetTypeText(enumRenderType displayStatus)
+{
+	switch(displayStatus)
+	{
+		case cQueue::queue_STILL: return tr("STILL");
+		case cQueue::queue_FLIGHT: return tr("FLIGHT");
+		case cQueue::queue_KEYFRAME: return tr("KEYFRAME");
+	}
+	return tr("UNKNOWN");
+}
+
+QString cQueue::GetTypeColor(enumRenderType displayStatus)
+{
+	switch(displayStatus)
+	{
+		case cQueue::queue_STILL: return "darkgrey";
+		case cQueue::queue_FLIGHT: return "green";
+		case cQueue::queue_KEYFRAME: return "darkblue";
+	}
+	return "red";
 }

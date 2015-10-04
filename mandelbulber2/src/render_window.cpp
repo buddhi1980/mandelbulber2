@@ -1475,6 +1475,20 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 		}
 		ui->dockWidget_gamepad_dock->setVisible(ui->actionShow_gamepad_dock->isChecked());
 	}
+
+	// Queue dock
+	if(ui->actionShow_queue_dock->isChecked() != ui->dockWidget_queue_dock->isVisible())
+	{
+		if(ui->actionShow_queue_dock->isChecked())
+		{
+			addDockWidget(Qt::RightDockWidgetArea, ui->dockWidget_queue_dock);
+		}
+		else
+		{
+			removeDockWidget(ui->dockWidget_queue_dock);
+		}
+		ui->dockWidget_queue_dock->setVisible(ui->actionShow_queue_dock->isChecked());
+	}
 }
 
 void RenderWindow::slotUpdateDocksandToolbarbyView()
@@ -1507,6 +1521,12 @@ void RenderWindow::slotUpdateDocksandToolbarbyView()
 	if(ui->actionShow_gamepad_dock->isChecked() != ui->dockWidget_gamepad_dock->isVisible())
 	{
 		ui->actionShow_gamepad_dock->setChecked(ui->dockWidget_gamepad_dock->isVisible());
+	}
+
+	// Queue dock
+	if(ui->actionShow_queue_dock->isChecked() != ui->dockWidget_queue_dock->isVisible())
+	{
+		ui->actionShow_queue_dock->setChecked(ui->dockWidget_queue_dock->isVisible());
 	}
 }
 
@@ -1794,6 +1814,125 @@ void RenderWindow::slotCheckBoxDisableNetRender(bool on)
 	{
 		gNetRender->DeleteClient();
 		gNetRender->DeleteServer();
+	}
+}
+
+void RenderWindow::slotQueueAddCurrentSettings()
+{
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read); //update appParam before loading new settings
+	gQueue->Append();
+}
+
+void RenderWindow::slotQueueAddFromFile()
+{
+	PreviewFileDialog dialog(this);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
+	dialog.selectFile(systemData.lastSettingsFile);
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle(tr("Add file to queue..."));
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		gQueue->Append(filename);
+	}
+}
+
+void RenderWindow::slotQueueListUpdate()
+{
+	QTableWidget *table = ui->tableWidget_queue_list;
+
+	// reset table
+	if(gQueue->GetListFromQueueFile().size() == 0)
+	{
+		table->clear();
+		return;
+	}
+
+	// init table
+	if(table->columnCount() == 0)
+	{
+		QStringList header;
+		header << tr("Name") << tr("Preview") << tr("Type") << tr("Status") << tr("Action");
+		table->setColumnCount(header.size());
+		table->setHorizontalHeaderLabels(header);
+	}
+
+	// change table
+	if(table->rowCount() != gQueue->GetListFromQueueFile().size())
+	{
+		table->setRowCount(gQueue->GetListFromQueueFile().size());
+	}
+
+	// update table
+	for(int i = 0; i < table->rowCount(); i++)
+	{
+		slotQueueListUpdate(i);
+	}
+}
+
+void RenderWindow::slotQueueListUpdate(int i)
+{
+	// update row i
+	QTableWidget *table = ui->tableWidget_queue_list;
+	for(int j = 0; j < table->columnCount(); j++)
+	{
+		slotQueueListUpdate(i, j);
+	}
+}
+
+void RenderWindow::slotQueueListUpdate(int i, int j)
+{
+	// update element in row i, column j
+	QTableWidget *table = ui->tableWidget_queue_list;
+
+	QTableWidgetItem *cell = table->item(i, j);
+	if(!cell)
+	{
+		cell = new QTableWidgetItem;
+		table->setItem(i, j, cell);
+	}
+	QList<cQueue::structQueueItem> queueList = gQueue->GetListFromQueueFile();
+	switch(j)
+	{
+		case 0: cell->setText(queueList.at(i).filename); break;
+		case 1: {
+			if(true) // ui->checkBox_show_queue_thumbnails->isChecked()
+			{
+				cSettings parSettings(cSettings::formatFullText);
+				parSettings.BeQuiet(true);
+				if (parSettings.LoadFromFile(queueList.at(i).filename))
+				{
+					cParameterContainer *par = new cParameterContainer;
+					cFractalContainer *parFractal = new cFractalContainer;
+					InitParams(par);
+					for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
+						InitFractalParams(&parFractal->at(i));
+					if(parSettings.Decode(par, parFractal))
+					{
+						cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
+						thumbWidget->UseOneCPUCore(true);
+						thumbWidget->AssignParameters(*par, *parFractal);
+						table->setCellWidget(i, j, thumbWidget);
+					}
+					delete par;
+					delete parFractal;
+				}
+			}
+		}
+		case 2:
+		{
+			QString text = cQueue::GetTypeText(queueList.at(i).renderType);
+			QString color = cQueue::GetTypeColor(queueList.at(i).renderType);
+			cell->setText(text);
+			cell->setTextColor(color);
+		break;
+		}
+		case 3: cell->setText(""); break;
 	}
 }
 
