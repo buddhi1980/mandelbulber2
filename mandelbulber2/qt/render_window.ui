@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1600</width>
-    <height>1171</height>
+    <height>1288</height>
    </rect>
   </property>
   <property name="font">
@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1021</width>
-           <height>616</height>
+           <width>991</width>
+           <height>733</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -1134,7 +1134,7 @@
   </widget>
   <widget class="QDockWidget" name="dockWidget_queue_dock">
    <property name="windowTitle">
-    <string>Queue</string>
+    <string>&amp;Queue</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
@@ -1218,14 +1218,14 @@
        </property>
       </widget>
      </item>
-    <item>
-     <widget class="QTableWidget" name="tableWidget_queue_list">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
+     <item>
+      <widget class="QTableWidget" name="tableWidget_queue_list">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="sizeAdjustPolicy">
         <enum>QAbstractScrollArea::AdjustToContents</enum>
        </property>
@@ -1311,8 +1311,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>174</width>
-          <height>241</height>
+          <width>204</width>
+          <height>202</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -1724,7 +1724,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>177</width>
+          <width>196</width>
           <height>721</height>
          </rect>
         </property>
@@ -2966,7 +2966,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>136</height>
+          <height>166</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -5406,7 +5406,7 @@ to target:</string>
                   <x>0</x>
                   <y>0</y>
                   <width>273</width>
-                  <height>202</height>
+                  <height>225</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -5600,6 +5600,60 @@ to target:</string>
                           <string>Double hemisphere</string>
                          </property>
                         </item>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
+                       <widget class="QSlider" name="slider_background_brightness">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="maximum">
+                         <number>500</number>
+                        </property>
+                        <property name="singleStep">
+                         <number>1</number>
+                        </property>
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="2">
+                       <widget class="MyDoubleSpinBox" name="spinbox_background_brightness">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of background image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        </property>
+                        <property name="prefix">
+                         <string/>
+                        </property>
+                        <property name="suffix">
+                         <string/>
+                        </property>
+                        <property name="decimals">
+                         <number>2</number>
+                        </property>
+                        <property name="maximum">
+                         <double>1000.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.100000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="label_223">
+                        <property name="text">
+                         <string>Brightness:</string>
+                        </property>
                        </widget>
                       </item>
                      </layout>
@@ -7755,7 +7809,7 @@ to target:</string>
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
-    <string>Fractal</string>
+    <string>Frac&amp;tal</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -7786,7 +7840,7 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-96</y>
+          <y>0</y>
           <width>339</width>
           <height>305</height>
          </rect>
@@ -7844,7 +7898,7 @@ to target:</string>
              <item>
               <widget class="QTabWidget" name="tabWidget_fractals">
                <property name="currentIndex">
-                <number>3</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="tab_fractal_formula_1">
                 <attribute name="title">
@@ -7875,7 +7929,7 @@ to target:</string>
                     <property name="geometry">
                      <rect>
                       <x>0</x>
-                      <y>-87</y>
+                      <y>0</y>
                       <width>281</width>
                       <height>452</height>
                      </rect>
@@ -8533,7 +8587,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9184,7 +9238,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9829,7 +9883,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -11177,6 +11231,9 @@ to target:</string>
              </item>
              <item>
               <widget class="MyGroupBox" name="groupCheck_boolean_operators">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="title">
                 <string>Boolean operators</string>
                </property>
@@ -11400,6 +11457,9 @@ to target:</string>
              </item>
              <item>
               <widget class="MyGroupBox" name="groupCheck_box_folding">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="title">
                 <string>Box Folding</string>
                </property>
@@ -11539,6 +11599,9 @@ to target:</string>
              </item>
              <item>
               <widget class="MyGroupBox" name="groupCheck_spherical_folding">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="title">
                 <string>Spherical Folding</string>
                </property>

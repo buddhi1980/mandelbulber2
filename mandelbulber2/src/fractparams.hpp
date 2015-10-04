@@ -141,6 +141,7 @@ public:
 	double auxLightPreIntensity[4];
 	double auxLightVisibility;
 	double auxLightVisibilitySize;
+	double background_brightness;
 	double cameraDistanceToTarget; //zoom
   double coloring_speed;
 	double colourSaturation;

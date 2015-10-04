@@ -36,6 +36,7 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 	background_color1 = container->Get<sRGB>("background_color", 1);
 	background_color2 = container->Get<sRGB>("background_color", 2);
 	background_color3 = container->Get<sRGB>("background_color", 3);
+	background_brightness = container->Get<double>("background_brightness");
 	booleanOperatorsEnabled = container->Get<bool>("boolean_operators");
 	camera = container->Get<CVector3>("camera");
 	cameraDistanceToTarget = container->Get<double>("camera_distance_to_target");

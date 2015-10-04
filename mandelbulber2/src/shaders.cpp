@@ -165,6 +165,9 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
  			pixel2.G = pixel.G / 256.0;
 			pixel2.B = pixel.B / 256.0;
 		}
+		pixel2.R *= params->background_brightness;
+		pixel2.G *= params->background_brightness;
+		pixel2.B *= params->background_brightness;
 	}
 	else
 	{
