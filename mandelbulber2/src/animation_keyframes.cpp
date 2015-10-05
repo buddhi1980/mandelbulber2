@@ -574,6 +574,8 @@ void cKeyframeAnimation::RenderKeyframes()
 		cHeadless::RenderingProgressOutput(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, true);
 		cHeadless::MoveCursor(0, 2);
 	}
+
+	delete renderJob;
 }
 
 void cKeyframeAnimation::RefreshTable()

@@ -94,14 +94,22 @@ void cHeadless::RenderFlightAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, image, NULL);
-	return gFlightAnimation->slotRenderFlight();
+	gFlightAnimation->slotRenderFlight();
+	delete image;
+	delete gFlightAnimation;
+	gFlightAnimation = NULL;
+	return;
 }
 
 void cHeadless::RenderKeyframeAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, image, NULL);
-	return gKeyframeAnimation->slotRenderKeyframes();
+	gKeyframeAnimation->slotRenderKeyframes();
+	delete image;
+	delete gKeyframeAnimation;
+	gKeyframeAnimation = NULL;
+	return;
 }
 
 
