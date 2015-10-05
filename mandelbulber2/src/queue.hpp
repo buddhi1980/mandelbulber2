@@ -26,13 +26,16 @@
 
 #include "parameters.hpp"
 #include "fractal_container.hpp"
+#include "animation_keyframes.hpp"
+#include "animation_flight.hpp"
 #include <QtCore>
 
-class cQueue
+class cQueue : public QObject
 {
+	Q_OBJECT
 public:
 	enum enumRenderType {
-		still, flight, keyframe
+		queue_STILL, queue_FLIGHT, queue_KEYFRAME
 	};
 
 	struct structQueueItem {
@@ -48,10 +51,9 @@ public:
 	cQueue(const QString &_queueListFileName, const QString &_queueFolder); //initializes queue and create necessary files and folders
 	~cQueue();
 
-	void Append(const QString &filename, enumRenderType renderType = still); //add new fractal to queue
-	// void Append(const cParameterContainer &par, const cFractalContainer &fract); //add new fractal to queue
-	void Append(enumRenderType renderType = still); //add current settings to queue
-	bool Get(const cParameterContainer &par, const cFractalContainer &fract); //get next fractal from queue
+	void Append(const QString &filename, enumRenderType renderType = queue_STILL); //add new fractal to queue
+	void Append(enumRenderType renderType = queue_STILL); //add current settings to queue
+	bool Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes); //get next fractal from queue
 
 	QList<structQueueItem> GetListFromQueueFile(); //returns list of fractals to render from queue file
 	QStringList GetListFromFileSystem(); //returns list of fractals to render from file system
@@ -59,12 +61,23 @@ public:
 	QStringList DeleteOrphanedFiles(); //find and delete files which are not on the list
 	QStringList AddOrphanedFilesToList(); //add orphaned files from queue folder to the end of the list
 
+	//setting status test
+	static QString GetTypeText(enumRenderType displayStatus);
+	//setting status color
+	static QString GetTypeColor(enumRenderType displayStatus);
+
+signals:
+	//request to update table of queue items
+	void queueChanged();
+	void queueChanged(int i);
+	void queueChanged(int i, int j);
+
 private:
 	void SaveToQueueFolder(const QString &filename, const cParameterContainer &par, const cFractalContainer &fract);
 
 	structQueueItem GetNextFromList(); //gives next filename
 	void EraseFirstLineFromList(); //erases first line from list when fractal is taken
-	void AddToList(const QString &filename, enumRenderType renderType = still); //add filename to the end of list
+	void AddToList(const QString &filename, enumRenderType renderType = queue_STILL); //add filename to the end of list
 
 	bool ValidateEntry(const QString &filename); //checks if
 
