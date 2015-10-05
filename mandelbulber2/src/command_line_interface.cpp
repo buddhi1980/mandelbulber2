@@ -204,6 +204,7 @@ void cCommandLineInterface::ReadCLI (void)
 		if(systemData.noGui)
 		{
 			out << "NetRender - Waiting for clients\n";
+			out.flush();
 		}
 
 		while(timer.elapsed() < 5000)

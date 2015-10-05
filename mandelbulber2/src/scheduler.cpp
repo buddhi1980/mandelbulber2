@@ -58,7 +58,7 @@ bool cScheduler::ThereIsStillSomethingToDo(int threadId)
 	bool result = false;
 	for(int i = 0; i<numberOfLines; i++)
 	{
-		if(lineDone[i] == false && (linePendingThreadId[i] == threadId || linePendingThreadId[i] == 0))
+		if(lineDone[i] == false)// && (linePendingThreadId[i] == threadId || linePendingThreadId[i] == 0))
 		{
 			result = true;
 			break;
@@ -139,11 +139,14 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 
 	if(nextLine >= 0)
 	{
-		for(int i=0; i<progressiveStep; i++)
+		if(linePendingThreadId[nextLine] == 0)
 		{
-			if(nextLine + i < numberOfLines)
+			for(int i=0; i<progressiveStep; i++)
 			{
-				linePendingThreadId[nextLine + i] = threadId;
+				if(nextLine + i < numberOfLines)
+				{
+					linePendingThreadId[nextLine + i] = threadId;
+				}
 			}
 		}
 	}
