@@ -102,6 +102,7 @@ bool cScheduler::ShouldIBreak(int threadId, int actualLine)
 
 int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 {
+	mutex.lock();
 	QTextStream out(stdout);
 
 	//qDebug() << "threadID:" << threadId << " Actual line:" << actualLine;
@@ -150,6 +151,7 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 			}
 		}
 	}
+	mutex.unlock();
 
 	if(nextLine < 0)
 	{
@@ -286,6 +288,7 @@ QList<int> cScheduler::CreateDoneList()
 
 void cScheduler::UpdateDoneLines(const QList<int> &done)
 {
+	mutex.lock();
 	for(int i=0; i<done.size(); i++)
 	{
 		int line = done.at(i);
@@ -293,6 +296,7 @@ void cScheduler::UpdateDoneLines(const QList<int> &done)
 		lineDone[line] = true;
 		linePendingThreadId[line] = 9999; //just set some number, to inform that this line was already taken
 	}
+	mutex.unlock();
 }
 
 bool cScheduler::IsLineDoneByServer(int line)

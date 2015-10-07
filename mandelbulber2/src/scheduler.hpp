@@ -24,6 +24,7 @@
 #define SCHEDULER_HPP_
 
 #include <qvector.h>
+#include <QMutex>
 
 class cScheduler
 {
@@ -59,6 +60,7 @@ private:
 	int progressiveStep;
 	int progressivePass;
 	bool progressiveEnabled;
+	QMutex mutex;
 };
 
 
