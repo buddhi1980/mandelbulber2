@@ -236,6 +236,11 @@ void CNetRender::ServerDisconnected()
 	if(systemData.noGui)
 	{
 		QTextStream out(stdout);
+		out << QString("Connection lost") + "\n";
+		out.flush();
+	}
+	else
+	{
 		cErrorMessage::showMessage(QString("Connection lost"), cErrorMessage::errorMessage);
 	}
 }
