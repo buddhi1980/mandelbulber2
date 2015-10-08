@@ -62,6 +62,8 @@ void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux
 void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor);
 void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor, double &foldDE, double r);
 
+void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
+
 
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

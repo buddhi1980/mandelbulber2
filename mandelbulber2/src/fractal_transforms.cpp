@@ -397,7 +397,7 @@ void fabsAddConstantTransform4D(const sTransformFabsAddConstant &fabsAddConstant
 	}
 }
 
-//fabsFormulaAB 3D z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C; 3D
+//fabsFormulaAB 3D z = fabs( z + const.A ) -  fabs ( z - const.B )  -   z ; 3D
 void fabsFormulaABTransform3D(const sTransformFabsFormulaAB &fabsFormulaAB, CVector3 &z, int i)
 {
 	if (fabsFormulaAB.control.enabled && i >= fabsFormulaAB.control.startIterations && i < fabsFormulaAB.control.stopIterations)
@@ -427,7 +427,7 @@ void fabsFormulaABTransform3D(const sTransformFabsFormulaAB &fabsFormulaAB, CVec
 		}
 	}
 }
-
+//  fabsFormulaABCD   z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.&D );  3D
 void fabsFormulaABCDTransform3D(const sTransformFabsFormulaABCD &fabsFormulaABCD, CVector3 &z, int i)
 {
 	if (fabsFormulaABCD.control.enabled && i >= fabsFormulaABCD.control.startIterations && i < fabsFormulaABCD.control.stopIterations)
@@ -474,7 +474,7 @@ void fabsFormulaABCDTransform3D(const sTransformFabsFormulaABCD &fabsFormulaABCD
 		}
 	}
 }
-
+// fabsFormulaABCD   z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.&D );   4D
 void fabsFormulaABCDTransform4D(const sTransformFabsFormulaABCD &fabsFormulaABCD, CVector4 &z, int i)
 {
 	if (fabsFormulaABCD.control.enabled && i >= fabsFormulaABCD.control.startIterations && i < fabsFormulaABCD.control.stopIterations)
@@ -531,6 +531,7 @@ void fabsFormulaABCDTransform4D(const sTransformFabsFormulaABCD &fabsFormulaABCD
 	}
 }
 
+// fabsFormulaZAB  z =  fabs ( z + constA) + ( z * constB) + constC.;
 void fabsFormulaZABTransform3D(const sTransformFabsFormulaZAB &fabsFormulaZAB, CVector3 &z, int i)
 {
 	if (fabsFormulaZAB.control.enabled && i >= fabsFormulaZAB.control.startIterations && i < fabsFormulaZAB.control.stopIterations)
@@ -564,7 +565,7 @@ void fabsFormulaZABTransform3D(const sTransformFabsFormulaZAB &fabsFormulaZAB, C
 	}
 }
 
-//fabsSubConstant 3D z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C; 3D
+//fabsSubConstant 3D z = - ( fabs( z - const.A )  *  const.B ) 3D
 void fabsSubConstantTransform3D(const sTransformFabsSubConstant &fabsSubConstant, CVector3 &z, int i)
 {
 	if (fabsSubConstant.control.enabled && i >= fabsSubConstant.control.startIterations && i < fabsSubConstant.control.stopIterations)
@@ -1003,3 +1004,100 @@ void sphericalOffsetTransform3D(const sTransformSphericalOffset &sphericalOffset
 		}
 	}
 }
+
+//variableConstantMultiplier transform 3D  z = z + ( c * (const + variableConst * (i - Start itr)/ (Stop Itr - Start Itr)))
+void variableConstantMultiplierTransform3D(const sTransformVariableConstantMultiplier &variableConstantMultiplier, CVector3 &z, CVector3 &c, int i)
+{
+  if (variableConstantMultiplier.control.enabled && i >= variableConstantMultiplier.control.startIterations && i < variableConstantMultiplier.control.stopIterations)
+  {
+    CVector3 temp = z;
+    CVector3 tempC = variableConstantMultiplier.constantMultiplier;// constant to be varied
+    if ( i < variableConstantMultiplier.variableStartIterations)
+    {
+    ;
+    }
+    if ( i >= variableConstantMultiplier.variableStartIterations && i < variableConstantMultiplier.variableStopIterations && (variableConstantMultiplier.variableStopIterations - variableConstantMultiplier.variableStartIterations != 0))
+    {
+      tempC = (tempC + variableConstantMultiplier.variableConstant * (i - variableConstantMultiplier.variableStartIterations) / (variableConstantMultiplier.variableStopIterations - variableConstantMultiplier.variableStartIterations));
+    }
+    if ( i >= variableConstantMultiplier.variableStopIterations)
+    {
+      tempC =  (tempC + variableConstantMultiplier.variableConstant);
+    }
+    z += c  * tempC;
+
+    //weight function
+    if (variableConstantMultiplier.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, variableConstantMultiplier.control.weight);
+    }
+  }
+}
+
+// mandelbulb Variable power 3D
+void variableMandelbulbPowerTransform3D(const sTransformVariableMandelbulbPower &variableMandelbulbPower, CVector3 &z, int i, sExtendedAux &aux)
+{
+  if (variableMandelbulbPower.control.enabled && i >= variableMandelbulbPower.control.startIterations && i <variableMandelbulbPower.control.stopIterations)
+  {
+    CVector3 temp = z;
+    double tempC = variableMandelbulbPower.mandelbulbPower;// constant to be varied
+    if ( i < variableMandelbulbPower.variableStartIterations)
+    {
+    ;
+    }
+    if ( i >= variableMandelbulbPower.variableStartIterations && i < variableMandelbulbPower.variableStopIterations && (variableMandelbulbPower.variableStopIterations - variableMandelbulbPower.variableStartIterations != 0))
+    {
+      tempC = (tempC + variableMandelbulbPower.variableConstant * (i - variableMandelbulbPower.variableStartIterations) / (variableMandelbulbPower.variableStopIterations - variableMandelbulbPower.variableStartIterations));
+    }
+    if ( i >= variableMandelbulbPower.variableStopIterations)
+    {
+      tempC =  (tempC + variableMandelbulbPower.variableConstant);
+    }
+    aux.r = z.Length();
+    double th0 = asin(z.z / aux.r) + variableMandelbulbPower.mandelbulbBetaAngleOffset;
+    double ph0 = atan2(z.y, z.x) + variableMandelbulbPower.mandelbulbAlphaAngleOffset;
+    double rp = pow(aux.r, tempC - 1.0);
+    double th = th0 * tempC;
+    double ph = ph0 * tempC;
+    double cth = cos(th);
+    aux.r_dz = rp * aux.r_dz * tempC + 1.0;
+    rp *= aux.r;
+    z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
+        //weight function
+        if (variableMandelbulbPower.control.weightEnabled)
+        {
+            z = SmoothCVector(temp, z, variableMandelbulbPower.control.weight);
+    }
+  }
+}
+
+//variableScale transform 3D
+void variableScaleTransform3D(const sTransformVariableScale &variableScale, CVector3 &z, int i, sExtendedAux &aux)
+{
+  if (variableScale.control.enabled && i >= variableScale.control.startIterations && i < variableScale.control.stopIterations)
+  {
+    CVector3 tempC = variableScale.scale;// constant to be varied
+     if ( i < variableScale.variableStartIterations)
+     {
+     ;
+     }
+     if ( i >= variableScale.variableStartIterations && i < variableScale.variableStopIterations && (variableScale.variableStopIterations - variableScale.variableStartIterations != 0))
+     {
+       tempC = (tempC + variableScale.variableConstant * (i - variableScale.variableStartIterations) / (variableScale.variableStopIterations - variableScale.variableStartIterations));
+     }
+     if ( i >= variableScale.variableStopIterations)
+     {
+       tempC =  (tempC + variableScale.variableConstant);
+     }
+
+    z = z * tempC;
+    aux.DE = aux.DE * fabs((tempC.x * tempC.y * tempC.z)/3) + 1.0; // need to fix
+  }
+}
+
+
+
+
+
+
+

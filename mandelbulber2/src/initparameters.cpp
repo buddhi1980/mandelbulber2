@@ -714,6 +714,12 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_main_rotation3_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_main_rotation3", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_main_rotation3_weight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_main_rotation4_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_main_rotation4_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_main_rotation4_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_main_rotation4_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_main_rotation4", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_main_rotation4_weight", 1.0, morphLinear, paramStandard);
 
   par->addParam("transform_mengerSpongeOriginal1_enabled", true, morphLinear, paramStandard);
   par->addParam("transform_mengerSpongeOriginal1_weight_enabled", false, morphLinear, paramStandard);
@@ -806,6 +812,41 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_sphericalOffset2_scale", 1.0, morphLinear, paramStandard);
   par->addParam("transform_sphericalOffset2_weight", 1.0, morphLinear, paramStandard);
 
+  par->addParam("transform_variableConstantMultiplier1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_variableConstantMultiplier1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_variableConstantMultiplier1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_variableConstantMultiplier1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_variableConstantMultiplier1_constantMultiplier", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transform_variableConstantMultiplier1_weight", 1.0, morphLinear, paramStandard);
+  // extra for variable
+  par->addParam("transform_variableConstantMultiplier1_variable_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_variableConstantMultiplier1_variable_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_variableConstantMultiplier1_variableConstantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+
+  par->addParam("transform_variableMandelbulbPower1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_variableMandelbulbPower1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_variableMandelbulbPower1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_variableMandelbulbPower1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_variableMandelbulbPower1_power", 9.0, morphAkima, paramStandard);
+  par->addParam("transform_variableMandelbulbPower1_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
+  par->addParam("transform_variableMandelbulbPower1_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
+  par->addParam("transform_variableMandelbulbPower1_weight", 1.0, morphLinear, paramStandard);
+  // extra for variable power
+  par->addParam("transform_variableMandelbulbPower1_variable_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_variableMandelbulbPower1_variable_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_variableMandelbulbPower1_variableConstant", 0, morphAkima, paramStandard);
+
+
+  par->addParam("transform_variableScale1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_variableScale1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_variableScale1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_variableScale1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_variableScale1_scale", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transform_variableScale1_weight", 1.0, morphLinear, paramStandard);
+  // extra for variable
+  par->addParam("transform_variableScale1_variable_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_variableScale1_variable_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_variableScale1_variableScale", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
 
 

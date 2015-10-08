@@ -281,6 +281,15 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 					PlatonicSolidIteration(z, fractal);
 					break;
 				}
+        case mandelbulb6Beta:
+        {
+        bulbAux[sequence].r = r;
+        Mandelbulb6BetaIteration(z, c, i, fractal, extendedAux[sequence]);
+        break;
+      }
+
+
+
 
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
@@ -298,6 +307,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
       case mandelbox103:
       case quaternion104:
       case mengerSponge105:
+      case mandelbulb6Beta:
 			{
 				break;
 			}
@@ -376,6 +386,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				out->distance = 0.5 * r * log(r) / bulbAux[fractalIndex].r_dz;
 				break;
 			case mandelbulb5:
+      case mandelbulb6Beta:
 				out->distance = 0.5 * r * log(r) / extendedAux[fractalIndex].r_dz;
 				break;
 			case mandelbox:
@@ -443,6 +454,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 					break;
 
 	      case mandelbulb5:
+        case mandelbulb6Beta:
 	      	out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor + minimumR * 5000.0;
 	      	break;
 
