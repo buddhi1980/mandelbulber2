@@ -375,6 +375,13 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.mainRotation3.control.stopIterations = container->Get<int>("transform_main_rotation3_stop_iterations");
   transform.mainRotation3.mainRotation = container->Get<CVector3>("transform_main_rotation3");
   transform.mainRotation3.control.weight = container->Get<double>("transform_main_rotation3_weight");
+  transform.mainRotation4.control.enabled = container->Get<bool>("transform_main_rotation4_enabled");
+  transform.mainRotation4.control.weightEnabled = container->Get<bool>("transform_main_rotation4_weight_enabled");
+  transform.mainRotation4.control.startIterations = container->Get<int>("transform_main_rotation4_start_iterations");
+  transform.mainRotation4.control.stopIterations = container->Get<int>("transform_main_rotation4_stop_iterations");
+  transform.mainRotation4.mainRotation = container->Get<CVector3>("transform_main_rotation4");
+  transform.mainRotation4.control.weight = container->Get<double>("transform_main_rotation4_weight");
+
 
   transform.mengerSpongeOriginal1.mengerSpongeOriginalConstantZ = container->Get<double>("transform_mengerSpongeOriginal1_constantZ");
   transform.mengerSpongeOriginal1.mengerSpongeOriginalFactorConstantVect = container->Get<CVector3>("transform_mengerSpongeOriginal1_factorConstantVect");
@@ -467,6 +474,48 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.sphericalOffset2.control.stopIterations = container->Get<int>("transform_sphericalOffset2_stop_iterations");
   transform.sphericalOffset2.scale = container->Get<int>("transform_sphericalOffset2_scale");
   transform.sphericalOffset2.control.weight = container->Get<double>("transform_sphericalOffset2_weight");
+
+  transform.variableConstantMultiplier1.constantMultiplier = container->Get<CVector3>("transform_variableConstantMultiplier1_constantMultiplier");
+  transform.variableConstantMultiplier1.control.enabled = container->Get<bool>("transform_variableConstantMultiplier1_enabled");
+  transform.variableConstantMultiplier1.control.weightEnabled = container->Get<bool>("transform_variableConstantMultiplier1_weight_enabled");
+  transform.variableConstantMultiplier1.control.startIterations = container->Get<int>("transform_variableConstantMultiplier1_start_iterations");
+  transform.variableConstantMultiplier1.control.stopIterations = container->Get<int>("transform_variableConstantMultiplier1_stop_iterations");
+  transform.variableConstantMultiplier1.control.weight = container->Get<double>("transform_variableConstantMultiplier1_weight");
+  // extra for variable
+  transform.variableConstantMultiplier1.variableConstant = container->Get<CVector3>("transform_variableConstantMultiplier1_variableConstantMultiplier");
+  transform.variableConstantMultiplier1.variableStartIterations = container->Get<int>("transform_variableConstantMultiplier1_variable_start_iterations");
+  transform.variableConstantMultiplier1.variableStopIterations = container->Get<int>("transform_variableConstantMultiplier1_variable_stop_iterations");
+
+
+  transform.variableMandelbulbPower1.mandelbulbPower = container->Get<double>("transform_variableMandelbulbPower1_power");
+  transform.variableMandelbulbPower1.mandelbulbAlphaAngleOffset = container->Get<double>("transform_variableMandelbulbPower1_alpha_angle_offset");
+  transform.variableMandelbulbPower1.mandelbulbBetaAngleOffset = container->Get<double>("transform_variableMandelbulbPower1_beta_angle_offset");
+  transform.variableMandelbulbPower1.control.enabled = container->Get<bool>("transform_variableMandelbulbPower1_enabled");
+  transform.variableMandelbulbPower1.control.weightEnabled = container->Get<bool>("transform_variableMandelbulbPower1_weight_enabled");
+  transform.variableMandelbulbPower1.control.startIterations = container->Get<int>("transform_variableMandelbulbPower1_start_iterations");
+  transform.variableMandelbulbPower1.control.stopIterations = container->Get<int>("transform_variableMandelbulbPower1_stop_iterations");
+  transform.variableMandelbulbPower1.control.weight = container->Get<double>("transform_variableMandelbulbPower1_weight");
+  // extra for variable
+  transform.variableMandelbulbPower1.variableStartIterations = container->Get<int>("transform_variableMandelbulbPower1_variable_start_iterations");
+  transform.variableMandelbulbPower1.variableStopIterations = container->Get<int>("transform_variableMandelbulbPower1_variable_stop_iterations");
+  transform.variableMandelbulbPower1.variableConstant = container->Get<double>("transform_variableMandelbulbPower1_variableConstant");
+
+
+  transform.variableScale1.scale = container->Get<CVector3>("transform_variableScale1_scale");
+  transform.variableScale1.control.enabled = container->Get<bool>("transform_variableScale1_enabled");
+  transform.variableScale1.control.weightEnabled = container->Get<bool>("transform_variableScale1_weight_enabled");
+  transform.variableScale1.control.startIterations = container->Get<int>("transform_variableScale1_start_iterations");
+  transform.variableScale1.control.stopIterations = container->Get<int>("transform_variableScale1_stop_iterations");
+  transform.variableScale1.control.weight = container->Get<double>("transform_variableScale1_weight");
+  // extra for variable
+  transform.variableScale1.variableStartIterations = container->Get<int>("transform_variableScale1_variable_start_iterations");
+  transform.variableScale1.variableStopIterations = container->Get<int>("transform_variableScale1_variable_stop_iterations");
+  transform.variableScale1.variableConstant = container->Get<CVector3>("transform_variableScale1_variableScale");
+
+
+
+
+
 
 //----------------------------------
 

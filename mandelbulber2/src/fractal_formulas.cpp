@@ -698,7 +698,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
 	// z = z + ( c * const.); 1
 	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 
-	//  -fabs( z - constA.) * const.B;
+  //  -fabs( z - constA.) * const.B; 1
 	fabsSubConstantTransform3D(fractal->transform.fabsSubConstant1, z, i);
 
 	// z = fabs( z + const.A ) + ( z * const.B ) + const.C; 1
@@ -871,17 +871,20 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 	// sphericalFold1
 	sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
 
+  //mainRotation1
+  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+
 	//scale; 1
 	scaleTransform3D(fractal->transform.scale1, z, i, aux);
-
-	//mainRotation1
-	mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
 
 	//(fabs( z + const1A.) * const1.B) + z * constC.;
 	fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
 
 	//boxConstantMultiplier with enable fabs c , if (z > 0)  z = z +  (fabs(c) * const. );  else  z = z - fabs(c) * const. ); 1
 	boxConstantMultiplierTransform3D(fractal->transform.boxConstantMultiplier1, z, c, i);
+
+  //mainRotation2
+  mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
 
 	// z = z + ( c * const.); 1
 	constantMultiplierTransform3D(fractal->transform.constantMultiplier1, z, c, i);
@@ -892,8 +895,6 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 	//  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 1
 	fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD1, z, i);
 
-	//mainRotation2
-	mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
 
 	//MENGER SPONGE 1
 	mengerSpongeTransform3D(fractal->transform.mengerSponge1, z, i, aux);
@@ -910,6 +911,9 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 	// sphericalFold2
 	sphericalFoldTransform3D(fractal->transform.sphericalFold2, z, i, aux);
 
+  //mainRotation; 3
+  mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
+
 	//scale; 2
 	scaleTransform3D(fractal->transform.scale2, z, i, aux);
 
@@ -925,14 +929,96 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 	//MENGER SPONGE 2
 	mengerSpongeTransform3D(fractal->transform.mengerSponge2, z, i, aux);
 
-	//mainRotation; 3
-	mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
+  //mainRotation; 4
+  mainRotationTransform3D(fractal->transform.mainRotation4, z, i);
 
 	//  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
 	fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
 
 	// Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);1
 	iterationWeightTransform3D(fractal->transform.iterationWeight1, z, i);
+}
+//------------MANDELBULB VARIABLE POWER EXTENDED--------------------------------
+void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
+{
+
+  //boxOffset1
+  boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
+
+  //boxFold1
+  boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
+
+  // sphericalOffset1
+  sphericalOffsetTransform3D(fractal->transform.sphericalOffset1, z, i, aux);
+
+  // sphericalFold1
+  sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
+
+  //scale; 1
+  scaleTransform3D(fractal->transform.scale1, z, i, aux);
+
+  //varableScale; 1
+  variableScaleTransform3D(fractal->transform.variableScale1, z, i, aux);
+
+  //mainRotation1
+  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+
+
+  // z =(fabs( z + const1A.) * const1.B) + z * constC.;
+  fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
+
+  //MAIN FORMULA ORIGINAL1
+  // mandelbulb 3D 1
+  mandelbulbOriginalTransform3D(fractal->transform.mandelbulbOriginal1, z, i, aux);
+
+  // z = z + ( c * const.); 1
+  constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
+
+  //  -fabs( z - constA.) * const.B;
+  fabsSubConstantTransform3D(fractal->transform.fabsSubConstant1, z, i);
+
+  // z = fabs( z + const.A ) + ( z * const.B ) + const.C; 1
+  fabsFormulaZABTransform3D(fractal->transform.fabsFormulaZAB1, z, i);
+
+  // z = z + const; 1
+  additionConstantTransform3D(fractal->transform.additionConstant1, z, i);
+
+  //  z = fabs( z + constA.) - fabs( z - constB.) - z; 1
+  fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB1, z, i);
+
+  //mainRotation; 2
+  mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
+
+  //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
+  fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
+
+  // mandelbulb 3D 1
+  mandelbulbTransform3D(fractal->transform.mandelbulb1, z, i, aux);
+
+  // mandelbulb vatable power 3D 1
+  variableMandelbulbPowerTransform3D(fractal->transform.variableMandelbulbPower1, z, i, aux);
+
+  //mainRotation; 3
+  mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
+
+  // z = z + c * const; 1
+  constantMultiplierTransform3D(fractal->transform.constantMultiplier1, z, c, i);
+
+  //variableConstantMultiplier 1
+  variableConstantMultiplierTransform3D(fractal->transform.variableConstantMultiplier1, z, c, i);
+
+  //boxConstantMultiplier with enable fabs 2
+  boxConstantMultiplierTransform3D(fractal->transform.boxConstantMultiplier2, z, c, i);
+
+
+  // z = z + const; 2
+  additionConstantTransform3D(fractal->transform.additionConstant2, z, i);
+
+  //  z = fabs( z + constA.) - fabs( z - constB.) - z; 2
+  fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB2, z, i);
+
+  //boxFold; 2
+  boxFoldTransform3D(fractal->transform.boxFold2, z, i, aux);
 }
 
 void PlatonicSolidIteration(CVector3 &z, const cFractal *fractal)

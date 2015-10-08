@@ -78,7 +78,8 @@ enum enumFractalFormula
   mandelbox103 = 53,
   quaternion104 = 54,
   mengerSponge105 = 55,
-	platonicSolid = 56
+  platonicSolid = 56,
+  mandelbulb6Beta = 57,
 };
 
 enum enumDEType

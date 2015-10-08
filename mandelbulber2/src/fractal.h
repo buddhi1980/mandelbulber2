@@ -425,6 +425,32 @@ struct sTransformSphericalOffset
   double scale;
 };
 
+struct sTransformVariableConstantMultiplier
+{
+  sTransformControl control;
+  CVector3 constantMultiplier;
+  CVector3 variableConstant;
+  int variableStartIterations;
+  int variableStopIterations;
+};
+struct sTransformVariableMandelbulbPower
+{
+  sTransformControl control;
+  double mandelbulbPower;
+  double mandelbulbAlphaAngleOffset;
+  double mandelbulbBetaAngleOffset;
+  double variableConstant;
+  int variableStartIterations;
+  int variableStopIterations;
+};
+struct sTransformVariableScale
+{
+  sTransformControl control;
+  CVector3 scale;
+  CVector3 variableConstant;
+  int variableStartIterations;
+  int variableStopIterations;
+};
 
 
 
@@ -442,7 +468,6 @@ struct sFractalTransform
   sTransformConstantMultiplierOriginal constantMultiplierOriginal1;
   sTransformConstantMultiplier  constantMultiplier1;
   sTransformConstantMultiplier  constantMultiplier2;
-
   sTransformFabsAddConstant fabsAddConstant1;
   sTransformFabsFormulaAB fabsFormulaAB1;
   sTransformFabsFormulaAB fabsFormulaAB2;
@@ -456,6 +481,7 @@ struct sFractalTransform
   sTransformMainRotation mainRotation1;
   sTransformMainRotation mainRotation2;
   sTransformMainRotation mainRotation3;
+  sTransformMainRotation mainRotation4;
   sTransformMengerSpongeOriginal mengerSpongeOriginal1;
   sTransformMengerSponge mengerSponge1;
   sTransformMengerSponge mengerSponge2;
@@ -469,19 +495,11 @@ struct sFractalTransform
   sTransformSphericalFold sphericalFold2;
   sTransformSphericalOffset sphericalOffset1;
   sTransformSphericalOffset sphericalOffset2;
+  sTransformVariableConstantMultiplier variableConstantMultiplier1;
+  sTransformVariableMandelbulbPower variableMandelbulbPower1;
+  sTransformVariableScale variableScale1;
 
   //TODO here will be more transforms
-};
-
-struct sFractalQuaternion104
-{
-
-
-};
-    //----------------------------------------------------------
-struct sFractalMengerSponge105
-{
-
 };
 
 
@@ -509,8 +527,6 @@ public:
 	sFractalAexion aexion;
 	sFractalBuffalo buffalo;
 	sMsltoeSym2 msltoeSym2;
-  sFractalQuaternion104 quaternion104;
-  sFractalMengerSponge105 mengerSponge105;
   sFractalTransform transform;
 	sFractalPlatonicSolid platonicSolid;
 
