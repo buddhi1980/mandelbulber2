@@ -58,7 +58,8 @@ bool cScheduler::ThereIsStillSomethingToDo(int threadId)
 	bool result = false;
 	for(int i = 0; i<numberOfLines; i++)
 	{
-		if(lineDone[i] == false)// && (linePendingThreadId[i] == threadId || linePendingThreadId[i] == 0))
+		//qDebug() << "ThereIsStillSomethingToDo:" << i << lineDone[i];
+		if((lineDone[i] == false) && (linePendingThreadId[i] == threadId || linePendingThreadId[i] == 0))
 		{
 			result = true;
 			break;
@@ -75,6 +76,7 @@ bool cScheduler::AllLinesDone(void)
 	bool result = true;
 	for(int i = 0; i<numberOfLines; i++)
 	{
+		//qDebug() << "AllLinesDone:" << i << lineDone[i];
 		if(lineDone[i] == false)
 		{
 			result = false;
@@ -122,7 +124,7 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 	}
 	else
 	{
-		//qDebug() << "threadID:" << threadId << " lastLineWasBroken";
+		//qDebug() << "threadID:" << threadId << " lastLineWasBroken, line:" << actualLine;
 	}
 
 	//next line is not occupied by any thread
@@ -177,6 +179,13 @@ int cScheduler::FindBiggestGap()
 		{
 			firstFreeFound = true;
 			firstFree = i;
+			if(i == numberOfLines - 1)
+			{
+				theBest = i;
+				theBest /= progressiveStep;
+				theBest *= progressiveStep;
+				break;
+			}
 			continue;
 		}
 
