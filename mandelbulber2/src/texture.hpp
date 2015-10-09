@@ -50,7 +50,6 @@ private:
 	int width;
 	int height;
 	bool loaded;
-	QImage qimage;
 	QString originalFileName;
 };
 
