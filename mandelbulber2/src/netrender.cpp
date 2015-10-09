@@ -478,6 +478,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 						thread->start();
 
 						QObject::connect(headless, SIGNAL(finished()), headless, SLOT(deleteLater()));
+						QObject::connect(headless, SIGNAL(finished()), thread, SLOT(quit()));
 						QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 					}
 

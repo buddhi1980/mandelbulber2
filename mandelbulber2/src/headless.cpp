@@ -36,6 +36,7 @@ cHeadless::cHeadless() : QObject()
 cHeadless::~cHeadless()
 {
 	// TODO Auto-generated destructor stub
+	qDebug() << "cHeadless::~cHeadless()";
 }
 
 void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
@@ -115,6 +116,7 @@ void cHeadless::RenderKeyframeAnimation()
 
 void cHeadless::slotNetRender()
 {
+	gMainInterface->stopRequest = true;
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
 

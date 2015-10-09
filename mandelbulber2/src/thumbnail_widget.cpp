@@ -168,7 +168,7 @@ void cThumbnailWidget::slotRender()
 	QObject::connect(renderJob, SIGNAL(finished()), renderJob, SLOT(deleteLater()));
 	QObject::connect(renderJob, SIGNAL(finished()), thread, SLOT(quit()));
 	QObject::connect(renderJob, SIGNAL(fullyRendered()), this, SLOT(slotFullyRendered()));
-
+	QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 }
 
 void cThumbnailWidget::slotFullyRendered()

@@ -91,7 +91,6 @@ cTexture& cTexture::operator=(const cTexture &tex)
 
 void cTexture::FromQByteArray(QByteArray buffer)
 {
-	buffer.detach();
 	if(bitmap)
 	{
 		qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): delete[] bitmap;:" << width * height * sizeof(sRGB8);
@@ -99,8 +98,8 @@ void cTexture::FromQByteArray(QByteArray buffer)
 	}
 
 	bitmap = NULL;
-	QImage qimage;
-	qimage = QImage::fromData(buffer);
+	QImage qimage(buffer);
+	qimage.loadFromData(buffer);
 	qimage = qimage.convertToFormat(QImage::Format_RGB888);
 	if (!qimage.isNull())
 	{
