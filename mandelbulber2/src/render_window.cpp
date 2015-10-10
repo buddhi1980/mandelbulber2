@@ -1902,6 +1902,7 @@ void RenderWindow::slotQueueListUpdate(int i)
 {
 	// update row i
 	QTableWidget *table = ui->tableWidget_queue_list;
+	table->setRowHeight(i, 70);
 	for(int j = 0; j < table->columnCount(); j++)
 	{
 		slotQueueListUpdate(i, j);
@@ -1928,7 +1929,7 @@ void RenderWindow::slotQueueListUpdate(int i, int j)
 			{
 				cSettings parSettings(cSettings::formatFullText);
 				parSettings.BeQuiet(true);
-				if (parSettings.LoadFromFile(gQueue->GetQueueFolder() + "/" + queueList.at(i).filename))
+				if (parSettings.LoadFromFile(queueList.at(i).filename))
 				{
 					cParameterContainer *par = new cParameterContainer;
 					cFractalContainer *parFractal = new cFractalContainer;

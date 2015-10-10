@@ -324,6 +324,8 @@ using namespace parameterContainer;
 	par->addParam("default_textures_path", systemData.sharedDir + "textures", morphNone, paramApp);
 	par->addParam("default_settings_path", systemData.dataDirectory + "settings", morphNone, paramApp);
 
+	par->addParam("show_queue_thumbnails", false, morphNone, paramApp);
+
 	//----------------------- preferences ---------------------
 	par->addParam("language", QString("unknown"), morphNone, paramApp);
 	par->addParam("ui_style_type", -1, morphNone, paramApp);

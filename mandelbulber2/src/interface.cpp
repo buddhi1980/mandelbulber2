@@ -348,6 +348,7 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_image_adjustments, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_rendering_engine, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_queue_dock, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_common, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractal_hybrid, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_primitives, par, mode);
