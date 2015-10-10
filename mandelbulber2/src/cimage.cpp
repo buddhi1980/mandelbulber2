@@ -62,7 +62,7 @@ cImage::cImage(int w, int h, bool low_mem)
 
 cImage::~cImage()
 {
-	qDebug() << "cImage::~cImage()";
+	//qDebug() << "cImage::~cImage()";
 	FreeImage();
 	if(gammaTable) delete[] gammaTable;
 	gammaTable = NULL;
@@ -77,7 +77,7 @@ cImage::~cImage()
 
 bool cImage::AllocMem(void)
 {
-	qDebug() << "bool cImage::AllocMem(void)";
+	//qDebug() << "bool cImage::AllocMem(void)";
 	if (width > 0 && height > 0)
 	{
 		try
@@ -146,7 +146,7 @@ void cImage::ClearImage(void)
 
 void cImage::FreeImage(void)
 {
-	qDebug() << "void cImage::FreeImage(void)";
+	//qDebug() << "void cImage::FreeImage(void)";
 	if (imageFloat) delete[] imageFloat;
 	imageFloat = NULL;
 	if (image16) delete[] image16;

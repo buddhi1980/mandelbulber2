@@ -71,8 +71,9 @@ void cQueue::Append(const QString &filename, enumRenderType renderType)
 		if (parSettings.LoadFromFile(filename))
 		{
 			QString filenameQueue = "queue_" + parSettings.GetHashCode() + ".fract";
-			parSettings.SaveToFile(queueFolder + "/" + filenameQueue);
-			AddToList(structQueueItem(filenameQueue, renderType));
+			QString completeFileName = queueFolder + QDir::separator() + filenameQueue;
+			parSettings.SaveToFile(completeFileName);
+			AddToList(structQueueItem(completeFileName, renderType));
 		}
 	}
 }
@@ -89,8 +90,9 @@ void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnim
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(par, fractPar, frames, keyframes);
 	QString filename = "queue_" + parSettings.GetHashCode() + ".fract";
-	parSettings.SaveToFile(queueFolder + "/" + filename);
-	AddToList(structQueueItem(filename, renderType));
+	QString completeFileName = queueFolder + QDir::separator() + filename;
+	parSettings.SaveToFile(completeFileName);
+	AddToList(structQueueItem(completeFileName, renderType));
 }
 
 bool cQueue::Get()
@@ -231,7 +233,9 @@ void cQueue::StoreList()
 void cQueue::RemoveFromFileSystem(const QString &filename)
 {
 	//remove queue file from filesystem
-	QFile::remove(queueFolder + "/" + filename);
+
+	//TODO only remove files from queue folder (there could be some other files on the list which are located in another folders)
+	QFile::remove(filename);
 }
 
 cQueue::enumRenderType cQueue::GetTypeEnum(const QString &queueText)

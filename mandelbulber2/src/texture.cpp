@@ -42,7 +42,7 @@ cTexture::cTexture(QString filename, bool beQuiet)
 		bitmap = new sRGB8[width * height];
 		memcpy(bitmap, qimage.constBits(), sizeof(sRGB8) * width * height);
 
-		qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): (sRGB8*)(qimage.bits());:" << width * height * sizeof(sRGB8);
+		//qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): (sRGB8*)(qimage.bits());:" << width * height * sizeof(sRGB8);
 		loaded = true;
 		originalFileName = filename;
 	}
@@ -54,7 +54,7 @@ cTexture::cTexture(QString filename, bool beQuiet)
 		loaded = false;
 		bitmap = new sRGB8[100 * 100];
 		memset(bitmap,255,sizeof(sRGB8)*100*100);
-		qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): new sRGB8[100 * 100];:" << width * height * sizeof(sRGB8);
+		//qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): new sRGB8[100 * 100];:" << width * height * sizeof(sRGB8);
 	}
 }
 
@@ -66,7 +66,7 @@ cTexture::cTexture(const cTexture &tex)
 	loaded = tex.loaded;
 	originalFileName = tex.originalFileName;
 	bitmap = new sRGB8[width * height];
-	qDebug() << "cTexture::cTexture(const cTexture &tex):  new sRGB8[width * height]:" << width * height * sizeof(sRGB8);
+	//qDebug() << "cTexture::cTexture(const cTexture &tex):  new sRGB8[width * height]:" << width * height * sizeof(sRGB8);
 	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
 }
 
@@ -76,14 +76,14 @@ cTexture& cTexture::operator=(const cTexture &tex)
 	{
 		delete[] bitmap;
 		bitmap = NULL;
-		qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): 	delete[] bitmap;:" << width * height * sizeof(sRGB8);
+		//qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): 	delete[] bitmap;:" << width * height * sizeof(sRGB8);
 	}
 	width = tex.width;
 	height = tex.height;
 	loaded = tex.loaded;
 	originalFileName = tex.originalFileName;
 	bitmap = new sRGB8[width * height];
-	qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): 	new sRGB8[width * height];:" << width * height * sizeof(sRGB8);
+	//qDebug() << "cTexture& cTexture::operator=(const cTexture &tex): 	new sRGB8[width * height];:" << width * height * sizeof(sRGB8);
 	memcpy(bitmap, tex.bitmap, sizeof(sRGB8) * width * height);
 
 	return *this;
@@ -93,7 +93,7 @@ void cTexture::FromQByteArray(QByteArray buffer)
 {
 	if(bitmap)
 	{
-		qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): delete[] bitmap;:" << width * height * sizeof(sRGB8);
+		//qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): delete[] bitmap;:" << width * height * sizeof(sRGB8);
 		delete[] bitmap;
 	}
 
@@ -107,7 +107,7 @@ void cTexture::FromQByteArray(QByteArray buffer)
 		height = qimage.height();
 		bitmap = new sRGB8[width * height];
 		memcpy(bitmap, qimage.constBits(), sizeof(sRGB8) * width * height);
-		qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): (sRGB8*)(qimage.bits()):" << width * height * sizeof(sRGB8);
+		//qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): (sRGB8*)(qimage.bits()):" << width * height * sizeof(sRGB8);
 		loaded = true;
 	}
 	else
@@ -123,7 +123,7 @@ cTexture::cTexture(void)
 	loaded = false;
 	bitmap = new sRGB8[100 * 100];
 	memset(bitmap,255,sizeof(sRGB8)*100*100);
-	qDebug() << "cTexture::cTexture(void): new sRGB8[100 * 100]" << width * height * sizeof(sRGB8);
+	//qDebug() << "cTexture::cTexture(void): new sRGB8[100 * 100]" << width * height * sizeof(sRGB8);
 }
 
 //destructor
@@ -133,7 +133,7 @@ cTexture::~cTexture(void)
 	{
 		delete[] bitmap;
 		bitmap = NULL;
-		qDebug() << "cTexture::~cTexture(void): delete[] bitmap:" << width * height * sizeof(sRGB8);
+		//qDebug() << "cTexture::~cTexture(void): delete[] bitmap:" << width * height * sizeof(sRGB8);
 	}
 	else
 	{
