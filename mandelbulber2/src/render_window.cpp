@@ -1842,6 +1842,22 @@ void RenderWindow::slotQueueAddFromFile()
 	}
 }
 
+void RenderWindow::slotQueueAddOrphaned()
+{
+	gQueue->AddOrphanedFilesToList();
+}
+
+void RenderWindow::slotQueueRemoveOrphaned()
+{
+	gQueue->RemoveOrphanedFiles();
+}
+
+void RenderWindow::slotQueueRemoveItem()
+{
+	QString buttonName = this->sender()->objectName();
+	gQueue->RemoveQueueItem(buttonName.toInt());
+}
+
 void RenderWindow::slotQueueListUpdate()
 {
 	QTableWidget *table = ui->tableWidget_queue_list;
@@ -1901,17 +1917,17 @@ void RenderWindow::slotQueueListUpdate(int i, int j)
 	{
 		case 0: cell->setText(queueList.at(i).filename); break;
 		case 1: {
-			if(true) // ui->checkBox_show_queue_thumbnails->isChecked()
+			if(ui->checkBox_show_queue_thumbnails->isChecked())
 			{
 				cSettings parSettings(cSettings::formatFullText);
 				parSettings.BeQuiet(true);
-				if (parSettings.LoadFromFile(queueList.at(i).filename))
+				if (parSettings.LoadFromFile(gQueue->GetQueueFolder() + "/" + queueList.at(i).filename))
 				{
 					cParameterContainer *par = new cParameterContainer;
 					cFractalContainer *parFractal = new cFractalContainer;
 					InitParams(par);
-					for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
-						InitFractalParams(&parFractal->at(i));
+					for(int f = 0; f < NUMBER_OF_FRACTALS; f++)
+						InitFractalParams(&parFractal->at(f));
 					if(parSettings.Decode(par, parFractal))
 					{
 						cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
@@ -1923,6 +1939,7 @@ void RenderWindow::slotQueueListUpdate(int i, int j)
 					delete parFractal;
 				}
 			}
+			break;
 		}
 		case 2:
 		{
@@ -1930,9 +1947,16 @@ void RenderWindow::slotQueueListUpdate(int i, int j)
 			QString color = cQueue::GetTypeColor(queueList.at(i).renderType);
 			cell->setText(text);
 			cell->setTextColor(color);
-		break;
+			break;
 		}
-		case 3: cell->setText(""); break;
+		case 3: {
+			QPushButton *actionButton = new QPushButton;
+			actionButton->setText("Remove");
+			actionButton->setObjectName(QString::number(i));
+			QObject::connect(actionButton, SIGNAL(pressed()), this, SLOT(slotQueueRemoveItem()));
+			table->setCellWidget(i, j, actionButton);
+			break;
+		}
 	}
 }
 

@@ -50,7 +50,10 @@ cQueue::cQueue(const QString &_queueListFileName, const QString &_queueFolder)
 	queueFileWatcher.addPath(queueListFileName);
 	queueFolderWatcher.addPath(queueFolder);
 	QApplication::connect(&queueFileWatcher, SIGNAL(fileChanged(const QString&)), this, SLOT(queueFileChanged(const QString&)));
-	QApplication::connect(&queueFileWatcher, SIGNAL(directoryChanged(const QString&)), this, SLOT(queueFolderChanged(const QString&)));
+	QApplication::connect(&queueFolderWatcher, SIGNAL(directoryChanged(const QString&)), this, SLOT(queueFolderChanged(const QString&)));
+
+	UpdateListFromQueueFile();
+	UpdateListFromFileSystem();
 }
 
 cQueue::~cQueue()
@@ -70,7 +73,6 @@ void cQueue::Append(const QString &filename, enumRenderType renderType)
 			QString filenameQueue = "queue_" + parSettings.GetHashCode() + ".fract";
 			parSettings.SaveToFile(queueFolder + "/" + filenameQueue);
 			AddToList(filenameQueue, renderType);
-			emit queueChanged();
 		}
 	}
 }
@@ -89,7 +91,6 @@ void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnim
 	QString filename = "queue_" + parSettings.GetHashCode() + ".fract";
 	parSettings.SaveToFile(queueFolder + "/" + filename);
 	AddToList(filename, renderType);
-	emit queueChanged();
 }
 
 bool cQueue::Get()
@@ -112,8 +113,9 @@ bool cQueue::Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimati
 	return false;
 }
 
-QStringList cQueue::DeleteOrphanedFiles()
+QStringList cQueue::RemoveOrphanedFiles()
 {
+	qDebug() << "remove orphaned";
 	// find and delete files which are not on the list
 	QList<structQueueItem> queueListFromQueueFile = GetListFromQueueFile();
 	QStringList queueListFromFileSystem = GetListFromFileSystem();
@@ -131,7 +133,7 @@ QStringList cQueue::DeleteOrphanedFiles()
 		if(!inList)
 		{
 			removeList << queueListFromFileSystem[i];
-			QFile::remove(queueListFromFileSystem[i]);
+			RemoveFromFileSystem(queueListFromFileSystem[i]);
 		}
 	}
 	return removeList;
@@ -140,6 +142,7 @@ QStringList cQueue::DeleteOrphanedFiles()
 QStringList cQueue::AddOrphanedFilesToList()
 {
 	// add orphaned files from queue folder to the end of the list
+	qDebug() << "add orphaned";
 	QList<structQueueItem> queueListFromQueueFile = GetListFromQueueFile();
 	QStringList queueListFromFileSystem = GetListFromFileSystem();
 	QStringList appendList;
@@ -188,6 +191,16 @@ cQueue::structQueueItem cQueue::GetNextFromList()
 void cQueue::AddToList(const QString &filename, enumRenderType renderType)
 {
 	//add filename to the end of list
+	QList<structQueueItem> queueList = GetListFromQueueFile();
+	for(int i = 0; i < queueList.size(); i++)
+	{
+		if(queueList.at(i).filename == filename && queueList.at(i).renderType == renderType)
+		{
+			qWarning() << "Entry already exists";
+			return;
+		}
+	}
+
 	QFile file(queueListFileName);
 	if (file.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
@@ -199,10 +212,10 @@ void cQueue::AddToList(const QString &filename, enumRenderType renderType)
 		throw QString("cannot open queueListFileName: " + queueListFileName);
 }
 
-bool cQueue::ValidateEntry(const QString &filename)
+void cQueue::RemoveQueueItem(int i)
 {
-	//checks if
-	//TODO
+	QList<structQueueItem> queueList = GetListFromQueueFile();
+	RemoveQueueItem(queueList.at(i).filename, queueList.at(i).renderType);
 }
 
 void cQueue::RemoveQueueItem(const QString &filename, enumRenderType renderType)
@@ -219,6 +232,12 @@ void cQueue::RemoveQueueItem(const QString &filename, enumRenderType renderType)
 		}
 	}
 	RemoveFromFileSystem(filename);
+}
+
+bool cQueue::ValidateEntry(const QString &filename)
+{
+	//checks if
+	//TODO
 }
 
 void cQueue::RemoveFromList(const QString &filename, enumRenderType renderType)
@@ -244,7 +263,7 @@ void cQueue::RemoveFromList(const QString &filename, enumRenderType renderType)
 void cQueue::RemoveFromFileSystem(const QString &filename)
 {
 	//remove queue file from filesystem
-	QFile::remove(filename);
+	QFile::remove(queueFolder + "/" + filename);
 }
 
 cQueue::enumRenderType cQueue::GetTypeEnum(const QString &queueText)
@@ -281,6 +300,7 @@ QString cQueue::GetTypeColor(enumRenderType queueType)
 
 void cQueue::queueFileChanged(const QString &path)
 {
+	qDebug() << "queueFileChanged";
 	if(path == queueListFileName)
 	{
 		UpdateListFromQueueFile();
@@ -289,6 +309,7 @@ void cQueue::queueFileChanged(const QString &path)
 
 void cQueue::queueFolderChanged(const QString &path)
 {
+	qDebug() << "queueFolderChanged";
 	UpdateListFromFileSystem();
 }
 
@@ -314,6 +335,7 @@ void cQueue::UpdateListFromQueueFile()
 		}
 		file.close();
 	}
+	emit queueChanged();
 }
 
 void cQueue::UpdateListFromFileSystem()

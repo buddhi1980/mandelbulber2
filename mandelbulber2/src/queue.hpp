@@ -61,11 +61,12 @@ public:
 	bool Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes);
 
 	// syncing methods
-	QStringList DeleteOrphanedFiles(); //find and delete files which are not on the list
+	QStringList RemoveOrphanedFiles(); //find and delete files which are not on the list
 	QStringList AddOrphanedFilesToList(); //add orphaned files from queue folder to the end of the list
 
 	QList<structQueueItem> GetListFromQueueFile(){ return queueListFromFile; } //returns list of fractals to render from queue file
 	QStringList GetListFromFileSystem(){ return queueListFileSystem; } //returns list of fractals to render from file system
+	QString GetQueueFolder(){ return queueFolder; }
 
 	//get the queue type enum from qstring value
 	static enumRenderType GetTypeEnum(const QString &queueText);
@@ -73,6 +74,9 @@ public:
 	static QString GetTypeText(enumRenderType queueType);
 	//get a color for enum value
 	static QString GetTypeColor(enumRenderType queueType);
+
+	void RemoveQueueItem(int i);//remove queue item which is i'th element of list
+	void RemoveQueueItem(const QString &filename, enumRenderType renderType = queue_STILL); //remove queue item from list and filesystem
 
 signals:
 	//request to update table of queue items
@@ -88,7 +92,6 @@ private:
 	structQueueItem GetNextFromList(); //gives next filename
 	void AddToList(const QString &filename, enumRenderType renderType = queue_STILL); //add filename to the end of list
 
-	void RemoveQueueItem(const QString &filename, enumRenderType renderType = queue_STILL); //remove queue item from list and filesystem
 	void RemoveFromList(const QString &filename, enumRenderType renderType = queue_STILL); //remove queue item if it is on the list
 	void RemoveFromFileSystem(const QString &filename); //remove queue file from filesystem
 
