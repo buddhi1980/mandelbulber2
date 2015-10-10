@@ -234,6 +234,11 @@ void cQueue::RemoveQueueItem(const QString &filename, enumRenderType renderType)
 	RemoveFromFileSystem(filename);
 }
 
+void cQueue::UpdateQueueItemType(int i, enumRenderType renderType)
+{
+	//TODO
+}
+
 bool cQueue::ValidateEntry(const QString &filename)
 {
 	//checks if

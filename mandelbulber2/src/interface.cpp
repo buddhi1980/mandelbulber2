@@ -225,6 +225,7 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->actionShow_info_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionShow_statistics_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionShow_gamepad_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
+	QApplication::connect(mainWindow->ui->actionShow_queue_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveSettings()));
 	QApplication::connect(mainWindow->ui->actionSave_settings_to_clipboard, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveSettingsToClipboard()));
 	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadSettings()));
@@ -309,6 +310,9 @@ void cInterface::ConnectSignals(void)
 	//Queue
 	QApplication::connect(mainWindow->ui->pushButton_queue_add_current_settings, SIGNAL(clicked()), mainWindow, SLOT(slotQueueAddCurrentSettings()));
 	QApplication::connect(mainWindow->ui->pushButton_queue_add_from_file, SIGNAL(clicked()), mainWindow, SLOT(slotQueueAddFromFile()));
+	QApplication::connect(mainWindow->ui->pushButton_queue_add_orphaned, SIGNAL(clicked()), mainWindow, SLOT(slotQueueAddOrphaned()));
+	QApplication::connect(mainWindow->ui->pushButton_queue_remove_orphaned, SIGNAL(clicked()), mainWindow, SLOT(slotQueueRemoveOrphaned()));
+
 	QApplication::connect(gQueue, SIGNAL(queueChanged()), mainWindow, SLOT(slotQueueListUpdate()));
 	QApplication::connect(gQueue, SIGNAL(queueChanged(int)), mainWindow, SLOT(slotQueueListUpdate(int)));
 	QApplication::connect(gQueue, SIGNAL(queueChanged(int, int)), mainWindow, SLOT(slotQueueListUpdate(int, int)));

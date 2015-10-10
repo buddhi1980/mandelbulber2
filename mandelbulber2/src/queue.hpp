@@ -77,6 +77,7 @@ public:
 
 	void RemoveQueueItem(int i);//remove queue item which is i'th element of list
 	void RemoveQueueItem(const QString &filename, enumRenderType renderType = queue_STILL); //remove queue item from list and filesystem
+	void UpdateQueueItemType(int i, enumRenderType renderType);
 
 signals:
 	//request to update table of queue items

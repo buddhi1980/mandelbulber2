@@ -368,6 +368,7 @@ void RenderWindow::slotMenuResetDocksPositions()
 	ui->dockWidget_info->hide();
 	ui->dockWidget_animation->hide();
 	ui->dockWidget_gamepad_dock->hide();
+	ui->dockWidget_queue_dock->hide();
 }
 
 void RenderWindow::slotChangedComboFractal(int index)
@@ -1858,6 +1859,12 @@ void RenderWindow::slotQueueRemoveItem()
 	gQueue->RemoveQueueItem(buttonName.toInt());
 }
 
+void RenderWindow::slotQueueTypeChanged(int index)
+{
+	QString buttonName = this->sender()->objectName();
+	gQueue->UpdateQueueItemType(index, (cQueue::enumRenderType)buttonName.toInt());
+}
+
 void RenderWindow::slotQueueListUpdate()
 {
 	QTableWidget *table = ui->tableWidget_queue_list;
@@ -1943,13 +1950,20 @@ void RenderWindow::slotQueueListUpdate(int i, int j)
 		}
 		case 2:
 		{
-			QString text = cQueue::GetTypeText(queueList.at(i).renderType);
-			QString color = cQueue::GetTypeColor(queueList.at(i).renderType);
-			cell->setText(text);
-			cell->setTextColor(color);
+			QComboBox *typeComboBox = new QComboBox;
+			typeComboBox->addItem(cQueue::GetTypeText(cQueue::queue_STILL));
+			typeComboBox->addItem(cQueue::GetTypeText(cQueue::queue_FLIGHT));
+			typeComboBox->addItem(cQueue::GetTypeText(cQueue::queue_KEYFRAME));
+			typeComboBox->setCurrentIndex(queueList.at(i).renderType);
+
+			typeComboBox->setObjectName(QString::number(i));
+			QObject::connect(typeComboBox, SIGNAL(currentIndexChanged(int index)), this, SLOT(slotQueueTypeChanged(int index)));
+			table->setCellWidget(i, j, typeComboBox);
+			// cell->setTextColor(color);
 			break;
 		}
-		case 3: {
+		case 3:
+		{
 			QPushButton *actionButton = new QPushButton;
 			actionButton->setText("Remove");
 			actionButton->setObjectName(QString::number(i));
