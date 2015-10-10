@@ -1862,7 +1862,7 @@ void RenderWindow::slotQueueRemoveItem()
 void RenderWindow::slotQueueTypeChanged(int index)
 {
 	QString buttonName = this->sender()->objectName();
-	gQueue->UpdateQueueItemType(index, (cQueue::enumRenderType)buttonName.toInt());
+	gQueue->UpdateQueueItemType(buttonName.toInt(), (cQueue::enumRenderType)index);
 }
 
 void RenderWindow::slotQueueListUpdate()
@@ -1957,12 +1957,18 @@ void RenderWindow::slotQueueListUpdate(int i, int j)
 			typeComboBox->setCurrentIndex(queueList.at(i).renderType);
 
 			typeComboBox->setObjectName(QString::number(i));
-			QObject::connect(typeComboBox, SIGNAL(currentIndexChanged(int index)), this, SLOT(slotQueueTypeChanged(int index)));
+			QObject::connect(typeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQueueTypeChanged(int)));
 			table->setCellWidget(i, j, typeComboBox);
 			// cell->setTextColor(color);
 			break;
 		}
 		case 3:
+		{
+			//TODO status
+			cell->setText("???");
+			break;
+		}
+		case 4:
 		{
 			QPushButton *actionButton = new QPushButton;
 			actionButton->setText("Remove");

@@ -40,12 +40,15 @@ public:
 
 	struct structQueueItem {
 		structQueueItem(
-			enumRenderType _renderType,
-			QString _filename):
-			renderType(_renderType), filename(_filename) {}
-
-		enumRenderType renderType;
+			QString _filename,
+			enumRenderType _renderType):
+			filename(_filename), renderType(_renderType) {}
+		bool operator==(const structQueueItem& other) const
+		{
+			return (filename == other.filename && renderType == other.renderType);
+		}
 		QString filename;
+		enumRenderType renderType;
 	};
 
 	cQueue(const QString &_queueListFileName, const QString &_queueFolder); //initializes queue and create necessary files and folders
@@ -76,7 +79,7 @@ public:
 	static QString GetTypeColor(enumRenderType queueType);
 
 	void RemoveQueueItem(int i);//remove queue item which is i'th element of list
-	void RemoveQueueItem(const QString &filename, enumRenderType renderType = queue_STILL); //remove queue item from list and filesystem
+	void RemoveQueueItem(const structQueueItem &queueItem); //remove queue item from list and filesystem
 	void UpdateQueueItemType(int i, enumRenderType renderType);
 
 signals:
@@ -91,10 +94,11 @@ private slots:
 
 private:
 	structQueueItem GetNextFromList(); //gives next filename
-	void AddToList(const QString &filename, enumRenderType renderType = queue_STILL); //add filename to the end of list
+	void AddToList(const structQueueItem &queueItem); //add filename to the end of list
 
-	void RemoveFromList(const QString &filename, enumRenderType renderType = queue_STILL); //remove queue item if it is on the list
+	void RemoveFromList(const structQueueItem &queueItem); //remove queue item if it is on the list
 	void RemoveFromFileSystem(const QString &filename); //remove queue file from filesystem
+	void StoreList();
 
 	bool ValidateEntry(const QString &filename);
 

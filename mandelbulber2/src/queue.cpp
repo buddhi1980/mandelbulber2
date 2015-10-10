@@ -72,7 +72,7 @@ void cQueue::Append(const QString &filename, enumRenderType renderType)
 		{
 			QString filenameQueue = "queue_" + parSettings.GetHashCode() + ".fract";
 			parSettings.SaveToFile(queueFolder + "/" + filenameQueue);
-			AddToList(filenameQueue, renderType);
+			AddToList(structQueueItem(filenameQueue, renderType));
 		}
 	}
 }
@@ -90,7 +90,7 @@ void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnim
 	parSettings.CreateText(par, fractPar, frames, keyframes);
 	QString filename = "queue_" + parSettings.GetHashCode() + ".fract";
 	parSettings.SaveToFile(queueFolder + "/" + filename);
-	AddToList(filename, renderType);
+	AddToList(structQueueItem(filename, renderType));
 }
 
 bool cQueue::Get()
@@ -117,23 +117,14 @@ QStringList cQueue::RemoveOrphanedFiles()
 {
 	qDebug() << "remove orphaned";
 	// find and delete files which are not on the list
-	QList<structQueueItem> queueListFromQueueFile = GetListFromQueueFile();
-	QStringList queueListFromFileSystem = GetListFromFileSystem();
 	QStringList removeList;
-	for(int i = 0; i < queueListFromFileSystem.size(); i++)
+	for(int i = 0; i < queueListFileSystem.size(); i++)
 	{
-		bool inList = false;
-		for(int j = 0; j < queueListFromQueueFile.size(); j++)
+		structQueueItem queueItem = structQueueItem(queueListFileSystem.at(i), queue_STILL);
+		if(!queueListFromFile.contains(queueItem))
 		{
-			if(queueListFromQueueFile.at(j).filename == queueListFromFileSystem.at(i)){
-				inList = true;
-				break;
-			}
-		}
-		if(!inList)
-		{
-			removeList << queueListFromFileSystem[i];
-			RemoveFromFileSystem(queueListFromFileSystem[i]);
+			removeList << queueListFileSystem[i];
+			RemoveFromFileSystem(queueListFileSystem[i]);
 		}
 	}
 	return removeList;
@@ -143,35 +134,19 @@ QStringList cQueue::AddOrphanedFilesToList()
 {
 	// add orphaned files from queue folder to the end of the list
 	qDebug() << "add orphaned";
-	QList<structQueueItem> queueListFromQueueFile = GetListFromQueueFile();
-	QStringList queueListFromFileSystem = GetListFromFileSystem();
 	QStringList appendList;
-	for(int i = 0; i < queueListFromFileSystem.size(); i++)
+	for(int i = 0; i < queueListFileSystem.size(); i++)
 	{
-		bool inList = false;
-		for(int j = 0; j < queueListFromQueueFile.size(); j++)
+		structQueueItem queueItem = structQueueItem(queueListFileSystem.at(i), queue_STILL);
+		if(!queueListFromFile.contains(queueItem))
 		{
-			if(queueListFromQueueFile.at(j).filename == queueListFromFileSystem.at(i)){
-				inList = true;
-				break;
-			}
-		}
-		if(!inList)
-		{
-			appendList << queueListFromFileSystem[i] + " STILL";
+			appendList << queueListFileSystem.at(i);
+			queueListFromFile << queueItem;
 		}
 	}
 	if(appendList.size() > 0)
 	{
-		QFile file(queueListFileName);
-		if (file.open(QIODevice::WriteOnly | QIODevice::Append))
-		{
-			QTextStream stream(&file);
-			stream << "\n" << appendList.join("\n");
-			file.close();
-		}
-		else
-			throw QString("cannot open queueListFileName: " + queueListFileName);
+		StoreList();
 	}
 	return appendList;
 }
@@ -179,64 +154,50 @@ QStringList cQueue::AddOrphanedFilesToList()
 cQueue::structQueueItem cQueue::GetNextFromList()
 {
 	//gives next filename
-	QList<structQueueItem> queueList = GetListFromQueueFile();
-	if(queueList.size() > 0)
+	if(queueListFromFile.size() > 0)
 	{
-		RemoveQueueItem(queueList.at(0).filename, queueList.at(0).renderType);
-		return queueList.at(0);
+		RemoveQueueItem(queueListFromFile.at(0));
+		return queueListFromFile.at(0);
 	}
-	return structQueueItem(queue_STILL, "");
+	return structQueueItem("", queue_STILL);
 }
 
-void cQueue::AddToList(const QString &filename, enumRenderType renderType)
+void cQueue::AddToList(const structQueueItem &queueItem)
 {
 	//add filename to the end of list
-	QList<structQueueItem> queueList = GetListFromQueueFile();
-	for(int i = 0; i < queueList.size(); i++)
+	if(queueListFromFile.contains(queueItem))
 	{
-		if(queueList.at(i).filename == filename && queueList.at(i).renderType == renderType)
-		{
-			qWarning() << "Entry already exists";
-			return;
-		}
+		qWarning() << "Entry already exists";
+		return;
 	}
-
-	QFile file(queueListFileName);
-	if (file.open(QIODevice::WriteOnly | QIODevice::Append))
-	{
-		QTextStream stream(&file);
-		stream << "\n" << filename << " " << GetTypeText(renderType);
-		file.close();
-	}
-	else
-		throw QString("cannot open queueListFileName: " + queueListFileName);
+	queueListFromFile << queueItem;
+	StoreList();
 }
 
 void cQueue::RemoveQueueItem(int i)
 {
-	QList<structQueueItem> queueList = GetListFromQueueFile();
-	RemoveQueueItem(queueList.at(i).filename, queueList.at(i).renderType);
+	RemoveQueueItem(queueListFromFile.at(i));
 }
 
-void cQueue::RemoveQueueItem(const QString &filename, enumRenderType renderType)
+void cQueue::RemoveQueueItem(const structQueueItem &queueItem)
 {
 	//remove queue item from list and filesystem
-	RemoveFromList(filename, renderType);
+	RemoveFromList(queueItem);
 	// check if fract file is still on the list (one file with different renderTypes)
-	QList<structQueueItem> queueList = GetListFromQueueFile();
-	for(int i = 0; i < queueList.size(); i++)
+	for(int i = 0; i < queueListFromFile.size(); i++)
 	{
-		if(queueList.at(i).filename == filename)
+		if(queueListFromFile.at(i).filename == queueItem.filename)
 		{
 			return;
 		}
 	}
-	RemoveFromFileSystem(filename);
+	RemoveFromFileSystem(queueItem.filename);
 }
 
 void cQueue::UpdateQueueItemType(int i, enumRenderType renderType)
 {
-	//TODO
+	queueListFromFile[i].renderType = renderType;
+	StoreList();
 }
 
 bool cQueue::ValidateEntry(const QString &filename)
@@ -245,21 +206,23 @@ bool cQueue::ValidateEntry(const QString &filename)
 	//TODO
 }
 
-void cQueue::RemoveFromList(const QString &filename, enumRenderType renderType)
+void cQueue::RemoveFromList(const structQueueItem &queueItem)
 {
 	//remove queue item if it is on the list
-	QList<structQueueItem> queueList = GetListFromQueueFile();
+	queueListFromFile.removeAll(queueItem);
+	StoreList();
+}
 
+void cQueue::StoreList()
+{
 	QFile file(queueListFileName);
 	if(file.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
 	{
-		QTextStream out(&file);
-		for(int i = 0; i < queueList.size(); i++)
+		QTextStream stream(&file);
+		stream << "#\n# Mandelbulber queue file\n#\n";
+		for(int i = 0; i < queueListFromFile.size(); i++)
 		{
-			if(queueList.at(i).filename != filename || queueList.at(i).renderType != renderType)
-			{
-				out << filename << " " << GetTypeText(renderType) << endl;
-			}
+			stream << queueListFromFile.at(i).filename << " " << GetTypeText(queueListFromFile.at(i).renderType) << endl;
 		}
 	}
 	file.close();
@@ -334,7 +297,7 @@ void cQueue::UpdateListFromQueueFile()
 			QRegularExpressionMatch matchType = reType.match(line);
 			if (matchType.hasMatch())
 			{
-				queueListFromFile << structQueueItem(GetTypeEnum(matchType.captured(2)), matchType.captured(1));
+				queueListFromFile << structQueueItem(matchType.captured(1), GetTypeEnum(matchType.captured(2)));
 			}
 			else qWarning() << "wrong format in line: " << line;
 		}
