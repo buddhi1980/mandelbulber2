@@ -79,7 +79,7 @@ public:
 	static QString GetTypeColor(enumRenderType queueType);
 
 	void RemoveQueueItem(int i);//remove queue item which is i'th element of list
-	void RemoveQueueItem(const structQueueItem &queueItem); //remove queue item from list and filesystem
+	void RemoveQueueItem(const structQueueItem queueItem); //remove queue item from list and filesystem
 	void UpdateQueueItemType(int i, enumRenderType renderType);
 
 signals:

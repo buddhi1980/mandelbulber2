@@ -181,7 +181,7 @@ void cQueue::RemoveQueueItem(int i)
 	RemoveQueueItem(queueListFromFile.at(i));
 }
 
-void cQueue::RemoveQueueItem(const structQueueItem &queueItem)
+void cQueue::RemoveQueueItem(const structQueueItem queueItem)
 {
 	//remove queue item from list and filesystem
 	RemoveFromList(queueItem);
