@@ -45,6 +45,12 @@ cQueue::cQueue(const QString &_queueListFileName, const QString &_queueFolder)
 		else
 			throw QString("cannot init queueListFileName to: " + queueListFileName);
 	}
+
+	// watch queue folder and the queue file in the filesystem
+	queueFileWatcher.addPath(queueListFileName);
+	queueFolderWatcher.addPath(queueFolder);
+	QApplication::connect(&queueFileWatcher, SIGNAL(fileChanged(const QString&)), this, SLOT(queueFileChanged(const QString&)));
+	QApplication::connect(&queueFileWatcher, SIGNAL(directoryChanged(const QString&)), this, SLOT(queueFolderChanged(const QString&)));
 }
 
 cQueue::~cQueue()
@@ -72,12 +78,24 @@ void cQueue::Append(const QString &filename, enumRenderType renderType)
 void cQueue::Append(enumRenderType renderType)
 {
 	//add current settings to queue
+	Append(gPar, gParFractal, gAnimFrames, gKeyframes, renderType);
+}
+
+void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes, enumRenderType renderType)
+{
+	//add settings to queue
 	cSettings parSettings(cSettings::formatCondensedText);
-	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+	parSettings.CreateText(par, fractPar, frames, keyframes);
 	QString filename = "queue_" + parSettings.GetHashCode() + ".fract";
 	parSettings.SaveToFile(queueFolder + "/" + filename);
 	AddToList(filename, renderType);
 	emit queueChanged();
+}
+
+bool cQueue::Get()
+{
+	//get next fractal from queue into global scope containers
+	return Get(gPar, gParFractal, gAnimFrames, gKeyframes);
 }
 
 bool cQueue::Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes)
@@ -89,44 +107,9 @@ bool cQueue::Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimati
 
 	if (parSettings.LoadFromFile(queueItem.filename))
 	{
-		parSettings.Decode(par, fractPar, frames, keyframes);
+		return parSettings.Decode(par, fractPar, frames, keyframes);
 	}
 	return false;
-}
-
-QList<cQueue::structQueueItem> cQueue::GetListFromQueueFile()
-{
-	//returns list of fractals to render
-	QList<structQueueItem> queueList;
-	QFile file(queueListFileName);
-	if (file.open(QIODevice::ReadOnly))
-	{
-		QTextStream in(&file);
-		while (!in.atEnd())
-		{
-			QString line = in.readLine().trimmed();
-			if(line.startsWith("#") || line == "") continue;
-			QRegularExpression reType("^(.*?\.fract) (still|keyframe|flight)?$");
-			QRegularExpressionMatch matchType = reType.match(line);
-			if (matchType.hasMatch())
-			{
-				enumRenderType renderType;
-				if(matchType.captured(2) == "still") renderType = queue_STILL;
-				else if(matchType.captured(2) == "keyframe") renderType = queue_KEYFRAME;
-				else if(matchType.captured(2) == "flight") renderType = queue_FLIGHT;
-				else renderType = queue_STILL;
-				queueList << structQueueItem(renderType, matchType.captured(1));
-			}
-			else qWarning() << "wrong format in line: " << line;
-		}
-		file.close();
-	}
-	return queueList;
-}
-
-QStringList cQueue::GetListFromFileSystem()
-{
-	return QDir(queueFolder).entryList(QDir::NoDotAndDotDot | QDir::Files);
 }
 
 QStringList cQueue::DeleteOrphanedFiles()
@@ -158,7 +141,7 @@ QStringList cQueue::AddOrphanedFilesToList()
 {
 	// add orphaned files from queue folder to the end of the list
 	QList<structQueueItem> queueListFromQueueFile = GetListFromQueueFile();
-	QStringList queueListFromFileSystem = QDir(queueFolder).entryList(QDir::NoDotAndDotDot | QDir::Files);
+	QStringList queueListFromFileSystem = GetListFromFileSystem();
 	QStringList appendList;
 	for(int i = 0; i < queueListFromFileSystem.size(); i++)
 	{
@@ -172,7 +155,7 @@ QStringList cQueue::AddOrphanedFilesToList()
 		}
 		if(!inList)
 		{
-			appendList << queueListFromFileSystem[i] + " still";
+			appendList << queueListFromFileSystem[i] + " STILL";
 		}
 	}
 	if(appendList.size() > 0)
@@ -190,45 +173,16 @@ QStringList cQueue::AddOrphanedFilesToList()
 	return appendList;
 }
 
-void cQueue::SaveToQueueFolder(const QString &filename, const cParameterContainer &par, const cFractalContainer &fract)
-{
-	//TODO
-}
-
 cQueue::structQueueItem cQueue::GetNextFromList()
 {
 	//gives next filename
-	QFile file(queueListFileName);
-	if (file.open(QIODevice::ReadOnly))
+	QList<structQueueItem> queueList = GetListFromQueueFile();
+	if(queueList.size() > 0)
 	{
-		QTextStream in(&file);
-		while (!in.atEnd())
-		{
-			QString line = in.readLine().trimmed();
-			if(line.startsWith("#") || line == "") continue;
-			QRegularExpression reType("^(.*?\.fract) (still|keyframe|flight)?$");
-			QRegularExpressionMatch matchType = reType.match(line);
-			if (matchType.hasMatch())
-			{
-				enumRenderType renderType;
-				if(matchType.captured(2) == "still") renderType = queue_STILL;
-				else if(matchType.captured(2) == "keyframe") renderType = queue_KEYFRAME;
-				else if(matchType.captured(2) == "flight") renderType = queue_FLIGHT;
-				else renderType = queue_STILL;
-				return structQueueItem(renderType, matchType.captured(1));
-			}
-			else
-				qWarning() << "wrong format in line: " << line;
-		}
-		file.close();
+		RemoveQueueItem(queueList.at(0).filename, queueList.at(0).renderType);
+		return queueList.at(0);
 	}
 	return structQueueItem(queue_STILL, "");
-}
-
-void cQueue::EraseFirstLineFromList()
-{
-	//erases first line from list when fractal is taken
-	//TODO
 }
 
 void cQueue::AddToList(const QString &filename, enumRenderType renderType)
@@ -238,14 +192,7 @@ void cQueue::AddToList(const QString &filename, enumRenderType renderType)
 	if (file.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&file);
-		QString renderTypeString = "";
-		switch(renderType){
-			case queue_STILL: renderTypeString = "still"; break;
-			case queue_KEYFRAME: renderTypeString = "keyframe"; break;
-			case queue_FLIGHT: renderTypeString = "flight"; break;
-			default: renderTypeString = "still"; break;
-		}
-		stream << "\n" << filename << " " << renderTypeString;
+		stream << "\n" << filename << " " << GetTypeText(renderType);
 		file.close();
 	}
 	else
@@ -258,30 +205,118 @@ bool cQueue::ValidateEntry(const QString &filename)
 	//TODO
 }
 
-void cQueue::DeleteFileFromQueue(const QString &filename)
+void cQueue::RemoveQueueItem(const QString &filename, enumRenderType renderType)
 {
-	//delete file from queue folder
-	//TODO
+	//remove queue item from list and filesystem
+	RemoveFromList(filename, renderType);
+	// check if fract file is still on the list (one file with different renderTypes)
+	QList<structQueueItem> queueList = GetListFromQueueFile();
+	for(int i = 0; i < queueList.size(); i++)
+	{
+		if(queueList.at(i).filename == filename)
+		{
+			return;
+		}
+	}
+	RemoveFromFileSystem(filename);
 }
 
-QString cQueue::GetTypeText(enumRenderType displayStatus)
+void cQueue::RemoveFromList(const QString &filename, enumRenderType renderType)
 {
-	switch(displayStatus)
+	//remove queue item if it is on the list
+	QList<structQueueItem> queueList = GetListFromQueueFile();
+
+	QFile file(queueListFileName);
+	if(file.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
+	{
+		QTextStream out(&file);
+		for(int i = 0; i < queueList.size(); i++)
+		{
+			if(queueList.at(i).filename != filename || queueList.at(i).renderType != renderType)
+			{
+				out << filename << " " << GetTypeText(renderType) << endl;
+			}
+		}
+	}
+	file.close();
+}
+
+void cQueue::RemoveFromFileSystem(const QString &filename)
+{
+	//remove queue file from filesystem
+	QFile::remove(filename);
+}
+
+cQueue::enumRenderType cQueue::GetTypeEnum(const QString &queueText)
+{
+	enumRenderType renderType;
+	if(queueText == "STILL") renderType = queue_STILL;
+	else if(queueText == "KEYFRAME") renderType = queue_KEYFRAME;
+	else if(queueText == "FLIGHT") renderType = queue_FLIGHT;
+	else renderType = queue_STILL;
+	return renderType;
+}
+
+QString cQueue::GetTypeText(enumRenderType queueType)
+{
+	switch(queueType)
 	{
 		case cQueue::queue_STILL: return tr("STILL");
 		case cQueue::queue_FLIGHT: return tr("FLIGHT");
 		case cQueue::queue_KEYFRAME: return tr("KEYFRAME");
 	}
-	return tr("UNKNOWN");
+	return tr("STILL");
 }
 
-QString cQueue::GetTypeColor(enumRenderType displayStatus)
+QString cQueue::GetTypeColor(enumRenderType queueType)
 {
-	switch(displayStatus)
+	switch(queueType)
 	{
 		case cQueue::queue_STILL: return "darkgrey";
 		case cQueue::queue_FLIGHT: return "green";
 		case cQueue::queue_KEYFRAME: return "darkblue";
 	}
 	return "red";
+}
+
+void cQueue::queueFileChanged(const QString &path)
+{
+	if(path == queueListFileName)
+	{
+		UpdateListFromQueueFile();
+	}
+}
+
+void cQueue::queueFolderChanged(const QString &path)
+{
+	UpdateListFromFileSystem();
+}
+
+void cQueue::UpdateListFromQueueFile()
+{
+	queueListFromFile.clear();
+	//returns list of fractals to render
+	QFile file(queueListFileName);
+	if (file.open(QIODevice::ReadOnly))
+	{
+		QTextStream in(&file);
+		while (!in.atEnd())
+		{
+			QString line = in.readLine().trimmed();
+			if(line.startsWith("#") || line == "") continue;
+			QRegularExpression reType("^(.*?\.fract) (STILL|KEYFRAME|FLIGHT)?$");
+			QRegularExpressionMatch matchType = reType.match(line);
+			if (matchType.hasMatch())
+			{
+				queueListFromFile << structQueueItem(GetTypeEnum(matchType.captured(2)), matchType.captured(1));
+			}
+			else qWarning() << "wrong format in line: " << line;
+		}
+		file.close();
+	}
+}
+
+void cQueue::UpdateListFromFileSystem()
+{
+	queueListFileSystem = QDir(queueFolder).entryList(QDir::NoDotAndDotDot | QDir::Files);
 }

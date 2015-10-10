@@ -51,20 +51,28 @@ public:
 	cQueue(const QString &_queueListFileName, const QString &_queueFolder); //initializes queue and create necessary files and folders
 	~cQueue();
 
-	void Append(const QString &filename, enumRenderType renderType = queue_STILL); //add new fractal to queue
-	void Append(enumRenderType renderType = queue_STILL); //add current settings to queue
-	bool Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes); //get next fractal from queue
+	//add settings to queue
+	void Append(const QString &filename, enumRenderType renderType = queue_STILL);
+	void Append(enumRenderType renderType = queue_STILL);
+	void Append(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes, enumRenderType renderType = queue_STILL);
 
-	QList<structQueueItem> GetListFromQueueFile(); //returns list of fractals to render from queue file
-	QStringList GetListFromFileSystem(); //returns list of fractals to render from file system
+	//get next queue element into given containers
+	bool Get();
+	bool Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes);
 
+	// syncing methods
 	QStringList DeleteOrphanedFiles(); //find and delete files which are not on the list
 	QStringList AddOrphanedFilesToList(); //add orphaned files from queue folder to the end of the list
 
-	//setting status test
-	static QString GetTypeText(enumRenderType displayStatus);
-	//setting status color
-	static QString GetTypeColor(enumRenderType displayStatus);
+	QList<structQueueItem> GetListFromQueueFile(){ return queueListFromFile; } //returns list of fractals to render from queue file
+	QStringList GetListFromFileSystem(){ return queueListFileSystem; } //returns list of fractals to render from file system
+
+	//get the queue type enum from qstring value
+	static enumRenderType GetTypeEnum(const QString &queueText);
+	//get the queue type QString from enum value
+	static QString GetTypeText(enumRenderType queueType);
+	//get a color for enum value
+	static QString GetTypeColor(enumRenderType queueType);
 
 signals:
 	//request to update table of queue items
@@ -72,16 +80,28 @@ signals:
 	void queueChanged(int i);
 	void queueChanged(int i, int j);
 
-private:
-	void SaveToQueueFolder(const QString &filename, const cParameterContainer &par, const cFractalContainer &fract);
+private slots:
+	void queueFileChanged(const QString &path);
+	void queueFolderChanged(const QString &path);
 
+private:
 	structQueueItem GetNextFromList(); //gives next filename
-	void EraseFirstLineFromList(); //erases first line from list when fractal is taken
 	void AddToList(const QString &filename, enumRenderType renderType = queue_STILL); //add filename to the end of list
 
-	bool ValidateEntry(const QString &filename); //checks if
+	void RemoveQueueItem(const QString &filename, enumRenderType renderType = queue_STILL); //remove queue item from list and filesystem
+	void RemoveFromList(const QString &filename, enumRenderType renderType = queue_STILL); //remove queue item if it is on the list
+	void RemoveFromFileSystem(const QString &filename); //remove queue file from filesystem
 
-	void DeleteFileFromQueue(const QString &filename); //delete file from queue folder
+	bool ValidateEntry(const QString &filename);
+
+	void UpdateListFromQueueFile(); //updates the list of fractals to render from queue file
+	void UpdateListFromFileSystem(); //updates the list of fractals to render from file system
+
+	QFileSystemWatcher queueFileWatcher;
+	QFileSystemWatcher queueFolderWatcher;
+
+	QList<structQueueItem> queueListFromFile;
+	QStringList queueListFileSystem;
 
 	QString queueListFileName;
 	QString queueFolder;
