@@ -355,7 +355,6 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidgetContents_animation, par, mode);
 
-
 	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[0], &parFractal->at(0), mode);
 	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[1], &parFractal->at(1), mode);
 	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[2], &parFractal->at(2), mode);

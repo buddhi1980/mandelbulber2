@@ -25,6 +25,18 @@
 #include <QLineEdit>
 #include "../src/global_data.hpp"
 
+MyGroupBox::MyGroupBox(QWidget *parent) :	QGroupBox(parent)
+{
+	actionResetToDefault = NULL;
+	actionAddToFlightAnimation = NULL;
+	actionAddToKeyframeAnimation = NULL;
+	parameterContainer = NULL;
+	gotDefault = false;
+	defaultValue = 0;
+	firstDisplay = true;
+	connect(this, SIGNAL(toggled(bool)), this, SLOT(slotToggled(bool)));
+}
+
 void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu *menu = new QMenu;
@@ -102,3 +114,17 @@ bool MyGroupBox::GetDefault()
 	return defaultValue;
 }
 
+void MyGroupBox::slotToggled(bool on)
+{
+	QList<QWidget*> list = this->findChildren<QWidget*>();
+	for (int i = 0; i < list.size(); ++i) {
+		if(on)
+		{
+			list[i]->show();
+		}
+		else
+		{
+			list[i]->hide();
+		}
+	}
+}

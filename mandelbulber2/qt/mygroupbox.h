@@ -35,16 +35,7 @@ class MyGroupBox : public QGroupBox
 	Q_OBJECT
 
 public:
-	MyGroupBox(QWidget *parent = 0)  : QGroupBox(parent)
-	{
-		actionResetToDefault = NULL;
-		actionAddToFlightAnimation = NULL;
-		actionAddToKeyframeAnimation = NULL;
-		parameterContainer = NULL;
-		gotDefault = false;
-		defaultValue = 0;
-		firstDisplay = true;
-	};
+	MyGroupBox(QWidget *parent = 0);
 
 	void AssignParameterContainer(cParameterContainer *container) {parameterContainer = container;}
 	void AssingParameterName(QString name) {parameterName = name;}
@@ -62,6 +53,9 @@ private:
 	bool gotDefault;
 	QString originalText;
 	bool firstDisplay;
+
+private slots:
+  void slotToggled(bool on);
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);

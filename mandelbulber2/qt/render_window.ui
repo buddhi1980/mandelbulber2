@@ -371,7 +371,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-276</y>
           <width>339</width>
           <height>442</height>
          </rect>
@@ -3076,9 +3076,9 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-572</y>
                   <width>303</width>
-                  <height>722</height>
+                  <height>724</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_29">
@@ -4243,6 +4243,19 @@ to target:</string>
                    </layout>
                   </widget>
                  </item>
+                 <item>
+                  <spacer name="verticalSpacer_17">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
                 </layout>
                </widget>
               </widget>
@@ -4607,7 +4620,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>196</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5447,7 +5460,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>273</width>
                   <height>225</height>
                  </rect>
                 </property>
@@ -5765,7 +5778,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>265</width>
                   <height>1248</height>
                  </rect>
                 </property>
@@ -8629,7 +8642,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9280,7 +9293,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9925,7 +9938,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -11826,7 +11839,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>207</width>
                   <height>354</height>
                  </rect>
                 </property>
@@ -13739,7 +13752,7 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>341</width>
+                  <width>224</width>
                   <height>291</height>
                  </rect>
                 </property>
