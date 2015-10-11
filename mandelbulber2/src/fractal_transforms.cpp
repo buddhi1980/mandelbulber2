@@ -427,7 +427,7 @@ void fabsFormulaABTransform3D(const sTransformFabsFormulaAB &fabsFormulaAB, CVec
 		}
 	}
 }
-//  fabsFormulaABCD   z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.&D );  3D
+//  fabsFormulaABCD   z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.D );  3D
 void fabsFormulaABCDTransform3D(const sTransformFabsFormulaABCD &fabsFormulaABCD, CVector3 &z, int i)
 {
 	if (fabsFormulaABCD.control.enabled && i >= fabsFormulaABCD.control.startIterations && i < fabsFormulaABCD.control.stopIterations)
@@ -683,13 +683,13 @@ void mandelbulbTransform3D(const sTransformMandelbulb &mandelbulb, CVector3 &z, 
 	{
 		CVector3 temp = z;
 		aux.r = z.Length();
-		double th0 = asin(z.z / aux.r) + mandelbulb.mandelbulbBetaAngleOffset;
-		double ph0 = atan2(z.y, z.x) + mandelbulb.mandelbulbAlphaAngleOffset;
-		double rp = pow(aux.r, mandelbulb.mandelbulbPower - 1.0);
-		double th = th0 * mandelbulb.mandelbulbPower;
-		double ph = ph0 * mandelbulb.mandelbulbPower;
+    double th0 = asin(z.z / aux.r) + mandelbulb.betaAngleOffset;
+    double ph0 = atan2(z.y, z.x) + mandelbulb.alphaAngleOffset;
+    double rp = pow(aux.r, mandelbulb.power - 1.0);
+    double th = th0 * mandelbulb.power;
+    double ph = ph0 * mandelbulb.power;
 		double cth = cos(th);
-		aux.r_dz = rp * aux.r_dz * mandelbulb.mandelbulbPower + 1.0;
+    aux.r_dz = rp * aux.r_dz * mandelbulb.power + 1.0;
 		rp *= aux.r;
 		z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 
@@ -1034,13 +1034,13 @@ void variableConstantMultiplierTransform3D(const sTransformVariableConstantMulti
   }
 }
 
-// mandelbulb Variable power 3D
+// variableMandelbulb power 3D
 void variableMandelbulbPowerTransform3D(const sTransformVariableMandelbulbPower &variableMandelbulbPower, CVector3 &z, int i, sExtendedAux &aux)
 {
   if (variableMandelbulbPower.control.enabled && i >= variableMandelbulbPower.control.startIterations && i <variableMandelbulbPower.control.stopIterations)
   {
     CVector3 temp = z;
-    double tempC = variableMandelbulbPower.mandelbulbPower;// constant to be varied
+    double tempC = variableMandelbulbPower.power;// constant to be varied
     if ( i < variableMandelbulbPower.variableStartIterations)
     {
     ;
@@ -1054,8 +1054,8 @@ void variableMandelbulbPowerTransform3D(const sTransformVariableMandelbulbPower 
       tempC =  (tempC + variableMandelbulbPower.variableConstant);
     }
     aux.r = z.Length();
-    double th0 = asin(z.z / aux.r) + variableMandelbulbPower.mandelbulbBetaAngleOffset;
-    double ph0 = atan2(z.y, z.x) + variableMandelbulbPower.mandelbulbAlphaAngleOffset;
+    double th0 = asin(z.z / aux.r) + variableMandelbulbPower.betaAngleOffset;
+    double ph0 = atan2(z.y, z.x) + variableMandelbulbPower.alphaAngleOffset;
     double rp = pow(aux.r, tempC - 1.0);
     double th = th0 * tempC;
     double ph = ph0 * tempC;
@@ -1063,10 +1063,10 @@ void variableMandelbulbPowerTransform3D(const sTransformVariableMandelbulbPower 
     aux.r_dz = rp * aux.r_dz * tempC + 1.0;
     rp *= aux.r;
     z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
-        //weight function
-        if (variableMandelbulbPower.control.weightEnabled)
-        {
-            z = SmoothCVector(temp, z, variableMandelbulbPower.control.weight);
+    //weight function
+    if (variableMandelbulbPower.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, variableMandelbulbPower.control.weight);
     }
   }
 }
@@ -1095,9 +1095,42 @@ void variableScaleTransform3D(const sTransformVariableScale &variableScale, CVec
   }
 }
 
+//colorTrial transform 3D
+void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z,  CVector3 &tempZC1, CVector3 &tempZC2, CVector3 &tempZC3,int i,  sExtendedAux &aux)
+{
+  if (colorTrial.control.enabled && i >= colorTrial.control.startIterations && i < colorTrial.control.stopIterations)
+  {
+    double newR1 = fabs(tempZC1.x) *  colorTrial.colorConstant1; // Length() *  colorTrial.colorConstant2 - tempZC1.Length() *  colorTrial.colorConstant1;tempZC1
+    double newR2 = fabs(tempZC2.y) *  colorTrial.colorConstant2;
+    double newR3 = fabs(tempZC3.z) *  colorTrial.colorConstant3;
 
+    aux.newR = (newR1 + newR2 + newR3);
+  }
+}
 
-
+// mandelbulbPT  Pine Tree 3D
+void mandelbulbPTTransform3D(const sTransformMandelbulbPT &mandelbulbPT, CVector3 &z, int i, sExtendedAux &aux)
+{
+  if (mandelbulbPT.control.enabled && i >= mandelbulbPT.control.startIterations && i < mandelbulbPT.control.stopIterations)
+  {
+    CVector3 temp = z;
+    aux.r = z.Length();
+    double th0 = acos(z.x / aux.r) + mandelbulbPT.betaAngleOffset;
+    double ph0 = atan(z.z / z.y) + mandelbulbPT.alphaAngleOffset;
+    double rp = pow(aux.r, mandelbulbPT.power - 1.0);
+    double th = th0 * mandelbulbPT.power;
+    double ph = ph0 * mandelbulbPT.power;
+    double cth = cos(th);
+    aux.r_dz = rp * aux.r_dz * mandelbulbPT.power + 1.0;
+    rp *= aux.r;
+    z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
+    //weight function
+    if (mandelbulbPT.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, mandelbulbPT.control.weight);
+    }
+  }
+}
 
 
 

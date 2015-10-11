@@ -81,6 +81,7 @@ struct sExtendedAux
 	double DE;
 	double color;
 	double actualScale;
+  double newR;
 };
 
 struct sFoldColor
@@ -351,9 +352,9 @@ struct sTransformMandelbulbOriginal
 struct sTransformMandelbulb
 {
   sTransformControl control;
-  double mandelbulbPower;
-  double mandelbulbAlphaAngleOffset;
-  double mandelbulbBetaAngleOffset;
+  double power;
+  double alphaAngleOffset;
+  double betaAngleOffset;
 };
 
 
@@ -436,9 +437,9 @@ struct sTransformVariableConstantMultiplier
 struct sTransformVariableMandelbulbPower
 {
   sTransformControl control;
-  double mandelbulbPower;
-  double mandelbulbAlphaAngleOffset;
-  double mandelbulbBetaAngleOffset;
+  double power;
+  double alphaAngleOffset;
+  double betaAngleOffset;
   double variableConstant;
   int variableStartIterations;
   int variableStopIterations;
@@ -450,6 +451,23 @@ struct sTransformVariableScale
   CVector3 variableConstant;
   int variableStartIterations;
   int variableStopIterations;
+};
+struct sTransformColorTrial
+{
+  sTransformControl control;
+  double  colorConstant1;
+  double  colorConstant2;
+  double  colorConstant3;
+  int variableStartIterations;
+  int variableStopIterations;
+};
+
+struct sTransformMandelbulbPT
+{
+  sTransformControl control;
+  double power;
+  double alphaAngleOffset;
+  double betaAngleOffset;
 };
 
 
@@ -498,6 +516,11 @@ struct sFractalTransform
   sTransformVariableConstantMultiplier variableConstantMultiplier1;
   sTransformVariableMandelbulbPower variableMandelbulbPower1;
   sTransformVariableScale variableScale1;
+
+  sTransformColorTrial colorTrial1;
+
+  sTransformMandelbulbPT mandelbulbPT1;
+
 
   //TODO here will be more transforms
 };

@@ -81,7 +81,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		mandelboxAux[i].mboxDE = ifsAux[i].ifsDE = extendedAux[i].DE = 1.0;
 		aexionAux[i].c = c;
 		aexionAux[i].cw = 0;
-
+    extendedAux[i].newR = 1.0;
 	}
 
 	//main iteration loop
@@ -331,7 +331,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		}
 
 		//r calculation
-		r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
+    r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 
 		//escape conditions
 		if (Mode == calcModeNormal)
@@ -454,9 +454,12 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 					break;
 
 	      case mandelbulb5:
-        case mandelbulb6Beta:
 	      	out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor + minimumR * 5000.0;
 	      	break;
+
+        case mandelbulb6Beta:
+          out->colorIndex =  extendedAux[fractalIndex].newR * minimumR * 5000.0;
+          break;
 
 				case menger_sponge:
 				case kaleidoscopicIFS:

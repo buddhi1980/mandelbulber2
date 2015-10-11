@@ -938,21 +938,35 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 	// Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);1
 	iterationWeightTransform3D(fractal->transform.iterationWeight1, z, i);
 }
-//------------MANDELBULB VARIABLE POWER EXTENDED--------------------------------
+
+
+//------------MANDELBULB6Beta  Trial Transforms--------------------------------
 void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
+  CVector3 tempZC1 = z;
+  CVector3 tempZC2 = z;
+  CVector3 tempZC3 = z;
 
   //boxOffset1
   boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
 
+  // z sampling for colour trials 1
+  tempZC1 = z;
+
   //boxFold1
   boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
+
+  // z sampling for colour trials 2
+   tempZC2 = z;
 
   // sphericalOffset1
   sphericalOffsetTransform3D(fractal->transform.sphericalOffset1, z, i, aux);
 
   // sphericalFold1
   sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
+
+  // z sampling for colour trials 3
+   tempZC3 = z;
 
   //scale; 1
   scaleTransform3D(fractal->transform.scale1, z, i, aux);
@@ -962,7 +976,6 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 
   //mainRotation1
   mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
-
 
   // z =(fabs( z + const1A.) * const1.B) + z * constC.;
   fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
@@ -998,6 +1011,9 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
   // mandelbulb vatable power 3D 1
   variableMandelbulbPowerTransform3D(fractal->transform.variableMandelbulbPower1, z, i, aux);
 
+  // mandelbulbPT Pine Tree 3D 1
+  mandelbulbPTTransform3D(fractal->transform.mandelbulbPT1, z, i, aux);
+
   //mainRotation; 3
   mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
 
@@ -1010,7 +1026,6 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
   //boxConstantMultiplier with enable fabs 2
   boxConstantMultiplierTransform3D(fractal->transform.boxConstantMultiplier2, z, c, i);
 
-
   // z = z + const; 2
   additionConstantTransform3D(fractal->transform.additionConstant2, z, i);
 
@@ -1019,6 +1034,9 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 
   //boxFold; 2
   boxFoldTransform3D(fractal->transform.boxFold2, z, i, aux);
+
+  //color trial 1
+  colorTrialTransform3D(fractal->transform.colorTrial1, z, tempZC1, tempZC2, tempZC3, i, aux);
 }
 
 void PlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
