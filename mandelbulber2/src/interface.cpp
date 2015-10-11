@@ -89,6 +89,7 @@ void cInterface::ShowUi(void)
 		mainWindow->ui->dockWidget_info->hide();
 		mainWindow->ui->dockWidget_gamepad_dock->hide();
 		mainWindow->ui->dockWidget_histogram->hide();
+		mainWindow->ui->dockWidget_queue_dock->hide();
 	}
 
 	QFont font = mainWindow->font();
@@ -130,8 +131,8 @@ void cInterface::ShowUi(void)
   #ifndef USE_EXR
 	{
 		mainWindow->ui->actionSave_as_EXR->setVisible(false);
-		mainWindow->ui->comboBox_keyframe_animation_image_type->removeItem(2);
-		mainWindow->ui->comboBox_flight_animation_image_type->removeItem(2);
+		mainWindow->ui->comboBox_keyframe_animation_image_type->removeItem(IMAGE_FILE_TYPE_EXR);
+		mainWindow->ui->comboBox_flight_animation_image_type->removeItem(IMAGE_FILE_TYPE_EXR);
 	}
   #endif
 
@@ -150,6 +151,8 @@ void cInterface::ShowUi(void)
 	WriteLog("cInterface::ConnectSignals(void)");
 	ConnectSignals();
 	WriteLog("cInterface::ConnectSignals(void) finished");
+
+	emit gQueue->queueChanged();
 }
 
 void cInterface::ConnectSignals(void)

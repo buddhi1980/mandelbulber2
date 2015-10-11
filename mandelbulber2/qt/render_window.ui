@@ -1357,7 +1357,7 @@
           <height>187</height>
          </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
+        <layout class="QVBoxLayout" name="verticalLayout_gamepad">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1770,7 +1770,7 @@
           <height>721</height>
          </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
+        <layout class="QVBoxLayout" name="verticalLayout_coordinates">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -12731,7 +12731,7 @@ and water):</string>
                </widget>
               </item>
               <item row="11" column="0" colspan="3">
-               <widget class="QGroupBox" name="groupCheck_constant_DE_threshold">
+               <widget class="MyGroupBox" name="groupCheck_constant_DE_threshold">
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When it's not enabled, the program automatically reduces amount of details for the farthest regions of the fractal. If you go closer to fractal surface, the program increases number of details.&lt;/p&gt;&lt;p&gt;If it's checked, then in every region of fractal detail size will be the same.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>

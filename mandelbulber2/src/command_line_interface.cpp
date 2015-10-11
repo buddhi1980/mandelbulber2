@@ -510,5 +510,10 @@ void cCommandLineInterface::ProcessCLI (void)
 			headless.RenderStillImage(cliData.outputText, cliData.imageFileFormat);
 			break;
 		}
+		case modeBootOnly:
+		{
+			// nothing to be done
+			break;
+		}
 	}
 }
