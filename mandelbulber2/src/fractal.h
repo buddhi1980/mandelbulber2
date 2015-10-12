@@ -462,9 +462,15 @@ struct sTransformColorTrial
   int variableStopIterations;
 };
 
-struct sTransformMandelbulbPT
+struct sTransformMandelbulbMulti
 {
   sTransformControl control;
+  bool multiEnabled1;
+  bool multiEnabled2;
+  bool multiEnabled3;
+  CVector3 mainRotation;
+  CRotationMatrix mainRot;
+
   double power;
   double alphaAngleOffset;
   double betaAngleOffset;
@@ -519,7 +525,7 @@ struct sFractalTransform
 
   sTransformColorTrial colorTrial1;
 
-  sTransformMandelbulbPT mandelbulbPT1;
+  sTransformMandelbulbMulti mandelbulbMulti1;
 
 
   //TODO here will be more transforms

@@ -893,7 +893,7 @@ void sphericalFoldOriginalTransform3D(const sTransformSphericalFoldOriginal &sph
 	{
 		CVector3 temp = z;
 		double tempAuxDE = aux.DE;
-		double tempAuxColor = aux.color;
+    //double tempAuxColor = aux.color;
 		double r2 = z.Dot(z);
 		if (r2 < sphericalFoldOriginal.mR2)
 		{
@@ -1108,29 +1108,51 @@ void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, 
   }
 }
 
-// mandelbulbPT  Pine Tree 3D
-void mandelbulbPTTransform3D(const sTransformMandelbulbPT &mandelbulbPT, CVector3 &z, int i, sExtendedAux &aux)
+// mandelbulbMulti   3D
+void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti, CVector3 &z, int i, sExtendedAux &aux)
 {
-  if (mandelbulbPT.control.enabled && i >= mandelbulbPT.control.startIterations && i < mandelbulbPT.control.stopIterations)
+
+  CVector3 temp = z;
+  aux.r = z.Length();
+  if (mandelbulbMulti.control.enabled && i >= mandelbulbMulti.control.startIterations && i < mandelbulbMulti.control.stopIterations)
   {
-    CVector3 temp = z;
-    aux.r = z.Length();
-    double th0 = acos(z.x / aux.r) + mandelbulbPT.betaAngleOffset;
-    double ph0 = atan(z.z / z.y) + mandelbulbPT.alphaAngleOffset;
-    double rp = pow(aux.r, mandelbulbPT.power - 1.0);
-    double th = th0 * mandelbulbPT.power;
-    double ph = ph0 * mandelbulbPT.power;
+    if (i ==  mandelbulbMulti.control.startIterations)
+    {
+      z = mandelbulbMulti.mainRot.RotateVector(z);
+    }
+    double th0;
+    double ph0;
+    if   (mandelbulbMulti.multiEnabled1)
+    {
+      th0 = asin(z.z / aux.r) + mandelbulbMulti.betaAngleOffset;
+      ph0 = atan2(z.y, z.x) + mandelbulbMulti.alphaAngleOffset;
+    }
+    if   (mandelbulbMulti.multiEnabled2)
+    {
+      th0 = acos(z.x / aux.r) + mandelbulbMulti.betaAngleOffset;
+      ph0 = atan(z.z / z.y) + mandelbulbMulti.alphaAngleOffset;
+
+    }
+      if   (mandelbulbMulti.multiEnabled3)
+    {
+      th0 = acos(z.z / aux.r) + mandelbulbMulti.betaAngleOffset;
+      ph0 = atan(z.x / z.y) + mandelbulbMulti.alphaAngleOffset;
+    }
+    double rp = pow(aux.r, mandelbulbMulti.power - 1.0);
+    double th = th0 * mandelbulbMulti.power;
+    double ph = ph0 * mandelbulbMulti.power;
     double cth = cos(th);
-    aux.r_dz = rp * aux.r_dz * mandelbulbPT.power + 1.0;
+    aux.r_dz = rp * aux.r_dz * mandelbulbMulti.power + 1.0;
     rp *= aux.r;
     z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
     //weight function
-    if (mandelbulbPT.control.weightEnabled)
+    if (mandelbulbMulti.control.weightEnabled)
     {
-      z = SmoothCVector(temp, z, mandelbulbPT.control.weight);
+      z = SmoothCVector(temp, z, mandelbulbMulti.control.weight);
     }
   }
 }
+
 
 
 

@@ -1008,11 +1008,11 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
   // mandelbulb 3D 1
   mandelbulbTransform3D(fractal->transform.mandelbulb1, z, i, aux);
 
-  // mandelbulb vatable power 3D 1
+  // mandelbulb variable power 3D 1
   variableMandelbulbPowerTransform3D(fractal->transform.variableMandelbulbPower1, z, i, aux);
 
-  // mandelbulbPT Pine Tree 3D 1
-  mandelbulbPTTransform3D(fractal->transform.mandelbulbPT1, z, i, aux);
+  // mandelbulb multi 3D 1
+  mandelbulbMultiTransform3D(fractal->transform.mandelbulbMulti1, z, i, aux);
 
   //mainRotation; 3
   mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
@@ -1028,6 +1028,9 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 
   // z = z + const; 2
   additionConstantTransform3D(fractal->transform.additionConstant2, z, i);
+
+  //mainRotation; 4
+  mainRotationTransform3D(fractal->transform.mainRotation4, z, i);
 
   //  z = fabs( z + constA.) - fabs( z - constB.) - z; 2
   fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB2, z, i);

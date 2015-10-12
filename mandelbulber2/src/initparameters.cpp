@@ -861,15 +861,19 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_colorTrial1_colorConstant2", 1.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_colorConstant3", 1.0, morphLinear, paramStandard);
 
-// mandelbulb pine tree
-  par->addParam("transform_mandelbulbPT1_enabled", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbPT1_weight_enabled", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbPT1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbPT1_stop_iterations", 250, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbPT1_power", 9.0, morphAkima, paramStandard);
-  par->addParam("transform_mandelbulbPT1_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
-  par->addParam("transform_mandelbulbPT1_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
-  par->addParam("transform_mandelbulbPT1_weight", 1.0, morphLinear, paramStandard);
+// mandelbulb multi
+  par->addParam("transform_mandelbulbMulti1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_mandelbulbMulti1_enabled1", true, morphLinear, paramStandard);
+  par->addParam("transform_mandelbulbMulti1_enabled2", false, morphLinear, paramStandard);
+  par->addParam("transform_mandelbulbMulti1_enabled3", false, morphLinear, paramStandard);
+  par->addParam("transform_mandelbulbMulti1_main_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_mandelbulbMulti1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_mandelbulbMulti1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_mandelbulbMulti1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_mandelbulbMulti1_power", 9.0, morphAkima, paramStandard);
+  par->addParam("transform_mandelbulbMulti1_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
+  par->addParam("transform_mandelbulbMulti1_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
+  par->addParam("transform_mandelbulbMulti1_weight", 1.0, morphLinear, paramStandard);
 
 
 

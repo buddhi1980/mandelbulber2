@@ -526,15 +526,18 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.colorTrial1.colorConstant2 = container->Get<double>("transform_colorTrial1_colorConstant2");
   transform.colorTrial1.colorConstant3 = container->Get<double>("transform_colorTrial1_colorConstant3");
 
-  transform.mandelbulbPT1.power = container->Get<double>("transform_mandelbulbPT1_power");
-  transform.mandelbulbPT1.alphaAngleOffset = container->Get<double>("transform_mandelbulbPT1_alpha_angle_offset");
-  transform.mandelbulbPT1.betaAngleOffset = container->Get<double>("transform_mandelbulbPT1_beta_angle_offset");
-  transform.mandelbulbPT1.control.enabled = container->Get<bool>("transform_mandelbulbPT1_enabled");
-  transform.mandelbulbPT1.control.weightEnabled = container->Get<bool>("transform_mandelbulbPT1_weight_enabled");
-  transform.mandelbulbPT1.control.startIterations = container->Get<int>("transform_mandelbulbPT1_start_iterations");
-  transform.mandelbulbPT1.control.stopIterations = container->Get<int>("transform_mandelbulbPT1_stop_iterations");
-  transform.mandelbulbPT1.control.weight = container->Get<double>("transform_mandelbulbPT1_weight");
-
+  transform.mandelbulbMulti1.power = container->Get<double>("transform_mandelbulbMulti1_power");
+  transform.mandelbulbMulti1.alphaAngleOffset = container->Get<double>("transform_mandelbulbMulti1_alpha_angle_offset");
+  transform.mandelbulbMulti1.betaAngleOffset = container->Get<double>("transform_mandelbulbMulti1_beta_angle_offset");
+  transform.mandelbulbMulti1.control.enabled = container->Get<bool>("transform_mandelbulbMulti1_enabled");
+  transform.mandelbulbMulti1.multiEnabled1 = container->Get<bool>("transform_mandelbulbMulti1_enabled1");
+  transform.mandelbulbMulti1.multiEnabled2 = container->Get<bool>("transform_mandelbulbMulti1_enabled2");
+  transform.mandelbulbMulti1.multiEnabled3 = container->Get<bool>("transform_mandelbulbMulti1_enabled3");
+  transform.mandelbulbMulti1.mainRotation = container->Get<CVector3>("transform_mandelbulbMulti1_main_rotation");
+  transform.mandelbulbMulti1.control.weightEnabled = container->Get<bool>("transform_mandelbulbMulti1_weight_enabled");
+  transform.mandelbulbMulti1.control.startIterations = container->Get<int>("transform_mandelbulbMulti1_start_iterations");
+  transform.mandelbulbMulti1.control.stopIterations = container->Get<int>("transform_mandelbulbMulti1_stop_iterations");
+  transform.mandelbulbMulti1.control.weight = container->Get<double>("transform_mandelbulbMulti1_weight");
 
 
 //----------------------------------
@@ -581,10 +584,18 @@ void cFractal::RecalculateFractalParams(void)
   transform.mandelbulbOriginal1.betaAngleOffset *= M_PI / 180.0;
   transform.mandelbulb1.alphaAngleOffset *= M_PI / 180.0;
   transform.mandelbulb1.betaAngleOffset *= M_PI / 180.0;
+  transform.mandelbulbMulti1.alphaAngleOffset *= M_PI / 180.0;
+  transform.mandelbulbMulti1.betaAngleOffset *= M_PI / 180.0;
+  transform.variableMandelbulbPower1.alphaAngleOffset *= M_PI / 180.0;
+  transform.variableMandelbulbPower1.betaAngleOffset *= M_PI / 180.0;
+
+
 
   transform.mainRotation1.mainRot.SetRotation2(transform.mainRotation1.mainRotation * (M_PI / 180.0));
   transform.mainRotation2.mainRot.SetRotation2(transform.mainRotation2.mainRotation * (M_PI / 180.0));
   transform.mainRotation3.mainRot.SetRotation2(transform.mainRotation3.mainRotation * (M_PI / 180.0));
+  transform.mainRotation4.mainRot.SetRotation2(transform.mainRotation4.mainRotation * (M_PI / 180.0));
+  transform.mandelbulbMulti1.mainRot.SetRotation2(transform.mandelbulbMulti1.mainRotation * (M_PI / 180.0));
 
   transform.sphericalFoldOriginal1.fR2 = transform.sphericalFoldOriginal1.radFixed * transform.sphericalFoldOriginal1.radFixed;
   transform.sphericalFoldOriginal1.mR2 = transform.sphericalFoldOriginal1.radMin * transform.sphericalFoldOriginal1.radMin;

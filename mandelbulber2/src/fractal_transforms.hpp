@@ -51,7 +51,7 @@ void variableMandelbulbPowerTransform3D(const sTransformVariableMandelbulbPower 
 void variableScaleTransform3D(const sTransformVariableScale &variableScale, CVector3 &z, int i, sExtendedAux &aux);
 
 void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, CVector3 &tempZC1, CVector3 &tempZC2,CVector3 &tempZC3, int i, sExtendedAux &aux);
-void mandelbulbPTTransform3D(const sTransformMandelbulbPT &mandelbulbPT, CVector3 &z, int i, sExtendedAux &aux);
+void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti, CVector3 &z, int i, sExtendedAux &aux);
 
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_TRANSFORMS_HPP_ */
