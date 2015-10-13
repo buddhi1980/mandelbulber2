@@ -204,8 +204,14 @@ void cQueue::UpdateQueueItemType(int i, enumRenderType renderType)
 
 bool cQueue::ValidateEntry(const QString &filename)
 {
-	//checks if
-	//TODO
+	//checks if file exists and it is a proper fractal file
+	if (QFileInfo(filename).suffix() == QString("fract"))
+	{
+		cSettings parSettings(cSettings::formatFullText);
+		parSettings.BeQuiet(true);
+		return parSettings.LoadFromFile(filename);
+	}
+	return false;
 }
 
 void cQueue::RemoveFromList(const structQueueItem &queueItem)
@@ -233,9 +239,10 @@ void cQueue::StoreList()
 void cQueue::RemoveFromFileSystem(const QString &filename)
 {
 	//remove queue file from filesystem
-
-	//TODO only remove files from queue folder (there could be some other files on the list which are located in another folders)
-	QFile::remove(filename);
+	if(filename.startsWith(queueFolder + QDir::separator()))
+	{
+		QFile::remove(filename);
+	}
 }
 
 cQueue::enumRenderType cQueue::GetTypeEnum(const QString &queueText)
@@ -282,7 +289,10 @@ void cQueue::queueFileChanged(const QString &path)
 void cQueue::queueFolderChanged(const QString &path)
 {
 	qDebug() << "queueFolderChanged";
-	UpdateListFromFileSystem();
+	if(path == queueFolder)
+	{
+		UpdateListFromFileSystem();
+	}
 }
 
 void cQueue::UpdateListFromQueueFile()
@@ -297,7 +307,7 @@ void cQueue::UpdateListFromQueueFile()
 		{
 			QString line = in.readLine().trimmed();
 			if(line.startsWith("#") || line == "") continue;
-			QRegularExpression reType("^(.*?\.fract) (STILL|KEYFRAME|FLIGHT)?$");
+			QRegularExpression reType("^(.*?\\.fract) (STILL|KEYFRAME|FLIGHT)?$");
 			QRegularExpressionMatch matchType = reType.match(line);
 			if (matchType.hasMatch())
 			{
@@ -313,4 +323,9 @@ void cQueue::UpdateListFromQueueFile()
 void cQueue::UpdateListFromFileSystem()
 {
 	queueListFileSystem = QDir(queueFolder).entryList(QDir::NoDotAndDotDot | QDir::Files);
+	// make paths absolute
+	for(int i = 0; i < queueListFileSystem.size(); i++)
+	{
+		queueListFileSystem[i] = queueFolder + QDir::separator() + queueListFileSystem.at(i);
+	}
 }
