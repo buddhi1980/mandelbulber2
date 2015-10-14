@@ -78,6 +78,7 @@ public:
 	//get a color for enum value
 	static QString GetTypeColor(enumRenderType queueType);
 
+	void SwapQueueItem(int i, int j);//swap queueItem at i with queueItem at j
 	void RemoveQueueItem(int i);//remove queue item which is i'th element of list
 	void RemoveQueueItem(const structQueueItem queueItem); //remove queue item from list and filesystem
 	void UpdateQueueItemType(int i, enumRenderType renderType);

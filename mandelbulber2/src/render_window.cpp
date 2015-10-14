@@ -1859,6 +1859,18 @@ void RenderWindow::slotQueueRemoveItem()
 	gQueue->RemoveQueueItem(buttonName.toInt());
 }
 
+void RenderWindow::slotQueueMoveItemUp()
+{
+	QString buttonName = this->sender()->objectName();
+	gQueue->SwapQueueItem(buttonName.toInt(), buttonName.toInt() - 1);
+}
+
+void RenderWindow::slotQueueMoveItemDown()
+{
+	QString buttonName = this->sender()->objectName();
+	gQueue->SwapQueueItem(buttonName.toInt(), buttonName.toInt() + 1);
+}
+
 void RenderWindow::slotQueueTypeChanged(int index)
 {
 	QString buttonName = this->sender()->objectName();
@@ -1971,11 +1983,33 @@ void RenderWindow::slotQueueListUpdate(int i, int j)
 		}
 		case 4:
 		{
-			QPushButton *actionButton = new QPushButton;
-			actionButton->setText("Remove");
-			actionButton->setObjectName(QString::number(i));
-			QObject::connect(actionButton, SIGNAL(pressed()), this, SLOT(slotQueueRemoveItem()));
-			table->setCellWidget(i, j, actionButton);
+			QFrame *frame = new QFrame;
+			QGridLayout *gridlayout = new QGridLayout;
+			QToolButton *actionDelete = new QToolButton;
+			QToolButton *actionMoveUp = new QToolButton;
+			QToolButton *actionMoveDown = new QToolButton;
+
+			actionDelete->setIcon(style()->standardIcon(QStyle::SP_TrashIcon));
+			actionMoveUp->setIcon(style()->standardIcon(QStyle::SP_ArrowUp));
+			actionMoveDown->setIcon(style()->standardIcon(QStyle::SP_ArrowDown));
+
+			actionDelete->setObjectName(QString::number(i));
+			actionMoveUp->setObjectName(QString::number(i));
+			actionMoveDown->setObjectName(QString::number(i));
+
+			QObject::connect(actionDelete, SIGNAL(clicked()), this, SLOT(slotQueueRemoveItem()));
+			QObject::connect(actionMoveUp, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemUp()));
+			QObject::connect(actionMoveDown, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemDown()));
+
+			gridlayout->addWidget(actionDelete, 0, 1);
+			gridlayout->addWidget(actionMoveUp, 0, 0);
+			gridlayout->addWidget(actionMoveDown, 1, 0);
+			gridlayout->setSpacing(0);
+
+			if(i == 0) actionMoveUp->setEnabled(false);
+			if(i == queueList.size() - 1) actionMoveDown->setEnabled(false);
+			frame->setLayout(gridlayout);
+			table->setCellWidget(i, j, frame);
 			break;
 		}
 	}

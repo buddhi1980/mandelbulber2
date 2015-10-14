@@ -192,6 +192,8 @@ private slots:
 	void slotQueueAddOrphaned();
 	void slotQueueRemoveOrphaned();
 	void slotQueueRemoveItem();
+	void slotQueueMoveItemUp();
+	void slotQueueMoveItemDown();
 	void slotQueueTypeChanged(int index);
 	void slotQueueListUpdate();
 	void slotQueueListUpdate(int i);

@@ -176,6 +176,13 @@ void cQueue::AddToList(const structQueueItem &queueItem)
 	StoreList();
 }
 
+void cQueue::SwapQueueItem(int i, int j)
+{
+	if(i >= 0 && j >= 0 && i < queueListFileName.size() -1 && j < queueListFileName.size() - 1)
+	queueListFromFile.swap(i, j);
+	StoreList();
+}
+
 void cQueue::RemoveQueueItem(int i)
 {
 	RemoveQueueItem(queueListFromFile.at(i));
