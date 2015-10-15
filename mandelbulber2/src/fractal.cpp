@@ -517,14 +517,25 @@ cFractal::cFractal(const cParameterContainer *container)
 
 
   transform.colorTrial1.control.enabled = container->Get<bool>("transform_colorTrial1_enabled");
-  transform.colorTrial1.control.weightEnabled = container->Get<bool>("transform_colorTrial1_weight_enabled");
   transform.colorTrial1.control.startIterations = container->Get<int>("transform_colorTrial1_start_iterations");
   transform.colorTrial1.control.stopIterations = container->Get<int>("transform_colorTrial1_stop_iterations");
-  transform.colorTrial1.control.weight = container->Get<double>("transform_colorTrial1_weight");
+  transform.colorTrial1.minimumRWeight = container->Get<double>("transform_colorTrial1_minimumRWeight");
 
   transform.colorTrial1.colorConstant1 = container->Get<double>("transform_colorTrial1_colorConstant1");
   transform.colorTrial1.colorConstant2 = container->Get<double>("transform_colorTrial1_colorConstant2");
   transform.colorTrial1.colorConstant3 = container->Get<double>("transform_colorTrial1_colorConstant3");
+  transform.colorTrial1.sampleConstant1 = container->Get<double>("transform_colorTrial1_sampleConstant1");
+  transform.colorTrial1.sampleConstant2 = container->Get<double>("transform_colorTrial1_sampleConstant2");
+  transform.colorTrial1.sampleConstant3 = container->Get<double>("transform_colorTrial1_sampleConstant3");
+  transform.colorTrial1.sampleConstant4 = container->Get<double>("transform_colorTrial1_sampleConstant4");
+  transform.colorTrial1.sampleConstant5 = container->Get<double>("transform_colorTrial1_sampleConstant5");
+  transform.colorTrial1.sampleConstant6 = container->Get<double>("transform_colorTrial1_sampleConstant6");
+
+  transform.colorTrial1.mainOTWeight = container->Get<double>("transform_colorTrial1_mainOTWeight");
+  transform.colorTrial1.orbitTrap1 = container->Get<CVector3>("transform_colorTrial1_orbitTrap1");
+  transform.colorTrial1.orbitTrap2 = container->Get<CVector3>("transform_colorTrial1_orbitTrap2");
+
+
 
   transform.mandelbulbMulti1.power = container->Get<double>("transform_mandelbulbMulti1_power");
   transform.mandelbulbMulti1.alphaAngleOffset = container->Get<double>("transform_mandelbulbMulti1_alpha_angle_offset");

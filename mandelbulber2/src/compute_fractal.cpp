@@ -77,7 +77,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		bulbAux[i].r_dz = extendedAux[i].r_dz = 1.0;
 		bulbAux[i].r = extendedAux[i].r = r;
 		mandelboxAux[i].mboxColor = extendedAux[i].color = 1.0;
-		mandelboxAux[i].actualScale = extendedAux[i].color = four.GetFractal(i)->mandelbox.scale;
+    mandelboxAux[i].actualScale = extendedAux[i].actualScale = four.GetFractal(i)->mandelbox.scale;
 		mandelboxAux[i].mboxDE = ifsAux[i].ifsDE = extendedAux[i].DE = 1.0;
 		aexionAux[i].c = c;
 		aexionAux[i].cw = 0;
@@ -458,7 +458,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	      	break;
 
         case mandelbulb6Beta:
-          out->colorIndex =  extendedAux[fractalIndex].newR * minimumR * 5000.0;
+          out->colorIndex =  extendedAux[fractalIndex].newR ;
           break;
 
 				case menger_sponge:

@@ -50,7 +50,7 @@ void variableConstantMultiplierTransform3D(const sTransformVariableConstantMulti
 void variableMandelbulbPowerTransform3D(const sTransformVariableMandelbulbPower &variableMandelbulbPower, CVector3 &z, int i, sExtendedAux &aux);
 void variableScaleTransform3D(const sTransformVariableScale &variableScale, CVector3 &z, int i, sExtendedAux &aux);
 
-void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, CVector3 &tempZC1, CVector3 &tempZC2,CVector3 &tempZC3, int i, sExtendedAux &aux);
+void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, CVector3 &sample0, CVector3 &sample1, CVector3 &sample2, CVector3 &sample3,  CVector3 &sample4, CVector3 &sample5, CVector3 &sample6, int i, sExtendedAux &aux);
 void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti, CVector3 &z, int i, sExtendedAux &aux);
 
 

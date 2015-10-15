@@ -455,11 +455,21 @@ struct sTransformVariableScale
 struct sTransformColorTrial
 {
   sTransformControl control;
+  double  minimumRWeight;
   double  colorConstant1;
   double  colorConstant2;
   double  colorConstant3;
-  int variableStartIterations;
-  int variableStopIterations;
+  double  sampleConstant1;
+  double  sampleConstant2;
+  double  sampleConstant3;
+  double  sampleConstant4;
+  double  sampleConstant5;
+  double  sampleConstant6;
+  double  mainOTWeight;
+
+
+  CVector3 orbitTrap1;
+  CVector3 orbitTrap2;
 };
 
 struct sTransformMandelbulbMulti

@@ -943,21 +943,25 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 //------------MANDELBULB6Beta  Trial Transforms--------------------------------
 void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
-  CVector3 tempZC1 = z;
-  CVector3 tempZC2 = z;
-  CVector3 tempZC3 = z;
+  // z sampling for colour trials 0--------------------------------------
+  CVector3 sample0 = z;
 
   //boxOffset1
   boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
 
-  // z sampling for colour trials 1
-  tempZC1 = z;
+
 
   //boxFold1
   boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
 
-  // z sampling for colour trials 2
-   tempZC2 = z;
+  // z sampling for colour trials 1--------------------------------------
+  CVector3 sample1 = z;
+
+  //mainRotation1
+  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+
+  // z sampling for colour trials 2 ---------------------------------
+  CVector3 sample2 = z;
 
   // sphericalOffset1
   sphericalOffsetTransform3D(fractal->transform.sphericalOffset1, z, i, aux);
@@ -965,8 +969,6 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
   // sphericalFold1
   sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
 
-  // z sampling for colour trials 3
-   tempZC3 = z;
 
   //scale; 1
   scaleTransform3D(fractal->transform.scale1, z, i, aux);
@@ -974,18 +976,36 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
   //varableScale; 1
   variableScaleTransform3D(fractal->transform.variableScale1, z, i, aux);
 
-  //mainRotation1
-  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+
+  // z sampling for colour trials 3 ----------------------------------------------
+  CVector3 sample3 = z;
+
+
 
   // z =(fabs( z + const1A.) * const1.B) + z * constC.;
   fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
+
+  // z sampling for colour trials 4 ----------------------------------------------
+  CVector3 sample4 = z;
 
   //MAIN FORMULA ORIGINAL1
   // mandelbulb 3D 1
   mandelbulbOriginalTransform3D(fractal->transform.mandelbulbOriginal1, z, i, aux);
 
+  // z sampling for colour trials 5 ----------------------------------------------
+  CVector3 sample5 = z;
+
   // z = z + ( c * const.); 1
   constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
+
+
+  // z sampling for colour trials 6 ----------------------------------------------
+  CVector3 sample6 = z;
+
+
+
+
+
 
   //  -fabs( z - constA.) * const.B;
   fabsSubConstantTransform3D(fractal->transform.fabsSubConstant1, z, i);
@@ -1039,7 +1059,7 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
   boxFoldTransform3D(fractal->transform.boxFold2, z, i, aux);
 
   //color trial 1
-  colorTrialTransform3D(fractal->transform.colorTrial1, z, tempZC1, tempZC2, tempZC3, i, aux);
+  colorTrialTransform3D(fractal->transform.colorTrial1, z, sample0, sample1, sample2, sample3, sample4, sample5, sample6, i, aux);
 }
 
 void PlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
