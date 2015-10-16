@@ -135,8 +135,7 @@ enumVarType cMultiVal::Store(sRGB val)
 	iVal[0] = val.R;
 	iVal[1] = val.G;
 	iVal[2] = val.B;
-	sVal = QString::number(val.R, 16) + " " + QString::number(val.G, 16) + " " + QString::number(val.B, 16);
-
+	sVal = QString("%1 %2 %3").arg(val.R, 4, 16, QChar('0')).arg(val.G, 4, 16, QChar('0')).arg(val.B, 4, 16, QChar('0'));
 	if(!typeDefined) type = typeRgb;
 	return typeRgb;
 }
@@ -210,7 +209,8 @@ QString cMultiVal::MakePaletteString(cColorPalette &palette)
 		sRGB colorRGB = palette.GetColor(i);
 		int colour = colorRGB.R * 65536 + colorRGB.G * 256 + colorRGB.B;
 		colour = colour & 0x00FFFFFF;
-		paletteString += QString::number(colour, 16) + " ";
+		if(i > 0) paletteString += " ";
+		paletteString += QString("%1").arg(colour, 6, 16, QChar('0'));
 	}
 	return paletteString;
 }
