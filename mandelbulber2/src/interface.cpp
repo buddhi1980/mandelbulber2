@@ -151,8 +151,6 @@ void cInterface::ShowUi(void)
 	WriteLog("cInterface::ConnectSignals(void)");
 	ConnectSignals();
 	WriteLog("cInterface::ConnectSignals(void) finished");
-
-	emit gQueue->queueChanged();
 }
 
 void cInterface::ConnectSignals(void)
@@ -309,16 +307,6 @@ void cInterface::ConnectSignals(void)
 	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraDistanceEdited()));
 	QApplication::connect(mainWindow->ui->logslider_camera_distance_to_target, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotCameraDistanceSlider(int)));
 	QApplication::connect(mainWindow->ui->comboBox_camera_absolute_distance_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotMovementStepModeChanged(int)));
-
-	//Queue
-	QApplication::connect(mainWindow->ui->pushButton_queue_add_current_settings, SIGNAL(clicked()), mainWindow, SLOT(slotQueueAddCurrentSettings()));
-	QApplication::connect(mainWindow->ui->pushButton_queue_add_from_file, SIGNAL(clicked()), mainWindow, SLOT(slotQueueAddFromFile()));
-	QApplication::connect(mainWindow->ui->pushButton_queue_add_orphaned, SIGNAL(clicked()), mainWindow, SLOT(slotQueueAddOrphaned()));
-	QApplication::connect(mainWindow->ui->pushButton_queue_remove_orphaned, SIGNAL(clicked()), mainWindow, SLOT(slotQueueRemoveOrphaned()));
-
-	QApplication::connect(gQueue, SIGNAL(queueChanged()), mainWindow, SLOT(slotQueueListUpdate()));
-	QApplication::connect(gQueue, SIGNAL(queueChanged(int)), mainWindow, SLOT(slotQueueListUpdate(int)));
-	QApplication::connect(gQueue, SIGNAL(queueChanged(int, int)), mainWindow, SLOT(slotQueueListUpdate(int, int)));
 
 	//DockWidgets and Toolbar
 	QApplication::connect(mainWindow->ui->bu_netrender_connect, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderClientConnect()));

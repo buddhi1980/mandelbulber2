@@ -28,6 +28,7 @@
 #include "fractal_container.hpp"
 #include "animation_keyframes.hpp"
 #include "animation_flight.hpp"
+#include "interface.hpp"
 #include <QtCore>
 
 class cQueue : public QObject
@@ -51,7 +52,8 @@ public:
 		enumRenderType renderType;
 	};
 
-	cQueue(const QString &_queueListFileName, const QString &_queueFolder); //initializes queue and create necessary files and folders
+	//initializes queue and create necessary files and folders
+	cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder, cImage *_image, QObject *parent = 0);
 	~cQueue();
 
 	//add settings to queue
@@ -92,6 +94,21 @@ signals:
 private slots:
 	void queueFileChanged(const QString &path);
 	void queueFolderChanged(const QString &path);
+	void RenderQueue();
+
+	//UI
+	void slotQueueRender();
+	void slotQueueAddCurrentSettings();
+	void slotQueueAddFromFile();
+	void slotQueueAddOrphaned();
+	void slotQueueRemoveOrphaned();
+	void slotQueueRemoveItem();
+	void slotQueueMoveItemUp();
+	void slotQueueMoveItemDown();
+	void slotQueueTypeChanged(int index);
+	void slotQueueListUpdate();
+	void slotQueueListUpdate(int i);
+	void slotQueueListUpdate(int i, int j);
 
 private:
 	structQueueItem GetNextFromList(); //gives next filename
@@ -105,6 +122,10 @@ private:
 
 	void UpdateListFromQueueFile(); //updates the list of fractals to render from queue file
 	void UpdateListFromFileSystem(); //updates the list of fractals to render from file system
+
+	cInterface *mainInterface;
+	Ui::RenderWindow *ui;
+	cImage *image;
 
 	QFileSystemWatcher queueFileWatcher;
 	QFileSystemWatcher queueFolderWatcher;

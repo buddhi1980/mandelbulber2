@@ -36,11 +36,12 @@ class PreviewFileDialog: public QFileDialog
 {
 	Q_OBJECT
 public:
-	PreviewFileDialog(QWidget *parent);
+	PreviewFileDialog(QWidget *parent = 0);
 	~PreviewFileDialog();
 protected slots:
 	void OnCurrentChanged(const QString & filename);
 	void OnPresetAdd();
+	void OnQueueAdd();
 	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void slotHideProgressBar();
 
@@ -49,6 +50,7 @@ private:
 	QCheckBox *checkbox;
 	QProgressBar *progressBar;
 	QPushButton *presetAddButton;
+	QPushButton *queueAddButton;
 	QString filename;
 protected:
 	QLabel *preview;

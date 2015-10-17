@@ -56,12 +56,16 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	presetAddButton = new QPushButton;
 	presetAddButton->setText(tr("Add to presets"));
 
+	queueAddButton = new QPushButton;
+	queueAddButton->setText(tr("Add to queue"));
+
 	vboxlayout->addWidget(checkbox);
 	vboxlayout->addWidget(preview);
 	vboxlayout->addWidget(thumbWidget);
 	vboxlayout->addWidget(progressBar);
 	vboxlayout->addWidget(info);
 	vboxlayout->addWidget(presetAddButton);
+	vboxlayout->addWidget(queueAddButton);
 
 	thumbWidget->show();
 	vboxlayout -> addStretch();
@@ -72,6 +76,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 
 	connect(this, SIGNAL(currentChanged(const QString&)), this, SLOT(OnCurrentChanged(const QString&)));
 	connect(presetAddButton, SIGNAL(clicked()), this, SLOT(OnPresetAdd()));
+	connect(queueAddButton, SIGNAL(clicked()), this, SLOT(OnQueueAdd()));
 	connect(thumbWidget, SIGNAL(thumbnailRendered()), this, SLOT(slotHideProgressBar()));
 	connect(thumbWidget, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 }
@@ -83,12 +88,18 @@ PreviewFileDialog::~PreviewFileDialog()
 	delete info;
 	delete progressBar;
 	delete presetAddButton;
+	delete queueAddButton;
 }
 
 void PreviewFileDialog::OnPresetAdd()
 {
 	fcopy(filename, systemData.dataDirectory + "toolbar/" + QFileInfo(filename).fileName());
 	gMainInterface->mainWindow->slotPopulateToolbar();
+}
+
+void PreviewFileDialog::OnQueueAdd()
+{
+	gQueue->Append(filename, cQueue::queue_STILL);
 }
 
 void PreviewFileDialog::OnCurrentChanged(const QString & _filename)

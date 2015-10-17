@@ -186,19 +186,6 @@ private slots:
 	void slotNetRenderStatusClientUpdate();
 	void slotCheckBoxDisableNetRender(bool on);
 
-	//Queue
-	void slotQueueAddCurrentSettings();
-	void slotQueueAddFromFile();
-	void slotQueueAddOrphaned();
-	void slotQueueRemoveOrphaned();
-	void slotQueueRemoveItem();
-	void slotQueueMoveItemUp();
-	void slotQueueMoveItemDown();
-	void slotQueueTypeChanged(int index);
-	void slotQueueListUpdate();
-	void slotQueueListUpdate(int i);
-	void slotQueueListUpdate(int i, int j);
-
 #ifdef USE_GAMEPAD
 	// Gamepad
 	void slotChangeGamepadIndex(int index);
@@ -245,6 +232,7 @@ private:
 	friend class cFlightAnimation;
 	friend class cKeyframeAnimation;
 	friend class PreviewFileDialog;
+	friend class cQueue;
 };
 
 

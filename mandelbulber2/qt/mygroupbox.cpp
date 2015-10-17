@@ -85,15 +85,17 @@ void MyGroupBox::paintEvent(QPaintEvent *event)
 		originalText = title();
 		firstDisplay = false;
 	}
+	QString displayTitle = originalText;
+	if (!isChecked())
+	{
+		displayTitle += " ... ";
+	}
 
 	if (isChecked() != GetDefault())
 	{
-		setTitle(originalText + " *");
+		displayTitle += " *";
 	}
-	else
-	{
-		setTitle(originalText);
-	}
+	setTitle(displayTitle);
 	QGroupBox::paintEvent(event);
 
 }

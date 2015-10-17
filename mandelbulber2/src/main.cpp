@@ -119,7 +119,6 @@ int main(int argc, char *argv[])
 	}
 	UpdateLanguage();
 
-	gQueue = new cQueue(systemData.dataDirectory + "queue.txt", systemData.dataDirectory + "queue");
 
 	commandLineInterface.ReadCLI();
 
@@ -128,6 +127,7 @@ int main(int argc, char *argv[])
 		gMainInterface->ShowUi();
 		gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainImage, gMainInterface->mainWindow);
 		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainImage, gMainInterface->mainWindow);
+		gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.txt", systemData.dataDirectory + "queue", gMainInterface->mainImage, gMainInterface->mainWindow);
 	}
 
 	//write parameters to ui

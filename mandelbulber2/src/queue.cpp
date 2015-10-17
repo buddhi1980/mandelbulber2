@@ -23,9 +23,10 @@
 #include "queue.hpp"
 #include "system.hpp"
 #include "settings.hpp"
+#include "preview_file_dialog.h"
 #include "global_data.hpp"
 
-cQueue::cQueue(const QString &_queueListFileName, const QString &_queueFolder)
+cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder, cImage *_image, QObject *parent) : QObject(parent), mainInterface(_interface)
 {
 	//initializes queue and create necessary files and folders
 	queueListFileName = _queueListFileName;
@@ -54,6 +55,23 @@ cQueue::cQueue(const QString &_queueListFileName, const QString &_queueFolder)
 
 	UpdateListFromQueueFile();
 	UpdateListFromFileSystem();
+
+	if(mainInterface->mainWindow)
+	{
+		ui = mainInterface->mainWindow->ui;
+		//Queue
+		QApplication::connect(ui->pushButton_queue_add_current_settings, SIGNAL(clicked()), this, SLOT(slotQueueAddCurrentSettings()));
+		QApplication::connect(ui->pushButton_queue_add_from_file, SIGNAL(clicked()), this, SLOT(slotQueueAddFromFile()));
+		QApplication::connect(ui->pushButton_queue_add_orphaned, SIGNAL(clicked()), this, SLOT(slotQueueAddOrphaned()));
+		QApplication::connect(ui->pushButton_queue_remove_orphaned, SIGNAL(clicked()), this, SLOT(slotQueueRemoveOrphaned()));
+		QApplication::connect(ui->pushButton_queue_render_queue, SIGNAL(clicked()), this, SLOT(slotQueueRender()));
+
+		QApplication::connect(this, SIGNAL(queueChanged()), this, SLOT(slotQueueListUpdate()));
+		QApplication::connect(this, SIGNAL(queueChanged(int)), this, SLOT(slotQueueListUpdate(int)));
+		QApplication::connect(this, SIGNAL(queueChanged(int, int)), this, SLOT(slotQueueListUpdate(int, int)));
+		emit queueChanged();
+	}
+	image = _image;
 }
 
 cQueue::~cQueue()
@@ -117,7 +135,6 @@ bool cQueue::Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimati
 
 QStringList cQueue::RemoveOrphanedFiles()
 {
-	qDebug() << "remove orphaned";
 	// find and delete files which are not on the list
 	QStringList removeList;
 	for(int i = 0; i < queueListFileSystem.size(); i++)
@@ -129,6 +146,7 @@ QStringList cQueue::RemoveOrphanedFiles()
 			RemoveFromFileSystem(queueListFileSystem[i]);
 		}
 	}
+	qDebug() << "remove orphaned files " << removeList.size() << " total\n" << removeList;
 	return removeList;
 }
 
@@ -150,6 +168,7 @@ QStringList cQueue::AddOrphanedFilesToList()
 	{
 		StoreList();
 	}
+	qDebug() << "add orphaned files " << appendList.size() << " total\n" << appendList;
 	return appendList;
 }
 
@@ -335,4 +354,221 @@ void cQueue::UpdateListFromFileSystem()
 	{
 		queueListFileSystem[i] = queueFolder + QDir::separator() + queueListFileSystem.at(i);
 	}
+}
+
+void cQueue::RenderQueue()
+{
+
+}
+
+/* UI Slots */
+
+void cQueue::slotQueueRender()
+{
+	if(queueListFromFile.size() > 0)
+	{
+		RenderQueue();
+	}
+	else
+	{
+		cErrorMessage::showMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage, ui->centralwidget);
+	}
+}
+
+void cQueue::slotQueueAddCurrentSettings()
+{
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read); //update appParam before loading new settings
+	Append();
+}
+
+void cQueue::slotQueueAddFromFile()
+{
+	PreviewFileDialog dialog;
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
+	dialog.selectFile(systemData.lastSettingsFile);
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle(tr("Add file to queue..."));
+	QStringList filenames;
+	if(dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = filenames.first();
+		Append(filename);
+	}
+}
+
+void cQueue::slotQueueAddOrphaned()
+{
+	AddOrphanedFilesToList();
+}
+
+void cQueue::slotQueueRemoveOrphaned()
+{
+	RemoveOrphanedFiles();
+}
+
+void cQueue::slotQueueRemoveItem()
+{
+	QString buttonName = this->sender()->objectName();
+	RemoveQueueItem(buttonName.toInt());
+}
+
+void cQueue::slotQueueMoveItemUp()
+{
+	QString buttonName = this->sender()->objectName();
+	SwapQueueItem(buttonName.toInt(), buttonName.toInt() - 1);
+}
+
+void cQueue::slotQueueMoveItemDown()
+{
+	QString buttonName = this->sender()->objectName();
+	SwapQueueItem(buttonName.toInt(), buttonName.toInt() + 1);
+}
+
+void cQueue::slotQueueTypeChanged(int index)
+{
+	QString buttonName = this->sender()->objectName();
+	UpdateQueueItemType(buttonName.toInt(), (cQueue::enumRenderType)index);
+}
+
+void cQueue::slotQueueListUpdate()
+{
+	QTableWidget *table = ui->tableWidget_queue_list;
+
+	// reset table
+	if(GetListFromQueueFile().size() == 0)
+	{
+		table->clear();
+		return;
+	}
+
+	// init table
+	if(table->columnCount() == 0)
+	{
+		QStringList header;
+		header << tr("Name") << tr("Preview") << tr("Type") << tr("Status") << tr("Action");
+		table->setColumnCount(header.size());
+		table->setHorizontalHeaderLabels(header);
+	}
+
+	// change table
+	if(table->rowCount() != GetListFromQueueFile().size())
+	{
+		table->setRowCount(GetListFromQueueFile().size());
+	}
+
+	// update table
+	for(int i = 0; i < table->rowCount(); i++)
+	{
+		slotQueueListUpdate(i);
+	}
+}
+
+void cQueue::slotQueueListUpdate(int i)
+{
+	// update row i
+	QTableWidget *table = ui->tableWidget_queue_list;
+	table->setRowHeight(i, 70);
+	for(int j = 0; j < table->columnCount(); j++)
+	{
+		slotQueueListUpdate(i, j);
+	}
+}
+
+void cQueue::slotQueueListUpdate(int i, int j)
+{
+	// update element in row i, column j
+	QTableWidget *table = ui->tableWidget_queue_list;
+	table->blockSignals(true);
+	QTableWidgetItem *cell = table->item(i, j);
+	if(!cell)
+	{
+		cell = new QTableWidgetItem;
+		table->setItem(i, j, cell);
+	}
+	QList<cQueue::structQueueItem> queueList = GetListFromQueueFile();
+	switch(j)
+	{
+		case 0: cell->setText(queueList.at(i).filename); break;
+		case 1: {
+			if(ui->checkBox_show_queue_thumbnails->isChecked())
+			{
+				cParameterContainer tempPar = *gPar;
+				cFractalContainer tempFract = *gParFractal;
+				cSettings parSettings(cSettings::formatFullText);
+				parSettings.BeQuiet(true);
+				if (parSettings.LoadFromFile(queueList.at(i).filename) && parSettings.Decode(&tempPar, &tempFract))
+				{
+					cThumbnailWidget *thumbWidget = (cThumbnailWidget*) table->cellWidget(i, j);
+					if (!thumbWidget)
+					{
+						cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
+						thumbWidget->UseOneCPUCore(true);
+						thumbWidget->AssignParameters(tempPar, tempFract);
+						table->setCellWidget(i, j, thumbWidget);
+					}
+					else
+					{
+						thumbWidget->AssignParameters(tempPar, tempFract);
+					}
+				}
+			}
+			break;
+		}
+		case 2:
+		{
+			QComboBox *typeComboBox = new QComboBox;
+			typeComboBox->addItem(cQueue::GetTypeText(cQueue::queue_STILL));
+			typeComboBox->addItem(cQueue::GetTypeText(cQueue::queue_FLIGHT));
+			typeComboBox->addItem(cQueue::GetTypeText(cQueue::queue_KEYFRAME));
+			typeComboBox->setCurrentIndex(queueList.at(i).renderType);
+
+			typeComboBox->setObjectName(QString::number(i));
+			QObject::connect(typeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQueueTypeChanged(int)));
+			table->setCellWidget(i, j, typeComboBox);
+			// cell->setTextColor(color);
+			break;
+		}
+		case 3:
+		{
+			//TODO status
+			cell->setText("???");
+			break;
+		}
+		case 4:
+		{
+			QFrame *frame = new QFrame;
+			QGridLayout *gridlayout = new QGridLayout;
+			QToolButton *actionDelete = new QToolButton;
+			QToolButton *actionMoveUp = new QToolButton;
+			QToolButton *actionMoveDown = new QToolButton;
+
+			actionDelete->setIcon(actionDelete->style()->standardIcon(QStyle::SP_TrashIcon));
+			actionMoveUp->setIcon(actionMoveUp->style()->standardIcon(QStyle::SP_ArrowUp));
+			actionMoveDown->setIcon(actionMoveDown->style()->standardIcon(QStyle::SP_ArrowDown));
+
+			actionDelete->setObjectName(QString::number(i));
+			actionMoveUp->setObjectName(QString::number(i));
+			actionMoveDown->setObjectName(QString::number(i));
+
+			QObject::connect(actionDelete, SIGNAL(clicked()), this, SLOT(slotQueueRemoveItem()));
+			QObject::connect(actionMoveUp, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemUp()));
+			QObject::connect(actionMoveDown, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemDown()));
+
+			gridlayout->addWidget(actionDelete, 0, 1);
+			gridlayout->addWidget(actionMoveUp, 0, 0);
+			gridlayout->addWidget(actionMoveDown, 1, 0);
+			gridlayout->setSpacing(0);
+
+			if(i == 0) actionMoveUp->setEnabled(false);
+			if(i == queueList.size() - 1) actionMoveDown->setEnabled(false);
+			frame->setLayout(gridlayout);
+			table->setCellWidget(i, j, frame);
+			break;
+		}
+	}
+	table->blockSignals(false);
 }
