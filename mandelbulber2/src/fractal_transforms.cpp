@@ -1135,9 +1135,11 @@ void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, 
     double newSR6 = diff6.Length() * colorTrial.sampleConstant6;
     double new6SRs = ( newSR1 + newSR2 + newSR3 + newSR4 + newSR5 + newSR6 );
 
-    aux.newR = (bias3Rs + (orbitTrapR *  colorTrial.mainOTWeight) + new6SRs ) * 5000 * colorTrial.minimumRWeight; // divide i*i ??????
+    double R = (bias3Rs + (orbitTrapR * colorTrial.mainOTWeight) + new6SRs )* 1000* colorTrial.minimumRWeight; // ??????
     //if (aux.newR > 1e20) aux.newR  = 2.0; // change back to (aux.newR > 1e20)
     //if (aux.newR <= 0.0) aux.newR  = 1.0;
+    if ( R < aux.newR ) aux.newR =R;
+
 
   }
 }
@@ -1165,13 +1167,30 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
     {
       th0 = acos(z.x / aux.r) + mandelbulbMulti.betaAngleOffset;
       ph0 = atan(z.z / z.y) + mandelbulbMulti.alphaAngleOffset;
-
     }
-      if   (mandelbulbMulti.multiEnabled3) // three pointer
+    if   (mandelbulbMulti.multiEnabled3) // three pointer
     {
       th0 = acos(z.z / aux.r) + mandelbulbMulti.betaAngleOffset;
       ph0 = atan(z.x / z.y) + mandelbulbMulti.alphaAngleOffset;
     }
+    if   (mandelbulbMulti.multiEnabled4) //
+    {
+      th0 = asin(z.z / aux.r) + mandelbulbMulti.betaAngleOffset;
+      ph0 = atan(z.x / z.y) + mandelbulbMulti.alphaAngleOffset;
+    }
+    if   (mandelbulbMulti.multiEnabled5) //
+    {
+      th0 = asin(z.y / aux.r) + mandelbulbMulti.betaAngleOffset;
+      ph0 = atan2(z.z , z.x) + mandelbulbMulti.alphaAngleOffset;
+    }
+      if   (mandelbulbMulti.multiEnabled6) //
+    {
+      th0 = asin(z.x / aux.r) + mandelbulbMulti.betaAngleOffset;
+      ph0 = atan2(z.y , z.z) +  atan(z.x / aux.r)+ mandelbulbMulti.alphaAngleOffset;
+    }
+
+
+
     double rp = pow(aux.r, mandelbulbMulti.power - 1.0);
     double th = th0 * mandelbulbMulti.power;
     double ph = ph0 * mandelbulbMulti.power;

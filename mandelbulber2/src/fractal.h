@@ -466,8 +466,6 @@ struct sTransformColorTrial
   double  sampleConstant5;
   double  sampleConstant6;
   double  mainOTWeight;
-
-
   CVector3 orbitTrap1;
   CVector3 orbitTrap2;
 };
@@ -478,9 +476,11 @@ struct sTransformMandelbulbMulti
   bool multiEnabled1;
   bool multiEnabled2;
   bool multiEnabled3;
+  bool multiEnabled4;
+  bool multiEnabled5;
+  bool multiEnabled6;
   CVector3 mainRotation;
   CRotationMatrix mainRot;
-
   double power;
   double alphaAngleOffset;
   double betaAngleOffset;
@@ -536,7 +536,7 @@ struct sFractalTransform
   sTransformColorTrial colorTrial1;
 
   sTransformMandelbulbMulti mandelbulbMulti1;
-
+  sTransformMandelbulbMulti mandelbulbMulti2;
 
   //TODO here will be more transforms
 };

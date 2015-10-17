@@ -544,12 +544,29 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.mandelbulbMulti1.multiEnabled1 = container->Get<bool>("transform_mandelbulbMulti1_enabled1");
   transform.mandelbulbMulti1.multiEnabled2 = container->Get<bool>("transform_mandelbulbMulti1_enabled2");
   transform.mandelbulbMulti1.multiEnabled3 = container->Get<bool>("transform_mandelbulbMulti1_enabled3");
+  transform.mandelbulbMulti1.multiEnabled4 = container->Get<bool>("transform_mandelbulbMulti1_enabled4");
+  transform.mandelbulbMulti1.multiEnabled5 = container->Get<bool>("transform_mandelbulbMulti1_enabled5");
+  transform.mandelbulbMulti1.multiEnabled6 = container->Get<bool>("transform_mandelbulbMulti1_enabled6");
   transform.mandelbulbMulti1.mainRotation = container->Get<CVector3>("transform_mandelbulbMulti1_main_rotation");
   transform.mandelbulbMulti1.control.weightEnabled = container->Get<bool>("transform_mandelbulbMulti1_weight_enabled");
   transform.mandelbulbMulti1.control.startIterations = container->Get<int>("transform_mandelbulbMulti1_start_iterations");
   transform.mandelbulbMulti1.control.stopIterations = container->Get<int>("transform_mandelbulbMulti1_stop_iterations");
   transform.mandelbulbMulti1.control.weight = container->Get<double>("transform_mandelbulbMulti1_weight");
-
+  transform.mandelbulbMulti2.power = container->Get<double>("transform_mandelbulbMulti2_power");
+  transform.mandelbulbMulti2.alphaAngleOffset = container->Get<double>("transform_mandelbulbMulti2_alpha_angle_offset");
+  transform.mandelbulbMulti2.betaAngleOffset = container->Get<double>("transform_mandelbulbMulti2_beta_angle_offset");
+  transform.mandelbulbMulti2.control.enabled = container->Get<bool>("transform_mandelbulbMulti2_enabled");
+  transform.mandelbulbMulti2.multiEnabled1 = container->Get<bool>("transform_mandelbulbMulti2_enabled1");
+  transform.mandelbulbMulti2.multiEnabled2 = container->Get<bool>("transform_mandelbulbMulti2_enabled2");
+  transform.mandelbulbMulti2.multiEnabled3 = container->Get<bool>("transform_mandelbulbMulti2_enabled3");
+  transform.mandelbulbMulti2.multiEnabled4 = container->Get<bool>("transform_mandelbulbMulti2_enabled4");
+  transform.mandelbulbMulti2.multiEnabled5 = container->Get<bool>("transform_mandelbulbMulti2_enabled5");
+  transform.mandelbulbMulti2.multiEnabled6 = container->Get<bool>("transform_mandelbulbMulti2_enabled6");
+  transform.mandelbulbMulti2.mainRotation = container->Get<CVector3>("transform_mandelbulbMulti2_main_rotation");
+  transform.mandelbulbMulti2.control.weightEnabled = container->Get<bool>("transform_mandelbulbMulti2_weight_enabled");
+  transform.mandelbulbMulti2.control.startIterations = container->Get<int>("transform_mandelbulbMulti2_start_iterations");
+  transform.mandelbulbMulti2.control.stopIterations = container->Get<int>("transform_mandelbulbMulti2_stop_iterations");
+  transform.mandelbulbMulti2.control.weight = container->Get<double>("transform_mandelbulbMulti2_weight");
 
 //----------------------------------
 
