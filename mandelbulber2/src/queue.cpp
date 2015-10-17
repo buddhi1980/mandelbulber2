@@ -25,6 +25,7 @@
 #include "settings.hpp"
 #include "preview_file_dialog.h"
 #include "global_data.hpp"
+#include "error_message.hpp"
 
 cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder, cImage *_image, QObject *parent) : QObject(parent), mainInterface(_interface)
 {
@@ -358,7 +359,8 @@ void cQueue::UpdateListFromFileSystem()
 
 void cQueue::RenderQueue()
 {
-
+	// TODO
+	qDebug() << "TODO";
 }
 
 /* UI Slots */

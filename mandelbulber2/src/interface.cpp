@@ -57,6 +57,9 @@ cInterface::cInterface()
 	mainImage = NULL;
 	progressBar = NULL;
 	progressBarAnimation = NULL;
+	progressBarQueue = NULL;
+	progressBarFrame = NULL;
+	progressBarLayout = NULL;
 	stopRequest = false;
 	repeatRequest = false;
 }
@@ -66,6 +69,10 @@ cInterface::~cInterface()
 	if(renderedImage) delete renderedImage;
 	if(imageSequencePlayer) delete imageSequencePlayer;
 	if(progressBar) delete progressBar;
+	if(progressBarAnimation) delete progressBarAnimation;
+	if(progressBarQueue) delete progressBarQueue;
+	if(progressBarFrame) delete progressBarFrame;
+	if(progressBarLayout) delete progressBarLayout;
 	if(qimage) delete qimage;
 	if(mainImage) delete mainImage;
 	if(mainWindow) delete mainWindow;
@@ -115,16 +122,31 @@ void cInterface::ShowUi(void)
 	renderedImage->AssignParameters(gPar);
 
 	WriteLog("Prepare progress and status bar");
-	progressBarAnimation = new QProgressBar(mainWindow->ui->statusbar);
+	progressBarLayout = new QVBoxLayout();
+	progressBarLayout->setSpacing(0);
+	progressBarLayout->setContentsMargins(0, 0, 0, 0);
+	progressBarFrame = new QFrame(mainWindow->ui->statusbar);
+
+	progressBarQueue = new QProgressBar(progressBarFrame);
+	progressBarQueue->setMaximum(1000);
+	progressBarQueue->setAlignment(Qt::AlignCenter);
+	progressBarQueue->hide();
+	progressBarLayout->addWidget(progressBarQueue);
+
+	progressBarAnimation = new QProgressBar(progressBarFrame);
 	progressBarAnimation->setMaximum(1000);
 	progressBarAnimation->setAlignment(Qt::AlignCenter);
 	progressBarAnimation->hide();
-	mainWindow->ui->statusbar->addPermanentWidget(progressBarAnimation);
+	progressBarLayout->addWidget(progressBarAnimation);
 
-	progressBar = new QProgressBar(mainWindow->ui->statusbar);
+	progressBar = new QProgressBar(progressBarFrame);
 	progressBar->setMaximum(1000);
 	progressBar->setAlignment(Qt::AlignCenter);
-	mainWindow->ui->statusbar->addPermanentWidget(progressBar);
+	progressBarLayout->addWidget(progressBar);
+
+	QFrame *progressBarFrame = new QFrame;
+	progressBarFrame->setLayout(progressBarLayout);
+	mainWindow->ui->statusbar->addPermanentWidget(progressBarFrame);
 
 	mainWindow->ui->groupBox_netrender_client_config->setVisible(false);
 

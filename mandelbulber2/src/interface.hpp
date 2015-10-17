@@ -84,6 +84,9 @@ public:
 	PlayerWidget *imageSequencePlayer;
 	QProgressBar *progressBar;
 	QProgressBar *progressBarAnimation;
+	QProgressBar *progressBarQueue;
+	QFrame *progressBarFrame;
+	QVBoxLayout *progressBarLayout;
 	cImage *mainImage;
 	QList<sPrimitiveItem> listOfPrimitives;
 
