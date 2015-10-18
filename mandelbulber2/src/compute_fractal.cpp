@@ -81,7 +81,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		mandelboxAux[i].mboxDE = ifsAux[i].ifsDE = extendedAux[i].DE = 1.0;
 		aexionAux[i].c = c;
 		aexionAux[i].cw = 0;
-    extendedAux[i].newR = 1.0;
+    extendedAux[i].newR = 1e+20;
 	}
 
 	//main iteration loop
