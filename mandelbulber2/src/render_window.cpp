@@ -789,10 +789,10 @@ void RenderWindow::slotMenuSaveImageJPEG()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image started"), 0.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		SaveImage(filename, IMAGE_FILE_TYPE_JPG, gMainInterface->mainImage);
-		ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -813,10 +813,10 @@ void RenderWindow::slotMenuSaveImagePNG()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving image started"), 0.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		SaveImage(filename, IMAGE_FILE_TYPE_PNG, gMainInterface->mainImage);
-		ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving PNG image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -838,10 +838,10 @@ void RenderWindow::slotMenuSaveImageEXR()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		ProgressStatusText(tr("Saving %1 image").arg("EXR"), tr("Saving EXR image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("EXR"), tr("Saving EXR image started"), 0.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		SaveImage(filename, IMAGE_FILE_TYPE_EXR, gMainInterface->mainImage);
-		ProgressStatusText(tr("Saving %1 image").arg("EXR"), tr("Saving EXR image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("EXR"), tr("Saving EXR image finished"), 1.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -863,11 +863,11 @@ void RenderWindow::slotMenuSaveImagePNG16()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving PNG image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving image started"), 0.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
 		SavePNG(filename, gMainInterface->mainImage, saveImageChannel, false);
-		ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving PNG image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -888,11 +888,11 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image started"), 0.0, ui->statusbar, gMainInterface->progressBar);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"), tr("Saving image started"), 0.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
 		SavePNG(filename, gMainInterface->mainImage, saveImageChannel, true);
-		ProgressStatusText(tr("Saving image to %1 ...").arg("16-bit PNG + alpha channel"), tr("Saving PNG image finished"), 1.0, ui->statusbar, gMainInterface->progressBar);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"), tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -1656,9 +1656,24 @@ void RenderWindow::changeEvent(QEvent* event)
 		QMainWindow::changeEvent(event);
 }
 
-void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
+void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType)
 {
-	ProgressStatusText(text, progressText, progress, ui->statusbar, gMainInterface->progressBar);
+	ui->statusbar->showMessage(text, 0);
+	QProgressBar *progressBar = NULL;
+	switch(progressType)
+	{
+		case cProgressText::progress_IMAGE: progressBar = gMainInterface->progressBar; break;
+		case cProgressText::progress_ANIMATION: progressBar = gMainInterface->progressBarAnimation; break;
+		case cProgressText::progress_QUEUE: progressBar = gMainInterface->progressBarQueue; break;
+	}
+
+	if(progressBar)
+	{
+		if(!progressBar->isVisible()) progressBar->setVisible(true);
+		progressBar->setValue(progress * 1000.0);
+		progressBar->setTextVisible(true);
+		progressBar->setFormat(progressText);
+	}
 }
 
 void RenderWindow::slotMenuProgramSettings()

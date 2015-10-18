@@ -31,7 +31,6 @@
 #include "error_message.hpp"
 #include "render_ssao.h"
 #include "global_data.hpp"
-#include "headless.h"
 
 cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image) : QObject()
 {
@@ -148,11 +147,6 @@ bool cRenderer::RenderImage()
 			data->lastPercentage = percentDone;
 			statusText = QObject::tr("Rendering image in progress");
 			progressTxt = progressText.getText(percentDone);
-
-			if(data->configuration.UseConsoleOutput())
-			{
-				cHeadless::RenderingProgressOutput("Rendering image", progressTxt, percentDone);
-			}
 
 			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 
@@ -347,11 +341,6 @@ bool cRenderer::RenderImage()
 	{
 		data->statistics.time = progressText.getTime();
 		emit updateStatistics(data->statistics);
-	}
-
-	if(data->configuration.UseConsoleOutput())
-	{
-		cHeadless::RenderingProgressOutput("Rendering done", progressTxt, percentDone, true);
 	}
 
 	emit updateProgressAndStatus(statusText, progressTxt, percentDone);

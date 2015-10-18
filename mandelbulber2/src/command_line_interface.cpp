@@ -494,20 +494,20 @@ void cCommandLineInterface::ProcessCLI (void)
 		}
 		case modeFlight:
 		{
-			cHeadless headless;
-			headless.RenderFlightAnimation();
+			gMainInterface->headless = new cHeadless();
+			gMainInterface->headless->RenderFlightAnimation();
 			break;
 		}
 		case modeKeyframe:
 		{
-			cHeadless headless;
-			headless.RenderKeyframeAnimation();
+			gMainInterface->headless = new cHeadless();
+			gMainInterface->headless->RenderKeyframeAnimation();
 			break;
 		}
 		case modeStill:
 		{
-			cHeadless headless;
-			headless.RenderStillImage(cliData.outputText, cliData.imageFileFormat);
+			gMainInterface->headless = new cHeadless();
+			gMainInterface->headless->RenderStillImage(cliData.outputText, cliData.imageFileFormat);
 			break;
 		}
 		case modeBootOnly:

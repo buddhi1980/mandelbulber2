@@ -21,6 +21,9 @@
  */
 
 #include "progress_text.hpp"
+#include "global_data.hpp"
+#include "system.hpp"
+#include "headless.h"
 
 cProgressText::cProgressText()
 {
@@ -106,17 +109,20 @@ QString cProgressText::TimeString(qint64 time)
 	return timeString;
 }
 
-void ProgressStatusText(const QString &text, const QString &progressText, double progress, QStatusBar *statusBar, QProgressBar *progressBar)
+void cProgressText::ProgressStatusText(const QString &text, const QString &progressText, double progress, enumProgressType progressType)
 {
-	if(statusBar)
+	if(systemData.noGui)
 	{
-		statusBar->showMessage(text, 0);
+		if(gMainInterface->headless)
+		{
+			gMainInterface->headless->slotUpdateProgressAndStatus(text, progressText, progress, progressType);
+		}
 	}
-
-	if(progressBar)
+	else
 	{
-		progressBar->setValue(progress * 1000.0);
-		progressBar->setTextVisible(true);
-		progressBar->setFormat(progressText);
+		if(gMainInterface->mainWindow)
+		{
+			gMainInterface->mainWindow->slotUpdateProgressAndStatus(text, progressText, progress, progressType);
+		}
 	}
 }

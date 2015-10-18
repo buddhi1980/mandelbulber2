@@ -427,6 +427,11 @@ void cKeyframeAnimation::RenderKeyframes()
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 	}
+	if(mainInterface->headless)
+	{
+		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->headless, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->headless, SLOT(slotUpdateStatistics(cStatistics)));
+	}
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -473,15 +478,23 @@ void cKeyframeAnimation::RenderKeyframes()
 
 	//message if all frames are already rendered
 	if(keyframes->GetNumberOfFrames() - 1 > 0 && unrenderedTotal == 0){
-		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			ui->centralwidget,
-			QObject::tr("Truncate Image Folder"),
-			QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
-			+ QObject::tr("This will delete all images in the image folder.\nProceed?"),
-			QMessageBox::Yes|QMessageBox::No);
+		bool deletePreviousRender = false;
+		QString questionTitle = QObject::tr("Truncate Image Folder");
+		QString questionText = QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
+				+ QObject::tr("This will delete all images in the image folder.\nProceed?");
 
-		if (reply == QMessageBox::Yes)
+		if (!systemData.noGui)
+		{
+			QMessageBox::StandardButton reply;
+			reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, QMessageBox::Yes|QMessageBox::No);
+			deletePreviousRender = (reply == QMessageBox::Yes);
+		}
+		else
+		{
+			deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
+		}
+
+		if (deletePreviousRender)
 		{
 			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
 			return RenderKeyframes();
@@ -512,21 +525,12 @@ void cKeyframeAnimation::RenderKeyframes()
 			double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / unrenderedTotal;
 			QString progressTxt = progressText.getText(percentDoneFrame);
 
-			if (!systemData.noGui)
-			{
-				ProgressStatusText(QObject::tr("Rendering animation"),
-					QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
-					percentDoneFrame,
-					ui->statusbar, mainInterface->progressBarAnimation);
-			}
-			else
-			{
-				cHeadless::RenderingProgressOutput(
-					"",
-					QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
-					percentDoneFrame,
-					true);
-			}
+			cProgressText::ProgressStatusText(
+				QObject::tr("Rendering animation"),
+						QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
+						percentDoneFrame,
+				cProgressText::progress_ANIMATION
+			);
 
 			if(mainInterface->stopRequest) break;
 			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, gPar, gParFractal);
@@ -559,21 +563,12 @@ void cKeyframeAnimation::RenderKeyframes()
 			if(!result) break;
 			QString filename = GetKeyframeFilename(index, subindex);
 			SaveImage(filename, (enumImageFileType)gPar->Get<int>("keyframe_animation_image_type"), image);
-			if (systemData.noGui) cHeadless::MoveCursor(0, -2);
 		}
 		//--------------------------------------------------------------------
 
 	}
 
-	if (!systemData.noGui)
-	{
-		ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, ui->statusbar, mainInterface->progressBarAnimation);
-	}
-	else
-	{
-		cHeadless::RenderingProgressOutput(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, true);
-		cHeadless::MoveCursor(0, 2);
-	}
+	cProgressText::ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
 
 	delete renderJob;
 }
@@ -605,7 +600,7 @@ void cKeyframeAnimation::RefreshTable()
 		}
 		if(i % 100 == 0)
 		{
-			ProgressStatusText(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames, ui->statusbar, mainInterface->progressBarAnimation);
+			cProgressText::ProgressStatusText(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames, cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
 	}
@@ -944,7 +939,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 		}
 		if(index % 10 == 0)
 		{
-			ProgressStatusText(QObject::tr("Exporting"), tr("Exporting keyframes to flight"), (double)index / keyframes->GetNumberOfFrames(), ui->statusbar, mainInterface->progressBarAnimation);
+			cProgressText::ProgressStatusText(QObject::tr("Exporting"), tr("Exporting keyframes to flight"), (double)index / keyframes->GetNumberOfFrames(), cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
 	}
@@ -985,10 +980,10 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 
 	for(int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
-		ProgressStatusText(QObject::tr("Checking for collissions"),
+		cProgressText::ProgressStatusText(QObject::tr("Checking for collissions"),
 				QObject::tr("Checking for collissions on keyframe # %1").arg(key),
 				(double)key / (keyframes->GetNumberOfFrames() - 1.0),
-				ui->statusbar, mainInterface->progressBar);
+				cProgressText::progress_IMAGE);
 
 		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
@@ -1003,7 +998,8 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 			}
 		}
 	}
-	ProgressStatusText(QObject::tr("Checking for collissions"), QObject::tr("Checking for collisions finished"), 1.0, ui->statusbar, mainInterface->progressBar);
+
+	cProgressText::ProgressStatusText(QObject::tr("Checking for collissions"), QObject::tr("Checking for collisions finished"), 1.0, cProgressText::progress_IMAGE);
 
 	return listOfCollisions;
 }

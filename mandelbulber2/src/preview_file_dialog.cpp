@@ -155,7 +155,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString & _filename)
 
 void PreviewFileDialog::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
 {
-	ProgressStatusText(text, progressText, progress, NULL, progressBar);
+	cProgressText::ProgressStatusText(text, progressText, progress, cProgressText::progress_IMAGE);
 }
 
 void PreviewFileDialog::slotHideProgressBar()

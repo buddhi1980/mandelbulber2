@@ -469,19 +469,18 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					else
 					{
 						//in noGui mode it must be started as separate thread to be able to process event loop
-						cHeadless *headless = new cHeadless;
+						gMainInterface->headless = new cHeadless;
 
 						QThread *thread = new QThread; //deleted by deleteLater()
-						headless->moveToThread(thread);
-						QObject::connect(thread, SIGNAL(started()), headless, SLOT(slotNetRender()));
+						gMainInterface->headless->moveToThread(thread);
+						QObject::connect(thread, SIGNAL(started()), gMainInterface->headless, SLOT(slotNetRender()));
 						thread->setObjectName("RenderJob");
 						thread->start();
 
-						QObject::connect(headless, SIGNAL(finished()), headless, SLOT(deleteLater()));
-						QObject::connect(headless, SIGNAL(finished()), thread, SLOT(quit()));
+						QObject::connect(gMainInterface->headless, SIGNAL(finished()), gMainInterface->headless, SLOT(deleteLater()));
+						QObject::connect(gMainInterface->headless, SIGNAL(finished()), thread, SLOT(quit()));
 						QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 					}
-
 				}
 				else
 				{

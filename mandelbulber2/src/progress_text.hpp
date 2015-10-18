@@ -30,6 +30,9 @@
 class cProgressText
 {
 public:
+	 enum enumProgressType {
+		 progress_IMAGE, progress_ANIMATION, progress_QUEUE
+	 };
 	cProgressText();
 	void ResetTimer();
 	QString getText(double progress);
@@ -41,9 +44,11 @@ private:
 	qint64 lastTimeForETA;
 	double lastProgressForETA;
 	double renderingSpeed;
+
+public:
+	static void ProgressStatusText(const QString &text, const QString &progressText, double progress, enumProgressType progressType = progress_IMAGE);
 };
 
-void ProgressStatusText(const QString &text, const QString &progressText, double progress, QStatusBar *statusBar, QProgressBar *progressBar);
 
 
 

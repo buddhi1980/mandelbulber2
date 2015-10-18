@@ -51,6 +51,7 @@
 cInterface::cInterface()
 {
 	mainWindow = NULL;
+	headless = NULL;
 	qimage = NULL;
 	renderedImage = NULL;
 	imageSequencePlayer = NULL;
@@ -75,6 +76,7 @@ cInterface::~cInterface()
 	if(progressBarLayout) delete progressBarLayout;
 	if(qimage) delete qimage;
 	if(mainImage) delete mainImage;
+	if(headless) delete headless;
 	if(mainWindow) delete mainWindow;
 }
 
@@ -1068,8 +1070,16 @@ void cInterface::StartRender(void)
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage); //deleted by deleteLater()
 
-	mainWindow->connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-	mainWindow->connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
+	if(mainWindow)
+	{
+		QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
+	}
+	if(headless)
+	{
+		QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), headless, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), headless, SLOT(slotUpdateStatistics(cStatistics)));
+	}
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -1804,7 +1814,7 @@ void cInterface::ResetView()
 
 	for(int i = 0; i<50; i++)
 	{
-		ProgressStatusText(QObject::tr("Reseting view"), QObject::tr("Fractal size calculation"), i / 50.0, mainWindow->ui->statusbar, progressBar);
+		cProgressText::ProgressStatusText(QObject::tr("Reseting view"), QObject::tr("Fractal size calculation"), i / 50.0, cProgressText::progress_IMAGE);
 		CVector3 direction(Random(1000)/500.0-1.0, Random(1000)/500.0-1.0, Random(1000)/500.0-1.0);
 		direction.Normalize();
 		double distStep = 0.0;
@@ -1826,8 +1836,7 @@ void cInterface::ResetView()
 		}
 		if (scan > maxDist) maxDist = scan;
 	}
-	ProgressStatusText(QObject::tr("Reseting view"), QObject::tr("Done"), 100.0, mainWindow->ui->statusbar, progressBar);
-
+	cProgressText::ProgressStatusText(QObject::tr("Reseting view"), QObject::tr("Done"), 1.0, cProgressText::progress_IMAGE);
 	delete params;
 	delete fourFractals;
 

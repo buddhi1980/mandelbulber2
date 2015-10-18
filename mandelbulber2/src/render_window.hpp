@@ -29,6 +29,7 @@
 #include <QSettings>
 #include "cimage.hpp"
 #include "statistics.h"
+#include "progress_text.hpp"
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepad.h>
 #endif // USE_GAMEPAD
@@ -98,7 +99,7 @@ private slots:
 	void slotResizedScrolledAreaImage(int width, int height);
 	void slotSliderMovedEditManualLightPlacementDistance(int value);
 	void slotMenuLoadPreset(QString filename);
-	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
 	void slotUpdateStatistics(cStatistics);
 	void slotMenuProgramSettings();
 
@@ -233,6 +234,7 @@ private:
 	friend class cKeyframeAnimation;
 	friend class PreviewFileDialog;
 	friend class cQueue;
+	friend class cProgressText;
 };
 
 

@@ -28,7 +28,6 @@
 
 #include "progress_text.hpp"
 #include "global_data.hpp"
-#include "headless.h"
 
 cPostRenderingDOF::cPostRenderingDOF(cImage *_image, cRenderingConfiguration config) : QObject(), image(_image)
 {
@@ -61,23 +60,10 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 	emit updateProgressAndStatus(statusText, QObject::tr("Sorting zBuffer"), 0.0);
 	gApplication->processEvents();
 
-	if(enableConsoleOutput)
-	{
-		progressTxt = QObject::tr("Sorting zBuffer");
-		cHeadless::RenderingProgressOutput("Rendering DOF", progressTxt, 0.0, false);
-	}
-
 	QuickSortZBuffer(temp_sort, 1, height * width - 1);
 
 	emit updateProgressAndStatus(statusText, QObject::tr("Randomizing zBuffer"), 0.0);
 	gApplication->processEvents();
-
-	if(enableConsoleOutput)
-	{
-		progressTxt = QObject::tr("Randomizing zBuffer");
-		cHeadless::RenderingProgressOutput("Rendering DOF", progressTxt, 0.0, false);
-	}
-
 
 	//Randomize Z-buffer
 	int imgSize = height*width;
@@ -218,12 +204,6 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 
 			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 			gApplication->processEvents();
-
-			if(enableConsoleOutput)
-			{
-				cHeadless::RenderingProgressOutput("Rendering DOF", progressTxt, percentDone, false);
-			}
-
 		}
 
 		if (timerRefresh.elapsed() > lastRefreshTime && image->IsPreview())

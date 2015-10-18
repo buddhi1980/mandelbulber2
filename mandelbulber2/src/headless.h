@@ -24,6 +24,8 @@
 #define MANDELBULBER2_SRC_HEADLESS_H_
 
 #include <QtCore>
+#include "progress_text.hpp"
+#include "statistics.h"
 
 class cHeadless : public QObject
 {
@@ -42,7 +44,7 @@ public:
 	void RenderStillImage(QString filename, QString imageFileFormat);
 	void RenderFlightAnimation();
 	void RenderKeyframeAnimation();
-	static void RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone, bool newLine = false);
+	static void RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone);
 	static QString colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor = noExplicitColor, bool bold = false);
 	static QString formatLine(const QString& text);
 	static bool ConfirmMessage(QString message);
@@ -50,6 +52,8 @@ public:
 
 	public slots:
 	void slotNetRender();
+	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
+	void slotUpdateStatistics(cStatistics stat);
 
 	signals:
 	void finished();

@@ -22,7 +22,6 @@
 
 #include "error_message.hpp"
 #include <QMessageBox>
-#include "headless.h"
 #include "global_data.hpp"
 
 void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidget *parent)

@@ -26,11 +26,11 @@
 #include "render_job.hpp"
 #include "global_data.hpp"
 #include "interface.hpp"
+#include "progress_text.hpp"
 
 cHeadless::cHeadless() : QObject()
 {
 	// TODO Auto-generated constructor stub
-
 }
 
 cHeadless::~cHeadless()
@@ -43,6 +43,9 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
+
+	QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.EnableConsoleOutput();
@@ -119,6 +122,8 @@ void cHeadless::slotNetRender()
 	gMainInterface->stopRequest = true;
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
+	QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.EnableConsoleOutput();
@@ -134,7 +139,55 @@ void cHeadless::slotNetRender()
 	emit finished();
 }
 
-void cHeadless::RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone, bool newLine)
+void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType)
+{
+	static bool firstCallProgressUpdate = true;
+	if(firstCallProgressUpdate)
+	{
+		firstCallProgressUpdate = false;
+		QTextStream out(stdout);
+		out << "\n\n\n";
+		out.flush();
+	}
+
+	if(gMainInterface->headless)
+	{
+		switch(progressType)
+		{
+			case cProgressText::progress_IMAGE: MoveCursor(0, -1); break;
+			case cProgressText::progress_ANIMATION: MoveCursor(0, -2); break;
+			case cProgressText::progress_QUEUE: MoveCursor(0, -3); break;
+		}
+
+		// not enough space to display info in animation bar
+		QString displayText = (progressType == cProgressText::progress_ANIMATION ? "" : text);
+
+		RenderingProgressOutput(displayText, progressText, progress);
+
+		switch(progressType)
+		{
+			case cProgressText::progress_IMAGE: MoveCursor(0, 1); break;
+			case cProgressText::progress_ANIMATION: MoveCursor(0, 2); break;
+			case cProgressText::progress_QUEUE: MoveCursor(0, 3); break;
+		}
+	}
+}
+
+void cHeadless::slotUpdateStatistics(cStatistics stat)
+{
+	// TODO: maybe display this info on cli, when some cli flag is set
+	/*ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0));
+	ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);
+	ui->label_histogram_iter->UpdateHistogram(stat.histogramIterations);
+
+	ui->tableWidget_statistics->item(0, 0)->setText(QString::number(stat.GetTotalNumberOfIterations()));
+	ui->tableWidget_statistics->item(1, 0)->setText(QString::number(stat.GetNumberOfIterationsPerPixel()));
+	ui->tableWidget_statistics->item(2, 0)->setText(QString::number(stat.GetNumberOfIterationsPerSecond()));
+	ui->tableWidget_statistics->item(3, 0)->setText(QString::number(stat.GetMissedDEPercentage()));*/
+}
+
+
+void cHeadless::RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone)
 {
 	QTextStream out(stdout);
 	QString formatedText = formatLine(progressTxt) + " ";
@@ -152,7 +205,7 @@ void cHeadless::RenderingProgressOutput(const QString &header, const QString &pr
 		text += colorize(QString(intProgress, '#'), ansiMagenta, noExplicitColor, true);
 		text += QString(freeWidth - intProgress, ' ');
 		text += colorize("]", ansiBlue, noExplicitColor, true);
-		if(newLine) text += "\n";
+		text += "\n";
 	}
 	else
 	{
@@ -200,6 +253,11 @@ QString cHeadless::formatLine(const QString& text)
 	reType.append(QRegularExpression("^(.*?)( Done)(, )(total time: )(.*)"));
 	reType.append(QRegularExpression("^(.*?)( gotowe)(, )(całkowity czas: )(.*)"));
 	reType.append(QRegularExpression("^(.*?)( Fertig)(, )(Gesamtzeit: )(.*)"));
+
+	// animation
+	reType.append(QRegularExpression("^(Frame .*? of .*? Done )(.*?)(, )(elapsed: )(.*?)(, )(estimated to end: )(.*)"));
+	reType.append(QRegularExpression("^(Klatka .*? z .*? Gotowe )(.*?)(, )(upłynęło: )(.*?)(, )(do końca: )(.*)"));
+	reType.append(QRegularExpression("^(Frame .*? von .*? Fortschritt )(.*?)(, )(vergangen: )(.*?)(, )(voraussichtlich noch: )(.*)"));
 
 	QRegularExpressionMatch matchType;
 	for(int i = 0; i < reType.size(); i++){

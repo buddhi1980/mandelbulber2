@@ -25,6 +25,7 @@
 #include "parameters.hpp"
 #include "fractal_container.hpp"
 #include "render_window.hpp"
+#include "headless.h"
 #include <QProgressBar>
 #include "rendered_image_widget.hpp"
 #include "player_widget.hpp"
@@ -79,6 +80,7 @@ public:
 	bool QuitApplicationDialog();
 
 	RenderWindow *mainWindow;
+	cHeadless *headless;
 	QImage *qimage;
 	RenderedImage *renderedImage;
 	PlayerWidget *imageSequencePlayer;

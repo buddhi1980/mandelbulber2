@@ -26,7 +26,6 @@
 #include "ssao_worker.h"
 #include "global_data.hpp"
 #include "system.hpp"
-#include "headless.h"
 
 cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image) : QObject()
 {
@@ -152,11 +151,6 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		double percentDone = (double) totalDone / toDo;
 		statusText = QObject::tr("Rendering SSAO effect in progress");
 		progressTxt = progressText.getText(percentDone);
-
-		if(enableConsoleOutput)
-		{
-			cHeadless::RenderingProgressOutput("Rendering SSAO", progressTxt, percentDone, false);
-		}
 
 		if(!quiet)
 		{
