@@ -29,7 +29,6 @@ public:
 	cRenderingConfiguration();
 
 	void DisableRefresh() {enableImageRefresh = false;}
-	void EnableConsoleOutput() {enableConsoleOutput = true;}
 	void DisableProgressiveRender() {enableProgressiveRender = false;}
 	void EnableNetRender() {enableNetRender = true;}
 	void DisableMultiThread() {enableMultiThread = false;}
@@ -40,7 +39,6 @@ public:
 	bool UseImageRefresh() const;
 	bool UseProgressive() const;
 	bool UseRefreshRenderedList() const;
-	bool UseConsoleOutput() const;
 	bool UseRenderTimeEffects() const;
 	bool UseIgnoreErrors() const;
 	int GetNumberOfThreads() const;
@@ -49,7 +47,6 @@ public:
 
 private:
 	bool enableImageRefresh;
-	bool enableConsoleOutput;
 	bool enableProgressiveRender;
 	bool enableNetRender;
 	bool enableMultiThread;

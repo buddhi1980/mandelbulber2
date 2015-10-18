@@ -46,7 +46,6 @@ private:
 	double qualityFactor;
 	int progressive;
 	int numberOfThreads;
-	bool enableConsoleOutput;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

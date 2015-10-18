@@ -1509,7 +1509,7 @@ void cInterface::RefreshMainImage()
 	{
 		cParamRender params(gPar);
 		cRenderingConfiguration config;
-		cPostRenderingDOF dof(mainImage, config);
+		cPostRenderingDOF dof(mainImage);
 		QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		dof.Render(params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0, params.DOFFocus, &stopRequest);
 	}

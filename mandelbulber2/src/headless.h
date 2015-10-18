@@ -49,6 +49,7 @@ public:
 	static QString formatLine(const QString& text);
 	static bool ConfirmMessage(QString message);
 	static void MoveCursor(int leftRight, int downUp);
+	static void EraseLine();
 
 	public slots:
 	void slotNetRender();

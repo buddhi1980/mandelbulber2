@@ -70,6 +70,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/render_image.cpp\
 			../src/rendered_image_widget.cpp\
 			../src/render_job.cpp\
+			../src/render_queue.cpp\
 			../src/render_ssao.cpp\
 			../src/render_window.cpp\
 			../src/render_worker.cpp\
@@ -123,6 +124,7 @@ HEADERS  += ../src/render_window.hpp\
 			../src/player_widget.hpp\
 			../src/queue.hpp \
 			../src/render_job.hpp\
+			../src/render_queue.hpp\
 			../src/render_image.hpp\
 			../src/render_ssao.h\
 			../src/dof.hpp\

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator
  *
- * PostRendering_DOF - calculation of Depth of Field effect
+ * cRenderQueue class - processes queue render request
  *
  * Copyright (C) 2014 Krzysztof Marczak
  *
@@ -20,36 +20,30 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-#ifndef DOF_HPP_
-#define DOF_HPP_
-
+#include <QtCore>
 #include "cimage.hpp"
-#include <QProgressBar>
-#include <QStatusBar>
-#include "rendering_configuration.hpp"
+#include "progress_text.hpp"
 
-class cPostRenderingDOF: public QObject
+#ifndef RENDER_QUEUE_HPP_
+#define RENDER_QUEUE_HPP_
+
+class cRenderQueue : public QObject
 {
 	Q_OBJECT
-
-private:
-	template <class TYPE>
-
-	struct sSortZ
-	{
-		TYPE z;
-		int i;
-	};
-
 public:
-	cPostRenderingDOF(cImage *_image);
+	cRenderQueue(cImage *_image);
+	~cRenderQueue();
 
-	void Render(double deep, double neutral, bool *stopRequest);
-	template <class T> void QuickSortZBuffer(sSortZ<T> *dane, int l, int p);
-
-	cImage *image;
+public slots:
+	void slotRenderQueue();
+	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType = cProgressText::progress_QUEUE);
 
 signals:
-	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType);
+	void finished();
+
+private:
+	cImage *image;
 };
-#endif /* DOF_HPP_ */
+
+#endif /* RENDER_QUEUE_HPP_ */

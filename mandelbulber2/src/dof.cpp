@@ -29,9 +29,9 @@
 #include "progress_text.hpp"
 #include "global_data.hpp"
 
-cPostRenderingDOF::cPostRenderingDOF(cImage *_image, cRenderingConfiguration config) : QObject(), image(_image)
+cPostRenderingDOF::cPostRenderingDOF(cImage *_image) : QObject(), image(_image)
 {
-	enableConsoleOutput = config.UseConsoleOutput();
+
 }
 
 void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)

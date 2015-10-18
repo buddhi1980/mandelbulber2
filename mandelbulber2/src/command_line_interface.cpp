@@ -65,7 +65,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 			"jpg - JPEG format\n"
 			"png - PNG format\n"
 			"png16 - 16-bit PNG format\n"
-			"png16alpha - 16-bit PNG with alpha channel format"),
+			"png16alpha - 16-bit PNG with alpha channel format\n"
+			"exr - EXR format"),
 		QCoreApplication::translate("main", "FORMAT"));
 
 	QCommandLineOption resOption(QStringList() << "r" << "res",
@@ -318,7 +319,7 @@ void cCommandLineInterface::ReadCLI (void)
 	if(cliData.imageFileFormat != "")
 	{
 		QStringList allowedImageFileFormat;
-		allowedImageFileFormat << "jpg" << "png" << "png16" << "png16alpha";
+		allowedImageFileFormat << "jpg" << "png" << "png16" << "png16alpha" << "exr";
 		if(!allowedImageFileFormat.contains(cliData.imageFileFormat)){
 			cErrorMessage::showMessage("Specified imageFileFormat is not valid\n"
 					 "allowed formats are: " + allowedImageFileFormat.join(", "), cErrorMessage::errorMessage);

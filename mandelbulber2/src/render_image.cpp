@@ -313,7 +313,7 @@ bool cRenderer::RenderImage()
 		}
 		if(params->DOFEnabled && !*data->stopRequest)
 		{
-			cPostRenderingDOF dof(image, data->configuration);
+			cPostRenderingDOF dof(image);
 			connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 			dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->stopRequest);
 		}

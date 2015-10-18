@@ -438,7 +438,6 @@ void cKeyframeAnimation::RenderKeyframes()
 
 	if(systemData.noGui)
 	{
-		config.EnableConsoleOutput();
 		config.DisableRefresh();
 		config.DisableProgressiveRender();
 		config.EnableNetRender();

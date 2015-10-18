@@ -574,7 +574,6 @@ void cFlightAnimation::RenderFlight()
 
 	if(systemData.noGui)
 	{
-		config.EnableConsoleOutput();
 		config.DisableRefresh();
 		config.DisableProgressiveRender();
 		config.EnableNetRender();
@@ -684,7 +683,6 @@ void cFlightAnimation::RenderFlight()
 		QString filename = GetFlightFilename(index);
 		SaveImage(filename, (enumImageFileType)gPar->Get<int>("flight_animation_image_type"), image);
 	}
-
 	cProgressText::ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
 }
 

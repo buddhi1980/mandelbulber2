@@ -71,6 +71,7 @@ int main(int argc, char *argv[])
 	qRegisterMetaType<cParameterContainer>("cParameterContainer");
 	qRegisterMetaType<cFractalContainer>("cFractalContainer");
 	qRegisterMetaType<sTextures>("sTextures");
+	qRegisterMetaType<cProgressText::enumProgressType>("cProgressText::enumProgressType");
 
 	//create default directories and copy all needed files
 	WriteLog("CreateDefaultFolders()");

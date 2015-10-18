@@ -48,15 +48,12 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
-	config.EnableConsoleOutput();
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
 	config.EnableNetRender();
 
 	renderJob->Init(cRenderJob::still, config);
 	renderJob->Execute();
-
-	//TODO saving in different image formats
 
 	QFileInfo fi(filename);
 	filename = fi.path() + QDir::separator() + fi.baseName();
@@ -84,6 +81,11 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 		ext = ".png";
 		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
 		SavePNG(filename + ext, image, saveImageChannel, true);
+	}
+	else if(imageFileFormat == "exr")
+	{
+		ext = ".exr";
+		SaveImage(filename + ext, IMAGE_FILE_TYPE_EXR, image);
 	}
 
 	QTextStream out(stdout);
@@ -126,7 +128,6 @@ void cHeadless::slotNetRender()
 	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
-	config.EnableConsoleOutput();
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
 	config.EnableNetRender();
@@ -166,9 +167,14 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 
 		switch(progressType)
 		{
-			case cProgressText::progress_IMAGE: MoveCursor(0, 1); break;
-			case cProgressText::progress_ANIMATION: MoveCursor(0, 2); break;
-			case cProgressText::progress_QUEUE: MoveCursor(0, 3); break;
+			case cProgressText::progress_QUEUE:
+				MoveCursor(0, 1);
+				EraseLine();
+			case cProgressText::progress_ANIMATION:
+				MoveCursor(0, 1);
+				EraseLine();
+			case cProgressText::progress_IMAGE:
+				MoveCursor(0, 1);
 		}
 	}
 }
@@ -297,6 +303,17 @@ bool cHeadless::ConfirmMessage(QString message)
 	out.flush();
 	QString response = in.readLine().toLower();
 	return (response  == "y");
+}
+
+void cHeadless::EraseLine()
+{
+#ifdef WIN32 /* WINDOWS */
+	return;
+#else
+	QTextStream out(stdout);
+	out << "\033[2K";
+	out.flush();
+#endif
 }
 
 void cHeadless::MoveCursor(int leftRight, int downUp)

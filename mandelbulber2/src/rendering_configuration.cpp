@@ -29,7 +29,6 @@ cRenderingConfiguration::cRenderingConfiguration()
 	//default settings
 	enableProgressiveRender = true;
 	enableImageRefresh = true;
-	enableConsoleOutput = false;
 	enableNetRender = false;
 	enableMultiThread = true;
 	enableIgnoreErrors = false;
@@ -61,11 +60,6 @@ int cRenderingConfiguration::GetNumberOfThreads() const
 bool cRenderingConfiguration::UseRefreshRenderedList() const
 {
 	return enableImageRefresh || UseNetRender();
-}
-
-bool cRenderingConfiguration::UseConsoleOutput() const
-{
-	return enableConsoleOutput;
 }
 
 bool cRenderingConfiguration::UseRenderTimeEffects() const

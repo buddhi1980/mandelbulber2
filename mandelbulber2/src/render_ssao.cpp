@@ -36,7 +36,6 @@ cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_render
 	qualityFactor = 1.0;
 	progressive = 0;
 	numberOfThreads = data->configuration.GetNumberOfThreads();
-	enableConsoleOutput = data->configuration.UseConsoleOutput();
 }
 
 cRenderSSAO::~cRenderSSAO()

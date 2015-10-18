@@ -26,6 +26,7 @@
 #include "preview_file_dialog.h"
 #include "global_data.hpp"
 #include "error_message.hpp"
+#include "render_queue.hpp"
 
 cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder, cImage *_image, QObject *parent) : QObject(parent), mainInterface(_interface)
 {
@@ -359,8 +360,30 @@ void cQueue::UpdateListFromFileSystem()
 
 void cQueue::RenderQueue()
 {
-	// TODO
-	qDebug() << "TODO";
+	if(mainInterface->mainImage->IsUsed())
+	{
+		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
+		return;
+	}
+
+	QThread *thread = new QThread; //deleted by deleteLater()
+	cRenderQueue *renderQueue = new cRenderQueue(gMainInterface->mainImage); // TODO give necessary params
+	renderQueue->moveToThread(thread);
+	QObject::connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));
+	QObject::connect(renderQueue, SIGNAL(finished()), renderQueue, SLOT(deleteLater()));
+	if(gMainInterface->mainWindow){
+		QObject::connect(renderQueue, SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
+			gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
+	}
+	if(gMainInterface->headless){
+		QObject::connect(renderQueue, SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
+			gMainInterface->headless, SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
+	}
+	QObject::connect(renderQueue, SIGNAL(finished()), thread, SLOT(quit()));
+	QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+	thread->setObjectName("RenderQueue");
+
+	thread->start();
 }
 
 /* UI Slots */
@@ -373,7 +396,7 @@ void cQueue::slotQueueRender()
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage, ui->centralwidget);
+		cErrorMessage::showMessage(QObject::tr("No queue items to render"), cErrorMessage::errorMessage, ui->centralwidget);
 	}
 }
 
