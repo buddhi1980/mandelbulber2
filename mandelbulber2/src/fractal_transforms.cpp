@@ -1100,46 +1100,70 @@ void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, 
 {
   if (colorTrial.control.enabled && i >= colorTrial.control.startIterations && i < colorTrial.control.stopIterations)
   {
+    double biasR;
+    double orbitTrapsR;
+    double transformSamplingR;
+
 
 // simple x, y, z bias
-    double biasR1 = fabs(z.x) * colorTrial.colorConstant1;
-    double biasR2 = fabs(z.y) * colorTrial.colorConstant2;
-    double biasR3 = fabs(z.z) * colorTrial.colorConstant3;
-    double bias3Rs = (biasR1 ) + ( biasR2 ) + (biasR3);
-    bias3Rs *= bias3Rs; // trying squaring ??
-
+    if (colorTrial.axisBiasEnabled)
+    {
+      double biasR1 = fabs(z.x) * 10 * colorTrial.colorConstant1;
+      double biasR2 = fabs(z.y) * 10 * colorTrial.colorConstant2;
+      double biasR3 = fabs(z.z) * 10 * colorTrial.colorConstant3;
+      biasR = ((biasR1 ) + ( biasR2 ) + (biasR3)) / 3.0;
+      //biasR *= biasR; // trying squaring ??
+      if (biasR < aux.axisBias ) aux.axisBias = biasR;
+    }
+    else
+    {
+      aux.axisBias = 0.0;
+    }
 // orbit traps
-    CVector3 tempOT1;
-    CVector3 tempOT2;
-    tempOT1 = z - colorTrial.orbitTrap1;
-    tempOT2 = z - colorTrial.orbitTrap2;
-    double lengthOT1 = tempOT1.Length();
-    double lengthOT2 = tempOT2.Length();
-    double orbitTrapR;
-    if (lengthOT1 < lengthOT2) orbitTrapR = lengthOT1; // + ( i * i / colorTrial.OT1Weight );
-    else orbitTrapR = lengthOT2; //  + ( i * i / colorTrial.OT2Weight );
-
+    if (colorTrial.orbitTrapsEnabled)
+    {
+      CVector3 tempOT1;
+      CVector3 tempOT2;
+      tempOT1 = z - colorTrial.orbitTrap1;
+      tempOT2 = z - colorTrial.orbitTrap2;
+      double lengthOT1 = tempOT1.Length();
+      double lengthOT2 = tempOT2.Length();
+      if (lengthOT1 < lengthOT2) orbitTrapsR = lengthOT1; // + ( i * i / colorTrial.OT1Weight );
+      else orbitTrapsR = lengthOT2; //  + ( i * i / colorTrial.OT2Weight );
+      if (orbitTrapsR < aux.orbitTraps ) aux.orbitTraps = orbitTrapsR;
+    }
+    else
+    {
+      aux.orbitTraps = 0.0;
+    }
 // transform sampling
-    CVector3 diff1 = sample1 - sample0;
-    CVector3 diff2 = sample2 - sample1;
-    CVector3 diff3 = sample3 - sample2;
-    CVector3 diff4 = sample4 - sample3;
-    CVector3 diff5 = sample5 - sample4;
-    CVector3 diff6 = sample6 - sample5;
+    if (colorTrial.transformSamplingEnabled)
+    {
+      CVector3 diff1 = sample1 - sample0;
+      CVector3 diff2 = sample2 - sample1;
+      CVector3 diff3 = sample3 - sample2;
+      CVector3 diff4 = sample4 - sample3;
+      CVector3 diff5 = sample5 - sample4;
+      CVector3 diff6 = sample6 - sample5;
 
-    double newSR1 = diff1.Length() * colorTrial.sampleConstant1;;
-    double newSR2 = diff2.Length() * colorTrial.sampleConstant2;;
-    double newSR3 = diff3.Length() * colorTrial.sampleConstant3;
-    double newSR4 = diff4.Length() * colorTrial.sampleConstant4;
-    double newSR5 = diff5.Length() * colorTrial.sampleConstant5;
-    double newSR6 = diff6.Length() * colorTrial.sampleConstant6;
-    double new6SRs = ( newSR1 + newSR2 + newSR3 + newSR4 + newSR5 + newSR6 );
+      double newSR1 = diff1.Length() * colorTrial.sampleConstant1;;
+      double newSR2 = diff2.Length() * colorTrial.sampleConstant2;;
+      double newSR3 = diff3.Length() * colorTrial.sampleConstant3;
+      double newSR4 = diff4.Length() * colorTrial.sampleConstant4;
+      double newSR5 = diff5.Length() * colorTrial.sampleConstant5;
+      double newSR6 = diff6.Length() * colorTrial.sampleConstant6;
+      transformSamplingR = ( newSR1 + newSR2 + newSR3 + newSR4 + newSR5 + newSR6 );
+      if (transformSamplingR < aux.transformSampling ) aux.transformSampling = transformSamplingR;
+    }
+    else
+    {
+      aux.transformSampling = 0.0;
+    }
 
-    double R = (bias3Rs + (orbitTrapR * colorTrial.mainOTWeight) + new6SRs )* 1000* colorTrial.minimumRWeight; // ??????
+    double R = ((aux.axisBias + (aux.orbitTraps * colorTrial.mainOTWeight) +  aux.transformSampling) * 1000* colorTrial.minimumRWeight)  ; // ??????+ (aux.color * 100)
     //if (aux.newR > 1e20) aux.newR  = 2.0; // change back to (aux.newR > 1e20)
     //if (aux.newR <= 0.0) aux.newR  = 1.0;
-    if ( R < aux.newR ) aux.newR =R;
-
+    aux.newR =R;
 
   }
 }

@@ -513,13 +513,19 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.variableScale1.variableConstant = container->Get<CVector3>("transform_variableScale1_variableScale");
 
 
-
-
+  transform.colorTrial1.color.factor = container->Get<CVector3>("transform_colorTrial1_color");
+  transform.colorTrial1.color.factorR = container->Get<double>("transform_colorTrial1_color_R");
+  transform.colorTrial1.color.factorSp1 = container->Get<double>("transform_colorTrial1_color_Sp1");
+  transform.colorTrial1.color.factorSp2 = container->Get<double>("transform_colorTrial1_color_Sp2");
 
   transform.colorTrial1.control.enabled = container->Get<bool>("transform_colorTrial1_enabled");
   transform.colorTrial1.control.startIterations = container->Get<int>("transform_colorTrial1_start_iterations");
   transform.colorTrial1.control.stopIterations = container->Get<int>("transform_colorTrial1_stop_iterations");
+
   transform.colorTrial1.minimumRWeight = container->Get<double>("transform_colorTrial1_minimumRWeight");
+  transform.colorTrial1.axisBiasEnabled = container->Get<bool>("transform_colorTrial1_axisBias_enabled");
+  transform.colorTrial1.orbitTrapsEnabled = container->Get<bool>("transform_colorTrial1_orbitTraps_enabled");
+  transform.colorTrial1.transformSamplingEnabled = container->Get<bool>("transform_colorTrial1_transformSampling_enabled");
 
   transform.colorTrial1.colorConstant1 = container->Get<double>("transform_colorTrial1_colorConstant1");
   transform.colorTrial1.colorConstant2 = container->Get<double>("transform_colorTrial1_colorConstant2");
@@ -624,6 +630,7 @@ void cFractal::RecalculateFractalParams(void)
   transform.mainRotation3.mainRot.SetRotation2(transform.mainRotation3.mainRotation * (M_PI / 180.0));
   transform.mainRotation4.mainRot.SetRotation2(transform.mainRotation4.mainRotation * (M_PI / 180.0));
   transform.mandelbulbMulti1.mainRot.SetRotation2(transform.mandelbulbMulti1.mainRotation * (M_PI / 180.0));
+  transform.mandelbulbMulti2.mainRot.SetRotation2(transform.mandelbulbMulti2.mainRotation * (M_PI / 180.0));
 
   transform.sphericalFoldOriginal1.fR2 = transform.sphericalFoldOriginal1.radFixed * transform.sphericalFoldOriginal1.radFixed;
   transform.sphericalFoldOriginal1.mR2 = transform.sphericalFoldOriginal1.radMin * transform.sphericalFoldOriginal1.radMin;

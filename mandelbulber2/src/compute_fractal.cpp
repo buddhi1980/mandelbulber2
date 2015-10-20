@@ -82,6 +82,10 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 		aexionAux[i].c = c;
 		aexionAux[i].cw = 0;
     extendedAux[i].newR = 1e+20;
+    extendedAux[i].axisBias = 1e+20;
+    extendedAux[i].orbitTraps = 1e+20;
+    extendedAux[i].transformSampling = 1e+20;
+
 	}
 
 	//main iteration loop

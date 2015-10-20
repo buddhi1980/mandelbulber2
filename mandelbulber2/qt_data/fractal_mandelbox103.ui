@@ -722,7 +722,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation1_enabled">
      <property name="title">
-      <string>Enable &amp;Main Rotation;</string>
+      <string>Enable &amp;Main Rotation; Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1015,7 +1015,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplierOriginal1_enabled">
      <property name="title">
-      <string>Enable z =  z +  ( c * const. );  ORIGINAL</string>
+      <string>Enable Constant Multiplier  z =  z +  ( c * const. );  ORIGINAL</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1326,7 +1326,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant1_enabled">
      <property name="title">
-      <string>Enable z = z +  const.; </string>
+      <string>Enable Addition Constant  z = z +  const.;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1619,7 +1619,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaABCD1_enabled">
      <property name="title">
-      <string>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D); </string>
+      <string>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D);  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2422,7 +2422,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_box_fold1_enabled">
      <property name="title">
-      <string>Enable Bo&amp;x Fold;</string>
+      <string>Enable Bo&amp;x Fold; Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2685,7 +2685,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_sphericalFold1_enabled">
      <property name="title">
-      <string>Enable Spherical Fold</string>
+      <string>Enable Spherical Fold; Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2945,7 +2945,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_scale1_enabled">
      <property name="title">
-      <string>Enable Scale</string>
+      <string>Enable Scale; Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3110,7 +3110,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation2_enabled">
      <property name="title">
-      <string>Enable Main &amp;Rotation; </string>
+      <string>Enable Main &amp;Rotation;  Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3400,7 +3400,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplier1_enabled">
      <property name="title">
-      <string>Enable z =  z + ( c * const. ); </string>
+      <string>Enable Constant Multiplier  z =  z + ( c * const. );  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3714,7 +3714,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant2_enabled">
      <property name="title">
-      <string>Enable z = z +  const.;</string>
+      <string>Enable Addition Constant  z = z +  const.;  Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3995,7 +3995,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation3_enabled">
      <property name="title">
-      <string>Enable Main Ro&amp;tation; </string>
+      <string>Enable Main Ro&amp;tation; Copy THREE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -4285,7 +4285,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaABCD2_enabled">
      <property name="title">
-      <string>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D); </string>
+      <string>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D); Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5106,7 +5106,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_iterationWeight1_enabled">
      <property name="title">
-      <string>Enable &amp;Iteration Weight.;  z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);</string>
+      <string>Enable &amp;Iteration Weight.;  z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B); Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

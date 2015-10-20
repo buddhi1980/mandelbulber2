@@ -854,12 +854,17 @@ void InitFractalParams(cParameterContainer *par)
 //ColourTrial1
   par->addParam("transform_colorTrial1_enabled", false, morphLinear, paramStandard);
 
+  par->addParam("transform_colorTrial1_color", CVector3(0.03, 0.05, 0.07), morphLinear, paramStandard);
+  par->addParam("transform_colorTrial1_color_R", 0.0, morphLinear, paramStandard);
+  par->addParam("transform_colorTrial1_color_Sp1", 0.2, morphLinear, paramStandard);
+  par->addParam("transform_colorTrial1_color_Sp2", 0.2, morphLinear, paramStandard);
+
   par->addParam("transform_colorTrial1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_colorTrial1_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_minimumRWeight", 1.0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_colorConstant1", 0.0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_colorConstant2", 0.0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_colorConstant3", 0.0, morphLinear, paramStandard);
+  par->addParam("transform_colorTrial1_colorConstant1", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_colorTrial1_colorConstant2", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_colorTrial1_colorConstant3", 1.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_sampleConstant1", 0.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_sampleConstant2", 0.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_sampleConstant3", 0.0, morphLinear, paramStandard);
@@ -867,6 +872,11 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_colorTrial1_sampleConstant5", 0.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_sampleConstant6", 0.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_mainOTWeight", 1.0, morphLinear, paramStandard);
+
+  par->addParam("transform_colorTrial1_axisBias_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_colorTrial1_orbitTraps_enabled", true, morphLinear, paramStandard);
+  par->addParam("transform_colorTrial1_transformSampling_enabled", false, morphLinear, paramStandard);
+
   par->addParam("transform_colorTrial1_orbitTrap1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("transform_colorTrial1_orbitTrap2", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
