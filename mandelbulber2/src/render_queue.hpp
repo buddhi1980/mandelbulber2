@@ -24,8 +24,8 @@
 #include "cimage.hpp"
 #include "progress_text.hpp"
 
-#ifndef RENDER_QUEUE_HPP_
-#define RENDER_QUEUE_HPP_
+#ifndef MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
+#define MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
 
 class cRenderQueue : public QObject
 {
@@ -33,6 +33,9 @@ class cRenderQueue : public QObject
 public:
 	cRenderQueue(cImage *_image);
 	~cRenderQueue();
+	void RenderStill(const QString& filename);
+	void RenderFlight();
+	void RenderKeyframe();
 
 public slots:
 	void slotRenderQueue();
@@ -41,9 +44,10 @@ public slots:
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType);
 	void finished();
+	void updateUI();
 
 private:
 	cImage *image;
 };
 
-#endif /* RENDER_QUEUE_HPP_ */
+#endif /* MANDELBULBER2_SRC_RENDER_QUEUE_HPP_ */

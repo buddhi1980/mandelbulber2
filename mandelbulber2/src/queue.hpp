@@ -85,6 +85,8 @@ public:
 	void RemoveQueueItem(const structQueueItem queueItem); //remove queue item from list and filesystem
 	void UpdateQueueItemType(int i, enumRenderType renderType);
 
+	structQueueItem GetNextFromList(); //gives next filename
+	void RemoveFromList(const structQueueItem &queueItem); //remove queue item if it is on the list
 signals:
 	//request to update table of queue items
 	void queueChanged();
@@ -109,12 +111,10 @@ private slots:
 	void slotQueueListUpdate();
 	void slotQueueListUpdate(int i);
 	void slotQueueListUpdate(int i, int j);
+	void slotUpdateUI();
 
 private:
-	structQueueItem GetNextFromList(); //gives next filename
 	void AddToList(const structQueueItem &queueItem); //add filename to the end of list
-
-	void RemoveFromList(const structQueueItem &queueItem); //remove queue item if it is on the list
 	void RemoveFromFileSystem(const QString &filename); //remove queue file from filesystem
 	void StoreList();
 

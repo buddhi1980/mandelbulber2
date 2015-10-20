@@ -179,7 +179,6 @@ cQueue::structQueueItem cQueue::GetNextFromList()
 	//gives next filename
 	if(queueListFromFile.size() > 0)
 	{
-		RemoveQueueItem(queueListFromFile.at(0));
 		return queueListFromFile.at(0);
 	}
 	return structQueueItem("", queue_STILL);
@@ -371,6 +370,7 @@ void cQueue::RenderQueue()
 	renderQueue->moveToThread(thread);
 	QObject::connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));
 	QObject::connect(renderQueue, SIGNAL(finished()), renderQueue, SLOT(deleteLater()));
+	QObject::connect(renderQueue, SIGNAL(updateUI()), this, SLOT(slotUpdateUI()));
 	if(gMainInterface->mainWindow){
 		QObject::connect(renderQueue, SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
 			gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
@@ -596,4 +596,12 @@ void cQueue::slotQueueListUpdate(int i, int j)
 		}
 	}
 	table->blockSignals(false);
+}
+
+void cQueue::slotUpdateUI()
+{
+	gMainInterface->RebuildPrimitives(gPar);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	gFlightAnimation->RefreshTable();
+	gKeyframeAnimation->RefreshTable();
 }
