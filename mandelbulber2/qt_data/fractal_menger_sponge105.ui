@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>687</width>
-    <height>4607</height>
+    <height>5720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -413,7 +413,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_boxOffset1_enabled">
      <property name="title">
-      <string>E&amp;nable  if (z &gt; 0)  z = z + offset;  else  z = z - offset;</string>
+      <string>E&amp;nable Box Offset  if (z &gt; 0)  z = z + offset;  else  z = z - offset;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -724,7 +724,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_box_fold1_enabled">
      <property name="title">
-      <string>Enable &amp;Box Fold</string>
+      <string>Enable &amp;Box Fold; Copy One</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -984,7 +984,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_sphericalOffset1_enabled">
      <property name="title">
-      <string>Enable z = z * (&amp;1 + offset/length (z) );</string>
+      <string>Enable  Spherical Offset z = z * (&amp;1 + offset/length (z) );  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1250,7 +1250,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_sphericalFold1_enabled">
      <property name="title">
-      <string>Enable Spherical Fold</string>
+      <string>Enable Spherical Fold;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1516,7 +1516,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation1_enabled">
      <property name="title">
-      <string>Enable Main &amp;Rotation;</string>
+      <string>Enable Main &amp;Rotation;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1809,7 +1809,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_scale1_enabled">
      <property name="title">
-      <string>Enable Scale</string>
+      <string>Enable Scale;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1974,7 +1974,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsAddConstant1_enabled">
      <property name="title">
-      <string>Enable z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C; </string>
+      <string>Enable z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C;   Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2617,7 +2617,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_boxConstantMultiplier1_enabled">
      <property name="title">
-      <string>Enable &amp;if (z &gt; 0)  z = z +  (fabs(c ) * const. );  else  z = z - (fabs(c ) * const. );</string>
+      <string>Enable &amp;if (z &gt; 0)  z = z +  (fabs(c ) * const. );  else  z = z - (fabs(c ) * const. );  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2949,7 +2949,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation2_enabled">
      <property name="title">
-      <string>Enable Main Rotation; </string>
+      <string>Enable Main Rotation;   Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3239,7 +3239,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplier1_enabled">
      <property name="title">
-      <string>Enable z =  z +  ( c * const. ); </string>
+      <string>Enable Constant Multiplier  z =  z +  ( c * const. );  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3550,7 +3550,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant1_enabled">
      <property name="title">
-      <string>Enable z = z + ( const.); </string>
+      <string>Enable Addition Constant z = z + ( const.);  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3843,7 +3843,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaABCD1_enabled">
      <property name="title">
-      <string>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D); </string>
+      <string>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D);   Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -4664,7 +4664,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_mengerSponge1_enabled">
      <property name="title">
-      <string>Enable MEN&amp;GER SPONGE</string>
+      <string>Enable MEN&amp;GER SPONGE  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5042,7 +5042,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_boxOffset2_enabled">
      <property name="title">
-      <string>Enable  if (z &gt; 0)  z = z + offset;  else  z = z - offset;</string>
+      <string>Enable  Box Offset if (z &gt; 0)  z = z + offset;  else  z = z - offset;  Copy Two</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5353,7 +5353,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_box_fold2_enabled">
      <property name="title">
-      <string>Enable Bo&amp;x Fold</string>
+      <string>Enable Bo&amp;x Fold;  Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5616,7 +5616,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_sphericalOffset2_enabled">
      <property name="title">
-      <string>Enable z = z * (1 + offset/&amp;length (z) );</string>
+      <string>Enable Spherical Offset  z = z * (1 + offset/&amp;length (z) ); Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5882,7 +5882,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_sphericalFold2_enabled">
      <property name="title">
-      <string>Enable Spherical Fold</string>
+      <string>Enable Spherical Fold; Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -6142,7 +6142,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation3_enabled">
      <property name="title">
-      <string>Enable Main Rotation; </string>
+      <string>Enable Main Rotation;  Copy THREE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -6425,7 +6425,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_scale2_enabled">
      <property name="title">
-      <string>Enable Scale</string>
+      <string>Enable Scale; Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -6590,7 +6590,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_boxConstantMultiplier2_enabled">
      <property name="title">
-      <string>Enable if (z &gt; &amp;0)  z = z +  (fabs(c ) * const. );  else  z = z - (fabs(c ) * const. );</string>
+      <string>Enable if (z &gt; &amp;0)  z = z +  (fabs(c ) * const. );  else  z = z - (fabs(c ) * const. );  Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -6922,7 +6922,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplier2_enabled">
      <property name="title">
-      <string>Enable z =  z + c * const.; </string>
+      <string>Enable Constant Mulitiplier z =  z + c * const.;  Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -7236,7 +7236,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant2_enabled">
      <property name="title">
-      <string>Enable z = z + const.;</string>
+      <string>Enable Addition Constant   z = z + const.; Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -7517,7 +7517,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_mengerSponge2_enabled">
      <property name="title">
-      <string>Enable MENGER SPONGE</string>
+      <string>Enable MENGER SPONGE; Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -7902,7 +7902,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation4_enabled">
      <property name="title">
-      <string>Enable Main Rotation; </string>
+      <string>Enable Main Rotation;  Copy FOUR</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -8185,7 +8185,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaABCD2_enabled">
      <property name="title">
-      <string>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D); </string>
+      <string>Enable  z = fabs( z + const.A) - fabs( z - const.B) + ( z * const.C  +  const.D);  Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -8405,6 +8405,13 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_Ay">
+          <property name="text">
+           <string>Enable</string>
+          </property>
+         </widget>
+        </item>
         <item row="8" column="2">
          <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2C_x">
           <property name="sizePolicy">
@@ -8424,6 +8431,13 @@
           </property>
          </widget>
         </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="label_97">
+          <property name="text">
+           <string>By:</string>
+          </property>
+         </widget>
+        </item>
         <item row="11" column="2">
          <widget class="Line" name="line_26">
           <property name="orientation">
@@ -8431,17 +8445,10 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_Ay">
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_Ax">
           <property name="text">
            <string>Enable</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QLabel" name="label_97">
-          <property name="text">
-           <string>By:</string>
           </property>
          </widget>
         </item>
@@ -8467,10 +8474,10 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_Ax">
+        <item row="4" column="1">
+         <widget class="QLabel" name="label_137">
           <property name="text">
-           <string>Enable</string>
+           <string>Bx:</string>
           </property>
          </widget>
         </item>
@@ -8496,17 +8503,17 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
-         <widget class="QLabel" name="label_137">
-          <property name="text">
-           <string>Bx:</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1">
          <widget class="QLabel" name="label_85">
           <property name="text">
            <string>Az:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLabel" name="label_139">
+          <property name="text">
+           <string>Bz:</string>
           </property>
          </widget>
         </item>
@@ -8529,13 +8536,6 @@
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="1">
-         <widget class="QLabel" name="label_139">
-          <property name="text">
-           <string>Bz:</string>
           </property>
          </widget>
         </item>
@@ -8581,6 +8581,28 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="2">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2A_y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transform_fabsFormulaABCD2A_x">
           <property name="enabled">
@@ -8606,8 +8628,8 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2A_y">
+        <item row="6" column="2">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2B_z">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -8653,8 +8675,8 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="2">
-         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2B_z">
+        <item row="4" column="2">
+         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2B_x">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -8675,25 +8697,10 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
-         <widget class="QSlider" name="slider3_transform_fabsFormulaABCD2B_x">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+        <item row="2" column="0">
+         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_Az">
+          <property name="text">
+           <string>Enable</string>
           </property>
          </widget>
         </item>
@@ -8719,13 +8726,6 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD2_enabled_Az">
-          <property name="text">
-           <string>Enable</string>
           </property>
          </widget>
         </item>
@@ -8820,17 +8820,17 @@
           </property>
          </widget>
         </item>
-        <item row="9" column="1">
-         <widget class="QLabel" name="label_144">
-          <property name="text">
-           <string>Cy:</string>
-          </property>
-         </widget>
-        </item>
         <item row="10" column="1">
          <widget class="QLabel" name="label_146">
           <property name="text">
            <string>Cz:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="QLabel" name="label_144">
+          <property name="text">
+           <string>Cy:</string>
           </property>
          </widget>
         </item>
@@ -9006,7 +9006,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_iterationWeight1_enabled">
      <property name="title">
-      <string>Enable I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B);</string>
+      <string>Enable I&amp;teration Weight.;  z  =  (  z * const.Z) + (  zA * const.A) + ( zB * const.B); Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -9120,7 +9120,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QSlider" name="slider_transform_iterationWeight1_constantZ">
+         <widget class="QSlider" name="slider_transform_colorTrial1_constantZ">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -9664,7 +9664,6 @@
   <tabstop>spinbox3_transform_fabsFormulaABCD2D_y</tabstop>
   <tabstop>slider3_transform_fabsFormulaABCD2D_z</tabstop>
   <tabstop>spinbox3_transform_fabsFormulaABCD2D_z</tabstop>
-  <tabstop>groupCheck_transform_iterationWeight1_enabled</tabstop>
   <tabstop>checkBox_transform_iterationWeight1_weight_enabled</tabstop>
   <tabstop>spinbox_transform_iterationWeight1_weight</tabstop>
   <tabstop>spinboxInt_transform_iterationWeight1_iterationA</tabstop>
@@ -9673,7 +9672,7 @@
   <tabstop>spinboxInt_transform_iterationWeight1_iterationB</tabstop>
   <tabstop>slider_transform_iterationWeight1_constantB</tabstop>
   <tabstop>spinbox_transform_iterationWeight1_constantB</tabstop>
-  <tabstop>slider_transform_iterationWeight1_constantZ</tabstop>
+  <tabstop>slider_transform_colorTrial1_constantZ</tabstop>
   <tabstop>spinbox_transform_iterationWeight1_constantZ</tabstop>
  </tabstops>
  <resources/>

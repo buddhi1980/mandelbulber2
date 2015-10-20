@@ -82,6 +82,9 @@ struct sExtendedAux
 	double color;
 	double actualScale;
   double newR;
+  double orbitTraps;
+  double axisBias;
+  double transformSampling;
 };
 
 struct sFoldColor
@@ -455,6 +458,13 @@ struct sTransformVariableScale
 struct sTransformColorTrial
 {
   sTransformControl control;
+  sFoldColor color;
+
+
+
+  bool axisBiasEnabled;
+  bool orbitTrapsEnabled;
+  bool transformSamplingEnabled;
   double  minimumRWeight;
   double  colorConstant1;
   double  colorConstant2;

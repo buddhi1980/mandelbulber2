@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>701</width>
+    <width>724</width>
     <height>7025</height>
    </rect>
   </property>
@@ -17,10 +17,10 @@
    <enum>Qt::LeftToRight</enum>
   </property>
   <layout class="QGridLayout" name="gridLayout_60">
-   <item row="26" column="0">
+   <item row="27" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_box_fold2_enabled">
      <property name="title">
-      <string>Enable Bo&amp;x Fold;</string>
+      <string>Enable Bo&amp;x Fold; Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -324,444 +324,10 @@
      </layout>
     </widget>
    </item>
-   <item row="18" column="0">
-    <widget class="MyGroupBox" name="groupCheck_transform_variableMandelbulbPower1_enabled">
-     <property name="title">
-      <string>Enable MANDELBULB FORMULA Variable Power </string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0,0,0">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_35">
-        <property name="topMargin">
-         <number>5</number>
-        </property>
-        <item row="0" column="5">
-         <widget class="QCheckBox" name="checkBox_transform_variableMandelbulbPower1_weight_enabled">
-          <property name="text">
-           <string>Enable weight:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_variableMandelbulbPower1_stop_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_72">
-          <property name="text">
-           <string>Start at iteration:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transform_variableMandelbulbPower1_start_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="9">
-         <widget class="QLabel" name="label_129">
-          <property name="text">
-           <string>Copy ONE</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_75">
-          <property name="text">
-           <string>Stop at iteration:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_variableMandelbulbPower1_weight">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>1.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <spacer name="horizontalSpacer_12">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_36">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="2" column="5">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_variableMandelbulbPower1_variableConstant">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>-1000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>1000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transform_variableMandelbulbPower1_variable_start_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1" colspan="4">
-         <widget class="QSlider" name="slider_transform_variableMandelbulbPower1_alpha_angle_offset">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="4" colspan="2">
-         <spacer name="horizontalSpacer_17">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="5" column="1" colspan="4">
-         <widget class="QSlider" name="slider_transform_variableMandelbulbPower1_beta_angle_offset">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1" colspan="4">
-         <widget class="QSlider" name="slider_transform_variableMandelbulbPower1_variableConstant">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_169">
-          <property name="text">
-           <string>Stop variable at iteration:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_81">
-          <property name="text">
-           <string>Power Variable:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_variableMandelbulbPower1_variable_stop_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_85">
-          <property name="text">
-           <string>Alpha angle offset:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_91">
-          <property name="text">
-           <string>Beta angle offset:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_92">
-          <property name="text">
-           <string>Power:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="5">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_variableMandelbulbPower1_alpha_angle_offset">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>-36000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>36000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="5">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_variableMandelbulbPower1_beta_angle_offset">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>-36000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>36000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="5">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_variableMandelbulbPower1_power">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>1000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_171">
-          <property name="text">
-           <string>Start variable at iteration :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" colspan="4">
-         <widget class="QSlider" name="slider_transform_variableMandelbulbPower1_power">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-2000</number>
-          </property>
-          <property name="maximum">
-           <number>2000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1" colspan="4">
-         <widget class="Line" name="line_29">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_27">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item row="2" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_box_fold1_enabled">
      <property name="title">
-      <string>Enable &amp;Box Fold; ONE</string>
+      <string>Enable &amp;Box Fold; Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1046,7 +612,7 @@
      </layout>
     </widget>
    </item>
-   <item row="27" column="0">
+   <item row="28" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_colorTrial1_enabled">
      <property name="title">
       <string>Enable colour trial;</string>
@@ -1067,7 +633,321 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
-      <item row="5" column="0">
+      <item row="4" column="0">
+       <widget class="MyGroupBox" name="groupCheck_transform_colorTrial1_transformSampling_enabled">
+        <property name="title">
+         <string>Enable Transform Sampling</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_18"/>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_29">
+           <property name="spacing">
+            <number>2</number>
+           </property>
+           <item row="1" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimum">
+              <number>-5000000</number>
+             </property>
+             <property name="maximum">
+              <number>5000000</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_254">
+             <property name="text">
+              <string>sample const.4:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_252">
+             <property name="text">
+              <string>sample const.5:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_233">
+             <property name="text">
+              <string>sample const.3:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimum">
+              <number>-5000000</number>
+             </property>
+             <property name="maximum">
+              <number>5000000</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_231">
+             <property name="text">
+              <string>sample const.1:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimum">
+              <number>-5000000</number>
+             </property>
+             <property name="maximum">
+              <number>5000000</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_232">
+             <property name="text">
+              <string>sample const.2:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="label_256">
+             <property name="text">
+              <string>sample const.6:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimum">
+              <number>-5000000</number>
+             </property>
+             <property name="maximum">
+              <number>5000000</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant6">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimum">
+              <number>-5000000</number>
+             </property>
+             <property name="maximum">
+              <number>5000000</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimum">
+              <number>-5000000</number>
+             </property>
+             <property name="maximum">
+              <number>5000000</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant6">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="6" column="0">
        <widget class="Line" name="line_36">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -1230,7 +1110,7 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QSlider" name="slider3_mandelbox_color_y">
+            <widget class="QSlider" name="slider3_transform_colorTrial1_color_y">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1252,7 +1132,7 @@
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_x">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_color_x">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1280,7 +1160,7 @@
             </widget>
            </item>
            <item row="3" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_z">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_color_z">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1308,7 +1188,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSlider" name="slider3_mandelbox_color_x">
+            <widget class="QSlider" name="slider3_transform_colorTrial1_color_x">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1337,7 +1217,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QSlider" name="slider_mandelbox_color_R">
+            <widget class="QSlider" name="slider_transform_colorTrial1_color_R">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1359,7 +1239,7 @@
             </widget>
            </item>
            <item row="0" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_R">
+            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_color_R">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1387,7 +1267,7 @@
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QSlider" name="slider3_mandelbox_color_z">
+            <widget class="QSlider" name="slider3_transform_colorTrial1_color_z">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1416,7 +1296,7 @@
             </widget>
            </item>
            <item row="2" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_y">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_color_y">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1451,7 +1331,7 @@
             </widget>
            </item>
            <item row="4" column="1">
-            <widget class="QSlider" name="slider_mandelbox_color_Sp1">
+            <widget class="QSlider" name="slider_transform_colorTrial1_color_Sp1">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1473,7 +1353,7 @@
             </widget>
            </item>
            <item row="5" column="1">
-            <widget class="QSlider" name="slider_mandelbox_color_Sp2">
+            <widget class="QSlider" name="slider_transform_colorTrial1_color_Sp2">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1495,7 +1375,7 @@
             </widget>
            </item>
            <item row="4" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp1">
+            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_color_Sp1">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1523,7 +1403,7 @@
             </widget>
            </item>
            <item row="5" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp2">
+            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_color_Sp2">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1563,11 +1443,17 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QGroupBox" name="groupBox_6">
+       <widget class="MyGroupBox" name="groupCheck_transform_colorTrial1_axisBias_enabled">
         <property name="title">
-         <string>Axis Bias </string>
+         <string>Enable Axis Bias </string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_72">
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <property name="leftMargin">
           <number>2</number>
          </property>
@@ -1580,82 +1466,61 @@
          <property name="bottomMargin">
           <number>2</number>
          </property>
-         <property name="spacing">
-          <number>2</number>
-         </property>
-         <item row="0" column="0">
-          <layout class="QGridLayout" name="gridLayout_73">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_30"/>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_42">
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_251">
-             <property name="text">
-              <string>vacant</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_253">
-             <property name="text">
-              <string>vacant</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="label_255">
-             <property name="text">
-              <string>vacant</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_204">
-             <property name="text">
-              <string>bias constant x:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QSlider" name="slider_transform_colorTrial1_colorConstant1">
+           <item row="2" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_colorConstant3">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="minimum">
-              <number>-5000000</number>
-             </property>
-             <property name="maximum">
-              <number>5000000</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QSlider" name="slider_transform_colorTrial1_colorConstant2">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+             <property name="decimals">
+              <number>6</number>
              </property>
              <property name="minimum">
-              <number>-5000000</number>
+              <double>-99.989999999999995</double>
              </property>
-             <property name="maximum">
-              <number>5000000</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
              </property>
             </widget>
            </item>
            <item row="2" column="1">
             <widget class="QSlider" name="slider_transform_colorTrial1_colorConstant3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimum">
+              <number>-5000000</number>
+             </property>
+             <property name="maximum">
+              <number>5000000</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_221">
+             <property name="text">
+              <string>bias constant y:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSlider" name="slider_transform_colorTrial1_colorConstant2">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -1695,6 +1560,25 @@
              </property>
             </widget>
            </item>
+           <item row="0" column="1">
+            <widget class="QSlider" name="slider_transform_colorTrial1_colorConstant1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimum">
+              <number>-5000000</number>
+             </property>
+             <property name="maximum">
+              <number>5000000</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="2">
             <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_colorConstant2">
              <property name="sizePolicy">
@@ -1714,32 +1598,6 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_colorConstant3">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-99.989999999999995</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_221">
-             <property name="text">
-              <string>bias constant y:</string>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_222">
              <property name="text">
@@ -1747,17 +1605,37 @@
              </property>
             </widget>
            </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_204">
+             <property name="text">
+              <string>bias constant x:</string>
+             </property>
+            </widget>
+           </item>
           </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_15">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QGroupBox" name="groupBox_5">
+       <widget class="MyGroupBox" name="groupCheck_transform_colorTrial1_orbitTraps_enabled">
         <property name="title">
-         <string>Orbit Traps</string>
+         <string>Enable Orbit Traps</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_66">
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_19" stretch="0,0,0">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <property name="leftMargin">
           <number>2</number>
          </property>
@@ -1770,273 +1648,15 @@
          <property name="bottomMargin">
           <number>2</number>
          </property>
-         <property name="spacing">
-          <number>2</number>
-         </property>
-         <item row="0" column="0">
-          <layout class="QGridLayout" name="gridLayout_67">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_48"/>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_55">
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="8" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap2_z">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-99.989999999999995</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="Line" name="line_44">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QSlider" name="slider_transform_colorTrial1_mainOTWeight">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimum">
-              <number>-5000000</number>
-             </property>
-             <property name="maximum">
-              <number>5000000</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="0">
-            <widget class="QLabel" name="label_213">
-             <property name="text">
-              <string>Orbit trap2 co-ord z</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_203">
-             <property name="text">
-              <string>Orbit trap weight:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap1_x">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-99.989999999999995</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap2_x">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-99.989999999999995</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_210">
-             <property name="text">
-              <string>Orbit trap1 co-ord z</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QLabel" name="label_208">
-             <property name="text">
-              <string>Orbit trap2 co-ord x</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="1">
-            <widget class="QSlider" name="slider3_transform_colorTrial1_orbitTrap2_x">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimum">
-              <number>-5000000</number>
-             </property>
-             <property name="maximum">
-              <number>5000000</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_211">
-             <property name="text">
-              <string>Orbit trap1 co-ord x</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_mainOTWeight">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-99.989999999999995</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap1_z">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-99.989999999999995</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap1_y">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-99.989999999999995</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
            <item row="8" column="1">
-            <widget class="QSlider" name="slider3_transform_colorTrial1_orbitTrap2_z">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimum">
-              <number>-5000000</number>
-             </property>
-             <property name="maximum">
-              <number>5000000</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap2_y">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-99.989999999999995</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_209">
-             <property name="text">
-              <string>Orbit trap1 co-ord y</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QSlider" name="slider3_transform_colorTrial1_orbitTrap1_x">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimum">
-              <number>-5000000</number>
-             </property>
-             <property name="maximum">
-              <number>5000000</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="1">
             <widget class="QSlider" name="slider3_transform_colorTrial1_orbitTrap2_y">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -2055,7 +1675,116 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
+           <item row="6" column="1">
+            <widget class="Line" name="line_45">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap1_x">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap1_z">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap2_y">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap1_y">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="label_210">
+             <property name="text">
+              <string>Orbit trap1 co-ord z</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QSlider" name="slider3_transform_colorTrial1_orbitTrap1_z">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimum">
+              <number>-5000000</number>
+             </property>
+             <property name="maximum">
+              <number>5000000</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
             <widget class="QSlider" name="slider3_transform_colorTrial1_orbitTrap1_y">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -2075,14 +1804,14 @@
             </widget>
            </item>
            <item row="7" column="0">
-            <widget class="QLabel" name="label_212">
+            <widget class="QLabel" name="label_208">
              <property name="text">
-              <string>Orbit trap2 co-ord y</string>
+              <string>Orbit trap2 co-ord x</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="1">
-            <widget class="QSlider" name="slider3_transform_colorTrial1_orbitTrap1_z">
+           <item row="9" column="1">
+            <widget class="QSlider" name="slider3_transform_colorTrial1_orbitTrap2_z">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -2100,67 +1829,27 @@
              </property>
             </widget>
            </item>
-           <item row="5" column="1">
-            <widget class="Line" name="line_45">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+           <item row="7" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap2_x">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
              </property>
             </widget>
            </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QGroupBox" name="groupBox_7">
-        <property name="title">
-         <string>Transform Sampling</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_74">
-         <property name="leftMargin">
-          <number>2</number>
-         </property>
-         <property name="topMargin">
-          <number>2</number>
-         </property>
-         <property name="rightMargin">
-          <number>2</number>
-         </property>
-         <property name="bottomMargin">
-          <number>2</number>
-         </property>
-         <property name="spacing">
-          <number>2</number>
-         </property>
-         <item row="0" column="0">
-          <layout class="QGridLayout" name="gridLayout_75">
-           <property name="spacing">
-            <number>2</number>
-           </property>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_252">
-             <property name="text">
-              <string>sample const.5:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="label_256">
-             <property name="text">
-              <string>sample const.6:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_254">
-             <property name="text">
-              <string>sample const.4:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant1">
+           <item row="3" column="1">
+            <widget class="QSlider" name="slider3_transform_colorTrial1_orbitTrap1_x">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -2178,46 +1867,8 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant2">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimum">
-              <number>-5000000</number>
-             </property>
-             <property name="maximum">
-              <number>5000000</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant3">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimum">
-              <number>-5000000</number>
-             </property>
-             <property name="maximum">
-              <number>5000000</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant1">
+           <item row="9" column="2">
+            <widget class="MyDoubleSpinBox" name="spinbox3_transform_colorTrial1_orbitTrap2_z">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -2236,7 +1887,7 @@
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant2">
+            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_mainOTWeight">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>
@@ -2254,161 +1905,94 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant3">
+           <item row="7" column="1">
+            <widget class="QSlider" name="slider3_transform_colorTrial1_orbitTrap2_x">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
              <property name="minimum">
-              <double>-99.989999999999995</double>
+              <number>-5000000</number>
              </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
+             <property name="maximum">
+              <number>5000000</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_231">
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_209">
              <property name="text">
-              <string>sample const.1:</string>
+              <string>Orbit trap1 co-ord y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSlider" name="slider_transform_colorTrial1_mainOTWeight">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimum">
+              <number>-5000000</number>
+             </property>
+             <property name="maximum">
+              <number>5000000</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_211">
+             <property name="text">
+              <string>Orbit trap1 co-ord x</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="label_212">
+             <property name="text">
+              <string>Orbit trap2 co-ord y</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_232">
+            <widget class="QLabel" name="label_203">
              <property name="text">
-              <string>sample const.2:</string>
+              <string>Orbit trap weight:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_233">
+           <item row="2" column="1">
+            <widget class="Line" name="line_44">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QLabel" name="label_213">
              <property name="text">
-              <string>sample const.3:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant4">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimum">
-              <number>-5000000</number>
-             </property>
-             <property name="maximum">
-              <number>5000000</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant5">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimum">
-              <number>-5000000</number>
-             </property>
-             <property name="maximum">
-              <number>5000000</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <widget class="QSlider" name="slider_transform_colorTrial1_sampleConstant6">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimum">
-              <number>-5000000</number>
-             </property>
-             <property name="maximum">
-              <number>5000000</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant4">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-99.989999999999995</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant5">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-99.989999999999995</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="2">
-            <widget class="MyDoubleSpinBox" name="spinbox_transform_colorTrial1_sampleConstant6">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-99.989999999999995</double>
-             </property>
-             <property name="singleStep">
-              <double>0.100000000000000</double>
+              <string>Orbit trap2 co-ord z</string>
              </property>
             </widget>
            </item>
           </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_33">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -2419,7 +2003,7 @@
    <item row="1" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_boxOffset1_enabled">
      <property name="title">
-      <string>E&amp;nable  Box Offset   if (z &gt; 0)  z = z + offset;  else  z = z - offset; ONE</string>
+      <string>E&amp;nable  Box Offset   if (z &gt; 0)  z = z + offset;  else  z = z - offset;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2730,7 +2314,7 @@
    <item row="12" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaZAB1_enabled">
      <property name="title">
-      <string>Enable  z =  fabs( z + const.A )  +  ( z  * const.B )  +  const.C ;</string>
+      <string>Enable  z =  fabs( z + const.A )  +  ( z  * const.B )  +  const.C ; Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3408,7 +2992,7 @@
    <item row="13" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant1_enabled">
      <property name="title">
-      <string>Enable z = z +  const.; </string>
+      <string>Enable Addition Constant  z = z +  const.;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3701,7 +3285,7 @@
    <item row="4" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_sphericalOffset1_enabled">
      <property name="title">
-      <string>Enable Spherical Offset  z = z * (&amp;1 + offset/length (z) ); ONE</string>
+      <string>Enable Spherical Offset  z = z * (&amp;1 + offset/length (z) ); Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3967,7 +3551,7 @@
    <item row="7" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsAddConstant1_enabled">
      <property name="title">
-      <string>Enab&amp;le z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C; </string>
+      <string>Enab&amp;le z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C; Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -4645,7 +4229,7 @@
    <item row="8" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_mandelbulbOriginal1_enabled">
      <property name="title">
-      <string>Enable MANDELB&amp;ULB FORMULA; </string>
+      <string>Enable MANDELB&amp;ULB FORMULA;   Copy  ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -4959,7 +4543,7 @@
    <item row="3" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation1_enabled">
      <property name="title">
-      <string>Enable &amp;Main Rotation; ONE</string>
+      <string>Enable &amp;Main Rotation; Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5249,10 +4833,10 @@
      </layout>
     </widget>
    </item>
-   <item row="20" column="0">
+   <item row="21" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation3_enabled">
      <property name="title">
-      <string>Enable Main Ro&amp;tation; </string>
+      <string>Enable Main Ro&amp;tation;  Copy THREE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5539,10 +5123,10 @@
      </layout>
     </widget>
    </item>
-   <item row="21" column="0">
+   <item row="22" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_variableConstantMultiplier1_enabled">
      <property name="title">
-      <string>Enable z = z + ( c * (const + variableConst * (i - Start itr)/ (Stop Itr - Start Itr)))</string>
+      <string>Enable z = z + ( c * (const + variableConst * (i - Start itr)/ (Stop Itr - Start Itr)))  Copy  ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -6084,10 +5668,10 @@
      </layout>
     </widget>
    </item>
-   <item row="22" column="0">
+   <item row="23" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant2_enabled">
      <property name="title">
-      <string>Enable z = z + const.;</string>
+      <string>Enable Addition Constant  z = z + const.;   Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -6368,10 +5952,10 @@
      </layout>
     </widget>
    </item>
-   <item row="23" column="0">
+   <item row="24" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation4_enabled">
      <property name="title">
-      <string>Enable Main Ro&amp;tation; </string>
+      <string>Enable Main Ro&amp;tation;   Copy FOUR</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -6658,10 +6242,10 @@
      </layout>
     </widget>
    </item>
-   <item row="24" column="0">
+   <item row="25" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_boxConstantMultiplier2_enabled">
      <property name="title">
-      <string>Enable if (z &gt; &amp;0)  z = z +  (fabs(c ) * const. );  else  z = z - (fabs(c ) * const. );</string>
+      <string>Enable if (z &gt; &amp;0)  z = z +  (fabs(c ) * const. );  else  z = z - (fabs(c ) * const. );  Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -6990,10 +6574,10 @@
      </layout>
     </widget>
    </item>
-   <item row="25" column="0">
+   <item row="26" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaAB2_enabled">
      <property name="title">
-      <string>Enable z = fabs( z + const.A ) - fabs( z - const.B ) - z; </string>
+      <string>Enable z = fabs( z + const.A ) - fabs( z - const.B ) - z;   Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -7517,7 +7101,7 @@
    <item row="5" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_sphericalFold1_enabled">
      <property name="title">
-      <string>Enable Spherical Fold;  ONE </string>
+      <string>Enable Spherical Fold;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -7783,7 +7367,7 @@
    <item row="6" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_variableScale1_enabled">
      <property name="title">
-      <string>Enable Scale   z = z + ( c * (scale + variableConst * (i - Start itr)/ (Stop Itr - Start Itr)))</string>
+      <string>Enable Scale   z = z + ( c * (scale + variableConst * (i - Start itr)/ (Stop Itr - Start Itr)));  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -8328,7 +7912,7 @@
    <item row="10" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplierOriginal1_enabled">
      <property name="title">
-      <string>Enable z =  z +  ( c * const. );  ORI&amp;GINAL</string>
+      <string>Enable z =  z +  ( c * const. );  ORI&amp;GINAL;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -8639,7 +8223,7 @@
    <item row="11" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsSubConstant1_enabled">
      <property name="title">
-      <string>Enable z =  - fabs( z - const.A )   *  const.B; </string>
+      <string>Enable z =  - fabs( z - const.A )   *  const.B;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -9160,7 +8744,7 @@
    <item row="14" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaAB1_enabled">
      <property name="title">
-      <string>Enable z = fabs( z + const.A) - fabs( z - const.B ) - z; </string>
+      <string>Enable z = fabs( z + const.A) - fabs( z - const.B ) - z;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -9681,7 +9265,7 @@
    <item row="15" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation2_enabled">
      <property name="title">
-      <string>Enable Main &amp;Rotation; </string>
+      <string>Enable Main &amp;Rotation;  Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -9971,7 +9555,7 @@
    <item row="16" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaABCD1_enabled">
      <property name="title">
-      <string>Enable  z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.&amp;D ); </string>
+      <string>Enable  z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.&amp;D );  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -10824,10 +10408,10 @@
      </layout>
     </widget>
    </item>
-   <item row="17" column="0">
+   <item row="18" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_mandelbulbMulti2_enabled">
      <property name="title">
-      <string>Enable MANDELBULB  Mutli_Formula Copy Two</string>
+      <string>Enable MANDELBULB  Multi_Formula Copy Two</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -11143,7 +10727,7 @@
         <item row="8" column="2" colspan="2">
          <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti2_enabled5">
           <property name="text">
-           <string>Enable  acsin atan2 yzx</string>
+           <string>Enable  asin atan2 yzx</string>
           </property>
          </widget>
         </item>
@@ -11343,7 +10927,7 @@
    <item row="9" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_mandelbulbMulti1_enabled">
      <property name="title">
-      <string>Enable MANDELBULB  Mutli_Formula</string>
+      <string>Enable MANDELBULB  Multi_Formula;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -11659,7 +11243,7 @@
         <item row="8" column="2" colspan="2">
          <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti1_enabled5">
           <property name="text">
-           <string>Enable  acsin atan2 yzx</string>
+           <string>Enable  asin atan2 yzx</string>
           </property>
          </widget>
         </item>
@@ -11852,6 +11436,440 @@
          </widget>
         </item>
        </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="17" column="0">
+    <widget class="MyGroupBox" name="groupCheck_transform_variableMandelbulbPower1_enabled">
+     <property name="title">
+      <string>Enable MANDELBULB FORMULA Variable Power ; Copy ONE</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0,0,0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_35">
+        <property name="topMargin">
+         <number>5</number>
+        </property>
+        <item row="0" column="5">
+         <widget class="QCheckBox" name="checkBox_transform_variableMandelbulbPower1_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_variableMandelbulbPower1_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_72">
+          <property name="text">
+           <string>Start at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transform_variableMandelbulbPower1_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="9">
+         <widget class="QLabel" name="label_129">
+          <property name="text">
+           <string>Copy ONE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_75">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="6">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_variableMandelbulbPower1_weight">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <spacer name="horizontalSpacer_12">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_36">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="2" column="5">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_variableMandelbulbPower1_variableConstant">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-1000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transform_variableMandelbulbPower1_variable_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1" colspan="4">
+         <widget class="QSlider" name="slider_transform_variableMandelbulbPower1_alpha_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4" colspan="2">
+         <spacer name="horizontalSpacer_17">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="5" column="1" colspan="4">
+         <widget class="QSlider" name="slider_transform_variableMandelbulbPower1_beta_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1" colspan="4">
+         <widget class="QSlider" name="slider_transform_variableMandelbulbPower1_variableConstant">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_169">
+          <property name="text">
+           <string>Stop variable at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_81">
+          <property name="text">
+           <string>Power Variable:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_variableMandelbulbPower1_variable_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_85">
+          <property name="text">
+           <string>Alpha angle offset:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_91">
+          <property name="text">
+           <string>Beta angle offset:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_92">
+          <property name="text">
+           <string>Power:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="5">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_variableMandelbulbPower1_alpha_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-36000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>36000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="5">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_variableMandelbulbPower1_beta_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-36000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>36000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_variableMandelbulbPower1_power">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_171">
+          <property name="text">
+           <string>Start variable at iteration :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="4">
+         <widget class="QSlider" name="slider_transform_variableMandelbulbPower1_power">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-2000</number>
+          </property>
+          <property name="maximum">
+           <number>2000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1" colspan="4">
+         <widget class="Line" name="line_29">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_27">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

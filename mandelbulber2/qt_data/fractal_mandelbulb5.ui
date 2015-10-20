@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>687</width>
-    <height>3862</height>
+    <height>4054</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_box_fold1_enabled">
      <property name="title">
-      <string>Enable &amp;Box Fold;</string>
+      <string>Enable &amp;Box Fold;   Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -323,7 +323,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation1_enabled">
      <property name="title">
-      <string>Enable &amp;Main Rotation;</string>
+      <string>Enable &amp;Main Rotation;   Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -616,7 +616,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsAddConstant1_enabled">
      <property name="title">
-      <string>Enab&amp;le z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C; </string>
+      <string>Enab&amp;le z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C;    Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1608,7 +1608,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplierOriginal1_enabled">
      <property name="title">
-      <string>Enable z =  z +  ( c * const. );  ORI&amp;GINAL</string>
+      <string>Enable Constant Multiplier z =  z +  ( c * const. );  ORI&amp;GINAL</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1919,7 +1919,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsSubConstant1_enabled">
      <property name="title">
-      <string>Enable z =  - fabs( z - const.A )   *  const.B; </string>
+      <string>Enable z =  - fabs( z - const.A )   *  const.B;    Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2440,7 +2440,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaZAB1_enabled">
      <property name="title">
-      <string>Enable  z =  fabs( z + const.A )  +  ( z  * const.B )  +  const.C ;</string>
+      <string>Enable  z =  fabs( z + const.A )  +  ( z  * const.B )  +  const.C ;   Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3118,7 +3118,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant1_enabled">
      <property name="title">
-      <string>Enable z = z +  const.; </string>
+      <string>Enable Addition Constant z = z +  const.;    Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3411,7 +3411,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaAB1_enabled">
      <property name="title">
-      <string>Enable z = fabs( z + const.A) - fabs( z - const.B ) - z; </string>
+      <string>Enable z = fabs( z + const.A) - fabs( z - const.B ) - z;    Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3932,7 +3932,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation2_enabled">
      <property name="title">
-      <string>Enable Main &amp;Rotation; </string>
+      <string>Enable Main &amp;Rotation;    Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -4222,7 +4222,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaABCD1_enabled">
      <property name="title">
-      <string>Enable  z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.&amp;D ); </string>
+      <string>Enable  z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.&amp;D );    Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5078,7 +5078,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_mandelbulb1_enabled">
      <property name="title">
-      <string>Enable MANDELBULB FORMULA</string>
+      <string>Enable MANDELBULB FORMULA   Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5392,7 +5392,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation3_enabled">
      <property name="title">
-      <string>Enable Main Ro&amp;tation; </string>
+      <string>Enable Main Ro&amp;tation;    Copy THREE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5682,7 +5682,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplier1_enabled">
      <property name="title">
-      <string>Enable z =  z + (c * const.); </string>
+      <string>Enable Constant Multiplier  z =  z + (c * const.);    Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5999,7 +5999,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant2_enabled">
      <property name="title">
-      <string>Enable z = z + const.;</string>
+      <string>Enable Addition Constant  z = z + const.;   Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -6283,7 +6283,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaAB2_enabled">
      <property name="title">
-      <string>Enable z = fabs( z + const.A ) - fabs( z - const.B ) - z; </string>
+      <string>Enable z = fabs( z + const.A ) - fabs( z - const.B ) - z;    Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -6807,7 +6807,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transform_box_fold2_enabled">
      <property name="title">
-      <string>Enable Bo&amp;x Fold;</string>
+      <string>Enable Bo&amp;x Fold;   Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
