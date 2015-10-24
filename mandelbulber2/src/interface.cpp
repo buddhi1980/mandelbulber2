@@ -1052,21 +1052,30 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished");
 }
 
-void cInterface::StartRender(void)
+void cInterface::StartRender(bool noUndo)
 {
-	WriteLog("cInterface::StartRender(void)");
-
-	stopRequest = true;
-	while (mainImage->IsUsed())
+	if(!mainImage->IsUsed())
 	{
-		gApplication->processEvents();
-		stopRequest = true;
+		mainImage->BlockImage();
+		WriteLog("cInterface::StartRender(void) - image was free");
 	}
-	mainImage->BlockImage();
+	else
+	{
+		WriteLog("cInterface::StartRender(void) - image was used by another instance");
+		stopRequest = true;
+		while (mainImage->IsUsed())
+		{
+			gApplication->processEvents();
+			stopRequest = true;
+		}
+		mainImage->BlockImage();
+	}
 
 	repeatRequest = false;
 	progressBarAnimation->hide();
 	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
+	if(!noUndo) gUndo.Store(gPar, gParFractal);
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage); //deleted by deleteLater()
 
@@ -1190,8 +1199,6 @@ void cInterface::MoveCamera(QString buttonName)
 
 	SynchronizeInterface(gPar, gParFractal, cInterface::write);
 
-	gUndo.Store(gPar, gParFractal, NULL, NULL);
-
 	StartRender();
 }
 
@@ -1311,8 +1318,6 @@ void cInterface::RotateCamera(QString buttonName)
 	gPar->Set("camera_distance_to_target", dist);
 
 	SynchronizeInterface(gPar, gParFractal, cInterface::write);
-
-	gUndo.Store(gPar, gParFractal);
 
 	StartRender();
 }
@@ -1681,7 +1686,6 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					gPar->Set("camera_distance_to_target", dist);
 
 					SynchronizeInterface(gPar, gParFractal, cInterface::write);
-					gUndo.Store(gPar, gParFractal);
 					renderedImage->setNewZ(depth - moveDistance);
 
 					StartRender();
@@ -1693,7 +1697,6 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					double fogDepth = depth;
 					gPar->Set("basic_fog_visibility", fogDepth);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_basic_fog_enabled, gPar, cInterface::write);
-					gUndo.Store(gPar, gParFractal);
 					StartRender();
 					break;
 				}
@@ -1716,7 +1719,6 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					gPar->Set("aux_light_position", lightNumber, pointCorrected);
 					gPar->Set("aux_light_intensity", lightNumber, intensity);
 					SynchronizeInterfaceWindow(mainWindow->ui->groupBox_Lights, gPar, cInterface::write);
-					gUndo.Store(gPar, gParFractal);
 					StartRender();
 					break;
 				}
@@ -1773,7 +1775,7 @@ void cInterface::Undo()
 		SynchronizeInterface(gPar, gParFractal, cInterface::write);
 		if(refreshFrames) gFlightAnimation->RefreshTable();
 		if(refreshKeyframes) gKeyframeAnimation->RefreshTable();
-		StartRender();
+		StartRender(true);
 	}
 }
 
@@ -1786,7 +1788,7 @@ void cInterface::Redo()
 		SynchronizeInterface(gPar, gParFractal, cInterface::write);
 		if(refreshFrames) gFlightAnimation->RefreshTable();
 		if(refreshKeyframes) gKeyframeAnimation->RefreshTable();
-		StartRender();
+		StartRender(true);
 	}
 }
 
@@ -1852,7 +1854,6 @@ void cInterface::ResetView()
 	gPar->Set("camera_distance_to_target", newCameraDist);
 	gPar->Set("view_distance_max", (newCameraDist + maxDist) * 2.0);
 	SynchronizeInterface(gPar, gParFractal, cInterface::write);
-	gUndo.Store(gPar, gParFractal);
 	StartRender();
 }
 

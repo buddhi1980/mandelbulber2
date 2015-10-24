@@ -93,8 +93,6 @@ RenderWindow::~RenderWindow()
 
 void RenderWindow::slotStartRender(void)
 {
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	gUndo.Store(gPar, gParFractal);
 	gMainInterface->StartRender();
 }
 

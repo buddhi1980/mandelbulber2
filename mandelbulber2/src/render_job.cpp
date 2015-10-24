@@ -94,7 +94,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	height = paramsContainer->Get<int>("image_height");
 
 	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
-	gApplication->processEvents();
+	//gApplication->processEvents();
 
 	if(!InitImage(width, height))
 	{
@@ -147,7 +147,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	//textures are deleted with destruction of renderData
 
 	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
-	gApplication->processEvents();
+	//gApplication->processEvents();
 
 	if(gNetRender->IsClient())
 	{

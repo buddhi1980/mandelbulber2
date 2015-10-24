@@ -49,7 +49,7 @@ public:
 	void MakeColorButtonsInWindow(QWidget *window);
 	void GetNameAndType(QString name, QString *parameterName, QString *type);
 	void InitializeFractalUi(QString &uiFileName);
-	void StartRender(void);
+	void StartRender(bool noUndo = false);
 	void MoveCamera(QString buttonName);
 	void RotateCamera(QString buttonName);
 	void CameraOrTargetEdited();

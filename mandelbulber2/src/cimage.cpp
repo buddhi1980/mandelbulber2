@@ -712,3 +712,6 @@ void cImage::CircleBorder(double x, double y, float z, double r, sRGB8 border, d
   }
 }
 
+
+
+
