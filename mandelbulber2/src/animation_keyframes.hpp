@@ -65,6 +65,7 @@ private slots:
 	void slotMovedSliderLastFrame(int value);
 	void slotValidate();
 	void slotCellDoubleClicked(int row, int column);
+	void slotSetConstantTargetDistance();
 
 private:
 	void PrepareTable();

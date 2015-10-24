@@ -20,7 +20,7 @@
    <string>Mandelbulber</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="icons.qrc">
     <normaloff>:/system/icons/mandelbulber.png</normaloff>:/system/icons/mandelbulber.png</iconset>
   </property>
   <property name="dockOptions">
@@ -68,7 +68,7 @@
            <x>0</x>
            <y>0</y>
            <width>940</width>
-           <height>733</height>
+           <height>703</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -371,7 +371,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-276</y>
+          <y>0</y>
           <width>339</width>
           <height>442</height>
          </rect>
@@ -1177,7 +1177,7 @@
           <string>Add current settings</string>
          </property>
          <property name="icon">
-          <iconset theme="list-add">
+          <iconset theme="list-add" resource="icons.qrc">
            <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
          </property>
         </widget>
@@ -1191,7 +1191,7 @@
           <string>Add from file</string>
          </property>
          <property name="icon">
-          <iconset theme="list-add">
+          <iconset theme="list-add" resource="icons.qrc">
            <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
          </property>
         </widget>
@@ -1205,7 +1205,7 @@
           <string>Add orphaned</string>
          </property>
          <property name="icon">
-          <iconset theme="view-refresh">
+          <iconset theme="view-refresh" resource="icons.qrc">
            <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
          </property>
         </widget>
@@ -1219,7 +1219,7 @@
           <string>Remove orphaned</string>
          </property>
          <property name="icon">
-          <iconset theme="list-remove">
+          <iconset theme="list-remove" resource="icons.qrc">
            <normaloff>:/system/icons/list-remove.svg</normaloff>:/system/icons/list-remove.svg</iconset>
          </property>
         </widget>
@@ -1233,7 +1233,7 @@
           <string>Render queue</string>
          </property>
          <property name="icon">
-          <iconset theme="applications-graphics">
+          <iconset theme="applications-graphics" resource="icons.qrc">
            <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
          </property>
         </widget>
@@ -1354,7 +1354,7 @@
           <x>0</x>
           <y>0</y>
           <width>255</width>
-          <height>187</height>
+          <height>172</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -1704,7 +1704,7 @@
           <string>STOP</string>
          </property>
          <property name="icon">
-          <iconset theme="process-stop">
+          <iconset theme="process-stop" resource="icons.qrc">
            <normaloff>:/system/icons/process-stop.svg</normaloff>:/system/icons/process-stop.svg</iconset>
          </property>
         </widget>
@@ -1718,7 +1718,7 @@
           <string>RENDER</string>
          </property>
          <property name="icon">
-          <iconset theme="applications-graphics">
+          <iconset theme="applications-graphics" resource="icons.qrc">
            <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
          </property>
         </widget>
@@ -1732,7 +1732,7 @@
           <string>UNDO</string>
          </property>
          <property name="icon">
-          <iconset theme="edit-undo">
+          <iconset theme="edit-undo" resource="icons.qrc">
            <normaloff>:/system/icons/edit-undo.png</normaloff>:/system/icons/edit-undo.png</iconset>
          </property>
         </widget>
@@ -1746,7 +1746,7 @@
           <string>REDO</string>
          </property>
          <property name="icon">
-          <iconset theme="edit-redo">
+          <iconset theme="edit-redo" resource="icons.qrc">
            <normaloff>:/system/icons/edit-redo.png</normaloff>:/system/icons/edit-redo.png</iconset>
          </property>
         </widget>
@@ -2183,7 +2183,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2215,7 +2215,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2253,7 +2253,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2297,7 +2297,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/arrow-up-double.png</normaloff>:/navigation/icons/arrow-up-double.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2329,7 +2329,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/arrow-down-double.png</normaloff>:/navigation/icons/arrow-down-double.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2361,7 +2361,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2529,7 +2529,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2567,7 +2567,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2599,7 +2599,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2631,7 +2631,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/object-rotate-right.png</normaloff>:/navigation/icons/object-rotate-right.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2663,7 +2663,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/object-rotate-left.png</normaloff>:/navigation/icons/object-rotate-left.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2695,7 +2695,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset>
+                   <iconset resource="icons.qrc">
                     <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -3008,7 +3008,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>353</width>
-          <height>166</height>
+          <height>159</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -3076,7 +3076,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-572</y>
+                  <y>0</y>
                   <width>303</width>
                   <height>724</height>
                  </rect>
@@ -4292,7 +4292,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>227</width>
                   <height>174</height>
                  </rect>
                 </property>
@@ -10587,7 +10587,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>210</width>
                   <height>482</height>
                  </rect>
                 </property>
@@ -11876,7 +11876,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/cylinder.png</normaloff>:/primitives/icons/cylinder.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -11899,7 +11899,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/cone.png</normaloff>:/primitives/icons/cone.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -11922,7 +11922,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/rectangle.png</normaloff>:/primitives/icons/rectangle.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -11945,7 +11945,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/circle.png</normaloff>:/primitives/icons/circle.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -11968,7 +11968,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/box.png</normaloff>:/primitives/icons/box.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -11991,7 +11991,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/water.png</normaloff>:/primitives/icons/water.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -12014,7 +12014,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/plane.png</normaloff>:/primitives/icons/plane.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -12037,7 +12037,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/torus.png</normaloff>:/primitives/icons/torus.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -12060,7 +12060,7 @@ to target:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset>
+                      <iconset resource="icons.qrc">
                        <normaloff>:/primitives/icons/sphere.png</normaloff>:/primitives/icons/sphere.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -13270,7 +13270,7 @@ and water):</string>
                     <string>Connect to server</string>
                    </property>
                    <property name="icon">
-                    <iconset theme="media-playback-start">
+                    <iconset theme="media-playback-start" resource="icons.qrc">
                      <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
                    </property>
                   </widget>
@@ -13290,7 +13290,7 @@ and water):</string>
                     <string>Disconnect</string>
                    </property>
                    <property name="icon">
-                    <iconset theme="edit-delete">
+                    <iconset theme="edit-delete" resource="icons.qrc">
                      <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
                    </property>
                   </widget>
@@ -13395,7 +13395,7 @@ and water):</string>
                     <string>Launch server and watch for clients</string>
                    </property>
                    <property name="icon">
-                    <iconset theme="media-playback-start">
+                    <iconset theme="media-playback-start" resource="icons.qrc">
                      <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
                    </property>
                   </widget>
@@ -13415,7 +13415,7 @@ and water):</string>
                     <string>Stop Server</string>
                    </property>
                    <property name="icon">
-                    <iconset theme="edit-delete">
+                    <iconset theme="edit-delete" resource="icons.qrc">
                      <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
                    </property>
                   </widget>
@@ -13619,7 +13619,7 @@ and water):</string>
                   <string>Render flight animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="video-x-generic">
+                  <iconset theme="video-x-generic" resource="icons.qrc">
                    <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
                  </property>
                 </widget>
@@ -13639,7 +13639,7 @@ and water):</string>
                   <string>Record flight path</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record">
+                  <iconset theme="media-record" resource="icons.qrc">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -13659,7 +13659,7 @@ and water):</string>
                   <string>Delete all images</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="edit-delete">
+                  <iconset theme="edit-delete" resource="icons.qrc">
                    <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
                  </property>
                 </widget>
@@ -13679,7 +13679,7 @@ and water):</string>
                   <string>Show Animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-playback-start">
+                  <iconset theme="media-playback-start" resource="icons.qrc">
                    <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
                  </property>
                 </widget>
@@ -13699,7 +13699,7 @@ and water):</string>
                   <string>Continue recording</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record">
+                  <iconset theme="media-record" resource="icons.qrc">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -13719,7 +13719,7 @@ and water):</string>
                   <string>Refresh table</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="view-refresh">
+                  <iconset theme="view-refresh" resource="icons.qrc">
                    <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
                  </property>
                 </widget>
@@ -14389,7 +14389,7 @@ and water):</string>
                   <string>Insert keyframe</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record">
+                  <iconset theme="media-record" resource="icons.qrc">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -14409,7 +14409,7 @@ and water):</string>
                   <string>Delete keyframe</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record">
+                  <iconset theme="media-record" resource="icons.qrc">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -14429,7 +14429,7 @@ and water):</string>
                   <string>Add keyframe</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record">
+                  <iconset theme="media-record" resource="icons.qrc">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -14449,7 +14449,7 @@ and water):</string>
                   <string>Show Animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-playback-start">
+                  <iconset theme="media-playback-start" resource="icons.qrc">
                    <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
                  </property>
                 </widget>
@@ -14469,7 +14469,7 @@ and water):</string>
                   <string>Render animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="video-x-generic">
+                  <iconset theme="video-x-generic" resource="icons.qrc">
                    <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
                  </property>
                 </widget>
@@ -14489,7 +14489,7 @@ and water):</string>
                   <string>Modify keyframe</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record">
+                  <iconset theme="media-record" resource="icons.qrc">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -14525,7 +14525,7 @@ and water):</string>
                   <string>Delete all images</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="edit-delete">
+                  <iconset theme="edit-delete" resource="icons.qrc">
                    <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
                  </property>
                 </widget>
@@ -14545,7 +14545,7 @@ and water):</string>
                   <string>Refresh table</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="view-refresh">
+                  <iconset theme="view-refresh" resource="icons.qrc">
                    <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
                  </property>
                 </widget>
@@ -14565,7 +14565,7 @@ and water):</string>
                   <string>Validate</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="dialog-ok-apply">
+                  <iconset theme="dialog-ok-apply" resource="icons.qrc">
                    <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
                  </property>
                 </widget>
@@ -14583,7 +14583,7 @@ and water):</string>
                   <x>0</x>
                   <y>0</y>
                   <width>317</width>
-                  <height>258</height>
+                  <height>288</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -14660,6 +14660,19 @@ and water):</string>
                      </item>
                     </widget>
                    </item>
+                   <item row="2" column="1">
+                    <widget class="MyLineEdit" name="text_anim_keyframe_dir">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                    </widget>
+                   </item>
                    <item row="0" column="2">
                     <widget class="MySpinBox" name="spinboxInt_frames_per_keyframe">
                      <property name="sizePolicy">
@@ -14676,19 +14689,6 @@ and water):</string>
                      </property>
                      <property name="maximum">
                       <number>500</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="MyLineEdit" name="text_anim_keyframe_dir">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -14800,28 +14800,10 @@ and water):</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="1">
-                    <widget class="QSlider" name="sliderInt_keyframe_first_to_render">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>0</number>
-                     </property>
-                     <property name="maximum">
-                      <number>99999</number>
-                     </property>
-                     <property name="singleStep">
-                      <number>1</number>
-                     </property>
-                     <property name="pageStep">
-                      <number>100</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="label_217">
+                     <property name="text">
+                      <string>last frame to render:</string>
                      </property>
                     </widget>
                    </item>
@@ -14850,32 +14832,25 @@ and water):</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="0">
-                    <widget class="QLabel" name="label_217">
-                     <property name="text">
-                      <string>last frame to render:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QSlider" name="logslider_keyframe_collision_thresh">
+                   <item row="4" column="1">
+                    <widget class="QSlider" name="sliderInt_keyframe_first_to_render">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="sizeIncrement">
-                      <size>
-                       <width>0</width>
-                       <height>0</height>
-                      </size>
-                     </property>
                      <property name="minimum">
-                      <number>-1500</number>
+                      <number>0</number>
                      </property>
                      <property name="maximum">
-                      <number>400</number>
+                      <number>99999</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="pageStep">
+                      <number>100</number>
                      </property>
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
@@ -14908,6 +14883,88 @@ and water):</string>
                      </property>
                      <property name="text">
                       <string>Validate before render</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QSlider" name="logslider_keyframe_collision_thresh">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="sizeIncrement">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="minimum">
+                      <number>-1500</number>
+                     </property>
+                     <property name="maximum">
+                      <number>400</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="0">
+                    <widget class="QPushButton" name="pushButton_set_constant_target_distance">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the same distance between camera target and camera for all keyframes. It doesn't modify camera position and rotation, so it doesn't modify camera movement path. It makes camera rotation smooth through entire animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="text">
+                      <string>Set the same
+camera target
+distance for all
+keyframes</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="1">
+                    <widget class="QSlider" name="logslider_keyframe_constant_target_distance">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="sizeIncrement">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="minimum">
+                      <number>-1000</number>
+                     </property>
+                     <property name="maximum">
+                      <number>200</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="2">
+                    <widget class="MyLineEdit" name="logedit_keyframe_constant_target_distance">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the same distance between camera target and camera for all keyframes. It doesn't modify camera position and rotation, so it doesn't modify camera movement path. It makes camera rotation smooth through entire animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -15170,7 +15227,7 @@ and water):</string>
   </widget>
   <action name="actionSave_as_JPG">
    <property name="icon">
-    <iconset theme="document-save-as">
+    <iconset theme="document-save-as" resource="icons.qrc">
      <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
@@ -15179,7 +15236,7 @@ and water):</string>
   </action>
   <action name="actionSave_as_PNG">
    <property name="icon">
-    <iconset theme="document-save-as">
+    <iconset theme="document-save-as" resource="icons.qrc">
      <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
@@ -15188,7 +15245,7 @@ and water):</string>
   </action>
   <action name="actionSave_as_PNG_16_bit">
    <property name="icon">
-    <iconset theme="document-save-as">
+    <iconset theme="document-save-as" resource="icons.qrc">
      <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
@@ -15197,7 +15254,7 @@ and water):</string>
   </action>
   <action name="actionSave_as_PNG_16_bit_with_alpha_channel">
    <property name="icon">
-    <iconset theme="document-save-as">
+    <iconset theme="document-save-as" resource="icons.qrc">
      <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
@@ -15206,7 +15263,7 @@ and water):</string>
   </action>
   <action name="actionLoad_settings">
    <property name="icon">
-    <iconset theme="document-open">
+    <iconset theme="document-open" resource="icons.qrc">
      <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
@@ -15215,7 +15272,7 @@ and water):</string>
   </action>
   <action name="actionLoad_settings_from_clipboard">
    <property name="icon">
-    <iconset theme="document-open">
+    <iconset theme="document-open" resource="icons.qrc">
      <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
@@ -15224,7 +15281,7 @@ and water):</string>
   </action>
   <action name="actionSave_settings">
    <property name="icon">
-    <iconset theme="document-save">
+    <iconset theme="document-save" resource="icons.qrc">
      <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
    </property>
    <property name="text">
@@ -15233,7 +15290,7 @@ and water):</string>
   </action>
   <action name="actionSave_settings_to_clipboard">
    <property name="icon">
-    <iconset theme="document-save">
+    <iconset theme="document-save" resource="icons.qrc">
      <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
    </property>
    <property name="text">
@@ -15242,7 +15299,7 @@ and water):</string>
   </action>
   <action name="actionSave_settings_as">
    <property name="icon">
-    <iconset theme="document-save">
+    <iconset theme="document-save" resource="icons.qrc">
      <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
    </property>
    <property name="text">
@@ -15254,7 +15311,7 @@ and water):</string>
   </action>
   <action name="actionProgramSettings">
    <property name="icon">
-    <iconset theme="preferences-system">
+    <iconset theme="preferences-system" resource="icons.qrc">
      <normaloff>:/system/icons/preferences-system.svg</normaloff>:/system/icons/preferences-system.svg</iconset>
    </property>
    <property name="text">
@@ -15263,7 +15320,7 @@ and water):</string>
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset theme="application-exit">
+    <iconset theme="application-exit" resource="icons.qrc">
      <normaloff>:/system/icons/system-shutdown.svg</normaloff>:/system/icons/system-shutdown.svg</iconset>
    </property>
    <property name="text">
@@ -15292,7 +15349,7 @@ and water):</string>
   </action>
   <action name="actionAbout_Mandelbulber">
    <property name="icon">
-    <iconset>
+    <iconset resource="icons.qrc">
      <normaloff>:/system/icons/mandelbulber.png</normaloff>:/system/icons/mandelbulber.png</iconset>
    </property>
    <property name="text">
@@ -15301,7 +15358,7 @@ and water):</string>
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset theme="edit-undo">
+    <iconset theme="edit-undo" resource="icons.qrc">
      <normaloff>:/system/icons/edit-undo.png</normaloff>:/system/icons/edit-undo.png</iconset>
    </property>
    <property name="text">
@@ -15313,7 +15370,7 @@ and water):</string>
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset theme="edit-redo">
+    <iconset theme="edit-redo" resource="icons.qrc">
      <normaloff>:/system/icons/edit-redo.png</normaloff>:/system/icons/edit-redo.png</iconset>
    </property>
    <property name="text">
@@ -15325,7 +15382,7 @@ and water):</string>
   </action>
   <action name="actionImport_settings_from_old_Mandelbulber">
    <property name="icon">
-    <iconset theme="document-open">
+    <iconset theme="document-open" resource="icons.qrc">
      <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
@@ -15334,7 +15391,7 @@ and water):</string>
   </action>
   <action name="actionLoad_example">
    <property name="icon">
-    <iconset theme="document-open">
+    <iconset theme="document-open" resource="icons.qrc">
      <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
@@ -15411,7 +15468,7 @@ and water):</string>
   </action>
   <action name="actionSave_as_EXR">
    <property name="icon">
-    <iconset theme="document-save-as">
+    <iconset theme="document-save-as" resource="icons.qrc">
      <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
@@ -15420,7 +15477,7 @@ and water):</string>
   </action>
   <action name="actionAdd_Settings_to_Toolbar">
    <property name="icon">
-    <iconset theme="list-add">
+    <iconset theme="list-add" resource="icons.qrc">
      <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
    </property>
    <property name="text">
@@ -15432,7 +15489,7 @@ and water):</string>
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="list-remove">
+    <iconset theme="list-remove" resource="icons.qrc">
      <normaloff>:/system/icons/list-remove.svg</normaloff>:/system/icons/list-remove.svg</iconset>
    </property>
    <property name="text">
@@ -15988,6 +16045,8 @@ and water):</string>
   <tabstop>spinboxInt_keyframe_last_to_render</tabstop>
   <tabstop>checkBox_show_keyframe_thumbnails</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

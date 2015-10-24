@@ -48,6 +48,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		QApplication::connect(ui->pushButton_refresh_keyframe_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
 		QApplication::connect(ui->pushButton_keyframe_to_flight_export, SIGNAL(clicked()), this, SLOT(slotExportKeyframesToFlight()));
 		QApplication::connect(ui->pushButton_check_for_collisions, SIGNAL(clicked()), this, SLOT(slotValidate()));
+		QApplication::connect(ui->pushButton_set_constant_target_distance, SIGNAL(clicked()), this, SLOT(slotSetConstantTargetDistance()));
 
 		QApplication::connect(ui->button_selectAnimKeyframeImageDir, SIGNAL(clicked()), this, SLOT(slotSelectKeyframeAnimImageDir()));
 		QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
@@ -1036,4 +1037,47 @@ void cKeyframeAnimation::slotCellDoubleClicked(int row, int column)
 	{
 		RenderFrame(column);
 	}
+}
+
+void cKeyframeAnimation::slotSetConstantTargetDistance()
+{
+	//updating parameters
+	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+
+	cParameterContainer tempPar = *gPar;
+	cFractalContainer tempFractPar = *gParFractal;
+
+	double constDist = gPar->Get<double>("keyframe_constant_target_distance");
+
+	for(int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
+	{
+		cAnimationFrames::sAnimationFrame keyframe = keyframes->GetFrame(key);
+
+		if(keyframe.parameters.IfExists("main_camera") && keyframe.parameters.IfExists("main_target") && keyframe.parameters.IfExists("main_camera_top"))
+		{
+			CVector3 camera = keyframe.parameters.Get<CVector3>("main_camera");
+			CVector3 target = keyframe.parameters.Get<CVector3>("main_target");
+			CVector3 top = keyframe.parameters.Get<CVector3>("main_camera_top");
+
+			cCameraTarget cameraTarget(camera, target, top);
+			CVector3 forwardVector = cameraTarget.GetForwardVector();
+
+			CVector3 newTarget = camera + forwardVector * constDist;
+
+			keyframe.parameters.Set("main_target", newTarget);
+			if(keyframe.parameters.IfExists("camera_distance_to_target"))
+			{
+				keyframe.parameters.Set("camera_distance_to_target", constDist);
+			}
+
+			keyframes->ModifyFrame(key, keyframe);
+		}
+		else
+		{
+			cErrorMessage::showMessage(QObject::tr("Cannot change target distance. Missing camera parameters in keyframes"), cErrorMessage::errorMessage, ui->centralwidget);
+			return;
+		}
+	}
+	RefreshTable();
 }

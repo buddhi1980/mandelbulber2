@@ -70,6 +70,7 @@ using namespace parameterContainer;
 	par->addParam("anim_keyframe_dir", systemData.dataDirectory + "images" + QDir::separator(), morphNone, paramStandard);
 	par->addParam("keyframe_collision_thresh", 1.0e-6, 1e-15, 1.0e2, morphNone, paramStandard);
   par->addParam("keyframe_auto_validate", true, morphNone, paramApp);
+	par->addParam("keyframe_constant_target_distance", 0.1, 1e-10, 1.0e2, morphNone, paramStandard);
 
 	//camera
 	par->addParam("camera", CVector3(3.0, -6.0, 2.0), morphAkima, paramStandard);
