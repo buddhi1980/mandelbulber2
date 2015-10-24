@@ -158,8 +158,8 @@ int main(int argc, char *argv[])
 	delete gAnimFrames;
 	delete gKeyframes;
 	delete gNetRender;
-	delete gMainInterface;
 	delete gQueue;
+	delete gMainInterface;
 	delete gApplication;
 	return result;
 }
