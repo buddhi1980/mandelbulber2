@@ -596,6 +596,7 @@ void cQueue::slotQueueListUpdate(int i, int j)
 		}
 	}
 	table->blockSignals(false);
+	table->update();
 }
 
 void cQueue::slotUpdateUI()
