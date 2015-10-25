@@ -31,6 +31,7 @@
 #include "settings.hpp"
 #include "command_line_interface.hpp"
 #include "headless.h"
+#include "error_message.hpp"
 
 #include <qapplication.h>
 
@@ -129,7 +130,15 @@ int main(int argc, char *argv[])
 		gMainInterface->ShowUi();
 		gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainImage, gMainInterface->mainWindow);
 		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainImage, gMainInterface->mainWindow);
-		gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.txt", systemData.dataDirectory + "queue", gMainInterface->mainWindow);
+		try
+		{
+			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.txt", systemData.dataDirectory + "queue", gMainInterface->mainWindow);
+		}
+		catch(QString &ex)
+		{
+			cErrorMessage::showMessage(QObject::tr("Cannot init queue: ") + ex, cErrorMessage::errorMessage);
+			return -1;
+		}
 	}
 
 	//write parameters to ui
