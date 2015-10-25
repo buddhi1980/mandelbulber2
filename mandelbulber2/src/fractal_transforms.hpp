@@ -49,9 +49,11 @@ void sphericalOffsetTransform3D(const sTransformSphericalOffset &sphericalOffset
 void variableConstantMultiplierTransform3D(const sTransformVariableConstantMultiplier &variableConstantMultiplier, CVector3 &z, CVector3 &c, int i);
 void variableMandelbulbPowerTransform3D(const sTransformVariableMandelbulbPower &variableMandelbulbPower, CVector3 &z, int i, sExtendedAux &aux);
 void variableScaleTransform3D(const sTransformVariableScale &variableScale, CVector3 &z, int i, sExtendedAux &aux);
-
+void coloringParametersTransform3D(const sTransformColoringParameters &coloringParameters, CVector3 &z, double minimumR, int i, sExtendedAux &aux);
 void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, CVector3 &sample0, CVector3 &sample1, CVector3 &sample2, CVector3 &sample3,  CVector3 &sample4, CVector3 &sample5, CVector3 &sample6, int i, sExtendedAux &aux);
 void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti, CVector3 &z, int i, sExtendedAux &aux);
+void benesiPineTreeOneTransform3D(const sTransformBenesiPineTreeOne &benesiPineTreeOne, CVector3 &z, int i);
+void benesiPineTreeTwoTransform3D(const sTransformBenesiPineTreeTwo &benesiPineTreeTwo, CVector3 &z, int i);
 
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_TRANSFORMS_HPP_ */

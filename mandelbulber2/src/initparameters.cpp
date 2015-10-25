@@ -852,14 +852,19 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_variableScale1_variableScale", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
 
-//ColourTrial1
+//Colouring Parameters
+  par->addParam("transform_coloringParameters1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_coloringParameters1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_coloringParameters1_stop_iterations", 1, morphLinear, paramStandard);
+  par->addParam("transform_coloringParameters1_mandelbox_color", CVector3(0.03, 0.05, 0.07), morphLinear, paramStandard);
+  par->addParam("transform_coloringParameters1_mandelbox_color_R", 0.0, morphLinear, paramStandard);
+  par->addParam("transform_coloringParameters1_mandelbox_color_Sp1", 0.2, morphLinear, paramStandard);
+  par->addParam("transform_coloringParameters1_mandelbox_color_Sp2", 0.2, morphLinear, paramStandard);
+
+
+
+   //ColourTrial1
   par->addParam("transform_colorTrial1_enabled", false, morphLinear, paramStandard);
-
-  par->addParam("transform_colorTrial1_color", CVector3(0.03, 0.05, 0.07), morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_color_R", 0.0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_color_Sp1", 0.2, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_color_Sp2", 0.2, morphLinear, paramStandard);
-
   par->addParam("transform_colorTrial1_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_minimumRWeight", 1.0, morphLinear, paramStandard);
@@ -872,12 +877,15 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_colorTrial1_sampleConstant4", 0.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_sampleConstant5", 0.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_sampleConstant6", 0.0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_mainOTWeight", 1.0, morphLinear, paramStandard);
+
 
   par->addParam("transform_colorTrial1_axisBias_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_orbitTraps_enabled", true, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_transformSampling_enabled", false, morphLinear, paramStandard);
 
+  par->addParam("transform_colorTrial1_mainOTWeight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_colorTrial1_orbitTrap1Weight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_colorTrial1_orbitTrap2Weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_orbitTrap1", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("transform_colorTrial1_orbitTrap2", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
@@ -914,6 +922,36 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_mandelbulbMulti2_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
   par->addParam("transform_mandelbulbMulti2_weight", 1.0, morphLinear, paramStandard);
 
+  par->addParam("transform_benesiPineTreeOne1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne1_offset", CVector3(2.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiPineTreeOne1_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiPineTreeOne1_weight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne2_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne2_offset", CVector3(2.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiPineTreeOne2_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiPineTreeOne2_weight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne3_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne3_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne3_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne3_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeOne3_offset", CVector3(2.0, 2.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiPineTreeOne3_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiPineTreeOne3_weight", 1.0, morphLinear, paramStandard);
+
+
+  par->addParam("transform_benesiPineTreeTwo1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeTwo1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeTwo1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeTwo1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiPineTreeTwo1_offset", CVector3(2.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiPineTreeTwo1_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiPineTreeTwo1_weight", 1.0, morphLinear, paramStandard);
 
 
 

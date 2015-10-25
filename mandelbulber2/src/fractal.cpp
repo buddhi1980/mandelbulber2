@@ -512,11 +512,13 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.variableScale1.variableStopIterations = container->Get<int>("transform_variableScale1_variable_stop_iterations");
   transform.variableScale1.variableConstant = container->Get<CVector3>("transform_variableScale1_variableScale");
 
-
-  transform.colorTrial1.color.factor = container->Get<CVector3>("transform_colorTrial1_color");
-  transform.colorTrial1.color.factorR = container->Get<double>("transform_colorTrial1_color_R");
-  transform.colorTrial1.color.factorSp1 = container->Get<double>("transform_colorTrial1_color_Sp1");
-  transform.colorTrial1.color.factorSp2 = container->Get<double>("transform_colorTrial1_color_Sp2");
+  transform.coloringParameters1.control.enabled = container->Get<bool>("transform_coloringParameters1_enabled");
+  transform.coloringParameters1.control.startIterations = container->Get<int>("transform_coloringParameters1_start_iterations");
+  transform.coloringParameters1.control.stopIterations = container->Get<int>("transform_coloringParameters1_stop_iterations");
+  transform.coloringParameters1.color.factor = container->Get<CVector3>("transform_coloringParameters1_mandelbox_color");
+  transform.coloringParameters1.color.factorR = container->Get<double>("transform_coloringParameters1_mandelbox_color_R");
+  transform.coloringParameters1.color.factorSp1 = container->Get<double>("transform_coloringParameters1_mandelbox_color_Sp1");
+  transform.coloringParameters1.color.factorSp2 = container->Get<double>("transform_coloringParameters1_mandelbox_color_Sp2");
 
   transform.colorTrial1.control.enabled = container->Get<bool>("transform_colorTrial1_enabled");
   transform.colorTrial1.control.startIterations = container->Get<int>("transform_colorTrial1_start_iterations");
@@ -537,10 +539,11 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.colorTrial1.sampleConstant5 = container->Get<double>("transform_colorTrial1_sampleConstant5");
   transform.colorTrial1.sampleConstant6 = container->Get<double>("transform_colorTrial1_sampleConstant6");
 
-  transform.colorTrial1.mainOTWeight = container->Get<double>("transform_colorTrial1_mainOTWeight");
+  transform.colorTrial1.mainOrbitTrapWeight = container->Get<double>("transform_colorTrial1_mainOTWeight");
+  transform.colorTrial1.orbitTrap1Weight = container->Get<double>("transform_colorTrial1_orbitTrap1Weight");
+  transform.colorTrial1.orbitTrap2Weight = container->Get<double>("transform_colorTrial1_orbitTrap2Weight");
   transform.colorTrial1.orbitTrap1 = container->Get<CVector3>("transform_colorTrial1_orbitTrap1");
   transform.colorTrial1.orbitTrap2 = container->Get<CVector3>("transform_colorTrial1_orbitTrap2");
-
 
 
   transform.mandelbulbMulti1.power = container->Get<double>("transform_mandelbulbMulti1_power");
@@ -573,6 +576,41 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.mandelbulbMulti2.control.startIterations = container->Get<int>("transform_mandelbulbMulti2_start_iterations");
   transform.mandelbulbMulti2.control.stopIterations = container->Get<int>("transform_mandelbulbMulti2_stop_iterations");
   transform.mandelbulbMulti2.control.weight = container->Get<double>("transform_mandelbulbMulti2_weight");
+
+  transform.benesiPineTreeOne1.control.enabled = container->Get<bool>("transform_benesiPineTreeOne1_enabled");
+  transform.benesiPineTreeOne1.control.weightEnabled = container->Get<bool>("transform_benesiPineTreeOne1_weight_enabled");
+  transform.benesiPineTreeOne1.offset = container->Get<CVector3>("transform_benesiPineTreeOne1_offset");
+  transform.benesiPineTreeOne1.scale = container->Get<CVector3>("transform_benesiPineTreeOne1_scale");
+  transform.benesiPineTreeOne1.control.startIterations = container->Get<int>("transform_benesiPineTreeOne1_start_iterations");
+  transform.benesiPineTreeOne1.control.stopIterations = container->Get<int>("transform_benesiPineTreeOne1_stop_iterations");
+  transform.benesiPineTreeOne1.control.weight = container->Get<double>("transform_benesiPineTreeOne1_weight");
+  transform.benesiPineTreeOne2.control.enabled = container->Get<bool>("transform_benesiPineTreeOne2_enabled");
+  transform.benesiPineTreeOne2.control.weightEnabled = container->Get<bool>("transform_benesiPineTreeOne2_weight_enabled");
+  transform.benesiPineTreeOne2.offset = container->Get<CVector3>("transform_benesiPineTreeOne2_offset");
+  transform.benesiPineTreeOne2.scale = container->Get<CVector3>("transform_benesiPineTreeOne2_scale");
+  transform.benesiPineTreeOne2.control.startIterations = container->Get<int>("transform_benesiPineTreeOne2_start_iterations");
+  transform.benesiPineTreeOne2.control.stopIterations = container->Get<int>("transform_benesiPineTreeOne2_stop_iterations");
+  transform.benesiPineTreeOne2.control.weight = container->Get<double>("transform_benesiPineTreeOne2_weight");
+  transform.benesiPineTreeOne3.control.enabled = container->Get<bool>("transform_benesiPineTreeOne3_enabled");
+  transform.benesiPineTreeOne3.control.weightEnabled = container->Get<bool>("transform_benesiPineTreeOne3_weight_enabled");
+  transform.benesiPineTreeOne3.offset = container->Get<CVector3>("transform_benesiPineTreeOne3_offset");
+  transform.benesiPineTreeOne3.scale = container->Get<CVector3>("transform_benesiPineTreeOne3_scale");
+  transform.benesiPineTreeOne3.control.startIterations = container->Get<int>("transform_benesiPineTreeOne3_start_iterations");
+  transform.benesiPineTreeOne3.control.stopIterations = container->Get<int>("transform_benesiPineTreeOne3_stop_iterations");
+  transform.benesiPineTreeOne3.control.weight = container->Get<double>("transform_benesiPineTreeOne3_weight");
+
+
+
+  transform.benesiPineTreeTwo1.control.enabled = container->Get<bool>("transform_benesiPineTreeTwo1_enabled");
+  transform.benesiPineTreeTwo1.control.weightEnabled = container->Get<bool>("transform_benesiPineTreeTwo1_weight_enabled");
+  transform.benesiPineTreeTwo1.offset = container->Get<CVector3>("transform_benesiPineTreeTwo1_offset");
+  transform.benesiPineTreeTwo1.scale = container->Get<CVector3>("transform_benesiPineTreeTwo1_scale");
+  transform.benesiPineTreeTwo1.control.startIterations = container->Get<int>("transform_benesiPineTreeTwo1_start_iterations");
+  transform.benesiPineTreeTwo1.control.stopIterations = container->Get<int>("transform_benesiPineTreeTwo1_stop_iterations");
+  transform.benesiPineTreeTwo1.control.weight = container->Get<double>("transform_benesiPineTreeTwo1_weight");
+
+
+
 
 //----------------------------------
 

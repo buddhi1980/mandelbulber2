@@ -1095,6 +1095,22 @@ void variableScaleTransform3D(const sTransformVariableScale &variableScale, CVec
   }
 }
 
+//coloringParameters transform 3D
+void coloringParametersTransform3D(const sTransformColoringParameters &coloringParameters, CVector3 &z, double minimumR, int i,  sExtendedAux &aux)
+{
+  if (coloringParameters.control.enabled && i >= coloringParameters.control.startIterations && i < coloringParameters.control.stopIterations)
+    {
+      aux.color = aux.color;
+      double R;
+      R = z.Length();
+      if (R < minimumR) minimumR = R;
+
+      R = (aux.color * 100) + (aux.r * coloringParameters.color.factorR * 100) + (1000* minimumR);
+      aux.newR = R;
+    }
+}
+
+
 //colorTrial transform 3D
 void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, CVector3 &sample0, CVector3 &sample1, CVector3 &sample2, CVector3 &sample3,  CVector3 &sample4, CVector3 &sample5, CVector3 &sample6, int i,  sExtendedAux &aux)
 {
@@ -1126,10 +1142,10 @@ void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, 
       CVector3 tempOT2;
       tempOT1 = z - colorTrial.orbitTrap1;
       tempOT2 = z - colorTrial.orbitTrap2;
-      double lengthOT1 = tempOT1.Length();
-      double lengthOT2 = tempOT2.Length();
-      if (lengthOT1 < lengthOT2) orbitTrapsR = lengthOT1; // + ( i * i / colorTrial.OT1Weight );
-      else orbitTrapsR = lengthOT2; //  + ( i * i / colorTrial.OT2Weight );
+      double lengthOT1 = tempOT1.Length() * colorTrial.orbitTrap1Weight; // * colorTrial.orbitTrap1Weight ;
+      double lengthOT2 = tempOT2.Length() * colorTrial.orbitTrap2Weight; // * colorTrial.orbitTrap2Weight;
+      if (lengthOT1 < lengthOT2) orbitTrapsR = lengthOT1;
+      else orbitTrapsR = lengthOT2;
       if (orbitTrapsR < aux.orbitTraps ) aux.orbitTraps = orbitTrapsR;
     }
     else
@@ -1137,7 +1153,7 @@ void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, 
       aux.orbitTraps = 0.0;
     }
 // transform sampling
-    if (colorTrial.transformSamplingEnabled)
+    if (colorTrial.transformSamplingEnabled )
     {
       CVector3 diff1 = sample1 - sample0;
       CVector3 diff2 = sample2 - sample1;
@@ -1160,10 +1176,9 @@ void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, 
       aux.transformSampling = 0.0;
     }
 
-    double R = ((aux.axisBias + (aux.orbitTraps * colorTrial.mainOTWeight) +  aux.transformSampling) * 1000* colorTrial.minimumRWeight)  ; // ??????+ (aux.color * 100)
-    //if (aux.newR > 1e20) aux.newR  = 2.0; // change back to (aux.newR > 1e20)
-    //if (aux.newR <= 0.0) aux.newR  = 1.0;
-    aux.newR =R;
+    double R = ((aux.axisBias + (aux.orbitTraps * colorTrial.mainOrbitTrapWeight) +  aux.transformSampling) * 1000* colorTrial.minimumRWeight) ;
+
+    aux.newR = R;
 
   }
 }
@@ -1229,6 +1244,66 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
     }
   }
 }
+//benesiPineTree transform ONE 3D
+void benesiPineTreeOneTransform3D(const sTransformBenesiPineTreeOne &benesiPineTreeOne, CVector3 &z,int i)
+{
+  if (benesiPineTreeOne.control.enabled && i >= benesiPineTreeOne.control.startIterations && i < benesiPineTreeOne.control.stopIterations)
+  {
+    CVector3 temp = z;
+    CVector3 start = z;
+    CVector3 tempV1;
+    CVector3 newZ;
+    tempV1.x = start.x * 0.81649658092772603273242802490196 - start.z * 0.57735026918962576450914878050196;
+    newZ.z = start.x * 0.57735026918962576450914878050196  +  start.z * 0.81649658092772603273242802490196;
+    newZ.x = (tempV1.x  - start.y) * 0.70710678118654752440084436210485;
+    newZ.y = (tempV1.x  + start.y) * 0.70710678118654752440084436210485;
+    newZ.x = fabs(newZ.x);
+    newZ.y = fabs(newZ.y);
+    newZ.z = fabs(newZ.z);
+    tempV1.x = (newZ.x + newZ.y) * 0.70710678118654752440084436210485;
+    newZ.y = (-newZ.x  + newZ.y) * 0.70710678118654752440084436210485;
+    newZ.x = tempV1.x * 0.81649658092772603273242802490196 + newZ.z * 0.57735026918962576450914878050196;
+    newZ.z = -tempV1.x * 0.57735026918962576450914878050196 + newZ.z * 0.81649658092772603273242802490196;
+    z = benesiPineTreeOne.scale * newZ - benesiPineTreeOne.offset; // applying six variables:-  scale.x, scale.y, scale.z,  offset.x, offset.y, offset.z
+    //aux weight function
+    if (benesiPineTreeOne.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, benesiPineTreeOne.control.weight);
+    }
+  }
+}
+//benesiPineTree transform TWO  3D   identical to one at the moment
+void benesiPineTreeTwoTransform3D(const sTransformBenesiPineTreeTwo &benesiPineTreeTwo, CVector3 &z, int i)
+{
+  if (benesiPineTreeTwo.control.enabled && i >= benesiPineTreeTwo.control.startIterations && i < benesiPineTreeTwo.control.stopIterations)
+  {
+    CVector3 temp = z;
+    CVector3 start = z;
+    CVector3 tempV1;
+    CVector3 newZ;
+    CVector3 tempV2;
+    tempV1.x = start.x * 0.81649658092772603273242802490196 - start.z * 0.57735026918962576450914878050196;
+    newZ.z = start.x * 0.57735026918962576450914878050196  +  start.z * 0.81649658092772603273242802490196;
+    newZ.x = (tempV1.x  - start.y) * 0.70710678118654752440084436210485;
+    newZ.y = (tempV1.x  + start.y) * 0.70710678118654752440084436210485;
+    newZ.x = fabs(newZ.x);
+    newZ.y = fabs(newZ.y);
+    newZ.z = fabs(newZ.z);
+    tempV1.x = (newZ.x + newZ.y) * 0.70710678118654752440084436210485;
+    newZ.y = (-newZ.x + newZ.y) * 0.70710678118654752440084436210485;
+    newZ.x = tempV1.x * 0.81649658092772603273242802490196 + newZ.z * 0.57735026918962576450914878050196;
+    newZ.z = -tempV1.x * 0.57735026918962576450914878050196 + newZ.z * 0.81649658092772603273242802490196;
+    start = benesiPineTreeTwo.scale * newZ - benesiPineTreeTwo.offset; // applying six variables:-  scale.x, scale.y, scale.z,  offset.x, offset.y, offset.z
+
+
+    //aux weight function
+    if (benesiPineTreeTwo.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, benesiPineTreeTwo.control.weight);
+    }
+  }
+}
+
 
 
 

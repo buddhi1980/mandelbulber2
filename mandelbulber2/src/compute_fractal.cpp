@@ -288,7 +288,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
         case mandelbulb6Beta:
         {
         bulbAux[sequence].r = r;
-        Mandelbulb6BetaIteration(z, c, i, fractal, extendedAux[sequence]);
+        Mandelbulb6BetaIteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
         break;
       }
 

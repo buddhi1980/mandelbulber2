@@ -90,7 +90,7 @@ struct sExtendedAux
 struct sFoldColor
 {
 	CVector3 factor;
-	double factorR;
+  double factorR;
 	double factorSp1;
 	double factorSp2;
 };
@@ -455,13 +455,17 @@ struct sTransformVariableScale
   int variableStartIterations;
   int variableStopIterations;
 };
+
+struct sTransformColoringParameters
+{
+  sTransformControl control;
+  sFoldColor color;
+};
+
 struct sTransformColorTrial
 {
   sTransformControl control;
   sFoldColor color;
-
-
-
   bool axisBiasEnabled;
   bool orbitTrapsEnabled;
   bool transformSamplingEnabled;
@@ -475,7 +479,9 @@ struct sTransformColorTrial
   double  sampleConstant4;
   double  sampleConstant5;
   double  sampleConstant6;
-  double  mainOTWeight;
+  double  mainOrbitTrapWeight;
+  double  orbitTrap1Weight;
+  double  orbitTrap2Weight;
   CVector3 orbitTrap1;
   CVector3 orbitTrap2;
 };
@@ -496,6 +502,20 @@ struct sTransformMandelbulbMulti
   double betaAngleOffset;
 };
 
+struct sTransformBenesiPineTreeOne
+{
+  sTransformControl control;
+  CVector3 offset;
+  CVector3 scale;
+};
+
+
+struct sTransformBenesiPineTreeTwo
+{
+  sTransformControl control;
+  CVector3 offset;
+  CVector3 scale;
+};
 
 
 struct sFractalTransform
@@ -544,9 +564,16 @@ struct sFractalTransform
   sTransformVariableScale variableScale1;
 
   sTransformColorTrial colorTrial1;
-
+  sTransformColoringParameters coloringParameters1;
   sTransformMandelbulbMulti mandelbulbMulti1;
   sTransformMandelbulbMulti mandelbulbMulti2;
+
+  sTransformBenesiPineTreeOne benesiPineTreeOne1;
+  sTransformBenesiPineTreeOne benesiPineTreeOne2;
+  sTransformBenesiPineTreeOne benesiPineTreeOne3;
+  sTransformBenesiPineTreeTwo benesiPineTreeTwo1;
+  sTransformBenesiPineTreeTwo benesiPineTreeTwo2;
+
 
   //TODO here will be more transforms
 };
