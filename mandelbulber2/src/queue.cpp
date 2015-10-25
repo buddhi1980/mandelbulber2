@@ -28,7 +28,7 @@
 #include "error_message.hpp"
 #include "render_queue.hpp"
 
-cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder, cImage *_image, QObject *parent) : QObject(parent), mainInterface(_interface)
+cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder, QObject *parent) : QObject(parent), mainInterface(_interface)
 {
 	//initializes queue and create necessary files and folders
 	queueListFileName = _queueListFileName;
@@ -58,6 +58,8 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const 
 	UpdateListFromQueueFile();
 	UpdateListFromFileSystem();
 
+	image = new cImage(200, 200);
+
 	if(mainInterface->mainWindow)
 	{
 		ui = mainInterface->mainWindow->ui;
@@ -71,14 +73,26 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const 
 		QApplication::connect(this, SIGNAL(queueChanged()), this, SLOT(slotQueueListUpdate()));
 		QApplication::connect(this, SIGNAL(queueChanged(int)), this, SLOT(slotQueueListUpdate(int)));
 		QApplication::connect(this, SIGNAL(queueChanged(int, int)), this, SLOT(slotQueueListUpdate(int, int)));
+
+		renderedImageWidget = new RenderedImage;
+		renderedImageWidget->AssignImage(image);
+		renderedImageWidget->SetCursorVisibility(false);
+		mainInterface->mainWindow->ui->verticalLayout_queue_preview->addWidget(renderedImageWidget);
+		image->CreatePreview(1, renderedImageWidget->width(), renderedImageWidget->height(), renderedImageWidget);
+
 		emit queueChanged();
 	}
-	image = _image;
+	else
+	{
+		renderedImageWidget = NULL;
+	}
+
 }
 
 cQueue::~cQueue()
 {
-	// nothing to be done
+	delete image;
+	if(renderedImageWidget) delete renderedImageWidget;
 }
 
 void cQueue::Append(const QString &filename, enumRenderType renderType)
@@ -359,14 +373,8 @@ void cQueue::UpdateListFromFileSystem()
 
 void cQueue::RenderQueue()
 {
-	if(mainInterface->mainImage->IsUsed())
-	{
-		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
-		return;
-	}
-
 	QThread *thread = new QThread; //deleted by deleteLater()
-	cRenderQueue *renderQueue = new cRenderQueue(gMainInterface->mainImage); // TODO give necessary params
+	cRenderQueue *renderQueue = new cRenderQueue(image); // TODO give necessary params
 	renderQueue->moveToThread(thread);
 	QObject::connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));
 	QObject::connect(renderQueue, SIGNAL(finished()), renderQueue, SLOT(deleteLater()));

@@ -29,9 +29,10 @@
 #include "settings.hpp"
 #include "error_message.hpp"
 
-cRenderQueue::cRenderQueue(cImage *_image) : QObject()
+cRenderQueue::cRenderQueue(cImage *_image, RenderedImage *widget) : QObject()
 {
 	image = _image;
+	imageWidget = widget;
 }
 
 cRenderQueue::~cRenderQueue()
@@ -44,6 +45,9 @@ void cRenderQueue::slotRenderQueue()
 
 	WriteLog("cRenderQueue::slotRenderQueue()");
 	gMainInterface->stopRequest = false;
+
+	cParameterContainer tempPar = *gPar;
+	cFractalContainer tempFractPar = *gParFractal;
 
 	while(!gMainInterface->stopRequest)
 	{
@@ -123,7 +127,7 @@ void cRenderQueue::RenderStill(const QString& filename)
 	QString fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator() + saveFilename;
 
 	//setup of rendering engine
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, gMainInterface->mainImage, &gMainInterface->stopRequest, gMainInterface->renderedImage);
+	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest, imageWidget);
 	if(gMainInterface->mainWindow)
 	{
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
@@ -144,7 +148,7 @@ void cRenderQueue::RenderStill(const QString& filename)
 	bool result = renderJob->Execute();
 	if(!result) return;
 
-	SaveImage(fullSaveFilename, IMAGE_FILE_TYPE_PNG, gMainInterface->mainImage);
+	SaveImage(fullSaveFilename, IMAGE_FILE_TYPE_PNG, image);
 }
 
 void cRenderQueue::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType)

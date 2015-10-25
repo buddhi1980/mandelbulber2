@@ -23,6 +23,7 @@
 #include <QtCore>
 #include "cimage.hpp"
 #include "progress_text.hpp"
+#include "rendered_image_widget.hpp"
 
 #ifndef MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
 #define MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
@@ -31,7 +32,7 @@ class cRenderQueue : public QObject
 {
 	Q_OBJECT
 public:
-	cRenderQueue(cImage *_image);
+	cRenderQueue(cImage *_image, RenderedImage *widget = NULL);
 	~cRenderQueue();
 	void RenderStill(const QString& filename);
 	void RenderFlight();
@@ -48,6 +49,7 @@ signals:
 
 private:
 	cImage *image;
+	RenderedImage *imageWidget;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_QUEUE_HPP_ */

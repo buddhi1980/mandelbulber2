@@ -53,7 +53,7 @@ public:
 	};
 
 	//initializes queue and create necessary files and folders
-	cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder, cImage *_image, QObject *parent = 0);
+	cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder, QObject *parent = 0);
 	~cQueue();
 
 	//add settings to queue
@@ -135,6 +135,8 @@ private:
 
 	QString queueListFileName;
 	QString queueFolder;
+
+	RenderedImage *renderedImageWidget;
 };
 
 #endif /* MANDELBULBER2_SRC_QUEUE_HPP_ */
