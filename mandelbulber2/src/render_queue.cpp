@@ -149,6 +149,8 @@ void cRenderQueue::RenderStill(const QString& filename)
 	if(!result) return;
 
 	SaveImage(fullSaveFilename, IMAGE_FILE_TYPE_PNG, image);
+
+	delete renderJob;
 }
 
 void cRenderQueue::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType)
