@@ -1079,16 +1079,8 @@ void cInterface::StartRender(bool noUndo)
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage); //deleted by deleteLater()
 
-	if(mainWindow)
-	{
-		QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-		QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
-	}
-	if(headless)
-	{
-		QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), headless, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-		QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), headless, SLOT(slotUpdateStatistics(cStatistics)));
-	}
+	QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
