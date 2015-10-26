@@ -74,14 +74,23 @@ void cRenderQueue::slotRenderQueue()
 
 			tempPar.Set("image_preview_scale", 0);
 
+			bool result = false;
 			switch(queueItem.renderType)
 			{
-				case cQueue::queue_STILL: RenderStill(queueItem.filename); break;
+				case cQueue::queue_STILL: result = RenderStill(queueItem.filename); break;
 				case cQueue::queue_FLIGHT: RenderFlight(); break;
 				case cQueue::queue_KEYFRAME: RenderKeyframe(); break;
 			}
-			gQueue->RemoveFromList(queueItem); //FIXME this is not thread safe!
-			queueFinished++;
+
+			if(result)
+			{
+				gQueue->RemoveFromList(queueItem); //FIXME this is not thread safe!
+				queueFinished++;
+			}
+			else
+			{
+				break;
+			}
 		}
 		else
 		{
@@ -123,7 +132,7 @@ void cRenderQueue::RenderKeyframe()
 	}
 }
 
-void cRenderQueue::RenderStill(const QString& filename)
+bool cRenderQueue::RenderStill(const QString& filename)
 {
 	QString saveFilename = QFileInfo(filename).baseName() + ".png";
 	QString fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator() + saveFilename;
@@ -151,11 +160,12 @@ void cRenderQueue::RenderStill(const QString& filename)
 
 	//render image
 	bool result = renderJob->Execute();
-	if(!result) return;
+	if(!result) return false;
 
 	SaveImage(fullSaveFilename, IMAGE_FILE_TYPE_PNG, image);
 
 	delete renderJob;
+	return true;
 }
 
 void cRenderQueue::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType)

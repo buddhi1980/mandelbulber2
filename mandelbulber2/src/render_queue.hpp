@@ -36,7 +36,7 @@ class cRenderQueue : public QObject
 public:
 	cRenderQueue(cImage *_image, RenderedImage *widget = NULL);
 	~cRenderQueue();
-	void RenderStill(const QString& filename);
+	bool RenderStill(const QString& filename);
 	void RenderFlight();
 	void RenderKeyframe();
 
