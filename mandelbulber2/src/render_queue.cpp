@@ -44,12 +44,12 @@ void cRenderQueue::slotRenderQueue()
 	int queueFinished = 0;
 
 	WriteLog("cRenderQueue::slotRenderQueue()");
-	gMainInterface->stopRequest = false;
+	gQueue->stopRequest = false;
 
 	tempPar = *gPar;
 	tempFractPar = *gParFractal;
 
-	while(!gMainInterface->stopRequest)
+	while(!gQueue->stopRequest)
 	{
 		int queueTotalLeft = gQueue->GetListFromQueueFile().size(); //FIXME this is not thread safe!
 
@@ -138,7 +138,7 @@ bool cRenderQueue::RenderStill(const QString& filename)
 	QString fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator() + saveFilename;
 
 	//setup of rendering engine
-	cRenderJob *renderJob = new cRenderJob(&tempPar, &tempFractPar, image, &gMainInterface->stopRequest, imageWidget);
+	cRenderJob *renderJob = new cRenderJob(&tempPar, &tempFractPar, image, &gQueue->stopRequest, imageWidget);
 	if(gMainInterface->mainWindow)
 	{
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
@@ -156,7 +156,7 @@ bool cRenderQueue::RenderStill(const QString& filename)
 
 	imageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 
-	gMainInterface->stopRequest = false;
+	gQueue->stopRequest = false;
 
 	//render image
 	bool result = renderJob->Execute();

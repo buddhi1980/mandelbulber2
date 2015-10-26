@@ -87,6 +87,9 @@ public:
 
 	structQueueItem GetNextFromList(); //gives next filename
 	void RemoveFromList(const structQueueItem &queueItem); //remove queue item if it is on the list
+
+	bool stopRequest;
+
 signals:
 	//request to update table of queue items
 	void queueChanged();
@@ -112,6 +115,7 @@ private slots:
 	void slotQueueListUpdate(int i);
 	void slotQueueListUpdate(int i, int j);
 	void slotUpdateUI();
+	void slotStopRequest();
 
 private:
 	void AddToList(const structQueueItem &queueItem); //add filename to the end of list

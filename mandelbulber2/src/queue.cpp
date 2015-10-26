@@ -69,6 +69,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const 
 		QApplication::connect(ui->pushButton_queue_add_orphaned, SIGNAL(clicked()), this, SLOT(slotQueueAddOrphaned()));
 		QApplication::connect(ui->pushButton_queue_remove_orphaned, SIGNAL(clicked()), this, SLOT(slotQueueRemoveOrphaned()));
 		QApplication::connect(ui->pushButton_queue_render_queue, SIGNAL(clicked()), this, SLOT(slotQueueRender()));
+		QApplication::connect(ui->pushButton_queue_stop_rendering, SIGNAL(clicked()), this, SLOT(slotStopRequest()));
 
 		QApplication::connect(this, SIGNAL(queueChanged()), this, SLOT(slotQueueListUpdate()));
 		QApplication::connect(this, SIGNAL(queueChanged(int)), this, SLOT(slotQueueListUpdate(int)));
@@ -88,6 +89,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const 
 		renderedImageWidget = NULL;
 	}
 
+	stopRequest = false;
 }
 
 cQueue::~cQueue()
@@ -614,4 +616,9 @@ void cQueue::slotUpdateUI()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 	gFlightAnimation->RefreshTable();
 	gKeyframeAnimation->RefreshTable();
+}
+
+void cQueue::slotStopRequest()
+{
+	stopRequest = true;
 }

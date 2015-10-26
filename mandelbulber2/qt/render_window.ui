@@ -1211,7 +1211,7 @@
           <x>0</x>
           <y>0</y>
           <width>174</width>
-          <height>250</height>
+          <height>238</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -2864,8 +2864,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>129</height>
+          <width>353</width>
+          <height>135</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2934,7 +2934,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>291</width>
+                  <width>303</width>
                   <height>724</height>
                  </rect>
                 </property>
@@ -4149,7 +4149,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>227</width>
                   <height>174</height>
                  </rect>
                 </property>
@@ -4477,7 +4477,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>196</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5317,7 +5317,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>273</width>
                   <height>225</height>
                  </rect>
                 </property>
@@ -5635,7 +5635,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>265</width>
                   <height>1248</height>
                  </rect>
                 </property>
@@ -8499,7 +8499,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9150,7 +9150,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9795,7 +9795,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
+                      <width>217</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -10444,7 +10444,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>210</width>
                   <height>482</height>
                  </rect>
                 </property>
@@ -11696,7 +11696,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>289</width>
+                  <width>207</width>
                   <height>354</height>
                  </rect>
                 </property>
@@ -13609,8 +13609,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>355</width>
-                  <height>318</height>
+                  <width>224</width>
+                  <height>291</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -15218,7 +15218,7 @@ keyframes</string>
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QPushButton" name="pushButton_stop_rendering_queue">
+            <widget class="QPushButton" name="pushButton_queue_stop_rendering">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Terminate rendering&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
