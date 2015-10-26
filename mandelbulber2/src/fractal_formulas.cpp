@@ -982,8 +982,8 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
   // z sampling for colour trials 4 --------FABS ADDITION CONSTANT------------HERE
   CVector3 sample4 = z;
 
-  // Benesi Pine Tree TransformOne); 1
-  benesiPineTreeOneTransform3D(fractal->transform.benesiPineTreeOne1, z, i);
+  // Benesi MagTransformmOne); 1
+  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne1, z, i);
 
   //MAIN FORMULA ORIGINAL1
   // mandelbulb 3D 1
@@ -1020,8 +1020,8 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
   fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
 
-  // Benesi Pine Tree TransformTWO); 1
-  benesiPineTreeTwoTransform3D(fractal->transform.benesiPineTreeTwo1, z, i);
+  // Benesi BenesiMag TransformTWO); 1
+  benesiMagTransformTwoTransform3D(fractal->transform.benesiMagTransformTwo1, z, i);
 
   // mandelbulb variable power 3D 1
   variableMandelbulbPowerTransform3D(fractal->transform.variableMandelbulbPower1, z, i, aux);

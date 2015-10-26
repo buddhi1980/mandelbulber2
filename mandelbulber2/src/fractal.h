@@ -502,7 +502,7 @@ struct sTransformMandelbulbMulti
   double betaAngleOffset;
 };
 
-struct sTransformBenesiPineTreeOne
+struct sTransformBenesiMagTransformOne
 {
   sTransformControl control;
   CVector3 offset;
@@ -510,7 +510,7 @@ struct sTransformBenesiPineTreeOne
 };
 
 
-struct sTransformBenesiPineTreeTwo
+struct sTransformBenesiMagTransformTwo
 {
   sTransformControl control;
   CVector3 offset;
@@ -568,11 +568,11 @@ struct sFractalTransform
   sTransformMandelbulbMulti mandelbulbMulti1;
   sTransformMandelbulbMulti mandelbulbMulti2;
 
-  sTransformBenesiPineTreeOne benesiPineTreeOne1;
-  sTransformBenesiPineTreeOne benesiPineTreeOne2;
-  sTransformBenesiPineTreeOne benesiPineTreeOne3;
-  sTransformBenesiPineTreeTwo benesiPineTreeTwo1;
-  sTransformBenesiPineTreeTwo benesiPineTreeTwo2;
+  sTransformBenesiMagTransformOne benesiMagTransformOne1;
+  sTransformBenesiMagTransformOne benesiMagTransformOne2;
+  sTransformBenesiMagTransformOne benesiMagTransformOne3;
+  sTransformBenesiMagTransformTwo benesiMagTransformTwo1;
+  sTransformBenesiMagTransformTwo benesiMagTransformTwo2;
 
 
   //TODO here will be more transforms

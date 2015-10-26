@@ -577,38 +577,34 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.mandelbulbMulti2.control.stopIterations = container->Get<int>("transform_mandelbulbMulti2_stop_iterations");
   transform.mandelbulbMulti2.control.weight = container->Get<double>("transform_mandelbulbMulti2_weight");
 
-  transform.benesiPineTreeOne1.control.enabled = container->Get<bool>("transform_benesiPineTreeOne1_enabled");
-  transform.benesiPineTreeOne1.control.weightEnabled = container->Get<bool>("transform_benesiPineTreeOne1_weight_enabled");
-  transform.benesiPineTreeOne1.offset = container->Get<CVector3>("transform_benesiPineTreeOne1_offset");
-  transform.benesiPineTreeOne1.scale = container->Get<CVector3>("transform_benesiPineTreeOne1_scale");
-  transform.benesiPineTreeOne1.control.startIterations = container->Get<int>("transform_benesiPineTreeOne1_start_iterations");
-  transform.benesiPineTreeOne1.control.stopIterations = container->Get<int>("transform_benesiPineTreeOne1_stop_iterations");
-  transform.benesiPineTreeOne1.control.weight = container->Get<double>("transform_benesiPineTreeOne1_weight");
-  transform.benesiPineTreeOne2.control.enabled = container->Get<bool>("transform_benesiPineTreeOne2_enabled");
-  transform.benesiPineTreeOne2.control.weightEnabled = container->Get<bool>("transform_benesiPineTreeOne2_weight_enabled");
-  transform.benesiPineTreeOne2.offset = container->Get<CVector3>("transform_benesiPineTreeOne2_offset");
-  transform.benesiPineTreeOne2.scale = container->Get<CVector3>("transform_benesiPineTreeOne2_scale");
-  transform.benesiPineTreeOne2.control.startIterations = container->Get<int>("transform_benesiPineTreeOne2_start_iterations");
-  transform.benesiPineTreeOne2.control.stopIterations = container->Get<int>("transform_benesiPineTreeOne2_stop_iterations");
-  transform.benesiPineTreeOne2.control.weight = container->Get<double>("transform_benesiPineTreeOne2_weight");
-  transform.benesiPineTreeOne3.control.enabled = container->Get<bool>("transform_benesiPineTreeOne3_enabled");
-  transform.benesiPineTreeOne3.control.weightEnabled = container->Get<bool>("transform_benesiPineTreeOne3_weight_enabled");
-  transform.benesiPineTreeOne3.offset = container->Get<CVector3>("transform_benesiPineTreeOne3_offset");
-  transform.benesiPineTreeOne3.scale = container->Get<CVector3>("transform_benesiPineTreeOne3_scale");
-  transform.benesiPineTreeOne3.control.startIterations = container->Get<int>("transform_benesiPineTreeOne3_start_iterations");
-  transform.benesiPineTreeOne3.control.stopIterations = container->Get<int>("transform_benesiPineTreeOne3_stop_iterations");
-  transform.benesiPineTreeOne3.control.weight = container->Get<double>("transform_benesiPineTreeOne3_weight");
-
-
-
-  transform.benesiPineTreeTwo1.control.enabled = container->Get<bool>("transform_benesiPineTreeTwo1_enabled");
-  transform.benesiPineTreeTwo1.control.weightEnabled = container->Get<bool>("transform_benesiPineTreeTwo1_weight_enabled");
-  transform.benesiPineTreeTwo1.offset = container->Get<CVector3>("transform_benesiPineTreeTwo1_offset");
-  transform.benesiPineTreeTwo1.scale = container->Get<CVector3>("transform_benesiPineTreeTwo1_scale");
-  transform.benesiPineTreeTwo1.control.startIterations = container->Get<int>("transform_benesiPineTreeTwo1_start_iterations");
-  transform.benesiPineTreeTwo1.control.stopIterations = container->Get<int>("transform_benesiPineTreeTwo1_stop_iterations");
-  transform.benesiPineTreeTwo1.control.weight = container->Get<double>("transform_benesiPineTreeTwo1_weight");
-
+  transform.benesiMagTransformOne1.control.enabled = container->Get<bool>("transform_benesiMagTransformOne1_enabled");
+  transform.benesiMagTransformOne1.control.weightEnabled = container->Get<bool>("transform_benesiMagTransformOne1_weight_enabled");
+  transform.benesiMagTransformOne1.offset = container->Get<CVector3>("transform_benesiMagTransformOne1_offset");
+  transform.benesiMagTransformOne1.scale = container->Get<CVector3>("transform_benesiMagTransformOne1_scale");
+  transform.benesiMagTransformOne1.control.startIterations = container->Get<int>("transform_benesiMagTransformOne1_start_iterations");
+  transform.benesiMagTransformOne1.control.stopIterations = container->Get<int>("transform_benesiMagTransformOne1_stop_iterations");
+  transform.benesiMagTransformOne1.control.weight = container->Get<double>("transform_benesiMagTransformOne1_weight");
+  transform.benesiMagTransformOne2.control.enabled = container->Get<bool>("transform_benesiMagTransformOne2_enabled");
+  transform.benesiMagTransformOne2.control.weightEnabled = container->Get<bool>("transform_benesiMagTransformOne2_weight_enabled");
+  transform.benesiMagTransformOne2.offset = container->Get<CVector3>("transform_benesiMagTransformOne2_offset");
+  transform.benesiMagTransformOne2.scale = container->Get<CVector3>("transform_benesiMagTransformOne2_scale");
+  transform.benesiMagTransformOne2.control.startIterations = container->Get<int>("transform_benesiMagTransformOne2_start_iterations");
+  transform.benesiMagTransformOne2.control.stopIterations = container->Get<int>("transform_benesiMagTransformOne2_stop_iterations");
+  transform.benesiMagTransformOne2.control.weight = container->Get<double>("transform_benesiMagTransformOne2_weight");
+  transform.benesiMagTransformOne3.control.enabled = container->Get<bool>("transform_benesiMagTransformOne3_enabled");
+  transform.benesiMagTransformOne3.control.weightEnabled = container->Get<bool>("transform_benesiMagTransformOne3_weight_enabled");
+  transform.benesiMagTransformOne3.offset = container->Get<CVector3>("transform_benesiMagTransformOne3_offset");
+  transform.benesiMagTransformOne3.scale = container->Get<CVector3>("transform_benesiMagTransformOne3_scale");
+  transform.benesiMagTransformOne3.control.startIterations = container->Get<int>("transform_benesiMagTransformOne3_start_iterations");
+  transform.benesiMagTransformOne3.control.stopIterations = container->Get<int>("transform_benesiMagTransformOne3_stop_iterations");
+  transform.benesiMagTransformOne3.control.weight = container->Get<double>("transform_benesiMagTransformOne3_weight");
+  transform.benesiMagTransformTwo1.control.enabled = container->Get<bool>("transform_benesiMagTransformTwo1_enabled");
+  transform.benesiMagTransformTwo1.control.weightEnabled = container->Get<bool>("transform_benesiMagTransformTwo1_weight_enabled");
+  transform.benesiMagTransformTwo1.offset = container->Get<CVector3>("transform_benesiMagTransformTwo1_offset");
+  transform.benesiMagTransformTwo1.scale = container->Get<CVector3>("transform_benesiMagTransformTwo1_scale");
+  transform.benesiMagTransformTwo1.control.startIterations = container->Get<int>("transform_benesiMagTransformTwo1_start_iterations");
+  transform.benesiMagTransformTwo1.control.stopIterations = container->Get<int>("transform_benesiMagTransformTwo1_stop_iterations");
+  transform.benesiMagTransformTwo1.control.weight = container->Get<double>("transform_benesiMagTransformTwo1_weight");
 
 
 

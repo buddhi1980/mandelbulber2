@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>724</width>
-    <height>7253</height>
+    <height>7425</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -12321,7 +12321,7 @@
    <item row="8" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiPineTreeOne1_enabled">
      <property name="title">
-      <string>Enable Bensesi Pine Tree Transform ONE               ;  Copy ONE</string>
+      <string>Enable Bensesi Mag Transform ONE               ;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -12362,7 +12362,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_benesiPineTreeOne1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformOne1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12375,7 +12375,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transform_benesiPineTreeOne1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformOne1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12395,14 +12395,14 @@
          </widget>
         </item>
         <item row="1" column="5">
-         <widget class="QCheckBox" name="checkBox_transform_benesiPineTreeOne1_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_benesiMagTransformOne1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiPineTreeOne1_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiMagTransformOne1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -12447,7 +12447,7 @@
          <number>2</number>
         </property>
         <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeOne1_scale_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOne1_scale_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12475,7 +12475,7 @@
          </widget>
         </item>
         <item row="4" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeOne1_offset_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOne1_offset_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12510,7 +12510,7 @@
          </widget>
         </item>
         <item row="5" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeOne1_offset_y">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOne1_offset_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12532,7 +12532,7 @@
          </widget>
         </item>
         <item row="6" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeOne1_offset_z">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOne1_offset_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12554,7 +12554,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeOne1_scale_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOne1_scale_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12582,7 +12582,7 @@
          </widget>
         </item>
         <item row="5" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeOne1_offset_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOne1_offset_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12610,7 +12610,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeOne1_scale_y">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOne1_scale_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12632,7 +12632,7 @@
          </widget>
         </item>
         <item row="6" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeOne1_offset_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOne1_offset_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12660,7 +12660,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeOne1_scale_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOne1_scale_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12723,7 +12723,7 @@
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeOne1_offset_x">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOne1_offset_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -12752,7 +12752,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeOne1_scale_z">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOne1_scale_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12774,7 +12774,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeOne1_scale_x">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOne1_scale_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -12817,7 +12817,7 @@
    <item row="23" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiPineTreeTwo1_enabled">
      <property name="title">
-      <string>Enable Bensesi Pine Tree Transform TWO                ;  Copy ONE</string>
+      <string>Enable Bensesi Mag Transform TWO                ;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -12858,7 +12858,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_benesiPineTreeTwo1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformTwo1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12871,7 +12871,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transform_benesiPineTreeTwo1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformTwo1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12891,14 +12891,14 @@
          </widget>
         </item>
         <item row="1" column="5">
-         <widget class="QCheckBox" name="checkBox_transform_benesiPineTreeTwo1_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_benesiMagTransformTwo1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiPineTreeTwo1_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiMagTransformTwo1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -12950,7 +12950,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeTwo1_scale_y">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_scale_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12972,7 +12972,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeTwo1_scale_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_scale_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -13000,7 +13000,7 @@
          </widget>
         </item>
         <item row="5" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeTwo1_offset_y">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_offset_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -13022,7 +13022,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeTwo1_scale_x">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_scale_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -13044,7 +13044,7 @@
          </widget>
         </item>
         <item row="6" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeTwo1_offset_z">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_offset_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -13073,7 +13073,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeTwo1_scale_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_scale_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -13108,7 +13108,7 @@
          </widget>
         </item>
         <item row="4" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeTwo1_offset_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_offset_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -13150,7 +13150,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeTwo1_scale_z">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_scale_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -13172,7 +13172,7 @@
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiPineTreeTwo1_offset_x">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_offset_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -13194,7 +13194,7 @@
          </widget>
         </item>
         <item row="6" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeTwo1_offset_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_offset_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -13229,7 +13229,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeTwo1_scale_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_scale_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -13257,7 +13257,7 @@
          </widget>
         </item>
         <item row="5" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiPineTreeTwo1_offset_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_offset_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>

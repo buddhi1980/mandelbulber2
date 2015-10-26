@@ -1100,7 +1100,6 @@ void coloringParametersTransform3D(const sTransformColoringParameters &coloringP
 {
   if (coloringParameters.control.enabled && i >= coloringParameters.control.startIterations && i < coloringParameters.control.stopIterations)
     {
-      aux.color = aux.color;
       double R;
       R = z.Length();
       if (R < minimumR) minimumR = R;
@@ -1195,37 +1194,40 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
     {
       z = mandelbulbMulti.mainRot.RotateVector(z);
     }
-    double th0;
-    double ph0;
+    double th0 = 0.0;
+    double ph0 = 0.0;
+    th0 +=  mandelbulbMulti.betaAngleOffset;
+    ph0 +=  mandelbulbMulti.alphaAngleOffset;
+
     if   (mandelbulbMulti.multiEnabled1) // standard
     {
-      th0 = asin(z.z / aux.r) + mandelbulbMulti.betaAngleOffset;
-      ph0 = atan2(z.y, z.x) + mandelbulbMulti.alphaAngleOffset;
+      th0 += asin(z.z / aux.r);
+      ph0 += atan2(z.y, z.x);
     }
     if   (mandelbulbMulti.multiEnabled2) // pine tree
     {
-      th0 = acos(z.x / aux.r) + mandelbulbMulti.betaAngleOffset;
-      ph0 = atan(z.z / z.y) + mandelbulbMulti.alphaAngleOffset;
+      th0 += acos(z.x / aux.r);
+      ph0 += atan(z.z / z.y);
     }
     if   (mandelbulbMulti.multiEnabled3) // three pointer
     {
-      th0 = acos(z.z / aux.r) + mandelbulbMulti.betaAngleOffset;
-      ph0 = atan(z.x / z.y) + mandelbulbMulti.alphaAngleOffset;
+      th0 += acos(z.z / aux.r);
+      ph0 += atan(z.x / z.y);
     }
     if   (mandelbulbMulti.multiEnabled4) //
     {
-      th0 = asin(z.z / aux.r) + mandelbulbMulti.betaAngleOffset;
-      ph0 = atan(z.x / z.y) + mandelbulbMulti.alphaAngleOffset;
+      th0 += asin(z.z / aux.r);
+      ph0 += atan(z.x / z.y);
     }
     if   (mandelbulbMulti.multiEnabled5) //
     {
-      th0 = asin(z.y / aux.r) + mandelbulbMulti.betaAngleOffset;
-      ph0 = atan2(z.z , z.x) + mandelbulbMulti.alphaAngleOffset;
+      th0 += asin(z.y / aux.r);
+      ph0 += atan2(z.z , z.x);
     }
       if   (mandelbulbMulti.multiEnabled6) //
     {
-      th0 = asin(z.x / aux.r) + mandelbulbMulti.betaAngleOffset;
-      ph0 = atan2(z.y , z.z) +  atan(z.x / aux.r)+ mandelbulbMulti.alphaAngleOffset;
+      th0 += asin(z.x / aux.r);
+      ph0 += atan2(z.y , z.z);
     }
 
 
@@ -1244,10 +1246,10 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
     }
   }
 }
-//benesiPineTree transform ONE 3D
-void benesiPineTreeOneTransform3D(const sTransformBenesiPineTreeOne &benesiPineTreeOne, CVector3 &z,int i)
+//benesiMagTransform transform ONE 3D
+void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &benesiMagTransformOne, CVector3 &z,int i)
 {
-  if (benesiPineTreeOne.control.enabled && i >= benesiPineTreeOne.control.startIterations && i < benesiPineTreeOne.control.stopIterations)
+  if (benesiMagTransformOne.control.enabled && i >= benesiMagTransformOne.control.startIterations && i < benesiMagTransformOne.control.stopIterations)
   {
     CVector3 temp = z;
     CVector3 start = z;
@@ -1264,18 +1266,18 @@ void benesiPineTreeOneTransform3D(const sTransformBenesiPineTreeOne &benesiPineT
     newZ.y = (-newZ.x  + newZ.y) * 0.70710678118654752440084436210485;
     newZ.x = tempV1.x * 0.81649658092772603273242802490196 + newZ.z * 0.57735026918962576450914878050196;
     newZ.z = -tempV1.x * 0.57735026918962576450914878050196 + newZ.z * 0.81649658092772603273242802490196;
-    z = benesiPineTreeOne.scale * newZ - benesiPineTreeOne.offset; // applying six variables:-  scale.x, scale.y, scale.z,  offset.x, offset.y, offset.z
+    z = benesiMagTransformOne.scale * newZ - benesiMagTransformOne.offset; // applying six variables:-  scale.x, scale.y, scale.z,  offset.x, offset.y, offset.z
     //aux weight function
-    if (benesiPineTreeOne.control.weightEnabled)
+    if (benesiMagTransformOne.control.weightEnabled)
     {
-      z = SmoothCVector(temp, z, benesiPineTreeOne.control.weight);
+      z = SmoothCVector(temp, z, benesiMagTransformOne.control.weight);
     }
   }
 }
-//benesiPineTree transform TWO  3D   identical to one at the moment
-void benesiPineTreeTwoTransform3D(const sTransformBenesiPineTreeTwo &benesiPineTreeTwo, CVector3 &z, int i)
+//benesiMagTransformTwo  3D   identical to one at the moment
+void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &benesiMagTransformTwo, CVector3 &z, int i)
 {
-  if (benesiPineTreeTwo.control.enabled && i >= benesiPineTreeTwo.control.startIterations && i < benesiPineTreeTwo.control.stopIterations)
+  if (benesiMagTransformTwo.control.enabled && i >= benesiMagTransformTwo.control.startIterations && i < benesiMagTransformTwo.control.stopIterations)
   {
     CVector3 temp = z;
     CVector3 start = z;
@@ -1293,17 +1295,14 @@ void benesiPineTreeTwoTransform3D(const sTransformBenesiPineTreeTwo &benesiPineT
     newZ.y = (-newZ.x + newZ.y) * 0.70710678118654752440084436210485;
     newZ.x = tempV1.x * 0.81649658092772603273242802490196 + newZ.z * 0.57735026918962576450914878050196;
     newZ.z = -tempV1.x * 0.57735026918962576450914878050196 + newZ.z * 0.81649658092772603273242802490196;
-    start = benesiPineTreeTwo.scale * newZ - benesiPineTreeTwo.offset; // applying six variables:-  scale.x, scale.y, scale.z,  offset.x, offset.y, offset.z
-
-
+    start = benesiMagTransformTwo.scale * newZ - benesiMagTransformTwo.offset; // applying six variables:-  scale.x, scale.y, scale.z,  offset.x, offset.y, offset.z
     //aux weight function
-    if (benesiPineTreeTwo.control.weightEnabled)
+    if (benesiMagTransformTwo.control.weightEnabled)
     {
-      z = SmoothCVector(temp, z, benesiPineTreeTwo.control.weight);
+      z = SmoothCVector(temp, z, benesiMagTransformTwo.control.weight);
     }
   }
 }
-
 
 
 
