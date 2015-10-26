@@ -46,19 +46,19 @@ void cRenderQueue::slotRenderQueue()
 	WriteLog("cRenderQueue::slotRenderQueue()");
 	gMainInterface->stopRequest = false;
 
-	cParameterContainer tempPar = *gPar;
-	cFractalContainer tempFractPar = *gParFractal;
+	tempPar = *gPar;
+	tempFractPar = *gParFractal;
 
 	while(!gMainInterface->stopRequest)
 	{
-		int queueTotalLeft = gQueue->GetListFromQueueFile().size();
+		int queueTotalLeft = gQueue->GetListFromQueueFile().size(); //FIXME this is not thread safe!
 
 		emit updateProgressAndStatus(
 			QObject::tr("Queue Render"),
 			QObject::tr("Queue Item %1 of %2").arg(queueFinished + 1).arg(queueTotalLeft + queueFinished),
 			1.0 * (queueFinished / (queueTotalLeft + queueFinished)),
 			cProgressText::progress_QUEUE);
-		cQueue::structQueueItem queueItem = gQueue->GetNextFromList();
+		cQueue::structQueueItem queueItem = gQueue->GetNextFromList(); //FIXME this is not thread safe!
 		if(queueItem.filename == "") break; // last item reached
 
 
@@ -66,11 +66,13 @@ void cRenderQueue::slotRenderQueue()
 		{
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.LoadFromFile(queueItem.filename);
-			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+			parSettings.Decode(&tempPar, &tempFractPar, &tempFrames, &tempKeyframes);
 			if(!systemData.noGui)
 			{
 				emit updateUI();
 			}
+
+			tempPar.Set("image_preview_scale", 0);
 
 			switch(queueItem.renderType)
 			{
@@ -78,7 +80,7 @@ void cRenderQueue::slotRenderQueue()
 				case cQueue::queue_FLIGHT: RenderFlight(); break;
 				case cQueue::queue_KEYFRAME: RenderKeyframe(); break;
 			}
-			gQueue->RemoveFromList(queueItem);
+			gQueue->RemoveFromList(queueItem); //FIXME this is not thread safe!
 			queueFinished++;
 		}
 		else
@@ -127,7 +129,7 @@ void cRenderQueue::RenderStill(const QString& filename)
 	QString fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator() + saveFilename;
 
 	//setup of rendering engine
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest, imageWidget);
+	cRenderJob *renderJob = new cRenderJob(&tempPar, &tempFractPar, image, &gMainInterface->stopRequest, imageWidget);
 	if(gMainInterface->mainWindow)
 	{
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
@@ -142,6 +144,9 @@ void cRenderQueue::RenderStill(const QString& filename)
 	cRenderingConfiguration config;
 
 	renderJob->Init(cRenderJob::still, config);
+
+	imageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
+
 	gMainInterface->stopRequest = false;
 
 	//render image
