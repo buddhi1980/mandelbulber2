@@ -10048,13 +10048,6 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="2" colspan="3">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti2_enabled2">
-          <property name="text">
-           <string>Enable acos atan xzy</string>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="5" colspan="3">
          <widget class="QLabel" name="label_278">
           <property name="text">
@@ -10100,39 +10093,96 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="5" colspan="3">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti2_enabled3">
-          <property name="text">
-           <string>Enable acos  atan zxy</string>
-          </property>
-         </widget>
-        </item>
         <item row="7" column="0" colspan="2">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti2_enabled1">
+         <widget class="QLabel" name="label_multi2_th0_function">
           <property name="text">
-           <string>Enable asin atan2 zyx</string>
+           <string>th0 function: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="8" column="0" colspan="2">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti2_enabled4">
+        <item row="7" column="2" colspan="1">
+         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti2_acos_or_asin">
+          <item>
+           <property name="text">
+            <string>acos</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>asin</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="7" column="3" colspan="2">
+         <widget class="QLabel" name="label_multi2_ph0_function">
           <property name="text">
-           <string>Enable asin atan zxy</string>
+           <string>ph0 function: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="8" column="2" colspan="2">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti2_enabled5">
+        <item row="7" column="5" colspan="1">
+         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti2_atan_or_atan2">
+          <item>
+           <property name="text">
+            <string>atan</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>atan2</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="3">
+         <widget class="QLabel" name="label_multi2_order_of_xyz">
           <property name="text">
-           <string>Enable  asin atan2 yzx</string>
+           <string>function order of x, y and z: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="8" column="5" colspan="3">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti2_enabled6">
-          <property name="text">
-           <string>Enable asin atan2 xyz</string>
-          </property>
+        <item row="8" column="3" colspan="1">
+         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti2_order_of_xyz">
+          <item>
+           <property name="text">
+            <string>xyz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>xzy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>yxz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>yzx</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>zxy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>zyx</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>
@@ -10458,6 +10508,13 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="8">
+         <widget class="QLabel" name="label_197">
+          <property name="text">
+           <string>Copy ONE</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="2">
          <widget class="QLabel" name="label_198">
           <property name="text">
@@ -10465,10 +10522,16 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="8">
-         <widget class="QLabel" name="label_197">
-          <property name="text">
-           <string>Copy ONE</string>
+        <item row="4" column="5" colspan="3">
+         <widget class="QDial" name="dial3_transform_mandelbulbMulti1_main_rotation_z">
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -10484,6 +10547,16 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QLabel" name="label_205">
+          <property name="text">
+           <string>Orientation x</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
         </item>
         <item row="5" column="0" colspan="2">
          <widget class="MyDoubleSpinBox" name="spinboxd3_transform_mandelbulbMulti1_main_rotation_x">
@@ -10513,29 +10586,6 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="5" colspan="3">
-         <widget class="QDial" name="dial3_transform_mandelbulbMulti1_main_rotation_z">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0" colspan="2">
-         <widget class="QLabel" name="label_205">
-          <property name="text">
-           <string>Orientation x</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="5" column="2" colspan="3">
          <widget class="MyDoubleSpinBox" name="spinboxd3_transform_mandelbulbMulti1_main_rotation_y">
           <property name="sizePolicy">
@@ -10561,13 +10611,6 @@
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="2" colspan="3">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti1_enabled2">
-          <property name="text">
-           <string>Enable acos atan xzy</string>
           </property>
          </widget>
         </item>
@@ -10616,39 +10659,96 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="5" colspan="3">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti1_enabled3">
-          <property name="text">
-           <string>Enable acos  atan zxy</string>
-          </property>
-         </widget>
-        </item>
         <item row="7" column="0" colspan="2">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti1_enabled1">
+         <widget class="QLabel" name="label_multi1_th0_function">
           <property name="text">
-           <string>Enable asin atan2 zyx</string>
+           <string>th0 function: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="8" column="0" colspan="2">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti1_enabled4">
+        <item row="7" column="2" colspan="1">
+         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti1_acos_or_asin">
+          <item>
+           <property name="text">
+            <string>acos</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>asin</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="7" column="3" colspan="2">
+         <widget class="QLabel" name="label_multi1_ph0_function">
           <property name="text">
-           <string>Enable asin atan zxy</string>
+           <string>ph0 function: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="8" column="2" colspan="2">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti1_enabled5">
+        <item row="7" column="5" colspan="1">
+         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti1_atan_or_atan2">
+          <item>
+           <property name="text">
+            <string>atan</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>atan2</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="3">
+         <widget class="QLabel" name="label_multi1_order_of_xyz">
           <property name="text">
-           <string>Enable  asin atan2 yzx</string>
+           <string>function order of x, y and z: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item row="8" column="5" colspan="3">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti1_enabled6">
-          <property name="text">
-           <string>Enable asin atan2 xyz</string>
-          </property>
+        <item row="8" column="3" colspan="1">
+         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti1_order_of_xyz">
+          <item>
+           <property name="text">
+            <string>xyz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>xzy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>yxz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>yzx</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>zxy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>zyx</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>
@@ -13587,7 +13687,6 @@
   <tabstop>spinbox_transform_box_fold2_old_weight</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../home/graeme/git/mandelbulber2/mandelbulber2/qt/icons.qrc"/>
   <include location="../../../../home/graeme/git/mandelbulber2/mandelbulber2/qt/icons.qrc"/>
  </resources>
  <connections>

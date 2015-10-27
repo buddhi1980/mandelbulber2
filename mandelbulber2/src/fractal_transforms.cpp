@@ -1182,55 +1182,47 @@ void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, 
   }
 }
 
-// mandelbulbMulti   3D
+// mandelbulbMulti 3D
 void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti, CVector3 &z, int i, sExtendedAux &aux)
 {
-
   CVector3 temp = z;
   aux.r = z.Length();
   if (mandelbulbMulti.control.enabled && i >= mandelbulbMulti.control.startIterations && i < mandelbulbMulti.control.stopIterations)
   {
-    if (i ==  mandelbulbMulti.control.startIterations)
+		if (i == mandelbulbMulti.control.startIterations)
     {
       z = mandelbulbMulti.mainRot.RotateVector(z);
     }
-    double th0 = 0.0;
-    double ph0 = 0.0;
-    th0 +=  mandelbulbMulti.betaAngleOffset;
-    ph0 +=  mandelbulbMulti.alphaAngleOffset;
+		double th0 = mandelbulbMulti.betaAngleOffset;
+		double ph0 = mandelbulbMulti.alphaAngleOffset;
+		double *v1, *v2, *v3;
 
-    if   (mandelbulbMulti.multiEnabled1) // standard
-    {
-      th0 += asin(z.z / aux.r);
-      ph0 += atan2(z.y, z.x);
-    }
-    if   (mandelbulbMulti.multiEnabled2) // pine tree
-    {
-      th0 += acos(z.x / aux.r);
-      ph0 += atan(z.z / z.y);
-    }
-    if   (mandelbulbMulti.multiEnabled3) // three pointer
-    {
-      th0 += acos(z.z / aux.r);
-      ph0 += atan(z.x / z.y);
-    }
-    if   (mandelbulbMulti.multiEnabled4) //
-    {
-      th0 += asin(z.z / aux.r);
-      ph0 += atan(z.x / z.y);
-    }
-    if   (mandelbulbMulti.multiEnabled5) //
-    {
-      th0 += asin(z.y / aux.r);
-      ph0 += atan2(z.z , z.x);
-    }
-      if   (mandelbulbMulti.multiEnabled6) //
-    {
-      th0 += asin(z.x / aux.r);
-      ph0 += atan2(z.y , z.z);
-    }
+		switch(mandelbulbMulti.orderOfxyz){
+			case sTransformMandelbulbMulti::xyz: v1 = &z.x; v2 = &z.y; v3 = &z.z; break;
+			case sTransformMandelbulbMulti::xzy: v1 = &z.x; v2 = &z.z; v3 = &z.y; break;
+			case sTransformMandelbulbMulti::yxz: v1 = &z.y; v2 = &z.x; v3 = &z.z; break;
+			case sTransformMandelbulbMulti::yzx: v1 = &z.y; v2 = &z.z; v3 = &z.x; break;
+			case sTransformMandelbulbMulti::zxy: v1 = &z.z; v2 = &z.x; v3 = &z.y; break;
+			case sTransformMandelbulbMulti::zyx: v1 = &z.z; v2 = &z.y; v3 = &z.x; break;
+		}
 
+		if(mandelbulbMulti.acosOrasin == sTransformMandelbulbMulti::acos)
+		{
+			th0 += acos(*v1 / aux.r);
+		}
+		else
+		{
+			th0 += asin(*v1 / aux.r);
+		}
 
+		if(mandelbulbMulti.atanOratan2 == sTransformMandelbulbMulti::atan)
+		{
+			ph0 += atan(*v2 / *v3);
+		}
+		else
+		{
+			ph0 += atan2(*v2, *v3);
+		}
 
     double rp = pow(aux.r, mandelbulbMulti.power - 1.0);
     double th = th0 * mandelbulbMulti.power;
@@ -1246,6 +1238,7 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
     }
   }
 }
+
 //benesiMagTransform transform ONE 3D
 void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &benesiMagTransformOne, CVector3 &z,int i)
 {

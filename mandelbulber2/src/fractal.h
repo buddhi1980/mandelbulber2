@@ -488,13 +488,13 @@ struct sTransformColorTrial
 
 struct sTransformMandelbulbMulti
 {
+	enum multi_acosOrasin{ acos, asin };
+	enum multi_atanOratan2{ atan, atan2 };
+	enum multi_OrderOfxyz{ xyz, xzy, yxz, yzx, zxy, zyx};
   sTransformControl control;
-  bool multiEnabled1;
-  bool multiEnabled2;
-  bool multiEnabled3;
-  bool multiEnabled4;
-  bool multiEnabled5;
-  bool multiEnabled6;
+	multi_acosOrasin acosOrasin;
+	multi_atanOratan2 atanOratan2;
+	multi_OrderOfxyz orderOfxyz;
   CVector3 mainRotation;
   CRotationMatrix mainRot;
   double power;

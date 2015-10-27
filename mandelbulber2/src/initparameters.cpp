@@ -891,13 +891,10 @@ void InitFractalParams(cParameterContainer *par)
 
 
 // mandelbulb multi
-  par->addParam("transform_mandelbulbMulti1_enabled", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti1_enabled1", true, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti1_enabled2", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti1_enabled3", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti1_enabled4", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti1_enabled5", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti1_enabled6", false, morphLinear, paramStandard);
+	par->addParam("transform_mandelbulbMulti1_enabled", false, morphLinear, paramStandard);
+	par->addParam("transform_mandelbulbMulti1_acos_or_asin", 0, morphNone, paramStandard);
+	par->addParam("transform_mandelbulbMulti1_atan_or_atan2", 0, morphNone, paramStandard);
+	par->addParam("transform_mandelbulbMulti1_order_of_xyz", 0, morphNone, paramStandard);
   par->addParam("transform_mandelbulbMulti1_main_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_mandelbulbMulti1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_mandelbulbMulti1_start_iterations", 0, morphLinear, paramStandard);
@@ -907,12 +904,9 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_mandelbulbMulti1_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
   par->addParam("transform_mandelbulbMulti1_weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_mandelbulbMulti2_enabled", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti2_enabled1", true, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti2_enabled2", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti2_enabled3", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti2_enabled4", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti2_enabled5", false, morphLinear, paramStandard);
-  par->addParam("transform_mandelbulbMulti2_enabled6", false, morphLinear, paramStandard);
+	par->addParam("transform_mandelbulbMulti2_acos_or_asin", 0, morphNone, paramStandard);
+	par->addParam("transform_mandelbulbMulti2_atan_or_atan2", 0, morphNone, paramStandard);
+	par->addParam("transform_mandelbulbMulti2_order_of_xyz", 0, morphNone, paramStandard);
   par->addParam("transform_mandelbulbMulti2_main_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_mandelbulbMulti2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_mandelbulbMulti2_start_iterations", 0, morphLinear, paramStandard);
