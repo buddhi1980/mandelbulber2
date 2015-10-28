@@ -80,6 +80,7 @@ enum enumFractalFormula
   mengerSponge105 = 55,
   platonicSolid = 56,
   mandelbulb6Beta = 57,
+  benesiTransforms = 58,
 };
 
 enum enumDEType

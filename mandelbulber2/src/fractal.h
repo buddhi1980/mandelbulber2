@@ -516,7 +516,11 @@ struct sTransformBenesiMagTransformTwo
   CVector3 offset;
   CVector3 scale;
 };
-
+struct sTransformBenesiFastPwr2PineTree
+{
+  sTransformControl control;
+  CVector3 constantMultiplierVect;
+};
 
 struct sFractalTransform
 {
@@ -573,6 +577,8 @@ struct sFractalTransform
   sTransformBenesiMagTransformOne benesiMagTransformOne3;
   sTransformBenesiMagTransformTwo benesiMagTransformTwo1;
   sTransformBenesiMagTransformTwo benesiMagTransformTwo2;
+  sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree1;
+  sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree2;
 
 
   //TODO here will be more transforms

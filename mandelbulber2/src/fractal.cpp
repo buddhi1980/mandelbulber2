@@ -599,7 +599,18 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.benesiMagTransformTwo1.control.startIterations = container->Get<int>("transform_benesiMagTransformTwo1_start_iterations");
   transform.benesiMagTransformTwo1.control.stopIterations = container->Get<int>("transform_benesiMagTransformTwo1_stop_iterations");
   transform.benesiMagTransformTwo1.control.weight = container->Get<double>("transform_benesiMagTransformTwo1_weight");
-
+  transform.benesiFastPwr2PineTree1.control.enabled = container->Get<bool>("transform_benesiFastPwr2PineTree1_enabled");
+  transform.benesiFastPwr2PineTree1.control.weightEnabled = container->Get<bool>("transform_benesiFastPwr2PineTree1_weight_enabled");
+  transform.benesiFastPwr2PineTree1.control.startIterations = container->Get<int>("transform_benesiFastPwr2PineTree1_start_iterations");
+  transform.benesiFastPwr2PineTree1.control.stopIterations = container->Get<int>("transform_benesiFastPwr2PineTree1_stop_iterations");
+  transform.benesiFastPwr2PineTree1.control.weight = container->Get<double>("transform_benesiFastPwr2PineTree1_weight");
+  transform.benesiFastPwr2PineTree1.constantMultiplierVect = container->Get<CVector3>("transform_benesiFastPwr2PineTree2_constantMultiplier");
+  transform.benesiFastPwr2PineTree2.control.enabled = container->Get<bool>("transform_benesiFastPwr2PineTree2_enabled");
+  transform.benesiFastPwr2PineTree2.control.weightEnabled = container->Get<bool>("transform_benesiFastPwr2PineTree2_weight_enabled");
+  transform.benesiFastPwr2PineTree2.control.startIterations = container->Get<int>("transform_benesiFastPwr2PineTree2_start_iterations");
+  transform.benesiFastPwr2PineTree2.control.stopIterations = container->Get<int>("transform_benesiFastPwr2PineTree2_stop_iterations");
+  transform.benesiFastPwr2PineTree2.control.weight = container->Get<double>("transform_benesiFastPwr2PineTree2_weight");
+  transform.benesiFastPwr2PineTree2.constantMultiplierVect = container->Get<CVector3>("transform_benesiFastPwr2PineTree2_constantMultiplier");
 
 
 //----------------------------------

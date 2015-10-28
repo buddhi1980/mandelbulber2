@@ -945,7 +945,19 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_benesiMagTransformTwo1_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformTwo1_weight", 1.0, morphLinear, paramStandard);
 
+  par->addParam("transform_benesiFastPwr2PineTree1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiFastPwr2PineTree1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiFastPwr2PineTree1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiFastPwr2PineTree1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiFastPwr2PineTree1_weight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_benesiFastPwr2PineTree1_constantMultiplier", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
+  par->addParam("transform_benesiFastPwr2PineTree2_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiFastPwr2PineTree2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiFastPwr2PineTree2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiFastPwr2PineTree2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiFastPwr2PineTree2_weight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_benesiFastPwr2PineTree2_constantMultiplier", CVector3(1.0, 0.0, 0.0), morphAkima, paramStandard);
 
 	// platonic_solid
 

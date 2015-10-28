@@ -54,6 +54,6 @@ void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, 
 void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti, CVector3 &z, int i, sExtendedAux &aux);
 void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &benesiPineTreeTransformOne, CVector3 &z, int i);
 void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &benesiPineTreeTransformTwo, CVector3 &z, int i);
-
+void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &benesiFastPwr2PineTree, CVector3 &z, CVector3 &c, int i);
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_TRANSFORMS_HPP_ */

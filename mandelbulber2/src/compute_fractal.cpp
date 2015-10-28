@@ -290,7 +290,13 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
         bulbAux[sequence].r = r;
         Mandelbulb6BetaIteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
         break;
-      }
+        }
+        case benesiTransforms:
+        {
+        bulbAux[sequence].r = r;
+        BenesiTransformsIteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
+        break;
+        }
 
 
 
@@ -312,6 +318,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
       case quaternion104:
       case mengerSponge105:
       case mandelbulb6Beta:
+      case benesiTransforms:
 			{
 				break;
 			}
@@ -462,6 +469,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	      	break;
 
         case mandelbulb6Beta:
+        case benesiTransforms:
           out->colorIndex =  extendedAux[fractalIndex].newR ;
           break;
 

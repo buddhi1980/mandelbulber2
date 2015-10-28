@@ -1245,18 +1245,17 @@ void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &ben
   if (benesiMagTransformOne.control.enabled && i >= benesiMagTransformOne.control.startIterations && i < benesiMagTransformOne.control.stopIterations)
   {
     CVector3 temp = z;
-    CVector3 start = z;
     CVector3 tempV1;
     CVector3 newZ;
-    tempV1.x = start.x * 0.81649658092772603273242802490196 - start.z * 0.57735026918962576450914878050196;
-    newZ.z = start.x * 0.57735026918962576450914878050196  +  start.z * 0.81649658092772603273242802490196;
-    newZ.x = (tempV1.x  - start.y) * 0.70710678118654752440084436210485;
-    newZ.y = (tempV1.x  + start.y) * 0.70710678118654752440084436210485;
+    tempV1.x = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
+    newZ.z = z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196;
+    newZ.x = (tempV1.x  - z.y) * 0.70710678118654752440084436210485;
+    newZ.y = (tempV1.x  + z.y) * 0.70710678118654752440084436210485;
     newZ.x = fabs(newZ.x);
     newZ.y = fabs(newZ.y);
     newZ.z = fabs(newZ.z);
     tempV1.x = (newZ.x + newZ.y) * 0.70710678118654752440084436210485;
-    newZ.y = (-newZ.x  + newZ.y) * 0.70710678118654752440084436210485;
+    newZ.y = (-newZ.x + newZ.y) * 0.70710678118654752440084436210485;
     newZ.x = tempV1.x * 0.81649658092772603273242802490196 + newZ.z * 0.57735026918962576450914878050196;
     newZ.z = -tempV1.x * 0.57735026918962576450914878050196 + newZ.z * 0.81649658092772603273242802490196;
     z = benesiMagTransformOne.scale * newZ - benesiMagTransformOne.offset; // applying six variables:-  scale.x, scale.y, scale.z,  offset.x, offset.y, offset.z
@@ -1267,29 +1266,33 @@ void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &ben
     }
   }
 }
-//benesiMagTransformTwo  3D   identical to one at the moment
+//benesiMagTransformTwo  3D
 void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &benesiMagTransformTwo, CVector3 &z, int i)
 {
   if (benesiMagTransformTwo.control.enabled && i >= benesiMagTransformTwo.control.startIterations && i < benesiMagTransformTwo.control.stopIterations)
   {
     CVector3 temp = z;
-    CVector3 start = z;
-    CVector3 tempV1;
-    CVector3 newZ;
-    CVector3 tempV2;
-    tempV1.x = start.x * 0.81649658092772603273242802490196 - start.z * 0.57735026918962576450914878050196;
-    newZ.z = start.x * 0.57735026918962576450914878050196  +  start.z * 0.81649658092772603273242802490196;
-    newZ.x = (tempV1.x  - start.y) * 0.70710678118654752440084436210485;
-    newZ.y = (tempV1.x  + start.y) * 0.70710678118654752440084436210485;
-    newZ.x = fabs(newZ.x);
-    newZ.y = fabs(newZ.y);
-    newZ.z = fabs(newZ.z);
-    tempV1.x = (newZ.x + newZ.y) * 0.70710678118654752440084436210485;
-    newZ.y = (-newZ.x + newZ.y) * 0.70710678118654752440084436210485;
-    newZ.x = tempV1.x * 0.81649658092772603273242802490196 + newZ.z * 0.57735026918962576450914878050196;
-    newZ.z = -tempV1.x * 0.57735026918962576450914878050196 + newZ.z * 0.81649658092772603273242802490196;
-    start = benesiMagTransformTwo.scale * newZ - benesiMagTransformTwo.offset; // applying six variables:-  scale.x, scale.y, scale.z,  offset.x, offset.y, offset.z
-    //aux weight function
+    double scale2 =  2.0;
+    double offset2 = 2.0;
+    // STEP1: "Benesi fold 2"
+    double tempDx = (z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196) * 0.70710678118654752440084436210485;
+    z.y = z.y * 0.70710678118654752440084436210485;
+    z.z = (z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196)*(z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
+    tempDx = (tempDx- z.y) * (tempDx - z.y);
+    double tempDy  = (tempDx + z.y) * (tempDx + z.y);
+
+    z.x = fabs(sqrt(tempDy + z.z) - offset2) * scale2 * 0.70710678118654752440084436210485 ;
+    z.y = fabs(sqrt(tempDx + z.z) - offset2) * scale2 * 0.70710678118654752440084436210485 ;
+    z.z = fabs(sqrt(tempDx + tempDy) - offset2) * scale2;
+
+    tempDx = z.y + z.x;
+    z.y = z.y - z.x;
+    z.x = z.z * 0.57735026918962576450914878050196 + z.x * 0.81649658092772603273242802490196;    // should be  + tempV1 * 0.81649658092772603273242802490196    code is correct Checked...
+    z.z = z.z * 0.81649658092772603273242802490196 - z.x * 0.57735026918962576450914878050196;    //  should be  - tempV1 * 0.57735026918962576450914878050196
+
+
+
+    // weight function
     if (benesiMagTransformTwo.control.weightEnabled)
     {
       z = SmoothCVector(temp, z, benesiMagTransformTwo.control.weight);
@@ -1297,6 +1300,25 @@ void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &ben
   }
 }
 
+//benesiFastPwr2PineTree  3D
+void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &benesiFastPwr2PineTree, CVector3 &z,CVector3 &c, int i)
+{
+  if (benesiFastPwr2PineTree.control.enabled && i >= benesiFastPwr2PineTree.control.startIterations && i < benesiFastPwr2PineTree.control.stopIterations)
+  {
+    CVector3 temp = z;
+    z *= z;
+    double t = 2 * temp.x/sqrt(z.y + z.z);
+    z.x = (z.x - z.y - z.z) + c.x * benesiFastPwr2PineTree.constantMultiplierVect.x;;
+    z.z = (t * (z.y - z.z)) + c.y * benesiFastPwr2PineTree.constantMultiplierVect.y;;
+    z.y = (2 * t * temp.y * temp.z)  + c.z * benesiFastPwr2PineTree.constantMultiplierVect.z;;
 
+
+    //a weight function
+    if (benesiFastPwr2PineTree.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, benesiFastPwr2PineTree.control.weight);
+    }
+  }
+}
 
 
