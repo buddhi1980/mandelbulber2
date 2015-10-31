@@ -152,6 +152,14 @@ public:
 	  c.z =  x*v.y - y*v.x;
 	  return c;
 	}
+	inline CVector3 Abs()
+	{
+		CVector3 c;
+		c.x = fabs(x);
+		c.y = fabs(y);
+		c.z = fabs(z);
+		return c;
+	}
 	inline double Normalize() //returns normalization factor
 	{
 		double norm = 1.0 / Length();
@@ -189,6 +197,13 @@ inline CVector3 operator*(double scalar, CVector3 vector)
 inline CVector3 operator/(double scalar, CVector3 vector)
 {
 	return CVector3(vector.x / scalar, vector.y / scalar, vector.z / scalar);
+}
+inline CVector3 fabs(CVector3 v)
+{
+	v.x = fabs(v.x);
+	v.y = fabs(v.y);
+	v.z = fabs(v.z);
+	return v;
 }
 
 /************************* vector 4D **********************/
@@ -310,6 +325,15 @@ public:
 	{
 		return x * v.x + y * v.y + z * v.z + w * v.w;
 	}
+	inline CVector4 Abs()
+	{
+		CVector4 c;
+		c.x = fabs(x);
+		c.y = fabs(y);
+		c.z = fabs(z);
+		c.w = fabs(w);
+		return c;
+	}
 	inline CVector3 GetXYZ()
 	{
 		return CVector3(x, y, z);
@@ -356,6 +380,14 @@ inline CVector4 operator/(double scalar, CVector4 vector)
 	return CVector4(vector.x / scalar, vector.y / scalar, vector.z / scalar, vector.w / scalar);
 }
 
+inline CVector4 fabs(CVector4 v)
+{
+	v.x = fabs(v.x);
+	v.y = fabs(v.y);
+	v.z = fabs(v.z);
+	v.w = fabs(v.w);
+	return v;
+}
 /************************* vector 2D **********************/
 
 template <typename T>
@@ -423,6 +455,13 @@ public:
 	{
 		return x * vector.x + y * vector.y;
 	}
+	inline CVector2 Abs()
+	{
+		CVector2 c;
+		c.x = fabs(x);
+		c.y = fabs(y);
+		return c;
+	}
 	inline double Normalize() //returns normalization factor
 	{
 		double norm = 1.0 / Length();
@@ -451,6 +490,13 @@ inline CVector2<T> operator/(T scalar, CVector2<T> vector)
 	return CVector2<T>(vector.x / scalar, vector.y / scalar);
 }
 
+template <typename T>
+inline CVector2<T> fabs(CVector2<T> v)
+{
+	v.x = fabs(v.x);
+	v.y = fabs(v.y);
+	return v;
+}
 
 /************************* matrix 3x3 (fast) *****************/
 class CMatrix33
