@@ -118,6 +118,9 @@ void cInterface::ShowUi(void)
 	WriteLog("Setup of main image");
 	mainImage = new cImage(gPar->Get<int>("image_width"),gPar->Get<int>("image_height"));
 	mainImage->CreatePreview(1.0, 800, 600, gMainInterface->renderedImage);
+	mainImage->CompileImage();
+	mainImage->ConvertTo8bit();
+	mainImage->UpdatePreview();
 	mainImage->SetAsMainImage();
 	renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(),gMainInterface->mainImage->GetPreviewHeight());
 	renderedImage->AssignImage(gMainInterface->mainImage);

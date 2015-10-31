@@ -33,7 +33,7 @@
 #include <QInputDialog>
 #include "undo.h"
 
-cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, cImage *_image, QObject *parent) : QObject(parent), mainInterface(_interface), frames(_frames)
+cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, cImage *_image, QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal, QObject *parent) : QObject(parent), mainInterface(_interface), frames(_frames)
 {
 	if(mainInterface->mainWindow)
 	{
@@ -69,6 +69,9 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 		table = NULL;
 	}
 	image = _image;
+	imageWidget = _imageWidget;
+	params = _params;
+	fractalParams = _fractal;
 	linearSpeedSp = 0.0;
 	rotationDirection = 0;
 	recordPause = false;
@@ -122,8 +125,8 @@ void cFlightAnimation::slotRenderFlight()
 void cFlightAnimation::RecordFlight(bool continueRecording)
 {
 	//get latest values of all parameters
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	gUndo.Store(gPar, gParFractal, frames, NULL);
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	gUndo.Store(params, fractalParams, frames, NULL);
 
 	if(!continueRecording)
 	{
@@ -137,7 +140,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 		if (reply == QMessageBox::Yes)
 		{
-			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"), "frame_?????.*");
+			DeleteAllFilesFromDirectory(params->Get<QString>("anim_flight_dir"), "frame_?????.*");
 		}
 		else
 		{
@@ -168,19 +171,19 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	{
 		frames->Clear();
 
-		bool addSpeeds = gPar->Get<bool>("flight_add_speeds");
+		bool addSpeeds = params->Get<bool>("flight_add_speeds");
 
 		//add default parameters for animation
 		if (frames->GetListOfUsedParameters().size() == 0)
 		{
-			gAnimFrames->AddAnimatedParameter("camera", gPar->GetAsOneParameter("camera"));
-			gAnimFrames->AddAnimatedParameter("target", gPar->GetAsOneParameter("target"));
-			gAnimFrames->AddAnimatedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
+			gAnimFrames->AddAnimatedParameter("camera", params->GetAsOneParameter("camera"));
+			gAnimFrames->AddAnimatedParameter("target", params->GetAsOneParameter("target"));
+			gAnimFrames->AddAnimatedParameter("camera_top", params->GetAsOneParameter("camera_top"));
 			if (addSpeeds)
 			{
 				{
-					gAnimFrames->AddAnimatedParameter("flight_movement_speed_vector", gPar->GetAsOneParameter("flight_movement_speed_vector"));
-					gAnimFrames->AddAnimatedParameter("flight_rotation_speed_vector", gPar->GetAsOneParameter("flight_rotation_speed_vector"));
+					gAnimFrames->AddAnimatedParameter("flight_movement_speed_vector", params->GetAsOneParameter("flight_movement_speed_vector"));
+					gAnimFrames->AddAnimatedParameter("flight_rotation_speed_vector", params->GetAsOneParameter("flight_rotation_speed_vector"));
 				}
 			}
 		}
@@ -194,7 +197,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	mainInterface->renderedImage->setClickMode(clickMode);
 
 	//setup of rendering engine
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->renderedImage);
+	cRenderJob *renderJob = new cRenderJob(params, fractalParams, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->renderedImage);
 	if(mainInterface->mainWindow)
 	{
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
@@ -208,7 +211,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
-	double maxRenderTime = gPar->Get<double>("flight_sec_per_frame");;
+	double maxRenderTime = params->Get<double>("flight_sec_per_frame");;
 	config.SetMaxRenderTime(maxRenderTime);
 
 	renderJob->Init(cRenderJob::flightAnimRecord, config);
@@ -225,25 +228,25 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	int index = 0;
 	if(continueRecording)
 	{
-		frames->GetFrameAndConsolidate(frames->GetNumberOfFrames() - 1, gPar, gParFractal);
-		cameraSpeed = gPar->Get<CVector3>("flight_movement_speed_vector");
-		cameraAngularSpeed = gPar->Get<CVector3>("flight_rotation_speed_vector");
+		frames->GetFrameAndConsolidate(frames->GetNumberOfFrames() - 1, params, fractalParams);
+		cameraSpeed = params->Get<CVector3>("flight_movement_speed_vector");
+		cameraAngularSpeed = params->Get<CVector3>("flight_rotation_speed_vector");
 		index = frames->GetNumberOfFrames() - 1;
 	}
 
-	CVector3 cameraPosition = gPar->Get<CVector3>("camera");
-	CVector3 target = gPar->Get<CVector3>("target");
-	CVector3 top = gPar->Get<CVector3>("camera_top");
+	CVector3 cameraPosition = params->Get<CVector3>("camera");
+	CVector3 target = params->Get<CVector3>("target");
+	CVector3 top = params->Get<CVector3>("camera_top");
 
 	cCameraTarget cameraTarget(cameraPosition, target, top);
 
-	linearSpeedSp = gPar->Get<double>("flight_speed");
-	enumSpeedMode speedMode = (enumSpeedMode)gPar->Get<double>("flight_speed_control");
-	double rotationSpeedSp =  gPar->Get<double>("flight_rotation_speed")/100.0;
-	double rollSpeedSp =  gPar->Get<double>("flight_roll_speed")/100.0;
-	double inertia = gPar->Get<double>("flight_inertia");
+	linearSpeedSp = params->Get<double>("flight_speed");
+	enumSpeedMode speedMode = (enumSpeedMode)params->Get<double>("flight_speed_control");
+	double rotationSpeedSp =  params->Get<double>("flight_rotation_speed")/100.0;
+	double rollSpeedSp =  params->Get<double>("flight_roll_speed")/100.0;
+	double inertia = params->Get<double>("flight_inertia");
 
-	QString framesDir = gPar->Get<QString>("anim_flight_dir");
+	QString framesDir = params->Get<QString>("anim_flight_dir");
 
 	recordPause = false;
 
@@ -264,13 +267,13 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		if(wasPaused)
 		{
 			//parameter refresh after pause
-			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-			renderJob->UpdateParameters(gPar, gParFractal);
-			rotationSpeedSp =  gPar->Get<double>("flight_rotation_speed")/100.0;
-			rollSpeedSp =  gPar->Get<double>("flight_roll_speed")/100.0;
-			inertia = gPar->Get<double>("flight_inertia");
+			mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+			renderJob->UpdateParameters(params, fractalParams);
+			rotationSpeedSp =  params->Get<double>("flight_rotation_speed")/100.0;
+			rollSpeedSp =  params->Get<double>("flight_roll_speed")/100.0;
+			inertia = params->Get<double>("flight_inertia");
 
-			double maxRenderTime = gPar->Get<double>("flight_sec_per_frame");;
+			double maxRenderTime = params->Get<double>("flight_sec_per_frame");;
 			config.SetMaxRenderTime(maxRenderTime);
 			renderJob->UpdateConfig(config);
 
@@ -279,7 +282,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 		//speed
 		double linearSpeed;
-		double distanceToSurface = gMainInterface->GetDistanceForPoint(cameraPosition, gPar, gParFractal);
+		double distanceToSurface = gMainInterface->GetDistanceForPoint(cameraPosition, params, fractalParams);
 		if(speedMode == speedRelative)
 		{
 			linearSpeed = distanceToSurface * linearSpeedSp;
@@ -331,20 +334,20 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		cameraTarget.SetCameraTargetTop(cameraPosition, target, top);
 
 		//update parameters
-		gPar->Set("camera", cameraPosition);
-		gPar->Set("target", target);
-		gPar->Set("camera_top", top);
-		gPar->Set("camera_rotation", cameraTarget.GetRotation()*180.0 / M_PI);
-		gPar->Set("camera_distance_to_target", cameraTarget.GetDistance());
-		gPar->Set("flight_movement_speed_vector", cameraSpeed);
-		gPar->Set("flight_rotation_speed_vector", cameraAngularSpeed);
-		gPar->Set("frame_no", index);
+		params->Set("camera", cameraPosition);
+		params->Set("target", target);
+		params->Set("camera_top", top);
+		params->Set("camera_rotation", cameraTarget.GetRotation()*180.0 / M_PI);
+		params->Set("camera_distance_to_target", cameraTarget.GetDistance());
+		params->Set("flight_movement_speed_vector", cameraSpeed);
+		params->Set("flight_rotation_speed_vector", cameraAngularSpeed);
+		params->Set("frame_no", index);
 
-		mainInterface->SynchronizeInterfaceWindow(ui->dockWidget_navigation, gPar, cInterface::write);
+		mainInterface->SynchronizeInterfaceWindow(ui->dockWidget_navigation, params, cInterface::write);
 		renderJob->ChangeCameraTargetPosition(cameraTarget);
 
 		//add new frame to container
-		frames->AddFrame(*gPar, *gParFractal);
+		frames->AddFrame(*params, *fractalParams);
 
 		//add column to table
 		int newColumn = AddColumn(frames->GetFrame(frames->GetNumberOfFrames() - 1));
@@ -374,7 +377,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		}
 
 		QString filename = GetFlightFilename(index);
-		SaveImage(filename, (enumImageFileType)gPar->Get<int>("flight_animation_image_type"), image);
+		SaveImage(filename, (enumImageFileType)params->Get<int>("flight_animation_image_type"), image);
 		index++;
 	}
 
@@ -421,7 +424,7 @@ void cFlightAnimation::PrepareTable()
 	table->setColumnCount(0);
 	table->clear();
 	tableRowNames.clear();
-	table->verticalHeader()->setDefaultSectionSize(gPar->Get<int>("ui_font_size") + 6);
+	table->verticalHeader()->setDefaultSectionSize(params->Get<int>("ui_font_size") + 6);
 	CreateRowsInTable();
 }
 
@@ -550,13 +553,13 @@ void cFlightAnimation::RenderFlight()
 		return;
 	}
 
-	if(!systemData.noGui)
+	if(!systemData.noGui && image->IsMainImage())
 	{
-		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-		gUndo.Store(gPar, gParFractal, frames, NULL);
+		mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+		gUndo.Store(params, fractalParams, frames, NULL);
 	}
 
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &mainInterface->stopRequest, mainInterface->renderedImage);
+	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, &mainInterface->stopRequest, imageWidget);
 
 	if(mainInterface->mainWindow)
 	{
@@ -582,7 +585,7 @@ void cFlightAnimation::RenderFlight()
 	renderJob->Init(cRenderJob::flightAnim, config);
 	mainInterface->stopRequest = false;
 
-	QString framesDir = gPar->Get<QString>("anim_flight_dir");
+	QString framesDir = params->Get<QString>("anim_flight_dir");
 
 	if(!systemData.noGui)
 		mainInterface->progressBarAnimation->show();
@@ -590,8 +593,8 @@ void cFlightAnimation::RenderFlight()
 	cProgressText progressText;
 	progressText.ResetTimer();
 
-	int startFrame = gPar->Get<int>("flight_first_to_render");
-	int endFrame = gPar->Get<int>("flight_last_to_render");
+	int startFrame = params->Get<int>("flight_first_to_render");
+	int endFrame = params->Get<int>("flight_last_to_render");
 
 	// Check if frames have already been rendered
 	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
@@ -623,7 +626,7 @@ void cFlightAnimation::RenderFlight()
 
 		if (deletePreviousRender)
 		{
-			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"), "frame_?????.*");
+			DeleteAllFilesFromDirectory(params->Get<QString>("anim_flight_dir"), "frame_?????.*");
 			return RenderFlight();
 		}
 		else
@@ -650,22 +653,22 @@ void cFlightAnimation::RenderFlight()
 			continue;
 		}
 
-		cProgressText::ProgressStatusText(
-			QObject::tr("Animation start"),
-			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
-			percentDoneFrame,
-			cProgressText::progress_ANIMATION
-		);
+//		cProgressText::ProgressStatusText(
+//			QObject::tr("Animation start"),
+//			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
+//			percentDoneFrame,
+//			cProgressText::progress_ANIMATION
+//		);
 
 		if (mainInterface->stopRequest) break;
-		frames->GetFrameAndConsolidate(index, gPar, gParFractal);
+		frames->GetFrameAndConsolidate(index, params, fractalParams);
 
 		if (!systemData.noGui)
 		{
-			mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+			mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
 
 			//show distance in statistics table
-			double distance = mainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
+			double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractalParams);
 			ui->tableWidget_statistics->item(4, 0)->setText(QString("%L1").arg(distance));
 		}
 
@@ -674,16 +677,16 @@ void cFlightAnimation::RenderFlight()
 			gNetRender->WaitForAllClientsReady(2.0);
 		}
 
-		gPar->Set("frame_no", index);
+		params->Set("frame_no", index);
 
-		renderJob->UpdateParameters(gPar, gParFractal);
+		renderJob->UpdateParameters(params, fractalParams);
 		int result = renderJob->Execute();
 		if (!result) break;
 
 		QString filename = GetFlightFilename(index);
-		SaveImage(filename, (enumImageFileType)gPar->Get<int>("flight_animation_image_type"), image);
+		SaveImage(filename, (enumImageFileType)params->Get<int>("flight_animation_image_type"), image);
 	}
-	cProgressText::ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
+//	cProgressText::ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
 }
 
 void cFlightAnimation::RefreshTable()
@@ -694,9 +697,9 @@ void cFlightAnimation::RefreshTable()
 
 	int noOfFrames = frames->GetNumberOfFrames();
 
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	cParameterContainer tempPar = *gPar;
-	cFractalContainer tempFract = *gParFractal;
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	cParameterContainer tempPar = *params;
+	cFractalContainer tempFract = *fractalParams;
 
 	for(int i=0; i < noOfFrames; i++)
 	{
@@ -741,16 +744,16 @@ QString cFlightAnimation::GetParameterName(int rowNumber)
 
 void cFlightAnimation::RenderFrame(int index)
 {
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	frames->GetFrameAndConsolidate(index, gPar, gParFractal);
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	frames->GetFrameAndConsolidate(index, params, fractalParams);
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
 
 	mainInterface->StartRender();
 }
 
 void cFlightAnimation::DeleteFramesFrom(int index)
 {
-	gUndo.Store(gPar, gParFractal, frames, NULL);
+	gUndo.Store(params, fractalParams, frames, NULL);
 	for(int i = frames->GetNumberOfFrames() - 1; i >= index; i--) table->removeColumn(index);
 	frames->DeleteFrames(index, frames->GetNumberOfFrames() - 1);
 	UpdateLimitsForFrameRange();
@@ -758,7 +761,7 @@ void cFlightAnimation::DeleteFramesFrom(int index)
 
 void cFlightAnimation::DeleteFramesTo(int index)
 {
-	gUndo.Store(gPar, gParFractal, frames, NULL);
+	gUndo.Store(params, fractalParams, frames, NULL);
 	for(int i = 0; i <= index; i++) table->removeColumn(0);
 	frames->DeleteFrames(0, index);
 	UpdateLimitsForFrameRange();
@@ -776,10 +779,10 @@ void cFlightAnimation::slotFlightYawAndPitch(CVector2<double> _yawAndPitch)
 
 void cFlightAnimation::slotFlightChangeSpeed(double amount)
 {
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::read);
-	linearSpeedSp = gPar->Get<double>("flight_speed") * amount;
-	gPar->Set("flight_speed", linearSpeedSp);
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::write);
+	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, params, cInterface::read);
+	linearSpeedSp = params->Get<double>("flight_speed") * amount;
+	params->Set("flight_speed", linearSpeedSp);
+	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, params, cInterface::write);
 }
 
 void cFlightAnimation::slotFlightRotation(double direction)
@@ -797,7 +800,7 @@ void cFlightAnimation::slotSelectAnimFlightImageDir()
 	QFileDialog* dialog = new QFileDialog();
 	dialog->setFileMode(QFileDialog::DirectoryOnly);
 	dialog->setNameFilter(QObject::tr("Animation Image Folder"));
-	dialog->setDirectory(gPar->Get<QString>("anim_flight_dir"));
+	dialog->setDirectory(params->Get<QString>("anim_flight_dir"));
 	dialog->setAcceptMode(QFileDialog::AcceptOpen);
 	dialog->setWindowTitle(QObject::tr("Choose Animation Image Folder"));
 	dialog->setOption(QFileDialog::ShowDirsOnly);
@@ -808,7 +811,7 @@ void cFlightAnimation::slotSelectAnimFlightImageDir()
 		filenames = dialog->selectedFiles();
 		QString filename = filenames.first() + "/";
 		ui->text_anim_flight_dir->setText(filename);
-		gPar->Set("anim_flight_dir", filename);
+		params->Set("anim_flight_dir", filename);
 	}
 }
 
@@ -855,8 +858,8 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 		//update thumbnail
 		if (ui->checkBox_flight_show_thumbnails->isChecked())
 		{
-			cParameterContainer tempPar = *gPar;
-			cFractalContainer tempFract = *gParFractal;
+			cParameterContainer tempPar = *params;
+			cFractalContainer tempFract = *fractalParams;
 			frames->GetFrameAndConsolidate(column, &tempPar, &tempFract);
 			cThumbnailWidget *thumbWidget = (cThumbnailWidget*) table->cellWidget(0, column);
 
@@ -879,7 +882,7 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 void cFlightAnimation::slotDeleteAllImages()
 {
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, gPar, cInterface::read);
+	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_flightAnimationParameters, params, cInterface::read);
 
 	QMessageBox::StandardButton reply;
 	reply = QMessageBox::question(
@@ -890,16 +893,16 @@ void cFlightAnimation::slotDeleteAllImages()
 
 	if (reply == QMessageBox::Yes)
 	{
-		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_flight_dir"), "frame_?????.*");
+		DeleteAllFilesFromDirectory(params->Get<QString>("anim_flight_dir"), "frame_?????.*");
 	}
 }
 
 void cFlightAnimation::slotShowAnimation()
 {
 	WriteLog("Prepare PlayerWidget class");
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, gPar, cInterface::read);
+	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, cInterface::read);
 	mainInterface->imageSequencePlayer = new PlayerWidget();
-	mainInterface->imageSequencePlayer->SetFilePath(gPar->Get<QString>("anim_flight_dir"));
+	mainInterface->imageSequencePlayer->SetFilePath(params->Get<QString>("anim_flight_dir"));
 	mainInterface->imageSequencePlayer->show();
 }
 
@@ -911,7 +914,7 @@ void cFlightAnimation::slotRecordPause()
 
 void cFlightAnimation::InterpolateForward(int row, int column)
 {
-	gUndo.Store(gPar, gParFractal, frames, NULL);
+	gUndo.Store(params, fractalParams, frames, NULL);
 
 	QTableWidgetItem *cell = ui->tableWidget_flightAnimation->item(row, column);
 	QString cellText = cell->text();
@@ -1013,8 +1016,8 @@ void cFlightAnimation::slotRefreshTable()
 
 QString cFlightAnimation::GetFlightFilename(int index)
 {
-	QString filename = gPar->Get<QString>("anim_flight_dir") + "frame_" + QString("%1").arg(index, 5, 10, QChar('0'));
-	switch((enumImageFileType)gPar->Get<double>("flight_animation_image_type"))
+	QString filename = params->Get<QString>("anim_flight_dir") + "frame_" + QString("%1").arg(index, 5, 10, QChar('0'));
+	switch((enumImageFileType)params->Get<double>("flight_animation_image_type"))
 	{
 		case IMAGE_FILE_TYPE_JPG:
 			filename += QString(".jpg");
@@ -1031,8 +1034,8 @@ QString cFlightAnimation::GetFlightFilename(int index)
 
 void cFlightAnimation::slotExportFlightToKeyframes()
 {
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	gUndo.Store(params, fractalParams, gAnimFrames, gKeyframes);
 
 	if(gKeyframes->GetFrames().size() > 0)
 	{
@@ -1050,7 +1053,7 @@ void cFlightAnimation::slotExportFlightToKeyframes()
 	gKeyframes->ClearMorphCache();
 	gKeyframes->SetListOfParametersAndClear(gAnimFrames->GetListOfParameters());
 
-	int step = gPar->Get<int>("frames_per_keyframe");
+	int step = params->Get<int>("frames_per_keyframe");
 
 	for(int i=0; i < frames->GetNumberOfFrames(); i += step)
 	{

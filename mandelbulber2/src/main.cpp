@@ -128,7 +128,10 @@ int main(int argc, char *argv[])
 	if(!commandLineInterface.isNoGUI())
 	{
 		gMainInterface->ShowUi();
-		gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, gMainInterface->mainImage, gMainInterface->mainWindow);
+		gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames,
+				gMainInterface->mainImage, gMainInterface->renderedImage,
+				gPar, gParFractal, gMainInterface->mainWindow);
+
 		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainImage, gMainInterface->mainWindow);
 		try
 		{

@@ -39,7 +39,8 @@ public:
 	 speedConstant
  };
 
-	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, cImage *_image, QObject *parent = 0);
+	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, cImage *_image, QWidget *_imageWidget,
+			cParameterContainer *_params, cFractalContainer *_fractal, QObject *parent = 0);
 	void RecordFlight(bool continueRecording);
 	void RenderFlight();
 	void RenderFrame(int index);
@@ -83,6 +84,9 @@ private:
 	Ui::RenderWindow *ui;
 	cAnimationFrames *frames;
 	cImage *image;
+	QWidget *imageWidget;
+	cParameterContainer *params;
+	cFractalContainer *fractalParams;
 	QStringList tableRowNames;
 	QVector<int> parameterRows; //position of parameter in table
 	QVector<int> rowParameter; //index of parameter in row

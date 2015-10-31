@@ -106,7 +106,7 @@ void cHeadless::RenderQueue()
 void cHeadless::RenderFlightAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, image, NULL);
+	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, image, NULL, gPar, gParFractal, NULL);
 	gFlightAnimation->slotRenderFlight();
 	delete image;
 	delete gFlightAnimation;
