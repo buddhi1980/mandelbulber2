@@ -45,6 +45,7 @@ private:
 		bool nogui;
 		bool server;
 		bool listParameters;
+		bool showInputHelp;
 		bool keyframe;
 		bool flight;
 		QString startFrameText;

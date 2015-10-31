@@ -96,9 +96,13 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "Save rendered image(s) to this file / folder."),
 		QCoreApplication::translate("main", "N"));
 
+	QCommandLineOption helpInputOption(QStringList() << "help-input",
+		QCoreApplication::translate("main", "Show help on input"));
+
 	parser.addPositionalArgument("settings_file", QCoreApplication::translate("main",
 		"file with fractal settings (program also tries\nto find file in ./mandelbulber/settings directory)\n"
 		"When settings_file is put as a command line argument then program will start in noGUI mode"
+		"<settings_file> can also be specified as a list, see all options with --help-input"
 	));
 
 	parser.addOption(noguiOption);
@@ -116,6 +120,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(hostOption);
 	parser.addOption(portOption);
 	parser.addOption(noColorOption);
+	parser.addOption(helpInputOption);
 
 	// Process the actual command line arguments given by the user
 	parser.process(*qapplication);
@@ -135,6 +140,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.portText = parser.value(portOption);
 	cliData.outputText = parser.value(outputOption);
 	cliData.listParameters = parser.isSet(listOption);
+	cliData.showInputHelp = parser.isSet(helpInputOption);
 
 #ifdef WIN32 /* WINDOWS */
 	systemData.useColor = false;
@@ -155,6 +161,18 @@ void cCommandLineInterface::ReadCLI (void)
 	bool checkParse = true;
 	bool settingsSpecified = false;
 	QTextStream out(stdout);
+
+	// show input help only
+	if(cliData.showInputHelp)
+	{
+		out << "Mandelbulber also accepts an arbitrary number of input files\n"
+					 "These files can be of type:\n"
+					 ".fract File - An ordinary fractal file\n"
+					 ".fractlist File - A queue file, all entries inside the queue file will be added to the current queue\n"
+					 "Folder - if the specified argument is a folder all .fract files inside the folder will be added to the queue\n";
+		out.flush();
+		exit(0);
+	}
 
 	// list parameters only
 	if(cliData.listParameters)
@@ -233,7 +251,7 @@ void cCommandLineInterface::ReadCLI (void)
 
 	if(args.size() > 0){
 		// file specified -> load it
-		if(args.size() == 1 && !args[0].endsWith(".fractList"))
+		if(args.size() == 1 && !args[0].endsWith(".fractList") && !QDir(args[0]).exists())
 		{
 			QString filename = args[0];
 			if(!QFile::exists(filename))
@@ -264,11 +282,19 @@ void cCommandLineInterface::ReadCLI (void)
 			for(int i = 0; i < args.size(); i++)
 			{
 				QString filename = args[i];
-				if(filename.endsWith(".fractList")){
-					// TODO
+				if(QDir(args[i]).exists())
+				{
+					// specified input is a folder, load all fractal files contained in this folder
+					gQueue->AppendFolder(filename);
+				}
+				if(filename.endsWith(".fractList"))
+				{
+					// specified input is a queue list file, append all entries to the current queue
+					gQueue->AppendList(filename);
 				}
 				else
 				{
+					// specified input can only be an ordinary fract file, try to append to queuelist
 					gQueue->Append(filename);
 					settingsSpecified = true;
 				}

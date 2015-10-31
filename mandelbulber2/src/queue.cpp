@@ -132,6 +132,51 @@ void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnim
 	AddToList(structQueueItem(completeFileName, renderType));
 }
 
+void cQueue::AppendList(const QString &filename)
+{
+	//add all entries from list given with filename to current list
+	if (QFileInfo(filename).suffix() == QString("fractlist"))
+	{
+		QFile file(filename);
+		if (file.open(QIODevice::ReadOnly))
+		{
+			QTextStream in(&file);
+			while (!in.atEnd())
+			{
+				QString line = in.readLine().trimmed();
+				if(line.startsWith("#") || line == "") continue;
+				QRegularExpression reType("^(.*?\\.fract) (STILL|KEYFRAME|FLIGHT)?$");
+				QRegularExpressionMatch matchType = reType.match(line);
+				if (matchType.hasMatch())
+				{
+					queueListFromFile << structQueueItem(matchType.captured(1), GetTypeEnum(matchType.captured(2)));
+				}
+				else qWarning() << "wrong format in line: " << line;
+			}
+			file.close();
+		}
+		StoreList();
+	}
+}
+
+void cQueue::AppendFolder(const QString &filename)
+{
+	//add all entries from list given with filename to current list
+	if(QDir(filename).exists())
+	{
+		QDir fractDir = QDir(filename);
+		QStringList fractFileExtensions;
+		fractFileExtensions << "*.fract";
+		fractDir.setNameFilters(fractFileExtensions);
+		QStringList fractFiles = fractDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
+		for(int i = 0; i < fractFiles.size(); i++)
+		{
+			queueListFromFile << structQueueItem(filename + QDir::separator() + fractFiles.at(i), queue_STILL);
+		}
+		StoreList();
+	}
+}
+
 bool cQueue::Get()
 {
 	//get next fractal from queue into global scope containers

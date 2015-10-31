@@ -60,6 +60,8 @@ public:
 	void Append(const QString &filename, enumRenderType renderType = queue_STILL);
 	void Append(enumRenderType renderType = queue_STILL);
 	void Append(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes, enumRenderType renderType = queue_STILL);
+	void AppendList(const QString &filename);
+	void AppendFolder(const QString &filename);
 
 	//get next queue element into given containers
 	bool Get();
