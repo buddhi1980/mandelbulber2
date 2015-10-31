@@ -822,7 +822,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_variableConstantMultiplier1_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transform_variableConstantMultiplier1_weight", 1.0, morphLinear, paramStandard);
   // extra for variable
-  par->addParam("transform_variableConstantMultiplier1_variable_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_variableConstantMultiplier1_variable_start_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_variableConstantMultiplier1_variable_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_variableConstantMultiplier1_variableConstantMultiplier", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
@@ -835,7 +835,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_variableMandelbulbPower1_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
   par->addParam("transform_variableMandelbulbPower1_weight", 1.0, morphLinear, paramStandard);
   // extra for variable power
-  par->addParam("transform_variableMandelbulbPower1_variable_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_variableMandelbulbPower1_variable_start_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_variableMandelbulbPower1_variable_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_variableMandelbulbPower1_variableConstant", 0, morphAkima, paramStandard);
 
@@ -847,9 +847,19 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_variableScale1_scale", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transform_variableScale1_weight", 1.0, morphLinear, paramStandard);
   // extra for variable
-  par->addParam("transform_variableScale1_variable_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_variableScale1_variable_start_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_variableScale1_variable_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_variableScale1_variableScale", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transform_variableScale2_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_variableScale2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_variableScale2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_variableScale2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_variableScale2_scale", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transform_variableScale2_weight", 1.0, morphLinear, paramStandard);
+  // extra for variable
+  par->addParam("transform_variableScale2_variable_start_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_variableScale2_variable_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_variableScale2_variableScale", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
 
 //Colouring Parameters
@@ -916,6 +926,30 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_mandelbulbMulti2_beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
   par->addParam("transform_mandelbulbMulti2_weight", 1.0, morphLinear, paramStandard);
 
+
+  par->addParam("transform_benesiMagForwardTransformOne1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagForwardTransformOne1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagForwardTransformOne1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagForwardTransformOne1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagForwardTransformOne1_weight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagForwardTransformOne2_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagForwardTransformOne2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagForwardTransformOne2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagForwardTransformOne2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagForwardTransformOne2_weight", 1.0, morphLinear, paramStandard);
+
+  par->addParam("transform_benesiMagBackTransformOne1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagBackTransformOne1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagBackTransformOne1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagBackTransformOne1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagBackTransformOne1_weight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagBackTransformOne2_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagBackTransformOne2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagBackTransformOne2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagBackTransformOne2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagBackTransformOne2_weight", 1.0, morphLinear, paramStandard);
+
+
   par->addParam("transform_benesiMagTransformOne1_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne1_start_iterations", 0, morphLinear, paramStandard);
@@ -945,12 +979,28 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_benesiMagTransformTwo1_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformTwo1_weight", 1.0, morphLinear, paramStandard);
 
+  par->addParam("transform_benesiMagTransformFour1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFour1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFour1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFour1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFour1_offset", CVector3(2.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiMagTransformFour1_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiMagTransformFour1_weight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFour2_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFour2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFour2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFour2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFour2_offset", CVector3(2.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiMagTransformFour2_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
+  par->addParam("transform_benesiMagTransformFour2_weight", 1.0, morphLinear, paramStandard);
+
+
   par->addParam("transform_benesiFastPwr2PineTree1_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiFastPwr2PineTree1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiFastPwr2PineTree1_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("transform_benesiFastPwr2PineTree1_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_benesiFastPwr2PineTree1_weight", 1.0, morphLinear, paramStandard);
-  par->addParam("transform_benesiFastPwr2PineTree1_constantMultiplier", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transform_benesiFastPwr2PineTree1_constantMultiplier", CVector3(1.0, 0.0, 0.0), morphAkima, paramStandard);
 
   par->addParam("transform_benesiFastPwr2PineTree2_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiFastPwr2PineTree2_weight_enabled", false, morphLinear, paramStandard);

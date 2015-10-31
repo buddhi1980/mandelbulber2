@@ -854,7 +854,7 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
 }
 
 // -------------- MENGER SPONGE EXTENDED----------------------------
-void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
+void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
 	//mengerSpongeORIGINAL1 Enabled
 	mengerSpongeOriginalTransform3D(fractal->transform.mengerSpongeOriginal1, z, i, aux);
@@ -862,8 +862,14 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 	//boxOffset1
 	boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
 
+  // z sampling for colour trials 0----------------------------------------HERE
+  CVector3 sample0 = z;
+
 	//boxFold1
 	boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
+
+  // z sampling for colour trials 1---BOX FOLD------------------------------HERE
+  CVector3 sample1 = z;
 
 	// sphericalOffset1
 	sphericalOffsetTransform3D(fractal->transform.sphericalOffset1, z, i, aux);
@@ -871,14 +877,23 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 	// sphericalFold1
 	sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
 
+  // z sampling for colour trials 3  SPHERICAL OFFSET------------------------HERE
+  CVector3 sample3 = z;
+
   //mainRotation1
   mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+
+  // z sampling for colour trials 2 MAIN ROTATION----------------------------HERE
+  CVector3 sample2 = z;
 
 	//scale; 1
 	scaleTransform3D(fractal->transform.scale1, z, i, aux);
 
 	//(fabs( z + const1A.) * const1.B) + z * constC.;
 	fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
+
+  // z sampling for colour trials 4 --------FABS ADDITION CONSTANT------------HERE
+  CVector3 sample4 = z;
 
 	//boxConstantMultiplier with enable fabs c , if (z > 0)  z = z +  (fabs(c) * const. );  else  z = z - fabs(c) * const. ); 1
 	boxConstantMultiplierTransform3D(fractal->transform.boxConstantMultiplier1, z, c, i);
@@ -889,12 +904,20 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 	// z = z + ( c * const.); 1
 	constantMultiplierTransform3D(fractal->transform.constantMultiplier1, z, c, i);
 
+  // Benesi MagTransformOne); 1
+  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne1, z, i);
+
+  // z sampling for colour trials 5 -------------------------------HERE
+  CVector3 sample5 = z;
+
 	// z = z + const; 1
 	additionConstantTransform3D(fractal->transform.additionConstant1, z, i);
 
 	//  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 1
 	fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD1, z, i);
 
+  // z sampling for colour trials 6 -------------------------------HERE
+  CVector3 sample6 = z;
 
 	//MENGER SPONGE 1
 	mengerSpongeTransform3D(fractal->transform.mengerSponge1, z, i, aux);
@@ -926,8 +949,13 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 	// z = z + const; 2
 	additionConstantTransform3D(fractal->transform.additionConstant2, z, i);
 
+  // Benesi MagTransformOne); 2
+  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne2, z, i);
+
 	//MENGER SPONGE 2
 	mengerSpongeTransform3D(fractal->transform.mengerSponge2, z, i, aux);
+
+
 
   //mainRotation; 4
   mainRotationTransform3D(fractal->transform.mainRotation4, z, i);
@@ -937,6 +965,13 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *
 
 	// Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);1
 	iterationWeightTransform3D(fractal->transform.iterationWeight1, z, i);
+
+  //coloring parameters 1
+  coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
+
+  //color trial 1
+  colorTrialTransform3D(fractal->transform.colorTrial1, z, sample0, sample1, sample2, sample3, sample4, sample5, sample6, i, aux);
+
 }
 
 
@@ -1065,6 +1100,8 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 //------------Benesi Transforms --------------------------------
 void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
+  // Benesi MagForwardTransformOne); 1
+  benesiMagForwardTransformOneTransform3D(fractal->transform.benesiMagForwardTransformOne1, z, i);
 
   //boxOffset1
   boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
@@ -1078,9 +1115,6 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
   // z sampling for colour trials 1---BOX FOLD------------------------------HERE
   CVector3 sample1 = z;
 
-  //mainRotation1
-  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
-
   // z sampling for colour trials 2 MAIN ROTATION----------------------------HERE
   CVector3 sample2 = z;
 
@@ -1093,23 +1127,44 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
   // sphericalFold1
   sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
 
-  //scale; 1
-  //scaleTransform3D(fractal->transform.scale1, z, i, aux);
+
 
   //variableScale; 1
   variableScaleTransform3D(fractal->transform.variableScale1, z, i, aux);
+
+  //MENGER SPONGE 1
+  mengerSpongeTransform3D(fractal->transform.mengerSponge1, z, i, aux);
 
   // z =(fabs( z + const1A.) * const1.B) + z * constC.;
   fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
 
   // z sampling for colour trials 4 --------FABS ADDITION CONSTANT------------HERE
+
+  //mainRotation1
+  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+
+  //variableScale; 1
+  variableScaleTransform3D(fractal->transform.variableScale1, z, i, aux);
+
+  // z = z + const; 1
+  additionConstantTransform3D(fractal->transform.additionConstant1, z, i);
+
+  //z = z + c * const; 1
+  constantMultiplierTransform3D(fractal->transform.constantMultiplier1, z, c, i);
+
   CVector3 sample4 = z;
+
+  // Benesi MagBackTransformOne); 1
+  benesiMagBackTransformOneTransform3D(fractal->transform.benesiMagBackTransformOne1, z, i);
 
   // Benesi MagTransformOne); 1
   benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne1, z, i);
 
   //Benesi Mag TransformTWO); 1
   benesiMagTransformTwoTransform3D(fractal->transform.benesiMagTransformTwo1, z, i);
+
+  // Benesi MagTransformFour); 1
+  benesiMagTransformFourTransform3D(fractal->transform.benesiMagTransformFour1, z, i);
 
   // Benesi FastPwr2PineTree); 1
   benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree1, z, c, i);
@@ -1136,8 +1191,7 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
   // z = fabs( z + const.A ) + ( z * const.B ) + const.C; 1
   fabsFormulaZABTransform3D(fractal->transform.fabsFormulaZAB1, z, i);
 
-  // z = z + const; 1
-  additionConstantTransform3D(fractal->transform.additionConstant1, z, i);
+
 
   //  z = fabs( z + constA.) - fabs( z - constB.) - z; 1
   fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB1, z, i);
@@ -1165,8 +1219,8 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
   //mainRotation; 3
   mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
 
-  // z = z + c * const; 1
-  //constantMultiplierTransform3D(fractal->transform.constantMultiplier1, z, c, i);
+  //variableScale; 2
+  variableScaleTransform3D(fractal->transform.variableScale2, z, i, aux);
 
   //variableConstantMultiplier 1
   variableConstantMultiplierTransform3D(fractal->transform.variableConstantMultiplier1, z, c, i);

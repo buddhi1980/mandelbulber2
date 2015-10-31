@@ -52,8 +52,16 @@ void variableScaleTransform3D(const sTransformVariableScale &variableScale, CVec
 void coloringParametersTransform3D(const sTransformColoringParameters &coloringParameters, CVector3 &z, double minimumR, int i, sExtendedAux &aux);
 void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, CVector3 &sample0, CVector3 &sample1, CVector3 &sample2, CVector3 &sample3,  CVector3 &sample4, CVector3 &sample5, CVector3 &sample6, int i, sExtendedAux &aux);
 void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti, CVector3 &z, int i, sExtendedAux &aux);
-void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &benesiPineTreeTransformOne, CVector3 &z, int i);
-void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &benesiPineTreeTransformTwo, CVector3 &z, int i);
+
+void benesiMagForwardTransformOneTransform3D(const sTransformBenesiMagForwardTransformOne &benesiMagForwardTransformOne, CVector3 &z, int i);
+void benesiMagBackTransformOneTransform3D(const sTransformBenesiMagBackTransformOne &benesiMagBackTransformOne, CVector3 &z, int i);
+
+void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &benesiMagTransformOne, CVector3 &z, int i);
+void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &benesiMagTransformTwo, CVector3 &z, int i);
+
+void benesiMagTransformFourTransform3D(const sTransformBenesiMagTransformFour &benesiMagTransformFour, CVector3 &z, int i);
+
+
 void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &benesiFastPwr2PineTree, CVector3 &z, CVector3 &c, int i);
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_TRANSFORMS_HPP_ */

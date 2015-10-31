@@ -7085,7 +7085,7 @@
    <item row="6" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_variableScale1_enabled">
      <property name="title">
-      <string>Enable Scale   z = z + ( c * (scale + variableConst * (i - Start itr)/ (Stop Itr - Start Itr)));  Copy ONE</string>
+      <string>Enable Scale   z = z * (scale + variableConst * (i - Start itr)/ (Stop Itr - Start Itr));  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

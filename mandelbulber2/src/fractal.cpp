@@ -511,6 +511,16 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.variableScale1.variableStartIterations = container->Get<int>("transform_variableScale1_variable_start_iterations");
   transform.variableScale1.variableStopIterations = container->Get<int>("transform_variableScale1_variable_stop_iterations");
   transform.variableScale1.variableConstant = container->Get<CVector3>("transform_variableScale1_variableScale");
+  transform.variableScale2.scale = container->Get<CVector3>("transform_variableScale2_scale");
+  transform.variableScale2.control.enabled = container->Get<bool>("transform_variableScale2_enabled");
+  transform.variableScale2.control.weightEnabled = container->Get<bool>("transform_variableScale2_weight_enabled");
+  transform.variableScale2.control.startIterations = container->Get<int>("transform_variableScale2_start_iterations");
+  transform.variableScale2.control.stopIterations = container->Get<int>("transform_variableScale2_stop_iterations");
+  transform.variableScale2.control.weight = container->Get<double>("transform_variableScale2_weight");
+  // extra for variable
+  transform.variableScale2.variableStartIterations = container->Get<int>("transform_variableScale2_variable_start_iterations");
+  transform.variableScale2.variableStopIterations = container->Get<int>("transform_variableScale2_variable_stop_iterations");
+  transform.variableScale2.variableConstant = container->Get<CVector3>("transform_variableScale2_variableScale");
 
   transform.coloringParameters1.control.enabled = container->Get<bool>("transform_coloringParameters1_enabled");
   transform.coloringParameters1.control.startIterations = container->Get<int>("transform_coloringParameters1_start_iterations");
@@ -571,6 +581,28 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.mandelbulbMulti2.control.stopIterations = container->Get<int>("transform_mandelbulbMulti2_stop_iterations");
   transform.mandelbulbMulti2.control.weight = container->Get<double>("transform_mandelbulbMulti2_weight");
 
+  transform.benesiMagForwardTransformOne1.control.enabled = container->Get<bool>("transform_benesiMagForwardTransformOne1_enabled");
+  transform.benesiMagForwardTransformOne1.control.weightEnabled = container->Get<bool>("transform_benesiMagForwardTransformOne1_weight_enabled");
+  transform.benesiMagForwardTransformOne1.control.startIterations = container->Get<int>("transform_benesiMagForwardTransformOne1_start_iterations");
+  transform.benesiMagForwardTransformOne1.control.stopIterations = container->Get<int>("transform_benesiMagForwardTransformOne1_stop_iterations");
+  transform.benesiMagForwardTransformOne1.control.weight = container->Get<double>("transform_benesiMagForwardTransformOne1_weight");
+  transform.benesiMagForwardTransformOne2.control.enabled = container->Get<bool>("transform_benesiMagForwardTransformOne2_enabled");
+  transform.benesiMagForwardTransformOne2.control.weightEnabled = container->Get<bool>("transform_benesiMagForwardTransformOne2_weight_enabled");
+  transform.benesiMagForwardTransformOne2.control.startIterations = container->Get<int>("transform_benesiMagForwardTransformOne2_start_iterations");
+  transform.benesiMagForwardTransformOne2.control.stopIterations = container->Get<int>("transform_benesiMagForwardTransformOne2_stop_iterations");
+  transform.benesiMagForwardTransformOne2.control.weight = container->Get<double>("transform_benesiMagForwardTransformOne2_weight");
+  transform.benesiMagBackTransformOne1.control.enabled = container->Get<bool>("transform_benesiMagBackTransformOne1_enabled");
+  transform.benesiMagBackTransformOne1.control.weightEnabled = container->Get<bool>("transform_benesiMagBackTransformOne1_weight_enabled");
+  transform.benesiMagBackTransformOne1.control.startIterations = container->Get<int>("transform_benesiMagBackTransformOne1_start_iterations");
+  transform.benesiMagBackTransformOne1.control.stopIterations = container->Get<int>("transform_benesiMagBackTransformOne1_stop_iterations");
+  transform.benesiMagBackTransformOne1.control.weight = container->Get<double>("transform_benesiMagBackTransformOne1_weight");
+  transform.benesiMagBackTransformOne2.control.enabled = container->Get<bool>("transform_benesiMagBackTransformOne2_enabled");
+  transform.benesiMagBackTransformOne2.control.weightEnabled = container->Get<bool>("transform_benesiMagBackTransformOne2_weight_enabled");
+  transform.benesiMagBackTransformOne2.control.startIterations = container->Get<int>("transform_benesiMagBackTransformOne2_start_iterations");
+  transform.benesiMagBackTransformOne2.control.stopIterations = container->Get<int>("transform_benesiMagBackTransformOne2_stop_iterations");
+  transform.benesiMagBackTransformOne2.control.weight = container->Get<double>("transform_benesiMagBackTransformOne2_weight");
+
+
   transform.benesiMagTransformOne1.control.enabled = container->Get<bool>("transform_benesiMagTransformOne1_enabled");
   transform.benesiMagTransformOne1.control.weightEnabled = container->Get<bool>("transform_benesiMagTransformOne1_weight_enabled");
   transform.benesiMagTransformOne1.offset = container->Get<CVector3>("transform_benesiMagTransformOne1_offset");
@@ -599,12 +631,30 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.benesiMagTransformTwo1.control.startIterations = container->Get<int>("transform_benesiMagTransformTwo1_start_iterations");
   transform.benesiMagTransformTwo1.control.stopIterations = container->Get<int>("transform_benesiMagTransformTwo1_stop_iterations");
   transform.benesiMagTransformTwo1.control.weight = container->Get<double>("transform_benesiMagTransformTwo1_weight");
+
+  transform.benesiMagTransformFour1.control.enabled = container->Get<bool>("transform_benesiMagTransformFour1_enabled");
+  transform.benesiMagTransformFour1.control.weightEnabled = container->Get<bool>("transform_benesiMagTransformFour1_weight_enabled");
+  transform.benesiMagTransformFour1.offset = container->Get<CVector3>("transform_benesiMagTransformFour1_offset");
+  transform.benesiMagTransformFour1.scale = container->Get<CVector3>("transform_benesiMagTransformFour1_scale");
+  transform.benesiMagTransformFour1.control.startIterations = container->Get<int>("transform_benesiMagTransformFour1_start_iterations");
+  transform.benesiMagTransformFour1.control.stopIterations = container->Get<int>("transform_benesiMagTransformFour1_stop_iterations");
+  transform.benesiMagTransformFour1.control.weight = container->Get<double>("transform_benesiMagTransformFour1_weight");
+  transform.benesiMagTransformFour2.control.enabled = container->Get<bool>("transform_benesiMagTransformFour2_enabled");
+  transform.benesiMagTransformFour2.control.weightEnabled = container->Get<bool>("transform_benesiMagTransformFour2_weight_enabled");
+  transform.benesiMagTransformFour2.offset = container->Get<CVector3>("transform_benesiMagTransformFour2_offset");
+  transform.benesiMagTransformFour2.scale = container->Get<CVector3>("transform_benesiMagTransformFour2_scale");
+  transform.benesiMagTransformFour2.control.startIterations = container->Get<int>("transform_benesiMagTransformFour2_start_iterations");
+  transform.benesiMagTransformFour2.control.stopIterations = container->Get<int>("transform_benesiMagTransformFour2_stop_iterations");
+  transform.benesiMagTransformFour2.control.weight = container->Get<double>("transform_benesiMagTransformFour2_weight");
+
+
+
   transform.benesiFastPwr2PineTree1.control.enabled = container->Get<bool>("transform_benesiFastPwr2PineTree1_enabled");
   transform.benesiFastPwr2PineTree1.control.weightEnabled = container->Get<bool>("transform_benesiFastPwr2PineTree1_weight_enabled");
   transform.benesiFastPwr2PineTree1.control.startIterations = container->Get<int>("transform_benesiFastPwr2PineTree1_start_iterations");
   transform.benesiFastPwr2PineTree1.control.stopIterations = container->Get<int>("transform_benesiFastPwr2PineTree1_stop_iterations");
   transform.benesiFastPwr2PineTree1.control.weight = container->Get<double>("transform_benesiFastPwr2PineTree1_weight");
-  transform.benesiFastPwr2PineTree1.constantMultiplierVect = container->Get<CVector3>("transform_benesiFastPwr2PineTree2_constantMultiplier");
+  transform.benesiFastPwr2PineTree1.constantMultiplierVect = container->Get<CVector3>("transform_benesiFastPwr2PineTree1_constantMultiplier");
   transform.benesiFastPwr2PineTree2.control.enabled = container->Get<bool>("transform_benesiFastPwr2PineTree2_enabled");
   transform.benesiFastPwr2PineTree2.control.weightEnabled = container->Get<bool>("transform_benesiFastPwr2PineTree2_weight_enabled");
   transform.benesiFastPwr2PineTree2.control.startIterations = container->Get<int>("transform_benesiFastPwr2PineTree2_start_iterations");

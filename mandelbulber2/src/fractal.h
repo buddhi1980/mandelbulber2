@@ -502,6 +502,16 @@ struct sTransformMandelbulbMulti
   double betaAngleOffset;
 };
 
+struct sTransformBenesiMagForwardTransformOne
+{
+  sTransformControl control;
+};
+
+struct sTransformBenesiMagBackTransformOne
+{
+  sTransformControl control;
+};
+
 struct sTransformBenesiMagTransformOne
 {
   sTransformControl control;
@@ -516,6 +526,16 @@ struct sTransformBenesiMagTransformTwo
   CVector3 offset;
   CVector3 scale;
 };
+
+
+
+struct sTransformBenesiMagTransformFour
+{
+  sTransformControl control;
+  CVector3 offset;
+  CVector3 scale;
+};
+
 struct sTransformBenesiFastPwr2PineTree
 {
   sTransformControl control;
@@ -566,17 +586,28 @@ struct sFractalTransform
   sTransformVariableConstantMultiplier variableConstantMultiplier1;
   sTransformVariableMandelbulbPower variableMandelbulbPower1;
   sTransformVariableScale variableScale1;
-
+  sTransformVariableScale variableScale2;
   sTransformColorTrial colorTrial1;
   sTransformColoringParameters coloringParameters1;
   sTransformMandelbulbMulti mandelbulbMulti1;
   sTransformMandelbulbMulti mandelbulbMulti2;
+
+  sTransformBenesiMagForwardTransformOne benesiMagForwardTransformOne1;
+  sTransformBenesiMagForwardTransformOne benesiMagForwardTransformOne2;
+  sTransformBenesiMagBackTransformOne benesiMagBackTransformOne1;
+  sTransformBenesiMagBackTransformOne benesiMagBackTransformOne2;
 
   sTransformBenesiMagTransformOne benesiMagTransformOne1;
   sTransformBenesiMagTransformOne benesiMagTransformOne2;
   sTransformBenesiMagTransformOne benesiMagTransformOne3;
   sTransformBenesiMagTransformTwo benesiMagTransformTwo1;
   sTransformBenesiMagTransformTwo benesiMagTransformTwo2;
+
+
+  sTransformBenesiMagTransformFour benesiMagTransformFour1;
+  sTransformBenesiMagTransformFour benesiMagTransformFour2;
+
+
   sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree1;
   sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree2;
 

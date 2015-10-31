@@ -277,7 +277,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				}
 				case mengerSponge105:
 				{
-					MengerSponge105Iteration(z, c, i, fractal, extendedAux[sequence]);
+          MengerSponge105Iteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
 				case platonicSolid:
@@ -460,9 +460,9 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 					out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor;
 					break;
 
-	      case mengerSponge105:
-					out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor + minimumR * 1000.0;;
-					break;
+        //case mengerSponge105:
+          //out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor + minimumR * 1000.0;;
+        //	break;
 
 	      case mandelbulb5:
 	      	out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor + minimumR * 5000.0;
@@ -470,6 +470,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 
         case mandelbulb6Beta:
         case benesiTransforms:
+        case mengerSponge105:
           out->colorIndex =  extendedAux[fractalIndex].newR ;
           break;
 
