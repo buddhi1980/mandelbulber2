@@ -96,6 +96,13 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	emit finished();
 }
 
+void cHeadless::RenderQueue()
+{
+	gQueue->slotQueueRender();
+	Wait(50000);
+	return;
+}
+
 void cHeadless::RenderFlightAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));

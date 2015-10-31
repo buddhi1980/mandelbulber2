@@ -232,27 +232,47 @@ void cCommandLineInterface::ReadCLI (void)
 	}
 
 	if(args.size() > 0){
-		// TODO for future development -> load multiple settings file to queue
 		// file specified -> load it
-		QString filename = args[0];
-		if(!QFile::exists(filename))
+		if(args.size() == 1 && !args[0].endsWith(".fractList"))
 		{
-			// try to find settings in default settings path
-			filename = systemData.dataDirectory + "settings" + QDir::separator() + filename;
-		}
-		if(QFile::exists(filename))
-		{
-			cSettings parSettings(cSettings::formatFullText);
-			parSettings.LoadFromFile(filename);
-			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-			settingsSpecified = true;
-			systemData.lastSettingsFile = filename;
+			QString filename = args[0];
+			if(!QFile::exists(filename))
+			{
+				// try to find settings in default settings path
+				filename = systemData.dataDirectory + "settings" + QDir::separator() + filename;
+			}
+			if(QFile::exists(filename))
+			{
+				cSettings parSettings(cSettings::formatFullText);
+				parSettings.LoadFromFile(filename);
+				parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+				settingsSpecified = true;
+				systemData.lastSettingsFile = filename;
+			}
+			else
+			{
+				cErrorMessage::showMessage("Cannot load file!\n", cErrorMessage::errorMessage);
+				qCritical() << "\nSetting file " << filename << " not found\n";
+				parser.showHelp(-12);
+			}
 		}
 		else
 		{
-			cErrorMessage::showMessage("Cannot load file!\n", cErrorMessage::errorMessage);
-			qCritical() << "\nSetting file " << filename << " not found\n";
-			parser.showHelp(-12);
+			// queue render
+			cliTODO = modeQueue;
+			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractList", systemData.dataDirectory + "queue", gMainInterface->mainWindow);
+			for(int i = 0; i < args.size(); i++)
+			{
+				QString filename = args[i];
+				if(filename.endsWith(".fractList")){
+					// TODO
+				}
+				else
+				{
+					gQueue->Append(filename);
+					settingsSpecified = true;
+				}
+			}
 		}
 	}
 
@@ -470,7 +490,7 @@ void cCommandLineInterface::ReadCLI (void)
 		parser.showHelp(-18);
 	}
 
-	if(cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight)
+	if(cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight && cliTODO != modeQueue)
 	{
 		//creating output filename if it's not specified
 		if(cliData.outputText == "")
@@ -509,6 +529,12 @@ void cCommandLineInterface::ProcessCLI (void)
 		{
 			gMainInterface->headless = new cHeadless();
 			gMainInterface->headless->RenderStillImage(cliData.outputText, cliData.imageFileFormat);
+			break;
+		}
+		case modeQueue:
+		{
+			gMainInterface->headless = new cHeadless();
+			gMainInterface->headless->RenderQueue();
 			break;
 		}
 		case modeBootOnly:

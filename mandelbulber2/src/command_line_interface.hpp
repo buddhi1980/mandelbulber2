@@ -33,7 +33,7 @@ public:
 
 	enum cliTODOMode
 	{
-		modeBootOnly, modeNetrender, modeKeyframe, modeFlight, modeStill
+		modeBootOnly, modeNetrender, modeKeyframe, modeFlight, modeStill, modeQueue
 	};
 
 	void ReadCLI(void);

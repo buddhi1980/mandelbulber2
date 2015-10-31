@@ -96,13 +96,15 @@ signals:
 	void queueChanged(int i);
 	void queueChanged(int i, int j);
 
+public slots:
+	void slotQueueRender();
+
 private slots:
 	void queueFileChanged(const QString &path);
 	void queueFolderChanged(const QString &path);
 	void RenderQueue();
 
 	//UI
-	void slotQueueRender();
 	void slotQueueAddCurrentSettings();
 	void slotQueueAddFromFile();
 	void slotQueueAddOrphaned();

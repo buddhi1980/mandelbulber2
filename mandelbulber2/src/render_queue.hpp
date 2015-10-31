@@ -26,6 +26,7 @@
 #include "rendered_image_widget.hpp"
 #include "four_fractals.hpp"
 #include "animation_keyframes.hpp"
+#include "animation_flight.hpp"
 
 #ifndef MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
 #define MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
@@ -52,11 +53,12 @@ signals:
 private:
 	cImage *image;
 	RenderedImage *imageWidget;
-
-	cParameterContainer tempPar;
-	cFractalContainer tempFractPar;
-	cAnimationFrames tempFrames;
-	cKeyframes tempKeyframes;
+	cParameterContainer *queuePar;
+	cFractalContainer *queueParFractal;
+	cAnimationFrames *queueAnimFrames;
+	cFlightAnimation *queueFlightAnimation;
+	cKeyframeAnimation *queueKeyframeAnimation;
+	cKeyframes *queueKeyframes;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_QUEUE_HPP_ */

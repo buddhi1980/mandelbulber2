@@ -28,15 +28,35 @@
 #include "global_data.hpp"
 #include "settings.hpp"
 #include "error_message.hpp"
+#include "initparameters.hpp"
 
 cRenderQueue::cRenderQueue(cImage *_image, RenderedImage *widget) : QObject()
 {
 	image = _image;
 	imageWidget = widget;
+	queuePar = new cParameterContainer;
+	queueParFractal = new cFractalContainer;
+	queueAnimFrames = new cAnimationFrames;
+	queueKeyframes = new cKeyframes;
+	queueFlightAnimation = new cFlightAnimation(gMainInterface, queueAnimFrames, image, NULL);
+	queueKeyframeAnimation = new cKeyframeAnimation(gMainInterface, queueKeyframes, image, NULL);
+	queuePar->SetContainerName("main");
+	InitParams(queuePar);
+	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
+	{
+		queueParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(&queueParFractal->at(i));
+	}
 }
 
 cRenderQueue::~cRenderQueue()
 {
+	delete queueAnimFrames;
+	delete queueKeyframes;
+	delete queueFlightAnimation;
+	delete queueKeyframeAnimation;
+	delete queueParFractal;
+	delete queuePar;
 }
 
 void cRenderQueue::slotRenderQueue()
@@ -45,9 +65,6 @@ void cRenderQueue::slotRenderQueue()
 
 	WriteLog("cRenderQueue::slotRenderQueue()");
 	gQueue->stopRequest = false;
-
-	tempPar = *gPar;
-	tempFractPar = *gParFractal;
 
 	while(!gQueue->stopRequest)
 	{
@@ -66,13 +83,13 @@ void cRenderQueue::slotRenderQueue()
 		{
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.LoadFromFile(queueItem.filename);
-			parSettings.Decode(&tempPar, &tempFractPar, &tempFrames, &tempKeyframes);
+			parSettings.Decode(queuePar, queueParFractal, queueAnimFrames, queueKeyframes);
 			if(!systemData.noGui)
 			{
 				emit updateUI();
 			}
 
-			tempPar.Set("image_preview_scale", 0);
+			queuePar->Set("image_preview_scale", 0);
 
 			bool result = false;
 			switch(queueItem.renderType)
@@ -135,10 +152,9 @@ void cRenderQueue::RenderKeyframe()
 bool cRenderQueue::RenderStill(const QString& filename)
 {
 	QString saveFilename = QFileInfo(filename).baseName() + ".png";
-	QString fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator() + saveFilename;
 
 	//setup of rendering engine
-	cRenderJob *renderJob = new cRenderJob(&tempPar, &tempFractPar, image, &gQueue->stopRequest, imageWidget);
+	cRenderJob *renderJob = new cRenderJob(queuePar, queueParFractal, image, &gQueue->stopRequest, imageWidget);
 	if(gMainInterface->mainWindow)
 	{
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
@@ -154,7 +170,8 @@ bool cRenderQueue::RenderStill(const QString& filename)
 
 	renderJob->Init(cRenderJob::still, config);
 
-	imageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
+	if(imageWidget != NULL)
+		imageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 
 	gQueue->stopRequest = false;
 
@@ -162,6 +179,7 @@ bool cRenderQueue::RenderStill(const QString& filename)
 	bool result = renderJob->Execute();
 	if(!result) return false;
 
+	QString fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator() + saveFilename;
 	SaveImage(fullSaveFilename, IMAGE_FILE_TYPE_PNG, image);
 
 	delete renderJob;

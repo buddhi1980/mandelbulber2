@@ -377,7 +377,7 @@ void cQueue::UpdateListFromFileSystem()
 void cQueue::RenderQueue()
 {
 	QThread *thread = new QThread; //deleted by deleteLater()
-	cRenderQueue *renderQueue = new cRenderQueue(image, renderedImageWidget); // TODO give necessary params
+	cRenderQueue *renderQueue = new cRenderQueue(image, renderedImageWidget);
 	renderQueue->moveToThread(thread);
 	QObject::connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));
 	QObject::connect(renderQueue, SIGNAL(finished()), renderQueue, SLOT(deleteLater()));

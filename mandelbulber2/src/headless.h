@@ -42,6 +42,7 @@ public:
 	};
 
 	void RenderStillImage(QString filename, QString imageFileFormat);
+	void RenderQueue();
 	void RenderFlightAnimation();
 	void RenderKeyframeAnimation();
 	static void RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone);
