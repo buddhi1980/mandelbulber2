@@ -1834,7 +1834,7 @@ void RenderWindow::slotCheckBoxDisableNetRender(bool on)
 #ifdef USE_GAMEPAD
 void RenderWindow::slotChangeGamepadIndex(int index)
 {
-	gamepad.setIndex(index);
+	gamepad.setDeviceId(index);
 	WriteLog("Gamepad - slotChangeGamepadIndex: " + QString::number(index));
 }
 
