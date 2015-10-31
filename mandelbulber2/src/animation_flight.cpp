@@ -587,8 +587,9 @@ void cFlightAnimation::RenderFlight()
 
 	QString framesDir = params->Get<QString>("anim_flight_dir");
 
-	if(!systemData.noGui)
-		mainInterface->progressBarAnimation->show();
+	//FIXME: All progress bar operation has to be done via signals/slots
+	//if(!systemData.noGui)
+	//	mainInterface->progressBarAnimation->show();
 
 	cProgressText progressText;
 	progressText.ResetTimer();
@@ -653,6 +654,7 @@ void cFlightAnimation::RenderFlight()
 			continue;
 		}
 
+		//FIXME: All progress bar operation has to be done via signals/slots
 //		cProgressText::ProgressStatusText(
 //			QObject::tr("Animation start"),
 //			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
@@ -686,7 +688,9 @@ void cFlightAnimation::RenderFlight()
 		QString filename = GetFlightFilename(index);
 		SaveImage(filename, (enumImageFileType)params->Get<int>("flight_animation_image_type"), image);
 	}
-//	cProgressText::ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
+
+	//FIXME: All progress bar operation has to be done via signals/slots
+	//	cProgressText::ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
 }
 
 void cFlightAnimation::RefreshTable()
