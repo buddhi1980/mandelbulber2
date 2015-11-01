@@ -133,7 +133,7 @@ void cRenderQueue::RenderFlight()
 	}
 	else
 	{
-		queueFlightAnimation->RenderFlight();
+		queueFlightAnimation->RenderFlight(&gQueue->stopRequest);
 	}
 }
 

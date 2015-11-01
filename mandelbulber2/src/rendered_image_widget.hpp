@@ -48,21 +48,21 @@ enum enumClickMode
 	clickFlightSpeedControl = 7
 };
 
-struct sFlightData
-{
-	//numbers
-	int frame;
-	CVector3 camera;
-	double speed;
-	double distance;
-	double speedSp;
+	struct sFlightData
+	{
+		//numbers
+		int frame;
+		CVector3 camera;
+		double speed;
+		double distance;
+		double speedSp;
 
-	//HUD
-	CVector3 rotation;
-	CVector3 speedVector;
-	CVector3 forwardVector;
-	CVector3 topVector;
-};
+		//HUD
+		CVector3 rotation;
+		CVector3 speedVector;
+		CVector3 forwardVector;
+		CVector3 topVector;
+	};
 
 	RenderedImage(QWidget *parent = 0);
 	void AssignImage(cImage *_image) {image = _image;}
@@ -73,6 +73,9 @@ struct sFlightData
 	void SetCursorVisibility(bool enable) {cursorVisible = enable;};
 	void SetFlightData(const sFlightData &fData) {flightData = fData;}
 	CVector2<double> GetLastMousePositionScaled(void);
+
+public slots:
+		void slotSetMinimumSize(int width, int height);
 
 signals:
 	void SpeedChanged(double amount);
@@ -123,6 +126,7 @@ signals:
 	void keyPress(Qt::Key key);
 	void keyRelease(Qt::Key key);
 	void mouseWheelRotated(int delta);
+
 };
 
 

@@ -49,6 +49,7 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	{
 		imageWidget = _qwidget;
 		hasQWidget = true;
+		connect(this, SIGNAL(SetMinimumWidgetSize(int, int)), imageWidget, SLOT(slotSetMinimumSize(int, int)));
 	}
 	else
 	{
@@ -63,7 +64,6 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 
 	id++;
 	//qDebug() << "Id" << id;
-
 }
 int cRenderJob::id = 0;
 int cRenderJob::runningJobs = 0;
@@ -201,7 +201,7 @@ bool cRenderJob::InitImage(int w, int h)
 			scale = CalcMainImageScale(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), image);
 			image->CreatePreview(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), imageWidget);
 			image->UpdatePreview();
-			imageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
+			emit SetMinimumWidgetSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 		}
 
 		//out << "Memory for image: " << image->GetUsedMB() << " MB" << endl;

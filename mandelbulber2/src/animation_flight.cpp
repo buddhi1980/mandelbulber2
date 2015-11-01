@@ -108,7 +108,7 @@ void cFlightAnimation::slotRenderFlight()
 	{
 		if(frames->GetNumberOfFrames() > 0)
 		{
-			RenderFlight();
+			RenderFlight(&gMainInterface->stopRequest);
 		}
 		else
 		{
@@ -545,7 +545,7 @@ int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame)
 	return newColumn;
 }
 
-void cFlightAnimation::RenderFlight()
+void cFlightAnimation::RenderFlight(bool *stopRequest)
 {
 	if(image->IsUsed())
 	{
@@ -559,7 +559,7 @@ void cFlightAnimation::RenderFlight()
 		gUndo.Store(params, fractalParams, frames, NULL);
 	}
 
-	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, &mainInterface->stopRequest, imageWidget);
+	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, stopRequest, imageWidget);
 
 	if(mainInterface->mainWindow)
 	{
@@ -583,7 +583,7 @@ void cFlightAnimation::RenderFlight()
 	}
 
 	renderJob->Init(cRenderJob::flightAnim, config);
-	mainInterface->stopRequest = false;
+	*stopRequest = false;
 
 	QString framesDir = params->Get<QString>("anim_flight_dir");
 
@@ -628,7 +628,7 @@ void cFlightAnimation::RenderFlight()
 		if (deletePreviousRender)
 		{
 			DeleteAllFilesFromDirectory(params->Get<QString>("anim_flight_dir"), "frame_?????.*");
-			return RenderFlight();
+			return RenderFlight(stopRequest);
 		}
 		else
 		{
@@ -662,10 +662,10 @@ void cFlightAnimation::RenderFlight()
 //			cProgressText::progress_ANIMATION
 //		);
 
-		if (mainInterface->stopRequest) break;
+		if (*stopRequest) break;
 		frames->GetFrameAndConsolidate(index, params, fractalParams);
 
-		if (!systemData.noGui)
+		if (!systemData.noGui && image->IsMainImage())
 		{
 			mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
 

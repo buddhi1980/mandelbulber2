@@ -647,3 +647,9 @@ CVector3 RenderedImage::CalcPointPersp(const CVector3 &point, const CRotationMat
 	out.y = -vect.z / (1.0 + vect.y * persp);
 	return out;
 }
+
+void RenderedImage::slotSetMinimumSize(int width, int height)
+{
+	setMinimumSize(width, height);
+}
+
