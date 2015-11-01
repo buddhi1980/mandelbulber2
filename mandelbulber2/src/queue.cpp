@@ -135,8 +135,10 @@ void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnim
 void cQueue::AppendList(const QString &filename)
 {
 	//add all entries from list given with filename to current list
+
 	if (QFileInfo(filename).suffix() == QString("fractlist"))
 	{
+		mutex.lock();
 		QFile file(filename);
 		if (file.open(QIODevice::ReadOnly))
 		{
@@ -155,6 +157,7 @@ void cQueue::AppendList(const QString &filename)
 			}
 			file.close();
 		}
+		mutex.unlock();
 		StoreList();
 	}
 }
@@ -162,6 +165,7 @@ void cQueue::AppendList(const QString &filename)
 void cQueue::AppendFolder(const QString &filename)
 {
 	//add all entries from list given with filename to current list
+
 	if(QDir(filename).exists())
 	{
 		QDir fractDir = QDir(filename);
@@ -171,7 +175,9 @@ void cQueue::AppendFolder(const QString &filename)
 		QStringList fractFiles = fractDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 		for(int i = 0; i < fractFiles.size(); i++)
 		{
+			mutex.lock();
 			queueListFromFile << structQueueItem(filename + QDir::separator() + fractFiles.at(i), queue_STILL);
+			mutex.unlock();
 		}
 		StoreList();
 	}
@@ -200,6 +206,7 @@ bool cQueue::Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimati
 QStringList cQueue::RemoveOrphanedFiles()
 {
 	// find and delete files which are not on the list
+	mutex.lock();
 	QStringList removeList;
 	for(int i = 0; i < queueListFileSystem.size(); i++)
 	{
@@ -211,12 +218,14 @@ QStringList cQueue::RemoveOrphanedFiles()
 		}
 	}
 	qDebug() << "remove orphaned files " << removeList.size() << " total\n" << removeList;
+	mutex.unlock();
 	return removeList;
 }
 
 QStringList cQueue::AddOrphanedFilesToList()
 {
 	// add orphaned files from queue folder to the end of the list
+	mutex.lock();
 	qDebug() << "add orphaned";
 	QStringList appendList;
 	for(int i = 0; i < queueListFileSystem.size(); i++)
@@ -228,6 +237,8 @@ QStringList cQueue::AddOrphanedFilesToList()
 			queueListFromFile << queueItem;
 		}
 	}
+	mutex.unlock();
+
 	if(appendList.size() > 0)
 	{
 		StoreList();
@@ -239,35 +250,46 @@ QStringList cQueue::AddOrphanedFilesToList()
 cQueue::structQueueItem cQueue::GetNextFromList()
 {
 	//gives next filename
+	mutex.lock();
 	if(queueListFromFile.size() > 0)
 	{
-		return queueListFromFile.at(0);
+		cQueue::structQueueItem item = queueListFromFile.at(0);
+		mutex.unlock();
+		return item;
 	}
+	mutex.unlock();
 	return structQueueItem("", queue_STILL);
 }
 
 void cQueue::AddToList(const structQueueItem &queueItem)
 {
 	//add filename to the end of list
+	mutex.lock();
 	if(queueListFromFile.contains(queueItem))
 	{
 		qWarning() << "Entry already exists";
 		return;
 	}
 	queueListFromFile << queueItem;
+	mutex.unlock();
 	StoreList();
 }
 
 void cQueue::SwapQueueItem(int i, int j)
 {
+	mutex.lock();
 	if(i >= 0 && j >= 0 && i < queueListFileName.size() -1 && j < queueListFileName.size() - 1)
 	queueListFromFile.swap(i, j);
+	mutex.unlock();
 	StoreList();
 }
 
 void cQueue::RemoveQueueItem(int i)
 {
-	RemoveQueueItem(queueListFromFile.at(i));
+	mutex.lock();
+	structQueueItem item = queueListFromFile.at(i);
+	mutex.unlock();
+	RemoveQueueItem(item);
 }
 
 void cQueue::RemoveQueueItem(const structQueueItem queueItem)
@@ -275,19 +297,24 @@ void cQueue::RemoveQueueItem(const structQueueItem queueItem)
 	//remove queue item from list and filesystem
 	RemoveFromList(queueItem);
 	// check if fract file is still on the list (one file with different renderTypes)
+	mutex.lock();
 	for(int i = 0; i < queueListFromFile.size(); i++)
 	{
 		if(queueListFromFile.at(i).filename == queueItem.filename)
 		{
+			mutex.unlock();
 			return;
 		}
 	}
+	mutex.unlock();
 	RemoveFromFileSystem(queueItem.filename);
 }
 
 void cQueue::UpdateQueueItemType(int i, enumRenderType renderType)
 {
+	mutex.lock();
 	queueListFromFile[i].renderType = renderType;
+	mutex.unlock();
 	StoreList();
 }
 
@@ -305,13 +332,16 @@ bool cQueue::ValidateEntry(const QString &filename)
 
 void cQueue::RemoveFromList(const structQueueItem &queueItem)
 {
+	mutex.lock();
 	//remove queue item if it is on the list
 	queueListFromFile.removeAll(queueItem);
+	mutex.unlock();
 	StoreList();
 }
 
 void cQueue::StoreList()
 {
+	mutex.lock();
 	QFile file(queueListFileName);
 	if(file.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
 	{
@@ -323,6 +353,7 @@ void cQueue::StoreList()
 		}
 	}
 	file.close();
+	mutex.unlock();
 }
 
 void cQueue::RemoveFromFileSystem(const QString &filename)
@@ -386,6 +417,7 @@ void cQueue::queueFolderChanged(const QString &path)
 
 void cQueue::UpdateListFromQueueFile()
 {
+	mutex.lock();
 	queueListFromFile.clear();
 	//returns list of fractals to render
 	QFile file(queueListFileName);
@@ -406,17 +438,20 @@ void cQueue::UpdateListFromQueueFile()
 		}
 		file.close();
 	}
+	mutex.unlock();
 	emit queueChanged();
 }
 
 void cQueue::UpdateListFromFileSystem()
 {
+	mutex.lock();
 	queueListFileSystem = QDir(queueFolder).entryList(QDir::NoDotAndDotDot | QDir::Files);
 	// make paths absolute
 	for(int i = 0; i < queueListFileSystem.size(); i++)
 	{
 		queueListFileSystem[i] = queueFolder + QDir::separator() + queueListFileSystem.at(i);
 	}
+	mutex.unlock();
 }
 
 void cQueue::RenderQueue()
@@ -666,4 +701,12 @@ void cQueue::slotUpdateUI()
 void cQueue::slotStopRequest()
 {
 	stopRequest = true;
+}
+
+int cQueue::GetQueueSize()
+{
+	mutex.lock();
+	int size = queueListFromFile.size();
+	mutex.unlock();
+	return size;
 }

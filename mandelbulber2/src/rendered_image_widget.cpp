@@ -51,7 +51,7 @@ RenderedImage::RenderedImage(QWidget *parent) :
 	flightRotationDirection = 0;
 
 	QList<QVariant> mode;
-	mode.append((int)RenderedImage::clickPlaceLight);
+	mode.append((int)RenderedImage::clickDoNothing);
 	clickModeData = mode;
 
 	//timer to refresh image
@@ -351,7 +351,7 @@ void RenderedImage::mouseMoveEvent(QMouseEvent * event)
 	}
 	else
 	{
-		qCritical() << "RenderedImage::mouseMoveEvent(QMouseEvent * event): parameters not assigned";
+		if(cursorVisible) qCritical() << "RenderedImage::mouseMoveEvent(QMouseEvent * event): parameters not assigned";
 	}
 
 	emit mouseMoved(screenPoint.x, screenPoint.y);

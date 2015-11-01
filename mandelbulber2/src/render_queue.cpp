@@ -68,14 +68,14 @@ void cRenderQueue::slotRenderQueue()
 
 	while(!gQueue->stopRequest)
 	{
-		int queueTotalLeft = gQueue->GetListFromQueueFile().size(); //FIXME this is not thread safe!
+		int queueTotalLeft = gQueue->GetQueueSize();
 
 		emit updateProgressAndStatus(
 			QObject::tr("Queue Render"),
 			QObject::tr("Queue Item %1 of %2").arg(queueFinished + 1).arg(queueTotalLeft + queueFinished),
 			1.0 * (queueFinished / (queueTotalLeft + queueFinished)),
 			cProgressText::progress_QUEUE);
-		cQueue::structQueueItem queueItem = gQueue->GetNextFromList(); //FIXME this is not thread safe!
+		cQueue::structQueueItem queueItem = gQueue->GetNextFromList();
 		if(queueItem.filename == "") break; // last item reached
 
 
@@ -101,7 +101,7 @@ void cRenderQueue::slotRenderQueue()
 
 			if(result)
 			{
-				gQueue->RemoveFromList(queueItem); //FIXME this is not thread safe!
+				gQueue->RemoveFromList(queueItem);
 				queueFinished++;
 			}
 			else

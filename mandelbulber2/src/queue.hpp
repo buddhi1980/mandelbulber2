@@ -67,6 +67,7 @@ public:
 	bool Get();
 	bool Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes);
 
+
 	// syncing methods
 	QStringList RemoveOrphanedFiles(); //find and delete files which are not on the list
 	QStringList AddOrphanedFilesToList(); //add orphaned files from queue folder to the end of the list
@@ -89,6 +90,7 @@ public:
 
 	structQueueItem GetNextFromList(); //gives next filename
 	void RemoveFromList(const structQueueItem &queueItem); //remove queue item if it is on the list
+	int GetQueueSize();
 
 	bool stopRequest;
 
@@ -145,6 +147,8 @@ private:
 	QString queueFolder;
 
 	RenderedImage *renderedImageWidget;
+
+	QMutex mutex;
 };
 
 #endif /* MANDELBULBER2_SRC_QUEUE_HPP_ */
