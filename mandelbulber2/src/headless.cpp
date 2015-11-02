@@ -99,7 +99,10 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 void cHeadless::RenderQueue()
 {
 	gQueue->slotQueueRender();
-	return;
+	do{
+		gApplication->processEvents();
+		Wait(100); // TODO substitute with proper handling
+	}while(gQueue->GetQueueSize() > 0);
 }
 
 void cHeadless::RenderFlightAnimation()

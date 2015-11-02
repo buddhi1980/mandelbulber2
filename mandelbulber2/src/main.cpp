@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
 
 		try
 		{
-			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.txt", systemData.dataDirectory + "queue", gMainInterface->mainWindow);
+			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist", systemData.dataDirectory + "queue", gMainInterface->mainWindow);
 		}
 		catch(QString &ex)
 		{

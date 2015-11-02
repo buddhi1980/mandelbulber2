@@ -135,7 +135,7 @@ void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnim
 void cQueue::AppendList(const QString &filename)
 {
 	//add all entries from list given with filename to current list
-
+	qDebug() << filename;
 	if (QFileInfo(filename).suffix() == QString("fractlist"))
 	{
 		mutex.lock();
@@ -494,7 +494,7 @@ void cQueue::slotQueueRender()
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("No queue items to render"), cErrorMessage::errorMessage, ui->centralwidget);
+		cErrorMessage::showMessage(QObject::tr("No queue items to render"), cErrorMessage::errorMessage, NULL);
 	}
 }
 

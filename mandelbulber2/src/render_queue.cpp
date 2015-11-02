@@ -83,7 +83,7 @@ void cRenderQueue::slotRenderQueue()
 		if(queueItem.filename == "") break; // last item reached
 
 		emit updateProgressAndStatus(
-			QFileInfo(queueItem.filename).baseName(),
+			QFileInfo(queueItem.filename).completeBaseName(),
 			QObject::tr("Queue Item %1 of %2").arg(queueFinished + 1).arg(queueTotalLeft + queueFinished),
 			1.0 * (queueFinished / (queueTotalLeft + queueFinished)),
 			cProgressText::progress_QUEUE);
@@ -138,7 +138,8 @@ void cRenderQueue::RenderFlight()
 {
 	if(systemData.noGui)
 	{
-		gMainInterface->headless->RenderFlightAnimation();
+		// gMainInterface->headless->RenderFlightAnimation();
+		queueFlightAnimation->RenderFlight(&gQueue->stopRequest);
 	}
 	else
 	{
@@ -150,7 +151,8 @@ void cRenderQueue::RenderKeyframe()
 {
 	if(systemData.noGui)
 	{
-		gMainInterface->headless->RenderKeyframeAnimation();
+		// gMainInterface->headless->RenderKeyframeAnimation();
+		queueKeyframeAnimation->RenderKeyframes(&gQueue->stopRequest);
 	}
 	else
 	{
@@ -170,6 +172,12 @@ bool cRenderQueue::RenderStill(const QString& filename)
 	connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
+	if(systemData.noGui)
+	{
+		config.DisableProgressiveRender();
+	}
+	config.DisableRefresh();
+	config.EnableNetRender();
 	renderJob->Init(cRenderJob::still, config);
 
 	gQueue->stopRequest = false;
