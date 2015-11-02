@@ -170,9 +170,6 @@ bool cRenderQueue::RenderStill(const QString& filename)
 	cRenderingConfiguration config;
 	renderJob->Init(cRenderJob::still, config);
 
-	if(imageWidget != NULL)
-		imageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
-
 	gQueue->stopRequest = false;
 
 	//render image

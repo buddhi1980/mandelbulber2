@@ -525,7 +525,7 @@ void cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / unrenderedTotal;
 			QString progressTxt = progressText.getText(percentDoneFrame);
 
-			updateProgressAndStatus(
+			emit updateProgressAndStatus(
 				QObject::tr("Rendering animation"),
 						QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
 						percentDoneFrame

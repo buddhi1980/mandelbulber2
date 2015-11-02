@@ -202,4 +202,10 @@ void cThumbnailWidget::slotUpdateProgressAndStatus(const QString &text, const QS
 	emit updateProgressAndStatus(text, progressText, progress);
 }
 
+void cThumbnailWidget::slotSetMinimumSize(int width, int height)
+{
+	setMinimumSize(width, height);
+}
+
+
 int cThumbnailWidget::instanceCount = 0;
