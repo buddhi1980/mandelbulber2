@@ -69,7 +69,7 @@ RenderWindow::RenderWindow(QWidget *parent) :
 		QApplication::connect(&gamepad, SIGNAL(axisLeftYChanged(double)), this, SLOT(slotGamepadYaw(double)));
 		QApplication::connect(&gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadRoll()));
 		QApplication::connect(&gamepad, SIGNAL(buttonR2Changed(double)), this, SLOT(slotGamepadRoll()));
-		//FIXME: QApplication::connect(&gamepad, SIGNAL(buttonL1Changed(bool)), gMainInterface->renderedImage, SLOT(ShiftModeChanged(bool)));
+		QApplication::connect(&gamepad, SIGNAL(buttonL1Changed(bool)), this, SLOT(slotShiftModeChange(bool)));
 
 		QApplication::connect(&gamepad, SIGNAL(axisRightXChanged(double)), this, SLOT(slotGamepadX(double)));
 		QApplication::connect(&gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadY(double)));
@@ -1904,6 +1904,11 @@ void RenderWindow::slotGamepadRoll() {
 	WriteLog("Gamepad - slotGamepadRoll | value: " + QString::number(value));
 	ui->sl_gamepad_angle_roll->setValue(-100 + 200 * value);
 	emit gMainInterface->renderedImage->RotationChanged(value * 2.0 - 1.0);
+}
+
+void RenderWindow::slotShiftModeChange(bool isShifting) {
+	WriteLog("Gamepad - slotShiftModeChange | value: " + QString::number(isShifting));
+	emit gMainInterface->renderedImage->ShiftModeChanged(isShifting);
 }
 
 void RenderWindow::slotGamepadX(double value) {

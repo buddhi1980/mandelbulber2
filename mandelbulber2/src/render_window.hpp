@@ -193,6 +193,7 @@ private slots:
 	void slotChangeGamepadIndex(int index);
 	void slotGamePadDeviceConnected(int index);
 	void slotGamePadDeviceDisconnected(int index);
+	void slotShiftModeChange(bool isShifting);
 
 	void slotGamepadPitch(double value);
 	void slotGamepadYaw(double value);

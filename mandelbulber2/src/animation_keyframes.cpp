@@ -454,11 +454,6 @@ void cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	//destination for frames
 	QString framesDir = params->Get<QString>("anim_keyframe_dir");
 
-	//prepare progress bar for animation
-
-	//FIXME if(!systemData.noGui)
-	//FIXME  mainInterface->progressBarAnimation->show();
-
 	cProgressText progressText;
 	progressText.ResetTimer();
 
