@@ -151,7 +151,9 @@ void cQueue::AppendList(const QString &filename)
 				QRegularExpressionMatch matchType = reType.match(line);
 				if (matchType.hasMatch())
 				{
-					queueListFromFile << structQueueItem(matchType.captured(1), GetTypeEnum(matchType.captured(2)));
+					structQueueItem queueItem = structQueueItem(matchType.captured(1), GetTypeEnum(matchType.captured(2)));
+					if(!queueListFromFile.contains(queueItem))
+						queueListFromFile << queueItem;
 				}
 				else qWarning() << "wrong format in line: " << line;
 			}
@@ -164,11 +166,10 @@ void cQueue::AppendList(const QString &filename)
 
 void cQueue::AppendFolder(const QString &filename)
 {
-	//add all entries from list given with filename to current list
-
-	if(QDir(filename).exists())
+	//add all entries from folder given with filename to current list
+	QDir fractDir = QDir(filename);
+	if(fractDir.exists())
 	{
-		QDir fractDir = QDir(filename);
 		QStringList fractFileExtensions;
 		fractFileExtensions << "*.fract";
 		fractDir.setNameFilters(fractFileExtensions);
@@ -176,7 +177,9 @@ void cQueue::AppendFolder(const QString &filename)
 		for(int i = 0; i < fractFiles.size(); i++)
 		{
 			mutex.lock();
-			queueListFromFile << structQueueItem(filename + QDir::separator() + fractFiles.at(i), queue_STILL);
+			structQueueItem queueItem = structQueueItem(filename + QDir::separator() + fractFiles.at(i), queue_STILL);
+			if(!queueListFromFile.contains(queueItem))
+				queueListFromFile << queueItem;
 			mutex.unlock();
 		}
 		StoreList();
@@ -268,6 +271,7 @@ void cQueue::AddToList(const structQueueItem &queueItem)
 	if(queueListFromFile.contains(queueItem))
 	{
 		qWarning() << "Entry already exists";
+		mutex.unlock();
 		return;
 	}
 	queueListFromFile << queueItem;
@@ -279,7 +283,7 @@ void cQueue::SwapQueueItem(int i, int j)
 {
 	mutex.lock();
 	if(i >= 0 && j >= 0 && i < queueListFileName.size() -1 && j < queueListFileName.size() - 1)
-	queueListFromFile.swap(i, j);
+		queueListFromFile.swap(i, j);
 	mutex.unlock();
 	StoreList();
 }

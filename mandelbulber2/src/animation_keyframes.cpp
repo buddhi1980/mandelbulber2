@@ -525,11 +525,10 @@ void cKeyframeAnimation::RenderKeyframes()
 			double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / unrenderedTotal;
 			QString progressTxt = progressText.getText(percentDoneFrame);
 
-			cProgressText::ProgressStatusText(
+			updateProgressAndStatus(
 				QObject::tr("Rendering animation"),
 						QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
-						percentDoneFrame,
-				cProgressText::progress_ANIMATION
+						percentDoneFrame
 			);
 
 			if(mainInterface->stopRequest) break;
@@ -568,8 +567,8 @@ void cKeyframeAnimation::RenderKeyframes()
 
 	}
 
-	cProgressText::ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
-
+	updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0);
+	emit updateProgressHide();
 	delete renderJob;
 }
 
@@ -600,7 +599,7 @@ void cKeyframeAnimation::RefreshTable()
 		}
 		if(i % 100 == 0)
 		{
-			cProgressText::ProgressStatusText(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames, cProgressText::progress_ANIMATION);
+			updateProgressAndStatus(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames);
 			gApplication->processEvents();
 		}
 	}
@@ -939,7 +938,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 		}
 		if(index % 10 == 0)
 		{
-			cProgressText::ProgressStatusText(QObject::tr("Exporting"), tr("Exporting keyframes to flight"), (double)index / keyframes->GetNumberOfFrames(), cProgressText::progress_ANIMATION);
+			updateProgressAndStatus(QObject::tr("Exporting"), tr("Exporting keyframes to flight"), (double)index / keyframes->GetNumberOfFrames());
 			gApplication->processEvents();
 		}
 	}
@@ -980,10 +979,9 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 
 	for(int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
-		cProgressText::ProgressStatusText(QObject::tr("Checking for collissions"),
+		updateProgressAndStatus(QObject::tr("Checking for collissions"),
 				QObject::tr("Checking for collissions on keyframe # %1").arg(key),
-				(double)key / (keyframes->GetNumberOfFrames() - 1.0),
-				cProgressText::progress_IMAGE);
+				(double)key / (keyframes->GetNumberOfFrames() - 1.0));
 
 		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
@@ -999,7 +997,7 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 		}
 	}
 
-	cProgressText::ProgressStatusText(QObject::tr("Checking for collissions"), QObject::tr("Checking for collisions finished"), 1.0, cProgressText::progress_IMAGE);
+	updateProgressAndStatus(QObject::tr("Checking for collissions"), QObject::tr("Checking for collisions finished"), 1.0);
 
 	return listOfCollisions;
 }

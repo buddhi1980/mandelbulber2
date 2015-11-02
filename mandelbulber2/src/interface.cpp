@@ -58,7 +58,8 @@ cInterface::cInterface()
 	mainImage = NULL;
 	progressBar = NULL;
 	progressBarAnimation = NULL;
-	progressBarQueue = NULL;
+	progressBarQueueImage = NULL;
+	progressBarQueueAnimation = NULL;
 	progressBarFrame = NULL;
 	progressBarLayout = NULL;
 	stopRequest = false;
@@ -71,7 +72,8 @@ cInterface::~cInterface()
 	if(imageSequencePlayer) delete imageSequencePlayer;
 	if(progressBar) delete progressBar;
 	if(progressBarAnimation) delete progressBarAnimation;
-	if(progressBarQueue) delete progressBarQueue;
+	if(progressBarQueueImage) delete progressBarQueueImage;
+	if(progressBarQueueAnimation) delete progressBarQueueAnimation;
 	if(progressBarFrame) delete progressBarFrame;
 	if(progressBarLayout) delete progressBarLayout;
 	if(qimage) delete qimage;
@@ -132,11 +134,13 @@ void cInterface::ShowUi(void)
 	progressBarLayout->setContentsMargins(0, 0, 0, 0);
 	progressBarFrame = new QFrame(mainWindow->ui->statusbar);
 
-	progressBarQueue = new QProgressBar(progressBarFrame);
-	progressBarQueue->setMaximum(1000);
-	progressBarQueue->setAlignment(Qt::AlignCenter);
-	progressBarQueue->hide();
-	progressBarLayout->addWidget(progressBarQueue);
+	progressBarQueueImage = mainWindow->ui->queueProgressBarImage;
+	progressBarQueueImage->setAlignment(Qt::AlignCenter);
+	progressBarQueueImage->hide();
+
+	progressBarQueueAnimation = mainWindow->ui->queueProgressBarAnimation;
+	progressBarQueueAnimation->setAlignment(Qt::AlignCenter);
+	progressBarQueueAnimation->hide();
 
 	progressBarAnimation = new QProgressBar(progressBarFrame);
 	progressBarAnimation->setMaximum(1000);

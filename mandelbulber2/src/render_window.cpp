@@ -1662,7 +1662,9 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 	{
 		case cProgressText::progress_IMAGE: progressBar = gMainInterface->progressBar; break;
 		case cProgressText::progress_ANIMATION: progressBar = gMainInterface->progressBarAnimation; break;
-		case cProgressText::progress_QUEUE: progressBar = gMainInterface->progressBarQueue; break;
+		// case cProgressText::progress_QUEUE: progressBar = gMainInterface->progressBarQueue; break;
+		case cProgressText::progress_QUEUE_IMAGE: progressBar = gMainInterface->progressBarQueueImage; break;
+		case cProgressText::progress_QUEUE_ANIMATION: progressBar = gMainInterface->progressBarQueueAnimation; break;
 	}
 
 	if(progressBar)
@@ -1671,6 +1673,24 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 		progressBar->setValue(progress * 1000.0);
 		progressBar->setTextVisible(true);
 		progressBar->setFormat(progressText);
+	}
+}
+
+void RenderWindow::slotUpdateProgressHide(cProgressText::enumProgressType progressType)
+{
+	QProgressBar *progressBar = NULL;
+	switch(progressType)
+	{
+		case cProgressText::progress_IMAGE: progressBar = gMainInterface->progressBar; break;
+		case cProgressText::progress_ANIMATION: progressBar = gMainInterface->progressBarAnimation; break;
+		// case cProgressText::progress_QUEUE: progressBar = gMainInterface->progressBarQueue; break;
+		case cProgressText::progress_QUEUE_IMAGE: progressBar = gMainInterface->progressBarQueueImage; break;
+		case cProgressText::progress_QUEUE_ANIMATION: progressBar = gMainInterface->progressBarQueueAnimation; break;
+	}
+
+	if(progressBar)
+	{
+		if(progressBar->isVisible()) progressBar->setVisible(false);
 	}
 }
 

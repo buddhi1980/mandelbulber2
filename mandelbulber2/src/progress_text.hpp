@@ -31,7 +31,7 @@ class cProgressText
 {
 public:
 	 enum enumProgressType {
-		 progress_IMAGE, progress_ANIMATION, progress_QUEUE
+		 progress_IMAGE, progress_ANIMATION, progress_QUEUE, progress_QUEUE_ANIMATION, progress_QUEUE_IMAGE
 	 };
 	cProgressText();
 	void ResetTimer();

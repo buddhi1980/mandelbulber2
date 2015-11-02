@@ -278,6 +278,7 @@ void cCommandLineInterface::ReadCLI (void)
 		{
 			// queue render
 			cliTODO = modeQueue;
+			cliData.nogui = true; systemData.noGui = true;
 			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractList", systemData.dataDirectory + "queue", gMainInterface->mainWindow);
 			for(int i = 0; i < args.size(); i++)
 			{
@@ -286,11 +287,13 @@ void cCommandLineInterface::ReadCLI (void)
 				{
 					// specified input is a folder, load all fractal files contained in this folder
 					gQueue->AppendFolder(filename);
+					settingsSpecified = true;
 				}
-				if(filename.endsWith(".fractList"))
+				else if(filename.endsWith(".fractList"))
 				{
 					// specified input is a queue list file, append all entries to the current queue
 					gQueue->AppendList(filename);
+					settingsSpecified = true;
 				}
 				else
 				{

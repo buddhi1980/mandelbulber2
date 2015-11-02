@@ -69,15 +69,14 @@ void cRenderQueue::slotRenderQueue()
 	while(!gQueue->stopRequest)
 	{
 		int queueTotalLeft = gQueue->GetQueueSize();
-
-		emit updateProgressAndStatus(
-			QObject::tr("Queue Render"),
-			QObject::tr("Queue Item %1 of %2").arg(queueFinished + 1).arg(queueTotalLeft + queueFinished),
-			1.0 * (queueFinished / (queueTotalLeft + queueFinished)),
-			cProgressText::progress_QUEUE);
 		cQueue::structQueueItem queueItem = gQueue->GetNextFromList();
 		if(queueItem.filename == "") break; // last item reached
 
+		emit updateProgressAndStatus(
+			QFileInfo(queueItem.filename).baseName(),
+			QObject::tr("Queue Item %1 of %2").arg(queueFinished + 1).arg(queueTotalLeft + queueFinished),
+			1.0 * (queueFinished / (queueTotalLeft + queueFinished)),
+			cProgressText::progress_QUEUE);
 
 		if(QFile::exists(queueItem.filename))
 		{
@@ -167,7 +166,6 @@ bool cRenderQueue::RenderStill(const QString& filename)
 	}
 
 	cRenderingConfiguration config;
-
 	renderJob->Init(cRenderJob::still, config);
 
 	if(imageWidget != NULL)

@@ -86,7 +86,8 @@ private:
 	MyTableWidgetKeyframes *table;
 
 signals:
-	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType = cProgressText::progress_ANIMATION);
+	void updateProgressHide(cProgressText::enumProgressType progressType = cProgressText::progress_ANIMATION);
 };
 
 

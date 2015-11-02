@@ -162,8 +162,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
 		return;
 	}
-
-	cProgressText::ProgressStatusText(QObject::tr("Recordning flight path"), tr("waiting 3 seconds"), 0.0);
+	emit updateProgressAndStatus(QObject::tr("Recordning flight path"), tr("waiting 3 seconds"), 0.0);
 	gApplication->processEvents();
 	Wait(3000);
 
@@ -253,13 +252,13 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	mainInterface->progressBarAnimation->show();
 	while(!mainInterface->stopRequest)
 	{
-		cProgressText::ProgressStatusText(QObject::tr("Recording flight animation"), tr("Recording flight animation. Frame: ") + QString::number(index), 0.0, cProgressText::progress_ANIMATION);
+		emit updateProgressAndStatus(QObject::tr("Recording flight animation"), tr("Recording flight animation. Frame: ") + QString::number(index), 0.0);
 
 		bool wasPaused = false;
 		while(recordPause)
 		{
 			wasPaused = true;
-			cProgressText::ProgressStatusText(QObject::tr("Recording flight animation"), tr("Paused. Frame: ") + QString::number(index), 0.0, cProgressText::progress_ANIMATION);
+			emit updateProgressAndStatus(QObject::tr("Recording flight animation"), tr("Paused. Frame: ") + QString::number(index), 0.0);
 			gApplication->processEvents();
 			if(mainInterface->stopRequest) break;
 		}
@@ -587,10 +586,6 @@ void cFlightAnimation::RenderFlight(bool *stopRequest)
 
 	QString framesDir = params->Get<QString>("anim_flight_dir");
 
-	//FIXME: All progress bar operation has to be done via signals/slots
-	//if(!systemData.noGui)
-	//	mainInterface->progressBarAnimation->show();
-
 	cProgressText progressText;
 	progressText.ResetTimer();
 
@@ -654,13 +649,11 @@ void cFlightAnimation::RenderFlight(bool *stopRequest)
 			continue;
 		}
 
-		//FIXME: All progress bar operation has to be done via signals/slots
-//		cProgressText::ProgressStatusText(
-//			QObject::tr("Animation start"),
-//			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
-//			percentDoneFrame,
-//			cProgressText::progress_ANIMATION
-//		);
+		emit updateProgressAndStatus(
+			QObject::tr("Animation start"),
+			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
+			percentDoneFrame
+		);
 
 		if (*stopRequest) break;
 		frames->GetFrameAndConsolidate(index, params, fractalParams);
@@ -689,13 +682,12 @@ void cFlightAnimation::RenderFlight(bool *stopRequest)
 		SaveImage(filename, (enumImageFileType)params->Get<int>("flight_animation_image_type"), image);
 	}
 
-	//FIXME: All progress bar operation has to be done via signals/slots
-	//	cProgressText::ProgressStatusText(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
+	emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0);
+	emit updateProgressHide();
 }
 
 void cFlightAnimation::RefreshTable()
 {
-	mainInterface->progressBarAnimation->show();
 	PrepareTable();
 	gApplication->processEvents();
 
@@ -719,14 +711,12 @@ void cFlightAnimation::RefreshTable()
 		}
 		if(i % 100 == 0)
 		{
-			cProgressText::ProgressStatusText(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames, cProgressText::progress_ANIMATION);
+			emit updateProgressAndStatus(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames);
 			gApplication->processEvents();
 		}
 	}
-
 	UpdateLimitsForFrameRange();
-
-	mainInterface->progressBarAnimation->hide();
+	emit updateProgressHide();
 }
 
 QString cFlightAnimation::GetParameterName(int rowNumber)
