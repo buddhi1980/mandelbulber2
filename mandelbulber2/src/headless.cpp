@@ -118,7 +118,7 @@ void cHeadless::RenderFlightAnimation()
 void cHeadless::RenderKeyframeAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, image, NULL);
+	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, image, NULL, gPar, gParFractal, NULL);
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
 									 this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
 	gKeyframeAnimation->slotRenderKeyframes();

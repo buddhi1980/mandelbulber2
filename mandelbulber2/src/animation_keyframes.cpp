@@ -33,8 +33,14 @@
 #include <QInputDialog>
 #include "undo.h"
 
-cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image, QObject *parent) : QObject(parent), mainInterface(_interface), keyframes(_frames)
+cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image, QWidget *_imageWidget,
+		cParameterContainer *_params, cFractalContainer *_fractal, QObject *parent) : QObject(parent), mainInterface(_interface), keyframes(_frames)
 {
+	image = _image;
+	imageWidget = _imageWidget;
+	params = _params;
+	fractalParams = _fractal;
+
 	if(mainInterface->mainWindow)
 	{
 		ui = mainInterface->mainWindow->ui;
@@ -64,9 +70,9 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		//add default parameters for animation
 		if (keyframes->GetListOfUsedParameters().size() == 0)
 		{
-			keyframes->AddAnimatedParameter("camera", gPar->GetAsOneParameter("camera"));
-			keyframes->AddAnimatedParameter("target", gPar->GetAsOneParameter("target"));
-			keyframes->AddAnimatedParameter("camera_top", gPar->GetAsOneParameter("camera_top"));
+			keyframes->AddAnimatedParameter("camera", params->GetAsOneParameter("camera"));
+			keyframes->AddAnimatedParameter("target", params->GetAsOneParameter("target"));
+			keyframes->AddAnimatedParameter("camera_top", params->GetAsOneParameter("camera_top"));
 			if(mainInterface->mainWindow)
 				PrepareTable();
 		}
@@ -76,14 +82,12 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		ui = NULL;
 		table = NULL;
 	}
-
-	image = _image;
 }
 
 void cKeyframeAnimation::slotAddKeyframe()
 {
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	gUndo.Store(params, fractalParams, NULL, keyframes);
 
 	NewKeyframe(keyframes->GetNumberOfFrames());
 }
@@ -93,8 +97,8 @@ void cKeyframeAnimation::slotInsertKeyframe()
 	int column = table->currentColumn();
 	if(column < 0) column = 0;
 
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	gUndo.Store(params, fractalParams, NULL, keyframes);
 
 	NewKeyframe(column);
 }
@@ -104,9 +108,9 @@ void cKeyframeAnimation::NewKeyframe(int index)
 	if(keyframes)
 	{
 		//add new frame to container
-		keyframes->AddFrame(*gPar, *gParFractal, index);
+		keyframes->AddFrame(*params, *fractalParams, index);
 
-		gPar->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
+		params->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
 
 		//add column to table
 		int newColumn = AddColumn(keyframes->GetFrame(index), index);
@@ -116,7 +120,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 		{
 			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
 			thumbWidget->UseOneCPUCore(false);
-			thumbWidget->AssignParameters(*gPar, *gParFractal);
+			thumbWidget->AssignParameters(*params, *fractalParams);
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
 		UpdateLimitsForFrameRange();
@@ -134,7 +138,7 @@ void cKeyframeAnimation::DeleteKeyframe(int index)
 	{
 		cErrorMessage::showMessage(QObject::tr("No keyframe selected"), cErrorMessage::errorMessage, ui->centralwidget);
 	}
-	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+	gUndo.Store(params, fractalParams, NULL, keyframes);
 	keyframes->DeleteFrames(index, index);
 	table->removeColumn(index);
 	UpdateLimitsForFrameRange();
@@ -147,12 +151,12 @@ void cKeyframeAnimation::slotModifyKeyframe()
 	if(keyframes)
 	{
 		//get latest values of all parameters
-		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-		gUndo.Store(gPar, gParFractal, NULL, keyframes);
+		mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+		gUndo.Store(params, fractalParams, NULL, keyframes);
 
 		//add new frame to container
 		keyframes->DeleteFrames(column, column);
-		keyframes->AddFrame(*gPar, *gParFractal, column);
+		keyframes->AddFrame(*params, *fractalParams, column);
 
 		//add column to table
 		table->removeColumn(column);
@@ -163,7 +167,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 		{
 			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
 			thumbWidget->UseOneCPUCore(false);
-			thumbWidget->AssignParameters(*gPar, *gParFractal);
+			thumbWidget->AssignParameters(*params, *fractalParams);
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
 	}
@@ -185,7 +189,7 @@ void cKeyframeAnimation::slotRenderKeyframes()
 	{
 		if(keyframes->GetNumberOfFrames() > 0)
 		{
-			RenderKeyframes();
+			RenderKeyframes(&gMainInterface->stopRequest);
 		}
 		else
 		{
@@ -221,7 +225,7 @@ void cKeyframeAnimation::PrepareTable()
 	table->setColumnCount(0);
 	table->clear();
 	tableRowNames.clear();
-	table->verticalHeader()->setDefaultSectionSize(gPar->Get<int>("ui_font_size") + 6);
+	table->verticalHeader()->setDefaultSectionSize(params->Get<int>("ui_font_size") + 6);
 	CreateRowsInTable();
 }
 
@@ -385,7 +389,7 @@ QColor cKeyframeAnimation::MorphType2Color(parameterContainer::enumMorphType mor
 	return color;
 }
 
-void cKeyframeAnimation::RenderKeyframes()
+void cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 {
 	if(image->IsUsed())
 	{
@@ -394,20 +398,20 @@ void cKeyframeAnimation::RenderKeyframes()
 	}
 
 	//updating parameters
-	if(!systemData.noGui)
+	if(!systemData.noGui && image->IsMainImage())
 	{
-		mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-		gUndo.Store(gPar, gParFractal, NULL, keyframes);
+		mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+		gUndo.Store(params, fractalParams, NULL, keyframes);
 	}
 
-	keyframes->SetFramesPerKeyframe(gPar->Get<int>("frames_per_keyframe"));
+	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
 	//checking for collisions
-	if(!systemData.noGui)
+	if(!systemData.noGui && image->IsMainImage())
 	{
-		if(gPar->Get<bool>("keyframe_auto_validate"))
+		if(params->Get<bool>("keyframe_auto_validate"))
 		{
-			QList<int> listOfCollisions = CheckForCollisions(gPar->Get<double>("keyframe_collision_thresh"));
+			QList<int> listOfCollisions = CheckForCollisions(params->Get<double>("keyframe_collision_thresh"));
 			if(listOfCollisions.size() > 0)
 			{
 				QString collisionText;
@@ -422,7 +426,7 @@ void cKeyframeAnimation::RenderKeyframes()
 	}
 
 	//preparing Render Job
-	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &mainInterface->stopRequest, mainInterface->renderedImage);
+	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, stopRequest, imageWidget);
 	if(mainInterface->mainWindow)
 	{
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
@@ -445,21 +449,22 @@ void cKeyframeAnimation::RenderKeyframes()
 	}
 
 	renderJob->Init(cRenderJob::keyframeAnim, config);
-	mainInterface->stopRequest = false;
+	*stopRequest = false;
 
 	//destination for frames
-	QString framesDir = gPar->Get<QString>("anim_keyframe_dir");
+	QString framesDir = params->Get<QString>("anim_keyframe_dir");
 
 	//prepare progress bar for animation
-	if(!systemData.noGui)
-	mainInterface->progressBarAnimation->show();
+
+	//FIXME if(!systemData.noGui)
+	//FIXME  mainInterface->progressBarAnimation->show();
 
 	cProgressText progressText;
 	progressText.ResetTimer();
 
 	//range of keyframes to render
-	int startFrame = gPar->Get<int>("keyframe_first_to_render");
-	int endFrame = gPar->Get<int>("keyframe_last_to_render");
+	int startFrame = params->Get<int>("keyframe_first_to_render");
+	int endFrame = params->Get<int>("keyframe_last_to_render");
 
 	// Check if frames have already been rendered
 	for(int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
@@ -496,8 +501,8 @@ void cKeyframeAnimation::RenderKeyframes()
 
 		if (deletePreviousRender)
 		{
-			DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
-			return RenderKeyframes();
+			DeleteAllFilesFromDirectory(params->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
+			return RenderKeyframes(stopRequest);
 		}
 		else
 		{
@@ -531,23 +536,23 @@ void cKeyframeAnimation::RenderKeyframes()
 						percentDoneFrame
 			);
 
-			if(mainInterface->stopRequest) break;
-			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, gPar, gParFractal);
+			if(*stopRequest) break;
+			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
 
 			//recalculation of camera rotation and distance (just for display purposes)
-			CVector3 camera = gPar->Get<CVector3>("camera");
-			CVector3 target = gPar->Get<CVector3>("target");
-			CVector3 top = gPar->Get<CVector3>("camera_top");
+			CVector3 camera = params->Get<CVector3>("camera");
+			CVector3 target = params->Get<CVector3>("target");
+			CVector3 top = params->Get<CVector3>("camera_top");
 			cCameraTarget cameraTarget(camera, target, top);
-			gPar->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
-			gPar->Set("camera_distance_to_target", cameraTarget.GetDistance());
+			params->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
+			params->Set("camera_distance_to_target", cameraTarget.GetDistance());
 
-			if (!systemData.noGui)
+			if (!systemData.noGui && image->IsMainImage())
 			{
-				mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+				mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
 
 				//show distance in statistics table
-				double distance = mainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
+				double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractalParams);
 				ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
 			}
 
@@ -556,19 +561,20 @@ void cKeyframeAnimation::RenderKeyframes()
 				gNetRender->WaitForAllClientsReady(2.0);
 			}
 
-			gPar->Set("frame_no", frameIndex);
-			renderJob->UpdateParameters(gPar, gParFractal);
+			params->Set("frame_no", frameIndex);
+			renderJob->UpdateParameters(params, fractalParams);
 			int result = renderJob->Execute();
 			if(!result) break;
 			QString filename = GetKeyframeFilename(index, subindex);
-			SaveImage(filename, (enumImageFileType)gPar->Get<int>("keyframe_animation_image_type"), image);
+			SaveImage(filename, (enumImageFileType)params->Get<int>("keyframe_animation_image_type"), image);
 		}
 		//--------------------------------------------------------------------
 
 	}
 
-	updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0);
+	emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0);
 	emit updateProgressHide();
+
 	delete renderJob;
 }
 
@@ -580,9 +586,9 @@ void cKeyframeAnimation::RefreshTable()
 
 	int noOfFrames = keyframes->GetNumberOfFrames();
 
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	cParameterContainer tempPar = *gPar;
-	cFractalContainer tempFract = *gParFractal;
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	cParameterContainer tempPar = *params;
+	cFractalContainer tempFract = *fractalParams;
 
 	for(int i=0; i < noOfFrames; i++)
 	{
@@ -626,27 +632,27 @@ QString cKeyframeAnimation::GetParameterName(int rowNumber)
 
 void cKeyframeAnimation::RenderFrame(int index)
 {
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	keyframes->GetFrameAndConsolidate(index, gPar, gParFractal);
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	keyframes->GetFrameAndConsolidate(index, params, fractalParams);
 
 	//recalculation of camera rotation and distance (just for display purposes)
-	CVector3 camera = gPar->Get<CVector3>("camera");
-	CVector3 target = gPar->Get<CVector3>("target");
-	CVector3 top = gPar->Get<CVector3>("camera_top");
+	CVector3 camera = params->Get<CVector3>("camera");
+	CVector3 target = params->Get<CVector3>("target");
+	CVector3 top = params->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, top);
-	gPar->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
-	gPar->Set("camera_distance_to_target", cameraTarget.GetDistance());
+	params->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
+	params->Set("camera_distance_to_target", cameraTarget.GetDistance());
 
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
 
-	gPar->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
+	params->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
 
 	mainInterface->StartRender();
 }
 
 void cKeyframeAnimation::DeleteFramesFrom(int index)
 {
-	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+	gUndo.Store(params, fractalParams, NULL, keyframes);
 	for(int i = keyframes->GetNumberOfFrames() - 1; i >= index; i--) table->removeColumn(index);
 	keyframes->DeleteFrames(index, keyframes->GetNumberOfFrames() - 1);
 	UpdateLimitsForFrameRange();
@@ -654,7 +660,7 @@ void cKeyframeAnimation::DeleteFramesFrom(int index)
 
 void cKeyframeAnimation::DeleteFramesTo(int index)
 {
-	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+	gUndo.Store(params, fractalParams, NULL, keyframes);
 	for(int i = 0; i <= index; i++) table->removeColumn(0);
 	keyframes->DeleteFrames(0, index);
 	UpdateLimitsForFrameRange();
@@ -665,7 +671,7 @@ void cKeyframeAnimation::slotSelectKeyframeAnimImageDir()
 	QFileDialog* dialog = new QFileDialog();
 	dialog->setFileMode(QFileDialog::DirectoryOnly);
 	dialog->setNameFilter(QObject::tr("Animation Image Folder"));
-	dialog->setDirectory(gPar->Get<QString>("anim_keyframe_dir"));
+	dialog->setDirectory(params->Get<QString>("anim_keyframe_dir"));
 	dialog->setAcceptMode(QFileDialog::AcceptOpen);
 	dialog->setWindowTitle(QObject::tr("Choose Animation Image Folder"));
 	dialog->setOption(QFileDialog::ShowDirsOnly);
@@ -676,7 +682,7 @@ void cKeyframeAnimation::slotSelectKeyframeAnimImageDir()
 		filenames = dialog->selectedFiles();
 		QString filename = filenames.first() + "/";
 		ui->text_anim_keyframe_dir->setText(filename);
-		gPar->Set("anim_keyframe_dir", filename);
+		params->Set("anim_keyframe_dir", filename);
 	}
 }
 
@@ -723,8 +729,8 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 		//update thumbnail
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
-			cParameterContainer tempPar = *gPar;
-			cFractalContainer tempFract = *gParFractal;
+			cParameterContainer tempPar = *params;
+			cFractalContainer tempFract = *fractalParams;
 			keyframes->GetFrameAndConsolidate(column, &tempPar, &tempFract);
 			cThumbnailWidget *thumbWidget = (cThumbnailWidget*) table->cellWidget(0, column);
 
@@ -747,7 +753,7 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 
 void cKeyframeAnimation::slotDeleteAllImages()
 {
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, gPar, cInterface::read);
+	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, cInterface::read);
 
 	QMessageBox::StandardButton reply;
 	reply = QMessageBox::question(
@@ -758,22 +764,22 @@ void cKeyframeAnimation::slotDeleteAllImages()
 
 	if (reply == QMessageBox::Yes)
 	{
-		DeleteAllFilesFromDirectory(gPar->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
+		DeleteAllFilesFromDirectory(params->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
 	}
 }
 
 void cKeyframeAnimation::slotShowAnimation()
 {
 	WriteLog("Prepare PlayerWidget class");
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, gPar, cInterface::read);
+	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, cInterface::read);
 	mainInterface->imageSequencePlayer = new PlayerWidget();
-	mainInterface->imageSequencePlayer->SetFilePath(gPar->Get<QString>("anim_keyframe_dir"));
+	mainInterface->imageSequencePlayer->SetFilePath(params->Get<QString>("anim_keyframe_dir"));
 	mainInterface->imageSequencePlayer->show();
 }
 
 void cKeyframeAnimation::InterpolateForward(int row, int column)
 {
-	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+	gUndo.Store(params, fractalParams, NULL, keyframes);
 
 	QTableWidgetItem *cell = table->item(row, column);
 	QString cellText = cell->text();
@@ -876,8 +882,8 @@ void cKeyframeAnimation::slotRefreshTable()
 QString cKeyframeAnimation::GetKeyframeFilename(int index, int subindex)
 {
 	int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
-	QString filename = gPar->Get<QString>("anim_keyframe_dir") + "frame_" + QString("%1").arg(frameIndex, 5, 10, QChar('0'));
-	switch((enumImageFileType)gPar->Get<double>("keyframe_animation_image_type"))
+	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_" + QString("%1").arg(frameIndex, 5, 10, QChar('0'));
+	switch((enumImageFileType)params->Get<double>("keyframe_animation_image_type"))
 	{
 		case IMAGE_FILE_TYPE_JPG:
 			filename += QString(".jpg");
@@ -902,7 +908,7 @@ parameterContainer::enumMorphType cKeyframeAnimation::GetMorphType(int row)
 
 void cKeyframeAnimation::ChangeMorphType(int row, parameterContainer::enumMorphType morphType)
 {
-	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+	gUndo.Store(params, fractalParams, NULL, keyframes);
 	int parameterIndex = rowParameter.at(row);
 	keyframes->ChangeMorphType(parameterIndex, morphType);
 	RefreshTable();
@@ -910,9 +916,9 @@ void cKeyframeAnimation::ChangeMorphType(int row, parameterContainer::enumMorphT
 
 void cKeyframeAnimation::slotExportKeyframesToFlight()
 {
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	gUndo.Store(gPar, gParFractal, gAnimFrames, keyframes);
-	keyframes->SetFramesPerKeyframe(gPar->Get<int>("frames_per_keyframe"));
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	gUndo.Store(params, fractalParams, gAnimFrames, keyframes);
+	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
 	if(gAnimFrames->GetFrames().size() > 0)
 	{
@@ -974,8 +980,8 @@ void cKeyframeAnimation::slotMovedSliderLastFrame(int value)
 QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 {
 	QList<int> listOfCollisions;
-	cParameterContainer tempPar = *gPar;
-	cFractalContainer tempFractPar = *gParFractal;
+	cParameterContainer tempPar = *params;
+	cFractalContainer tempFractPar = *fractalParams;
 
 	for(int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
@@ -1005,13 +1011,13 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 void cKeyframeAnimation::slotValidate()
 {
 	//updating parameters
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	gUndo.Store(params, fractalParams, NULL, keyframes);
 
-	keyframes->SetFramesPerKeyframe(gPar->Get<int>("frames_per_keyframe"));
+	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
 	//checking for collisions
-	QList<int> listOfCollisions = CheckForCollisions(gPar->Get<double>("keyframe_collision_thresh"));
+	QList<int> listOfCollisions = CheckForCollisions(params->Get<double>("keyframe_collision_thresh"));
 	if(listOfCollisions.size() > 0)
 	{
 		QString collisionText;
@@ -1040,13 +1046,13 @@ void cKeyframeAnimation::slotCellDoubleClicked(int row, int column)
 void cKeyframeAnimation::slotSetConstantTargetDistance()
 {
 	//updating parameters
-	mainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	gUndo.Store(gPar, gParFractal, NULL, keyframes);
+	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	gUndo.Store(params, fractalParams, NULL, keyframes);
 
-	cParameterContainer tempPar = *gPar;
-	cFractalContainer tempFractPar = *gParFractal;
+	cParameterContainer tempPar = *params;
+	cFractalContainer tempFractPar = *fractalParams;
 
-	double constDist = gPar->Get<double>("keyframe_constant_target_distance");
+	double constDist = params->Get<double>("keyframe_constant_target_distance");
 
 	for(int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{

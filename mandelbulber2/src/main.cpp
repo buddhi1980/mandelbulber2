@@ -132,14 +132,18 @@ int main(int argc, char *argv[])
 		gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames,
 				gMainInterface->mainImage, gMainInterface->renderedImage,
 				gPar, gParFractal, gMainInterface->mainWindow);
-		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainImage, gMainInterface->mainWindow);
+		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes,
+				gMainInterface->mainImage, gMainInterface->renderedImage,
+				gPar, gParFractal, gMainInterface->mainWindow);
 
 		QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
 										 gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
-		QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)), gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+		QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+										 gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 		QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
 										 gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
-		QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)), gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+		QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+										 gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 
 		try
 		{
