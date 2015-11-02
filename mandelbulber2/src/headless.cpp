@@ -166,16 +166,14 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 		switch(progressType)
 		{
 			case cProgressText::progress_IMAGE:
-			case cProgressText::progress_QUEUE_IMAGE:
 				MoveCursor(0, -1); break;
 			case cProgressText::progress_ANIMATION:
-			case cProgressText::progress_QUEUE_ANIMATION:
 				MoveCursor(0, -2); break;
 			case cProgressText::progress_QUEUE: MoveCursor(0, -3); break;
 		}
 
 		// not enough space to display info in animation bar
-		QString displayText = (progressType == cProgressText::progress_ANIMATION || progressType == cProgressText::progress_QUEUE_ANIMATION ? "" : text);
+		QString displayText = (progressType == cProgressText::progress_ANIMATION ? "" : text);
 
 		RenderingProgressOutput(displayText, progressText, progress);
 
@@ -185,11 +183,9 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 				MoveCursor(0, 1);
 				EraseLine();
 			case cProgressText::progress_ANIMATION:
-			case cProgressText::progress_QUEUE_ANIMATION:
 				MoveCursor(0, 1);
 				EraseLine();
 			case cProgressText::progress_IMAGE:
-			case cProgressText::progress_QUEUE_IMAGE:
 				MoveCursor(0, 1);
 		}
 	}

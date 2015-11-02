@@ -463,12 +463,15 @@ void cQueue::RenderQueue()
 	QThread *thread = new QThread; //deleted by deleteLater()
 	cRenderQueue *renderQueue = new cRenderQueue(image, renderedImageWidget);
 	renderQueue->moveToThread(thread);
+	renderQueue->setObjectName("Queue");
 	QObject::connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));
 	QObject::connect(renderQueue, SIGNAL(finished()), renderQueue, SLOT(deleteLater()));
 	QObject::connect(renderQueue, SIGNAL(updateUI()), this, SLOT(slotUpdateUI()));
 	if(gMainInterface->mainWindow){
 		QObject::connect(renderQueue, SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
 			gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
+		QObject::connect(renderQueue, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+			gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	}
 	if(gMainInterface->headless){
 		QObject::connect(renderQueue, SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),

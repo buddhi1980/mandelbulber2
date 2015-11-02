@@ -162,7 +162,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
 		return;
 	}
-	emit updateProgressAndStatus(QObject::tr("Recordning flight path"), tr("waiting 3 seconds"), 0.0);
+	emit updateProgressAndStatus(QObject::tr("Recordning flight path"), tr("waiting 3 seconds"), 0.0, cProgressText::progress_ANIMATION);
 	gApplication->processEvents();
 	Wait(3000);
 
@@ -197,14 +197,13 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	//setup of rendering engine
 	cRenderJob *renderJob = new cRenderJob(params, fractalParams, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->renderedImage);
+	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 	if(mainInterface->mainWindow)
 	{
-		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 	if(mainInterface->headless)
 	{
-		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->headless, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->headless, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 
@@ -252,13 +251,13 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	mainInterface->progressBarAnimation->show();
 	while(!mainInterface->stopRequest)
 	{
-		emit updateProgressAndStatus(QObject::tr("Recording flight animation"), tr("Recording flight animation. Frame: ") + QString::number(index), 0.0);
+		emit updateProgressAndStatus(QObject::tr("Recording flight animation"), tr("Recording flight animation. Frame: ") + QString::number(index), 0.0, cProgressText::progress_ANIMATION);
 
 		bool wasPaused = false;
 		while(recordPause)
 		{
 			wasPaused = true;
-			emit updateProgressAndStatus(QObject::tr("Recording flight animation"), tr("Paused. Frame: ") + QString::number(index), 0.0);
+			emit updateProgressAndStatus(QObject::tr("Recording flight animation"), tr("Paused. Frame: ") + QString::number(index), 0.0, cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 			if(mainInterface->stopRequest) break;
 		}
@@ -560,14 +559,13 @@ void cFlightAnimation::RenderFlight(bool *stopRequest)
 
 	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, stopRequest, imageWidget);
 
+	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 	if(mainInterface->mainWindow)
 	{
-		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 	if(mainInterface->headless)
 	{
-		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->headless, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->headless, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 
@@ -652,7 +650,8 @@ void cFlightAnimation::RenderFlight(bool *stopRequest)
 		emit updateProgressAndStatus(
 			QObject::tr("Animation start"),
 			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
-			percentDoneFrame
+			percentDoneFrame,
+			cProgressText::progress_ANIMATION
 		);
 
 		if (*stopRequest) break;
@@ -682,7 +681,7 @@ void cFlightAnimation::RenderFlight(bool *stopRequest)
 		SaveImage(filename, (enumImageFileType)params->Get<int>("flight_animation_image_type"), image);
 	}
 
-	emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0);
+	emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
 	emit updateProgressHide();
 }
 
@@ -711,7 +710,7 @@ void cFlightAnimation::RefreshTable()
 		}
 		if(i % 100 == 0)
 		{
-			emit updateProgressAndStatus(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames);
+			emit updateProgressAndStatus(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames, cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
 	}

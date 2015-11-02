@@ -49,6 +49,14 @@ cRenderQueue::cRenderQueue(cImage *_image, RenderedImage *widget) : QObject()
 
 	queueFlightAnimation = new cFlightAnimation(gMainInterface, queueAnimFrames, image, imageWidget, queuePar, queueParFractal, this);
 	queueKeyframeAnimation = new cKeyframeAnimation(gMainInterface, queueKeyframes, image, imageWidget, queuePar, queueParFractal, this);
+	QObject::connect(queueFlightAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
+									 this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
+	QObject::connect(queueFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+									 this, SIGNAL(updateProgressHide(cProgressText::enumProgressType)));
+	QObject::connect(queueKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
+									 this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
+	QObject::connect(queueKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+									 this, SIGNAL(updateProgressHide(cProgressText::enumProgressType)));
 }
 
 cRenderQueue::~cRenderQueue()
@@ -156,16 +164,10 @@ bool cRenderQueue::RenderStill(const QString& filename)
 
 	//setup of rendering engine
 	cRenderJob *renderJob = new cRenderJob(queuePar, queueParFractal, image, &gQueue->stopRequest, imageWidget);
-	if(gMainInterface->mainWindow)
-	{
-		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), gMainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
-	}
-	if(gMainInterface->headless)
-	{
-		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->headless, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), gMainInterface->headless, SLOT(slotUpdateStatistics(cStatistics)));
-	}
+
+	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+					this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
+	connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	renderJob->Init(cRenderJob::still, config);
@@ -184,9 +186,4 @@ bool cRenderQueue::RenderStill(const QString& filename)
 
 	delete renderJob;
 	return true;
-}
-
-void cRenderQueue::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType)
-{
-	emit updateProgressAndStatus(text, progressText, progress, progressType);
 }

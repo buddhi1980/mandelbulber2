@@ -427,14 +427,13 @@ void cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 	//preparing Render Job
 	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, stopRequest, imageWidget);
+	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 	if(mainInterface->mainWindow)
 	{
-		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 	if(mainInterface->headless)
 	{
-		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainInterface->headless, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->headless, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 
@@ -527,8 +526,9 @@ void cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 			updateProgressAndStatus(
 				QObject::tr("Rendering animation"),
-						QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
-						percentDoneFrame
+				QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
+				percentDoneFrame,
+				cProgressText::progress_ANIMATION
 			);
 
 			if(*stopRequest) break;
@@ -567,7 +567,7 @@ void cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 	}
 
-	emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0);
+	emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
 	emit updateProgressHide();
 
 	delete renderJob;
@@ -600,7 +600,7 @@ void cKeyframeAnimation::RefreshTable()
 		}
 		if(i % 100 == 0)
 		{
-			updateProgressAndStatus(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames);
+			emit updateProgressAndStatus(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames, cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
 	}
@@ -939,7 +939,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 		}
 		if(index % 10 == 0)
 		{
-			updateProgressAndStatus(QObject::tr("Exporting"), tr("Exporting keyframes to flight"), (double)index / keyframes->GetNumberOfFrames());
+			updateProgressAndStatus(QObject::tr("Exporting"), tr("Exporting keyframes to flight"), (double)index / keyframes->GetNumberOfFrames(), cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
 	}
@@ -981,8 +981,9 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 	for(int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
 		updateProgressAndStatus(QObject::tr("Checking for collissions"),
-				QObject::tr("Checking for collissions on keyframe # %1").arg(key),
-				(double)key / (keyframes->GetNumberOfFrames() - 1.0));
+			QObject::tr("Checking for collissions on keyframe # %1").arg(key),
+			(double)key / (keyframes->GetNumberOfFrames() - 1.0),
+			cProgressText::progress_ANIMATION);
 
 		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
@@ -998,7 +999,7 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 		}
 	}
 
-	updateProgressAndStatus(QObject::tr("Checking for collissions"), QObject::tr("Checking for collisions finished"), 1.0);
+	updateProgressAndStatus(QObject::tr("Checking for collissions"), QObject::tr("Checking for collisions finished"), 1.0, cProgressText::progress_ANIMATION);
 
 	return listOfCollisions;
 }

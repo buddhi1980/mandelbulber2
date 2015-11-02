@@ -43,10 +43,9 @@ public:
 
 public slots:
 	void slotRenderQueue();
-	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType = cProgressText::progress_QUEUE);
-
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType);
+	void updateProgressHide(cProgressText::enumProgressType progressType = cProgressText::progress_ANIMATION);
 	void finished();
 	void updateUI();
 
