@@ -38,8 +38,7 @@ cRenderQueue::cRenderQueue(cImage *_image, RenderedImage *widget) : QObject()
 	queueParFractal = new cFractalContainer;
 	queueAnimFrames = new cAnimationFrames;
 	queueKeyframes = new cKeyframes;
-	queueFlightAnimation = new cFlightAnimation(gMainInterface, queueAnimFrames, image, imageWidget, queuePar, queueParFractal, this);
-	queueKeyframeAnimation = new cKeyframeAnimation(gMainInterface, queueKeyframes, image, this);
+
 	queuePar->SetContainerName("main");
 	InitParams(queuePar);
 	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
@@ -47,6 +46,9 @@ cRenderQueue::cRenderQueue(cImage *_image, RenderedImage *widget) : QObject()
 		queueParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(&queueParFractal->at(i));
 	}
+
+	queueFlightAnimation = new cFlightAnimation(gMainInterface, queueAnimFrames, image, imageWidget, queuePar, queueParFractal, this);
+	queueKeyframeAnimation = new cKeyframeAnimation(gMainInterface, queueKeyframes, image, imageWidget, queuePar, queueParFractal, this);
 }
 
 cRenderQueue::~cRenderQueue()
@@ -145,7 +147,7 @@ void cRenderQueue::RenderKeyframe()
 	}
 	else
 	{
-		gKeyframeAnimation->RenderKeyframes();
+		queueKeyframeAnimation->RenderKeyframes(&gQueue->stopRequest);
 	}
 }
 

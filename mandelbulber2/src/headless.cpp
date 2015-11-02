@@ -117,7 +117,7 @@ void cHeadless::RenderFlightAnimation()
 void cHeadless::RenderKeyframeAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, image, NULL);
+	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, image, NULL, gPar, gParFractal, NULL);
 	gKeyframeAnimation->slotRenderKeyframes();
 	delete image;
 	delete gKeyframeAnimation;

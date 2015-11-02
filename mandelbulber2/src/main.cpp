@@ -133,7 +133,10 @@ int main(int argc, char *argv[])
 				gMainInterface->mainImage, gMainInterface->renderedImage,
 				gPar, gParFractal, gMainInterface->mainWindow);
 
-		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, gMainInterface->mainImage, gMainInterface->mainWindow);
+		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes,
+				gMainInterface->mainImage, gMainInterface->renderedImage,
+				gPar, gParFractal, gMainInterface->mainWindow);
+
 		try
 		{
 			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.txt", systemData.dataDirectory + "queue", gMainInterface->mainWindow);
