@@ -521,7 +521,7 @@ void RenderedImage::wheelEvent(QWheelEvent * event)
 	}
 	else
 	{
-		qCritical() << "RenderedImage::mouseMoveEvent(QMouseEvent * event): parameters not assigned";
+		if(cursorVisible) qCritical() << "RenderedImage::mouseMoveEvent(QMouseEvent * event): parameters not assigned";
 	}
 }
 
