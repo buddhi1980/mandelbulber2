@@ -96,6 +96,9 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "Save rendered image(s) to this file / folder."),
 		QCoreApplication::translate("main", "N"));
 
+	QCommandLineOption queueOption(QStringList() << "q" << "queue",
+		QCoreApplication::translate("main", "Render all images from common queue"));
+
 	QCommandLineOption helpInputOption(QStringList() << "help-input",
 		QCoreApplication::translate("main", "Show help on input"));
 
@@ -120,6 +123,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(hostOption);
 	parser.addOption(portOption);
 	parser.addOption(noColorOption);
+	parser.addOption(queueOption);
 	parser.addOption(helpInputOption);
 
 	// Process the actual command line arguments given by the user
@@ -140,6 +144,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.portText = parser.value(portOption);
 	cliData.outputText = parser.value(outputOption);
 	cliData.listParameters = parser.isSet(listOption);
+	cliData.queue = parser.isSet(queueOption);
 	cliData.showInputHelp = parser.isSet(helpInputOption);
 
 #ifdef WIN32 /* WINDOWS */
@@ -249,57 +254,67 @@ void cCommandLineInterface::ReadCLI (void)
 		return;
 	}
 
-	if(args.size() > 0){
-		// file specified -> load it
-		if(args.size() == 1 && !args[0].endsWith(".fractlist") && !QDir(args[0]).exists())
-		{
-			QString filename = args[0];
-			if(!QFile::exists(filename))
+	if(cliData.queue)
+	{
+		cliTODO = modeQueue;
+		settingsSpecified = true;
+		cliData.nogui = true; systemData.noGui = true;
+		gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist", systemData.dataDirectory + "queue", NULL);
+	}
+	else
+	{
+		if(args.size() > 0){
+			// file specified -> load it
+			if(args.size() == 1 && !args[0].endsWith(".fractlist") && !QDir(args[0]).exists())
 			{
-				// try to find settings in default settings path
-				filename = systemData.dataDirectory + "settings" + QDir::separator() + filename;
-			}
-			if(QFile::exists(filename))
-			{
-				cSettings parSettings(cSettings::formatFullText);
-				parSettings.LoadFromFile(filename);
-				parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-				settingsSpecified = true;
-				systemData.lastSettingsFile = filename;
-			}
-			else
-			{
-				cErrorMessage::showMessage("Cannot load file!\n", cErrorMessage::errorMessage);
-				qCritical() << "\nSetting file " << filename << " not found\n";
-				parser.showHelp(-12);
-			}
-		}
-		else
-		{
-			// queue render
-			cliTODO = modeQueue;
-			cliData.nogui = true; systemData.noGui = true;
-			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist", systemData.dataDirectory + "queue", gMainInterface->mainWindow);
-			for(int i = 0; i < args.size(); i++)
-			{
-				QString filename = args[i];
-				if(QDir(args[i]).exists())
+				QString filename = args[0];
+				if(!QFile::exists(filename))
 				{
-					// specified input is a folder, load all fractal files contained in this folder
-					gQueue->AppendFolder(filename);
-					settingsSpecified = true;
+					// try to find settings in default settings path
+					filename = systemData.dataDirectory + "settings" + QDir::separator() + filename;
 				}
-				else if(filename.endsWith(".fractlist"))
+				if(QFile::exists(filename))
 				{
-					// specified input is a queue list file, append all entries to the current queue
-					gQueue->AppendList(filename);
+					cSettings parSettings(cSettings::formatFullText);
+					parSettings.LoadFromFile(filename);
+					parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 					settingsSpecified = true;
+					systemData.lastSettingsFile = filename;
 				}
 				else
 				{
-					// specified input can only be an ordinary fract file, try to append to queuelist
-					gQueue->Append(filename);
-					settingsSpecified = true;
+					cErrorMessage::showMessage("Cannot load file!\n", cErrorMessage::errorMessage);
+					qCritical() << "\nSetting file " << filename << " not found\n";
+					parser.showHelp(-12);
+				}
+			}
+			else
+			{
+				// queue render
+				cliTODO = modeQueue;
+				cliData.nogui = true; systemData.noGui = true;
+				gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist", systemData.dataDirectory + "queue", NULL);
+				for(int i = 0; i < args.size(); i++)
+				{
+					QString filename = args[i];
+					if(QDir(args[i]).exists())
+					{
+						// specified input is a folder, load all fractal files contained in this folder
+						gQueue->AppendFolder(filename);
+						settingsSpecified = true;
+					}
+					else if(filename.endsWith(".fractlist"))
+					{
+						// specified input is a queue list file, append all entries to the current queue
+						gQueue->AppendList(filename);
+						settingsSpecified = true;
+					}
+					else
+					{
+						// specified input can only be an ordinary fract file, try to append to queuelist
+						gQueue->Append(filename);
+						settingsSpecified = true;
+					}
 				}
 			}
 		}
