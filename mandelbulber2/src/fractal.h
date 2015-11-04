@@ -518,24 +518,38 @@ struct sTransformBenesiMagTransformOne
   CVector3 offset;
   CVector3 scale;
 };
-
-
+struct sTransformBenesiMagTransformOnePlusMinus  // nine spot
+{
+  sTransformControl control;
+  CVector3 offset;
+  CVector3 scale;
+};
 struct sTransformBenesiMagTransformTwo
 {
   sTransformControl control;
   CVector3 offset;
   CVector3 scale;
 };
-
-
-
+struct sTransformBenesiMagTransformThree
+{
+  sTransformControl control;
+  CVector3 offset;
+  CVector3 scale;
+};
 struct sTransformBenesiMagTransformFour
 {
   sTransformControl control;
   CVector3 offset;
   CVector3 scale;
 };
-
+struct sTransformBenesiMagTransformFiveB
+{
+  sTransformControl control;
+  CVector3 offset;
+  CVector3 scale;
+  CVector3 powOne;
+  CVector3 powTwo;
+};
 struct sTransformBenesiFastPwr2PineTree
 {
   sTransformControl control;
@@ -600,12 +614,16 @@ struct sFractalTransform
   sTransformBenesiMagTransformOne benesiMagTransformOne1;
   sTransformBenesiMagTransformOne benesiMagTransformOne2;
   sTransformBenesiMagTransformOne benesiMagTransformOne3;
+  sTransformBenesiMagTransformOnePlusMinus benesiMagTransformOnePlusMinus1;
+  sTransformBenesiMagTransformOnePlusMinus benesiMagTransformOnePlusMinus2;
   sTransformBenesiMagTransformTwo benesiMagTransformTwo1;
   sTransformBenesiMagTransformTwo benesiMagTransformTwo2;
-
-
+  sTransformBenesiMagTransformThree benesiMagTransformThree1;
+  sTransformBenesiMagTransformThree benesiMagTransformThree2;
   sTransformBenesiMagTransformFour benesiMagTransformFour1;
   sTransformBenesiMagTransformFour benesiMagTransformFour2;
+  sTransformBenesiMagTransformFiveB benesiMagTransformFiveB1;
+  sTransformBenesiMagTransformFiveB benesiMagTransformFiveB2;
 
 
   sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree1;

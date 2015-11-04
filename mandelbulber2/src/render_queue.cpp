@@ -189,6 +189,11 @@ bool cRenderQueue::RenderStill(const QString& filename)
 	QString fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator() + saveFilename;
 	SaveImage(fullSaveFilename, IMAGE_FILE_TYPE_PNG, image);
 
+	fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator() + QFileInfo(filename).baseName() + ".fract";
+	cSettings parSettings(cSettings::formatCondensedText);
+	parSettings.CreateText(queuePar, queueParFractal);
+	parSettings.SaveToFile(fullSaveFilename);
+
 	delete renderJob;
 	return true;
 }

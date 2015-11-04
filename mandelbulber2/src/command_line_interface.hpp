@@ -48,6 +48,7 @@ private:
 		bool showInputHelp;
 		bool keyframe;
 		bool flight;
+		bool queue;
 		QString startFrameText;
 		QString endFrameText;
 		QString overrideParametersText;

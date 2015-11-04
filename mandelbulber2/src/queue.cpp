@@ -107,7 +107,7 @@ void cQueue::Append(const QString &filename, enumRenderType renderType)
 		parSettings.BeQuiet(true);
 		if (parSettings.LoadFromFile(filename))
 		{
-			QString filenameQueue = "queue_" + parSettings.GetHashCode() + ".fract";
+			QString filenameQueue = "queue_" + QFileInfo(filename).completeBaseName() + "_" + parSettings.GetHashCode() + ".fract";
 			QString completeFileName = queueFolder + QDir::separator() + filenameQueue;
 			parSettings.SaveToFile(completeFileName);
 			AddToList(structQueueItem(completeFileName, renderType));
@@ -126,7 +126,8 @@ void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnim
 	//add settings to queue
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(par, fractPar, frames, keyframes);
-	QString filename = "queue_" + parSettings.GetHashCode() + ".fract";
+	QFileInfo fi();
+	QString filename = "queue_" + QFileInfo(systemData.lastSettingsFile).completeBaseName() + "_" + parSettings.GetHashCode() + ".fract";
 	QString completeFileName = queueFolder + QDir::separator() + filename;
 	parSettings.SaveToFile(completeFileName);
 	AddToList(structQueueItem(completeFileName, renderType));

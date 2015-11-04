@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>724</width>
-    <height>9176</height>
+    <height>10152</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -305,7 +305,7 @@
      </layout>
     </widget>
    </item>
-   <item row="53" column="0">
+   <item row="54" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_colorTrial1_enabled">
      <property name="title">
       <string>Enable colour trial;</string>
@@ -1401,7 +1401,7 @@
      </layout>
     </widget>
    </item>
-   <item row="15" column="0">
+   <item row="14" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplier1_enabled">
      <property name="title">
       <string>Enable Constant Multiplier  z =  z +  ( c * const. );  Copy ONE</string>
@@ -1712,7 +1712,7 @@
      </layout>
     </widget>
    </item>
-   <item row="50" column="0">
+   <item row="51" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_box_fold2_enabled">
      <property name="title">
       <string>Enable Bo&amp;x Fold; Copy TWO</string>
@@ -2019,503 +2019,7 @@
      </layout>
     </widget>
    </item>
-   <item row="20" column="0">
-    <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformFour1_enabled">
-     <property name="title">
-      <string>Enable Benesi Mag Transform FOUR               ;  Copy ONE</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_30" stretch="0,0,0">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_77">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_273">
-          <property name="text">
-           <string>Start at iteration :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_274">
-          <property name="text">
-           <string>Stop at iteration:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformFour1_stop_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformFour1_start_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="8">
-         <widget class="QLabel" name="label_275">
-          <property name="text">
-           <string>Copy ONE</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="5">
-         <widget class="QCheckBox" name="checkBox_transform_benesiMagTransformFour1_weight_enabled">
-          <property name="text">
-           <string>Enable weight:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiMagTransformFour1_weight">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>1.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <spacer name="horizontalSpacer_36">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_78">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_scale_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_offset_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="1">
-         <widget class="QLabel" name="label_276">
-          <property name="text">
-           <string>Offset z</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_offset_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_offset_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_scale_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_offset_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_scale_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_offset_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_scale_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="label_277">
-          <property name="text">
-           <string>Scale z:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_278">
-          <property name="text">
-           <string>Scale x:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2" colspan="2">
-         <widget class="Line" name="line_63">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLabel" name="label_279">
-          <property name="text">
-           <string>Offset x:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QLabel" name="label_280">
-          <property name="text">
-           <string>Offset y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_offset_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_281">
-          <property name="text">
-           <string>Scale y:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_scale_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_scale_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="2" colspan="2">
-         <widget class="Line" name="line_64">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_65">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="18" column="0">
+   <item row="17" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformOne1_enabled">
      <property name="title">
       <string>Enable Benesi Mag Transform ONE               ;  Copy ONE</string>
@@ -3277,7 +2781,273 @@
      </layout>
     </widget>
    </item>
-   <item row="29" column="0">
+   <item row="7" column="0">
+    <widget class="MyGroupBox" name="groupCheck_transform_sphericalFold1_enabled">
+     <property name="title">
+      <string>Enable Spherical Fold;  Copy ONE</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_24" stretch="0,0,0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_40">
+        <property name="topMargin">
+         <number>5</number>
+        </property>
+        <item row="0" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_sphericalFold1_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_sphericalFold1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="7">
+         <widget class="QLabel" name="label_141">
+          <property name="text">
+           <string>Copy ONE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_146">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="6">
+         <spacer name="horizontalSpacer_8">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transform_sphericalFold1_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_147">
+          <property name="text">
+           <string>Start at iteration :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QCheckBox" name="checkBox_transform_sphericalFold1_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_41">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_148">
+          <property name="text">
+           <string>Fixed Radius:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_149">
+          <property name="text">
+           <string>Minimum Radius:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSlider" name="slider_transform_sphericalFold1_fixed_radius">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_sphericalFold1_fixed_radius">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="minimum">
+           <double>-36000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>36000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSlider" name="slider_transform_sphericalFold1_min_radius">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_sphericalFold1_min_radius">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="minimum">
+           <double>-360000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>360000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_32">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="31" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaZAB1_enabled">
      <property name="title">
       <string>Enable  z =  fabs( z + const.A )  +  ( z  * const.B )  +  const.C ; Copy ONE</string>
@@ -3955,7 +3725,7 @@
      </layout>
     </widget>
    </item>
-   <item row="47" column="0">
+   <item row="49" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_boxConstantMultiplier2_enabled">
      <property name="title">
       <string>Enable if (z &gt; &amp;0)  z = z +  (fabs(c ) * const. );  else  z = z - (fabs(c ) * const. );  Copy TWO</string>
@@ -4287,7 +4057,7 @@
      </layout>
     </widget>
    </item>
-   <item row="48" column="0">
+   <item row="50" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaAB2_enabled">
      <property name="title">
       <string>Enable z = fabs( z + const.A ) - fabs( z - const.B ) - z;   Copy TWO</string>
@@ -4811,7 +4581,7 @@
      </layout>
     </widget>
    </item>
-   <item row="12" column="0">
+   <item row="11" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsAddConstant1_enabled">
      <property name="title">
       <string>Enab&amp;le fabs Addition Constant  z = ( fabs( z + const.A )  *  const.B )   +   z  * const.C; Copy ONE</string>
@@ -5477,16 +5247,6 @@
           </property>
          </widget>
         </item>
-        <item row="10" column="0">
-         <widget class="QFrame" name="frame_2">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
       <item>
@@ -5499,7 +5259,7 @@
      </layout>
     </widget>
    </item>
-   <item row="22" column="0">
+   <item row="24" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_mandelbulbOriginal1_enabled">
      <property name="title">
       <string>Enable MANDELB&amp;ULB FORMULA;   Copy  ONE</string>
@@ -5813,7 +5573,7 @@
      </layout>
     </widget>
    </item>
-   <item row="41" column="0">
+   <item row="43" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation3_enabled">
      <property name="title">
       <string>Enable Main Ro&amp;tation;  Copy THREE</string>
@@ -6103,7 +5863,7 @@
      </layout>
     </widget>
    </item>
-   <item row="43" column="0">
+   <item row="45" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_variableConstantMultiplier1_enabled">
      <property name="title">
       <string>Enable z = z + ( c * (const + variableConst * (i - Start itr)/ (Stop Itr - Start Itr)))  Copy  ONE</string>
@@ -6648,7 +6408,7 @@
      </layout>
     </widget>
    </item>
-   <item row="44" column="0">
+   <item row="46" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant2_enabled">
      <property name="title">
       <string>Enable Addition Constant  z = z + const.;   Copy TWO</string>
@@ -6932,7 +6692,7 @@
      </layout>
     </widget>
    </item>
-   <item row="46" column="0">
+   <item row="48" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation4_enabled">
      <property name="title">
       <string>Enable Main Ro&amp;tation;   Copy FOUR</string>
@@ -7222,273 +6982,7 @@
      </layout>
     </widget>
    </item>
-   <item row="7" column="0">
-    <widget class="MyGroupBox" name="groupCheck_transform_sphericalFold1_enabled">
-     <property name="title">
-      <string>Enable Spherical Fold;  Copy ONE</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_24" stretch="0,0,0">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_40">
-        <property name="topMargin">
-         <number>5</number>
-        </property>
-        <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_sphericalFold1_stop_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="5">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_sphericalFold1_weight">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>1.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="7">
-         <widget class="QLabel" name="label_141">
-          <property name="text">
-           <string>Copy ONE</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_146">
-          <property name="text">
-           <string>Stop at iteration:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="6">
-         <spacer name="horizontalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transform_sphericalFold1_start_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>0</number>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_147">
-          <property name="text">
-           <string>Start at iteration :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_transform_sphericalFold1_weight_enabled">
-          <property name="text">
-           <string>Enable weight:</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_41">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_148">
-          <property name="text">
-           <string>Fixed Radius:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_149">
-          <property name="text">
-           <string>Minimum Radius:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QSlider" name="slider_transform_sphericalFold1_fixed_radius">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_sphericalFold1_fixed_radius">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>3</number>
-          </property>
-          <property name="minimum">
-           <double>-36000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>36000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QSlider" name="slider_transform_sphericalFold1_min_radius">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_sphericalFold1_min_radius">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>3</number>
-          </property>
-          <property name="minimum">
-           <double>-360000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>360000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_32">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="28" column="0">
+   <item row="30" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsSubConstant1_enabled">
      <property name="title">
       <string>Enable z =  - fabs( z - const.A )   *  const.B;  Copy ONE</string>
@@ -8009,7 +7503,7 @@
      </layout>
     </widget>
    </item>
-   <item row="32" column="0">
+   <item row="34" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaAB1_enabled">
      <property name="title">
       <string>Enable z = fabs( z + const.A) - fabs( z - const.B ) - z;  Copy ONE</string>
@@ -8530,7 +8024,7 @@
      </layout>
     </widget>
    </item>
-   <item row="33" column="0">
+   <item row="35" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation2_enabled">
      <property name="title">
       <string>Enable Main &amp;Rotation;  Copy TWO</string>
@@ -8820,7 +8314,7 @@
      </layout>
     </widget>
    </item>
-   <item row="34" column="0">
+   <item row="36" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaABCD1_enabled">
      <property name="title">
       <string>Enable  z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.&amp;D );  Copy ONE</string>
@@ -9686,7 +9180,7 @@
      </layout>
     </widget>
    </item>
-   <item row="37" column="0">
+   <item row="39" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_variableMandelbulbPower1_enabled">
      <property name="title">
       <string>Enable MANDELBULB FORMULA Variable Power ; Copy ONE</string>
@@ -10120,7 +9614,7 @@
      </layout>
     </widget>
    </item>
-   <item row="25" column="0">
+   <item row="27" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplierOriginal1_enabled">
      <property name="title">
       <string>Enable Constant Multiplier  z =  z +  ( c * const. );  ORI&amp;GINAL;  Copy ONE</string>
@@ -10431,7 +9925,7 @@
      </layout>
     </widget>
    </item>
-   <item row="36" column="0">
+   <item row="38" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiFastPwr2PineTree2_enabled">
      <property name="title">
       <string>Enable   MANDELBULB Benesi FastPwr2PineTree;  Copy TWO</string>
@@ -10742,7 +10236,7 @@
      </layout>
     </widget>
    </item>
-   <item row="21" column="0">
+   <item row="23" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiFastPwr2PineTree1_enabled">
      <property name="title">
       <string>Enable   MANDELBULB Benesi Fast Pwr2 Pine Tree;  Copy ONE</string>
@@ -11053,7 +10547,7 @@
      </layout>
     </widget>
    </item>
-   <item row="35" column="0">
+   <item row="37" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformOne2_enabled">
      <property name="title">
       <string>Enable Benesi Mag Transform ONE               ;  Copy TWO</string>
@@ -11549,10 +11043,10 @@
      </layout>
     </widget>
    </item>
-   <item row="19" column="0">
-    <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformTwo1_enabled">
+   <item row="18" column="0">
+    <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformOnePlusMinus1_enabled">
      <property name="title">
-      <string>Enable Benesi Mag Transform TWO                ;  Copy ONE</string>
+      <string>Enable Benesi Mag Transform One PlusMinus               ;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -11593,7 +11087,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformTwo1_stop_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformOnePlusMinus1_stop_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -11606,7 +11100,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformTwo1_start_iterations">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformOnePlusMinus1_start_iterations">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -11626,14 +11120,14 @@
          </widget>
         </item>
         <item row="1" column="5">
-         <widget class="QCheckBox" name="checkBox_transform_benesiMagTransformTwo1_weight_enabled">
+         <widget class="QCheckBox" name="checkBox_transform_benesiMagTransformOnePlusMinus1_weight_enabled">
           <property name="text">
            <string>Enable weight:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="6">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiMagTransformTwo1_weight">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiMagTransformOnePlusMinus1_weight">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -11685,7 +11179,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_scale_y">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOnePlusMinus1_scale_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -11707,7 +11201,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_scale_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOnePlusMinus1_scale_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -11735,7 +11229,7 @@
          </widget>
         </item>
         <item row="5" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_offset_y">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOnePlusMinus1_offset_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -11757,7 +11251,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_scale_x">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOnePlusMinus1_scale_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -11779,7 +11273,7 @@
          </widget>
         </item>
         <item row="6" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_offset_z">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOnePlusMinus1_offset_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -11808,7 +11302,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_scale_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOnePlusMinus1_scale_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -11843,7 +11337,7 @@
          </widget>
         </item>
         <item row="4" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_offset_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOnePlusMinus1_offset_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -11885,7 +11379,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_scale_z">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOnePlusMinus1_scale_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -11907,7 +11401,7 @@
          </widget>
         </item>
         <item row="6" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_offset_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOnePlusMinus1_offset_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -11942,7 +11436,7 @@
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_scale_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOnePlusMinus1_scale_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -11970,7 +11464,7 @@
          </widget>
         </item>
         <item row="5" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_offset_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformOnePlusMinus1_offset_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -12012,7 +11506,7 @@
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_offset_x">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformOnePlusMinus1_offset_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -12045,7 +11539,7 @@
      </layout>
     </widget>
    </item>
-   <item row="38" column="0">
+   <item row="40" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_mandelbulbMulti2_enabled">
      <property name="title">
       <string>Enable MANDELBULB  Multi_Formula;  Copy TWO</string>
@@ -12621,7 +12115,7 @@
      </layout>
     </widget>
    </item>
-   <item row="23" column="0">
+   <item row="25" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_mandelbulbMulti1_enabled">
      <property name="title">
       <string>Enable MANDELBULB  Multi_Formula;  Copy ONE</string>
@@ -13187,7 +12681,7 @@
      </layout>
     </widget>
    </item>
-   <item row="51" column="0">
+   <item row="52" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_sphericalOffset2_enabled">
      <property name="title">
       <string>Enable Spherical Offset  z = z * (&amp;1 + offset/length (z) ); Copy TWO</string>
@@ -13453,17 +12947,7 @@
      </layout>
     </widget>
    </item>
-   <item row="49" column="0">
-    <widget class="QFrame" name="frame_3">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="52" column="0">
+   <item row="53" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_coloringParameters1_enabled">
      <property name="title">
       <string>Enable Coloring Parameters; Copy ONE</string>
@@ -14094,7 +13578,7 @@
      </layout>
     </widget>
    </item>
-   <item row="13" column="0">
+   <item row="12" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation1_enabled">
      <property name="title">
       <string>Enable &amp;Main Rotation; Copy ONE</string>
@@ -14387,385 +13871,7 @@
      </layout>
     </widget>
    </item>
-   <item row="10" column="0">
-    <widget class="MyGroupBox" name="groupCheck_transform_mengerSponge1_enabled">
-     <property name="title">
-      <string>Enable MEN&amp;GER SPONGE  Copy ONE</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_41" stretch="0,0,0">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_55">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_207">
-          <property name="text">
-           <string>Start at iteration :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_mengerSponge1_stop_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transform_mengerSponge1_start_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>0</number>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_295">
-          <property name="text">
-           <string>Stop at iteration:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="9">
-         <widget class="QLabel" name="label_296">
-          <property name="text">
-           <string>Copy ONE</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="7">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_mengerSponge1_weight">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>1.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="8">
-         <spacer name="horizontalSpacer_30">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="0" column="6">
-         <widget class="QCheckBox" name="checkBox_transform_mengerSponge1_weight_enabled">
-          <property name="text">
-           <string>Enable weight:</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_81">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="4" column="1">
-         <widget class="QLabel" name="label_297">
-          <property name="text">
-           <string>z.z factor:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
-         <widget class="QSlider" name="slider3_transform_mengerSponge1_factorConstantVect_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_mengerSponge1_factorConstantVect_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_mengerSponge1_factorConstantVect_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QSlider" name="slider3_transform_mengerSponge1_factorConstantVect_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="label_298">
-          <property name="text">
-           <string>z.x factor:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="label_299">
-          <property name="text">
-           <string>z.y factor:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transform_mengerSponge1_factorConstantVect_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_300">
-          <property name="text">
-           <string>const.Z:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QSlider" name="slider3_transform_mengerSponge1_factorConstantVect_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QSlider" name="slider_transform_mengerSponge1_constantZ">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_mengerSponge1_constantZ">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="Line" name="line_37">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_66">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="17" column="0">
+   <item row="16" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagBackTransformOne1_enabled">
      <property name="title">
       <string>Enable BenesiMagBackTransform ONE </string>
@@ -14911,16 +14017,6 @@
          <widget class="QLabel" name="label_205">
           <property name="text">
            <string>vac</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QFrame" name="frame_4">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
           </property>
          </widget>
         </item>
@@ -15247,7 +14343,7 @@
      </layout>
     </widget>
    </item>
-   <item row="14" column="0">
+   <item row="13" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_variableScale1_enabled">
      <property name="title">
       <string>Enable Scale   z = z  * (scale + variableConst * (i - Start itr)/ (Stop Itr - Start Itr)));  Copy ONE</string>
@@ -15792,7 +14888,7 @@
      </layout>
     </widget>
    </item>
-   <item row="16" column="0">
+   <item row="15" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant1_enabled">
      <property name="title">
       <string>Enable Addition Constant  z = z +  const.;  Copy ONE</string>
@@ -16085,7 +15181,7 @@
      </layout>
     </widget>
    </item>
-   <item row="42" column="0">
+   <item row="44" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_variableScale2_enabled">
      <property name="title">
       <string>Enable Scale   z = z * (scale + variableConst * (i - Start itr)/ (Stop Itr - Start Itr));  Copy ONE</string>
@@ -16630,6 +15726,2346 @@
      </layout>
     </widget>
    </item>
+   <item row="19" column="0">
+    <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformTwo1_enabled">
+     <property name="title">
+      <string>Enable Benesi Mag Transform TWO              ;  Copy ONE</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_49" stretch="0,0,0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_98">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_381">
+          <property name="text">
+           <string>Start at iteration :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_382">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformTwo1_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformTwo1_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="8">
+         <widget class="QLabel" name="label_383">
+          <property name="text">
+           <string>Copy ONE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QCheckBox" name="checkBox_transform_benesiMagTransformTwo1_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="6">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiMagTransformTwo1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <spacer name="horizontalSpacer_49">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_99">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_scale_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_scale_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_offset_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLabel" name="label_384">
+          <property name="text">
+           <string>Offset z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_offset_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_offset_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_scale_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_offset_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_385">
+          <property name="text">
+           <string>Scale z:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_offset_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_386">
+          <property name="text">
+           <string>Scale x:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformTwo1_scale_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="label_387">
+          <property name="text">
+           <string>Offset x:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2" colspan="2">
+         <widget class="Line" name="line_88">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_offset_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="label_388">
+          <property name="text">
+           <string>Offset y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_389">
+          <property name="text">
+           <string>Scale y:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_scale_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformTwo1_scale_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2" colspan="2">
+         <widget class="Line" name="line_89">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_90">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="21" column="0">
+    <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformFour1_enabled">
+     <property name="title">
+      <string>Enable Benesi Mag Transform FOUR               ;  Copy ONE</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_30" stretch="0,0,0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_77">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_273">
+          <property name="text">
+           <string>Start at iteration :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_274">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformFour1_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformFour1_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="8">
+         <widget class="QLabel" name="label_275">
+          <property name="text">
+           <string>Copy ONE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QCheckBox" name="checkBox_transform_benesiMagTransformFour1_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="6">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiMagTransformFour1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <spacer name="horizontalSpacer_36">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_78">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_scale_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_scale_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_offset_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLabel" name="label_276">
+          <property name="text">
+           <string>Offset z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_offset_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_offset_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_scale_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_offset_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_277">
+          <property name="text">
+           <string>Scale z:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_offset_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_278">
+          <property name="text">
+           <string>Scale x:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFour1_scale_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="label_279">
+          <property name="text">
+           <string>Offset x:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2" colspan="2">
+         <widget class="Line" name="line_63">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_offset_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="label_280">
+          <property name="text">
+           <string>Offset y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_281">
+          <property name="text">
+           <string>Scale y:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_scale_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFour1_scale_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2" colspan="2">
+         <widget class="Line" name="line_64">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_65">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="20" column="0">
+    <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformThree1_enabled">
+     <property name="title">
+      <string>Enable Benesi Mag Transform THREE               ;  Copy ONE</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_46" stretch="0,0,0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_91">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_336">
+          <property name="text">
+           <string>Start at iteration :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_337">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformThree1_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformThree1_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="8">
+         <widget class="QLabel" name="label_338">
+          <property name="text">
+           <string>Copy ONE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QCheckBox" name="checkBox_transform_benesiMagTransformThree1_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="6">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiMagTransformThree1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <spacer name="horizontalSpacer_46">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_92">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformThree1_scale_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformThree1_scale_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformThree1_offset_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLabel" name="label_339">
+          <property name="text">
+           <string>Offset z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformThree1_offset_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformThree1_offset_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformThree1_scale_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformThree1_offset_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_340">
+          <property name="text">
+           <string>Scale z:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformThree1_offset_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_341">
+          <property name="text">
+           <string>Scale x:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformThree1_scale_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="label_342">
+          <property name="text">
+           <string>Offset x:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2" colspan="2">
+         <widget class="Line" name="line_74">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformThree1_offset_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="label_343">
+          <property name="text">
+           <string>Offset y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_344">
+          <property name="text">
+           <string>Scale y:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformThree1_scale_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformThree1_scale_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2" colspan="2">
+         <widget class="Line" name="line_75">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_76">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="22" column="0">
+    <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformFiveB1_enabled">
+     <property name="title">
+      <string>Enable Benesi Mag Transform FIVE_B             ;  Copy ONE</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_47" stretch="0,0,0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_93">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_345">
+          <property name="text">
+           <string>Start at iteration :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_346">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformFiveB1_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiMagTransformFiveB1_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="8">
+         <widget class="QLabel" name="label_347">
+          <property name="text">
+           <string>Copy ONE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QCheckBox" name="checkBox_transform_benesiMagTransformFiveB1_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="6">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiMagTransformFiveB1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <spacer name="horizontalSpacer_47">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_94">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_powOne_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_scale_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_scale_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="15" column="2" colspan="2">
+         <widget class="Line" name="line_78">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_offset_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="2" colspan="2">
+         <widget class="Line" name="line_77">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="QLabel" name="label_353">
+          <property name="text">
+           <string>Scale y:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_powTwo_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="label_355">
+          <property name="text">
+           <string>Power Two.y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_powOne_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="1">
+         <widget class="QLabel" name="label_352">
+          <property name="text">
+           <string>Offset y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="1">
+         <widget class="QLabel" name="label_351">
+          <property name="text">
+           <string>Offset x:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QLabel" name="label_350">
+          <property name="text">
+           <string>Scale x:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_scale_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="1">
+         <widget class="QLabel" name="label_349">
+          <property name="text">
+           <string>Scale z:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_powOne_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_358">
+          <property name="text">
+           <string>Power One.y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_359">
+          <property name="text">
+           <string>Power One.x</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_powTwo_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_powTwo_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_powOne_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2" colspan="2">
+         <widget class="Line" name="line_80">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_powOne_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_357">
+          <property name="text">
+           <string>Power One.z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_powTwo_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="label_356">
+          <property name="text">
+           <string>Power Two.x</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_scale_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_offset_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_offset_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_offset_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_offset_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_offset_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_powTwo_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLabel" name="label_354">
+          <property name="text">
+           <string>Power Two.z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_scale_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="1">
+         <widget class="QLabel" name="label_348">
+          <property name="text">
+           <string>Offset z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_scale_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiMagTransformFiveB1_powTwo_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiMagTransformFiveB1_powOne_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2" colspan="2">
+         <widget class="Line" name="line_84">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_79">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -16907,12 +18343,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>467</x>
-     <y>59</y>
+     <x>576</x>
+     <y>176</y>
     </hint>
     <hint type="destinationlabel">
-     <x>594</x>
-     <y>61</y>
+     <x>639</x>
+     <y>179</y>
     </hint>
    </hints>
   </connection>
@@ -16923,12 +18359,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>455</x>
-     <y>213</y>
+     <x>568</x>
+     <y>1125</y>
     </hint>
     <hint type="destinationlabel">
-     <x>586</x>
-     <y>223</y>
+     <x>635</x>
+     <y>1128</y>
     </hint>
    </hints>
   </connection>
@@ -16939,12 +18375,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>465</x>
-     <y>420</y>
+     <x>576</x>
+     <y>743</y>
     </hint>
     <hint type="destinationlabel">
-     <x>587</x>
-     <y>425</y>
+     <x>639</x>
+     <y>746</y>
     </hint>
    </hints>
   </connection>
@@ -16955,12 +18391,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>459</x>
-     <y>768</y>
+     <x>568</x>
+     <y>3958</y>
     </hint>
     <hint type="destinationlabel">
-     <x>592</x>
-     <y>770</y>
+     <x>635</x>
+     <y>3961</y>
     </hint>
    </hints>
   </connection>
@@ -16971,12 +18407,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>465</x>
-     <y>950</y>
+     <x>576</x>
+     <y>4499</y>
     </hint>
     <hint type="destinationlabel">
-     <x>575</x>
-     <y>946</y>
+     <x>639</x>
+     <y>4502</y>
     </hint>
    </hints>
   </connection>
@@ -16987,12 +18423,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>468</x>
-     <y>1115</y>
+     <x>576</x>
+     <y>4656</y>
     </hint>
     <hint type="destinationlabel">
-     <x>569</x>
-     <y>1108</y>
+     <x>639</x>
+     <y>4659</y>
     </hint>
    </hints>
   </connection>
@@ -17003,12 +18439,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>470</x>
-     <y>1355</y>
+     <x>576</x>
+     <y>4940</y>
     </hint>
     <hint type="destinationlabel">
-     <x>573</x>
-     <y>1359</y>
+     <x>639</x>
+     <y>4943</y>
     </hint>
    </hints>
   </connection>
@@ -17019,12 +18455,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>463</x>
-     <y>1863</y>
+     <x>576</x>
+     <y>5322</y>
     </hint>
     <hint type="destinationlabel">
-     <x>575</x>
-     <y>1865</y>
+     <x>639</x>
+     <y>5325</y>
     </hint>
    </hints>
   </connection>
@@ -17035,12 +18471,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>464</x>
-     <y>2101</y>
+     <x>566</x>
+     <y>5606</y>
     </hint>
     <hint type="destinationlabel">
-     <x>570</x>
-     <y>2106</y>
+     <x>633</x>
+     <y>5609</y>
     </hint>
    </hints>
   </connection>
@@ -17051,12 +18487,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>466</x>
-     <y>2309</y>
+     <x>576</x>
+     <y>5803</y>
     </hint>
     <hint type="destinationlabel">
-     <x>591</x>
-     <y>2310</y>
+     <x>639</x>
+     <y>5806</y>
     </hint>
    </hints>
   </connection>
@@ -17067,12 +18503,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>546</x>
-     <y>3309</y>
+     <x>566</x>
+     <y>8068</y>
     </hint>
     <hint type="destinationlabel">
-     <x>582</x>
-     <y>3309</y>
+     <x>633</x>
+     <y>8071</y>
     </hint>
    </hints>
   </connection>
@@ -17083,12 +18519,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>546</x>
-     <y>3471</y>
+     <x>574</x>
+     <y>8578</y>
     </hint>
     <hint type="destinationlabel">
-     <x>583</x>
-     <y>3470</y>
+     <x>637</x>
+     <y>8581</y>
     </hint>
    </hints>
   </connection>
@@ -17099,12 +18535,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>476</x>
-     <y>3735</y>
+     <x>566</x>
+     <y>8878</y>
     </hint>
     <hint type="destinationlabel">
-     <x>575</x>
-     <y>3735</y>
+     <x>633</x>
+     <y>8881</y>
     </hint>
    </hints>
   </connection>
@@ -17115,12 +18551,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>596</x>
-     <y>164</y>
+     <x>627</x>
+     <y>269</y>
     </hint>
     <hint type="destinationlabel">
-     <x>647</x>
-     <y>166</y>
+     <x>711</x>
+     <y>272</y>
     </hint>
    </hints>
   </connection>
@@ -17131,12 +18567,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>571</x>
-     <y>1619</y>
+     <x>602</x>
+     <y>5260</y>
     </hint>
     <hint type="destinationlabel">
-     <x>622</x>
-     <y>1620</y>
+     <x>711</x>
+     <y>5263</y>
     </hint>
    </hints>
   </connection>
@@ -17147,12 +18583,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>18</x>
-     <y>1383</y>
+     <x>38</x>
+     <y>4972</y>
     </hint>
     <hint type="destinationlabel">
-     <x>143</x>
-     <y>1386</y>
+     <x>298</x>
+     <y>4976</y>
     </hint>
    </hints>
   </connection>
@@ -17163,12 +18599,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>52</x>
-     <y>1381</y>
+     <x>72</x>
+     <y>4972</y>
     </hint>
     <hint type="destinationlabel">
-     <x>617</x>
-     <y>1385</y>
+     <x>711</x>
+     <y>4975</y>
     </hint>
    </hints>
   </connection>
@@ -17179,12 +18615,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>21</x>
-     <y>1408</y>
+     <x>41</x>
+     <y>5003</y>
     </hint>
     <hint type="destinationlabel">
-     <x>298</x>
-     <y>1412</y>
+     <x>453</x>
+     <y>5007</y>
     </hint>
    </hints>
   </connection>
@@ -17195,12 +18631,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>39</x>
-     <y>1411</y>
+     <x>59</x>
+     <y>5003</y>
     </hint>
     <hint type="destinationlabel">
-     <x>604</x>
-     <y>1411</y>
+     <x>711</x>
+     <y>5006</y>
     </hint>
    </hints>
   </connection>
@@ -17211,12 +18647,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>1434</y>
+     <x>63</x>
+     <y>5034</y>
     </hint>
     <hint type="destinationlabel">
-     <x>237</x>
-     <y>1440</y>
+     <x>392</x>
+     <y>5038</y>
     </hint>
    </hints>
   </connection>
@@ -17227,12 +18663,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>61</x>
-     <y>1432</y>
+     <x>81</x>
+     <y>5034</y>
     </hint>
     <hint type="destinationlabel">
-     <x>627</x>
-     <y>1437</y>
+     <x>711</x>
+     <y>5037</y>
     </hint>
    </hints>
   </connection>
@@ -17243,12 +18679,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>572</x>
-     <y>2647</y>
+     <x>602</x>
+     <y>6221</y>
     </hint>
     <hint type="destinationlabel">
-     <x>631</x>
-     <y>2653</y>
+     <x>711</x>
+     <y>6224</y>
     </hint>
    </hints>
   </connection>
@@ -17259,12 +18695,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>16</x>
-     <y>1142</y>
+     <x>36</x>
+     <y>4688</y>
     </hint>
     <hint type="destinationlabel">
-     <x>214</x>
-     <y>1143</y>
+     <x>369</x>
+     <y>4692</y>
     </hint>
    </hints>
   </connection>
@@ -17275,12 +18711,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>69</x>
-     <y>1145</y>
+     <x>89</x>
+     <y>4688</y>
     </hint>
     <hint type="destinationlabel">
-     <x>623</x>
-     <y>1146</y>
+     <x>711</x>
+     <y>4691</y>
     </hint>
    </hints>
   </connection>
@@ -17291,12 +18727,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>18</x>
-     <y>1164</y>
+     <x>38</x>
+     <y>4719</y>
     </hint>
     <hint type="destinationlabel">
-     <x>186</x>
-     <y>1169</y>
+     <x>341</x>
+     <y>4723</y>
     </hint>
    </hints>
   </connection>
@@ -17307,12 +18743,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>52</x>
-     <y>1169</y>
+     <x>72</x>
+     <y>4719</y>
     </hint>
     <hint type="destinationlabel">
-     <x>630</x>
-     <y>1173</y>
+     <x>711</x>
+     <y>4722</y>
     </hint>
    </hints>
   </connection>
@@ -17323,12 +18759,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>30</x>
-     <y>1190</y>
+     <x>50</x>
+     <y>4750</y>
     </hint>
     <hint type="destinationlabel">
-     <x>166</x>
-     <y>1190</y>
+     <x>321</x>
+     <y>4754</y>
     </hint>
    </hints>
   </connection>
@@ -17339,12 +18775,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>1190</y>
+     <x>60</x>
+     <y>4750</y>
     </hint>
     <hint type="destinationlabel">
-     <x>626</x>
-     <y>1195</y>
+     <x>711</x>
+     <y>4753</y>
     </hint>
    </hints>
   </connection>
@@ -17355,12 +18791,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>449</x>
-     <y>2900</y>
+     <x>553</x>
+     <y>7310</y>
     </hint>
     <hint type="destinationlabel">
-     <x>565</x>
-     <y>2898</y>
+     <x>620</x>
+     <y>7313</y>
     </hint>
    </hints>
   </connection>
@@ -17371,12 +18807,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>589</x>
-     <y>3835</y>
+     <x>627</x>
+     <y>8971</y>
     </hint>
     <hint type="destinationlabel">
-     <x>633</x>
-     <y>3837</y>
+     <x>711</x>
+     <y>8974</y>
     </hint>
    </hints>
   </connection>
@@ -17387,12 +18823,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>571</x>
-     <y>3651</y>
+     <x>602</x>
+     <y>8800</y>
     </hint>
     <hint type="destinationlabel">
-     <x>613</x>
-     <y>3651</y>
+     <x>711</x>
+     <y>8803</y>
     </hint>
    </hints>
   </connection>
@@ -17403,12 +18839,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>19</x>
-     <y>3495</y>
+     <x>39</x>
+     <y>8610</y>
     </hint>
     <hint type="destinationlabel">
-     <x>310</x>
-     <y>3500</y>
+     <x>433</x>
+     <y>8614</y>
     </hint>
    </hints>
   </connection>
@@ -17419,12 +18855,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>3497</y>
+     <x>63</x>
+     <y>8610</y>
     </hint>
     <hint type="destinationlabel">
-     <x>605</x>
-     <y>3495</y>
+     <x>711</x>
+     <y>8613</y>
     </hint>
    </hints>
   </connection>
@@ -17435,12 +18871,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>21</x>
-     <y>3520</y>
+     <x>41</x>
+     <y>8641</y>
     </hint>
     <hint type="destinationlabel">
-     <x>340</x>
-     <y>3522</y>
+     <x>463</x>
+     <y>8645</y>
     </hint>
    </hints>
   </connection>
@@ -17451,12 +18887,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>36</x>
-     <y>3521</y>
+     <x>56</x>
+     <y>8641</y>
     </hint>
     <hint type="destinationlabel">
-     <x>619</x>
-     <y>3522</y>
+     <x>711</x>
+     <y>8644</y>
     </hint>
    </hints>
   </connection>
@@ -17467,12 +18903,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>21</x>
-     <y>3549</y>
+     <x>41</x>
+     <y>8672</y>
     </hint>
     <hint type="destinationlabel">
-     <x>249</x>
-     <y>3551</y>
+     <x>372</x>
+     <y>8676</y>
     </hint>
    </hints>
   </connection>
@@ -17483,12 +18919,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>35</x>
-     <y>3541</y>
+     <x>55</x>
+     <y>8672</y>
     </hint>
     <hint type="destinationlabel">
-     <x>633</x>
-     <y>3551</y>
+     <x>711</x>
+     <y>8675</y>
     </hint>
    </hints>
   </connection>
@@ -17499,12 +18935,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>19</x>
-     <y>2339</y>
+     <x>39</x>
+     <y>5835</y>
     </hint>
     <hint type="destinationlabel">
-     <x>226</x>
-     <y>2335</y>
+     <x>350</x>
+     <y>5839</y>
     </hint>
    </hints>
   </connection>
@@ -17515,12 +18951,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>32</x>
-     <y>2336</y>
+     <x>52</x>
+     <y>5835</y>
     </hint>
     <hint type="destinationlabel">
-     <x>645</x>
-     <y>2338</y>
+     <x>711</x>
+     <y>5838</y>
     </hint>
    </hints>
   </connection>
@@ -17531,12 +18967,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>15</x>
-     <y>2352</y>
+     <x>35</x>
+     <y>5866</y>
     </hint>
     <hint type="destinationlabel">
-     <x>219</x>
-     <y>2359</y>
+     <x>343</x>
+     <y>5870</y>
     </hint>
    </hints>
   </connection>
@@ -17547,12 +18983,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>53</x>
-     <y>2360</y>
+     <x>73</x>
+     <y>5866</y>
     </hint>
     <hint type="destinationlabel">
-     <x>617</x>
-     <y>2363</y>
+     <x>711</x>
+     <y>5869</y>
     </hint>
    </hints>
   </connection>
@@ -17563,12 +18999,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>18</x>
-     <y>2383</y>
+     <x>38</x>
+     <y>5897</y>
     </hint>
     <hint type="destinationlabel">
-     <x>267</x>
-     <y>2385</y>
+     <x>391</x>
+     <y>5901</y>
     </hint>
    </hints>
   </connection>
@@ -17579,12 +19015,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>2388</y>
+     <x>40</x>
+     <y>5897</y>
     </hint>
     <hint type="destinationlabel">
-     <x>621</x>
-     <y>2389</y>
+     <x>711</x>
+     <y>5900</y>
     </hint>
    </hints>
   </connection>
@@ -17595,12 +19031,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>17</x>
-     <y>2415</y>
+     <x>37</x>
+     <y>5933</y>
     </hint>
     <hint type="destinationlabel">
-     <x>169</x>
-     <y>2417</y>
+     <x>293</x>
+     <y>5937</y>
     </hint>
    </hints>
   </connection>
@@ -17611,12 +19047,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>31</x>
-     <y>2418</y>
+     <x>51</x>
+     <y>5933</y>
     </hint>
     <hint type="destinationlabel">
-     <x>600</x>
-     <y>2419</y>
+     <x>711</x>
+     <y>5936</y>
     </hint>
    </hints>
   </connection>
@@ -17627,12 +19063,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>18</x>
-     <y>2441</y>
+     <x>38</x>
+     <y>5964</y>
     </hint>
     <hint type="destinationlabel">
-     <x>199</x>
-     <y>2441</y>
+     <x>323</x>
+     <y>5968</y>
     </hint>
    </hints>
   </connection>
@@ -17643,12 +19079,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>42</x>
-     <y>2442</y>
+     <x>62</x>
+     <y>5964</y>
     </hint>
     <hint type="destinationlabel">
-     <x>608</x>
-     <y>2443</y>
+     <x>711</x>
+     <y>5967</y>
     </hint>
    </hints>
   </connection>
@@ -17659,12 +19095,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>19</x>
-     <y>2464</y>
+     <x>39</x>
+     <y>5995</y>
     </hint>
     <hint type="destinationlabel">
-     <x>213</x>
-     <y>2468</y>
+     <x>337</x>
+     <y>5999</y>
     </hint>
    </hints>
   </connection>
@@ -17675,12 +19111,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>48</x>
-     <y>2469</y>
+     <x>68</x>
+     <y>5995</y>
     </hint>
     <hint type="destinationlabel">
-     <x>630</x>
-     <y>2470</y>
+     <x>711</x>
+     <y>5998</y>
     </hint>
    </hints>
   </connection>
@@ -17691,12 +19127,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>12</x>
-     <y>1888</y>
+     <x>32</x>
+     <y>5354</y>
     </hint>
     <hint type="destinationlabel">
-     <x>282</x>
-     <y>1892</y>
+     <x>405</x>
+     <y>5358</y>
     </hint>
    </hints>
   </connection>
@@ -17707,12 +19143,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>31</x>
-     <y>1889</y>
+     <x>51</x>
+     <y>5354</y>
     </hint>
     <hint type="destinationlabel">
-     <x>623</x>
-     <y>1891</y>
+     <x>711</x>
+     <y>5357</y>
     </hint>
    </hints>
   </connection>
@@ -17723,12 +19159,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>27</x>
-     <y>1914</y>
+     <x>47</x>
+     <y>5385</y>
     </hint>
     <hint type="destinationlabel">
-     <x>180</x>
-     <y>1917</y>
+     <x>303</x>
+     <y>5389</y>
     </hint>
    </hints>
   </connection>
@@ -17739,12 +19175,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>41</x>
-     <y>1914</y>
+     <x>61</x>
+     <y>5385</y>
     </hint>
     <hint type="destinationlabel">
-     <x>598</x>
-     <y>1916</y>
+     <x>711</x>
+     <y>5388</y>
     </hint>
    </hints>
   </connection>
@@ -17755,12 +19191,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>1940</y>
+     <x>40</x>
+     <y>5416</y>
     </hint>
     <hint type="destinationlabel">
-     <x>245</x>
-     <y>1941</y>
+     <x>368</x>
+     <y>5420</y>
     </hint>
    </hints>
   </connection>
@@ -17771,12 +19207,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>1939</y>
+     <x>60</x>
+     <y>5416</y>
     </hint>
     <hint type="destinationlabel">
-     <x>608</x>
-     <y>1942</y>
+     <x>711</x>
+     <y>5419</y>
     </hint>
    </hints>
   </connection>
@@ -17787,12 +19223,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>568</x>
-     <y>2040</y>
+     <x>602</x>
+     <y>5544</y>
     </hint>
     <hint type="destinationlabel">
-     <x>616</x>
-     <y>2044</y>
+     <x>711</x>
+     <y>5547</y>
     </hint>
    </hints>
   </connection>
@@ -17803,12 +19239,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>577</x>
-     <y>1299</y>
+     <x>602</x>
+     <y>4878</y>
     </hint>
     <hint type="destinationlabel">
-     <x>615</x>
-     <y>1301</y>
+     <x>711</x>
+     <y>4881</y>
     </hint>
    </hints>
   </connection>
@@ -17819,12 +19255,412 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>573</x>
-     <y>687</y>
+     <x>602</x>
+     <y>1063</y>
     </hint>
     <hint type="destinationlabel">
-     <x>615</x>
-     <y>687</y>
+     <x>711</x>
+     <y>1066</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiMagForwardTransformOne1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiMagForwardTransformOne1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>508</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>44</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_boxOffset1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_boxOffset1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>435</x>
+     <y>317</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>539</x>
+     <y>323</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_sphericalOffset1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_sphericalOffset1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>476</x>
+     <y>478</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>561</x>
+     <y>483</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_sphericalFold1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_sphericalFold1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>468</x>
+     <y>605</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>567</x>
+     <y>615</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_variableScale1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_variableScale1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>508</x>
+     <y>1316</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>594</x>
+     <y>1320</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_constantMultiplier1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_constantMultiplier1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>448</x>
+     <y>1593</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>534</x>
+     <y>1598</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_additionConstant1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_additionConstant1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>468</x>
+     <y>1747</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>594</x>
+     <y>1761</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiMagBackTransformOne1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiMagBackTransformOne1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>504</x>
+     <y>1915</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>605</x>
+     <y>1906</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiMagTransformOne1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiMagTransformOne1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>491</x>
+     <y>2035</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>609</x>
+     <y>2038</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiMagTransformOnePlusMinus1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiMagTransformOnePlusMinus1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>484</x>
+     <y>2299</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>596</x>
+     <y>2302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiMagTransformTwo1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiMagTransformTwo1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>498</x>
+     <y>2554</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>608</x>
+     <y>2553</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiMagTransformThree1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiMagTransformThree1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>512</x>
+     <y>2814</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>606</x>
+     <y>2817</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiMagTransformFour1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiMagTransformFour1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>3076</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>610</x>
+     <y>3086</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiMagTransformFiveB1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiMagTransformFiveB1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>512</x>
+     <y>3336</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>613</x>
+     <y>3326</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiFastPwr2PineTree1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiFastPwr2PineTree1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>496</x>
+     <y>3787</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>617</x>
+     <y>3789</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_mandelbulbMulti1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_mandelbulbMulti1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>487</x>
+     <y>4114</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>606</x>
+     <y>4118</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiMagTransformOne2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiMagTransformOne2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>518</x>
+     <y>6281</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>6290</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiFastPwr2PineTree2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiFastPwr2PineTree2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>530</x>
+     <y>6545</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>6549</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_variableMandelbulbPower1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_variableMandelbulbPower1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>491</x>
+     <y>6709</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>607</x>
+     <y>6710</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_mandelbulbMulti2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_mandelbulbMulti2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>493</x>
+     <y>6929</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>603</x>
+     <y>6935</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_variableScale2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_variableScale2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>509</x>
+     <y>7507</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>621</x>
+     <y>7513</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_variableConstantMultiplier1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_variableConstantMultiplier1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>515</x>
+     <y>7790</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>596</x>
+     <y>7802</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_main_rotation4_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_main_rotation4_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>498</x>
+     <y>8228</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>596</x>
+     <y>8222</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_boxConstantMultiplier2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_boxConstantMultiplier2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>441</x>
+     <y>8431</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>528</x>
+     <y>8440</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_sphericalOffset2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_sphericalOffset2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>445</x>
+     <y>9033</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>555</x>
+     <y>9037</y>
     </hint>
    </hints>
   </connection>

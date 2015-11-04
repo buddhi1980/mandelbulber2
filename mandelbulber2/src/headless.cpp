@@ -27,6 +27,7 @@
 #include "global_data.hpp"
 #include "interface.hpp"
 #include "progress_text.hpp"
+#include "error_message.hpp"
 
 cHeadless::cHeadless() : QObject()
 {
@@ -99,10 +100,24 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 void cHeadless::RenderQueue()
 {
 	gQueue->slotQueueRender();
-	do{
-		gApplication->processEvents();
-		Wait(100); // TODO substitute with proper handling
-	}while(gQueue->GetQueueSize() > 0);
+
+	while(true)
+	{
+		do
+		{
+			gApplication->processEvents();
+			Wait(100); // TODO substitute with proper handling
+		} while (gQueue->GetQueueSize() > 0);
+
+		cErrorMessage::showMessage("Queue is empty. Waiting for something to do.", cErrorMessage::infoMessage);
+		do
+		{
+			gApplication->processEvents();
+			Wait(100);
+		} while (gQueue->GetQueueSize() == 0);
+
+		gQueue->slotQueueRender();
+	}
 }
 
 void cHeadless::RenderFlightAnimation()
