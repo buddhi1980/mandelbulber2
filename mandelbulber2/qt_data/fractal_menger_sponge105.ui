@@ -3665,7 +3665,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="4">
+        <item row="1" column="7">
          <spacer name="horizontalSpacer_35">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -8128,7 +8128,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="4">
+        <item row="1" column="7">
          <spacer name="horizontalSpacer_38">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -10085,6 +10085,19 @@
         </item>
         <item row="0" column="4">
          <spacer name="horizontalSpacer_10">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="8">
+         <spacer name="horizontalSpacer_28">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -12262,12 +12275,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>397</x>
-     <y>342</y>
+     <x>502</x>
+     <y>386</y>
     </hint>
     <hint type="destinationlabel">
-     <x>456</x>
-     <y>344</y>
+     <x>565</x>
+     <y>389</y>
     </hint>
    </hints>
   </connection>
@@ -12278,12 +12291,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>412</x>
-     <y>567</y>
+     <x>517</x>
+     <y>638</y>
     </hint>
     <hint type="destinationlabel">
-     <x>475</x>
-     <y>569</y>
+     <x>584</x>
+     <y>641</y>
     </hint>
    </hints>
   </connection>
@@ -12294,12 +12307,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>412</x>
-     <y>768</y>
+     <x>517</x>
+     <y>760</y>
     </hint>
     <hint type="destinationlabel">
-     <x>475</x>
-     <y>770</y>
+     <x>584</x>
+     <y>763</y>
     </hint>
    </hints>
   </connection>
@@ -12310,12 +12323,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>396</x>
-     <y>1362</y>
+     <x>501</x>
+     <y>1677</y>
     </hint>
     <hint type="destinationlabel">
-     <x>455</x>
-     <y>1364</y>
+     <x>564</x>
+     <y>1680</y>
     </hint>
    </hints>
   </connection>
@@ -12326,12 +12339,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>413</x>
-     <y>1498</y>
+     <x>518</x>
+     <y>2086</y>
     </hint>
     <hint type="destinationlabel">
-     <x>476</x>
-     <y>1500</y>
+     <x>585</x>
+     <y>2089</y>
     </hint>
    </hints>
   </connection>
@@ -12342,12 +12355,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>396</x>
-     <y>1634</y>
+     <x>501</x>
+     <y>2239</y>
     </hint>
     <hint type="destinationlabel">
-     <x>455</x>
-     <y>1636</y>
+     <x>564</x>
+     <y>2242</y>
     </hint>
    </hints>
   </connection>
@@ -12358,12 +12371,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>410</x>
-     <y>2467</y>
+     <x>514</x>
+     <y>3028</y>
     </hint>
     <hint type="destinationlabel">
-     <x>473</x>
-     <y>2469</y>
+     <x>581</x>
+     <y>3031</y>
     </hint>
    </hints>
   </connection>
@@ -12374,12 +12387,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>409</x>
-     <y>2697</y>
+     <x>513</x>
+     <y>3280</y>
     </hint>
     <hint type="destinationlabel">
-     <x>472</x>
-     <y>2699</y>
+     <x>580</x>
+     <y>3283</y>
     </hint>
    </hints>
   </connection>
@@ -12390,12 +12403,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>412</x>
-     <y>1995</y>
+     <x>517</x>
+     <y>1517</y>
     </hint>
     <hint type="destinationlabel">
-     <x>475</x>
-     <y>1997</y>
+     <x>584</x>
+     <y>1520</y>
     </hint>
    </hints>
   </connection>
@@ -12406,12 +12419,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>412</x>
-     <y>3034</y>
+     <x>517</x>
+     <y>3805</y>
     </hint>
     <hint type="destinationlabel">
-     <x>475</x>
-     <y>3036</y>
+     <x>584</x>
+     <y>3808</y>
     </hint>
    </hints>
   </connection>
@@ -12422,12 +12435,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>413</x>
-     <y>3170</y>
+     <x>518</x>
+     <y>3958</y>
     </hint>
     <hint type="destinationlabel">
-     <x>476</x>
-     <y>3172</y>
+     <x>585</x>
+     <y>3961</y>
     </hint>
    </hints>
   </connection>
@@ -12438,12 +12451,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>412</x>
-     <y>3469</y>
+     <x>517</x>
+     <y>3402</y>
     </hint>
     <hint type="destinationlabel">
-     <x>475</x>
-     <y>3471</y>
+     <x>584</x>
+     <y>3405</y>
     </hint>
    </hints>
   </connection>
@@ -12454,12 +12467,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>396</x>
-     <y>3626</y>
+     <x>501</x>
+     <y>4716</y>
     </hint>
     <hint type="destinationlabel">
-     <x>455</x>
-     <y>3628</y>
+     <x>564</x>
+     <y>4719</y>
     </hint>
    </hints>
   </connection>
@@ -12470,12 +12483,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>553</x>
-     <y>4001</y>
+     <x>341</x>
+     <y>5163</y>
     </hint>
     <hint type="destinationlabel">
-     <x>616</x>
-     <y>4003</y>
+     <x>408</x>
+     <y>5166</y>
     </hint>
    </hints>
   </connection>
@@ -12486,12 +12499,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>396</x>
-     <y>932</y>
+     <x>501</x>
+     <y>1015</y>
     </hint>
     <hint type="destinationlabel">
-     <x>455</x>
-     <y>934</y>
+     <x>564</x>
+     <y>1018</y>
     </hint>
    </hints>
   </connection>
@@ -12502,12 +12515,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>3653</y>
+     <x>80</x>
+     <y>4748</y>
     </hint>
     <hint type="destinationlabel">
-     <x>353</x>
-     <y>3651</y>
+     <x>470</x>
+     <y>4752</y>
     </hint>
    </hints>
   </connection>
@@ -12518,12 +12531,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>66</x>
-     <y>3653</y>
+     <x>79</x>
+     <y>4748</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>3655</y>
+     <x>681</x>
+     <y>4751</y>
     </hint>
    </hints>
   </connection>
@@ -12534,12 +12547,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>61</x>
-     <y>3678</y>
+     <x>74</x>
+     <y>4779</y>
     </hint>
     <hint type="destinationlabel">
-     <x>337</x>
-     <y>3676</y>
+     <x>454</x>
+     <y>4783</y>
     </hint>
    </hints>
   </connection>
@@ -12550,12 +12563,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>3678</y>
+     <x>80</x>
+     <y>4779</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>3680</y>
+     <x>681</x>
+     <y>4782</y>
     </hint>
    </hints>
   </connection>
@@ -12566,12 +12579,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>54</x>
-     <y>3703</y>
+     <x>67</x>
+     <y>4810</y>
     </hint>
     <hint type="destinationlabel">
-     <x>340</x>
-     <y>3701</y>
+     <x>457</x>
+     <y>4814</y>
     </hint>
    </hints>
   </connection>
@@ -12582,12 +12595,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>3703</y>
+     <x>80</x>
+     <y>4810</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>3705</y>
+     <x>681</x>
+     <y>4813</y>
     </hint>
    </hints>
   </connection>
@@ -12598,12 +12611,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>48</x>
-     <y>3733</y>
+     <x>61</x>
+     <y>4846</y>
     </hint>
     <hint type="destinationlabel">
-     <x>394</x>
-     <y>3731</y>
+     <x>511</x>
+     <y>4850</y>
     </hint>
    </hints>
   </connection>
@@ -12614,12 +12627,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>64</x>
-     <y>3733</y>
+     <x>77</x>
+     <y>4846</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>3735</y>
+     <x>681</x>
+     <y>4849</y>
     </hint>
    </hints>
   </connection>
@@ -12630,12 +12643,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>3758</y>
+     <x>80</x>
+     <y>4877</y>
     </hint>
     <hint type="destinationlabel">
-     <x>367</x>
-     <y>3756</y>
+     <x>484</x>
+     <y>4881</y>
     </hint>
    </hints>
   </connection>
@@ -12646,12 +12659,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>59</x>
-     <y>3758</y>
+     <x>72</x>
+     <y>4877</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>3760</y>
+     <x>681</x>
+     <y>4880</y>
     </hint>
    </hints>
   </connection>
@@ -12662,12 +12675,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>66</x>
-     <y>3783</y>
+     <x>79</x>
+     <y>4908</y>
     </hint>
     <hint type="destinationlabel">
-     <x>360</x>
-     <y>3781</y>
+     <x>477</x>
+     <y>4912</y>
     </hint>
    </hints>
   </connection>
@@ -12678,12 +12691,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>62</x>
-     <y>3783</y>
+     <x>75</x>
+     <y>4908</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>3785</y>
+     <x>681</x>
+     <y>4911</y>
     </hint>
    </hints>
   </connection>
@@ -12694,12 +12707,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>1661</y>
+     <x>80</x>
+     <y>2271</y>
     </hint>
     <hint type="destinationlabel">
-     <x>255</x>
-     <y>1659</y>
+     <x>372</x>
+     <y>2275</y>
     </hint>
    </hints>
   </connection>
@@ -12710,12 +12723,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>64</x>
-     <y>1661</y>
+     <x>77</x>
+     <y>2271</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>1663</y>
+     <x>681</x>
+     <y>2274</y>
     </hint>
    </hints>
   </connection>
@@ -12726,12 +12739,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>61</x>
-     <y>1686</y>
+     <x>74</x>
+     <y>2302</y>
     </hint>
     <hint type="destinationlabel">
-     <x>286</x>
-     <y>1684</y>
+     <x>403</x>
+     <y>2306</y>
     </hint>
    </hints>
   </connection>
@@ -12742,12 +12755,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>62</x>
-     <y>1686</y>
+     <x>75</x>
+     <y>2302</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>1688</y>
+     <x>681</x>
+     <y>2305</y>
     </hint>
    </hints>
   </connection>
@@ -12758,12 +12771,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>65</x>
-     <y>1711</y>
+     <x>78</x>
+     <y>2333</y>
     </hint>
     <hint type="destinationlabel">
-     <x>237</x>
-     <y>1709</y>
+     <x>354</x>
+     <y>2337</y>
     </hint>
    </hints>
   </connection>
@@ -12774,12 +12787,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>48</x>
-     <y>1711</y>
+     <x>61</x>
+     <y>2333</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>1713</y>
+     <x>681</x>
+     <y>2336</y>
     </hint>
    </hints>
   </connection>
@@ -12790,12 +12803,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>1736</y>
+     <x>76</x>
+     <y>2369</y>
     </hint>
     <hint type="destinationlabel">
-     <x>278</x>
-     <y>1734</y>
+     <x>395</x>
+     <y>2373</y>
     </hint>
    </hints>
   </connection>
@@ -12806,12 +12819,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>64</x>
-     <y>1736</y>
+     <x>77</x>
+     <y>2369</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>1738</y>
+     <x>681</x>
+     <y>2372</y>
     </hint>
    </hints>
   </connection>
@@ -12822,12 +12835,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>1761</y>
+     <x>80</x>
+     <y>2400</y>
     </hint>
     <hint type="destinationlabel">
-     <x>271</x>
-     <y>1759</y>
+     <x>388</x>
+     <y>2404</y>
     </hint>
    </hints>
   </connection>
@@ -12838,12 +12851,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>55</x>
-     <y>1761</y>
+     <x>68</x>
+     <y>2400</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>1763</y>
+     <x>681</x>
+     <y>2403</y>
     </hint>
    </hints>
   </connection>
@@ -12854,12 +12867,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>64</x>
-     <y>1786</y>
+     <x>77</x>
+     <y>2431</y>
     </hint>
     <hint type="destinationlabel">
-     <x>272</x>
-     <y>1784</y>
+     <x>389</x>
+     <y>2435</y>
     </hint>
    </hints>
   </connection>
@@ -12870,12 +12883,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>52</x>
-     <y>1786</y>
+     <x>65</x>
+     <y>2431</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
-     <y>1788</y>
+     <x>681</x>
+     <y>2434</y>
     </hint>
    </hints>
   </connection>
@@ -12886,12 +12899,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>357</x>
-     <y>194</y>
+     <x>501</x>
+     <y>233</y>
     </hint>
     <hint type="destinationlabel">
-     <x>426</x>
-     <y>199</y>
+     <x>564</x>
+     <y>236</y>
     </hint>
    </hints>
   </connection>
@@ -12902,12 +12915,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>368</x>
-     <y>35</y>
+     <x>517</x>
+     <y>44</y>
     </hint>
     <hint type="destinationlabel">
-     <x>447</x>
-     <y>38</y>
+     <x>584</x>
+     <y>47</y>
     </hint>
    </hints>
   </connection>
@@ -12918,12 +12931,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>318</x>
-     <y>3298</y>
+     <x>517</x>
+     <y>4367</y>
     </hint>
     <hint type="destinationlabel">
-     <x>439</x>
-     <y>3298</y>
+     <x>584</x>
+     <y>4370</y>
     </hint>
    </hints>
   </connection>
@@ -12934,12 +12947,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>315</x>
-     <y>455</y>
+     <x>517</x>
+     <y>512</y>
     </hint>
     <hint type="destinationlabel">
-     <x>445</x>
-     <y>452</y>
+     <x>584</x>
+     <y>515</y>
     </hint>
    </hints>
   </connection>
@@ -12950,12 +12963,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>303</x>
-     <y>1222</y>
+     <x>501</x>
+     <y>1364</y>
     </hint>
     <hint type="destinationlabel">
-     <x>422</x>
-     <y>1224</y>
+     <x>564</x>
+     <y>1367</y>
     </hint>
    </hints>
   </connection>
@@ -12966,12 +12979,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>318</x>
-     <y>2153</y>
+     <x>517</x>
+     <y>2686</y>
     </hint>
     <hint type="destinationlabel">
-     <x>439</x>
-     <y>2157</y>
+     <x>584</x>
+     <y>2689</y>
     </hint>
    </hints>
   </connection>
@@ -12982,12 +12995,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>305</x>
-     <y>2320</y>
+     <x>501</x>
+     <y>2875</y>
     </hint>
     <hint type="destinationlabel">
-     <x>418</x>
-     <y>2326</y>
+     <x>564</x>
+     <y>2878</y>
     </hint>
    </hints>
   </connection>
@@ -12998,12 +13011,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>314</x>
-     <y>2572</y>
+     <x>517</x>
+     <y>3154</y>
     </hint>
     <hint type="destinationlabel">
-     <x>444</x>
-     <y>2574</y>
+     <x>584</x>
+     <y>3157</y>
     </hint>
    </hints>
   </connection>
@@ -13014,12 +13027,60 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>302</x>
-     <y>2891</y>
+     <x>501</x>
+     <y>3652</y>
     </hint>
     <hint type="destinationlabel">
-     <x>427</x>
-     <y>2889</y>
+     <x>564</x>
+     <y>3655</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiMagTransformOne1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiMagTransformOne1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>458</x>
+     <y>1813</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>528</x>
+     <y>1812</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiMagTransformOne2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiMagTransformOne2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>485</x>
+     <y>4100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>536</x>
+     <y>4107</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_main_rotation4_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_main_rotation4_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>463</x>
+     <y>4553</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>543</x>
+     <y>4562</y>
     </hint>
    </hints>
   </connection>

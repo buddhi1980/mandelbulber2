@@ -17,7 +17,573 @@
    <enum>Qt::LeftToRight</enum>
   </property>
   <layout class="QGridLayout" name="gridLayout_60">
-   <item row="35" column="0">
+   <item row="25" column="0">
+    <widget class="MyGroupBox" name="groupCheck_transform_mandelbulbMulti2_enabled">
+     <property name="title">
+      <string>Enable MANDELBULB  Multi_Formula Copy Two</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_80">
+        <property name="topMargin">
+         <number>5</number>
+        </property>
+        <item row="1" column="6" colspan="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbulbMulti2_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="9">
+         <widget class="Line" name="line_49">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_mandelbulbMulti2_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2" colspan="3">
+         <widget class="QDial" name="dial3_transform_mandelbulbMulti2_main_rotation_y">
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2" colspan="3">
+         <widget class="QLabel" name="label_273">
+          <property name="text">
+           <string>Orientation y</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="QDial" name="dial3_transform_mandelbulbMulti2_main_rotation_x">
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transform_mandelbulbMulti2_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti2_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_274">
+          <property name="text">
+           <string>Start at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_275">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="8">
+         <widget class="QLabel" name="label_276">
+          <property name="text">
+           <string>Copy TWO</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <spacer name="horizontalSpacer_36">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="5" column="0" colspan="2">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_mandelbulbMulti2_main_rotation_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-180.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>180.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="5" colspan="3">
+         <widget class="QDial" name="dial3_transform_mandelbulbMulti2_main_rotation_z">
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QLabel" name="label_277">
+          <property name="text">
+           <string>Orientation x</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2" colspan="3">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_mandelbulbMulti2_main_rotation_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-180.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>180.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="5" colspan="3">
+         <widget class="QLabel" name="label_278">
+          <property name="text">
+           <string>Orientation z</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0" colspan="9">
+         <widget class="Line" name="line_50">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="5" colspan="3">
+         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_mandelbulbMulti2_main_rotation_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-180.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>180.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0" colspan="2">
+         <widget class="QLabel" name="label_multi2_th0_function">
+          <property name="text">
+           <string>th0 function: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti2_acos_or_asin">
+          <item>
+           <property name="text">
+            <string>acos</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>asin</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="7" column="3" colspan="2">
+         <widget class="QLabel" name="label_multi2_ph0_function">
+          <property name="text">
+           <string>ph0 function: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="5">
+         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti2_atan_or_atan2">
+          <item>
+           <property name="text">
+            <string>atan</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>atan2</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="3">
+         <widget class="QLabel" name="label_multi2_order_of_xyz">
+          <property name="text">
+           <string>function order of x, y and z: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="3">
+         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti2_order_of_xyz">
+          <item>
+           <property name="text">
+            <string>xyz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>xzy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>yxz</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>yzx</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>zxy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>zyx</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_81">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="2" column="1">
+         <widget class="QSlider" name="slider_transform_mandelbulbMulti2_beta_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_279">
+          <property name="text">
+           <string>Alpha angle offset:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_280">
+          <property name="text">
+           <string>Beta angle offset:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_281">
+          <property name="text">
+           <string>Power:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSlider" name="slider_transform_mandelbulbMulti2_alpha_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbulbMulti2_alpha_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-36000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>36000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbulbMulti2_beta_angle_offset">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-36000.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>36000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbulbMulti2_power">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSlider" name="slider_transform_mandelbulbMulti2_power">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>2000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="36" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_box_fold2_enabled">
      <property name="title">
       <string>Enable Bo&amp;x Fold; Copy TWO</string>
@@ -43,13 +609,6 @@
       </property>
       <item>
        <layout class="QGridLayout" name="gridLayout_14">
-        <item row="0" column="8">
-         <widget class="QLabel" name="label_108">
-          <property name="text">
-           <string>Copy TWO</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_14">
           <property name="text">
@@ -57,35 +616,10 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transform_box_fold2_start_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>0</number>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="MySpinBox" name="spinboxInt_transform_box_fold2_stop_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
+        <item row="0" column="9">
+         <widget class="QLabel" name="label_108">
+          <property name="text">
+           <string>Copy TWO</string>
           </property>
          </widget>
         </item>
@@ -137,7 +671,39 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="5">
+        <item row="0" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transform_box_fold2_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="MySpinBox" name="spinboxInt_transform_box_fold2_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="8">
          <spacer name="horizontalSpacer_20">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -438,7 +1004,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
+        <item row="0" column="8">
          <spacer name="horizontalSpacer_3">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -612,7 +1178,7 @@
      </layout>
     </widget>
    </item>
-   <item row="39" column="0">
+   <item row="40" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_colorTrial1_enabled">
      <property name="title">
       <string>Enable colour trial;</string>
@@ -2019,7 +2585,7 @@
      </layout>
     </widget>
    </item>
-   <item row="16" column="0">
+   <item row="17" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaZAB1_enabled">
      <property name="title">
       <string>Enable  z =  fabs( z + const.A )  +  ( z  * const.B )  +  const.C ; Copy ONE</string>
@@ -2048,19 +2614,6 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="0" column="4">
-         <spacer name="horizontalSpacer_13">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_fabsFormulaZAB1_weight">
           <property name="enabled">
@@ -2139,6 +2692,19 @@
            <string>Enable weight:</string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="7">
+         <spacer name="horizontalSpacer_13">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -2697,7 +3263,7 @@
      </layout>
     </widget>
    </item>
-   <item row="19" column="0">
+   <item row="20" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant1_enabled">
      <property name="title">
       <string>Enable Addition Constant  z = z +  const.;  Copy ONE</string>
@@ -2735,19 +3301,6 @@
            <string>Enable weight:</string>
           </property>
          </widget>
-        </item>
-        <item row="0" column="4">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="0" column="3">
          <widget class="MySpinBox" name="spinboxInt_transform_additionConstant1_stop_iterations">
@@ -2832,6 +3385,19 @@
            <string>Start at iteration :</string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="8">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -3317,19 +3883,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="4">
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="1" column="2">
          <widget class="QLabel" name="label_16">
           <property name="text">
@@ -3376,6 +3929,19 @@
            <string>Start at iteration :</string>
           </property>
          </widget>
+        </item>
+        <item row="1" column="7">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -3944,7 +4510,7 @@
      </layout>
     </widget>
    </item>
-   <item row="9" column="0">
+   <item row="10" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_mandelbulbOriginal1_enabled">
      <property name="title">
       <string>Enable MANDELB&amp;ULB FORMULA;   Copy  ONE</string>
@@ -3980,19 +4546,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
-         <spacer name="horizontalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="0" column="2">
          <widget class="QLabel" name="label_27">
           <property name="text">
@@ -4000,7 +4553,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="7">
+        <item row="0" column="8">
          <widget class="QLabel" name="label_113">
           <property name="text">
            <string>Copy ONE</string>
@@ -4064,6 +4617,19 @@
            <double>0.100000000000000</double>
           </property>
          </widget>
+        </item>
+        <item row="0" column="7">
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -4284,34 +4850,7 @@
       </property>
       <item>
        <layout class="QGridLayout" name="gridLayout_9">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_17">
-          <property name="text">
-           <string>Start at iteration :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_20">
-          <property name="text">
-           <string>Stop at iteration:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation1_stop_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="8">
+        <item row="0" column="9">
          <widget class="QLabel" name="label_123">
           <property name="text">
            <string>Copy ONE</string>
@@ -4328,6 +4867,13 @@
           </property>
           <property name="maximum">
            <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="6">
+         <widget class="QCheckBox" name="checkBox_transform_main_rotation1_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
           </property>
          </widget>
         </item>
@@ -4359,14 +4905,34 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="6">
-         <widget class="QCheckBox" name="checkBox_transform_main_rotation1_weight_enabled">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_17">
           <property name="text">
-           <string>Enable weight:</string>
+           <string>Start at iteration :</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="5">
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_20">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation1_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="8">
          <spacer name="horizontalSpacer_5">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -4551,7 +5117,7 @@
      </layout>
     </widget>
    </item>
-   <item row="27" column="0">
+   <item row="28" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation3_enabled">
      <property name="title">
       <string>Enable Main Ro&amp;tation;  Copy THREE</string>
@@ -4584,6 +5150,32 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation3_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation3_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="2">
          <widget class="QLabel" name="label_33">
           <property name="text">
@@ -4591,7 +5183,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="7">
+        <item row="0" column="8">
          <widget class="QLabel" name="label_112">
           <property name="text">
            <string>Copy THREE</string>
@@ -4630,33 +5222,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation3_stop_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation3_start_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
+        <item row="0" column="7">
          <spacer name="horizontalSpacer_6">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -4841,7 +5407,7 @@
      </layout>
     </widget>
    </item>
-   <item row="29" column="0">
+   <item row="30" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_variableConstantMultiplier1_enabled">
      <property name="title">
       <string>Enable z = z + ( c * (const + variableConst * (i - Start itr)/ (Stop Itr - Start Itr)))  Copy  ONE</string>
@@ -4955,7 +5521,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
+        <item row="0" column="8">
          <spacer name="horizontalSpacer_23">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -5386,7 +5952,7 @@
      </layout>
     </widget>
    </item>
-   <item row="30" column="0">
+   <item row="31" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant2_enabled">
      <property name="title">
       <string>Enable Addition Constant  z = z + const.;   Copy TWO</string>
@@ -5421,19 +5987,6 @@
            <string>Enable weight:</string>
           </property>
          </widget>
-        </item>
-        <item row="0" column="4">
-         <spacer name="horizontalSpacer_7">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="0" column="6">
          <widget class="MyDoubleSpinBox" name="spinbox_transform_additionConstant2_weight">
@@ -5512,6 +6065,19 @@
            <string>Start at iteration :</string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="7">
+         <spacer name="horizontalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -5670,7 +6236,7 @@
      </layout>
     </widget>
    </item>
-   <item row="32" column="0">
+   <item row="33" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation4_enabled">
      <property name="title">
       <string>Enable Main Ro&amp;tation;   Copy FOUR</string>
@@ -5710,7 +6276,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="7">
+        <item row="0" column="8">
          <widget class="QLabel" name="label_216">
           <property name="text">
            <string>Copy FOUR</string>
@@ -5749,19 +6315,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation4_stop_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="MySpinBox" name="spinboxInt_transform_main_rotation4_start_iterations">
           <property name="sizePolicy">
@@ -5775,7 +6328,20 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
+        <item row="0" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_main_rotation4_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="7">
          <spacer name="horizontalSpacer_33">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -5960,7 +6526,7 @@
      </layout>
     </widget>
    </item>
-   <item row="33" column="0">
+   <item row="34" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_boxConstantMultiplier2_enabled">
      <property name="title">
       <string>Enable if (z &gt; &amp;0)  z = z +  (fabs(c ) * const. );  else  z = z - (fabs(c ) * const. );  Copy TWO</string>
@@ -6292,7 +6858,7 @@
      </layout>
     </widget>
    </item>
-   <item row="34" column="0">
+   <item row="35" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaAB2_enabled">
      <property name="title">
       <string>Enable z = fabs( z + const.A ) - fabs( z - const.B ) - z;   Copy TWO</string>
@@ -6403,7 +6969,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
+        <item row="0" column="7">
          <spacer name="horizontalSpacer_18">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -7196,7 +7762,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
+        <item row="0" column="8">
          <spacer name="horizontalSpacer_27">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -7627,7 +8193,7 @@
      </layout>
     </widget>
    </item>
-   <item row="15" column="0">
+   <item row="16" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsSubConstant1_enabled">
      <property name="title">
       <string>Enable z =  - fabs( z - const.A )   *  const.B;  Copy ONE</string>
@@ -7688,19 +8254,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
-         <spacer name="horizontalSpacer_15">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="0" column="8">
          <widget class="QLabel" name="label_131">
           <property name="text">
@@ -7747,6 +8300,19 @@
            <number>250</number>
           </property>
          </widget>
+        </item>
+        <item row="0" column="7">
+         <spacer name="horizontalSpacer_15">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -8148,7 +8714,7 @@
      </layout>
     </widget>
    </item>
-   <item row="20" column="0">
+   <item row="21" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaAB1_enabled">
      <property name="title">
       <string>Enable z = fabs( z + const.A) - fabs( z - const.B ) - z;  Copy ONE</string>
@@ -8256,7 +8822,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
+        <item row="0" column="7">
          <spacer name="horizontalSpacer_16">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -8669,7 +9235,7 @@
      </layout>
     </widget>
    </item>
-   <item row="21" column="0">
+   <item row="22" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_main_rotation2_enabled">
      <property name="title">
       <string>Enable Main &amp;Rotation;  Copy TWO</string>
@@ -8695,7 +9261,7 @@
       </property>
       <item>
        <layout class="QGridLayout" name="gridLayout_20">
-        <item row="0" column="7">
+        <item row="0" column="8">
          <widget class="QLabel" name="label_114">
           <property name="text">
            <string>Copy TWO</string>
@@ -8774,7 +9340,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
+        <item row="0" column="7">
          <spacer name="horizontalSpacer_11">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -8959,7 +9525,7 @@
      </layout>
     </widget>
    </item>
-   <item row="22" column="0">
+   <item row="23" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_fabsFormulaABCD1_enabled">
      <property name="title">
       <string>Enable  z = fabs(  z + const.A ) - fabs(  z - const.B )  + (  z * const.C  +  const.&amp;D );  Copy ONE</string>
@@ -8988,19 +9554,6 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="0" column="4">
-         <spacer name="horizontalSpacer_14">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="0" column="5">
          <widget class="QCheckBox" name="checkBox_transform_fabsFormulaABCD1_weight_enabled">
           <property name="text">
@@ -9079,6 +9632,19 @@
            <double>0.100000000000000</double>
           </property>
          </widget>
+        </item>
+        <item row="0" column="7">
+         <spacer name="horizontalSpacer_14">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -9815,573 +10381,7 @@
      </layout>
     </widget>
    </item>
-   <item row="24" column="0">
-    <widget class="MyGroupBox" name="groupCheck_transform_mandelbulbMulti2_enabled">
-     <property name="title">
-      <string>Enable MANDELBULB  Multi_Formula Copy Two</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_80">
-        <property name="topMargin">
-         <number>5</number>
-        </property>
-        <item row="1" column="6" colspan="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbulbMulti2_weight">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>1.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="9">
-         <widget class="Line" name="line_49">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="MySpinBox" name="spinboxInt_transform_mandelbulbMulti2_stop_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2" colspan="3">
-         <widget class="QDial" name="dial3_transform_mandelbulbMulti2_main_rotation_y">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2" colspan="3">
-         <widget class="QLabel" name="label_273">
-          <property name="text">
-           <string>Orientation y</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="QDial" name="dial3_transform_mandelbulbMulti2_main_rotation_x">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transform_mandelbulbMulti2_start_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="5">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti2_weight_enabled">
-          <property name="text">
-           <string>Enable weight:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_274">
-          <property name="text">
-           <string>Start at iteration:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_275">
-          <property name="text">
-           <string>Stop at iteration:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="8">
-         <widget class="QLabel" name="label_276">
-          <property name="text">
-           <string>Copy TWO</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <spacer name="horizontalSpacer_36">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="5" column="0" colspan="2">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_mandelbulbMulti2_main_rotation_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>-180.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>180.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="5" colspan="3">
-         <widget class="QDial" name="dial3_transform_mandelbulbMulti2_main_rotation_z">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0" colspan="2">
-         <widget class="QLabel" name="label_277">
-          <property name="text">
-           <string>Orientation x</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2" colspan="3">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_mandelbulbMulti2_main_rotation_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>-180.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>180.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="5" colspan="3">
-         <widget class="QLabel" name="label_278">
-          <property name="text">
-           <string>Orientation z</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0" colspan="9">
-         <widget class="Line" name="line_50">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="5" colspan="3">
-         <widget class="MyDoubleSpinBox" name="spinboxd3_transform_mandelbulbMulti2_main_rotation_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>-180.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>180.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0" colspan="2">
-         <widget class="QLabel" name="label_multi2_th0_function">
-          <property name="text">
-           <string>th0 function: </string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="2">
-         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti2_acos_or_asin">
-          <item>
-           <property name="text">
-            <string>acos</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>asin</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="7" column="3" colspan="2">
-         <widget class="QLabel" name="label_multi2_ph0_function">
-          <property name="text">
-           <string>ph0 function: </string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="5">
-         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti2_atan_or_atan2">
-          <item>
-           <property name="text">
-            <string>atan</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>atan2</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="8" column="0" colspan="3">
-         <widget class="QLabel" name="label_multi2_order_of_xyz">
-          <property name="text">
-           <string>function order of x, y and z: </string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="3">
-         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti2_order_of_xyz">
-          <item>
-           <property name="text">
-            <string>xyz</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>xzy</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>yxz</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>yzx</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>zxy</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>zyx</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_81">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="2" column="1">
-         <widget class="QSlider" name="slider_transform_mandelbulbMulti2_beta_angle_offset">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_279">
-          <property name="text">
-           <string>Alpha angle offset:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_280">
-          <property name="text">
-           <string>Beta angle offset:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_281">
-          <property name="text">
-           <string>Power:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QSlider" name="slider_transform_mandelbulbMulti2_alpha_angle_offset">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbulbMulti2_alpha_angle_offset">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>-36000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>36000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbulbMulti2_beta_angle_offset">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>-36000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>36000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transform_mandelbulbMulti2_power">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>2</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>1000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QSlider" name="slider_transform_mandelbulbMulti2_power">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>2000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="10" column="0">
+   <item row="11" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_mandelbulbMulti1_enabled">
      <property name="title">
       <string>Enable MANDELBULB  Multi_Formula;  Copy ONE</string>
@@ -10478,16 +10478,10 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0" colspan="2">
-         <widget class="QDial" name="dial3_transform_mandelbulbMulti1_main_rotation_x">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
+        <item row="1" column="5">
+         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti1_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
           </property>
          </widget>
         </item>
@@ -10504,10 +10498,16 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="5">
-         <widget class="QCheckBox" name="checkBox_transform_mandelbulbMulti1_weight_enabled">
-          <property name="text">
-           <string>Enable weight:</string>
+        <item row="4" column="0" colspan="2">
+         <widget class="QDial" name="dial3_transform_mandelbulbMulti1_main_rotation_x">
+          <property name="minimum">
+           <number>-18000</number>
+          </property>
+          <property name="maximum">
+           <number>18000</number>
+          </property>
+          <property name="wrapping">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -10545,19 +10545,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="4">
-         <spacer name="horizontalSpacer_30">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="3" column="0" colspan="2">
          <widget class="QLabel" name="label_205">
           <property name="text">
@@ -10593,6 +10580,13 @@
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0" colspan="9">
+         <widget class="Line" name="line_40">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -10634,11 +10628,18 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="0" colspan="9">
-         <widget class="Line" name="line_40">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
+        <item row="7" column="2">
+         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti1_acos_or_asin">
+          <item>
+           <property name="text">
+            <string>acos</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>asin</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item row="5" column="5" colspan="3">
@@ -10679,30 +10680,6 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="2">
-         <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti1_acos_or_asin">
-          <item>
-           <property name="text">
-            <string>acos</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>asin</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="7" column="3" colspan="2">
-         <widget class="QLabel" name="label_multi1_ph0_function">
-          <property name="text">
-           <string>ph0 function: </string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
         <item row="7" column="5">
          <widget class="QComboBox" name="comboBox_transform_mandelbulbMulti1_atan_or_atan2">
           <item>
@@ -10717,10 +10694,10 @@
           </item>
          </widget>
         </item>
-        <item row="8" column="0" colspan="3">
-         <widget class="QLabel" name="label_multi1_order_of_xyz">
+        <item row="7" column="3" colspan="2">
+         <widget class="QLabel" name="label_multi1_ph0_function">
           <property name="text">
-           <string>function order of x, y and z: </string>
+           <string>ph0 function: </string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -10760,6 +10737,29 @@
            </property>
           </item>
          </widget>
+        </item>
+        <item row="8" column="0" colspan="3">
+         <widget class="QLabel" name="label_multi1_order_of_xyz">
+          <property name="text">
+           <string>function order of x, y and z: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <spacer name="horizontalSpacer_30">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -10947,7 +10947,7 @@
      </layout>
     </widget>
    </item>
-   <item row="23" column="0">
+   <item row="24" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_variableMandelbulbPower1_enabled">
      <property name="title">
       <string>Enable MANDELBULB FORMULA Variable Power ; Copy ONE</string>
@@ -11052,7 +11052,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
+        <item row="0" column="7">
          <spacer name="horizontalSpacer_12">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -11381,7 +11381,7 @@
      </layout>
     </widget>
    </item>
-   <item row="37" column="0">
+   <item row="38" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_sphericalOffset2_enabled">
      <property name="title">
       <string>Enable Spherical Offset  z = z * (&amp;1 + offset/length (z) ); Copy TWO</string>
@@ -11647,7 +11647,7 @@
      </layout>
     </widget>
    </item>
-   <item row="38" column="0">
+   <item row="39" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_coloringParameters1_enabled">
      <property name="title">
       <string>Enable Coloring Parameters; Copy ONE</string>
@@ -12117,7 +12117,7 @@
      </layout>
     </widget>
    </item>
-   <item row="12" column="0">
+   <item row="13" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplierOriginal1_enabled">
      <property name="title">
       <string>Enable Constant Multiplier  z =  z +  ( c * const. );  ORI&amp;GINAL;  Copy ONE</string>
@@ -12218,7 +12218,14 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="4">
+        <item row="1" column="5">
+         <widget class="QCheckBox" name="checkBox_transform_constantMultiplierOriginal1_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="7">
          <spacer name="horizontalSpacer_19">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -12230,13 +12237,6 @@
            </size>
           </property>
          </spacer>
-        </item>
-        <item row="1" column="5">
-         <widget class="QCheckBox" name="checkBox_transform_constantMultiplierOriginal1_weight_enabled">
-          <property name="text">
-           <string>Enable weight:</string>
-          </property>
-         </widget>
         </item>
        </layout>
       </item>
@@ -12431,7 +12431,7 @@
    <item row="8" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformOne1_enabled">
      <property name="title">
-      <string>Enable Bensesi Mag Transform ONE               ;  Copy ONE</string>
+      <string>Enable Benesi Mag Transform ONE               ;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -12536,7 +12536,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="4">
+        <item row="1" column="7">
          <spacer name="horizontalSpacer_35">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -12924,6 +12924,317 @@
      </layout>
     </widget>
    </item>
+   <item row="9" column="0">
+    <widget class="MyGroupBox" name="groupCheck_transform_benesiFastPwr2PineTree1_enabled">
+     <property name="title">
+      <string>Enable   MANDELBULB Benesi Fast Pwr2 Pine Tree;  Copy ONE</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_37" stretch="0,0,0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_71">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_244">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiFastPwr2PineTree1_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transform_benesiFastPwr2PineTree1_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="8">
+         <widget class="QLabel" name="label_245">
+          <property name="text">
+           <string>Copy ONE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_249">
+          <property name="text">
+           <string>Start at iteration :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="6">
+         <widget class="MyDoubleSpinBox" name="spinbox_transform_benesiFastPwr2PineTree1_weight">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QCheckBox" name="checkBox_transform_benesiFastPwr2PineTree1_weight_enabled">
+          <property name="text">
+           <string>Enable weight:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="7">
+         <spacer name="horizontalSpacer_37">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_64">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiFastPwr2PineTree1_constantMultiplier_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiFastPwr2PineTree1_constantMultiplier_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiFastPwr2PineTree1_constantMultiplier_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QSlider" name="slider3_transform_benesiFastPwr2PineTree1_constantMultiplier_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-5000000</number>
+          </property>
+          <property name="maximum">
+           <number>5000000</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_195">
+          <property name="text">
+           <string>Constant Multiplier for C.x::</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_259">
+          <property name="text">
+           <string>Constant Multiplier for C.z:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiFastPwr2PineTree1_constantMultiplier_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transform_benesiFastPwr2PineTree1_constantMultiplier_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_196">
+          <property name="text">
+           <string>Constant Multiplier for C.y:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_56">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -13211,12 +13522,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>467</x>
-     <y>59</y>
+     <x>509</x>
+     <y>208</y>
     </hint>
     <hint type="destinationlabel">
-     <x>594</x>
-     <y>61</y>
+     <x>572</x>
+     <y>211</y>
     </hint>
    </hints>
   </connection>
@@ -13227,12 +13538,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>455</x>
-     <y>213</y>
+     <x>524</x>
+     <y>358</y>
     </hint>
     <hint type="destinationlabel">
-     <x>586</x>
-     <y>223</y>
+     <x>591</x>
+     <y>361</y>
     </hint>
    </hints>
   </connection>
@@ -13243,12 +13554,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>465</x>
-     <y>420</y>
+     <x>508</x>
+     <y>1080</y>
     </hint>
     <hint type="destinationlabel">
-     <x>587</x>
-     <y>425</y>
+     <x>571</x>
+     <y>1083</y>
     </hint>
    </hints>
   </connection>
@@ -13259,12 +13570,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>459</x>
-     <y>768</y>
+     <x>520</x>
+     <y>1883</y>
     </hint>
     <hint type="destinationlabel">
-     <x>592</x>
-     <y>770</y>
+     <x>587</x>
+     <y>1886</y>
     </hint>
    </hints>
   </connection>
@@ -13275,12 +13586,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>465</x>
-     <y>950</y>
+     <x>508</x>
+     <y>2409</y>
     </hint>
     <hint type="destinationlabel">
-     <x>575</x>
-     <y>946</y>
+     <x>571</x>
+     <y>2412</y>
     </hint>
    </hints>
   </connection>
@@ -13291,12 +13602,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>468</x>
-     <y>1115</y>
+     <x>508</x>
+     <y>2566</y>
     </hint>
     <hint type="destinationlabel">
-     <x>569</x>
-     <y>1108</y>
+     <x>571</x>
+     <y>2569</y>
     </hint>
    </hints>
   </connection>
@@ -13307,12 +13618,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>470</x>
-     <y>1355</y>
+     <x>508</x>
+     <y>2850</y>
     </hint>
     <hint type="destinationlabel">
-     <x>573</x>
-     <y>1359</y>
+     <x>571</x>
+     <y>2853</y>
     </hint>
    </hints>
   </connection>
@@ -13323,12 +13634,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>462</x>
-     <y>1702</y>
+     <x>525</x>
+     <y>3232</y>
     </hint>
     <hint type="destinationlabel">
-     <x>580</x>
-     <y>1703</y>
+     <x>592</x>
+     <y>3235</y>
     </hint>
    </hints>
   </connection>
@@ -13339,12 +13650,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>463</x>
-     <y>1863</y>
+     <x>508</x>
+     <y>3389</y>
     </hint>
     <hint type="destinationlabel">
-     <x>575</x>
-     <y>1865</y>
+     <x>571</x>
+     <y>3392</y>
     </hint>
    </hints>
   </connection>
@@ -13355,12 +13666,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>464</x>
-     <y>2101</y>
+     <x>524</x>
+     <y>3673</y>
     </hint>
     <hint type="destinationlabel">
-     <x>570</x>
-     <y>2106</y>
+     <x>591</x>
+     <y>3676</y>
     </hint>
    </hints>
   </connection>
@@ -13371,12 +13682,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>466</x>
-     <y>2309</y>
+     <x>508</x>
+     <y>3855</y>
     </hint>
     <hint type="destinationlabel">
-     <x>591</x>
-     <y>2310</y>
+     <x>571</x>
+     <y>3858</y>
     </hint>
    </hints>
   </connection>
@@ -13387,12 +13698,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>546</x>
-     <y>3309</y>
+     <x>525</x>
+     <y>5392</y>
     </hint>
     <hint type="destinationlabel">
-     <x>582</x>
-     <y>3309</y>
+     <x>592</x>
+     <y>5395</y>
     </hint>
    </hints>
   </connection>
@@ -13403,12 +13714,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>546</x>
-     <y>3471</y>
+     <x>508</x>
+     <y>5887</y>
     </hint>
     <hint type="destinationlabel">
-     <x>583</x>
-     <y>3470</y>
+     <x>571</x>
+     <y>5890</y>
     </hint>
    </hints>
   </connection>
@@ -13419,12 +13730,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>476</x>
-     <y>3735</y>
+     <x>525</x>
+     <y>6171</y>
     </hint>
     <hint type="destinationlabel">
-     <x>575</x>
-     <y>3735</y>
+     <x>592</x>
+     <y>6174</y>
     </hint>
    </hints>
   </connection>
@@ -13435,12 +13746,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>596</x>
-     <y>164</y>
+     <x>627</x>
+     <y>301</y>
     </hint>
     <hint type="destinationlabel">
-     <x>647</x>
-     <y>166</y>
+     <x>711</x>
+     <y>304</y>
     </hint>
    </hints>
   </connection>
@@ -13451,12 +13762,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>571</x>
-     <y>1619</y>
+     <x>602</x>
+     <y>3170</y>
     </hint>
     <hint type="destinationlabel">
-     <x>622</x>
-     <y>1620</y>
+     <x>711</x>
+     <y>3173</y>
     </hint>
    </hints>
   </connection>
@@ -13467,12 +13778,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>18</x>
-     <y>1383</y>
+     <x>38</x>
+     <y>2882</y>
     </hint>
     <hint type="destinationlabel">
-     <x>143</x>
-     <y>1386</y>
+     <x>298</x>
+     <y>2886</y>
     </hint>
    </hints>
   </connection>
@@ -13483,12 +13794,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>52</x>
-     <y>1381</y>
+     <x>72</x>
+     <y>2882</y>
     </hint>
     <hint type="destinationlabel">
-     <x>617</x>
-     <y>1385</y>
+     <x>711</x>
+     <y>2885</y>
     </hint>
    </hints>
   </connection>
@@ -13499,12 +13810,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>21</x>
-     <y>1408</y>
+     <x>41</x>
+     <y>2913</y>
     </hint>
     <hint type="destinationlabel">
-     <x>298</x>
-     <y>1412</y>
+     <x>453</x>
+     <y>2917</y>
     </hint>
    </hints>
   </connection>
@@ -13515,12 +13826,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>39</x>
-     <y>1411</y>
+     <x>59</x>
+     <y>2913</y>
     </hint>
     <hint type="destinationlabel">
-     <x>604</x>
-     <y>1411</y>
+     <x>711</x>
+     <y>2916</y>
     </hint>
    </hints>
   </connection>
@@ -13531,12 +13842,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>1434</y>
+     <x>63</x>
+     <y>2944</y>
     </hint>
     <hint type="destinationlabel">
-     <x>237</x>
-     <y>1440</y>
+     <x>392</x>
+     <y>2948</y>
     </hint>
    </hints>
   </connection>
@@ -13547,12 +13858,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>61</x>
-     <y>1432</y>
+     <x>81</x>
+     <y>2944</y>
     </hint>
     <hint type="destinationlabel">
-     <x>627</x>
-     <y>1437</y>
+     <x>711</x>
+     <y>2947</y>
     </hint>
    </hints>
   </connection>
@@ -13563,12 +13874,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>572</x>
-     <y>2647</y>
+     <x>602</x>
+     <y>4273</y>
     </hint>
     <hint type="destinationlabel">
-     <x>631</x>
-     <y>2653</y>
+     <x>711</x>
+     <y>4276</y>
     </hint>
    </hints>
   </connection>
@@ -13579,12 +13890,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>16</x>
-     <y>1142</y>
+     <x>36</x>
+     <y>2598</y>
     </hint>
     <hint type="destinationlabel">
-     <x>214</x>
-     <y>1143</y>
+     <x>369</x>
+     <y>2602</y>
     </hint>
    </hints>
   </connection>
@@ -13595,12 +13906,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>69</x>
-     <y>1145</y>
+     <x>89</x>
+     <y>2598</y>
     </hint>
     <hint type="destinationlabel">
-     <x>623</x>
-     <y>1146</y>
+     <x>711</x>
+     <y>2601</y>
     </hint>
    </hints>
   </connection>
@@ -13611,12 +13922,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>18</x>
-     <y>1164</y>
+     <x>38</x>
+     <y>2629</y>
     </hint>
     <hint type="destinationlabel">
-     <x>186</x>
-     <y>1169</y>
+     <x>341</x>
+     <y>2633</y>
     </hint>
    </hints>
   </connection>
@@ -13627,12 +13938,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>52</x>
-     <y>1169</y>
+     <x>72</x>
+     <y>2629</y>
     </hint>
     <hint type="destinationlabel">
-     <x>630</x>
-     <y>1173</y>
+     <x>711</x>
+     <y>2632</y>
     </hint>
    </hints>
   </connection>
@@ -13643,12 +13954,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>30</x>
-     <y>1190</y>
+     <x>50</x>
+     <y>2660</y>
     </hint>
     <hint type="destinationlabel">
-     <x>166</x>
-     <y>1190</y>
+     <x>321</x>
+     <y>2664</y>
     </hint>
    </hints>
   </connection>
@@ -13659,12 +13970,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>1190</y>
+     <x>60</x>
+     <y>2660</y>
     </hint>
     <hint type="destinationlabel">
-     <x>626</x>
-     <y>1195</y>
+     <x>711</x>
+     <y>2663</y>
     </hint>
    </hints>
   </connection>
@@ -13675,12 +13986,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>449</x>
-     <y>2900</y>
+     <x>524</x>
+     <y>4930</y>
     </hint>
     <hint type="destinationlabel">
-     <x>565</x>
-     <y>2898</y>
+     <x>591</x>
+     <y>4933</y>
     </hint>
    </hints>
   </connection>
@@ -13691,12 +14002,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>589</x>
-     <y>3835</y>
+     <x>627</x>
+     <y>6264</y>
     </hint>
     <hint type="destinationlabel">
-     <x>633</x>
-     <y>3837</y>
+     <x>711</x>
+     <y>6267</y>
     </hint>
    </hints>
   </connection>
@@ -13707,12 +14018,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>571</x>
-     <y>3651</y>
+     <x>602</x>
+     <y>6109</y>
     </hint>
     <hint type="destinationlabel">
-     <x>613</x>
-     <y>3651</y>
+     <x>711</x>
+     <y>6112</y>
     </hint>
    </hints>
   </connection>
@@ -13723,12 +14034,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>19</x>
-     <y>3495</y>
+     <x>39</x>
+     <y>5919</y>
     </hint>
     <hint type="destinationlabel">
-     <x>310</x>
-     <y>3500</y>
+     <x>433</x>
+     <y>5923</y>
     </hint>
    </hints>
   </connection>
@@ -13739,12 +14050,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>43</x>
-     <y>3497</y>
+     <x>63</x>
+     <y>5919</y>
     </hint>
     <hint type="destinationlabel">
-     <x>605</x>
-     <y>3495</y>
+     <x>711</x>
+     <y>5922</y>
     </hint>
    </hints>
   </connection>
@@ -13755,12 +14066,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>21</x>
-     <y>3520</y>
+     <x>41</x>
+     <y>5950</y>
     </hint>
     <hint type="destinationlabel">
-     <x>340</x>
-     <y>3522</y>
+     <x>463</x>
+     <y>5954</y>
     </hint>
    </hints>
   </connection>
@@ -13771,12 +14082,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>36</x>
-     <y>3521</y>
+     <x>56</x>
+     <y>5950</y>
     </hint>
     <hint type="destinationlabel">
-     <x>619</x>
-     <y>3522</y>
+     <x>711</x>
+     <y>5953</y>
     </hint>
    </hints>
   </connection>
@@ -13787,12 +14098,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>21</x>
-     <y>3549</y>
+     <x>41</x>
+     <y>5981</y>
     </hint>
     <hint type="destinationlabel">
-     <x>249</x>
-     <y>3551</y>
+     <x>372</x>
+     <y>5985</y>
     </hint>
    </hints>
   </connection>
@@ -13803,12 +14114,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>35</x>
-     <y>3541</y>
+     <x>55</x>
+     <y>5981</y>
     </hint>
     <hint type="destinationlabel">
-     <x>633</x>
-     <y>3551</y>
+     <x>711</x>
+     <y>5984</y>
     </hint>
    </hints>
   </connection>
@@ -13819,12 +14130,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>19</x>
-     <y>2339</y>
+     <x>39</x>
+     <y>3887</y>
     </hint>
     <hint type="destinationlabel">
-     <x>226</x>
-     <y>2335</y>
+     <x>350</x>
+     <y>3891</y>
     </hint>
    </hints>
   </connection>
@@ -13835,12 +14146,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>32</x>
-     <y>2336</y>
+     <x>52</x>
+     <y>3887</y>
     </hint>
     <hint type="destinationlabel">
-     <x>645</x>
-     <y>2338</y>
+     <x>711</x>
+     <y>3890</y>
     </hint>
    </hints>
   </connection>
@@ -13851,12 +14162,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>15</x>
-     <y>2352</y>
+     <x>35</x>
+     <y>3918</y>
     </hint>
     <hint type="destinationlabel">
-     <x>219</x>
-     <y>2359</y>
+     <x>343</x>
+     <y>3922</y>
     </hint>
    </hints>
   </connection>
@@ -13867,12 +14178,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>53</x>
-     <y>2360</y>
+     <x>73</x>
+     <y>3918</y>
     </hint>
     <hint type="destinationlabel">
-     <x>617</x>
-     <y>2363</y>
+     <x>711</x>
+     <y>3921</y>
     </hint>
    </hints>
   </connection>
@@ -13883,12 +14194,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>18</x>
-     <y>2383</y>
+     <x>38</x>
+     <y>3949</y>
     </hint>
     <hint type="destinationlabel">
-     <x>267</x>
-     <y>2385</y>
+     <x>391</x>
+     <y>3953</y>
     </hint>
    </hints>
   </connection>
@@ -13899,12 +14210,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>2388</y>
+     <x>40</x>
+     <y>3949</y>
     </hint>
     <hint type="destinationlabel">
-     <x>621</x>
-     <y>2389</y>
+     <x>711</x>
+     <y>3952</y>
     </hint>
    </hints>
   </connection>
@@ -13915,12 +14226,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>17</x>
-     <y>2415</y>
+     <x>37</x>
+     <y>3985</y>
     </hint>
     <hint type="destinationlabel">
-     <x>169</x>
-     <y>2417</y>
+     <x>293</x>
+     <y>3989</y>
     </hint>
    </hints>
   </connection>
@@ -13931,12 +14242,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>31</x>
-     <y>2418</y>
+     <x>51</x>
+     <y>3985</y>
     </hint>
     <hint type="destinationlabel">
-     <x>600</x>
-     <y>2419</y>
+     <x>711</x>
+     <y>3988</y>
     </hint>
    </hints>
   </connection>
@@ -13947,12 +14258,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>18</x>
-     <y>2441</y>
+     <x>38</x>
+     <y>4016</y>
     </hint>
     <hint type="destinationlabel">
-     <x>199</x>
-     <y>2441</y>
+     <x>323</x>
+     <y>4020</y>
     </hint>
    </hints>
   </connection>
@@ -13963,12 +14274,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>42</x>
-     <y>2442</y>
+     <x>62</x>
+     <y>4016</y>
     </hint>
     <hint type="destinationlabel">
-     <x>608</x>
-     <y>2443</y>
+     <x>711</x>
+     <y>4019</y>
     </hint>
    </hints>
   </connection>
@@ -13979,12 +14290,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>19</x>
-     <y>2464</y>
+     <x>39</x>
+     <y>4047</y>
     </hint>
     <hint type="destinationlabel">
-     <x>213</x>
-     <y>2468</y>
+     <x>337</x>
+     <y>4051</y>
     </hint>
    </hints>
   </connection>
@@ -13995,12 +14306,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>48</x>
-     <y>2469</y>
+     <x>68</x>
+     <y>4047</y>
     </hint>
     <hint type="destinationlabel">
-     <x>630</x>
-     <y>2470</y>
+     <x>711</x>
+     <y>4050</y>
     </hint>
    </hints>
   </connection>
@@ -14011,12 +14322,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>12</x>
-     <y>1888</y>
+     <x>32</x>
+     <y>3421</y>
     </hint>
     <hint type="destinationlabel">
-     <x>282</x>
-     <y>1892</y>
+     <x>405</x>
+     <y>3425</y>
     </hint>
    </hints>
   </connection>
@@ -14027,12 +14338,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>31</x>
-     <y>1889</y>
+     <x>51</x>
+     <y>3421</y>
     </hint>
     <hint type="destinationlabel">
-     <x>623</x>
-     <y>1891</y>
+     <x>711</x>
+     <y>3424</y>
     </hint>
    </hints>
   </connection>
@@ -14043,12 +14354,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>27</x>
-     <y>1914</y>
+     <x>47</x>
+     <y>3452</y>
     </hint>
     <hint type="destinationlabel">
-     <x>180</x>
-     <y>1917</y>
+     <x>303</x>
+     <y>3456</y>
     </hint>
    </hints>
   </connection>
@@ -14059,12 +14370,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>41</x>
-     <y>1914</y>
+     <x>61</x>
+     <y>3452</y>
     </hint>
     <hint type="destinationlabel">
-     <x>598</x>
-     <y>1916</y>
+     <x>711</x>
+     <y>3455</y>
     </hint>
    </hints>
   </connection>
@@ -14075,12 +14386,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>20</x>
-     <y>1940</y>
+     <x>40</x>
+     <y>3483</y>
     </hint>
     <hint type="destinationlabel">
-     <x>245</x>
-     <y>1941</y>
+     <x>368</x>
+     <y>3487</y>
     </hint>
    </hints>
   </connection>
@@ -14091,12 +14402,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>1939</y>
+     <x>60</x>
+     <y>3483</y>
     </hint>
     <hint type="destinationlabel">
-     <x>608</x>
-     <y>1942</y>
+     <x>711</x>
+     <y>3486</y>
     </hint>
    </hints>
   </connection>
@@ -14107,12 +14418,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>568</x>
-     <y>2040</y>
+     <x>602</x>
+     <y>3611</y>
     </hint>
     <hint type="destinationlabel">
-     <x>616</x>
-     <y>2044</y>
+     <x>711</x>
+     <y>3614</y>
     </hint>
    </hints>
   </connection>
@@ -14123,12 +14434,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>577</x>
-     <y>1299</y>
+     <x>602</x>
+     <y>2788</y>
     </hint>
     <hint type="destinationlabel">
-     <x>615</x>
-     <y>1301</y>
+     <x>711</x>
+     <y>2791</y>
     </hint>
    </hints>
   </connection>
@@ -14139,12 +14450,204 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>573</x>
-     <y>687</y>
+     <x>602</x>
+     <y>1400</y>
     </hint>
     <hint type="destinationlabel">
-     <x>615</x>
-     <y>687</y>
+     <x>711</x>
+     <y>1403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_boxOffset1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_boxOffset1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>390</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>532</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_sphericalOffset1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_sphericalOffset1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>467</x>
+     <y>529</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>557</x>
+     <y>537</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_sphericalFold1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_sphericalFold1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>663</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>548</x>
+     <y>670</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_variableScale1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_variableScale1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>461</x>
+     <y>783</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>561</x>
+     <y>801</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_benesiFastPwr2PineTree1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_benesiFastPwr2PineTree1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>420</x>
+     <y>1719</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>543</x>
+     <y>1718</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_mandelbulbMulti1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_mandelbulbMulti1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>502</x>
+     <y>2042</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>611</x>
+     <y>2046</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_variableMandelbulbPower1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_variableMandelbulbPower1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>481</x>
+     <y>4332</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>550</x>
+     <y>4336</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_mandelbulbMulti2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_mandelbulbMulti2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>471</x>
+     <y>4559</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>585</x>
+     <y>4556</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_variableConstantMultiplier1_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_variableConstantMultiplier1_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>468</x>
+     <y>5101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>545</x>
+     <y>5105</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_main_rotation4_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_main_rotation4_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>412</x>
+     <y>5543</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>559</x>
+     <y>5548</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_boxConstantMultiplier2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_boxConstantMultiplier2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>419</x>
+     <y>5726</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>523</x>
+     <y>5725</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transform_sphericalOffset2_weight_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_transform_sphericalOffset2_weight</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>469</x>
+     <y>6325</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>539</x>
+     <y>6326</y>
     </hint>
    </hints>
   </connection>

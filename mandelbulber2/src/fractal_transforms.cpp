@@ -740,9 +740,7 @@ void mengerSpongeOriginalTransform3D(const sTransformMengerSpongeOriginal &menge
 		//double tempAuxDE = aux.ifsDE;
 		CVector3 temp = z;
 		double tempMS;
-		z.x = fabs(z.x);
-		z.y = fabs(z.y);
-		z.z = fabs(z.z);
+    z = fabs(z);
 		if (z.x - z.y < 0)
 		{
 			tempMS = z.y;
@@ -784,9 +782,7 @@ void mengerSpongeTransform3D(const sTransformMengerSponge &mengerSponge, CVector
 		//double tempAuxDE = aux.ifsDE;
 		CVector3 temp = z;
 		double tempMS;
-		z.x = fabs(z.x);
-		z.y = fabs(z.y);
-		z.z = fabs(z.z);
+    z = fabs(z);
 		if (z.x - z.y < 0)
 		{
 			tempMS = z.y;
@@ -1238,17 +1234,17 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
     }
   }
 }
-//benesiMagForwardTransfor ONE 3D
+//benesiMagForwardTransform ONE 3D
 void benesiMagForwardTransformOneTransform3D(const sTransformBenesiMagForwardTransformOne &benesiMagForwardTransformOne, CVector3 &z,int i)
 {
   if (benesiMagForwardTransformOne.control.enabled && i >= benesiMagForwardTransformOne.control.startIterations && i < benesiMagForwardTransformOne.control.stopIterations)
   {
     CVector3 temp = z;
-    CVector3 tempV1;
-    tempV1.x = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
-    z.z = z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196;
-    z.x = (tempV1.x  - z.y) * 0.70710678118654752440084436210485;
-    z.y = (tempV1.x  + z.y) * 0.70710678118654752440084436210485;
+    double tempXZ = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
+    z = CVector3
+      ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
+      (tempXZ  + z.y) * 0.70710678118654752440084436210485,
+      z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
 
     //weight function
     if (benesiMagForwardTransformOne.control.weightEnabled)
@@ -1257,17 +1253,17 @@ void benesiMagForwardTransformOneTransform3D(const sTransformBenesiMagForwardTra
     }
   }
 }
-//benesiMagBackTransfor ONE 3D
+//benesiMagBackTransform ONE 3D
 void benesiMagBackTransformOneTransform3D(const sTransformBenesiMagBackTransformOne &benesiMagBackTransformOne, CVector3 &z,int i)
 {
   if (benesiMagBackTransformOne.control.enabled && i >= benesiMagBackTransformOne.control.startIterations && i < benesiMagBackTransformOne.control.stopIterations)
   {
     CVector3 temp = z;
-    CVector3 tempV1;
-    tempV1.x = (z.y + z.x) * 0.70710678118654752440084436210485;
-    z.y =   (z.y - z.x) * 0.70710678118654752440084436210485;
-    z.x = z.z * 0.57735026918962576450914878050196 + tempV1.x * 0.81649658092772603273242802490196;
-    z.z = z.z * 0.81649658092772603273242802490196 - tempV1.x * 0.57735026918962576450914878050196 ;
+    double tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
+    z = CVector3
+      ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
+      (z.y - z.x) * 0.70710678118654752440084436210485,
+      z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196);
 
     //weight function
     if (benesiMagBackTransformOne.control.weightEnabled)
@@ -1276,36 +1272,30 @@ void benesiMagBackTransformOneTransform3D(const sTransformBenesiMagBackTransform
     }
   }
 }
-
 //benesiMagTransform transform ONE 3D
-void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &benesiMagTransformOne, CVector3 &z,int i)
+void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &benesiMagTransformOne, CVector3 &z, int i, sExtendedAux &aux)
 {
   if (benesiMagTransformOne.control.enabled && i >= benesiMagTransformOne.control.startIterations && i < benesiMagTransformOne.control.stopIterations)
   {
     CVector3 temp = z;
-    CVector3 tempV1;
-    CVector3 newZ;
-    tempV1.x = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
-    newZ.z = z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196;
-    newZ.x = (tempV1.x  - z.y) * 0.70710678118654752440084436210485;
-    newZ.y = (tempV1.x  + z.y) * 0.70710678118654752440084436210485;
+    double tempXZ = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
+    z = CVector3
+      ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
+      (tempXZ  + z.y) * 0.70710678118654752440084436210485,
+      z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
+    z = fabs(z) * benesiMagTransformOne.scale;
 
-    newZ.x = fabs(newZ.x);
-    newZ.y = fabs(newZ.y);
-    newZ.z = fabs(newZ.z);
-    //newZ.x = fabs( newZ.x + benesiMagTransformOne.offset.x) - fabs( newZ.x - benesiMagTransformOne.offset.x ) - newZ.x ;
-    //newZ.y = fabs( newZ.y + benesiMagTransformOne.offset.y) - fabs( newZ.y - benesiMagTransformOne.offset.y ) - newZ.y ;
-    //newZ.z = fabs( newZ.z + benesiMagTransformOne.offset.z) - fabs( newZ.z - benesiMagTransformOne.offset.z ) - newZ.z ;
-    //newZ = fabs( newZ + benesiMagTransformOne.offset) -  fabs( newZ - benesiMagTransformOne.offset )  -   newZ ;
+    double avgScale = (fabs(benesiMagTransformOne.scale.x) + fabs(benesiMagTransformOne.scale.y) + fabs(benesiMagTransformOne.scale.z))/3;// cheap approximation
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * avgScale + 1.0;
 
+    tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
+    z = CVector3
+      ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
+      (z.y - z.x) * 0.70710678118654752440084436210485,
+      z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196) ;
 
-    tempV1.x = (newZ.y + newZ.x) * 0.70710678118654752440084436210485;
-    newZ.y =   (newZ.y - newZ.x) * 0.70710678118654752440084436210485;
-    newZ.x = newZ.z * 0.57735026918962576450914878050196 + tempV1.x * 0.81649658092772603273242802490196;
-    newZ.z = newZ.z * 0.81649658092772603273242802490196 - tempV1.x * 0.57735026918962576450914878050196 ;
-
-    z = benesiMagTransformOne.scale * newZ - benesiMagTransformOne.offset; // applying six variables:-  scale.x, scale.y, scale.z,  offset.x, offset.y, offset.z
-
+    z = z - benesiMagTransformOne.offset;
 
     //weight function
     if (benesiMagTransformOne.control.weightEnabled)
@@ -1314,63 +1304,140 @@ void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &ben
     }
   }
 }
-//benesiMagTransformTwo  3D
-void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &benesiMagTransformTwo, CVector3 &z, int i)
+//benesiMagTransformOnePlusMinus  3D
+void benesiMagTransformOnePlusMinusTransform3D(const sTransformBenesiMagTransformOnePlusMinus &benesiMagTransformOnePlusMinus, CVector3 &z, int i, sExtendedAux &aux)
+{
+  if (benesiMagTransformOnePlusMinus.control.enabled && i >= benesiMagTransformOnePlusMinus.control.startIterations && i < benesiMagTransformOnePlusMinus.control.stopIterations)
+  {
+    CVector3 temp = z;
+    double tempXZ = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
+    z = CVector3
+      ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
+      (tempXZ  + z.y) * 0.70710678118654752440084436210485,
+      z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
+
+    z *= benesiMagTransformOnePlusMinus.scale;
+    double avgScale = (fabs(benesiMagTransformOnePlusMinus.scale.x) + fabs(benesiMagTransformOnePlusMinus.scale.y) + fabs(benesiMagTransformOnePlusMinus.scale.z))/3;// cheap approximation
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * fabs(avgScale) + 1.0;
+
+    z = (fabs( z + benesiMagTransformOnePlusMinus.offset) -  fabs( z - benesiMagTransformOnePlusMinus.offset )  - z) ;
+
+    tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
+    z = CVector3
+      ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
+      (z.y - z.x) * 0.70710678118654752440084436210485,
+      z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196) ;
+
+    // weight function
+    if (benesiMagTransformOnePlusMinus.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, benesiMagTransformOnePlusMinus.control.weight);
+    }
+  }
+}
+//benesiMagTransformTwo 3D
+void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &benesiMagTransformTwo, CVector3 &z, int i, sExtendedAux &aux)
 {
   if (benesiMagTransformTwo.control.enabled && i >= benesiMagTransformTwo.control.startIterations && i < benesiMagTransformTwo.control.stopIterations)
   {
     CVector3 temp = z;
-    CVector3 tempV1;
-    CVector3 newZ;
-    // STEP1: "Benesi fold 2"
-    tempV1.x = (newZ.x * 0.81649658092772603273242802490196 - newZ.z * 0.57735026918962576450914878050196) *  0.70710678118654752440084436210485;
-    newZ.y =  newZ.y * 0.70710678118654752440084436210485;
-    newZ.z = (newZ.x * 0.57735026918962576450914878050196  +  newZ.z * 0.81649658092772603273242802490196) * (newZ.x * 0.57735026918962576450914878050196  +  newZ.z * 0.81649658092772603273242802490196);
+    double tempXZ = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
+    z = CVector3
+      ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
+      (tempXZ  + z.y) * 0.70710678118654752440084436210485,
+      z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
 
-    tempV1.x = (tempV1.x - newZ.y) * (tempV1.x - newZ.y);
-    tempV1.y = (tempV1.x + newZ.y) * (tempV1.x + newZ.y);
+//  Change this for different transforms
+    CVector3 tempV2 = z * 0.0;
+    tempV2.x = fabs(sqrt(z.y * z.y + z.z * z.z));
+    tempV2.y = fabs(sqrt(z.x * z.x + z.z * z.z));
+    tempV2.z = fabs(sqrt(z.x * z.x + z.y * z.y));
+    z =  (tempV2 - benesiMagTransformTwo.offset) * benesiMagTransformTwo.scale;
 
-    newZ.x = fabs(sqrt(tempV1.y + newZ.z));
-    newZ.y = fabs(sqrt(tempV1.x + newZ.z));
-    newZ.z = fabs(sqrt(tempV1.x + tempV1.y));
-    newZ = (newZ - benesiMagTransformTwo.offset) * benesiMagTransformTwo.scale;
+    double avgScale = (fabs(benesiMagTransformTwo.scale.x) + fabs(benesiMagTransformTwo.scale.y) + fabs(benesiMagTransformTwo.scale.z))/3;// cheap approximation
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * fabs(avgScale) + 1.0;
 
-    tempV1.x = (newZ.y + newZ.x) * 0.70710678118654752440084436210485;
-    newZ.y =   (newZ.y - newZ.x) * 0.70710678118654752440084436210485;
-    newZ.x = newZ.z * 0.57735026918962576450914878050196 + tempV1.x * 0.81649658092772603273242802490196;
-    newZ.z = newZ.z * 0.81649658092772603273242802490196 - tempV1.x * 0.57735026918962576450914878050196;
+    tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
+    z = CVector3
+      ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
+      (z.y - z.x) * 0.70710678118654752440084436210485,
+      z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196) ;
 
-
-    // weight function
+    //weight function
     if (benesiMagTransformTwo.control.weightEnabled)
     {
       z = SmoothCVector(temp, z, benesiMagTransformTwo.control.weight);
     }
   }
 }
+//benesiMagTransformThree 3D
+void benesiMagTransformThreeTransform3D(const sTransformBenesiMagTransformThree &benesiMagTransformThree, CVector3 &z, int i, sExtendedAux &aux)
+{
+  if (benesiMagTransformThree.control.enabled && i >= benesiMagTransformThree.control.startIterations && i < benesiMagTransformThree.control.stopIterations)
+  {
+    CVector3 temp = z;
+    double tempXZ = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
+    z = CVector3
+      ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
+      (tempXZ  + z.y) * 0.70710678118654752440084436210485,
+      z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
+
+//  Change this for different transforms
+    z = fabs(z);
+    z = CVector3 (fabs(z.y + z.z ), fabs(z.x + z.z ), fabs(z.x + z.y ));
+    z =  z * benesiMagTransformThree.scale - benesiMagTransformThree.offset;
+
+    double avgScale = (fabs(benesiMagTransformThree.scale.x) + fabs(benesiMagTransformThree.scale.y) + fabs(benesiMagTransformThree.scale.z))/3;// cheap approximation
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * fabs(avgScale) + 1.0;
+
+    tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
+    z = CVector3
+      ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
+      (z.y - z.x) * 0.70710678118654752440084436210485,
+      z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196) ;
+
+    //weight function
+    if (benesiMagTransformThree.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, benesiMagTransformThree.control.weight);
+    }
+  }
+}
 //benesiMagTransform transform Four 3D
-void benesiMagTransformFourTransform3D(const sTransformBenesiMagTransformFour &benesiMagTransformFour, CVector3 &z,int i)
+
+
+void benesiMagTransformFourTransform3D(const sTransformBenesiMagTransformFour &benesiMagTransformFour, CVector3 &z, int i, sExtendedAux &aux)
 {
   if (benesiMagTransformFour.control.enabled && i >= benesiMagTransformFour.control.startIterations && i < benesiMagTransformFour.control.stopIterations)
   {
     CVector3 temp = z;
-    CVector3 tempV1;
-    CVector3 newZ;
-    tempV1.x = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
-    newZ.z = z.x  *  0.57735026918962576450914878050196 + z.z * 0.81649658092772603273242802490196;
-    newZ.x = (tempV1.x  - z.y) * 0.70710678118654752440084436210485;
-    newZ.y = (tempV1.x  + z.y) * 0.70710678118654752440084436210485;
+    double tempXZ = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
+    z = CVector3
+      ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
+      (tempXZ  + z.y) * 0.70710678118654752440084436210485,
+      z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
 
-//  Change this for different transforms   This is T4:
-    newZ.x = fabs(newZ.z * newZ.z + newZ.y * newZ.y - benesiMagTransformFour.offset.x) * benesiMagTransformFour.scale.x;
-    newZ.y = fabs(newZ.z * newZ.z + newZ.x * newZ.x - benesiMagTransformFour.offset.y) * benesiMagTransformFour.scale.y;
-    newZ.z = fabs(newZ.x * newZ.x + newZ.y * newZ.y - benesiMagTransformFour.offset.z) * benesiMagTransformFour.scale.z;
+  //  Change this for different transforms   This is T4:
 
-    tempV1.x = (newZ.y + newZ.x) * 0.70710678118654752440084436210485;
-    newZ.y =   (newZ.y - newZ.x) * 0.70710678118654752440084436210485;
-    newZ.x = newZ.z * 0.57735026918962576450914878050196 + tempV1.x * 0.81649658092772603273242802490196;
-    newZ.z = newZ.z * 0.81649658092772603273242802490196 - tempV1.x * 0.57735026918962576450914878050196 ;
-    z = newZ;
+    CVector3 tempV2 = z ;
+    tempV2.x = fabs(z.y * z.y + z.z * z.z - benesiMagTransformFour.offset.x);
+    tempV2.y = fabs(z.x * z.x + z.z * z.z - benesiMagTransformFour.offset.y);
+    tempV2.z = fabs(z.x * z.x + z.y * z.y - benesiMagTransformFour.offset.z);
+    z = tempV2 * benesiMagTransformFour.scale;
+
+    double avgScale = (fabs(benesiMagTransformFour.scale.x) + fabs(benesiMagTransformFour.scale.y) + fabs(benesiMagTransformFour.scale.z))/3;// cheap approximation
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * fabs(avgScale) + 1.0;
+
+    tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
+    z = CVector3
+      ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
+      (z.y - z.x) * 0.70710678118654752440084436210485,
+       z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196) ;
+
     //weight function
     if (benesiMagTransformFour.control.weightEnabled)
     {
@@ -1378,9 +1445,41 @@ void benesiMagTransformFourTransform3D(const sTransformBenesiMagTransformFour &b
     }
   }
 }
+//benesiMagTransformFiveB 3D
+void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB &benesiMagTransformFiveB, CVector3 &z, int i, sExtendedAux &aux)
+{
+  if (benesiMagTransformFiveB.control.enabled && i >= benesiMagTransformFiveB.control.startIterations && i < benesiMagTransformFiveB.control.stopIterations)
+  {
+    CVector3 temp = z;
+    double tempXZ = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
+    z = CVector3
+      ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
+      (tempXZ  + z.y) * 0.70710678118654752440084436210485,
+      z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
+    //  Change this for different transforms
+    CVector3 tempV2 = z;
+    tempV2.x = fabs(pow(pow(z.y, benesiMagTransformFiveB.powOne.x) + pow(z.z, benesiMagTransformFiveB.powOne.x),benesiMagTransformFiveB.powTwo.x));
+    tempV2.y = fabs(pow(pow(z.x, benesiMagTransformFiveB.powOne.y) + pow(z.z, benesiMagTransformFiveB.powOne.y),benesiMagTransformFiveB.powTwo.y));
+    tempV2.z = fabs(pow(pow(z.x, benesiMagTransformFiveB.powOne.z) + pow(z.y, benesiMagTransformFiveB.powOne.z),benesiMagTransformFiveB.powTwo.z));
+    z =  (tempV2  - benesiMagTransformFiveB.offset)* benesiMagTransformFiveB.scale;
 
+    double avgScale = (fabs(benesiMagTransformFiveB.scale.x) + fabs(benesiMagTransformFiveB.scale.y) + fabs(benesiMagTransformFiveB.scale.z))/3;// cheap approximation
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * fabs(avgScale) + 1.0;
+    tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
+    z = CVector3
+      ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
+      (z.y - z.x) * 0.70710678118654752440084436210485,
+       z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196) ;
+    //weight function
+    if (benesiMagTransformFiveB.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, benesiMagTransformFiveB.control.weight);
+    }
+  }
+}
 //benesiFastPwr2PineTree  3D
-void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &benesiFastPwr2PineTree, CVector3 &z,CVector3 &c, int i)
+void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &benesiFastPwr2PineTree, CVector3 &z, CVector3 &c, int i, sExtendedAux &aux)
 {
   if (benesiFastPwr2PineTree.control.enabled && i >= benesiFastPwr2PineTree.control.startIterations && i < benesiFastPwr2PineTree.control.stopIterations)
   {
@@ -1391,7 +1490,7 @@ void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &b
     z.x = (z.x - z.y - z.z) + c.x ;
     z.z = (t * (z.y - z.z)) + c.y ;
     z.y = (2 * t * temp.y * temp.z) + c.z;
-
+    aux.r_dz =aux.r * aux.r_dz * 2.0 + 1.0;
     //weight function
     if (benesiFastPwr2PineTree.control.weightEnabled)
     {
@@ -1399,5 +1498,6 @@ void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &b
     }
   }
 }
+
 
 
