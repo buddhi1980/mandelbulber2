@@ -97,10 +97,13 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "N"));
 
 	QCommandLineOption queueOption(QStringList() << "q" << "queue",
-		QCoreApplication::translate("main", "Render all images from common queue"));
+		QCoreApplication::translate("main", "Render all images from common queue."));
+
+	QCommandLineOption statsOption(QStringList() << "stats",
+		QCoreApplication::translate("main", "Show statistics while renderering in CLI mode."));
 
 	QCommandLineOption helpInputOption(QStringList() << "help-input",
-		QCoreApplication::translate("main", "Show help on input"));
+		QCoreApplication::translate("main", "Show help about input."));
 
 	parser.addPositionalArgument("settings_file", QCoreApplication::translate("main",
 		"file with fractal settings (program also tries\nto find file in ./mandelbulber/settings directory)\n"
@@ -124,6 +127,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.addOption(portOption);
 	parser.addOption(noColorOption);
 	parser.addOption(queueOption);
+	parser.addOption(statsOption);
 	parser.addOption(helpInputOption);
 
 	// Process the actual command line arguments given by the user
@@ -146,6 +150,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	cliData.listParameters = parser.isSet(listOption);
 	cliData.queue = parser.isSet(queueOption);
 	cliData.showInputHelp = parser.isSet(helpInputOption);
+	systemData.statsOnCLI = parser.isSet(statsOption);
 
 #ifdef WIN32 /* WINDOWS */
 	systemData.useColor = false;

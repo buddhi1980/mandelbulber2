@@ -61,6 +61,7 @@ struct sSystem
 	QChar decimalPoint;
 	QLocale locale;
 	int terminalWidth;
+	bool statsOnCLI;
 	bool useColor;
 };
 

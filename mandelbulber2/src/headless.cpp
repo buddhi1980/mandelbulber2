@@ -220,7 +220,7 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 
 void cHeadless::slotUpdateStatistics(cStatistics stat)
 {
-	// TODO: maybe display this info on cli, when some cli flag is set
+	if(!systemData.statsOnCLI) return;
 	/*ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0));
 	ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);
 	ui->label_histogram_iter->UpdateHistogram(stat.histogramIterations);
