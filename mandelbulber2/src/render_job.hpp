@@ -57,8 +57,6 @@ public:
 
 public slots:
 	void slotExecute();
-	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
-	void slotUpdateStatistics(cStatistics);
 
 private:
 	bool InitImage(int w, int h);

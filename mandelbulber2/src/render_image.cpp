@@ -168,7 +168,7 @@ bool cRenderer::RenderImage()
 						if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 						{
 							cRenderSSAO rendererSSAO(params, data, image);
-							connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+							connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 							rendererSSAO.setProgressive(scheduler->GetProgressiveStep());
 							rendererSSAO.RenderSSAO(&listToRefresh);
 						}
@@ -308,13 +308,13 @@ bool cRenderer::RenderImage()
 		if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
 		{
 			cRenderSSAO rendererSSAO(params, data, image);
-			connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+			connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 			rendererSSAO.RenderSSAO();
 		}
 		if(params->DOFEnabled && !*data->stopRequest)
 		{
 			cPostRenderingDOF dof(image);
-			connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+			connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 			dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->stopRequest);
 		}
 	}
@@ -417,9 +417,4 @@ void cRenderer::ToDoListArrived(QList<int> toDo)
 void cRenderer::AckReceived()
 {
 	netRemderAckReceived = true;
-}
-
-void cRenderer::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
-{
-	emit updateProgressAndStatus(text, progressText, progress);
 }

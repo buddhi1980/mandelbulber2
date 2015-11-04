@@ -297,11 +297,11 @@ bool cRenderJob::Execute(void)
 	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image);
 
 	//connect signal for progress bar update
-	connect(renderer, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	connect(renderer, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 
 	if(image->IsMainImage())
 	{
-		QObject::connect(renderer, SIGNAL(updateStatistics(cStatistics)), this, SLOT(slotUpdateStatistics(cStatistics)));
+		QObject::connect(renderer, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
 	}
 
 	if(renderData->configuration.UseNetRender())
@@ -373,14 +373,4 @@ void cRenderJob::slotExecute()
 {
 	Execute();
 	emit finished();
-}
-
-void cRenderJob::slotUpdateStatistics(cStatistics statistics)
-{
-	emit updateStatistics(statistics);
-}
-
-void cRenderJob::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
-{
-	emit updateProgressAndStatus(text, progressText, progress);
 }

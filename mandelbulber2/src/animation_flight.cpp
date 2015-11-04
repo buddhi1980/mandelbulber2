@@ -198,14 +198,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	//setup of rendering engine
 	cRenderJob *renderJob = new cRenderJob(params, fractalParams, mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->renderedImage);
 	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
-	if(mainInterface->mainWindow)
-	{
-		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
-	}
-	if(mainInterface->headless)
-	{
-		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->headless, SLOT(slotUpdateStatistics(cStatistics)));
-	}
+	connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -560,14 +553,7 @@ void cFlightAnimation::RenderFlight(bool *stopRequest)
 	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, stopRequest, imageWidget);
 
 	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
-	if(mainInterface->mainWindow)
-	{
-		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
-	}
-	if(mainInterface->headless)
-	{
-		connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainInterface->headless, SLOT(slotUpdateStatistics(cStatistics)));
-	}
+	connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();

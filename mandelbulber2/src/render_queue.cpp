@@ -53,10 +53,14 @@ cRenderQueue::cRenderQueue(cImage *_image, RenderedImage *widget) : QObject()
 									 this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
 	QObject::connect(queueFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 									 this, SIGNAL(updateProgressHide(cProgressText::enumProgressType)));
+	QObject::connect(queueFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
+									 this, SIGNAL(updateStatistics(cStatistics)));
 	QObject::connect(queueKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
 									 this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
 	QObject::connect(queueKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 									 this, SIGNAL(updateProgressHide(cProgressText::enumProgressType)));
+	QObject::connect(queueKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),
+									 this, SIGNAL(updateStatistics(cStatistics)));
 }
 
 cRenderQueue::~cRenderQueue()

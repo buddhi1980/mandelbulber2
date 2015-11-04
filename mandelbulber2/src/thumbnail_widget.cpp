@@ -145,7 +145,7 @@ void cThumbnailWidget::slotRender()
 	stopRequest = false;
 
 	cRenderJob *renderJob = new cRenderJob(params, fractal, image, &stopRequest, (QWidget*)this);
-	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 
 	renderJob->UseSizeFromImage(true);
 
@@ -195,11 +195,6 @@ void cThumbnailWidget::slotRandomRender()
 		isRendered = true;
 		slotRender();
 	}
-}
-
-void cThumbnailWidget::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
-{
-	emit updateProgressAndStatus(text, progressText, progress);
 }
 
 void cThumbnailWidget::slotSetMinimumSize(int width, int height)

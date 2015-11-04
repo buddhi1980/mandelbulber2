@@ -52,7 +52,6 @@ public slots:
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
 	void ToDoListArrived(QList<int> done);
 	void AckReceived();
-	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 
 	signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

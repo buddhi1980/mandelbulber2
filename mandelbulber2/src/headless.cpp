@@ -45,7 +45,8 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
 
-	QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+									 this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
@@ -126,6 +127,10 @@ void cHeadless::RenderFlightAnimation()
 	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, image, NULL, gPar, gParFractal, NULL);
 	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
 									 this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
+	// QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)), unused
+	//								 this, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+	QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
+									 this, SLOT(slotUpdateStatistics(cStatistics)));
 	gFlightAnimation->slotRenderFlight();
 	delete image;
 	delete gFlightAnimation;
@@ -139,6 +144,10 @@ void cHeadless::RenderKeyframeAnimation()
 	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, image, NULL, gPar, gParFractal, NULL);
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
 									 this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
+	// QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)), unused
+	// 								 this, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),
+									 this, SLOT(slotUpdateStatistics(cStatistics)));
 	gKeyframeAnimation->slotRenderKeyframes();
 	delete image;
 	delete gKeyframeAnimation;
@@ -215,11 +224,16 @@ void cHeadless::slotUpdateStatistics(cStatistics stat)
 	/*ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0));
 	ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);
 	ui->label_histogram_iter->UpdateHistogram(stat.histogramIterations);
+	*/
 
-	ui->tableWidget_statistics->item(0, 0)->setText(QString::number(stat.GetTotalNumberOfIterations()));
-	ui->tableWidget_statistics->item(1, 0)->setText(QString::number(stat.GetNumberOfIterationsPerPixel()));
-	ui->tableWidget_statistics->item(2, 0)->setText(QString::number(stat.GetNumberOfIterationsPerSecond()));
-	ui->tableWidget_statistics->item(3, 0)->setText(QString::number(stat.GetMissedDEPercentage()));*/
+	QTextStream out(stdout);
+	QString statsText = "";
+	statsText += tr("Total number of iterations") + ": " + QString::number(stat.GetTotalNumberOfIterations()) + ", ";
+	statsText += tr("Number of iterations per pixel") + ": " + QString::number(stat.GetNumberOfIterationsPerPixel() )+ "\n";
+	statsText += tr("Number of iterations per second") + ": " + QString::number(stat.GetNumberOfIterationsPerSecond()) + ", ";
+	statsText += tr("Percentage of wrong distance estimations") + ": " + QString::number(stat.GetMissedDEPercentage());
+	out << statsText;
+	out.flush();
 }
 
 

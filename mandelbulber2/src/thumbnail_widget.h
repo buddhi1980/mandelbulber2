@@ -47,7 +47,6 @@ private slots:
 	void slotRandomRender();
 
 public slots:
-  void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void slotSetMinimumSize(int width, int height);
 
 private:

@@ -140,10 +140,14 @@ int main(int argc, char *argv[])
 										 gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
 		QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 										 gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+		QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
+										 gMainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 		QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
 										 gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
 		QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 										 gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+		QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),
+										 gMainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 
 		try
 		{
