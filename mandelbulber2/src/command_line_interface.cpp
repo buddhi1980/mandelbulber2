@@ -270,7 +270,7 @@ void cCommandLineInterface::ReadCLI (void)
 	{
 		if(args.size() > 0){
 			// file specified -> load it
-			if(args.size() == 1 && !args[0].endsWith(".fractlist") && !QDir(args[0]).exists())
+			if(args.size() == 1 && QFileInfo(args[0]).suffix() != QString("fractlist") && !QDir(args[0]).exists())
 			{
 				QString filename = args[0];
 				if(!QFile::exists(filename))
@@ -308,7 +308,7 @@ void cCommandLineInterface::ReadCLI (void)
 						gQueue->AppendFolder(filename);
 						settingsSpecified = true;
 					}
-					else if(filename.endsWith(".fractlist"))
+					else if(QFileInfo(filename).suffix() == QString("fractlist"))
 					{
 						// specified input is a queue list file, append all entries to the current queue
 						gQueue->AppendList(filename);
