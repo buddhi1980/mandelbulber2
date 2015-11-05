@@ -48,6 +48,9 @@ int main(int argc, char *argv[])
 
 	WriteLog("Prepare QApplication");
 	QCoreApplication *gCoreApplication = new QCoreApplication(argc, argv);
+	gCoreApplication->setOrganizationName("Mandelbulber");
+	gCoreApplication->setApplicationName("Mandelbulber");
+	gCoreApplication->setApplicationVersion(MANDELBULBER_VERSION_STRING);
 
 	cCommandLineInterface commandLineInterface(gApplication);
 
@@ -59,11 +62,10 @@ int main(int argc, char *argv[])
 	{
 		delete gCoreApplication;
 		gApplication = new QApplication(argc, argv);
+		gApplication->setOrganizationName("Mandelbulber");
+		gApplication->setApplicationName("Mandelbulber");
+		gApplication->setApplicationVersion(MANDELBULBER_VERSION_STRING);
 	}
-
-	gApplication->setOrganizationName("Mandelbulber");
-	gApplication->setApplicationName("Mandelbulber");
-	gApplication->setApplicationVersion(MANDELBULBER_VERSION_STRING);
 
 	//registering types for queued connections
 	qRegisterMetaType<cStatistics>("cStatistics");
