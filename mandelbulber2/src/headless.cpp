@@ -185,9 +185,10 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 		firstCallProgressUpdate = false;
 		QTextStream out(stdout);
 		out << "\n\n\n";
+		if(systemData.statsOnCLI) out << "\n\n";
 		out.flush();
 	}
-
+	if(systemData.statsOnCLI) MoveCursor(0, -2);
 	if(gMainInterface->headless)
 	{
 		switch(progressType)
@@ -215,6 +216,7 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 			case cProgressText::progress_IMAGE:
 				MoveCursor(0, 1);
 		}
+		if(systemData.statsOnCLI) MoveCursor(0, 2);
 	}
 }
 
@@ -225,13 +227,13 @@ void cHeadless::slotUpdateStatistics(cStatistics stat)
 	ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);
 	ui->label_histogram_iter->UpdateHistogram(stat.histogramIterations);
 	*/
-
+	if(systemData.statsOnCLI) MoveCursor(0, -2);
 	QTextStream out(stdout);
 	QString statsText = "";
-	statsText += tr("Total number of iterations") + ": " + QString::number(stat.GetTotalNumberOfIterations()) + ", ";
-	statsText += tr("Number of iterations per pixel") + ": " + QString::number(stat.GetNumberOfIterationsPerPixel() )+ "\n";
-	statsText += tr("Number of iterations per second") + ": " + QString::number(stat.GetNumberOfIterationsPerSecond()) + ", ";
-	statsText += tr("Percentage of wrong distance estimations") + ": " + QString::number(stat.GetMissedDEPercentage());
+	statsText += tr("Total number of iters") + ": " + colorize(QString::number(stat.GetTotalNumberOfIterations()), ansiBlue, noExplicitColor, true) + ", ";
+	statsText += tr("Number of iters / pixel") + ": " + colorize(QString::number(stat.GetNumberOfIterationsPerPixel()), ansiBlue, noExplicitColor, true) + "\n";
+	statsText += tr("Number of iters / second") + ": " + colorize(QString::number(stat.GetNumberOfIterationsPerSecond()), ansiBlue, noExplicitColor, true) + ", ";
+	statsText += tr("Percentage of wrong DE") + ": " + colorize(QString::number(stat.GetMissedDEPercentage()), ansiBlue, noExplicitColor, true) + "\n";
 	out << statsText;
 	out.flush();
 }

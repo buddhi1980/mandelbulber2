@@ -298,11 +298,7 @@ bool cRenderJob::Execute(void)
 
 	//connect signal for progress bar update
 	connect(renderer, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
-
-	if(image->IsMainImage())
-	{
-		QObject::connect(renderer, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
-	}
+	connect(renderer, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
 
 	if(renderData->configuration.UseNetRender())
 	{

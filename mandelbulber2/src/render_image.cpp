@@ -147,8 +147,10 @@ bool cRenderer::RenderImage()
 			data->lastPercentage = percentDone;
 			statusText = QObject::tr("Rendering image in progress");
 			progressTxt = progressText.getText(percentDone);
+			data->statistics.time = progressText.getTime();
 
 			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+			emit updateStatistics(data->statistics);
 
 			//refresh image
 			if (listToRefresh.size() > 0)
@@ -180,12 +182,6 @@ bool cRenderer::RenderImage()
 					{
 						image->UpdatePreview(&listToRefresh);
 						image->GetImageWidget()->update();
-					}
-
-					if(image->IsMainImage())
-					{
-						data->statistics.time = progressText.getTime();
-						emit updateStatistics(data->statistics);
 					}
 
 					//sending rendered lines to NetRender server
@@ -337,12 +333,8 @@ bool cRenderer::RenderImage()
 	progressTxt = progressText.getText(percentDone);
 
 	//update histograms
-	if(image->IsMainImage())
-	{
-		data->statistics.time = progressText.getTime();
-		emit updateStatistics(data->statistics);
-	}
-
+	data->statistics.time = progressText.getTime();
+	emit updateStatistics(data->statistics);
 	emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 
 	delete[] thread;
