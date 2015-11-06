@@ -70,6 +70,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const 
 		QApplication::connect(ui->pushButton_queue_remove_orphaned, SIGNAL(clicked()), this, SLOT(slotQueueRemoveOrphaned()));
 		QApplication::connect(ui->pushButton_queue_render_queue, SIGNAL(clicked()), this, SLOT(slotQueueRender()));
 		QApplication::connect(ui->pushButton_queue_stop_rendering, SIGNAL(clicked()), this, SLOT(slotStopRequest()));
+		QApplication::connect(ui->checkBox_show_queue_thumbnails, SIGNAL(stateChanged(int)), this, SLOT(slotShowQueueThumbsChanges(int)));
 
 		QApplication::connect(this, SIGNAL(queueChanged()), this, SLOT(slotQueueListUpdate()));
 		QApplication::connect(this, SIGNAL(queueChanged(int)), this, SLOT(slotQueueListUpdate(int)));
@@ -629,7 +630,7 @@ void cQueue::slotQueueListUpdate(int i, int j)
 					cThumbnailWidget *thumbWidget = (cThumbnailWidget*) table->cellWidget(i, j);
 					if (!thumbWidget)
 					{
-						cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
+						thumbWidget = new cThumbnailWidget(100, 70, table);
 						thumbWidget->UseOneCPUCore(true);
 						thumbWidget->AssignParameters(tempPar, tempFract);
 						table->setCellWidget(i, j, thumbWidget);
@@ -695,7 +696,6 @@ void cQueue::slotQueueListUpdate(int i, int j)
 		}
 	}
 	table->blockSignals(false);
-	table->update();
 }
 
 void cQueue::slotUpdateUI()
@@ -717,4 +717,9 @@ int cQueue::GetQueueSize()
 	int size = queueListFromFile.size();
 	mutex.unlock();
 	return size;
+}
+
+void cQueue::slotShowQueueThumbsChanges(int state)
+{
+	slotQueueListUpdate();
 }

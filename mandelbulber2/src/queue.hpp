@@ -122,6 +122,7 @@ private slots:
 	void slotQueueListUpdate(int i, int j);
 	void slotUpdateUI();
 	void slotStopRequest();
+	void slotShowQueueThumbsChanges(int state);
 
 private:
 	void AddToList(const structQueueItem &queueItem); //add filename to the end of list
