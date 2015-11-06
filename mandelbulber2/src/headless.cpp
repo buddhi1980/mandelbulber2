@@ -67,7 +67,7 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 		ext = ".jpg";
 		SaveImage(filename + ext, IMAGE_FILE_TYPE_JPG, image);
 	}
-	else if(imageFileFormat == "png16")
+	else if(imageFileFormat == "png")
 	{
 		ext = ".png";
 		SaveImage(filename + ext, IMAGE_FILE_TYPE_PNG, image);
@@ -230,10 +230,14 @@ void cHeadless::slotUpdateStatistics(cStatistics stat)
 	if(systemData.statsOnCLI) MoveCursor(0, -2);
 	QTextStream out(stdout);
 	QString statsText = "";
-	statsText += tr("Total number of iters") + ": " + colorize(QString::number(stat.GetTotalNumberOfIterations()), ansiBlue, noExplicitColor, true) + ", ";
-	statsText += tr("Number of iters / pixel") + ": " + colorize(QString::number(stat.GetNumberOfIterationsPerPixel()), ansiBlue, noExplicitColor, true) + "\n";
-	statsText += tr("Number of iters / second") + ": " + colorize(QString::number(stat.GetNumberOfIterationsPerSecond()), ansiBlue, noExplicitColor, true) + ", ";
-	statsText += tr("Percentage of wrong DE") + ": " + colorize(QString::number(stat.GetMissedDEPercentage()), ansiBlue, noExplicitColor, true) + "\n";
+	statsText += tr("Total number of iters").leftJustified(25, ' ') + ": ";
+	statsText += colorize(QString::number(stat.GetTotalNumberOfIterations()).rightJustified(12, ' '), ansiBlue, noExplicitColor, true) + ", ";
+	statsText += tr("Number of iters / pixel").leftJustified(25, ' ') + ": ";
+	statsText += colorize(QString::number(stat.GetNumberOfIterationsPerPixel()).rightJustified(12, ' '), ansiBlue, noExplicitColor, true) + "\n";
+	statsText += tr("Number of iters / second").leftJustified(25, ' ') + ": ";
+	statsText += colorize(QString::number(stat.GetNumberOfIterationsPerSecond()).rightJustified(12, ' '), ansiBlue, noExplicitColor, true) + ", ";
+	statsText += tr("Percentage of wrong DE").leftJustified(25, ' ') + ": ";
+	statsText += colorize(QString::number(stat.GetMissedDEPercentage()).rightJustified(12, ' '), ansiBlue, noExplicitColor, true) + "\n";
 	out << statsText;
 	out.flush();
 }

@@ -370,6 +370,11 @@ void cCommandLineInterface::ReadCLI (void)
 			gPar->Set("image_width", xRes);
 			gPar->Set("image_height", yRes);
 		}
+		else{
+			cErrorMessage::showMessage("Specified resolution not valid\n"
+					"resolution has to be in the form WIDTHxHEIGHT", cErrorMessage::errorMessage);
+			parser.showHelp(-13);
+		}
 	}
 
 	// specified frames per keyframe
