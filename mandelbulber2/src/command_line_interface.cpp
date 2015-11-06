@@ -158,6 +158,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	systemData.useColor = !parser.isSet(noColorOption);
 #endif  /* WINDOWS */
 
+	if(cliData.listParameters) cliData.nogui = true;
+
 	cliTODO = modeBootOnly;
 }
 
