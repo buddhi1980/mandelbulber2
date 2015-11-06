@@ -473,12 +473,12 @@ struct sTransformColorTrial
   double  colorConstant1;
   double  colorConstant2;
   double  colorConstant3;
-  double  sampleConstant1;
-  double  sampleConstant2;
-  double  sampleConstant3;
-  double  sampleConstant4;
-  double  sampleConstant5;
-  double  sampleConstant6;
+  //double  sampleConstant1;
+  //double  sampleConstant2;
+  //double  sampleConstant3;
+  //double  sampleConstant4;
+  //double  sampleConstant5;
+  //double  sampleConstant6;
   double  mainOrbitTrapWeight;
   double  orbitTrap1Weight;
   double  orbitTrap2Weight;

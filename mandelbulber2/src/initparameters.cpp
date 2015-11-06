@@ -863,9 +863,9 @@ void InitFractalParams(cParameterContainer *par)
 
 
 //Colouring Parameters
-  par->addParam("transform_coloringParameters1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_coloringParameters1_enabled", true, morphLinear, paramStandard);
   par->addParam("transform_coloringParameters1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_coloringParameters1_stop_iterations", 1, morphLinear, paramStandard);
+  par->addParam("transform_coloringParameters1_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_coloringParameters1_mandelbox_color", CVector3(0.03, 0.05, 0.07), morphLinear, paramStandard);
   par->addParam("transform_coloringParameters1_mandelbox_color_R", 0.0, morphLinear, paramStandard);
   par->addParam("transform_coloringParameters1_mandelbox_color_Sp1", 0.2, morphLinear, paramStandard);
@@ -881,17 +881,17 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_colorTrial1_colorConstant1", 1.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_colorConstant2", 1.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_colorConstant3", 1.0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_sampleConstant1", 0.0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_sampleConstant2", 0.0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_sampleConstant3", 0.0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_sampleConstant4", 0.0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_sampleConstant5", 0.0, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_sampleConstant6", 0.0, morphLinear, paramStandard);
+  //par->addParam("transform_colorTrial1_sampleConstant1", 0.0, morphLinear, paramStandard);
+  //par->addParam("transform_colorTrial1_sampleConstant2", 0.0, morphLinear, paramStandard);
+  //par->addParam("transform_colorTrial1_sampleConstant3", 0.0, morphLinear, paramStandard);
+  //par->addParam("transform_colorTrial1_sampleConstant4", 0.0, morphLinear, paramStandard);
+  //par->addParam("transform_colorTrial1_sampleConstant5", 0.0, morphLinear, paramStandard);
+  //par->addParam("transform_colorTrial1_sampleConstant6", 0.0, morphLinear, paramStandard);
 
 
   par->addParam("transform_colorTrial1_axisBias_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_orbitTraps_enabled", true, morphLinear, paramStandard);
-  par->addParam("transform_colorTrial1_transformSampling_enabled", false, morphLinear, paramStandard);
+  //par->addParam("transform_colorTrial1_transformSampling_enabled", false, morphLinear, paramStandard);
 
   par->addParam("transform_colorTrial1_mainOTWeight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_colorTrial1_orbitTrap1Weight", 1.0, morphLinear, paramStandard);
@@ -930,51 +930,51 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_benesiMagForwardTransformOne1_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagForwardTransformOne1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagForwardTransformOne1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagForwardTransformOne1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagForwardTransformOne1_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagForwardTransformOne1_weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_benesiMagForwardTransformOne2_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagForwardTransformOne2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagForwardTransformOne2_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagForwardTransformOne2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagForwardTransformOne2_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagForwardTransformOne2_weight", 1.0, morphLinear, paramStandard);
 
   par->addParam("transform_benesiMagBackTransformOne1_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagBackTransformOne1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagBackTransformOne1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagBackTransformOne1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagBackTransformOne1_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagBackTransformOne1_weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_benesiMagBackTransformOne2_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagBackTransformOne2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagBackTransformOne2_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagBackTransformOne2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagBackTransformOne2_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagBackTransformOne2_weight", 1.0, morphLinear, paramStandard);
 
 
   par->addParam("transform_benesiMagTransformOne1_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagTransformOne1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformOne1_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne1_offset", CVector3(2.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformOne1_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformOne1_weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne2_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne2_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagTransformOne2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformOne2_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne2_offset", CVector3(2.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformOne2_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformOne2_weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne3_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne3_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne3_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagTransformOne3_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformOne3_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOne3_offset", CVector3(2.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformOne3_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformOne3_weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOnePlusMinus1_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOnePlusMinus1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOnePlusMinus1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagTransformOnePlusMinus1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformOnePlusMinus1_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformOnePlusMinus1_offset", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformOnePlusMinus1_scale", CVector3(3.0, 3.0, 3.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformOnePlusMinus1_weight", 1.0, morphLinear, paramStandard);
@@ -983,7 +983,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_benesiMagTransformTwo1_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformTwo1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformTwo1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagTransformTwo1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformTwo1_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformTwo1_offset", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformTwo1_scale", CVector3(4.0, 4.0, 4.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformTwo1_weight", 1.0, morphLinear, paramStandard);
@@ -992,35 +992,35 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_benesiMagTransformThree1_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformThree1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformThree1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagTransformThree1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformThree1_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformThree1_offset", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformThree1_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformThree1_weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformThree2_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformThree2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformThree2_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagTransformThree2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformThree2_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformThree2_offset", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformThree2_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformThree2_weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFour1_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFour1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFour1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagTransformFour1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFour1_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFour1_offset", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformFour1_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformFour1_weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFour2_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFour2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFour2_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagTransformFour2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFour2_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFour2_offset", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformFour2_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformFour2_weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFiveB1_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFiveB1_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFiveB1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagTransformFiveB1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFiveB1_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFiveB1_offset", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformFiveB1_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformFiveB1_powOne", CVector3(8.0, 8.0, 8.0), morphAkimaAngle, paramStandard);
@@ -1029,7 +1029,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_benesiMagTransformFiveB2_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFiveB2_weight_enabled", false, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFiveB2_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_benesiMagTransformFiveB2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_benesiMagTransformFiveB2_stop_iterations", 1, morphLinear, paramStandard);
   par->addParam("transform_benesiMagTransformFiveB2_offset", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformFiveB2_scale", CVector3(2.0, 2.0, 2.0), morphAkimaAngle, paramStandard);
   par->addParam("transform_benesiMagTransformFiveB2_powOne", CVector3(8.0, 8.0, 8.0), morphAkimaAngle, paramStandard);

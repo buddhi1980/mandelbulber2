@@ -398,12 +398,13 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				break;
 			case mandelbulb5:
       case mandelbulb6Beta:
+      //case benesiTransforms:
 				out->distance = 0.5 * r * log(r) / extendedAux[fractalIndex].r_dz;
 				break;
 			case mandelbox:
 			case smoothMandelbox:
 			case mandelboxVaryScale4D:
-			case generalizedFoldBox:
+      case generalizedFoldBox:
 				out->distance = r / fabs(mandelboxAux[fractalIndex].mboxDE * foldDE);
 				break;
 

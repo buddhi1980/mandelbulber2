@@ -1107,13 +1107,15 @@ void coloringParametersTransform3D(const sTransformColoringParameters &coloringP
 
 
 //colorTrial transform 3D
-void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, CVector3 &sample0, CVector3 &sample1, CVector3 &sample2, CVector3 &sample3,  CVector3 &sample4, CVector3 &sample5, CVector3 &sample6, int i,  sExtendedAux &aux)
+//void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, CVector3 &sample0, CVector3 &sample1, CVector3 &sample2, CVector3 &sample3,  CVector3 &sample4, CVector3 &sample5, CVector3 &sample6, int i,  sExtendedAux &aux)
+
+void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, int i,  sExtendedAux &aux)
 {
   if (colorTrial.control.enabled && i >= colorTrial.control.startIterations && i < colorTrial.control.stopIterations)
   {
     double biasR;
     double orbitTrapsR;
-    double transformSamplingR;
+    //double transformSamplingR;
 
 
 // simple x, y, z bias
@@ -1148,30 +1150,30 @@ void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, 
       aux.orbitTraps = 0.0;
     }
 // transform sampling
-    if (colorTrial.transformSamplingEnabled )
-    {
-      CVector3 diff1 = sample1 - sample0;
-      CVector3 diff2 = sample2 - sample1;
-      CVector3 diff3 = sample3 - sample2;
-      CVector3 diff4 = sample4 - sample3;
-      CVector3 diff5 = sample5 - sample4;
-      CVector3 diff6 = sample6 - sample5;
+   // if (colorTrial.transformSamplingEnabled )
+   // {
+   //   CVector3 diff1 = sample1 - sample0;
+   //   CVector3 diff2 = sample2 - sample1;
+   //   CVector3 diff3 = sample3 - sample2;
+    //  CVector3 diff4 = sample4 - sample3;
+   //   CVector3 diff5 = sample5 - sample4;
+   //   CVector3 diff6 = sample6 - sample5;
 
-      double newSR1 = diff1.Length() * colorTrial.sampleConstant1;;
-      double newSR2 = diff2.Length() * colorTrial.sampleConstant2;;
-      double newSR3 = diff3.Length() * colorTrial.sampleConstant3;
-      double newSR4 = diff4.Length() * colorTrial.sampleConstant4;
-      double newSR5 = diff5.Length() * colorTrial.sampleConstant5;
-      double newSR6 = diff6.Length() * colorTrial.sampleConstant6;
-      transformSamplingR = ( newSR1 + newSR2 + newSR3 + newSR4 + newSR5 + newSR6 );
-      if (transformSamplingR < aux.transformSampling ) aux.transformSampling = transformSamplingR;
-    }
-    else
-    {
-      aux.transformSampling = 0.0;
-    }
-
-    double R = ((aux.axisBias + (aux.orbitTraps * colorTrial.mainOrbitTrapWeight) +  aux.transformSampling) * 1000* colorTrial.minimumRWeight) ;
+   //   double newSR1 = diff1.Length() * colorTrial.sampleConstant1;;
+   //   double newSR2 = diff2.Length() * colorTrial.sampleConstant2;;
+   //   double newSR3 = diff3.Length() * colorTrial.sampleConstant3;
+   //   double newSR4 = diff4.Length() * colorTrial.sampleConstant4;
+   //   double newSR5 = diff5.Length() * colorTrial.sampleConstant5;
+   //   double newSR6 = diff6.Length() * colorTrial.sampleConstant6;
+   //   transformSamplingR = ( newSR1 + newSR2 + newSR3 + newSR4 + newSR5 + newSR6 );
+   //   if (transformSamplingR < aux.transformSampling ) aux.transformSampling = transformSamplingR;
+   // }
+   // else
+  //  {
+  //    aux.transformSampling = 0.0;
+  //  }
+  //  double R = ((aux.axisBias + (aux.orbitTraps * colorTrial.mainOrbitTrapWeight) +  aux.transformSampling) * 1000* colorTrial.minimumRWeight) ;
+    double R = (aux.axisBias + (aux.orbitTraps * colorTrial.mainOrbitTrapWeight)) * 1000* colorTrial.minimumRWeight ;
 
     aux.newR = R;
 
@@ -1378,27 +1380,29 @@ void benesiMagTransformThreeTransform3D(const sTransformBenesiMagTransformThree 
   if (benesiMagTransformThree.control.enabled && i >= benesiMagTransformThree.control.startIterations && i < benesiMagTransformThree.control.stopIterations)
   {
     CVector3 temp = z;
-    double tempXZ = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
-    z = CVector3
-      ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
-      (tempXZ  + z.y) * 0.70710678118654752440084436210485,
-      z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
+    CVector3 tempV1 = z * 0.0;
+    CVector3 newZ;
+    tempV1.x = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
+    newZ.z = z.x  *  0.57735026918962576450914878050196 + z.z * 0.81649658092772603273242802490196;
+    newZ.x = (tempV1.x  - z.y) * 0.70710678118654752440084436210485;
+    newZ.y = (tempV1.x  + z.y) * 0.70710678118654752440084436210485;
 
 //  Change this for different transforms
-    z = fabs(z);
-    z = CVector3 (fabs(z.y + z.z ), fabs(z.x + z.z ), fabs(z.x + z.y ));
-    z =  z * benesiMagTransformThree.scale - benesiMagTransformThree.offset;
+    newZ = fabs(newZ);
+    CVector3 tempV2 = z * 0.0;
+    tempV2.x = fabs(newZ.y + newZ.z );
+    tempV2.y = fabs(newZ.x + newZ.z );
+    tempV2.z = fabs(newZ.x + newZ.y );
 
-    double avgScale = (fabs(benesiMagTransformThree.scale.x) + fabs(benesiMagTransformThree.scale.y) + fabs(benesiMagTransformThree.scale.z))/3;// cheap approximation
+    newZ =  tempV2 * benesiMagTransformThree.scale - benesiMagTransformThree.offset;
+    double avgScale = fabs((benesiMagTransformThree.scale.x + benesiMagTransformThree.scale.y + benesiMagTransformThree.scale.z)/3);// cheap approximation
     aux.r_dz *= avgScale;
     aux.DE = aux.DE * fabs(avgScale) + 1.0;
-
-    tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
-    z = CVector3
-      ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
-      (z.y - z.x) * 0.70710678118654752440084436210485,
-      z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196) ;
-
+    tempV1.x = (newZ.y + newZ.x) * 0.70710678118654752440084436210485;
+    newZ.y =   (newZ.y - newZ.x) * 0.70710678118654752440084436210485;
+    newZ.x = newZ.z * 0.57735026918962576450914878050196 + tempV1.x * 0.81649658092772603273242802490196;
+    newZ.z = newZ.z * 0.81649658092772603273242802490196 - tempV1.x * 0.57735026918962576450914878050196 ;
+    z = newZ;
     //weight function
     if (benesiMagTransformThree.control.weightEnabled)
     {

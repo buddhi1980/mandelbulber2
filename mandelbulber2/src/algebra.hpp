@@ -205,7 +205,6 @@ inline CVector3 fabs(CVector3 v)
 	v.z = fabs(v.z);
 	return v;
 }
-
 /************************* vector 4D **********************/
 class CVector4
 {

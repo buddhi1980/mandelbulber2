@@ -537,17 +537,17 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.colorTrial1.minimumRWeight = container->Get<double>("transform_colorTrial1_minimumRWeight");
   transform.colorTrial1.axisBiasEnabled = container->Get<bool>("transform_colorTrial1_axisBias_enabled");
   transform.colorTrial1.orbitTrapsEnabled = container->Get<bool>("transform_colorTrial1_orbitTraps_enabled");
-  transform.colorTrial1.transformSamplingEnabled = container->Get<bool>("transform_colorTrial1_transformSampling_enabled");
+  //transform.colorTrial1.transformSamplingEnabled = container->Get<bool>("transform_colorTrial1_transformSampling_enabled");
 
   transform.colorTrial1.colorConstant1 = container->Get<double>("transform_colorTrial1_colorConstant1");
   transform.colorTrial1.colorConstant2 = container->Get<double>("transform_colorTrial1_colorConstant2");
   transform.colorTrial1.colorConstant3 = container->Get<double>("transform_colorTrial1_colorConstant3");
-  transform.colorTrial1.sampleConstant1 = container->Get<double>("transform_colorTrial1_sampleConstant1");
-  transform.colorTrial1.sampleConstant2 = container->Get<double>("transform_colorTrial1_sampleConstant2");
-  transform.colorTrial1.sampleConstant3 = container->Get<double>("transform_colorTrial1_sampleConstant3");
-  transform.colorTrial1.sampleConstant4 = container->Get<double>("transform_colorTrial1_sampleConstant4");
-  transform.colorTrial1.sampleConstant5 = container->Get<double>("transform_colorTrial1_sampleConstant5");
-  transform.colorTrial1.sampleConstant6 = container->Get<double>("transform_colorTrial1_sampleConstant6");
+  //transform.colorTrial1.sampleConstant1 = container->Get<double>("transform_colorTrial1_sampleConstant1");
+  //transform.colorTrial1.sampleConstant2 = container->Get<double>("transform_colorTrial1_sampleConstant2");
+  //transform.colorTrial1.sampleConstant3 = container->Get<double>("transform_colorTrial1_sampleConstant3");
+  //transform.colorTrial1.sampleConstant4 = container->Get<double>("transform_colorTrial1_sampleConstant4");
+  //transform.colorTrial1.sampleConstant5 = container->Get<double>("transform_colorTrial1_sampleConstant5");
+  //transform.colorTrial1.sampleConstant6 = container->Get<double>("transform_colorTrial1_sampleConstant6");
 
   transform.colorTrial1.mainOrbitTrapWeight = container->Get<double>("transform_colorTrial1_mainOTWeight");
   transform.colorTrial1.orbitTrap1Weight = container->Get<double>("transform_colorTrial1_orbitTrap1Weight");
