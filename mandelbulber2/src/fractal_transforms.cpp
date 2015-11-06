@@ -1488,6 +1488,7 @@ void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &b
   if (benesiFastPwr2PineTree.control.enabled && i >= benesiFastPwr2PineTree.control.startIterations && i < benesiFastPwr2PineTree.control.stopIterations)
   {
     CVector3 temp = z;
+    aux.r = z.Length();
     z *= z;
     double t = 2 * temp.x/sqrt(z.y + z.z);
     c *= benesiFastPwr2PineTree.constantMultiplierVect;
@@ -1502,6 +1503,5 @@ void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &b
     }
   }
 }
-
 
 

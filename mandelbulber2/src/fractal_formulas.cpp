@@ -955,6 +955,9 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 //------------MANDELBULB6Beta  Trial Transforms--------------------------------
 void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
+  // Benesi MagTransformOne); 1
+  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne1, z, i, aux);
+
   //boxOffset1
   boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
 
@@ -979,8 +982,8 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
   // z =(fabs( z + const1A.) * const1.B) + z * constC.;
   fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
 
-  // Benesi MagTransformOne); 1
-  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne1, z, i, aux);
+  // Benesi FastPwr2PineTree); 1
+  benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree1, z, c, i, aux);
 
   //MAIN FORMULA ORIGINAL1
   // mandelbulb 3D 1
@@ -1010,6 +1013,9 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
   //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
   fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
 
+  // Benesi MagTransformOne); 2
+  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne2, z, i, aux);
+
   // mandelbulb variable power 3D 1
   variableMandelbulbPowerTransform3D(fractal->transform.variableMandelbulbPower1, z, i, aux);
 
@@ -1018,9 +1024,6 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 
   //mainRotation; 3
   mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
-
-  // z = z + c * const; 1
-  //constantMultiplierTransform3D(fractal->transform.constantMultiplier1, z, c, i);
 
   //variableConstantMultiplier 1
   variableConstantMultiplierTransform3D(fractal->transform.variableConstantMultiplier1, z, c, i);
