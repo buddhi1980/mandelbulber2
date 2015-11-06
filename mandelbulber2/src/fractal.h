@@ -518,30 +518,42 @@ struct sTransformBenesiMagTransformOne
   CVector3 offset;
   CVector3 scale;
 };
+
+struct sTransformBenesiMagTransformOneEnabled
+{
+  sTransformControl control;
+  CVector3 offset;
+  CVector3 scale;
+};
+
 struct sTransformBenesiMagTransformOnePlusMinus  // nine spot
 {
   sTransformControl control;
   CVector3 offset;
   CVector3 scale;
 };
+
 struct sTransformBenesiMagTransformTwo
 {
   sTransformControl control;
   CVector3 offset;
   CVector3 scale;
 };
+
 struct sTransformBenesiMagTransformThree
 {
   sTransformControl control;
   CVector3 offset;
   CVector3 scale;
 };
+
 struct sTransformBenesiMagTransformFour
 {
   sTransformControl control;
   CVector3 offset;
   CVector3 scale;
 };
+
 struct sTransformBenesiMagTransformFiveB
 {
   sTransformControl control;
@@ -550,7 +562,13 @@ struct sTransformBenesiMagTransformFiveB
   CVector3 powOne;
   CVector3 powTwo;
 };
+
 struct sTransformBenesiFastPwr2PineTree
+{
+  sTransformControl control;
+  CVector3 constantMultiplierVect;
+};
+struct sTransformBenesiFastPwr2PineTreeEnabled
 {
   sTransformControl control;
   CVector3 constantMultiplierVect;
@@ -611,6 +629,7 @@ struct sFractalTransform
   sTransformBenesiMagBackTransformOne benesiMagBackTransformOne1;
   sTransformBenesiMagBackTransformOne benesiMagBackTransformOne2;
 
+  sTransformBenesiMagTransformOneEnabled benesiMagTransformOneEnabled1;
   sTransformBenesiMagTransformOne benesiMagTransformOne1;
   sTransformBenesiMagTransformOne benesiMagTransformOne2;
   sTransformBenesiMagTransformOne benesiMagTransformOne3;
@@ -625,9 +644,10 @@ struct sFractalTransform
   sTransformBenesiMagTransformFiveB benesiMagTransformFiveB1;
   sTransformBenesiMagTransformFiveB benesiMagTransformFiveB2;
 
-
+  sTransformBenesiFastPwr2PineTreeEnabled benesiFastPwr2PineTreeEnabled1;
   sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree1;
   sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree2;
+  sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree3;
 
 
   //TODO here will be more transforms

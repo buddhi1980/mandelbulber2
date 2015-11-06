@@ -1306,6 +1306,34 @@ void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &ben
     }
   }
 }
+//benesiMagTransform transform OneEnabled 3D
+void benesiMagTransformOneEnabledTransform3D(const sTransformBenesiMagTransformOneEnabled &benesiMagTransformOneEnabled, CVector3 &z, int i, sExtendedAux &aux)
+{
+  if (benesiMagTransformOneEnabled.control.enabled && i >= benesiMagTransformOneEnabled.control.startIterations && i < benesiMagTransformOneEnabled.control.stopIterations)
+  {
+    CVector3 temp = z;
+    double tempXZ = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
+    z = CVector3
+      ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
+      (tempXZ  + z.y) * 0.70710678118654752440084436210485,
+      z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
+    z = fabs(z) * benesiMagTransformOneEnabled.scale;
+    double avgScale = (fabs(benesiMagTransformOneEnabled.scale.x) + fabs(benesiMagTransformOneEnabled.scale.y) + fabs(benesiMagTransformOneEnabled.scale.z))/3;// cheap approximation
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * avgScale + 1.0;
+    tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
+    z = CVector3
+      ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
+      (z.y - z.x) * 0.70710678118654752440084436210485,
+      z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196) ;
+    z = z - benesiMagTransformOneEnabled.offset;
+    //weight function
+    if (benesiMagTransformOneEnabled.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, benesiMagTransformOneEnabled.control.weight);
+    }
+  }
+}
 //benesiMagTransformOnePlusMinus  3D
 void benesiMagTransformOnePlusMinusTransform3D(const sTransformBenesiMagTransformOnePlusMinus &benesiMagTransformOnePlusMinus, CVector3 &z, int i, sExtendedAux &aux)
 {
@@ -1490,7 +1518,11 @@ void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &b
     CVector3 temp = z;
     aux.r = z.Length();
     z *= z;
-    double t = 2 * temp.x/sqrt(z.y + z.z);
+
+    double t = 2 * temp.x;
+    if (z.y + z.z > 0.0) t = t/sqrt(z.y + z.z);
+    else t = 1.0;
+    //double t = 2 * temp.x/sqrt(z.y + z.z);
     c *= benesiFastPwr2PineTree.constantMultiplierVect;
     z.x = (z.x - z.y - z.z) + c.x ;
     z.z = (t * (z.y - z.z)) + c.y ;
@@ -1503,5 +1535,28 @@ void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &b
     }
   }
 }
-
+//benesiFastPwr2PineTreeEnabled  3D
+void benesiFastPwr2PineTreeEnabledTransform3D(const sTransformBenesiFastPwr2PineTreeEnabled &benesiFastPwr2PineTreeEnabled, CVector3 &z, CVector3 &c, int i, sExtendedAux &aux)
+{
+  if (benesiFastPwr2PineTreeEnabled.control.enabled && i >= benesiFastPwr2PineTreeEnabled.control.startIterations && i < benesiFastPwr2PineTreeEnabled.control.stopIterations)
+  {
+    CVector3 temp = z;
+    aux.r = z.Length();
+    z *= z;
+    double t = 2 * temp.x;
+    if (z.y + z.z > 0.0) t = t/sqrt(z.y + z.z);
+    else t = 1.0;
+    //double t = 2 * temp.x/sqrt(z.y + z.z);
+    c *= benesiFastPwr2PineTreeEnabled.constantMultiplierVect;
+    z.x = (z.x - z.y - z.z) + c.x ;
+    z.z = (t * (z.y - z.z)) + c.y ;
+    z.y = (2 * t * temp.y * temp.z) + c.z;
+    aux.r_dz =aux.r * aux.r_dz * 2.0 + 1.0;
+    //weight function
+    if (benesiFastPwr2PineTreeEnabled.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, benesiFastPwr2PineTreeEnabled.control.weight);
+    }
+  }
+}
 

@@ -603,6 +603,13 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.benesiMagBackTransformOne2.control.weight = container->Get<double>("transform_benesiMagBackTransformOne2_weight");
 
 
+  transform.benesiMagTransformOneEnabled1.control.enabled = container->Get<bool>("transform_benesiMagTransformOneEnabled1_enabled");
+  transform.benesiMagTransformOneEnabled1.control.weightEnabled = container->Get<bool>("transform_benesiMagTransformOneEnabled1_weight_enabled");
+  transform.benesiMagTransformOneEnabled1.offset = container->Get<CVector3>("transform_benesiMagTransformOneEnabled1_offset");
+  transform.benesiMagTransformOneEnabled1.scale = container->Get<CVector3>("transform_benesiMagTransformOneEnabled1_scale");
+  transform.benesiMagTransformOneEnabled1.control.startIterations = container->Get<int>("transform_benesiMagTransformOneEnabled1_start_iterations");
+  transform.benesiMagTransformOneEnabled1.control.stopIterations = container->Get<int>("transform_benesiMagTransformOneEnabled1_stop_iterations");
+  transform.benesiMagTransformOneEnabled1.control.weight = container->Get<double>("transform_benesiMagTransformOneEnabled1_weight");
   transform.benesiMagTransformOne1.control.enabled = container->Get<bool>("transform_benesiMagTransformOne1_enabled");
   transform.benesiMagTransformOne1.control.weightEnabled = container->Get<bool>("transform_benesiMagTransformOne1_weight_enabled");
   transform.benesiMagTransformOne1.offset = container->Get<CVector3>("transform_benesiMagTransformOne1_offset");
@@ -685,6 +692,12 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.benesiMagTransformFiveB2.control.stopIterations = container->Get<int>("transform_benesiMagTransformFiveB2_stop_iterations");
   transform.benesiMagTransformFiveB2.control.weight = container->Get<double>("transform_benesiMagTransformFiveB2_weight");
 
+  transform.benesiFastPwr2PineTreeEnabled1.control.enabled = container->Get<bool>("transform_benesiFastPwr2PineTreeEnabled1_enabled");
+  transform.benesiFastPwr2PineTreeEnabled1.control.weightEnabled = container->Get<bool>("transform_benesiFastPwr2PineTreeEnabled1_weight_enabled");
+  transform.benesiFastPwr2PineTreeEnabled1.control.startIterations = container->Get<int>("transform_benesiFastPwr2PineTreeEnabled1_start_iterations");
+  transform.benesiFastPwr2PineTreeEnabled1.control.stopIterations = container->Get<int>("transform_benesiFastPwr2PineTreeEnabled1_stop_iterations");
+  transform.benesiFastPwr2PineTreeEnabled1.control.weight = container->Get<double>("transform_benesiFastPwr2PineTreeEnabled1_weight");
+  transform.benesiFastPwr2PineTreeEnabled1.constantMultiplierVect = container->Get<CVector3>("transform_benesiFastPwr2PineTreeEnabled1_constantMultiplier");
 
   transform.benesiFastPwr2PineTree1.control.enabled = container->Get<bool>("transform_benesiFastPwr2PineTree1_enabled");
   transform.benesiFastPwr2PineTree1.control.weightEnabled = container->Get<bool>("transform_benesiFastPwr2PineTree1_weight_enabled");
@@ -698,6 +711,12 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.benesiFastPwr2PineTree2.control.stopIterations = container->Get<int>("transform_benesiFastPwr2PineTree2_stop_iterations");
   transform.benesiFastPwr2PineTree2.control.weight = container->Get<double>("transform_benesiFastPwr2PineTree2_weight");
   transform.benesiFastPwr2PineTree2.constantMultiplierVect = container->Get<CVector3>("transform_benesiFastPwr2PineTree2_constantMultiplier");
+  transform.benesiFastPwr2PineTree3.control.enabled = container->Get<bool>("transform_benesiFastPwr2PineTree3_enabled");
+  transform.benesiFastPwr2PineTree3.control.weightEnabled = container->Get<bool>("transform_benesiFastPwr2PineTree3_weight_enabled");
+  transform.benesiFastPwr2PineTree3.control.startIterations = container->Get<int>("transform_benesiFastPwr2PineTree3_start_iterations");
+  transform.benesiFastPwr2PineTree3.control.stopIterations = container->Get<int>("transform_benesiFastPwr2PineTree3_stop_iterations");
+  transform.benesiFastPwr2PineTree3.control.weight = container->Get<double>("transform_benesiFastPwr2PineTree3_weight");
+  transform.benesiFastPwr2PineTree3.constantMultiplierVect = container->Get<CVector3>("transform_benesiFastPwr2PineTree3_constantMultiplier");
 
 
 //----------------------------------
