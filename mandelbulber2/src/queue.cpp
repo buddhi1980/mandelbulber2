@@ -638,6 +638,7 @@ void cQueue::slotQueueListUpdate(int i, int j)
 					else
 					{
 						thumbWidget->AssignParameters(tempPar, tempFract);
+						thumbWidget->update();
 					}
 				}
 			}
