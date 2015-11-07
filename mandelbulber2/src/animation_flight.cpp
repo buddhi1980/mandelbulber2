@@ -575,6 +575,7 @@ void cFlightAnimation::RenderFlight(bool *stopRequest)
 
 	int startFrame = params->Get<int>("flight_first_to_render");
 	int endFrame = params->Get<int>("flight_last_to_render");
+	if(endFrame == 0) endFrame = frames->GetNumberOfFrames();
 
 	// Check if frames have already been rendered
 	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
