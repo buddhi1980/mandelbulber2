@@ -108,8 +108,18 @@ void cRenderQueue::slotRenderQueue()
 			switch(queueItem.renderType)
 			{
 				case cQueue::queue_STILL: result = RenderStill(queueItem.filename); break;
-				case cQueue::queue_FLIGHT: RenderFlight(); break;
-				case cQueue::queue_KEYFRAME: RenderKeyframe(); break;
+				case cQueue::queue_FLIGHT:
+				{
+					RenderFlight();
+					result = true;
+				}
+				break;
+				case cQueue::queue_KEYFRAME:
+				{
+					RenderKeyframe();
+					result = true;
+				}
+				break;
 			}
 
 			if(result)
