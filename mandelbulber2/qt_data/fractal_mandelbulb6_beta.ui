@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>724</width>
-    <height>7445</height>
+    <height>4095</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,6 +17,21 @@
    <enum>Qt::LeftToRight</enum>
   </property>
   <layout class="QGridLayout" name="gridLayout_60">
+   <property name="leftMargin">
+    <number>2</number>
+   </property>
+   <property name="topMargin">
+    <number>2</number>
+   </property>
+   <property name="rightMargin">
+    <number>2</number>
+   </property>
+   <property name="bottomMargin">
+    <number>2</number>
+   </property>
+   <property name="spacing">
+    <number>2</number>
+   </property>
    <item row="2" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformOne1_enabled">
      <property name="title">
@@ -10807,7 +10822,7 @@
    <item row="26" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_variableMandelbulbPower1_enabled">
      <property name="title">
-      <string>Enable MANDELBULB FORMULA Variable Power ; Copy ONE</string>
+      <string>Enable MANDELBULB FORMULA &amp;Variable Power ; Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -12288,7 +12303,7 @@
    <item row="10" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiFastPwr2PineTree1_enabled">
      <property name="title">
-      <string>Enable   MANDELBULB Benesi Fast Pwr2 Pine Tree;  Copy ONE</string>
+      <string>Enable   MANDELBULB Benesi Fast Pwr&amp;2 Pine Tree;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -13095,7 +13110,7 @@
    <item row="3" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_boxOffset1_enabled">
      <property name="title">
-      <string>E&amp;nable  Box Offset   if (z &gt; 0)  z = z + offset;  else  z = z - offset;  Copy ONE</string>
+      <string>Enable  Box Offset   &amp;if (z &gt; 0)  z = z + offset;  else  z = z - offset;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -13680,7 +13695,7 @@
   <tabstop>spinbox_transform_box_fold2_old_weight</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../home/graeme/git/mandelbulber2/mandelbulber2/qt/icons.qrc"/>
+  <include location="../qt/icons.qrc"/>
  </resources>
  <connections>
   <connection>

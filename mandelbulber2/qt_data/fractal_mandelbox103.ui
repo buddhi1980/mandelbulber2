@@ -5647,7 +5647,7 @@
   <tabstop>spinbox_transform_iterationWeight1_constantZ</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../home/graeme/git/mandelbulber2/mandelbulber2/qt/icons.qrc"/>
+  <include location="../qt/icons.qrc"/>
  </resources>
  <connections>
   <connection>

@@ -7414,8 +7414,7 @@
   <tabstop>spinbox_transform_box_fold2_old_weight</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../home/graeme/git/mandelbulber2/mandelbulber2/qt/icons.qrc"/>
-  <include location="../../../../home/graeme/git/mandelbulber2/mandelbulber2/qt/icons.qrc"/>
+  <include location="../qt/icons.qrc"/>
  </resources>
  <connections>
   <connection>
