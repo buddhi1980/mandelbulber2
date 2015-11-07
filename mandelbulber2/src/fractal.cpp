@@ -217,7 +217,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.fabsAddConstant1.control.oldWeightEnabled = container->Get<bool>("transform_fabsAddConstant1_old_weight_enabled");
   transform.fabsAddConstant1.fabsAddConstantEnabledx = container->Get<bool>("transform_fabsAddConstant1_enabled_x");
   transform.fabsAddConstant1.fabsAddConstantEnabledy = container->Get<bool>("transform_fabsAddConstant1_enabled_y");
-  transform.fabsAddConstant1.fabsAddConstantEnabledy = container->Get<bool>("transform_fabsAddConstant1_enabled_z");
+  transform.fabsAddConstant1.fabsAddConstantEnabledz = container->Get<bool>("transform_fabsAddConstant1_enabled_z");
   transform.fabsAddConstant1.control.startIterations = container->Get<int>("transform_fabsAddConstant1_start_iterations");
   transform.fabsAddConstant1.control.stopIterations = container->Get<int>("transform_fabsAddConstant1_stop_iterations");
   transform.fabsAddConstant1.fabsAddConstantA = container->Get<CVector3>("transform_fabsAddConstant1A");
