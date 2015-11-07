@@ -1007,21 +1007,21 @@ void variableConstantMultiplierTransform3D(const sTransformVariableConstantMulti
   if (variableConstantMultiplier.control.enabled && i >= variableConstantMultiplier.control.startIterations && i < variableConstantMultiplier.control.stopIterations)
   {
     CVector3 temp = z;
-    CVector3 tempC = variableConstantMultiplier.constantMultiplier;// constant to be varied
+    CVector3 tempVC = variableConstantMultiplier.constantMultiplier;// constant to be varied
     if ( i < variableConstantMultiplier.variableStartIterations)
     {
     ;
     }
     if ( i >= variableConstantMultiplier.variableStartIterations && i < variableConstantMultiplier.variableStopIterations && (variableConstantMultiplier.variableStopIterations - variableConstantMultiplier.variableStartIterations != 0))
     {
-      tempC = (tempC + variableConstantMultiplier.variableConstant * (i - variableConstantMultiplier.variableStartIterations) / (variableConstantMultiplier.variableStopIterations - variableConstantMultiplier.variableStartIterations));
+      tempVC = (tempVC + variableConstantMultiplier.variableConstant * (i - variableConstantMultiplier.variableStartIterations) / (variableConstantMultiplier.variableStopIterations - variableConstantMultiplier.variableStartIterations));
     }
     if ( i >= variableConstantMultiplier.variableStopIterations)
     {
-      tempC =  (tempC + variableConstantMultiplier.variableConstant);
+      tempVC =  (tempVC + variableConstantMultiplier.variableConstant);
     }
-    z += c  * tempC;
 
+    z += c  * tempVC;
     //weight function
     if (variableConstantMultiplier.control.weightEnabled)
     {
@@ -1029,34 +1029,34 @@ void variableConstantMultiplierTransform3D(const sTransformVariableConstantMulti
     }
   }
 }
-
 // variableMandelbulb power 3D
 void variableMandelbulbPowerTransform3D(const sTransformVariableMandelbulbPower &variableMandelbulbPower, CVector3 &z, int i, sExtendedAux &aux)
 {
   if (variableMandelbulbPower.control.enabled && i >= variableMandelbulbPower.control.startIterations && i <variableMandelbulbPower.control.stopIterations)
   {
     CVector3 temp = z;
-    double tempC = variableMandelbulbPower.power;// constant to be varied
+    double tempVC = variableMandelbulbPower.power;// constant to be varied
     if ( i < variableMandelbulbPower.variableStartIterations)
     {
     ;
     }
     if ( i >= variableMandelbulbPower.variableStartIterations && i < variableMandelbulbPower.variableStopIterations && (variableMandelbulbPower.variableStopIterations - variableMandelbulbPower.variableStartIterations != 0))
     {
-      tempC = (tempC + variableMandelbulbPower.variableConstant * (i - variableMandelbulbPower.variableStartIterations) / (variableMandelbulbPower.variableStopIterations - variableMandelbulbPower.variableStartIterations));
+      tempVC = (tempVC + variableMandelbulbPower.variableConstant * (i - variableMandelbulbPower.variableStartIterations) / (variableMandelbulbPower.variableStopIterations - variableMandelbulbPower.variableStartIterations));
     }
     if ( i >= variableMandelbulbPower.variableStopIterations)
     {
-      tempC =  (tempC + variableMandelbulbPower.variableConstant);
+      tempVC =  (tempVC + variableMandelbulbPower.variableConstant);
     }
+
     aux.r = z.Length();
     double th0 = asin(z.z / aux.r) + variableMandelbulbPower.betaAngleOffset;
     double ph0 = atan2(z.y, z.x) + variableMandelbulbPower.alphaAngleOffset;
-    double rp = pow(aux.r, tempC - 1.0);
-    double th = th0 * tempC;
-    double ph = ph0 * tempC;
+    double rp = pow(aux.r, tempVC - 1.0);
+    double th = th0 * tempVC;
+    double ph = ph0 * tempVC;
     double cth = cos(th);
-    aux.r_dz = rp * aux.r_dz * tempC + 1.0;
+    aux.r_dz = rp * aux.r_dz * tempVC + 1.0;
     rp *= aux.r;
     z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
     //weight function
@@ -1066,31 +1066,30 @@ void variableMandelbulbPowerTransform3D(const sTransformVariableMandelbulbPower 
     }
   }
 }
-
 //variableScale transform 3D
 void variableScaleTransform3D(const sTransformVariableScale &variableScale, CVector3 &z, int i, sExtendedAux &aux)
 {
   if (variableScale.control.enabled && i >= variableScale.control.startIterations && i < variableScale.control.stopIterations)
   {
-    CVector3 tempS = variableScale.scale;// constant to be varied
+    CVector3 tempVC = variableScale.scale;// constant to be varied
      if ( i < variableScale.variableStartIterations)
      {
      ;
      }
      if ( i >= variableScale.variableStartIterations && i < variableScale.variableStopIterations && (variableScale.variableStopIterations - variableScale.variableStartIterations != 0))
      {
-       tempS = (tempS + variableScale.variableConstant * (i - variableScale.variableStartIterations) / (variableScale.variableStopIterations - variableScale.variableStartIterations));
+       tempVC = (tempVC + variableScale.variableConstant * (i - variableScale.variableStartIterations) / (variableScale.variableStopIterations - variableScale.variableStartIterations));
      }
      if ( i >= variableScale.variableStopIterations)
      {
-       tempS =  (tempS + variableScale.variableConstant);
+       tempVC =  (tempVC + variableScale.variableConstant);
      }
+     if (variableScale.variableStopIterations - variableScale.variableStartIterations == 0)
 
-    z = z * tempS;
-    aux.DE = aux.DE * fabs((tempS.x * tempS.y * tempS.z)/3) + 1.0; // need to fix
+    z = z * tempVC;
+    aux.DE = aux.DE * fabs((tempVC.x * tempVC.y * tempVC.z)/3) + 1.0; // cheap approximation
   }
 }
-
 //coloringParameters transform 3D
 void coloringParametersTransform3D(const sTransformColoringParameters &coloringParameters, CVector3 &z, double minimumR, int i,  sExtendedAux &aux)
 {
@@ -1099,7 +1098,6 @@ void coloringParametersTransform3D(const sTransformColoringParameters &coloringP
       double R;
       R = z.Length();
       if (R < minimumR) minimumR = R;
-
       R = (aux.color * 100) + (aux.r * coloringParameters.color.factorR * 100) + (1000* minimumR);
       aux.newR = R;
     }
@@ -1488,7 +1486,10 @@ void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB 
       ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
       (tempXZ  + z.y) * 0.70710678118654752440084436210485,
       z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
-    //  Change this for different transforms
+
+    if (z.x == 0.0) z.x = 1e-21;
+    if (z.y == 0.0) z.y = 1e-21;
+    if (z.z == 0.0) z.z = 1e-21;
     CVector3 tempV2 = z;
     tempV2.x = fabs(pow(pow(z.y, benesiMagTransformFiveB.powOne.x) + pow(z.z, benesiMagTransformFiveB.powOne.x),benesiMagTransformFiveB.powTwo.x));
     tempV2.y = fabs(pow(pow(z.x, benesiMagTransformFiveB.powOne.y) + pow(z.z, benesiMagTransformFiveB.powOne.y),benesiMagTransformFiveB.powTwo.y));
@@ -1499,6 +1500,7 @@ void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB 
     aux.r_dz *= avgScale;
     aux.DE = aux.DE * fabs(avgScale) + 1.0;
     tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
+
     z = CVector3
       ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
       (z.y - z.x) * 0.70710678118654752440084436210485,
