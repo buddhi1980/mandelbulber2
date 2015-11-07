@@ -124,7 +124,7 @@ void cRenderQueue::slotRenderQueue()
 
 			if(result)
 			{
-				gQueue->RemoveFromList(queueItem);
+				gQueue->RemoveQueueItem(queueItem);
 				queueFinished++;
 			}
 			else
