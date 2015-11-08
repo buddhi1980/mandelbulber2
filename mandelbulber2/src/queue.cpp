@@ -137,7 +137,7 @@ void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnim
 void cQueue::AppendList(const QString &filename)
 {
 	//add all entries from list given with filename to current list
-	qDebug() << filename;
+	// qDebug() << "AppendList: " << filename;
 	if (QFileInfo(filename).suffix() == QString("fractlist"))
 	{
 		mutex.lock();
@@ -222,7 +222,7 @@ QStringList cQueue::RemoveOrphanedFiles()
 			RemoveFromFileSystem(queueListFileSystem[i]);
 		}
 	}
-	qDebug() << "remove orphaned files " << removeList.size() << " total\n" << removeList;
+	// qDebug() << "remove orphaned files " << removeList.size() << " total\n" << removeList;
 	mutex.unlock();
 	return removeList;
 }
@@ -231,7 +231,7 @@ QStringList cQueue::AddOrphanedFilesToList()
 {
 	// add orphaned files from queue folder to the end of the list
 	mutex.lock();
-	qDebug() << "add orphaned";
+	// qDebug() << "add orphaned";
 	QStringList appendList;
 	for(int i = 0; i < queueListFileSystem.size(); i++)
 	{
@@ -248,7 +248,7 @@ QStringList cQueue::AddOrphanedFilesToList()
 	{
 		StoreList();
 	}
-	qDebug() << "add orphaned files " << appendList.size() << " total\n" << appendList;
+	// qDebug() << "add orphaned files " << appendList.size() << " total\n" << appendList;
 	return appendList;
 }
 
@@ -405,7 +405,7 @@ QString cQueue::GetTypeColor(enumRenderType queueType)
 
 void cQueue::queueFileChanged(const QString &path)
 {
-	qDebug() << "queueFileChanged";
+	// qDebug() << "queueFileChanged";
 	if(path == queueListFileName)
 	{
 		UpdateListFromQueueFile();
@@ -414,7 +414,7 @@ void cQueue::queueFileChanged(const QString &path)
 
 void cQueue::queueFolderChanged(const QString &path)
 {
-	qDebug() << "queueFolderChanged";
+	// qDebug() << "queueFolderChanged";
 	if(path == queueFolder)
 	{
 		UpdateListFromFileSystem();
@@ -474,10 +474,12 @@ void cQueue::RenderQueue()
 			gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
 		QObject::connect(renderQueue, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 			gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+		QObject::connect(renderQueue, SIGNAL(updateStatistics(cStatistics)), gMainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 	if(gMainInterface->headless){
 		QObject::connect(renderQueue, SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
 			gMainInterface->headless, SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
+		QObject::connect(renderQueue, SIGNAL(updateStatistics(cStatistics)), gMainInterface->headless, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 	QObject::connect(renderQueue, SIGNAL(finished()), thread, SLOT(quit()));
 	QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
