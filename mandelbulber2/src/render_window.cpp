@@ -1857,6 +1857,11 @@ void RenderWindow::slotCheckBoxDisableNetRender(bool on)
 	}
 }
 
+void RenderWindow::slotQuestionMessage(const QString &questionTitle, const QString &questionText, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply)
+{
+	*reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, QMessageBox::Yes | QMessageBox::No);
+}
+
 #ifdef USE_GAMEPAD
 void RenderWindow::slotChangeGamepadIndex(int index)
 {

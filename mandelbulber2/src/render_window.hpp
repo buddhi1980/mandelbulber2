@@ -30,6 +30,7 @@
 #include "cimage.hpp"
 #include "statistics.h"
 #include "progress_text.hpp"
+#include <qmessagebox.h>
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepad.h>
 #endif // USE_GAMEPAD
@@ -103,6 +104,7 @@ private slots:
 	void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
 	void slotUpdateStatistics(cStatistics);
 	void slotMenuProgramSettings();
+	void slotQuestionMessage(const QString &questionTitle, const QString &questionText, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
 
 	//camera
 	void slotCameraMove();

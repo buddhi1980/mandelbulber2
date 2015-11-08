@@ -77,6 +77,8 @@ int main(int argc, char *argv[])
 	qRegisterMetaType<cProgressText::enumProgressType>("cProgressText::enumProgressType");
 	qRegisterMetaType<QVector<int> >("QVector<int>");
 	qRegisterMetaType<CVector2<double> >("CVector2<double>");
+	qRegisterMetaType<QMessageBox::StandardButtons>("QMessageBox::StandardButtons");
+	qRegisterMetaType<QMessageBox::StandardButtons*>("QMessageBox::StandardButtons*");
 
 	//create default directories and copy all needed files
 	WriteLog("CreateDefaultFolders()");
