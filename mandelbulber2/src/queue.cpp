@@ -574,7 +574,7 @@ void cQueue::slotQueueListUpdate()
 	if(table->columnCount() == 0)
 	{
 		QStringList header;
-		header << tr("Name") << tr("Preview") << tr("Type") << tr("Status") << tr("Action");
+		header << tr("Name") << tr("Preview") << tr("Type") << tr("Action");
 		table->setColumnCount(header.size());
 		table->setHorizontalHeaderLabels(header);
 	}
@@ -660,12 +660,6 @@ void cQueue::slotQueueListUpdate(int i, int j)
 		}
 		case 3:
 		{
-			//TODO status
-			cell->setText("???");
-			break;
-		}
-		case 4:
-		{
 			QFrame *frame = new QFrame;
 			QGridLayout *gridlayout = new QGridLayout;
 			QToolButton *actionDelete = new QToolButton;
@@ -684,9 +678,9 @@ void cQueue::slotQueueListUpdate(int i, int j)
 			QObject::connect(actionMoveUp, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemUp()));
 			QObject::connect(actionMoveDown, SIGNAL(clicked()), this, SLOT(slotQueueMoveItemDown()));
 
-			gridlayout->addWidget(actionDelete, 0, 1);
 			gridlayout->addWidget(actionMoveUp, 0, 0);
 			gridlayout->addWidget(actionMoveDown, 1, 0);
+			gridlayout->addWidget(actionDelete, 0, 1);
 			gridlayout->setSpacing(0);
 
 			if(i == 0) actionMoveUp->setEnabled(false);
