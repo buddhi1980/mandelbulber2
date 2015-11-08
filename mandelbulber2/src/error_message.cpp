@@ -92,3 +92,7 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 }
 
 
+void cErrorMessage::slotShowMessage(QString text, enumMessageType messageType, QWidget *parent)
+{
+	showMessage(text, messageType, parent);
+}

@@ -90,6 +90,7 @@ private:
 	void SendNetRenderJob(cParameterContainer settings, cFractalContainer fractal, sTextures textures);
 	void SendNetRenderSetup(int clientIndex, int id, QList<int> startingPositions);
 	void SetMinimumWidgetSize(int width, int height);
+
 };
 
 

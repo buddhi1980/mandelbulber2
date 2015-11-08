@@ -79,6 +79,9 @@ int main(int argc, char *argv[])
 	qRegisterMetaType<CVector2<double> >("CVector2<double>");
 	qRegisterMetaType<QMessageBox::StandardButtons>("QMessageBox::StandardButtons");
 	qRegisterMetaType<QMessageBox::StandardButtons*>("QMessageBox::StandardButtons*");
+	qRegisterMetaType<cErrorMessage::enumMessageType>("cErrorMessage::enumMessageType");
+
+	gErrorMessage = new cErrorMessage;
 
 	//create default directories and copy all needed files
 	WriteLog("CreateDefaultFolders()");
@@ -192,6 +195,7 @@ int main(int argc, char *argv[])
 	delete gNetRender;
 	delete gQueue;
 	delete gMainInterface;
+	delete gErrorMessage;
 	delete gApplication;
 	return result;
 }

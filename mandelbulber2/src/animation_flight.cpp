@@ -71,6 +71,9 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 		ui = NULL;
 		table = NULL;
 	}
+
+	QApplication::connect(this, SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget*)), gErrorMessage, SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget*)));
+
 	image = _image;
 	imageWidget = _imageWidget;
 	params = _params;
@@ -115,7 +118,7 @@ void cFlightAnimation::slotRenderFlight()
 		}
 		else
 		{
-			cErrorMessage::showMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage, ui->centralwidget);
+			emit showErrorMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage, ui->centralwidget);
 		}
 
 	}
@@ -543,7 +546,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 {
 	if(image->IsUsed())
 	{
-		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
+		emit showErrorMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
 		return false;
 	}
 

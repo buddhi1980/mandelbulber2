@@ -68,7 +68,6 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		QApplication::connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)),
 													mainInterface->mainWindow, SLOT(slotQuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)));
 
-
 		table = ui->tableWidget_keyframe_animation;
 
 		//add default parameters for animation
@@ -86,6 +85,9 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		ui = NULL;
 		table = NULL;
 	}
+
+	QApplication::connect(this, SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget*)), gErrorMessage, SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget*)));
+
 }
 
 void cKeyframeAnimation::slotAddKeyframe()
@@ -197,7 +199,7 @@ void cKeyframeAnimation::slotRenderKeyframes()
 		}
 		else
 		{
-			cErrorMessage::showMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage, ui->centralwidget);
+			emit showErrorMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage, ui->centralwidget);
 		}
 
 	}
@@ -397,7 +399,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 {
 	if (image->IsUsed())
 	{
-		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
+		emit showErrorMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
 		return false;
 	}
 
@@ -424,7 +426,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					collisionText += QString("%1").arg(listOfCollisions.at(i));
 					if (i < listOfCollisions.size() - 1) collisionText += QString(", ");
 				}
-				cErrorMessage::showMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
+				emit showErrorMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
 			}
 		}
 	}
@@ -1032,11 +1034,11 @@ void cKeyframeAnimation::slotValidate()
 			collisionText += QString("%1").arg(listOfCollisions.at(i));
 			if(i < listOfCollisions.size() - 1) collisionText += QString(", ");
 		}
-		cErrorMessage::showMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
+		emit showErrorMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("No collisions detected\n"), cErrorMessage::infoMessage);
+		emit showErrorMessage(QObject::tr("No collisions detected\n"), cErrorMessage::infoMessage);
 	}
 
 }

@@ -130,6 +130,7 @@ HEADERS  += ../src/render_window.hpp\
 			../src/dof.hpp\
 			../src/netrender.hpp \
 			../src/headless.h\
+			../src/error_message.hpp\
     	../qt/preferencesdialog.h
 
 FORMS    += ../qt/render_window.ui \

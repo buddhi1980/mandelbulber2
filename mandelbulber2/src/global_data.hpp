@@ -33,6 +33,7 @@
 #include "interface.hpp"
 #include "netrender.hpp"
 #include "queue.hpp"
+#include "error_message.hpp"
 
 extern cParameterContainer *gPar;
 extern cFractalContainer *gParFractal;
@@ -44,6 +45,6 @@ extern cKeyframeAnimation *gKeyframeAnimation;
 extern QApplication *gApplication;
 extern CNetRender *gNetRender;
 extern cQueue *gQueue;
-
+extern cErrorMessage *gErrorMessage;
 
 #endif /* SRC_GLOBAL_DATA_HPP_ */

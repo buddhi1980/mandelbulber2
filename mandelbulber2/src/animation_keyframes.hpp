@@ -27,6 +27,7 @@
 #include "interface.hpp"
 #include "thumbnail_widget.h"
 #include "files.h"
+#include "error_message.hpp"
 
 class cKeyframeAnimation : public QObject
 {
@@ -95,6 +96,7 @@ signals:
 	void updateStatistics(cStatistics statistics);
 	void updateProgressHide(cProgressText::enumProgressType progressType = cProgressText::progress_ANIMATION);
 	void QuestionMessage(const QString &questionTitle, const QString &questionText, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
+	void showErrorMessage(QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = NULL);
 
 };
 
