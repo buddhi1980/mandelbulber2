@@ -89,7 +89,7 @@ void cRenderQueue::slotRenderQueue()
 		emit updateProgressAndStatus(
 			QFileInfo(queueItem.filename).fileName(),
 			QObject::tr("Queue Item %1 of %2").arg(queueFinished + 1).arg(queueTotalLeft + queueFinished),
-			1.0 * (queueFinished / (queueTotalLeft + queueFinished)),
+			(1.0 * queueFinished / (queueTotalLeft + queueFinished)),
 			cProgressText::progress_QUEUE);
 
 		if(QFile::exists(queueItem.filename))
