@@ -389,16 +389,16 @@ QColor cKeyframeAnimation::MorphType2Color(parameterContainer::enumMorphType mor
 	return color;
 }
 
-void cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
+bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 {
-	if(image->IsUsed())
+	if (image->IsUsed())
 	{
 		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
-		return;
+		return false;
 	}
 
 	//updating parameters
-	if(!systemData.noGui && image->IsMainImage())
+	if (!systemData.noGui && image->IsMainImage())
 	{
 		mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
 		gUndo.Store(params, fractalParams, NULL, keyframes);
@@ -407,18 +407,18 @@ void cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
 	//checking for collisions
-	if(!systemData.noGui && image->IsMainImage())
+	if (!systemData.noGui && image->IsMainImage())
 	{
-		if(params->Get<bool>("keyframe_auto_validate"))
+		if (params->Get<bool>("keyframe_auto_validate"))
 		{
 			QList<int> listOfCollisions = CheckForCollisions(params->Get<double>("keyframe_collision_thresh"));
-			if(listOfCollisions.size() > 0)
+			if (listOfCollisions.size() > 0)
 			{
 				QString collisionText;
-				for(int i = 0; i < listOfCollisions.size(); i++)
+				for (int i = 0; i < listOfCollisions.size(); i++)
 				{
 					collisionText += QString("%1").arg(listOfCollisions.at(i));
-					if(i < listOfCollisions.size() - 1) collisionText += QString(", ");
+					if (i < listOfCollisions.size() - 1) collisionText += QString(", ");
 				}
 				cErrorMessage::showMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
 			}
@@ -433,7 +433,7 @@ void cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	cRenderingConfiguration config;
 	config.EnableNetRender();
 
-	if(systemData.noGui)
+	if (systemData.noGui)
 	{
 		config.DisableRefresh();
 		config.DisableProgressiveRender();
@@ -449,121 +449,130 @@ void cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	cProgressText progressText;
 	progressText.ResetTimer();
 
-	//range of keyframes to render
-	int startFrame = params->Get<int>("keyframe_first_to_render");
-	int endFrame = params->Get<int>("keyframe_last_to_render");
-
-	// Check if frames have already been rendered
-	for(int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
+	try
 	{
-		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
-		frame.alreadyRenderedSubFrames.clear();
-		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
-		{
-			QString filename = GetKeyframeFilename(index, subindex);
-			int frameNo = index * keyframes->GetFramesPerKeyframe() + subindex;
-			frame.alreadyRenderedSubFrames.append(QFile(filename).exists() || frameNo < startFrame || frameNo >= endFrame);
-		}
-		keyframes->ModifyFrame(index, frame);
-	}
-	int unrenderedTotal = keyframes->GetUnrenderedTotal();
 
-	//message if all frames are already rendered
-	if(keyframes->GetNumberOfFrames() - 1 > 0 && unrenderedTotal == 0){
-		bool deletePreviousRender = false;
-		QString questionTitle = QObject::tr("Truncate Image Folder");
-		QString questionText = QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
-				+ QObject::tr("This will delete all images in the image folder.\nProceed?");
+		//range of keyframes to render
+		int startFrame = params->Get<int>("keyframe_first_to_render");
+		int endFrame = params->Get<int>("keyframe_last_to_render");
 
-		if (!systemData.noGui)
+		// Check if frames have already been rendered
+		for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 		{
-			QMessageBox::StandardButton reply;
-			reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, QMessageBox::Yes|QMessageBox::No);
-			deletePreviousRender = (reply == QMessageBox::Yes);
+			cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
+			frame.alreadyRenderedSubFrames.clear();
+			for (int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
+			{
+				QString filename = GetKeyframeFilename(index, subindex);
+				int frameNo = index * keyframes->GetFramesPerKeyframe() + subindex;
+				frame.alreadyRenderedSubFrames.append(QFile(filename).exists() || frameNo < startFrame || frameNo >= endFrame);
+			}
+			keyframes->ModifyFrame(index, frame);
 		}
-		else
+		int unrenderedTotal = keyframes->GetUnrenderedTotal();
+
+		//message if all frames are already rendered
+		if (keyframes->GetNumberOfFrames() - 1 > 0 && unrenderedTotal == 0)
 		{
-			deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
+			bool deletePreviousRender = false;
+			QString questionTitle = QObject::tr("Truncate Image Folder");
+			QString questionText = QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
+					+ QObject::tr("This will delete all images in the image folder.\nProceed?");
+
+			if (!systemData.noGui)
+			{
+				QMessageBox::StandardButton reply;
+				reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, QMessageBox::Yes | QMessageBox::No);
+				deletePreviousRender = (reply == QMessageBox::Yes);
+			}
+			else
+			{
+				deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
+			}
+
+			if (deletePreviousRender)
+			{
+				DeleteAllFilesFromDirectory(params->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
+				delete renderJob;
+				return RenderKeyframes(stopRequest);
+			}
+			else
+			{
+				throw false;
+			}
 		}
 
-		if (deletePreviousRender)
-		{
-			DeleteAllFilesFromDirectory(params->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
-			return RenderKeyframes(stopRequest);
-		}
-		else
-		{
-			return;
-		}
-	}
+		//total number of frames
+		int totalFrames = (keyframes->GetNumberOfFrames() - 1) * keyframes->GetFramesPerKeyframe();
 
-	//total number of frames
-	int totalFrames = (keyframes->GetNumberOfFrames() - 1) * keyframes->GetFramesPerKeyframe();
+		//main loop for rendering of frames
+		for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
+		{
+			//-------------- rendering of interpolated keyframes ----------------
+			for (int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
+			{
+				// skip already rendered frame
+				if (keyframes->GetFrame(index).alreadyRenderedSubFrames[subindex])
+				{
+					continue;
+				}
 
-	//main loop for rendering of frames
-	for(int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
+				int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
+
+				double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / unrenderedTotal;
+				QString progressTxt = progressText.getText(percentDoneFrame);
+
+				emit updateProgressAndStatus(QObject::tr("Rendering animation"), QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt, percentDoneFrame,
+						cProgressText::progress_ANIMATION);
+
+				if (*stopRequest) throw false;
+				keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
+
+				//recalculation of camera rotation and distance (just for display purposes)
+				CVector3 camera = params->Get<CVector3>("camera");
+				CVector3 target = params->Get<CVector3>("target");
+				CVector3 top = params->Get<CVector3>("camera_top");
+				cCameraTarget cameraTarget(camera, target, top);
+				params->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
+				params->Set("camera_distance_to_target", cameraTarget.GetDistance());
+
+				if (!systemData.noGui && image->IsMainImage())
+				{
+					mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
+
+					//show distance in statistics table
+					double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractalParams);
+					ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
+				}
+
+				if (gNetRender->IsServer())
+				{
+					gNetRender->WaitForAllClientsReady(2.0);
+				}
+
+				params->Set("frame_no", frameIndex);
+				renderJob->UpdateParameters(params, fractalParams);
+				int result = renderJob->Execute();
+				if (!result) throw false;
+				QString filename = GetKeyframeFilename(index, subindex);
+				SaveImage(filename, (enumImageFileType) params->Get<int>("keyframe_animation_image_type"), image);
+			}
+			//--------------------------------------------------------------------
+
+		}
+
+		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
+		emit updateProgressHide();
+	} catch (bool ex)
 	{
-		//-------------- rendering of interpolated keyframes ----------------
-		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
-		{
-			// skip already rendered frame
-			if(keyframes->GetFrame(index).alreadyRenderedSubFrames[subindex])
-			{
-				continue;
-			}
-
-			int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
-
-			double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / unrenderedTotal;
-			QString progressTxt = progressText.getText(percentDoneFrame);
-
-			emit updateProgressAndStatus(
-				QObject::tr("Rendering animation"),
-				QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt,
-				percentDoneFrame,
-				cProgressText::progress_ANIMATION
-			);
-
-			if(*stopRequest) break;
-			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
-
-			//recalculation of camera rotation and distance (just for display purposes)
-			CVector3 camera = params->Get<CVector3>("camera");
-			CVector3 target = params->Get<CVector3>("target");
-			CVector3 top = params->Get<CVector3>("camera_top");
-			cCameraTarget cameraTarget(camera, target, top);
-			params->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
-			params->Set("camera_distance_to_target", cameraTarget.GetDistance());
-
-			if (!systemData.noGui && image->IsMainImage())
-			{
-				mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
-
-				//show distance in statistics table
-				double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractalParams);
-				ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
-			}
-
-			if(gNetRender->IsServer())
-			{
-				gNetRender->WaitForAllClientsReady(2.0);
-			}
-
-			params->Set("frame_no", frameIndex);
-			renderJob->UpdateParameters(params, fractalParams);
-			int result = renderJob->Execute();
-			if(!result) break;
-			QString filename = GetKeyframeFilename(index, subindex);
-			SaveImage(filename, (enumImageFileType)params->Get<int>("keyframe_animation_image_type"), image);
-		}
-		//--------------------------------------------------------------------
-
+		emit updateProgressAndStatus(QObject::tr("Rendering terminated"), progressText.getText(1.0), cProgressText::progress_ANIMATION);
+		emit updateProgressHide();
+		delete renderJob;
+		return false;
 	}
-
-	emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
-	emit updateProgressHide();
 
 	delete renderJob;
+	return true;
 }
 
 void cKeyframeAnimation::RefreshTable()

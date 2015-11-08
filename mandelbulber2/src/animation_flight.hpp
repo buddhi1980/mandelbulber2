@@ -42,7 +42,7 @@ public:
 	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, cImage *_image, QWidget *_imageWidget,
 			cParameterContainer *_params, cFractalContainer *_fractal, QObject *parent = 0);
 	void RecordFlight(bool continueRecording);
-	void RenderFlight(bool *stopRequest);
+	bool RenderFlight(bool *stopRequest);
 	void RenderFrame(int index);
 	void RefreshTable();
 	QString GetParameterName(int rowNumber);

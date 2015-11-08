@@ -110,14 +110,12 @@ void cRenderQueue::slotRenderQueue()
 				case cQueue::queue_STILL: result = RenderStill(queueItem.filename); break;
 				case cQueue::queue_FLIGHT:
 				{
-					RenderFlight();
-					result = true;
+					result = RenderFlight();
 				}
 				break;
 				case cQueue::queue_KEYFRAME:
 				{
-					RenderKeyframe();
-					result = true;
+					result = RenderKeyframe();
 				}
 				break;
 			}
@@ -148,30 +146,34 @@ void cRenderQueue::slotRenderQueue()
 	emit finished();
 }
 
-void cRenderQueue::RenderFlight()
+bool cRenderQueue::RenderFlight()
 {
+	bool result = false;
 	if(systemData.noGui)
 	{
 		// gMainInterface->headless->RenderFlightAnimation();
-		queueFlightAnimation->RenderFlight(&gQueue->stopRequest);
+		result = queueFlightAnimation->RenderFlight(&gQueue->stopRequest);
 	}
 	else
 	{
-		queueFlightAnimation->RenderFlight(&gQueue->stopRequest);
+		result = queueFlightAnimation->RenderFlight(&gQueue->stopRequest);
 	}
+	return result;
 }
 
-void cRenderQueue::RenderKeyframe()
+bool cRenderQueue::RenderKeyframe()
 {
+	bool result = false;
 	if(systemData.noGui)
 	{
 		// gMainInterface->headless->RenderKeyframeAnimation();
-		queueKeyframeAnimation->RenderKeyframes(&gQueue->stopRequest);
+		result = queueKeyframeAnimation->RenderKeyframes(&gQueue->stopRequest);
 	}
 	else
 	{
-		queueKeyframeAnimation->RenderKeyframes(&gQueue->stopRequest);
+		result = queueKeyframeAnimation->RenderKeyframes(&gQueue->stopRequest);
 	}
+	return result;
 }
 
 bool cRenderQueue::RenderStill(const QString& filename)

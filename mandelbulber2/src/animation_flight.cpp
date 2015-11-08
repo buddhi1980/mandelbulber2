@@ -536,12 +536,12 @@ int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame)
 	return newColumn;
 }
 
-void cFlightAnimation::RenderFlight(bool *stopRequest)
+bool cFlightAnimation::RenderFlight(bool *stopRequest)
 {
 	if(image->IsUsed())
 	{
 		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
-		return;
+		return false;
 	}
 
 	if(!systemData.noGui && image->IsMainImage())
@@ -573,103 +573,114 @@ void cFlightAnimation::RenderFlight(bool *stopRequest)
 	cProgressText progressText;
 	progressText.ResetTimer();
 
-	int startFrame = params->Get<int>("flight_first_to_render");
-	int endFrame = params->Get<int>("flight_last_to_render");
-	if(endFrame == 0) endFrame = frames->GetNumberOfFrames();
-
-	// Check if frames have already been rendered
-	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
+	try
 	{
-		QString filename = GetFlightFilename(index);
-		cAnimationFrames::sAnimationFrame frame = frames->GetFrame(index);
-		frame.alreadyRendered = QFile(filename).exists() || index < startFrame || index >= endFrame;
-		frames->ModifyFrame(index, frame);
-	}
 
-	int unrenderedTotal = frames->GetUnrenderedTotal();
+		int startFrame = params->Get<int>("flight_first_to_render");
+		int endFrame = params->Get<int>("flight_last_to_render");
+		if (endFrame == 0) endFrame = frames->GetNumberOfFrames();
 
-	if(frames->GetNumberOfFrames() > 0 && unrenderedTotal == 0){
-		bool deletePreviousRender = false;
-		QString questionTitle = QObject::tr("Truncate Image Folder");
-		QString questionText = QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
-				+ QObject::tr("This will delete all images in the image folder.\nProceed?");
-
-		if (!systemData.noGui)
+		// Check if frames have already been rendered
+		for (int index = 0; index < frames->GetNumberOfFrames(); ++index)
 		{
-			QMessageBox::StandardButton reply;
-			reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, QMessageBox::Yes|QMessageBox::No);
-			deletePreviousRender = (reply == QMessageBox::Yes);
-		}
-		else
-		{
-			deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
+			QString filename = GetFlightFilename(index);
+			cAnimationFrames::sAnimationFrame frame = frames->GetFrame(index);
+			frame.alreadyRendered = QFile(filename).exists() || index < startFrame || index >= endFrame;
+			frames->ModifyFrame(index, frame);
 		}
 
-		if (deletePreviousRender)
-		{
-			DeleteAllFilesFromDirectory(params->Get<QString>("anim_flight_dir"), "frame_?????.*");
-			return RenderFlight(stopRequest);
-		}
-		else
-		{
-			return;
-		}
-	}
+		int unrenderedTotal = frames->GetUnrenderedTotal();
 
-	for(int index = 0; index < frames->GetNumberOfFrames(); ++index)
-	{
-		double percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
-		QString progressTxt = progressText.getText(percentDoneFrame);
-
-		// Skip already rendered frames
-		if (frames->GetFrame(index).alreadyRendered)
+		if (frames->GetNumberOfFrames() > 0 && unrenderedTotal == 0)
 		{
-			//int firstMissing = index;
-			while (index < frames->GetNumberOfFrames() && frames->GetFrame(index).alreadyRendered)
+			bool deletePreviousRender = false;
+			QString questionTitle = QObject::tr("Truncate Image Folder");
+			QString questionText = QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
+					+ QObject::tr("This will delete all images in the image folder.\nProceed?");
+
+			if (!systemData.noGui)
 			{
-				index++;
+				QMessageBox::StandardButton reply;
+				reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, QMessageBox::Yes | QMessageBox::No);
+				deletePreviousRender = (reply == QMessageBox::Yes);
 			}
-			index--;
-			//qDebug() << QObject::tr("Skip already rendered frame(s) %1 - %2").arg(firstMissing).arg(index);
-			continue;
+			else
+			{
+				deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
+			}
+
+			if (deletePreviousRender)
+			{
+				DeleteAllFilesFromDirectory(params->Get<QString>("anim_flight_dir"), "frame_?????.*");
+				return RenderFlight(stopRequest);
+			}
+			else
+			{
+				throw false;
+			}
 		}
 
-		emit updateProgressAndStatus(
-			QObject::tr("Animation start"),
-			QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
-			percentDoneFrame,
-			cProgressText::progress_ANIMATION
-		);
-
-		if (*stopRequest) break;
-		frames->GetFrameAndConsolidate(index, params, fractalParams);
-
-		if (!systemData.noGui && image->IsMainImage())
+		for (int index = 0; index < frames->GetNumberOfFrames(); ++index)
 		{
-			mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
+			double percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
+			QString progressTxt = progressText.getText(percentDoneFrame);
 
-			//show distance in statistics table
-			double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractalParams);
-			ui->tableWidget_statistics->item(4, 0)->setText(QString("%L1").arg(distance));
+			// Skip already rendered frames
+			if (frames->GetFrame(index).alreadyRendered)
+			{
+				//int firstMissing = index;
+				while (index < frames->GetNumberOfFrames() && frames->GetFrame(index).alreadyRendered)
+				{
+					index++;
+				}
+				index--;
+				//qDebug() << QObject::tr("Skip already rendered frame(s) %1 - %2").arg(firstMissing).arg(index);
+				continue;
+			}
+
+			emit updateProgressAndStatus(QObject::tr("Animation start"), QObject::tr("Frame %1 of %2").arg((index + 1)).arg(frames->GetNumberOfFrames()) + " " + progressTxt,
+					percentDoneFrame, cProgressText::progress_ANIMATION);
+
+			if (*stopRequest) throw false;
+
+			frames->GetFrameAndConsolidate(index, params, fractalParams);
+
+			if (!systemData.noGui && image->IsMainImage())
+			{
+				mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
+
+				//show distance in statistics table
+				double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractalParams);
+				ui->tableWidget_statistics->item(4, 0)->setText(QString("%L1").arg(distance));
+			}
+
+			if (gNetRender->IsServer())
+			{
+				gNetRender->WaitForAllClientsReady(2.0);
+			}
+
+			params->Set("frame_no", index);
+
+			renderJob->UpdateParameters(params, fractalParams);
+			int result = renderJob->Execute();
+			if (!result) throw false;
+
+			QString filename = GetFlightFilename(index);
+			SaveImage(filename, (enumImageFileType) params->Get<int>("flight_animation_image_type"), image);
 		}
 
-		if(gNetRender->IsServer())
-		{
-			gNetRender->WaitForAllClientsReady(2.0);
-		}
-
-		params->Set("frame_no", index);
-
-		renderJob->UpdateParameters(params, fractalParams);
-		int result = renderJob->Execute();
-		if (!result) break;
-
-		QString filename = GetFlightFilename(index);
-		SaveImage(filename, (enumImageFileType)params->Get<int>("flight_animation_image_type"), image);
+		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
+		emit updateProgressHide();
+	} catch (bool ex)
+	{
+		emit updateProgressAndStatus(QObject::tr("Rendering terminated"), progressText.getText(1.0), cProgressText::progress_ANIMATION);
+		emit updateProgressHide();
+		delete renderJob;
+		return false;
 	}
 
-	emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
-	emit updateProgressHide();
+delete renderJob;
+return true;
 }
 
 void cFlightAnimation::RefreshTable()
