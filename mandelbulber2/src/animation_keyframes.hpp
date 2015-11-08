@@ -94,6 +94,8 @@ signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
 	void updateStatistics(cStatistics statistics);
 	void updateProgressHide(cProgressText::enumProgressType progressType = cProgressText::progress_ANIMATION);
+	void QuestionMessage(const QString &questionTitle, const QString &questionText, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
+
 };
 
 

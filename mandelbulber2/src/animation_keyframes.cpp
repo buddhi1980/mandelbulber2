@@ -65,6 +65,10 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 
 		QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(slotCellDoubleClicked(int, int)));
 
+		QApplication::connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)),
+													mainInterface->mainWindow, SLOT(slotQuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)));
+
+
 		table = ui->tableWidget_keyframe_animation;
 
 		//add default parameters for animation
@@ -481,8 +485,12 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 			if (!systemData.noGui)
 			{
-				QMessageBox::StandardButton reply;
-				reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, QMessageBox::Yes | QMessageBox::No);
+				QMessageBox::StandardButton reply = QMessageBox::NoButton;
+				emit QuestionMessage(questionTitle, questionText, QMessageBox::Yes | QMessageBox::No, &reply);
+				while(reply ==  QMessageBox::NoButton)
+				{
+					gApplication->processEvents();
+				}
 				deletePreviousRender = (reply == QMessageBox::Yes);
 			}
 			else

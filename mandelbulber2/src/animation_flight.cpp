@@ -61,6 +61,9 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 
 		QApplication::connect(ui->tableWidget_flightAnimation, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(slotCellDoubleClicked(int, int)));
 
+		QApplication::connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)),
+													mainInterface->mainWindow, SLOT(slotQuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)));
+
 		table = ui->tableWidget_flightAnimation;
 	}
 	else
@@ -600,8 +603,12 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 			if (!systemData.noGui)
 			{
-				QMessageBox::StandardButton reply;
-				reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, QMessageBox::Yes | QMessageBox::No);
+				QMessageBox::StandardButton reply = QMessageBox::NoButton;
+				emit QuestionMessage(questionTitle, questionText, QMessageBox::Yes | QMessageBox::No, &reply);
+				while(reply ==  QMessageBox::NoButton)
+				{
+					gApplication->processEvents();
+				}
 				deletePreviousRender = (reply == QMessageBox::Yes);
 			}
 			else
