@@ -90,6 +90,8 @@ void cThumbnailWidget::AssignParameters(const cParameterContainer &_params, cons
 	}
 	*params = _params;
 	*fractal = _fractal;
+	params->Set("image_width", tWidth);
+	params->Set("image_height", tHeight);
 	cSettings tempSettings(cSettings::formatCondensedText);
 	tempSettings.CreateText(params, fractal);
 	hash = tempSettings.GetHashCode();
