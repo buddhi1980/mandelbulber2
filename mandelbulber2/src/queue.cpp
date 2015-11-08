@@ -149,7 +149,7 @@ void cQueue::AppendList(const QString &filename)
 			{
 				QString line = in.readLine().trimmed();
 				if(line.startsWith("#") || line == "") continue;
-				QRegularExpression reType("^(.*?\\.fract) (STILL|KEYFRAME|FLIGHT)?$");
+				QRegularExpression reType("^(.*?\\.fract)\\s*(STILL|KEYFRAME|FLIGHT)?$");
 				QRegularExpressionMatch matchType = reType.match(line);
 				if (matchType.hasMatch())
 				{
@@ -434,7 +434,7 @@ void cQueue::UpdateListFromQueueFile()
 		{
 			QString line = in.readLine().trimmed();
 			if(line.startsWith("#") || line == "") continue;
-			QRegularExpression reType("^(.*?\\.fract) (STILL|KEYFRAME|FLIGHT)?$");
+			QRegularExpression reType("^(.*?\\.fract)\\s*(STILL|KEYFRAME|FLIGHT)?$");
 			QRegularExpressionMatch matchType = reType.match(line);
 			if (matchType.hasMatch())
 			{
