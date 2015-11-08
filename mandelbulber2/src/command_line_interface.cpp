@@ -159,6 +159,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 #endif  /* WINDOWS */
 
 	if(cliData.listParameters) cliData.nogui = true;
+	if(cliData.queue) cliData.nogui = true;
 
 	cliTODO = modeBootOnly;
 }
