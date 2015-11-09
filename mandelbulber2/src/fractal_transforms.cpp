@@ -1110,6 +1110,7 @@ void coloringParametersTransform3D(const sTransformColoringParameters &coloringP
 void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, int i,  sExtendedAux &aux)
 {
   if (colorTrial.control.enabled && i >= colorTrial.control.startIterations && i < colorTrial.control.stopIterations)
+
   {
     double biasR;
     double orbitTrapsR;
@@ -1283,6 +1284,8 @@ void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &ben
       ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
       (tempXZ  + z.y) * 0.70710678118654752440084436210485,
       z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
+
+//  Change this for different transforms
     z = fabs(z) * benesiMagTransformOne.scale;
 
     double avgScale = (fabs(benesiMagTransformOne.scale.x) + fabs(benesiMagTransformOne.scale.y) + fabs(benesiMagTransformOne.scale.z))/3;// cheap approximation
@@ -1315,16 +1318,21 @@ void benesiMagTransformOneEnabledTransform3D(const sTransformBenesiMagTransformO
       ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
       (tempXZ  + z.y) * 0.70710678118654752440084436210485,
       z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
+
     z = fabs(z) * benesiMagTransformOneEnabled.scale;
+
     double avgScale = (fabs(benesiMagTransformOneEnabled.scale.x) + fabs(benesiMagTransformOneEnabled.scale.y) + fabs(benesiMagTransformOneEnabled.scale.z))/3;// cheap approximation
     aux.r_dz *= avgScale;
     aux.DE = aux.DE * avgScale + 1.0;
+
     tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
     z = CVector3
       ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
       (z.y - z.x) * 0.70710678118654752440084436210485,
-      z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196) ;
+      z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196);
+
     z = z - benesiMagTransformOneEnabled.offset;
+
     //weight function
     if (benesiMagTransformOneEnabled.control.weightEnabled)
     {
@@ -1344,12 +1352,13 @@ void benesiMagTransformOnePlusMinusTransform3D(const sTransformBenesiMagTransfor
       (tempXZ  + z.y) * 0.70710678118654752440084436210485,
       z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
 
+//  Change this for different transforms
     z *= benesiMagTransformOnePlusMinus.scale;
+    z = (fabs( z + benesiMagTransformOnePlusMinus.offset) -  fabs( z - benesiMagTransformOnePlusMinus.offset )  - z) ;
+
     double avgScale = (fabs(benesiMagTransformOnePlusMinus.scale.x) + fabs(benesiMagTransformOnePlusMinus.scale.y) + fabs(benesiMagTransformOnePlusMinus.scale.z))/3;// cheap approximation
     aux.r_dz *= avgScale;
     aux.DE = aux.DE * fabs(avgScale) + 1.0;
-
-    z = (fabs( z + benesiMagTransformOnePlusMinus.offset) -  fabs( z - benesiMagTransformOnePlusMinus.offset )  - z) ;
 
     tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
     z = CVector3
@@ -1377,14 +1386,14 @@ void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &ben
       z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
 
 //  Change this for different transforms
-    CVector3 tempV2 = z * 0.0;
-    tempV2.x = fabs(sqrt(z.y * z.y + z.z * z.z));
-    tempV2.y = fabs(sqrt(z.x * z.x + z.z * z.z));
-    tempV2.z = fabs(sqrt(z.x * z.x + z.y * z.y));
-    z =  (tempV2 - benesiMagTransformTwo.offset) * benesiMagTransformTwo.scale;
+    CVector3 tempV2 = z;
+    tempV2.x = sqrt(z.y * z.y + z.z * z.z);
+    tempV2.y = sqrt(z.x * z.x + z.z * z.z);  // switching, squared, sqrt
+    tempV2.z = sqrt(z.x * z.x + z.y * z.y);
+    z =  fabs(tempV2 - benesiMagTransformTwo.offset) * benesiMagTransformTwo.scale;
 
     double avgScale = (fabs(benesiMagTransformTwo.scale.x) + fabs(benesiMagTransformTwo.scale.y) + fabs(benesiMagTransformTwo.scale.z))/3;// cheap approximation
-    aux.r_dz *= avgScale;
+    //aux.r_dz *= avgScale;
     aux.DE = aux.DE * fabs(avgScale) + 1.0;
 
     tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
@@ -1400,35 +1409,36 @@ void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &ben
     }
   }
 }
+
 //benesiMagTransformThree 3D
 void benesiMagTransformThreeTransform3D(const sTransformBenesiMagTransformThree &benesiMagTransformThree, CVector3 &z, int i, sExtendedAux &aux)
 {
   if (benesiMagTransformThree.control.enabled && i >= benesiMagTransformThree.control.startIterations && i < benesiMagTransformThree.control.stopIterations)
   {
     CVector3 temp = z;
-    CVector3 tempV1 = z * 0.0;
-    CVector3 newZ;
-    tempV1.x = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
-    newZ.z = z.x  *  0.57735026918962576450914878050196 + z.z * 0.81649658092772603273242802490196;
-    newZ.x = (tempV1.x  - z.y) * 0.70710678118654752440084436210485;
-    newZ.y = (tempV1.x  + z.y) * 0.70710678118654752440084436210485;
+    double tempXZ = z.x * 0.81649658092772603273242802490196 - z.z * 0.57735026918962576450914878050196;
+    z = CVector3
+      ((tempXZ  - z.y) * 0.70710678118654752440084436210485,
+      (tempXZ  + z.y) * 0.70710678118654752440084436210485,
+      z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
 
 //  Change this for different transforms
-    newZ = fabs(newZ);
-    CVector3 tempV2 = z * 0.0;
-    tempV2.x = fabs(newZ.y + newZ.z );
-    tempV2.y = fabs(newZ.x + newZ.z );
-    tempV2.z = fabs(newZ.x + newZ.y );
+    CVector3 tempV2 = z;
+    tempV2.x = (z.y + z.z);
+    tempV2.y = (z.x + z.z);   // switching
+    tempV2.z = (z.x + z.y);
+    z =  (fabs(tempV2 - benesiMagTransformThree.offset)) * benesiMagTransformThree.scale ;
 
-    newZ =  tempV2 * benesiMagTransformThree.scale - benesiMagTransformThree.offset;
-    double avgScale = fabs((benesiMagTransformThree.scale.x + benesiMagTransformThree.scale.y + benesiMagTransformThree.scale.z)/3);// cheap approximation
-    aux.r_dz *= avgScale;
-    aux.DE = aux.DE * fabs(avgScale) + 1.0;
-    tempV1.x = (newZ.y + newZ.x) * 0.70710678118654752440084436210485;
-    newZ.y =   (newZ.y - newZ.x) * 0.70710678118654752440084436210485;
-    newZ.x = newZ.z * 0.57735026918962576450914878050196 + tempV1.x * 0.81649658092772603273242802490196;
-    newZ.z = newZ.z * 0.81649658092772603273242802490196 - tempV1.x * 0.57735026918962576450914878050196 ;
-    z = newZ;
+    //double avgScale = fabs((benesiMagTransformThree.scale.x + benesiMagTransformThree.scale.y + benesiMagTransformThree.scale.z)/3);// cheap approximation
+    //aux.r_dz *= avgScale;
+    //aux.DE = aux.DE * fabs(avgScale) + 1.0;
+
+    tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
+    z = CVector3
+      ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
+      (z.y - z.x) * 0.70710678118654752440084436210485,
+       z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196);
+
     //weight function
     if (benesiMagTransformThree.control.weightEnabled)
     {
@@ -1451,16 +1461,15 @@ void benesiMagTransformFourTransform3D(const sTransformBenesiMagTransformFour &b
       z.x * 0.57735026918962576450914878050196  +  z.z * 0.81649658092772603273242802490196);
 
   //  Change this for different transforms   This is T4:
-
     CVector3 tempV2 = z ;
-    tempV2.x = fabs(z.y * z.y + z.z * z.z - benesiMagTransformFour.offset.x);
-    tempV2.y = fabs(z.x * z.x + z.z * z.z - benesiMagTransformFour.offset.y);
-    tempV2.z = fabs(z.x * z.x + z.y * z.y - benesiMagTransformFour.offset.z);
-    z = tempV2 * benesiMagTransformFour.scale;
+    tempV2.x = (z.y * z.y + z.z * z.z );
+    tempV2.y = (z.x * z.x + z.z * z.z );  // switching, squared,
+    tempV2.z = (z.x * z.x + z.y * z.y );
+    z = (fabs(tempV2 -  benesiMagTransformFour.offset)) * benesiMagTransformFour.scale;
 
-    double avgScale = (fabs(benesiMagTransformFour.scale.x) + fabs(benesiMagTransformFour.scale.y) + fabs(benesiMagTransformFour.scale.z))/3;// cheap approximation
-    aux.r_dz *= avgScale;
-    aux.DE = aux.DE * fabs(avgScale) + 1.0;
+    //double avgScale = (fabs(benesiMagTransformFour.scale.x) + fabs(benesiMagTransformFour.scale.y) + fabs(benesiMagTransformFour.scale.z))/3;// cheap approximation
+    //aux.r_dz *= avgScale;
+    //aux.DE = aux.DE * fabs(avgScale) + 1.0;
 
     tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
     z = CVector3
@@ -1496,15 +1505,16 @@ void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB 
     tempV2.z = fabs(pow(pow(z.x, benesiMagTransformFiveB.powOne.z) + pow(z.y, benesiMagTransformFiveB.powOne.z),benesiMagTransformFiveB.powTwo.z));
     z =  (tempV2  - benesiMagTransformFiveB.offset)* benesiMagTransformFiveB.scale;
 
-    double avgScale = (fabs(benesiMagTransformFiveB.scale.x) + fabs(benesiMagTransformFiveB.scale.y) + fabs(benesiMagTransformFiveB.scale.z))/3;// cheap approximation
-    aux.r_dz *= avgScale;
-    aux.DE = aux.DE * fabs(avgScale) + 1.0;
-    tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
+    //double avgScale = (fabs(benesiMagTransformFiveB.scale.x) + fabs(benesiMagTransformFiveB.scale.y) + fabs(benesiMagTransformFiveB.scale.z))/3;// cheap approximation
+    //aux.r_dz *= avgScale;
+    //aux.DE = aux.DE * fabs(avgScale) + 1.0;
 
+    tempXZ  = (z.y + z.x) * 0.70710678118654752440084436210485;
     z = CVector3
       ( z.z * 0.57735026918962576450914878050196 + tempXZ  * 0.81649658092772603273242802490196,
       (z.y - z.x) * 0.70710678118654752440084436210485,
        z.z * 0.81649658092772603273242802490196 - tempXZ  * 0.57735026918962576450914878050196) ;
+
     //weight function
     if (benesiMagTransformFiveB.control.weightEnabled)
     {
@@ -1512,6 +1522,7 @@ void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB 
     }
   }
 }
+
 //benesiFastPwr2PineTree  3D
 void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &benesiFastPwr2PineTree, CVector3 &z, CVector3 &c, int i, sExtendedAux &aux)
 {

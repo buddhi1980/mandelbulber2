@@ -680,7 +680,7 @@ void MsltoeSym2(CVector3 &z, const cFractal *fractal)
 }
 
 //------------MANDELBULB EXTENDED--------------------------------
-void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
+void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
 	//boxFold1
 	boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
@@ -733,10 +733,17 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *frac
 
 	//boxFold; 2
 	boxFoldTransform3D(fractal->transform.boxFold2, z, i, aux);
+
+  //coloring parameters 1
+  coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
+
+  //color trial 1
+  colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
 }
 
+
 // -------------- MANDELBOX EXTENDED----------------------------
-void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
+void Mandelbox103Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
 	//boxFold1 Original (enabled); 1
 	boxFoldOriginalTransform3D(fractal->transform.boxFoldOriginal1, z, i, aux);
@@ -789,6 +796,12 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fra
 
 	// Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);1
 	iterationWeightTransform3D(fractal->transform.iterationWeight1, z, i);
+
+  //coloring parameters 1
+  coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
+
+  //color trial 1
+  colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
 }
 
 // -------------- QUATERNION EXTENDED----------------------------
@@ -851,6 +864,7 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
 
 	// Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);
 	iterationWeightTransform4D(fractal->transform.iterationWeight1, z, i);
+
 }
 
 // -------------- MENGER SPONGE EXTENDED----------------------------

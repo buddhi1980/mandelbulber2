@@ -259,18 +259,18 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 				case mandelbulb5:
 				{
 					bulbAux[sequence].r = r;
-					Mandelbulb5Iteration(z, c, i, fractal, extendedAux[sequence]);
+          Mandelbulb5Iteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
 				case mandelbox103:
 				{
-					Mandelbox103Iteration(z, c, i, fractal, extendedAux[sequence]);
+          Mandelbox103Iteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
 				case quaternion104:
 				{
 					CVector4 z4D(z, w);
-					Quaternion104Iteration(z4D, CVector4(c, 0.0), i, fractal, extendedAux[sequence]);
+          Quaternion104Iteration(z4D, CVector4(c, 0.0),  i, fractal, extendedAux[sequence]);
 					z = z4D.GetXYZ();
 					w = z4D.w;
 					break;
@@ -401,13 +401,14 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
       //case benesiTransforms:
 				out->distance = 0.5 * r * log(r) / extendedAux[fractalIndex].r_dz;
 				break;
+
 			case mandelbox:
 			case smoothMandelbox:
 			case mandelboxVaryScale4D:
       case generalizedFoldBox:
 				out->distance = r / fabs(mandelboxAux[fractalIndex].mboxDE * foldDE);
 				break;
-
+      //case benesiTransforms:
       case mandelbox103:
       case mengerSponge105:
         out->distance = r / fabs(extendedAux[fractalIndex].DE * foldDE);
@@ -436,7 +437,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 			for (int h = 0; h < 4; h++)
 			{
 				mboxColor += mandelboxAux[h].mboxColor + extendedAux[h].color;
-				mboxDE *= mandelboxAux[h].mboxDE + extendedAux[h].color;
+        mboxDE *= (mandelboxAux[h].mboxDE + extendedAux[h].DE); //mboxDE *= mandelboxAux[h].mboxDE + extendedAux[h].color;
 			}
 
 			double r2 = r / fabs(mboxDE);
@@ -457,18 +458,20 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 					out->colorIndex = mandelboxAux[fractalIndex].mboxColor * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor;
 					break;
 
-	      case mandelbox103:
-					out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor;
-					break;
+        //case mandelbox103:
+          //out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor;
+        //	break;
 
         //case mengerSponge105:
           //out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor + minimumR * 1000.0;;
         //	break;
 
-	      case mandelbulb5:
-	      	out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor + minimumR * 5000.0;
-	      	break;
+        //case mandelbulb5:
+        //	out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor + minimumR * 5000.0;
+        //	break;
 
+        case mandelbulb5:
+        case mandelbox103:
         case mandelbulb6Beta:
         case benesiTransforms:
         case mengerSponge105:
