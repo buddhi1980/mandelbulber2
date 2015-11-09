@@ -77,6 +77,7 @@ private:
 	QWidget *imageWidget;
 	sRenderData *renderData;
 	bool *stopRequest;
+	bool canUseNetRender;
 
 	static int id; //global identifier of actual rendering job
 	static int runningJobs;

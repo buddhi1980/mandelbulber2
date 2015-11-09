@@ -31,6 +31,7 @@ public:
 	void DisableRefresh() {enableImageRefresh = false;}
 	void DisableProgressiveRender() {enableProgressiveRender = false;}
 	void EnableNetRender() {enableNetRender = true;}
+	void DisableNetRender() {enableNetRender = false;}
 	void DisableMultiThread() {enableMultiThread = false;}
 	void EnableIgnoreErros() {enableIgnoreErrors = true;}
 	void SetMaxRenderTime(double _maxRenderTime) {maxRenderTime = _maxRenderTime;}

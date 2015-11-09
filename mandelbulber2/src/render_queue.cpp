@@ -192,7 +192,6 @@ bool cRenderQueue::RenderStill(const QString& filename)
 	{
 		config.DisableProgressiveRender();
 	}
-	config.DisableRefresh();
 	config.EnableNetRender();
 	renderJob->Init(cRenderJob::still, config);
 
@@ -200,7 +199,11 @@ bool cRenderQueue::RenderStill(const QString& filename)
 
 	//render image
 	bool result = renderJob->Execute();
-	if(!result) return false;
+	if(!result)
+	{
+		delete renderJob;
+		return false;
+	}
 
 	QString fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator() + saveFilename;
 	SaveImage(fullSaveFilename, IMAGE_FILE_TYPE_PNG, image);

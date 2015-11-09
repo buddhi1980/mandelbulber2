@@ -848,3 +848,16 @@ bool CNetRender::WaitForAllClientsReady(double timeout)
 	}
 	return false;
 }
+
+bool CNetRender::Block()
+{
+	if(isUsed)
+	{
+		return false;
+	}
+	else
+	{
+		isUsed = true;
+		return true;
+	}
+}

@@ -137,6 +137,9 @@ public:
 	//setting status color
 	static QString GetStatusColor(netRenderStatus displayStatus);
 
+	bool Block();
+	void Release() {isUsed = false;}
+
 private:
 	//send data to communication partner
 	bool SendData(QTcpSocket *socket, sMessage msg);
@@ -171,6 +174,7 @@ private:
 	sTextures textures;
 	qint32 actualId;
 	QList<int> startingPositions;
+	bool isUsed;
 
 //------------------- public slots -------------------
 public slots:

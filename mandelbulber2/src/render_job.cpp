@@ -39,6 +39,7 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	*paramsContainer = *_params;
 	fractalContainer = new cFractalContainer;
 	*fractalContainer = *_fractal;
+	canUseNetRender = false;
 
 	width = 0;
 	height = 0;
@@ -75,6 +76,10 @@ cRenderJob::~cRenderJob()
 	delete paramsContainer;
 	delete fractalContainer;
 	if(renderData) delete renderData;
+
+	if(canUseNetRender)
+		gNetRender->Release();
+
 	WriteLog("Job finished and closed");
 }
 
@@ -83,6 +88,9 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	WriteLog("cRenderJob::Init id = " + QString::number(id));
 
 	mode = _mode;
+
+	if(config.UseNetRender())
+		canUseNetRender = gNetRender->Block();
 
 	//needed when image has to fit in widget
 	if(useSizeFromImage)
@@ -105,7 +113,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	if(image->IsMainImage())
 	{
 		//clear image before start rendering
-		if(gNetRender->IsClient() || gNetRender->IsServer())
+		if((gNetRender->IsClient() || gNetRender->IsServer()) && canUseNetRender)
 		{
 			image->ClearImage();
 			image->UpdatePreview();
@@ -113,7 +121,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 		}
 	}
 
-	if(config.UseNetRender())
+	if(config.UseNetRender() && canUseNetRender)
 	{
 		//connect signals
 		if(gNetRender->IsServer())
@@ -132,6 +140,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	renderData = new sRenderData;
 	renderData->rendererID = id;
 	renderData->configuration = config;
+	if(!canUseNetRender) renderData->configuration.DisableNetRender();
 
 	//set image region to render
 	if(paramsContainer->Get<bool>("legacy_coordinate_system"))
