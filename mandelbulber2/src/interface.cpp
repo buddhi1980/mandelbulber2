@@ -2102,7 +2102,9 @@ bool cInterface::QuitApplicationDialog()
 		case QMessageBox::Ok:
 		{
 			stopRequest = true;
+			gQueue->stopRequest = true;
 			WriteLog("Quit application");
+			//FIXME needed wating until rendering of images is stopped
 			gApplication->quit();
 			quit = true;
 			break;
