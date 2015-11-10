@@ -474,7 +474,6 @@ void cQueue::RenderQueue()
 			gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
 		QObject::connect(renderQueue, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 			gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
-		QObject::connect(renderQueue, SIGNAL(updateStatistics(cStatistics)), gMainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
 	}
 	if(gMainInterface->headless){
 		QObject::connect(renderQueue, SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),

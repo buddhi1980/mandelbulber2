@@ -1672,7 +1672,9 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 				progressBar = gMainInterface->progressBarQueueAnimation;
 			else
 				progressBar = gMainInterface->progressBarAnimation;
-		// case cProgressText::progress_QUEUE: progressBar = gMainInterface->progressBarQueue; break;
+		case cProgressText::progress_QUEUE:
+			// nothing to be done, no progress bar for queue in GUI
+			break;
 	}
 
 	if(progressBar)
@@ -1691,7 +1693,9 @@ void RenderWindow::slotUpdateProgressHide(cProgressText::enumProgressType progre
 	{
 		case cProgressText::progress_IMAGE: progressBar = gMainInterface->progressBar; break;
 		case cProgressText::progress_ANIMATION: progressBar = gMainInterface->progressBarAnimation; break;
-		// case cProgressText::progress_QUEUE: progressBar = gMainInterface->progressBarQueue; break;
+		case cProgressText::progress_QUEUE:
+			// nothing to be done, no progress bar for queue in GUI
+			break;
 	}
 
 	if(progressBar)
@@ -1859,7 +1863,7 @@ void RenderWindow::slotCheckBoxDisableNetRender(bool on)
 
 void RenderWindow::slotQuestionMessage(const QString &questionTitle, const QString &questionText, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply)
 {
-	*reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, QMessageBox::Yes | QMessageBox::No);
+	*reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, buttons);
 }
 
 #ifdef USE_GAMEPAD
