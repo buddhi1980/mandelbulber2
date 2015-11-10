@@ -47,7 +47,7 @@ public:
 	void InterpolateForward(int row, int column);
 	parameterContainer::enumMorphType GetMorphType(int row);
 	void ChangeMorphType(int row, parameterContainer::enumMorphType morphType);
-	QList<int> CheckForCollisions(double minDist);
+	QList<int> CheckForCollisions(double minDist, bool *stopRequest);
 
 public slots:
 	void UpdateLimitsForFrameRange();

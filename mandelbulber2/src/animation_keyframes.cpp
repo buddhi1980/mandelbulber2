@@ -403,33 +403,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		return false;
 	}
 
-	//updating parameters
-	if (!systemData.noGui && image->IsMainImage())
-	{
-		mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
-		gUndo.Store(params, fractalParams, NULL, keyframes);
-	}
-
-	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
-
-	//checking for collisions
-	if (!systemData.noGui && image->IsMainImage())
-	{
-		if (params->Get<bool>("keyframe_auto_validate"))
-		{
-			QList<int> listOfCollisions = CheckForCollisions(params->Get<double>("keyframe_collision_thresh"));
-			if (listOfCollisions.size() > 0)
-			{
-				QString collisionText;
-				for (int i = 0; i < listOfCollisions.size(); i++)
-				{
-					collisionText += QString("%1").arg(listOfCollisions.at(i));
-					if (i < listOfCollisions.size() - 1) collisionText += QString(", ");
-				}
-				emit showErrorMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
-			}
-		}
-	}
+	*stopRequest = false;
 
 	//preparing Render Job
 	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, stopRequest, imageWidget);
@@ -447,7 +421,6 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	}
 
 	renderJob->Init(cRenderJob::keyframeAnim, config);
-	*stopRequest = false;
 
 	//destination for frames
 	QString framesDir = params->Get<QString>("anim_keyframe_dir");
@@ -455,12 +428,40 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	cProgressText progressText;
 	progressText.ResetTimer();
 
+	//range of keyframes to render
+	int startFrame = params->Get<int>("keyframe_first_to_render");
+	int endFrame = params->Get<int>("keyframe_last_to_render");
+
 	try
 	{
+		//updating parameters
+		if (!systemData.noGui && image->IsMainImage())
+		{
+			mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+			gUndo.Store(params, fractalParams, NULL, keyframes);
+		}
 
-		//range of keyframes to render
-		int startFrame = params->Get<int>("keyframe_first_to_render");
-		int endFrame = params->Get<int>("keyframe_last_to_render");
+		keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
+
+		//checking for collisions
+		if (!systemData.noGui && image->IsMainImage())
+		{
+			if (params->Get<bool>("keyframe_auto_validate"))
+			{
+				QList<int> listOfCollisions = CheckForCollisions(params->Get<double>("keyframe_collision_thresh"), stopRequest);
+				if (*stopRequest) throw false;
+				if (listOfCollisions.size() > 0)
+				{
+					QString collisionText;
+					for (int i = 0; i < listOfCollisions.size(); i++)
+					{
+						collisionText += QString("%1").arg(listOfCollisions.at(i));
+						if (i < listOfCollisions.size() - 1) collisionText += QString(", ");
+					}
+					emit showErrorMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
+				}
+			}
+		}
 
 		// Check if frames have already been rendered
 		for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
@@ -984,7 +985,7 @@ void cKeyframeAnimation::slotMovedSliderLastFrame(int value)
 		ui->spinboxInt_keyframe_first_to_render->setValue(value);
 }
 
-QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
+QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequest)
 {
 	QList<int> listOfCollisions;
 	cParameterContainer tempPar = *params;
@@ -999,6 +1000,8 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist)
 
 		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
+			gApplication->processEvents();
+			if (*stopRequest) return listOfCollisions;
 			int frameIndex = key * keyframes->GetFramesPerKeyframe() + subindex;
 			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, &tempPar, &tempFractPar);
 			tempPar.Set("frame_no", frameIndex);
@@ -1025,7 +1028,7 @@ void cKeyframeAnimation::slotValidate()
 	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
 	//checking for collisions
-	QList<int> listOfCollisions = CheckForCollisions(params->Get<double>("keyframe_collision_thresh"));
+	QList<int> listOfCollisions = CheckForCollisions(params->Get<double>("keyframe_collision_thresh"), &gMainInterface->stopRequest);
 	if(listOfCollisions.size() > 0)
 	{
 		QString collisionText;
