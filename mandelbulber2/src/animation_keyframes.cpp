@@ -991,6 +991,8 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 	cParameterContainer tempPar = *params;
 	cFractalContainer tempFractPar = *fractalParams;
 
+	*stopRequest = false;
+
 	for(int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
 		updateProgressAndStatus(QObject::tr("Checking for collissions"),
