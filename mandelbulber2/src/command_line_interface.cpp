@@ -223,8 +223,8 @@ void cCommandLineInterface::ReadCLI (void)
 		{
 			port = cliData.portText.toInt(&checkParse);
 			if(!checkParse || port <= 0){
-				cErrorMessage::showMessage("Specified port is invalid\n", cErrorMessage::errorMessage);
-				parser.showHelp(-10);
+				cErrorMessage::showMessage("Specified server port is invalid\n", cErrorMessage::errorMessage);
+				parser.showHelp(cliErrorServerInvalidPort);
 			}
 			gPar->Set("netrender_server_local_port", port);
 		}
@@ -252,8 +252,8 @@ void cCommandLineInterface::ReadCLI (void)
 		{
 			port = cliData.portText.toInt(&checkParse);
 			if(!checkParse || port <= 0){
-				cErrorMessage::showMessage("Specified port is invalid\n", cErrorMessage::errorMessage);
-				parser.showHelp(-11);
+				cErrorMessage::showMessage("Specified client port is invalid\n", cErrorMessage::errorMessage);
+				parser.showHelp(cliErrorClientInvalidPort);
 			}
 			gPar->Set("netrender_client_remote_port", port);
 		}
@@ -267,7 +267,15 @@ void cCommandLineInterface::ReadCLI (void)
 		cliTODO = modeQueue;
 		settingsSpecified = true;
 		cliData.nogui = true; systemData.noGui = true;
-		gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist", systemData.dataDirectory + "queue", NULL);
+		try
+		{
+			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist", systemData.dataDirectory + "queue", NULL);
+		}
+		catch(QString &ex)
+		{
+			cErrorMessage::showMessage(QObject::tr("Cannot init queue: ") + ex, cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorQueueInit);
+		}
 	}
 	else
 	{
@@ -293,7 +301,7 @@ void cCommandLineInterface::ReadCLI (void)
 				{
 					cErrorMessage::showMessage("Cannot load file!\n", cErrorMessage::errorMessage);
 					qCritical() << "\nSetting file " << filename << " not found\n";
-					parser.showHelp(-12);
+					parser.showHelp(cliErrorLoadSettingsFile);
 				}
 			}
 			else
@@ -301,7 +309,15 @@ void cCommandLineInterface::ReadCLI (void)
 				// queue render
 				cliTODO = modeQueue;
 				cliData.nogui = true; systemData.noGui = true;
-				gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist", systemData.dataDirectory + "queue", NULL);
+				try
+				{
+					gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist", systemData.dataDirectory + "queue", NULL);
+				}
+				catch(QString &ex)
+				{
+					cErrorMessage::showMessage(QObject::tr("Cannot init queue: ") + ex, cErrorMessage::errorMessage);
+					parser.showHelp(cliErrorQueueInit);
+				}
 				for(int i = 0; i < args.size(); i++)
 				{
 					QString filename = args[i];
@@ -368,7 +384,7 @@ void cCommandLineInterface::ReadCLI (void)
 			if(!checkParse || xRes <= 0 || yRes <= 0){
 				cErrorMessage::showMessage("Specified resolution not valid\n"
 						"both dimensions need to be > 0", cErrorMessage::errorMessage);
-				parser.showHelp(-13);
+				parser.showHelp(cliErrorResolutionInvalid);
 			}
 			gPar->Set("image_width", xRes);
 			gPar->Set("image_height", yRes);
@@ -376,7 +392,7 @@ void cCommandLineInterface::ReadCLI (void)
 		else{
 			cErrorMessage::showMessage("Specified resolution not valid\n"
 					"resolution has to be in the form WIDTHxHEIGHT", cErrorMessage::errorMessage);
-			parser.showHelp(-13);
+			parser.showHelp(cliErrorResolutionInvalid);
 		}
 	}
 
@@ -387,7 +403,7 @@ void cCommandLineInterface::ReadCLI (void)
 		if(!checkParse || fpk <= 0){
 			cErrorMessage::showMessage("Specified frames per key not valid\n"
 					 "need to be > 0", cErrorMessage::errorMessage);
-			parser.showHelp(-14);
+			parser.showHelp(cliErrorFPKInvalid);
 		}
 		gPar->Set("frames_per_keyframe", fpk);
 	}
@@ -400,7 +416,7 @@ void cCommandLineInterface::ReadCLI (void)
 		if(!allowedImageFileFormat.contains(cliData.imageFileFormat)){
 			cErrorMessage::showMessage("Specified imageFileFormat is not valid\n"
 					 "allowed formats are: " + allowedImageFileFormat.join(", "), cErrorMessage::errorMessage);
-			parser.showHelp(-15);
+			parser.showHelp(cliErrorImageFileFormatInvalid);
 		}
 	}
 	else
@@ -419,7 +435,7 @@ void cCommandLineInterface::ReadCLI (void)
 		else
 		{
 			cErrorMessage::showMessage("There are no flight animation frames in specified settings file", cErrorMessage::errorMessage);
-			parser.showHelp(-16);
+			parser.showHelp(cliErrorFlightNoFrames);
 		}
 	}
 
@@ -440,7 +456,7 @@ void cCommandLineInterface::ReadCLI (void)
 			else
 			{
 				cErrorMessage::showMessage("There are no keyframes in specified settings file", cErrorMessage::errorMessage);
-				parser.showHelp(-17);
+				parser.showHelp(cliErrorKeyframeNoFrames);
 			}
 		}
 	}
@@ -458,7 +474,7 @@ void cCommandLineInterface::ReadCLI (void)
 			else
 			{
 				cErrorMessage::showMessage(QString("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()), cErrorMessage::errorMessage);
-				parser.showHelp(-18);
+				parser.showHelp(cliErrorFlightStartFrameOutOfRange);
 			}
 		}
 
@@ -474,7 +490,7 @@ void cCommandLineInterface::ReadCLI (void)
 			else
 			{
 				cErrorMessage::showMessage(QString("Animation has only %1 frames").arg(numberOfFrames), cErrorMessage::errorMessage);
-				parser.showHelp(-19);
+				parser.showHelp(cliErrorKeyframeStartFrameOutOfRange);
 			}
 		}
 	}
@@ -495,13 +511,13 @@ void cCommandLineInterface::ReadCLI (void)
 				{
 					cErrorMessage::showMessage(QString("End frame has to be greater than start frame which is %1").arg(gPar->Get<int>("flight_first_to_render")),
 							cErrorMessage::errorMessage);
-					parser.showHelp(-20);
+					parser.showHelp(cliErrorFlightEndFrameSmallerStartFrame);
 				}
 			}
 			else
 			{
 				cErrorMessage::showMessage(QString("Animation has only %1 frames").arg(gAnimFrames->GetNumberOfFrames()), cErrorMessage::errorMessage);
-				parser.showHelp(-21);
+				parser.showHelp(cliErrorFlightEndFrameOutOfRange);
 			}
 		}
 
@@ -520,13 +536,13 @@ void cCommandLineInterface::ReadCLI (void)
 				{
 					cErrorMessage::showMessage(QString("End frame has to be greater than start frame which is %1").arg(gPar->Get<int>("keyframe_first_to_render")),
 							cErrorMessage::errorMessage);
-					parser.showHelp(-22);
+					parser.showHelp(cliErrorKeyframeEndFrameSmallerStartFrame);
 				}
 			}
 			else
 			{
 				cErrorMessage::showMessage(QString("Animation has only %1 frames").arg(numberOfFrames), cErrorMessage::errorMessage);
-				parser.showHelp(-23);
+				parser.showHelp(cliErrorKeyframeEndFrameOutOfRange);
 			}
 		}
 	}
@@ -544,7 +560,7 @@ void cCommandLineInterface::ReadCLI (void)
 	if(!settingsSpecified && cliData.nogui && cliTODO != modeNetrender)
 	{
 		WriteLog("You have to specify a settings file, for this configuration!");
-		parser.showHelp(-18);
+		parser.showHelp(cliErrorSettingsFileNotSpecified);
 	}
 
 	if(cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight && cliTODO != modeQueue)

@@ -35,6 +35,28 @@ public:
 	{
 		modeBootOnly, modeNetrender, modeKeyframe, modeFlight, modeStill, modeQueue
 	};
+	enum cliErrors
+	{
+		cliErrorServerInvalidPort = -10,
+		cliErrorClientInvalidPort = -11,
+		cliErrorQueueInit = -12,
+		cliErrorLoadSettingsFile = -13,
+		cliErrorResolutionInvalid = -14,
+		cliErrorFPKInvalid = -15,
+		cliErrorImageFileFormatInvalid = -16,
+		cliErrorSettingsFileNotSpecified = -17,
+
+		cliErrorFlightNoFrames = -30,
+		cliErrorFlightStartFrameOutOfRange = -31,
+		cliErrorFlightEndFrameSmallerStartFrame = -32,
+		cliErrorFlightEndFrameOutOfRange = -33,
+
+		cliErrorKeyframeNoFrames = -40,
+		cliErrorKeyframeStartFrameOutOfRange = -41,
+		cliErrorKeyframeEndFrameSmallerStartFrame = -42,
+		cliErrorKeyframeEndFrameOutOfRange = -43
+	};
+
 
 	void ReadCLI(void);
 	void ProcessCLI(void);
