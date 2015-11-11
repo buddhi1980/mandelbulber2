@@ -879,6 +879,9 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 	//boxOffset1
 	boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
 
+  //boxFoldMulti1
+  boxFoldMultiTransform3D(fractal->transform.boxFoldMulti1, z, i, aux);
+
 	//boxFold1
 	boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
 
@@ -1125,16 +1128,16 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
    benesiMagTransformTwoTransform3D(fractal->transform.benesiMagTransformTwo1, z, i, aux);
 
   // Benesi MagTransformThree); 1
-  benesiMagTransformThreeTransform3D(fractal->transform.benesiMagTransformThree1, z, i, aux);
+  benesiMagTransformThreeTransform3D(fractal->transform.benesiMagTransformThree1, z, i);
 
   // Benesi FastPwr2PineTree); 2
   benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree2, z, c, i, aux);
 
   // Benesi MagTransformFour); 1
-  benesiMagTransformFourTransform3D(fractal->transform.benesiMagTransformFour1, z, i, aux);
+  benesiMagTransformFourTransform3D(fractal->transform.benesiMagTransformFour1, z, i);
 
   // Benesi MagTransformFiveB); 1
-  benesiMagTransformFiveBTransform3D(fractal->transform.benesiMagTransformFiveB1, z, i, aux);
+  benesiMagTransformFiveBTransform3D(fractal->transform.benesiMagTransformFiveB1, z, i);
 
   // mandelbulb multi 3D 1
   mandelbulbMultiTransform3D(fractal->transform.mandelbulbMulti1, z, i, aux);

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>687</width>
-    <height>4045</height>
+    <height>4488</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -7811,7 +7811,6 @@
   <tabstop>spinbox3_transform_fabsFormulaABCD2D_z</tabstop>
   <tabstop>slider_transform_fabsFormulaABCD2DW</tabstop>
   <tabstop>spinbox_transform_fabsFormulaABCD2DW</tabstop>
-  <tabstop>groupCheck_transform_iterationWeight1_enabled</tabstop>
   <tabstop>checkBox_transform_iterationWeight1_weight_enabled</tabstop>
   <tabstop>spinbox_transform_iterationWeight1_weight</tabstop>
   <tabstop>spinboxInt_transform_iterationWeight1_iterationA</tabstop>

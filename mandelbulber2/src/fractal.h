@@ -574,6 +574,15 @@ struct sTransformBenesiFastPwr2PineTreeEnabled
   CVector3 constantMultiplierVect;
 };
 
+struct sTransformBoxFoldMulti
+{
+  sTransformControl control;
+  sFoldColor color;
+  CVector3 foldingLimit;
+  CVector3 foldingValue;
+};
+
+
 struct sFractalTransform
 {
   sTransformAdditionConstant additionConstant1;
@@ -649,6 +658,8 @@ struct sFractalTransform
   sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree2;
   sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree3;
 
+  sTransformBoxFoldMulti boxFoldMulti1;
+  sTransformBoxFoldMulti boxFoldMulti2;
 
   //TODO here will be more transforms
 };

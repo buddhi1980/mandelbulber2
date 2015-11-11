@@ -719,6 +719,25 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.benesiFastPwr2PineTree3.constantMultiplierVect = container->Get<CVector3>("transform_benesiFastPwr2PineTree3_constantMultiplier");
 
 
+  transform.boxFoldMulti1.control.enabled = container->Get<bool>("transform_box_foldMulti1_enabled");
+  transform.boxFoldMulti1.control.weightEnabled = container->Get<bool>("transform_box_foldMulti1_weight_enabled");
+  transform.boxFoldMulti1.control.startIterations = container->Get<int>("transform_box_foldMulti1_start_iterations");
+  transform.boxFoldMulti1.control.stopIterations = container->Get<int>("transform_box_foldMulti1_stop_iterations");
+  transform.boxFoldMulti1.foldingLimit = container->Get<CVector3>("transform_box_foldMulti1_folding_limit");
+  transform.boxFoldMulti1.foldingValue = container->Get<CVector3>("transform_box_foldMulti1_folding_value");
+  transform.boxFoldMulti1.control.weight = container->Get<double>("transform_box_foldMulti1_weight");
+  transform.boxFoldMulti1.color = mandelbox.color;
+
+  transform.boxFoldMulti2.control.enabled = container->Get<bool>("transform_box_foldMulti2_enabled");
+  transform.boxFoldMulti2.control.weightEnabled = container->Get<bool>("transform_box_foldMulti2_weight_enabled");
+  transform.boxFoldMulti2.control.startIterations = container->Get<int>("transform_box_foldMulti2_start_iterations");
+  transform.boxFoldMulti2.control.stopIterations = container->Get<int>("transform_box_foldMulti2_stop_iterations");
+  transform.boxFoldMulti2.foldingLimit = container->Get<CVector3>("transform_box_foldMulti2_folding_limit");
+  transform.boxFoldMulti2.foldingValue = container->Get<CVector3>("transform_box_foldMulti2_folding_value");
+  transform.boxFoldMulti2.control.weight = container->Get<double>("transform_box_foldMulti2_weight");
+  transform.boxFoldMulti2.color = mandelbox.color;
+
+
 //----------------------------------
 
 

@@ -61,11 +61,13 @@ void benesiMagTransformOneEnabledTransform3D(const sTransformBenesiMagTransformO
 void benesiMagTransformOneTransform3D(const sTransformBenesiMagTransformOne &benesiMagTransformOne, CVector3 &z, int i, sExtendedAux &aux);
 void benesiMagTransformOnePlusMinusTransform3D(const sTransformBenesiMagTransformOnePlusMinus &benesiMagTransformOnePlusMinus, CVector3 &z, int i, sExtendedAux &aux);
 void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &benesiMagTransformTwo, CVector3 &z, int i, sExtendedAux &aux);
-void benesiMagTransformThreeTransform3D(const sTransformBenesiMagTransformThree &benesiMagTransformThree, CVector3 &z, int i, sExtendedAux &aux);
-void benesiMagTransformFourTransform3D(const sTransformBenesiMagTransformFour &benesiMagTransformFour, CVector3 &z, int i, sExtendedAux &aux);
-void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB &benesiMagTransformFiveB, CVector3 &z, int i, sExtendedAux &aux);
+void benesiMagTransformThreeTransform3D(const sTransformBenesiMagTransformThree &benesiMagTransformThree, CVector3 &z, int i);
+void benesiMagTransformFourTransform3D(const sTransformBenesiMagTransformFour &benesiMagTransformFour, CVector3 &z, int i);
+void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB &benesiMagTransformFiveB, CVector3 &z, int i);
 
 void benesiFastPwr2PineTreeEnabledTransform3D(const sTransformBenesiFastPwr2PineTreeEnabled &benesiFastPwr2PineTreeEnabled, CVector3 &z, CVector3 &c, int i, sExtendedAux &aux);
 void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &benesiFastPwr2PineTree, CVector3 &z, CVector3 &c, int i, sExtendedAux &aux);
+
+void boxFoldMultiTransform3D(const sTransformBoxFoldMulti &boxFoldMulti, CVector3 &z, int i, sExtendedAux &aux);
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_TRANSFORMS_HPP_ */

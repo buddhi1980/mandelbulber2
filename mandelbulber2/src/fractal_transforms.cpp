@@ -1415,7 +1415,7 @@ void benesiMagTransformTwoTransform3D(const sTransformBenesiMagTransformTwo &ben
 }
 
 //benesiMagTransformThree 3D
-void benesiMagTransformThreeTransform3D(const sTransformBenesiMagTransformThree &benesiMagTransformThree, CVector3 &z, int i, sExtendedAux &aux)
+void benesiMagTransformThreeTransform3D(const sTransformBenesiMagTransformThree &benesiMagTransformThree, CVector3 &z, int i)
 {
   if (benesiMagTransformThree.control.enabled && i >= benesiMagTransformThree.control.startIterations && i < benesiMagTransformThree.control.stopIterations)
   {
@@ -1453,7 +1453,7 @@ void benesiMagTransformThreeTransform3D(const sTransformBenesiMagTransformThree 
 //benesiMagTransform transform Four 3D
 
 
-void benesiMagTransformFourTransform3D(const sTransformBenesiMagTransformFour &benesiMagTransformFour, CVector3 &z, int i, sExtendedAux &aux)
+void benesiMagTransformFourTransform3D(const sTransformBenesiMagTransformFour &benesiMagTransformFour, CVector3 &z, int i)
 {
   if (benesiMagTransformFour.control.enabled && i >= benesiMagTransformFour.control.startIterations && i < benesiMagTransformFour.control.stopIterations)
   {
@@ -1489,7 +1489,7 @@ void benesiMagTransformFourTransform3D(const sTransformBenesiMagTransformFour &b
   }
 }
 //benesiMagTransformFiveB 3D
-void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB &benesiMagTransformFiveB, CVector3 &z, int i, sExtendedAux &aux)
+void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB &benesiMagTransformFiveB, CVector3 &z, int i)
 {
   if (benesiMagTransformFiveB.control.enabled && i >= benesiMagTransformFiveB.control.startIterations && i < benesiMagTransformFiveB.control.stopIterations)
   {
@@ -1573,6 +1573,49 @@ void benesiFastPwr2PineTreeEnabledTransform3D(const sTransformBenesiFastPwr2Pine
     if (benesiFastPwr2PineTreeEnabled.control.weightEnabled)
     {
       z = SmoothCVector(temp, z, benesiFastPwr2PineTreeEnabled.control.weight);
+    }
+  }
+}
+//boxFoldMultiMulti transform 3D
+void boxFoldMultiTransform3D(const sTransformBoxFoldMulti &boxFoldMulti, CVector3 &z, int i, sExtendedAux &aux)
+{
+  if (boxFoldMulti.control.enabled && i >= boxFoldMulti.control.startIterations && i < boxFoldMulti.control.stopIterations)
+  {
+    CVector3 temp = z;
+    if (z.x > boxFoldMulti.foldingLimit.x)
+    {
+            z.x = boxFoldMulti.foldingValue.x - z.x;
+            aux.color += boxFoldMulti.color.factor.x;
+    }
+    else if (z.x < -boxFoldMulti.foldingLimit.x)
+    {
+            z.x = -boxFoldMulti.foldingValue.x - z.x;
+            aux.color += boxFoldMulti.color.factor.x;
+    }
+    if (z.y > boxFoldMulti.foldingLimit.y)
+    {
+            z.y = boxFoldMulti.foldingValue.y - z.y;
+            aux.color += boxFoldMulti.color.factor.y;
+    }
+    else if (z.y < -boxFoldMulti.foldingLimit.y)
+    {
+            z.y = -boxFoldMulti.foldingValue.y - z.y;
+            aux.color += boxFoldMulti.color.factor.y;
+    }
+    if (z.z > boxFoldMulti.foldingLimit.z)
+    {
+            z.z = boxFoldMulti.foldingValue.z - z.z;
+            aux.color += boxFoldMulti.color.factor.z;
+    }
+    else if (z.z < -boxFoldMulti.foldingLimit.z)
+    {
+            z.z = -boxFoldMulti.foldingValue.z - z.z;
+            aux.color += boxFoldMulti.color.factor.z;
+    }
+    //weight function
+    if (boxFoldMulti.control.weightEnabled)
+    {
+            z = SmoothCVector(temp, z, boxFoldMulti.control.weight);
     }
   }
 }

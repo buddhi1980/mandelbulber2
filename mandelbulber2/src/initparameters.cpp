@@ -1064,6 +1064,25 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_benesiFastPwr2PineTree3_weight", 1.0, morphLinear, paramStandard);
   par->addParam("transform_benesiFastPwr2PineTree3_constantMultiplier", CVector3(1.0, 0.0, 0.0), morphAkima, paramStandard);
 
+  par->addParam("transform_box_foldMulti1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_box_foldMulti1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_box_foldMulti1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_box_foldMulti1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_box_foldMulti1_folding_limit", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transform_box_foldMulti1_folding_value", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
+  par->addParam("transform_box_foldMulti1_weight", 1.0, morphLinear, paramStandard);
+
+  par->addParam("transform_box_foldMulti2_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_box_foldMulti2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_box_foldMulti2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_box_foldMulti2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_box_foldMulti2_folding_limit", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transform_box_foldMulti2_folding_value", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
+  par->addParam("transform_box_foldMulti2_weight", 1.0, morphLinear, paramStandard);
+
+
+
+
 	// platonic_solid
 
 	par->addParam("platonic_solid_frequency", 1.0, morphAkima, paramStandard);
