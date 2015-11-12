@@ -11,6 +11,8 @@
 #define SQRT_1_3 0.57735026918962576450914878050196
 #define SQRT_1_2 0.70710678118654752440084436210485
 #define SQRT_2_3 0.81649658092772603273242802490196
+#define SQRT_3_2 1.22474487139158904909864203735295
+
 
 // TRANSFORMS
 
@@ -1239,6 +1241,8 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
     }
   }
 }
+
+// for info about the following M.Benesi transforms and formulas  refer http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 //benesiMagForwardTransform ONE 3D
 void benesiMagForwardTransformOneTransform3D(const sTransformBenesiMagForwardTransformOne &benesiMagForwardTransformOne, CVector3 &z,int i)
 {
@@ -1528,6 +1532,8 @@ void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB 
 }
 
 //benesiFastPwr2PineTree  3D
+//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+
 void benesiFastPwr2PineTreeTransform3D(const sTransformBenesiFastPwr2PineTree &benesiFastPwr2PineTree, CVector3 &z, CVector3 &c, int i, sExtendedAux &aux)
 {
   if (benesiFastPwr2PineTree.control.enabled && i >= benesiFastPwr2PineTree.control.startIterations && i < benesiFastPwr2PineTree.control.stopIterations)
@@ -1619,4 +1625,80 @@ void boxFoldMultiTransform3D(const sTransformBoxFoldMulti &boxFoldMulti, CVector
     }
   }
 }
+
+  //Cube to sphere transform
+  //Description: Warps a cube to a sphere; transform made by M.Benesi, optimized by Luca.
+    //http://www.fractalforums.com/mathematics/circle2square/
+
+
+void cubeSphereTransform3D(const sTransformCubeSphere &cubeSphere, CVector3 &z, int i)
+{
+  if (cubeSphere.control.enabled && i >= cubeSphere.control.startIterations && i < cubeSphere.control.stopIterations)
+  {
+    CVector3 temp = z;
+    z *= z;       // so all now positive
+
+    if (z.x == 0.0) z.x = 1e-21;
+    if (z.z == 0.0) z.z = 1e-21;
+
+    double rCyz = z.y / z.z;
+
+    double rCxyz = (z.y + z.z ) / z.x ;
+
+    if (rCxyz == -1.0) z.z = 1.0 + 1e-21;
+    if (rCyz < 1.0) rCyz = sqrt(rCyz + 1.0);
+    else rCyz=sqrt( 1.0 / rCyz + 1.0);
+
+    if (rCxyz < 1.0) rCxyz = sqrt(rCxyz + 1.0);
+    else rCxyz=sqrt(1.0/ rCxyz + 1.0);
+
+    z.y *=rCyz;
+    z.z *=rCyz;
+
+    z *= rCxyz/SQRT_3_2;
+
+    //weight function
+    if (cubeSphere.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, cubeSphere.control.weight);
+    }
+  }
+}
+
+//sphere to Cube transform
+//Warps a sphere to a cube; transform made by M.Benesi, optimized by
+//Luca.  Scavenged and edited from code optimized by Luca.
+
+  //http://www.fractalforums.com/mathematics/circle2square/
+void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, int i)
+{
+  if (sphereCube.control.enabled && i >= sphereCube.control.startIterations && i < sphereCube.control.stopIterations)
+  {
+    CVector3 temp = z;
+    if (z.z == 0.0) z.z = 1e-21;
+    z *= z;
+    double rCyz = z.y / z.z;
+    if (rCyz < 1.0) rCyz = 1.0 / sqrt(rCyz + 1.0);
+    else rCyz = 1.0 / sqrt(1.0 / rCyz + 1.0);
+
+    z.y*=rCyz;
+    z.z*=rCyz;
+
+    if (z.x == 0.0) z.x = 1e-21;
+    double rCxyz = (z.y * z.y + z.z * z.z ) / z.x ;
+
+    if (rCxyz < 1.0) rCxyz = 1.0 / sqrt(rCxyz + 1.0);
+    else rCxyz = 1.0 /sqrt(1.0/ rCxyz + 1.0);
+
+    z *= rCxyz * SQRT_3_2;
+
+    //weight function
+    if (sphereCube.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, sphereCube.control.weight);
+    }
+  }
+}
+
+
 

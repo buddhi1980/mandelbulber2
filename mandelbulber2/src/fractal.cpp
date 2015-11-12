@@ -737,6 +737,28 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.boxFoldMulti2.control.weight = container->Get<double>("transform_box_foldMulti2_weight");
   transform.boxFoldMulti2.color = mandelbox.color;
 
+  transform.cubeSphere1.control.enabled = container->Get<bool>("transform_cubeSphere1_enabled");
+  transform.cubeSphere1.control.weightEnabled = container->Get<bool>("transform_cubeSphere1_weight_enabled");
+  transform.cubeSphere1.control.startIterations = container->Get<int>("transform_cubeSphere1_start_iterations");
+  transform.cubeSphere1.control.stopIterations = container->Get<int>("transform_cubeSphere1_stop_iterations");
+  transform.cubeSphere1.control.weight = container->Get<double>("transform_cubeSphere1_weight");
+  transform.cubeSphere2.control.enabled = container->Get<bool>("transform_cubeSphere2_enabled");
+  transform.cubeSphere2.control.weightEnabled = container->Get<bool>("transform_cubeSphere2_weight_enabled");
+  transform.cubeSphere2.control.startIterations = container->Get<int>("transform_cubeSphere2_start_iterations");
+  transform.cubeSphere2.control.stopIterations = container->Get<int>("transform_cubeSphere2_stop_iterations");
+  transform.cubeSphere2.control.weight = container->Get<double>("transform_cubeSphere2_weight");
+
+  transform.sphereCube1.control.enabled = container->Get<bool>("transform_sphereCube1_enabled");
+  transform.sphereCube1.control.weightEnabled = container->Get<bool>("transform_sphereCube1_weight_enabled");
+  transform.sphereCube1.control.startIterations = container->Get<int>("transform_sphereCube1_start_iterations");
+  transform.sphereCube1.control.stopIterations = container->Get<int>("transform_sphereCube1_stop_iterations");
+  transform.sphereCube1.control.weight = container->Get<double>("transform_sphereCube1_weight");
+  transform.sphereCube2.control.enabled = container->Get<bool>("transform_sphereCube2_enabled");
+  transform.sphereCube2.control.weightEnabled = container->Get<bool>("transform_sphereCube2_weight_enabled");
+  transform.sphereCube2.control.startIterations = container->Get<int>("transform_sphereCube2_start_iterations");
+  transform.sphereCube2.control.stopIterations = container->Get<int>("transform_sphereCube2_stop_iterations");
+  transform.sphereCube2.control.weight = container->Get<double>("transform_sphereCube2_weight");
+
 
 //----------------------------------
 

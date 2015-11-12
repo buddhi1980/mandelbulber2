@@ -1121,6 +1121,10 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
   //Benesi Mag TransformOnePlusMinus); 1
   benesiMagTransformOnePlusMinusTransform3D(fractal->transform.benesiMagTransformOnePlusMinus1, z, i, aux);
 
+  // Benesi SphereCube; 1
+   sphereCubeTransform3D(fractal->transform.sphereCube1, z, i);
+
+
   // Benesi FastPwr2PineTree); 1
   benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree1, z, c, i, aux);
 
@@ -1144,6 +1148,10 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
 
   // z = z + c * const; 2
   constantMultiplierTransform3D(fractal->transform.constantMultiplier2, z, c, i);
+
+  // Benesi cubeSphere; 1
+   cubeSphereTransform3D(fractal->transform.cubeSphere1, z, i);
+
 
   //  z = fabs( z + constA.) - fabs( z - constB.) - z; 1
   fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB1, z, i);

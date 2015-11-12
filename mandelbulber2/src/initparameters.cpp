@@ -1080,8 +1080,27 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_box_foldMulti2_folding_value", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transform_box_foldMulti2_weight", 1.0, morphLinear, paramStandard);
 
+  par->addParam("transform_cubeSphere1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_cubeSphere1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_cubeSphere1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_cubeSphere1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_cubeSphere1_weight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_cubeSphere2_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_cubeSphere2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_cubeSphere2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_cubeSphere2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_cubeSphere2_weight", 1.0, morphLinear, paramStandard);
 
-
+  par->addParam("transform_sphereCube1_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_sphereCube1_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_sphereCube1_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_sphereCube1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_sphereCube1_weight", 1.0, morphLinear, paramStandard);
+  par->addParam("transform_sphereCube2_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_sphereCube2_weight_enabled", false, morphLinear, paramStandard);
+  par->addParam("transform_sphereCube2_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transform_sphereCube2_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_sphereCube2_weight", 1.0, morphLinear, paramStandard);
 
 	// platonic_solid
 

@@ -582,6 +582,15 @@ struct sTransformBoxFoldMulti
   CVector3 foldingValue;
 };
 
+struct sTransformCubeSphere
+{
+  sTransformControl control;
+};
+
+struct sTransformSphereCube
+{
+  sTransformControl control;
+};
 
 struct sFractalTransform
 {
@@ -660,6 +669,11 @@ struct sFractalTransform
 
   sTransformBoxFoldMulti boxFoldMulti1;
   sTransformBoxFoldMulti boxFoldMulti2;
+
+  sTransformCubeSphere cubeSphere1;
+  sTransformCubeSphere cubeSphere2;
+  sTransformSphereCube sphereCube1;
+  sTransformSphereCube sphereCube2;
 
   //TODO here will be more transforms
 };
