@@ -191,6 +191,7 @@ bool cRenderQueue::RenderStill(const QString& filename)
 	if(systemData.noGui)
 	{
 		config.DisableProgressiveRender();
+		config.DisableRefresh();
 	}
 	config.EnableNetRender();
 	renderJob->Init(cRenderJob::still, config);
