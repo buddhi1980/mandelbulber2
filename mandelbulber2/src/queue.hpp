@@ -120,7 +120,6 @@ private slots:
 	void slotQueueListUpdate();
 	void slotQueueListUpdate(int i);
 	void slotQueueListUpdate(int i, int j);
-	void slotUpdateUI();
 	void slotStopRequest();
 	void slotShowQueueThumbsChanges(int state);
 

@@ -97,10 +97,6 @@ void cRenderQueue::slotRenderQueue()
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.LoadFromFile(queueItem.filename);
 			parSettings.Decode(queuePar, queueParFractal, queueAnimFrames, queueKeyframes);
-			if(!systemData.noGui)
-			{
-				emit updateUI();
-			}
 
 			queuePar->Set("image_preview_scale", 0);
 

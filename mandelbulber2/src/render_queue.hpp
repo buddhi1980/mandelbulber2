@@ -48,7 +48,6 @@ signals:
 	void updateStatistics(cStatistics stats);
 	void updateProgressHide(cProgressText::enumProgressType progressType = cProgressText::progress_ANIMATION);
 	void finished();
-	void updateUI();
 
 private:
 	cImage *image;

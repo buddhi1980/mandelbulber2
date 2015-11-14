@@ -1672,6 +1672,7 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 				progressBar = gMainInterface->progressBarQueueAnimation;
 			else
 				progressBar = gMainInterface->progressBarAnimation;
+			break;
 		case cProgressText::progress_QUEUE:
 			// nothing to be done, no progress bar for queue in GUI
 			break;
@@ -1679,7 +1680,10 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 
 	if(progressBar)
 	{
-		if(!progressBar->isVisible()) progressBar->setVisible(true);
+		if(!progressBar->isVisible())
+		{
+			progressBar->setVisible(true);
+		}
 		progressBar->setValue(progress * 1000.0);
 		progressBar->setTextVisible(true);
 		progressBar->setFormat(progressText);

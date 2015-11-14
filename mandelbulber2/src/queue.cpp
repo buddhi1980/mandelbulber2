@@ -468,7 +468,6 @@ void cQueue::RenderQueue()
 	renderQueue->setObjectName("Queue");
 	QObject::connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));
 	QObject::connect(renderQueue, SIGNAL(finished()), renderQueue, SLOT(deleteLater()));
-	QObject::connect(renderQueue, SIGNAL(updateUI()), this, SLOT(slotUpdateUI()));
 	if(gMainInterface->mainWindow){
 		QObject::connect(renderQueue, SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
 			gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
@@ -692,14 +691,6 @@ void cQueue::slotQueueListUpdate(int i, int j)
 		}
 	}
 	table->blockSignals(false);
-}
-
-void cQueue::slotUpdateUI()
-{
-	gMainInterface->RebuildPrimitives(gPar);
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-	gFlightAnimation->RefreshTable();
-	gKeyframeAnimation->RefreshTable();
 }
 
 void cQueue::slotStopRequest()
