@@ -25,6 +25,8 @@ TEMPLATE = app
 
 CONFIG += qt thread
 
+CONFIG += console
+
 SOURCES +=  ../src/algebra.cpp\
 			../src/animation_frames.cpp\
 			../src/animation_flight.cpp\

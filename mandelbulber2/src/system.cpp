@@ -32,7 +32,9 @@
 #include "global_data.hpp"
 #include "settings.hpp"
 
+#ifndef WIN32
 #include <sys/ioctl.h>
+#endif
 #include <stdio.h>
 #include <unistd.h>
 
