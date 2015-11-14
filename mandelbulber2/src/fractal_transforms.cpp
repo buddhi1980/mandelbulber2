@@ -1208,8 +1208,9 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
 			case sTransformMandelbulbMulti::zxy: v1 = &z.z; v2 = &z.x; v3 = &z.y; break;
 			case sTransformMandelbulbMulti::zyx: v1 = &z.z; v2 = &z.y; v3 = &z.x; break;
 		}
-
-		if(mandelbulbMulti.acosOrasin == sTransformMandelbulbMulti::acos)
+    if( aux.r == 0.0) aux.r = 1e-21;
+    if(  *v3 == 0.0) *v3 = 1e-21;
+    if(mandelbulbMulti.acosOrasin == sTransformMandelbulbMulti::acos)
 		{
 			th0 += acos(*v1 / aux.r);
 		}
@@ -1700,5 +1701,38 @@ void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, 
   }
 }
 
+// aboxModKali transform 3D
+//http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
 
+void aboxModKaliTransform3D(const sTransformAboxModKali &aboxModKali, CVector3 &z, CVector3 &c, int i, sExtendedAux &aux)
+{
+  if (aboxModKali.control.enabled && i >= aboxModKali.control.startIterations && i < aboxModKali.control.stopIterations)
+  {
+    CVector3 temp = z;
+    double tempAuxDE = aux.DE;
+    z = aboxModKali.additionConstant - fabs(z);
+    double rr = z.x * z.x + z.y * z.y + z.z * z.z;
+    if (rr == 0.0) rr =1e-21;
+    double MinR = aboxModKali.radMin;
+    if (MinR == 0.0) MinR = 1e-21;
+    double m;
+    if (rr < (MinR)) m = aboxModKali.scale/(MinR);
+    else
+    {
+     if (rr < 1) m =  aboxModKali.scale/rr;
+     else m = aboxModKali.scale;
+    }
+    z = z * m + c  * aboxModKali.constantMultiplierVect;
+
+    aux.DE = aux.DE * fabs(aboxModKali.scale) + 1.0;
+
+    //weight function
+    if (aboxModKali.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, aboxModKali.control.weight);
+      double nkaux = 1.0 - (aboxModKali.control.weight);
+      aux.DE = (tempAuxDE * nkaux) + (aux.DE * aboxModKali.control.weight);
+    }
+  }
+}
 
