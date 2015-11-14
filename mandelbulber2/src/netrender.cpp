@@ -44,6 +44,7 @@ CNetRender::CNetRender(qint32 workerCount) : QObject(NULL)
 	actualId = 0;
 	totalReceivedUncompressed = 0;
 	totalReceived = 0;
+	isUsed = false;
 }
 
 CNetRender::~CNetRender()

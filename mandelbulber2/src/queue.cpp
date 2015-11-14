@@ -708,5 +708,6 @@ int cQueue::GetQueueSize()
 
 void cQueue::slotShowQueueThumbsChanges(int state)
 {
+	(void)state;
 	slotQueueListUpdate();
 }
