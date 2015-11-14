@@ -2104,7 +2104,20 @@ bool cInterface::QuitApplicationDialog()
 			stopRequest = true;
 			gQueue->stopRequest = true;
 			WriteLog("Quit application");
-			//FIXME needed wating until rendering of images is stopped
+
+			//save applications settings
+			cSettings parSettings(cSettings::formatAppSettings);
+			gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+			parSettings.SaveToFile(systemData.dataDirectory + "mandelbulber.ini");
+
+			while(cRenderJob::GetRunningJobCount() > 0)
+			{
+				gApplication->processEvents();
+			}
+
+			QFile::remove(systemData.autosaveFile);
+
 			gApplication->quit();
 			quit = true;
 			break;
