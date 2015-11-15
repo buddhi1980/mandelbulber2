@@ -4149,7 +4149,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>227</width>
+                  <width>303</width>
                   <height>174</height>
                  </rect>
                 </property>
@@ -4477,7 +4477,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>196</width>
+                  <width>303</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5317,7 +5317,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>273</width>
+                  <width>303</width>
                   <height>225</height>
                  </rect>
                 </property>
@@ -5635,7 +5635,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>265</width>
+                  <width>303</width>
                   <height>1248</height>
                  </rect>
                 </property>
@@ -8499,7 +8499,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9150,7 +9150,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -9795,7 +9795,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
+                      <width>281</width>
                       <height>452</height>
                      </rect>
                     </property>
@@ -10444,7 +10444,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>210</width>
+                  <width>289</width>
                   <height>482</height>
                  </rect>
                 </property>
@@ -11696,7 +11696,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
+                  <width>289</width>
                   <height>354</height>
                  </rect>
                 </property>
@@ -13418,7 +13418,7 @@ and water):</string>
          </property>
          <widget class="QWidget" name="tab_flight_animation">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In record flight mode, the camera is operated like in a flight simulator game. It recommended to use low image resolution for better rendering performance. Flight path is recorded.&lt;/p&gt;&lt;p&gt;Render animation button starts rendering of the recorded flight path. For final rendering you can select higher image resolution.&lt;/p&gt;&lt;p&gt;To add a parameter, right click in the formula tab on the selected parameter's edit field and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to flight animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;You can click on &lt;span style=&quot; font-style:italic;&quot;&gt;Export to keyframes&lt;/span&gt;, and modify keyframe parameters directly in the animation table, or in the formula tab (double click keyframe preview or right click on a keyframe, and choose &lt;span style=&quot; font-style:italic;&quot;&gt;Render this keyframe&lt;/span&gt; , this updates the formula tab, then modify parameters and click &lt;span style=&quot; font-style:italic;&quot;&gt;Modify keyframe&lt;/span&gt; to refresh animation table.)&lt;/p&gt;&lt;p&gt;Animation is stored in a settings file in CSV format, therefore it is possible to edit animation with external tools (e.g spreadsheet editor or text editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In record flight mode, the camera is operated like in a flight simulator game. Flight path is recorded. It recommended to use low image resolution for better recording performance. &lt;/p&gt;&lt;p&gt;Render animation button starts rendering of the recorded flight path. For final rendering you can select higher image resolution.&lt;/p&gt;&lt;p&gt;To add a parameter, right click on the selected parameter's edit field and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to flight animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;You can modify frame parameters directly in the animation table or by editing parameters in fractal or efects edit fields (double click keyframe preview or right click on a keyframe, and choose &lt;span style=&quot; font-style:italic;&quot;&gt;Render this keyframe&lt;/span&gt; , this updates parameters in window, then modify parameters and click &lt;span style=&quot; font-style:italic;&quot;&gt;Modify keyframe&lt;/span&gt; to get modified parameters into table)&lt;/p&gt;&lt;p&gt;You can click on &lt;span style=&quot; font-style:italic;&quot;&gt;Export to keyframes&lt;/span&gt; to continue editing animation in &lt;span style=&quot; font-style:italic;&quot;&gt;Keyframe animation&lt;/span&gt; editor&lt;/p&gt;&lt;p&gt;Animation is stored in a settings file in CSV format, therefore it is possible to edit animation with external tools (e.g spreadsheet editor or text editor).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <attribute name="title">
            <string>Flight animation</string>
@@ -13609,8 +13609,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>224</width>
-                  <height>291</height>
+                  <width>355</width>
+                  <height>318</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -14188,7 +14188,7 @@ and water):</string>
          </widget>
          <widget class="QWidget" name="tab_keyframe_animation">
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature is for rendering animations by interpolating between keyframes.&lt;/p&gt;&lt;p&gt;You can create multiple keyframes, each with different parameters (i.e.camera, fractal and environment parameters values). Intermediate frames will be calculated during rendering of the animation. &lt;/p&gt;&lt;p&gt;To add a keyframe to the animation table, click &lt;span style=&quot; font-style:italic;&quot;&gt;Add keyframe&lt;/span&gt;. To add a parameter, right click in the formula tab on the selected parameter's edit field and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to keyframe animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Build an animation by adding, inserting and deleting keyframes. Modify parameters directly in the animation table, or in the formulas tab (double click keyframe preview or right click on a keyframe, and choose &lt;span style=&quot; font-style:italic;&quot;&gt;Render this keyframe&lt;/span&gt; , this updates the formula tab, then modify parameters and click &lt;span style=&quot; font-style:italic;&quot;&gt;Modify keyframe&lt;/span&gt; to refresh animation table.)&lt;/p&gt;&lt;p&gt;Each parameter can have assigned different type of interpolation (right click on animation parameter name.)&lt;/p&gt;&lt;p&gt;Animation is stored in a settings file in CSV format, therefore it is possible to edit animation with external tools (e.g spreadsheet editor or text editor).&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature is for rendering animations by interpolating between keyframes.&lt;/p&gt;&lt;p&gt;You can create multiple keyframes, each with different parameters (i.e.camera, fractal and environment parameters values). Intermediate frames will be calculated during rendering of the animation. &lt;/p&gt;&lt;p&gt;To add a keyframe to the animation table, click &lt;span style=&quot; font-style:italic;&quot;&gt;Add keyframe&lt;/span&gt;. &lt;/p&gt;&lt;p&gt;To add a parameter, right click on the selected parameter's edit field and select from context menu &lt;span style=&quot; font-style:italic;&quot;&gt;Add to keyframe animation&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Build an animation by adding, inserting and deleting keyframes. Modify parameters directly in the animation table, or in fractal or efects edit fields (double click keyframe preview or right click on a keyframe, and choose &lt;span style=&quot; font-style:italic;&quot;&gt;Render this keyframe&lt;/span&gt; , this updates parameters in window, then modify parameters and click &lt;span style=&quot; font-style:italic;&quot;&gt;Modify keyframe&lt;/span&gt; to refresh animation table.)&lt;/p&gt;&lt;p&gt;Each parameter can have assigned different type of interpolation (right click on animation parameter name.)&lt;/p&gt;&lt;p&gt;Animation is stored in a settings file in CSV format, therefore it is possible to edit animation with external tools (e.g spreadsheet editor or text editor).&lt;/p&gt;&lt;p&gt;Animation can be exported to Fligt Animation, where is possible to edit each frame.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <attribute name="title">
            <string>Keyframe animation</string>
@@ -15083,6 +15083,9 @@ keyframes</string>
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockWidget_queue_dock">
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Queue tool allows to collect number of settings files and render all of them in background.&lt;/p&gt;&lt;p&gt;When collected settings are being rendered, you can continue work in main window and in meanwhile add more settings to queue.&lt;/p&gt;&lt;p&gt;Methods to manage queue:&lt;br/&gt;- by adding items using &lt;span style=&quot; font-style:italic;&quot;&gt;Add current settings&lt;/span&gt; button&lt;br/&gt;- by editing queue.fractlist file&lt;br/&gt;- by puting files into queue folder and use button &lt;span style=&quot; font-style:italic;&quot;&gt;Add orphaned&lt;br/&gt;&lt;/span&gt;- by adding sigle settings or lists using command line interface&lt;/p&gt;&lt;p&gt;Temporary settings files are stored in $HOME/.mandelbulber/queue folder and the list is in $HOME/.mandelbulber/queue.fractlist&lt;/p&gt;&lt;p&gt;Rendering of queue can be done in another instance of Mandelbulber program. In that instance you will see the same items in queue (it shared between appliactions) and you can render queue from that. You can also launch another Mandelbulber from command line interface with -q option. Then this application will watch queue and render automatically all new items.&lt;/p&gt;&lt;p&gt;Result images are saved into $HOME/.mandelbulber/images directory (or another if it's specified in application preferences)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <property name="floating">
     <bool>false</bool>
    </property>
@@ -15150,7 +15153,7 @@ keyframes</string>
            <item row="1" column="1">
             <widget class="QPushButton" name="pushButton_queue_remove_orphaned">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove orphaned files from filesystem.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove files from queue folder which are not on the list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>Remove orphaned</string>
@@ -15164,7 +15167,7 @@ keyframes</string>
            <item row="2" column="0">
             <widget class="QPushButton" name="pushButton_queue_render_queue">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Render all unfinished elements in the queue list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Render all elements from the queue list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>Render queue</string>
@@ -15178,7 +15181,7 @@ keyframes</string>
            <item row="1" column="0">
             <widget class="QPushButton" name="pushButton_queue_add_orphaned">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add orphaned files from filesystem.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add orphaned files to the list from queue folder&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>Add orphaned</string>
@@ -15220,7 +15223,7 @@ keyframes</string>
            <item row="2" column="1">
             <widget class="QPushButton" name="pushButton_queue_stop_rendering">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Terminate rendering&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Terminate rendering of queue.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>STOP</string>
