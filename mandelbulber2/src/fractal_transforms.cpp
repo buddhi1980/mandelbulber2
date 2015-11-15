@@ -1321,26 +1321,24 @@ void benesiMagTransformOneEnabledTransform3D(const sTransformBenesiMagTransformO
 {
   if (benesiMagTransformOneEnabled.control.enabled && i >= benesiMagTransformOneEnabled.control.startIterations && i < benesiMagTransformOneEnabled.control.stopIterations)
   {
-    CVector3 temp = z;
-    double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
-    z = CVector3
-      ((tempXZ  - z.y) * SQRT_1_2,
-      (tempXZ  + z.y) * SQRT_1_2,
-      z.x * SQRT_1_3  +  z.z * SQRT_2_3);
 
-    z = fabs(z) * benesiMagTransformOneEnabled.scale;
+  CVector3 temp = z;
+  double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+  z = CVector3
+    ((tempXZ  - z.y) * SQRT_1_2,
+    (tempXZ  + z.y) * SQRT_1_2,
+  z.x * SQRT_1_3  +  z.z * SQRT_2_3);
+  z = fabs(z) * benesiMagTransformOneEnabled.scale;
+  double avgScale = (fabs(benesiMagTransformOneEnabled.scale.x) + fabs(benesiMagTransformOneEnabled.scale.y) + fabs(benesiMagTransformOneEnabled.scale.z))/3;// cheap approximation
+  aux.r_dz *= avgScale;
+  aux.DE = aux.DE * avgScale + 1.0;
+  tempXZ  = (z.y + z.x) * SQRT_1_2;
+  z = CVector3
+    ( z.z * SQRT_1_3 + tempXZ  * SQRT_2_3,
+    (z.y - z.x) * SQRT_1_2,
+    z.z * SQRT_2_3 - tempXZ  * SQRT_1_3);
+  z = z - benesiMagTransformOneEnabled.offset;
 
-    double avgScale = (fabs(benesiMagTransformOneEnabled.scale.x) + fabs(benesiMagTransformOneEnabled.scale.y) + fabs(benesiMagTransformOneEnabled.scale.z))/3;// cheap approximation
-    aux.r_dz *= avgScale;
-    aux.DE = aux.DE * avgScale + 1.0;
-
-    tempXZ  = (z.y + z.x) * SQRT_1_2;
-    z = CVector3
-      ( z.z * SQRT_1_3 + tempXZ  * SQRT_2_3,
-      (z.y - z.x) * SQRT_1_2,
-      z.z * SQRT_2_3 - tempXZ  * SQRT_1_3);
-
-    z = z - benesiMagTransformOneEnabled.offset;
 
     //weight function
     if (benesiMagTransformOneEnabled.control.weightEnabled)
@@ -1701,38 +1699,5 @@ void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, 
   }
 }
 
-// aboxModKali transform 3D
-//http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
 
-void aboxModKaliTransform3D(const sTransformAboxModKali &aboxModKali, CVector3 &z, CVector3 &c, int i, sExtendedAux &aux)
-{
-  if (aboxModKali.control.enabled && i >= aboxModKali.control.startIterations && i < aboxModKali.control.stopIterations)
-  {
-    CVector3 temp = z;
-    double tempAuxDE = aux.DE;
-    z = aboxModKali.additionConstant - fabs(z);
-    double rr = z.x * z.x + z.y * z.y + z.z * z.z;
-    if (rr == 0.0) rr =1e-21;
-    double MinR = aboxModKali.radMin;
-    if (MinR == 0.0) MinR = 1e-21;
-    double m;
-    if (rr < (MinR)) m = aboxModKali.scale/(MinR);
-    else
-    {
-     if (rr < 1) m =  aboxModKali.scale/rr;
-     else m = aboxModKali.scale;
-    }
-    z = z * m + c  * aboxModKali.constantMultiplierVect;
-
-    aux.DE = aux.DE * fabs(aboxModKali.scale) + 1.0;
-
-    //weight function
-    if (aboxModKali.control.weightEnabled)
-    {
-      z = SmoothCVector(temp, z, aboxModKali.control.weight);
-      double nkaux = 1.0 - (aboxModKali.control.weight);
-      aux.DE = (tempAuxDE * nkaux) + (aux.DE * aboxModKali.control.weight);
-    }
-  }
-}
 
