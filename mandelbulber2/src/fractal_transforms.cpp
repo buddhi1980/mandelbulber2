@@ -1208,8 +1208,9 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
 			case sTransformMandelbulbMulti::zxy: v1 = &z.z; v2 = &z.x; v3 = &z.y; break;
 			case sTransformMandelbulbMulti::zyx: v1 = &z.z; v2 = &z.y; v3 = &z.x; break;
 		}
-
-		if(mandelbulbMulti.acosOrasin == sTransformMandelbulbMulti::acos)
+    if( aux.r == 0.0) aux.r = 1e-21;
+    if(  *v3 == 0.0) *v3 = 1e-21;
+    if(mandelbulbMulti.acosOrasin == sTransformMandelbulbMulti::acos)
 		{
 			th0 += acos(*v1 / aux.r);
 		}
@@ -1320,26 +1321,24 @@ void benesiMagTransformOneEnabledTransform3D(const sTransformBenesiMagTransformO
 {
   if (benesiMagTransformOneEnabled.control.enabled && i >= benesiMagTransformOneEnabled.control.startIterations && i < benesiMagTransformOneEnabled.control.stopIterations)
   {
-    CVector3 temp = z;
-    double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
-    z = CVector3
-      ((tempXZ  - z.y) * SQRT_1_2,
-      (tempXZ  + z.y) * SQRT_1_2,
-      z.x * SQRT_1_3  +  z.z * SQRT_2_3);
 
-    z = fabs(z) * benesiMagTransformOneEnabled.scale;
+  CVector3 temp = z;
+  double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+  z = CVector3
+    ((tempXZ  - z.y) * SQRT_1_2,
+    (tempXZ  + z.y) * SQRT_1_2,
+  z.x * SQRT_1_3  +  z.z * SQRT_2_3);
+  z = fabs(z) * benesiMagTransformOneEnabled.scale;
+  double avgScale = (fabs(benesiMagTransformOneEnabled.scale.x) + fabs(benesiMagTransformOneEnabled.scale.y) + fabs(benesiMagTransformOneEnabled.scale.z))/3;// cheap approximation
+  aux.r_dz *= avgScale;
+  aux.DE = aux.DE * avgScale + 1.0;
+  tempXZ  = (z.y + z.x) * SQRT_1_2;
+  z = CVector3
+    ( z.z * SQRT_1_3 + tempXZ  * SQRT_2_3,
+    (z.y - z.x) * SQRT_1_2,
+    z.z * SQRT_2_3 - tempXZ  * SQRT_1_3);
+  z = z - benesiMagTransformOneEnabled.offset;
 
-    double avgScale = (fabs(benesiMagTransformOneEnabled.scale.x) + fabs(benesiMagTransformOneEnabled.scale.y) + fabs(benesiMagTransformOneEnabled.scale.z))/3;// cheap approximation
-    aux.r_dz *= avgScale;
-    aux.DE = aux.DE * avgScale + 1.0;
-
-    tempXZ  = (z.y + z.x) * SQRT_1_2;
-    z = CVector3
-      ( z.z * SQRT_1_3 + tempXZ  * SQRT_2_3,
-      (z.y - z.x) * SQRT_1_2,
-      z.z * SQRT_2_3 - tempXZ  * SQRT_1_3);
-
-    z = z - benesiMagTransformOneEnabled.offset;
 
     //weight function
     if (benesiMagTransformOneEnabled.control.weightEnabled)
