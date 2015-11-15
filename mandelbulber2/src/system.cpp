@@ -73,6 +73,7 @@ bool InitSystem(void)
 	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "w");
 	fclose(logfile);
 
+	out << "Mandelbulber " << MANDELBULBER_VERSION_STRING << ", build date: " << QString(__DATE__) << "\n";
 	out << "Log file name: " << systemData.logfileName << endl;
 	WriteLogString("Mandelbulber version", QString(MANDELBULBER_VERSION_STRING));
 	WriteLogString("Mandelbulber compilation date", QString(__DATE__) + " " + QString(__TIME__));
@@ -452,7 +453,7 @@ void UpdateUISkin (void)
 	gApplication->setPalette(palette);
 }
 
-void UpdateLanguage (void)
+void UpdateLanguage (QCoreApplication *app)
 {
 	// Set language from locale
 	WriteLog("Prepare translator");
@@ -460,9 +461,12 @@ void UpdateLanguage (void)
 	static QTranslator qt_data_translator;
 
 	QString locale = systemData.locale.name();
-	if(systemData.supportedLanguages.contains(gPar->Get<QString>("language")))
+	if(gPar)
 	{
-		locale = gPar->Get<QString>("language");
+		if(systemData.supportedLanguages.contains(gPar->Get<QString>("language")))
+		{
+			locale = gPar->Get<QString>("language");
+		}
 	}
 
 	WriteLogString("locale", locale);
@@ -470,8 +474,8 @@ void UpdateLanguage (void)
 	qt_data_translator.load("qt_data_" + locale, systemData.sharedDir + QDir::separator() + "language");
 
 	WriteLog("Instaling translator");
-	gApplication->installTranslator(&main_translator);
-	gApplication->installTranslator(&qt_data_translator);
+	app->installTranslator(&main_translator);
+	app->installTranslator(&qt_data_translator);
 }
 
 

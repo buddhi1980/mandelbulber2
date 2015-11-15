@@ -52,6 +52,8 @@ int main(int argc, char *argv[])
 	gCoreApplication->setApplicationName("Mandelbulber");
 	gCoreApplication->setApplicationVersion(MANDELBULBER_VERSION_STRING);
 
+	UpdateLanguage(gCoreApplication);
+
 	cCommandLineInterface commandLineInterface(gApplication);
 
 	if(commandLineInterface.isNoGUI())
@@ -128,7 +130,7 @@ int main(int argc, char *argv[])
 		UpdateUIStyle();
 		UpdateUISkin();
 	}
-	UpdateLanguage();
+	UpdateLanguage(gApplication);
 
 
 	commandLineInterface.ReadCLI();

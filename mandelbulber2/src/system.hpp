@@ -91,6 +91,6 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 void UpdateDefaultPaths();
 void UpdateUIStyle();
 void UpdateUISkin();
-void UpdateLanguage();
+void UpdateLanguage(QCoreApplication *app);
 
 #endif /* SYSTEM_HPP_ */
