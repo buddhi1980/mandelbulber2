@@ -80,6 +80,7 @@ public:
 	static enumRenderType GetTypeEnum(const QString &queueText);
 	//get the queue type QString from enum value
 	static QString GetTypeText(enumRenderType queueType);
+	static QString GetTypeName(enumRenderType queueType);
 	//get a color for enum value
 	static QString GetTypeColor(enumRenderType queueType);
 

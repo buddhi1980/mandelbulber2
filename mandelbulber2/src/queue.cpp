@@ -385,6 +385,17 @@ QString cQueue::GetTypeText(enumRenderType queueType)
 {
 	switch(queueType)
 	{
+		case cQueue::queue_STILL: return "STILL";
+		case cQueue::queue_FLIGHT: return "FLIGHT";
+		case cQueue::queue_KEYFRAME: return "KEYFRAME";
+	}
+	return "STILL";
+}
+
+QString cQueue::GetTypeName(enumRenderType queueType)
+{
+	switch(queueType)
+	{
 		case cQueue::queue_STILL: return tr("STILL");
 		case cQueue::queue_FLIGHT: return tr("FLIGHT");
 		case cQueue::queue_KEYFRAME: return tr("KEYFRAME");
@@ -647,9 +658,9 @@ void cQueue::slotQueueListUpdate(int i, int j)
 		case 2:
 		{
 			QComboBox *typeComboBox = new QComboBox;
-			typeComboBox->addItem(cQueue::GetTypeText(cQueue::queue_STILL));
-			typeComboBox->addItem(cQueue::GetTypeText(cQueue::queue_FLIGHT));
-			typeComboBox->addItem(cQueue::GetTypeText(cQueue::queue_KEYFRAME));
+			typeComboBox->addItem(cQueue::GetTypeName(cQueue::queue_STILL));
+			typeComboBox->addItem(cQueue::GetTypeName(cQueue::queue_FLIGHT));
+			typeComboBox->addItem(cQueue::GetTypeName(cQueue::queue_KEYFRAME));
 			typeComboBox->setCurrentIndex(queueList.at(i).renderType);
 
 			typeComboBox->setObjectName(QString::number(i));

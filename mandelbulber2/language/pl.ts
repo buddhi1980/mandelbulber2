@@ -1009,7 +1009,7 @@ allowed formats are: </source>
         <translation>Musisz wyspecyfikować plik z ustawieniami dla tej konfiguracji!</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="499"/>
+        <location filename="../src/queue.cpp" line="510"/>
         <source>No queue items to render</source>
         <translation>Brak elementów do zrenderowania w kolejce</translation>
     </message>
@@ -4613,7 +4613,7 @@ hold shift key - orthogonal strafe</source>
     <message>
         <location filename="../src/headless.cpp" line="235"/>
         <source>Number of iters / pixel</source>
-        <translation>Ilość itelacji / pixel</translation>
+        <translation>Ilość iteracji / pixel</translation>
     </message>
     <message>
         <location filename="../src/headless.cpp" line="237"/>
@@ -4830,48 +4830,49 @@ oraz zapis klatek animacji.</translation>
 <context>
     <name>cQueue</name>
     <message>
-        <location filename="../src/queue.cpp" line="388"/>
         <location filename="../src/queue.cpp" line="392"/>
+        <location filename="../src/queue.cpp" line="399"/>
+        <location filename="../src/queue.cpp" line="403"/>
         <source>STILL</source>
         <translation>OBRAZ</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="389"/>
+        <location filename="../src/queue.cpp" line="400"/>
         <source>FLIGHT</source>
         <translation>LOT</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="390"/>
+        <location filename="../src/queue.cpp" line="401"/>
         <source>KEYFRAME</source>
         <translation>KLATKI KLUCZOWE</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="514"/>
+        <location filename="../src/queue.cpp" line="525"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="518"/>
+        <location filename="../src/queue.cpp" line="529"/>
         <source>Add file to queue...</source>
         <translation>Dodaj plik do kolejki...</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="577"/>
+        <location filename="../src/queue.cpp" line="588"/>
         <source>Name</source>
         <translation>Nazwa</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="577"/>
+        <location filename="../src/queue.cpp" line="588"/>
         <source>Preview</source>
         <translation>Podgląd</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="577"/>
+        <location filename="../src/queue.cpp" line="588"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../src/queue.cpp" line="577"/>
+        <location filename="../src/queue.cpp" line="588"/>
         <source>Action</source>
         <translation>Akcja</translation>
     </message>
