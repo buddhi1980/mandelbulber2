@@ -530,7 +530,12 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
 
-				double percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / unrenderedTotal;
+				double percentDoneFrame = 0.0;
+				if(unrenderedTotal > 0)
+					percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / unrenderedTotal;
+				else
+					percentDoneFrame = 1.0;
+
 				QString progressTxt = progressText.getText(percentDoneFrame);
 
 				emit updateProgressAndStatus(QObject::tr("Rendering animation"), QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt, percentDoneFrame,

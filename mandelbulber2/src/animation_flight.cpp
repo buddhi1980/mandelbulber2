@@ -632,7 +632,13 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 		for (int index = 0; index < frames->GetNumberOfFrames(); ++index)
 		{
-			double percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
+
+			double percentDoneFrame = 0.0;
+			if(unrenderedTotal > 0)
+				percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
+			else
+				percentDoneFrame = 1.0;
+
 			QString progressTxt = progressText.getText(percentDoneFrame);
 
 			// Skip already rendered frames
