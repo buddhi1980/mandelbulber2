@@ -144,7 +144,8 @@ UI_DIR = ../qt
 
 TRANSLATIONS = ../language/en.ts\
                ../language/de.ts\
-               ../language/pl.ts
+               ../language/pl.ts\
+               ../language/it.ts
 
 QMAKE_CXXFLAGS += $$(CXXFLAGS)
 QMAKE_CFLAGS += $$(CFLAGS)
