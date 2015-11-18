@@ -6,6 +6,8 @@
 
 ## What this is
 
+[![Join the chat at https://gitter.im/buddhi1980/mandelbulber2](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/buddhi1980/mandelbulber2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Mandelbulber generates 3-dimensional fractals.
 
 Explore trigonometric, hypercomplex, mandelbox, IFS and many other 3D fractals.
