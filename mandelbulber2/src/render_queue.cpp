@@ -174,7 +174,22 @@ bool cRenderQueue::RenderKeyframe()
 
 bool cRenderQueue::RenderStill(const QString& filename)
 {
-	QString saveFilename = QFileInfo(filename).baseName() + ".png";
+	QString extension;
+	enumImageFileType imageFormat = (enumImageFileType) gPar->Get<int>("queue_image_format");
+	switch(imageFormat)
+	{
+		case IMAGE_FILE_TYPE_JPG:
+			extension += QString(".jpg");
+		break;
+		case IMAGE_FILE_TYPE_PNG:
+			extension += QString(".png");
+		break;
+		case IMAGE_FILE_TYPE_EXR:
+			extension += QString(".exr");
+		break;
+	}
+
+	QString saveFilename = QFileInfo(filename).baseName() + extension;
 
 	//setup of rendering engine
 	cRenderJob *renderJob = new cRenderJob(queuePar, queueParFractal, image, &gQueue->stopRequest, imageWidget);
@@ -203,7 +218,7 @@ bool cRenderQueue::RenderStill(const QString& filename)
 	}
 
 	QString fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator() + saveFilename;
-	SaveImage(fullSaveFilename, IMAGE_FILE_TYPE_PNG, image);
+	SaveImage(fullSaveFilename, imageFormat, image);
 
 	fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator() + QFileInfo(filename).baseName() + ".fract";
 	cSettings parSettings(cSettings::formatCondensedText);

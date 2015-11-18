@@ -326,6 +326,7 @@ using namespace parameterContainer;
 	par->addParam("default_settings_path", systemData.dataDirectory + "settings", morphNone, paramApp);
 
 	par->addParam("show_queue_thumbnails", false, morphNone, paramApp);
+	par->addParam("queue_image_format", 0, morphNone, paramApp);
 
 	//----------------------- preferences ---------------------
 	par->addParam("language", QString("unknown"), morphNone, paramApp);

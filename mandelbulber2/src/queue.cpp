@@ -501,6 +501,10 @@ void cQueue::RenderQueue()
 
 void cQueue::slotQueueRender()
 {
+	if(!systemData.noGui)
+	{
+		gMainInterface->SynchronizeInterfaceWindow(gMainInterface->mainWindow->ui->dockWidget_queue_dock, gPar, cInterface::read);
+	}
 	if(queueListFromFile.size() > 0)
 	{
 		RenderQueue();
