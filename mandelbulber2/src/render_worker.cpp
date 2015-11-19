@@ -65,7 +65,7 @@ cRenderWorker::~cRenderWorker()
 
 	if(AOvectorsAround)
 	{
-		delete AOvectorsAround;
+		delete[] AOvectorsAround;
 		AOvectorsAround = NULL;
 	}
 }

@@ -1198,34 +1198,34 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
     }
 		double th0 = mandelbulbMulti.betaAngleOffset;
 		double ph0 = mandelbulbMulti.alphaAngleOffset;
-		double *v1, *v2, *v3;
+		double v1, v2, v3;
 
 		switch(mandelbulbMulti.orderOfxyz){
-			case sTransformMandelbulbMulti::xyz: v1 = &z.x; v2 = &z.y; v3 = &z.z; break;
-			case sTransformMandelbulbMulti::xzy: v1 = &z.x; v2 = &z.z; v3 = &z.y; break;
-			case sTransformMandelbulbMulti::yxz: v1 = &z.y; v2 = &z.x; v3 = &z.z; break;
-			case sTransformMandelbulbMulti::yzx: v1 = &z.y; v2 = &z.z; v3 = &z.x; break;
-			case sTransformMandelbulbMulti::zxy: v1 = &z.z; v2 = &z.x; v3 = &z.y; break;
-			case sTransformMandelbulbMulti::zyx: v1 = &z.z; v2 = &z.y; v3 = &z.x; break;
+			case sTransformMandelbulbMulti::xyz: v1 = z.x; v2 = z.y; v3 = z.z; break;
+			case sTransformMandelbulbMulti::xzy: v1 = z.x; v2 = z.z; v3 = z.y; break;
+			case sTransformMandelbulbMulti::yxz: v1 = z.y; v2 = z.x; v3 = z.z; break;
+			case sTransformMandelbulbMulti::yzx: v1 = z.y; v2 = z.z; v3 = z.x; break;
+			case sTransformMandelbulbMulti::zxy: v1 = z.z; v2 = z.x; v3 = z.y; break;
+			case sTransformMandelbulbMulti::zyx: v1 = z.z; v2 = z.y; v3 = z.x; break;
 		}
-    if( aux.r == 0.0) aux.r = 1e-21;
-    if(  *v3 == 0.0) *v3 = 1e-21;
+    if(aux.r < 1e-21) aux.r = 1e-21;
+    if(v3 < 1e-21) v3 = 1e-21;
     if(mandelbulbMulti.acosOrasin == sTransformMandelbulbMulti::acos)
 		{
-			th0 += acos(*v1 / aux.r);
+			th0 += acos(v1 / aux.r);
 		}
 		else
 		{
-			th0 += asin(*v1 / aux.r);
+			th0 += asin(v1 / aux.r);
 		}
 
 		if(mandelbulbMulti.atanOratan2 == sTransformMandelbulbMulti::atan)
 		{
-			ph0 += atan(*v2 / *v3);
+			ph0 += atan(v2 / v3);
 		}
 		else
 		{
-			ph0 += atan2(*v2, *v3);
+			ph0 += atan2(v2, v3);
 		}
 
     double rp = pow(aux.r, mandelbulbMulti.power - 1.0);
