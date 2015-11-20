@@ -665,6 +665,7 @@ void mandelbulbOriginalTransform3D(const sTransformMandelbulbOriginal &mandelbul
 	{
 		CVector3 temp = z;
 		aux.r = z.Length();
+    if(aux.r < 1e-21) aux.r = 1e-21;
 		double th0 = asin(z.z / aux.r) + mandelbulbOriginal.betaAngleOffset;
 		double ph0 = atan2(z.y, z.x) + mandelbulbOriginal.alphaAngleOffset;
 		double rp = pow(aux.r, mandelbulbOriginal.power - 1.0);
@@ -689,6 +690,7 @@ void mandelbulbTransform3D(const sTransformMandelbulb &mandelbulb, CVector3 &z, 
 	{
 		CVector3 temp = z;
 		aux.r = z.Length();
+    if(aux.r < 1e-21) aux.r = 1e-21;
     double th0 = asin(z.z / aux.r) + mandelbulb.betaAngleOffset;
     double ph0 = atan2(z.y, z.x) + mandelbulb.alphaAngleOffset;
     double rp = pow(aux.r, mandelbulb.power - 1.0);
@@ -993,6 +995,7 @@ void sphericalOffsetTransform3D(const sTransformSphericalOffset &sphericalOffset
 		CVector3 temp = z;
 		double tempAuxDE = aux.DE;
 		double lengthTempZ = -z.Length();
+    if(lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
 		z *= 1 + sphericalOffset.offsetRadius / lengthTempZ;
 		z *= sphericalOffset.scale;
 		aux.DE = aux.DE * fabs(sphericalOffset.scale) + 1.0;
@@ -1056,6 +1059,7 @@ void variableMandelbulbPowerTransform3D(const sTransformVariableMandelbulbPower 
     }
 
     aux.r = z.Length();
+    if(aux.r < 1e-21) aux.r = 1e-21;
     double th0 = asin(z.z / aux.r) + variableMandelbulbPower.betaAngleOffset;
     double ph0 = atan2(z.y, z.x) + variableMandelbulbPower.alphaAngleOffset;
     double rp = pow(aux.r, tempVC - 1.0);
@@ -1502,10 +1506,9 @@ void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB 
       ((tempXZ  - z.y) * SQRT_1_2,
       (tempXZ  + z.y) * SQRT_1_2,
       z.x * SQRT_1_3  +  z.z * SQRT_2_3);
-
-    if (z.x == 0.0) z.x = 1e-21;
-    if (z.y == 0.0) z.y = 1e-21;
-    if (z.z == 0.0) z.z = 1e-21;
+    if (z.x > -1e-21 && z.x < 1e-21) z.x = 1e-21;
+    if (z.y > -1e-21 && z.y < 1e-21) z.y = 1e-21;
+    if (z.z > -1e-21 && z.z < 1e-21) z.z = 1e-21;
     CVector3 tempV2 = z;
     tempV2.x = fabs(pow(pow(z.y, benesiMagTransformFiveB.powOne.x) + pow(z.z, benesiMagTransformFiveB.powOne.x),benesiMagTransformFiveB.powTwo.x));
     tempV2.y = fabs(pow(pow(z.x, benesiMagTransformFiveB.powOne.y) + pow(z.z, benesiMagTransformFiveB.powOne.y),benesiMagTransformFiveB.powTwo.y));
@@ -1629,7 +1632,6 @@ void boxFoldMultiTransform3D(const sTransformBoxFoldMulti &boxFoldMulti, CVector
   //Description: Warps a cube to a sphere; transform made by M.Benesi, optimized by Luca.
     //http://www.fractalforums.com/mathematics/circle2square/
 
-
 void cubeSphereTransform3D(const sTransformCubeSphere &cubeSphere, CVector3 &z, int i)
 {
   if (cubeSphere.control.enabled && i >= cubeSphere.control.startIterations && i < cubeSphere.control.stopIterations)
@@ -1698,6 +1700,9 @@ void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, 
     }
   }
 }
+
+// aboxModKali transform 3D
+//http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
 
 
 
