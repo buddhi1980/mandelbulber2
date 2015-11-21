@@ -100,7 +100,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "Render all images from common queue."));
 
 	QCommandLineOption statsOption(QStringList() << "stats",
-		QCoreApplication::translate("main", "Show statistics while renderering in CLI mode."));
+		QCoreApplication::translate("main", "Show statistics while rendering in CLI mode."));
 
 	QCommandLineOption helpInputOption(QStringList() << "help-input",
 		QCoreApplication::translate("main", "Show help about input."));

@@ -6,9 +6,11 @@
 
 QT       += core gui uitools widgets network
 
-qtHaveModule(gamepad){
-  QT += gamepad
-  DEFINES += USE_GAMEPAD
+!win32 {
+  qtHaveModule(gamepad){
+    QT += gamepad
+    DEFINES += USE_GAMEPAD
+  }
 }
 
 CONFIG += link_pkgconfig
