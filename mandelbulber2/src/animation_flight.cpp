@@ -706,7 +706,9 @@ void cFlightAnimation::RefreshTable()
 
 	int noOfFrames = frames->GetNumberOfFrames();
 
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	UpdateLimitsForFrameRange(); //it is needed to do it also here, because limits must be set just after loading of settings
+
+	mainInterface->SynchronizeInterfaceWindow(ui->tab_flight_animation, params, cInterface::read);
 	cParameterContainer tempPar = *params;
 	cFractalContainer tempFract = *fractalParams;
 
@@ -1080,6 +1082,8 @@ void cFlightAnimation::UpdateLimitsForFrameRange(void)
 
 	ui->spinboxInt_flight_last_to_render->setMaximum(noOfFrames);
 	ui->sliderInt_flight_last_to_render->setMaximum(noOfFrames);
+
+	mainInterface->SynchronizeInterfaceWindow(ui->tab_flight_animation, gPar, cInterface::write);
 }
 
 void cFlightAnimation::slotMovedSliderFirstFrame(int value)

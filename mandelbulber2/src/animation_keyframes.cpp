@@ -599,7 +599,9 @@ void cKeyframeAnimation::RefreshTable()
 
 	int noOfFrames = keyframes->GetNumberOfFrames();
 
-	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
+	UpdateLimitsForFrameRange(); //it is needed to do it also here, because limits must be set just after loading of settings
+
+	mainInterface->SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, cInterface::read);
 	cParameterContainer tempPar = *params;
 	cFractalContainer tempFract = *fractalParams;
 
@@ -969,6 +971,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 void cKeyframeAnimation::UpdateLimitsForFrameRange(void)
 {
 	int framesPerKey = ui->spinboxInt_frames_per_keyframe->value();
+
 	int noOfFrames = (keyframes->GetNumberOfFrames() - 1) * framesPerKey;
 	if (noOfFrames < 0) noOfFrames = 0;
 
@@ -977,6 +980,8 @@ void cKeyframeAnimation::UpdateLimitsForFrameRange(void)
 
 	ui->spinboxInt_keyframe_last_to_render->setMaximum(noOfFrames);
 	ui->sliderInt_keyframe_last_to_render->setMaximum(noOfFrames);
+
+	mainInterface->SynchronizeInterfaceWindow(ui->tab_keyframe_animation, gPar, cInterface::write);
 }
 
 void cKeyframeAnimation::slotMovedSliderFirstFrame(int value)
