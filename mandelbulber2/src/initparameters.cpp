@@ -866,7 +866,7 @@ void InitFractalParams(cParameterContainer *par)
 //Colouring Parameters
   par->addParam("transform_coloringParameters1_enabled", true, morphLinear, paramStandard);
   par->addParam("transform_coloringParameters1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_coloringParameters1_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transform_coloringParameters1_stop_iterations", 5, morphLinear, paramStandard);
   par->addParam("transform_coloringParameters1_mandelbox_color", CVector3(0.03, 0.05, 0.07), morphLinear, paramStandard);
   par->addParam("transform_coloringParameters1_mandelbox_color_R", 0.0, morphLinear, paramStandard);
   par->addParam("transform_coloringParameters1_mandelbox_color_Sp1", 0.2, morphLinear, paramStandard);
@@ -1102,6 +1102,8 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_sphereCube2_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("transform_sphereCube2_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_sphereCube2_weight", 1.0, morphLinear, paramStandard);
+
+
 
 	// platonic_solid
 

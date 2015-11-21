@@ -1107,7 +1107,7 @@ void coloringParametersTransform3D(const sTransformColoringParameters &coloringP
       double R;
       R = z.Length();
       if (R < minimumR) minimumR = R;
-      R = (aux.color * 100) + (aux.r * coloringParameters.color.factorR * 100) + (1000* minimumR);
+      R = (aux.color * 100) + (aux.r * coloringParameters.color.factorR * 100) + (5000* minimumR);
       aux.newR = R;
     }
 }
@@ -1133,7 +1133,6 @@ void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, 
       double biasR2 = fabs(z.y) * 10 * colorTrial.colorConstant2;
       double biasR3 = fabs(z.z) * 10 * colorTrial.colorConstant3;
       biasR = ((biasR1 ) + ( biasR2 ) + (biasR3)) / 3.0;
-      //biasR *= biasR; // trying squaring ??
       if (biasR < aux.axisBias ) aux.axisBias = biasR;
     }
     else
@@ -1147,8 +1146,8 @@ void colorTrialTransform3D(const sTransformColorTrial &colorTrial, CVector3 &z, 
       CVector3 tempOT2;
       tempOT1 = z - colorTrial.orbitTrap1;
       tempOT2 = z - colorTrial.orbitTrap2;
-      double lengthOT1 = tempOT1.Length() * colorTrial.orbitTrap1Weight; // * colorTrial.orbitTrap1Weight ;
-      double lengthOT2 = tempOT2.Length() * colorTrial.orbitTrap2Weight; // * colorTrial.orbitTrap2Weight;
+      double lengthOT1 = tempOT1.Length() * colorTrial.orbitTrap1Weight;
+      double lengthOT2 = tempOT2.Length() * colorTrial.orbitTrap2Weight;
       if (lengthOT1 < lengthOT2) orbitTrapsR = lengthOT1;
       else orbitTrapsR = lengthOT2;
       if (orbitTrapsR < aux.orbitTraps ) aux.orbitTraps = orbitTrapsR;
@@ -1702,5 +1701,6 @@ void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, 
 
 // aboxModKali transform 3D
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+
 
 
