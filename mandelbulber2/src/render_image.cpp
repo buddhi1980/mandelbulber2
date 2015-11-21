@@ -145,7 +145,7 @@ bool cRenderer::RenderImage()
 			//status bar and progress bar
 			double percentDone = scheduler->PercentDone();
 			data->lastPercentage = percentDone;
-			statusText = QObject::tr("Rendering image in progress");
+            statusText = QObject::tr("Rendering image");
 			progressTxt = progressText.getText(percentDone);
 			data->statistics.time = progressText.getTime();
 

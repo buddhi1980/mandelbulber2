@@ -308,12 +308,12 @@
     <name>QObject</name>
     <message>
         <source>Done %1%, elapsed: %2, estamined to end: %3</source>
-        <translation type="vanished">Fortschritt %1%, vergangen: %2, voraussichtlich noch: %3</translation>
+        <translation type="vanished">Fortschritt %1%, vergangen: %2, ausstehend: %3</translation>
     </message>
     <message>
         <location filename="../src/progress_text.cpp" line="73"/>
         <source>Done %1%, elapsed: %2, estimated to end: %3</source>
-        <translation>Fortschritt %1%, vergangen: %2, voraussichtlich noch: %3</translation>
+        <translation>Fortschritt %1%, vergangen: %2, verbleibend: %3</translation>
     </message>
     <message>
         <location filename="../src/progress_text.cpp" line="80"/>
@@ -635,8 +635,12 @@ Den letzten Stand wiederherstellen?</translation>
         <translation>Hybridfraktal kann nicht konvertiert werden</translation>
     </message>
     <message>
-        <location filename="../src/render_image.cpp" line="148"/>
         <source>Rendering image in progress</source>
+        <translation type="vanished">Rendere Bild</translation>
+    </message>
+    <message>
+        <location filename="../src/render_image.cpp" line="148"/>
+        <source>Rendering image</source>
         <translation>Rendere Bild</translation>
     </message>
     <message>
@@ -4969,6 +4973,11 @@ png16 - 16-Bit PNG Format
 png16alpha - 16-Bit PNG mit Alpha-Kanal Format</translation>
     </message>
     <message>
+        <location filename="../src/command_line_interface.cpp" line="32"/>
+        <source>Mandelbulber is an easy to use, handy application designed to help you render 3D Mandelbrot fractals called Mandelbulb and some other kind of 3D fractals like Mandelbox, Bulbbox, Juliabulb, Menger Sponge</source>
+        <translation>Mandelbulber ist ein einfach zu bedienendes, handliches Programm, das ihnen helfen wird 3D-Mandelbrot Fraktale (auch Mandelbulb genannt) zu rendern, sowie andere Arten von Fraktalen, wie Mandelbox, Bulbbox, Juliabulb, Menger Sponge</translation>
+    </message>
+    <message>
         <location filename="../src/command_line_interface.cpp" line="41"/>
         <source>Render keyframe animation</source>
         <translation>Keyframeanimation rendern</translation>
@@ -4983,14 +4992,18 @@ png16alpha - 16-Bit PNG mit Alpha-Kanal Format</translation>
         <source>Override item &apos;&lt;KEY&gt;&apos; from settings file with new value &apos;&lt;value&gt;&apos;.
 Specify multiple KEY=VALUE pairs by separating with a &apos;#&apos; (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues
 Override fractal parameter in the form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; with &lt;N&gt; as index of fractal</source>
-        <translation>Überschreibe Element &apos;&lt;KEY&gt;&apos; aus der Einstellungsdatei mit dem neuen Wert &apos;&lt;value&gt;&apos;.
+        <translation>Überschreibe Element &apos;&lt;SCHLÜSSEL&gt;&apos; aus der Einstellungsdatei mit dem neuen Wert &apos;&lt;WERT&gt;&apos;.
 Mehrere KEY=VALUE Paare können mit &apos;#&apos; getrennt angegeben werden (KEY1=VALUE1#KEY2=VALUE2). Den ganzen Ausdruck mit Hochkommas quotieren, um Parsing-Probleme durch Leerzeichen zu vermeiden.
 Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; angegeben werden mit &lt;N&gt; als Index des Fraktals</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="61"/>
         <source>List all possible parameters &apos;&lt;KEY&gt;&apos; with corresponding default value &apos;&lt;value&gt;&apos;.</source>
-        <translation>Listet alle verfügbaren Parameter &apos;&lt;KEY&gt;&apos; mit zugehörigem Standardwert &apos;&lt;VALUE&gt;&apos; auf.</translation>
+        <translation type="obsolete">Listet alle verfügbaren Parameter &apos;&lt;SCHLÜSSEL&gt;&apos; mit zugehörigem Standardwert &apos;&lt;WERT&gt;&apos; auf.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="61"/>
+        <source>List all possible parameters &apos;&lt;KEY&gt;&apos; with corresponding default value &apos;&lt;VALUE&gt;&apos;.</source>
+        <translation>Listet alle verfügbaren Parameter &apos;&lt;SCHLÜSSEL&gt;&apos; mit zugehörigem Standardwert &apos;&lt;WERT&gt;&apos; auf.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="64"/>

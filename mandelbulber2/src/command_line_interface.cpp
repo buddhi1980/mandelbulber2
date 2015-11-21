@@ -29,9 +29,9 @@
 cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 {
 	// text from http://sourceforge.net/projects/mandelbulber/
-	parser.setApplicationDescription("Mandelbulber is an easy to use, "
+    parser.setApplicationDescription(QCoreApplication::translate("main", "Mandelbulber is an easy to use, "
 		"handy application designed to help you render 3D Mandelbrot fractals called Mandelbulb "
-		"and some other kind of 3D fractals like Mandelbox, Bulbbox, Juliabulb, Menger Sponge");
+        "and some other kind of 3D fractals like Mandelbox, Bulbbox, Juliabulb, Menger Sponge"));
 	parser.addHelpOption();
 	parser.addVersionOption();
 	QCommandLineOption noguiOption(QStringList() << "n" << "nogui",
@@ -58,7 +58,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		QCoreApplication::translate("main", "KEY=VALUE"));
 
 	QCommandLineOption listOption(QStringList() << "L" << "list",
-		QCoreApplication::translate("main", "List all possible parameters '<KEY>' with corresponding default value '<value>'."));
+        QCoreApplication::translate("main", "List all possible parameters '<KEY>' with corresponding default value '<VALUE>'."));
 
 	QCommandLineOption formatOption(QStringList() << "f" << "format",
 		QCoreApplication::translate("main", "Image output format:\n"
