@@ -1094,7 +1094,6 @@ void variableScaleTransform3D(const sTransformVariableScale &variableScale, CVec
      {
        tempVC =  (tempVC + variableScale.variableConstant);
      }
-     if (variableScale.variableStopIterations - variableScale.variableStartIterations == 0)
 
     z = z * tempVC;
     aux.DE = aux.DE * fabs((tempVC.x * tempVC.y * tempVC.z)/3) + 1.0; // cheap approximation
@@ -1703,6 +1702,5 @@ void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, 
 
 // aboxModKali transform 3D
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
-
 
 
