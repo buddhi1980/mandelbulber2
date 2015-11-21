@@ -1211,7 +1211,7 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
 			case sTransformMandelbulbMulti::zyx: v1 = z.z; v2 = z.y; v3 = z.x; break;
 		}
     if(aux.r < 1e-21) aux.r = 1e-21;
-    if(v3 < 1e-21) v3 = 1e-21;
+    if(v3 < 1e-21 && v3 > -1e-21) v3 = 1e-21;
     if(mandelbulbMulti.acosOrasin == sTransformMandelbulbMulti::acos)
 		{
 			th0 += acos(v1 / aux.r);
@@ -1701,6 +1701,5 @@ void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, 
 
 // aboxModKali transform 3D
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
-
 
 
