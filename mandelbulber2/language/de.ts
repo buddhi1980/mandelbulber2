@@ -3664,7 +3664,7 @@ Keyframes</translation>
     <message>
         <location filename="../qt/render_window.ui" line="15246"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for image format for still images&lt;/p&gt;&lt;p&gt;For more image format settings go to &lt;span style=&quot; font-style:italic;&quot;&gt;File/Program settings&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl des Bilddateiformates für Einzelbilder.&lt;/p&gt;&lt;p&gt;Für weitere Bilddateiformat Optionen gehen Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Datei / Programm Einstellungen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15303"/>
@@ -4815,7 +4815,7 @@ und das Speichern der Animationsframes.</translation>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="503"/>
         <source>Do not ask for quit confirmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Bei Beenden keine Bestätigung erfragen</translation>
     </message>
     <message>
         <source>Image quality</source>
@@ -4929,9 +4929,8 @@ und das Speichern der Animationsframes.</translation>
 <context>
     <name>main</name>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="38"/>
         <source>Start program without GUI.</source>
-        <translation>Starte das Programm ohne GUI.</translation>
+        <translation type="vanished">Startet das Programm ohne GUI.</translation>
     </message>
     <message>
         <source>Set &lt;Mode&gt; of animation (flight / keyframe), default is flight.</source>
@@ -4942,9 +4941,8 @@ und das Speichern der Animationsframes.</translation>
         <translation type="vanished">MODUS</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="47"/>
         <source>Start rendering from frame number &lt;N&gt;.</source>
-        <translation>Starte Rendern bei Frame Nummer &lt;N&gt;.</translation>
+        <translation type="vanished">Startet Rendern bei Frame Nummer &lt;N&gt;.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="48"/>
@@ -4956,9 +4954,8 @@ und das Speichern der Animationsframes.</translation>
         <translation>N</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="51"/>
         <source>Stop rendering on frame number &lt;N&gt;.</source>
-        <translation>Stoppe Rendern bei Frame Nummer &lt;N&gt;.</translation>
+        <translation type="vanished">Stoppt Rendern bei Frame Nummer &lt;N&gt;.</translation>
     </message>
     <message>
         <source>Override item &apos;&lt;key&gt;&apos; from settings file with new value &apos;&lt;value&gt;&apos;.</source>
@@ -4987,22 +4984,19 @@ png16alpha - 16-Bit PNG mit Alpha-Kanal Format</translation>
         <translation>Mandelbulber ist ein einfach zu bedienendes, handliches Programm, das ihnen helfen wird 3D-Mandelbrot Fraktale (auch Mandelbulb genannt) zu rendern, sowie andere Arten von Fraktalen, wie Mandelbox, Bulbbox, Juliabulb, Menger Sponge</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="41"/>
         <source>Render keyframe animation</source>
-        <translation>Keyframeanimation rendern</translation>
+        <translation type="vanished">Keyframeanimation rendern</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="44"/>
         <source>Render flight animation</source>
-        <translation>Fluganimation rendern</translation>
+        <translation type="vanished">Fluganimation rendern</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="55"/>
         <source>Override item &apos;&lt;KEY&gt;&apos; from settings file with new value &apos;&lt;value&gt;&apos;.
 Specify multiple KEY=VALUE pairs by separating with a &apos;#&apos; (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues
 Override fractal parameter in the form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; with &lt;N&gt; as index of fractal</source>
-        <translation>Überschreibe Element &apos;&lt;SCHLÜSSEL&gt;&apos; aus der Einstellungsdatei mit dem neuen Wert &apos;&lt;WERT&gt;&apos;.
-Mehrere KEY=VALUE Paare können mit &apos;#&apos; getrennt angegeben werden (KEY1=VALUE1#KEY2=VALUE2). Den ganzen Ausdruck mit Hochkommas quotieren, um Parsing-Probleme durch Leerzeichen zu vermeiden.
+        <translation type="vanished">Überschreibe Element &apos;&lt;SCHLÜSSEL&gt;&apos; aus der Einstellungsdatei mit dem neuen Wert &apos;&lt;WERT&gt;&apos;.
+Mehrere SCHLÜSSEL=WERT Paare können mit &apos;#&apos; getrennt angegeben werden (SCHLÜSSEL1=WERT1#SCHLÜSSEL2=WERT2). Den ganzen Ausdruck mit Hochkommas quotieren, um Parsing-Probleme durch Leerzeichen zu vermeiden.
 Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; angegeben werden mit &lt;N&gt; als Index des Fraktals</translation>
     </message>
     <message>
@@ -5010,20 +5004,88 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; an
         <translation type="obsolete">Listet alle verfügbaren Parameter &apos;&lt;SCHLÜSSEL&gt;&apos; mit zugehörigem Standardwert &apos;&lt;WERT&gt;&apos; auf.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="61"/>
         <source>List all possible parameters &apos;&lt;KEY&gt;&apos; with corresponding default value &apos;&lt;VALUE&gt;&apos;.</source>
-        <translation>Listet alle verfügbaren Parameter &apos;&lt;SCHLÜSSEL&gt;&apos; mit zugehörigem Standardwert &apos;&lt;WERT&gt;&apos; auf.</translation>
+        <translation type="vanished">Listet alle verfügbaren Parameter &apos;&lt;SCHLÜSSEL&gt;&apos; mit zugehörigem Standardwert &apos;&lt;WERT&gt;&apos; auf.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="64"/>
         <source>Image output format:
 jpg - JPEG format
 png - PNG format
 png16 - 16-bit PNG format
 png16alpha - 16-bit PNG with alpha channel format
 exr - EXR format</source>
-        <translation>Bildausgabeformat:
+        <translation type="vanished">Bildausgabeformat:
 jpg - JPEG Format
+png - PNG Format
+png16 - 16-bit PNG Format
+png16alpha - 16-bit PNG mit Alphakanal Format
+exr - EXR Format</translation>
+    </message>
+    <message>
+        <source>Render keyframe animation.</source>
+        <translation type="vanished">Keyframeanimation rendern.</translation>
+    </message>
+    <message>
+        <source>Render flight animation.</source>
+        <translation type="vanished">Fluganimation rendern.</translation>
+    </message>
+    <message>
+        <source>Override item &apos;&lt;KEY&gt;&apos; from settings file with new value &apos;&lt;VALUE&gt;&apos;.
+Specify multiple KEY=VALUE pairs by separating with a &apos;#&apos; (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues
+Override fractal parameter in the form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; with &lt;N&gt; as index of fractal</source>
+        <translation type="vanished">Überschreibe Element &apos;&lt;SCHLÜSSEL&gt;&apos; aus der Einstellungsdatei mit dem neuen Wert &apos;&lt;WERT&gt;&apos;.
+Mehrere SCHLÜSSEL=WERT Paare können mit &apos;#&apos; getrennt angegeben werden (SCHLÜSSEL1=WERT1#SCHLÜSSEL2=WERT2). Den ganzen Ausdruck mit Hochkommas quotieren, um Parsing-Probleme durch Leerzeichen zu vermeiden.
+Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; angegeben werden mit &lt;N&gt; als Index des Fraktals</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="38"/>
+        <source>Starts the program without a GUI.</source>
+        <translation>Startet das Programm ohne GUI.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="41"/>
+        <source>Renders keyframe animation.</source>
+        <translation>Rendert die Keyframeanimation.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="44"/>
+        <source>Renders flight animation.</source>
+        <translation>Rendert die Fluganimation.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="47"/>
+        <source>Starts rendering from frame number &lt;N&gt;.</source>
+        <translation>Startet Rendern bei Frame Nummer &lt;N&gt;.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="51"/>
+        <source>Stops rendering on frame number &lt;N&gt;.</source>
+        <translation>Stoppt Rendern bei Frame Nummer &lt;N&gt;.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="55"/>
+        <source>Overrides item &apos;&lt;KEY&gt;&apos; from settings file with new value &apos;&lt;VALUE&gt;&apos;.
+Specify multiple KEY=VALUE pairs by separating with a &apos;#&apos; (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues
+Override fractal parameter in the form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; with &lt;N&gt; as index of fractal</source>
+        <translation>Überschreibt das Element &apos;&lt;SCHLÜSSEL&gt;&apos; aus der Einstellungsdatei mit dem neuen Wert &apos;&lt;WERT&gt;&apos;.
+Mehrere SCHLÜSSEL=WERT Paare können mit &apos;#&apos; getrennt angegeben werden (SCHLÜSSEL1=WERT1#SCHLÜSSEL2=WERT2). Den ganzen Ausdruck mit Hochkommas quotieren, um Parsing-Probleme durch Leerzeichen zu vermeiden.
+Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&apos; angegeben werden mit &lt;N&gt; als Index des Fraktals</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="61"/>
+        <source>Lists all possible parameters &apos;&lt;KEY&gt;&apos; with corresponding default value &apos;&lt;VALUE&gt;&apos;.</source>
+        <translation>Listet alle verfügbaren Parameter &apos;&lt;SCHLÜSSEL&gt;&apos; mit zugehörigem Standardwert &apos;&lt;WERT&gt;&apos; auf.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="64"/>
+        <source>Image output format:
+jpg - JPEG format (default)
+png - PNG format
+png16 - 16-bit PNG format
+png16alpha - 16-bit PNG with alpha channel format
+exr - EXR format</source>
+        <translation>Bildausgabeformat:
+jpg - JPEG Format (Standard)
 png - PNG Format
 png16 - 16-bit PNG Format
 png16alpha - 16-bit PNG mit Alphakanal Format
@@ -5036,8 +5098,57 @@ exr - EXR Format</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="73"/>
+        <source>Overrides image resolution.</source>
+        <translation>Überschreibt die Bildauflösung.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="77"/>
+        <source>Overrides frames per key parameter.</source>
+        <translation>Überschreibt Frames pro Keyframe Parameter.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="81"/>
+        <source>Sets application as a server listening for clients.</source>
+        <translation>Setzt Instanz als Server und horcht auf Clients.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="84"/>
+        <source>Sets application as a client connected to server of given host address (Host can be of type IPv4, IPv6 and Domain name address).</source>
+        <translation>Setzt die Instanz als Client und verbindet mit dem Server an Host Adresse (Host kann als IPv4, IPv6 und Domain Namen Adresse angegeben werden).</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="89"/>
+        <source>Sets network port number for netrender (default 5555).</source>
+        <translation>Setzt Netzwerk Port Nummer für Netrender (Standardwert: 5555).</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="93"/>
+        <source>Starts program without ANSI colors, when execution on CLI.</source>
+        <translation>Startet Programm ohne ANSI Farben, wenn es auf der Befehlszeile ausgeführt wird.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="96"/>
+        <source>Saves rendered image(s) to this file / folder.</source>
+        <translation>Speichert gerenderte(s) Bild(er) in diese(n) Datei / Ordner.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="100"/>
+        <source>Renders all images from common queue.</source>
+        <translation>Rendert alle Bilder aus der allgemeinen Queue.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="103"/>
+        <source>Shows statistics while rendering in CLI mode.</source>
+        <translation>Zeigt Statistiken während des Renderns in Konsolenmodus an.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="106"/>
+        <source>Shows help about input.</source>
+        <translation>Zeigt Hilfe über Input.</translation>
+    </message>
+    <message>
         <source>Override image resolution.</source>
-        <translation>Überschreibe Bildauflösung.</translation>
+        <translation type="vanished">Überschreibe Bildauflösung.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="74"/>
@@ -5045,48 +5156,40 @@ exr - EXR Format</translation>
         <translation>BREITExHÖHE</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="77"/>
         <source>Override frames per key parameter.</source>
-        <translation>Überschreibe Frames pro Keyframe Parameter.</translation>
+        <translation type="vanished">Überschreibe Frames pro Keyframe Parameter.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="81"/>
         <source>Set application as a server listening for clients.</source>
-        <translation>Setze Instanz als Server und horche auf Clients.</translation>
+        <translation type="vanished">Setze Instanz als Server und horche auf Clients.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="84"/>
         <source>Set application as a client connected to server of given Host address (Host can be of type IPv4, IPv6 and Domain name address).</source>
-        <translation>Setze Instanz als Client und verbinde mit dem Server an Host Adresse (Host kann als IPv4, IPv6 und Domain Namen Adresse angegeben werden).</translation>
+        <translation type="vanished">Setze Instanz als Client und verbinde mit dem Server an Host Adresse (Host kann als IPv4, IPv6 und Domain Namen Adresse angegeben werden).</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="93"/>
         <source>Start program without ANSI colors, when execution on CLI.</source>
-        <translation>Starte Programm ohne ANSI Farben, wenn es auf der Befehlszeile ausgeführt wird.</translation>
+        <translation type="vanished">Starte Programm ohne ANSI Farben, wenn es auf der Befehlszeile ausgeführt wird.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="96"/>
         <source>Save rendered image(s) to this file / folder.</source>
-        <translation>Speichere gerenderte(s) Bild(er) in diese Datei / Ordner.</translation>
+        <translation type="vanished">Speichere gerenderte(s) Bild(er) in diese Datei / Ordner.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="100"/>
         <source>Render all images from common queue.</source>
-        <translation>Rendere alle Bilder aus der allgemeinen Queue.</translation>
+        <translation type="vanished">Rendere alle Bilder aus der allgemeinen Queue.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="103"/>
         <source>Show statistics while rendering in CLI mode.</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Zeige Statistiken während des Renderns in Konsolenmodus.</translation>
     </message>
     <message>
         <source>Show statistics while renderering in CLI mode.</source>
         <translation type="vanished">Zeige Statistiken während des Renderns in Konsolenmodus.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="106"/>
         <source>Show help about input.</source>
-        <translation>Zeige Hilfe über Input.</translation>
+        <translation type="vanished">Zeige Hilfe über Input.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="108"/>
@@ -5119,9 +5222,8 @@ Wenn Einstellungsdatei als Befehlszeilenargument angegeben wird dann wird das Pr
         <translation type="vanished">Überschreibe Parameter &apos;&lt;SCHLÜSSEL&gt;&apos; der Einstellungsdatei mit dem Wert &apos;&lt;WERT&gt;&apos;.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="89"/>
         <source>Set network port number for Netrender (default 5555).</source>
-        <translation>Setze Netzwerk Port Nummer für Netrender (Standardwert: 5555).</translation>
+        <translation type="vanished">Setze Netzwerk Port Nummer für Netrender (Standardwert: 5555).</translation>
     </message>
 </context>
 </TS>
