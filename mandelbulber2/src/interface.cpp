@@ -2097,16 +2097,12 @@ bool cInterface::QuitApplicationDialog()
 	{
 		messageBox = new QMessageBox(mainWindow);
 		QString messageText = QObject::tr("Are you sure to close the application?");
-		QCheckBox notAskAgainCheckbox(QObject::tr("Do not ask again"));
-		notAskAgainCheckbox.blockSignals(true);
 		messageBox->setText(messageText);
 		messageBox->setWindowTitle(QObject::tr("Quit?"));
 		messageBox->setIcon(QMessageBox::Question);
-		messageBox->addButton(&notAskAgainCheckbox, QMessageBox::ActionRole);
 		messageBox->addButton(QMessageBox::Ok);
 		messageBox->addButton(QMessageBox::Cancel);
 		closeResult = messageBox->exec();
-		quitDoNotAskAgain = notAskAgainCheckbox.checkState() == Qt::Checked;
 	}
 
 	switch(closeResult)
@@ -2117,7 +2113,6 @@ bool cInterface::QuitApplicationDialog()
 			gQueue->stopRequest = true;
 			WriteLog("Quit application");
 			//save applications settings
-			gPar->Set("quit_do_not_ask_again", quitDoNotAskAgain);
 			cSettings parSettings(cSettings::formatAppSettings);
 			gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
