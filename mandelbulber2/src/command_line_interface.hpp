@@ -64,6 +64,7 @@ public:
 private:
 	struct sCliData
 	{
+		bool help;
 		bool nogui;
 		bool server;
 		bool listParameters;

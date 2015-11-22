@@ -901,7 +901,7 @@ Czy usunąć istniejące klatki?</translation>
 Wyczyścić teraz?</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="181"/>
+        <location filename="../src/command_line_interface.cpp" line="192"/>
         <source>Mandelbulber also accepts an arbitrary number of input files
 These files can be of type:
 .fract File - An ordinary fractal file
@@ -915,100 +915,100 @@ plik .fractlist - plik z kolejką; wszystkie pozycje z listy zostaną dodane do 
 folder - jeżeli argument jest folderem, to wszystkie pliki .fract zostaną dodane do aktualnej kolejki</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="204"/>
+        <location filename="../src/command_line_interface.cpp" line="215"/>
         <source>
 List of fractal parameters:
 </source>
         <translation>Lista parametrów fraktali:</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="226"/>
+        <location filename="../src/command_line_interface.cpp" line="237"/>
         <source>Specified server port is invalid
 </source>
         <translation>Wybrany port serwera nie jest właściwy</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="238"/>
+        <location filename="../src/command_line_interface.cpp" line="249"/>
         <source>NetRender - Waiting for clients
 </source>
         <translation>NetRender - Czekanie na klientów</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="255"/>
+        <location filename="../src/command_line_interface.cpp" line="266"/>
         <source>Specified client port is invalid
 </source>
         <translation>Wybrany port klienta nie jest właściwy</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="276"/>
-        <location filename="../src/command_line_interface.cpp" line="318"/>
+        <location filename="../src/command_line_interface.cpp" line="287"/>
+        <location filename="../src/command_line_interface.cpp" line="329"/>
         <location filename="../src/main.cpp" line="167"/>
         <source>Cannot init queue: </source>
         <translation>Nie można zainicjować kolejki: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="302"/>
+        <location filename="../src/command_line_interface.cpp" line="313"/>
         <source>Cannot load file!
 </source>
         <translation>Nie można wczytać pliku!</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="385"/>
+        <location filename="../src/command_line_interface.cpp" line="396"/>
         <source>Specified resolution not valid
 both dimensions need to be &gt; 0</source>
         <translation>Podana rozdzielczość nie jest prawidłowa.
 Oba wymiary muszą być większe od zera.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="393"/>
+        <location filename="../src/command_line_interface.cpp" line="404"/>
         <source>Specified resolution not valid
 resolution has to be in the form WIDTHxHEIGHT</source>
         <translation>Podana rozdzielczość nie jest prawidłową. Musi być w formacie SZEROKOŚĆxWYSOKOŚĆ</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="404"/>
+        <location filename="../src/command_line_interface.cpp" line="415"/>
         <source>Specified frames per key not valid
 need to be &gt; 0</source>
         <translation>Podana ilość klatek na klucz nie jest prawidłowa
 Musi być większa od zera</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="417"/>
+        <location filename="../src/command_line_interface.cpp" line="428"/>
         <source>Specified imageFileFormat is not valid
 allowed formats are: </source>
         <translation>Podany imageFileFormat nie jest prawidłowy. Dopuszczalne formaty obrazu to: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="437"/>
+        <location filename="../src/command_line_interface.cpp" line="448"/>
         <source>There are no flight animation frames in specified settings file</source>
         <translation>We wskazanym pliku z ustawieniami nie ma klatek z animacją lotu</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="447"/>
+        <location filename="../src/command_line_interface.cpp" line="458"/>
         <source>You cannot render keyframe animation at the same time as flight animation</source>
         <translation>Nie możesz jednocześnie renderować animacji z klatkami kluczowymi i animacji lotu</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="458"/>
+        <location filename="../src/command_line_interface.cpp" line="469"/>
         <source>There are no keyframes in specified settings file</source>
         <translation>We wskazanym pliku z ustawieniami nie ma zdefiniowanych klatek kluczowych</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="476"/>
-        <location filename="../src/command_line_interface.cpp" line="492"/>
-        <location filename="../src/command_line_interface.cpp" line="519"/>
-        <location filename="../src/command_line_interface.cpp" line="544"/>
+        <location filename="../src/command_line_interface.cpp" line="487"/>
+        <location filename="../src/command_line_interface.cpp" line="503"/>
+        <location filename="../src/command_line_interface.cpp" line="530"/>
+        <location filename="../src/command_line_interface.cpp" line="555"/>
         <source>Animation has only %1 frames</source>
         <translation>Animacja ma tylko %1 klatek</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="512"/>
-        <location filename="../src/command_line_interface.cpp" line="537"/>
+        <location filename="../src/command_line_interface.cpp" line="523"/>
+        <location filename="../src/command_line_interface.cpp" line="548"/>
         <source>End frame has to be greater than start frame which is %1</source>
         <translation>Numer końcowej klatki musi być większy niż numer pierwszej klatki, który jest %1</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="562"/>
+        <location filename="../src/command_line_interface.cpp" line="573"/>
         <source>You have to specify a settings file, for this configuration!</source>
         <translation>Musisz wyspecyfikować plik z ustawieniami dla tej konfiguracji!</translation>
     </message>
@@ -4905,7 +4905,6 @@ oraz zapis klatek animacji.</translation>
 <context>
     <name>main</name>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="38"/>
         <source>Start program without GUI.</source>
         <translation>Start programu bez graficznego interfejsu użytkownika.</translation>
     </message>
@@ -4918,21 +4917,128 @@ oraz zapis klatek animacji.</translation>
         <translation type="obsolete"> </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="47"/>
         <source>Start rendering from frame number &lt;N&gt;.</source>
         <translation>Rozpoczęcie renderowania od klatki numer &lt;N&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="48"/>
-        <location filename="../src/command_line_interface.cpp" line="52"/>
-        <location filename="../src/command_line_interface.cpp" line="78"/>
-        <location filename="../src/command_line_interface.cpp" line="90"/>
-        <location filename="../src/command_line_interface.cpp" line="97"/>
+        <location filename="../src/command_line_interface.cpp" line="38"/>
+        <source>Displays this help.</source>
+        <translation>Wyświetla tą pomoc.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="41"/>
+        <source>Starts the program without a GUI.</source>
+        <translation>Start programu bez graficznego interfejsu użytkownika.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="44"/>
+        <source>Renders keyframe animation.</source>
+        <translation>Renderowanie animacji z klatkami kluczowymi.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="47"/>
+        <source>Renders flight animation.</source>
+        <translation>Renderuje animację lotu.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="50"/>
+        <source>Starts rendering from frame number &lt;N&gt;.</source>
+        <translation>Rozpoczęcie renderowania od klatki numer &lt;N&gt;.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="51"/>
+        <location filename="../src/command_line_interface.cpp" line="55"/>
+        <location filename="../src/command_line_interface.cpp" line="81"/>
+        <location filename="../src/command_line_interface.cpp" line="93"/>
+        <location filename="../src/command_line_interface.cpp" line="100"/>
         <source>N</source>
         <translation>N </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="51"/>
+        <location filename="../src/command_line_interface.cpp" line="54"/>
+        <source>Stops rendering on frame number &lt;N&gt;.</source>
+        <translation>Zatrzymanie renderowania na klatce numer &lt;N&gt;. </translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="58"/>
+        <source>Overrides item &apos;&lt;KEY&gt;&apos; from settings file with new value &apos;&lt;VALUE&gt;&apos;.
+Specify multiple KEY=VALUE pairs by separating with a &apos;#&apos; (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues
+Override fractal parameter in the form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; with &lt;N&gt; as index of fractal</source>
+        <translation>Nadpisuje parameter &lt;KLUCZ&gt; z pliku z ustawieniami nową wartością &lt;WARTOŚĆ&gt;.
+Wyspecyfikuj wiele par KLUCZ=WARTOŚĆ przez separowanie ich znakiem # (KLUCZ1=WARTOŚĆ1#KLUCZ2=WARTOŚĆ2). Weź całe wyrażenie w cudzysłów aby uniknąć problemów z przetwarzaniem spacji
+nadpisanie parametru danego fraktala musi być w formie: fractal&lt;N&gt;_KLUCZ=WARTOŚĆ z &lt;N&gt; jako numer fraktala</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="64"/>
+        <source>Lists all possible parameters &apos;&lt;KEY&gt;&apos; with corresponding default value &apos;&lt;VALUE&gt;&apos;.</source>
+        <translation>Wylistowanie wszystkich możliwych parametrów &lt;KLUCZ&gt; z odpowiadającymi im domyślnymi wartościami &lt;WARTOŚĆ&gt;.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="67"/>
+        <source>Image output format:
+jpg - JPEG format (default)
+png - PNG format
+png16 - 16-bit PNG format
+png16alpha - 16-bit PNG with alpha channel format
+exr - EXR format</source>
+        <translation>Format zapisywanego obrazu:
+jpg - format JPEG
+png - format PNG
+png16 - 16-bitowy format PNG
+png16alpha - 16 bitowy format PNG z kanałem alpha
+exr - format EXR</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="76"/>
+        <source>Overrides image resolution.</source>
+        <translation>Nadpisanie rozdzielczości obrazu. </translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="80"/>
+        <source>Overrides frames per key parameter.</source>
+        <translation>Nadpisanie ilości klatek przypadajacych na klatkę kluczową. </translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="84"/>
+        <source>Sets application as a server listening for clients.</source>
+        <translation>Ustawienie aplikacji jako serwera nasłuchującego klientów.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="87"/>
+        <source>Sets application as a client connected to server of given host address (Host can be of type IPv4, IPv6 and Domain name address).</source>
+        <translation>Ustawienie aplikacji jako klient podłączony do serwera o danym adresie (może być podany jako IPv4, IPv6 lub nazwa w domenie).</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="92"/>
+        <source>Sets network port number for netrender (default 5555).</source>
+        <translation>Ustawia numer portu sieciowego dla NetRender (domyślnie 5555).</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="96"/>
+        <source>Starts program without ANSI colors, when execution on CLI.</source>
+        <translation>Uruchomienie programu bez kolorów ANSI, kiedy jest uruchomiony w CLI.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="99"/>
+        <source>Saves rendered image(s) to this file / folder.</source>
+        <translation>Zapisuje zrenderowane obraz(y) do tego folderu / pliku.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="103"/>
+        <source>Renders all images from common queue.</source>
+        <translation>Renderowanie wszystkich obrazów ze wspólnej kolejki.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="106"/>
+        <source>Shows statistics while rendering in CLI mode.</source>
+        <translation>Wyświetla statystyki podczas renderowania w trybie CLI.</translation>
+    </message>
+    <message>
+        <location filename="../src/command_line_interface.cpp" line="109"/>
+        <source>Shows help about input.</source>
+        <translation>Wyświetla pomoc odnośnie plików wejściowych.</translation>
+    </message>
+    <message>
         <source>Stop rendering on frame number &lt;N&gt;.</source>
         <translation>Zatrzymaj renderowanie na klatce numer &lt;N&gt;. </translation>
     </message>
@@ -4941,7 +5047,7 @@ oraz zapis klatek animacji.</translation>
         <translation type="obsolete"> </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="58"/>
+        <location filename="../src/command_line_interface.cpp" line="61"/>
         <source>KEY=VALUE</source>
         <translation>KLUCZ=WAROTŚĆ </translation>
     </message>
@@ -4954,17 +5060,14 @@ png16alpha - 16-bit PNG with alpha channel format</source>
         <translation type="obsolete"> </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="41"/>
         <source>Render keyframe animation</source>
         <translation>Renderowanie animacji z klatkami kluczowymi</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="44"/>
         <source>Render flight animation</source>
         <translation>Renderuj animację lotu</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="55"/>
         <source>Override item &apos;&lt;KEY&gt;&apos; from settings file with new value &apos;&lt;value&gt;&apos;.
 Specify multiple KEY=VALUE pairs by separating with a &apos;#&apos; (KEY1=VALUE1#KEY2=VALUE2). Quote whole expression to avoid whitespace parsing issues
 Override fractal parameter in the form &apos;fractal&lt;N&gt;_KEY=VALUE&apos; with &lt;N&gt; as index of fractal</source>
@@ -4982,12 +5085,10 @@ nadpisanie parametru danego fraktala musi być w formie: fractal&lt;N&gt;_KLUCZ=
         <translation>Mandelbulber jest prostym w użyciu programem, który jest zaprojektowany do renderowania trójwymiarowychfraktali nazywanymi Mandelbulb oraz innych typów fraktali jak Mandelbox, Bulbbox, Juliabulb, Menger Sponge, IFS</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="61"/>
         <source>List all possible parameters &apos;&lt;KEY&gt;&apos; with corresponding default value &apos;&lt;VALUE&gt;&apos;.</source>
         <translation>Wylistowanie wszystkich możliwych parametrów &lt;KLUCZ&gt; z odpowiadającymi im domyślnymi wartościami &lt;WARTOŚĆ&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="64"/>
         <source>Image output format:
 jpg - JPEG format
 png - PNG format
@@ -5002,52 +5103,44 @@ png16alpha - 16 bitowy format PNG z kanałem alpha
 exr - format EXR</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="70"/>
+        <location filename="../src/command_line_interface.cpp" line="73"/>
         <source>FORMAT</source>
         <translation>FORMAT </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="73"/>
         <source>Override image resolution.</source>
         <translation>Nadpisanie rozdzielczości obrazu. </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="74"/>
+        <location filename="../src/command_line_interface.cpp" line="77"/>
         <source>WIDTHxHEIGHT</source>
         <translation>SZEROKOŚĆxWYSOKOŚĆ </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="77"/>
         <source>Override frames per key parameter.</source>
         <translation>Nadpisanie ilości klatek przypadajacych na klatkę kluczową. </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="81"/>
         <source>Set application as a server listening for clients.</source>
         <translation>Ustawienie aplikacji jako serwera nasłuchującego klientów.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="84"/>
         <source>Set application as a client connected to server of given Host address (Host can be of type IPv4, IPv6 and Domain name address).</source>
         <translation>Ustawienie aplikacji jako klient podłączony do serwera o danym adresie (może być podany jako IPv4, IPv6 lub nazwa w domenie).</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="93"/>
         <source>Start program without ANSI colors, when execution on CLI.</source>
         <translation>Uruchomienie programu bez kolorów ANSI, kiedy jest uruchomiony w CLI.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="96"/>
         <source>Save rendered image(s) to this file / folder.</source>
         <translation>Zapisuje zrenderowane obraz(y) do tego folderu / pliku.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="100"/>
         <source>Render all images from common queue.</source>
         <translation>Renderowanie wszystkich obrazów ze wspólnej kolejki.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="103"/>
         <source>Show statistics while rendering in CLI mode.</source>
         <translation>Wyświetl statystyki podczas renderowania w trybie CLI.</translation>
     </message>
@@ -5056,12 +5149,11 @@ exr - format EXR</translation>
         <translation>Wyświetl statystyki poczas renderowania w tybie CLI.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="106"/>
         <source>Show help about input.</source>
         <translation>Wyświetl pomoc odnośnie plików wejściowych.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="108"/>
+        <location filename="../src/command_line_interface.cpp" line="111"/>
         <source>file with fractal settings (program also tries
 to find file in ./mandelbulber/settings directory)
 When settings_file is put as a command line argument then program will start in noGUI mode&lt;settings_file&gt; can also be specified as a list, see all options with --help-input</source>
@@ -5073,12 +5165,11 @@ Kiedy &lt;plik_z_ustawieniami&gt; jest dany jako argument, to program wystartuje
         <translation type="obsolete"> </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="86"/>
+        <location filename="../src/command_line_interface.cpp" line="89"/>
         <source>N.N.N.N</source>
         <translation>N.N.N.N</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="89"/>
         <source>Set network port number for Netrender (default 5555).</source>
         <translation>Ustaw numer portu sieciowego dla NetRender (domyślnie 5555) </translation>
     </message>
