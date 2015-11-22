@@ -1211,7 +1211,7 @@ void mandelbulbMultiTransform3D(const sTransformMandelbulbMulti &mandelbulbMulti
 			case sTransformMandelbulbMulti::zyx: v1 = z.z; v2 = z.y; v3 = z.x; break;
 		}
     if(aux.r < 1e-21) aux.r = 1e-21;
-    if(v3 < 1e-21 && v3 > -1e-21) v3 = 1e-21;
+		if(v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
     if(mandelbulbMulti.acosOrasin == sTransformMandelbulbMulti::acos)
 		{
 			th0 += acos(v1 / aux.r);
@@ -1504,9 +1504,9 @@ void benesiMagTransformFiveBTransform3D(const sTransformBenesiMagTransformFiveB 
       ((tempXZ  - z.y) * SQRT_1_2,
       (tempXZ  + z.y) * SQRT_1_2,
       z.x * SQRT_1_3  +  z.z * SQRT_2_3);
-    if (z.x > -1e-21 && z.x < 1e-21) z.x = 1e-21;
-    if (z.y > -1e-21 && z.y < 1e-21) z.y = 1e-21;
-    if (z.z > -1e-21 && z.z < 1e-21) z.z = 1e-21;
+		if (z.x > -1e-21 && z.x < 1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
+		if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;
+		if (z.z > -1e-21 && z.z < 1e-21) z.z = (z.z > 0) ? 1e-21 : -1e-21;
     CVector3 tempV2 = z;
     tempV2.x = fabs(pow(pow(z.y, benesiMagTransformFiveB.powOne.x) + pow(z.z, benesiMagTransformFiveB.powOne.x),benesiMagTransformFiveB.powTwo.x));
     tempV2.y = fabs(pow(pow(z.x, benesiMagTransformFiveB.powOne.y) + pow(z.z, benesiMagTransformFiveB.powOne.y),benesiMagTransformFiveB.powTwo.y));
