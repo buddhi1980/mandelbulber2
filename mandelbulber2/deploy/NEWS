@@ -1,5 +1,33 @@
 Version history
 
+v2.06
+- Added Command Line Interface, which allow to run application on headless systems. From simple terminal (e. g. ssh session) it's possible to render still images and animations and also launch NetRender client or server. Full list of available options can be listed using --help option.
+- Added Queue feature to manage collection of settings which can be rendered automatically in background.
+- Added Italian language (thanks to bermarte)
+- Added use of SHIFT button to select between orthogonal or 45 degree strafe in flight animation recording.
+- Added + and - buttons to add or remove fractals from toolbar
+- "Add to toolbar" button in preview dialog
+- Added option for SSAO effect to use random directions of simulated rays
+- Added background image brightness control (necessary for HDR option)
+- Double clicking on preview in animation tables starts rendering of chosen frame/keyframe
+- Added function to uniform distance between camera target and camera through entire animation. It makes camera animation smooth.
+- GroupBoxes hide their content when they are not enabled
+- Added Platonic Solid formula
+- Added  ***** formula (mclarekin will add here more info)
+- **** (mclarekin will write here information about changes in existing extended formulas)
+- Changed labels for keyframe numbers to start from zero
+- Collision detection now can be canceled
+- Added option in preferences dialog to disable quit confirmation dialog
+- Fixed bug: Program hanged when clicked too frequent on image or on navigation buttons
+- Fixed bug: 'last frame to render' was zero after loading settings
+- Fixed bug: NetRender often hanged at the end of rendering image
+- Fixed bug: Now NetRender client stops rendering when it looses connection
+- Fixed bug: Corrected number of frames to render in keyframe animation mode. It rendered one additional keyframe at the end.
+- Fixed bug: Some of animation thumbnail weren't displayed properly (random noise)
+- Fixed bug: memory leak in cTexture class
+- Fixed bug: eliminated SEGFAULTs at application quit
+
+
 v2.05
 - added keyframe animation feature. There is possible to define keyframes and interpolate different parameters between them.
 - added UI for keyframe animation with table where is possible to edit each parameter.

@@ -60,7 +60,10 @@ please type:
 ------------
 
 - Debian Stretch x64
-- gcc 4.9, 5.2
+- Ubuntu 14.10
+- Minux Mint 17.2
+
+- gcc 5.2.1
 - Qt 5.5.1
 
 5. USAGE
