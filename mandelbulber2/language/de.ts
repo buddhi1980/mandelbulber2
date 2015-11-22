@@ -594,22 +594,22 @@ Notiz: </translation>
         <translation>Toolbar Einstellungen:</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2092"/>
+        <location filename="../src/interface.cpp" line="2099"/>
         <source>Are you sure to close the application?</source>
         <translation>Anwendung beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2095"/>
+        <location filename="../src/interface.cpp" line="2101"/>
         <source>Quit?</source>
         <translation>Beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2148"/>
+        <location filename="../src/interface.cpp" line="2153"/>
         <source>Auto recovery</source>
         <translation>Auto Recovery</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2149"/>
+        <location filename="../src/interface.cpp" line="2154"/>
         <source>Application has not been closed properly
 Do you want to recover your latest work?</source>
         <translation>Das Programm wurde beim letzten Mal nicht richtig geschlossen.
@@ -684,9 +684,9 @@ Den letzten Stand wiederherstellen?</translation>
     <message>
         <location filename="../src/animation_flight.cpp" line="144"/>
         <location filename="../src/animation_flight.cpp" line="605"/>
-        <location filename="../src/animation_flight.cpp" line="898"/>
+        <location filename="../src/animation_flight.cpp" line="900"/>
         <location filename="../src/animation_keyframes.cpp" line="487"/>
-        <location filename="../src/animation_keyframes.cpp" line="775"/>
+        <location filename="../src/animation_keyframes.cpp" line="777"/>
         <source>This will delete all images in the image folder.
 Proceed?</source>
         <translation>Das wird alle Bilder im Bildordner löschen.
@@ -717,9 +717,9 @@ Fortsetzen?</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="603"/>
-        <location filename="../src/animation_flight.cpp" line="897"/>
+        <location filename="../src/animation_flight.cpp" line="899"/>
         <location filename="../src/animation_keyframes.cpp" line="485"/>
-        <location filename="../src/animation_keyframes.cpp" line="774"/>
+        <location filename="../src/animation_keyframes.cpp" line="776"/>
         <source>Truncate Image Folder</source>
         <translation>Bilderordner leeren</translation>
     </message>
@@ -757,30 +757,30 @@ Soll der Bilderordner geleert werden?</translation>
         <translation>Rendern beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="727"/>
-        <location filename="../src/animation_keyframes.cpp" line="621"/>
+        <location filename="../src/animation_flight.cpp" line="729"/>
+        <location filename="../src/animation_keyframes.cpp" line="623"/>
         <source>Refreshing animation</source>
         <translation>Animationsframes werden aktualisiert</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="809"/>
-        <location filename="../src/animation_keyframes.cpp" line="686"/>
+        <location filename="../src/animation_flight.cpp" line="811"/>
+        <location filename="../src/animation_keyframes.cpp" line="688"/>
         <source>Animation Image Folder</source>
         <translation>Ordner für Animationsbilder</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="812"/>
-        <location filename="../src/animation_keyframes.cpp" line="689"/>
+        <location filename="../src/animation_flight.cpp" line="814"/>
+        <location filename="../src/animation_keyframes.cpp" line="691"/>
         <source>Choose Animation Image Folder</source>
         <translation>Wähle Ordner für Animationsbilder</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1052"/>
+        <location filename="../src/animation_flight.cpp" line="1054"/>
         <source>Export flight to keyframes</source>
         <translation>Flug zu Keyframe exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="1053"/>
+        <location filename="../src/animation_flight.cpp" line="1055"/>
         <source>There are already captured keyframes present.
 Discard current keyframes?</source>
         <translation>Es sind bereits aufgenommene Keyframes vorhanden.
@@ -816,7 +816,7 @@ Wurde bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</trans
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="461"/>
-        <location filename="../src/animation_keyframes.cpp" line="1047"/>
+        <location filename="../src/animation_keyframes.cpp" line="1052"/>
         <source>Camera collides with fractal at folowing frames:
 </source>
         <translation>Die Kamera kollidiert mit dem Fraktal an folgenden Frames:
@@ -828,47 +828,47 @@ Wurde bereits eine Mandelbulber Server Instanz auf diesem Port gestartet?</trans
         <translation>Rendere Animation</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="941"/>
+        <location filename="../src/animation_keyframes.cpp" line="943"/>
         <source>Export keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="942"/>
+        <location filename="../src/animation_keyframes.cpp" line="944"/>
         <source>There are already captured flight frames present.
 Discard current flight frames ?</source>
         <translation>Es sind bereits aufgenommene Flugframes vorhanden.
 Aktuelle Flugframes verwerfen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="960"/>
+        <location filename="../src/animation_keyframes.cpp" line="962"/>
         <source>Exporting</source>
         <translation>Exportiere</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1003"/>
-        <location filename="../src/animation_keyframes.cpp" line="1024"/>
+        <location filename="../src/animation_keyframes.cpp" line="1008"/>
+        <location filename="../src/animation_keyframes.cpp" line="1029"/>
         <source>Checking for collissions</source>
         <translation>Prüfe auf Kollisionen</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1004"/>
+        <location filename="../src/animation_keyframes.cpp" line="1009"/>
         <source>Checking for collissions on keyframe # %1</source>
         <translation>Prüfe auf Kollisionen bei Keyframe # %1</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1024"/>
+        <location filename="../src/animation_keyframes.cpp" line="1029"/>
         <source>Checking for collisions finished</source>
         <translation>Kollisionsprüfung beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1051"/>
+        <location filename="../src/animation_keyframes.cpp" line="1056"/>
         <source>No collisions detected
 </source>
         <translation>Keine Kollisionen erkannt
 </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1100"/>
+        <location filename="../src/animation_keyframes.cpp" line="1105"/>
         <source>Cannot change target distance. Missing camera parameters in keyframes</source>
         <translation>Zielentfernung kann nicht geändert werden. Fehlende Kameraparameter in Keyframes</translation>
     </message>
@@ -2670,9 +2670,8 @@ to target:</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Beendet das Rendern der Queue.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/render_window.ui" line="15246"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for image format for still images&lt;/p&gt;&lt;p&gt;For more image format settings go to to &lt;span style=&quot; font-style:italic;&quot;&gt;File/Program settings&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl des Bilddateiformates für Einzelbilder.&lt;/p&gt;&lt;p&gt;Für weitere Bilddateiformat Optionen gehen Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Datei / Programm Einstellungen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl des Bilddateiformates für Einzelbilder.&lt;/p&gt;&lt;p&gt;Für weitere Bilddateiformat Optionen gehen Sie auf &lt;span style=&quot; font-style:italic;&quot;&gt;Datei / Programm Einstellungen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="15268"/>
@@ -3663,6 +3662,11 @@ Keyframes</translation>
         <translation>Aus Datei hinzufügen</translation>
     </message>
     <message>
+        <location filename="../qt/render_window.ui" line="15246"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for image format for still images&lt;/p&gt;&lt;p&gt;For more image format settings go to &lt;span style=&quot; font-style:italic;&quot;&gt;File/Program settings&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../qt/render_window.ui" line="15303"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of queue previews in the queue table.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktiviert das Rendern der Queue Vorschau in der Queue Tabelle.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -4634,7 +4638,7 @@ Shift Taste gedrückt - orthogonal bewegen</translation>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/animation_flight.cpp" line="727"/>
+        <location filename="../src/animation_flight.cpp" line="729"/>
         <source>Refreshing animation frames</source>
         <translation>Animationsframes aktualisieren</translation>
     </message>
@@ -4677,12 +4681,12 @@ previews</source>
 Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="621"/>
+        <location filename="../src/animation_keyframes.cpp" line="623"/>
         <source>Refreshing animation frames</source>
         <translation>Animationsframes aktualisieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="960"/>
+        <location filename="../src/animation_keyframes.cpp" line="962"/>
         <source>Exporting keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
@@ -4807,6 +4811,11 @@ und das Speichern der Animationsframes.</translation>
         <location filename="../qt/preferencesdialog.ui" line="496"/>
         <source>Clear thumbnail cache</source>
         <translation>Thumbnail Cache löschen</translation>
+    </message>
+    <message>
+        <location filename="../qt/preferencesdialog.ui" line="503"/>
+        <source>Do not ask for quit confirmation</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Image quality</source>
@@ -5067,8 +5076,12 @@ exr - EXR Format</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="103"/>
+        <source>Show statistics while rendering in CLI mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Show statistics while renderering in CLI mode.</source>
-        <translation>Zeige Statistiken während des Renderns in Konsolenmodus.</translation>
+        <translation type="vanished">Zeige Statistiken während des Renderns in Konsolenmodus.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="106"/>
