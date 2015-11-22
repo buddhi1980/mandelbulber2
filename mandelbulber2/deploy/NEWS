@@ -1,20 +1,20 @@
 Version history
 
 v2.06
-- Added Command Line Interface, which allow to run application on headless systems. From simple terminal (e. g. ssh session) it's possible to render still images and animations and also launch NetRender client or server. Full list of available options can be listed using --help option.
+- Added Command Line Interface, which allows application to run on headless systems. From simple terminal (e.g. ssh session) it is possible to render still images and animations and also launch NetRender client or server. Full list of available options can be listed using --help option.
 - Added Queue feature to manage collection of settings which can be rendered automatically in background.
 - Added Italian language (thanks to bermarte)
 - Added use of SHIFT button to select between orthogonal or 45 degree strafe in flight animation recording.
 - Added + and - buttons to add or remove fractals from toolbar
-- "Add to toolbar" button in preview dialog
+- Added "Add to toolbar" button in preview dialog
 - Added option for SSAO effect to use random directions of simulated rays
 - Added background image brightness control (necessary for HDR option)
 - Double clicking on preview in animation tables starts rendering of chosen frame/keyframe
 - Added function to uniform distance between camera target and camera through entire animation. It makes camera animation smooth.
 - GroupBoxes hide their content when they are not enabled
 - Added Platonic Solid formula
-- Added  ***** formula (mclarekin will add here more info)
-- **** (mclarekin will write here information about changes in existing extended formulas)
+- Added extended formulas: Menger, Mandelbulb6Beta and Benesi_Transforms.
+- Changed extended formula parameter names to begin with ”transform” and added additional transforms. (Note: V2.05  extended formula parameter files will require editing to be compatible with V2.06,)
 - Changed labels for keyframe numbers to start from zero
 - Collision detection now can be canceled
 - Added option in preferences dialog to disable quit confirmation dialog
