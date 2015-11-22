@@ -2086,26 +2086,38 @@ void cInterface::ComboMouseClickUpdate()
 bool cInterface::QuitApplicationDialog()
 {
 	bool quit = false;
+	int closeResult = 0;
+	bool quitDoNotAskAgain = gPar->Get<bool>("quit_do_not_ask_again");
+	QMessageBox *messageBox;
+	if(quitDoNotAskAgain)
+	{
+		closeResult = QMessageBox::Ok;
+	}
+	else
+	{
+		messageBox = new QMessageBox(mainWindow);
+		QString messageText = QObject::tr("Are you sure to close the application?");
+		QCheckBox notAskAgainCheckbox(QObject::tr("Do not ask again"));
+		notAskAgainCheckbox.blockSignals(true);
+		messageBox->setText(messageText);
+		messageBox->setWindowTitle(QObject::tr("Quit?"));
+		messageBox->setIcon(QMessageBox::Question);
+		messageBox->addButton(&notAskAgainCheckbox, QMessageBox::ActionRole);
+		messageBox->addButton(QMessageBox::Ok);
+		messageBox->addButton(QMessageBox::Cancel);
+		closeResult = messageBox->exec();
+		quitDoNotAskAgain = notAskAgainCheckbox.checkState() == Qt::Checked;
+	}
 
-	QMessageBox *messageBox = new QMessageBox(mainWindow);
-
-	QString messageText = QObject::tr("Are you sure to close the application?");
-
-	messageBox->setText(messageText);
-	messageBox->setWindowTitle(QObject::tr("Quit?"));
-	messageBox->setIcon(QMessageBox::Question);
-	messageBox->addButton(QMessageBox::Ok);
-	messageBox->addButton(QMessageBox::Cancel);
-	int ret = messageBox->exec();
-	switch(ret)
+	switch(closeResult)
 	{
 		case QMessageBox::Ok:
 		{
 			stopRequest = true;
 			gQueue->stopRequest = true;
 			WriteLog("Quit application");
-
 			//save applications settings
+			gPar->Set("quit_do_not_ask_again", quitDoNotAskAgain);
 			cSettings parSettings(cSettings::formatAppSettings);
 			gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
@@ -2129,11 +2141,9 @@ bool cInterface::QuitApplicationDialog()
 		}
 		default:
 			//nothing
-			break;
+		break;
 	}
-
-	delete messageBox;
-
+	if(messageBox) delete messageBox;
 	return quit;
 }
 

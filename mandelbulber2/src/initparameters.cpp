@@ -328,6 +328,8 @@ using namespace parameterContainer;
 	par->addParam("show_queue_thumbnails", false, morphNone, paramApp);
 	par->addParam("queue_image_format", 0, morphNone, paramApp);
 
+	par->addParam("quit_do_not_ask_again", false, morphNone, paramApp);
+
 	//----------------------- preferences ---------------------
 	par->addParam("language", QString("unknown"), morphNone, paramApp);
 	par->addParam("ui_style_type", -1, morphNone, paramApp);
