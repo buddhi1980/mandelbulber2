@@ -458,8 +458,9 @@ void UpdateLanguage (QCoreApplication *app)
 {
 	// Set language from locale
 	WriteLog("Prepare translator");
-	static QTranslator main_translator;
-	static QTranslator qt_data_translator;
+	static QTranslator mandelbulberMainTranslator;
+	static QTranslator mandelbulberFractalUiTranslator;
+	static QTranslator qtTranslator;
 
 	QString locale = systemData.locale.name();
 	if(gPar)
@@ -471,12 +472,19 @@ void UpdateLanguage (QCoreApplication *app)
 	}
 
 	WriteLogString("locale", locale);
-	main_translator.load(locale, systemData.sharedDir + QDir::separator() + "language");
-	qt_data_translator.load("qt_data_" + locale, systemData.sharedDir + QDir::separator() + "language");
+	mandelbulberMainTranslator.load(locale, systemData.sharedDir + QDir::separator() + "language");
+	mandelbulberFractalUiTranslator.load("qt_data_" + locale, systemData.sharedDir + QDir::separator() + "language");
 
 	WriteLog("Instaling translator");
-	app->installTranslator(&main_translator);
-	app->installTranslator(&qt_data_translator);
+	app->installTranslator(&mandelbulberMainTranslator);
+	app->installTranslator(&mandelbulberFractalUiTranslator);
+
+	// try to load qt translator
+	if (qtTranslator.load(QLatin1String("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))
+			|| qtTranslator.load(QLatin1String("qtbase_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+	{
+			app->installTranslator(&qtTranslator);
+	}
 }
 
 
