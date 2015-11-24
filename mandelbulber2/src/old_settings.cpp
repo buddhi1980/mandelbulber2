@@ -31,8 +31,8 @@
 namespace oldSettings
 {
 
-const char* axis_names[] = {"X", "Y", "Z"};
-const char* component_names[] = {"alfa", "beta", "gamma"};
+const char* axis_names[] = { "X", "Y", "Z" };
+const char* component_names[] = { "alfa", "beta", "gamma" };
 
 cOldSettings::cOldSettings()
 {
@@ -55,7 +55,8 @@ bool cOldSettings::LoadSettings(const QString &filename)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("Can't import old settings\n") + QObject::tr("File with default values doesn't exist\n") + defaultsFilename, cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("Can't import old settings\n") + QObject::tr("File with default values doesn't exist\n") + defaultsFilename,
+															 cErrorMessage::errorMessage);
 		return false;
 	}
 	return LoadSettings2(filename);
@@ -114,7 +115,7 @@ void cOldSettings::GetPaletteFromString(sRGB *palette, const char *paletteString
 	for (int i = 0; i < 2000; i++)
 	{
 		int colour = 0;
-		sscanf(&paletteString[i], "%x", (unsigned int*)&colour);
+		sscanf(&paletteString[i], "%x", (unsigned int*) &colour);
 		sRGB rgbColour;
 		rgbColour.R = colour / 65536;
 		rgbColour.G = (colour / 256) % 256;
@@ -377,9 +378,9 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "end_frame")) params->endFrame = atoi(str2);
 	else if (!strcmp(str1, "frames_per_keyframe")) params->framesPerKeyframe = atoi(str2);
 
-  else if (!strcmp(str1, "hybrid_cyclic")) params->fractal.hybridCyclic = atoi(str2);
+	else if (!strcmp(str1, "hybrid_cyclic")) params->fractal.hybridCyclic = atoi(str2);
 
-	else if (!strcmp(str1, "fish_eye")) params->perspectiveType = (enumPerspectiveType)atoi(str2);
+	else if (!strcmp(str1, "fish_eye")) params->perspectiveType = (enumPerspectiveType) atoi(str2);
 	else if (!strcmp(str1, "fish_eye_180cut")) params->fishEyeCut = atoi(str2);
 
 	else if (!strcmp(str1, "stereo_enabled")) params->stereoEnabled = atoi(str2);
@@ -401,7 +402,7 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "mandelbox_color_Sp1")) params->fractal.mandelbox.doubles.colorFactorSp1 = atof2(str2);
 	else if (!strcmp(str1, "mandelbox_color_Sp2")) params->fractal.mandelbox.doubles.colorFactorSp2 = atof2(str2);
 	else if (!strcmp(str1, "mandelbox_rotation_enabled")) params->fractal.mandelbox.rotationsEnabled = atoi(str2);
-	else if (!strcmp(str1, "mandelbox_fold_mode")) params->fractal.genFoldBox.type = (enumGeneralizedFoldBoxType)atoi(str2);
+	else if (!strcmp(str1, "mandelbox_fold_mode")) params->fractal.genFoldBox.type = (enumGeneralizedFoldBoxType) atoi(str2);
 	else if (!strcmp(str1, "mandelbox_solid")) params->fractal.mandelbox.doubles.solid = atof2(str2);
 	else if (!strcmp(str1, "mandelbox_melt")) params->fractal.mandelbox.doubles.melt = atof2(str2);
 
@@ -529,15 +530,18 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 	{
 		int matched = false;
 		char buf[100];
-		for (int i = 0; i < 5; ++i) {
+		for (int i = 0; i < 5; ++i)
+		{
 			sprintf(buf, "volumetric_light_enabled_%d", i);
-			if (!strcmp(str1, buf)) {
+			if (!strcmp(str1, buf))
+			{
 				params->volumetricLightEnabled[i] = atoi(str2);
 				matched = true;
 				break;
 			}
 			sprintf(buf, "volumetric_light_intensity_%d", i);
-			if (!strcmp(str1, buf)) {
+			if (!strcmp(str1, buf))
+			{
 				params->doubles.volumetricLightIntensity[i] = atof2(str2);
 				matched = true;
 				break;
@@ -569,21 +573,27 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 			}
 		}
 
-		for (int component = 0; component < 3; ++component) {
+		for (int component = 0; component < 3; ++component)
+		{
 			sprintf(buf, "mandelbox_rotation_main_%s", component_names[component]);
-			if (!strcmp(str1, buf)) {
-				params->fractal.mandelbox.doubles.rotationMain[component] = atof2(str2)/ 180.0 * M_PI;
+			if (!strcmp(str1, buf))
+			{
+				params->fractal.mandelbox.doubles.rotationMain[component] = atof2(str2) / 180.0 * M_PI;
 				matched = true;
 				break;
 			}
 		}
 
-		for (int fold = 0; fold < MANDELBOX_FOLDS; ++fold) {
-			for (int axis = 0; axis < 3; ++axis) {
-				for (int component = 0; component < 3; ++component) {
+		for (int fold = 0; fold < MANDELBOX_FOLDS; ++fold)
+		{
+			for (int axis = 0; axis < 3; ++axis)
+			{
+				for (int component = 0; component < 3; ++component)
+				{
 					sprintf(buf, "mandelbox_rotation_%s%d_%s", axis_names[axis], fold + 1, component_names[component]);
-					if (!strcmp(str1, buf)) {
-						params->fractal.mandelbox.doubles.rotation[fold][axis][component] = atof2(str2)/ 180.0 * M_PI;
+					if (!strcmp(str1, buf))
+					{
+						params->fractal.mandelbox.doubles.rotation[fold][axis][component] = atof2(str2) / 180.0 * M_PI;
 						matched = true;
 						break;
 					}
@@ -593,7 +603,8 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 			if (matched) break;
 		}
 
-		if (!matched) {
+		if (!matched)
+		{
 			printf("Warning! Unknown parameter: %s %s\n", str1, str2);
 			WriteLog("Warning! Unknown parameter:");
 			WriteLog(str1);
@@ -607,7 +618,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 {
 	//general parameters
 	par->ResetAllToDefault();
-	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 		fractal->at(i).ResetAllToDefault();
 	DeleteAllPrimitiveParams(par);
 
@@ -625,8 +636,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	forwardVector = forwardVector.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), cameraRotation.x);
 
 	CVector3 camera, target;
-	if(oldData->doubles.zoom <= 1e-13)  oldData->doubles.zoom = 1e-13;
-	if(oldData->perspectiveType == threePoint)
+	if (oldData->doubles.zoom <= 1e-13) oldData->doubles.zoom = 1e-13;
+	if (oldData->perspectiveType == threePoint)
 	{
 		camera = vp - forwardVector * (1.0 / oldData->doubles.persp * oldData->doubles.zoom);
 		target = vp;
@@ -642,20 +653,21 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("camera", camera);
 	par->Set("target", target);
 	par->Set("camera_top", cameraTarget.GetTopVector());
-	par->Set("camera_rotation", cameraTarget.GetRotation() * 180.0/M_PI);
+	par->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
 	par->Set("camera_distance_to_target", cameraTarget.GetDistance());
 	par->Set("fov", oldData->doubles.persp);
-	par->Set("perspective_type", (int)oldData->perspectiveType);
+	par->Set("perspective_type", (int) oldData->perspectiveType);
 	par->Set("stereo_eye_distance", oldData->doubles.stereoEyeDistance);
 	par->Set("stereo_enabled", oldData->stereoEnabled);
 
-	par->Set("formula", 1, (int)oldData->fractal.formula);
+	par->Set("formula", 1, (int) oldData->fractal.formula);
 
 	par->Set("julia_mode", oldData->fractal.juliaMode);
 	par->Set("julia_c", oldData->fractal.doubles.julia);
 	par->Set("N", oldData->fractal.doubles.N);
 	par->Set("minN", oldData->fractal.minN);
-	par->Set("fractal_constant_factor", CVector3(oldData->fractal.doubles.constantFactor, oldData->fractal.doubles.constantFactor, oldData->fractal.doubles.constantFactor));
+	par->Set("fractal_constant_factor",
+					 CVector3(oldData->fractal.doubles.constantFactor, oldData->fractal.doubles.constantFactor, oldData->fractal.doubles.constantFactor));
 	par->Set("detail_level", oldData->doubles.quality);
 	par->Set("DE_thresh", oldData->doubles.quality);
 	par->Set("smoothness", oldData->doubles.smoothness);
@@ -684,10 +696,10 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("ambient_occlusion_enabled", oldData->global_ilumination || oldData->SSAOEnabled);
 
 	params::enumAOMode AOmode = params::AOmodeMultipeRays;
-	if(oldData->SSAOEnabled) AOmode = params::AOmodeScreenSpace;
-	if(oldData->fastGlobalIllumination && !oldData->SSAOEnabled) AOmode = params::AOmodeFast;
-	par->Set("ambient_occlusion_mode", (int)AOmode);
-	if(AOmode == params::AOmodeScreenSpace) par->Set("ambient_occlusion_quality", sqrt(oldData->SSAOQuality));
+	if (oldData->SSAOEnabled) AOmode = params::AOmodeScreenSpace;
+	if (oldData->fastGlobalIllumination && !oldData->SSAOEnabled) AOmode = params::AOmodeFast;
+	par->Set("ambient_occlusion_mode", (int) AOmode);
+	if (AOmode == params::AOmodeScreenSpace) par->Set("ambient_occlusion_quality", sqrt(oldData->SSAOQuality));
 
 	par->Set("shading", oldData->doubles.imageAdjustments.shading);
 	par->Set("specular", oldData->doubles.imageAdjustments.specular);
@@ -719,8 +731,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("iteration_fog_enable", oldData->imageSwitches.iterFogEnabled);
 	par->Set("iteration_fog_opacity", oldData->doubles.iterFogOpacity);
 	par->Set("iteration_fog_opacity_trim", oldData->doubles.iterFogOpacityTrim);
-	par->Set("iteration_fog_color_1_maxiter", (int)(oldData->fractal.doubles.N * 0.33));
-	par->Set("iteration_fog_color_2_maxiter", (int)(oldData->fractal.doubles.N * 0.66));
+	par->Set("iteration_fog_color_1_maxiter", (int) (oldData->fractal.doubles.N * 0.33));
+	par->Set("iteration_fog_color_2_maxiter", (int) (oldData->fractal.doubles.N * 0.66));
 	par->Set("iteration_fog_color", 1, oldData->fogColour1);
 	par->Set("iteration_fog_color", 2, oldData->fogColour2);
 	par->Set("iteration_fog_color", 3, oldData->fogColour3);
@@ -750,14 +762,14 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("aux_light_intensity", oldData->doubles.auxLightIntensity);
 	par->Set("aux_light_visibility", oldData->doubles.auxLightVisibility);
 
-	for(int i=0; i<4; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		par->Set("aux_light_position", i+1, oldData->doubles.auxLightPre[i]);
-		par->Set("aux_light_intensity", i+1, oldData->doubles.auxLightPreIntensity[i]);
-		par->Set("aux_light_enabled", i+1, oldData->auxLightPreEnabled[i]);
-		par->Set("aux_light_colour", i+1, oldData->auxLightPreColour[i]);
-		par->Set("aux_light_volumetric_intensity", i+1, oldData->doubles.volumetricLightIntensity[i+1]);
-		par->Set("aux_light_volumetric_enabled", i+1, oldData->volumetricLightEnabled[i+1]);
+		par->Set("aux_light_position", i + 1, oldData->doubles.auxLightPre[i]);
+		par->Set("aux_light_intensity", i + 1, oldData->doubles.auxLightPreIntensity[i]);
+		par->Set("aux_light_enabled", i + 1, oldData->auxLightPreEnabled[i]);
+		par->Set("aux_light_colour", i + 1, oldData->auxLightPreColour[i]);
+		par->Set("aux_light_volumetric_intensity", i + 1, oldData->doubles.volumetricLightIntensity[i + 1]);
+		par->Set("aux_light_volumetric_enabled", i + 1, oldData->volumetricLightEnabled[i + 1]);
 	}
 
 	par->Set("fake_lights_enabled", oldData->fakeLightsEnabled);
@@ -769,7 +781,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("fake_lights_max_iter", oldData->fractal.fakeLightsMaxIter);
 
 	cColorPalette palette;
-	for(int i=0; i<256; i++)
+	for (int i = 0; i < 256; i++)
 		palette.AppendColor(oldData->palette[i]);
 	par->Set("surface_color_palette", palette);
 
@@ -853,9 +865,9 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 
 	//fractal parameters
 
-	if(oldData->fractal.formula == trig_DE)
+	if (oldData->fractal.formula == trig_DE)
 	{
-		par->Set("formula", 1, (int)fractal::mandelbulb);
+		par->Set("formula", 1, (int) fractal::mandelbulb);
 		fractal->at(0).Set("alpha_angle_offset", 180.0 / oldData->fractal.doubles.power);
 		fractal->at(0).Set("beta_angle_offset", 180.0 / oldData->fractal.doubles.power);
 	}
@@ -863,7 +875,9 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	fractal->at(0).Set("power", oldData->fractal.doubles.power);
 	fractal->at(0).Set("cadd", oldData->fractal.doubles.cadd);
 	fractal->at(0).Set("IFS_scale", oldData->fractal.IFS.doubles.scale);
-	fractal->at(0).Set("IFS_rotation", CVector3(oldData->fractal.IFS.doubles.rotationAlfa, oldData->fractal.IFS.doubles.rotationBeta, oldData->fractal.IFS.doubles.rotationGamma) * 180.0 / M_PI);
+	fractal->at(0).Set(
+			"IFS_rotation",
+			CVector3(oldData->fractal.IFS.doubles.rotationAlfa, oldData->fractal.IFS.doubles.rotationBeta, oldData->fractal.IFS.doubles.rotationGamma) * 180.0 / M_PI);
 	fractal->at(0).Set("IFS_offset", oldData->fractal.IFS.doubles.offset);
 	fractal->at(0).Set("IFS_edge", oldData->fractal.IFS.doubles.edge);
 	fractal->at(0).Set("IFS_edge_enabled", (oldData->fractal.IFS.doubles.edge.Length() > 0) ? true : false);
@@ -872,10 +886,12 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	fractal->at(0).Set("IFS_abs_z", oldData->fractal.IFS.absZ);
 	fractal->at(0).Set("IFS_menger_sponge_mode", oldData->fractal.IFS.mengerSpongeMode);
 
-	for(int i = 0; i < IFS_VECTOR_COUNT; i++)
+	for (int i = 0; i < IFS_VECTOR_COUNT; i++)
 	{
 		fractal->at(0).Set("IFS_direction", i, oldData->fractal.IFS.doubles.direction[i]);
-		fractal->at(0).Set("IFS_rotations", i, CVector3(oldData->fractal.IFS.doubles.alfa[i], oldData->fractal.IFS.doubles.beta[i], oldData->fractal.IFS.doubles.gamma[i]) * 180.0 / M_PI);
+		fractal->at(0).Set(
+				"IFS_rotations", i,
+				CVector3(oldData->fractal.IFS.doubles.alfa[i], oldData->fractal.IFS.doubles.beta[i], oldData->fractal.IFS.doubles.gamma[i]) * 180.0 / M_PI);
 		fractal->at(0).Set("IFS_distance", i, oldData->fractal.IFS.doubles.distance[i]);
 		fractal->at(0).Set("IFS_intensity", i, oldData->fractal.IFS.doubles.intensity[i]);
 		fractal->at(0).Set("IFS_enabled", i, oldData->fractal.IFS.enabled[i]);
@@ -890,13 +906,16 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	fractal->at(0).Set("mandelbox_offset", oldData->fractal.mandelbox.doubles.offset);
 	fractal->at(0).Set("mandelbox_rotation_main", CVector3(oldData->fractal.mandelbox.doubles.rotationMain) * 180.0 / M_PI);
 
-	for(int i = 0; i<3; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		fractal->at(0).Set("mandelbox_rotation_neg", i+1, CVector3(oldData->fractal.mandelbox.doubles.rotation[0][i]) * 180.0 / M_PI);
-		fractal->at(0).Set("mandelbox_rotation_pos", i+1, CVector3(oldData->fractal.mandelbox.doubles.rotation[1][i]) * 180.0 / M_PI);
+		fractal->at(0).Set("mandelbox_rotation_neg", i + 1, CVector3(oldData->fractal.mandelbox.doubles.rotation[0][i]) * 180.0 / M_PI);
+		fractal->at(0).Set("mandelbox_rotation_pos", i + 1, CVector3(oldData->fractal.mandelbox.doubles.rotation[1][i]) * 180.0 / M_PI);
 	}
 
-	fractal->at(0).Set("mandelbox_color", CVector3(oldData->fractal.mandelbox.doubles.colorFactorX, oldData->fractal.mandelbox.doubles.colorFactorY, oldData->fractal.mandelbox.doubles.colorFactorZ));
+	fractal->at(0).Set(
+			"mandelbox_color",
+			CVector3(oldData->fractal.mandelbox.doubles.colorFactorX, oldData->fractal.mandelbox.doubles.colorFactorY,
+							 oldData->fractal.mandelbox.doubles.colorFactorZ));
 	fractal->at(0).Set("mandelbox_color_R", oldData->fractal.mandelbox.doubles.colorFactorR);
 	fractal->at(0).Set("mandelbox_color_Sp1", oldData->fractal.mandelbox.doubles.colorFactorSp1);
 	fractal->at(0).Set("mandelbox_color_Sp2", oldData->fractal.mandelbox.doubles.colorFactorSp2);
@@ -911,7 +930,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	fractal->at(0).Set("mandelbox_vary_rpower", oldData->fractal.mandelbox.doubles.vary4D.rPower);
 	fractal->at(0).Set("mandelbox_vary_wadd", oldData->fractal.mandelbox.doubles.vary4D.wadd);
 
-	fractal->at(0).Set("mandelbox_generalized_fold_type", (int)oldData->fractal.genFoldBox.type);
+	fractal->at(0).Set("mandelbox_generalized_fold_type", (int) oldData->fractal.genFoldBox.type);
 
 	fractal->at(0).Set("boxfold_bulbpow2_folding_factor", oldData->fractal.doubles.FoldingIntPowFoldFactor);
 	fractal->at(0).Set("boxfold_bulbpow2_z_factor", oldData->fractal.doubles.FoldingIntPowZfactor);
@@ -920,42 +939,42 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 
 	//converting hybrid fractals
 
-	if(oldData->fractal.formula == hybrid)
+	if (oldData->fractal.formula == hybrid)
 	{
 		QList<int> fractalsListTemp;
-		for(int i=0; i<HYBRID_COUNT; i++)
+		for (int i = 0; i < HYBRID_COUNT; i++)
 		{
-			if((oldSettings::enumFractalFormula)oldData->fractal.hybridFormula[i] != oldSettings::none)
+			if ((oldSettings::enumFractalFormula) oldData->fractal.hybridFormula[i] != oldSettings::none)
 			{
 				fractalsListTemp.append(i);
 			}
 		}
 		bool result = true;
-		if(fractalsListTemp.size() <= NUMBER_OF_FRACTALS)
+		if (fractalsListTemp.size() <= NUMBER_OF_FRACTALS)
 		{
-			for(int i=0; i<fractalsListTemp.size(); i++)
+			for (int i = 0; i < fractalsListTemp.size(); i++)
 			{
 				oldSettings::enumFractalFormula formula = oldData->fractal.hybridFormula[fractalsListTemp.at(i)];
 				bool found = false;
-				for(int l = 0; l < fractalList.size(); l++)
+				for (int l = 0; l < fractalList.size(); l++)
 				{
-					if (formula == (oldSettings::enumFractalFormula)fractalList.at(l).internalID)
+					if (formula == (oldSettings::enumFractalFormula) fractalList.at(l).internalID)
 					{
-							found = true;
-							break;
+						found = true;
+						break;
 					}
 				}
-				if(found)
+				if (found)
 				{
-					par->Set("formula", i+1, (int)oldData->fractal.hybridFormula[fractalsListTemp.at(i)]);
-					if(formula == trig_DE)
+					par->Set("formula", i + 1, (int) oldData->fractal.hybridFormula[fractalsListTemp.at(i)]);
+					if (formula == trig_DE)
 					{
-						par->Set("formula", 1, (int)fractal::mandelbulb);
+						par->Set("formula", 1, (int) fractal::mandelbulb);
 						fractal->at(i).Set("alpha_angle_offset", 180.0 / oldData->fractal.doubles.power);
 						fractal->at(i).Set("beta_angle_offset", 180.0 / oldData->fractal.doubles.power);
 					}
-					par->Set("formula_iterations", i+1, oldData->fractal.hybridIters[fractalsListTemp.at(i)]);
-					switch(formula)
+					par->Set("formula_iterations", i + 1, oldData->fractal.hybridIters[fractalsListTemp.at(i)]);
+					switch (formula)
 					{
 						case trig_DE:
 						case trig_optim:
@@ -982,9 +1001,9 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 							break;
 					}
 
-					if(!oldData->fractal.hybridCyclic && i == fractalsListTemp.size() - 1)
+					if (!oldData->fractal.hybridCyclic && i == fractalsListTemp.size() - 1)
 					{
-						par->Set("formula_iterations", i+1, (int)oldData->fractal.doubles.N);
+						par->Set("formula_iterations", i + 1, (int) oldData->fractal.doubles.N);
 					}
 				}
 				else
@@ -1009,10 +1028,10 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 		}
 	}
 
-	if(oldData->fractal.IFS.foldingMode)
+	if (oldData->fractal.IFS.foldingMode)
 	{
 		par->Set("hybrid_fractal_enable", true);
-		par->Set("formula", 2, (int)fractal::kaleidoscopicIFS);
+		par->Set("formula", 2, (int) fractal::kaleidoscopicIFS);
 	}
 }
 

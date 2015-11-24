@@ -35,7 +35,6 @@ public:
 	cParameterContainer &at(int index);
 	const cParameterContainer &at(int index) const;
 
-
 private:
 	cParameterContainer fractals[NUMBER_OF_FRACTALS];
 };

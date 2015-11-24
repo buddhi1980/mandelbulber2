@@ -29,9 +29,9 @@
 #include "progress_text.hpp"
 #include "global_data.hpp"
 
-cPostRenderingDOF::cPostRenderingDOF(cImage *_image) : QObject(), image(_image)
+cPostRenderingDOF::cPostRenderingDOF(cImage *_image) :
+		QObject(), image(_image)
 {
-
 }
 
 void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
@@ -41,7 +41,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 
 	sRGB16 *temp_image = new sRGB16[width * height];
 	unsigned short *temp_alpha = new unsigned short[width * height];
-	sSortZ<float> *temp_sort = new sSortZ<float>[width * height];
+	sSortZ<float> *temp_sort = new sSortZ<float> [width * height];
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
@@ -66,15 +66,15 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 	gApplication->processEvents();
 
 	//Randomize Z-buffer
-	int imgSize = height*width;
+	int imgSize = height * width;
 	for (int i = imgSize - 1; i >= 0; i--)
 	{
 		if (*stopRequest)
 		{
 			// delete allocated memory
-			delete [] temp_image;
-			delete [] temp_alpha;
-			delete [] temp_sort;
+			delete[] temp_image;
+			delete[] temp_alpha;
+			delete[] temp_sort;
 			return;
 		}
 		sSortZ<float> temp;
@@ -148,9 +148,9 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 		if (*stopRequest)
 		{
 			// delete allocated memory
-			delete [] temp_image;
-			delete [] temp_alpha;
-			delete [] temp_sort;
+			delete[] temp_image;
+			delete[] temp_alpha;
+			delete[] temp_sort;
 			return;
 		}
 
@@ -163,9 +163,9 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 		int size = blur;
 		sRGB16 center = temp_image[x + y * width];
 		unsigned short center_alpha = temp_alpha[x + y * width];
-		double factor = blur * blur * sqrt(blur)* M_PI/3.0;
+		double factor = blur * blur * sqrt(blur) * M_PI / 3.0;
 
-		#pragma omp parallel for
+#pragma omp parallel for
 		for (int yy = y - size; yy <= y + size; yy++)
 		{
 			for (int xx = x - size; xx <= x + size; xx++)
@@ -174,7 +174,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 				{
 					int dx = xx - x;
 					int dy = yy - y;
-					double r = sqrt((float)dx * dx + dy * dy);
+					double r = sqrt((float) dx * dx + dy * dy);
 					double op = (blur - r) / factor;
 					if (op > 1.0) op = 1.0;
 					if (op < 0.0) op = 0.0;
@@ -195,11 +195,11 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 			}
 		}
 
-		if(timerRefreshProgressBar.elapsed() > 100)
+		if (timerRefreshProgressBar.elapsed() > 100)
 		{
 			timerRefreshProgressBar.restart();
 
-			percentDone = (double)i / (height * width);
+			percentDone = (double) i / (height * width);
 			progressTxt = progressText.getText(percentDone);
 
 			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
@@ -214,7 +214,6 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 			image->UpdatePreview();
 			image->GetImageWidget()->update();
 
-
 			lastRefreshTime = timerRefresh.elapsed() * 20.0;
 			timerRefresh.restart();
 		}
@@ -227,51 +226,50 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 	delete[] temp_sort;
 }
 
-template <class T>
+template<class T>
 void cPostRenderingDOF::QuickSortZBuffer(sSortZ<T> *buffer, int l, int r)
 {
-    // Sorts buffer by value of z asc
-    int i, j;
-    // Operating buffer typed variables
-    sSortZ<T> pivot, swap;
-    i = l;
-    j = r;
-    // set pivot to center of buffer
-    pivot = buffer[(l + r) / 2];
-    do
-    {
-        while(buffer[i].z < pivot.z)
-        {
-            i++;
-        }
-        while(pivot.z < buffer[j].z)
-        {
-            j--;
-        }
-        if(i <= j)
-        {
-            /* buffer[i] is to the left of pivot but greater
-            *  buffer[j] is to the right of pivot but smaller
-            * -> swap values of buffer[i] <> buffer[j] */
-            swap = buffer[i];
-            buffer[i] = buffer[j];
-            buffer[j] = swap;
-            i++;
-            j--;
-        }
-    }
-    while(i <= j);
+	// Sorts buffer by value of z asc
+	int i, j;
+	// Operating buffer typed variables
+	sSortZ<T> pivot, swap;
+	i = l;
+	j = r;
+	// set pivot to center of buffer
+	pivot = buffer[(l + r) / 2];
+	do
+	{
+		while (buffer[i].z < pivot.z)
+		{
+			i++;
+		}
+		while (pivot.z < buffer[j].z)
+		{
+			j--;
+		}
+		if (i <= j)
+		{
+			/* buffer[i] is to the left of pivot but greater
+			 *  buffer[j] is to the right of pivot but smaller
+			 * -> swap values of buffer[i] <> buffer[j] */
+			swap = buffer[i];
+			buffer[i] = buffer[j];
+			buffer[j] = swap;
+			i++;
+			j--;
+		}
+	} while (i <= j);
 
-    // sort left side of pivot element
-    if(l < j)
-    {
-        QuickSortZBuffer(buffer, l, j);
-    }
+	// sort left side of pivot element
+	if (l < j)
+	{
+		QuickSortZBuffer(buffer, l, j);
+	}
 
-    // sort right side of pivot element
-    if(i < r)
-    {
-        QuickSortZBuffer(buffer, i, r);
-    }
+	// sort right side of pivot element
+	if (i < r)
+	{
+		QuickSortZBuffer(buffer, i, r);
+	}
 }
 template void cPostRenderingDOF::QuickSortZBuffer<double>(sSortZ<double> *dane, int l, int p);

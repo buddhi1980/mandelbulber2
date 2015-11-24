@@ -29,7 +29,9 @@
 #include "progress_text.hpp"
 #include "error_message.hpp"
 
-cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal, cImage *_image, bool *_stopRequest, QWidget *_qwidget) : QObject()
+cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal,
+		cImage *_image, bool *_stopRequest, QWidget *_qwidget) :
+		QObject()
 {
 	WriteLog("cRenderJob::cRenderJob");
 	image = _image;
@@ -46,11 +48,14 @@ cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContain
 	mode = still;
 	ready = false;
 	inProgress = false;
-	if(_qwidget)
+	if (_qwidget)
 	{
 		imageWidget = _qwidget;
 		hasQWidget = true;
-		connect(this, SIGNAL(SetMinimumWidgetSize(int, int)), imageWidget, SLOT(slotSetMinimumSize(int, int)));
+		connect(this,
+						SIGNAL(SetMinimumWidgetSize(int, int)),
+						imageWidget,
+						SLOT(slotSetMinimumSize(int, int)));
 	}
 	else
 	{
@@ -75,10 +80,9 @@ cRenderJob::~cRenderJob()
 	//qDebug() << "Id" << id;
 	delete paramsContainer;
 	delete fractalContainer;
-	if(renderData) delete renderData;
+	if (renderData) delete renderData;
 
-	if(canUseNetRender)
-		gNetRender->Release();
+	if (canUseNetRender) gNetRender->Release();
 
 	WriteLog("Job finished and closed");
 }
@@ -89,11 +93,10 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 
 	mode = _mode;
 
-	if(config.UseNetRender())
-		canUseNetRender = gNetRender->Block();
+	if (config.UseNetRender()) canUseNetRender = gNetRender->Block();
 
 	//needed when image has to fit in widget
-	if(useSizeFromImage)
+	if (useSizeFromImage)
 	{
 		paramsContainer->Set("image_width", image->GetWidth());
 		paramsContainer->Set("image_height", image->GetHeight());
@@ -101,33 +104,41 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 
-	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Setting up image buffers"), 0.0);
+	emit updateProgressAndStatus(QObject::tr("Initialization"),
+															 QObject::tr("Setting up image buffers"),
+															 0.0);
 	//gApplication->processEvents();
 
-	if(!InitImage(width, height))
+	if (!InitImage(width, height))
 	{
 		ready = false;
 		return false;
 	}
 
-	if(image->IsMainImage())
+	if (image->IsMainImage())
 	{
 		//clear image before start rendering
-		if((gNetRender->IsClient() || gNetRender->IsServer()) && canUseNetRender)
+		if ((gNetRender->IsClient() || gNetRender->IsServer()) && canUseNetRender)
 		{
 			image->ClearImage();
 			image->UpdatePreview();
-			if(hasQWidget) imageWidget->update();
+			if (hasQWidget) imageWidget->update();
 		}
 	}
 
-	if(config.UseNetRender() && canUseNetRender)
+	if (config.UseNetRender() && canUseNetRender)
 	{
 		//connect signals
-		if(gNetRender->IsServer())
+		if (gNetRender->IsServer())
 		{
-			connect(this, SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, sTextures)), gNetRender, SLOT(SendJob(cParameterContainer, cFractalContainer, sTextures)));
-			connect(this, SIGNAL(SendNetRenderSetup(int , int, QList<int>)), gNetRender, SLOT(SendSetup(int , int, QList<int>)));
+			connect(this,
+							SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, sTextures)),
+							gNetRender,
+							SLOT(SendJob(cParameterContainer, cFractalContainer, sTextures)));
+			connect(this,
+							SIGNAL(SendNetRenderSetup(int , int, QList<int>)),
+							gNetRender,
+							SLOT(SendSetup(int , int, QList<int>)));
 		}
 	}
 
@@ -136,14 +147,14 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 
 	WriteLog("Init renderData");
 	//aux renderer data
-	if(renderData) delete renderData;
+	if (renderData) delete renderData;
 	renderData = new sRenderData;
 	renderData->rendererID = id;
 	renderData->configuration = config;
-	if(!canUseNetRender) renderData->configuration.DisableNetRender();
+	if (!canUseNetRender) renderData->configuration.DisableNetRender();
 
 	//set image region to render
-	if(paramsContainer->Get<bool>("legacy_coordinate_system"))
+	if (paramsContainer->Get<bool>("legacy_coordinate_system"))
 	{
 		renderData->imageRegion.Set(-0.5, -0.5, 0.5, 0.5);
 	}
@@ -158,28 +169,30 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
 	//gApplication->processEvents();
 
-	if(gNetRender->IsClient())
+	if (gNetRender->IsClient())
 	{
 		//get received textures from NetRender buffer
-		if(paramsContainer->Get<bool>("textured_background"))
-			renderData->textures.backgroundTexture = gNetRender->GetTextures()->backgroundTexture;
+		if (paramsContainer->Get<bool>("textured_background")) renderData->textures.backgroundTexture =
+				gNetRender->GetTextures()->backgroundTexture;
 
-		if(paramsContainer->Get<bool>("env_mapping_enable"))
-			renderData->textures.envmapTexture = gNetRender->GetTextures()->envmapTexture;
+		if (paramsContainer->Get<bool>("env_mapping_enable")) renderData->textures.envmapTexture =
+				gNetRender->GetTextures()->envmapTexture;
 
-		if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
-			renderData->textures.lightmapTexture = gNetRender->GetTextures()->lightmapTexture;
+		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays
+				&& paramsContainer->Get<bool>("ambient_occlusion_enabled")) renderData->textures.lightmapTexture =
+				gNetRender->GetTextures()->lightmapTexture;
 	}
 	else
 	{
-		if(paramsContainer->Get<bool>("textured_background"))
-			renderData->textures.backgroundTexture = cTexture(paramsContainer->Get<QString>("file_background"), config.UseIgnoreErrors());
+		if (paramsContainer->Get<bool>("textured_background")) renderData->textures.backgroundTexture =
+				cTexture(paramsContainer->Get<QString>("file_background"), config.UseIgnoreErrors());
 
-		if(paramsContainer->Get<bool>("env_mapping_enable"))
-			renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"), config.UseIgnoreErrors());
+		if (paramsContainer->Get<bool>("env_mapping_enable")) renderData->textures.envmapTexture =
+				cTexture(paramsContainer->Get<QString>("file_envmap"), config.UseIgnoreErrors());
 
-		if(paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays && paramsContainer->Get<bool>("ambient_occlusion_enabled"))
-			renderData->textures.lightmapTexture = cTexture(paramsContainer->Get<QString>("file_lightmap"), config.UseIgnoreErrors());
+		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOmodeMultipeRays
+				&& paramsContainer->Get<bool>("ambient_occlusion_enabled")) renderData->textures.lightmapTexture =
+				cTexture(paramsContainer->Get<QString>("file_lightmap"), config.UseIgnoreErrors());
 	}
 
 	//assign stop handler
@@ -195,7 +208,7 @@ bool cRenderJob::InitImage(int w, int h)
 	WriteLog("cRenderJob::InitImage");
 	QTextStream out(stdout);
 
-	if(!image->ChangeSize(w, h))
+	if (!image->ChangeSize(w, h))
 	{
 		printf("Cannot allocate memory. Maybe image is too big");
 		return false;
@@ -203,12 +216,19 @@ bool cRenderJob::InitImage(int w, int h)
 	else
 	{
 		WriteLog("complexImage allocated");
-		if(hasQWidget)
+		if (hasQWidget)
 		{
-			double scale = ImageScaleComboSelection2Double(paramsContainer->Get<int>("image_preview_scale"));
-			if(useSizeFromImage) scale = 0.0;
-			scale = CalcMainImageScale(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), image);
-			image->CreatePreview(scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), imageWidget);
+			double scale =
+					ImageScaleComboSelection2Double(paramsContainer->Get<int>("image_preview_scale"));
+			if (useSizeFromImage) scale = 0.0;
+			scale = CalcMainImageScale(scale,
+																 image->GetPreviewVisibleWidth(),
+																 image->GetPreviewVisibleHeight(),
+																 image);
+			image->CreatePreview(scale,
+													 image->GetPreviewVisibleWidth(),
+													 image->GetPreviewVisibleHeight(),
+													 imageWidget);
 			image->UpdatePreview();
 			emit SetMinimumWidgetSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 		}
@@ -229,9 +249,9 @@ bool cRenderJob::Execute(void)
 	image->BlockImage();
 
 	//send settings to all NetRender clients
-	if(renderData->configuration.UseNetRender())
+	if (renderData->configuration.UseNetRender())
 	{
-		if(gNetRender->IsServer())
+		if (gNetRender->IsServer())
 		{
 			//new id
 			qint32 id = rand();
@@ -242,13 +262,14 @@ bool cRenderJob::Execute(void)
 			int clientIndex = 0;
 			int clientWorkerIndex = 0;
 
-			int workersCount = gNetRender->getTotalWorkerCount() + renderData->configuration.GetNumberOfThreads();
+			int workersCount = gNetRender->getTotalWorkerCount()
+					+ renderData->configuration.GetNumberOfThreads();
 
 			QList<int> startingPositionsToSend;
 
-			for(int i = 0; i < workersCount; i++)
+			for (int i = 0; i < workersCount; i++)
 			{
-				if(i < renderData->configuration.GetNumberOfThreads())
+				if (i < renderData->configuration.GetNumberOfThreads())
 				{
 					renderData->netRenderStartingPositions.append(i * image->GetHeight() / workersCount);
 				}
@@ -257,7 +278,7 @@ bool cRenderJob::Execute(void)
 					startingPositionsToSend.append(i * image->GetHeight() / workersCount);
 					clientWorkerIndex++;
 
-					if(clientWorkerIndex >= gNetRender->GetWorkerCount(clientIndex))
+					if (clientWorkerIndex >= gNetRender->GetWorkerCount(clientIndex))
 					{
 						emit SendNetRenderSetup(clientIndex, id, startingPositionsToSend);
 						clientIndex++;
@@ -272,7 +293,7 @@ bool cRenderJob::Execute(void)
 		}
 
 		//get starting positions received from server
-		if(gNetRender->IsClient())
+		if (gNetRender->IsClient())
 		{
 			renderData->netRenderStartingPositions = gNetRender->GetStartingPositions();
 		}
@@ -294,7 +315,7 @@ bool cRenderJob::Execute(void)
 	cFourFractals *fourFractals = new cFourFractals(fractalContainer, paramsContainer);
 
 	//recalculation of some parameters;
-	params->resolution = 1.0/image->GetHeight();
+	params->resolution = 1.0 / image->GetHeight();
 	ReduceDetail();
 
 	//initialize histograms
@@ -306,30 +327,48 @@ bool cRenderJob::Execute(void)
 	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image);
 
 	//connect signal for progress bar update
-	connect(renderer, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
-	connect(renderer, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
+	connect(renderer,
+					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+					this,
+					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
+	connect(renderer,
+					SIGNAL(updateStatistics(cStatistics)),
+					this,
+					SIGNAL(updateStatistics(cStatistics)));
 
-	if(renderData->configuration.UseNetRender())
+	if (renderData->configuration.UseNetRender())
 	{
-		if(gNetRender->IsClient())
+		if (gNetRender->IsClient())
 		{
-			QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)), gNetRender, SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
-			QObject::connect(gNetRender, SIGNAL(ToDoListArrived(QList<int>)), renderer, SLOT(ToDoListArrived(QList<int>)));
+			QObject::connect(renderer,
+											 SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)),
+											 gNetRender,
+											 SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
+			QObject::connect(gNetRender,
+											 SIGNAL(ToDoListArrived(QList<int>)),
+											 renderer,
+											 SLOT(ToDoListArrived(QList<int>)));
 			QObject::connect(renderer, SIGNAL(NotifyClientStatus()), gNetRender, SLOT(NotifyStatus()));
 			QObject::connect(gNetRender, SIGNAL(AckReceived()), renderer, SLOT(AckReceived()));
 		}
 
-		if(gNetRender->IsServer())
+		if (gNetRender->IsServer())
 		{
-			QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), renderer, SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
-			QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>)), gNetRender, SLOT(SendToDoList(int, QList<int>)));
+			QObject::connect(gNetRender,
+											 SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)),
+											 renderer,
+											 SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
+			QObject::connect(renderer,
+											 SIGNAL(SendToDoList(int, QList<int>)),
+											 gNetRender,
+											 SLOT(SendToDoList(int, QList<int>)));
 			QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAll()));
 		}
 	}
 
 	bool result = renderer->RenderImage();
 
-	if(result) emit fullyRendered();
+	if (result) emit fullyRendered();
 
 	delete params;
 	delete fourFractals;
@@ -355,7 +394,8 @@ void cRenderJob::ChangeCameraTargetPosition(cCameraTarget &cameraTarget)
 	paramsContainer->Set("camera_distance_to_target", cameraTarget.GetDistance());
 }
 
-void cRenderJob::UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal)
+void cRenderJob::UpdateParameters(const cParameterContainer *_params,
+		const cFractalContainer *_fractal)
 {
 	*paramsContainer = *_params;
 	*fractalContainer = *_fractal;
@@ -363,10 +403,10 @@ void cRenderJob::UpdateParameters(const cParameterContainer *_params, const cFra
 
 void cRenderJob::ReduceDetail()
 {
-	if(mode == flightAnimRecord)
+	if (mode == flightAnimRecord)
 	{
 		renderData->reduceDetail = sqrt(renderData->lastPercentage);
-		if(renderData->reduceDetail < 0.1) renderData->reduceDetail = 0.1;
+		if (renderData->reduceDetail < 0.1) renderData->reduceDetail = 0.1;
 	}
 	else
 	{

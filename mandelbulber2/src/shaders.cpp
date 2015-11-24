@@ -23,7 +23,8 @@
 #include "render_worker.hpp"
 #include "calculate_distance.hpp"
 
-sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloat *surfaceColour, sRGBAfloat *specularOut)
+sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloat *surfaceColour,
+		sRGBAfloat *specularOut)
 {
 	sRGBAfloat output;
 
@@ -49,11 +50,11 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	//calculate shadow
 	sRGBAfloat shadow(1.0, 1.0, 1.0, 1.0);
-	if(params->shadow && params->mainLightEnable)	shadow = MainShadow(input);
+	if (params->shadow && params->mainLightEnable) shadow = MainShadow(input);
 
 	//calculate specular highlight
 	sRGBAfloat specular;
-	if(params->mainLightEnable)
+	if (params->mainLightEnable)
 	{
 		specular = MainSpecular(input);
 		specular.R *= params->specular;
@@ -67,14 +68,14 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	//ambient occlusion
 	sRGBAfloat ambient(0.0, 0.0, 0.0, 0.0);
-	if(params->ambientOcclusionEnabled)
+	if (params->ambientOcclusionEnabled)
 	{
 		//fast mode
-		if(params->ambientOcclusionMode == params::AOmodeFast)
+		if (params->ambientOcclusionMode == params::AOmodeFast)
 		{
 			ambient = FastAmbientOcclusion(input);
 		}
-		else if(params->ambientOcclusionMode == params::AOmodeMultipeRays)
+		else if (params->ambientOcclusionMode == params::AOmodeMultipeRays)
 		{
 			ambient = AmbientOcclusion(input);
 		}
@@ -86,7 +87,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	//environment mapping
 	sRGBAfloat envMapping(0.0, 0.0, 0.0, 0.0);
-	if(params->envMappingEnable)
+	if (params->envMappingEnable)
 	{
 		envMapping = EnvMapping(input);
 	}
@@ -102,7 +103,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	//fake orbit trap lights
 	sRGBAfloat fakeLights(0.0, 0.0, 0.0, 0.0);
 	sRGBAfloat fakeLightsSpecular(0.0, 0.0, 0.0, 0.0);
-	if(params->fakeLightsEnabled)
+	if (params->fakeLightsEnabled)
 	{
 		fakeLights = FakeLights(input, &fakeLightsSpecular);
 	}
@@ -117,9 +118,12 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	output.B += (auxLights.B + fakeLights.B) * colour.B;
 	output.A = 1.0;
 
-	(*specularOut).R = auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R;
-	(*specularOut).G = auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G;
-	(*specularOut).B = auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B;
+	(*specularOut).R = auxLightsSpecular.R + fakeLightsSpecular.R
+			+ mainLight.R * specular.R * shadow.R;
+	(*specularOut).G = auxLightsSpecular.G + fakeLightsSpecular.G
+			+ mainLight.G * specular.G * shadow.G;
+	(*specularOut).B = auxLightsSpecular.B + fakeLightsSpecular.B
+			+ mainLight.B * specular.B * shadow.B;
 	(*specularOut).A = output.A;
 
 	return output;
@@ -131,22 +135,24 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 
 	if (params->texturedBackground)
 	{
-		if(params->texturedBackgroundMapType == params::mapDoubleHemisphere)
+		if (params->texturedBackgroundMapType == params::mapDoubleHemisphere)
 		{
 			double alphaTexture = input.viewVector.GetAlpha();
 			double betaTexture = input.viewVector.GetBeta();
-			int texWidth = data->textures.backgroundTexture.Width()*0.5;
+			int texWidth = data->textures.backgroundTexture.Width() * 0.5;
 			int texHeight = data->textures.backgroundTexture.Height();
 			int offset = 0;
 
-			if(betaTexture < 0)
+			if (betaTexture < 0)
 			{
 				betaTexture = -betaTexture;
 				alphaTexture = M_PI - alphaTexture;
 				offset = texWidth;
 			}
-			double texX = 0.5 * texWidth + cos(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texWidth * 0.5 + offset;
-			double texY = 0.5 * texHeight + sin(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texHeight * 0.5;
+			double texX = 0.5 * texWidth
+					+ cos(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texWidth * 0.5 + offset;
+			double texY = 0.5 * texHeight
+					+ sin(alphaTexture) * (1.0 - betaTexture / (0.5 * M_PI)) * texHeight * 0.5;
 			sRGB8 pixel = data->textures.backgroundTexture.Pixel(texX, texY);
 			pixel2.R = pixel.R / 256.0;
 			pixel2.G = pixel.G / 256.0;
@@ -162,7 +168,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 			double texY = (betaTexture / (M_PI) + 0.5) * data->textures.backgroundTexture.Height();
 			sRGB8 pixel = data->textures.backgroundTexture.Pixel(texX, texY);
 			pixel2.R = pixel.R / 256.0;
- 			pixel2.G = pixel.G / 256.0;
+			pixel2.G = pixel.G / 256.0;
 			pixel2.B = pixel.B / 256.0;
 		}
 		pixel2.R *= params->background_brightness;
@@ -175,9 +181,9 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 		vector.Normalize();
 		CVector3 viewVectorNorm = input.viewVector;
 		viewVectorNorm.Normalize();
-		double grad = (viewVectorNorm.Dot(vector)+1.0);
+		double grad = (viewVectorNorm.Dot(vector) + 1.0);
 		sRGB16 pixel;
-		if(grad < 1)
+		if (grad < 1)
 		{
 			double Ngrad = 1.0 - grad;
 			pixel.R = (params->background_color3.R * Ngrad + params->background_color2.R * grad);
@@ -201,7 +207,8 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 
 	CVector3 viewVectorNorm = input.viewVector;
 	viewVectorNorm.Normalize();
-	double light = (viewVectorNorm.Dot(input.lightVect) - 1.0) * 360.0 / params->mainLightVisibilitySize;
+	double light = (viewVectorNorm.Dot(input.lightVect) - 1.0) * 360.0
+			/ params->mainLightVisibilitySize;
 	light = 1.0 / (1.0 + pow(light, 6.0)) * params->mainLightVisibility * params->mainLightIntensity;
 	pixel2.R += light * params->mainLightColour.R / 65536.0;
 	pixel2.G += light * params->mainLightColour.G / 65536.0;
@@ -210,7 +217,8 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input)
 	return pixel2;
 }
 
-sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut)
+sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAfloat oldPixel,
+		sRGBAfloat *opacityOut)
 {
 	sRGBAfloat output;
 	float totalOpacity = 0.0;
@@ -220,7 +228,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 	output.B = oldPixel.B;
 	output.A = oldPixel.A;
 
-  //volumetric fog init
+	//volumetric fog init
 	double colourThresh = params->volFogColour1Distance;
 	double colourThresh2 = params->volFogColour2Distance;
 	double fogReduce = params->volFogDistanceFactor;
@@ -231,19 +239,19 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 	if (numberOfLights < 4) numberOfLights = 4;
 
 	//glow init
-  double glow = input.stepCount * params->glowIntensity / 512.0 * params->DEFactor;
-  double glowN = 1.0 - glow;
-  if (glowN < 0.0) glowN = 0.0;
-  double glowR = (params->glowColor1.R * glowN + params->glowColor2.R * glow) / 65536.0;
-  double glowG = (params->glowColor1.G * glowN + params->glowColor2.G * glow) / 65536.0;
-  double glowB = (params->glowColor1.B * glowN + params->glowColor2.B * glow) / 65536.0;
+	double glow = input.stepCount * params->glowIntensity / 512.0 * params->DEFactor;
+	double glowN = 1.0 - glow;
+	if (glowN < 0.0) glowN = 0.0;
+	double glowR = (params->glowColor1.R * glowN + params->glowColor2.R * glow) / 65536.0;
+	double glowG = (params->glowColor1.G * glowN + params->glowColor2.G * glow) / 65536.0;
+	double glowB = (params->glowColor1.B * glowN + params->glowColor2.B * glow) / 65536.0;
 
-  double totalStep = 0.0;
+	double totalStep = 0.0;
 
-  //qDebug() << "Start volumetric shader &&&&&&&&&&&&&&&&&&&&";
+	//qDebug() << "Start volumetric shader &&&&&&&&&&&&&&&&&&&&";
 
-  sShaderInputData input2 = input;
-  for(int index = input.stepCount - 1; index > 0; index--)
+	sShaderInputData input2 = input;
+	for (int index = input.stepCount - 1; index > 0; index--)
 	{
 		double step = input.stepBuff[index].step;
 		double distance = input.stepBuff[index].distance;
@@ -255,7 +263,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 
 		//qDebug() << "i" << index << "dist" << distance << "iters" << input.stepBuff[index].iters << "distThresh" << input2.distThresh << "step" << step << "point" << point.Debug();
 
-		if(totalStep < CalcDelta(point))
+		if (totalStep < CalcDelta(point))
 		{
 			continue;
 		}
@@ -266,7 +274,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		if (params->glowEnabled)
 		{
 			double glowOpacity = glow / input.stepCount;
-			if(glowOpacity > 1.0) glowOpacity = 1.0;
+			if (glowOpacity > 1.0) glowOpacity = 1.0;
 			output.R = glowOpacity * glowR + (1.0 - glowOpacity) * output.R;
 			output.G = glowOpacity * glowG + (1.0 - glowOpacity) * output.G;
 			output.B = glowOpacity * glowB + (1.0 - glowOpacity) * output.B;
@@ -277,7 +285,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		if (params->auxLightVisibility > 0)
 		{
 			double miniStep = 0.0;
-			for(double miniSteps = 0.0; miniSteps < step; miniSteps += miniStep)
+			for (double miniSteps = 0.0; miniSteps < step; miniSteps += miniStep)
 			{
 				double lowestLightSize = 1e10;
 				double lowestLightDist = 1e10;
@@ -303,7 +311,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 				}
 
 				miniStep = 0.1 * (lowestLightDist + 0.1 * lowestLightSize);
-				if(miniStep > step - miniSteps) miniStep = step - miniSteps;
+				if (miniStep > step - miniSteps) miniStep = step - miniSteps;
 				//qDebug() << "ministeps" << miniSteps << "ministep" << miniStep;
 
 				for (int i = 0; i < numberOfLights; ++i)
@@ -328,14 +336,16 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		}
 
 		//fake lights (orbit trap)
-		if(params->fakeLightsEnabled)
+		if (params->fakeLightsEnabled)
 		{
 			sFractalIn fractIn(point, params->minN, params->N, params->common, -1);
 			sFractalOut fractOut;
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;
-			r = sqrt(1.0f/(r + 1.0e-30f));
-			double fakeLight = 1.0 / (pow(r, 10.0 / params->fakeLightsVisibilitySize) * pow(10.0, 10.0 / params->fakeLightsVisibilitySize) + 1e-100);
+			r = sqrt(1.0f / (r + 1.0e-30f));
+			double fakeLight = 1.0
+					/ (pow(r, 10.0 / params->fakeLightsVisibilitySize)
+							* pow(10.0, 10.0 / params->fakeLightsVisibilitySize) + 1e-100);
 			output.R += fakeLight * step * params->fakeLightsVisibility;
 			output.G += fakeLight * step * params->fakeLightsVisibility;
 			output.B += fakeLight * step * params->fakeLightsVisibility;
@@ -350,10 +360,14 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			if (i == 0 && params->volumetricLightEnabled[0])
 			{
 				sRGBAfloat shadowOutputTemp = MainShadow(input2);
-				output.R += shadowOutputTemp.R * step * params->volumetricLightIntensity[0] * params->mainLightColour.R / 65536.0;
-				output.G += shadowOutputTemp.G * step * params->volumetricLightIntensity[0] * params->mainLightColour.G / 65536.0;
-				output.B += shadowOutputTemp.B * step * params->volumetricLightIntensity[0] * params->mainLightColour.B / 65536.0;
-				output.A += (shadowOutputTemp.R + shadowOutputTemp.G + shadowOutputTemp.B)/3.0 * step * params->volumetricLightIntensity[0];
+				output.R += shadowOutputTemp.R * step * params->volumetricLightIntensity[0]
+						* params->mainLightColour.R / 65536.0;
+				output.G += shadowOutputTemp.G * step * params->volumetricLightIntensity[0]
+						* params->mainLightColour.G / 65536.0;
+				output.B += shadowOutputTemp.B * step * params->volumetricLightIntensity[0]
+						* params->mainLightColour.B / 65536.0;
+				output.A += (shadowOutputTemp.R + shadowOutputTemp.G + shadowOutputTemp.B) / 3.0 * step
+						* params->volumetricLightIntensity[0];
 			}
 			if (i > 0)
 			{
@@ -366,19 +380,22 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 					CVector3 lightVectorTemp = d;
 					lightVectorTemp.Normalize();
 					double lightShadow = AuxShadow(input2, distance, lightVectorTemp);
-					output.R += lightShadow * light.colour.R / 65536.0 * params->volumetricLightIntensity[i] * step / distance2;
-					output.G += lightShadow * light.colour.G / 65536.0 * params->volumetricLightIntensity[i] * step / distance2;
-					output.B += lightShadow * light.colour.B / 65536.0 * params->volumetricLightIntensity[i] * step / distance2;
+					output.R += lightShadow * light.colour.R / 65536.0 * params->volumetricLightIntensity[i]
+							* step / distance2;
+					output.G += lightShadow * light.colour.G / 65536.0 * params->volumetricLightIntensity[i]
+							* step / distance2;
+					output.B += lightShadow * light.colour.B / 65536.0 * params->volumetricLightIntensity[i]
+							* step / distance2;
 					output.A += lightShadow * params->volumetricLightIntensity[i] * step / distance2;
 				}
 			}
 		}
 
 		//----------------------- basic fog
-		if(params->fogEnabled)
+		if (params->fogEnabled)
 		{
 			double fogDensity = step / params->fogVisibility;
-			if(fogDensity > 1.0) fogDensity = 1.0;
+			if (fogDensity > 1.0) fogDensity = 1.0;
 			output.R = fogDensity * params->fogColor.R / 65536.0 + (1.0 - fogDensity) * output.R;
 			output.G = fogDensity * params->fogColor.G / 65536.0 + (1.0 - fogDensity) * output.G;
 			output.B = fogDensity * params->fogColor.B / 65536.0 + (1.0 - fogDensity) * output.B;
@@ -387,7 +404,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		}
 
 		//-------------------- volumetric fog
-		if(fogIntensity > 0.0 && params->volFogEnabled)
+		if (fogIntensity > 0.0 && params->volFogEnabled)
 		{
 			double densityTemp = (step * fogReduce) / (distance * distance + fogReduce * fogReduce);
 
@@ -406,7 +423,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			fogBtemp = (fogBtemp * kn + params->volFogColour3.B * k2);
 
 			double fogDensity = 0.3 * fogIntensity * densityTemp / (1.0 + fogIntensity * densityTemp);
-			if(fogDensity > 1) fogDensity = 1.0;
+			if (fogDensity > 1) fogDensity = 1.0;
 
 			output.R = fogDensity * fogRtemp / 65536.0 + (1.0 - fogDensity) * output.R;
 			output.G = fogDensity * fogGtemp / 65536.0 + (1.0 - fogDensity) * output.G;
@@ -421,13 +438,18 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 		if (params->iterFogEnabled)
 		{
 			int L = input.stepBuff[index].iters;
-			double opacity = IterOpacity(step, L, params->N, params->iterFogOpacityTrim, params->iterFogOpacity);
+			double opacity = IterOpacity(step,
+																	 L,
+																	 params->N,
+																	 params->iterFogOpacityTrim,
+																	 params->iterFogOpacity);
 
 			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
 			if (opacity > 0)
 			{
 				//fog colour
-				double iterFactor1 = (double) (L - params->iterFogOpacityTrim) / (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
+				double iterFactor1 = (double) (L - params->iterFogOpacityTrim)
+						/ (params->iterFogColor1Maxiter - params->iterFogOpacityTrim);
 				double k = iterFactor1;
 				if (k > 1.0) k = 1.0;
 				if (k < 0.0) k = 0.0;
@@ -436,7 +458,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 				double fogColG = (params->iterFogColour1.G * kn + params->iterFogColour2.G * k);
 				double fogColB = (params->iterFogColour1.B * kn + params->iterFogColour2.B * k);
 
-				double iterFactor2 = (double) (L - params->iterFogColor1Maxiter) / (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
+				double iterFactor2 = (double) (L - params->iterFogColor1Maxiter)
+						/ (params->iterFogColor2Maxiter - params->iterFogColor1Maxiter);
 				double k2 = iterFactor2;
 				if (k2 < 0.0) k2 = 0.0;
 				if (k2 > 1.0) k2 = 1.0;
@@ -453,9 +476,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 						if (params->mainLightEnable && params->mainLightIntensity > 0.0)
 						{
 							sRGBAfloat shadowOutputTemp = MainShadow(input2);
-							newColour.R += shadowOutputTemp.R * params->mainLightColour.R / 65536.0 * params->mainLightIntensity;
-							newColour.G += shadowOutputTemp.G * params->mainLightColour.G / 65536.0 * params->mainLightIntensity;
-							newColour.B += shadowOutputTemp.B * params->mainLightColour.B / 65536.0 * params->mainLightIntensity;
+							newColour.R += shadowOutputTemp.R * params->mainLightColour.R / 65536.0
+									* params->mainLightIntensity;
+							newColour.G += shadowOutputTemp.G * params->mainLightColour.G / 65536.0
+									* params->mainLightIntensity;
+							newColour.B += shadowOutputTemp.B * params->mainLightColour.B / 65536.0
+									* params->mainLightIntensity;
 						}
 					}
 
@@ -479,7 +505,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 
 				}
 
-				if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeMultipeRays)
+				if (params->ambientOcclusionEnabled
+						&& params->ambientOcclusionMode == params::AOmodeMultipeRays)
 				{
 					sRGBAfloat AO = AmbientOcclusion(input2);
 					newColour.R += AO.R * params->ambientOcclusion;
@@ -497,15 +524,13 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 			}
 		}
 
-
-		if(totalOpacity > 1.0) totalOpacity = 1.0;
-		if(output.A > 1.0) output.A = 1.0;
+		if (totalOpacity > 1.0) totalOpacity = 1.0;
+		if (output.A > 1.0) output.A = 1.0;
 		(*opacityOut).R = totalOpacity;
 		(*opacityOut).G = totalOpacity;
 		(*opacityOut).B = totalOpacity;
 
 	} //next stepCount
-
 
 	return output;
 }
@@ -522,7 +547,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 	double dist = input.distThresh;
 
 	double DEFactor = params->DEFactor;
-	if(params->iterFogEnabled || params->volumetricLightEnabled[0]) DEFactor = 1.0;
+	if (params->iterFogEnabled || params->volumetricLightEnabled[0]) DEFactor = 1.0;
 
 	//double start = input.delta;
 	double start = input.distThresh;
@@ -534,24 +559,24 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
 	double maxSoft = 0.0;
 
-	const bool bSoft = (!params->iterFogEnabled && !params->limitsEnabled && !params->iterThreshMode) && softRange > 0.0;
+	const bool bSoft = (!params->iterFogEnabled && !params->limitsEnabled && !params->iterThreshMode)
+			&& softRange > 0.0;
 
 	for (double i = start; i < factor; i += dist * DEFactor)
 	{
 		point2 = input.point + input.lightVect * i;
 
 		float dist_thresh;
-		if(params->iterFogEnabled || params->volumetricLightEnabled[0])
+		if (params->iterFogEnabled || params->volumetricLightEnabled[0])
 		{
 			dist_thresh = CalcDistThresh(point2);
 		}
-		else
-			dist_thresh = input.distThresh;
+		else dist_thresh = input.distThresh;
 
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(point2, dist_thresh, false);
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
-		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
+		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		if (bSoft)
 		{
@@ -566,7 +591,11 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input)
 
 		if (params->iterFogEnabled)
 		{
-			opacity = IterOpacity(dist * DEFactor, distanceOut.iters, params->N, params->iterFogOpacityTrim, params->iterFogOpacity);
+			opacity = IterOpacity(dist * DEFactor,
+														distanceOut.iters,
+														params->N,
+														params->iterFogOpacityTrim,
+														params->iterFogOpacity);
 		}
 		else
 		{
@@ -612,8 +641,9 @@ sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input)
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(pointTemp, input.distThresh, false);
 		double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
-		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
-		aoTemp += 1.0 / pow(2.0, i) * (scan - params->ambientOcclusionFastTune * dist) / input.distThresh;
+		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+		aoTemp += 1.0 / pow(2.0, i) * (scan - params->ambientOcclusionFastTune * dist)
+				/ input.distThresh;
 	}
 	double ao = 1.0 - 0.2 * aoTemp;
 	if (ao < 0) ao = 0;
@@ -623,7 +653,7 @@ sRGBAfloat cRenderWorker::FastAmbientOcclusion(const sShaderInputData &input)
 
 sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 {
-	sRGBAfloat AO (0, 0, 0, 1.0);
+	sRGBAfloat AO(0, 0, 0, 1.0);
 
 	double start_dist = input.delta;
 	double end_dist = input.delta / params->resolution;
@@ -645,12 +675,15 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 			sDistanceOut distanceOut;
 			sDistanceIn distanceIn(point2, input.distThresh, false);
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
-			data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
+			data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 			if (params->iterFogEnabled)
 			{
-				opacity = IterOpacity(dist * 2.0, distanceOut.iters, params->N, params->iterFogOpacityTrim,
-						params->iterFogOpacity);
+				opacity = IterOpacity(dist * 2.0,
+															distanceOut.iters,
+															params->N,
+															params->iterFogOpacityTrim,
+															params->iterFogOpacity);
 			}
 			else
 			{
@@ -659,12 +692,11 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input)
 			shadowTemp -= opacity * (end_dist - r) / end_dist;
 
 			float dist_thresh;
-			if(params->iterFogEnabled || params->volumetricLightEnabled[0])
+			if (params->iterFogEnabled || params->volumetricLightEnabled[0])
 			{
 				dist_thresh = CalcDistThresh(point2);
 			}
-			else
-				dist_thresh = input.distThresh;
+			else dist_thresh = input.distThresh;
 
 			if (dist < dist_thresh || distanceOut.maxiter || shadowTemp < 0.0)
 			{
@@ -695,29 +727,29 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 	if (!params->slowShading)
 	{
 		double delta = input.delta * params->smoothness;
-		if(params->interiorMode) delta = input.distThresh * 0.2 * params->smoothness;
+		if (params->interiorMode) delta = input.distThresh * 0.2 * params->smoothness;
 
 		double s1, s2, s3, s4;
 		sDistanceOut distanceOut;
 
 		sDistanceIn distanceIn1(input.point, input.distThresh, true);
 		s1 = CalculateDistance(*params, *fractal, distanceIn1, &distanceOut);
-		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
+		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		CVector3 deltax(delta, 0.0, 0.0);
 		sDistanceIn distanceIn2(input.point + deltax, input.distThresh, true);
 		s2 = CalculateDistance(*params, *fractal, distanceIn2, &distanceOut);
-		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
+		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		CVector3 deltay(0.0, delta, 0.0);
 		sDistanceIn distanceIn3(input.point + deltay, input.distThresh, true);
 		s3 = CalculateDistance(*params, *fractal, distanceIn3, &distanceOut);
-		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
+		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		CVector3 deltaz(0.0, 0.0, delta);
 		sDistanceIn distanceIn4(input.point + deltaz, input.distThresh, true);
 		s4 = CalculateDistance(*params, *fractal, distanceIn4, &distanceOut);
-		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
+		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		normal.x = s2 - s1;
 		normal.y = s3 - s1;
@@ -730,7 +762,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 		CVector3 point2;
 		CVector3 point3;
 		double delta = input.delta * params->smoothness * 0.5;
-		if(params->interiorMode) delta = input.distThresh * 0.2 * params->smoothness;
+		if (params->interiorMode) delta = input.distThresh * 0.2 * params->smoothness;
 
 		sDistanceOut distanceOut;
 		for (point2.x = -1.0; point2.x <= 1.0; point2.x += 0.2) //+0.2
@@ -743,13 +775,13 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 
 					sDistanceIn distanceIn(point3, input.distThresh, true);
 					double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
-					data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
+					data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 					normal += (point2 * dist);
 				}
 			}
 		}
 	}
-	if(normal.x == 0 && normal.y == 0 && normal.z == 0)
+	if (normal.x == 0 && normal.y == 0 && normal.z == 0)
 	{
 		normal.x = 1;
 	}
@@ -758,7 +790,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input)
 		normal.Normalize();
 	}
 
-	if(input.invertMode) normal *= (-1.0);
+	if (input.invertMode) normal *= (-1.0);
 
 	//qDebug() << input.point.Debug() << normal.Debug();
 
@@ -830,43 +862,43 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 	int L = 0;
 	double r = 0.0;
 	int nrKol = 253 * 256;
-  for(L=0; L<N; L++)
-  {
-  	double temp = zx * zx - zy * zy + point.x;
-  	zy = 2.0 * zx * zy + point.y;
-  	zx = temp;
-  	r = zx * zx + zy * zy;
-  	if(r > 1e20)
-  	{
-    	smooth = (L - log(log(sqrt(r)) / log(N)) / log(p));
-    	nrKol = smooth * 50.0;
-    	nrKol = abs(nrKol) % (248 * 256);
-  		break;
-  	}
-  }
+	for(L=0; L<N; L++)
+	{
+		double temp = zx * zx - zy * zy + point.x;
+		zy = 2.0 * zx * zy + point.y;
+		zx = temp;
+		r = zx * zx + zy * zy;
+		if(r > 1e20)
+		{
+			smooth = (L - log(log(sqrt(r)) / log(N)) / log(p));
+			nrKol = smooth * 50.0;
+			nrKol = abs(nrKol) % (248 * 256);
+			break;
+		}
+	}
 
 	N_counter += L + 1;
 	Loop_counter++;
 
 	if (L/10 < 64)
-		histogram[L/10]++;
+	histogram[L/10]++;
 	else
-		histogram[63]++;
-  return nrKol;
+	histogram[63]++;
+	return nrKol;
 
 #else
 	sRGBAfloat out;
 
-	switch(input.objectType)
+	switch (input.objectType)
 	{
 		case fractal::objFractal:
 		{
-			sRGB colour (256, 256, 256);
+			sRGB colour(256, 256, 256);
 			if (params->coloringEnabled)
 			{
 				int formulaIndex = input.formulaIndex;
-				if(!params->booleanOperatorsEnabled) formulaIndex = -1;
-				sFractalIn fractIn(input.point, 0, params->N*10, params->common, formulaIndex);
+				if (!params->booleanOperatorsEnabled) formulaIndex = -1;
+				sFractalIn fractIn(input.point, 0, params->N * 10, params->common, formulaIndex);
 				sFractalOut fractOut;
 				Compute<fractal::calcModeColouring>(*fractal, fractIn, &fractOut);
 				int nrCol = floor(fractOut.colorIndex);
@@ -879,7 +911,8 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 				}
 				else
 				{
-					color_number = (int) (nrCol * params->coloring_speed + 256 * params->paletteOffset) % 65536;
+					color_number = (int) (nrCol * params->coloring_speed + 256 * params->paletteOffset)
+							% 65536;
 				}
 				colour = data->palette.IndexToColour(color_number);
 			}
@@ -916,7 +949,8 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 #endif
 }
 
-sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, cLights::sLight light, int number, sRGBAfloat *outSpecular)
+sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, cLights::sLight light,
+		int number, sRGBAfloat *outSpecular)
 {
 	sRGBAfloat shading;
 
@@ -997,7 +1031,8 @@ sRGBAfloat cRenderWorker::AuxLightsShader(const sShaderInputData &input, sRGBAfl
 	return shadeAuxSum;
 }
 
-double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance, CVector3 lightVector)
+double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance,
+		CVector3 lightVector)
 {
 	double step = input.delta;
 	double dist = step;
@@ -1007,7 +1042,7 @@ double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance, 
 	double shadowTemp = 1.0;
 
 	double DE_factor = params->DEFactor;
-	if(params->iterFogEnabled || params->volumetricLightAnyEnabled) DE_factor = 1.0;
+	if (params->iterFogEnabled || params->volumetricLightAnyEnabled) DE_factor = 1.0;
 
 	for (double i = input.delta; i < distance; i += dist * DE_factor)
 	{
@@ -1016,12 +1051,15 @@ double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance, 
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(point2, input.distThresh, false);
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
-		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
+		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		if (params->iterFogEnabled)
 		{
-			opacity = IterOpacity(dist * DE_factor, distanceOut.iters, params->N, params->iterFogOpacityTrim,
-					params->iterFogOpacity);
+			opacity = IterOpacity(dist * DE_factor,
+														distanceOut.iters,
+														params->N,
+														params->iterFogOpacityTrim,
+														params->iterFogOpacity);
 		}
 		else
 		{
@@ -1030,12 +1068,11 @@ double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance, 
 		shadowTemp -= opacity * (distance - i) / distance;
 
 		float dist_thresh;
-		if(params->iterFogEnabled || params->volumetricLightAnyEnabled)
+		if (params->iterFogEnabled || params->volumetricLightAnyEnabled)
 		{
 			dist_thresh = CalcDistThresh(point2);
 		}
-		else
-			dist_thresh = input.distThresh;
+		else dist_thresh = input.distThresh;
 
 		if (dist < dist_thresh || shadowTemp < 0.0)
 		{
@@ -1055,13 +1092,14 @@ double cRenderWorker::AuxShadow(const sShaderInputData &input, double distance, 
 	return light;
 }
 
-double cRenderWorker::IterOpacity(const double step, double iters, double maxN, double trim, double opacitySp)
+double cRenderWorker::IterOpacity(const double step, double iters, double maxN, double trim,
+		double opacitySp)
 {
-	double opacity = ((double)iters - trim) / maxN;
-	if(opacity < 0.0) opacity = 0.0;
-	opacity*=opacity;
-	opacity*=step  * opacitySp;
-	if(opacity > 1.0) opacity = 1.0;
+	double opacity = ((double) iters - trim) / maxN;
+	if (opacity < 0.0) opacity = 0.0;
+	opacity *= opacity;
+	opacity *= step * opacitySp;
+	if (opacity > 1.0) opacity = 1.0;
 	return opacity;
 }
 
@@ -1077,8 +1115,8 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 	double rr = fractOut.orbitTrapR;
 
-	double fakeLight = params->fakeLightsIntensity/rr;
-	double r = 1.0/(rr + 1e-30);
+	double fakeLight = params->fakeLightsIntensity / rr;
+	double r = 1.0 / (rr + 1e-30);
 
 	CVector3 deltax(delta, 0.0, 0.0);
 	CVector3 deltay(0.0, delta, 0.0);
@@ -1086,22 +1124,22 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 
 	fractIn.point = input.point + deltax;
 	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
-	double rx = 1.0/(fractOut.orbitTrapR + 1e-30);
+	double rx = 1.0 / (fractOut.orbitTrapR + 1e-30);
 
 	fractIn.point = input.point + deltay;
 	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
-	double ry = 1.0/(fractOut.orbitTrapR + 1e-30);
+	double ry = 1.0 / (fractOut.orbitTrapR + 1e-30);
 
 	fractIn.point = input.point + deltaz;
 	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
-	double rz = 1.0/(fractOut.orbitTrapR + 1e-30);
+	double rz = 1.0 / (fractOut.orbitTrapR + 1e-30);
 
 	CVector3 fakeLightNormal;
 	fakeLightNormal.x = r - rx;
 	fakeLightNormal.y = r - ry;
 	fakeLightNormal.z = r - rz;
 
-	if(fakeLightNormal.x == 0 && fakeLightNormal.y == 0 && fakeLightNormal.z == 0)
+	if (fakeLightNormal.x == 0 && fakeLightNormal.y == 0 && fakeLightNormal.z == 0)
 	{
 		fakeLightNormal.x = 0.0;
 	}
@@ -1110,7 +1148,7 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 		fakeLightNormal.Normalize();
 	}
 	double fakeLight2 = fakeLight * input.normal.Dot(fakeLightNormal);
-	if(fakeLight2 < 0) fakeLight2 = 0;
+	if (fakeLight2 < 0) fakeLight2 = 0;
 
 	fakeLights.R = fakeLight2;
 	fakeLights.G = fakeLight2;

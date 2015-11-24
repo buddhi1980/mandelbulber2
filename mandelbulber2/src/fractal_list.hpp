@@ -67,20 +67,20 @@ enum enumFractalFormula
 	angleMultiplyZ = 36,
 	generalizedFoldBox = 37,
 	ocl_custom = 38,
-  ides = 39,
-  ides2 = 40,
-  buffalo = 41,
-  quickdudley = 48,
-  lkmitch = 49,
-  makin3d2 = 50,
-  msltoesym2 = 51,
-  mandelbulb5 = 52,
-  mandelbox103 = 53,
-  quaternion104 = 54,
-  mengerSponge105 = 55,
-  platonicSolid = 56,
-  mandelbulb6Beta = 57,
-  benesiTransforms = 58,
+	ides = 39,
+	ides2 = 40,
+	buffalo = 41,
+	quickdudley = 48,
+	lkmitch = 49,
+	makin3d2 = 50,
+	msltoesym2 = 51,
+	mandelbulb5 = 52,
+	mandelbox103 = 53,
+	quaternion104 = 54,
+	mengerSponge105 = 55,
+	platonicSolid = 56,
+	mandelbulb6Beta = 57,
+	benesiTransforms = 58,
 };
 
 enum enumDEType
@@ -96,7 +96,14 @@ struct sFractalDescription
 	QString internalNane;
 	fractal::enumFractalFormula internalID;
 	fractal::enumDEType DEType;
-	sFractalDescription(QString _nameInComboBox, QString _internalNane, fractal::enumFractalFormula _internalID, fractal::enumDEType _DEType) : nameInComboBox(_nameInComboBox), internalNane(_internalNane), internalID(_internalID), DEType(_DEType) {};
+	sFractalDescription(QString _nameInComboBox, QString _internalNane,
+			fractal::enumFractalFormula _internalID, fractal::enumDEType _DEType) :
+					nameInComboBox(_nameInComboBox),
+					internalNane(_internalNane),
+					internalID(_internalID),
+					DEType(_DEType)
+	{
+	}
 };
 
 extern QList<sFractalDescription> fractalList;

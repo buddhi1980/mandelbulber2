@@ -100,11 +100,14 @@ private slots:
 	void slotResizedScrolledAreaImage(int width, int height);
 	void slotSliderMovedEditManualLightPlacementDistance(int value);
 	void slotMenuLoadPreset(QString filename);
-	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
+	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
+			double progress,
+			cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
 	void slotUpdateProgressHide(cProgressText::enumProgressType progressType);
 	void slotUpdateStatistics(cStatistics);
 	void slotMenuProgramSettings();
-	void slotQuestionMessage(const QString &questionTitle, const QString &questionText, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
+	void slotQuestionMessage(const QString &questionTitle, const QString &questionText,
+			QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
 
 	//camera
 	void slotCameraMove();

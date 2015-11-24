@@ -30,10 +30,10 @@
 
 class cPostRenderingDOF: public QObject
 {
-	Q_OBJECT
+Q_OBJECT
 
 private:
-	template <class TYPE>
+	template<class TYPE>
 
 	struct sSortZ
 	{
@@ -45,7 +45,7 @@ public:
 	cPostRenderingDOF(cImage *_image);
 
 	void Render(double deep, double neutral, bool *stopRequest);
-	template <class T> void QuickSortZBuffer(sSortZ<T> *dane, int l, int p);
+	template<class T> void QuickSortZBuffer(sSortZ<T> *dane, int l, int p);
 
 	cImage *image;
 

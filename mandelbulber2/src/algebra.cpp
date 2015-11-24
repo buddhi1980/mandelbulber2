@@ -31,7 +31,7 @@ CVector3 CVector3::RotateAroundVectorByAngle(CVector3 axis, double angle)
 
 double CVector3::itemByName(char item)
 {
-	switch(item)
+	switch (item)
 	{
 		case 'x':
 			return x;
@@ -249,7 +249,7 @@ void CRotationMatrix::Null()
 
 double CRotationMatrix::GetAlfa() const
 {
-	return atan2(matrix.m12,matrix.m22);
+	return atan2(matrix.m12, matrix.m22);
 }
 
 double CRotationMatrix::GetBeta() const
@@ -259,7 +259,7 @@ double CRotationMatrix::GetBeta() const
 
 double CRotationMatrix::GetGamma() const
 {
-	return atan2(matrix.m31,matrix.m33);
+	return atan2(matrix.m31, matrix.m33);
 }
 
 CRotationMatrix CRotationMatrix::Transpose() const

@@ -35,12 +35,24 @@ namespace fractal
 {
 enum enumCalculationMode
 {
-	calcModeNormal = 0, calcModeColouring = 1, calcModeFake_AO = 2, calcModeDeltaDE1 = 3, calcModeDeltaDE2 = 4, calcModeOrbitTrap = 5
+	calcModeNormal = 0,
+	calcModeColouring = 1,
+	calcModeFake_AO = 2,
+	calcModeDeltaDE1 = 3,
+	calcModeDeltaDE2 = 4,
+	calcModeOrbitTrap = 5
 };
 
 enum enumGeneralizedFoldBoxType
 {
-	foldTet = 0, foldCube = 1, foldOct = 2, foldDodeca = 3, foldOctCube = 4, foldIcosa = 5, foldBox6 = 6, foldBox5 = 7
+	foldTet = 0,
+	foldCube = 1,
+	foldOct = 2,
+	foldDodeca = 3,
+	foldOctCube = 4,
+	foldIcosa = 5,
+	foldBox6 = 6,
+	foldBox5 = 7
 };
 
 enum enumOCLDEMode
@@ -81,16 +93,16 @@ struct sExtendedAux
 	double DE;
 	double color;
 	double actualScale;
-  double newR;
-  double orbitTraps;
-  double axisBias;
-  double transformSampling;
+	double newR;
+	double orbitTraps;
+	double axisBias;
+	double transformSampling;
 };
 
 struct sFoldColor
 {
 	CVector3 factor;
-  double factorR;
+	double factorR;
 	double factorSp1;
 	double factorSp2;
 };
@@ -177,7 +189,6 @@ struct sFractalBoxFoldBulbPow2
 	double foldfactor;
 };
 
-
 struct sFractalMandelbulb
 {
 	double power;
@@ -199,485 +210,492 @@ struct sFractalBuffalo
 	bool absx;
 	bool absy;
 	bool absz;
-  bool posz;
+	bool posz;
 };
 
 struct sMsltoeSym2
 {
 	double y_multiplier;
 };
-  //----------------------Structure Transform---------------------------------
+//----------------------Structure Transform---------------------------------
 struct sTransformControl
 {
-  bool enabled;
-  bool weightEnabled;
-  bool oldWeightEnabled;
-  int startIterations;
-  int stopIterations;
-  double weight;
-  double oldWeight;
+	bool enabled;
+	bool weightEnabled;
+	bool oldWeightEnabled;
+	int startIterations;
+	int stopIterations;
+	double weight;
+	double oldWeight;
 };
 
 struct sTransformAdditionConstant
 {
-  sTransformControl control;
-  CVector3 additionConstant;
-  // for 4D
-  CVector4 additionConstant4D;
+	sTransformControl control;
+	CVector3 additionConstant;
+	// for 4D
+	CVector4 additionConstant4D;
 
 };
 struct sTransformBoxConstantMultiplier
 {
-  sTransformControl control;
-  bool boxConstantMultiplierFabsEnabledX;
-  bool boxConstantMultiplierFabsEnabledY;
-  bool boxConstantMultiplierFabsEnabledZ;
-  CVector3 boxConstantMultiplier;
+	sTransformControl control;
+	bool boxConstantMultiplierFabsEnabledX;
+	bool boxConstantMultiplierFabsEnabledY;
+	bool boxConstantMultiplierFabsEnabledZ;
+	CVector3 boxConstantMultiplier;
 };
 struct sTransformBoxFoldOriginal
 {
-  sTransformControl control;
-  sFoldColor color;
-  double foldingLimit;
-  double foldingValue;
+	sTransformControl control;
+	sFoldColor color;
+	double foldingLimit;
+	double foldingValue;
 };
 struct sTransformBoxFold
 {
-  sTransformControl control;
-  sFoldColor color;
-  double foldingLimit;
-  double foldingValue;
+	sTransformControl control;
+	sFoldColor color;
+	double foldingLimit;
+	double foldingValue;
 };
 struct sTransformBoxOffset
 {
-  sTransformControl control;
-  sFoldColor color;
-  CVector3 boxOffset;
+	sTransformControl control;
+	sFoldColor color;
+	CVector3 boxOffset;
 };
 struct sTransformConstantMultiplierOriginal
 {
-  sTransformControl control;
-  CVector3 constantMultiplierVect;
-  //extra for 4D
-  CVector4 constantMultiplierVect4D;
+	sTransformControl control;
+	CVector3 constantMultiplierVect;
+	//extra for 4D
+	CVector4 constantMultiplierVect4D;
 };
 struct sTransformConstantMultiplier
 {
-  sTransformControl control;
-  CVector3 constantMultiplierVect;
-  //extra for 4D
-  CVector4 constantMultiplierVect4D;
+	sTransformControl control;
+	CVector3 constantMultiplierVect;
+	//extra for 4D
+	CVector4 constantMultiplierVect4D;
 };
 struct sTransformFabsAddConstant
 {
-  sTransformControl control;
-  bool fabsAddConstantEnabledx;
-  bool fabsAddConstantEnabledy;
-  bool fabsAddConstantEnabledz;
-  bool fabsAddConstantEnabledw;
-  CVector3 fabsAddConstantA;
-  CVector3 fabsAddConstantB;
-  CVector3 fabsAddConstantC;
-  // for 4D
-  CVector4 fabsAddConstant4DA;
-  CVector4 fabsAddConstant4DB;
-  CVector4 fabsAddConstant4DC;
+	sTransformControl control;
+	bool fabsAddConstantEnabledx;
+	bool fabsAddConstantEnabledy;
+	bool fabsAddConstantEnabledz;
+	bool fabsAddConstantEnabledw;
+	CVector3 fabsAddConstantA;
+	CVector3 fabsAddConstantB;
+	CVector3 fabsAddConstantC;
+	// for 4D
+	CVector4 fabsAddConstant4DA;
+	CVector4 fabsAddConstant4DB;
+	CVector4 fabsAddConstant4DC;
 };
 struct sTransformFabsFormulaAB
 {
-  sTransformControl control;
-  bool fabsFormulaABEnabledx;
-  bool fabsFormulaABEnabledy;
-  bool fabsFormulaABEnabledz;
-  bool fabsFormulaABEnabledw;
-  CVector3 fabsFormulaABConstantA;
-  CVector3 fabsFormulaABConstantB;
+	sTransformControl control;
+	bool fabsFormulaABEnabledx;
+	bool fabsFormulaABEnabledy;
+	bool fabsFormulaABEnabledz;
+	bool fabsFormulaABEnabledw;
+	CVector3 fabsFormulaABConstantA;
+	CVector3 fabsFormulaABConstantB;
 };
 struct sTransformFabsFormulaABCD
 {
-  sTransformControl control;
-  bool fabsFormulaABCDEnabledAx;
-  bool fabsFormulaABCDEnabledAy;
-  bool fabsFormulaABCDEnabledAz;
-  bool fabsFormulaABCDEnabledBx;
-  bool fabsFormulaABCDEnabledBy;
-  bool fabsFormulaABCDEnabledBz;
-  CVector3 fabsFormulaABCDA;
-  CVector3 fabsFormulaABCDB;
-  CVector3 fabsFormulaABCDC;
-  CVector3 fabsFormulaABCDD;
-  // for 4D
-  CVector4 fabsFormulaABCD4DA;
-  CVector4 fabsFormulaABCD4DB;
-  CVector4 fabsFormulaABCD4DC;
-  CVector4 fabsFormulaABCD4DD;
-  bool fabsFormulaABCDEnabledAw;
-  bool fabsFormulaABCDEnabledBw;
+	sTransformControl control;
+	bool fabsFormulaABCDEnabledAx;
+	bool fabsFormulaABCDEnabledAy;
+	bool fabsFormulaABCDEnabledAz;
+	bool fabsFormulaABCDEnabledBx;
+	bool fabsFormulaABCDEnabledBy;
+	bool fabsFormulaABCDEnabledBz;
+	CVector3 fabsFormulaABCDA;
+	CVector3 fabsFormulaABCDB;
+	CVector3 fabsFormulaABCDC;
+	CVector3 fabsFormulaABCDD;
+	// for 4D
+	CVector4 fabsFormulaABCD4DA;
+	CVector4 fabsFormulaABCD4DB;
+	CVector4 fabsFormulaABCD4DC;
+	CVector4 fabsFormulaABCD4DD;
+	bool fabsFormulaABCDEnabledAw;
+	bool fabsFormulaABCDEnabledBw;
 };
 struct sTransformFabsFormulaZAB
 {
-  sTransformControl control;
-  bool fabsFormulaZABEnabledx;
-  bool fabsFormulaZABEnabledy;
-  bool fabsFormulaZABEnabledz;
-  CVector3 fabsFormulaZABConstantA;
-  CVector3 fabsFormulaZABConstantB;
-  CVector3 fabsFormulaZABConstantC;
+	sTransformControl control;
+	bool fabsFormulaZABEnabledx;
+	bool fabsFormulaZABEnabledy;
+	bool fabsFormulaZABEnabledz;
+	CVector3 fabsFormulaZABConstantA;
+	CVector3 fabsFormulaZABConstantB;
+	CVector3 fabsFormulaZABConstantC;
 };
 struct sTransformFabsSubConstant
 {
-  sTransformControl control;
-  bool fabsSubConstantEnabledx;
-  bool fabsSubConstantEnabledy;
-  bool fabsSubConstantEnabledz;
-  bool fabsSubConstantEnabledw;
-  CVector3 fabsSubConstantA;
-  CVector3 fabsSubConstantB;
+	sTransformControl control;
+	bool fabsSubConstantEnabledx;
+	bool fabsSubConstantEnabledy;
+	bool fabsSubConstantEnabledz;
+	bool fabsSubConstantEnabledw;
+	CVector3 fabsSubConstantA;
+	CVector3 fabsSubConstantB;
 };
 
 struct sTransformIterationWeight
 {
-  sTransformControl control;
-  int iterationWeightIterationA;
-  int iterationWeightIterationB;
-  double iterationWeightConstantZ;
-  double iterationWeightConstantA;
-  double iterationWeightConstantB;
+	sTransformControl control;
+	int iterationWeightIterationA;
+	int iterationWeightIterationB;
+	double iterationWeightConstantZ;
+	double iterationWeightConstantA;
+	double iterationWeightConstantB;
 };
 struct sTransformMandelbulbOriginal
 {
-  sTransformControl control;
-  double power;
-  double alphaAngleOffset;
-  double betaAngleOffset;
-  double gammaAngleOffset;
+	sTransformControl control;
+	double power;
+	double alphaAngleOffset;
+	double betaAngleOffset;
+	double gammaAngleOffset;
 };
 struct sTransformMandelbulb
 {
-  sTransformControl control;
-  double power;
-  double alphaAngleOffset;
-  double betaAngleOffset;
+	sTransformControl control;
+	double power;
+	double alphaAngleOffset;
+	double betaAngleOffset;
 };
-
 
 struct sTransformMainRotation
 {
-  sTransformControl control;
-  CVector3 mainRotation;
-  CRotationMatrix mainRot;
+	sTransformControl control;
+	CVector3 mainRotation;
+	CRotationMatrix mainRot;
 };
 
 struct sTransformMengerSpongeOriginal
 {
-  sTransformControl control;
-  double mengerSpongeOriginalConstantZ;
-  CVector3 mengerSpongeOriginalFactorConstantVect;
+	sTransformControl control;
+	double mengerSpongeOriginalConstantZ;
+	CVector3 mengerSpongeOriginalFactorConstantVect;
 };
 struct sTransformMengerSponge
 {
-  sTransformControl control;
-  double mengerSpongeConstantZ;
-  CVector3 mengerSpongeFactorConstantVect;
+	sTransformControl control;
+	double mengerSpongeConstantZ;
+	CVector3 mengerSpongeFactorConstantVect;
 };
 struct sTransformQuaternionOriginal
 {
-  sTransformControl control;
-  CVector4  quaternionOriginalFactorConstant;
+	sTransformControl control;
+	CVector4 quaternionOriginalFactorConstant;
 };
 struct sTransformQuaternion
 {
-  sTransformControl control;
-  CVector4 quaternionFactorConstant;
+	sTransformControl control;
+	CVector4 quaternionFactorConstant;
 };
 struct sTransformScaleOriginal
 {
-  sTransformControl control;
-  double scaleOriginal;
+	sTransformControl control;
+	double scaleOriginal;
 };
 struct sTransformScale
 {
-  sTransformControl control;
-  double scale;
+	sTransformControl control;
+	double scale;
 };
 struct sTransformSphericalFoldOriginal
 {
-  sTransformControl control;
-  sFoldColor color;
-  double radMin;
-  double radFixed;
-  double fR2;
-  double mR2;
-  double mboxFactor1;
+	sTransformControl control;
+	sFoldColor color;
+	double radMin;
+	double radFixed;
+	double fR2;
+	double mR2;
+	double mboxFactor1;
 };
 
 struct sTransformSphericalFold
 {
-  sTransformControl control;
-  sFoldColor color;
-  double radMin;
-  double radFixed;
-  double fR2;
-  double mR2;
-  double mboxFactor1;
+	sTransformControl control;
+	sFoldColor color;
+	double radMin;
+	double radFixed;
+	double fR2;
+	double mR2;
+	double mboxFactor1;
 };
 
 struct sTransformSphericalOffset
 {
-  sTransformControl control;
-  double offsetRadius;
-  double scale;
+	sTransformControl control;
+	double offsetRadius;
+	double scale;
 };
 
 struct sTransformVariableConstantMultiplier
 {
-  sTransformControl control;
-  CVector3 constantMultiplier;
-  CVector3 variableConstant;
-  int variableStartIterations;
-  int variableStopIterations;
+	sTransformControl control;
+	CVector3 constantMultiplier;
+	CVector3 variableConstant;
+	int variableStartIterations;
+	int variableStopIterations;
 };
 struct sTransformVariableMandelbulbPower
 {
-  sTransformControl control;
-  double power;
-  double alphaAngleOffset;
-  double betaAngleOffset;
-  double variableConstant;
-  int variableStartIterations;
-  int variableStopIterations;
+	sTransformControl control;
+	double power;
+	double alphaAngleOffset;
+	double betaAngleOffset;
+	double variableConstant;
+	int variableStartIterations;
+	int variableStopIterations;
 };
 struct sTransformVariableScale
 {
-  sTransformControl control;
-  CVector3 scale;
-  CVector3 variableConstant;
-  int variableStartIterations;
-  int variableStopIterations;
+	sTransformControl control;
+	CVector3 scale;
+	CVector3 variableConstant;
+	int variableStartIterations;
+	int variableStopIterations;
 };
 
 struct sTransformColoringParameters
 {
-  sTransformControl control;
-  sFoldColor color;
+	sTransformControl control;
+	sFoldColor color;
 };
 
 struct sTransformColorTrial
 {
-  sTransformControl control;
-  sFoldColor color;
-  bool axisBiasEnabled;
-  bool orbitTrapsEnabled;
-  bool transformSamplingEnabled;
-  double  minimumRWeight;
-  double  colorConstant1;
-  double  colorConstant2;
-  double  colorConstant3;
-  //double  sampleConstant1;
-  //double  sampleConstant2;
-  //double  sampleConstant3;
-  //double  sampleConstant4;
-  //double  sampleConstant5;
-  //double  sampleConstant6;
-  double  mainOrbitTrapWeight;
-  double  orbitTrap1Weight;
-  double  orbitTrap2Weight;
-  CVector3 orbitTrap1;
-  CVector3 orbitTrap2;
+	sTransformControl control;
+	sFoldColor color;
+	bool axisBiasEnabled;
+	bool orbitTrapsEnabled;
+	bool transformSamplingEnabled;
+	double minimumRWeight;
+	double colorConstant1;
+	double colorConstant2;
+	double colorConstant3;
+	//double  sampleConstant1;
+	//double  sampleConstant2;
+	//double  sampleConstant3;
+	//double  sampleConstant4;
+	//double  sampleConstant5;
+	//double  sampleConstant6;
+	double mainOrbitTrapWeight;
+	double orbitTrap1Weight;
+	double orbitTrap2Weight;
+	CVector3 orbitTrap1;
+	CVector3 orbitTrap2;
 };
 
 struct sTransformMandelbulbMulti
 {
-	enum multi_acosOrasin{ acos, asin };
-	enum multi_atanOratan2{ atan, atan2 };
-	enum multi_OrderOfxyz{ xyz, xzy, yxz, yzx, zxy, zyx};
-  sTransformControl control;
+	enum multi_acosOrasin
+	{
+		acos, asin
+	};
+	enum multi_atanOratan2
+	{
+		atan, atan2
+	};
+	enum multi_OrderOfxyz
+	{
+		xyz, xzy, yxz, yzx, zxy, zyx
+	};
+	sTransformControl control;
 	multi_acosOrasin acosOrasin;
 	multi_atanOratan2 atanOratan2;
 	multi_OrderOfxyz orderOfxyz;
-  CVector3 mainRotation;
-  CRotationMatrix mainRot;
-  double power;
-  double alphaAngleOffset;
-  double betaAngleOffset;
+	CVector3 mainRotation;
+	CRotationMatrix mainRot;
+	double power;
+	double alphaAngleOffset;
+	double betaAngleOffset;
 };
 
 struct sTransformBenesiMagForwardTransformOne
 {
-  sTransformControl control;
+	sTransformControl control;
 };
 
 struct sTransformBenesiMagBackTransformOne
 {
-  sTransformControl control;
+	sTransformControl control;
 };
 
 struct sTransformBenesiMagTransformOne
 {
-  sTransformControl control;
-  CVector3 offset;
-  CVector3 scale;
+	sTransformControl control;
+	CVector3 offset;
+	CVector3 scale;
 };
 
 struct sTransformBenesiMagTransformOneEnabled
 {
-  sTransformControl control;
-  CVector3 offset;
-  CVector3 scale;
+	sTransformControl control;
+	CVector3 offset;
+	CVector3 scale;
 };
 
 struct sTransformBenesiMagTransformOnePlusMinus  // nine spot
 {
-  sTransformControl control;
-  CVector3 offset;
-  CVector3 scale;
+	sTransformControl control;
+	CVector3 offset;
+	CVector3 scale;
 };
 
 struct sTransformBenesiMagTransformTwo
 {
-  sTransformControl control;
-  CVector3 offset;
-  CVector3 scale;
+	sTransformControl control;
+	CVector3 offset;
+	CVector3 scale;
 };
 
 struct sTransformBenesiMagTransformThree
 {
-  sTransformControl control;
-  CVector3 offset;
-  CVector3 scale;
+	sTransformControl control;
+	CVector3 offset;
+	CVector3 scale;
 };
 
 struct sTransformBenesiMagTransformFour
 {
-  sTransformControl control;
-  CVector3 offset;
-  CVector3 scale;
+	sTransformControl control;
+	CVector3 offset;
+	CVector3 scale;
 };
 
 struct sTransformBenesiMagTransformFiveB
 {
-  sTransformControl control;
-  CVector3 offset;
-  CVector3 scale;
-  CVector3 powOne;
-  CVector3 powTwo;
+	sTransformControl control;
+	CVector3 offset;
+	CVector3 scale;
+	CVector3 powOne;
+	CVector3 powTwo;
 };
 
 struct sTransformBenesiFastPwr2PineTree
 {
-  sTransformControl control;
-  CVector3 constantMultiplierVect;
+	sTransformControl control;
+	CVector3 constantMultiplierVect;
 };
 struct sTransformBenesiFastPwr2PineTreeEnabled
 {
-  sTransformControl control;
-  CVector3 constantMultiplierVect;
+	sTransformControl control;
+	CVector3 constantMultiplierVect;
 };
 
 struct sTransformBoxFoldMulti
 {
-  sTransformControl control;
-  sFoldColor color;
-  CVector3 foldingLimit;
-  CVector3 foldingValue;
+	sTransformControl control;
+	sFoldColor color;
+	CVector3 foldingLimit;
+	CVector3 foldingValue;
 };
 
 struct sTransformCubeSphere
 {
-  sTransformControl control;
+	sTransformControl control;
 };
 
 struct sTransformSphereCube
 {
-  sTransformControl control;
+	sTransformControl control;
 };
 
 struct sFractalTransform
 {
-  sTransformAdditionConstant additionConstant1;
-  sTransformAdditionConstant additionConstant2;
-  sTransformBoxConstantMultiplier boxConstantMultiplier1;
-  sTransformBoxConstantMultiplier boxConstantMultiplier2;
-  sTransformBoxFoldOriginal boxFoldOriginal1;
-  sTransformBoxFold boxFold1;
-  sTransformBoxFold boxFold2;
-  sTransformBoxOffset boxOffset1;
-  sTransformBoxOffset boxOffset2;
-  sTransformConstantMultiplierOriginal constantMultiplierOriginal1;
-  sTransformConstantMultiplier  constantMultiplier1;
-  sTransformConstantMultiplier  constantMultiplier2;
-  sTransformFabsAddConstant fabsAddConstant1;
-  sTransformFabsFormulaAB fabsFormulaAB1;
-  sTransformFabsFormulaAB fabsFormulaAB2;
-  sTransformFabsFormulaABCD fabsFormulaABCD1;
-  sTransformFabsFormulaABCD fabsFormulaABCD2;
-  sTransformFabsFormulaZAB fabsFormulaZAB1;
-  sTransformFabsSubConstant fabsSubConstant1;
-  sTransformIterationWeight iterationWeight1;
-  sTransformMandelbulbOriginal  mandelbulbOriginal1;
-  sTransformMandelbulb  mandelbulb1;
-  sTransformMainRotation mainRotation1;
-  sTransformMainRotation mainRotation2;
-  sTransformMainRotation mainRotation3;
-  sTransformMainRotation mainRotation4;
-  sTransformMengerSpongeOriginal mengerSpongeOriginal1;
-  sTransformMengerSponge mengerSponge1;
-  sTransformMengerSponge mengerSponge2;
-  sTransformQuaternionOriginal quaternionOriginal1;
-  sTransformQuaternion quaternion1;
-  sTransformScaleOriginal scaleOriginal1;
-  sTransformScale scale1;
-  sTransformScale scale2;
-  sTransformSphericalFoldOriginal sphericalFoldOriginal1;
-  sTransformSphericalFold sphericalFold1;
-  sTransformSphericalFold sphericalFold2;
-  sTransformSphericalOffset sphericalOffset1;
-  sTransformSphericalOffset sphericalOffset2;
-  sTransformVariableConstantMultiplier variableConstantMultiplier1;
-  sTransformVariableMandelbulbPower variableMandelbulbPower1;
-  sTransformVariableScale variableScale1;
-  sTransformVariableScale variableScale2;
-  sTransformColorTrial colorTrial1;
-  sTransformColoringParameters coloringParameters1;
-  sTransformMandelbulbMulti mandelbulbMulti1;
-  sTransformMandelbulbMulti mandelbulbMulti2;
+	sTransformAdditionConstant additionConstant1;
+	sTransformAdditionConstant additionConstant2;
+	sTransformBoxConstantMultiplier boxConstantMultiplier1;
+	sTransformBoxConstantMultiplier boxConstantMultiplier2;
+	sTransformBoxFoldOriginal boxFoldOriginal1;
+	sTransformBoxFold boxFold1;
+	sTransformBoxFold boxFold2;
+	sTransformBoxOffset boxOffset1;
+	sTransformBoxOffset boxOffset2;
+	sTransformConstantMultiplierOriginal constantMultiplierOriginal1;
+	sTransformConstantMultiplier constantMultiplier1;
+	sTransformConstantMultiplier constantMultiplier2;
+	sTransformFabsAddConstant fabsAddConstant1;
+	sTransformFabsFormulaAB fabsFormulaAB1;
+	sTransformFabsFormulaAB fabsFormulaAB2;
+	sTransformFabsFormulaABCD fabsFormulaABCD1;
+	sTransformFabsFormulaABCD fabsFormulaABCD2;
+	sTransformFabsFormulaZAB fabsFormulaZAB1;
+	sTransformFabsSubConstant fabsSubConstant1;
+	sTransformIterationWeight iterationWeight1;
+	sTransformMandelbulbOriginal mandelbulbOriginal1;
+	sTransformMandelbulb mandelbulb1;
+	sTransformMainRotation mainRotation1;
+	sTransformMainRotation mainRotation2;
+	sTransformMainRotation mainRotation3;
+	sTransformMainRotation mainRotation4;
+	sTransformMengerSpongeOriginal mengerSpongeOriginal1;
+	sTransformMengerSponge mengerSponge1;
+	sTransformMengerSponge mengerSponge2;
+	sTransformQuaternionOriginal quaternionOriginal1;
+	sTransformQuaternion quaternion1;
+	sTransformScaleOriginal scaleOriginal1;
+	sTransformScale scale1;
+	sTransformScale scale2;
+	sTransformSphericalFoldOriginal sphericalFoldOriginal1;
+	sTransformSphericalFold sphericalFold1;
+	sTransformSphericalFold sphericalFold2;
+	sTransformSphericalOffset sphericalOffset1;
+	sTransformSphericalOffset sphericalOffset2;
+	sTransformVariableConstantMultiplier variableConstantMultiplier1;
+	sTransformVariableMandelbulbPower variableMandelbulbPower1;
+	sTransformVariableScale variableScale1;
+	sTransformVariableScale variableScale2;
+	sTransformColorTrial colorTrial1;
+	sTransformColoringParameters coloringParameters1;
+	sTransformMandelbulbMulti mandelbulbMulti1;
+	sTransformMandelbulbMulti mandelbulbMulti2;
 
-  sTransformBenesiMagForwardTransformOne benesiMagForwardTransformOne1;
-  sTransformBenesiMagForwardTransformOne benesiMagForwardTransformOne2;
-  sTransformBenesiMagBackTransformOne benesiMagBackTransformOne1;
-  sTransformBenesiMagBackTransformOne benesiMagBackTransformOne2;
+	sTransformBenesiMagForwardTransformOne benesiMagForwardTransformOne1;
+	sTransformBenesiMagForwardTransformOne benesiMagForwardTransformOne2;
+	sTransformBenesiMagBackTransformOne benesiMagBackTransformOne1;
+	sTransformBenesiMagBackTransformOne benesiMagBackTransformOne2;
 
-  sTransformBenesiMagTransformOneEnabled benesiMagTransformOneEnabled1;
-  sTransformBenesiMagTransformOne benesiMagTransformOne1;
-  sTransformBenesiMagTransformOne benesiMagTransformOne2;
-  sTransformBenesiMagTransformOne benesiMagTransformOne3;
-  sTransformBenesiMagTransformOnePlusMinus benesiMagTransformOnePlusMinus1;
-  sTransformBenesiMagTransformOnePlusMinus benesiMagTransformOnePlusMinus2;
-  sTransformBenesiMagTransformTwo benesiMagTransformTwo1;
-  sTransformBenesiMagTransformTwo benesiMagTransformTwo2;
-  sTransformBenesiMagTransformThree benesiMagTransformThree1;
-  sTransformBenesiMagTransformThree benesiMagTransformThree2;
-  sTransformBenesiMagTransformFour benesiMagTransformFour1;
-  sTransformBenesiMagTransformFour benesiMagTransformFour2;
-  sTransformBenesiMagTransformFiveB benesiMagTransformFiveB1;
-  sTransformBenesiMagTransformFiveB benesiMagTransformFiveB2;
+	sTransformBenesiMagTransformOneEnabled benesiMagTransformOneEnabled1;
+	sTransformBenesiMagTransformOne benesiMagTransformOne1;
+	sTransformBenesiMagTransformOne benesiMagTransformOne2;
+	sTransformBenesiMagTransformOne benesiMagTransformOne3;
+	sTransformBenesiMagTransformOnePlusMinus benesiMagTransformOnePlusMinus1;
+	sTransformBenesiMagTransformOnePlusMinus benesiMagTransformOnePlusMinus2;
+	sTransformBenesiMagTransformTwo benesiMagTransformTwo1;
+	sTransformBenesiMagTransformTwo benesiMagTransformTwo2;
+	sTransformBenesiMagTransformThree benesiMagTransformThree1;
+	sTransformBenesiMagTransformThree benesiMagTransformThree2;
+	sTransformBenesiMagTransformFour benesiMagTransformFour1;
+	sTransformBenesiMagTransformFour benesiMagTransformFour2;
+	sTransformBenesiMagTransformFiveB benesiMagTransformFiveB1;
+	sTransformBenesiMagTransformFiveB benesiMagTransformFiveB2;
 
-  sTransformBenesiFastPwr2PineTreeEnabled benesiFastPwr2PineTreeEnabled1;
-  sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree1;
-  sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree2;
-  sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree3;
+	sTransformBenesiFastPwr2PineTreeEnabled benesiFastPwr2PineTreeEnabled1;
+	sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree1;
+	sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree2;
+	sTransformBenesiFastPwr2PineTree benesiFastPwr2PineTree3;
 
-  sTransformBoxFoldMulti boxFoldMulti1;
-  sTransformBoxFoldMulti boxFoldMulti2;
+	sTransformBoxFoldMulti boxFoldMulti1;
+	sTransformBoxFoldMulti boxFoldMulti2;
 
-  sTransformCubeSphere cubeSphere1;
-  sTransformCubeSphere cubeSphere2;
-  sTransformSphereCube sphereCube1;
-  sTransformSphereCube sphereCube2;
+	sTransformCubeSphere cubeSphere1;
+	sTransformCubeSphere cubeSphere2;
+	sTransformSphereCube sphereCube1;
+	sTransformSphereCube sphereCube2;
 
-  //TODO here will be more transforms
+	//TODO here will be more transforms
 };
-
 
 //----------------------------------------------------------
 struct sFractalPlatonicSolid
@@ -703,7 +721,7 @@ public:
 	sFractalAexion aexion;
 	sFractalBuffalo buffalo;
 	sMsltoeSym2 msltoeSym2;
-  sFractalTransform transform;
+	sFractalTransform transform;
 	sFractalPlatonicSolid platonicSolid;
 
 #ifdef CLSUPPORT
@@ -712,7 +730,6 @@ public:
 	char customOCLFormulaName[100];
 	fractal::enumOCLDEMode customOCLFormulaDEMode;
 #endif
-
 
 };
 

@@ -34,9 +34,9 @@
 
 //TODO add sending job if new client is connected during rendering
 
-class CNetRender : public QObject
+class CNetRender: public QObject
 {
-	Q_OBJECT
+Q_OBJECT
 public:
 	CNetRender(qint32 workerCount);
 	~CNetRender();
@@ -73,7 +73,10 @@ private:
 	//general message frame for sending/receiving
 	struct sMessage
 	{
-		sMessage() : command(netRender_NONE), id(0), size(0) {}
+		sMessage() :
+				command(netRender_NONE), id(0), size(0)
+		{
+		}
 		qint32 command;
 		qint32 id;
 		qint32 size;
@@ -84,7 +87,10 @@ public:
 	//all information about connected clients
 	struct sClient
 	{
-		sClient() : socket(NULL), status(netRender_NEW), linesRendered(0), clientWorkerCount(0) {}
+		sClient() :
+				socket(NULL), status(netRender_NEW), linesRendered(0), clientWorkerCount(0)
+		{
+		}
 		QTcpSocket* socket;
 		sMessage msg;
 		netRenderStatus status;

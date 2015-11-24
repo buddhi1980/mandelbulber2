@@ -33,7 +33,11 @@ public:
 
 	struct sAnimationFrame
 	{
-		sAnimationFrame() : alreadyRendered(false) {};
+		sAnimationFrame() :
+				alreadyRendered(false)
+		{
+		}
+
 		cParameterContainer parameters;
 		QImage thumbnail;
 		bool alreadyRendered;
@@ -42,8 +46,15 @@ public:
 
 	struct sParameterDescription
 	{
-		sParameterDescription(QString _parameterName, QString _containerName, parameterContainer::enumVarType _varType, parameterContainer::enumMorphType _morphType)
-			: parameterName(_parameterName), containerName(_containerName), varType(_varType), morphType(_morphType) {};
+		sParameterDescription(QString _parameterName, QString _containerName,
+				parameterContainer::enumVarType _varType, parameterContainer::enumMorphType _morphType) :
+						parameterName(_parameterName),
+						containerName(_containerName),
+						varType(_varType),
+						morphType(_morphType)
+		{
+		}
+
 		QString parameterName;
 		QString containerName;
 		parameterContainer::enumVarType varType;
@@ -51,7 +62,8 @@ public:
 	};
 
 	cAnimationFrames();
-	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal, int index = -1);
+	void AddFrame(const cParameterContainer &params, const cFractalContainer &fractal,
+			int index = -1);
 	void AddFrame(const sAnimationFrame &frame);
 	void ModifyFrame(int index, sAnimationFrame &frame);
 	void GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
@@ -62,16 +74,37 @@ public:
 	void Clear();
 	void ClearAll();
 	void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue);
-	bool AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal);
+	bool AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param,
+			const cFractalContainer *fractal);
 	void RemoveAnimatedParameter(const QString &fullParameterName);
-	QList<sParameterDescription> GetListOfUsedParameters() const {return listOfParameters;}
-	const cParameterContainer* ContainerSelector(QString containerName, const cParameterContainer *params, const cFractalContainer *fractal) const;
-	cParameterContainer* ContainerSelector(QString containerName, cParameterContainer *params, cFractalContainer *fractal) const;
+	QList<sParameterDescription> GetListOfUsedParameters() const
+	{
+		return listOfParameters;
+	}
+	const cParameterContainer* ContainerSelector(QString containerName,
+			const cParameterContainer *params, const cFractalContainer *fractal) const;
+	cParameterContainer* ContainerSelector(QString containerName, cParameterContainer *params,
+			cFractalContainer *fractal) const;
 	void DeleteFrames(int begin, int end);
-	void Override(QList<sAnimationFrame> _frames, QList<sParameterDescription> _listOfParameters){ frames = _frames; listOfParameters = _listOfParameters; }
-	QList<sAnimationFrame> GetFrames(){ return frames; }
-	QList<sParameterDescription> GetListOfParameters(){ return listOfParameters; }
-	void SetListOfParametersAndClear(QList<sParameterDescription> _listOfParameters) {listOfParameters = _listOfParameters; frames.clear();}
+	void Override(QList<sAnimationFrame> _frames, QList<sParameterDescription> _listOfParameters)
+	{
+		frames = _frames;
+		listOfParameters = _listOfParameters;
+	}
+	QList<sAnimationFrame> GetFrames()
+	{
+		return frames;
+	}
+	QList<sParameterDescription> GetListOfParameters()
+	{
+		return listOfParameters;
+	}
+	void SetListOfParametersAndClear(QList<sParameterDescription> _listOfParameters)
+	{
+		listOfParameters = _listOfParameters;
+		frames.clear();
+	}
+
 protected:
 	int IndexOnList(QString parameterName, QString containerName);
 

@@ -33,18 +33,22 @@ public:
 	cParameterContainer();
 	~cParameterContainer();
 
-	template <class T> void addParam(QString name, T defaultVal, enumMorphType morphType, enumParameterType parType);
-	template <class T> void addParam(QString name, T defaultVal, T minVal, T maxVal, enumMorphType morphType, enumParameterType parType);
-	template <class T> void addParam(QString name, int index, T defaultVal, enumMorphType morphType, enumParameterType parType);
-	template <class T> void addParam(QString name, int index, T defaultVal, T minVal, T maxVal, enumMorphType morphType, enumParameterType parType);
+	template<class T> void addParam(QString name, T defaultVal, enumMorphType morphType,
+			enumParameterType parType);
+	template<class T> void addParam(QString name, T defaultVal, T minVal, T maxVal,
+			enumMorphType morphType, enumParameterType parType);
+	template<class T> void addParam(QString name, int index, T defaultVal, enumMorphType morphType,
+			enumParameterType parType);
+	template<class T> void addParam(QString name, int index, T defaultVal, T minVal, T maxVal,
+			enumMorphType morphType, enumParameterType parType);
 
-	template <class T> void Set(QString name, T val);
-	template <class T> void Set(QString name, int index, T val);
+	template<class T> void Set(QString name, T val);
+	template<class T> void Set(QString name, int index, T val);
 
-	template <class T> T Get(QString name) const;
-	template <class T> T Get(QString name, int index) const;
-	template <class T> T GetDefault(QString name) const;
-	template <class T> T GetDefault(QString name, int index) const;
+	template<class T> T Get(QString name) const;
+	template<class T> T Get(QString name, int index) const;
+	template<class T> T GetDefault(QString name) const;
+	template<class T> T GetDefault(QString name, int index) const;
 
 	cOneParameter GetAsOneParameter(QString name) const;
 	void SetFromOneParameter(QString name, const cOneParameter &parameter);
@@ -56,8 +60,14 @@ public:
 	void Copy(QString name, const cParameterContainer &sourceContainer);
 	QList<QString> GetListOfParameters(void) const;
 	void ResetAllToDefault(void);
-	void SetContainerName(QString name) {containerName = name;}
-	QString GetContainerName(void) const {return containerName;}
+	void SetContainerName(QString name)
+	{
+		containerName = name;
+	}
+	QString GetContainerName(void) const
+	{
+		return containerName;
+	}
 	bool IfExists(const QString &name) const;
 	void DeleteParameter(const QString &name);
 
@@ -67,17 +77,13 @@ private:
 
 	static bool compareStrings(const QString &p1, const QString &p2)
 	{
-	    if(p1.toLower() < p2.toLower())
-	    		return true;
-	    else
-	        return false;
+		if (p1.toLower() < p2.toLower()) return true;
+		else return false;
 	}
 
 	//std::map contairer
 	QMap<QString, cOneParameter> myMap;
 	QString containerName;
 };
-
-
 
 #endif /*SHADERS_HPP_*/

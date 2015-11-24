@@ -20,14 +20,15 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #include "render_ssao.h"
 #include "progress_text.hpp"
 #include "ssao_worker.h"
 #include "global_data.hpp"
 #include "system.hpp"
 
-cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData, cImage *_image) : QObject()
+cRenderSSAO::cRenderSSAO(const cParamRender *_params, const sRenderData *_renderData,
+		cImage *_image) :
+		QObject()
 {
 	params = _params;
 	data = _renderData;
@@ -49,17 +50,17 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	//prepare multiple threads
 	QThread **thread = new QThread*[numberOfThreads];
 	cSSAOWorker::sThreadData *threadData = new cSSAOWorker::sThreadData[numberOfThreads];
-	cSSAOWorker **worker= new cSSAOWorker*[numberOfThreads];
+	cSSAOWorker **worker = new cSSAOWorker*[numberOfThreads];
 
 	cProgressText progressText;
 	progressText.ResetTimer();
 
 	//create list of lines to render for each CPU core
 	QList<int> *lists = NULL;
-	if(list)
+	if (list)
 	{
-		lists = new QList<int>[numberOfThreads];
-		for(int i=0; i<list->size(); i++)
+		lists = new QList<int> [numberOfThreads];
+		for (int i = 0; i < list->size(); i++)
 		{
 			int y = list->at(i);
 			int mod = y % numberOfThreads;
@@ -68,9 +69,9 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	}
 
 	double qualityFactor;
-	if(progressive > 0)
+	if (progressive > 0)
 	{
-		qualityFactor = sqrt(1.0/(progressive*2.0));
+		qualityFactor = sqrt(1.0 / (progressive * 2.0));
 	}
 	else
 	{
@@ -79,7 +80,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	int quality = params->ambientOcclusionQuality * params->ambientOcclusionQuality * qualityFactor;
 	if (quality < 3) quality = 3;
 
-	for(int i=0; i < numberOfThreads; i++)
+	for (int i = 0; i < numberOfThreads; i++)
 	{
 		threadData[i].startLine = i;
 		threadData[i].noOfThreads = numberOfThreads;
@@ -88,10 +89,8 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		threadData[i].progressive = progressive;
 		threadData[i].stopRequest = false;
 
-		if(list)
-			threadData[i].list = &lists[i];
-		else
-			threadData[i].list = NULL;
+		if (list) threadData[i].list = &lists[i];
+		else threadData[i].list = NULL;
 	}
 
 	QString statusText;
@@ -115,7 +114,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 
 	int totalDone = 0;
 	int toDo;
-	if(list)
+	if (list)
 	{
 		toDo = list->size();
 	}
@@ -132,9 +131,9 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 
 		if (*data->stopRequest)
 		{
-			for(int i = 0; i < numberOfThreads; i++)
+			for (int i = 0; i < numberOfThreads; i++)
 				threadData[i].stopRequest = true;
-			if(!list)
+			if (!list)
 			{
 				//*data->stopRequest = false;
 			}
@@ -142,7 +141,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		}
 
 		totalDone = 0;
-		for(int i = 0; i < numberOfThreads; i++)
+		for (int i = 0; i < numberOfThreads; i++)
 		{
 			totalDone += threadData[i].done;
 		}
@@ -151,7 +150,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		statusText = QObject::tr("Rendering SSAO effect in progress");
 		progressTxt = progressText.getText(percentDone);
 
-		if(!quiet)
+		if (!quiet)
 		{
 			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 		}
@@ -159,7 +158,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 
 	for (int i = 0; i < numberOfThreads; i++)
 	{
-		while(thread[i]->isRunning())
+		while (thread[i]->isRunning())
 		{
 			gApplication->processEvents();
 		};
@@ -171,14 +170,14 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	double percentDone = 1.0;
 	statusText = QObject::tr("Idle");
 	progressTxt = progressText.getText(percentDone);
-	if(!quiet)
+	if (!quiet)
 	{
 		emit updateProgressAndStatus(statusText, progressTxt, percentDone);
 	}
 	delete[] thread;
 	delete[] threadData;
 	delete[] worker;
-	if(list) delete[] lists;
+	if (list) delete[] lists;
 
 	WriteLog("cRenderSSAO::RenderSSAO(): memory released");
 

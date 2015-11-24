@@ -46,7 +46,6 @@
 #include <QtGamepad/qgamepadmanager.h>
 #endif // USE_GAMEPAD
 
-
 //constructor of interface (loading of ui files)
 cInterface::cInterface()
 {
@@ -68,18 +67,18 @@ cInterface::cInterface()
 
 cInterface::~cInterface()
 {
-	if(renderedImage) delete renderedImage;
-	if(imageSequencePlayer) delete imageSequencePlayer;
-	if(progressBar) delete progressBar;
-	if(progressBarAnimation) delete progressBarAnimation;
-	if(progressBarQueueImage) delete progressBarQueueImage;
-	if(progressBarQueueAnimation) delete progressBarQueueAnimation;
-	if(progressBarFrame) delete progressBarFrame;
-	if(progressBarLayout) delete progressBarLayout;
-	if(qimage) delete qimage;
-	if(mainImage) delete mainImage;
-	if(headless) delete headless;
-	if(mainWindow) delete mainWindow;
+	if (renderedImage) delete renderedImage;
+	if (imageSequencePlayer) delete imageSequencePlayer;
+	if (progressBar) delete progressBar;
+	if (progressBarAnimation) delete progressBarAnimation;
+	if (progressBarQueueImage) delete progressBarQueueImage;
+	if (progressBarQueueAnimation) delete progressBarQueueAnimation;
+	if (progressBarFrame) delete progressBarFrame;
+	if (progressBarLayout) delete progressBarLayout;
+	if (qimage) delete qimage;
+	if (mainImage) delete mainImage;
+	if (headless) delete headless;
+	if (mainWindow) delete mainWindow;
 }
 
 void cInterface::ShowUi(void)
@@ -93,9 +92,12 @@ void cInterface::ShowUi(void)
 	WriteLog("Restoring window state");
 	if (!mainWindow->restoreState(mainWindow->settings.value("mainWindowState").toByteArray()))
 	{
-		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_effects, mainWindow->ui->dockWidget_image_adjustments);
-		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_image_adjustments, mainWindow->ui->dockWidget_rendering_engine);
-		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_rendering_engine, mainWindow->ui->dockWidget_fractal);
+		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_effects,
+																 mainWindow->ui->dockWidget_image_adjustments);
+		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_image_adjustments,
+																 mainWindow->ui->dockWidget_rendering_engine);
+		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_rendering_engine,
+																 mainWindow->ui->dockWidget_fractal);
 		mainWindow->ui->dockWidget_animation->hide();
 		mainWindow->ui->dockWidget_info->hide();
 		mainWindow->ui->dockWidget_gamepad_dock->hide();
@@ -106,7 +108,8 @@ void cInterface::ShowUi(void)
 	QFont font = mainWindow->font();
 	font.setPixelSize(gPar->Get<int>("ui_font_size"));
 	mainWindow->setFont(font);
-	mainWindow->ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(gPar->Get<int>("ui_font_size") + 6);
+	mainWindow->ui->tableWidget_statistics->verticalHeader()->setDefaultSectionSize(gPar->Get<int>("ui_font_size")
+			+ 6);
 
 	WriteLog("mainWindow->show()");
 	mainWindow->show();
@@ -118,13 +121,14 @@ void cInterface::ShowUi(void)
 
 	//setup main image
 	WriteLog("Setup of main image");
-	mainImage = new cImage(gPar->Get<int>("image_width"),gPar->Get<int>("image_height"));
+	mainImage = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	mainImage->CreatePreview(1.0, 800, 600, gMainInterface->renderedImage);
 	mainImage->CompileImage();
 	mainImage->ConvertTo8bit();
 	mainImage->UpdatePreview();
 	mainImage->SetAsMainImage();
-	renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(),gMainInterface->mainImage->GetPreviewHeight());
+	renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(),
+																gMainInterface->mainImage->GetPreviewHeight());
 	renderedImage->AssignImage(gMainInterface->mainImage);
 	renderedImage->AssignParameters(gPar);
 
@@ -159,18 +163,19 @@ void cInterface::ShowUi(void)
 
 	mainWindow->ui->groupBox_netrender_client_config->setVisible(false);
 
-  #ifndef USE_EXR
+#ifndef USE_EXR
 	{
 		mainWindow->ui->actionSave_as_EXR->setVisible(false);
 		mainWindow->ui->comboBox_keyframe_animation_image_type->removeItem(IMAGE_FILE_TYPE_EXR);
 		mainWindow->ui->comboBox_flight_animation_image_type->removeItem(IMAGE_FILE_TYPE_EXR);
 	}
-  #endif
+#endif
 
 	renderedImage->show();
 
 	//loading default ui for all fractal components
-	QString uiFilename = systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_mandelbulb.ui";
+	QString uiFilename = systemData.sharedDir + "qt_data" + QDir::separator()
+			+ "fractal_mandelbulb.ui";
 	InitializeFractalUi(uiFilename);
 
 	ComboMouseClickUpdate();
@@ -187,175 +192,601 @@ void cInterface::ShowUi(void)
 void cInterface::ConnectSignals(void)
 {
 	//other
-	QApplication::connect(mainWindow->ui->button_calculateFog, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonAutoFog()));
-	QApplication::connect(mainWindow->ui->button_selectBackgroundTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectBackgroundTexture()));
-	QApplication::connect(mainWindow->ui->button_selectEnvMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectEnvMapTexture()));
-	QApplication::connect(mainWindow->ui->button_selectLightMapTexture, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSelectLightMapTexture()));
-	QApplication::connect(mainWindow->ui->checkBox_show_cursor, SIGNAL(stateChanged(int)), mainWindow, SLOT(slotChangedCheckBoxCursorVisibility(int)));
-	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboAmbientOcclusionMode(int)));
-	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboMouseClickFunction(int)));
-	QApplication::connect(mainWindow->ui->comboBox_perspective_type, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboPerspectiveType(int)));
-	QApplication::connect(mainWindow->ui->logedit_aux_light_manual_placement_dist, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditManualLightPlacementDistance(const QString&)));
-	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraDistanceEdited()));
-	QApplication::connect(mainWindow->ui->logslider_aux_light_manual_placement_dist, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotSliderMovedEditManualLightPlacementDistance(int)));
-	QApplication::connect(mainWindow->ui->pushButton_apply_image_changes, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonImageApply()));
-	QApplication::connect(mainWindow->ui->pushButton_DOF_set_focus, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetDOFByMouse()));
-	QApplication::connect(mainWindow->ui->pushButton_DOF_update, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDOFUpdate()));
-	QApplication::connect(mainWindow->ui->pushButton_get_julia_constant, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonGetJuliaConstant()));
-	QApplication::connect(mainWindow->ui->pushButton_getPaletteFromImage, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonGetPaletteFromImage()));
-	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_1, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight1ByMouse()));
-	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_2, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight2ByMouse()));
-	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_3, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight3ByMouse()));
-	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_4, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetLight4ByMouse()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_box, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_circle, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_cone, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_cylinder, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_plane, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_rectangle, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_sphere, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_water, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_add_primitive_torus, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewPrimitive()));
-	QApplication::connect(mainWindow->ui->pushButton_undo, SIGNAL(clicked()), mainWindow, SLOT(slotMenuUndo()));
-	QApplication::connect(mainWindow->ui->pushButton_redo, SIGNAL(clicked()), mainWindow, SLOT(slotMenuRedo()));
+	QApplication::connect(mainWindow->ui->button_calculateFog,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonAutoFog()));
+	QApplication::connect(mainWindow->ui->button_selectBackgroundTexture,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonSelectBackgroundTexture()));
+	QApplication::connect(mainWindow->ui->button_selectEnvMapTexture,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonSelectEnvMapTexture()));
+	QApplication::connect(mainWindow->ui->button_selectLightMapTexture,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonSelectLightMapTexture()));
+	QApplication::connect(mainWindow->ui->checkBox_show_cursor,
+												SIGNAL(stateChanged(int)),
+												mainWindow,
+												SLOT(slotChangedCheckBoxCursorVisibility(int)));
+	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangedComboAmbientOcclusionMode(int)));
+	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangedComboMouseClickFunction(int)));
+	QApplication::connect(mainWindow->ui->comboBox_perspective_type,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangedComboPerspectiveType(int)));
+	QApplication::connect(mainWindow->ui->logedit_aux_light_manual_placement_dist,
+												SIGNAL(textChanged(const QString&)),
+												mainWindow,
+												SLOT(slotEditedLineEditManualLightPlacementDistance(const QString&)));
+	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target,
+												SIGNAL(editingFinished()),
+												mainWindow,
+												SLOT(slotCameraDistanceEdited()));
+	QApplication::connect(mainWindow->ui->logslider_aux_light_manual_placement_dist,
+												SIGNAL(sliderMoved(int)),
+												mainWindow,
+												SLOT(slotSliderMovedEditManualLightPlacementDistance(int)));
+	QApplication::connect(mainWindow->ui->pushButton_apply_image_changes,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonImageApply()));
+	QApplication::connect(mainWindow->ui->pushButton_DOF_set_focus,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonSetDOFByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_DOF_update,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonDOFUpdate()));
+	QApplication::connect(mainWindow->ui->pushButton_get_julia_constant,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonGetJuliaConstant()));
+	QApplication::connect(mainWindow->ui->pushButton_getPaletteFromImage,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonGetPaletteFromImage()));
+	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_1,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonSetLight1ByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_2,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonSetLight2ByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_3,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonSetLight3ByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_place_light_by_mouse_4,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonSetLight4ByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_box,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_circle,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_cone,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_cylinder,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_plane,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_rectangle,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_sphere,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_water,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_add_primitive_torus,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonNewPrimitive()));
+	QApplication::connect(mainWindow->ui->pushButton_undo,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotMenuUndo()));
+	QApplication::connect(mainWindow->ui->pushButton_redo,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotMenuRedo()));
 
-	QApplication::connect(mainWindow->ui->pushButton_randomize, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonRandomize()));
-	QApplication::connect(mainWindow->ui->pushButton_randomPalette, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonNewRandomPalette()));
-	QApplication::connect(mainWindow->ui->pushButton_render, SIGNAL(clicked()), mainWindow, SLOT(slotStartRender()));
-	QApplication::connect(mainWindow->ui->pushButton_set_fog_by_mouse, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetFogByMouse()));
-	QApplication::connect(mainWindow->ui->pushButton_stop, SIGNAL(clicked()), mainWindow, SLOT(slotStopRender()));
-	QApplication::connect(mainWindow->ui->pushButton_reset_view, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonResetView()));
-	QApplication::connect(mainWindow->ui->spinbox_coloring_palette_offset, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotChangedSpinBoxPaletteOffset(double)));
-	QApplication::connect(mainWindow->ui->spinboxInt_coloring_palette_size, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotChangedSpinBoxPaletteSize(int)));
-	QApplication::connect(mainWindow->ui->text_file_background, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditBackgroundTexture(const QString&)));
-	QApplication::connect(mainWindow->ui->text_file_envmap, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditEnvMapTexture(const QString&)));
-	QApplication::connect(mainWindow->ui->text_file_lightmap, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotEditedLineEditLightMapTexture(const QString&)));
-	QApplication::connect(mainWindow, SIGNAL(AppendToLog(const QString&)), mainWindow->ui->log_text, SLOT(appendMessage(const QString&)));
+	QApplication::connect(mainWindow->ui->pushButton_randomize,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonRandomize()));
+	QApplication::connect(mainWindow->ui->pushButton_randomPalette,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonNewRandomPalette()));
+	QApplication::connect(mainWindow->ui->pushButton_render,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotStartRender()));
+	QApplication::connect(mainWindow->ui->pushButton_set_fog_by_mouse,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonSetFogByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_stop,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotStopRender()));
+	QApplication::connect(mainWindow->ui->pushButton_reset_view,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonResetView()));
+	QApplication::connect(mainWindow->ui->spinbox_coloring_palette_offset,
+												SIGNAL(valueChanged(double)),
+												mainWindow,
+												SLOT(slotChangedSpinBoxPaletteOffset(double)));
+	QApplication::connect(mainWindow->ui->spinboxInt_coloring_palette_size,
+												SIGNAL(valueChanged(int)),
+												mainWindow,
+												SLOT(slotChangedSpinBoxPaletteSize(int)));
+	QApplication::connect(mainWindow->ui->text_file_background,
+												SIGNAL(textChanged(const QString&)),
+												mainWindow,
+												SLOT(slotEditedLineEditBackgroundTexture(const QString&)));
+	QApplication::connect(mainWindow->ui->text_file_envmap,
+												SIGNAL(textChanged(const QString&)),
+												mainWindow,
+												SLOT(slotEditedLineEditEnvMapTexture(const QString&)));
+	QApplication::connect(mainWindow->ui->text_file_lightmap,
+												SIGNAL(textChanged(const QString&)),
+												mainWindow,
+												SLOT(slotEditedLineEditLightMapTexture(const QString&)));
+	QApplication::connect(mainWindow,
+												SIGNAL(AppendToLog(const QString&)),
+												mainWindow->ui->log_text,
+												SLOT(appendMessage(const QString&)));
 
 	//image resolution
-	QApplication::connect(mainWindow->ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageProportion(int)));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1080, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1200, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1440, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_2160, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_240, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_4320, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_480, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_600, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_720, SIGNAL(clicked()), mainWindow, SLOT(slotPressedResolutionPreset()));
-	QApplication::connect(mainWindow->ui->pushButton_imagesize_increase, SIGNAL(clicked()), mainWindow, SLOT(slotPressedImagesizeIncrease()));
-	QApplication::connect(mainWindow->ui->pushButton_imagesize_decrease, SIGNAL(clicked()), mainWindow, SLOT(slotPressedImagesizeDecrease()));
-	QApplication::connect(mainWindow->ui->spinboxInt_image_height, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotImageHeightChanged(int)));
+	QApplication::connect(mainWindow->ui->comboBox_image_proportion,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangedComboImageProportion(int)));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1080,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1200,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_1440,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_2160,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_240,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_4320,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_480,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_600,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_resolution_preset_720,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedResolutionPreset()));
+	QApplication::connect(mainWindow->ui->pushButton_imagesize_increase,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedImagesizeIncrease()));
+	QApplication::connect(mainWindow->ui->pushButton_imagesize_decrease,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedImagesizeDecrease()));
+	QApplication::connect(mainWindow->ui->spinboxInt_image_height,
+												SIGNAL(valueChanged(int)),
+												mainWindow,
+												SLOT(slotImageHeightChanged(int)));
 
 	//menu actions
-	QApplication::connect(mainWindow->ui->actionQuit, SIGNAL(triggered()), mainWindow, SLOT(slotQuit()));
-	QApplication::connect(mainWindow->ui->actionSave_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveDocksPositions()));
-	QApplication::connect(mainWindow->ui->actionDefault_docks_positions, SIGNAL(triggered()), mainWindow, SLOT(slotMenuResetDocksPositions()));
-	QApplication::connect(mainWindow->ui->actionStack_all_docks, SIGNAL(triggered()), mainWindow, SLOT(slotStackAllDocks()));
-	QApplication::connect(mainWindow->ui->actionShow_animation_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
-	QApplication::connect(mainWindow->ui->actionShow_toolbar, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
-	QApplication::connect(mainWindow->ui->actionShow_info_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
-	QApplication::connect(mainWindow->ui->actionShow_statistics_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
-	QApplication::connect(mainWindow->ui->actionShow_gamepad_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
-	QApplication::connect(mainWindow->ui->actionShow_queue_dock, SIGNAL(triggered()), mainWindow, SLOT(slotUpdateDocksandToolbarbyAction()));
-	QApplication::connect(mainWindow->ui->actionSave_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveSettings()));
-	QApplication::connect(mainWindow->ui->actionSave_settings_to_clipboard, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveSettingsToClipboard()));
-	QApplication::connect(mainWindow->ui->actionLoad_settings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadSettings()));
-	QApplication::connect(mainWindow->ui->actionLoad_settings_from_clipboard, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadSettingsFromClipboard()));
-	QApplication::connect(mainWindow->ui->actionLoad_example, SIGNAL(triggered()), mainWindow, SLOT(slotMenuLoadExample()));
-	QApplication::connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber, SIGNAL(triggered()), mainWindow, SLOT(slotImportOldSettings()));
-	QApplication::connect(mainWindow->ui->actionSave_as_JPG, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImageJPEG()));
-	QApplication::connect(mainWindow->ui->actionSave_as_PNG, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG()));
-	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG16()));
-	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImagePNG16Alpha()));
+	QApplication::connect(mainWindow->ui->actionQuit,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotQuit()));
+	QApplication::connect(mainWindow->ui->actionSave_docks_positions,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuSaveDocksPositions()));
+	QApplication::connect(mainWindow->ui->actionDefault_docks_positions,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuResetDocksPositions()));
+	QApplication::connect(mainWindow->ui->actionStack_all_docks,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotStackAllDocks()));
+	QApplication::connect(mainWindow->ui->actionShow_animation_dock,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyAction()));
+	QApplication::connect(mainWindow->ui->actionShow_toolbar,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyAction()));
+	QApplication::connect(mainWindow->ui->actionShow_info_dock,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyAction()));
+	QApplication::connect(mainWindow->ui->actionShow_statistics_dock,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyAction()));
+	QApplication::connect(mainWindow->ui->actionShow_gamepad_dock,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyAction()));
+	QApplication::connect(mainWindow->ui->actionShow_queue_dock,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyAction()));
+	QApplication::connect(mainWindow->ui->actionSave_settings,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuSaveSettings()));
+	QApplication::connect(mainWindow->ui->actionSave_settings_to_clipboard,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuSaveSettingsToClipboard()));
+	QApplication::connect(mainWindow->ui->actionLoad_settings,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuLoadSettings()));
+	QApplication::connect(mainWindow->ui->actionLoad_settings_from_clipboard,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuLoadSettingsFromClipboard()));
+	QApplication::connect(mainWindow->ui->actionLoad_example,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuLoadExample()));
+	QApplication::connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotImportOldSettings()));
+	QApplication::connect(mainWindow->ui->actionSave_as_JPG,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuSaveImageJPEG()));
+	QApplication::connect(mainWindow->ui->actionSave_as_PNG,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuSaveImagePNG()));
+	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuSaveImagePNG16()));
+	QApplication::connect(mainWindow->ui->actionSave_as_PNG_16_bit_with_alpha_channel,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuSaveImagePNG16Alpha()));
 #ifdef USE_EXR
-	QApplication::connect(mainWindow->ui->actionSave_as_EXR, SIGNAL(triggered()), mainWindow, SLOT(slotMenuSaveImageEXR()));
+	QApplication::connect(mainWindow->ui->actionSave_as_EXR,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuSaveImageEXR()));
 #endif // USE_EXR
 
-	QApplication::connect(mainWindow->ui->actionAbout_Qt, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutQt()));
-	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutMandelbulber()));
-	QApplication::connect(mainWindow->ui->actionAbout_ThirdParty, SIGNAL(triggered()), mainWindow, SLOT(slotMenuAboutThirdParty()));
-	QApplication::connect(mainWindow->ui->actionUndo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuUndo()));
-	QApplication::connect(mainWindow->ui->actionRedo, SIGNAL(triggered()), mainWindow, SLOT(slotMenuRedo()));
-	QApplication::connect(mainWindow->ui->actionProgramSettings, SIGNAL(triggered()), mainWindow, SLOT(slotMenuProgramSettings()));
+	QApplication::connect(mainWindow->ui->actionAbout_Qt,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuAboutQt()));
+	QApplication::connect(mainWindow->ui->actionAbout_Mandelbulber,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuAboutMandelbulber()));
+	QApplication::connect(mainWindow->ui->actionAbout_ThirdParty,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuAboutThirdParty()));
+	QApplication::connect(mainWindow->ui->actionUndo,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuUndo()));
+	QApplication::connect(mainWindow->ui->actionRedo,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuRedo()));
+	QApplication::connect(mainWindow->ui->actionProgramSettings,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuProgramSettings()));
 
 	//formulas
-	QApplication::connect(mainWindow->ui->comboBox_formula_1, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_2, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_3, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_4, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->checkBox_hybrid_fractal_enable, SIGNAL(stateChanged(int)), mainWindow, SLOT(slotChangedCheckBoxHybridFractal(int)));
-	QApplication::connect(mainWindow->ui->groupCheck_boolean_operators, SIGNAL(toggled(bool)), mainWindow, SLOT(slotChangedCheckBoxBooleanOperators(bool)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_1,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_2,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_3,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_4,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->checkBox_hybrid_fractal_enable,
+												SIGNAL(stateChanged(int)),
+												mainWindow,
+												SLOT(slotChangedCheckBoxHybridFractal(int)));
+	QApplication::connect(mainWindow->ui->groupCheck_boolean_operators,
+												SIGNAL(toggled(bool)),
+												mainWindow,
+												SLOT(slotChangedCheckBoxBooleanOperators(bool)));
 
-	QApplication::connect(mainWindow->ui->scrollAreaForImage, SIGNAL(resized(int, int)), mainWindow, SLOT(slotResizedScrolledAreaImage(int, int)));
-	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboImageScale(int)));
+	QApplication::connect(mainWindow->ui->scrollAreaForImage,
+												SIGNAL(resized(int, int)),
+												mainWindow,
+												SLOT(slotResizedScrolledAreaImage(int, int)));
+	QApplication::connect(mainWindow->ui->comboBox_image_preview_scale,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangedComboImageScale(int)));
 
 	//rendered image widget
-	QApplication::connect(renderedImage, SIGNAL(mouseMoved(int, int)), mainWindow, SLOT(slotMouseMovedOnImage(int, int)));
-	QApplication::connect(renderedImage, SIGNAL(singleClick(int, int, Qt::MouseButton)), mainWindow, SLOT(slotMouseClickOnImage(int, int, Qt::MouseButton)));
-	QApplication::connect(renderedImage, SIGNAL(keyPress(Qt::Key)), mainWindow, SLOT(slotKeyPressOnImage(Qt::Key)));
-	QApplication::connect(renderedImage, SIGNAL(keyRelease(Qt::Key)), mainWindow, SLOT(slotKeyReleaseOnImage(Qt::Key)));
-	QApplication::connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow, SLOT(slotMouseWheelRotatedOnImage(int)));
+	QApplication::connect(renderedImage,
+												SIGNAL(mouseMoved(int, int)),
+												mainWindow,
+												SLOT(slotMouseMovedOnImage(int, int)));
+	QApplication::connect(renderedImage,
+												SIGNAL(singleClick(int, int, Qt::MouseButton)),
+												mainWindow,
+												SLOT(slotMouseClickOnImage(int, int, Qt::MouseButton)));
+	QApplication::connect(renderedImage,
+												SIGNAL(keyPress(Qt::Key)),
+												mainWindow,
+												SLOT(slotKeyPressOnImage(Qt::Key)));
+	QApplication::connect(renderedImage,
+												SIGNAL(keyRelease(Qt::Key)),
+												mainWindow,
+												SLOT(slotKeyReleaseOnImage(Qt::Key)));
+	QApplication::connect(renderedImage,
+												SIGNAL(mouseWheelRotated(int)),
+												mainWindow,
+												SLOT(slotMouseWheelRotatedOnImage(int)));
 
 	//NetRender
-	QApplication::connect(mainWindow->ui->bu_netrender_connect, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderClientConnect()));
-	QApplication::connect(mainWindow->ui->bu_netrender_disconnect, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderClientDisconnect()));
-	QApplication::connect(mainWindow->ui->bu_netrender_start_server, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderServerStart()));
-	QApplication::connect(mainWindow->ui->bu_netrender_stop_server, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderServerStop()));
-	QApplication::connect(mainWindow->ui->comboBox_netrender_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotNetRenderClientServerChange(int)));
-	QApplication::connect(mainWindow->ui->group_netrender, SIGNAL(toggled(bool)), mainWindow, SLOT(slotCheckBoxDisableNetRender(bool)));
+	QApplication::connect(mainWindow->ui->bu_netrender_connect,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotNetRenderClientConnect()));
+	QApplication::connect(mainWindow->ui->bu_netrender_disconnect,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotNetRenderClientDisconnect()));
+	QApplication::connect(mainWindow->ui->bu_netrender_start_server,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotNetRenderServerStart()));
+	QApplication::connect(mainWindow->ui->bu_netrender_stop_server,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotNetRenderServerStop()));
+	QApplication::connect(mainWindow->ui->comboBox_netrender_mode,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotNetRenderClientServerChange(int)));
+	QApplication::connect(mainWindow->ui->group_netrender,
+												SIGNAL(toggled(bool)),
+												mainWindow,
+												SLOT(slotCheckBoxDisableNetRender(bool)));
 
-	QApplication::connect(gNetRender, SIGNAL(NewStatusClient()), mainWindow, SLOT(slotNetRenderStatusClientUpdate()));
-	QApplication::connect(gNetRender, SIGNAL(NewStatusServer()), mainWindow, SLOT(slotNetRenderStatusServerUpdate()));
-	QApplication::connect(gNetRender, SIGNAL(ClientsChanged()), mainWindow, SLOT(slotNetRenderClientListUpdate()));
-	QApplication::connect(gNetRender, SIGNAL(ClientsChanged(int)), mainWindow, SLOT(slotNetRenderClientListUpdate(int)));
-	QApplication::connect(gNetRender, SIGNAL(ClientsChanged(int, int)), mainWindow, SLOT(slotNetRenderClientListUpdate(int, int)));
+	QApplication::connect(gNetRender,
+												SIGNAL(NewStatusClient()),
+												mainWindow,
+												SLOT(slotNetRenderStatusClientUpdate()));
+	QApplication::connect(gNetRender,
+												SIGNAL(NewStatusServer()),
+												mainWindow,
+												SLOT(slotNetRenderStatusServerUpdate()));
+	QApplication::connect(gNetRender,
+												SIGNAL(ClientsChanged()),
+												mainWindow,
+												SLOT(slotNetRenderClientListUpdate()));
+	QApplication::connect(gNetRender,
+												SIGNAL(ClientsChanged(int)),
+												mainWindow,
+												SLOT(slotNetRenderClientListUpdate(int)));
+	QApplication::connect(gNetRender,
+												SIGNAL(ClientsChanged(int, int)),
+												mainWindow,
+												SLOT(slotNetRenderClientListUpdate(int, int)));
 
 	// ------------ camera manipulation -----------
-	QApplication::connect(mainWindow->ui->bu_move_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
-	QApplication::connect(mainWindow->ui->bu_move_down, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
-	QApplication::connect(mainWindow->ui->bu_move_left, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
-	QApplication::connect(mainWindow->ui->bu_move_right, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
-	QApplication::connect(mainWindow->ui->bu_move_forward, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
-	QApplication::connect(mainWindow->ui->bu_move_backward, SIGNAL(clicked()), mainWindow, SLOT(slotCameraMove()));
+	QApplication::connect(mainWindow->ui->bu_move_up,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraMove()));
+	QApplication::connect(mainWindow->ui->bu_move_down,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraMove()));
+	QApplication::connect(mainWindow->ui->bu_move_left,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraMove()));
+	QApplication::connect(mainWindow->ui->bu_move_right,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraMove()));
+	QApplication::connect(mainWindow->ui->bu_move_forward,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraMove()));
+	QApplication::connect(mainWindow->ui->bu_move_backward,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraMove()));
 
-	QApplication::connect(mainWindow->ui->bu_rotate_up, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
-	QApplication::connect(mainWindow->ui->bu_rotate_down, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
-	QApplication::connect(mainWindow->ui->bu_rotate_left, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
-	QApplication::connect(mainWindow->ui->bu_rotate_right, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
-	QApplication::connect(mainWindow->ui->bu_rotate_roll_left, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
-	QApplication::connect(mainWindow->ui->bu_rotate_roll_right, SIGNAL(clicked()), mainWindow, SLOT(slotCameraRotation()));
+	QApplication::connect(mainWindow->ui->bu_rotate_up,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraRotation()));
+	QApplication::connect(mainWindow->ui->bu_rotate_down,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraRotation()));
+	QApplication::connect(mainWindow->ui->bu_rotate_left,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraRotation()));
+	QApplication::connect(mainWindow->ui->bu_rotate_right,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraRotation()));
+	QApplication::connect(mainWindow->ui->bu_rotate_roll_left,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraRotation()));
+	QApplication::connect(mainWindow->ui->bu_rotate_roll_right,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotCameraRotation()));
 
-	QApplication::connect(mainWindow->ui->vect3_camera_x, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_camera_y, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_camera_z, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_target_x, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_target_y, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_target_z, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraOrTargetEdited()));
-	QApplication::connect(mainWindow->ui->vect3_camera_rotation_x, SIGNAL(editingFinished()), mainWindow, SLOT(slotRotationEdited()));
-	QApplication::connect(mainWindow->ui->vect3_camera_rotation_y, SIGNAL(editingFinished()), mainWindow, SLOT(slotRotationEdited()));
-	QApplication::connect(mainWindow->ui->vect3_camera_rotation_z, SIGNAL(editingFinished()), mainWindow, SLOT(slotRotationEdited()));
-	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target, SIGNAL(editingFinished()), mainWindow, SLOT(slotCameraDistanceEdited()));
-	QApplication::connect(mainWindow->ui->logslider_camera_distance_to_target, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotCameraDistanceSlider(int)));
-	QApplication::connect(mainWindow->ui->comboBox_camera_absolute_distance_mode, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotMovementStepModeChanged(int)));
+	QApplication::connect(mainWindow->ui->vect3_camera_x,
+												SIGNAL(editingFinished()),
+												mainWindow,
+												SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_camera_y,
+												SIGNAL(editingFinished()),
+												mainWindow,
+												SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_camera_z,
+												SIGNAL(editingFinished()),
+												mainWindow,
+												SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_target_x,
+												SIGNAL(editingFinished()),
+												mainWindow,
+												SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_target_y,
+												SIGNAL(editingFinished()),
+												mainWindow,
+												SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_target_z,
+												SIGNAL(editingFinished()),
+												mainWindow,
+												SLOT(slotCameraOrTargetEdited()));
+	QApplication::connect(mainWindow->ui->vect3_camera_rotation_x,
+												SIGNAL(editingFinished()),
+												mainWindow,
+												SLOT(slotRotationEdited()));
+	QApplication::connect(mainWindow->ui->vect3_camera_rotation_y,
+												SIGNAL(editingFinished()),
+												mainWindow,
+												SLOT(slotRotationEdited()));
+	QApplication::connect(mainWindow->ui->vect3_camera_rotation_z,
+												SIGNAL(editingFinished()),
+												mainWindow,
+												SLOT(slotRotationEdited()));
+	QApplication::connect(mainWindow->ui->logedit_camera_distance_to_target,
+												SIGNAL(editingFinished()),
+												mainWindow,
+												SLOT(slotCameraDistanceEdited()));
+	QApplication::connect(mainWindow->ui->logslider_camera_distance_to_target,
+												SIGNAL(sliderMoved(int)),
+												mainWindow,
+												SLOT(slotCameraDistanceSlider(int)));
+	QApplication::connect(mainWindow->ui->comboBox_camera_absolute_distance_mode,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotMovementStepModeChanged(int)));
 
 	//DockWidgets and Toolbar
-	QApplication::connect(mainWindow->ui->bu_netrender_connect, SIGNAL(clicked()), mainWindow, SLOT(slotNetRenderClientConnect()));
-	QApplication::connect(mainWindow->ui->toolBar, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
-	QApplication::connect(mainWindow->ui->dockWidget_animation, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
-	QApplication::connect(mainWindow->ui->dockWidget_info, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
-	QApplication::connect(mainWindow->ui->dockWidget_histogram, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
-	QApplication::connect(mainWindow->ui->dockWidget_gamepad_dock, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
-	QApplication::connect(mainWindow->ui->dockWidget_queue_dock, SIGNAL(visibilityChanged(bool)), mainWindow, SLOT(slotUpdateDocksandToolbarbyView()));
+	QApplication::connect(mainWindow->ui->bu_netrender_connect,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotNetRenderClientConnect()));
+	QApplication::connect(mainWindow->ui->toolBar,
+												SIGNAL(visibilityChanged(bool)),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyView()));
+	QApplication::connect(mainWindow->ui->dockWidget_animation,
+												SIGNAL(visibilityChanged(bool)),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyView()));
+	QApplication::connect(mainWindow->ui->dockWidget_info,
+												SIGNAL(visibilityChanged(bool)),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyView()));
+	QApplication::connect(mainWindow->ui->dockWidget_histogram,
+												SIGNAL(visibilityChanged(bool)),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyView()));
+	QApplication::connect(mainWindow->ui->dockWidget_gamepad_dock,
+												SIGNAL(visibilityChanged(bool)),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyView()));
+	QApplication::connect(mainWindow->ui->dockWidget_queue_dock,
+												SIGNAL(visibilityChanged(bool)),
+												mainWindow,
+												SLOT(slotUpdateDocksandToolbarbyView()));
 
-	QApplication::connect(mainWindow->ui->actionAdd_Settings_to_Toolbar, SIGNAL(triggered()), mainWindow, SLOT(slotPresetAddToToolbar()));
+	QApplication::connect(mainWindow->ui->actionAdd_Settings_to_Toolbar,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotPresetAddToToolbar()));
 
-	#ifdef USE_GAMEPAD
+#ifdef USE_GAMEPAD
 	// ------------ gamepad -----------
-	QApplication::connect(mainWindow->ui->comboBox_gamepad_device, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangeGamepadIndex(int)));
-	QApplication::connect(QGamepadManager::instance(), SIGNAL(gamepadConnected(int)), mainWindow, SLOT(slotGamePadDeviceConnected(int)));
-	QApplication::connect(QGamepadManager::instance(), SIGNAL(gamepadDisconnected(int)), mainWindow, SLOT(slotGamePadDeviceDisconnected(int)));
-	#endif // USE_GAMEPAD
+	QApplication::connect(mainWindow->ui->comboBox_gamepad_device,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangeGamepadIndex(int)));
+	QApplication::connect(QGamepadManager::instance(),
+												SIGNAL(gamepadConnected(int)),
+												mainWindow,
+												SLOT(slotGamePadDeviceConnected(int)));
+	QApplication::connect(QGamepadManager::instance(),
+												SIGNAL(gamepadDisconnected(int)),
+												mainWindow,
+												SLOT(slotGamePadDeviceDisconnected(int)));
+#endif // USE_GAMEPAD
 
 	//------------------------------------------------
 	ConnectSignalsForSlidersInWindow(mainWindow);
@@ -363,7 +794,8 @@ void cInterface::ConnectSignals(void)
 }
 
 //Reading ad writing parameters from/to ui to/from parameters container
-void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode)
+void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal,
+		enumReadWrite mode)
 {
 	WriteLog("cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode)");
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode);
@@ -394,7 +826,8 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 }
 
 //Reading ad writing parameters from/to selected widget to/from parameters container
-void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumReadWrite mode)
+void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par,
+		enumReadWrite mode)
 {
 	QTextStream out(stdout);
 
@@ -409,7 +842,8 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 
 			QString name = (*it)->objectName();
 			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && (className == QString("QLineEdit") || className == QString("MyLineEdit")))
+			if (name.length() > 1
+					&& (className == QString("QLineEdit") || className == QString("MyLineEdit")))
 			{
 				QLineEdit *lineEdit = *it;
 				QString text = lineEdit->text();
@@ -419,13 +853,12 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 				GetNameAndType(name, &parameterName, &type);
 				//out << name << " - type: " << type << endl;
 
-				if(className == QString("MyLineEdit"))
+				if (className == QString("MyLineEdit"))
 				{
-					MyLineEdit *mylineedit = (MyLineEdit*)*it;
+					MyLineEdit *mylineedit = (MyLineEdit*) *it;
 					mylineedit->AssignParameterContainer(par);
 					mylineedit->AssingParameterName(parameterName);
 				}
-
 
 				//----- get vectors ------------
 				if (type == QString("vect3"))
@@ -454,7 +887,8 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 								break;
 
 							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
+										<< " has wrong axis name (is " << lastChar << ")" << endl;
 								break;
 						}
 						par->Set(nameVect, vect);
@@ -479,7 +913,8 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 								break;
 
 							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
+										<< " has wrong axis name (is " << lastChar << ")" << endl;
 								break;
 						}
 						lineEdit->setText(qtext);
@@ -530,16 +965,17 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 			QString name = (*it)->objectName();
 			//out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && (className == QString("QDoubleSpinBox") || className == QString("MyDoubleSpinBox")))
+			if (name.length() > 1
+					&& (className == QString("QDoubleSpinBox") || className == QString("MyDoubleSpinBox")))
 			{
 				QDoubleSpinBox *spinbox = *it;
 
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
 
-				if(className == QString("MyDoubleSpinBox"))
+				if (className == QString("MyDoubleSpinBox"))
 				{
-					MyDoubleSpinBox *mydoublespinbox = (MyDoubleSpinBox*)*it;
+					MyDoubleSpinBox *mydoublespinbox = (MyDoubleSpinBox*) *it;
 					mydoublespinbox->AssignParameterContainer(par);
 					mydoublespinbox->AssingParameterName(parameterName);
 				}
@@ -557,7 +993,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 						spinbox->setValue(value);
 					}
 				}
-				else if(type == QString("spinbox3") || type == QString("spinboxd3"))
+				else if (type == QString("spinbox3") || type == QString("spinboxd3"))
 				{
 					char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 					QString nameVect = parameterName.left(parameterName.length() - 2);
@@ -581,7 +1017,8 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 								break;
 
 							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
+										<< nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
 								break;
 						}
 						par->Set(nameVect, vect);
@@ -606,7 +1043,8 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 								break;
 
 							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " " << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
+										<< nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
 								break;
 						}
 						spinbox->setValue(value);
@@ -625,15 +1063,16 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 			QString name = (*it)->objectName();
 			//out << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && (className == QString("QSpinBox") || className == QString("MySpinBox")))
+			if (name.length() > 1
+					&& (className == QString("QSpinBox") || className == QString("MySpinBox")))
 			{
 				QSpinBox *spinbox = *it;
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
 
-				if(className == QString("MySpinBox"))
+				if (className == QString("MySpinBox"))
 				{
-					MySpinBox *myspinbox = (MySpinBox*)*it;
+					MySpinBox *myspinbox = (MySpinBox*) *it;
 					myspinbox->AssignParameterContainer(par);
 					myspinbox->AssingParameterName(parameterName);
 				}
@@ -664,16 +1103,17 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 			QString name = (*it)->objectName();
 			//out << "QCheckBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && (className  == QString("QCheckBox") || className == QString("MyCheckBox")))
+			if (name.length() > 1
+					&& (className == QString("QCheckBox") || className == QString("MyCheckBox")))
 			{
 				QCheckBox *checkbox = *it;
 
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
 
-				if(className == QString("MyCheckBox"))
+				if (className == QString("MyCheckBox"))
 				{
-					MyCheckBox *mycheckbox = (MyCheckBox*)*it;
+					MyCheckBox *mycheckbox = (MyCheckBox*) *it;
 					mycheckbox->AssignParameterContainer(par);
 					mycheckbox->AssingParameterName(parameterName);
 				}
@@ -704,16 +1144,17 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 			QString name = (*it)->objectName();
 			//out << "QGroupBox:" << (*it)->objectName() << " Type:" << (*it)->metaObject()->className() << endl;
 			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && (className == QString("QGroupBox") || className == QString("MyGroupBox")))
+			if (name.length() > 1
+					&& (className == QString("QGroupBox") || className == QString("MyGroupBox")))
 			{
 				QGroupBox *groupbox = *it;
 
 				QString type, parameterName;
 				GetNameAndType(name, &parameterName, &type);
 
-				if(className == QString("MyGroupBox"))
+				if (className == QString("MyGroupBox"))
 				{
-					MyGroupBox *mygroupbox = (MyGroupBox*)*it;
+					MyGroupBox *mygroupbox = (MyGroupBox*) *it;
 					mygroupbox->AssignParameterContainer(par);
 					mygroupbox->AssingParameterName(parameterName);
 				}
@@ -757,7 +1198,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 					par->Set(parameterName, colorButton->GetColor());
 				}
 				else if (mode == write)
-				{	
+				{
 					colorButton->setText("");
 					colorButton->SetColor(par->Get<sRGB>(parameterName));
 				}
@@ -767,7 +1208,8 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 
 	//---------- colorpalette -----------
 	{
-		QList<ColorPaletteWidget *> widgetListColorPalette = window->findChildren<ColorPaletteWidget*>();
+		QList<ColorPaletteWidget *> widgetListColorPalette =
+				window->findChildren<ColorPaletteWidget*>();
 		QList<ColorPaletteWidget *>::iterator it;
 		for (it = widgetListColorPalette.begin(); it != widgetListColorPalette.end(); ++it)
 		{
@@ -821,7 +1263,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 					{
 						int selection = comboBox->currentIndex();
 
-						if(parameterName.left(7) == QString("formula"))
+						if (parameterName.left(7) == QString("formula"))
 						{
 							selection = fractalList[selection].internalID;
 						}
@@ -830,11 +1272,11 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 					else if (mode == write)
 					{
 						int selection = par->Get<int>(parameterName);
-						if(parameterName.left(7) == QString("formula"))
+						if (parameterName.left(7) == QString("formula"))
 						{
-							for(int i=0; i<fractalList.size(); i++)
+							for (int i = 0; i < fractalList.size(); i++)
 							{
-								if(fractalList[i].internalID == selection)
+								if (fractalList[i].internalID == selection)
 								{
 									selection = i;
 									break;
@@ -866,61 +1308,89 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 
 			if (type == QString("slider"))
 			{
-				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotSliderMoved(int)));
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															mainWindow,
+															SLOT(slotSliderMoved(int)));
 
 				QString spinBoxName = QString("spinbox_") + parameterName;
 				QDoubleSpinBox *spinBox = slider->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
 				if (spinBox)
 				{
-					QApplication::connect(spinBox, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotDoubleSpinBoxChanged(double)));
+					QApplication::connect(spinBox,
+																SIGNAL(valueChanged(double)),
+																mainWindow,
+																SLOT(slotDoubleSpinBoxChanged(double)));
 				}
 				else
 				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox " << spinBoxName << " doesn't exists" << endl;
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox " << spinBoxName
+							<< " doesn't exists" << endl;
 				}
 			}
 			if (type == QString("logslider"))
 			{
-				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotLogSliderMoved(int)));
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															mainWindow,
+															SLOT(slotLogSliderMoved(int)));
 
 				QString editFieldName = QString("logedit_") + parameterName;
 				QLineEdit *lineEdit = slider->parent()->findChild<QLineEdit*>(editFieldName);
 				if (lineEdit)
 				{
-					QApplication::connect(lineEdit, SIGNAL(textChanged(const QString&)), mainWindow, SLOT(slotLogLineEditChanged(const QString&)));
+					QApplication::connect(lineEdit,
+																SIGNAL(textChanged(const QString&)),
+																mainWindow,
+																SLOT(slotLogLineEditChanged(const QString&)));
 				}
 				else
 				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName << " doesn't exists" << endl;
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: lineEdit " << editFieldName
+							<< " doesn't exists" << endl;
 				}
 			}
 			if (type == QString("sliderInt"))
 			{
-				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotIntSliderMoved(int)));
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															mainWindow,
+															SLOT(slotIntSliderMoved(int)));
 
 				QString spinboxName = QString("spinboxInt_") + parameterName;
 				QSpinBox *spinbox = slider->parent()->findChild<QSpinBox*>(spinboxName);
 				if (spinbox)
 				{
-					QApplication::connect(spinbox, SIGNAL(valueChanged(int)), mainWindow, SLOT(slotIntSpinBoxChanged(int)));
+					QApplication::connect(spinbox,
+																SIGNAL(valueChanged(int)),
+																mainWindow,
+																SLOT(slotIntSpinBoxChanged(int)));
 				}
 				else
 				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxInt " << spinboxName << " doesn't exists" << endl;
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxInt " << spinboxName
+							<< " doesn't exists" << endl;
 				}
 			}
 			if (type == QString("slider3"))
 			{
-				QApplication::connect(slider, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotSlider3Moved(int)));
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															mainWindow,
+															SLOT(slotSlider3Moved(int)));
 				QString spinboxName = QString("spinbox3_") + parameterName;
 				QDoubleSpinBox *spinbox = slider->parent()->findChild<QDoubleSpinBox*>(spinboxName);
 				if (spinbox)
 				{
-					QApplication::connect(spinbox, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotSpinBox3Changed(double)));
+					QApplication::connect(spinbox,
+																SIGNAL(valueChanged(double)),
+																mainWindow,
+																SLOT(slotSpinBox3Changed(double)));
 				}
 				else
 				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox3 " << spinboxName << " doesn't exists" << endl;
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox3 " << spinboxName
+							<< " doesn't exists" << endl;
 				}
 			}
 		}
@@ -939,17 +1409,24 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 
 			if (type == QString("dial3"))
 			{
-				QApplication::connect(dial, SIGNAL(sliderMoved(int)), mainWindow, SLOT(slotDial3Moved(int)));
+				QApplication::connect(dial,
+															SIGNAL(sliderMoved(int)),
+															mainWindow,
+															SLOT(slotDial3Moved(int)));
 
 				QString spinBoxName = QString("spinboxd3_") + parameterName;
 				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
 				if (spinBox)
 				{
-					QApplication::connect(spinBox, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotSpinBoxD3Changed(double)));
+					QApplication::connect(spinBox,
+																SIGNAL(valueChanged(double)),
+																mainWindow,
+																SLOT(slotSpinBoxD3Changed(double)));
 				}
 				else
 				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd3 " << spinBoxName << " doesn't exists" << endl;
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd3 " << spinBoxName
+							<< " doesn't exists" << endl;
 				}
 			}
 			if (type == QString("dial"))
@@ -960,11 +1437,15 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
 				if (spinBox)
 				{
-					QApplication::connect(spinBox, SIGNAL(valueChanged(double)), mainWindow, SLOT(slotSpinBoxDChanged(double)));
+					QApplication::connect(spinBox,
+																SIGNAL(valueChanged(double)),
+																mainWindow,
+																SLOT(slotSpinBoxDChanged(double)));
 				}
 				else
 				{
-					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd " << spinBoxName << " doesn't exists" << endl;
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd " << spinBoxName
+							<< " doesn't exists" << endl;
 				}
 			}
 		}
@@ -987,7 +1468,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 
 	QFile uiFile(uiFileName);
 
-	if(uiFile.exists())
+	if (uiFile.exists())
 	{
 		uiFile.open(QFile::ReadOnly);
 		mainWindow->fractalWidgets[0] = loader.load(&uiFile);
@@ -1054,14 +1535,17 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("Can't open file ") + uiFileName + QObject::tr(" Fractal ui files can't be loaded"), cErrorMessage::errorMessage, mainWindow);
+		cErrorMessage::showMessage(QObject::tr("Can't open file ") + uiFileName
+																	 + QObject::tr(" Fractal ui files can't be loaded"),
+															 cErrorMessage::errorMessage,
+															 mainWindow);
 	}
 	WriteLog("cInterface::InitializeFractalUi(QString &uiFileName) finished");
 }
 
 void cInterface::StartRender(bool noUndo)
 {
-	if(!mainImage->IsUsed())
+	if (!mainImage->IsUsed())
 	{
 		mainImage->BlockImage();
 		WriteLog("cInterface::StartRender(void) - image was free");
@@ -1082,20 +1566,27 @@ void cInterface::StartRender(bool noUndo)
 	progressBarAnimation->hide();
 	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 
-	if(!noUndo) gUndo.Store(gPar, gParFractal);
+	if (!noUndo) gUndo.Store(gPar, gParFractal);
 
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, mainImage, &stopRequest, renderedImage); //deleted by deleteLater()
 
-	QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
+	QObject::connect(renderJob,
+									 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+									 mainWindow,
+									 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	QObject::connect(renderJob,
+									 SIGNAL(updateStatistics(cStatistics)),
+									 mainWindow,
+									 SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
 
-	if(!renderJob->Init(cRenderJob::still, config))
+	if (!renderJob->Init(cRenderJob::still, config))
 	{
 		mainImage->ReleaseImage();
-		cErrorMessage::showMessage(QObject::tr("Cannot init renderJob, see log output for more information."), cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("Cannot init renderJob, see log output for more information."),
+															 cErrorMessage::errorMessage);
 		return;
 	}
 
@@ -1128,25 +1619,21 @@ void cInterface::MoveCamera(QString buttonName)
 
 	//get direction vector
 	CVector3 direction;
-	if(buttonName == "bu_move_left")
-		direction = cameraTarget.GetRightVector() * (-1.0);
-	else if(buttonName == "bu_move_right")
-		direction = cameraTarget.GetRightVector() * ( 1.0);
-	else if(buttonName == "bu_move_up")
-		direction = cameraTarget.GetTopVector() * ( 1.0) * reverse;
-	else if(buttonName == "bu_move_down")
-		direction = cameraTarget.GetTopVector() * (-1.0) * reverse;
-	else if(buttonName == "bu_move_forward")
-		direction = cameraTarget.GetForwardVector() * (1.0);
-	else if(buttonName == "bu_move_backward")
-		direction = cameraTarget.GetForwardVector() * (-1.0);
+	if (buttonName == "bu_move_left") direction = cameraTarget.GetRightVector() * (-1.0);
+	else if (buttonName == "bu_move_right") direction = cameraTarget.GetRightVector() * (1.0);
+	else if (buttonName == "bu_move_up") direction = cameraTarget.GetTopVector() * (1.0) * reverse;
+	else if (buttonName == "bu_move_down") direction = cameraTarget.GetTopVector() * (-1.0) * reverse;
+	else if (buttonName == "bu_move_forward") direction = cameraTarget.GetForwardVector() * (1.0);
+	else if (buttonName == "bu_move_backward") direction = cameraTarget.GetForwardVector() * (-1.0);
 
-	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode)gPar->Get<int>("camera_absolute_distance_mode");
-	enumCameraMovementMode movementMode = (enumCameraMovementMode)gPar->Get<int>("camera_movement_mode");
+	enumCameraMovementStepMode stepMode =
+			(enumCameraMovementStepMode) gPar->Get<int>("camera_absolute_distance_mode");
+	enumCameraMovementMode movementMode =
+			(enumCameraMovementMode) gPar->Get<int>("camera_movement_mode");
 
 	//movement step
 	double step;
-	if(stepMode == absolute)
+	if (stepMode == absolute)
 	{
 		step = gPar->Get<double>("camera_movement_step");
 	}
@@ -1155,10 +1642,8 @@ void cInterface::MoveCamera(QString buttonName)
 		double relativeStep = gPar->Get<double>("camera_movement_step");
 
 		CVector3 point;
-		if(movementMode == moveTarget)
-			point = target;
-		else
-			point = camera;
+		if (movementMode == moveTarget) point = target;
+		else point = camera;
 
 		double distance = GetDistanceForPoint(point, gPar, gParFractal);
 
@@ -1166,10 +1651,8 @@ void cInterface::MoveCamera(QString buttonName)
 	}
 
 	//movement
-	if(movementMode == moveCamera)
-		camera += direction * step;
-	else if(movementMode == moveTarget)
-		target += direction * step;
+	if (movementMode == moveCamera) camera += direction * step;
+	else if (movementMode == moveTarget) target += direction * step;
 	else if (movementMode == fixedDistance)
 	{
 		camera += direction * step;
@@ -1181,13 +1664,13 @@ void cInterface::MoveCamera(QString buttonName)
 	gPar->Set("target", target);
 
 	//recalculation of camera-target
-	cCameraTarget::enumRotationMode rollMode = 	(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
-	if(movementMode == moveCamera)
-		cameraTarget.SetCamera(camera, rollMode);
-	else if(movementMode == moveTarget)
-		cameraTarget.SetTarget(target, rollMode);
-	else if (movementMode == fixedDistance)
-		cameraTarget.SetCameraTargetTop(camera, target, topVector);
+	cCameraTarget::enumRotationMode rollMode =
+			(cCameraTarget::enumRotationMode) gPar->Get<int>("camera_straight_rotation");
+	if (movementMode == moveCamera) cameraTarget.SetCamera(camera, rollMode);
+	else if (movementMode == moveTarget) cameraTarget.SetTarget(target, rollMode);
+	else if (movementMode == fixedDistance) cameraTarget.SetCameraTargetTop(camera,
+																																					target,
+																																					topVector);
 
 	topVector = cameraTarget.GetTopVector();
 	gPar->Set("camera_top", topVector);
@@ -1216,7 +1699,8 @@ void cInterface::CameraOrTargetEdited(void)
 	target = gPar->Get<CVector3>("target");
 
 	//recalculation of camera-target
-	cCameraTarget::enumRotationMode rollMode = 	(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
+	cCameraTarget::enumRotationMode rollMode =
+			(cCameraTarget::enumRotationMode) gPar->Get<int>("camera_straight_rotation");
 	cameraTarget.SetCamera(camera, rollMode);
 	cameraTarget.SetTarget(target, rollMode);
 
@@ -1243,52 +1727,51 @@ void cInterface::RotateCamera(QString buttonName)
 	cCameraTarget cameraTarget(camera, target, topVector);
 	double distance = cameraTarget.GetDistance();
 
-	enumCameraRotationMode rotationMode = (enumCameraRotationMode)gPar->Get<int>("camera_rotation_mode");
-	cCameraTarget::enumRotationMode rollMode = 	(cCameraTarget::enumRotationMode)gPar->Get<int>("camera_straight_rotation");
+	enumCameraRotationMode rotationMode =
+			(enumCameraRotationMode) gPar->Get<int>("camera_rotation_mode");
+	cCameraTarget::enumRotationMode rollMode =
+			(cCameraTarget::enumRotationMode) gPar->Get<int>("camera_straight_rotation");
 
 	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
 	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
 
 	CVector3 rotationAxis;
-	if(rollMode == cCameraTarget::constantRoll)
+	if (rollMode == cCameraTarget::constantRoll)
 	{
-		if(buttonName == "bu_rotate_left")
-			rotationAxis = CVector3(0.0, 0.0, 1.0);
-		else if(buttonName == "bu_rotate_right")
-			rotationAxis = CVector3(0.0, 0.0, -1.0);
-		else if(buttonName == "bu_rotate_up")
+		if (buttonName == "bu_rotate_left") rotationAxis = CVector3(0.0, 0.0, 1.0);
+		else if (buttonName == "bu_rotate_right") rotationAxis = CVector3(0.0, 0.0, -1.0);
+		else if (buttonName == "bu_rotate_up")
 		{
 			rotationAxis = CVector3(1.0 * reverse, 0.0, 0.0);
-			rotationAxis = rotationAxis.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), cameraTarget.GetRotation().x);
+			rotationAxis = rotationAxis.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0),
+																														cameraTarget.GetRotation().x);
 		}
-		else if(buttonName == "bu_rotate_down")
+		else if (buttonName == "bu_rotate_down")
 		{
 			rotationAxis = CVector3(-1.0 * reverse, 0.0, 0.0);
-			rotationAxis = rotationAxis.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), cameraTarget.GetRotation().x);
+			rotationAxis = rotationAxis.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0),
+																														cameraTarget.GetRotation().x);
 		}
-		else if(buttonName == "bu_rotate_roll_left")
-			rotationAxis = cameraTarget.GetForwardVector() * (-1.0) * reverse;
-		else if(buttonName == "bu_rotate_roll_right")
-			rotationAxis = cameraTarget.GetForwardVector() * (1.0) * reverse;
+		else if (buttonName == "bu_rotate_roll_left") rotationAxis = cameraTarget.GetForwardVector()
+				* (-1.0) * reverse;
+		else if (buttonName == "bu_rotate_roll_right") rotationAxis = cameraTarget.GetForwardVector()
+				* (1.0) * reverse;
 	}
 	else
 	{
-		if(buttonName == "bu_rotate_left")
-			rotationAxis = cameraTarget.GetTopVector() * ( 1.0);
-		else if(buttonName == "bu_rotate_right")
-			rotationAxis = cameraTarget.GetTopVector() * (-1.0);
-		else if(buttonName == "bu_rotate_up")
-			rotationAxis = cameraTarget.GetRightVector() * (1.0) * reverse;
-		else if(buttonName == "bu_rotate_down")
-			rotationAxis = cameraTarget.GetRightVector() * (-1.0) * reverse;
-		else if(buttonName == "bu_rotate_roll_left")
-			rotationAxis = cameraTarget.GetForwardVector() * (-1.0) * reverse;
-		else if(buttonName == "bu_rotate_roll_right")
-			rotationAxis = cameraTarget.GetForwardVector() * (1.0) * reverse;
+		if (buttonName == "bu_rotate_left") rotationAxis = cameraTarget.GetTopVector() * (1.0);
+		else if (buttonName == "bu_rotate_right") rotationAxis = cameraTarget.GetTopVector() * (-1.0);
+		else if (buttonName == "bu_rotate_up") rotationAxis = cameraTarget.GetRightVector() * (1.0)
+				* reverse;
+		else if (buttonName == "bu_rotate_down") rotationAxis = cameraTarget.GetRightVector() * (-1.0)
+				* reverse;
+		else if (buttonName == "bu_rotate_roll_left") rotationAxis = cameraTarget.GetForwardVector()
+				* (-1.0) * reverse;
+		else if (buttonName == "bu_rotate_roll_right") rotationAxis = cameraTarget.GetForwardVector()
+				* (1.0) * reverse;
 	}
 
-	if(rotationMode == rotateAroundTarget)
-		rotationAxis *= -1.0;
+	if (rotationMode == rotateAroundTarget) rotationAxis *= -1.0;
 
 	//rotation of vectors
 	CVector3 forwardVector = cameraTarget.GetForwardVector();
@@ -1296,7 +1779,7 @@ void cInterface::RotateCamera(QString buttonName)
 	forwardVector = forwardVector.RotateAroundVectorByAngle(rotationAxis, rotationStep);
 	topVector = topVector.RotateAroundVectorByAngle(rotationAxis, rotationStep);
 
-	if(rotationMode == rotateCamera)
+	if (rotationMode == rotateCamera)
 	{
 		target = camera + forwardVector * distance;
 	}
@@ -1333,14 +1816,15 @@ void cInterface::RotationEdited(void)
 	double distance = cameraTarget.GetDistance();
 	CVector3 rotation = gPar->Get<CVector3>("camera_rotation") * (M_PI / 180.0);
 
-	enumCameraRotationMode rotationMode = (enumCameraRotationMode)gPar->Get<int>("camera_rotation_mode");
+	enumCameraRotationMode rotationMode =
+			(enumCameraRotationMode) gPar->Get<int>("camera_rotation_mode");
 
 	CVector3 forwardVector(0.0, 1.0, 0.0);
 	forwardVector = forwardVector.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), rotation.z);
 	forwardVector = forwardVector.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), rotation.y);
 	forwardVector = forwardVector.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), rotation.x);
 
-	if(rotationMode == rotateCamera)
+	if (rotationMode == rotateCamera)
 	{
 		target = camera + forwardVector * distance;
 	}
@@ -1368,8 +1852,9 @@ void cInterface::CameraDistanceEdited()
 
 	double distance = gPar->Get<double>("camera_distance_to_target");
 
-	enumCameraMovementMode movementMode = (enumCameraMovementMode)gPar->Get<int>("camera_movement_mode");
-	if(movementMode == moveTarget)
+	enumCameraMovementMode movementMode =
+			(enumCameraMovementMode) gPar->Get<int>("camera_movement_mode");
+	if (movementMode == moveTarget)
 	{
 		target = camera + forwardVector * distance;
 	}
@@ -1387,7 +1872,7 @@ void cInterface::CameraDistanceEdited()
 
 void cInterface::IFSDefaultsDodecahedron(cParameterContainer *parFractal)
 {
-	double phi = (1 + sqrt(5.0))/2.0;
+	double phi = (1 + sqrt(5.0)) / 2.0;
 	parFractal->Set("IFS_scale", phi * phi);
 	parFractal->Set("IFS_direction_0", CVector3(phi * phi, 1.0, -phi));
 	parFractal->Set("IFS_direction_1", CVector3(-phi, phi * phi, 1.0));
@@ -1404,7 +1889,7 @@ void cInterface::IFSDefaultsDodecahedron(cParameterContainer *parFractal)
 
 void cInterface::IFSDefaultsIcosahedron(cParameterContainer *parFractal)
 {
-	double phi = (1 + sqrt(5.0))/2.0;
+	double phi = (1 + sqrt(5.0)) / 2.0;
 	parFractal->Set("IFS_scale", 2.0);
 	parFractal->Set("IFS_direction_3", CVector3(-phi * phi, 1.0, phi));
 	parFractal->Set("IFS_direction_4", CVector3(phi, -phi * phi, 1.0));
@@ -1451,7 +1936,7 @@ void cInterface::IFSDefaultsMengerSponge(cParameterContainer *parFractal)
 
 void cInterface::IFSDefaultsReset(cParameterContainer *parFractal)
 {
-	for(int i=0; i<9; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		parFractal->Set("IFS_direction", i, CVector3(1.0, 0.0, 0.0));
 		parFractal->Set("IFS_rotations", i, CVector3(0.0, 0.0, 0.0));
@@ -1473,16 +1958,16 @@ void cInterface::IFSDefaultsReset(cParameterContainer *parFractal)
 
 void cInterface::ShowImageInLabel(QLabel *label, const QString &filename)
 {
-  QPixmap pixmap(filename);
-  if(pixmap.isNull())
-  {
-  	label->setText("Error: Texture cannot be loaded");
-  }
-  else
-  {
-    pixmap = pixmap.scaledToWidth(label->width()*0.7, Qt::SmoothTransformation);
-  	label->setPixmap(pixmap);
-  }
+	QPixmap pixmap(filename);
+	if (pixmap.isNull())
+	{
+		label->setText("Error: Texture cannot be loaded");
+	}
+	else
+	{
+		pixmap = pixmap.scaledToWidth(label->width() * 0.7, Qt::SmoothTransformation);
+		label->setPixmap(pixmap);
+	}
 }
 
 void cInterface::RefreshMainImage()
@@ -1497,25 +1982,34 @@ void cInterface::RefreshMainImage()
 	mainImage->CompileImage();
 
 	stopRequest = false;
-	if(gPar->Get<bool>("ambient_occlusion_enabled") && gPar->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace)
+	if (gPar->Get<bool>("ambient_occlusion_enabled")
+			&& gPar->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace)
 	{
 		cParamRender params(gPar);
 		sRenderData data;
 		cRenderingConfiguration config;
 		data.stopRequest = &stopRequest;
 		cRenderSSAO rendererSSAO(&params, &data, mainImage);
-		QObject::connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		QObject::connect(&rendererSSAO,
+										 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+										 gMainInterface->mainWindow,
+										 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 
 		rendererSSAO.RenderSSAO();
 	}
 
-	if(gPar->Get<bool>("DOF_enabled"))
+	if (gPar->Get<bool>("DOF_enabled"))
 	{
 		cParamRender params(gPar);
 		cRenderingConfiguration config;
 		cPostRenderingDOF dof(mainImage);
-		QObject::connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-		dof.Render(params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0, params.DOFFocus, &stopRequest);
+		QObject::connect(&dof,
+										 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+										 gMainInterface->mainWindow,
+										 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+		dof.Render(params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
+							 params.DOFFocus,
+							 &stopRequest);
 	}
 
 	mainImage->ConvertTo8bit();
@@ -1531,14 +2025,14 @@ cColorPalette cInterface::GetPaletteFromImage(const QString &filename)
 	SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_fractal_color, gPar, cInterface::read);
 	int paletteSize = gPar->Get<int>("coloring_palette_size");
 
-	if(!imagePalette.isNull())
+	if (!imagePalette.isNull())
 	{
 		int width = imagePalette.width();
 		int height = imagePalette.height();
 
 		for (int i = 0; i < paletteSize; i++)
 		{
-			double angle = (double)i / paletteSize * M_PI * 2.0;
+			double angle = (double) i / paletteSize * M_PI * 2.0;
 			double x = width / 2 + cos(angle) * width * 0.4;
 			double y = height / 2 + sin(angle) * height * 0.4;
 			QRgb pixel = imagePalette.pixel(x, y);
@@ -1565,7 +2059,8 @@ void cInterface::AutoFog()
 	SynchronizeInterface(gPar, gParFractal, cInterface::write);
 }
 
-double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par, cFractalContainer *parFractal)
+double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par,
+		cFractalContainer *parFractal)
 {
 	cParamRender *params = new cParamRender(par);
 	cFourFractals *fourFractals = new cFourFractals(parFractal, par);
@@ -1584,12 +2079,14 @@ double cInterface::GetDistanceForPoint(CVector3 point)
 	return distance;
 }
 
-void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode)
+void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button,
+		const QList<QVariant> &mode)
 {
-	WriteLog(QString("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: ") + button);
+	WriteLog(QString("MoveCameraByMouse(CVector2<double> screenPoint, Qt::MouseButton button): button: ")
+			+ button);
 	//get data from interface
 
-	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)mode.at(0).toInt();
+	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode) mode.at(0).toInt();
 
 	SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
@@ -1597,10 +2094,14 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, topVector);
 
-	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode) gPar->Get<int>("camera_absolute_distance_mode");
-	enumCameraMovementMode movementMode = (enumCameraMovementMode) gPar->Get<int>("camera_movement_mode");
-	params::enumPerspectiveType perspType = (params::enumPerspectiveType) gPar->Get<int>("perspective_type");
-	cCameraTarget::enumRotationMode rollMode = (cCameraTarget::enumRotationMode) gPar->Get<int>("camera_straight_rotation");
+	enumCameraMovementStepMode stepMode =
+			(enumCameraMovementStepMode) gPar->Get<int>("camera_absolute_distance_mode");
+	enumCameraMovementMode movementMode =
+			(enumCameraMovementMode) gPar->Get<int>("camera_movement_mode");
+	params::enumPerspectiveType perspType =
+			(params::enumPerspectiveType) gPar->Get<int>("perspective_type");
+	cCameraTarget::enumRotationMode rollMode =
+			(cCameraTarget::enumRotationMode) gPar->Get<int>("camera_straight_rotation");
 	double movementStep = gPar->Get<double>("camera_movement_step");
 	double fov = gPar->Get<double>("fov");
 	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
@@ -1612,7 +2113,8 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 	int width = mainImage->GetWidth();
 	int height = mainImage->GetHeight();
 
-	if (imagePoint.x >= 0 && imagePoint.x < mainImage->GetWidth() && imagePoint.y >= 0 && imagePoint.y < mainImage->GetHeight())
+	if (imagePoint.x >= 0 && imagePoint.x < mainImage->GetWidth() && imagePoint.y >= 0
+			&& imagePoint.y < mainImage->GetHeight())
 	{
 		double depth = mainImage->GetPixelZBuffer(imagePoint.x, imagePoint.y);
 		if (depth < 1e10)
@@ -1667,7 +2169,9 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					//recalculation of camera-target
 					if (movementMode == moveCamera) cameraTarget.SetCamera(camera, rollMode);
 					else if (movementMode == moveTarget) cameraTarget.SetTarget(target, rollMode);
-					else if (movementMode == fixedDistance) cameraTarget.SetCameraTargetTop(camera, target, topVector);
+					else if (movementMode == fixedDistance) cameraTarget.SetCameraTargetTop(camera,
+																																									target,
+																																									topVector);
 
 					if (rollMode == cCameraTarget::constantRoll)
 					{
@@ -1695,7 +2199,9 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				{
 					double fogDepth = depth;
 					gPar->Set("basic_fog_visibility", fogDepth);
-					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_basic_fog_enabled, gPar, cInterface::write);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_basic_fog_enabled,
+																		 gPar,
+																		 cInterface::write);
 					StartRender();
 					break;
 				}
@@ -1703,7 +2209,9 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				{
 					double DOF = depth;
 					gPar->Set("DOF_focus", DOF);
-					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_DOF_enabled, gPar, cInterface::write);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_DOF_enabled,
+																		 gPar,
+																		 cInterface::write);
 					gUndo.Store(gPar, gParFractal);
 					RefreshMainImage();
 					break;
@@ -1724,14 +2232,18 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				case RenderedImage::clickGetJuliaConstant:
 				{
 					gPar->Set("julia_c", point);
-					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_julia_mode, gPar, cInterface::write);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_julia_mode,
+																		 gPar,
+																		 cInterface::write);
 					break;
 				}
 				case RenderedImage::clickPlacePrimitive:
 				{
 					QString parameterName = mode.at(3).toString() + "_position";
 					gPar->Set(parameterName, point);
-					SynchronizeInterfaceWindow(mainWindow->ui->scrollArea_primitives, gPar, cInterface::write);
+					SynchronizeInterfaceWindow(mainWindow->ui->scrollArea_primitives,
+																		 gPar,
+																		 cInterface::write);
 					break;
 				}
 				case RenderedImage::clickDoNothing:
@@ -1748,11 +2260,11 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 void cInterface::MovementStepModeChanged(int mode)
 {
 	SynchronizeInterface(gPar, gParFractal, cInterface::read);
-	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode)mode;
+	enumCameraMovementStepMode stepMode = (enumCameraMovementStepMode) mode;
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
 	double oldStep = gPar->Get<double>("camera_movement_step");
 	double newStep;
-	if(stepMode == absolute)
+	if (stepMode == absolute)
 	{
 		newStep = oldStep * distance;
 	}
@@ -1764,16 +2276,15 @@ void cInterface::MovementStepModeChanged(int mode)
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, cInterface::write);
 }
 
-
 void cInterface::Undo()
 {
 	bool refreshFrames = false;
 	bool refreshKeyframes = false;
-	if(gUndo.Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
+	if (gUndo.Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
 		SynchronizeInterface(gPar, gParFractal, cInterface::write);
-		if(refreshFrames) gFlightAnimation->RefreshTable();
-		if(refreshKeyframes) gKeyframeAnimation->RefreshTable();
+		if (refreshFrames) gFlightAnimation->RefreshTable();
+		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
 		StartRender(true);
 	}
 }
@@ -1782,11 +2293,11 @@ void cInterface::Redo()
 {
 	bool refreshFrames = false;
 	bool refreshKeyframes = false;
-	if(gUndo.Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
+	if (gUndo.Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
 		SynchronizeInterface(gPar, gParFractal, cInterface::write);
-		if(refreshFrames) gFlightAnimation->RefreshTable();
-		if(refreshKeyframes) gKeyframeAnimation->RefreshTable();
+		if (refreshFrames) gFlightAnimation->RefreshTable();
+		if (refreshKeyframes) gKeyframeAnimation->RefreshTable();
 		StartRender(true);
 	}
 }
@@ -1801,7 +2312,8 @@ void cInterface::ResetView()
 	cCameraTarget cameraTarget(camera, target, topVector);
 	CVector3 forwardVector = cameraTarget.GetForwardVector();
 	double fov = gPar->Get<double>("fov");
-	params::enumPerspectiveType perspType = (params::enumPerspectiveType)gPar->Get<int>("perspective_type");
+	params::enumPerspectiveType perspType =
+			(params::enumPerspectiveType) gPar->Get<int>("perspective_type");
 
 	cParameterContainer parTemp = *gPar;
 	parTemp.Set("limits_enabled", false);
@@ -1813,10 +2325,15 @@ void cInterface::ResetView()
 	cParamRender *params = new cParamRender(gPar);
 	cFourFractals *fourFractals = new cFourFractals(gParFractal, gPar);
 
-	for(int i = 0; i<50; i++)
+	for (int i = 0; i < 50; i++)
 	{
-		cProgressText::ProgressStatusText(QObject::tr("Reseting view"), QObject::tr("Fractal size calculation"), i / 50.0, cProgressText::progress_IMAGE);
-		CVector3 direction(Random(1000)/500.0-1.0, Random(1000)/500.0-1.0, Random(1000)/500.0-1.0);
+		cProgressText::ProgressStatusText(QObject::tr("Reseting view"),
+																			QObject::tr("Fractal size calculation"),
+																			i / 50.0,
+																			cProgressText::progress_IMAGE);
+		CVector3 direction(Random(1000) / 500.0 - 1.0,
+											 Random(1000) / 500.0 - 1.0,
+											 Random(1000) / 500.0 - 1.0);
 		direction.Normalize();
 		double distStep = 0.0;
 		double scan;
@@ -1832,22 +2349,25 @@ void cInterface::ResetView()
 				break;
 			}
 			distStep = dist;
-			if(distStep > 5.0) distStep = 5.0;
+			if (distStep > 5.0) distStep = 5.0;
 			//qDebug() << "i" << i << "scan" << scan << "direction" << direction.Debug();
 		}
 		if (scan > maxDist) maxDist = scan;
 	}
-	cProgressText::ProgressStatusText(QObject::tr("Reseting view"), QObject::tr("Done"), 1.0, cProgressText::progress_IMAGE);
+	cProgressText::ProgressStatusText(QObject::tr("Reseting view"),
+																		QObject::tr("Done"),
+																		1.0,
+																		cProgressText::progress_IMAGE);
 	delete params;
 	delete fourFractals;
 
 	double newCameraDist = maxDist / fov * 2.0 * sqrt(2);
-	if(perspType == params::perspFishEye || perspType == params::perspFishEyeCut || perspType == params::perspEquirectangular)
-		newCameraDist /= M_PI;
+	if (perspType == params::perspFishEye || perspType == params::perspFishEyeCut
+			|| perspType == params::perspEquirectangular) newCameraDist /= M_PI;
 
-	if(newCameraDist < 0.1) newCameraDist = 0.1;
+	if (newCameraDist < 0.1) newCameraDist = 0.1;
 
-	gPar->Set("target", CVector3(0.0,0.0,0.0));
+	gPar->Set("target", CVector3(0.0, 0.0, 0.0));
 	CVector3 newCamera = forwardVector * newCameraDist * (-1.0);
 	gPar->Set("camera", newCamera);
 	gPar->Set("camera_distance_to_target", newCameraDist);
@@ -1863,19 +2383,19 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	fractal::enumObjectType objectType = PrimitiveNameToEnum(primitiveType);
 
 	int newId = 0;
-	if(index == 0)
+	if (index == 0)
 	{
 		//look for the lowest free id
 		bool occupied = true;
 
-		while(occupied)
+		while (occupied)
 		{
 			newId++;
 			occupied = false;
-			for(int i=0; i<listOfPrimitives.size(); i++)
+			for (int i = 0; i < listOfPrimitives.size(); i++)
 			{
-				if(objectType == listOfPrimitives.at(i).type && newId == listOfPrimitives.at(i).id)
-					occupied = true;
+				if (objectType == listOfPrimitives.at(i).type && newId == listOfPrimitives.at(i).id) occupied =
+						true;
 			}
 		}
 	}
@@ -1899,11 +2419,15 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	QHBoxLayout *buttonsLayout = new QHBoxLayout();
 	layout->addLayout(buttonsLayout);
 
-	QPushButton *setPositionButton = new QPushButton(QObject::tr("Set position of ") + primitiveType + " # " + QString::number(newId), mainWidget);
+	QPushButton *setPositionButton = new QPushButton(QObject::tr("Set position of ") + primitiveType
+																											 + " # " + QString::number(newId),
+																									 mainWidget);
 	setPositionButton->setObjectName(QString("setPositionButton_") + primitiveFullName);
 	buttonsLayout->addWidget(setPositionButton);
 
-	QPushButton *deleteButton = new QPushButton(QObject::tr("Delete ") + primitiveType + " # " + QString::number(newId), mainWidget);
+	QPushButton *deleteButton = new QPushButton(QObject::tr("Delete ") + primitiveType + " # "
+																									+ QString::number(newId),
+																							mainWidget);
 	deleteButton->setObjectName(QString("deleteButton_") + primitiveFullName);
 	buttonsLayout->addWidget(deleteButton);
 
@@ -1919,7 +2443,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	//load ui
 	MyUiLoader loader;
 	QFile uiFile(uiFileName);
-	if(uiFile.exists())
+	if (uiFile.exists())
 	{
 		uiFile.open(QFile::ReadOnly);
 		QWidget *primitiveWidget = loader.load(&uiFile);
@@ -1933,7 +2457,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 
 		//rename widgets
 		QList<QWidget*> listOfWidgets = primitiveWidget->findChildren<QWidget*>();
-		for(int i=0; i<listOfWidgets.size(); i++)
+		for (int i = 0; i < listOfWidgets.size(); i++)
 		{
 			QString name = listOfWidgets[i]->objectName();
 			int firstDash = name.indexOf('_');
@@ -1941,11 +2465,17 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 			listOfWidgets[i]->setObjectName(newName);
 		}
 
-		QApplication::connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
-		QApplication::connect(setPositionButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonSetPositionPrimitive()));
+		QApplication::connect(deleteButton,
+													SIGNAL(clicked()),
+													mainWindow,
+													SLOT(slotPressedButtonDeletePrimitive()));
+		QApplication::connect(setPositionButton,
+													SIGNAL(clicked()),
+													mainWindow,
+													SLOT(slotPressedButtonSetPositionPrimitive()));
 
 		//adding parameters
-		if(index == 0) //for only new primitive
+		if (index == 0) //for only new primitive
 		{
 			InitPrimitiveParams(objectType, primitiveFullName, gPar);
 		}
@@ -1959,7 +2489,10 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("Can't open file ") + uiFileName + QObject::tr(" Primitive object ui file can't be loaded"), cErrorMessage::errorMessage, mainWindow);
+		cErrorMessage::showMessage(QObject::tr("Can't open file ") + uiFileName
+																	 + QObject::tr(" Primitive object ui file can't be loaded"),
+															 cErrorMessage::errorMessage,
+															 mainWindow);
 	}
 }
 
@@ -1969,19 +2502,20 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 	fractal::enumObjectType objectType = fractal::objNone;
 
 	//delete widget
-	QWidget *primitiveWidget = mainWindow->ui->scrollAreaWidgetContents_primitives->findChild<QWidget*>(primitiveWidgetName);
+	QWidget *primitiveWidget =
+			mainWindow->ui->scrollAreaWidgetContents_primitives->findChild<QWidget*>(primitiveWidgetName);
 	delete primitiveWidget;
 
 	//remove item from list
-	for(int i=0; i < listOfPrimitives.size(); i++)
+	for (int i = 0; i < listOfPrimitives.size(); i++)
 	{
-		if(primitiveName == listOfPrimitives.at(i).name)
+		if (primitiveName == listOfPrimitives.at(i).name)
 		{
 			objectType = listOfPrimitives.at(i).type;
 			listOfPrimitives.removeAt(i);
 		}
 	}
-	
+
 	DeletePrimitiveParams(objectType, primitiveName, gPar);
 	ComboMouseClickUpdate();
 }
@@ -1989,19 +2523,20 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 void cInterface::RebuildPrimitives(cParameterContainer *par)
 {
 	//clear all widgets
-	for(int i=0; i<listOfPrimitives.size(); i++)
+	for (int i = 0; i < listOfPrimitives.size(); i++)
 	{
 		QString widgetName = QString("widgetmain_") + listOfPrimitives.at(i).name;
-		QWidget *widget = mainWindow->ui->scrollAreaWidgetContents_primitives->findChild<QWidget*>(widgetName);
+		QWidget *widget =
+				mainWindow->ui->scrollAreaWidgetContents_primitives->findChild<QWidget*>(widgetName);
 		delete widget;
 	}
 	listOfPrimitives.clear();
 
 	QList<QString> listOfParameters = par->GetListOfParameters();
-	for(int i=0; i<listOfParameters.size(); i++)
+	for (int i = 0; i < listOfParameters.size(); i++)
 	{
 		QString parameterName = listOfParameters.at(i);
-		if(parameterName.left(parameterName.indexOf('_')) == "primitive")
+		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 		{
 			QStringList split = parameterName.split('_');
 			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
@@ -2009,16 +2544,16 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 			int index = split.at(2).toInt();
 
 			bool found = false;
-			for(int l = 0; l < listOfPrimitives.size(); l++)
+			for (int l = 0; l < listOfPrimitives.size(); l++)
 			{
-				if(listOfPrimitives.at(l).name == primitiveName)
+				if (listOfPrimitives.at(l).name == primitiveName)
 				{
 					found = true;
 					break;
 				}
 			}
 
-			if(!found)
+			if (!found)
 			{
 				NewPrimitive(objectTypeString, index);
 			}
@@ -2034,50 +2569,64 @@ void cInterface::ComboMouseClickUpdate()
 	combo->clear();
 	QList<QVariant> item;
 
-	item.clear(); item.append((int)RenderedImage::clickDoNothing);
+	item.clear();
+	item.append((int) RenderedImage::clickDoNothing);
 	combo->addItem(QObject::tr("No action"), item);
 
-	item.clear(); item.append((int)RenderedImage::clickMoveCamera);
+	item.clear();
+	item.append((int) RenderedImage::clickMoveCamera);
 	combo->addItem(QObject::tr("Move the camera"), item);
 
-	item.clear(); item.append((int)RenderedImage::clickFogVisibility);
+	item.clear();
+	item.append((int) RenderedImage::clickFogVisibility);
 	combo->addItem(QObject::tr("Set fog visibility"), item);
 
-	item.clear(); item.append((int)RenderedImage::clickDOFFocus);
+	item.clear();
+	item.append((int) RenderedImage::clickDOFFocus);
 	combo->addItem(QObject::tr("Set DOF focus"), item);
 
-	item.clear(); item.append((int)RenderedImage::clickGetJuliaConstant);
+	item.clear();
+	item.append((int) RenderedImage::clickGetJuliaConstant);
 	combo->addItem(QObject::tr("Get Julia constant"), item);
 
-	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(1);
+	item.clear();
+	item.append((int) RenderedImage::clickPlaceLight);
+	item.append(1);
 	combo->addItem(QObject::tr("Place light #1"), item);
 
-	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(2);
+	item.clear();
+	item.append((int) RenderedImage::clickPlaceLight);
+	item.append(2);
 	combo->addItem(QObject::tr("Place light #2"), item);
 
-	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(3);
+	item.clear();
+	item.append((int) RenderedImage::clickPlaceLight);
+	item.append(3);
 	combo->addItem(QObject::tr("Place light #3"), item);
 
-	item.clear(); item.append((int)RenderedImage::clickPlaceLight); item.append(4);
+	item.clear();
+	item.append((int) RenderedImage::clickPlaceLight);
+	item.append(4);
 	combo->addItem(QObject::tr("Place light #4"), item);
 
-	if(listOfPrimitives.size() > 0)
+	if (listOfPrimitives.size() > 0)
 	{
-		for(int i=0; i<listOfPrimitives.size(); i++)
+		for (int i = 0; i < listOfPrimitives.size(); i++)
 		{
 			QString primitiveName = PrimitiveNames(listOfPrimitives.at(i).type);
 			int index = listOfPrimitives.at(i).id;
-			QString comboItemString = QString(QObject::tr("Place ")) + primitiveName + QString(" #") + QString::number(index);
+			QString comboItemString = QString(QObject::tr("Place ")) + primitiveName + QString(" #")
+					+ QString::number(index);
 			item.clear();
-			item.append((int)RenderedImage::clickPlacePrimitive);
-			item.append((int)listOfPrimitives.at(i).type);
+			item.append((int) RenderedImage::clickPlacePrimitive);
+			item.append((int) listOfPrimitives.at(i).type);
 			item.append(listOfPrimitives.at(i).id);
 			item.append(listOfPrimitives.at(i).name);
 			combo->addItem(comboItemString, item);
 		}
 	}
 
-	if(lastIndex < combo->count())
+	if (lastIndex < combo->count())
 	{
 		combo->setCurrentIndex(lastIndex);
 	}
@@ -2088,8 +2637,8 @@ bool cInterface::QuitApplicationDialog()
 	bool quit = false;
 	int closeResult = 0;
 	bool quitDoNotAskAgain = gPar->Get<bool>("quit_do_not_ask_again");
-	QMessageBox *messageBox;
-	if(quitDoNotAskAgain)
+	QMessageBox *messageBox = NULL;
+	if (quitDoNotAskAgain)
 	{
 		closeResult = QMessageBox::Ok;
 	}
@@ -2105,7 +2654,7 @@ bool cInterface::QuitApplicationDialog()
 		closeResult = messageBox->exec();
 	}
 
-	switch(closeResult)
+	switch (closeResult)
 	{
 		case QMessageBox::Ok:
 		{
@@ -2118,7 +2667,7 @@ bool cInterface::QuitApplicationDialog()
 			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 			parSettings.SaveToFile(systemData.dataDirectory + "mandelbulber.ini");
 
-			while(cRenderJob::GetRunningJobCount() > 0)
+			while (cRenderJob::GetRunningJobCount() > 0)
 			{
 				gApplication->processEvents();
 			}
@@ -2136,23 +2685,23 @@ bool cInterface::QuitApplicationDialog()
 		}
 		default:
 			//nothing
-		break;
+			break;
 	}
-	if(messageBox) delete messageBox;
+	if (messageBox) delete messageBox;
 	return quit;
 }
 
 void cInterface::AutoRecovery()
 {
-	if(QFile::exists(systemData.autosaveFile))
+	if (QFile::exists(systemData.autosaveFile))
 	{
 		//autorecovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			mainWindow->ui->centralwidget,
-			QObject::tr("Auto recovery"),
-			QObject::tr("Application has not been closed properly\nDo you want to recover your latest work?"),
-			QMessageBox::Yes|QMessageBox::No);
+		reply =
+				QMessageBox::question(mainWindow->ui->centralwidget,
+															QObject::tr("Auto recovery"),
+															QObject::tr("Application has not been closed properly\nDo you want to recover your latest work?"),
+															QMessageBox::Yes | QMessageBox::No);
 
 		if (reply == QMessageBox::Yes)
 		{
@@ -2175,8 +2724,8 @@ void cInterface::AutoRecovery()
 
 double ImageScaleComboSelection2Double(int index)
 {
-	double scales[] = {0.0, 4.0, 2.0, 1.0, 0.5, 0.25, 0.1};
-	if(index < 7)
+	double scales[] = { 0.0, 4.0, 2.0, 1.0, 0.5, 0.25, 0.1 };
+	if (index < 7)
 	{
 		return scales[index];
 	}
@@ -2190,10 +2739,10 @@ double ImageScaleComboSelection2Double(int index)
 double CalcMainImageScale(double scale, int previewWidth, int previewHeight, cImage *image)
 {
 	double scaleOut;
-	if(scale == 0.0)
+	if (scale == 0.0)
 	{
-		double scale1 = (double)previewHeight / image->GetHeight();
-		double scale2 = (double)previewWidth / image->GetWidth();
+		double scale1 = (double) previewHeight / image->GetHeight();
+		double scale2 = (double) previewWidth / image->GetWidth();
 		scaleOut = min(scale1, scale2);
 	}
 	else
@@ -2208,11 +2757,11 @@ void MakeIconForButton(QColor &color, QPushButton *pushbutton)
 {
 	const int w = 40;
 	const int h = 15;
-	QPixmap pix(w,h);
+	QPixmap pix(w, h);
 	QPainter painter(&pix);
-	painter.fillRect(QRect(0,0,w,h), color);
-	painter.drawRect(0,0,w-1,h-1);
+	painter.fillRect(QRect(0, 0, w, h), color);
+	painter.drawRect(0, 0, w - 1, h - 1);
 	QIcon icon(pix);
 	pushbutton->setIcon(icon);
-	pushbutton->setIconSize(QSize(w,h));
+	pushbutton->setIconSize(QSize(w, h));
 }

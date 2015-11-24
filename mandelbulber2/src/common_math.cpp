@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #include "common_math.h"
 #include <cstdlib>
 #include "fractparams.hpp"
@@ -41,39 +40,39 @@ int Random(int max)
 
 double dMax(double a, double b, double c)
 {
-	if(a > b) {
-		if (a > c)
-			return a;
+	if (a > b)
+	{
+		if (a > c) return a;
 		return c;
 	}
-	if (b > c)
-		return b;
+	if (b > c) return b;
 	return c;
 }
 
 double dMin(double a, double b, double c)
 {
-	if(a < b) {
-		if (a < c)
-			return a;
+	if (a < b)
+	{
+		if (a < c) return a;
 		return c;
 	}
-	if (b < c)
-		return b;
+	if (b < c) return b;
 	return c;
 }
 
-CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov, params::enumPerspectiveType perspType, const CRotationMatrix &mRot)
+CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov,
+		params::enumPerspectiveType perspType, const CRotationMatrix &mRot)
 {
 	CVector3 viewVector;
 
-	switch(perspType)
+	switch (perspType)
 	{
-		case  params::perspFishEye: case params::perspFishEyeCut:
+		case params::perspFishEye:
+		case params::perspFishEyeCut:
 		{
 			CVector2<double> v = normalizedPoint * M_PI;
 			double r = v.Length();
-			if(r == 0.0)
+			if (r == 0.0)
 			{
 				viewVector.x = 0.0;
 				viewVector.z = 0.0;
@@ -111,8 +110,9 @@ CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov, param
 	return viewVector;
 }
 
-
-CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, params::enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth, double imgHeight)
+CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv,
+		params::enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth,
+		double imgHeight)
 {
 	CVector3 screenPoint;
 	CVector3 baseZ(0.0, 1.0, 0.0);
@@ -135,7 +135,7 @@ CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, p
 	if (perspectiveType == params::perspFishEye)
 	{
 		z = viewVector.Length();
-		if(viewVector.y < 0) z = -z;
+		if (viewVector.y < 0) z = -z;
 		viewVector.Normalize();
 		double r = sqrt(viewVector.x * viewVector.x + viewVector.z * viewVector.z);
 		double r2 = asin(r) / (M_PI * 0.5);
@@ -195,13 +195,13 @@ double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, 
 //----------------------------------------
 
 //Smooth transition between two vectors with vector length control
-template <typename T>
+template<typename T>
 T SmoothCVector(const T &v1, const T &v2, double k)
 {
 	T result;
 	double nk = 1.0 - k;
 
-	if(k <= 0.0)
+	if (k <= 0.0)
 	{
 		result = v1;
 	}
@@ -216,7 +216,7 @@ T SmoothCVector(const T &v1, const T &v2, double k)
 		double lenInterp = length1 * nk + length2 * k;
 		T vTemp = v1 * nk + v2 * k;
 		double lengthTemp = vTemp.Length();
-		if(lengthTemp > 0.0)
+		if (lengthTemp > 0.0)
 		{
 			result = (vTemp / lengthTemp) * lenInterp;
 		}
@@ -227,8 +227,8 @@ T SmoothCVector(const T &v1, const T &v2, double k)
 	}
 	return result;
 }
-template CVector2<double> SmoothCVector(const CVector2<double> &v1, const CVector2<double> &v2, double k);
+template CVector2<double> SmoothCVector(const CVector2<double> &v1, const CVector2<double> &v2,
+		double k);
 template CVector3 SmoothCVector(const CVector3 &v1, const CVector3 &v2, double k);
 template CVector4 SmoothCVector(const CVector4 &v1, const CVector4 &v2, double k);
-
 

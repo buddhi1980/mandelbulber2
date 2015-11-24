@@ -42,7 +42,8 @@ cParameterContainer::~cParameterContainer()
 
 //defining of params without limits
 template<class T>
-void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType morphType, enumParameterType parType)
+void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType morphType,
+		enumParameterType parType)
 {
 	cOneParameter newRecord;
 	newRecord.Set(defaultVal, valueDefault);
@@ -51,7 +52,7 @@ void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType mor
 	newRecord.SetParameterType(parType);
 	newRecord.SetOriginalContainerName(containerName);
 
-	if(myMap.find(name) != myMap.end())
+	if (myMap.find(name) != myMap.end())
 	{
 		qWarning() << "addParam(): element '" << name << "' already existed" << endl;
 	}
@@ -60,17 +61,25 @@ void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType mor
 		myMap.insert(name, newRecord);
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, double defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<int>(QString name, int defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<QString>(QString name, QString defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<bool>(QString name, bool defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<cColorPalette>(QString name, cColorPalette defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<double>(QString name, double defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<int>(QString name, int defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<QString>(QString name, QString defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<bool>(QString name, bool defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<cColorPalette>(QString name, cColorPalette defaultVal,
+		enumMorphType morphType, enumParameterType parType);
 
 //defining of params with limits
 template<class T>
-void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVal, enumMorphType morphType, enumParameterType parType)
+void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVal,
+		enumMorphType morphType, enumParameterType parType)
 {
 	cOneParameter newRecord;
 	newRecord.Set(defaultVal, valueDefault);
@@ -81,7 +90,7 @@ void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVa
 	newRecord.SetParameterType(parType);
 	newRecord.SetOriginalContainerName(containerName);
 
-	if(myMap.find(name) != myMap.end())
+	if (myMap.find(name) != myMap.end())
 	{
 		qWarning() << "addParam(): element '" << name << "' already existed" << endl;
 	}
@@ -90,14 +99,19 @@ void cParameterContainer::addParam(QString name, T defaultVal, T minVal, T maxVa
 		myMap.insert(name, newRecord);
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, double defaultVal, double minVal, double maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<int>(QString name, int defaultVal, int minVal, int maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, sRGB minVal, sRGB maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<double>(QString name, double defaultVal, double minVal,
+		double maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<int>(QString name, int defaultVal, int minVal,
+		int maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal,
+		CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, sRGB minVal,
+		sRGB maxVal, enumMorphType morphType, enumParameterType parType);
 
 //defining of params without limits and with index
 template<class T>
-void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMorphType morphType, enumParameterType parType)
+void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMorphType morphType,
+		enumParameterType parType)
 {
 	if (index >= 0)
 	{
@@ -109,7 +123,7 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMo
 		newRecord.SetOriginalContainerName(containerName);
 
 		QString indexName = nameWithIndex(&name, index);
-		if(myMap.find(indexName) != myMap.end())
+		if (myMap.find(indexName) != myMap.end())
 		{
 			qWarning() << "addParam(): element '" << indexName << "' already existed" << endl;
 		}
@@ -120,19 +134,27 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMo
 	}
 	else
 	{
-		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")" << endl;
+		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")"
+				<< endl;
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<QString>(QString name, int index, QString defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<bool>(QString name, int index, bool defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<QString>(QString name, int index, QString defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<bool>(QString name, int index, bool defaultVal,
+		enumMorphType morphType, enumParameterType parType);
 
 //defining of params with limits and index
 template<class T>
-void cParameterContainer::addParam(QString name, int index, T defaultVal, T minVal, T maxVal, enumMorphType morphType, enumParameterType parType)
+void cParameterContainer::addParam(QString name, int index, T defaultVal, T minVal, T maxVal,
+		enumMorphType morphType, enumParameterType parType)
 {
 	if (index >= 0)
 	{
@@ -146,7 +168,7 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, T minV
 		newRecord.SetOriginalContainerName(containerName);
 
 		QString indexName = nameWithIndex(&name, index);
-		if(myMap.find(indexName) != myMap.end())
+		if (myMap.find(indexName) != myMap.end())
 		{
 			qWarning() << "addParam(): element '" << indexName << "' already existed" << endl;
 		}
@@ -157,13 +179,18 @@ void cParameterContainer::addParam(QString name, int index, T defaultVal, T minV
 	}
 	else
 	{
-		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")" << endl;
+		qWarning() << "addParam(): element '" << name << "' has negative index (" << index << ")"
+				<< endl;
 	}
 }
-template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal, double minVal, double maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal, int minVal, int maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal, sRGB minVal, sRGB maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal,
+		double minVal, double maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal,
+		int minVal, int maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal,
+		CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal,
+		sRGB minVal, sRGB maxVal, enumMorphType morphType, enumParameterType parType);
 
 //set parameter value by name
 template<class T>
@@ -321,7 +348,8 @@ T cParameterContainer::GetDefault(QString name, int index) const
 	}
 	else
 	{
-		qWarning() << "GetDefault(): element '" << name << "' has negative index (" << index << ")" << endl;
+		qWarning() << "GetDefault(): element '" << name << "' has negative index (" << index << ")"
+				<< endl;
 	}
 	return val;
 }
@@ -332,13 +360,11 @@ template CVector3 cParameterContainer::GetDefault<CVector3>(QString name, int in
 template sRGB cParameterContainer::GetDefault<sRGB>(QString name, int index) const;
 template bool cParameterContainer::GetDefault<bool>(QString name, int index) const;
 
-
 QString cParameterContainer::nameWithIndex(QString *str, int index) const
 {
 	QString name = *str + "_" + QString::number(index);
 	return name;
 }
-
 
 void cParameterContainer::Copy(QString name, const cParameterContainer &sourceContainer)
 {
@@ -416,7 +442,8 @@ bool cParameterContainer::isDefaultValue(QString name) const
 	}
 	else
 	{
-		qWarning() << "cParameterContainer::isDefaultValue(QString name): element '" << name << "' doesn't exists" << endl;
+		qWarning() << "cParameterContainer::isDefaultValue(QString name): element '" << name
+				<< "' doesn't exists" << endl;
 	}
 	return isDefault;
 }
@@ -427,7 +454,8 @@ void cParameterContainer::ResetAllToDefault(void)
 	while (it != myMap.end())
 	{
 		cOneParameter record = it.value();
-		if(record.GetParameterType() != paramApp)	it.value().SetMultival(record.GetMultival(valueDefault), valueActual);
+		if (record.GetParameterType() != paramApp) it.value().SetMultival(record.GetMultival(valueDefault),
+																																			valueActual);
 		++it;
 	}
 }
@@ -471,7 +499,8 @@ cOneParameter cParameterContainer::GetAsOneParameter(QString name) const
 	}
 	else
 	{
-		qWarning() << "cParameterContainer::GetAsOneParameter(QString name): element '" << name << "' doesn't exists" << endl;
+		qWarning() << "cParameterContainer::GetAsOneParameter(QString name): element '" << name
+				<< "' doesn't exists" << endl;
 	}
 	return val;
 }
@@ -486,15 +515,19 @@ void cParameterContainer::SetFromOneParameter(QString name, const cOneParameter 
 	}
 	else
 	{
-		qWarning() << "cParameterContainer::SetFromOneParameter(QString name, const cOneParameter &parameter): element '" << name << "' doesn't exists" << endl;
+		qWarning()
+				<< "cParameterContainer::SetFromOneParameter(QString name, const cOneParameter &parameter): element '"
+				<< name << "' doesn't exists" << endl;
 	}
 }
 
 void cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter &parameter)
 {
-	if(myMap.find(name) != myMap.end())
+	if (myMap.find(name) != myMap.end())
 	{
-		qWarning() << "cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter &parameter): element '" << name << "' already existed" << endl;
+		qWarning()
+				<< "cParameterContainer::AddParamFromOneParameter(QString name, const cOneParameter &parameter): element '"
+				<< name << "' already existed" << endl;
 	}
 	else
 	{

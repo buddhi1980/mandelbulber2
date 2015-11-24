@@ -71,7 +71,9 @@ public:
 	}
 	inline CVector3 operator%(const CVector3 &vector) const
 	{
-		return CVector3((vector.x > 0.0 ? fmod(x, vector.x) : x), (vector.y > 0.0 ? fmod(y, vector.y) : y), (vector.z > 0.0 ? fmod(z, vector.z) : z));
+		return CVector3((vector.x > 0.0 ? fmod(x, vector.x) : x),
+										(vector.y > 0.0 ? fmod(y, vector.y) : y),
+										(vector.z > 0.0 ? fmod(z, vector.z) : z));
 	}
 	inline CVector3 mod(const CVector3 &vector) const
 	{
@@ -147,10 +149,10 @@ public:
 	inline CVector3 Cross(const CVector3& v)
 	{
 		CVector3 c;
-		c.x =  y*v.z - z*v.y;
-	  c.y = -x*v.z + z*v.x;
-	  c.z =  x*v.y - y*v.x;
-	  return c;
+		c.x = y * v.z - z * v.y;
+		c.y = -x * v.z + z * v.x;
+		c.z = x * v.y - y * v.x;
+		return c;
 	}
 	inline CVector3 Abs()
 	{
@@ -179,7 +181,8 @@ public:
 	CVector3 RotateAroundVectorByAngle(CVector3 axis, double angle);
 	QString Debug() const
 	{
-		return QString("[") + QString::number(x) + QString(", ") + QString::number(y) + QString(", ") + QString::number(z)+ QString("]");
+		return QString("[") + QString::number(x) + QString(", ") + QString::number(y) + QString(", ")
+				+ QString::number(z) + QString("]");
 	}
 
 	double itemByName(char item);
@@ -338,19 +341,21 @@ public:
 		return CVector3(x, y, z);
 	}
 
-	inline double Normalize() {
+	inline double Normalize()
+	{
 		double norm = 1.0 / Length();
-		x = x * norm; y = y * norm; z = z * norm; w = w * norm;
+		x = x * norm;
+		y = y * norm;
+		z = z * norm;
+		w = w * norm;
 		return norm;
 	}
 	inline CVector4 operator%(const CVector4 &vector) const
 	{
-		return CVector4(
-			(vector.x > 0.0 ? fmod(x, vector.x) : x),
-			(vector.y > 0.0 ? fmod(y, vector.y) : y),
-			(vector.z > 0.0 ? fmod(z, vector.z) : z),
-			(vector.w > 0.0 ? fmod(w, vector.w) : w)
-		);
+		return CVector4((vector.x > 0.0 ? fmod(x, vector.x) : x),
+										(vector.y > 0.0 ? fmod(y, vector.y) : y),
+										(vector.z > 0.0 ? fmod(z, vector.z) : z),
+										(vector.w > 0.0 ? fmod(w, vector.w) : w));
 	}
 	inline CVector4 mod(const CVector4 &v) const
 	{
@@ -359,11 +364,8 @@ public:
 	}
 	QString Debug() const
 	{
-		return QString("[")
-			+ QString::number(x) + QString(", ")
-			+ QString::number(y) + QString(", ")
-			+ QString::number(z) + QString(", ")
-			+ QString::number(w) + QString(" ]");
+		return QString("[") + QString::number(x) + QString(", ") + QString::number(y) + QString(", ")
+				+ QString::number(z) + QString(", ") + QString::number(w) + QString(" ]");
 	}
 
 	double x, y, z, w;
@@ -389,12 +391,20 @@ inline CVector4 fabs(CVector4 v)
 }
 /************************* vector 2D **********************/
 
-template <typename T>
+template<typename T>
 class CVector2
 {
 public:
-	inline CVector2() : x(), y() {};
-	inline CVector2(T x_init, T y_init) : x(x_init), y(y_init) {};
+	inline CVector2() :
+					x(), y()
+	{
+	}
+	;
+	inline CVector2(T x_init, T y_init) :
+					x(x_init), y(y_init)
+	{
+	}
+	;
 	inline CVector2(const CVector2<T> &vector)
 	{
 		x = vector.x;
@@ -477,19 +487,19 @@ public:
 	T y;
 };
 
-template <typename T>
+template<typename T>
 inline CVector2<T> operator*(T scalar, CVector2<T> vector)
 {
 	return CVector2<T>(vector.x * scalar, vector.y * scalar);
 }
 
-template <typename T>
+template<typename T>
 inline CVector2<T> operator/(T scalar, CVector2<T> vector)
 {
 	return CVector2<T>(vector.x / scalar, vector.y / scalar);
 }
 
-template <typename T>
+template<typename T>
 inline CVector2<T> fabs(CVector2<T> v)
 {
 	v.x = fabs(v.x);
@@ -536,7 +546,10 @@ public:
 	void SetRotation2(CVector3 rotation);
 	void SetRotation3(CVector3 rotation);
 	CRotationMatrix Transpose(void) const;
-	CMatrix33 GetMatrix() {return matrix;}
+	CMatrix33 GetMatrix()
+	{
+		return matrix;
+	}
 
 private:
 	CMatrix33 matrix;

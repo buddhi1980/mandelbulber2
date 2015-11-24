@@ -47,14 +47,16 @@ void cColorPalette::ChangeColor(int index, const sRGB &color)
 	}
 	else
 	{
-		qCritical() << "cColorPalette::ChangeColor(int index, const sRGB &color): wrong color index:" << index;
+		qCritical() << "cColorPalette::ChangeColor(int index, const sRGB &color): wrong color index:"
+				<< index;
 	}
 }
 
 cColorPalette::cColorPalette(int size, int randomSeed, double saturation)
 {
 	palette.clear();
-	cRandom random;;
+	cRandom random;
+	;
 	random.Initialize(randomSeed);
 
 	for (int i = 0; i < size; i++)
@@ -123,7 +125,7 @@ sRGB cColorPalette::GetColor(int index) const
 	sRGB colour(255, 255, 255);
 	if (isInitialized)
 	{
-		if(index >= 0 && index < paletteSize)
+		if (index >= 0 && index < paletteSize)
 		{
 			colour = palette[index];
 		}

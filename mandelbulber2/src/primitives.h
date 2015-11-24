@@ -32,14 +32,27 @@ namespace fractal
 {
 enum enumObjectType
 {
-	objNone = -1, objFractal = 0, objPlane = 1, objWater = 2, objSphere = 3, objBox = 4,
-	objRectangle = 5, objCircle = 6, objCone = 7, objCylinder = 8, objTorus = 9
+	objNone = -1,
+	objFractal = 0,
+	objPlane = 1,
+	objWater = 2,
+	objSphere = 3,
+	objBox = 4,
+	objRectangle = 5,
+	objCircle = 6,
+	objCone = 7,
+	objCylinder = 8,
+	objTorus = 9
 };
 }
 
 struct sPrimitiveItem
 {
-	sPrimitiveItem(fractal::enumObjectType _type, int _id, QString _name) : type(_type), id(_id), name(_name) {};
+	sPrimitiveItem(fractal::enumObjectType _type, int _id, QString _name) :
+			type(_type), id(_id), name(_name)
+	{
+	}
+
 	fractal::enumObjectType type;
 	int id;
 	QString name;
@@ -55,12 +68,12 @@ struct sPrimitiveBasic
 	sRGB color;
 };
 
-struct sPrimitivePlane : sPrimitiveBasic
+struct sPrimitivePlane: sPrimitiveBasic
 {
 	bool empty;
 };
 
-struct sPrimitiveBox : sPrimitiveBasic
+struct sPrimitiveBox: sPrimitiveBasic
 {
 	bool empty;
 	CVector3 size;
@@ -68,14 +81,14 @@ struct sPrimitiveBox : sPrimitiveBasic
 	CVector3 repeat;
 };
 
-struct sPrimitiveSphere : sPrimitiveBasic
+struct sPrimitiveSphere: sPrimitiveBasic
 {
 	bool empty;
 	double radius;
 	CVector3 repeat;
 };
 
-struct sPrimitiveWater : sPrimitiveBasic
+struct sPrimitiveWater: sPrimitiveBasic
 {
 	bool empty;
 	double amplitude;
@@ -85,7 +98,7 @@ struct sPrimitiveWater : sPrimitiveBasic
 	int animFrame;
 };
 
-struct sPrimitiveCone : sPrimitiveBasic
+struct sPrimitiveCone: sPrimitiveBasic
 {
 	bool empty;
 	bool caps;
@@ -95,7 +108,7 @@ struct sPrimitiveCone : sPrimitiveBasic
 	CVector3 repeat;
 };
 
-struct sPrimitiveCylinder : sPrimitiveBasic
+struct sPrimitiveCylinder: sPrimitiveBasic
 {
 	bool empty;
 	bool caps;
@@ -104,7 +117,7 @@ struct sPrimitiveCylinder : sPrimitiveBasic
 	CVector3 repeat;
 };
 
-struct sPrimitiveTorus : sPrimitiveBasic
+struct sPrimitiveTorus: sPrimitiveBasic
 {
 	bool empty;
 	double radius;
@@ -112,12 +125,12 @@ struct sPrimitiveTorus : sPrimitiveBasic
 	CVector3 repeat;
 };
 
-struct sPrimitiveCircle : sPrimitiveBasic
+struct sPrimitiveCircle: sPrimitiveBasic
 {
 	double radius;
 };
 
-struct sPrimitiveRectangle : sPrimitiveBasic
+struct sPrimitiveRectangle: sPrimitiveBasic
 {
 	double height;
 	double width;
@@ -133,7 +146,8 @@ class cPrimitives
 
 public:
 	cPrimitives(const cParameterContainer *par);
-	double TotalDistance(CVector3 point, double fractalDistance, fractal::enumObjectType *closestObjectType, sRGB *objectColor, double *objectReflect) const;
+	double TotalDistance(CVector3 point, double fractalDistance,
+			fractal::enumObjectType *closestObjectType, sRGB *objectColor, double *objectReflect) const;
 
 private:
 	QVector<sPrimitiveBox> boxes;
@@ -156,7 +170,7 @@ private:
 	double PrimitiveWater(CVector3 point, const sPrimitiveWater &water) const;
 	double PrimitiveTorus(CVector3 point, const sPrimitiveTorus &torus) const;
 
-	inline double Plane(CVector3 point, CVector3 position,  CVector3 normal) const
+	inline double Plane(CVector3 point, CVector3 position, CVector3 normal) const
 	{
 		return (normal.Dot(point - position));
 	}

@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #include "lights.hpp"
 #include <stdlib.h>
 #include "calculate_distance.hpp"
@@ -45,7 +44,7 @@ cLights::cLights(const cParameterContainer *_params, const cFractalContainer *_f
 
 cLights::~cLights()
 {
-	if(lights)
+	if (lights)
 	{
 		delete[] lights;
 		lights = NULL;
@@ -63,7 +62,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 
 	numberOfLights = params->auxLightNumber + 4;
 
-	if(lights) delete[] lights;
+	if (lights) delete[] lights;
 	lights = new sLight[numberOfLights];
 
 	sDistanceOut distanceOut;
@@ -129,9 +128,9 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 		}
 		else
 		{
-			lights[i].position = CVector3(0.0,0.0,0.0);
+			lights[i].position = CVector3(0.0, 0.0, 0.0);
 			lights[i].intensity = 0.0;
-			lights[i].colour = sRGB(0,0,0);
+			lights[i].colour = sRGB(0, 0, 0);
 			lights[i].enabled = false;
 		}
 	}
@@ -147,9 +146,9 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 cLights::sLight cLights::GetLight(int index) const
 {
 	sLight light;
-	if(lightsReady)
+	if (lightsReady)
 	{
-		if(index < numberOfLights)
+		if (index < numberOfLights)
 		{
 			light = lights[index];
 		}
@@ -169,10 +168,10 @@ void cLights::Copy(const cLights& _lights)
 {
 	numberOfLights = _lights.numberOfLights;
 	lightsReady = _lights.lightsReady;
-	if(lights) delete[] lights;
+	if (lights) delete[] lights;
 	lights = new sLight[numberOfLights];
 
-	for(int i=0; i < numberOfLights; i++)
+	for (int i = 0; i < numberOfLights; i++)
 	{
 		lights[i] = _lights.lights[i];
 	}

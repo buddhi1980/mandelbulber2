@@ -35,15 +35,19 @@ public:
 	void ChangeColor(int index, const sRGB &color);
 	sRGB IndexToColour(int index) const;
 	sRGB GetColor(int index) const;
-	int GetSize() {return paletteSize;}
-	bool IsInitialized() {return isInitialized;}
+	int GetSize()
+	{
+		return paletteSize;
+	}
+	bool IsInitialized()
+	{
+		return isInitialized;
+	}
 
 private:
 	QVector<sRGB> palette;
 	bool isInitialized;
 	int paletteSize;
 };
-
-
 
 #endif /* COLOR_PALETTE_HPP_ */

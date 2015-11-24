@@ -43,19 +43,19 @@ QString cProgressText::getText(double progress)
 	QString text;
 
 	double progressLim = progress;
-	if(progress < 0.0) progressLim = 1.0;
-	if(progress > 1.0) progressLim = 1.0;
+	if (progress < 0.0) progressLim = 1.0;
+	if (progress > 1.0) progressLim = 1.0;
 
 	qint64 time = timer.elapsed();
 
-	if ((time > lastTimeForETA * 1.1L || time - lastTimeForETA > 60000) && progress > lastProgressForETA)
+	if ((time > lastTimeForETA * 1.1L || time - lastTimeForETA > 60000)
+			&& progress > lastProgressForETA)
 	{
 		bool filter = true;
 		double renderingSpeedNew = (progress - lastProgressForETA) / (time - lastTimeForETA);
-		if(renderingSpeed > 0 && filter)
-			renderingSpeed = renderingSpeed + (renderingSpeedNew - renderingSpeed) * 0.1;
-		else
-			renderingSpeed = renderingSpeedNew;
+		if (renderingSpeed > 0 && filter) renderingSpeed = renderingSpeed
+				+ (renderingSpeedNew - renderingSpeed) * 0.1;
+		else renderingSpeed = renderingSpeedNew;
 
 		lastProgressForETA = progress;
 		lastTimeForETA = time;
@@ -70,10 +70,11 @@ QString cProgressText::getText(double progress)
 
 	if (progressLim < 1.0)
 	{
-		text = QObject::tr("Done %1%, elapsed: %2, estimated to end: %3")
-				.arg(QString::number(progressLim * 100.0, 'f', 2))
-				.arg(TimeString(time))
-				.arg(TimeString(timeToEnd));
+		text =
+				QObject::tr("Done %1%, elapsed: %2, estimated to end: %3").arg(QString::number(progressLim
+																																													 * 100.0,
+																																											 'f',
+																																											 2)).arg(TimeString(time)).arg(TimeString(timeToEnd));
 	}
 	else
 	{
@@ -86,22 +87,22 @@ QString cProgressText::getText(double progress)
 QString cProgressText::TimeString(qint64 time)
 {
 	QString timeString;
-	double time_s = time/1000.0;
-	int time_min = (int)time_s / 60;
-	int time_h = (int)time_s / (60 * 60);
-	int time_d = (int)time_s / (60 * 60 * 24);
+	double time_s = time / 1000.0;
+	int time_min = (int) time_s / 60;
+	int time_h = (int) time_s / (60 * 60);
+	int time_d = (int) time_s / (60 * 60 * 24);
 
 	QString time_s_str, time_min_str, time_h_str, time_d_str;
 
 	time_s_str = QString::number(fmod(time_s, 60.0), 'f', 1) + "s";
 
-	if(time_min > 0) time_min_str = QString::number(time_min % 60) + "m ";
-	if(time_h > 0) time_h_str = QString::number(time_h % 24) + "h ";
-	if(time_d > 0) time_d_str = QString::number(time_d) + "d ";
+	if (time_min > 0) time_min_str = QString::number(time_min % 60) + "m ";
+	if (time_h > 0) time_h_str = QString::number(time_h % 24) + "h ";
+	if (time_d > 0) time_d_str = QString::number(time_d) + "d ";
 
 	timeString = time_d_str + time_h_str + time_min_str + time_s_str;
 
-	if(time == -1)
+	if (time == -1)
 	{
 		timeString = "n/a";
 	}
@@ -109,20 +110,27 @@ QString cProgressText::TimeString(qint64 time)
 	return timeString;
 }
 
-void cProgressText::ProgressStatusText(const QString &text, const QString &progressText, double progress, enumProgressType progressType)
+void cProgressText::ProgressStatusText(const QString &text, const QString &progressText,
+		double progress, enumProgressType progressType)
 {
-	if(systemData.noGui)
+	if (systemData.noGui)
 	{
-		if(gMainInterface->headless)
+		if (gMainInterface->headless)
 		{
-			gMainInterface->headless->slotUpdateProgressAndStatus(text, progressText, progress, progressType);
+			gMainInterface->headless->slotUpdateProgressAndStatus(text,
+																														progressText,
+																														progress,
+																														progressType);
 		}
 	}
 	else
 	{
-		if(gMainInterface->mainWindow)
+		if (gMainInterface->mainWindow)
 		{
-			gMainInterface->mainWindow->slotUpdateProgressAndStatus(text, progressText, progress, progressType);
+			gMainInterface->mainWindow->slotUpdateProgressAndStatus(text,
+																															progressText,
+																															progress,
+																															progressType);
 		}
 	}
 }

@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #ifndef RENDER_IMAGE_HPP_
 #define RENDER_IMAGE_HPP_
 
@@ -30,11 +29,12 @@
 #include "render_data.hpp"
 #include "scheduler.hpp"
 
-class cRenderer : public QObject
+class cRenderer: public QObject
 {
-	Q_OBJECT
+Q_OBJECT
 public:
-	cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image);
+	cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData,
+			cImage *_image);
 	~cRenderer();
 	bool RenderImage();
 
@@ -53,7 +53,7 @@ public slots:
 	void ToDoListArrived(QList<int> done);
 	void AckReceived();
 
-	signals:
+signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void updateStatistics(cStatistics);
 	void sendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines);

@@ -30,7 +30,8 @@
 #include "progress_text.hpp"
 #include "global_data.hpp"
 
-PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
+PreviewFileDialog::PreviewFileDialog(QWidget *parent) :
+		QFileDialog(parent)
 {
 	setOption(QFileDialog::DontUseNativeDialog);
 
@@ -49,9 +50,9 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	info = new QLabel("");
 
 	progressBar = new QProgressBar;
-  progressBar->setMaximum(1000);
-  progressBar->setAlignment(Qt::AlignCenter);
-  progressBar->hide();
+	progressBar->setMaximum(1000);
+	progressBar->setAlignment(Qt::AlignCenter);
+	progressBar->hide();
 
 	presetAddButton = new QPushButton;
 	presetAddButton->setText(tr("Add to presets"));
@@ -68,17 +69,23 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	vboxlayout->addWidget(queueAddButton);
 
 	thumbWidget->show();
-	vboxlayout -> addStretch();
+	vboxlayout->addStretch();
 
 	//add to existing layout
-	QGridLayout *gridlayout = (QGridLayout*)this->layout();
+	QGridLayout *gridlayout = (QGridLayout*) this->layout();
 	gridlayout->addLayout(vboxlayout, 1, 3, 3, 1);
 
-	connect(this, SIGNAL(currentChanged(const QString&)), this, SLOT(OnCurrentChanged(const QString&)));
+	connect(this,
+					SIGNAL(currentChanged(const QString&)),
+					this,
+					SLOT(OnCurrentChanged(const QString&)));
 	connect(presetAddButton, SIGNAL(clicked()), this, SLOT(OnPresetAdd()));
 	connect(queueAddButton, SIGNAL(clicked()), this, SLOT(OnQueueAdd()));
 	connect(thumbWidget, SIGNAL(thumbnailRendered()), this, SLOT(slotHideProgressBar()));
-	connect(thumbWidget, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	connect(thumbWidget,
+					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+					this,
+					SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 }
 
 PreviewFileDialog::~PreviewFileDialog()
@@ -118,9 +125,9 @@ void PreviewFileDialog::OnCurrentChanged(const QString & _filename)
 			cParameterContainer *par = new cParameterContainer;
 			cFractalContainer *parFractal = new cFractalContainer;
 			InitParams(par);
-			for(int i=0; i<NUMBER_OF_FRACTALS; i++)
+			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 				InitFractalParams(&parFractal->at(i));
-			if(parSettings.Decode(par, parFractal))
+			if (parSettings.Decode(par, parFractal))
 			{
 				thumbWidget->AssignParameters(*par, *parFractal);
 				thumbWidget->update();
@@ -139,7 +146,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString & _filename)
 		thumbWidget->hide();
 		preview->show();
 		pixmap.load(filename);
-		if(pixmap.isNull() || !checkbox->isChecked())
+		if (pixmap.isNull() || !checkbox->isChecked())
 		{
 			preview->setText(" ");
 			info->setText(" ");
@@ -147,16 +154,18 @@ void PreviewFileDialog::OnCurrentChanged(const QString & _filename)
 		else
 		{
 			preview->setPixmap(pixmap.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-			QString text = QString::number(pixmap.width()) + QString(" x ") + QString::number(pixmap.height());
+			QString text = QString::number(pixmap.width()) + QString(" x ")
+					+ QString::number(pixmap.height());
 			info->setText(text);
 		}
 	}
 }
 
-void PreviewFileDialog::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress)
+void PreviewFileDialog::slotUpdateProgressAndStatus(const QString &text,
+		const QString &progressText, double progress)
 {
 	info->setText(text);
-	if(!progressBar->isVisible()) progressBar->setVisible(true);
+	if (!progressBar->isVisible()) progressBar->setVisible(true);
 	progressBar->setValue(progress * 1000.0);
 	progressBar->setTextVisible(true);
 	progressBar->setFormat(progressText);

@@ -343,13 +343,16 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAu
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal)
 {
 	if (z.x > fractal->foldingIntPow.foldfactor) z.x = fractal->foldingIntPow.foldfactor * 2.0 - z.x;
-	else if (z.x < -fractal->foldingIntPow.foldfactor) z.x = -fractal->foldingIntPow.foldfactor * 2.0 - z.x;
+	else if (z.x < -fractal->foldingIntPow.foldfactor) z.x = -fractal->foldingIntPow.foldfactor * 2.0
+			- z.x;
 
 	if (z.y > fractal->foldingIntPow.foldfactor) z.y = fractal->foldingIntPow.foldfactor * 2.0 - z.y;
-	else if (z.y < -fractal->foldingIntPow.foldfactor) z.y = -fractal->foldingIntPow.foldfactor * 2.0 - z.y;
+	else if (z.y < -fractal->foldingIntPow.foldfactor) z.y = -fractal->foldingIntPow.foldfactor * 2.0
+			- z.y;
 
 	if (z.z > fractal->foldingIntPow.foldfactor) z.z = fractal->foldingIntPow.foldfactor * 2.0 - z.z;
-	else if (z.z < -fractal->foldingIntPow.foldfactor) z.z = -fractal->foldingIntPow.foldfactor * 2.0 - z.z;
+	else if (z.z < -fractal->foldingIntPow.foldfactor) z.z = -fractal->foldingIntPow.foldfactor * 2.0
+			- z.z;
 
 	double r = z.Length();
 
@@ -398,7 +401,8 @@ void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sIFSAux &au
 
 			if (length < fractal->IFS.distance[i])
 			{
-				z -= fractal->IFS.direction[i] * (2.0 * (length - fractal->IFS.distance[i]) * fractal->IFS.intensity[i]);
+				z -= fractal->IFS.direction[i]
+						* (2.0 * (length - fractal->IFS.distance[i]) * fractal->IFS.intensity[i]);
 			}
 
 		}
@@ -414,7 +418,8 @@ void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sIFSAux &au
 	{
 		z.x -= fractal->IFS.offset.x * (fractal->IFS.scale - 1.0);
 		z.y -= fractal->IFS.offset.y * (fractal->IFS.scale - 1.0);
-		if (z.z > 0.5 * fractal->IFS.offset.z * (fractal->IFS.scale - 1.0)) z.z -= fractal->IFS.offset.z * (fractal->IFS.scale - 1.0);
+		if (z.z > 0.5 * fractal->IFS.offset.z * (fractal->IFS.scale - 1.0)) z.z -= fractal->IFS.offset.z
+				* (fractal->IFS.scale - 1.0);
 	}
 	else
 	{
@@ -424,9 +429,11 @@ void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sIFSAux &au
 	aux.ifsDE *= fractal->IFS.scale;
 }
 
-void MandelboxVaryScale4DIteration(CVector3 &z, double &w, const cFractal *fractal, sMandelboxAux &aux)
+void MandelboxVaryScale4DIteration(CVector3 &z, double &w, const cFractal *fractal,
+		sMandelboxAux &aux)
 {
-	aux.actualScale = aux.actualScale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+	aux.actualScale = aux.actualScale
+			+ fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	CVector3 oldz = z;
 	z.x = fabs(z.x + fractal->mandelboxVary4D.fold) - fabs(z.x - fractal->mandelboxVary4D.fold) - z.x;
 	z.y = fabs(z.y + fractal->mandelboxVary4D.fold) - fabs(z.y - fractal->mandelboxVary4D.fold) - z.y;
@@ -485,7 +492,9 @@ void AexionIteration(CVector3 &z, double &w, const cFractal *fractal, sAexionAux
 
 void HypercomplexIteration(CVector3 &z, double &w)
 {
-	CVector3 newz(z.x * z.x - z.y * z.y - z.z * z.z - w * w, 2.0 * z.x * z.y - 2.0 * w * z.z, 2.0 * z.x * z.z - 2.0 * z.y * w);
+	CVector3 newz(z.x * z.x - z.y * z.y - z.z * z.z - w * w,
+								2.0 * z.x * z.y - 2.0 * w * z.z,
+								2.0 * z.x * z.z - 2.0 * z.y * w);
 	double neww = 2.0 * z.x * w - 2.0 * z.y * z.z;
 	z = newz;
 	w = neww;
@@ -680,7 +689,8 @@ void MsltoeSym2(CVector3 &z, const cFractal *fractal)
 }
 
 //------------MANDELBULB EXTENDED--------------------------------
-void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux)
+void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
+		const cFractal *fractal, sExtendedAux &aux)
 {
 	//boxFold1
 	boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
@@ -698,7 +708,7 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, con
 	// z = z + ( c * const.); 1
 	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 
-  //  -fabs( z - constA.) * const.B; 1
+	//  -fabs( z - constA.) * const.B; 1
 	fabsSubConstantTransform3D(fractal->transform.fabsSubConstant1, z, i);
 
 	// z = fabs( z + const.A ) + ( z * const.B ) + const.C; 1
@@ -734,16 +744,16 @@ void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, con
 	//boxFold; 2
 	boxFoldTransform3D(fractal->transform.boxFold2, z, i, aux);
 
-  //coloring parameters 1
-  coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
+	//coloring parameters 1
+	coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
 
-  //color trial 1
-  colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
+	//color trial 1
+	colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
 }
 
-
 // -------------- MANDELBOX EXTENDED----------------------------
-void Mandelbox103Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux)
+void Mandelbox103Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
+		const cFractal *fractal, sExtendedAux &aux)
 {
 	//boxFold1 Original (enabled); 1
 	boxFoldOriginalTransform3D(fractal->transform.boxFoldOriginal1, z, i, aux);
@@ -797,15 +807,16 @@ void Mandelbox103Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, co
 	// Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);1
 	iterationWeightTransform3D(fractal->transform.iterationWeight1, z, i);
 
-  //coloring parameters 1
-  coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
+	//coloring parameters 1
+	coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
 
-  //color trial 1
-  colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
+	//color trial 1
+	colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
 }
 
 // -------------- QUATERNION EXTENDED----------------------------
-void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal, sExtendedAux &aux)
+void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal,
+		sExtendedAux &aux)
 {
 	//boxFold1
 	boxFoldTransform4D(fractal->transform.boxFold1, z, i, aux);
@@ -868,10 +879,11 @@ void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFract
 }
 
 // -------------- MENGER SPONGE EXTENDED----------------------------
-void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux)
+void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
+		const cFractal *fractal, sExtendedAux &aux)
 {
-  // Benesi MagTransformOne); 1
-  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne1, z, i, aux);
+	// Benesi MagTransformOne); 1
+	benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne1, z, i, aux);
 
 	//mengerSpongeORIGINAL1 Enabled
 	mengerSpongeOriginalTransform3D(fractal->transform.mengerSpongeOriginal1, z, i, aux);
@@ -879,8 +891,8 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 	//boxOffset1
 	boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
 
-  //boxFoldMulti1
-  boxFoldMultiTransform3D(fractal->transform.boxFoldMulti1, z, i, aux);
+	//boxFoldMulti1
+	boxFoldMultiTransform3D(fractal->transform.boxFoldMulti1, z, i, aux);
 
 	//boxFold1
 	boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
@@ -891,8 +903,8 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 	// sphericalFold1
 	sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
 
-  //mainRotation1
-  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+	//mainRotation1
+	mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
 
 	//scale; 1
 	scaleTransform3D(fractal->transform.scale1, z, i, aux);
@@ -903,14 +915,14 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 	//boxConstantMultiplier with enable fabs c , if (z > 0)  z = z +  (fabs(c) * const. );  else  z = z - fabs(c) * const. ); 1
 	boxConstantMultiplierTransform3D(fractal->transform.boxConstantMultiplier1, z, c, i);
 
-  //mainRotation2
-  mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
+	//mainRotation2
+	mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
 
 	// z = z + ( c * const.); 1
 	constantMultiplierTransform3D(fractal->transform.constantMultiplier1, z, c, i);
 
-  // Benesi MagTransformOne); 2
-  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne2, z, i, aux);
+	// Benesi MagTransformOne); 2
+	benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne2, z, i, aux);
 
 	// z = z + const; 1
 	additionConstantTransform3D(fractal->transform.additionConstant1, z, i);
@@ -933,8 +945,8 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 	// sphericalFold2
 	sphericalFoldTransform3D(fractal->transform.sphericalFold2, z, i, aux);
 
-  //mainRotation; 3
-  mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
+	//mainRotation; 3
+	mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
 
 	//scale; 2
 	scaleTransform3D(fractal->transform.scale2, z, i, aux);
@@ -951,8 +963,8 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 	//MENGER SPONGE 2
 	mengerSpongeTransform3D(fractal->transform.mengerSponge2, z, i, aux);
 
-  //mainRotation; 4
-  mainRotationTransform3D(fractal->transform.mainRotation4, z, i);
+	//mainRotation; 4
+	mainRotationTransform3D(fractal->transform.mainRotation4, z, i);
 
 	//  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
 	fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
@@ -960,255 +972,264 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 	// Iteration weight z  =  (  z * const.Z) + (  zA * Const.A) + ( zB * Const.B);1
 	iterationWeightTransform3D(fractal->transform.iterationWeight1, z, i);
 
-  //coloring parameters 1
-  coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
+	//coloring parameters 1
+	coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
 
-  //color trial 1
-    //colorTrialTransform3D(fractal->transform.colorTrial1, z, sample0, sample1, sample2, sample3, sample4, sample5, sample6, i, aux);
-  colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
+	//color trial 1
+	//colorTrialTransform3D(fractal->transform.colorTrial1, z, sample0, sample1, sample2, sample3, sample4, sample5, sample6, i, aux);
+	colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
 }
 
-
 //------------MANDELBULB6Beta  Trial Transforms--------------------------------
-void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux)
+void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
+		const cFractal *fractal, sExtendedAux &aux)
 {
-  // Benesi MagTransformOne); 1
-  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne1, z, i, aux);
+	// Benesi MagTransformOne); 1
+	benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne1, z, i, aux);
 
-  //boxOffset1
-  boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
+	//boxOffset1
+	boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
 
-   //boxFold1
-  boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
+	//boxFold1
+	boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
 
-  //mainRotation1
-  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+	//mainRotation1
+	mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
 
-  // sphericalOffset1
-  sphericalOffsetTransform3D(fractal->transform.sphericalOffset1, z, i, aux);
+	// sphericalOffset1
+	sphericalOffsetTransform3D(fractal->transform.sphericalOffset1, z, i, aux);
 
-  // sphericalFold1
-  sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
+	// sphericalFold1
+	sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
 
-  //scale; 1
-  //scaleTransform3D(fractal->transform.scale1, z, i, aux);
+	//scale; 1
+	//scaleTransform3D(fractal->transform.scale1, z, i, aux);
 
-  //variableScale; 1
-  variableScaleTransform3D(fractal->transform.variableScale1, z, i, aux);
+	//variableScale; 1
+	variableScaleTransform3D(fractal->transform.variableScale1, z, i, aux);
 
-  // z =(fabs( z + const1A.) * const1.B) + z * constC.;
-  fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
+	// z =(fabs( z + const1A.) * const1.B) + z * constC.;
+	fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
 
-  // Benesi FastPwr2PineTree); 1
-  benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree1, z, c, i, aux);
+	// Benesi FastPwr2PineTree); 1
+	benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree1, z, c, i, aux);
 
-  //MAIN FORMULA ORIGINAL1
-  // mandelbulb 3D 1
-  mandelbulbOriginalTransform3D(fractal->transform.mandelbulbOriginal1, z, i, aux);
+	//MAIN FORMULA ORIGINAL1
+	// mandelbulb 3D 1
+	mandelbulbOriginalTransform3D(fractal->transform.mandelbulbOriginal1, z, i, aux);
 
-  // mandelbulb multi 3D 1
-  mandelbulbMultiTransform3D(fractal->transform.mandelbulbMulti1, z, i, aux);
+	// mandelbulb multi 3D 1
+	mandelbulbMultiTransform3D(fractal->transform.mandelbulbMulti1, z, i, aux);
 
-  // z = z + ( c * const.); 1
-  constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
+	// z = z + ( c * const.); 1
+	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 
-  //  -fabs( z - constA.) * const.B;
-  fabsSubConstantTransform3D(fractal->transform.fabsSubConstant1, z, i);
+	//  -fabs( z - constA.) * const.B;
+	fabsSubConstantTransform3D(fractal->transform.fabsSubConstant1, z, i);
 
-  // z = fabs( z + const.A ) + ( z * const.B ) + const.C; 1
-  fabsFormulaZABTransform3D(fractal->transform.fabsFormulaZAB1, z, i);
+	// z = fabs( z + const.A ) + ( z * const.B ) + const.C; 1
+	fabsFormulaZABTransform3D(fractal->transform.fabsFormulaZAB1, z, i);
 
-  // z = z + const; 1
-  additionConstantTransform3D(fractal->transform.additionConstant1, z, i);
+	// z = z + const; 1
+	additionConstantTransform3D(fractal->transform.additionConstant1, z, i);
 
-  //  z = fabs( z + constA.) - fabs( z - constB.) - z; 1
-  fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB1, z, i);
+	//  z = fabs( z + constA.) - fabs( z - constB.) - z; 1
+	fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB1, z, i);
 
-  //mainRotation; 2
-  mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
+	//mainRotation; 2
+	mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
 
-  //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
-  fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
+	//  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
+	fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
 
-  // Benesi MagTransformOne); 2
-  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne2, z, i, aux);
+	// Benesi MagTransformOne); 2
+	benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne2, z, i, aux);
 
-  // mandelbulb variable power 3D 1
-  variableMandelbulbPowerTransform3D(fractal->transform.variableMandelbulbPower1, z, i, aux);
+	// mandelbulb variable power 3D 1
+	variableMandelbulbPowerTransform3D(fractal->transform.variableMandelbulbPower1, z, i, aux);
 
-  // mandelbulb multi 3D 2
-  mandelbulbMultiTransform3D(fractal->transform.mandelbulbMulti2, z, i, aux);
+	// mandelbulb multi 3D 2
+	mandelbulbMultiTransform3D(fractal->transform.mandelbulbMulti2, z, i, aux);
 
-  //mainRotation; 3
-  mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
+	//mainRotation; 3
+	mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
 
-  //variableConstantMultiplier 1
-  variableConstantMultiplierTransform3D(fractal->transform.variableConstantMultiplier1, z, c, i);
+	//variableConstantMultiplier 1
+	variableConstantMultiplierTransform3D(fractal->transform.variableConstantMultiplier1, z, c, i);
 
-  //boxConstantMultiplier with enable fabs 2
-  boxConstantMultiplierTransform3D(fractal->transform.boxConstantMultiplier2, z, c, i);
+	//boxConstantMultiplier with enable fabs 2
+	boxConstantMultiplierTransform3D(fractal->transform.boxConstantMultiplier2, z, c, i);
 
-  // z = z + const; 2
-  additionConstantTransform3D(fractal->transform.additionConstant2, z, i);
+	// z = z + const; 2
+	additionConstantTransform3D(fractal->transform.additionConstant2, z, i);
 
-  //mainRotation; 4
-  mainRotationTransform3D(fractal->transform.mainRotation4, z, i);
+	//mainRotation; 4
+	mainRotationTransform3D(fractal->transform.mainRotation4, z, i);
 
-  //  z = fabs( z + constA.) - fabs( z - constB.) - z; 2
-  fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB2, z, i);
+	//  z = fabs( z + constA.) - fabs( z - constB.) - z; 2
+	fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB2, z, i);
 
-  //boxFold; 2
-  boxFoldTransform3D(fractal->transform.boxFold2, z, i, aux);
+	//boxFold; 2
+	boxFoldTransform3D(fractal->transform.boxFold2, z, i, aux);
 
-  // sphericalOffset2
-  sphericalOffsetTransform3D(fractal->transform.sphericalOffset2, z, i, aux);
+	// sphericalOffset2
+	sphericalOffsetTransform3D(fractal->transform.sphericalOffset2, z, i, aux);
 
-  //coloring parameters 1
-  coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
+	//coloring parameters 1
+	coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
 
-  //color trial 1
-  colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
+	//color trial 1
+	colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
 }
 
 //------------Benesi Transforms --------------------------------
-void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux)
+void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
+		const cFractal *fractal, sExtendedAux &aux)
 {
-  // Benesi MagForwardTransformOne); 1
-  benesiMagForwardTransformOneTransform3D(fractal->transform.benesiMagForwardTransformOne1, z, i);
+	// Benesi MagForwardTransformOne); 1
+	benesiMagForwardTransformOneTransform3D(fractal->transform.benesiMagForwardTransformOne1, z, i);
 
-  // Benesi MagTransformOneEnabled); 1
-    benesiMagTransformOneEnabledTransform3D(fractal->transform.benesiMagTransformOneEnabled1, z, i, aux);
+	// Benesi MagTransformOneEnabled); 1
+	benesiMagTransformOneEnabledTransform3D(fractal->transform.benesiMagTransformOneEnabled1,
+																					z,
+																					i,
+																					aux);
 
-  // Benesi FastPwr2PineTreeEnabled); 1
-  benesiFastPwr2PineTreeEnabledTransform3D(fractal->transform.benesiFastPwr2PineTreeEnabled1, z, c, i, aux);
+	// Benesi FastPwr2PineTreeEnabled); 1
+	benesiFastPwr2PineTreeEnabledTransform3D(fractal->transform.benesiFastPwr2PineTreeEnabled1,
+																					 z,
+																					 c,
+																					 i,
+																					 aux);
 
-  //MENGER SPONGE 1
-  mengerSpongeTransform3D(fractal->transform.mengerSponge1, z, i, aux);
+	//MENGER SPONGE 1
+	mengerSpongeTransform3D(fractal->transform.mengerSponge1, z, i, aux);
 
-  //boxOffset1
-  boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
+	//boxOffset1
+	boxOffsetTransform3D(fractal->transform.boxOffset1, z, i, aux);
 
-  //boxFold1
-  boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
+	//boxFold1
+	boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
 
-  // sphericalOffset1
-  sphericalOffsetTransform3D(fractal->transform.sphericalOffset1, z, i, aux);
+	// sphericalOffset1
+	sphericalOffsetTransform3D(fractal->transform.sphericalOffset1, z, i, aux);
 
-  // sphericalFold1
-  sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
+	// sphericalFold1
+	sphericalFoldTransform3D(fractal->transform.sphericalFold1, z, i, aux);
 
-  // z =(fabs( z + const1A.) * const1.B) + z * constC.;
-  fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
+	// z =(fabs( z + const1A.) * const1.B) + z * constC.;
+	fabsAddConstantTransform3D(fractal->transform.fabsAddConstant1, z, i);
 
-  //mainRotation1
-  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+	//mainRotation1
+	mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
 
-  //variableScale; 1
-  variableScaleTransform3D(fractal->transform.variableScale1, z, i, aux);
+	//variableScale; 1
+	variableScaleTransform3D(fractal->transform.variableScale1, z, i, aux);
 
-  // z = z + const; 1
-  additionConstantTransform3D(fractal->transform.additionConstant1, z, i);
+	// z = z + const; 1
+	additionConstantTransform3D(fractal->transform.additionConstant1, z, i);
 
-  //z = z + c * const; 1
-  constantMultiplierTransform3D(fractal->transform.constantMultiplier1, z, c, i);
+	//z = z + c * const; 1
+	constantMultiplierTransform3D(fractal->transform.constantMultiplier1, z, c, i);
 
-  // Benesi MagBackTransformOne); 1
-  benesiMagBackTransformOneTransform3D(fractal->transform.benesiMagBackTransformOne1, z, i);
+	// Benesi MagBackTransformOne); 1
+	benesiMagBackTransformOneTransform3D(fractal->transform.benesiMagBackTransformOne1, z, i);
 
-  // Benesi MagTransformOne); 1
-  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne1, z, i, aux);
+	// Benesi MagTransformOne); 1
+	benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne1, z, i, aux);
 
-  //Benesi Mag TransformOnePlusMinus); 1
-  benesiMagTransformOnePlusMinusTransform3D(fractal->transform.benesiMagTransformOnePlusMinus1, z, i, aux);
+	//Benesi Mag TransformOnePlusMinus); 1
+	benesiMagTransformOnePlusMinusTransform3D(fractal->transform.benesiMagTransformOnePlusMinus1,
+																						z,
+																						i,
+																						aux);
 
-  // Benesi SphereCube; 1
-   sphereCubeTransform3D(fractal->transform.sphereCube1, z, i);
+	// Benesi SphereCube; 1
+	sphereCubeTransform3D(fractal->transform.sphereCube1, z, i);
 
+	// Benesi FastPwr2PineTree); 1
+	benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree1, z, c, i, aux);
 
-  // Benesi FastPwr2PineTree); 1
-  benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree1, z, c, i, aux);
+	// Benesi MagTransformTwo); 1
+	benesiMagTransformTwoTransform3D(fractal->transform.benesiMagTransformTwo1, z, i, aux);
 
-  // Benesi MagTransformTwo); 1
-   benesiMagTransformTwoTransform3D(fractal->transform.benesiMagTransformTwo1, z, i, aux);
+	// Benesi MagTransformThree); 1
+	benesiMagTransformThreeTransform3D(fractal->transform.benesiMagTransformThree1, z, i);
 
-  // Benesi MagTransformThree); 1
-  benesiMagTransformThreeTransform3D(fractal->transform.benesiMagTransformThree1, z, i);
+	// Benesi FastPwr2PineTree); 2
+	benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree2, z, c, i, aux);
 
-  // Benesi FastPwr2PineTree); 2
-  benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree2, z, c, i, aux);
+	// Benesi MagTransformFour); 1
+	benesiMagTransformFourTransform3D(fractal->transform.benesiMagTransformFour1, z, i);
 
-  // Benesi MagTransformFour); 1
-  benesiMagTransformFourTransform3D(fractal->transform.benesiMagTransformFour1, z, i);
+	// Benesi MagTransformFiveB); 1
+	benesiMagTransformFiveBTransform3D(fractal->transform.benesiMagTransformFiveB1, z, i);
 
-  // Benesi MagTransformFiveB); 1
-  benesiMagTransformFiveBTransform3D(fractal->transform.benesiMagTransformFiveB1, z, i);
+	// mandelbulb multi 3D 1
+	mandelbulbMultiTransform3D(fractal->transform.mandelbulbMulti1, z, i, aux);
 
-  // mandelbulb multi 3D 1
-  mandelbulbMultiTransform3D(fractal->transform.mandelbulbMulti1, z, i, aux);
+	// z = z + c * const; 2
+	constantMultiplierTransform3D(fractal->transform.constantMultiplier2, z, c, i);
 
-  // z = z + c * const; 2
-  constantMultiplierTransform3D(fractal->transform.constantMultiplier2, z, c, i);
+	// Benesi cubeSphere; 1
+	cubeSphereTransform3D(fractal->transform.cubeSphere1, z, i);
 
-  // Benesi cubeSphere; 1
-   cubeSphereTransform3D(fractal->transform.cubeSphere1, z, i);
+	//  z = fabs( z + constA.) - fabs( z - constB.) - z; 1
+	fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB1, z, i);
 
+	//mainRotation; 2
+	mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
 
-  //  z = fabs( z + constA.) - fabs( z - constB.) - z; 1
-  fabsFormulaABTransform3D(fractal->transform.fabsFormulaAB1, z, i);
+	//  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
+	fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
 
-  //mainRotation; 2
-  mainRotationTransform3D(fractal->transform.mainRotation2, z, i);
+	// Benesi FastPwr2PineTree); 3
+	benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree3, z, c, i, aux);
 
-  //  z = fabs( z + constA.) - fabs( z - constB.) + ( z * constC  + constD); 2
-  fabsFormulaABCDTransform3D(fractal->transform.fabsFormulaABCD2, z, i);
+	// Benesi MagTransformOne); 2
+	benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne2, z, i, aux);
 
-  // Benesi FastPwr2PineTree); 3
-  benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree3, z, c, i, aux);
+	// mandelbulb variable power 3D 1
+	variableMandelbulbPowerTransform3D(fractal->transform.variableMandelbulbPower1, z, i, aux);
 
-  // Benesi MagTransformOne); 2
-  benesiMagTransformOneTransform3D(fractal->transform.benesiMagTransformOne2, z, i, aux);
+	// mandelbulb multi 3D 2
+	mandelbulbMultiTransform3D(fractal->transform.mandelbulbMulti2, z, i, aux);
 
-  // mandelbulb variable power 3D 1
-  variableMandelbulbPowerTransform3D(fractal->transform.variableMandelbulbPower1, z, i, aux);
+	//mainRotation; 3
+	mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
 
-  // mandelbulb multi 3D 2
-  mandelbulbMultiTransform3D(fractal->transform.mandelbulbMulti2, z, i, aux);
+	//variableScale; 2
+	variableScaleTransform3D(fractal->transform.variableScale2, z, i, aux);
 
+	//variableConstantMultiplier 1
+	variableConstantMultiplierTransform3D(fractal->transform.variableConstantMultiplier1, z, c, i);
 
-  //mainRotation; 3
-  mainRotationTransform3D(fractal->transform.mainRotation3, z, i);
+	//boxConstantMultiplier with enable fabs 2
+	boxConstantMultiplierTransform3D(fractal->transform.boxConstantMultiplier2, z, c, i);
 
-  //variableScale; 2
-  variableScaleTransform3D(fractal->transform.variableScale2, z, i, aux);
+	// z = z + const; 2
+	additionConstantTransform3D(fractal->transform.additionConstant2, z, i);
 
-  //variableConstantMultiplier 1
-  variableConstantMultiplierTransform3D(fractal->transform.variableConstantMultiplier1, z, c, i);
+	//mainRotation; 4
+	mainRotationTransform3D(fractal->transform.mainRotation4, z, i);
 
-  //boxConstantMultiplier with enable fabs 2
-  boxConstantMultiplierTransform3D(fractal->transform.boxConstantMultiplier2, z, c, i);
+	//boxFold; 2
+	boxFoldTransform3D(fractal->transform.boxFold2, z, i, aux);
 
-  // z = z + const; 2
-  additionConstantTransform3D(fractal->transform.additionConstant2, z, i);
+	// sphericalOffset2
+	sphericalOffsetTransform3D(fractal->transform.sphericalOffset2, z, i, aux);
 
-  //mainRotation; 4
-  mainRotationTransform3D(fractal->transform.mainRotation4, z, i);
+	//coloring parameters 1
+	coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
 
-  //boxFold; 2
-  boxFoldTransform3D(fractal->transform.boxFold2, z, i, aux);
-
-  // sphericalOffset2
-  sphericalOffsetTransform3D(fractal->transform.sphericalOffset2, z, i, aux);
-
-  //coloring parameters 1
-  coloringParametersTransform3D(fractal->transform.coloringParameters1, z, minimumR, i, aux);
-
-  //color trial 1
-  colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
- }
+	//color trial 1
+	colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
+}
 void PlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
 {
 	double rho = sqrt(z.Length()); // the radius
-	double theta = cos(fractal->platonicSolid.frequency * z.x) * sin(fractal->platonicSolid.frequency * z.y)
+	double theta = cos(fractal->platonicSolid.frequency * z.x)
+			* sin(fractal->platonicSolid.frequency * z.y)
 			+ cos(fractal->platonicSolid.frequency * z.y) * sin(fractal->platonicSolid.frequency * z.z)
 			+ cos(fractal->platonicSolid.frequency * z.z) * sin(fractal->platonicSolid.frequency * z.x);
 	double r = theta * fractal->platonicSolid.amplitude + rho * fractal->platonicSolid.rhoMul;
@@ -1468,7 +1489,8 @@ void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor
 	}
 }
 
-void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor, double &foldDE, double r)
+void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor,
+		double &foldDE, double r)
 {
 	double fR2_2 = foldings->sphericalOuter * foldings->sphericalOuter;
 	double mR2_2 = foldings->sphericalInner * foldings->sphericalInner;

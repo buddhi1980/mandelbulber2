@@ -69,10 +69,8 @@ bool cRenderingConfiguration::UseRenderTimeEffects() const
 
 int cRenderingConfiguration::GetRefreshRate() const
 {
-	if(UseNetRender())
-		return refreshRate / 10;
-	else
-		return refreshRate;
+	if (UseNetRender()) return refreshRate / 10;
+	else return refreshRate;
 }
 
 bool cRenderingConfiguration::UseIgnoreErrors() const

@@ -24,7 +24,8 @@
 #include "system.hpp"
 #include "global_data.hpp"
 
-PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
+PlayerWidget::PlayerWidget(QWidget *parent) :
+		QWidget(parent)
 {
 	infoLabel = new QLabel;
 	imageLabel = new QLabel;
@@ -40,7 +41,7 @@ PlayerWidget::PlayerWidget(QWidget *parent) : QWidget(parent)
 	playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 	stopButton->setEnabled(true);
 	stopButton->setIcon(style()->standardIcon(QStyle::SP_MediaStop));
-	imageLabel->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+	imageLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 	imageLabel->setAlignment(Qt::AlignCenter);
 	fpsSpinBox->setMinimum(0.01);
 	fpsSpinBox->setMaximum(100);
@@ -87,7 +88,7 @@ PlayerWidget::~PlayerWidget()
 void PlayerWidget::SetFilePath(QString filePath)
 {
 	dirPath = filePath;
-	if(dirPath.right(1) == QString("/"))
+	if (dirPath.right(1) == QString("/"))
 	{
 		dirPath.truncate(dirPath.length() - 1);
 	}
@@ -98,7 +99,7 @@ void PlayerWidget::SetFilePath(QString filePath)
 	imageDir.setNameFilters(imageFileExtensions);
 	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
-	if(imageFiles.size() == 0)
+	if (imageFiles.size() == 0)
 	{
 		imageLabel->setText(QObject::tr("No frames to play"));
 	}
@@ -111,9 +112,9 @@ void PlayerWidget::SetFilePath(QString filePath)
 
 void PlayerWidget::playPause()
 {
-	if(imageFiles.size() > 0)
+	if (imageFiles.size() > 0)
 	{
-		if(playTimer->isActive())
+		if (playTimer->isActive())
 		{
 			playPauseButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
 			playTimer->stop();
@@ -142,7 +143,6 @@ void PlayerWidget::nextFrame()
 	updateFrame();
 }
 
-
 void PlayerWidget::setPosition(int position)
 {
 	currentIndex = position;
@@ -151,33 +151,35 @@ void PlayerWidget::setPosition(int position)
 
 void PlayerWidget::updateFrame()
 {
-	if(!gPar)
+	if (!gPar)
 	{
 		close();
 		return;
 	}
-	if(imageFiles.size() == 0) return;
+	if (imageFiles.size() == 0) return;
 	QString fileName = dirPath + "/" + imageFiles.at(currentIndex);
 	QPixmap pix(fileName);
-	if(pix.isNull())
+	if (pix.isNull())
 	{
 		qWarning() << "Image could not be loaded, " << fileName;
 		return;
 	}
 	infoLabel->setText(QObject::tr("Frame %1 of %2").arg(currentIndex + 1).arg(imageFiles.size()));
-	if((1.0 * imageLabel->width() / imageLabel->height()) > (1.0 * pix.width() / pix.height()))
+	if ((1.0 * imageLabel->width() / imageLabel->height()) > (1.0 * pix.width() / pix.height()))
 	{
 		// imageLabel is relative wider than pix
-		imageLabel->setPixmap(pix.scaled((imageLabel->height() * pix.width() / pix.height()), imageLabel->height()));
+		imageLabel->setPixmap(pix.scaled((imageLabel->height() * pix.width() / pix.height()),
+																		 imageLabel->height()));
 	}
 	else
 	{
-		imageLabel->setPixmap(pix.scaled(imageLabel->width(), (imageLabel->width() * pix.height() / pix.width())));
+		imageLabel->setPixmap(pix.scaled(imageLabel->width(),
+																		 (imageLabel->width() * pix.height() / pix.width())));
 	}
 }
 
-
-void PlayerWidget::setFPS(double fps){
+void PlayerWidget::setFPS(double fps)
+{
 	playTimer->setInterval(1000.0 / fps);
 }
 

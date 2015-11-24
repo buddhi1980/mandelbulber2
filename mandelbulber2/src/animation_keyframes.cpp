@@ -33,40 +33,95 @@
 #include <QInputDialog>
 #include "undo.h"
 
-cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image, QWidget *_imageWidget,
-		cParameterContainer *_params, cFractalContainer *_fractal, QObject *parent) : QObject(parent), mainInterface(_interface), keyframes(_frames)
+cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image,
+		QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,
+		QObject *parent) :
+		QObject(parent), mainInterface(_interface), keyframes(_frames)
 {
 	image = _image;
 	imageWidget = _imageWidget;
 	params = _params;
 	fractalParams = _fractal;
 
-	if(mainInterface->mainWindow)
+	if (mainInterface->mainWindow)
 	{
 		ui = mainInterface->mainWindow->ui;
-		QApplication::connect(ui->pushButton_add_keyframe, SIGNAL(clicked()), this, SLOT(slotAddKeyframe()));
-		QApplication::connect(ui->pushButton_insert_keyframe, SIGNAL(clicked()), this, SLOT(slotInsertKeyframe()));
-		QApplication::connect(ui->pushButton_delete_keyframe, SIGNAL(clicked()), this, SLOT(slotDeleteKeyframe()));
-		QApplication::connect(ui->pushButton_modify_keyframe, SIGNAL(clicked()), this, SLOT(slotModifyKeyframe()));
-		QApplication::connect(ui->pushButton_render_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotRenderKeyframes()));
-		QApplication::connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this, SLOT(slotDeleteAllImages()));
-		QApplication::connect(ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
-		QApplication::connect(ui->pushButton_refresh_keyframe_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
-		QApplication::connect(ui->pushButton_keyframe_to_flight_export, SIGNAL(clicked()), this, SLOT(slotExportKeyframesToFlight()));
-		QApplication::connect(ui->pushButton_check_for_collisions, SIGNAL(clicked()), this, SLOT(slotValidate()));
-		QApplication::connect(ui->pushButton_set_constant_target_distance, SIGNAL(clicked()), this, SLOT(slotSetConstantTargetDistance()));
+		QApplication::connect(ui->pushButton_add_keyframe,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotAddKeyframe()));
+		QApplication::connect(ui->pushButton_insert_keyframe,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotInsertKeyframe()));
+		QApplication::connect(ui->pushButton_delete_keyframe,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotDeleteKeyframe()));
+		QApplication::connect(ui->pushButton_modify_keyframe,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotModifyKeyframe()));
+		QApplication::connect(ui->pushButton_render_keyframe_animation,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotRenderKeyframes()));
+		QApplication::connect(ui->pushButton_delete_all_keyframe_images,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotDeleteAllImages()));
+		QApplication::connect(ui->pushButton_show_keyframe_animation,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotShowAnimation()));
+		QApplication::connect(ui->pushButton_refresh_keyframe_table,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotRefreshTable()));
+		QApplication::connect(ui->pushButton_keyframe_to_flight_export,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotExportKeyframesToFlight()));
+		QApplication::connect(ui->pushButton_check_for_collisions,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotValidate()));
+		QApplication::connect(ui->pushButton_set_constant_target_distance,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotSetConstantTargetDistance()));
 
-		QApplication::connect(ui->button_selectAnimKeyframeImageDir, SIGNAL(clicked()), this, SLOT(slotSelectKeyframeAnimImageDir()));
-		QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this, SLOT(slotTableCellChanged(int, int)));
+		QApplication::connect(ui->button_selectAnimKeyframeImageDir,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotSelectKeyframeAnimImageDir()));
+		QApplication::connect(ui->tableWidget_keyframe_animation,
+													SIGNAL(cellChanged(int, int)),
+													this,
+													SLOT(slotTableCellChanged(int, int)));
 
-		QApplication::connect(ui->spinboxInt_keyframe_first_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderFirstFrame(int)));
-		QApplication::connect(ui->spinboxInt_keyframe_last_to_render, SIGNAL(valueChanged(int)), this, SLOT(slotMovedSliderLastFrame(int)));
-		QApplication::connect(ui->spinboxInt_frames_per_keyframe, SIGNAL(valueChanged(int)), this, SLOT(UpdateLimitsForFrameRange()));
+		QApplication::connect(ui->spinboxInt_keyframe_first_to_render,
+													SIGNAL(valueChanged(int)),
+													this,
+													SLOT(slotMovedSliderFirstFrame(int)));
+		QApplication::connect(ui->spinboxInt_keyframe_last_to_render,
+													SIGNAL(valueChanged(int)),
+													this,
+													SLOT(slotMovedSliderLastFrame(int)));
+		QApplication::connect(ui->spinboxInt_frames_per_keyframe,
+													SIGNAL(valueChanged(int)),
+													this,
+													SLOT(UpdateLimitsForFrameRange()));
 
-		QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(slotCellDoubleClicked(int, int)));
+		QApplication::connect(ui->tableWidget_keyframe_animation,
+													SIGNAL(cellDoubleClicked(int, int)),
+													this,
+													SLOT(slotCellDoubleClicked(int, int)));
 
-		QApplication::connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)),
-													mainInterface->mainWindow, SLOT(slotQuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)));
+		QApplication::connect(this,
+													SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)),
+													mainInterface->mainWindow,
+													SLOT(slotQuestionMessage(const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton*)));
 
 		table = ui->tableWidget_keyframe_animation;
 
@@ -76,8 +131,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 			keyframes->AddAnimatedParameter("camera", params->GetAsOneParameter("camera"));
 			keyframes->AddAnimatedParameter("target", params->GetAsOneParameter("target"));
 			keyframes->AddAnimatedParameter("camera_top", params->GetAsOneParameter("camera_top"));
-			if(mainInterface->mainWindow)
-				PrepareTable();
+			if (mainInterface->mainWindow) PrepareTable();
 		}
 	}
 	else
@@ -86,7 +140,10 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		table = NULL;
 	}
 
-	QApplication::connect(this, SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget*)), gErrorMessage, SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget*)));
+	QApplication::connect(this,
+												SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget*)),
+												gErrorMessage,
+												SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget*)));
 
 }
 
@@ -101,7 +158,7 @@ void cKeyframeAnimation::slotAddKeyframe()
 void cKeyframeAnimation::slotInsertKeyframe()
 {
 	int column = table->currentColumn();
-	if(column < 0) column = 0;
+	if (column < 0) column = 0;
 
 	mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
 	gUndo.Store(params, fractalParams, NULL, keyframes);
@@ -111,7 +168,7 @@ void cKeyframeAnimation::slotInsertKeyframe()
 
 void cKeyframeAnimation::NewKeyframe(int index)
 {
-	if(keyframes)
+	if (keyframes)
 	{
 		//add new frame to container
 		keyframes->AddFrame(*params, *fractalParams, index);
@@ -122,7 +179,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 		int newColumn = AddColumn(keyframes->GetFrame(index), index);
 		table->selectColumn(newColumn);
 
-		if(ui->checkBox_show_keyframe_thumbnails->isChecked())
+		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
 			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
 			thumbWidget->UseOneCPUCore(false);
@@ -130,7 +187,8 @@ void cKeyframeAnimation::NewKeyframe(int index)
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
 		UpdateLimitsForFrameRange();
-		ui->spinboxInt_keyframe_last_to_render->setValue(keyframes->GetNumberOfFrames() * ui->spinboxInt_frames_per_keyframe->value());
+		ui->spinboxInt_keyframe_last_to_render->setValue(keyframes->GetNumberOfFrames()
+				* ui->spinboxInt_frames_per_keyframe->value());
 	}
 	else
 	{
@@ -140,9 +198,11 @@ void cKeyframeAnimation::NewKeyframe(int index)
 
 void cKeyframeAnimation::DeleteKeyframe(int index)
 {
-	if(index < 0)
+	if (index < 0)
 	{
-		cErrorMessage::showMessage(QObject::tr("No keyframe selected"), cErrorMessage::errorMessage, ui->centralwidget);
+		cErrorMessage::showMessage(QObject::tr("No keyframe selected"),
+															 cErrorMessage::errorMessage,
+															 ui->centralwidget);
 	}
 	gUndo.Store(params, fractalParams, NULL, keyframes);
 	keyframes->DeleteFrames(index, index);
@@ -154,7 +214,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 {
 	int column = table->currentColumn();
 
-	if(keyframes)
+	if (keyframes)
 	{
 		//get latest values of all parameters
 		mainInterface->SynchronizeInterface(params, fractalParams, cInterface::read);
@@ -169,7 +229,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 		int newColumn = AddColumn(keyframes->GetFrame(column), column);
 		table->selectColumn(newColumn);
 
-		if(ui->checkBox_show_keyframe_thumbnails->isChecked())
+		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
 			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
 			thumbWidget->UseOneCPUCore(false);
@@ -191,15 +251,17 @@ void cKeyframeAnimation::slotDeleteKeyframe()
 
 void cKeyframeAnimation::slotRenderKeyframes()
 {
-	if(keyframes)
+	if (keyframes)
 	{
-		if(keyframes->GetNumberOfFrames() > 0)
+		if (keyframes->GetNumberOfFrames() > 0)
 		{
 			RenderKeyframes(&gMainInterface->stopRequest);
 		}
 		else
 		{
-			emit showErrorMessage(QObject::tr("No frames to render"), cErrorMessage::errorMessage, ui->centralwidget);
+			emit showErrorMessage(QObject::tr("No frames to render"),
+														cErrorMessage::errorMessage,
+														ui->centralwidget);
 		}
 
 	}
@@ -255,7 +317,8 @@ void cKeyframeAnimation::CreateRowsInTable()
 	}
 }
 
-int cKeyframeAnimation::AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription, int index)
+int cKeyframeAnimation::AddVariableToTable(
+		const cAnimationFrames::sParameterDescription &parameterDescription, int index)
 {
 	using namespace parameterContainer;
 	enumVarType type = parameterDescription.varType;
@@ -317,14 +380,14 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 {
 	table->blockSignals(true);
 	int newColumn = index;
-	if(index == -1) newColumn =	table->columnCount();
+	if (index == -1) newColumn = table->columnCount();
 	table->insertColumn(newColumn);
 	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(QString::number(newColumn)));
 
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
 
 	using namespace parameterContainer;
-	for(int i=0; i<parList.size(); ++i)
+	for (int i = 0; i < parList.size(); ++i)
 	{
 		QString parameterName = parList[i].containerName + "_" + parList[i].parameterName;
 		enumVarType type = parList[i].varType;
@@ -337,8 +400,12 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		{
 			CVector3 val = parameter.Get<CVector3>(valueActual);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
-			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
-			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
+			table->setItem(row + 1,
+										 newColumn,
+										 new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
+			table->setItem(row + 2,
+										 newColumn,
+										 new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
 			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 1, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row + 2, newColumn)->setBackgroundColor(MorphType2Color(morphType));
@@ -368,7 +435,7 @@ QColor cKeyframeAnimation::MorphType2Color(parameterContainer::enumMorphType mor
 {
 	using namespace parameterContainer;
 	QColor color;
-	switch(morphType)
+	switch (morphType)
 	{
 		case morphNone:
 			color = QColor(255, 255, 255);
@@ -399,7 +466,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 {
 	if (image->IsUsed())
 	{
-		emit showErrorMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"), cErrorMessage::errorMessage);
+		emit showErrorMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"),
+													cErrorMessage::errorMessage);
 		return false;
 	}
 
@@ -407,8 +475,14 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 	//preparing Render Job
 	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, stopRequest, imageWidget);
-	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
-	connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
+	connect(renderJob,
+					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+					this,
+					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
+	connect(renderJob,
+					SIGNAL(updateStatistics(cStatistics)),
+					this,
+					SIGNAL(updateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -448,7 +522,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		{
 			if (params->Get<bool>("keyframe_auto_validate"))
 			{
-				QList<int> listOfCollisions = CheckForCollisions(params->Get<double>("keyframe_collision_thresh"), stopRequest);
+				QList<int> listOfCollisions =
+						CheckForCollisions(params->Get<double>("keyframe_collision_thresh"), stopRequest);
 				if (*stopRequest) throw false;
 				if (listOfCollisions.size() > 0)
 				{
@@ -458,7 +533,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 						collisionText += QString("%1").arg(listOfCollisions.at(i));
 						if (i < listOfCollisions.size() - 1) collisionText += QString(", ");
 					}
-					emit showErrorMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
+					emit showErrorMessage(QObject::tr("Camera collides with fractal at folowing frames:\n")
+																		+ collisionText,
+																cErrorMessage::warningMessage);
 				}
 			}
 		}
@@ -472,7 +549,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			{
 				QString filename = GetKeyframeFilename(index, subindex);
 				int frameNo = index * keyframes->GetFramesPerKeyframe() + subindex;
-				frame.alreadyRenderedSubFrames.append(QFile(filename).exists() || frameNo < startFrame || frameNo >= endFrame);
+				frame.alreadyRenderedSubFrames.append(QFile(filename).exists() || frameNo < startFrame
+						|| frameNo >= endFrame);
 			}
 			keyframes->ModifyFrame(index, frame);
 		}
@@ -483,14 +561,18 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		{
 			bool deletePreviousRender = false;
 			QString questionTitle = QObject::tr("Truncate Image Folder");
-			QString questionText = QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
-					+ QObject::tr("This will delete all images in the image folder.\nProceed?");
+			QString questionText =
+					QObject::tr("The animation has already been rendered completely.\n Do you want to purge the output folder?\n")
+							+ QObject::tr("This will delete all images in the image folder.\nProceed?");
 
 			if (!systemData.noGui)
 			{
 				QMessageBox::StandardButton reply = QMessageBox::NoButton;
-				emit QuestionMessage(questionTitle, questionText, QMessageBox::Yes | QMessageBox::No, &reply);
-				while(reply ==  QMessageBox::NoButton)
+				emit QuestionMessage(questionTitle,
+														 questionText,
+														 QMessageBox::Yes | QMessageBox::No,
+														 &reply);
+				while (reply == QMessageBox::NoButton)
 				{
 					gApplication->processEvents();
 				}
@@ -531,15 +613,17 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
 
 				double percentDoneFrame = 0.0;
-				if(unrenderedTotal > 0)
-					percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / unrenderedTotal;
-				else
-					percentDoneFrame = 1.0;
+				if (unrenderedTotal > 0) percentDoneFrame = (keyframes->GetUnrenderedTillIndex(frameIndex)
+						* 1.0) / unrenderedTotal;
+				else percentDoneFrame = 1.0;
 
 				QString progressTxt = progressText.getText(percentDoneFrame);
 
-				emit updateProgressAndStatus(QObject::tr("Rendering animation"), QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames) + " " + progressTxt, percentDoneFrame,
-						cProgressText::progress_ANIMATION);
+				emit updateProgressAndStatus(QObject::tr("Rendering animation"),
+																		 QObject::tr("Frame %1 of %2").arg((frameIndex + 1)).arg(totalFrames)
+																				 + " " + progressTxt,
+																		 percentDoneFrame,
+																		 cProgressText::progress_ANIMATION);
 
 				if (*stopRequest) throw false;
 				keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
@@ -557,7 +641,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					mainInterface->SynchronizeInterface(params, fractalParams, cInterface::write);
 
 					//show distance in statistics table
-					double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractalParams);
+					double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"),
+																															 params,
+																															 fractalParams);
 					ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
 				}
 
@@ -571,17 +657,24 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				int result = renderJob->Execute();
 				if (!result) throw false;
 				QString filename = GetKeyframeFilename(index, subindex);
-				SaveImage(filename, (enumImageFileType) params->Get<int>("keyframe_animation_image_type"), image);
+				SaveImage(filename,
+									(enumImageFileType) params->Get<int>("keyframe_animation_image_type"),
+									image);
 			}
 			//--------------------------------------------------------------------
 
 		}
 
-		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0, cProgressText::progress_ANIMATION);
+		emit updateProgressAndStatus(QObject::tr("Animation finished"),
+																 progressText.getText(1.0),
+																 1.0,
+																 cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
 	} catch (bool ex)
 	{
-		emit updateProgressAndStatus(QObject::tr("Rendering terminated"), progressText.getText(1.0), cProgressText::progress_ANIMATION);
+		emit updateProgressAndStatus(QObject::tr("Rendering terminated"),
+																 progressText.getText(1.0),
+																 cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
 		delete renderJob;
 		return false;
@@ -605,11 +698,11 @@ void cKeyframeAnimation::RefreshTable()
 	cParameterContainer tempPar = *params;
 	cFractalContainer tempFract = *fractalParams;
 
-	for(int i=0; i < noOfFrames; i++)
+	for (int i = 0; i < noOfFrames; i++)
 	{
 		int newColumn = AddColumn(keyframes->GetFrame(i));
 
-		if(ui->checkBox_show_keyframe_thumbnails->isChecked())
+		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
 			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
 			thumbWidget->UseOneCPUCore(true);
@@ -618,9 +711,12 @@ void cKeyframeAnimation::RefreshTable()
 			thumbWidget->AssignParameters(tempPar, tempFract);
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
-		if(i % 100 == 0)
+		if (i % 100 == 0)
 		{
-			emit updateProgressAndStatus(QObject::tr("Refreshing animation"), tr("Refreshing animation frames"), (double)i / noOfFrames, cProgressText::progress_ANIMATION);
+			emit updateProgressAndStatus(QObject::tr("Refreshing animation"),
+																	 tr("Refreshing animation frames"),
+																	 (double) i / noOfFrames,
+																	 cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
 	}
@@ -634,9 +730,10 @@ QString cKeyframeAnimation::GetParameterName(int rowNumber)
 
 	QString fullParameterName;
 	QList<cAnimationFrames::sParameterDescription> list = keyframes->GetListOfUsedParameters();
-	if(parameterNumber >= 0)
+	if (parameterNumber >= 0)
 	{
-		fullParameterName = list[parameterNumber].containerName + "_" + list[parameterNumber].parameterName;
+		fullParameterName = list[parameterNumber].containerName + "_"
+				+ list[parameterNumber].parameterName;
 	}
 	else
 	{
@@ -668,7 +765,8 @@ void cKeyframeAnimation::RenderFrame(int index)
 void cKeyframeAnimation::DeleteFramesFrom(int index)
 {
 	gUndo.Store(params, fractalParams, NULL, keyframes);
-	for(int i = keyframes->GetNumberOfFrames() - 1; i >= index; i--) table->removeColumn(index);
+	for (int i = keyframes->GetNumberOfFrames() - 1; i >= index; i--)
+		table->removeColumn(index);
 	keyframes->DeleteFrames(index, keyframes->GetNumberOfFrames() - 1);
 	UpdateLimitsForFrameRange();
 }
@@ -676,7 +774,8 @@ void cKeyframeAnimation::DeleteFramesFrom(int index)
 void cKeyframeAnimation::DeleteFramesTo(int index)
 {
 	gUndo.Store(params, fractalParams, NULL, keyframes);
-	for(int i = 0; i <= index; i++) table->removeColumn(0);
+	for (int i = 0; i <= index; i++)
+		table->removeColumn(0);
 	keyframes->DeleteFrames(0, index);
 	UpdateLimitsForFrameRange();
 }
@@ -692,7 +791,7 @@ void cKeyframeAnimation::slotSelectKeyframeAnimImageDir()
 	dialog->setOption(QFileDialog::ShowDirsOnly);
 	QStringList filenames;
 
-	if(dialog->exec())
+	if (dialog->exec())
 	{
 		filenames = dialog->selectedFiles();
 		QString filename = filenames.first() + "/";
@@ -703,7 +802,7 @@ void cKeyframeAnimation::slotSelectKeyframeAnimImageDir()
 
 void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 {
-	if(row > 0)
+	if (row > 0)
 	{
 		table->blockSignals(true);
 		QTableWidgetItem *cell = table->item(row, column);
@@ -718,20 +817,20 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 		using namespace parameterContainer;
 		enumVarType type = frame.parameters.GetVarType(parameterName);
 
-		if(type == typeVector3)
+		if (type == typeVector3)
 		{
 			CVector3 vect = frame.parameters.Get<CVector3>(parameterName);
-			if(vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
-			if(vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
-			if(vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
+			if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
+			if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
+			if (vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
 			frame.parameters.Set(parameterName, vect);
 		}
-		else if(type == typeRgb)
+		else if (type == typeRgb)
 		{
 			sRGB col = frame.parameters.Get<sRGB>(parameterName);
-			if(vectIndex == 0) col.R = cellText.toInt();
-			if(vectIndex == 1) col.G = cellText.toInt();
-			if(vectIndex == 2) col.B = cellText.toInt();
+			if (vectIndex == 0) col.R = cellText.toInt();
+			if (vectIndex == 1) col.G = cellText.toInt();
+			if (vectIndex == 2) col.B = cellText.toInt();
 			frame.parameters.Set(parameterName, col);
 		}
 		else
@@ -768,14 +867,16 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 
 void cKeyframeAnimation::slotDeleteAllImages()
 {
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, cInterface::read);
+	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
+																						params,
+																						cInterface::read);
 
 	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(
-		ui->centralwidget,
-		QObject::tr("Truncate Image Folder"),
-		QObject::tr("This will delete all images in the image folder.\nProceed?"),
-		QMessageBox::Yes|QMessageBox::No);
+	reply =
+			QMessageBox::question(ui->centralwidget,
+														QObject::tr("Truncate Image Folder"),
+														QObject::tr("This will delete all images in the image folder.\nProceed?"),
+														QMessageBox::Yes | QMessageBox::No);
 
 	if (reply == QMessageBox::Yes)
 	{
@@ -786,7 +887,9 @@ void cKeyframeAnimation::slotDeleteAllImages()
 void cKeyframeAnimation::slotShowAnimation()
 {
 	WriteLog("Prepare PlayerWidget class");
-	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, cInterface::read);
+	mainInterface->SynchronizeInterfaceWindow(ui->scrollAreaWidgetContents_keyframeAnimationParameters,
+																						params,
+																						cInterface::read);
 	mainInterface->imageSequencePlayer = new PlayerWidget();
 	mainInterface->imageSequencePlayer->SetFilePath(params->Get<QString>("anim_keyframe_dir"));
 	mainInterface->imageSequencePlayer->show();
@@ -814,13 +917,19 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	QString valueText;
 
 	bool ok;
-	int lastFrame = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation", "Enter last frame number",
-			column + 1, column + 2, keyframes->GetNumberOfFrames(), 1, &ok);
-	if(!ok) return;
+	int lastFrame = QInputDialog::getInt(mainInterface->mainWindow,
+																			 "Parameter interpolation",
+																			 "Enter last frame number",
+																			 column + 1,
+																			 column + 2,
+																			 keyframes->GetNumberOfFrames(),
+																			 1,
+																			 &ok);
+	if (!ok) return;
 
-	int numberOfFrames = (lastFrame - column  - 1);
+	int numberOfFrames = (lastFrame - column - 1);
 
-	switch(type)
+	switch (type)
 	{
 		case typeBool:
 		case typeInt:
@@ -852,35 +961,48 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	double integerStep = 0.0;
 	double doubleStep = 0.0;
 
-	if(valueIsInteger)
+	if (valueIsInteger)
 	{
-		finalInteger = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame",
-				valueInteger, 0, 2147483647, 1, &ok);
-		integerStep = (double)(finalInteger - valueInteger) / numberOfFrames;
+		finalInteger = QInputDialog::getInt(mainInterface->mainWindow,
+																				"Parameter interpolation",
+																				"Enter value for last frame",
+																				valueInteger,
+																				0,
+																				2147483647,
+																				1,
+																				&ok);
+		integerStep = (double) (finalInteger - valueInteger) / numberOfFrames;
 	}
-	else if(valueIsDouble)
+	else if (valueIsDouble)
 	{
-		finalDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
-				QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
+		finalDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow,
+																																	 "Parameter interpolation",
+																																	 "Enter value for last frame",
+																																	 QLineEdit::Normal,
+																																	 QString("%L1").arg(valueDouble,
+																																											0,
+																																											'g',
+																																											16),
+																																	 &ok));
 		doubleStep = (finalDouble - valueDouble) / numberOfFrames;
 	}
 
-	if(!ok) return;
+	if (!ok) return;
 
-	for(int i = column; i < lastFrame; i++)
+	for (int i = column; i < lastFrame; i++)
 	{
 		QString newCellText;
-		if(valueIsInteger)
+		if (valueIsInteger)
 		{
 			int newValue = integerStep * i + valueInteger;
 			newCellText = QString::number(newValue);
 		}
-		else if(valueIsDouble)
+		else if (valueIsDouble)
 		{
 			double newValue = doubleStep * (i - column) + valueDouble;
 			newCellText = QString("%L1").arg(newValue, 0, 'g', 16);
 		}
-		else if(valueIsText)
+		else if (valueIsText)
 		{
 			newCellText = valueText;
 		}
@@ -897,18 +1019,19 @@ void cKeyframeAnimation::slotRefreshTable()
 QString cKeyframeAnimation::GetKeyframeFilename(int index, int subindex)
 {
 	int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
-	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_" + QString("%1").arg(frameIndex, 5, 10, QChar('0'));
-	switch((enumImageFileType)params->Get<double>("keyframe_animation_image_type"))
+	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_"
+			+ QString("%1").arg(frameIndex, 5, 10, QChar('0'));
+	switch ((enumImageFileType) params->Get<double>("keyframe_animation_image_type"))
 	{
 		case IMAGE_FILE_TYPE_JPG:
 			filename += QString(".jpg");
-		break;
+			break;
 		case IMAGE_FILE_TYPE_PNG:
 			filename += QString(".png");
-		break;
+			break;
 		case IMAGE_FILE_TYPE_EXR:
 			filename += QString(".exr");
-		break;
+			break;
 	}
 	return filename;
 }
@@ -935,14 +1058,14 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	gUndo.Store(params, fractalParams, gAnimFrames, keyframes);
 	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
-	if(gAnimFrames->GetFrames().size() > 0)
+	if (gAnimFrames->GetFrames().size() > 0)
 	{
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-		ui->centralwidget,
-		QObject::tr("Export keyframes to flight"),
-		QObject::tr("There are already captured flight frames present.\nDiscard current flight frames ?"),
-		QMessageBox::Yes|QMessageBox::No);
+		reply =
+				QMessageBox::question(ui->centralwidget,
+															QObject::tr("Export keyframes to flight"),
+															QObject::tr("There are already captured flight frames present.\nDiscard current flight frames ?"),
+															QMessageBox::Yes | QMessageBox::No);
 
 		if (reply == QMessageBox::No) return;
 	}
@@ -950,16 +1073,19 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	gAnimFrames->ClearAll();
 	gAnimFrames->SetListOfParametersAndClear(gKeyframes->GetListOfParameters());
 
-	for(int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
+	for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 	{
-		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
+		for (int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
 			int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
 			gAnimFrames->AddFrame(keyframes->GetInterpolatedFrame(frameIndex));
 		}
-		if(index % 10 == 0)
+		if (index % 10 == 0)
 		{
-			updateProgressAndStatus(QObject::tr("Exporting"), tr("Exporting keyframes to flight"), (double)index / keyframes->GetNumberOfFrames(), cProgressText::progress_ANIMATION);
+			updateProgressAndStatus(QObject::tr("Exporting"),
+															tr("Exporting keyframes to flight"),
+															(double) index / keyframes->GetNumberOfFrames(),
+															cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
 	}
@@ -986,13 +1112,11 @@ void cKeyframeAnimation::UpdateLimitsForFrameRange(void)
 
 void cKeyframeAnimation::slotMovedSliderFirstFrame(int value)
 {
-	if(value > ui->spinboxInt_keyframe_last_to_render->value())
-		ui->spinboxInt_keyframe_last_to_render->setValue(value);
+	if (value > ui->spinboxInt_keyframe_last_to_render->value()) ui->spinboxInt_keyframe_last_to_render->setValue(value);
 }
 void cKeyframeAnimation::slotMovedSliderLastFrame(int value)
 {
-	if(value < ui->spinboxInt_keyframe_first_to_render->value())
-		ui->spinboxInt_keyframe_first_to_render->setValue(value);
+	if (value < ui->spinboxInt_keyframe_first_to_render->value()) ui->spinboxInt_keyframe_first_to_render->setValue(value);
 }
 
 QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequest)
@@ -1003,14 +1127,14 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 
 	*stopRequest = false;
 
-	for(int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
+	for (int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
 		updateProgressAndStatus(QObject::tr("Checking for collissions"),
-			QObject::tr("Checking for collissions on keyframe # %1").arg(key),
-			(double)key / (keyframes->GetNumberOfFrames() - 1.0),
-			cProgressText::progress_ANIMATION);
+														QObject::tr("Checking for collissions on keyframe # %1").arg(key),
+														(double) key / (keyframes->GetNumberOfFrames() - 1.0),
+														cProgressText::progress_ANIMATION);
 
-		for(int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
+		for (int subindex = 0; subindex < keyframes->GetFramesPerKeyframe(); subindex++)
 		{
 			gApplication->processEvents();
 			if (*stopRequest) return listOfCollisions;
@@ -1019,14 +1143,17 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 			tempPar.Set("frame_no", frameIndex);
 			CVector3 point = tempPar.Get<CVector3>("camera");
 			double dist = mainInterface->GetDistanceForPoint(point, &tempPar, &tempFractPar);
-			if(dist < minDist)
+			if (dist < minDist)
 			{
 				listOfCollisions.append(frameIndex);
 			}
 		}
 	}
 
-	updateProgressAndStatus(QObject::tr("Checking for collissions"), QObject::tr("Checking for collisions finished"), 1.0, cProgressText::progress_ANIMATION);
+	updateProgressAndStatus(QObject::tr("Checking for collissions"),
+													QObject::tr("Checking for collisions finished"),
+													1.0,
+													cProgressText::progress_ANIMATION);
 
 	return listOfCollisions;
 }
@@ -1040,16 +1167,19 @@ void cKeyframeAnimation::slotValidate()
 	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
 	//checking for collisions
-	QList<int> listOfCollisions = CheckForCollisions(params->Get<double>("keyframe_collision_thresh"), &gMainInterface->stopRequest);
-	if(listOfCollisions.size() > 0)
+	QList<int> listOfCollisions = CheckForCollisions(params->Get<double>("keyframe_collision_thresh"),
+																									 &gMainInterface->stopRequest);
+	if (listOfCollisions.size() > 0)
 	{
 		QString collisionText;
-		for(int i = 0; i < listOfCollisions.size(); i++)
+		for (int i = 0; i < listOfCollisions.size(); i++)
 		{
 			collisionText += QString("%1").arg(listOfCollisions.at(i));
-			if(i < listOfCollisions.size() - 1) collisionText += QString(", ");
+			if (i < listOfCollisions.size() - 1) collisionText += QString(", ");
 		}
-		emit showErrorMessage(QObject::tr("Camera collides with fractal at folowing frames:\n") + collisionText, cErrorMessage::warningMessage);
+		emit showErrorMessage(QObject::tr("Camera collides with fractal at folowing frames:\n")
+															+ collisionText,
+													cErrorMessage::warningMessage);
 	}
 	else
 	{
@@ -1060,7 +1190,7 @@ void cKeyframeAnimation::slotValidate()
 
 void cKeyframeAnimation::slotCellDoubleClicked(int row, int column)
 {
-	if(row == 0)
+	if (row == 0)
 	{
 		RenderFrame(column);
 	}
@@ -1077,11 +1207,12 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 
 	double constDist = params->Get<double>("keyframe_constant_target_distance");
 
-	for(int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
+	for (int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
 		cAnimationFrames::sAnimationFrame keyframe = keyframes->GetFrame(key);
 
-		if(keyframe.parameters.IfExists("main_camera") && keyframe.parameters.IfExists("main_target") && keyframe.parameters.IfExists("main_camera_top"))
+		if (keyframe.parameters.IfExists("main_camera") && keyframe.parameters.IfExists("main_target")
+				&& keyframe.parameters.IfExists("main_camera_top"))
 		{
 			CVector3 camera = keyframe.parameters.Get<CVector3>("main_camera");
 			CVector3 target = keyframe.parameters.Get<CVector3>("main_target");
@@ -1093,7 +1224,7 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 			CVector3 newTarget = camera + forwardVector * constDist;
 
 			keyframe.parameters.Set("main_target", newTarget);
-			if(keyframe.parameters.IfExists("camera_distance_to_target"))
+			if (keyframe.parameters.IfExists("camera_distance_to_target"))
 			{
 				keyframe.parameters.Set("camera_distance_to_target", constDist);
 			}
@@ -1102,7 +1233,9 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 		}
 		else
 		{
-			cErrorMessage::showMessage(QObject::tr("Cannot change target distance. Missing camera parameters in keyframes"), cErrorMessage::errorMessage, ui->centralwidget);
+			cErrorMessage::showMessage(QObject::tr("Cannot change target distance. Missing camera parameters in keyframes"),
+																 cErrorMessage::errorMessage,
+																 ui->centralwidget);
 			return;
 		}
 	}

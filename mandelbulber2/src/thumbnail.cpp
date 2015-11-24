@@ -25,8 +25,9 @@
 #include <QFileInfo>
 #include "settings.hpp"
 
-cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal, int _width, int _height, const QString &_hash = QString())
-	: params(_params), fractal(_fractal), width(_width), height(_height), hash(_hash)
+cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal,
+		int _width, int _height, const QString &_hash = QString()) :
+		params(_params), fractal(_fractal), width(_width), height(_height), hash(_hash)
 {
 	image = NULL;
 	qwidget = NULL;
@@ -43,7 +44,7 @@ QPixmap cThumbnail::Render()
 {
 	QPixmap pixmap;
 
-	if(hash.isEmpty())
+	if (hash.isEmpty())
 	{
 		cSettings tempSettings(cSettings::formatCondensedText);
 		tempSettings.CreateText(params, fractal);
@@ -51,7 +52,7 @@ QPixmap cThumbnail::Render()
 	}
 
 	QString thumbnailFileName = systemData.thumbnailDir + hash + QString(".png");
-	if(QFileInfo::exists(thumbnailFileName))
+	if (QFileInfo::exists(thumbnailFileName))
 	{
 		pixmap.load(thumbnailFileName);
 	}
@@ -69,7 +70,11 @@ QPixmap cThumbnail::Render()
 
 		renderJob->Init(cRenderJob::still, config);
 		renderJob->Execute();
-		QImage qimage((const uchar*)image->ConvertTo8bit(), width, height, width*sizeof(sRGB8), QImage::Format_RGB888);
+		QImage qimage((const uchar*) image->ConvertTo8bit(),
+									width,
+									height,
+									width * sizeof(sRGB8),
+									QImage::Format_RGB888);
 		pixmap.convertFromImage(qimage);
 		delete renderJob;
 		pixmap.save(thumbnailFileName, "PNG");
@@ -81,6 +86,4 @@ void cThumbnail::Save(QString filename)
 {
 	SaveJPEGQt(filename, image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(), 85);
 }
-
-
 

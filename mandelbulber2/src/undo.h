@@ -36,9 +36,12 @@ class cUndo
 public:
 	cUndo();
 	~cUndo();
-	void Store(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
-	bool Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes);
-	bool Redo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes);
+	void Store(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames =
+			NULL, cKeyframes *keyframes = NULL);
+	bool Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames,
+			cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes);
+	bool Redo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames,
+			cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes);
 
 private:
 	struct sUndoRecord

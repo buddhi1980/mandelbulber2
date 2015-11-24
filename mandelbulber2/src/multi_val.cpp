@@ -52,7 +52,7 @@ enumVarType cMultiVal::Store(double val)
 	iVal[0] = val;
 	sVal = QString("%L1").arg(val, 0, 'g', 16);
 
-	if(!typeDefined) type = typeDouble;
+	if (!typeDefined) type = typeDouble;
 	return typeDouble;
 }
 
@@ -62,7 +62,7 @@ enumVarType cMultiVal::Store(int val)
 	iVal[0] = val;
 	sVal = QString::number(val);
 
-	if(!typeDefined) type = typeInt;
+	if (!typeDefined) type = typeInt;
 	return typeInt;
 }
 
@@ -76,8 +76,8 @@ enumVarType cMultiVal::Store(QString val)
 		{
 			QStringList split = val.split(' ');
 			int size = split.size();
-			if(size >= 4) size = 4;
-			for(int i = 0; i < size; i++)
+			if (size >= 4) size = 4;
+			for (int i = 0; i < size; i++)
 			{
 				dVal[i] = QLocale::system().toDouble(split[i]);
 				iVal[i] = split[i].toInt();
@@ -95,8 +95,8 @@ enumVarType cMultiVal::Store(QString val)
 		{
 			QStringList split = val.split(' ');
 			int size = split.size();
-			if(size >= 4) size = 4;
-			for(int i = 0; i < size; i++)
+			if (size >= 4) size = 4;
+			for (int i = 0; i < size; i++)
 			{
 				dVal[i] = iVal[i] = split[i].toInt(NULL, 16);
 			}
@@ -109,7 +109,7 @@ enumVarType cMultiVal::Store(QString val)
 	}
 	sVal = val;
 
-	if(!typeDefined) type = typeString;
+	if (!typeDefined) type = typeString;
 	return typeString;
 }
 
@@ -121,9 +121,12 @@ enumVarType cMultiVal::Store(CVector3 val)
 	iVal[0] = val.x;
 	iVal[1] = val.y;
 	iVal[2] = val.z;
-	sVal =  QString("%L1 %L2 %L3").arg(val.x, 0, 'g', 16).arg(val.y, 0, 'g', 16).arg(val.z, 0, 'g', 16);
+	sVal = QString("%L1 %L2 %L3").arg(val.x, 0, 'g', 16).arg(val.y, 0, 'g', 16).arg(val.z,
+																																									0,
+																																									'g',
+																																									16);
 
-	if(!typeDefined) type = typeVector3;
+	if (!typeDefined) type = typeVector3;
 	return type;
 }
 
@@ -135,8 +138,12 @@ enumVarType cMultiVal::Store(sRGB val)
 	iVal[0] = val.R;
 	iVal[1] = val.G;
 	iVal[2] = val.B;
-	sVal = QString("%1 %2 %3").arg(val.R, 4, 16, QChar('0')).arg(val.G, 4, 16, QChar('0')).arg(val.B, 4, 16, QChar('0'));
-	if(!typeDefined) type = typeRgb;
+	sVal =
+			QString("%1 %2 %3").arg(val.R, 4, 16, QChar('0')).arg(val.G, 4, 16, QChar('0')).arg(val.B,
+																																													4,
+																																													16,
+																																													QChar('0'));
+	if (!typeDefined) type = typeRgb;
 	return typeRgb;
 }
 
@@ -146,18 +153,17 @@ enumVarType cMultiVal::Store(bool val)
 	iVal[0] = val;
 	sVal = QString::number(val);
 
-	if(!typeDefined) type = typeBool;
+	if (!typeDefined) type = typeBool;
 	return typeBool;
 }
 
 enumVarType cMultiVal::Store(cColorPalette val)
 {
-  sVal = MakePaletteString(val);
+	sVal = MakePaletteString(val);
 
-	if(!typeDefined) type = typeColorPalette;
+	if (!typeDefined) type = typeColorPalette;
 	return typeColorPalette;
 }
-
 
 enumVarType cMultiVal::Get(double &val) const
 {
@@ -209,7 +215,7 @@ QString cMultiVal::MakePaletteString(cColorPalette &palette)
 		sRGB colorRGB = palette.GetColor(i);
 		int colour = colorRGB.R * 65536 + colorRGB.G * 256 + colorRGB.B;
 		colour = colour & 0x00FFFFFF;
-		if(i > 0) paletteString += " ";
+		if (i > 0) paletteString += " ";
 		paletteString += QString("%1").arg(colour, 6, 16, QChar('0'));
 	}
 	return paletteString;
@@ -222,7 +228,7 @@ cColorPalette cMultiVal::GetPaletteFromString(const QString &paletteString) cons
 
 	for (int i = 0; i < split.size(); i++)
 	{
-		if(split[i].size() > 0)
+		if (split[i].size() > 0)
 		{
 			unsigned int colour = split[i].toInt(NULL, 16);
 			sRGB rgbColour;

@@ -30,13 +30,17 @@
 class cProgressText
 {
 public:
-	 enum enumProgressType {
-		 progress_IMAGE, progress_ANIMATION, progress_QUEUE
-	 };
+	enum enumProgressType
+	{
+		progress_IMAGE, progress_ANIMATION, progress_QUEUE
+	};
 	cProgressText();
 	void ResetTimer();
 	QString getText(double progress);
-	double getTime() {return timer.elapsed()/1000.0;};
+	double getTime()
+	{
+		return timer.elapsed() / 1000.0;
+	}
 
 private:
 	QElapsedTimer timer;
@@ -46,11 +50,8 @@ private:
 	double renderingSpeed;
 
 public:
-	static void ProgressStatusText(const QString &text, const QString &progressText, double progress, enumProgressType progressType = progress_IMAGE);
+	static void ProgressStatusText(const QString &text, const QString &progressText, double progress,
+			enumProgressType progressType = progress_IMAGE);
 };
-
-
-
-
 
 #endif /* PROGRESS_TEXT_HPP_ */

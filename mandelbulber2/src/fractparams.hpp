@@ -39,15 +39,12 @@ enum enumPerspectiveType
 
 enum enumAOMode
 {
-	AOmodeFast = 0,
-	AOmodeMultipeRays = 1,
-	AOmodeScreenSpace = 2
+	AOmodeFast = 0, AOmodeMultipeRays = 1, AOmodeScreenSpace = 2
 };
 
 enum enumTextureMapType
 {
-	mapEquirectangular = 0,
-	mapDoubleHemisphere = 1,
+	mapEquirectangular = 0, mapDoubleHemisphere = 1,
 };
 
 enum enumBooleanOperator
@@ -136,14 +133,14 @@ public:
 	sRGB volFogColour2;
 	sRGB volFogColour3;
 
-  double ambientOcclusion;
+	double ambientOcclusion;
 	double ambientOcclusionFastTune;
 	double auxLightPreIntensity[4];
 	double auxLightVisibility;
 	double auxLightVisibilitySize;
 	double background_brightness;
 	double cameraDistanceToTarget; //zoom
-  double coloring_speed;
+	double coloring_speed;
 	double colourSaturation;
 	double constantFactor;
 	double DEFactor; //factor for distance estimation steps
@@ -154,29 +151,29 @@ public:
 	double fakeLightsIntensity;
 	double fakeLightsVisibility;
 	double fakeLightsVisibilitySize;
-  double fogVisibility;
-  double formulaScale[4];
+	double fogVisibility;
+	double formulaScale[4];
 	double fov; //perspective factor
-  double glowIntensity;
+	double glowIntensity;
 	double iterFogColor1Maxiter;
 	double iterFogColor2Maxiter;
 	double iterFogOpacity;
 	double iterFogOpacityTrim;
 	double mainLightAlpha;
 	double mainLightBeta;
-  double mainLightIntensity;
-  double mainLightVisibility;
-  double mainLightVisibilitySize;
-  double paletteOffset;
-  double reflect;
+	double mainLightIntensity;
+	double mainLightVisibility;
+	double mainLightVisibilitySize;
+	double paletteOffset;
+	double reflect;
 	double resolution; //resolution of image in fractal coordinates
 	double shading;
 	double shadowConeAngle;
 	double smoothness;
-  double specular;
+	double specular;
 	double transparencyIndexOfRefraction;
-  double transparencyOfInterior;
-  double transparencyOfSurface;
+	double transparencyOfInterior;
+	double transparencyOfSurface;
 	double viewDistanceMax;
 	double viewDistanceMin;
 	double volFogColour1Distance;
@@ -214,12 +211,13 @@ struct sTextures
 	cTexture lightmapTexture;
 	QList<cTexture*> textureList;
 
-	sTextures(){
+	sTextures()
+	{
 		textureList.append(&backgroundTexture);
 		textureList.append(&envmapTexture);
 		textureList.append(&lightmapTexture);
-	};
+	}
+	;
 };
-
 
 #endif /* FRACTPARAMS_HPP_ */

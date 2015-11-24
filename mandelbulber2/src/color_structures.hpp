@@ -23,27 +23,68 @@
 #ifndef COLOR_STRUCTURES_HPP_
 #define COLOR_STRUCTURES_HPP_
 
-template <typename T>
-struct tsRGB {
+template<typename T>
+struct tsRGB
+{
 	T R, G, B;
-	tsRGB(T r, T g, T b) : R(r), G(g), B(b) {};
-	tsRGB(){R = 0; G = 0; B = 0;}
+	tsRGB(T r, T g, T b) :
+			R(r), G(g), B(b)
+	{
+	}
+
+	tsRGB()
+	{
+		R = 0;
+		G = 0;
+		B = 0;
+	}
 };
 
-
-template <typename T>
+template<typename T>
 struct tsRGBA
 {
-		T R, G, B, A;
-		tsRGBA(T r, T g, T b, T a) : R(r), G(g), B(b), A(a) {}
-		tsRGBA() {R = 0; G = 0; B = 0; A = 0;}
-		tsRGBA(tsRGB<T> rgb) : R(rgb.R), G(rgb.G), B(rgb.B), A(0) {}
+	T R, G, B, A;
+	tsRGBA(T r, T g, T b, T a) :
+			R(r), G(g), B(b), A(a)
+	{
+	}
+
+	tsRGBA()
+	{
+		R = 0;
+		G = 0;
+		B = 0;
+		A = 0;
+	}
+
+	tsRGBA(tsRGB<T> rgb) :
+			R(rgb.R), G(rgb.G), B(rgb.B), A(0)
+	{
+	}
 };
 
 // explicitly define constructor for rgba with regards to max value of Opacity
-template <> inline tsRGBA<unsigned char>::tsRGBA(){R = 0; G = 0; B = 0, A = (unsigned char)255;}
-template <> inline tsRGBA<unsigned short>::tsRGBA(){R = 0; G = 0; B = 0, A = (unsigned short)65535;}
-template <> inline tsRGBA<float>::tsRGBA(){R = 0.0; G = 0.0; B = 0.0, A = 1.0;}
+template<> inline tsRGBA<unsigned char>::tsRGBA()
+{
+	R = 0;
+	G = 0;
+	B = 0;
+	A = (unsigned char) 255;
+}
+template<> inline tsRGBA<unsigned short>::tsRGBA()
+{
+	R = 0;
+	G = 0;
+	B = 0;
+	A = (unsigned short) 65535;
+}
+template<> inline tsRGBA<float>::tsRGBA()
+{
+	R = 0.0;
+	G = 0.0;
+	B = 0.0;
+	A = 1.0;
+}
 
 typedef tsRGB<unsigned char> sRGB8;
 typedef tsRGB<unsigned short> sRGB16;

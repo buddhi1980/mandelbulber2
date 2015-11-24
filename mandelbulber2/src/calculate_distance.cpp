@@ -26,7 +26,8 @@
 
 using namespace std;
 
-double CalculateDistance(const cParamRender &params, const cFourFractals &four, const sDistanceIn &in, sDistanceOut *out)
+double CalculateDistance(const cParamRender &params, const cFourFractals &four,
+		const sDistanceIn &in, sDistanceOut *out)
 {
 	double distance;
 	out->object = fractal::objFractal;
@@ -42,7 +43,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 		double distance_c = max(in.point.z - params.limitMax.z, -(in.point.z - params.limitMin.z));
 		limitBoxDist = max(max(distance_a, distance_b), distance_c);
 
-		if(limitBoxDist > in.detailSize)
+		if (limitBoxDist > in.detailSize)
 		{
 			out->maxiter = false;
 			out->distance = limitBoxDist;
@@ -53,7 +54,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 		}
 	}
 
-	if(params.booleanOperatorsEnabled)
+	if (params.booleanOperatorsEnabled)
 	{
 		sDistanceIn inTemp = in;
 		CVector3 point = inTemp.point;
@@ -65,9 +66,9 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 
 		distance = CalculateDistanceSimple(params, four, inTemp, out, 0) / params.formulaScale[0];
 
-		for(int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
+		for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 		{
-			if(four.GetFractal(i + 1)->formula != fractal::none)
+			if (four.GetFractal(i + 1)->formula != fractal::none)
 			{
 				sDistanceOut outTemp = *out;
 
@@ -77,7 +78,8 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 				point *= params.formulaScale[i + 1];
 				inTemp.point = point;
 
-				double distTemp = CalculateDistanceSimple(params, four, inTemp, &outTemp, i + 1) / params.formulaScale[i + 1];
+				double distTemp = CalculateDistanceSimple(params, four, inTemp, &outTemp, i + 1)
+						/ params.formulaScale[i + 1];
 
 				params::enumBooleanOperator boolOperator = params.booleanOperator[i];
 
@@ -86,7 +88,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 				switch (boolOperator)
 				{
 					case params::booleanOperatorOR:
-						if(distTemp < distance)
+						if (distTemp < distance)
 						{
 							outTemp.formulaIndex = 1 + i;
 							*out = outTemp;
@@ -94,7 +96,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 						distance = min(distTemp, distance);
 						break;
 					case params::booleanOperatorAND:
-						if(distTemp > distance)
+						if (distTemp > distance)
 						{
 							outTemp.formulaIndex = 1 + i;
 							*out = outTemp;
@@ -104,13 +106,13 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 					case params::booleanOperatorSUB:
 					{
 						double limit = 1.5;
-						if(distance < in.detailSize) //if inside 1st
+						if (distance < in.detailSize) //if inside 1st
 						{
-							if(distTemp < in.detailSize * limit) //if inside 2nd
+							if (distTemp < in.detailSize * limit) //if inside 2nd
 							{
-								if(in.normalCalculationMode)
+								if (in.normalCalculationMode)
 								{
-									distance = in.detailSize * limit- distTemp;
+									distance = in.detailSize * limit - distTemp;
 								}
 								else
 								{
@@ -120,14 +122,14 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 							}
 							else //if outside of 2nd
 							{
-								if(in.detailSize * limit - distTemp > distance)
+								if (in.detailSize * limit - distTemp > distance)
 								{
 									outTemp.formulaIndex = 1 + i;
 									*out = outTemp;
 								}
 
 								distance = max(in.detailSize * limit - distTemp, distance);
-								if(distance < 0) distance = 0;
+								if (distance < 0) distance = 0;
 							}
 						}
 						else //if outside of 1st
@@ -147,7 +149,12 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 		distance = CalculateDistanceSimple(params, four, in, out, -1);
 	}
 
-	distance = min(distance, params.primitives.TotalDistance(in.point, distance, &out->object, &out->objectColor, &out->objectReflect));
+	distance = min(distance,
+								 params.primitives.TotalDistance(in.point,
+																								 distance,
+																								 &out->object,
+																								 &out->objectColor,
+																								 &out->objectReflect));
 
 	if (params.limitsEnabled)
 	{
@@ -162,7 +169,8 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four, 
 	return distance;
 }
 
-double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &four, const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex)
+double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &four,
+		const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex)
 {
 	double distance;
 

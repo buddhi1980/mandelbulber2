@@ -35,16 +35,25 @@ public:
 		sRGB colour;
 		double intensity;
 		bool enabled;
-		sLight() : position(), colour(), intensity(), enabled() {};
+		sLight() :
+				position(), colour(), intensity(), enabled()
+		{
+		}
 	};
 
 	cLights();
-	cLights(const cLights& _lights) {Copy(_lights);}
+	cLights(const cLights& _lights)
+	{
+		Copy(_lights);
+	}
 	cLights(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	void Set(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	~cLights();
 	sLight GetLight(int index) const;
-	int GetNumberOfLights(void) const {return numberOfLights;}
+	int GetNumberOfLights(void) const
+	{
+		return numberOfLights;
+	}
 
 private:
 	void Copy(const cLights&);
@@ -53,7 +62,5 @@ private:
 	int numberOfLights;
 	bool lightsReady;
 };
-
-
 
 #endif /* LIGHTS_HPP_ */

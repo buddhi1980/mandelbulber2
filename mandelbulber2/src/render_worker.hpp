@@ -45,7 +45,8 @@ public:
 		cScheduler *scheduler;
 	};
 
-	cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal, sThreadData *_threadData, sRenderData *_data, cImage *_image);
+	cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal,
+			sThreadData *_threadData, sRenderData *_data, cImage *_image);
 	~cRenderWorker();
 
 	QThread workerThread;
@@ -67,7 +68,6 @@ private:
 		sStep *stepBuff;
 		int buffCount;
 	};
-
 
 	//ambient occlusion data
 	struct sVectorsAround
@@ -163,7 +163,8 @@ private:
 	sRayRecursionOut RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut);
 
 	//shaders
-	sRGBAfloat ObjectShader(const sShaderInputData &input, sRGBAfloat *surfaceColour, sRGBAfloat *specularOut);
+	sRGBAfloat ObjectShader(const sShaderInputData &input, sRGBAfloat *surfaceColour,
+			sRGBAfloat *specularOut);
 	CVector3 CalculateNormals(const sShaderInputData &input);
 	sRGBAfloat MainShading(const sShaderInputData &input);
 	sRGBAfloat MainShadow(const sShaderInputData &input);
@@ -174,10 +175,12 @@ private:
 	sRGBAfloat EnvMapping(const sShaderInputData &input);
 	sRGBAfloat AuxLightsShader(const sShaderInputData &input, sRGBAfloat *specularOut);
 	double AuxShadow(const sShaderInputData &input, double distance, CVector3 lightVector);
-	sRGBAfloat LightShading(const sShaderInputData &input, cLights::sLight light, int number, sRGBAfloat *outSpecular);
+	sRGBAfloat LightShading(const sShaderInputData &input, cLights::sLight light, int number,
+			sRGBAfloat *outSpecular);
 	sRGBAfloat BackgroundShader(const sShaderInputData &input);
 	sRGBAfloat FakeLights(const sShaderInputData &input, sRGBAfloat *fakeSpec);
-	sRGBAfloat VolumetricShader(const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut);
+	sRGBAfloat VolumetricShader(const sShaderInputData &input, sRGBAfloat oldPixel,
+			sRGBAfloat *opacityOut);
 
 	//data got from main thread
 	const cParamRender *params;

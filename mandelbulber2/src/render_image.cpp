@@ -32,7 +32,9 @@
 #include "render_ssao.h"
 #include "global_data.hpp"
 
-cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData, cImage *_image) : QObject()
+cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal,
+		sRenderData *_renderData, cImage *_image) :
+		QObject()
 {
 	params = _params;
 	fractal = _fractal;
@@ -44,7 +46,7 @@ cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal,
 
 cRenderer::~cRenderer()
 {
-	if(scheduler) delete scheduler;
+	if (scheduler) delete scheduler;
 }
 
 bool cRenderer::RenderImage()
@@ -54,32 +56,32 @@ bool cRenderer::RenderImage()
 	image->SetImageParameters(params->imageAdjustments);
 
 	int progressiveSteps;
-	if(data->configuration.UseProgressive())
-		progressiveSteps = (int)(log((double)max(image->GetWidth(), image->GetHeight())) / log(2.0))-3;
-	else
-		progressiveSteps = 0;
+	if (data->configuration.UseProgressive()) progressiveSteps =
+			(int) (log((double) max(image->GetWidth(), image->GetHeight())) / log(2.0)) - 3;
+	else progressiveSteps = 0;
 
-	if(progressiveSteps < 0) progressiveSteps = 0;
-	int progressive = pow(2.0, (double)progressiveSteps - 1);
+	if (progressiveSteps < 0) progressiveSteps = 0;
+	int progressive = pow(2.0, (double) progressiveSteps - 1);
 	if (progressive == 0) progressive = 1;
 
 	//prepare multiple threads
 	QThread **thread = new QThread*[data->configuration.GetNumberOfThreads()];
-	cRenderWorker::sThreadData *threadData = new cRenderWorker::sThreadData[data->configuration.GetNumberOfThreads()];
-	cRenderWorker **worker= new cRenderWorker*[data->configuration.GetNumberOfThreads()];
+	cRenderWorker::sThreadData *threadData =
+			new cRenderWorker::sThreadData[data->configuration.GetNumberOfThreads()];
+	cRenderWorker **worker = new cRenderWorker*[data->configuration.GetNumberOfThreads()];
 
-	if(scheduler) delete scheduler;
+	if (scheduler) delete scheduler;
 	scheduler = new cScheduler(image->GetHeight(), progressive);
 
 	cProgressText progressText;
 	progressText.ResetTimer();
 
-	for(int i=0; i < data->configuration.GetNumberOfThreads(); i++)
+	for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 	{
 		threadData[i].id = i + 1;
-		if(data->configuration.UseNetRender())
+		if (data->configuration.UseNetRender())
 		{
-			if(i < data->netRenderStartingPositions.size())
+			if (i < data->netRenderStartingPositions.size())
 			{
 				threadData[i].startLine = data->netRenderStartingPositions.at(i);
 			}
@@ -91,7 +93,8 @@ bool cRenderer::RenderImage()
 		}
 		else
 		{
-			threadData[i].startLine = (image->GetHeight()/data->configuration.GetNumberOfThreads()) * i / scheduler->GetProgressiveStep() * scheduler->GetProgressiveStep();
+			threadData[i].startLine = (image->GetHeight() / data->configuration.GetNumberOfThreads()) * i
+					/ scheduler->GetProgressiveStep() * scheduler->GetProgressiveStep();
 		}
 		threadData[i].scheduler = scheduler;
 	}
@@ -134,7 +137,7 @@ bool cRenderer::RenderImage()
 
 			Wait(100); //wait 100ms
 
-			if(data->configuration.UseRefreshRenderedList())
+			if (data->configuration.UseRefreshRenderedList())
 			{
 				//get list of last rendered lines
 				QList<int> list = scheduler->GetLastRenderedLines();
@@ -145,7 +148,7 @@ bool cRenderer::RenderImage()
 			//status bar and progress bar
 			double percentDone = scheduler->PercentDone();
 			data->lastPercentage = percentDone;
-            statusText = QObject::tr("Rendering image");
+			statusText = QObject::tr("Rendering image");
 			progressTxt = progressText.getText(percentDone);
 			data->statistics.time = progressText.getTime();
 
@@ -155,7 +158,8 @@ bool cRenderer::RenderImage()
 			//refresh image
 			if (listToRefresh.size() > 0)
 			{
-				if (timerRefresh.elapsed() > lastRefreshTime && (scheduler->GetProgressivePass() > 1 || !data->configuration.UseProgressive()))
+				if (timerRefresh.elapsed() > lastRefreshTime
+						&& (scheduler->GetProgressivePass() > 1 || !data->configuration.UseProgressive()))
 				{
 					timerRefresh.restart();
 					QSet<int> set_listToRefresh = listToRefresh.toSet(); //removing duplicates
@@ -165,12 +169,16 @@ bool cRenderer::RenderImage()
 
 					image->CompileImage(&listToRefresh);
 
-					if(data->configuration.UseRenderTimeEffects())
+					if (data->configuration.UseRenderTimeEffects())
 					{
-						if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+						if (params->ambientOcclusionEnabled
+								&& params->ambientOcclusionMode == params::AOmodeScreenSpace)
 						{
 							cRenderSSAO rendererSSAO(params, data, image);
-							connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
+							connect(&rendererSSAO,
+											SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+											this,
+											SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 							rendererSSAO.setProgressive(scheduler->GetProgressiveStep());
 							rendererSSAO.RenderSSAO(&listToRefresh);
 						}
@@ -178,22 +186,23 @@ bool cRenderer::RenderImage()
 
 					image->ConvertTo8bit();
 
-					if(data->configuration.UseImageRefresh())
+					if (data->configuration.UseImageRefresh())
 					{
 						image->UpdatePreview(&listToRefresh);
 						image->GetImageWidget()->update();
 					}
 
 					//sending rendered lines to NetRender server
-					if(data->configuration.UseNetRender() && gNetRender->IsClient() && gNetRender->GetStatus() == CNetRender::netRender_WORKING)
+					if (data->configuration.UseNetRender() && gNetRender->IsClient()
+							&& gNetRender->GetStatus() == CNetRender::netRender_WORKING)
 					{
-						if(netRemderAckReceived) //is ACK was already received. Server is ready to take new data
+						if (netRemderAckReceived) //is ACK was already received. Server is ready to take new data
 						{
 							QList<QByteArray> renderedLinesData;
-							for(int i = 0; i < listToSend.size(); i++)
+							for (int i = 0; i < listToSend.size(); i++)
 							{
 								//avoid sending already rendered lines
-								if(scheduler->IsLineDoneByServer(listToSend.at(i)))
+								if (scheduler->IsLineDoneByServer(listToSend.at(i)))
 								{
 									listToSend.removeAt(i);
 									i--;
@@ -205,7 +214,7 @@ bool cRenderer::RenderImage()
 								renderedLinesData.append(lineData);
 							}
 							//sending data
-							if(listToSend.size() > 0)
+							if (listToSend.size() > 0)
 							{
 								emit sendRenderedLines(listToSend, renderedLinesData);
 								emit NotifyClientStatus();
@@ -215,46 +224,47 @@ bool cRenderer::RenderImage()
 						}
 					}
 
-					if(data->configuration.UseNetRender() && gNetRender->IsServer())
+					if (data->configuration.UseNetRender() && gNetRender->IsServer())
 					{
 						QList<int> toDoList = scheduler->CreateDoneList();
-						if(toDoList.size() > data->configuration.GetNumberOfThreads())
+						if (toDoList.size() > data->configuration.GetNumberOfThreads())
 						{
-							for(int c = 0; c < gNetRender->GetClientCount(); c++)
+							for (int c = 0; c < gNetRender->GetClientCount(); c++)
 							{
 								emit SendToDoList(c, toDoList);
 							}
 						}
 					}
 
-					lastRefreshTime = timerRefresh.elapsed() * data->configuration.GetRefreshRate() / (listToRefresh.size());
+					lastRefreshTime = timerRefresh.elapsed() * data->configuration.GetRefreshRate()
+							/ (listToRefresh.size());
 
 					//do not refresh and send data too often
-					if(data->configuration.UseNetRender())
+					if (data->configuration.UseNetRender())
 					{
-						if(lastRefreshTime < 500) lastRefreshTime = 500;
+						if (lastRefreshTime < 500) lastRefreshTime = 500;
 					}
 
 					timerRefresh.restart();
 					listToRefresh.clear();
 				} //timerRefresh
 			} //isPreview
-		}//while scheduler
+		} //while scheduler
 
 		for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 		{
-			while(thread[i]->isRunning())
+			while (thread[i]->isRunning())
 			{
 				gApplication->processEvents();
 			};
 			WriteLog(QString("Thread ") + QString::number(i) + " finished");
 			delete thread[i];
 		}
-	}
-	while(scheduler->ProgressiveNextStep());
+	} while (scheduler->ProgressiveNextStep());
 
 	//send last rendered lines
-	if(data->configuration.UseNetRender() && gNetRender->IsClient() && gNetRender->GetStatus() == CNetRender::netRender_WORKING)
+	if (data->configuration.UseNetRender() && gNetRender->IsClient()
+			&& gNetRender->GetStatus() == CNetRender::netRender_WORKING)
 	{
 		if (netRemderAckReceived)
 		{
@@ -283,14 +293,15 @@ bool cRenderer::RenderImage()
 		}
 	}
 
-	if(data->configuration.UseNetRender())
+	if (data->configuration.UseNetRender())
 	{
-		if(gNetRender->IsClient()) {
+		if (gNetRender->IsClient())
+		{
 			gNetRender->SetStatus(CNetRender::netRender_READY);
 			emit NotifyClientStatus();
 		}
 
-		if(gNetRender->IsServer())
+		if (gNetRender->IsServer())
 		{
 			emit StopAllClients();
 		}
@@ -299,23 +310,32 @@ bool cRenderer::RenderImage()
 	WriteLog("image->CompileImage()");
 	image->CompileImage();
 
-	if(!(gNetRender->IsClient() && data->configuration.UseNetRender()))
+	if (!(gNetRender->IsClient() && data->configuration.UseNetRender()))
 	{
-		if(params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOmodeScreenSpace)
+		if (params->ambientOcclusionEnabled
+				&& params->ambientOcclusionMode == params::AOmodeScreenSpace)
 		{
 			cRenderSSAO rendererSSAO(params, data, image);
-			connect(&rendererSSAO, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
+			connect(&rendererSSAO,
+							SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+							this,
+							SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 			rendererSSAO.RenderSSAO();
 		}
-		if(params->DOFEnabled && !*data->stopRequest)
+		if (params->DOFEnabled && !*data->stopRequest)
 		{
 			cPostRenderingDOF dof(image);
-			connect(&dof, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
-			dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0, params->DOFFocus, data->stopRequest);
+			connect(&dof,
+							SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+							this,
+							SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
+			dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
+								 params->DOFFocus,
+								 data->stopRequest);
 		}
 	}
 
-	if(image->IsPreview())
+	if (image->IsPreview())
 	{
 		WriteLog("image->ConvertTo8bit()");
 		image->ConvertTo8bit();
@@ -343,10 +363,8 @@ bool cRenderer::RenderImage()
 
 	WriteLog("cRenderer::RenderImage(): memory released");
 
-	if (*data->stopRequest)
-		return false;
-	else
-		return true;
+	if (*data->stopRequest) return false;
+	else return true;
 }
 
 void cRenderer::CreateLineData(int y, QByteArray *lineData)
@@ -364,7 +382,7 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData)
 			lineOfImage[x].zBuffer = image->GetPixelZBuffer(x, y);
 			lineOfImage[x].opacityBuffer = image->GetPixelOpacity(x, y);
 		}
-		lineData->append((char*)lineOfImage, dataSize);
+		lineData->append((char*) lineOfImage, dataSize);
 		delete[] lineOfImage;
 	}
 	else
@@ -375,12 +393,12 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData)
 
 void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 {
-	for(int i = 0; i < lineNumbers.size(); i++)
+	for (int i = 0; i < lineNumbers.size(); i++)
 	{
 		int y = lineNumbers.at(i);
 		if (y >= 0 && y < image->GetHeight())
 		{
-			sAllImageData *lineOfImage = (sAllImageData *)lines.at(i).data();
+			sAllImageData *lineOfImage = (sAllImageData *) lines.at(i).data();
 			int width = image->GetWidth();
 			for (int x = 0; x < width; x++)
 			{
@@ -393,7 +411,9 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 		}
 		else
 		{
-			qCritical() << "cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines): wrong line number:" << y;
+			qCritical()
+					<< "cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines): wrong line number:"
+					<< y;
 			return;
 		}
 	}

@@ -54,12 +54,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Lkmitch", "lkmitch", lkmitch, deltaDE));
 	fractalList->append(sFractalDescription("Makin3D-2", "makin3d2", makin3d2, deltaDE));
 	fractalList->append(sFractalDescription("MsltoeSym2", "msltoesym2", msltoesym2, deltaDE));
-  fractalList->append(sFractalDescription("Mandelbulb - extended", "mandelbulb5", mandelbulb5, analitycDE));
-  fractalList->append(sFractalDescription("Mandelbox - extended", "mandelbox103", mandelbox103, analitycDE));
-  fractalList->append(sFractalDescription("Quaternion - extended", "quaternion104", quaternion104, deltaDE));
-  fractalList->append(sFractalDescription("Menger Sponge - extended", "menger_sponge105", mengerSponge105, analitycDE));
+	fractalList->append(sFractalDescription("Mandelbulb - extended", "mandelbulb5", mandelbulb5, analitycDE));
+	fractalList->append(sFractalDescription("Mandelbox - extended", "mandelbox103", mandelbox103, analitycDE));
+	fractalList->append(sFractalDescription("Quaternion - extended", "quaternion104", quaternion104, deltaDE));
+	fractalList->append(sFractalDescription("Menger Sponge - extended", "menger_sponge105", mengerSponge105, analitycDE));
 	fractalList->append(sFractalDescription("Platonic Solid", "platonic_solid", platonicSolid, analitycDE));
-  fractalList->append(sFractalDescription("Mandelbulb6 beta", "mandelbulb6_beta", mandelbulb6Beta, analitycDE));
-  fractalList->append(sFractalDescription("Benesi Transforms DeltaDE", "benesi_transforms", benesiTransforms,  deltaDE));
+	fractalList->append(sFractalDescription("Mandelbulb6 beta", "mandelbulb6_beta", mandelbulb6Beta, analitycDE));
+	fractalList->append(sFractalDescription("Benesi Transforms DeltaDE", "benesi_transforms", benesiTransforms, deltaDE));
 
 }

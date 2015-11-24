@@ -30,7 +30,7 @@
 
 class cSSAOWorker: public QObject
 {
-	Q_OBJECT
+Q_OBJECT
 public:
 
 	struct sThreadData
@@ -44,7 +44,8 @@ public:
 		QList<int> *list;
 	};
 
-	cSSAOWorker(const cParamRender *_params, sThreadData *_threadData, const sRenderData *_data, cImage *_image);
+	cSSAOWorker(const cParamRender *_params, sThreadData *_threadData, const sRenderData *_data,
+			cImage *_image);
 	~cSSAOWorker();
 
 	QThread workerThread;
@@ -55,11 +56,11 @@ public:
 	sThreadData *threadData;
 	cImage *image;
 
-	public slots:
-		void doWork(void);
+public slots:
+	void doWork(void);
 
-	signals:
-		void finished();
+signals:
+	void finished();
 };
 
 #endif /* SSAO_WORKER_H_ */

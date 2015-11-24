@@ -29,7 +29,8 @@
 #include "progress_text.hpp"
 #include "error_message.hpp"
 
-cHeadless::cHeadless() : QObject()
+cHeadless::cHeadless() :
+		QObject()
 {
 	// TODO Auto-generated constructor stub
 }
@@ -45,9 +46,14 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
 
-	QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
-									 this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SLOT(slotUpdateStatistics(cStatistics)));
+	QObject::connect(renderJob,
+									 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+									 this,
+									 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	QObject::connect(renderJob,
+									 SIGNAL(updateStatistics(cStatistics)),
+									 this,
+									 SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -62,29 +68,29 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 
 	QString ext;
 
-	if(imageFileFormat == "jpg")
+	if (imageFileFormat == "jpg")
 	{
 		ext = ".jpg";
 		SaveImage(filename + ext, IMAGE_FILE_TYPE_JPG, image);
 	}
-	else if(imageFileFormat == "png")
+	else if (imageFileFormat == "png")
 	{
 		ext = ".png";
 		SaveImage(filename + ext, IMAGE_FILE_TYPE_PNG, image);
 	}
-	else if(imageFileFormat == "png16")
+	else if (imageFileFormat == "png16")
 	{
 		ext = ".png";
 		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
 		SavePNG(filename + ext, image, saveImageChannel, false);
 	}
-	else if(imageFileFormat == "png16alpha")
+	else if (imageFileFormat == "png16alpha")
 	{
 		ext = ".png";
 		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
 		SavePNG(filename + ext, image, saveImageChannel, true);
 	}
-	else if(imageFileFormat == "exr")
+	else if (imageFileFormat == "exr")
 	{
 		ext = ".exr";
 		SaveImage(filename + ext, IMAGE_FILE_TYPE_EXR, image);
@@ -102,7 +108,7 @@ void cHeadless::RenderQueue()
 {
 	gQueue->slotQueueRender();
 
-	while(true)
+	while (true)
 	{
 		do
 		{
@@ -110,7 +116,8 @@ void cHeadless::RenderQueue()
 			Wait(100); // TODO substitute with proper handling
 		} while (gQueue->GetQueueSize() > 0);
 
-		cErrorMessage::showMessage("Queue is empty. Waiting for something to do.", cErrorMessage::infoMessage);
+		cErrorMessage::showMessage("Queue is empty. Waiting for something to do.",
+															 cErrorMessage::infoMessage);
 		do
 		{
 			gApplication->processEvents();
@@ -124,13 +131,23 @@ void cHeadless::RenderQueue()
 void cHeadless::RenderFlightAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames, image, NULL, gPar, gParFractal, NULL);
-	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
-									 this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
+	gFlightAnimation = new cFlightAnimation(gMainInterface,
+																					gAnimFrames,
+																					image,
+																					NULL,
+																					gPar,
+																					gParFractal,
+																					NULL);
+	QObject::connect(gFlightAnimation,
+									 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
+									 this,
+									 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
 	// QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)), unused
 	//								 this, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
-	QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
-									 this, SLOT(slotUpdateStatistics(cStatistics)));
+	QObject::connect(gFlightAnimation,
+									 SIGNAL(updateStatistics(cStatistics)),
+									 this,
+									 SLOT(slotUpdateStatistics(cStatistics)));
 	gFlightAnimation->slotRenderFlight();
 	delete image;
 	delete gFlightAnimation;
@@ -141,13 +158,23 @@ void cHeadless::RenderFlightAnimation()
 void cHeadless::RenderKeyframeAnimation()
 {
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes, image, NULL, gPar, gParFractal, NULL);
-	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
-									 this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
+	gKeyframeAnimation = new cKeyframeAnimation(gMainInterface,
+																							gKeyframes,
+																							image,
+																							NULL,
+																							gPar,
+																							gParFractal,
+																							NULL);
+	QObject::connect(gKeyframeAnimation,
+									 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
+									 this,
+									 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
 	// QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)), unused
 	// 								 this, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
-	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),
-									 this, SLOT(slotUpdateStatistics(cStatistics)));
+	QObject::connect(gKeyframeAnimation,
+									 SIGNAL(updateStatistics(cStatistics)),
+									 this,
+									 SLOT(slotUpdateStatistics(cStatistics)));
 	gKeyframeAnimation->slotRenderKeyframes();
 	delete image;
 	delete gKeyframeAnimation;
@@ -155,14 +182,19 @@ void cHeadless::RenderKeyframeAnimation()
 	return;
 }
 
-
 void cHeadless::slotNetRender()
 {
 	gMainInterface->stopRequest = true;
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	cRenderJob *renderJob = new cRenderJob(gPar, gParFractal, image, &gMainInterface->stopRequest);
-	QObject::connect(renderJob, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)), this, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
-	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this, SLOT(slotUpdateStatistics(cStatistics)));
+	QObject::connect(renderJob,
+									 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+									 this,
+									 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
+	QObject::connect(renderJob,
+									 SIGNAL(updateStatistics(cStatistics)),
+									 this,
+									 SLOT(slotUpdateStatistics(cStatistics)));
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -177,27 +209,32 @@ void cHeadless::slotNetRender()
 	emit finished();
 }
 
-void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType)
+void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
+		double progress, cProgressText::enumProgressType progressType)
 {
 	static bool firstCallProgressUpdate = true;
-	if(firstCallProgressUpdate)
+	if (firstCallProgressUpdate)
 	{
 		firstCallProgressUpdate = false;
 		QTextStream out(stdout);
 		out << "\n\n\n";
-		if(systemData.statsOnCLI) out << "\n\n";
+		if (systemData.statsOnCLI) out << "\n\n";
 		out.flush();
 	}
-	if(systemData.statsOnCLI) MoveCursor(0, -2);
-	if(gMainInterface->headless)
+	if (systemData.statsOnCLI) MoveCursor(0, -2);
+	if (gMainInterface->headless)
 	{
-		switch(progressType)
+		switch (progressType)
 		{
 			case cProgressText::progress_IMAGE:
-				MoveCursor(0, -1); break;
+				MoveCursor(0, -1);
+				break;
 			case cProgressText::progress_ANIMATION:
-				MoveCursor(0, -2); break;
-			case cProgressText::progress_QUEUE: MoveCursor(0, -3); break;
+				MoveCursor(0, -2);
+				break;
+			case cProgressText::progress_QUEUE:
+				MoveCursor(0, -3);
+				break;
 		}
 
 		// not enough space to display info in animation bar
@@ -205,7 +242,7 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 
 		RenderingProgressOutput(displayText, progressText, progress);
 
-		switch(progressType)
+		switch (progressType)
 		{
 			case cProgressText::progress_QUEUE:
 				MoveCursor(0, 1);
@@ -216,42 +253,56 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 			case cProgressText::progress_IMAGE:
 				MoveCursor(0, 1);
 		}
-		if(systemData.statsOnCLI) MoveCursor(0, 2);
+		if (systemData.statsOnCLI) MoveCursor(0, 2);
 	}
 }
 
 void cHeadless::slotUpdateStatistics(cStatistics stat)
 {
-	if(!systemData.statsOnCLI) return;
+	if (!systemData.statsOnCLI) return;
 	/*ui->label_histogram_de->SetBarcolor(QColor(0, 255, 0));
-	ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);
-	ui->label_histogram_iter->UpdateHistogram(stat.histogramIterations);
-	*/
-	if(systemData.statsOnCLI) MoveCursor(0, -2);
+	 ui->label_histogram_de->UpdateHistogram(stat.histogramStepCount);
+	 ui->label_histogram_iter->UpdateHistogram(stat.histogramIterations);
+	 */
+	if (systemData.statsOnCLI) MoveCursor(0, -2);
 	QTextStream out(stdout);
 	QString statsText = "";
 	statsText += tr("Total number of iters").leftJustified(25, ' ') + ": ";
-	statsText += colorize(QString::number(stat.GetTotalNumberOfIterations()).rightJustified(12, ' '), ansiBlue, noExplicitColor, true) + ", ";
+	statsText += colorize(QString::number(stat.GetTotalNumberOfIterations()).rightJustified(12, ' '),
+												ansiBlue,
+												noExplicitColor,
+												true) + ", ";
 	statsText += tr("Number of iters / pixel").leftJustified(25, ' ') + ": ";
-	statsText += colorize(QString::number(stat.GetNumberOfIterationsPerPixel()).rightJustified(12, ' '), ansiBlue, noExplicitColor, true) + "\n";
+	statsText += colorize(QString::number(stat.GetNumberOfIterationsPerPixel()).rightJustified(12,
+																																														 ' '),
+												ansiBlue,
+												noExplicitColor,
+												true) + "\n";
 	statsText += tr("Number of iters / second").leftJustified(25, ' ') + ": ";
-	statsText += colorize(QString::number(stat.GetNumberOfIterationsPerSecond()).rightJustified(12, ' '), ansiBlue, noExplicitColor, true) + ", ";
+	statsText += colorize(QString::number(stat.GetNumberOfIterationsPerSecond()).rightJustified(12,
+																																															' '),
+												ansiBlue,
+												noExplicitColor,
+												true) + ", ";
 	statsText += tr("Percentage of wrong DE").leftJustified(25, ' ') + ": ";
-	statsText += colorize(QString::number(stat.GetMissedDEPercentage()).rightJustified(12, ' '), ansiBlue, noExplicitColor, true) + "\n";
+	statsText += colorize(QString::number(stat.GetMissedDEPercentage()).rightJustified(12, ' '),
+												ansiBlue,
+												noExplicitColor,
+												true) + "\n";
 	out << statsText;
 	out.flush();
 }
 
-
-void cHeadless::RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone)
+void cHeadless::RenderingProgressOutput(const QString &header, const QString &progressTxt,
+		double percentDone)
 {
 	QTextStream out(stdout);
 	QString formatedText = formatLine(progressTxt) + " ";
 	QString useHeader = header;
 	QString text;
-	if(systemData.terminalWidth > 0)
+	if (systemData.terminalWidth > 0)
 	{
-		if(useHeader != "") useHeader += ": ";
+		if (useHeader != "") useHeader += ": ";
 		int freeWidth = systemData.terminalWidth - progressTxt.length() - useHeader.length() - 4;
 		int intProgress = freeWidth * percentDone;
 		text = "\r";
@@ -271,20 +322,21 @@ void cHeadless::RenderingProgressOutput(const QString &header, const QString &pr
 	out.flush();
 }
 
-QString cHeadless::colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor, bool bold)
+QString cHeadless::colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor,
+		bool bold)
 {
 	// more info on ANSI escape codes here: https://en.wikipedia.org/wiki/ANSI_escape_code
 #ifdef WIN32 /* WINDOWS */
 	return text;
 #else
-	if(!systemData.useColor) return text;
+	if (!systemData.useColor) return text;
 
 	QStringList ansiSequence;
-	if(foregroundcolor != noExplicitColor) ansiSequence << QString::number(foregroundcolor + 30);
-	if(backgroundColor != noExplicitColor) ansiSequence << QString::number(backgroundColor + 40);
-	if(bold) ansiSequence << "1";
+	if (foregroundcolor != noExplicitColor) ansiSequence << QString::number(foregroundcolor + 30);
+	if (backgroundColor != noExplicitColor) ansiSequence << QString::number(backgroundColor + 40);
+	if (bold) ansiSequence << "1";
 
-	if(ansiSequence.size() == 0) return text;
+	if (ansiSequence.size() == 0) return text;
 
 	QString colorizedString = "\033["; // start ANSI escape sequence
 	colorizedString += ansiSequence.join(";");
@@ -300,7 +352,7 @@ QString cHeadless::formatLine(const QString& text)
 #ifdef WIN32 /* WINDOWS */
 	return text;
 #else
-	if(!systemData.useColor) return text;
+	if (!systemData.useColor) return text;
 	QList<QRegularExpression> reType;
 	reType.append(QRegularExpression("^(Done )(.*?)(, )(elapsed: )(.*?)(, )(estimated to end: )(.*)"));
 	reType.append(QRegularExpression("^(Gotowe )(.*?)(, )(upłynęło: )(.*?)(, )(do końca: )(.*)"));
@@ -316,7 +368,8 @@ QString cHeadless::formatLine(const QString& text)
 	reType.append(QRegularExpression("^(Frame .*? von .*? Fortschritt )(.*?)(, )(vergangen: )(.*?)(, )(voraussichtlich noch: )(.*)"));
 
 	QRegularExpressionMatch matchType;
-	for(int i = 0; i < reType.size(); i++){
+	for (int i = 0; i < reType.size(); i++)
+	{
 		matchType = reType.at(i).match(text);
 		if (matchType.hasMatch()) break;
 	}
@@ -334,7 +387,7 @@ QString cHeadless::formatLine(const QString& text)
 	out += colorize(matchType.captured(4), ansiGreen, noExplicitColor, false);
 	out += colorize(matchType.captured(5), ansiGreen, noExplicitColor, true);
 
-	if(matchType.lastCapturedIndex() == 8)
+	if (matchType.lastCapturedIndex() == 8)
 	{
 		out += colorize(matchType.captured(6), noExplicitColor, noExplicitColor, false);
 		out += colorize(matchType.captured(7), ansiCyan, noExplicitColor, false);
@@ -352,7 +405,7 @@ bool cHeadless::ConfirmMessage(QString message)
 	out << message << " y/n\n";
 	out.flush();
 	QString response = in.readLine().toLower();
-	return (response  == "y");
+	return (response == "y");
 }
 
 void cHeadless::EraseLine()
@@ -372,14 +425,14 @@ void cHeadless::MoveCursor(int leftRight, int downUp)
 	return;
 #else
 	QTextStream out(stdout);
-	if(leftRight != 0)
+	if (leftRight != 0)
 	{
 		QString code = "\033[";
 		code += (leftRight > 0) ? QString::number(leftRight) : QString::number(leftRight * -1);
 		code += (leftRight > 0) ? "C" : "D";
 		out << code;
 	}
-	if(downUp != 0)
+	if (downUp != 0)
 	{
 		QString code = "\033[";
 		code += (downUp > 0) ? QString::number(downUp) : QString::number(downUp * -1);

@@ -37,7 +37,8 @@ cUndo::~cUndo()
 {
 }
 
-void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes)
+void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames,
+		cKeyframes *keyframes)
 {
 	sUndoRecord record;
 
@@ -51,7 +52,7 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 	WriteLog("cUndo::Store() started");
 	record.mainParams = *par;
 	record.fractParams = *parFractal;
-	if(frames)
+	if (frames)
 	{
 		record.animationFrames = *frames;
 		record.hasFrames = true;
@@ -61,7 +62,7 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 		record.hasFrames = false;
 	}
 
-	if(keyframes)
+	if (keyframes)
 	{
 		record.animationKeyframes = *keyframes;
 		record.hasKeyframes = true;
@@ -71,9 +72,9 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 		record.hasKeyframes = false;
 	}
 
-	if(undoBuffer.size() > level)
+	if (undoBuffer.size() > level)
 	{
-		for(int i = undoBuffer.size() - 1; i >= level; i--)
+		for (int i = undoBuffer.size() - 1; i >= level; i--)
 		{
 			undoBuffer.removeAt(i);
 		}
@@ -84,23 +85,24 @@ void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnim
 	WriteLog("cUndo::Store() finished");
 }
 
-bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes)
+bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames,
+		cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes)
 {
-	if(level > 1)
+	if (level > 1)
 	{
 		sUndoRecord record;
-		if(undoBuffer.length() >= level)
+		if (undoBuffer.length() >= level)
 		{
 			level--;
-			record = undoBuffer.at(level-1);
+			record = undoBuffer.at(level - 1);
 			*par = record.mainParams;
 			*parFractal = record.fractParams;
-			if(frames && record.hasFrames)
+			if (frames && record.hasFrames)
 			{
 				*frames = record.animationFrames;
 				*refreshFrames = true;
 			}
-			if(keyframes && record.hasKeyframes)
+			if (keyframes && record.hasKeyframes)
 			{
 				*keyframes = record.animationKeyframes;
 				*refreshKeyframes = true;
@@ -115,7 +117,8 @@ bool cUndo::Undo(cParameterContainer *par, cFractalContainer *parFractal, cAnima
 	}
 }
 
-bool cUndo::Redo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames, cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes)
+bool cUndo::Redo(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames,
+		cKeyframes *keyframes, bool *refreshFrames, bool *refreshKeyframes)
 {
 	if (level < undoBuffer.size())
 	{
@@ -124,12 +127,12 @@ bool cUndo::Redo(cParameterContainer *par, cFractalContainer *parFractal, cAnima
 		level++;
 		*par = record.mainParams;
 		*parFractal = record.fractParams;
-		if(frames && record.hasFrames)
+		if (frames && record.hasFrames)
 		{
 			*frames = record.animationFrames;
 			*refreshFrames = true;
 		}
-		if(keyframes && record.hasKeyframes)
+		if (keyframes && record.hasKeyframes)
 		{
 			*keyframes = record.animationKeyframes;
 			*refreshKeyframes = true;

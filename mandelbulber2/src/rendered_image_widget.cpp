@@ -127,7 +127,8 @@ void RenderedImage::DisplayCoordinates()
 			text += tr("\nMouse wheel - light fov / bkw");
 			break;
 		case clickPlacePrimitive:
-			text = tr("Place ") + PrimitiveNames((fractal::enumObjectType)clickModeData.at(1).toInt()) + QString(" #")+ QString::number(clickModeData.at(2).toInt());
+			text = tr("Place ") + PrimitiveNames((fractal::enumObjectType) clickModeData.at(1).toInt())
+					+ QString(" #") + QString::number(clickModeData.at(2).toInt());
 			break;
 		case clickGetJuliaConstant:
 			text = tr("Get Julia constant");
@@ -299,8 +300,24 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 			}
 			if (iz == 0)
 			{
-				image->AntiAliasedLine(screenPoint.x - sw * 0.3, screenPoint.y, screenPoint.x + sw * 0.3, screenPoint.y, z, z, sRGB8(255, 255, 255), 1.0, 1);
-				image->AntiAliasedLine(screenPoint.x, screenPoint.y - sh * 0.3, screenPoint.x, screenPoint.y + sh * 0.3, z, z, sRGB8(255, 255, 255), 1.0, 1);
+				image->AntiAliasedLine(screenPoint.x - sw * 0.3,
+															 screenPoint.y,
+															 screenPoint.x + sw * 0.3,
+															 screenPoint.y,
+															 z,
+															 z,
+															 sRGB8(255, 255, 255),
+															 1.0,
+															 1);
+				image->AntiAliasedLine(screenPoint.x,
+															 screenPoint.y - sh * 0.3,
+															 screenPoint.x,
+															 screenPoint.y + sh * 0.3,
+															 z,
+															 z,
+															 sRGB8(255, 255, 255),
+															 1.0,
+															 1);
 
 				if (clickMode == clickPlaceLight)
 				{
@@ -324,8 +341,24 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		DrawHud(flightData.rotation);
 
 		//draw small cross
-		image->AntiAliasedLine(screenPoint.x - 20, screenPoint.y - 20, screenPoint.x + 20, screenPoint.y + 20, -1, -1, sRGB8(255,255,255), 0.3, 1);
-		image->AntiAliasedLine(screenPoint.x + 20, screenPoint.y - 20, screenPoint.x - 20, screenPoint.y + 20, -1, -1, sRGB8(255,255,255), 0.3, 1);
+		image->AntiAliasedLine(screenPoint.x - 20,
+													 screenPoint.y - 20,
+													 screenPoint.x + 20,
+													 screenPoint.y + 20,
+													 -1,
+													 -1,
+													 sRGB8(255, 255, 255),
+													 0.3,
+													 1);
+		image->AntiAliasedLine(screenPoint.x + 20,
+													 screenPoint.y - 20,
+													 screenPoint.x - 20,
+													 screenPoint.y + 20,
+													 -1,
+													 -1,
+													 sRGB8(255, 255, 255),
+													 0.3,
+													 1);
 	}
 	lastDepth = z;
 }
@@ -527,8 +560,24 @@ void RenderedImage::wheelEvent(QWheelEvent * event)
 
 void RenderedImage::DisplayCrosshair()
 {
-	image->AntiAliasedLine(image->GetPreviewWidth()/2, 0, image->GetPreviewWidth()/2, image->GetPreviewHeight(), -1, -1, sRGB8(255,255,255), 0.3, 1);
-	image->AntiAliasedLine(0, image->GetPreviewHeight()/2, image->GetPreviewWidth(), image->GetPreviewHeight()/2, -1, -1, sRGB8(255,255,255), 0.3, 1);
+	image->AntiAliasedLine(image->GetPreviewWidth() / 2,
+												 0,
+												 image->GetPreviewWidth() / 2,
+												 image->GetPreviewHeight(),
+												 -1,
+												 -1,
+												 sRGB8(255, 255, 255),
+												 0.3,
+												 1);
+	image->AntiAliasedLine(0,
+												 image->GetPreviewHeight() / 2,
+												 image->GetPreviewWidth(),
+												 image->GetPreviewHeight() / 2,
+												 -1,
+												 -1,
+												 sRGB8(255, 255, 255),
+												 0.3,
+												 1);
 }
 
 void RenderedImage::DrawHud(CVector3 rotation)

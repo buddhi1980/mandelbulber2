@@ -51,7 +51,6 @@ struct sVector
 	double z;
 };
 
-
 inline double dmix(double a, double b, double x)
 {
 	return a * (1.0 - x) + b * x;
@@ -67,9 +66,9 @@ inline T clamp(T x, T min, T max)
 //reference: http://www.iquilezles.org/www/articles/smin/smin.htm
 inline double dsmin(double a, double b, double k = 1)
 {
-	double ta = pow( a, k );
-	double tb = pow( b, k );
-	return pow( (ta*tb)/(ta+tb), 1.0/k );
+	double ta = pow(a, k);
+	double tb = pow(b, k);
+	return pow((ta * tb) / (ta + tb), 1.0 / k);
 }
 
 //int abs(int v);
@@ -77,17 +76,28 @@ int Random(int max);
 double dMax(double a, double b, double c);
 double dMin(double a, double b, double c);
 
-inline double SmoothConditionAGreaterB(double a, double b, double sharpness) {return 1.0 / (1.0 + exp(sharpness * (b - a)));}
-inline double SmoothConditionALessB(double a, double b, double sharpness) {return 1.0 / (1.0 + exp(sharpness * (a - b)));}
-CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv, params::enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth, double imgHeight);
-CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov, params::enumPerspectiveType perspType, const CRotationMatrix &mRot);
+inline double SmoothConditionAGreaterB(double a, double b, double sharpness)
+{
+	return 1.0 / (1.0 + exp(sharpness * (b - a)));
+}
+inline double SmoothConditionALessB(double a, double b, double sharpness)
+{
+	return 1.0 / (1.0 + exp(sharpness * (a - b)));
+}
+CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv,
+		params::enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth,
+		double imgHeight);
+CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov,
+		params::enumPerspectiveType perspType, const CRotationMatrix &mRot);
 CVector3 ReflectionVector(const CVector3 &normal, const CVector3 &incident);
 CVector3 RefractVector(const CVector3 &normal, const CVector3 &incident, double n1, double n2);
 double Reflectance(const CVector3 &normal, const CVector3 &incident, double n1, double n2);
-inline double LimitAngle(double angle) {return fmod(fmod(angle - 180.0, 360.0) + 360.0, 360.0) - 180.0;}
+inline double LimitAngle(double angle)
+{
+	return fmod(fmod(angle - 180.0, 360.0) + 360.0, 360.0) - 180.0;
+}
 
 //Smooth transition between two vectors with vector length control
-template <typename T> T SmoothCVector(const T &v1, const T &v2, double k);
-
+template<typename T> T SmoothCVector(const T &v1, const T &v2, double k);
 
 #endif /* COMMON_MATH_H_ */

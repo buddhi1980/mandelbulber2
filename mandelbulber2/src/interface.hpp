@@ -34,10 +34,22 @@
 class cInterface
 {
 public:
-	enum enumReadWrite {read, write};
-	enum enumCameraMovementStepMode {relative, absolute};
-	enum enumCameraMovementMode {fixedDistance, moveCamera, moveTarget};
-	enum enumCameraRotationMode {rotateCamera, rotateAroundTarget};
+	enum enumReadWrite
+	{
+		read, write
+	};
+	enum enumCameraMovementStepMode
+	{
+		relative, absolute
+	};
+	enum enumCameraMovementMode
+	{
+		fixedDistance, moveCamera, moveTarget
+	};
+	enum enumCameraRotationMode
+	{
+		rotateCamera, rotateAroundTarget
+	};
 
 	cInterface();
 	~cInterface();

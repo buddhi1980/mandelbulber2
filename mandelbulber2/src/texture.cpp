@@ -48,12 +48,13 @@ cTexture::cTexture(QString filename, bool beQuiet)
 	}
 	else
 	{
-		if(!beQuiet) cErrorMessage::showMessage(QObject::tr("Can't load texture!\n") + filename, cErrorMessage::errorMessage);
+		if (!beQuiet) cErrorMessage::showMessage(QObject::tr("Can't load texture!\n") + filename,
+																						 cErrorMessage::errorMessage);
 		width = 100;
 		height = 100;
 		loaded = false;
 		bitmap = new sRGB8[100 * 100];
-		memset(bitmap,255,sizeof(sRGB8)*100*100);
+		memset(bitmap, 255, sizeof(sRGB8) * 100 * 100);
 		//qDebug() << "cTexture::cTexture(QString filename, bool beQuiet): new sRGB8[100 * 100];:" << width * height * sizeof(sRGB8);
 	}
 }
@@ -72,7 +73,7 @@ cTexture::cTexture(const cTexture &tex)
 
 cTexture& cTexture::operator=(const cTexture &tex)
 {
-	if(bitmap)
+	if (bitmap)
 	{
 		delete[] bitmap;
 		bitmap = NULL;
@@ -91,7 +92,7 @@ cTexture& cTexture::operator=(const cTexture &tex)
 
 void cTexture::FromQByteArray(QByteArray buffer)
 {
-	if(bitmap)
+	if (bitmap)
 	{
 		//qDebug() << "void cTexture::FromQByteArray(QByteArray buffer): delete[] bitmap;:" << width * height * sizeof(sRGB8);
 		delete[] bitmap;
@@ -112,7 +113,8 @@ void cTexture::FromQByteArray(QByteArray buffer)
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("Can't load texture from QByteArray!\n"), cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("Can't load texture from QByteArray!\n"),
+															 cErrorMessage::errorMessage);
 	}
 }
 
@@ -122,14 +124,14 @@ cTexture::cTexture(void)
 	height = 100;
 	loaded = false;
 	bitmap = new sRGB8[100 * 100];
-	memset(bitmap,255,sizeof(sRGB8)*100*100);
+	memset(bitmap, 255, sizeof(sRGB8) * 100 * 100);
 	//qDebug() << "cTexture::cTexture(void): new sRGB8[100 * 100]" << width * height * sizeof(sRGB8);
 }
 
 //destructor
 cTexture::~cTexture(void)
 {
-	if(bitmap)
+	if (bitmap)
 	{
 		delete[] bitmap;
 		bitmap = NULL;
@@ -144,7 +146,7 @@ cTexture::~cTexture(void)
 //read pixel
 sRGB8 cTexture::Pixel(double x, double y)
 {
-	sRGB8 black = sRGB8(0,0,0);
+	sRGB8 black = sRGB8(0, 0, 0);
 	if (x >= 0 && x < width && y >= 0 && y < height - 1.0)
 	{
 		return Interpolation(x, y);
@@ -166,9 +168,12 @@ sRGB8 cTexture::Interpolation(double x, double y)
 	sRGB8 k2 = bitmap[iy * width + ix + 1];
 	sRGB8 k3 = bitmap[(iy + 1) * width + ix];
 	sRGB8 k4 = bitmap[(iy + 1) * width + ix + 1];
-	color.R = (k1.R * (1.0 - rx) * (1.0 - ry) + k2.R * (rx) * (1.0 - ry) + k3.R * (1.0 - rx) * ry + k4.R * (rx * ry));
-	color.G = (k1.G * (1.0 - rx) * (1.0 - ry) + k2.G * (rx) * (1.0 - ry) + k3.G * (1.0 - rx) * ry + k4.G * (rx * ry));
-	color.B = (k1.B * (1.0 - rx) * (1.0 - ry) + k2.B * (rx) * (1.0 - ry) + k3.B * (1.0 - rx) * ry + k4.B * (rx * ry));
+	color.R = (k1.R * (1.0 - rx) * (1.0 - ry) + k2.R * (rx) * (1.0 - ry) + k3.R * (1.0 - rx) * ry
+			+ k4.R * (rx * ry));
+	color.G = (k1.G * (1.0 - rx) * (1.0 - ry) + k2.G * (rx) * (1.0 - ry) + k3.G * (1.0 - rx) * ry
+			+ k4.G * (rx * ry));
+	color.B = (k1.B * (1.0 - rx) * (1.0 - ry) + k2.B * (rx) * (1.0 - ry) + k3.B * (1.0 - rx) * ry
+			+ k4.B * (rx * ry));
 	return color;
 }
 

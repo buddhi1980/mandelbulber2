@@ -27,9 +27,9 @@
 #include "progress_text.hpp"
 #include "statistics.h"
 
-class cHeadless : public QObject
+class cHeadless: public QObject
 {
-	Q_OBJECT
+Q_OBJECT
 public:
 	cHeadless();
 	~cHeadless();
@@ -37,27 +37,37 @@ public:
 	enum ansiColor
 	{
 		noExplicitColor = -1,
-		ansiBlack = 0, ansiRed = 1, ansiGreen = 2, ansiYellow = 3,
-		ansiBlue = 4, ansiMagenta = 5, ansiCyan = 6, ansiWhite = 7
+		ansiBlack = 0,
+		ansiRed = 1,
+		ansiGreen = 2,
+		ansiYellow = 3,
+		ansiBlue = 4,
+		ansiMagenta = 5,
+		ansiCyan = 6,
+		ansiWhite = 7
 	};
 
 	void RenderStillImage(QString filename, QString imageFileFormat);
 	void RenderQueue();
 	void RenderFlightAnimation();
 	void RenderKeyframeAnimation();
-	static void RenderingProgressOutput(const QString &header, const QString &progressTxt, double percentDone);
-	static QString colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor = noExplicitColor, bool bold = false);
+	static void RenderingProgressOutput(const QString &header, const QString &progressTxt,
+			double percentDone);
+	static QString colorize(QString text, ansiColor foregroundcolor, ansiColor backgroundColor =
+			noExplicitColor, bool bold = false);
 	static QString formatLine(const QString& text);
 	static bool ConfirmMessage(QString message);
 	static void MoveCursor(int leftRight, int downUp);
 	static void EraseLine();
 
-	public slots:
+public slots:
 	void slotNetRender();
-	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
+	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
+			double progress,
+			cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
 	void slotUpdateStatistics(cStatistics stat);
 
-	signals:
+signals:
 	void finished();
 
 };

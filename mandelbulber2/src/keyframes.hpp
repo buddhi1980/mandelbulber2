@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com)
  */
 
-
 #ifndef MANDELBULBER2_SRC_KEYFRAMES_HPP_
 #define MANDELBULBER2_SRC_KEYFRAMES_HPP_
 
@@ -39,15 +38,26 @@ public:
 	cKeyframes(const cKeyframes &source);
 	cKeyframes& operator=(const cKeyframes &source);
 	sAnimationFrame GetInterpolatedFrame(int index);
-	void GetInterpolatedFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
-	void SetFramesPerKeyframe(int frPerKey) {framesPerKeyframe = frPerKey;}
-	int GetFramesPerKeyframe() { return framesPerKeyframe;}
+	void GetInterpolatedFrameAndConsolidate(int index, cParameterContainer *params,
+			cFractalContainer *fractal);
+	void SetFramesPerKeyframe(int frPerKey)
+	{
+		framesPerKeyframe = frPerKey;
+	}
+	int GetFramesPerKeyframe()
+	{
+		return framesPerKeyframe;
+	}
 	int GetUnrenderedTotal();
 	int GetUnrenderedTillIndex(int frameIndex);
 	void ChangeMorphType(int parameterIndex, parameterContainer::enumMorphType morphType);
-	void ClearMorphCache() {morph.clear(); }
+	void ClearMorphCache()
+	{
+		morph.clear();
+	}
 	void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue);
-	bool AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param, const cFractalContainer *fractal);
+	bool AddAnimatedParameter(const QString &fullParameterName, const cParameterContainer *param,
+			const cFractalContainer *fractal);
 	void RemoveAnimatedParameter(const QString &fullParameterName);
 
 private:

@@ -30,7 +30,8 @@ cParameterContainer &cFractalContainer::operator[](int index)
 	}
 	else
 	{
-		qCritical() << "cParameterContainer &cFractalContainer::operator[](int index): wrong index:" << index;
+		qCritical() << "cParameterContainer &cFractalContainer::operator[](int index): wrong index:"
+				<< index;
 		return fractals[0];
 	}
 }
@@ -43,7 +44,9 @@ const cParameterContainer &cFractalContainer::operator[](int index) const
 	}
 	else
 	{
-		qCritical() << "const cParameterContainer &cFractalContainer::operator[](int index) const: wrong index:" << index;
+		qCritical()
+				<< "const cParameterContainer &cFractalContainer::operator[](int index) const: wrong index:"
+				<< index;
 		return fractals[0];
 	}
 }
@@ -69,7 +72,8 @@ const cParameterContainer &cFractalContainer::at(int index) const
 	}
 	else
 	{
-		qCritical() << "const cParameterContainer &cFractalContainer::at(int index) const: wrong index:" << index;
+		qCritical() << "const cParameterContainer &cFractalContainer::at(int index) const: wrong index:"
+				<< index;
 		return fractals[0];
 	}
 }

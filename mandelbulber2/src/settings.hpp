@@ -34,22 +34,27 @@ class cSettings
 public:
 	enum enumFormat
 	{
-		formatFullText,
-		formatCondensedText,
-		formatAppSettings,
-		formatNetRender
+		formatFullText, formatCondensedText, formatAppSettings, formatNetRender
 	};
 
 	cSettings(enumFormat _format);
-	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
+	size_t CreateText(const cParameterContainer *par, const cFractalContainer *fractPar,
+			cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
 	bool SaveToFile(QString filename);
 	void SaveToClipboard();
 	bool LoadFromFile(QString filename);
 	bool LoadFromString(const QString &_settingsText);
 	bool LoadFromClipboard();
-	bool Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
-	QString GetHashCode() {return hash.toHex();}
-	void BeQuiet(bool _quiet) {quiet = _quiet;}
+	bool Decode(cParameterContainer *par, cFractalContainer *fractPar,
+			cAnimationFrames *frames = NULL, cKeyframes *keyframes = NULL);
+	QString GetHashCode()
+	{
+		return hash.toHex();
+	}
+	void BeQuiet(bool _quiet)
+	{
+		quiet = _quiet;
+	}
 	QString GetSettingsText();
 
 private:
@@ -59,10 +64,13 @@ private:
 	bool DecodeOneLine(cParameterContainer *par, QString line);
 	bool CheckSection(QString text, QString &section);
 	void Compatibility(QString &name, QString &value);
-	void CreateAnimationString(QString &text, const QString &headerText, const cAnimationFrames *frames);
+	void CreateAnimationString(QString &text, const QString &headerText,
+			const cAnimationFrames *frames);
 
-	bool DecodeFramesHeader(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
-	bool DecodeFramesLine(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames);
+	bool DecodeFramesHeader(QString line, cParameterContainer *par, cFractalContainer *fractPar,
+			cAnimationFrames *frames);
+	bool DecodeFramesLine(QString line, cParameterContainer *par, cFractalContainer *fractPar,
+			cAnimationFrames *frames);
 
 	QString everyLocaleDouble(QString txt);
 
@@ -76,7 +84,5 @@ private:
 	QByteArray hash;
 	int csvNoOfColumns;
 };
-
-
 
 #endif /* SETTINGS_HPP_ */

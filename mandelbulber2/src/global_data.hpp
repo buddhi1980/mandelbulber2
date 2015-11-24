@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #ifndef SRC_GLOBAL_DATA_HPP_
 #define SRC_GLOBAL_DATA_HPP_
 

@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 
 	cCommandLineInterface commandLineInterface(gApplication);
 
-	if(commandLineInterface.isNoGUI())
+	if (commandLineInterface.isNoGUI())
 	{
 		gApplication = qobject_cast<QApplication *>(gCoreApplication);
 	}
@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 
 	//create default directories and copy all needed files
 	WriteLog("CreateDefaultFolders()");
-	if(!CreateDefaultFolders())
+	if (!CreateDefaultFolders())
 	{
 		qCritical() << "Files/directories initialization failed" << endl;
 		return 73;
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 
 	gPar->SetContainerName("main");
 	InitParams(gPar);
-	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		gParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
 		InitFractalParams(&gParFractal->at(i));
@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
 	gNetRender = new CNetRender(systemData.numberOfThreads);
 
 	//loading AppSettings
-	if(QFile(systemData.dataDirectory + "mandelbulber.ini").exists())
+	if (QFile(systemData.dataDirectory + "mandelbulber.ini").exists())
 	{
 		cSettings parSettings(cSettings::formatAppSettings);
 		parSettings.LoadFromFile(systemData.dataDirectory + "mandelbulber.ini");
@@ -125,56 +125,78 @@ int main(int argc, char *argv[])
 	}
 
 	UpdateDefaultPaths();
-	if(!commandLineInterface.isNoGUI())
+	if (!commandLineInterface.isNoGUI())
 	{
 		UpdateUIStyle();
 		UpdateUISkin();
 	}
 	UpdateLanguage(gApplication);
 
-
 	commandLineInterface.ReadCLI();
 
-	if(!commandLineInterface.isNoGUI())
+	if (!commandLineInterface.isNoGUI())
 	{
 		gMainInterface->ShowUi();
-		gFlightAnimation = new cFlightAnimation(gMainInterface, gAnimFrames,
-				gMainInterface->mainImage, gMainInterface->renderedImage,
-				gPar, gParFractal, gMainInterface->mainWindow);
-		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface, gKeyframes,
-				gMainInterface->mainImage, gMainInterface->renderedImage,
-				gPar, gParFractal, gMainInterface->mainWindow);
+		gFlightAnimation = new cFlightAnimation(gMainInterface,
+																						gAnimFrames,
+																						gMainInterface->mainImage,
+																						gMainInterface->renderedImage,
+																						gPar,
+																						gParFractal,
+																						gMainInterface->mainWindow);
+		gKeyframeAnimation = new cKeyframeAnimation(gMainInterface,
+																								gKeyframes,
+																								gMainInterface->mainImage,
+																								gMainInterface->renderedImage,
+																								gPar,
+																								gParFractal,
+																								gMainInterface->mainWindow);
 
-		QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
-										 gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
-		QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
-										 gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
-		QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
-										 gMainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
-		QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
-										 gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
-		QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
-										 gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
-		QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),
-										 gMainInterface->mainWindow, SLOT(slotUpdateStatistics(cStatistics)));
+		QObject::connect(gFlightAnimation,
+										 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
+										 gMainInterface->mainWindow,
+										 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
+		QObject::connect(gFlightAnimation,
+										 SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+										 gMainInterface->mainWindow,
+										 SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+		QObject::connect(gFlightAnimation,
+										 SIGNAL(updateStatistics(cStatistics)),
+										 gMainInterface->mainWindow,
+										 SLOT(slotUpdateStatistics(cStatistics)));
+		QObject::connect(gKeyframeAnimation,
+										 SIGNAL(updateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)),
+										 gMainInterface->mainWindow,
+										 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double, cProgressText::enumProgressType)));
+		QObject::connect(gKeyframeAnimation,
+										 SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+										 gMainInterface->mainWindow,
+										 SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+		QObject::connect(gKeyframeAnimation,
+										 SIGNAL(updateStatistics(cStatistics)),
+										 gMainInterface->mainWindow,
+										 SLOT(slotUpdateStatistics(cStatistics)));
 
 		try
 		{
-			gQueue = new cQueue(gMainInterface, systemData.dataDirectory + "queue.fractlist", systemData.dataDirectory + "queue", gMainInterface->mainWindow);
-		}
-		catch(QString &ex)
+			gQueue = new cQueue(gMainInterface,
+													systemData.dataDirectory + "queue.fractlist",
+													systemData.dataDirectory + "queue",
+													gMainInterface->mainWindow);
+		} catch (QString &ex)
 		{
-			cErrorMessage::showMessage(QObject::tr("Cannot init queue: ") + ex, cErrorMessage::errorMessage);
+			cErrorMessage::showMessage(QObject::tr("Cannot init queue: ") + ex,
+																 cErrorMessage::errorMessage);
 			return -1;
 		}
 	}
 
 	//write parameters to ui
-	if(!commandLineInterface.isNoGUI())
+	if (!commandLineInterface.isNoGUI())
 	{
-	  gMainInterface->ComboMouseClickUpdate();
-	  gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-	  gMainInterface->ComboMouseClickUpdate();
+		gMainInterface->ComboMouseClickUpdate();
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+		gMainInterface->ComboMouseClickUpdate();
 
 		gMainInterface->AutoRecovery();
 	}
@@ -184,14 +206,14 @@ int main(int argc, char *argv[])
 	//start main Qt loop
 	WriteLog("application->exec()");
 	int result = 0;
-	if(!commandLineInterface.isNoGUI())
-		result = gApplication->exec();
+	if (!commandLineInterface.isNoGUI()) result = gApplication->exec();
 
 	//clean objects when exit
-	delete gPar; gPar = NULL;
+	delete gPar;
+	gPar = NULL;
 	delete gParFractal;
-	if(gFlightAnimation) delete gFlightAnimation;
-	if(gKeyframeAnimation) delete gKeyframeAnimation;
+	if (gFlightAnimation) delete gFlightAnimation;
+	if (gKeyframeAnimation) delete gKeyframeAnimation;
 	delete gAnimFrames;
 	delete gKeyframes;
 	delete gNetRender;

@@ -26,25 +26,26 @@
 #include <QtCore>
 #include "system.hpp"
 
-class cErrorMessage : public QObject
+class cErrorMessage: public QObject
 {
-	Q_OBJECT
+Q_OBJECT
 public:
-	cErrorMessage(QObject *parent = NULL) : QObject(parent) {};
+	cErrorMessage(QObject *parent = NULL) :
+			QObject(parent)
+	{
+	}
 
 	enum enumMessageType
 	{
-		warningMessage,	errorMessage,	infoMessage
+		warningMessage, errorMessage, infoMessage
 	};
 
 	static void showMessage(QString text, enumMessageType messageType, QWidget *parent = NULL);
 
 public slots:
-	void slotShowMessage(QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = NULL);
+	void slotShowMessage(QString text, cErrorMessage::enumMessageType messageType, QWidget *parent =
+			NULL);
 };
 
-
-
 #endif /* ERROR_MESSAGE_HPP_ */
-
 

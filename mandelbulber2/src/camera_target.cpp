@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #include "camera_target.hpp"
 #include <QtCore>
 
@@ -34,7 +33,7 @@ void cCameraTarget::SetCameraTargetRotation(CVector3 _camera, CVector3 _target, 
 	camera = _camera;
 	target = _target;
 
-	if(camera == target)
+	if (camera == target)
 	{
 		forwardVector = CVector3(0.0, 1.0, 0.0);
 	}
@@ -44,7 +43,7 @@ void cCameraTarget::SetCameraTargetRotation(CVector3 _camera, CVector3 _target, 
 	}
 	forwardVector.Normalize();
 	distance = (target - camera).Length();
-	yaw = forwardVector.GetAlpha() - 0.5*M_PI;
+	yaw = forwardVector.GetAlpha() - 0.5 * M_PI;
 	pitch = forwardVector.GetBeta();
 	roll = _roll;
 
@@ -57,7 +56,7 @@ void cCameraTarget::SetCameraTargetRotation(CVector3 _camera, CVector3 _target, 
 	//qDebug() << "roll:" << roll * 180.0/M_PI;
 
 	//qDebug() << "viewVector" << forwardVector.x << forwardVector.y << forwardVector.z;
-	topVector = CVector3(0.0 ,0.0, 1.0);
+	topVector = CVector3(0.0, 0.0, 1.0);
 	topVector = topVector.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), roll);
 	//qDebug() << "top1" << topVector.x << topVector.y << topVector.z;
 	topVector = topVector.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), pitch);
@@ -73,7 +72,7 @@ void cCameraTarget::SetCameraTargetTop(CVector3 _camera, CVector3 _target, CVect
 	camera = _camera;
 	target = _target;
 
-	if(camera == target)
+	if (camera == target)
 	{
 		forwardVector = CVector3(0.0, 1.0, 0.0);
 	}
@@ -83,7 +82,7 @@ void cCameraTarget::SetCameraTargetTop(CVector3 _camera, CVector3 _target, CVect
 	}
 	forwardVector.Normalize();
 	distance = (target - camera).Length();
-	yaw = forwardVector.GetAlpha() - 0.5*M_PI;
+	yaw = forwardVector.GetAlpha() - 0.5 * M_PI;
 	pitch = forwardVector.GetBeta();
 
 	CVector3 topVectorTemp = _top;
@@ -102,7 +101,7 @@ void cCameraTarget::SetCameraTargetTop(CVector3 _camera, CVector3 _target, CVect
 	//qDebug() << "pitch:" << pitch * 180.0/M_PI;
 	//qDebug() << "roll:" << roll * 180.0/M_PI;
 
-	topVector = CVector3(0.0 ,0.0, 1.0);
+	topVector = CVector3(0.0, 0.0, 1.0);
 	topVector = topVector.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), roll);
 	topVector = topVector.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), pitch);
 	topVector = topVector.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), yaw);
@@ -117,7 +116,7 @@ void cCameraTarget::SetCameraTargetTop(CVector3 _camera, CVector3 _target, CVect
 void cCameraTarget::SetCamera(CVector3 _camera, enumRotationMode mode)
 {
 	camera = _camera;
-	if(mode == constantRoll)
+	if (mode == constantRoll)
 	{
 		SetCameraTargetRotation(camera, target, roll);
 	}
@@ -130,7 +129,7 @@ void cCameraTarget::SetCamera(CVector3 _camera, enumRotationMode mode)
 void cCameraTarget::SetTarget(CVector3 _target, enumRotationMode mode)
 {
 	target = _target;
-	if(mode == constantRoll)
+	if (mode == constantRoll)
 	{
 		SetCameraTargetRotation(camera, target, roll);
 	}

@@ -25,7 +25,7 @@
 cFourFractals::cFourFractals()
 {
 	fourFractals = new cFractal*[NUMBER_OF_FRACTALS];
-	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		fourFractals[i] = NULL;
 		DEType[i] = fractal::deltaDE;
@@ -40,7 +40,7 @@ cFourFractals::~cFourFractals()
 	{
 		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 		{
-			if(fourFractals[i])
+			if (fourFractals[i])
 			{
 				delete fourFractals[i];
 			}
@@ -68,7 +68,7 @@ cFourFractals::cFourFractals(const cFractalContainer *par, const cParameterConta
 	}
 	else
 	{
-		for(int f = 0; f < NUMBER_OF_FRACTALS; f++)
+		for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 		{
 			fractal::enumFractalFormula formula = fourFractals[f]->formula;
 			for (int i = 0; i < fractalList.size(); i++)
@@ -87,7 +87,7 @@ void cFourFractals::CreateSequence(const cParameterContainer *generalPar)
 	hybridSequence.clear();
 
 	bool hybridFractalEnabled = generalPar->Get<bool>("hybrid_fractal_enable");
-	if(hybridFractalEnabled) isHybrid = true;
+	if (hybridFractalEnabled) isHybrid = true;
 	else isHybrid = false;
 
 	int fractalNo = 0;
@@ -99,14 +99,14 @@ void cFourFractals::CreateSequence(const cParameterContainer *generalPar)
 		counts[i] = generalPar->Get<int>("formula_iterations", i + 1);
 	}
 
-	for(int i = 0; i < maxN * 5; i++)
+	for (int i = 0; i < maxN * 5; i++)
 	{
-		if(hybridFractalEnabled)
+		if (hybridFractalEnabled)
 		{
-			counter ++;
+			counter++;
 
 			int repeatCount = 0;
-			while(fourFractals[fractalNo]->formula == fractal::none && repeatCount < NUMBER_OF_FRACTALS)
+			while (fourFractals[fractalNo]->formula == fractal::none && repeatCount < NUMBER_OF_FRACTALS)
 			{
 				fractalNo++;
 				fractalNo = fractalNo % NUMBER_OF_FRACTALS;
@@ -114,7 +114,7 @@ void cFourFractals::CreateSequence(const cParameterContainer *generalPar)
 			}
 			hybridSequence.append(fractalNo);
 
-			if(counter >= counts[fractalNo])
+			if (counter >= counts[fractalNo])
 			{
 				counter = 0;
 				fractalNo++;
@@ -143,7 +143,7 @@ int cFourFractals::GetSequence(int i) const
 fractal::enumDEType cFourFractals::GetDEType(int formulaIndex) const
 {
 	fractal::enumDEType type = fractal::deltaDE;
-	if(formulaIndex == -1)
+	if (formulaIndex == -1)
 	{
 		type = DEType[0];
 	}

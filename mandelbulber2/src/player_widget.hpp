@@ -28,15 +28,18 @@
 #include <QTimer>
 #include "../qt/mydoublespinbox.h"
 
-class PlayerWidget : public QWidget
+class PlayerWidget: public QWidget
 {
-	Q_OBJECT
+Q_OBJECT
 
 public:
 	PlayerWidget(QWidget *parent = 0);
 	~PlayerWidget();
 	void SetFilePath(QString filePath);
-	QSize sizeHint() const { return QSize(800, 600); }
+	QSize sizeHint() const
+	{
+		return QSize(800, 600);
+	}
 
 public slots:
 	void playPause();

@@ -26,8 +26,8 @@
 #include "region.hpp"
 #include "common_math.h"
 
-
-cRenderWorker::cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal, sThreadData *_threadData, sRenderData *_data, cImage *_image)
+cRenderWorker::cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal,
+		sThreadData *_threadData, sRenderData *_data, cImage *_image)
 {
 	params = _params;
 	fractal = _fractal;
@@ -63,7 +63,7 @@ cRenderWorker::~cRenderWorker()
 		delete[] rayBuffer;
 	}
 
-	if(AOvectorsAround)
+	if (AOvectorsAround)
 	{
 		delete[] AOvectorsAround;
 		AOvectorsAround = NULL;
@@ -95,7 +95,8 @@ void cRenderWorker::doWork(void)
 	bool lastLineWasBroken = false;
 
 	//main loop for y
-	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id); ys = scheduler->NextLine(threadData->id, ys, lastLineWasBroken))
+	for (int ys = threadData->startLine; scheduler->ThereIsStillSomethingToDo(threadData->id); ys =
+			scheduler->NextLine(threadData->id, ys, lastLineWasBroken))
 	{
 		//skip if line is out of region
 		if (ys < 0) break;
@@ -113,7 +114,8 @@ void cRenderWorker::doWork(void)
 				break;
 			}
 
-			if (scheduler->GetProgressivePass() > 1 && xs % (scheduler->GetProgressiveStep() * 2) == 0 && ys % (scheduler->GetProgressiveStep() * 2) == 0) continue;
+			if (scheduler->GetProgressivePass() > 1 && xs % (scheduler->GetProgressiveStep() * 2) == 0
+					&& ys % (scheduler->GetProgressiveStep() * 2) == 0) continue;
 
 			//skip if pixel is out of region;
 			if (xs < data->screenRegion.x1 || xs > data->screenRegion.x2) continue;
@@ -125,10 +127,14 @@ void cRenderWorker::doWork(void)
 
 			//full dome shemisphere cut
 			bool hemisphereCut = false;
-			if (params->perspectiveType == params::perspFishEyeCut && imagePoint.Length() > 0.5 / params->fov) hemisphereCut = true;
+			if (params->perspectiveType == params::perspFishEyeCut
+					&& imagePoint.Length() > 0.5 / params->fov) hemisphereCut = true;
 
 			//calculate direction of ray-marching
-			CVector3 viewVector = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+			CVector3 viewVector = CalculateViewVector(imagePoint,
+																								params->fov,
+																								params->perspectiveType,
+																								mRot);
 
 			//---------------- 1us -------------
 
@@ -172,7 +178,7 @@ void cRenderWorker::doWork(void)
 				resultShader = recursionOut.resultShader;
 				objectColour = recursionOut.objectColour;
 				depth = recursionOut.rayMarchingOut.depth;
-				if(!recursionOut.found) depth = 1e20;
+				if (!recursionOut.found) depth = 1e20;
 				opacity = recursionOut.fogOpacity;
 			}
 
@@ -284,7 +290,8 @@ void cRenderWorker::PrepareAOVectors(void)
 			AOvectorsAround[counter].R = data->textures.lightmapTexture.FastPixel(X, Y).R;
 			AOvectorsAround[counter].G = data->textures.lightmapTexture.FastPixel(X, Y).G;
 			AOvectorsAround[counter].B = data->textures.lightmapTexture.FastPixel(X, Y).B;
-			if (AOvectorsAround[counter].R > 10 || AOvectorsAround[counter].G > 10 || AOvectorsAround[counter].B > 10)
+			if (AOvectorsAround[counter].R > 10 || AOvectorsAround[counter].G > 10
+					|| AOvectorsAround[counter].B > 10)
 			{
 				counter++;
 			}
@@ -311,11 +318,12 @@ void cRenderWorker::PrepareAOVectors(void)
 double cRenderWorker::CalcDistThresh(CVector3 point)
 {
 	double distThresh;
-	if (params->constantDEThreshold)
-		distThresh = params->DEThresh;
-	else
-		distThresh = (params->camera - point).Length() * params->resolution * params->fov / params->detailLevel;
-	if(params->perspectiveType == params::perspEquirectangular || params->perspectiveType == params::perspFishEye || params->perspectiveType == params::perspFishEyeCut) distThresh *= M_PI;
+	if (params->constantDEThreshold) distThresh = params->DEThresh;
+	else distThresh = (params->camera - point).Length() * params->resolution * params->fov
+			/ params->detailLevel;
+	if (params->perspectiveType == params::perspEquirectangular
+			|| params->perspectiveType == params::perspFishEye
+			|| params->perspectiveType == params::perspFishEyeCut) distThresh *= M_PI;
 	distThresh /= data->reduceDetail;
 	return distThresh;
 }
@@ -325,12 +333,15 @@ double cRenderWorker::CalcDelta(CVector3 point)
 {
 	double delta;
 	delta = (params->camera - point).Length() * params->resolution * params->fov;
-	if(params->perspectiveType == params::perspEquirectangular || params->perspectiveType == params::perspFishEye || params->perspectiveType == params::perspFishEyeCut) delta *= M_PI;
+	if (params->perspectiveType == params::perspEquirectangular
+			|| params->perspectiveType == params::perspFishEye
+			|| params->perspectiveType == params::perspFishEyeCut) delta *= M_PI;
 	return delta;
 }
 
 //Ray-Marching
-CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out)
+CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut,
+		sRayMarchingOut *out)
 {
 	CVector3 point;
 	bool found = false;
@@ -356,17 +367,17 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		sDistanceOut distanceOut;
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 		//qDebug() <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan;
-		if(in.invertMode)
+		if (in.invertMode)
 		{
 			dist = distThresh * 1.99 - dist;
-			if(dist < 0.0) dist = 0.0;
+			if (dist < 0.0) dist = 0.0;
 		}
 		out->object = distanceOut.object;
 		out->formulaIndex = distanceOut.formulaIndex;
-		if(out->object == fractal::objFractal)
+		if (out->object == fractal::objFractal)
 		{
 			out->objectReflect = params->reflect;
-			out->objectColor = sRGB(0,0,0);
+			out->objectColor = sRGB(0, 0, 0);
 		}
 		else
 		{
@@ -382,7 +393,7 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		inOut->stepBuff[i].distThresh = distThresh;
 
 		data->statistics.histogramIterations.Add(distanceOut.iters);
-		data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
+		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 		if (dist > 3.0) dist = 3.0;
 		if (dist < distThresh)
@@ -393,13 +404,15 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 		}
 
 		inOut->stepBuff[i].step = step;
-		if(params->interiorMode)
+		if (params->interiorMode)
 		{
-			step = (dist - 0.8 * distThresh) * params->DEFactor * (1.0 - Random(1000)/10000.0);;
+			step = (dist - 0.8 * distThresh) * params->DEFactor * (1.0 - Random(1000) / 10000.0);
+			;
 		}
 		else
 		{
-			step = (dist - 0.5 * distThresh) * params->DEFactor * (1.0 - Random(1000)/10000.0);;
+			step = (dist - 0.5 * distThresh) * params->DEFactor * (1.0 - Random(1000) / 10000.0);
+			;
 		}
 		inOut->stepBuff[i].point = point;
 		//qDebug() << "i" << i << "dist" << inOut->stepBuff[i].distance << "iters" << inOut->stepBuff[i].iters << "distThresh" << inOut->stepBuff[i].distThresh << "step" << inOut->stepBuff[i].step << "point" << inOut->stepBuff[i].point.Debug();
@@ -445,19 +458,19 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 
 			//qDebug() << "i" << i <<"thresh" <<  distThresh << "dist" << dist << "scan" << scan << "step" << step;
 
-			if(in.invertMode)
+			if (in.invertMode)
 			{
 				dist = distThresh * 1.99 - dist;
-				if(dist < 0.0) dist = 0.0;
+				if (dist < 0.0) dist = 0.0;
 			}
 
 			out->object = distanceOut.object;
 			out->formulaIndex = distanceOut.formulaIndex;
 
-			if(out->object == fractal::objFractal)
+			if (out->object == fractal::objFractal)
 			{
 				out->objectReflect = params->reflect;
-				out->objectColor = sRGB(0,0,0);
+				out->objectColor = sRGB(0, 0, 0);
 			}
 			else
 			{
@@ -466,12 +479,12 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 			}
 
 			data->statistics.histogramIterations.Add(distanceOut.iters);
-			data->statistics.totalNumberOfIterations+=distanceOut.totalIters;
+			data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
 			step *= 0.5;
 		}
 	}
-	if(params->iterThreshMode)
+	if (params->iterThreshMode)
 	{
 		//this fixes problem with noise when there is used "stop at maxIter" mode
 		scan -= distThresh;
@@ -490,7 +503,8 @@ CVector3 cRenderWorker::RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut
 	return point;
 }
 
-cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, sRayRecursionInOut &inOut)
+cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
+		sRayRecursionInOut &inOut)
 {
 	sRayMarchingOut rayMarchingOut;
 
@@ -527,27 +541,26 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 	shaderInputData.formulaIndex = rayMarchingOut.formulaIndex;
 	shaderInputData.invertMode = in.calcInside;
 
-
 	sRGBAfloat reflectShader = in.resultShader;
 	double reflect = rayMarchingOut.objectReflect;
 	sRGBAfloat transparentShader = in.resultShader;
 	double transparent = params->transparencyOfSurface;
-	sRGBfloat transparentColor = sRGBfloat(	params->transparencyInteriorColor.R / 65536.0,
-																					params->transparencyInteriorColor.G / 65536.0,
-																					params->transparencyInteriorColor.B / 65536.0);
+	sRGBfloat transparentColor = sRGBfloat(params->transparencyInteriorColor.R / 65536.0,
+																				 params->transparencyInteriorColor.G / 65536.0,
+																				 params->transparencyInteriorColor.B / 65536.0);
 	resultShader.R = transparentColor.R;
 	resultShader.G = transparentColor.G;
 	resultShader.B = transparentColor.B;
 
 	//if found any object
-	if(rayMarchingOut.found)
+	if (rayMarchingOut.found)
 	{
 		//calculate normal vector
 		CVector3 vn = CalculateNormals(shaderInputData);
 
 		//prepare refraction values
 		double n1, n2;
-		if(in.calcInside) //if trance is inside the object
+		if (in.calcInside) //if trance is inside the object
 		{
 			n1 = params->transparencyIndexOfRefraction; //reverse refractive indices
 			n2 = 1.0;
@@ -555,14 +568,15 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 		else
 		{
 			n1 = 1.0;
-			n2 = params->transparencyIndexOfRefraction;;
+			n2 = params->transparencyIndexOfRefraction;
+			;
 		}
 
-		if(inOut.rayIndex < reflectionsMax)
+		if (inOut.rayIndex < reflectionsMax)
 		{
 
 			//calculate refraction (transparency)
-			if(transparent > 0.0)
+			if (transparent > 0.0)
 			{
 				sRayRecursionIn recursionIn;
 				sRayMarchingIn rayMarchingIn;
@@ -576,7 +590,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 
 				//if is total internal reflection the use reflection instead of refraction
 				bool internalReflection = false;
-				if(newDirection.Length() == 0.0)
+				if (newDirection.Length() == 0.0)
 				{
 					newDirection = ReflectionVector(vn, in.rayMarchingIn.direction);
 					newPoint = point + in.rayMarchingIn.direction * shaderInputData.distThresh * 1.0;
@@ -607,7 +621,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 			}
 
 			//calculate reflection
-			if(reflect > 0.0)
+			if (reflect > 0.0)
 			{
 				sRayRecursionIn recursionIn;
 				sRayMarchingIn rayMarchingIn;
@@ -640,8 +654,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 				reflectShader = recursionOutReflect.resultShader;
 
 			}
-			if(transparent > 0.0) inOut.rayIndex--; //decrease recursion index
-			if(reflect > 0.0) inOut.rayIndex--; //decrease recursion index
+			if (transparent > 0.0) inOut.rayIndex--; //decrease recursion index
+			if (reflect > 0.0) inOut.rayIndex--; //decrease recursion index
 		}
 
 		shaderInputData.normal = vn;
@@ -653,11 +667,11 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 		double reflectance = 1.0;
 		double reflectanceN = 1.0;
 
-		if(params->fresnelReflectance)
+		if (params->fresnelReflectance)
 		{
 			reflectance = Reflectance(vn, in.rayMarchingIn.direction, n1, n2);
-			if(reflectance < 0.0) reflectance = 0.0;
-			if(reflectance > 1.0) reflectance = 1.0;
+			if (reflectance < 0.0) reflectance = 0.0;
+			if (reflectance > 1.0) reflectance = 1.0;
 			reflectanceN = 1.0 - reflectance;
 		}
 
@@ -666,15 +680,21 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 		resultShader.G = (objectShader.G + specular.G);
 		resultShader.B = (objectShader.B + specular.B);
 
-		if(reflectionsMax > 0)
+		if (reflectionsMax > 0)
 		{
-			resultShader.R = transparentShader.R * transparent * reflectanceN + (1.0 - transparent * reflectanceN) * resultShader.R;
-			resultShader.G = transparentShader.G * transparent * reflectanceN + (1.0 - transparent * reflectanceN) * resultShader.G;
-			resultShader.B = transparentShader.B * transparent * reflectanceN + (1.0 - transparent * reflectanceN) * resultShader.B;
+			resultShader.R = transparentShader.R * transparent * reflectanceN
+					+ (1.0 - transparent * reflectanceN) * resultShader.R;
+			resultShader.G = transparentShader.G * transparent * reflectanceN
+					+ (1.0 - transparent * reflectanceN) * resultShader.G;
+			resultShader.B = transparentShader.B * transparent * reflectanceN
+					+ (1.0 - transparent * reflectanceN) * resultShader.B;
 
-			resultShader.R = reflectShader.R * reflect * reflectance + (1.0 - reflect * reflectance) * resultShader.R;
-			resultShader.G = reflectShader.G * reflect * reflectance + (1.0 - reflect * reflectance) * resultShader.G;
-			resultShader.B = reflectShader.B * reflect * reflectance + (1.0 - reflect * reflectance) * resultShader.B;
+			resultShader.R = reflectShader.R * reflect * reflectance
+					+ (1.0 - reflect * reflectance) * resultShader.R;
+			resultShader.G = reflectShader.G * reflect * reflectance
+					+ (1.0 - reflect * reflectance) * resultShader.G;
+			resultShader.B = reflectShader.B * reflect * reflectance
+					+ (1.0 - reflect * reflectance) * resultShader.B;
 		}
 	}
 	else //if object not found then calculate background
@@ -686,9 +706,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 
 	sRGBAfloat opacityOut;
 
-	if(in.calcInside) //if the object interior is traced, then the absorption of light has to be calculated
+	if (in.calcInside) //if the object interior is traced, then the absorption of light has to be calculated
 	{
-		for(int index = shaderInputData.stepCount - 1; index > 0; index--)
+		for (int index = shaderInputData.stepCount - 1; index > 0; index--)
 		{
 			double step = shaderInputData.stepBuff[index].step;
 
@@ -700,7 +720,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 			//transparentColor.B = color.B;
 
 			double opacity = -log(params->transparencyOfInterior) * step;
-			if(opacity > 1.0) opacity = 1.0;
+			if (opacity > 1.0) opacity = 1.0;
 
 			resultShader.R = opacity * transparentColor.R + (1.0 - opacity) * resultShader.R;
 			resultShader.G = opacity * transparentColor.G + (1.0 - opacity) * resultShader.G;
@@ -724,6 +744,4 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in, 
 
 	return out;
 }
-
-
 

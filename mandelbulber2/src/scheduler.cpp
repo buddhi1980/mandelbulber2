@@ -34,7 +34,7 @@ cScheduler::cScheduler(int _numberOfLines, int progressive)
 	stopRequest = false;
 	progressiveStep = progressive;
 	progressivePass = 1;
-	if(progressive > 1) progressiveEnabled = true;
+	if (progressive > 1) progressiveEnabled = true;
 	else progressiveEnabled = false;
 	Reset();
 }
@@ -56,17 +56,18 @@ void cScheduler::Reset()
 bool cScheduler::ThereIsStillSomethingToDo(int threadId)
 {
 	bool result = false;
-	for(int i = 0; i<numberOfLines; i++)
+	for (int i = 0; i < numberOfLines; i++)
 	{
 		//qDebug() << "ThereIsStillSomethingToDo:" << i << lineDone[i];
-		if((lineDone[i] == false) && (linePendingThreadId[i] == threadId || linePendingThreadId[i] == 0))
+		if ((lineDone[i] == false)
+				&& (linePendingThreadId[i] == threadId || linePendingThreadId[i] == 0))
 		{
 			result = true;
 			break;
 		}
 	}
 
-	if(stopRequest) result = false;
+	if (stopRequest) result = false;
 
 	return result;
 }
@@ -74,30 +75,31 @@ bool cScheduler::ThereIsStillSomethingToDo(int threadId)
 bool cScheduler::AllLinesDone(void)
 {
 	bool result = true;
-	for(int i = 0; i<numberOfLines; i++)
+	for (int i = 0; i < numberOfLines; i++)
 	{
 		//qDebug() << "AllLinesDone:" << i << lineDone[i];
-		if(lineDone[i] == false)
+		if (lineDone[i] == false)
 		{
 			result = false;
 			break;
 		}
 	}
 
-	if(stopRequest) result = true;
+	if (stopRequest) result = true;
 
 	return result;
 }
 
 bool cScheduler::ShouldIBreak(int threadId, int actualLine)
 {
-	if(actualLine >= 0)
+	if (actualLine >= 0)
 	{
 		return threadId != linePendingThreadId[actualLine] || stopRequest;
 	}
 	else
 	{
-		qCritical() << "cScheduler::ShouldIBreak(int threadId, int actualLine): actualLine lower than zero";
+		qCritical()
+				<< "cScheduler::ShouldIBreak(int threadId, int actualLine): actualLine lower than zero";
 		return true;
 	}
 }
@@ -111,11 +113,11 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 
 	int nextLine = -1;
 
-	if(!lastLineWasBroken)
+	if (!lastLineWasBroken)
 	{
-		for(int i=0; i<progressiveStep; i++)
+		for (int i = 0; i < progressiveStep; i++)
 		{
-			if(actualLine + i < numberOfLines)
+			if (actualLine + i < numberOfLines)
 			{
 				lineDone[actualLine + i] = true;
 				lastLinesDone[actualLine + i] = true;
@@ -128,7 +130,8 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 	}
 
 	//next line is not occupied by any thread
-	if(actualLine < numberOfLines - progressiveStep && linePendingThreadId[actualLine + progressiveStep] == 0 && !lastLineWasBroken)
+	if (actualLine < numberOfLines - progressiveStep
+			&& linePendingThreadId[actualLine + progressiveStep] == 0 && !lastLineWasBroken)
 	{
 		nextLine = actualLine + progressiveStep;
 		//qDebug() << "threadID:" << threadId << " one after:" << nextLine;
@@ -140,13 +143,13 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 		//qDebug() << "threadID:" << threadId << " gap:" << nextLine;
 	}
 
-	if(nextLine >= 0)
+	if (nextLine >= 0)
 	{
-		if(linePendingThreadId[nextLine] == 0)
+		if (linePendingThreadId[nextLine] == 0)
 		{
-			for(int i=0; i<progressiveStep; i++)
+			for (int i = 0; i < progressiveStep; i++)
 			{
-				if(nextLine + i < numberOfLines)
+				if (nextLine + i < numberOfLines)
 				{
 					linePendingThreadId[nextLine + i] = threadId;
 				}
@@ -155,7 +158,7 @@ int cScheduler::NextLine(int threadId, int actualLine, bool lastLineWasBroken)
 	}
 	mutex.unlock();
 
-	if(nextLine < 0)
+	if (nextLine < 0)
 	{
 		//qCritical() << "cScheduler::NextLine(int threadId, int actualLine): not possible to find new line";
 		return -1;
@@ -173,13 +176,13 @@ int cScheduler::FindBiggestGap()
 	int maxHole = 0;
 	int theBest = -1;
 
-	for(int i = 0; i < numberOfLines; i++)
+	for (int i = 0; i < numberOfLines; i++)
 	{
-		if(!firstFreeFound && linePendingThreadId[i] == 0)
+		if (!firstFreeFound && linePendingThreadId[i] == 0)
 		{
 			firstFreeFound = true;
 			firstFree = i;
-			if(i == numberOfLines - 1)
+			if (i == numberOfLines - 1)
 			{
 				theBest = i;
 				theBest /= progressiveStep;
@@ -189,13 +192,13 @@ int cScheduler::FindBiggestGap()
 			continue;
 		}
 
-		if(firstFreeFound && (linePendingThreadId[i] > 0 || i == numberOfLines - 1))
+		if (firstFreeFound && (linePendingThreadId[i] > 0 || i == numberOfLines - 1))
 		{
 			lastFree = i;
 			int holeSize = lastFree - firstFree;
 			firstFreeFound = false;
 
-			if(holeSize > maxHole)
+			if (holeSize > maxHole)
 			{
 				maxHole = holeSize;
 				//next line should be in the middle of the biggest gap
@@ -209,7 +212,6 @@ int cScheduler::FindBiggestGap()
 	return theBest;
 }
 
-
 void cScheduler::InitFirstLine(int threadId, int firstLine)
 {
 	linePendingThreadId[firstLine] = threadId;
@@ -218,9 +220,9 @@ void cScheduler::InitFirstLine(int threadId, int firstLine)
 QList<int> cScheduler::GetLastRenderedLines(void)
 {
 	QList<int> list;
-	for(int i = 0; i < numberOfLines; i++)
+	for (int i = 0; i < numberOfLines; i++)
 	{
-		if(lastLinesDone[i])
+		if (lastLinesDone[i])
 		{
 			list.append(i);
 			lastLinesDone[i] = false;
@@ -232,22 +234,23 @@ QList<int> cScheduler::GetLastRenderedLines(void)
 double cScheduler::PercentDone()
 {
 	int count = 0;
-	for(int i = 0; i < numberOfLines; i++)
+	for (int i = 0; i < numberOfLines; i++)
 	{
-		if(lineDone[i]) count++;
+		if (lineDone[i]) count++;
 	}
 
 	double progressiveDone, percent_done;
-	if(progressivePass == 1) progressiveDone = 0;
+	if (progressivePass == 1) progressiveDone = 0;
 	else progressiveDone = 0.25 / (progressiveStep * progressiveStep);
 
-	if(progressiveEnabled)
+	if (progressiveEnabled)
 	{
-		percent_done = ((double)count / numberOfLines) * 0.75 / (progressiveStep * progressiveStep) + progressiveDone;
+		percent_done = ((double) count / numberOfLines) * 0.75 / (progressiveStep * progressiveStep)
+				+ progressiveDone;
 	}
 	else
 	{
-		percent_done = (double)count / numberOfLines;
+		percent_done = (double) count / numberOfLines;
 	}
 
 	return percent_done;
@@ -256,9 +259,9 @@ double cScheduler::PercentDone()
 bool cScheduler::ProgressiveNextStep()
 {
 	progressiveStep /= 2;
-	progressivePass ++;
+	progressivePass++;
 
-	if(progressiveStep == 0)
+	if (progressiveStep == 0)
 	{
 		return false;
 	}
@@ -272,7 +275,7 @@ bool cScheduler::ProgressiveNextStep()
 
 void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers)
 {
-	for(int i=0; i<lineNumbers.size(); i++)
+	for (int i = 0; i < lineNumbers.size(); i++)
 	{
 		int line = lineNumbers.at(i);
 		lineDone[line] = true;
@@ -284,9 +287,9 @@ void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers)
 QList<int> cScheduler::CreateDoneList()
 {
 	QList<int> list;
-	for(int i=0; i < numberOfLines; i++)
+	for (int i = 0; i < numberOfLines; i++)
 	{
-		if(lineDone[i])
+		if (lineDone[i])
 		{
 			list.append(i);
 		}
@@ -298,7 +301,7 @@ QList<int> cScheduler::CreateDoneList()
 void cScheduler::UpdateDoneLines(const QList<int> &done)
 {
 	mutex.lock();
-	for(int i=0; i<done.size(); i++)
+	for (int i = 0; i < done.size(); i++)
 	{
 		int line = done.at(i);
 		lastLinesDone[line] = false;
@@ -310,7 +313,7 @@ void cScheduler::UpdateDoneLines(const QList<int> &done)
 
 bool cScheduler::IsLineDoneByServer(int line)
 {
-	if(line >= 0 && line < numberOfLines)
+	if (line >= 0 && line < numberOfLines)
 	{
 		return linePendingThreadId[line] == 9999;
 	}

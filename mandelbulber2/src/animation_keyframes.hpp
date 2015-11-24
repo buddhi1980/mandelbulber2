@@ -29,13 +29,14 @@
 #include "files.h"
 #include "error_message.hpp"
 
-class cKeyframeAnimation : public QObject
+class cKeyframeAnimation: public QObject
 {
- Q_OBJECT
+Q_OBJECT
 
 public:
-	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image, QWidget *_imageWidget,
-			cParameterContainer *_params, cFractalContainer *_fractal, QObject *parent = 0);
+	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image,
+			QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,
+			QObject *parent = 0);
 
 	bool RenderKeyframes(bool *stopRequest);
 	void RenderFrame(int index);
@@ -73,7 +74,8 @@ private slots:
 private:
 	void PrepareTable();
 	void CreateRowsInTable();
-	int AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription, int index);
+	int AddVariableToTable(const cAnimationFrames::sParameterDescription &parameterDescription,
+			int index);
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index = -1);
 	void NewKeyframe(int index);
 	QString GetKeyframeFilename(int index, int subindex);
@@ -92,14 +94,16 @@ private:
 	MyTableWidgetKeyframes *table;
 
 signals:
-	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,
+			cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
 	void updateStatistics(cStatistics statistics);
-	void updateProgressHide(cProgressText::enumProgressType progressType = cProgressText::progress_ANIMATION);
-	void QuestionMessage(const QString &questionTitle, const QString &questionText, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
-	void showErrorMessage(QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = NULL);
+	void updateProgressHide(cProgressText::enumProgressType progressType =
+			cProgressText::progress_ANIMATION);
+	void QuestionMessage(const QString &questionTitle, const QString &questionText,
+			QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply);
+	void showErrorMessage(QString text, cErrorMessage::enumMessageType messageType, QWidget *parent =
+			NULL);
 
 };
-
-
 
 #endif /* SRC_ANIMATION_KEYFRAMES_HPP_ */

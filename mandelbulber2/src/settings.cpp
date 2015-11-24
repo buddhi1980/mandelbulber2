@@ -40,7 +40,8 @@ cSettings::cSettings(enumFormat _format)
 	csvNoOfColumns = 0;
 }
 
-size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes)
+size_t cSettings::CreateText(const cParameterContainer *par, const cFractalContainer *fractPar,
+		cAnimationFrames *frames, cKeyframes *keyframes)
 {
 	WriteLog("Create settings text");
 	settingsText.clear();
@@ -86,14 +87,16 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 	return settingsText.size();
 }
 
-void cSettings::CreateAnimationString(QString &text, const QString &headerText, const cAnimationFrames *frames)
+void cSettings::CreateAnimationString(QString &text, const QString &headerText,
+		const cAnimationFrames *frames)
 {
 	if (frames)
 	{
 		if (frames->GetNumberOfFrames() > 0)
 		{
 			text += "[" + headerText + "]\n";
-			QList<cAnimationFrames::sParameterDescription> parameterList = frames->GetListOfUsedParameters();
+			QList<cAnimationFrames::sParameterDescription> parameterList =
+					frames->GetListOfUsedParameters();
 			//header
 			text += "frame;";
 			for (int i = 0; i < parameterList.size(); ++i)
@@ -128,21 +131,25 @@ void cSettings::CreateAnimationString(QString &text, const QString &headerText, 
 				{
 					if (parameterList[i].varType == parameterContainer::typeVector3)
 					{
-						CVector3 val = frames->GetFrame(f).parameters.Get<CVector3>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						CVector3 val =
+								frames->GetFrame(f).parameters.Get<CVector3>(parameterList[i].containerName + "_"
+										+ parameterList[i].parameterName);
 						text += QString("%L1").arg(val.x, 0, 'g', 16) + ";";
 						text += QString("%L1").arg(val.y, 0, 'g', 16) + ";";
 						text += QString("%L1").arg(val.z, 0, 'g', 16);
 					}
 					else if (parameterList[i].varType == parameterContainer::typeRgb)
 					{
-						sRGB val = frames->GetFrame(f).parameters.Get<sRGB>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						sRGB val = frames->GetFrame(f).parameters.Get<sRGB>(parameterList[i].containerName + "_"
+								+ parameterList[i].parameterName);
 						text += QString::number(val.R) + ";";
 						text += QString::number(val.G) + ";";
 						text += QString::number(val.B);
 					}
 					else
 					{
-						text += frames->GetFrame(f).parameters.Get<QString>(parameterList[i].containerName + "_" + parameterList[i].parameterName);
+						text += frames->GetFrame(f).parameters.Get<QString>(parameterList[i].containerName + "_"
+								+ parameterList[i].parameterName);
 					}
 
 					if (i != parameterList.size() - 1)
@@ -152,20 +159,34 @@ void cSettings::CreateAnimationString(QString &text, const QString &headerText, 
 				}
 				text += "\n";
 			}
-			if(headerText == "keyframes")
+			if (headerText == "keyframes")
 			{
 				text += "interpolation;";
 				for (int i = 0; i < parameterList.size(); ++i)
 				{
-					switch(parameterList[i].morphType)
+					switch (parameterList[i].morphType)
 					{
-						case morphNone: text += "morphNone"; break;
-						case morphLinear: text += "morphLinear"; break;
-						case morphLinearAngle: text += "morphLinearAngle"; break;
-						case morphCatMullRom: text += "morphCatMullRom"; break;
-						case morphCatMullRomAngle: text += "morphCatMullRomAngle"; break;
-						case morphAkima: text += "morphAkima"; break;
-						case morphAkimaAngle: text += "morphAkimaAngle"; break;
+						case morphNone:
+							text += "morphNone";
+							break;
+						case morphLinear:
+							text += "morphLinear";
+							break;
+						case morphLinearAngle:
+							text += "morphLinearAngle";
+							break;
+						case morphCatMullRom:
+							text += "morphCatMullRom";
+							break;
+						case morphCatMullRomAngle:
+							text += "morphCatMullRomAngle";
+							break;
+						case morphAkima:
+							text += "morphAkima";
+							break;
+						case morphAkimaAngle:
+							text += "morphAkimaAngle";
+							break;
 					}
 					if (i != parameterList.size() - 1)
 					{
@@ -183,7 +204,7 @@ QString cSettings::CreateHeader()
 	QString header("# Mandelbulber settings file\n");
 	header += "# version " + QString::number(appVersion, 'f', 2) + "\n";
 
-	switch(format)
+	switch (format)
 	{
 		case formatFullText:
 			header += "# all parameters\n";
@@ -230,17 +251,19 @@ bool cSettings::SaveToFile(QString filename)
 {
 	WriteLogString("Saving settings started", filename);
 	QFile qfile(filename);
-	if(qfile.open(QIODevice::WriteOnly))
+	if (qfile.open(QIODevice::WriteOnly))
 	{
-		 QTextStream outstream(&qfile);
-		 outstream << settingsText;
-		 outstream.flush();
-		 qfile.close();
-		 return true;
+		QTextStream outstream(&qfile);
+		outstream << settingsText;
+		outstream.flush();
+		qfile.close();
+		return true;
 	}
 	else
 	{
-		cErrorMessage::showMessage(QString("Settings file not saved!\n") + filename + "\n" + qfile.errorString(), cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QString("Settings file not saved!\n") + filename + "\n"
+																	 + qfile.errorString(),
+															 cErrorMessage::errorMessage);
 		return false;
 	}
 }
@@ -258,7 +281,7 @@ bool cSettings::LoadFromFile(QString filename)
 	textPrepared = false;
 	WriteLogString("Loading settings started", filename);
 	QFile qfile(filename);
-	if(qfile.open(QIODevice::ReadOnly))
+	if (qfile.open(QIODevice::ReadOnly))
 	{
 		QTextStream instream(&qfile);
 		settingsText.append(instream.readAll());
@@ -277,9 +300,11 @@ bool cSettings::LoadFromFile(QString filename)
 	}
 	else
 	{
-		if(!quiet)
+		if (!quiet)
 		{
-			cErrorMessage::showMessage(QString("Settings file not loaded!\n") + filename + "\n" + qfile.errorString(), cErrorMessage::errorMessage);
+			cErrorMessage::showMessage(QString("Settings file not loaded!\n") + filename + "\n"
+																		 + qfile.errorString(),
+																 cErrorMessage::errorMessage);
 		}
 		return false;
 	}
@@ -310,41 +335,37 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 		try
 		{
 			int size = separatedText.size();
-			if (size < 3)
-				throw QObject::tr("It's not valid Mandelbulber settings file. No header");
+			if (size < 3) throw QObject::tr("It's not valid Mandelbulber settings file. No header");
 
 			QString firstLine = separatedText[0];
 
-			if (!firstLine.contains("Mandelbulber settings file"))
-				throw QObject::tr("It's not valid Mandelbulber settings file. Wrong header");
+			if (!firstLine.contains("Mandelbulber settings file")) throw QObject::tr("It's not valid Mandelbulber settings file. Wrong header");
 
 			QString secondLine = separatedText[1];
 			int versionPos = secondLine.lastIndexOf("version");
 
-			if (versionPos < 0)
-				throw QObject::tr("It's not valid Mandelbulber settings file. No information about version of file");
+			if (versionPos < 0) throw QObject::tr("It's not valid Mandelbulber settings file. No information about version of file");
 
 			int numberPos = versionPos + QString("version").length();
 
 			bool ok;
 			fileVersion = secondLine.mid(numberPos).toDouble(&ok);
 
-			if(!ok)
-				throw QObject::tr("It's not valid Mandelbulber settings file. Wrong file version number");
+			if (!ok) throw QObject::tr("It's not valid Mandelbulber settings file. Wrong file version number");
 
-			if (fileVersion > appVersion)
-				throw QObject::tr("File was saved in newer version of Mandelbulber\nFile version: ") + QString::number(fileVersion);
+			if (fileVersion > appVersion) throw QObject::tr("File was saved in newer version of Mandelbulber\nFile version: ")
+					+ QString::number(fileVersion);
 
 			QString thirdLine = separatedText[2];
-			if(thirdLine.contains("all parameters"))
+			if (thirdLine.contains("all parameters"))
 			{
 				format = formatFullText;
 			}
-			else if(thirdLine.contains("only modified parameters"))
+			else if (thirdLine.contains("only modified parameters"))
 			{
 				format = formatCondensedText;
 			}
-			else if(thirdLine.contains("application settings"))
+			else if (thirdLine.contains("application settings"))
 			{
 				format = formatAppSettings;
 			}
@@ -353,8 +374,7 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 				throw QObject::tr("It's not valid Mandelbulber settings file. Format not specified in the header");
 			}
 
-		}
-		catch (QString &error)
+		} catch (QString &error)
 		{
 			cErrorMessage::showMessage(error, cErrorMessage::errorMessage);
 			textPrepared = false;
@@ -363,18 +383,19 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 	}
 }
 
-bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes)
+bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
+		cAnimationFrames *frames, cKeyframes *keyframes)
 {
 	WriteLog("cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)");
 
 	//clear settings
 	par->ResetAllToDefault();
-	for(int i=0; i<NUMBER_OF_FRACTALS; i++)
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 		fractPar->at(i).ResetAllToDefault();
 	DeleteAllPrimitiveParams(par);
 
-	if(frames) frames->ClearAll();
-	if(keyframes)
+	if (frames) frames->ClearAll();
+	if (keyframes)
 	{
 		keyframes->ClearAll();
 		keyframes->ClearMorphCache();
@@ -383,39 +404,39 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cA
 	cParameterContainer parTemp = *par;
 	cFractalContainer fractTemp = *fractPar;
 
-	QStringList separatedText = settingsText.split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
+	QStringList separatedText = settingsText.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
 	DecodeHeader(separatedText);
 
 	int errorCount = 0;
 	int csvLine = 0;
 
 	QString section;
-	if(textPrepared)
+	if (textPrepared)
 	{
-		for(int l = 3; l < separatedText.size(); l++)
+		for (int l = 3; l < separatedText.size(); l++)
 		{
 			QString line = separatedText[l];
 			bool isNewSection = CheckSection(line, section);
 
-			if(isNewSection) csvLine = 0;
+			if (isNewSection) csvLine = 0;
 
-			if(!isNewSection)
+			if (!isNewSection)
 			{
 				bool result = false;
-				if(section == QString("main_parameters"))
+				if (section == QString("main_parameters"))
 				{
 					result = DecodeOneLine(par, line);
 				}
-				else if(section.contains("fractal"))
+				else if (section.contains("fractal"))
 				{
 					int i = section.right(1).toInt() - 1;
 					result = DecodeOneLine(&fractPar->at(i), line);
 				}
-				else if(section == QString("frames"))
+				else if (section == QString("frames"))
 				{
-					if(frames)
+					if (frames)
 					{
-						if(csvLine == 0)
+						if (csvLine == 0)
 						{
 							result = DecodeFramesHeader(line, par, fractPar, frames);
 							csvLine++;
@@ -431,11 +452,11 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cA
 						result = true;
 					}
 				}
-				else if(section == QString("keyframes"))
+				else if (section == QString("keyframes"))
 				{
-					if(keyframes)
+					if (keyframes)
 					{
-						if(csvLine == 0)
+						if (csvLine == 0)
 						{
 							result = DecodeFramesHeader(line, par, fractPar, keyframes);
 							csvLine++;
@@ -454,12 +475,14 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar, cA
 
 				if (!result)
 				{
-					QString errorMessage = QObject::tr("Error in settings file. Line: ") + QString::number(l) + " (" + line + ")";
+					QString errorMessage = QObject::tr("Error in settings file. Line: ") + QString::number(l)
+							+ " (" + line + ")";
 					cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage);
 					errorCount++;
-					if(errorCount > 3)
+					if (errorCount > 3)
 					{
-						cErrorMessage::showMessage(QObject::tr("Too many errors in settings file"), cErrorMessage::errorMessage);
+						cErrorMessage::showMessage(QObject::tr("Too many errors in settings file"),
+																			 cErrorMessage::errorMessage);
 						return false;
 					}
 				}
@@ -495,9 +518,9 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 
 	Compatibility(parameterName, value);
 
-	if(parameterName.left(parameterName.indexOf('_')) == "primitive")
+	if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 	{
-		if(!par->IfExists(parameterName))
+		if (!par->IfExists(parameterName))
 		{
 			QStringList split = parameterName.split('_');
 			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
@@ -508,18 +531,19 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 
 	enumVarType varType = par->GetVarType(parameterName);
 
-	if(varType == typeNull)
+	if (varType == typeNull)
 	{
-		cErrorMessage::showMessage(QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("Unknown parameter: ") + parameterName,
+															 cErrorMessage::errorMessage);
 		return false;
 	}
 	else
 	{
-		if(varType == typeBool)
+		if (varType == typeBool)
 		{
 			value = (value == QString("true")) ? "1" : "0";
 		}
-		else if(varType == typeDouble || varType == typeVector3)
+		else if (varType == typeDouble || varType == typeVector3)
 		{
 			value = everyLocaleDouble(value);
 		}
@@ -531,9 +555,9 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 
 bool cSettings::CheckSection(QString text, QString &section)
 {
-	if(text.left(1) == "[")
+	if (text.left(1) == "[")
 	{
-		section = text.mid(1, text.length()-2);
+		section = text.mid(1, text.length() - 2);
 		return true;
 	}
 	return false;
@@ -552,11 +576,11 @@ void cSettings::Compatibility(QString &name, QString &value)
 		{
 			name = QString("main_light_volumetric_intensity");
 		}
-		else if(name == QString("volumetric_light_enabled_0"))
+		else if (name == QString("volumetric_light_enabled_0"))
 		{
 			name = QString("main_light_volumetric_enabled");
 		}
-		else if(name.indexOf("volumetric_light") >= 0)
+		else if (name.indexOf("volumetric_light") >= 0)
 		{
 			name.replace("volumetric_light", "aux_light_volumetric");
 		}
@@ -571,36 +595,37 @@ void cSettings::Compatibility(QString &name, QString &value)
 	}
 }
 
-bool cSettings::DecodeFramesHeader(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)
+bool cSettings::DecodeFramesHeader(QString line, cParameterContainer *par,
+		cFractalContainer *fractPar, cAnimationFrames *frames)
 {
 	QStringList lineSplit = line.split(';');
 	try
 	{
-		if(lineSplit.size() > 0)
+		if (lineSplit.size() > 0)
 		{
-			if(lineSplit[0] != "frame")
+			if (lineSplit[0] != "frame")
 			{
 				throw QObject::tr("Missing column 'frame' in list of animation frames");
 			}
-			for(int i = 1; i < lineSplit.size(); ++i)
+			for (int i = 1; i < lineSplit.size(); ++i)
 			{
 				QString fullParameterName = lineSplit[i];
-				if(fullParameterName.length() > 2)
+				if (fullParameterName.length() > 2)
 				{
 					QString lastTwo = fullParameterName.right(2);
-					if(lastTwo == "_x" || lastTwo == "_y" || lastTwo == "_z")
+					if (lastTwo == "_x" || lastTwo == "_y" || lastTwo == "_z")
 					{
-						fullParameterName = fullParameterName.left(fullParameterName.length() -2);
-						i+= 2;
+						fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
+						i += 2;
 					}
-					else if(lastTwo == "_R" || lastTwo == "_G" || lastTwo == "_B")
+					else if (lastTwo == "_R" || lastTwo == "_G" || lastTwo == "_B")
 					{
-						fullParameterName = fullParameterName.left(fullParameterName.length() -2);
-						i+= 2;
+						fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
+						i += 2;
 					}
 				}
 				bool result = frames->AddAnimatedParameter(fullParameterName, par, fractPar);
-				if(!result)
+				if (!result)
 				{
 					throw QObject::tr("Unknown parameter in animation frames: ") + fullParameterName;
 				}
@@ -610,8 +635,7 @@ bool cSettings::DecodeFramesHeader(QString line, cParameterContainer *par, cFrac
 		{
 			throw QObject::tr("No valid list of parameters for animation frames");
 		}
-	}
-	catch (QString &error)
+	} catch (QString &error)
 	{
 		cErrorMessage::showMessage(error, cErrorMessage::errorMessage);
 		return false;
@@ -621,7 +645,8 @@ bool cSettings::DecodeFramesHeader(QString line, cParameterContainer *par, cFrac
 	return true;
 }
 
-bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames)
+bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par,
+		cFractalContainer *fractPar, cAnimationFrames *frames)
 {
 	QStringList lineSplit = line.split(';');
 	QList<cAnimationFrames::sParameterDescription> parameterList = frames->GetListOfUsedParameters();
@@ -629,21 +654,21 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 
 	try
 	{
-		if(lineSplit.size() > 0 && lineSplit[0] == QString("interpolation"))
+		if (lineSplit.size() > 0 && lineSplit[0] == QString("interpolation"))
 		{
 			// interpolation
-			if(lineSplit.size()- 1 == parameterList.size())
+			if (lineSplit.size() - 1 == parameterList.size())
 			{
-				for(int i = 0; i < parameterList.size(); i++)
+				for (int i = 0; i < parameterList.size(); i++)
 				{
 					column++;
 					enumMorphType morphType = morphNone;
-					if(lineSplit[column] == "morphLinear") morphType = morphLinear;
-					else if(lineSplit[column] == "morphLinearAngle") morphType = morphLinearAngle;
-					else if(lineSplit[column] == "morphCatMullRom") morphType = morphCatMullRom;
-					else if(lineSplit[column] == "morphCatMullRomAngle") morphType = morphCatMullRomAngle;
-					else if(lineSplit[column] == "morphAkima") morphType = morphAkima;
-					else if(lineSplit[column] == "morphAkimaAngle") morphType = morphAkimaAngle;
+					if (lineSplit[column] == "morphLinear") morphType = morphLinear;
+					else if (lineSplit[column] == "morphLinearAngle") morphType = morphLinearAngle;
+					else if (lineSplit[column] == "morphCatMullRom") morphType = morphCatMullRom;
+					else if (lineSplit[column] == "morphCatMullRomAngle") morphType = morphCatMullRomAngle;
+					else if (lineSplit[column] == "morphAkima") morphType = morphAkima;
+					else if (lineSplit[column] == "morphAkimaAngle") morphType = morphAkimaAngle;
 					static_cast<cKeyframes*>(frames)->ChangeMorphType(i, morphType);
 				}
 				return true;
@@ -653,13 +678,13 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 				throw QObject::tr("Wrong number of interpolation columns");
 			}
 		}
-		else if(lineSplit.size() == csvNoOfColumns)
+		else if (lineSplit.size() == csvNoOfColumns)
 		{
 			int frameCount = lineSplit[0].toInt();
-			if(frameCount == frames->GetNumberOfFrames())
+			if (frameCount == frames->GetNumberOfFrames())
 			{
 				column++;
-				for(int i = 0; i < parameterList.size(); ++i)
+				for (int i = 0; i < parameterList.size(); ++i)
 				{
 					using namespace parameterContainer;
 					enumVarType type = parameterList[i].varType;
@@ -667,7 +692,7 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 					QString parameterName = parameterList[i].parameterName;
 					cParameterContainer *container = frames->ContainerSelector(containerName, par, fractPar);
 
-					if(type == typeVector3)
+					if (type == typeVector3)
 					{
 						CVector3 vect;
 						vect.x = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column]));
@@ -676,7 +701,7 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 						column += 2;
 						container->Set(parameterName, vect);
 					}
-					else if(type == typeRgb)
+					else if (type == typeRgb)
 					{
 						sRGB vect;
 						vect.R = lineSplit[column].toInt();
@@ -688,7 +713,7 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 					else
 					{
 						QString val;
-						if(type == typeDouble)
+						if (type == typeDouble)
 						{
 							val = everyLocaleDouble(lineSplit[column]);
 						}
@@ -711,8 +736,7 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par, cFracta
 			throw QObject::tr("Wrong number of columns");
 		}
 
-	}
-	catch (QString &error)
+	} catch (QString &error)
 	{
 		cErrorMessage::showMessage(error, cErrorMessage::errorMessage);
 		return false;
@@ -738,8 +762,8 @@ QString cSettings::GetSettingsText()
 QString cSettings::everyLocaleDouble(QString txt)
 {
 	QString txtOut;
-	if(systemData.decimalPoint == ',') txtOut = txt.replace('.', ',');
-	if(systemData.decimalPoint == '.') txtOut = txt.replace(',', '.');
+	if (systemData.decimalPoint == ',') txtOut = txt.replace('.', ',');
+	if (systemData.decimalPoint == '.') txtOut = txt.replace(',', '.');
 	return txtOut;
 }
 

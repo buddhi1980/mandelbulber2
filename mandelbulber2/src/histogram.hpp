@@ -38,13 +38,13 @@ public:
 
 	inline void Add(int index)
 	{
-		if(index >= 0 && index < histSize)
+		if (index >= 0 && index < histSize)
 		{
 			data[index]++;
 			count++;
 			sum += index;
 		}
-		else if(index >= histSize)
+		else if (index >= histSize)
 		{
 			data[histSize]++;
 			count++;

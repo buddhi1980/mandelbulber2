@@ -22,14 +22,15 @@
 
 #include "fractparams.hpp"
 
-cParamRender::cParamRender(const cParameterContainer *container) : primitives(container)
+cParamRender::cParamRender(const cParameterContainer *container) :
+		primitives(container)
 {
 	ambientOcclusion = container->Get<double>("ambient_occlusion");
 	ambientOcclusionEnabled = container->Get<bool>("ambient_occlusion_enabled");
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");
-	ambientOcclusionMode = (params::enumAOMode)container->Get<int>("ambient_occlusion_mode");
+	ambientOcclusionMode = (params::enumAOMode) container->Get<int>("ambient_occlusion_mode");
 	ambientOcclusionQuality = container->Get<int>("ambient_occlusion_quality");
-  analitycDEMode = container->Get<bool>("analityc_DE_mode");
+	analitycDEMode = container->Get<bool>("analityc_DE_mode");
 	auxLightNumber = 0;
 	auxLightVisibility = container->Get<double>("aux_light_visibility");
 	auxLightVisibilitySize = container->Get<double>("aux_light_visibility_size");
@@ -101,7 +102,7 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 	N = container->Get<int>("N");
 	paletteOffset = container->Get<double>("coloring_palette_offset");
 	penetratingLights = container->Get<bool>("penetrating_lights");
-	perspectiveType = (params::enumPerspectiveType)container->Get<int>("perspective_type");
+	perspectiveType = (params::enumPerspectiveType) container->Get<int>("perspective_type");
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
 	reflect = container->Get<double>("reflect");
 	reflectionsMax = container->Get<int>("reflections_max");
@@ -116,7 +117,8 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 	target = container->Get<CVector3>("target");
 	target = container->Get<CVector3>("target");
 	texturedBackground = container->Get<bool>("textured_background");
-	texturedBackgroundMapType = (params::enumTextureMapType)container->Get<int>("textured_background_map_type");
+	texturedBackgroundMapType =
+			(params::enumTextureMapType) container->Get<int>("textured_background_map_type");
 	topVector = container->Get<CVector3>("camera_top");
 	transparencyIndexOfRefraction = container->Get<double>("transparency_index_of_refraction");
 	transparencyInteriorColor = container->Get<sRGB>("transparency_interior_color");
@@ -136,7 +138,7 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 	volumetricLightEnabled[0] = container->Get<double>("main_light_volumetric_enabled");
 	volumetricLightIntensity[0] = container->Get<double>("main_light_volumetric_intensity");
 
-	for(int i = 0; i < 4; ++i)
+	for (int i = 0; i < 4; ++i)
 	{
 		auxLightPre[i] = container->Get<CVector3>("aux_light_position", i + 1);
 		auxLightPreIntensity[i] = container->Get<double>("aux_light_intensity", i + 1);
@@ -144,24 +146,25 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 		auxLightPreColour[i] = container->Get<sRGB>("aux_light_colour", i + 1);
 	}
 
-	for(int i = 1; i <= 4; i++)
+	for (int i = 1; i <= 4; i++)
 	{
 		volumetricLightIntensity[i] = container->Get<double>("aux_light_volumetric_intensity", i);
 		volumetricLightEnabled[i] = container->Get<double>("aux_light_volumetric_enabled", i);
 	}
 
 	volumetricLightAnyEnabled = false;
-	for(int i = 0; i <=4; i++)
+	for (int i = 0; i <= 4; i++)
 	{
-		if(volumetricLightEnabled[i]) volumetricLightAnyEnabled = true;
+		if (volumetricLightEnabled[i]) volumetricLightAnyEnabled = true;
 	}
 
-	for(int i = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		booleanOperator[i] = (params::enumBooleanOperator)container->Get<int>("boolean_operator", i + 1);
+		booleanOperator[i] = (params::enumBooleanOperator) container->Get<int>("boolean_operator",
+																																					 i + 1);
 	}
 
-	for(int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		formulaPosition[i] = container->Get<CVector3>("formula_position", i + 1);
 		formulaRotation[i] = container->Get<CVector3>("formula_rotation", i + 1);
@@ -190,5 +193,4 @@ cParamRender::cParamRender(const cParameterContainer *container) : primitives(co
 
 	//formula = Get<int>("tile_number");
 }
-
 

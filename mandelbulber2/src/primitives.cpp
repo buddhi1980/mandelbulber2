@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #include "primitives.h"
 #include <math.h>
 #include "system.hpp"
@@ -30,7 +29,8 @@ using namespace fractal;
 
 QString PrimitiveNames(enumObjectType primitiveType)
 {
-	switch (primitiveType) {
+	switch (primitiveType)
+	{
 		case objPlane:
 			return "plane";
 		case objWater:
@@ -57,26 +57,17 @@ QString PrimitiveNames(enumObjectType primitiveType)
 enumObjectType PrimitiveNameToEnum(const QString &primitiveType)
 {
 	enumObjectType type = objNone;
-	if(primitiveType == QString("plane"))
-		type = objPlane;
-	else if(primitiveType == QString("water"))
-		type = objWater;
-	else if(primitiveType == QString("sphere"))
-		type = objSphere;
-	else if(primitiveType == QString("box"))
-		type = objBox;
-	else if(primitiveType == QString("rectangle"))
-		type = objRectangle;
-	else if(primitiveType == QString("circle"))
-		type = objCircle;
-	else if(primitiveType == QString("cone"))
-		type = objCone;
-	else if(primitiveType == QString("cylinder"))
-		type = objCylinder;
-	else if(primitiveType == QString("torus"))
-		type = objTorus;
+	if (primitiveType == QString("plane")) type = objPlane;
+	else if (primitiveType == QString("water")) type = objWater;
+	else if (primitiveType == QString("sphere")) type = objSphere;
+	else if (primitiveType == QString("box")) type = objBox;
+	else if (primitiveType == QString("rectangle")) type = objRectangle;
+	else if (primitiveType == QString("circle")) type = objCircle;
+	else if (primitiveType == QString("cone")) type = objCone;
+	else if (primitiveType == QString("cylinder")) type = objCylinder;
+	else if (primitiveType == QString("torus")) type = objTorus;
 	else
-		qCritical() << "Wrong primitive name: " << primitiveType;
+	qCritical() << "Wrong primitive name: " << primitiveType;
 
 	return type;
 }
@@ -90,10 +81,10 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 	QList<sPrimitiveItem> listOfPrimitives;
 
 	//generating fresh list of primitives based of parameter list
-	for(int i = 0; i < listOfParameters.size(); i++)
+	for (int i = 0; i < listOfParameters.size(); i++)
 	{
 		QString parameterName = listOfParameters.at(i);
-		if(parameterName.left(9) == "primitive")
+		if (parameterName.left(9) == "primitive")
 		{
 			isAnyPrimitive = true;
 
@@ -105,27 +96,27 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 
 			//check if item is already on the list
 			bool found = false;
-			for(int l = 0; l < listOfPrimitives.size(); l++)
+			for (int l = 0; l < listOfPrimitives.size(); l++)
 			{
-				if(listOfPrimitives.at(l).id == index && listOfPrimitives.at(l).type == type)
+				if (listOfPrimitives.at(l).id == index && listOfPrimitives.at(l).type == type)
 				{
 					found = true;
 					break;
 				}
 			}
-			if(!found)
+			if (!found)
 			{
 				listOfPrimitives.append(sPrimitiveItem(type, index, primitiveName));
 			}
 		}
 	}
 
-	for(int i = 0; i < listOfPrimitives.size(); i++)
+	for (int i = 0; i < listOfPrimitives.size(); i++)
 	{
 		sPrimitiveItem item = listOfPrimitives.at(i);
 
 		using namespace fractal;
-		switch(item.type)
+		switch (item.type)
 		{
 			case objPlane:
 			{
@@ -202,7 +193,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par)
 				object.reflect = par->Get<double>(item.name + "_reflection");
 				object.color = par->Get<sRGB>(item.name + "_color");
 				object.repeat = par->Get<CVector3>(item.name + "_repeat");
-				object.wallNormal = CVector2<double>(1.0, object.radius/object.height);
+				object.wallNormal = CVector2<double>(1.0, object.radius / object.height);
 				object.wallNormal.Normalize();
 				object.rotationMatrix.SetRotation2(object.rotation * M_PI / 180.0);
 				cones.append(object);
@@ -293,7 +284,7 @@ double cPrimitives::PrimitiveBox(CVector3 _point, const sPrimitiveBox &box) cons
 	CVector3 point = _point - box.position;
 	point = box.rotationMatrix.RotateVector(point);
 	point = point.mod(box.repeat);
-	if(box.empty)
+	if (box.empty)
 	{
 		double boxDist = -1e10;
 		boxDist = max(fabs(point.x) - box.size.x * 0.5, boxDist);
@@ -339,7 +330,7 @@ double cPrimitives::PrimitiveCylinder(CVector3 _point, const sPrimitiveCylinder 
 
 	CVector2<double> cylTemp(point.x, point.y);
 	double dist = cylTemp.Length() - cylinder.radius;
-	if(!cylinder.caps) dist = fabs(dist);
+	if (!cylinder.caps) dist = fabs(dist);
 	dist = max(fabs(point.z) - cylinder.height * 0.5, dist);
 	return cylinder.empty ? fabs(dist) : dist;
 }
@@ -362,11 +353,11 @@ double cPrimitives::PrimitiveCone(CVector3 _point, const sPrimitiveCone &cone) c
 
 	point.z -= cone.height;
 	float q = sqrt(point.x * point.x + point.y * point.y);
-  CVector2<double> vect(q, point.z);
-  double dist = cone.wallNormal.Dot(vect);
-	if(!cone.caps) dist = fabs(dist);
-  dist = max(-point.z - cone.height, dist);
-  return cone.empty ? fabs(dist) : dist;
+	CVector2<double> vect(q, point.z);
+	double dist = cone.wallNormal.Dot(vect);
+	if (!cone.caps) dist = fabs(dist);
+	dist = max(-point.z - cone.height, dist);
+	return cone.empty ? fabs(dist) : dist;
 }
 
 double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water) const
@@ -377,24 +368,26 @@ double cPrimitives::PrimitiveWater(CVector3 _point, const sPrimitiveWater &water
 	point = water.rotationMatrix.RotateVector(point);
 
 	double planeDistance = point.z;
-	if(planeDistance < water.amplitude * 10.0)
+	if (planeDistance < water.amplitude * 10.0)
 	{
 		double phase = water.animSpeed * water.animFrame * 0.1;
-		double k=0.23;
+		double k = 0.23;
 		double waveXtemp = point.x;
 		double waveYtemp = point.y;
 		double waveX = 0;
 		double waveY = 0;
 		double p = 1.0;
 		double p2 = 0.05;
-		for(int i=1; i<=water.iterations; i++)
+		for (int i = 1; i <= water.iterations; i++)
 		{
 			float p3 = p * p2;
-			double shift = phase / (i/3.0 + 1.0);
-			waveXtemp = sin(i + 0.4*(waveX)*p3 + sin(k* point.y / water.length*p3) + point.x/water.length*p3 + shift)/p;
-			waveYtemp = cos(i + 0.4*(waveY)*p3 + sin(point.x / water.length*p3) + k*point.y/water.length*p3 + shift*0.23)/p;
-			waveX+=waveXtemp;
-			waveY+=waveYtemp;
+			double shift = phase / (i / 3.0 + 1.0);
+			waveXtemp = sin(i + 0.4 * (waveX) * p3 + sin(k * point.y / water.length * p3)
+					+ point.x / water.length * p3 + shift) / p;
+			waveYtemp = cos(i + 0.4 * (waveY) * p3 + sin(point.x / water.length * p3)
+					+ k * point.y / water.length * p3 + shift * 0.23) / p;
+			waveX += waveXtemp;
+			waveY += waveYtemp;
 			p2 = p2 + (1.0 - p2) * 0.7;
 			p *= 1.872;
 		}
@@ -415,7 +408,8 @@ double cPrimitives::PrimitiveTorus(CVector3 _point, const sPrimitiveTorus &torus
 	return torus.empty ? fabs(dist) : dist;
 }
 
-double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fractal::enumObjectType *closestObjectType, sRGB *objectColor, double *objectReflect) const
+double cPrimitives::TotalDistance(CVector3 point, double fractalDistance,
+		fractal::enumObjectType *closestObjectType, sRGB *objectColor, double *objectReflect) const
 {
 	using namespace fractal;
 	enumObjectType closestObject = objFractal;
@@ -462,7 +456,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 		}
 
 		for (int i = 0; i < rectangles.size(); i++)
-   	{
+		{
 			const sPrimitiveRectangle &rectangle = rectangles.at(i);
 			if (rectangle.enable)
 			{
@@ -572,7 +566,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, fracta
 				distance = min(distance, distTemp);
 			}
 		}
-	}//if is any primitive
+	} //if is any primitive
 
 	*closestObjectType = closestObject;
 	*objectColor = color;

@@ -30,10 +30,10 @@
 
 namespace parameterContainer
 {
-	enum enumVarType
-	{
-		typeNull, typeInt, typeDouble, typeString, typeVector3, typeRgb, typeBool, typeColorPalette
-	};
+enum enumVarType
+{
+	typeNull, typeInt, typeDouble, typeString, typeVector3, typeRgb, typeBool, typeColorPalette
+};
 }
 
 using namespace parameterContainer;
@@ -58,7 +58,10 @@ public:
 	enumVarType Get(sRGB &val) const;
 	enumVarType Get(bool &val) const;
 	enumVarType Get(cColorPalette &val) const;
-	enumVarType GetDefaultype(void) const {return type;}
+	enumVarType GetDefaultype(void) const
+	{
+		return type;
+	}
 	bool operator==(const cMultiVal &m) const;
 
 private:

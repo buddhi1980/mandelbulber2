@@ -48,14 +48,12 @@ struct sCommonParams
 
 	bool juliaMode;
 
-  CVector3 fractalPosition;
-  CVector3 fractalRotation;
-  CVector3 repeat;
+	CVector3 fractalPosition;
+	CVector3 fractalRotation;
+	CVector3 repeat;
 	CRotationMatrix mRotFractalRotation;
 
 	sFractalFoldings foldings;
 };
-
-
 
 #endif /* COMMONPARAMS_HPP_ */

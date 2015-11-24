@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #include "render_window.hpp"
 #include "interface.hpp"
 #include "initparameters.hpp"
@@ -54,42 +53,58 @@
 #include <math.h>
 
 RenderWindow::RenderWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::RenderWindow)
+		QMainWindow(parent), ui(new Ui::RenderWindow)
 {
-    ui->setupUi(this);
-  	fractalWidgets = new QWidget*[4];
+	ui->setupUi(this);
+	fractalWidgets = new QWidget*[4];
 
-  	//store default geometry and state
-  	defaultGeometry = saveGeometry();
-  	defaultState = saveState();
+	//store default geometry and state
+	defaultGeometry = saveGeometry();
+	defaultState = saveState();
 
 #ifdef USE_GAMEPAD
-		QApplication::connect(&gamepad, SIGNAL(axisLeftXChanged(double)), this, SLOT(slotGamepadPitch(double)));
-		QApplication::connect(&gamepad, SIGNAL(axisLeftYChanged(double)), this, SLOT(slotGamepadYaw(double)));
-		QApplication::connect(&gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadRoll()));
-		QApplication::connect(&gamepad, SIGNAL(buttonR2Changed(double)), this, SLOT(slotGamepadRoll()));
-		QApplication::connect(&gamepad, SIGNAL(buttonL1Changed(bool)), this, SLOT(slotShiftModeChange(bool)));
+	QApplication::connect(&gamepad,
+												SIGNAL(axisLeftXChanged(double)),
+												this,
+												SLOT(slotGamepadPitch(double)));
+	QApplication::connect(&gamepad,
+												SIGNAL(axisLeftYChanged(double)),
+												this,
+												SLOT(slotGamepadYaw(double)));
+	QApplication::connect(&gamepad, SIGNAL(buttonL2Changed(double)), this, SLOT(slotGamepadRoll()));
+	QApplication::connect(&gamepad, SIGNAL(buttonR2Changed(double)), this, SLOT(slotGamepadRoll()));
+	QApplication::connect(&gamepad,
+												SIGNAL(buttonL1Changed(bool)),
+												this,
+												SLOT(slotShiftModeChange(bool)));
 
-		QApplication::connect(&gamepad, SIGNAL(axisRightXChanged(double)), this, SLOT(slotGamepadX(double)));
-		QApplication::connect(&gamepad, SIGNAL(axisRightYChanged(double)), this, SLOT(slotGamepadY(double)));
-		QApplication::connect(&gamepad, SIGNAL(buttonAChanged(bool)), this, SLOT(slotGamepadZ()));
-		QApplication::connect(&gamepad, SIGNAL(buttonBChanged(bool)), this, SLOT(slotGamepadZ()));
-		QApplication::connect(this->ui->groupCheck_gamepad_enabled, SIGNAL(toggled(bool)), &gamepad, SLOT(setConnected(bool)));
+	QApplication::connect(&gamepad,
+												SIGNAL(axisRightXChanged(double)),
+												this,
+												SLOT(slotGamepadX(double)));
+	QApplication::connect(&gamepad,
+												SIGNAL(axisRightYChanged(double)),
+												this,
+												SLOT(slotGamepadY(double)));
+	QApplication::connect(&gamepad, SIGNAL(buttonAChanged(bool)), this, SLOT(slotGamepadZ()));
+	QApplication::connect(&gamepad, SIGNAL(buttonBChanged(bool)), this, SLOT(slotGamepadZ()));
+	QApplication::connect(this->ui->groupCheck_gamepad_enabled,
+												SIGNAL(toggled(bool)),
+												&gamepad,
+												SLOT(setConnected(bool)));
 #else
-		ui->menuView->removeAction(ui->actionShow_gamepad_dock);
-		ui->dockWidget_gamepad_dock->hide();
+	ui->menuView->removeAction(ui->actionShow_gamepad_dock);
+	ui->dockWidget_gamepad_dock->hide();
 #endif
 }
 
 RenderWindow::~RenderWindow()
 {
-    delete ui;
-    for(int i=0; i<NUMBER_OF_FRACTALS; i++)
-    	delete fractalWidgets[i];
-    delete[] fractalWidgets;
+	delete ui;
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		delete fractalWidgets[i];
+	delete[] fractalWidgets;
 }
-
 
 void RenderWindow::slotStartRender(void)
 {
@@ -118,7 +133,8 @@ void RenderWindow::slotDoubleSpinBoxChanged(double value)
 	}
 	else
 	{
-		qWarning() << "slotDoubleSpinBoxChanged() error: slider " << sliderName << " doesn't exists" << endl;
+		qWarning() << "slotDoubleSpinBoxChanged() error: slider " << sliderName << " doesn't exists"
+				<< endl;
 	}
 }
 
@@ -134,19 +150,21 @@ void RenderWindow::slotLogLineEditChanged(const QString &text)
 	if (slider)
 	{
 		double value = systemData.locale.toDouble(text);
-		if(value > 0.0)
+		if (value > 0.0)
 		{
 			int sliderPosition = log10(systemData.locale.toDouble(text)) * 100.0;
 			slider->setValue(sliderPosition);
 		}
 		else
 		{
-			qWarning() << "slotLogLineEditChanged() error: value from " << lineEditName << " is not greater zero" << endl;
+			qWarning() << "slotLogLineEditChanged() error: value from " << lineEditName
+					<< " is not greater zero" << endl;
 		}
 	}
 	else
 	{
-		qWarning() << "slotLogLineEditChanged() error: slider " << sliderName << " doesn't exists" << endl;
+		qWarning() << "slotLogLineEditChanged() error: slider " << sliderName << " doesn't exists"
+				<< endl;
 	}
 }
 
@@ -165,7 +183,8 @@ void RenderWindow::slotIntSpinBoxChanged(int value)
 	}
 	else
 	{
-		qWarning() << "slotIntSpinBoxChanged() error: slider " << sliderName << " doesn't exists" << endl;
+		qWarning() << "slotIntSpinBoxChanged() error: slider " << sliderName << " doesn't exists"
+				<< endl;
 	}
 }
 
@@ -239,11 +258,11 @@ void RenderWindow::slotSliderMoved(int value)
 	QString spinBoxName = QString("spinbox_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
-	if(spinBox)
+	if (spinBox)
 	{
 		double decimals = spinBox->decimals();
 		double divider = pow(10.0, decimals);
-		spinBox->setValue(value/divider);
+		spinBox->setValue(value / divider);
 	}
 	else
 	{
@@ -260,15 +279,16 @@ void RenderWindow::slotLogSliderMoved(int value)
 	QString lineEditName = QString("logedit_") + parameterName;
 
 	QLineEdit *lineEdit = this->sender()->parent()->findChild<QLineEdit*>(lineEditName);
-	if(lineEdit)
+	if (lineEdit)
 	{
-		double dValue = pow(10.0, value/100.0);
+		double dValue = pow(10.0, value / 100.0);
 		QString text = QString("%L1").arg(dValue);
 		lineEdit->setText(text);
 	}
 	else
 	{
-		qWarning() << "slotLogSliderMoved() error: lineEdit " << lineEditName << " doesn't exists" << endl;
+		qWarning() << "slotLogSliderMoved() error: lineEdit " << lineEditName << " doesn't exists"
+				<< endl;
 	}
 }
 
@@ -281,13 +301,14 @@ void RenderWindow::slotIntSliderMoved(int value)
 	QString spinboxName = QString("spinboxInt_") + parameterName;
 
 	QSpinBox *spinbox = this->sender()->parent()->findChild<QSpinBox*>(spinboxName);
-	if(spinbox)
+	if (spinbox)
 	{
 		spinbox->setValue(value);
 	}
 	else
 	{
-		qWarning() << "slotLogSliderMoved() error: lineEdit " << spinboxName << " doesn't exists" << endl;
+		qWarning() << "slotLogSliderMoved() error: lineEdit " << spinboxName << " doesn't exists"
+				<< endl;
 	}
 }
 
@@ -301,11 +322,11 @@ void RenderWindow::slotSlider3Moved(int value)
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
 
-	if(spinBox)
+	if (spinBox)
 	{
 		double decimals = spinBox->decimals();
 		double divider = pow(10.0, decimals);
-		spinBox->setValue(value/divider);
+		spinBox->setValue(value / divider);
 	}
 	else
 	{
@@ -322,9 +343,9 @@ void RenderWindow::slotDial3Moved(int value)
 	QString spinBoxName = QString("spinboxd3_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
-	if(spinBox)
+	if (spinBox)
 	{
-		spinBox->setValue(value/100.0);
+		spinBox->setValue(value / 100.0);
 	}
 	else
 	{
@@ -341,9 +362,9 @@ void RenderWindow::slotDialMoved(int value)
 	QString spinBoxName = QString("spinboxd_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
-	if(spinBox)
+	if (spinBox)
 	{
-		spinBox->setValue(value/100.0);
+		spinBox->setValue(value / 100.0);
 	}
 	else
 	{
@@ -374,50 +395,78 @@ void RenderWindow::slotChangedComboFractal(int index)
 	QString comboName = this->sender()->objectName();
 	int fractalNumber = comboName.right(1).toInt() - 1;
 
-	if(fractalList[index].internalID > 0)
+	if (fractalList[index].internalID > 0)
 	{
 		QString formulaName = fractalList[index].internalNane;
-		QString uiFilename = systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_" + formulaName + ".ui";
+		QString uiFilename = systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_"
+				+ formulaName + ".ui";
 
-		if(fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
+		if (fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
 		fractalWidgets[fractalNumber] = NULL;
 
 		MyUiLoader loader;
 		QFile uiFile(uiFilename);
 
-		if(uiFile.exists())
+		if (uiFile.exists())
 		{
 			uiFile.open(QFile::ReadOnly);
 			fractalWidgets[fractalNumber] = loader.load(&uiFile);
-			QVBoxLayout *layout = ui->dockWidget_fractal->findChild<QVBoxLayout*>("verticalLayout_fractal_" + QString::number(fractalNumber + 1));
+			QVBoxLayout *layout =
+					ui->dockWidget_fractal->findChild<QVBoxLayout*>("verticalLayout_fractal_"
+							+ QString::number(fractalNumber + 1));
 			layout->addWidget(fractalWidgets[fractalNumber]);
 			uiFile.close();
 			fractalWidgets[fractalNumber]->show();
 			gMainInterface->ConnectSignalsForSlidersInWindow(fractalWidgets[fractalNumber]);
-			gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[fractalNumber], &gParFractal->at(fractalNumber), cInterface::write);
+			gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[fractalNumber],
+																								 &gParFractal->at(fractalNumber),
+																								 cInterface::write);
 
-			if(fractalList[index].internalID == fractal::kaleidoscopicIFS)
+			if (fractalList[index].internalID == fractal::kaleidoscopicIFS)
 			{
-				QWidget *pushButton_preset_dodecahedron = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_dodecahedron");
-				QApplication::connect(pushButton_preset_dodecahedron, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsDodecahedron()));
-				QWidget *pushButton_preset_icosahedron = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_icosahedron");
-				QApplication::connect(pushButton_preset_icosahedron, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsIcosahedron()));
-				QWidget *pushButton_preset_octahedron = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_octahedron");
-				QApplication::connect(pushButton_preset_octahedron, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsOctahedron()));
-				QWidget *pushButton_preset_menger_sponge = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_menger_sponge");
-				QApplication::connect(pushButton_preset_menger_sponge, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsMengerSponge()));
-				QWidget *pushButton_preset_reset = fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_reset");
-				QApplication::connect(pushButton_preset_reset, SIGNAL(clicked()), this, SLOT(slotPressedButtonIFSDefaultsReset()));
+				QWidget *pushButton_preset_dodecahedron =
+						fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_dodecahedron");
+				QApplication::connect(pushButton_preset_dodecahedron,
+															SIGNAL(clicked()),
+															this,
+															SLOT(slotPressedButtonIFSDefaultsDodecahedron()));
+				QWidget *pushButton_preset_icosahedron =
+						fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_icosahedron");
+				QApplication::connect(pushButton_preset_icosahedron,
+															SIGNAL(clicked()),
+															this,
+															SLOT(slotPressedButtonIFSDefaultsIcosahedron()));
+				QWidget *pushButton_preset_octahedron =
+						fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_octahedron");
+				QApplication::connect(pushButton_preset_octahedron,
+															SIGNAL(clicked()),
+															this,
+															SLOT(slotPressedButtonIFSDefaultsOctahedron()));
+				QWidget *pushButton_preset_menger_sponge =
+						fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_menger_sponge");
+				QApplication::connect(pushButton_preset_menger_sponge,
+															SIGNAL(clicked()),
+															this,
+															SLOT(slotPressedButtonIFSDefaultsMengerSponge()));
+				QWidget *pushButton_preset_reset =
+						fractalWidgets[fractalNumber]->findChild<QWidget*>("pushButton_preset_reset");
+				QApplication::connect(pushButton_preset_reset,
+															SIGNAL(clicked()),
+															this,
+															SLOT(slotPressedButtonIFSDefaultsReset()));
 			}
 		}
 		else
 		{
-			cErrorMessage::showMessage(QString("Can't open file ") + uiFilename + QString("\nFractal ui file can't be loaded"), cErrorMessage::errorMessage, gMainInterface->mainWindow);
+			cErrorMessage::showMessage(QString("Can't open file ") + uiFilename
+																		 + QString("\nFractal ui file can't be loaded"),
+																 cErrorMessage::errorMessage,
+																 gMainInterface->mainWindow);
 		}
 	}
 	else
 	{
-		if(fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
+		if (fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
 		fractalWidgets[fractalNumber] = NULL;
 	}
 
@@ -434,7 +483,8 @@ void RenderWindow::slotResizedScrolledAreaImage(int width, int height)
 			double scale = CalcMainImageScale(0.0, width, height, gMainInterface->mainImage);
 			gMainInterface->mainImage->CreatePreview(scale, width, height, gMainInterface->renderedImage);
 			gMainInterface->mainImage->UpdatePreview();
-			gMainInterface->renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(), gMainInterface->mainImage->GetPreviewHeight());
+			gMainInterface->renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(),
+																										gMainInterface->mainImage->GetPreviewHeight());
 		}
 	}
 }
@@ -448,9 +498,13 @@ void RenderWindow::slotChangedComboImageScale(int index)
 		int areaHeight = ui->scrollAreaForImage->VisibleAreaHeight();
 		scale = CalcMainImageScale(scale, areaWidth, areaHeight, gMainInterface->mainImage);
 
-		gMainInterface->mainImage->CreatePreview(scale, areaWidth, areaHeight, gMainInterface->renderedImage);
+		gMainInterface->mainImage->CreatePreview(scale,
+																						 areaWidth,
+																						 areaHeight,
+																						 gMainInterface->renderedImage);
 		gMainInterface->mainImage->UpdatePreview();
-		gMainInterface->renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(), gMainInterface->mainImage->GetPreviewHeight());
+		gMainInterface->renderedImage->setMinimumSize(gMainInterface->mainImage->GetPreviewWidth(),
+																									gMainInterface->mainImage->GetPreviewHeight());
 
 		gPar->Set("image_preview_scale", index);
 	}
@@ -485,13 +539,13 @@ void RenderWindow::slotCameraDistanceEdited()
 
 void RenderWindow::slotCameraDistanceSlider(int value)
 {
-	(void)value;
+	(void) value;
 	gMainInterface->CameraDistanceEdited();
 }
 
 void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 {
-	if(state)	ui->groupCheck_boolean_operators->setChecked(false);
+	if (state) ui->groupCheck_boolean_operators->setChecked(false);
 	gApplication->processEvents();
 
 	ui->label_formula_iterations_1->setVisible(state);
@@ -530,7 +584,7 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 
 void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
 {
-	if(state)	ui->checkBox_hybrid_fractal_enable->setChecked(false);
+	if (state) ui->checkBox_hybrid_fractal_enable->setChecked(false);
 	gApplication->processEvents();
 
 	ui->frame_iterations_formula_2->setEnabled(state);
@@ -555,13 +609,14 @@ void RenderWindow::slotMenuSaveSettings()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings"
+			+ QDir::separator());
 	dialog.selectFile(systemData.lastSettingsFile);
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save settings..."));
 	dialog.setDefaultSuffix("fract");
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
@@ -582,7 +637,8 @@ void RenderWindow::slotMenuSaveSettingsToClipboard()
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 	parSettings.SaveToClipboard();
-	cErrorMessage::showMessage(QObject::tr("Settings saved to clipboard"), cErrorMessage::infoMessage);
+	cErrorMessage::showMessage(QObject::tr("Settings saved to clipboard"),
+														 cErrorMessage::infoMessage);
 }
 
 void RenderWindow::slotMenuLoadSettings()
@@ -595,12 +651,13 @@ void RenderWindow::slotMenuLoadSettings()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings"
+			+ QDir::separator());
 	dialog.selectFile(systemData.lastSettingsFile);
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Load settings..."));
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
@@ -622,7 +679,7 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 
 	cSettings parSettings(cSettings::formatFullText);
 
-	if(parSettings.LoadFromClipboard())
+	if (parSettings.LoadFromClipboard())
 	{
 		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 		gMainInterface->RebuildPrimitives(gPar);
@@ -635,7 +692,9 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("Cannot load settings from clipboard!"), cErrorMessage::errorMessage, gMainInterface->mainWindow);
+		cErrorMessage::showMessage(QObject::tr("Cannot load settings from clipboard!"),
+															 cErrorMessage::errorMessage,
+															 gMainInterface->mainWindow);
 	}
 }
 
@@ -652,7 +711,7 @@ void RenderWindow::slotMenuLoadExample()
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Load example settings..."));
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
@@ -661,7 +720,8 @@ void RenderWindow::slotMenuLoadExample()
 		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
-		systemData.lastSettingsFile = systemData.dataDirectory + "settings" + QDir::separator() + QFileInfo(filename).fileName();
+		systemData.lastSettingsFile = systemData.dataDirectory + "settings" + QDir::separator()
+				+ QFileInfo(filename).fileName();
 		this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();
@@ -676,12 +736,13 @@ void RenderWindow::slotImportOldSettings()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings"
+			+ QDir::separator());
 	dialog.selectFile(systemData.lastSettingsFile);
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Import settings from old Mandelbulber (v1.21)..."));
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
@@ -696,45 +757,64 @@ void RenderWindow::slotImportOldSettings()
 	}
 }
 
-
 void RenderWindow::slotPressedButtonIFSDefaultsDodecahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index],
+																						 &gParFractal->at(index),
+																						 cInterface::read);
 	gMainInterface->IFSDefaultsDodecahedron(&gParFractal->at(index));
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index],
+																						 &gParFractal->at(index),
+																						 cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsIcosahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index],
+																						 &gParFractal->at(index),
+																						 cInterface::read);
 	gMainInterface->IFSDefaultsIcosahedron(&gParFractal->at(index));
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index],
+																						 &gParFractal->at(index),
+																						 cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsOctahedron()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index],
+																						 &gParFractal->at(index),
+																						 cInterface::read);
 	gMainInterface->IFSDefaultsOctahedron(&gParFractal->at(index));
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index],
+																						 &gParFractal->at(index),
+																						 cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsMengerSponge()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index],
+																						 &gParFractal->at(index),
+																						 cInterface::read);
 	gMainInterface->IFSDefaultsMengerSponge(&gParFractal->at(index));
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index],
+																						 &gParFractal->at(index),
+																						 cInterface::write);
 }
 
 void RenderWindow::slotPressedButtonIFSDefaultsReset()
 {
 	int index = ui->tabWidget_fractals->currentIndex();
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::read);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index],
+																						 &gParFractal->at(index),
+																						 cInterface::read);
 	gMainInterface->IFSDefaultsReset(&gParFractal->at(index));
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index], &gParFractal->at(index), cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[index],
+																						 &gParFractal->at(index),
+																						 cInterface::write);
 }
 
 void RenderWindow::slotMenuAboutQt()
@@ -746,27 +826,29 @@ void RenderWindow::slotMenuAboutThirdParty()
 {
 	QString text = "<h2>Third Party</h2>";
 	text += "<ul>";
-	text += "	<li><b>Dark Skin</b> based on <br><a href=\"https://gist.github.com/QuantumCD/6245215\">gist.github.com/QuantumCD/6245215</a><br>thanks to QuantumCD</li>";
+	text +=
+			"	<li><b>Dark Skin</b> based on <br><a href=\"https://gist.github.com/QuantumCD/6245215\">gist.github.com/QuantumCD/6245215</a><br>thanks to QuantumCD</li>";
 	text += "</ul>";
 	QMessageBox::about(this, "About Third Party", text);
 }
 
-
 void RenderWindow::slotMenuAboutMandelbulber()
 {
 	QString text = "<h2>Mandelbulber</h2>";
-	text += "version: <b>" + QString(MANDELBULBER_VERSION_STRING) + "</b>, build date: <b>" + QString(__DATE__) + "</b><br>";
+	text += "version: <b>" + QString(MANDELBULBER_VERSION_STRING) + "</b>, build date: <b>"
+			+ QString(__DATE__) + "</b><br>";
 	text += "<br>";
 	text += "Licence: GNU GPL version 3.0<br>";
 	text += "Copyright Ⓒ 2015<br>";
 	text += "project leader: Krzysztof Marczak<br>";
 	text += "programmers:<br>";
-	text +=	"Krzysztof Marczak<br>";
-	text +=	"Sebastian Jennen<br>";
-	text +=	"Graeme McLaren<br>";
-	text +=	"Bernardo Martelli<br>";
+	text += "Krzysztof Marczak<br>";
+	text += "Sebastian Jennen<br>";
+	text += "Graeme McLaren<br>";
+	text += "Bernardo Martelli<br>";
 	text += "<br>";
-	text += "Thanks to many friends from <a href=\"http://www.fractalforums.com\">www.fractalforums.com</a> for help<br>";
+	text +=
+			"Thanks to many friends from <a href=\"http://www.fractalforums.com\">www.fractalforums.com</a> for help<br>";
 	text += "<br>";
 	text += "<a href=\"http://www.mandelbulber.com\">www.mandelbulber.com</a>";
 
@@ -784,14 +866,20 @@ void RenderWindow::slotMenuSaveImageJPEG()
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("JPEG"));
 	dialog.setDefaultSuffix("jpeg");
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image started"), 0.0, cProgressText::progress_IMAGE);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("JPG"),
+																			tr("Saving image started"),
+																			0.0,
+																			cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		SaveImage(filename, IMAGE_FILE_TYPE_JPG, gMainInterface->mainImage);
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("JPG"),
+																			tr("Saving image finished"),
+																			1.0,
+																			cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -808,14 +896,20 @@ void RenderWindow::slotMenuSaveImagePNG()
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("8-bit PNG"));
 	dialog.setDefaultSuffix("png");
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving image started"), 0.0, cProgressText::progress_IMAGE);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("PNG"),
+																			tr("Saving image started"),
+																			0.0,
+																			cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		SaveImage(filename, IMAGE_FILE_TYPE_PNG, gMainInterface->mainImage);
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("PNG"), tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("PNG"),
+																			tr("Saving image finished"),
+																			1.0,
+																			cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -833,14 +927,20 @@ void RenderWindow::slotMenuSaveImageEXR()
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("EXR"));
 	dialog.setDefaultSuffix("exr");
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("EXR"), tr("Saving EXR image started"), 0.0, cProgressText::progress_IMAGE);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("EXR"),
+																			tr("Saving EXR image started"),
+																			0.0,
+																			cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		SaveImage(filename, IMAGE_FILE_TYPE_EXR, gMainInterface->mainImage);
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("EXR"), tr("Saving EXR image finished"), 1.0, cProgressText::progress_IMAGE);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("EXR"),
+																			tr("Saving EXR image finished"),
+																			1.0,
+																			cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -858,15 +958,21 @@ void RenderWindow::slotMenuSaveImagePNG16()
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("16-bit PNG"));
 	dialog.setDefaultSuffix("png");
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving image started"), 0.0, cProgressText::progress_IMAGE);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"),
+																			tr("Saving image started"),
+																			0.0,
+																			cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
 		SavePNG(filename, gMainInterface->mainImage, saveImageChannel, false);
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"), tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"),
+																			tr("Saving image finished"),
+																			1.0,
+																			cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -883,15 +989,21 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("16-bit PNG + alpha channel"));
 	dialog.setDefaultSuffix("png");
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"), tr("Saving image started"), 0.0, cProgressText::progress_IMAGE);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"),
+																			tr("Saving image started"),
+																			0.0,
+																			cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
 		SavePNG(filename, gMainInterface->mainImage, saveImageChannel, true);
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"), tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"),
+																			tr("Saving image finished"),
+																			1.0,
+																			cProgressText::progress_IMAGE);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -902,12 +1014,13 @@ void RenderWindow::slotPressedButtonSelectBackgroundTexture()
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures"
+			+ QDir::separator());
 	dialog.selectFile(gPar->Get<QString>("file_background"));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select background texture..."));
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
@@ -922,12 +1035,13 @@ void RenderWindow::slotPressedButtonSelectEnvMapTexture()
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures"
+			+ QDir::separator());
 	dialog.selectFile(gPar->Get<QString>("file_envmap"));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select texture for environment mapping effect..."));
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
@@ -942,12 +1056,13 @@ void RenderWindow::slotPressedButtonSelectLightMapTexture()
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures"
+			+ QDir::separator());
 	dialog.selectFile(gPar->Get<QString>("file_lightmap"));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select texture for ambient occlusion light map..."));
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
@@ -962,12 +1077,13 @@ void RenderWindow::slotPressedButtonGetPaletteFromImage()
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures" + QDir::separator());
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures"
+			+ QDir::separator());
 	dialog.selectFile(systemData.lastImagePaletteFile);
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select image to grab colors..."));
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
@@ -1005,9 +1121,9 @@ void RenderWindow::slotChangedComboImageProportion(int index)
 {
 	bool enableSlider = false;
 	double ratio = 1.0;
-	enumImageProportion proportionSelection = (enumImageProportion)index;
+	enumImageProportion proportionSelection = (enumImageProportion) index;
 
-	switch(proportionSelection)
+	switch (proportionSelection)
 	{
 		case proportionFree:
 			enableSlider = true;
@@ -1041,7 +1157,7 @@ void RenderWindow::slotChangedComboImageProportion(int index)
 	int height = ui->spinboxInt_image_height->value();
 	int width = height * ratio;
 
-	if(!enableSlider)
+	if (!enableSlider)
 	{
 		ui->spinboxInt_image_width->setValue(width);
 	}
@@ -1052,41 +1168,59 @@ void RenderWindow::slotPressedResolutionPreset()
 	int width = 0, height = 0;
 	enumImageProportion proportion = proportionFree;
 	QString buttonName = this->sender()->objectName();
-	if(buttonName == QString("pushButton_resolution_preset_480"))
+	if (buttonName == QString("pushButton_resolution_preset_480"))
 	{
-		width = 720; 		height = 480;		proportion = proportion3_2;
+		width = 720;
+		height = 480;
+		proportion = proportion3_2;
 	}
-	else if(buttonName == QString("pushButton_resolution_preset_720"))
+	else if (buttonName == QString("pushButton_resolution_preset_720"))
 	{
-		width = 1280;		height = 720;		proportion = proportion16_9;
+		width = 1280;
+		height = 720;
+		proportion = proportion16_9;
 	}
-	else if(buttonName == QString("pushButton_resolution_preset_1080"))
+	else if (buttonName == QString("pushButton_resolution_preset_1080"))
 	{
-		width = 1920;		height = 1080;		proportion = proportion16_9;
+		width = 1920;
+		height = 1080;
+		proportion = proportion16_9;
 	}
-	else if(buttonName == QString("pushButton_resolution_preset_1440"))
+	else if (buttonName == QString("pushButton_resolution_preset_1440"))
 	{
-		width = 2560;		height = 1440;		proportion = proportion16_9;
+		width = 2560;
+		height = 1440;
+		proportion = proportion16_9;
 	}
-	else if(buttonName == QString("pushButton_resolution_preset_2160"))
+	else if (buttonName == QString("pushButton_resolution_preset_2160"))
 	{
-		width = 4096;		height = 2160;		proportion = proportionFree;
+		width = 4096;
+		height = 2160;
+		proportion = proportionFree;
 	}
-	else if(buttonName == QString("pushButton_resolution_preset_4320"))
+	else if (buttonName == QString("pushButton_resolution_preset_4320"))
 	{
-		width = 7680;		height = 4320;		proportion = proportion16_9;
+		width = 7680;
+		height = 4320;
+		proportion = proportion16_9;
 	}
-	else if(buttonName == QString("pushButton_resolution_preset_240"))
+	else if (buttonName == QString("pushButton_resolution_preset_240"))
 	{
-		width = 320;		height = 240;		proportion = proportion4_3;
+		width = 320;
+		height = 240;
+		proportion = proportion4_3;
 	}
-	else if(buttonName == QString("pushButton_resolution_preset_600"))
+	else if (buttonName == QString("pushButton_resolution_preset_600"))
 	{
-		width = 800;		height = 600;		proportion = proportion4_3;
+		width = 800;
+		height = 600;
+		proportion = proportion4_3;
 	}
-	else if(buttonName == QString("pushButton_resolution_preset_1200"))
+	else if (buttonName == QString("pushButton_resolution_preset_1200"))
 	{
-		width = 1600;		height = 1200;		proportion = proportion4_3;
+		width = 1600;
+		height = 1200;
+		proportion = proportion4_3;
 	}
 
 	ui->spinboxInt_image_width->setValue(width);
@@ -1116,7 +1250,7 @@ void RenderWindow::slotPressedImagesizeDecrease()
 
 void RenderWindow::slotImageHeightChanged(int value)
 {
-	(void)value;
+	(void) value;
 	int index = ui->comboBox_image_proportion->currentIndex();
 	slotChangedComboImageProportion(index);
 }
@@ -1133,13 +1267,13 @@ void RenderWindow::slotPressedButtonDOFUpdate()
 
 void RenderWindow::slotChangedComboPerspectiveType(int index)
 {
-	params::enumPerspectiveType perspType = (params::enumPerspectiveType)index;
-	if(perspType == params::perspFishEyeCut)
+	params::enumPerspectiveType perspType = (params::enumPerspectiveType) index;
+	if (perspType == params::perspFishEyeCut)
 	{
 		ui->comboBox_image_proportion->setCurrentIndex(proportion1_1);
 		ui->spinbox_fov->setValue(1.0);
 	}
-	else if(perspType == params::perspEquirectangular)
+	else if (perspType == params::perspEquirectangular)
 	{
 		ui->comboBox_image_proportion->setCurrentIndex(proportion2_1);
 		ui->spinbox_fov->setValue(1.0);
@@ -1153,7 +1287,7 @@ void RenderWindow::slotChangedSpinBoxPaletteOffset(double value)
 
 void RenderWindow::slotPressedButtonRandomize()
 {
-	srand((unsigned int)clock());
+	srand((unsigned int) clock());
 	int seed = Random(999999);
 	ui->spinboxInt_coloring_random_seed->setValue(seed);
 	slotPressedButtonNewRandomPalette();
@@ -1162,7 +1296,9 @@ void RenderWindow::slotPressedButtonRandomize()
 void RenderWindow::slotPressedButtonNewRandomPalette()
 {
 	gMainInterface->SynchronizeInterfaceWindow(ui->groupCheck_fractal_color, gPar, cInterface::read);
-	cColorPalette palette(gPar->Get<int>("coloring_palette_size"), gPar->Get<int>("coloring_random_seed"), gPar->Get<double>("coloring_saturation"));
+	cColorPalette palette(gPar->Get<int>("coloring_palette_size"),
+												gPar->Get<int>("coloring_random_seed"),
+												gPar->Get<double>("coloring_saturation"));
 	ui->colorpalette_surface_color_palette->SetPalette(palette);
 }
 
@@ -1178,8 +1314,8 @@ void RenderWindow::slotPressedButtonAutoFog()
 
 void RenderWindow::slotMouseMovedOnImage(int x, int y)
 {
-	(void)x;
-	(void)y;
+	(void) x;
+	(void) y;
 	//qDebug() << "mouse move event";
 	//CVector2<int> point(x, y);
 }
@@ -1188,9 +1324,9 @@ void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button)
 {
 	int index = ui->comboBox_mouse_click_function->currentIndex();
 	QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
-	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)mode.at(0).toInt();
+	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode) mode.at(0).toInt();
 
-	switch(clickMode)
+	switch (clickMode)
 	{
 		case RenderedImage::clickMoveCamera:
 		case RenderedImage::clickFogVisibility:
@@ -1218,7 +1354,7 @@ void RenderWindow::slotMovementStepModeChanged(int index)
 void RenderWindow::slotPressedButtonSetDOFByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickDOFFocus);
+	item.append((int) RenderedImage::clickDOFFocus);
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
@@ -1227,7 +1363,7 @@ void RenderWindow::slotPressedButtonSetDOFByMouse()
 void RenderWindow::slotPressedButtonSetFogByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickFogVisibility);
+	item.append((int) RenderedImage::clickFogVisibility);
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
@@ -1270,15 +1406,15 @@ void RenderWindow::slotKeyPressOnImage(Qt::Key key)
 
 void RenderWindow::slotKeyReleaseOnImage(Qt::Key key)
 {
-	(void)key;
+	(void) key;
 }
 
 void RenderWindow::slotMouseWheelRotatedOnImage(int delta)
 {
 	int index = ui->comboBox_mouse_click_function->currentIndex();
 	QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
-	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode)mode.at(0).toInt();
-	switch(clickMode)
+	RenderedImage::enumClickMode clickMode = (RenderedImage::enumClickMode) mode.at(0).toInt();
+	switch (clickMode)
 	{
 		case RenderedImage::clickPlaceLight:
 		{
@@ -1300,13 +1436,13 @@ void RenderWindow::slotEditedLineEditManualLightPlacementDistance(const QString 
 
 void RenderWindow::slotSliderMovedEditManualLightPlacementDistance(int value)
 {
-	gMainInterface->renderedImage->SetFrontDist(pow(10.0, value/100.0));
+	gMainInterface->renderedImage->SetFrontDist(pow(10.0, value / 100.0));
 }
 
 void RenderWindow::slotPressedButtonSetLight1ByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append((int) RenderedImage::clickPlaceLight);
 	item.append(1); //light number
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
@@ -1318,7 +1454,7 @@ void RenderWindow::slotPressedButtonSetLight1ByMouse()
 void RenderWindow::slotPressedButtonSetLight2ByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append((int) RenderedImage::clickPlaceLight);
 	item.append(2); //light number
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
@@ -1328,7 +1464,7 @@ void RenderWindow::slotPressedButtonSetLight2ByMouse()
 void RenderWindow::slotPressedButtonSetLight3ByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append((int) RenderedImage::clickPlaceLight);
 	item.append(3); //light number
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
@@ -1338,7 +1474,7 @@ void RenderWindow::slotPressedButtonSetLight3ByMouse()
 void RenderWindow::slotPressedButtonSetLight4ByMouse()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlaceLight);
+	item.append((int) RenderedImage::clickPlaceLight);
 	item.append(4); //light number
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
@@ -1348,7 +1484,7 @@ void RenderWindow::slotPressedButtonSetLight4ByMouse()
 void RenderWindow::slotPressedButtonGetJuliaConstant()
 {
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickGetJuliaConstant);
+	item.append((int) RenderedImage::clickGetJuliaConstant);
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
@@ -1365,8 +1501,8 @@ void RenderWindow::slotPressedButtonSetPositionPrimitive()
 	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
 	QStringList split = primitiveName.split('_');
 	QList<QVariant> item;
-	item.append((int)RenderedImage::clickPlacePrimitive);
-	item.append((int)PrimitiveNameToEnum(split.at(1)));
+	item.append((int) RenderedImage::clickPlacePrimitive);
+	item.append((int) PrimitiveNameToEnum(split.at(1)));
 	item.append(split.at(2).toInt());
 	item.append(primitiveName); //light number
 	int index = ui->comboBox_mouse_click_function->findData(item);
@@ -1415,9 +1551,9 @@ void RenderWindow::slotStackAllDocks()
 void RenderWindow::slotUpdateDocksandToolbarbyAction()
 {
 	// Animation dock
-	if(ui->actionShow_animation_dock->isChecked() != ui->dockWidget_animation->isVisible())
+	if (ui->actionShow_animation_dock->isChecked() != ui->dockWidget_animation->isVisible())
 	{
-		if(ui->actionShow_animation_dock->isChecked())
+		if (ui->actionShow_animation_dock->isChecked())
 		{
 			addDockWidget(Qt::BottomDockWidgetArea, ui->dockWidget_animation);
 		}
@@ -1429,9 +1565,9 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 	}
 
 	// Information dock
-	if(ui->actionShow_info_dock->isChecked() != ui->dockWidget_info->isVisible())
+	if (ui->actionShow_info_dock->isChecked() != ui->dockWidget_info->isVisible())
 	{
-		if(ui->actionShow_info_dock->isChecked())
+		if (ui->actionShow_info_dock->isChecked())
 		{
 			addDockWidget(Qt::TopDockWidgetArea, ui->dockWidget_info);
 		}
@@ -1443,9 +1579,9 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 	}
 
 	// Histogram dock
-	if(ui->actionShow_statistics_dock->isChecked() != ui->dockWidget_histogram->isVisible())
+	if (ui->actionShow_statistics_dock->isChecked() != ui->dockWidget_histogram->isVisible())
 	{
-		if(ui->actionShow_statistics_dock->isChecked())
+		if (ui->actionShow_statistics_dock->isChecked())
 		{
 			addDockWidget(Qt::TopDockWidgetArea, ui->dockWidget_histogram);
 		}
@@ -1457,15 +1593,15 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 	}
 
 	// Toolbar
-	if(ui->actionShow_toolbar->isChecked() != ui->toolBar->isVisible())
+	if (ui->actionShow_toolbar->isChecked() != ui->toolBar->isVisible())
 	{
-			ui->toolBar->setVisible(ui->actionShow_toolbar->isChecked());
+		ui->toolBar->setVisible(ui->actionShow_toolbar->isChecked());
 	}
 
 	// Gamepad dock
-	if(ui->actionShow_gamepad_dock->isChecked() != ui->dockWidget_gamepad_dock->isVisible())
+	if (ui->actionShow_gamepad_dock->isChecked() != ui->dockWidget_gamepad_dock->isVisible())
 	{
-		if(ui->actionShow_gamepad_dock->isChecked())
+		if (ui->actionShow_gamepad_dock->isChecked())
 		{
 			addDockWidget(Qt::RightDockWidgetArea, ui->dockWidget_gamepad_dock);
 		}
@@ -1477,9 +1613,9 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 	}
 
 	// Queue dock
-	if(ui->actionShow_queue_dock->isChecked() != ui->dockWidget_queue_dock->isVisible())
+	if (ui->actionShow_queue_dock->isChecked() != ui->dockWidget_queue_dock->isVisible())
 	{
-		if(ui->actionShow_queue_dock->isChecked())
+		if (ui->actionShow_queue_dock->isChecked())
 		{
 			addDockWidget(Qt::RightDockWidgetArea, ui->dockWidget_queue_dock);
 		}
@@ -1494,37 +1630,37 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 void RenderWindow::slotUpdateDocksandToolbarbyView()
 {
 	// Animation dock
-	if(ui->actionShow_animation_dock->isChecked() != ui->dockWidget_animation->isVisible())
+	if (ui->actionShow_animation_dock->isChecked() != ui->dockWidget_animation->isVisible())
 	{
 		ui->actionShow_animation_dock->setChecked(ui->dockWidget_animation->isVisible());
 	}
 
 	// Log dock
-	if(ui->actionShow_info_dock->isChecked() != ui->dockWidget_info->isVisible())
+	if (ui->actionShow_info_dock->isChecked() != ui->dockWidget_info->isVisible())
 	{
 		ui->actionShow_info_dock->setChecked(ui->dockWidget_info->isVisible());
 	}
 
 	// Histogram dock
-	if(ui->actionShow_statistics_dock->isChecked() != ui->dockWidget_histogram->isVisible())
+	if (ui->actionShow_statistics_dock->isChecked() != ui->dockWidget_histogram->isVisible())
 	{
 		ui->actionShow_statistics_dock->setChecked(ui->dockWidget_histogram->isVisible());
 	}
 
 	// Toolbar
-	if(ui->actionShow_toolbar->isChecked() != ui->toolBar->isVisible())
+	if (ui->actionShow_toolbar->isChecked() != ui->toolBar->isVisible())
 	{
 		ui->actionShow_toolbar->setChecked(ui->toolBar->isVisible());
 	}
 
 	// Gamepad dock
-	if(ui->actionShow_gamepad_dock->isChecked() != ui->dockWidget_gamepad_dock->isVisible())
+	if (ui->actionShow_gamepad_dock->isChecked() != ui->dockWidget_gamepad_dock->isVisible())
 	{
 		ui->actionShow_gamepad_dock->setChecked(ui->dockWidget_gamepad_dock->isVisible());
 	}
 
 	// Queue dock
-	if(ui->actionShow_queue_dock->isChecked() != ui->dockWidget_queue_dock->isVisible())
+	if (ui->actionShow_queue_dock->isChecked() != ui->dockWidget_queue_dock->isVisible())
 	{
 		ui->actionShow_queue_dock->setChecked(ui->dockWidget_queue_dock->isVisible());
 	}
@@ -1537,15 +1673,15 @@ void RenderWindow::slotPopulateToolbar()
 	QDir toolbarDir = QDir(systemData.dataDirectory + "toolbar");
 	QStringList toolbarFiles = toolbarDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 	QSignalMapper *mapPresetsFromExamples = new QSignalMapper(this);
-	ui->toolBar->setIconSize(QSize(40,40));
+	ui->toolBar->setIconSize(QSize(40, 40));
 
 	QList<QAction *> actions = ui->toolBar->actions();
-	for(int i = 0; i < actions.size(); i++){
-		if(actions.at(i)->objectName() == "preset")
-			ui->toolBar->removeAction(actions.at(i));
+	for (int i = 0; i < actions.size(); i++)
+	{
+		if (actions.at(i)->objectName() == "preset") ui->toolBar->removeAction(actions.at(i));
 	}
 
-	for(int i = 0; i < toolbarFiles.size(); i++)
+	for (int i = 0; i < toolbarFiles.size(); i++)
 	{
 		QString filename = systemData.dataDirectory + "toolbar/" + toolbarFiles.at(i);
 		QPixmap pixmap;
@@ -1560,9 +1696,9 @@ void RenderWindow::slotPopulateToolbar()
 				cParameterContainer *par = new cParameterContainer;
 				cFractalContainer *parFractal = new cFractalContainer;
 				InitParams(par);
-				for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
+				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 					InitFractalParams(&parFractal->at(i));
-				if(parSettings.Decode(par, parFractal))
+				if (parSettings.Decode(par, parFractal))
 				{
 					cThumbnail thumbnail(par, parFractal, 120, 120, parSettings.GetHashCode());
 					pixmap = thumbnail.Render();
@@ -1579,10 +1715,13 @@ void RenderWindow::slotPopulateToolbar()
 		ui->toolBar->addAction(action);
 
 		mapPresetsFromExamples->setMapping(action, filename);
-		QApplication::connect(action, SIGNAL(triggered()), mapPresetsFromExamples, SLOT (map()));
+		QApplication::connect(action, SIGNAL(triggered()), mapPresetsFromExamples, SLOT(map()));
 		gApplication->processEvents();
 	}
-	QApplication::connect(mapPresetsFromExamples, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadPreset(QString)));
+	QApplication::connect(mapPresetsFromExamples,
+												SIGNAL(mapped(QString)),
+												this,
+												SLOT(slotMenuLoadPreset(QString)));
 	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) finished");
 }
 
@@ -1598,7 +1737,7 @@ void RenderWindow::slotPresetAddToToolbar()
 
 void RenderWindow::slotMenuLoadPreset(QString filename)
 {
-	if(ui->actionRemove_Settings_from_Toolbar->isChecked())
+	if (ui->actionRemove_Settings_from_Toolbar->isChecked())
 	{
 		QFile::remove(filename);
 		slotPopulateToolbar();
@@ -1611,7 +1750,8 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
 		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
-		systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator() + QFileInfo(filename).fileName();
+		systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator()
+				+ QFileInfo(filename).fileName();
 		this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 	}
 }
@@ -1623,7 +1763,7 @@ void RenderWindow::slotQuit()
 
 void RenderWindow::closeEvent(QCloseEvent * event)
 {
-	if(gMainInterface->QuitApplicationDialog())
+	if (gMainInterface->QuitApplicationDialog())
 	{
 		event->accept();
 	}
@@ -1635,43 +1775,40 @@ void RenderWindow::closeEvent(QCloseEvent * event)
 
 void RenderWindow::changeEvent(QEvent* event)
 {
-		if (event->type() == QEvent::LanguageChange)
-		{
-				// retranslate designer form (single inheritance approach)
-				ui->retranslateUi(this);
-		}
+	if (event->type() == QEvent::LanguageChange)
+	{
+		// retranslate designer form (single inheritance approach)
+		ui->retranslateUi(this);
+	}
 
-		// remember to call base class implementation
-		QMainWindow::changeEvent(event);
+	// remember to call base class implementation
+	QMainWindow::changeEvent(event);
 }
 
-void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress, cProgressText::enumProgressType progressType)
+void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
+		double progress, cProgressText::enumProgressType progressType)
 {
 	ui->statusbar->showMessage(text, 0);
 	QProgressBar *progressBar = NULL;
 	bool isQueue = this->sender() && this->sender()->objectName() == "Queue";
-	switch(progressType)
+	switch (progressType)
 	{
 		case cProgressText::progress_IMAGE:
-			if(isQueue)
-				progressBar = gMainInterface->progressBarQueueImage;
-			else
-				progressBar = gMainInterface->progressBar;
-		break;
+			if (isQueue) progressBar = gMainInterface->progressBarQueueImage;
+			else progressBar = gMainInterface->progressBar;
+			break;
 		case cProgressText::progress_ANIMATION:
-			if(isQueue)
-				progressBar = gMainInterface->progressBarQueueAnimation;
-			else
-				progressBar = gMainInterface->progressBarAnimation;
+			if (isQueue) progressBar = gMainInterface->progressBarQueueAnimation;
+			else progressBar = gMainInterface->progressBarAnimation;
 			break;
 		case cProgressText::progress_QUEUE:
 			// nothing to be done, no progress bar for queue in GUI
 			break;
 	}
 
-	if(progressBar)
+	if (progressBar)
 	{
-		if(!progressBar->isVisible())
+		if (!progressBar->isVisible())
 		{
 			progressBar->setVisible(true);
 		}
@@ -1684,18 +1821,22 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 void RenderWindow::slotUpdateProgressHide(cProgressText::enumProgressType progressType)
 {
 	QProgressBar *progressBar = NULL;
-	switch(progressType)
+	switch (progressType)
 	{
-		case cProgressText::progress_IMAGE: progressBar = gMainInterface->progressBar; break;
-		case cProgressText::progress_ANIMATION: progressBar = gMainInterface->progressBarAnimation; break;
+		case cProgressText::progress_IMAGE:
+			progressBar = gMainInterface->progressBar;
+			break;
+		case cProgressText::progress_ANIMATION:
+			progressBar = gMainInterface->progressBarAnimation;
+			break;
 		case cProgressText::progress_QUEUE:
 			// nothing to be done, no progress bar for queue in GUI
 			break;
 	}
 
-	if(progressBar)
+	if (progressBar)
 	{
-		if(progressBar->isVisible()) progressBar->setVisible(false);
+		if (progressBar->isVisible()) progressBar->setVisible(false);
 	}
 }
 
@@ -1742,13 +1883,13 @@ void RenderWindow::slotNetRenderClientDisconnect()
 	gNetRender->DeleteClient();
 }
 
-
 void RenderWindow::slotNetRenderStatusServerUpdate()
 {
 	QString text = CNetRender::GetStatusText(gNetRender->GetStatus());
 	QString color = CNetRender::GetStatusColor(gNetRender->GetStatus());
 	ui->label_netrender_server_status->setText(text);
-	ui->label_netrender_server_status->setStyleSheet("QLabel { color: " + color + "; font-weight: bold; }");
+	ui->label_netrender_server_status->setStyleSheet("QLabel { color: " + color
+			+ "; font-weight: bold; }");
 
 	ui->bu_netrender_start_server->setEnabled(!gNetRender->IsServer());
 	ui->bu_netrender_stop_server->setEnabled(gNetRender->IsServer());
@@ -1759,7 +1900,8 @@ void RenderWindow::slotNetRenderStatusClientUpdate()
 	QString text = CNetRender::GetStatusText(gNetRender->GetStatus());
 	QString color = CNetRender::GetStatusColor(gNetRender->GetStatus());
 	ui->label_netrender_client_status->setText(text);
-	ui->label_netrender_client_status->setStyleSheet("QLabel { color: " + color + "; font-weight: bold; }");
+	ui->label_netrender_client_status->setStyleSheet("QLabel { color: " + color
+			+ "; font-weight: bold; }");
 
 	ui->bu_netrender_connect->setEnabled(!gNetRender->IsClient());
 	ui->bu_netrender_disconnect->setEnabled(gNetRender->IsClient());
@@ -1777,14 +1919,14 @@ void RenderWindow::slotNetRenderClientListUpdate()
 	QTableWidget *table = ui->tableWidget_netrender_connected_clients;
 
 	// reset table
-	if(gNetRender->GetClientCount() == 0)
+	if (gNetRender->GetClientCount() == 0)
 	{
 		table->clear();
 		return;
 	}
 
 	// init table
-	if(table->columnCount() == 0)
+	if (table->columnCount() == 0)
 	{
 		QStringList header;
 		header << tr("Name") << tr("Host") << tr("CPUs") << tr("Status") << tr("Lines done");
@@ -1793,13 +1935,13 @@ void RenderWindow::slotNetRenderClientListUpdate()
 	}
 
 	// change table
-	if(table->rowCount() != gNetRender->GetClientCount())
+	if (table->rowCount() != gNetRender->GetClientCount())
 	{
 		table->setRowCount(gNetRender->GetClientCount());
 	}
 
 	// update table
-	for(int i = 0; i < table->rowCount(); i++)
+	for (int i = 0; i < table->rowCount(); i++)
 	{
 		slotNetRenderClientListUpdate(i);
 	}
@@ -1809,7 +1951,7 @@ void RenderWindow::slotNetRenderClientListUpdate(int i)
 {
 	// update row i
 	QTableWidget *table = ui->tableWidget_netrender_connected_clients;
-	for(int j = 0; j < table->columnCount(); j++)
+	for (int j = 0; j < table->columnCount(); j++)
 	{
 		slotNetRenderClientListUpdate(i, j);
 	}
@@ -1821,17 +1963,23 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 	QTableWidget *table = ui->tableWidget_netrender_connected_clients;
 
 	QTableWidgetItem *cell = table->item(i, j);
-	if(!cell)
+	if (!cell)
 	{
 		cell = new QTableWidgetItem;
 		table->setItem(i, j, cell);
 	}
 
-	switch(j)
+	switch (j)
 	{
-		case 0: cell->setText(gNetRender->GetClient(i).name); break;
-		case 1: cell->setText(gNetRender->GetClient(i).socket->peerAddress().toString()); break;
-		case 2: cell->setText(QString::number(gNetRender->GetClient(i).clientWorkerCount)); break;
+		case 0:
+			cell->setText(gNetRender->GetClient(i).name);
+			break;
+		case 1:
+			cell->setText(gNetRender->GetClient(i).socket->peerAddress().toString());
+			break;
+		case 2:
+			cell->setText(QString::number(gNetRender->GetClient(i).clientWorkerCount));
+			break;
 		case 3:
 		{
 			QString text = CNetRender::GetStatusText(gNetRender->GetClient(i).status);
@@ -1841,22 +1989,25 @@ void RenderWindow::slotNetRenderClientListUpdate(int i, int j)
 			cell->setTextColor(color);
 			// ui->label_netrender_client_status->setStyleSheet("QLabel { background-color: " + color + "; }");
 			// cell->setBackgroundColor(QColor(255, 0, 0));
-		break;
+			break;
 		}
-		case 4: cell->setText(QString::number(gNetRender->GetClient(i).linesRendered)); break;
+		case 4:
+			cell->setText(QString::number(gNetRender->GetClient(i).linesRendered));
+			break;
 	}
 }
 
 void RenderWindow::slotCheckBoxDisableNetRender(bool on)
 {
-	if(!on)
+	if (!on)
 	{
 		gNetRender->DeleteClient();
 		gNetRender->DeleteServer();
 	}
 }
 
-void RenderWindow::slotQuestionMessage(const QString &questionTitle, const QString &questionText, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply)
+void RenderWindow::slotQuestionMessage(const QString &questionTitle, const QString &questionText,
+		QMessageBox::StandardButtons buttons, QMessageBox::StandardButton *reply)
 {
 	*reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, buttons);
 }
@@ -1870,11 +2021,12 @@ void RenderWindow::slotChangeGamepadIndex(int index)
 
 void RenderWindow::slotGamePadDeviceConnected(int index)
 {
-	QString deviceName = ""; // TODO
-	if(deviceName == "") deviceName = "Device #" + QString::number(index);
-	WriteLog("Gamepad - device connected | index: " + QString::number(index) + ", name: " + deviceName);
+	QString deviceName = ""; // TODO gamepad devicename
+	if (deviceName == "") deviceName = "Device #" + QString::number(index);
+	WriteLog("Gamepad - device connected | index: " + QString::number(index) + ", name: "
+			+ deviceName);
 
-	if(ui->comboBox_gamepad_device->count() == 0)
+	if (ui->comboBox_gamepad_device->count() == 0)
 	{
 		ui->comboBox_gamepad_device->setEnabled(true);
 		ui->label_gamepad_no_device->hide();
@@ -1884,16 +2036,18 @@ void RenderWindow::slotGamePadDeviceConnected(int index)
 
 void RenderWindow::slotGamePadDeviceDisconnected(int index)
 {
-	WriteLog("Gamepad - device disconnected | index: " + QString::number(index) + ", name: " + ui->comboBox_gamepad_device->itemText(index));
+	WriteLog("Gamepad - device disconnected | index: " + QString::number(index) + ", name: "
+			+ ui->comboBox_gamepad_device->itemText(index));
 	ui->comboBox_gamepad_device->removeItem(index);
-	if(ui->comboBox_gamepad_device->count() == 0)
+	if (ui->comboBox_gamepad_device->count() == 0)
 	{
 		ui->comboBox_gamepad_device->setEnabled(false);
 		ui->label_gamepad_no_device->show();
 	}
 }
 
-void RenderWindow::slotGamepadPitch(double value) {
+void RenderWindow::slotGamepadPitch(double value)
+{
 	WriteLog("Gamepad - slotGamepadPitch | value: " + QString::number(value));
 	ui->sl_gamepad_angle_pitch->setValue(-100 + 200 * value);
 	CVector2<double> yawPitch(value, gamepad.axisLeftY());
@@ -1901,7 +2055,8 @@ void RenderWindow::slotGamepadPitch(double value) {
 	emit gMainInterface->renderedImage->YawAndPitchChanged(yawPitch);
 }
 
-void RenderWindow::slotGamepadYaw(double value) {
+void RenderWindow::slotGamepadYaw(double value)
+{
 	WriteLog("Gamepad - slotGamepadYaw | value: " + QString::number(value));
 	ui->sl_gamepad_angle_yaw->setValue(-100 + 200 * value);
 	CVector2<double> yawPitch(gamepad.axisLeftX(), value);
@@ -1909,19 +2064,22 @@ void RenderWindow::slotGamepadYaw(double value) {
 	emit gMainInterface->renderedImage->YawAndPitchChanged(yawPitch);
 }
 
-void RenderWindow::slotGamepadRoll() {
+void RenderWindow::slotGamepadRoll()
+{
 	double value = 0.5 + (gamepad.buttonR2() - gamepad.buttonL2()) / 2.0;
 	WriteLog("Gamepad - slotGamepadRoll | value: " + QString::number(value));
 	ui->sl_gamepad_angle_roll->setValue(-100 + 200 * value);
 	emit gMainInterface->renderedImage->RotationChanged(value * 2.0 - 1.0);
 }
 
-void RenderWindow::slotShiftModeChange(bool isShifting) {
+void RenderWindow::slotShiftModeChange(bool isShifting)
+{
 	WriteLog("Gamepad - slotShiftModeChange | value: " + QString::number(isShifting));
 	emit gMainInterface->renderedImage->ShiftModeChanged(isShifting);
 }
 
-void RenderWindow::slotGamepadX(double value) {
+void RenderWindow::slotGamepadX(double value)
+{
 	WriteLog("Gamepad - slotGamepadX | value: " + QString::number(value));
 	ui->sl_gamepad_movement_x->setValue(-100 + 200 * value);
 	CVector2<double> strafe(value, gamepad.axisRightY());
@@ -1929,7 +2087,8 @@ void RenderWindow::slotGamepadX(double value) {
 	emit gMainInterface->renderedImage->StrafeChanged(strafe);
 }
 
-void RenderWindow::slotGamepadY(double value) {
+void RenderWindow::slotGamepadY(double value)
+{
 	WriteLog("Gamepad - slotGamepadY | value: " + QString::number(value));
 	ui->sl_gamepad_movement_y->setValue(-100 + 200 * value);
 	CVector2<double> strafe(gamepad.axisRightX(), value);
@@ -1937,13 +2096,14 @@ void RenderWindow::slotGamepadY(double value) {
 	emit gMainInterface->renderedImage->StrafeChanged(strafe);
 }
 
-void RenderWindow::slotGamepadZ() {
+void RenderWindow::slotGamepadZ()
+{
 	double value = 0.5 + ((gamepad.buttonA() ? 1 : 0) - (gamepad.buttonB() ? 1 : 0)) / 2.0;
 	WriteLog("Gamepad - slotGamepadZ | value: " + QString::number(value));
 	ui->sl_gamepad_movement_z->setValue(-100 + 200 * value);
-	if(gamepad.buttonA() != gamepad.buttonB())
+	if (gamepad.buttonA() != gamepad.buttonB())
 	{
-		if(gamepad.buttonA())
+		if (gamepad.buttonA())
 		{
 			emit gMainInterface->renderedImage->SpeedChanged(1.1);
 		}

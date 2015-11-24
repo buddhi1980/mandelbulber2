@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #include "one_parameter.hpp"
 
 using namespace parameterContainer;
@@ -41,7 +40,7 @@ cOneParameter::~cOneParameter()
 template<class T>
 void cOneParameter::Set(T val, enumValueSelection selection)
 {
-	switch(selection)
+	switch (selection)
 	{
 		case valueActual:
 			actualVal.Store(val);
@@ -76,7 +75,7 @@ T cOneParameter::Get(enumValueSelection selection) const
 	T val = T();
 	actualVal.Get(val);
 
-	switch(selection)
+	switch (selection)
 	{
 		case valueActual:
 			actualVal.Get(val);
@@ -108,7 +107,7 @@ bool cOneParameter::isDefaultValue() const
 
 cMultiVal cOneParameter::GetMultival(enumValueSelection selection)
 {
-	switch(selection)
+	switch (selection)
 	{
 		case valueActual:
 			return actualVal;
@@ -124,7 +123,7 @@ cMultiVal cOneParameter::GetMultival(enumValueSelection selection)
 
 void cOneParameter::SetMultival(cMultiVal multi, enumValueSelection selection)
 {
-	switch(selection)
+	switch (selection)
 	{
 		case valueActual:
 			actualVal = multi;
@@ -145,41 +144,41 @@ void cOneParameter::SetMultival(cMultiVal multi, enumValueSelection selection)
 void cOneParameter::LimitValue(cMultiVal &multi)
 {
 	enumVarType varType = multi.GetDefaultype();
-	switch(varType)
+	switch (varType)
 	{
 		case typeInt:
 		{
-			if(limitsDefined)
+			if (limitsDefined)
 			{
 				int min = Get<int>(valueMin);
 				int max = Get<int>(valueMax);
 				int act = Get<int>(valueActual);
-				if(act < min) multi.Store(min);
-				if(act > max) multi.Store(max);
+				if (act < min) multi.Store(min);
+				if (act > max) multi.Store(max);
 			}
 			break;
 		}
 		case typeDouble:
 		{
-			if(limitsDefined)
+			if (limitsDefined)
 			{
 				double min = Get<double>(valueMin);
 				double max = Get<double>(valueMax);
 				double act = Get<double>(valueActual);
-				if(act < min) multi.Store(min);
-				if(act > max) multi.Store(max);
+				if (act < min) multi.Store(min);
+				if (act > max) multi.Store(max);
 			}
 			break;
 		}
 		case typeRgb:
 		{
 			sRGB actLimited = Get<sRGB>(valueActual);
-			if(actLimited.R < 0) actLimited.R = 0;
-			if(actLimited.R > 65535) actLimited.R = 65535;
-			if(actLimited.G < 0) actLimited.G = 0;
-			if(actLimited.G > 65535) actLimited.G = 65535;
-			if(actLimited.B < 0) actLimited.B = 0;
-			if(actLimited.B > 65535) actLimited.B = 65535;
+			if (actLimited.R < 0) actLimited.R = 0;
+			if (actLimited.R > 65535) actLimited.R = 65535;
+			if (actLimited.G < 0) actLimited.G = 0;
+			if (actLimited.G > 65535) actLimited.G = 65535;
+			if (actLimited.B < 0) actLimited.B = 0;
+			if (actLimited.B > 65535) actLimited.B = 65535;
 			multi.Store(actLimited);
 			break;
 		}

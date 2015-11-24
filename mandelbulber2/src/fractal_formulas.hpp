@@ -26,8 +26,6 @@
 #include "four_fractals.hpp"
 #include "commonparams.hpp"
 
-
-
 void AexionIteration(CVector3 &z, double &w, const cFractal *fractal, sAexionAux &aux);
 void BenesiIteration(CVector3 &z, CVector3 &c);
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
@@ -49,7 +47,7 @@ void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
 void MandelbulbPower2Iteration(CVector3 &z);
-void MengerSponge105Iteration(CVector3 &z, CVector3 &c,double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
+void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void MengerSpongeIteration(CVector3 &z, sIFSAux &aux);
 void MsltoeSym2(CVector3 &z, const cFractal *fractal);
 void PlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
@@ -64,7 +62,5 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &fol
 
 void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
-
-
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

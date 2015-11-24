@@ -26,7 +26,8 @@
 #include "fractparams.hpp"
 #include "common_math.h"
 
-cSSAOWorker::cSSAOWorker(const cParamRender *_params, sThreadData *_threadData, const sRenderData *_data, cImage *_image)
+cSSAOWorker::cSSAOWorker(const cParamRender *_params, sThreadData *_threadData,
+		const sRenderData *_data, cImage *_image)
 {
 	params = _params;
 	data = _data;
@@ -65,7 +66,7 @@ void cSSAOWorker::doWork()
 	int listIndex = 0;
 
 	int step = threadData->progressive;
-	if(step == 0) step = 1;
+	if (step == 0) step = 1;
 
 	for (int y = startLine; y < height; y += threadData->noOfThreads)
 	{
@@ -84,7 +85,7 @@ void cSSAOWorker::doWork()
 				listIndex++;
 			}
 		}
-		for (int x = 0; x < width; x+=step)
+		for (int x = 0; x < width; x += step)
 		{
 			double z = image->GetPixelZBuffer(x, y);
 			unsigned short opacity16 = image->GetPixelOpacity(x, y);
@@ -126,7 +127,7 @@ void cSSAOWorker::doWork()
 				for (int angle = 0; angle < quality; angle++)
 				{
 					double ca, sa;
-					if(params->SSAO_random_mode)
+					if (params->SSAO_random_mode)
 					{
 						double angle = Random(62831) / 10000.0;
 						ca = cos(angle);
@@ -197,15 +198,17 @@ void cSSAOWorker::doWork()
 
 			}
 
-
 			for (int xx = 0; xx < step; xx++)
 			{
 				if (xx >= width - 1) break;
 				sRGB8 colour = image->GetPixelColor(x + xx, y);
 				sRGB16 pixel = image->GetPixelImage16(x + xx, y);
-				double R = pixel.R + 65535.0 * colour.R / 256.0 * total_ambient * intensity * (1.0 - opacity);
-				double G = pixel.G + 65535.0 * colour.G / 256.0 * total_ambient * intensity * (1.0 - opacity);
-				double B = pixel.B + 65535.0 * colour.B / 256.0 * total_ambient * intensity * (1.0 - opacity);
+				double R = pixel.R
+						+ 65535.0 * colour.R / 256.0 * total_ambient * intensity * (1.0 - opacity);
+				double G = pixel.G
+						+ 65535.0 * colour.G / 256.0 * total_ambient * intensity * (1.0 - opacity);
+				double B = pixel.B
+						+ 65535.0 * colour.B / 256.0 * total_ambient * intensity * (1.0 - opacity);
 				if (R > 65535) R = 65535;
 				if (G > 65535) G = 65535;
 				if (B > 65535) B = 65535;
@@ -216,11 +219,11 @@ void cSSAOWorker::doWork()
 				image->PutPixelImage16(x + xx, y, pixel);
 			}
 
-}
+		}
 
 		threadData->done++;
 
-		if(threadData->stopRequest)	break;
+		if (threadData->stopRequest) break;
 	}
 	delete[] sine;
 	delete[] cosine;

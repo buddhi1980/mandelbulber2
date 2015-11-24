@@ -38,7 +38,6 @@ enum enumPerspectiveType
 	threePoint = 0, fishEye = 1, equirectangular = 2, fishEyeCut = 3
 };
 
-
 enum enumFractalFormula
 {
 	none = 0,
@@ -111,9 +110,7 @@ enum enumObjectType
 
 enum enumOCLDEMode
 {
-	calculated = 0,
-	deltaDE = 1,
-	noDE = 2
+	calculated = 0, deltaDE = 1, noDE = 2
 };
 
 struct sFractalIFSD
@@ -265,7 +262,7 @@ struct sFractal
 {
 	sFractalD doubles;
 
-	  // maximum number of iterations
+	// maximum number of iterations
 	int minN;	  // minimum number of iterations
 
 	bool limits_enabled; // enable limits (intersections)
@@ -307,20 +304,20 @@ struct sFractal
 
 struct sImageAdjustments
 {
-  double shading;
-  double directLight;
-  double ambient;
-  double specular;
-  double reflect;
-  double globalIlum;
-  double brightness;
-  double glow_intensity;
-  double fogVisibility;
-  double coloring_speed;
-  double imageGamma;
-  double paletteOffset;
-  double mainLightIntensity;
-  double contrast;
+	double shading;
+	double directLight;
+	double ambient;
+	double specular;
+	double reflect;
+	double globalIlum;
+	double brightness;
+	double glow_intensity;
+	double fogVisibility;
+	double coloring_speed;
+	double imageGamma;
+	double paletteOffset;
+	double mainLightIntensity;
+	double contrast;
 };
 
 struct sParamRenderD
@@ -390,7 +387,6 @@ struct sEffectColours
 	sRGB fogColor;
 	sRGB mainLightColour;
 };
-
 
 struct sParamRender
 {

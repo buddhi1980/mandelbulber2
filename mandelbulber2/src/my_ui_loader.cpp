@@ -34,41 +34,41 @@ MyUiLoader::~MyUiLoader()
 
 QWidget* MyUiLoader::createWidget(const QString &className, QWidget *parent, const QString &name)
 {
-  QWidget* widget = NULL;
+	QWidget* widget = NULL;
 
-  if(className == QString("MyLineEdit"))
-  {
-  	widget = new MyLineEdit(parent);
-  	widget->setObjectName(name);
-  }
-  else if(className == QString("MySpinBox"))
-  {
-  	widget = new MySpinBox(parent);
-  	widget->setObjectName(name);
-  }
-  else if(className == QString("MyDoubleSpinBox"))
-  {
-  	widget = new MyDoubleSpinBox(parent);
-  	widget->setObjectName(name);
-  }
-  else if(className == QString("MyCheckBox"))
-  {
-  	widget = new MyCheckBox(parent);
-  	widget->setObjectName(name);
+	if (className == QString("MyLineEdit"))
+	{
+		widget = new MyLineEdit(parent);
+		widget->setObjectName(name);
 	}
-	else if(className == QString("MyGroupBox"))
+	else if (className == QString("MySpinBox"))
+	{
+		widget = new MySpinBox(parent);
+		widget->setObjectName(name);
+	}
+	else if (className == QString("MyDoubleSpinBox"))
+	{
+		widget = new MyDoubleSpinBox(parent);
+		widget->setObjectName(name);
+	}
+	else if (className == QString("MyCheckBox"))
+	{
+		widget = new MyCheckBox(parent);
+		widget->setObjectName(name);
+	}
+	else if (className == QString("MyGroupBox"))
 	{
 		widget = new MyGroupBox(parent);
 		widget->setObjectName(name);
 	}
-	else if(className == QString("MyColorButton"))
+	else if (className == QString("MyColorButton"))
 	{
 		widget = new MyColorButton(parent);
 		widget->setObjectName(name);
 	}
-  else
-  {
-  	widget = QUiLoader::createWidget(className, parent, name);
+	else
+	{
+		widget = QUiLoader::createWidget(className, parent, name);
 	}
-  return widget;
+	return widget;
 }

@@ -28,53 +28,87 @@
 #include "error_message.hpp"
 #include "render_queue.hpp"
 
-cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const QString &_queueFolder, QObject *parent) : QObject(parent), mainInterface(_interface)
+cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
+		const QString &_queueFolder, QObject *parent) :
+		QObject(parent), mainInterface(_interface)
 {
 	//initializes queue and create necessary files and folders
 	queueListFileName = _queueListFileName;
 	queueFolder = _queueFolder;
 
-	if(!QFile::exists(queueFolder) && !CreateDirectory(queueFolder)){
+	if (!QFile::exists(queueFolder) && !CreateDirectory(queueFolder))
+	{
 		throw QString("cannot init queueListFileName folder to: " + queueFolder);
 	}
 
-	if(!QFile::exists(queueListFileName)){
+	if (!QFile::exists(queueListFileName))
+	{
 		QFile file(queueListFileName);
-		if (file.open(QIODevice::WriteOnly)) {
+		if (file.open(QIODevice::WriteOnly))
+		{
 			QTextStream stream(&file);
 			stream << "#\n# Mandelbulber queue file\n#\n";
 			file.close();
 		}
-		else
-			throw QString("cannot init queueListFileName to: " + queueListFileName);
+		else throw QString("cannot init queueListFileName to: " + queueListFileName);
 	}
 
 	// watch queue folder and the queue file in the filesystem
 	queueFileWatcher.addPath(queueListFileName);
 	queueFolderWatcher.addPath(queueFolder);
-	QApplication::connect(&queueFileWatcher, SIGNAL(fileChanged(const QString&)), this, SLOT(queueFileChanged(const QString&)));
-	QApplication::connect(&queueFolderWatcher, SIGNAL(directoryChanged(const QString&)), this, SLOT(queueFolderChanged(const QString&)));
+	QApplication::connect(&queueFileWatcher,
+												SIGNAL(fileChanged(const QString&)),
+												this,
+												SLOT(queueFileChanged(const QString&)));
+	QApplication::connect(&queueFolderWatcher,
+												SIGNAL(directoryChanged(const QString&)),
+												this,
+												SLOT(queueFolderChanged(const QString&)));
 
 	UpdateListFromQueueFile();
 	UpdateListFromFileSystem();
 
 	image = new cImage(200, 200);
 
-	if(mainInterface->mainWindow)
+	if (mainInterface->mainWindow)
 	{
 		ui = mainInterface->mainWindow->ui;
 		//Queue
-		QApplication::connect(ui->pushButton_queue_add_current_settings, SIGNAL(clicked()), this, SLOT(slotQueueAddCurrentSettings()));
-		QApplication::connect(ui->pushButton_queue_add_from_file, SIGNAL(clicked()), this, SLOT(slotQueueAddFromFile()));
-		QApplication::connect(ui->pushButton_queue_add_orphaned, SIGNAL(clicked()), this, SLOT(slotQueueAddOrphaned()));
-		QApplication::connect(ui->pushButton_queue_remove_orphaned, SIGNAL(clicked()), this, SLOT(slotQueueRemoveOrphaned()));
-		QApplication::connect(ui->pushButton_queue_render_queue, SIGNAL(clicked()), this, SLOT(slotQueueRender()));
-		QApplication::connect(ui->pushButton_queue_stop_rendering, SIGNAL(clicked()), this, SLOT(slotStopRequest()));
-		QApplication::connect(ui->checkBox_show_queue_thumbnails, SIGNAL(stateChanged(int)), this, SLOT(slotShowQueueThumbsChanges(int)));
+		QApplication::connect(ui->pushButton_queue_add_current_settings,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotQueueAddCurrentSettings()));
+		QApplication::connect(ui->pushButton_queue_add_from_file,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotQueueAddFromFile()));
+		QApplication::connect(ui->pushButton_queue_add_orphaned,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotQueueAddOrphaned()));
+		QApplication::connect(ui->pushButton_queue_remove_orphaned,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotQueueRemoveOrphaned()));
+		QApplication::connect(ui->pushButton_queue_render_queue,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotQueueRender()));
+		QApplication::connect(ui->pushButton_queue_stop_rendering,
+													SIGNAL(clicked()),
+													this,
+													SLOT(slotStopRequest()));
+		QApplication::connect(ui->checkBox_show_queue_thumbnails,
+													SIGNAL(stateChanged(int)),
+													this,
+													SLOT(slotShowQueueThumbsChanges(int)));
 
 		QApplication::connect(this, SIGNAL(queueChanged()), this, SLOT(slotQueueListUpdate()));
 		QApplication::connect(this, SIGNAL(queueChanged(int)), this, SLOT(slotQueueListUpdate(int)));
-		QApplication::connect(this, SIGNAL(queueChanged(int, int)), this, SLOT(slotQueueListUpdate(int, int)));
+		QApplication::connect(this,
+													SIGNAL(queueChanged(int, int)),
+													this,
+													SLOT(slotQueueListUpdate(int, int)));
 
 		renderedImageWidget = new RenderedImage;
 		renderedImageWidget->SetCursorVisibility(false);
@@ -96,7 +130,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName, const 
 cQueue::~cQueue()
 {
 	delete image;
-	if(renderedImageWidget) delete renderedImageWidget;
+	if (renderedImageWidget) delete renderedImageWidget;
 }
 
 void cQueue::Append(const QString &filename, enumRenderType renderType)
@@ -108,7 +142,8 @@ void cQueue::Append(const QString &filename, enumRenderType renderType)
 		parSettings.BeQuiet(true);
 		if (parSettings.LoadFromFile(filename))
 		{
-			QString filenameQueue = "queue_" + QFileInfo(filename).completeBaseName() + "_" + parSettings.GetHashCode() + ".fract";
+			QString filenameQueue = "queue_" + QFileInfo(filename).completeBaseName() + "_"
+					+ parSettings.GetHashCode() + ".fract";
 			QString completeFileName = queueFolder + QDir::separator() + filenameQueue;
 			parSettings.SaveToFile(completeFileName);
 			AddToList(structQueueItem(completeFileName, renderType));
@@ -122,13 +157,15 @@ void cQueue::Append(enumRenderType renderType)
 	Append(gPar, gParFractal, gAnimFrames, gKeyframes, renderType);
 }
 
-void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes, enumRenderType renderType)
+void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames,
+		cKeyframes *keyframes, enumRenderType renderType)
 {
 	//add settings to queue
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(par, fractPar, frames, keyframes);
 	QFileInfo fi();
-	QString filename = "queue_" + QFileInfo(systemData.lastSettingsFile).completeBaseName() + "_" + parSettings.GetHashCode() + ".fract";
+	QString filename = "queue_" + QFileInfo(systemData.lastSettingsFile).completeBaseName() + "_"
+			+ parSettings.GetHashCode() + ".fract";
 	QString completeFileName = queueFolder + QDir::separator() + filename;
 	parSettings.SaveToFile(completeFileName);
 	AddToList(structQueueItem(completeFileName, renderType));
@@ -148,14 +185,14 @@ void cQueue::AppendList(const QString &filename)
 			while (!in.atEnd())
 			{
 				QString line = in.readLine().trimmed();
-				if(line.startsWith("#") || line == "") continue;
+				if (line.startsWith("#") || line == "") continue;
 				QRegularExpression reType("^(.*?\\.fract)\\s*(STILL|KEYFRAME|FLIGHT)?$");
 				QRegularExpressionMatch matchType = reType.match(line);
 				if (matchType.hasMatch())
 				{
-					structQueueItem queueItem = structQueueItem(matchType.captured(1), GetTypeEnum(matchType.captured(2)));
-					if(!queueListFromFile.contains(queueItem))
-						queueListFromFile << queueItem;
+					structQueueItem queueItem = structQueueItem(matchType.captured(1),
+																											GetTypeEnum(matchType.captured(2)));
+					if (!queueListFromFile.contains(queueItem)) queueListFromFile << queueItem;
 				}
 				else qWarning() << "wrong format in line: " << line;
 			}
@@ -170,18 +207,18 @@ void cQueue::AppendFolder(const QString &filename)
 {
 	//add all entries from folder given with filename to current list
 	QDir fractDir = QDir(filename);
-	if(fractDir.exists())
+	if (fractDir.exists())
 	{
 		QStringList fractFileExtensions;
 		fractFileExtensions << "*.fract";
 		fractDir.setNameFilters(fractFileExtensions);
 		QStringList fractFiles = fractDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
-		for(int i = 0; i < fractFiles.size(); i++)
+		for (int i = 0; i < fractFiles.size(); i++)
 		{
 			mutex.lock();
-			structQueueItem queueItem = structQueueItem(filename + QDir::separator() + fractFiles.at(i), queue_STILL);
-			if(!queueListFromFile.contains(queueItem))
-				queueListFromFile << queueItem;
+			structQueueItem queueItem = structQueueItem(filename + QDir::separator() + fractFiles.at(i),
+																									queue_STILL);
+			if (!queueListFromFile.contains(queueItem)) queueListFromFile << queueItem;
 			mutex.unlock();
 		}
 		StoreList();
@@ -194,11 +231,12 @@ bool cQueue::Get()
 	return Get(gPar, gParFractal, gAnimFrames, gKeyframes);
 }
 
-bool cQueue::Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames, cKeyframes *keyframes)
+bool cQueue::Get(cParameterContainer *par, cFractalContainer *fractPar, cAnimationFrames *frames,
+		cKeyframes *keyframes)
 {
 	//get next fractal from queue
 	structQueueItem queueItem = GetNextFromList();
-	if(queueItem.filename == "") return false; // reached end of list
+	if (queueItem.filename == "") return false; // reached end of list
 	cSettings parSettings(cSettings::formatCondensedText);
 
 	if (parSettings.LoadFromFile(queueItem.filename))
@@ -213,10 +251,10 @@ QStringList cQueue::RemoveOrphanedFiles()
 	// find and delete files which are not on the list
 	mutex.lock();
 	QStringList removeList;
-	for(int i = 0; i < queueListFileSystem.size(); i++)
+	for (int i = 0; i < queueListFileSystem.size(); i++)
 	{
 		structQueueItem queueItem = structQueueItem(queueListFileSystem.at(i), queue_STILL);
-		if(!queueListFromFile.contains(queueItem))
+		if (!queueListFromFile.contains(queueItem))
 		{
 			removeList << queueListFileSystem[i];
 			RemoveFromFileSystem(queueListFileSystem[i]);
@@ -233,10 +271,10 @@ QStringList cQueue::AddOrphanedFilesToList()
 	mutex.lock();
 	// qDebug() << "add orphaned";
 	QStringList appendList;
-	for(int i = 0; i < queueListFileSystem.size(); i++)
+	for (int i = 0; i < queueListFileSystem.size(); i++)
 	{
 		structQueueItem queueItem = structQueueItem(queueListFileSystem.at(i), queue_STILL);
-		if(!queueListFromFile.contains(queueItem))
+		if (!queueListFromFile.contains(queueItem))
 		{
 			appendList << queueListFileSystem.at(i);
 			queueListFromFile << queueItem;
@@ -244,7 +282,7 @@ QStringList cQueue::AddOrphanedFilesToList()
 	}
 	mutex.unlock();
 
-	if(appendList.size() > 0)
+	if (appendList.size() > 0)
 	{
 		StoreList();
 	}
@@ -256,7 +294,7 @@ cQueue::structQueueItem cQueue::GetNextFromList()
 {
 	//gives next filename
 	mutex.lock();
-	if(queueListFromFile.size() > 0)
+	if (queueListFromFile.size() > 0)
 	{
 		cQueue::structQueueItem item = queueListFromFile.at(0);
 		mutex.unlock();
@@ -270,7 +308,7 @@ void cQueue::AddToList(const structQueueItem &queueItem)
 {
 	//add filename to the end of list
 	mutex.lock();
-	if(queueListFromFile.contains(queueItem))
+	if (queueListFromFile.contains(queueItem))
 	{
 		qWarning() << "Entry already exists";
 		mutex.unlock();
@@ -284,8 +322,8 @@ void cQueue::AddToList(const structQueueItem &queueItem)
 void cQueue::SwapQueueItem(int i, int j)
 {
 	mutex.lock();
-	if(i >= 0 && j >= 0 && i < queueListFileName.size() -1 && j < queueListFileName.size() - 1)
-		queueListFromFile.swap(i, j);
+	if (i >= 0 && j >= 0 && i < queueListFileName.size() - 1 && j < queueListFileName.size() - 1) queueListFromFile.swap(i,
+																																																											 j);
 	mutex.unlock();
 	StoreList();
 }
@@ -304,9 +342,9 @@ void cQueue::RemoveQueueItem(const structQueueItem queueItem)
 	RemoveFromList(queueItem);
 	// check if fract file is still on the list (one file with different renderTypes)
 	mutex.lock();
-	for(int i = 0; i < queueListFromFile.size(); i++)
+	for (int i = 0; i < queueListFromFile.size(); i++)
 	{
-		if(queueListFromFile.at(i).filename == queueItem.filename)
+		if (queueListFromFile.at(i).filename == queueItem.filename)
 		{
 			mutex.unlock();
 			return;
@@ -349,13 +387,14 @@ void cQueue::StoreList()
 {
 	mutex.lock();
 	QFile file(queueListFileName);
-	if(file.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
+	if (file.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
 	{
 		QTextStream stream(&file);
 		stream << "#\n# Mandelbulber queue file\n#\n";
-		for(int i = 0; i < queueListFromFile.size(); i++)
+		for (int i = 0; i < queueListFromFile.size(); i++)
 		{
-			stream << queueListFromFile.at(i).filename << " " << GetTypeText(queueListFromFile.at(i).renderType) << endl;
+			stream << queueListFromFile.at(i).filename << " "
+					<< GetTypeText(queueListFromFile.at(i).renderType) << endl;
 		}
 	}
 	file.close();
@@ -365,7 +404,7 @@ void cQueue::StoreList()
 void cQueue::RemoveFromFileSystem(const QString &filename)
 {
 	//remove queue file from filesystem
-	if(filename.startsWith(queueFolder + QDir::separator()))
+	if (filename.startsWith(queueFolder + QDir::separator()))
 	{
 		QFile::remove(filename);
 	}
@@ -374,42 +413,51 @@ void cQueue::RemoveFromFileSystem(const QString &filename)
 cQueue::enumRenderType cQueue::GetTypeEnum(const QString &queueText)
 {
 	enumRenderType renderType;
-	if(queueText == "STILL") renderType = queue_STILL;
-	else if(queueText == "KEYFRAME") renderType = queue_KEYFRAME;
-	else if(queueText == "FLIGHT") renderType = queue_FLIGHT;
+	if (queueText == "STILL") renderType = queue_STILL;
+	else if (queueText == "KEYFRAME") renderType = queue_KEYFRAME;
+	else if (queueText == "FLIGHT") renderType = queue_FLIGHT;
 	else renderType = queue_STILL;
 	return renderType;
 }
 
 QString cQueue::GetTypeText(enumRenderType queueType)
 {
-	switch(queueType)
+	switch (queueType)
 	{
-		case cQueue::queue_STILL: return "STILL";
-		case cQueue::queue_FLIGHT: return "FLIGHT";
-		case cQueue::queue_KEYFRAME: return "KEYFRAME";
+		case cQueue::queue_STILL:
+			return "STILL";
+		case cQueue::queue_FLIGHT:
+			return "FLIGHT";
+		case cQueue::queue_KEYFRAME:
+			return "KEYFRAME";
 	}
 	return "STILL";
 }
 
 QString cQueue::GetTypeName(enumRenderType queueType)
 {
-	switch(queueType)
+	switch (queueType)
 	{
-		case cQueue::queue_STILL: return tr("STILL");
-		case cQueue::queue_FLIGHT: return tr("FLIGHT");
-		case cQueue::queue_KEYFRAME: return tr("KEYFRAME");
+		case cQueue::queue_STILL:
+			return tr("STILL");
+		case cQueue::queue_FLIGHT:
+			return tr("FLIGHT");
+		case cQueue::queue_KEYFRAME:
+			return tr("KEYFRAME");
 	}
 	return tr("STILL");
 }
 
 QString cQueue::GetTypeColor(enumRenderType queueType)
 {
-	switch(queueType)
+	switch (queueType)
 	{
-		case cQueue::queue_STILL: return "darkgrey";
-		case cQueue::queue_FLIGHT: return "green";
-		case cQueue::queue_KEYFRAME: return "darkblue";
+		case cQueue::queue_STILL:
+			return "darkgrey";
+		case cQueue::queue_FLIGHT:
+			return "green";
+		case cQueue::queue_KEYFRAME:
+			return "darkblue";
 	}
 	return "red";
 }
@@ -417,7 +465,7 @@ QString cQueue::GetTypeColor(enumRenderType queueType)
 void cQueue::queueFileChanged(const QString &path)
 {
 	// qDebug() << "queueFileChanged";
-	if(path == queueListFileName)
+	if (path == queueListFileName)
 	{
 		UpdateListFromQueueFile();
 	}
@@ -426,7 +474,7 @@ void cQueue::queueFileChanged(const QString &path)
 void cQueue::queueFolderChanged(const QString &path)
 {
 	// qDebug() << "queueFolderChanged";
-	if(path == queueFolder)
+	if (path == queueFolder)
 	{
 		UpdateListFromFileSystem();
 	}
@@ -444,12 +492,13 @@ void cQueue::UpdateListFromQueueFile()
 		while (!in.atEnd())
 		{
 			QString line = in.readLine().trimmed();
-			if(line.startsWith("#") || line == "") continue;
+			if (line.startsWith("#") || line == "") continue;
 			QRegularExpression reType("^(.*?\\.fract)\\s*(STILL|KEYFRAME|FLIGHT)?$");
 			QRegularExpressionMatch matchType = reType.match(line);
 			if (matchType.hasMatch())
 			{
-				queueListFromFile << structQueueItem(matchType.captured(1), GetTypeEnum(matchType.captured(2)));
+				queueListFromFile
+						<< structQueueItem(matchType.captured(1), GetTypeEnum(matchType.captured(2)));
 			}
 			else qWarning() << "wrong format in line: " << line;
 		}
@@ -464,7 +513,7 @@ void cQueue::UpdateListFromFileSystem()
 	mutex.lock();
 	queueListFileSystem = QDir(queueFolder).entryList(QDir::NoDotAndDotDot | QDir::Files);
 	// make paths absolute
-	for(int i = 0; i < queueListFileSystem.size(); i++)
+	for (int i = 0; i < queueListFileSystem.size(); i++)
 	{
 		queueListFileSystem[i] = queueFolder + QDir::separator() + queueListFileSystem.at(i);
 	}
@@ -479,16 +528,27 @@ void cQueue::RenderQueue()
 	renderQueue->setObjectName("Queue");
 	QObject::connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));
 	QObject::connect(renderQueue, SIGNAL(finished()), renderQueue, SLOT(deleteLater()));
-	if(gMainInterface->mainWindow){
-		QObject::connect(renderQueue, SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
-			gMainInterface->mainWindow, SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
-		QObject::connect(renderQueue, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
-			gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+	if (gMainInterface->mainWindow)
+	{
+		QObject::connect(renderQueue,
+										 SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
+										 gMainInterface->mainWindow,
+										 SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
+		QObject::connect(renderQueue,
+										 SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+										 gMainInterface->mainWindow,
+										 SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	}
-	if(gMainInterface->headless){
-		QObject::connect(renderQueue, SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
-			gMainInterface->headless, SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
-		QObject::connect(renderQueue, SIGNAL(updateStatistics(cStatistics)), gMainInterface->headless, SLOT(slotUpdateStatistics(cStatistics)));
+	if (gMainInterface->headless)
+	{
+		QObject::connect(renderQueue,
+										 SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
+										 gMainInterface->headless,
+										 SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
+		QObject::connect(renderQueue,
+										 SIGNAL(updateStatistics(cStatistics)),
+										 gMainInterface->headless,
+										 SLOT(slotUpdateStatistics(cStatistics)));
 	}
 	QObject::connect(renderQueue, SIGNAL(finished()), thread, SLOT(quit()));
 	QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
@@ -501,17 +561,21 @@ void cQueue::RenderQueue()
 
 void cQueue::slotQueueRender()
 {
-	if(!systemData.noGui)
+	if (!systemData.noGui)
 	{
-		gMainInterface->SynchronizeInterfaceWindow(gMainInterface->mainWindow->ui->dockWidget_queue_dock, gPar, cInterface::read);
+		gMainInterface->SynchronizeInterfaceWindow(gMainInterface->mainWindow->ui->dockWidget_queue_dock,
+																							 gPar,
+																							 cInterface::read);
 	}
-	if(queueListFromFile.size() > 0)
+	if (queueListFromFile.size() > 0)
 	{
 		RenderQueue();
 	}
 	else
 	{
-		cErrorMessage::showMessage(QObject::tr("No queue items to render"), cErrorMessage::errorMessage, NULL);
+		cErrorMessage::showMessage(QObject::tr("No queue items to render"),
+															 cErrorMessage::errorMessage,
+															 NULL);
 	}
 }
 
@@ -527,12 +591,13 @@ void cQueue::slotQueueAddFromFile()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings" + QDir::separator());
+	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings"
+			+ QDir::separator());
 	dialog.selectFile(systemData.lastSettingsFile);
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Add file to queue..."));
 	QStringList filenames;
-	if(dialog.exec())
+	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = filenames.first();
@@ -571,7 +636,7 @@ void cQueue::slotQueueMoveItemDown()
 void cQueue::slotQueueTypeChanged(int index)
 {
 	QString buttonName = this->sender()->objectName();
-	UpdateQueueItemType(buttonName.toInt(), (cQueue::enumRenderType)index);
+	UpdateQueueItemType(buttonName.toInt(), (cQueue::enumRenderType) index);
 }
 
 void cQueue::slotQueueListUpdate()
@@ -579,14 +644,14 @@ void cQueue::slotQueueListUpdate()
 	QTableWidget *table = ui->tableWidget_queue_list;
 
 	// reset table
-	if(GetListFromQueueFile().size() == 0)
+	if (GetListFromQueueFile().size() == 0)
 	{
 		table->clear();
 		return;
 	}
 
 	// init table
-	if(table->columnCount() == 0)
+	if (table->columnCount() == 0)
 	{
 		QStringList header;
 		header << tr("Name") << tr("Preview") << tr("Type") << tr("Action");
@@ -595,13 +660,13 @@ void cQueue::slotQueueListUpdate()
 	}
 
 	// change table
-	if(table->rowCount() != GetListFromQueueFile().size())
+	if (table->rowCount() != GetListFromQueueFile().size())
 	{
 		table->setRowCount(GetListFromQueueFile().size());
 	}
 
 	// update table
-	for(int i = 0; i < table->rowCount(); i++)
+	for (int i = 0; i < table->rowCount(); i++)
 	{
 		slotQueueListUpdate(i);
 	}
@@ -612,7 +677,7 @@ void cQueue::slotQueueListUpdate(int i)
 	// update row i
 	QTableWidget *table = ui->tableWidget_queue_list;
 	table->setRowHeight(i, 70);
-	for(int j = 0; j < table->columnCount(); j++)
+	for (int j = 0; j < table->columnCount(); j++)
 	{
 		slotQueueListUpdate(i, j);
 	}
@@ -624,23 +689,27 @@ void cQueue::slotQueueListUpdate(int i, int j)
 	QTableWidget *table = ui->tableWidget_queue_list;
 	table->blockSignals(true);
 	QTableWidgetItem *cell = table->item(i, j);
-	if(!cell)
+	if (!cell)
 	{
 		cell = new QTableWidgetItem;
 		table->setItem(i, j, cell);
 	}
 	QList<cQueue::structQueueItem> queueList = GetListFromQueueFile();
-	switch(j)
+	switch (j)
 	{
-		case 0: cell->setText(queueList.at(i).filename); break;
-		case 1: {
-			if(ui->checkBox_show_queue_thumbnails->isChecked())
+		case 0:
+			cell->setText(queueList.at(i).filename);
+			break;
+		case 1:
+		{
+			if (ui->checkBox_show_queue_thumbnails->isChecked())
 			{
 				cParameterContainer tempPar = *gPar;
 				cFractalContainer tempFract = *gParFractal;
 				cSettings parSettings(cSettings::formatFullText);
 				parSettings.BeQuiet(true);
-				if (parSettings.LoadFromFile(queueList.at(i).filename) && parSettings.Decode(&tempPar, &tempFract))
+				if (parSettings.LoadFromFile(queueList.at(i).filename)
+						&& parSettings.Decode(&tempPar, &tempFract))
 				{
 					cThumbnailWidget *thumbWidget = (cThumbnailWidget*) table->cellWidget(i, j);
 					if (!thumbWidget)
@@ -668,7 +737,10 @@ void cQueue::slotQueueListUpdate(int i, int j)
 			typeComboBox->setCurrentIndex(queueList.at(i).renderType);
 
 			typeComboBox->setObjectName(QString::number(i));
-			QObject::connect(typeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQueueTypeChanged(int)));
+			QObject::connect(typeComboBox,
+											 SIGNAL(currentIndexChanged(int)),
+											 this,
+											 SLOT(slotQueueTypeChanged(int)));
 			table->setCellWidget(i, j, typeComboBox);
 			// cell->setTextColor(color);
 			break;
@@ -698,8 +770,8 @@ void cQueue::slotQueueListUpdate(int i, int j)
 			gridlayout->addWidget(actionDelete, 0, 1);
 			gridlayout->setSpacing(0);
 
-			if(i == 0) actionMoveUp->setEnabled(false);
-			if(i == queueList.size() - 1) actionMoveDown->setEnabled(false);
+			if (i == 0) actionMoveUp->setEnabled(false);
+			if (i == queueList.size() - 1) actionMoveDown->setEnabled(false);
 			frame->setLayout(gridlayout);
 			table->setCellWidget(i, j, frame);
 			break;
@@ -723,6 +795,6 @@ int cQueue::GetQueueSize()
 
 void cQueue::slotShowQueueThumbsChanges(int state)
 {
-	(void)state;
+	(void) state;
 	slotQueueListUpdate();
 }

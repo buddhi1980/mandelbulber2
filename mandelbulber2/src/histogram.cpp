@@ -38,7 +38,7 @@ cHistogram::cHistogram(int size)
 
 cHistogram::~cHistogram()
 {
-	if(data) delete[] data;
+	if (data) delete[] data;
 	data = NULL;
 }
 
@@ -50,7 +50,7 @@ cHistogram::cHistogram(const cHistogram &source)
 
 cHistogram& cHistogram::operator=(const cHistogram &source)
 {
-	if(this != &source)
+	if (this != &source)
 	{
 		Copy(source);
 	}
@@ -59,7 +59,7 @@ cHistogram& cHistogram::operator=(const cHistogram &source)
 
 void cHistogram::Resize(int size)
 {
-	if(data) delete[] data;
+	if (data) delete[] data;
 	data = NULL;
 	Alloc(size);
 }
@@ -70,7 +70,7 @@ void cHistogram::Alloc(int size)
 	histSize = size;
 	count = 0;
 	sum = 0;
-	for(int i = 0; i <= histSize; i++)
+	for (int i = 0; i <= histSize; i++)
 	{
 		data[i] = 0;
 	}
@@ -78,7 +78,7 @@ void cHistogram::Alloc(int size)
 
 long cHistogram::GetHist(int index) const
 {
-	if(index >= 0 && index < histSize)
+	if (index >= 0 && index < histSize)
 	{
 		return data[index];
 	}
@@ -95,7 +95,7 @@ void cHistogram::Copy(const cHistogram &source)
 	count = source.count;
 	sum = source.sum;
 
-	for(int i=0; i < histSize; i++)
+	for (int i = 0; i < histSize; i++)
 	{
 		data[i] = source.data[i];
 	}
@@ -103,7 +103,7 @@ void cHistogram::Copy(const cHistogram &source)
 
 void cHistogram::Clear()
 {
-	for(int i = 0; i <= histSize; i++)
+	for (int i = 0; i <= histSize; i++)
 	{
 		data[i] = 0;
 	}

@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #ifndef CALCULATE_DISTANCE_HPP_
 #define CALCULATE_DISTANCE_HPP_
 
@@ -34,7 +33,9 @@ struct sDistanceIn
 	double detailSize;
 	bool normalCalculationMode;
 	sDistanceIn(CVector3 _point, double _detailSize, bool _normalCalculationMode) :
-			point(_point), detailSize(_detailSize), normalCalculationMode(_normalCalculationMode) {};
+					point(_point), detailSize(_detailSize), normalCalculationMode(_normalCalculationMode)
+	{
+	}
 };
 
 struct sDistanceOut
@@ -50,7 +51,9 @@ struct sDistanceOut
 	bool maxiter;
 };
 
-double CalculateDistance(const cParamRender &params, const cFourFractals &four, const sDistanceIn &in, sDistanceOut *out);
-double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &four, const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
+double CalculateDistance(const cParamRender &params, const cFourFractals &four,
+		const sDistanceIn &in, sDistanceOut *out);
+double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &four,
+		const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
 
 #endif /* CALCULATE_DISTANCE_HPP_ */

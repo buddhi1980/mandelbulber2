@@ -27,12 +27,16 @@
 
 class MyUiLoader: public QUiLoader
 {
-	 Q_OBJECT
+Q_OBJECT
 public:
-	MyUiLoader(QObject *parent = 0) : QUiLoader(parent) {}
+	MyUiLoader(QObject *parent = 0) :
+			QUiLoader(parent)
+	{
+	}
 	~MyUiLoader();
 
-	virtual QWidget* createWidget(const QString &className, QWidget *parent = 0, const QString &name = QString());
+	virtual QWidget* createWidget(const QString &className, QWidget *parent = 0, const QString &name =
+			QString());
 };
 
 #endif /* MYUILOADER_H_ */

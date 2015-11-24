@@ -24,11 +24,11 @@
 
 cStatistics::cStatistics()
 {
-  totalNumberOfIterations = 0;
-  missedDE = 0;
-  numberOfRaymarchings = 0;
-  numberOfRenderedPixels = 0;
-  time = 0.0;
+	totalNumberOfIterations = 0;
+	missedDE = 0;
+	numberOfRaymarchings = 0;
+	numberOfRenderedPixels = 0;
+	time = 0.0;
 }
 
 cStatistics::~cStatistics()
@@ -37,11 +37,11 @@ cStatistics::~cStatistics()
 
 void cStatistics::Reset()
 {
-  totalNumberOfIterations = 0;
-  missedDE = 0;
-  numberOfRaymarchings = 0;
-  numberOfRenderedPixels = 0;
-  time = 0.0;
-  histogramIterations.Clear();
-  histogramStepCount.Clear();
+	totalNumberOfIterations = 0;
+	missedDE = 0;
+	numberOfRaymarchings = 0;
+	numberOfRenderedPixels = 0;
+	time = 0.0;
+	histogramIterations.Clear();
+	histogramStepCount.Clear();
 }

@@ -20,7 +20,6 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-
 #ifndef PREVIEWFILEDIALOG_H_
 #define PREVIEWFILEDIALOG_H_
 
@@ -34,7 +33,7 @@
 
 class PreviewFileDialog: public QFileDialog
 {
-	Q_OBJECT
+Q_OBJECT
 public:
 	PreviewFileDialog(QWidget *parent = 0);
 	~PreviewFileDialog();
@@ -42,7 +41,8 @@ protected slots:
 	void OnCurrentChanged(const QString & filename);
 	void OnPresetAdd();
 	void OnQueueAdd();
-	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
+			double progress);
 	void slotHideProgressBar();
 
 private:
