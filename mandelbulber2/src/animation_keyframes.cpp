@@ -1107,7 +1107,8 @@ void cKeyframeAnimation::UpdateLimitsForFrameRange(void)
 	ui->spinboxInt_keyframe_last_to_render->setMaximum(noOfFrames);
 	ui->sliderInt_keyframe_last_to_render->setMaximum(noOfFrames);
 
-	mainInterface->SynchronizeInterfaceWindow(ui->tab_keyframe_animation, gPar, cInterface::write);
+	ui->spinboxInt_keyframe_first_to_render->setValue(params->Get<int>("keyframe_first_to_render"));
+	ui->sliderInt_keyframe_last_to_render->setValue(params->Get<int>("keyframe_last_to_render"));
 }
 
 void cKeyframeAnimation::slotMovedSliderFirstFrame(int value)
