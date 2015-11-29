@@ -28,9 +28,6 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
 		int index = ui->comboboxLanguage->findText(systemData.locale.name());
 		ui->comboboxLanguage->setCurrentIndex(index);
 	}
-
-	connect(ui->comboBox_ui_style_type, SIGNAL(currentIndexChanged(int)), this, SLOT(on_comboBox_ui_style_type(int)));
-	connect(ui->comboBox_ui_skin, SIGNAL(currentIndexChanged(int)), this, SLOT(on_comboBox_ui_skin(int)));
 }
 
 cPreferencesDialog::~cPreferencesDialog()
@@ -103,13 +100,13 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
 	}
 }
 
-void cPreferencesDialog::on_comboBox_ui_style_type(int index)
+void cPreferencesDialog::on_comboBox_ui_style_type_currentIndexChanged(int index)
 {
 	gPar->Set<int>("ui_style_type", index);
 	UpdateUIStyle();
 }
 
-void cPreferencesDialog::on_comboBox_ui_skin(int index)
+void cPreferencesDialog::on_comboBox_ui_skin_currentIndexChanged(int index)
 {
 	gPar->Set<int>("ui_skin", index);
 	UpdateUISkin();
