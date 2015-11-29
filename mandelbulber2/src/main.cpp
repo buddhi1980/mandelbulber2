@@ -201,6 +201,8 @@ int main(int argc, char *argv[])
 		gMainInterface->AutoRecovery();
 	}
 
+	gMainInterface->interfaceReady = true;
+
 	commandLineInterface.ProcessCLI();
 
 	//start main Qt loop

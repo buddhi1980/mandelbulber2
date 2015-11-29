@@ -63,6 +63,7 @@ cInterface::cInterface()
 	progressBarLayout = NULL;
 	stopRequest = false;
 	repeatRequest = false;
+	interfaceReady = false;
 }
 
 cInterface::~cInterface()
@@ -798,6 +799,9 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 		enumReadWrite mode)
 {
 	WriteLog("cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContainer *parFractal, enumReadWrite mode)");
+
+	if(!interfaceReady && mode == read) return;
+
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_effects, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_image_adjustments, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, par, mode);

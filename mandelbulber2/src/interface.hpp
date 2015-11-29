@@ -105,6 +105,7 @@ public:
 	cImage *mainImage;
 	QList<sPrimitiveItem> listOfPrimitives;
 
+	bool interfaceReady;
 	bool stopRequest;
 	bool repeatRequest; //request to repeat start loop
 
