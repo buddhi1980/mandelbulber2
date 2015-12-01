@@ -772,6 +772,13 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 		par->Set("aux_light_volumetric_enabled", i + 1, oldData->volumetricLightEnabled[i + 1]);
 	}
 
+	par->Set("random_lights_random_seed", oldData->auxLightRandomSeed);
+	par->Set("random_lights_max_distance_from_fractal", oldData->doubles.auxLightMaxDist);
+	par->Set("random_lights_distribution_radius", oldData->doubles.auxLightDistributionRadius);
+	par->Set("random_lights_distribution_center", oldData->doubles.auxLightRandomCenter);
+	par->Set("random_lights_number", oldData->auxLightNumber > 4 ? (oldData->auxLightNumber - 4) : 0);
+	par->Set("random_lights_group", oldData->auxLightNumber > 4);
+
 	par->Set("fake_lights_enabled", oldData->fakeLightsEnabled);
 	par->Set("fake_lights_intensity", oldData->doubles.fakeLightsIntensity);
 	par->Set("fake_lights_visibility", oldData->doubles.fakeLightsVisibility);

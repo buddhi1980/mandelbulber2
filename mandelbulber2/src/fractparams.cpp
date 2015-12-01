@@ -30,8 +30,14 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");
 	ambientOcclusionMode = (params::enumAOMode) container->Get<int>("ambient_occlusion_mode");
 	ambientOcclusionQuality = container->Get<int>("ambient_occlusion_quality");
-	analitycDEMode = container->Get<bool>("analityc_DE_mode");
-	auxLightNumber = 0;
+  analitycDEMode = container->Get<bool>("analityc_DE_mode");
+	auxLightNumber = 4;
+	auxLightRandomNumber = container->Get<int>("random_lights_number");
+	auxLightRandomSeed = container->Get<int>("random_lights_random_seed");
+	auxLightRandomCenter = container->Get<CVector3>("random_lights_distribution_center");
+	auxLightRandomRadius = container->Get<double>("random_lights_distribution_radius");
+	auxLightRandomMaxDistanceFromFractal = container->Get<double>("random_lights_max_distance_from_fractal");
+	auxLightRandomEnabled = container->Get<bool>("random_lights_group");
 	auxLightVisibility = container->Get<double>("aux_light_visibility");
 	auxLightVisibilitySize = container->Get<double>("aux_light_visibility_size");
 	background_color1 = container->Get<sRGB>("background_color", 1);

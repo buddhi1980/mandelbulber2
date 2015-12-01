@@ -307,6 +307,11 @@ bool cRenderJob::Execute(void)
 
 	WriteLog("cRenderJob::Execute(void): running jobs = " + QString::number(runningJobs));
 
+	//connect signal for progress bar update
+	connect(&renderData->lights,
+					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)),
+					this,
+					SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 	renderData->lights.Set(paramsContainer, fractalContainer);
 	renderData->palette = paramsContainer->Get<cColorPalette>("surface_color_palette");
 

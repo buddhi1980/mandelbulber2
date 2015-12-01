@@ -24,6 +24,7 @@
 #define RANDOM_HPP_
 
 #include <math.h>
+#include <limits.h>
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 
@@ -34,8 +35,10 @@ public:
 	cRandom();
 	~cRandom();
 	void Initialize(int seed);
-	int Random(int max);
+	int Random(unsigned long max);
 	double Random(double min, double max, double resolution);
+	double DoubleRandom(double min, double max, double resolution);
+
 private:
 	gsl_rng *gBaseRand;
 };

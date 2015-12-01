@@ -25,15 +25,17 @@
 #include "calculate_distance.hpp"
 #include "system.hpp"
 #include "common_math.h"
+#include "random.hpp"
+#include "global_data.hpp"
 
-cLights::cLights()
+cLights::cLights() : QObject()
 {
 	lights = NULL;
 	numberOfLights = 0;
 	lightsReady = false;
 }
 
-cLights::cLights(const cParameterContainer *_params, const cFractalContainer *_fractal)
+cLights::cLights(const cParameterContainer *_params, const cFractalContainer *_fractal) : QObject()
 {
 	lights = NULL;
 	numberOfLights = 0;
@@ -58,80 +60,81 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	const cParamRender *params = new cParamRender(_params);
 	const cFourFractals *fourFractals = new cFourFractals(_fractal, _params);
 
-	//srand(params->auxLightRandomSeed);
-
-	numberOfLights = params->auxLightNumber + 4;
+	numberOfLights = params->auxLightNumber + params->auxLightRandomNumber;
 
 	if (lights) delete[] lights;
 	lights = new sLight[numberOfLights];
 
-	sDistanceOut distanceOut;
-
-	//int trial_number = 0;
-	//double radius_multiplier = 1.0;
-
-	//TODO substitute random lights with unlimited predefined lights
-	if (params->auxLightNumber > 4)
+	// custom user defined lights
+	if(params->auxLightNumber > 0)
 	{
-//		for (int i = 0; i < params->auxLightNumber; i++)
-//		{
-//			trial_number++;
-//
-//			CVector3 random;
-//			random.x = (Random(2000000) / 1000000.0 - 1.0) + (Random(1000000) / 1.0e12);
-//			random.y = (Random(2000000) / 1000000.0 - 1.0) + (Random(1000000) / 1.0e12);
-//			random.z = (Random(2000000) / 1000000.0 - 1.0) + (Random(1000000) / 1.0e12);
-//
-//			CVector3 position = params->auxLightRandomCenter + random * params->auxLightDistributionRadius * radius_multiplier;
-//
-//			sDistanceIn distanceIn(position, 0.0, false);
-//			double distance = CalculateDistance(*params, *fourFractals, distanceIn, &distanceOut);
-//
-//			if (trial_number > 1000)
-//			{
-//				radius_multiplier *= 1.1;
-//				trial_number = 0;
-//			}
-//
-//			if (distance > 0 && distance < params->auxLightMaxDist * radius_multiplier)
-//			{
-//				radius_multiplier = 1.0;
-//
-//				lights[i + 4].position = position;
-//
-//				sRGB colour(20000 + Random(80000), 20000 + Random(80000), 20000 + Random(80000));
-//				double maxColour = dMax(colour.R, colour.G, colour.B);
-//				colour.R = colour.R * 65536.0 / maxColour;
-//				colour.G = colour.G * 65536.0 / maxColour;
-//				colour.B = colour.B * 65536.0 / maxColour;
-//				lights[i + 4].colour = colour;
-//
-//				lights[i + 4].intensity = distance * distance / params->auxLightMaxDist;
-//				lights[i + 4].enabled = true;
-//				printf("Light no. %d: x=%f, y=%f, z=%f, distance=%f\n", i, position.x, position.y, position.z, distance);
-//			}
-//			else
-//			{
-//				i--;
-//			}
-//		}
+		for (int i = 0; i < params->auxLightNumber; i++)
+		{
+			if (params->auxLightPreEnabled[i])
+			{
+				lights[i].position = params->auxLightPre[i];
+				lights[i].intensity = params->auxLightPreIntensity[i];
+				lights[i].colour = params->auxLightPreColour[i];
+				lights[i].enabled = true;
+			}
+			else
+			{
+				lights[i].position = CVector3(0.0,0.0,0.0);
+				lights[i].intensity = 0.0;
+				lights[i].colour = sRGB(0,0,0);
+				lights[i].enabled = false;
+			}
+		}
 	}
 
-	for (int i = 0; i < 4; i++)
+	// auto generated random lights
+	if (params->auxLightRandomEnabled && params->auxLightRandomNumber > 0)
 	{
-		if (params->auxLightPreEnabled[i])
+		sDistanceOut distanceOut;
+		cRandom random;
+		random.Initialize(params->auxLightRandomSeed);
+
+		for (int i = 0; i < params->auxLightRandomNumber; i++)
 		{
-			lights[i].position = params->auxLightPre[i];
-			lights[i].intensity = params->auxLightPreIntensity[i];
-			lights[i].colour = params->auxLightPreColour[i];
-			lights[i].enabled = true;
-		}
-		else
-		{
-			lights[i].position = CVector3(0.0, 0.0, 0.0);
-			lights[i].intensity = 0.0;
-			lights[i].colour = sRGB(0, 0, 0);
-			lights[i].enabled = false;
+			int trialNumber = 0;
+			double radiusMultiplier = 1.0;
+			double distance = 0;
+			CVector3 position;
+
+			gApplication->processEvents();
+			// try random positioning of light, until distance to surface suffies
+			while(distance <= 0 || distance >= params->auxLightRandomMaxDistanceFromFractal * radiusMultiplier)
+			{
+				CVector3 rv;
+				rv.x = random.DoubleRandom(-1.0, 1.0, 1.0e-12);
+				rv.y = random.DoubleRandom(-1.0, 1.0, 1.0e-12);
+				rv.z = random.DoubleRandom(-1.0, 1.0, 1.0e-12);
+				position = params->auxLightRandomCenter + rv * params->auxLightRandomRadius * radiusMultiplier;
+
+				sDistanceIn distanceIn(position, 0.0, false);
+				distance = CalculateDistance(*params, *fourFractals, distanceIn, &distanceOut);
+
+				trialNumber++;
+				if (trialNumber % 100 == 0) radiusMultiplier *= 1.01;
+				if(trialNumber > 100000) break;
+			}
+
+			sRGB colour(random.Random(20000, 100000, 1), random.Random(20000, 100000, 1), random.Random(20000, 100000, 1));
+			double convertColorRatio = 65536.0 / dMax(colour.R, colour.G, colour.B);
+			colour.R *= convertColorRatio;
+			colour.G *= convertColorRatio;
+			colour.B *= convertColorRatio;
+
+			lights[i + params->auxLightNumber].position = position;
+			lights[i + params->auxLightNumber].colour = colour;
+			lights[i + params->auxLightNumber].intensity = distance * distance / params->auxLightRandomMaxDistanceFromFractal;
+			lights[i + params->auxLightNumber].enabled = true;
+
+			emit updateProgressAndStatus(
+						QObject::tr("Positioning random lights"),
+						QObject::tr("Positioned light %1 of %2").arg(QString::number(i + 1), QString::number(params->auxLightRandomNumber)),
+						((i + 1.0) / params->auxLightRandomNumber));
+			// qDebug() << QString("Light no. %1: pos: %2, distance=%3").arg(QString::number(i), position.Debug(), QString::number(distance));
 		}
 	}
 

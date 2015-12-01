@@ -26,8 +26,9 @@
 #include "parameters.hpp"
 #include "fractal_container.hpp"
 
-class cLights
+class cLights : public QObject
 {
+	Q_OBJECT
 public:
 	struct sLight
 	{
@@ -61,6 +62,9 @@ private:
 	sLight *lights;
 	int numberOfLights;
 	bool lightsReady;
+
+signals:
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 };
 
 #endif /* LIGHTS_HPP_ */

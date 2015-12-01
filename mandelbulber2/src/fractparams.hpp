@@ -63,6 +63,8 @@ public:
 
 	int ambientOcclusionQuality; //ambient occlusion quality
 	int auxLightNumber;
+	int auxLightRandomNumber;
+	int auxLightRandomSeed;
 	int coloring_seed; //colouring random seed
 	int frameNo;
 	int imageHeight; //image height
@@ -85,6 +87,7 @@ public:
 	bool ambientOcclusionEnabled; //enable global ilumination
 	bool analitycDEMode;	 //analytic DE mode
 	bool auxLightPreEnabled[4];
+	bool auxLightRandomEnabled;
 	bool booleanOperatorsEnabled;
 	bool coloringEnabled;
 	bool constantDEThreshold;
@@ -138,6 +141,8 @@ public:
 	double auxLightPreIntensity[4];
 	double auxLightVisibility;
 	double auxLightVisibilitySize;
+	double auxLightRandomRadius;
+	double auxLightRandomMaxDistanceFromFractal;
 	double background_brightness;
 	double cameraDistanceToTarget; //zoom
 	double coloring_speed;

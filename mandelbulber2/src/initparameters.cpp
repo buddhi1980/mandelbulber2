@@ -258,6 +258,14 @@ void InitParams(cParameterContainer *par)
 		par->addParam("aux_light_volumetric_enabled", i, false, morphLinear, paramStandard);
 	}
 
+	//random aux light
+	par->addParam("random_lights_number", 20, 0, 99999, morphLinear, paramStandard);
+	par->addParam("random_lights_random_seed", 1234, 0, 99999, morphLinear, paramStandard);
+	par->addParam("random_lights_max_distance_from_fractal", 0.1, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("random_lights_distribution_radius", 3.0, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("random_lights_distribution_center", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("random_lights_group", false, morphLinear, paramStandard);
+
 	//fake lights
 	par->addParam("fake_lights_enabled", false, morphLinear, paramStandard);
 	par->addParam("fake_lights_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);

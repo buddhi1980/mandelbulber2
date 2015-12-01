@@ -38,7 +38,7 @@ void cRandom::Initialize(int seed)
 }
 
 
-int cRandom::Random(int max)
+int cRandom::Random(unsigned long max)
 {
 	return gsl_rng_uniform_int(gBaseRand, max + 1);
 }
@@ -46,7 +46,15 @@ int cRandom::Random(int max)
 double cRandom::Random(double min, double max, double resolution)
 {
 	double range = max - min;
-	int n = round(range / resolution);
+	unsigned long n = round(range / resolution);
 	return min + resolution * Random(n);
 }
 
+// generates random number with more precision
+// works with range / resolution < unsigned long long MAX
+double cRandom::DoubleRandom(double min, double max, double resolution)
+{
+	double range = max - min;
+	unsigned long long n = round(range / resolution);
+	return min + resolution * (Random(n / UINT_MAX) * UINT_MAX + Random(n % UINT_MAX));
+}
