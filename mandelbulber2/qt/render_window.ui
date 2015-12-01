@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1052</width>
-           <height>610</height>
+           <width>1021</width>
+           <height>828</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -372,7 +372,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
+          <width>370</width>
           <height>442</height>
          </rect>
         </property>
@@ -1211,7 +1211,7 @@
           <x>0</x>
           <y>0</y>
           <width>174</width>
-          <height>238</height>
+          <height>348</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -2864,8 +2864,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>353</width>
-          <height>135</height>
+          <width>370</width>
+          <height>129</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2896,7 +2896,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>4</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -2934,7 +2934,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
+                  <width>320</width>
                   <height>724</height>
                  </rect>
                 </property>
@@ -4149,7 +4149,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>227</width>
+                  <width>320</width>
                   <height>174</height>
                  </rect>
                 </property>
@@ -4477,7 +4477,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>196</width>
+                  <width>320</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5317,7 +5317,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>273</width>
+                  <width>320</width>
                   <height>225</height>
                  </rect>
                 </property>
@@ -5635,8 +5635,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>265</width>
-                  <height>1248</height>
+                  <width>320</width>
+                  <height>1433</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -7957,8 +7957,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
-          <height>305</height>
+          <width>384</width>
+          <height>554</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -8046,8 +8046,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>281</width>
-                      <height>452</height>
+                      <width>340</width>
+                      <height>510</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -8703,8 +8703,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
-                      <height>452</height>
+                      <width>340</width>
+                      <height>510</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -9354,8 +9354,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
-                      <height>452</height>
+                      <width>340</width>
+                      <height>510</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -9999,8 +9999,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>217</width>
-                      <height>452</height>
+                      <width>340</width>
+                      <height>510</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -10614,6 +10614,3231 @@ to target:</string>
                  </item>
                 </layout>
                </widget>
+               <widget class="QWidget" name="tab_fractal_formula_5">
+                <attribute name="title">
+                 <string>Formula #5</string>
+                </attribute>
+                <layout class="QVBoxLayout" name="verticalLayout_97">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <widget class="QScrollArea" name="scrollArea_fractal_5">
+                   <property name="widgetResizable">
+                    <bool>true</bool>
+                   </property>
+                   <widget class="QWidget" name="scrollAreaWidgetContents_fractal_5">
+                    <property name="geometry">
+                     <rect>
+                      <x>0</x>
+                      <y>0</y>
+                      <width>340</width>
+                      <height>510</height>
+                     </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>2</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="frame_iterations_formula_5">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_94">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_50">
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="1" column="0">
+                           <widget class="QLabel" name="label_formula_iterations_5">
+                            <property name="text">
+                             <string>Iterations:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QSlider" name="sliderInt_formula_iterations_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>1</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>8</number>
+                            </property>
+                            <property name="pageStep">
+                             <number>64</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="MySpinBox" name="spinboxInt_formula_iterations_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>1</number>
+                            </property>
+                            <property name="maximum">
+                             <number>500</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" colspan="3">
+                           <widget class="QComboBox" name="comboBox_formula_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maxVisibleItems">
+                             <number>50</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="0">
+                           <widget class="QLabel" name="label_formula_weight_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>Weight:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="1">
+                           <widget class="QSlider" name="slider_formula_weight_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>100</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_formula_weight_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="maximum">
+                             <double>1.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_formula_parameters_5">
+                       <property name="title">
+                        <string>Formula specific parameters</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_95">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QVBoxLayout" name="verticalLayout_fractal_5">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_formula_transform_5">
+                       <property name="title">
+                        <string>Transform (fractal positioning)</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_96">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_51">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="2" column="1">
+                           <widget class="QLabel" name="label_224">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>z:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_5_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_5_y">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" rowspan="3">
+                           <widget class="QLabel" name="label_225">
+                            <property name="text">
+                             <string>shift:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="0">
+                           <widget class="QLabel" name="label_226">
+                            <property name="text">
+                             <string>Y-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QLabel" name="label_227">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>x:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_5_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_5_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_5_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="1">
+                           <widget class="QLabel" name="label_228">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_5_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_5_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_5_x">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_5_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_5_z">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0">
+                           <widget class="QLabel" name="label_229">
+                            <property name="text">
+                             <string>X-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="0">
+                           <widget class="QLabel" name="label_230">
+                            <property name="text">
+                             <string>Z-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QLabel" name="label_231">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_5_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="1">
+                           <widget class="QLabel" name="label_232">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>x:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="9" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_5_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="9" column="1">
+                           <widget class="QLabel" name="label_233">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>z:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="0" rowspan="3">
+                           <widget class="QLabel" name="label_234">
+                            <property name="text">
+                             <string>Repeat</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="1">
+                           <widget class="QSlider" name="logslider_formula_scale_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="sizeIncrement">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="minimum">
+                             <number>-1000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>300</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="2">
+                           <widget class="MyLineEdit" name="logedit_formula_scale_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0">
+                           <widget class="QLabel" name="label_235">
+                            <property name="text">
+                             <string>scale:</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_18">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </widget>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="tab_fractal_formula_6">
+                <attribute name="title">
+                 <string>Formula #6</string>
+                </attribute>
+                <layout class="QVBoxLayout" name="verticalLayout_101">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <widget class="QScrollArea" name="scrollArea_fractal_6">
+                   <property name="widgetResizable">
+                    <bool>true</bool>
+                   </property>
+                   <widget class="QWidget" name="scrollAreaWidgetContents_fractal_6">
+                    <property name="geometry">
+                     <rect>
+                      <x>0</x>
+                      <y>0</y>
+                      <width>340</width>
+                      <height>510</height>
+                     </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>2</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="frame_iterations_formula_6">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_98">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_53">
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="1" column="0">
+                           <widget class="QLabel" name="label_formula_iterations_6">
+                            <property name="text">
+                             <string>Iterations:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QSlider" name="sliderInt_formula_iterations_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>1</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>8</number>
+                            </property>
+                            <property name="pageStep">
+                             <number>64</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="MySpinBox" name="spinboxInt_formula_iterations_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>1</number>
+                            </property>
+                            <property name="maximum">
+                             <number>500</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" colspan="3">
+                           <widget class="QComboBox" name="comboBox_formula_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maxVisibleItems">
+                             <number>50</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="0">
+                           <widget class="QLabel" name="label_formula_weight_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>Weight:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="1">
+                           <widget class="QSlider" name="slider_formula_weight_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>100</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_formula_weight_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="maximum">
+                             <double>1.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_formula_parameters_6">
+                       <property name="title">
+                        <string>Formula specific parameters</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_99">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QVBoxLayout" name="verticalLayout_fractal_6">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_formula_transform_6">
+                       <property name="title">
+                        <string>Transform (fractal positioning)</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_100">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_54">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="2" column="1">
+                           <widget class="QLabel" name="label_236">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>z:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_6_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_6_y">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" rowspan="3">
+                           <widget class="QLabel" name="label_237">
+                            <property name="text">
+                             <string>shift:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="0">
+                           <widget class="QLabel" name="label_238">
+                            <property name="text">
+                             <string>Y-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QLabel" name="label_239">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>x:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_6_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_6_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_6_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="1">
+                           <widget class="QLabel" name="label_240">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_6_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_6_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_6_x">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_6_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_6_z">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0">
+                           <widget class="QLabel" name="label_241">
+                            <property name="text">
+                             <string>X-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="0">
+                           <widget class="QLabel" name="label_242">
+                            <property name="text">
+                             <string>Z-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QLabel" name="label_243">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_6_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="1">
+                           <widget class="QLabel" name="label_244">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>x:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="9" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_6_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="9" column="1">
+                           <widget class="QLabel" name="label_245">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>z:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="0" rowspan="3">
+                           <widget class="QLabel" name="label_246">
+                            <property name="text">
+                             <string>Repeat</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="1">
+                           <widget class="QSlider" name="logslider_formula_scale_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="sizeIncrement">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="minimum">
+                             <number>-1000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>300</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="2">
+                           <widget class="MyLineEdit" name="logedit_formula_scale_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0">
+                           <widget class="QLabel" name="label_247">
+                            <property name="text">
+                             <string>scale:</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_19">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </widget>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="tab_fractal_formula_7">
+                <attribute name="title">
+                 <string>Formula #7</string>
+                </attribute>
+                <layout class="QVBoxLayout" name="verticalLayout_105">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <widget class="QScrollArea" name="scrollArea_fractal_7">
+                   <property name="widgetResizable">
+                    <bool>true</bool>
+                   </property>
+                   <widget class="QWidget" name="scrollAreaWidgetContents_fractal_7">
+                    <property name="geometry">
+                     <rect>
+                      <x>0</x>
+                      <y>0</y>
+                      <width>340</width>
+                      <height>510</height>
+                     </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>2</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="frame_iterations_formula_7">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_102">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_55">
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="1" column="0">
+                           <widget class="QLabel" name="label_formula_iterations_7">
+                            <property name="text">
+                             <string>Iterations:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QSlider" name="sliderInt_formula_iterations_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>1</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>8</number>
+                            </property>
+                            <property name="pageStep">
+                             <number>64</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="MySpinBox" name="spinboxInt_formula_iterations_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>1</number>
+                            </property>
+                            <property name="maximum">
+                             <number>500</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" colspan="3">
+                           <widget class="QComboBox" name="comboBox_formula_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maxVisibleItems">
+                             <number>50</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="0">
+                           <widget class="QLabel" name="label_formula_weight_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>Weight:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="1">
+                           <widget class="QSlider" name="slider_formula_weight_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>100</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_formula_weight_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="maximum">
+                             <double>1.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_formula_parameters_7">
+                       <property name="title">
+                        <string>Formula specific parameters</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_103">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QVBoxLayout" name="verticalLayout_fractal_7">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_formula_transform_7">
+                       <property name="title">
+                        <string>Transform (fractal positioning)</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_104">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_56">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="2" column="1">
+                           <widget class="QLabel" name="label_248">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>z:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_7_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_7_y">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" rowspan="3">
+                           <widget class="QLabel" name="label_249">
+                            <property name="text">
+                             <string>shift:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="0">
+                           <widget class="QLabel" name="label_250">
+                            <property name="text">
+                             <string>Y-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QLabel" name="label_251">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>x:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_7_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_7_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_7_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="1">
+                           <widget class="QLabel" name="label_252">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_7_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_7_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_7_x">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_7_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_7_z">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0">
+                           <widget class="QLabel" name="label_253">
+                            <property name="text">
+                             <string>X-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="0">
+                           <widget class="QLabel" name="label_254">
+                            <property name="text">
+                             <string>Z-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QLabel" name="label_255">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_7_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="1">
+                           <widget class="QLabel" name="label_256">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>x:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="9" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_7_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="9" column="1">
+                           <widget class="QLabel" name="label_257">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>z:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="0" rowspan="3">
+                           <widget class="QLabel" name="label_258">
+                            <property name="text">
+                             <string>Repeat</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="1">
+                           <widget class="QSlider" name="logslider_formula_scale_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="sizeIncrement">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="minimum">
+                             <number>-1000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>300</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="2">
+                           <widget class="MyLineEdit" name="logedit_formula_scale_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0">
+                           <widget class="QLabel" name="label_259">
+                            <property name="text">
+                             <string>scale:</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_20">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </widget>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="tab_fractal_formula_8">
+                <attribute name="title">
+                 <string>Formula #8</string>
+                </attribute>
+                <layout class="QVBoxLayout" name="verticalLayout_109">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <widget class="QScrollArea" name="scrollArea_fractal_8">
+                   <property name="widgetResizable">
+                    <bool>true</bool>
+                   </property>
+                   <widget class="QWidget" name="scrollAreaWidgetContents_fractal_8">
+                    <property name="geometry">
+                     <rect>
+                      <x>0</x>
+                      <y>0</y>
+                      <width>340</width>
+                      <height>510</height>
+                     </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>2</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="frame_iterations_formula_8">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_106">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_57">
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="1" column="0">
+                           <widget class="QLabel" name="label_formula_iterations_8">
+                            <property name="text">
+                             <string>Iterations:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QSlider" name="sliderInt_formula_iterations_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>1</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>8</number>
+                            </property>
+                            <property name="pageStep">
+                             <number>64</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="MySpinBox" name="spinboxInt_formula_iterations_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>1</number>
+                            </property>
+                            <property name="maximum">
+                             <number>500</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" colspan="3">
+                           <widget class="QComboBox" name="comboBox_formula_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maxVisibleItems">
+                             <number>50</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="0">
+                           <widget class="QLabel" name="label_formula_weight_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>Weight:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="1">
+                           <widget class="QSlider" name="slider_formula_weight_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>100</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_formula_weight_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="maximum">
+                             <double>1.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_formula_parameters_8">
+                       <property name="title">
+                        <string>Formula specific parameters</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_107">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QVBoxLayout" name="verticalLayout_fractal_8">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_formula_transform_8">
+                       <property name="title">
+                        <string>Transform (fractal positioning)</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_108">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_58">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="2" column="1">
+                           <widget class="QLabel" name="label_260">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>z:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_8_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_8_y">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" rowspan="3">
+                           <widget class="QLabel" name="label_261">
+                            <property name="text">
+                             <string>shift:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="0">
+                           <widget class="QLabel" name="label_262">
+                            <property name="text">
+                             <string>Y-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QLabel" name="label_263">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>x:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_8_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_8_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_8_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="1">
+                           <widget class="QLabel" name="label_264">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_8_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_8_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_8_x">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_8_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_8_z">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0">
+                           <widget class="QLabel" name="label_265">
+                            <property name="text">
+                             <string>X-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="0">
+                           <widget class="QLabel" name="label_266">
+                            <property name="text">
+                             <string>Z-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QLabel" name="label_267">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_8_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="1">
+                           <widget class="QLabel" name="label_268">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>x:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="9" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_8_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="9" column="1">
+                           <widget class="QLabel" name="label_269">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>z:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="0" rowspan="3">
+                           <widget class="QLabel" name="label_270">
+                            <property name="text">
+                             <string>Repeat</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="1">
+                           <widget class="QSlider" name="logslider_formula_scale_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="sizeIncrement">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="minimum">
+                             <number>-1000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>300</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="2">
+                           <widget class="MyLineEdit" name="logedit_formula_scale_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0">
+                           <widget class="QLabel" name="label_271">
+                            <property name="text">
+                             <string>scale:</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_21">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </widget>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="tab_fractal_formula_9">
+                <attribute name="title">
+                 <string>Formula #9</string>
+                </attribute>
+                <layout class="QVBoxLayout" name="verticalLayout_113">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <widget class="QScrollArea" name="scrollArea_fractal_9">
+                   <property name="widgetResizable">
+                    <bool>true</bool>
+                   </property>
+                   <widget class="QWidget" name="scrollAreaWidgetContents_fractal_9">
+                    <property name="geometry">
+                     <rect>
+                      <x>0</x>
+                      <y>0</y>
+                      <width>340</width>
+                      <height>510</height>
+                     </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>2</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>2</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="frame_iterations_formula_9">
+                       <property name="frameShape">
+                        <enum>QFrame::StyledPanel</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Raised</enum>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_110">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_59">
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="1" column="0">
+                           <widget class="QLabel" name="label_formula_iterations_9">
+                            <property name="text">
+                             <string>Iterations:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QSlider" name="sliderInt_formula_iterations_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>1</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>8</number>
+                            </property>
+                            <property name="pageStep">
+                             <number>64</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="MySpinBox" name="spinboxInt_formula_iterations_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>1</number>
+                            </property>
+                            <property name="maximum">
+                             <number>500</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" colspan="3">
+                           <widget class="QComboBox" name="comboBox_formula_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maxVisibleItems">
+                             <number>50</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="0">
+                           <widget class="QLabel" name="label_formula_weight_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>Weight:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="1">
+                           <widget class="QSlider" name="slider_formula_weight_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>100</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_formula_weight_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="maximum">
+                             <double>1.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_formula_parameters_9">
+                       <property name="title">
+                        <string>Formula specific parameters</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_111">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QVBoxLayout" name="verticalLayout_fractal_9">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_formula_transform_9">
+                       <property name="title">
+                        <string>Transform (fractal positioning)</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_112">
+                        <property name="spacing">
+                         <number>2</number>
+                        </property>
+                        <property name="leftMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="topMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="rightMargin">
+                         <number>2</number>
+                        </property>
+                        <property name="bottomMargin">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_60">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="2" column="1">
+                           <widget class="QLabel" name="label_272">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>z:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_9_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_9_y">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" rowspan="3">
+                           <widget class="QLabel" name="label_273">
+                            <property name="text">
+                             <string>shift:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="0">
+                           <widget class="QLabel" name="label_274">
+                            <property name="text">
+                             <string>Y-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="QLabel" name="label_275">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>x:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_9_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_9_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="5" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_9_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="1">
+                           <widget class="QLabel" name="label_276">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_position_9_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinboxd3_formula_rotation_9_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="minimum">
+                             <double>-36000.000000000000000</double>
+                            </property>
+                            <property name="maximum">
+                             <double>36000.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_9_x">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_9_x">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="1">
+                           <widget class="QDial" name="dial3_formula_rotation_9_z">
+                            <property name="minimum">
+                             <number>-18000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>18000</number>
+                            </property>
+                            <property name="wrapping">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0">
+                           <widget class="QLabel" name="label_277">
+                            <property name="text">
+                             <string>X-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="6" column="0">
+                           <widget class="QLabel" name="label_278">
+                            <property name="text">
+                             <string>Z-axis rotation:</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QLabel" name="label_279">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>y:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="8" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_9_y">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="1">
+                           <widget class="QLabel" name="label_280">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>x:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="9" column="2">
+                           <widget class="MyLineEdit" name="vect3_formula_repeat_9_z">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="9" column="1">
+                           <widget class="QLabel" name="label_281">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="text">
+                             <string>z:</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="7" column="0" rowspan="3">
+                           <widget class="QLabel" name="label_282">
+                            <property name="text">
+                             <string>Repeat</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="1">
+                           <widget class="QSlider" name="logslider_formula_scale_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="sizeIncrement">
+                             <size>
+                              <width>0</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="minimum">
+                             <number>-1000</number>
+                            </property>
+                            <property name="maximum">
+                             <number>300</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="2">
+                           <widget class="MyLineEdit" name="logedit_formula_scale_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0">
+                           <widget class="QLabel" name="label_283">
+                            <property name="text">
+                             <string>scale:</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_22">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </widget>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
               </widget>
              </item>
             </layout>
@@ -10648,8 +13873,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>210</width>
-                  <height>482</height>
+                  <width>348</width>
+                  <height>540</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -11900,8 +15125,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
-                  <height>354</height>
+                  <width>348</width>
+                  <height>540</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -12445,7 +15670,7 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>339</width>
+          <width>370</width>
           <height>818</height>
          </rect>
         </property>
@@ -13813,8 +17038,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>355</width>
-                  <height>318</height>
+                  <width>341</width>
+                  <height>291</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -14643,7 +17868,7 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>198</width>
+                  <width>303</width>
                   <height>242</height>
                  </rect>
                 </property>
@@ -15326,8 +18551,8 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>299</width>
-          <height>428</height>
+          <width>285</width>
+          <height>365</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
