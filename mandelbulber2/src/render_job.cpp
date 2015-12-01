@@ -24,10 +24,10 @@
 #include <QtCore>
 #include "system.hpp"
 #include "fractparams.hpp"
-#include "four_fractals.hpp"
 #include "global_data.hpp"
 #include "progress_text.hpp"
 #include "error_message.hpp"
+#include "nine_fractals.hpp"
 
 cRenderJob::cRenderJob(const cParameterContainer *_params, const cFractalContainer *_fractal,
 		cImage *_image, bool *_stopRequest, QWidget *_qwidget) :
@@ -317,7 +317,7 @@ bool cRenderJob::Execute(void)
 
 	//move parameters from containers to structures
 	cParamRender *params = new cParamRender(paramsContainer);
-	cFourFractals *fourFractals = new cFourFractals(fractalContainer, paramsContainer);
+	cNineFractals *fourFractals = new cNineFractals(fractalContainer, paramsContainer);
 
 	//recalculation of some parameters;
 	params->resolution = 1.0 / image->GetHeight();

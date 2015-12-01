@@ -58,7 +58,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	WriteLog("Preparation of lights started");
 	//move parameters from containers to structures
 	const cParamRender *params = new cParamRender(_params);
-	const cFourFractals *fourFractals = new cFourFractals(_fractal, _params);
+	const cNineFractals *fourFractals = new cNineFractals(_fractal, _params);
 
 	numberOfLights = params->auxLightNumber + params->auxLightRandomNumber;
 

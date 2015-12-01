@@ -23,8 +23,8 @@
 #ifndef FRACTAL_FORMULAS_HPP_
 #define FRACTAL_FORMULAS_HPP_
 
-#include "four_fractals.hpp"
 #include "commonparams.hpp"
+#include "nine_fractals.hpp"
 
 void AexionIteration(CVector3 &z, double &w, const cFractal *fractal, sAexionAux &aux);
 void BenesiIteration(CVector3 &z, CVector3 &c);

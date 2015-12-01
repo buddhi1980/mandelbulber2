@@ -26,7 +26,7 @@
 
 using namespace std;
 
-double CalculateDistance(const cParamRender &params, const cFourFractals &four,
+double CalculateDistance(const cParamRender &params, const cNineFractals &four,
 		const sDistanceIn &in, sDistanceOut *out)
 {
 	double distance;
@@ -169,7 +169,7 @@ double CalculateDistance(const cParamRender &params, const cFourFractals &four,
 	return distance;
 }
 
-double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &four,
+double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &four,
 		const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex)
 {
 	double distance;

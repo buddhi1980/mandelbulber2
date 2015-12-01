@@ -25,7 +25,7 @@
 
 #include "cimage.hpp"
 #include "fractparams.hpp"
-#include "four_fractals.hpp"
+#include "nine_fractals.hpp"
 #include "render_data.hpp"
 #include "scheduler.hpp"
 
@@ -33,7 +33,7 @@ class cRenderer: public QObject
 {
 Q_OBJECT
 public:
-	cRenderer(const cParamRender *_params, const cFourFractals *_fractal, sRenderData *_renderData,
+	cRenderer(const cParamRender *_params, const cNineFractals *_fractal, sRenderData *_renderData,
 			cImage *_image);
 	~cRenderer();
 	bool RenderImage();
@@ -42,7 +42,7 @@ private:
 	void CreateLineData(int y, QByteArray *lineData);
 
 	const cParamRender *params;
-	const cFourFractals *fractal;
+	const cNineFractals *fractal;
 	sRenderData *data;
 	cImage *image;
 	cScheduler *scheduler;

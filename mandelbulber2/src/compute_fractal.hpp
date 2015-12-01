@@ -25,8 +25,8 @@
 
 #include "algebra.hpp"
 #include "primitives.h"
-#include "four_fractals.hpp"
 #include "commonparams.hpp"
+#include "nine_fractals.hpp"
 
 struct sFractalIn
 {
@@ -59,6 +59,6 @@ struct sFractalOut
 };
 
 template<fractal::enumCalculationMode Mode>
-void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out);
+void Compute(const cNineFractals &four, const sFractalIn &in, sFractalOut *out);
 
 #endif /* COMPUTE_FRACTAL_HPP_ */

@@ -25,7 +25,7 @@
 
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
-#include "four_fractals.hpp"
+#include "nine_fractals.hpp"
 
 struct sDistanceIn
 {
@@ -51,9 +51,9 @@ struct sDistanceOut
 	bool maxiter;
 };
 
-double CalculateDistance(const cParamRender &params, const cFourFractals &four,
+double CalculateDistance(const cParamRender &params, const cNineFractals &four,
 		const sDistanceIn &in, sDistanceOut *out);
-double CalculateDistanceSimple(const cParamRender &params, const cFourFractals &four,
+double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &four,
 		const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
 
 #endif /* CALCULATE_DISTANCE_HPP_ */

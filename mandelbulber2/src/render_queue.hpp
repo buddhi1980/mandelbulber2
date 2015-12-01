@@ -24,9 +24,9 @@
 #include "cimage.hpp"
 #include "progress_text.hpp"
 #include "rendered_image_widget.hpp"
-#include "four_fractals.hpp"
 #include "animation_keyframes.hpp"
 #include "animation_flight.hpp"
+#include "nine_fractals.hpp"
 
 #ifndef MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
 #define MANDELBULBER2_SRC_RENDER_QUEUE_HPP_

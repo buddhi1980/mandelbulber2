@@ -44,7 +44,6 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/error_message.cpp\
 			../src/fractparams.cpp\
 			../src/files.cpp\
-			../src/four_fractals.cpp\
 			../src/fractal.cpp\
 			../src/fractal_container.cpp\
 			../src/fractal_formulas.cpp\
@@ -62,6 +61,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/multi_val.cpp\
 			../src/my_ui_loader.cpp\
 			../src/netrender.cpp\
+			../src/nine_fractals.cpp\
 			../src/one_parameter.cpp\
 			../src/old_settings.cpp\
 			../src/parameters.cpp\

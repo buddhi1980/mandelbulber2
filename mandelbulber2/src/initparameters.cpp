@@ -86,13 +86,13 @@ void InitParams(cParameterContainer *par)
 
 	//fractal formula selections
 	par->addParam("formula", 1, (int) fractal::mandelbulb, morphNone, paramStandard);
-	par->addParam("formula", 2, (int) fractal::none, morphNone, paramStandard);
-	par->addParam("formula", 3, (int) fractal::none, morphNone, paramStandard);
-	par->addParam("formula", 4, (int) fractal::none, morphNone, paramStandard);
 	par->addParam("formula_iterations", 1, 1, 1, 65536, morphNone, paramStandard);
-	par->addParam("formula_iterations", 2, 1, 1, 65536, morphNone, paramStandard);
-	par->addParam("formula_iterations", 3, 1, 1, 65536, morphNone, paramStandard);
-	par->addParam("formula_iterations", 4, 1, 1, 65536, morphNone, paramStandard);
+
+	for (int i = 2; i <= NUMBER_OF_FRACTALS; i++)
+	{
+		par->addParam("formula", i, (int) fractal::none, morphNone, paramStandard);
+		par->addParam("formula_iterations", i, 1, 1, 65536, morphNone, paramStandard);
+	}
 
 	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 	{

@@ -26,7 +26,7 @@
 #include "region.hpp"
 #include "common_math.h"
 
-cRenderWorker::cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal,
+cRenderWorker::cRenderWorker(const cParamRender *_params, const cNineFractals *_fractal,
 		sThreadData *_threadData, sRenderData *_data, cImage *_image)
 {
 	params = _params;

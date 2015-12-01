@@ -23,8 +23,8 @@
 #ifndef MANDELBULBER2_SRC_FRACTAL_TRANSFORMS_HPP_
 #define MANDELBULBER2_SRC_FRACTAL_TRANSFORMS_HPP_
 
-#include "four_fractals.hpp"
 #include "commonparams.hpp"
+#include "nine_fractals.hpp"
 
 void additionConstantTransform3D(const sTransformAdditionConstant &additionConstant, CVector3 &z, int i);
 void additionConstantTransform4D(const sTransformAdditionConstant &additionConstant, CVector4 &z, int i);

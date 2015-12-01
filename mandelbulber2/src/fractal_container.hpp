@@ -23,7 +23,7 @@
 #ifndef SRC_FRACTAL_CONTAINER_HPP_
 #define SRC_FRACTAL_CONTAINER_HPP_
 
-#define NUMBER_OF_FRACTALS 4
+#define NUMBER_OF_FRACTALS 9
 
 #include "parameters.hpp"
 
