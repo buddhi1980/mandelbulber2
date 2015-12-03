@@ -551,6 +551,26 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(currentIndexChanged(int)),
 												mainWindow,
 												SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_5,
+													SIGNAL(currentIndexChanged(int)),
+													mainWindow,
+													SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_6,
+													SIGNAL(currentIndexChanged(int)),
+													mainWindow,
+													SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_7,
+													SIGNAL(currentIndexChanged(int)),
+													mainWindow,
+													SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_8,
+													SIGNAL(currentIndexChanged(int)),
+													mainWindow,
+													SLOT(slotChangedComboFractal(int)));
+	QApplication::connect(mainWindow->ui->comboBox_formula_9,
+													SIGNAL(currentIndexChanged(int)),
+													mainWindow,
+													SLOT(slotChangedComboFractal(int)));
 	QApplication::connect(mainWindow->ui->checkBox_hybrid_fractal_enable,
 												SIGNAL(stateChanged(int)),
 												mainWindow,
@@ -813,20 +833,30 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidgetContents_animation, par, mode);
 
-	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[0], &parFractal->at(0), mode);
-	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[1], &parFractal->at(1), mode);
-	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[2], &parFractal->at(2), mode);
-	SynchronizeInterfaceWindow(mainWindow->fractalWidgets[3], &parFractal->at(3), mode);
+	for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		SynchronizeInterfaceWindow(mainWindow->fractalWidgets[i], &parFractal->at(i), mode);
+	}
 
 	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_1, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_2, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_3, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_4, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_5, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_6, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_7, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_8, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_9, par, mode);
 
 	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_1, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_2, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_3, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_4, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_5, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_6, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_7, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_8, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_9, par, mode);
 }
 
 //Reading ad writing parameters from/to selected widget to/from parameters container
@@ -1479,9 +1509,10 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 		mainWindow->ui->verticalLayout_fractal_1->addWidget(mainWindow->fractalWidgets[0]);
 		mainWindow->fractalWidgets[0]->show();
 
-		mainWindow->fractalWidgets[1] = NULL;
-		mainWindow->fractalWidgets[2] = NULL;
-		mainWindow->fractalWidgets[3] = NULL;
+		for(int i = 1; i < NUMBER_OF_FRACTALS; i++)
+		{
+			mainWindow->fractalWidgets[i] = NULL;
+		}
 
 		QStringList fractalNames;
 		for (int i = 0; i < fractalList.size(); i++)
@@ -1498,6 +1529,16 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 		mainWindow->ui->comboBox_formula_3->addItems(fractalNames);
 		mainWindow->ui->comboBox_formula_4->clear();
 		mainWindow->ui->comboBox_formula_4->addItems(fractalNames);
+		mainWindow->ui->comboBox_formula_5->clear();
+		mainWindow->ui->comboBox_formula_5->addItems(fractalNames);
+		mainWindow->ui->comboBox_formula_6->clear();
+		mainWindow->ui->comboBox_formula_6->addItems(fractalNames);
+		mainWindow->ui->comboBox_formula_7->clear();
+		mainWindow->ui->comboBox_formula_7->addItems(fractalNames);
+		mainWindow->ui->comboBox_formula_8->clear();
+		mainWindow->ui->comboBox_formula_8->addItems(fractalNames);
+		mainWindow->ui->comboBox_formula_9->clear();
+		mainWindow->ui->comboBox_formula_9->addItems(fractalNames);
 
 		mainWindow->ui->label_formula_iterations_1->setVisible(false);
 		mainWindow->ui->spinboxInt_formula_iterations_1->setVisible(false);
@@ -1511,6 +1552,21 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 		mainWindow->ui->label_formula_iterations_4->setVisible(false);
 		mainWindow->ui->spinboxInt_formula_iterations_4->setVisible(false);
 		mainWindow->ui->sliderInt_formula_iterations_4->setVisible(false);
+		mainWindow->ui->label_formula_iterations_5->setVisible(false);
+		mainWindow->ui->spinboxInt_formula_iterations_5->setVisible(false);
+		mainWindow->ui->sliderInt_formula_iterations_5->setVisible(false);
+		mainWindow->ui->label_formula_iterations_6->setVisible(false);
+		mainWindow->ui->spinboxInt_formula_iterations_6->setVisible(false);
+		mainWindow->ui->sliderInt_formula_iterations_6->setVisible(false);
+		mainWindow->ui->label_formula_iterations_7->setVisible(false);
+		mainWindow->ui->spinboxInt_formula_iterations_7->setVisible(false);
+		mainWindow->ui->sliderInt_formula_iterations_7->setVisible(false);
+		mainWindow->ui->label_formula_iterations_8->setVisible(false);
+		mainWindow->ui->spinboxInt_formula_iterations_8->setVisible(false);
+		mainWindow->ui->sliderInt_formula_iterations_8->setVisible(false);
+		mainWindow->ui->label_formula_iterations_9->setVisible(false);
+		mainWindow->ui->spinboxInt_formula_iterations_9->setVisible(false);
+		mainWindow->ui->sliderInt_formula_iterations_9->setVisible(false);
 
 		mainWindow->ui->label_formula_weight_1->setVisible(false);
 		mainWindow->ui->spinbox_formula_weight_1->setVisible(false);
@@ -1524,18 +1580,48 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 		mainWindow->ui->label_formula_weight_4->setVisible(false);
 		mainWindow->ui->spinbox_formula_weight_4->setVisible(false);
 		mainWindow->ui->slider_formula_weight_4->setVisible(false);
+		mainWindow->ui->label_formula_weight_5->setVisible(false);
+		mainWindow->ui->spinbox_formula_weight_5->setVisible(false);
+		mainWindow->ui->slider_formula_weight_5->setVisible(false);
+		mainWindow->ui->label_formula_weight_6->setVisible(false);
+		mainWindow->ui->spinbox_formula_weight_6->setVisible(false);
+		mainWindow->ui->slider_formula_weight_6->setVisible(false);
+		mainWindow->ui->label_formula_weight_7->setVisible(false);
+		mainWindow->ui->spinbox_formula_weight_7->setVisible(false);
+		mainWindow->ui->slider_formula_weight_7->setVisible(false);
+		mainWindow->ui->label_formula_weight_8->setVisible(false);
+		mainWindow->ui->spinbox_formula_weight_8->setVisible(false);
+		mainWindow->ui->slider_formula_weight_8->setVisible(false);
+		mainWindow->ui->label_formula_weight_9->setVisible(false);
+		mainWindow->ui->spinbox_formula_weight_9->setVisible(false);
+		mainWindow->ui->slider_formula_weight_9->setVisible(false);
 
 		mainWindow->ui->frame_iterations_formula_2->setEnabled(false);
 		mainWindow->ui->frame_iterations_formula_3->setEnabled(false);
 		mainWindow->ui->frame_iterations_formula_4->setEnabled(false);
+		mainWindow->ui->frame_iterations_formula_5->setEnabled(false);
+		mainWindow->ui->frame_iterations_formula_6->setEnabled(false);
+		mainWindow->ui->frame_iterations_formula_7->setEnabled(false);
+		mainWindow->ui->frame_iterations_formula_8->setEnabled(false);
+		mainWindow->ui->frame_iterations_formula_9->setEnabled(false);
 		mainWindow->ui->scrollArea_fractal_2->setEnabled(false);
 		mainWindow->ui->scrollArea_fractal_3->setEnabled(false);
 		mainWindow->ui->scrollArea_fractal_4->setEnabled(false);
+		mainWindow->ui->scrollArea_fractal_5->setEnabled(false);
+		mainWindow->ui->scrollArea_fractal_6->setEnabled(false);
+		mainWindow->ui->scrollArea_fractal_7->setEnabled(false);
+		mainWindow->ui->scrollArea_fractal_8->setEnabled(false);
+		mainWindow->ui->scrollArea_fractal_9->setEnabled(false);
 
 		mainWindow->ui->groupBox_formula_transform_1->setVisible(false);
 		mainWindow->ui->groupBox_formula_transform_2->setVisible(false);
 		mainWindow->ui->groupBox_formula_transform_3->setVisible(false);
 		mainWindow->ui->groupBox_formula_transform_4->setVisible(false);
+		mainWindow->ui->groupBox_formula_transform_5->setVisible(false);
+		mainWindow->ui->groupBox_formula_transform_6->setVisible(false);
+		mainWindow->ui->groupBox_formula_transform_7->setVisible(false);
+		mainWindow->ui->groupBox_formula_transform_8->setVisible(false);
+		mainWindow->ui->groupBox_formula_transform_9->setVisible(false);
 	}
 	else
 	{
@@ -2067,7 +2153,7 @@ double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par,
 		cFractalContainer *parFractal)
 {
 	cParamRender *params = new cParamRender(par);
-	cFourFractals *fourFractals = new cFourFractals(parFractal, par);
+	cNineFractals *fourFractals = new cNineFractals(parFractal, par);
 	sDistanceIn in(point, 0, false);
 	sDistanceOut out;
 	double distance = CalculateDistance(*params, *fourFractals, in, &out);
@@ -2327,7 +2413,7 @@ void cInterface::ResetView()
 	double maxDist = 0.0;
 
 	cParamRender *params = new cParamRender(gPar);
-	cFourFractals *fourFractals = new cFourFractals(gParFractal, gPar);
+	cNineFractals *fourFractals = new cNineFractals(gParFractal, gPar);
 
 	for (int i = 0; i < 50; i++)
 	{

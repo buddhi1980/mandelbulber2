@@ -20,9 +20,9 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-#include "four_fractals.hpp"
+#include "nine_fractals.hpp"
 
-cFourFractals::cFourFractals()
+cNineFractals::cNineFractals()
 {
 	fourFractals = new cFractal*[NUMBER_OF_FRACTALS];
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
@@ -34,7 +34,7 @@ cFourFractals::cFourFractals()
 	isHybrid = false;
 }
 
-cFourFractals::~cFourFractals()
+cNineFractals::~cNineFractals()
 {
 	if (fourFractals)
 	{
@@ -49,7 +49,7 @@ cFourFractals::~cFourFractals()
 	}
 }
 
-cFourFractals::cFourFractals(const cFractalContainer *par, const cParameterContainer *generalPar)
+cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterContainer *generalPar)
 {
 	fourFractals = new cFractal*[NUMBER_OF_FRACTALS];
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
@@ -82,7 +82,7 @@ cFourFractals::cFourFractals(const cFractalContainer *par, const cParameterConta
 	}
 }
 
-void cFourFractals::CreateSequence(const cParameterContainer *generalPar)
+void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 {
 	hybridSequence.clear();
 
@@ -128,7 +128,7 @@ void cFourFractals::CreateSequence(const cParameterContainer *generalPar)
 	}
 }
 
-int cFourFractals::GetSequence(int i) const
+int cNineFractals::GetSequence(int i) const
 {
 	if (i < hybridSequence.size())
 	{
@@ -140,7 +140,7 @@ int cFourFractals::GetSequence(int i) const
 	}
 }
 
-fractal::enumDEType cFourFractals::GetDEType(int formulaIndex) const
+fractal::enumDEType cNineFractals::GetDEType(int formulaIndex) const
 {
 	fractal::enumDEType type = fractal::deltaDE;
 	if (formulaIndex == -1)

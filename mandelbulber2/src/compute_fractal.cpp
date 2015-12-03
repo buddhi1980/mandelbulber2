@@ -39,7 +39,7 @@
 using namespace fractal;
 
 template<fractal::enumCalculationMode Mode>
-void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
+void Compute(const cNineFractals &four, const sFractalIn &in, sFractalOut *out)
 {
 	//QTextStream outStream(stdout);
 	//clock_t tim;
@@ -428,7 +428,7 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 
 			double mboxColor = 0.0;
 			double mboxDE = 1.0;
-			for (int h = 0; h < 4; h++)
+			for (int h = 0; h < NUMBER_OF_FRACTALS; h++)
 			{
 				mboxColor += mandelboxAux[h].mboxColor + extendedAux[h].color;
 				mboxDE *= (mandelboxAux[h].mboxDE + extendedAux[h].DE); //mboxDE *= mandelboxAux[h].mboxDE + extendedAux[h].color;
@@ -496,13 +496,13 @@ void Compute(const cFourFractals &four, const sFractalIn &in, sFractalOut *out)
 	//------------- 3249 ns for all calculation  ----------------
 }
 
-template void Compute<calcModeNormal>(const cFourFractals &four, const sFractalIn &in,
+template void Compute<calcModeNormal>(const cNineFractals &four, const sFractalIn &in,
 		sFractalOut *out);
-template void Compute<calcModeDeltaDE1>(const cFourFractals &four, const sFractalIn &in,
+template void Compute<calcModeDeltaDE1>(const cNineFractals &four, const sFractalIn &in,
 		sFractalOut *out);
-template void Compute<calcModeDeltaDE2>(const cFourFractals &four, const sFractalIn &in,
+template void Compute<calcModeDeltaDE2>(const cNineFractals &four, const sFractalIn &in,
 		sFractalOut *out);
-template void Compute<calcModeColouring>(const cFourFractals &four, const sFractalIn &in,
+template void Compute<calcModeColouring>(const cNineFractals &four, const sFractalIn &in,
 		sFractalOut *out);
-template void Compute<calcModeOrbitTrap>(const cFourFractals &four, const sFractalIn &in,
+template void Compute<calcModeOrbitTrap>(const cNineFractals &four, const sFractalIn &in,
 		sFractalOut *out);

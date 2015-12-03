@@ -45,7 +45,7 @@ public:
 		cScheduler *scheduler;
 	};
 
-	cRenderWorker(const cParamRender *_params, const cFourFractals *_fractal,
+	cRenderWorker(const cParamRender *_params, const cNineFractals *_fractal,
 			sThreadData *_threadData, sRenderData *_data, cImage *_image);
 	~cRenderWorker();
 
@@ -184,7 +184,7 @@ private:
 
 	//data got from main thread
 	const cParamRender *params;
-	const cFourFractals *fractal;
+	const cNineFractals *fractal;
 	sRenderData *data;
 	sThreadData *threadData;
 	cImage *image;

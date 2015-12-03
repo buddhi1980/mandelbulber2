@@ -32,7 +32,7 @@
 #include "render_ssao.h"
 #include "global_data.hpp"
 
-cRenderer::cRenderer(const cParamRender *_params, const cFourFractals *_fractal,
+cRenderer::cRenderer(const cParamRender *_params, const cNineFractals *_fractal,
 		sRenderData *_renderData, cImage *_image) :
 		QObject()
 {

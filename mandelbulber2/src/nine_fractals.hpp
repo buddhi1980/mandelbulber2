@@ -20,8 +20,8 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  */
 
-#ifndef FOUR_FRACTALS_HPP_
-#define FOUR_FRACTALS_HPP_
+#ifndef NINE_FRACTALS_HPP_
+#define NINE_FRACTALS_HPP_
 
 #include "fractal.h"
 #include "parameters.hpp"
@@ -29,12 +29,12 @@
 #include "fractal_list.hpp"
 #include <QtCore>
 
-class cFourFractals
+class cNineFractals
 {
 public:
-	cFourFractals();
-	~cFourFractals();
-	cFourFractals(const cFractalContainer *fractalPar, const cParameterContainer *generalPar);
+	cNineFractals();
+	~cNineFractals();
+	cNineFractals(const cFractalContainer *fractalPar, const cParameterContainer *generalPar);
 	cFractal* GetFractal(int index) const {return fourFractals[index];}
 	cFractal **fourFractals;
 	int GetSequence(int i) const;
@@ -52,4 +52,4 @@ private:
 };
 
 
-#endif /* FOUR_FRACTALS_HPP_ */
+#endif /* NINE_FRACTALS_HPP_ */

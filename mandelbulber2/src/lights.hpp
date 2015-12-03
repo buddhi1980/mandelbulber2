@@ -43,7 +43,7 @@ public:
 	};
 
 	cLights();
-	cLights(const cLights& _lights)
+	cLights(const cLights& _lights) : QObject()
 	{
 		Copy(_lights);
 	}

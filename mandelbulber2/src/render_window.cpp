@@ -56,7 +56,7 @@ RenderWindow::RenderWindow(QWidget *parent) :
 		QMainWindow(parent), ui(new Ui::RenderWindow)
 {
 	ui->setupUi(this);
-	fractalWidgets = new QWidget*[4];
+	fractalWidgets = new QWidget*[NUMBER_OF_FRACTALS];
 
 	//store default geometry and state
 	defaultGeometry = saveGeometry();
@@ -560,6 +560,21 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 	ui->label_formula_iterations_4->setVisible(state);
 	ui->spinboxInt_formula_iterations_4->setVisible(state);
 	ui->sliderInt_formula_iterations_4->setVisible(state);
+	ui->label_formula_iterations_5->setVisible(state);
+	ui->spinboxInt_formula_iterations_5->setVisible(state);
+	ui->sliderInt_formula_iterations_5->setVisible(state);
+	ui->label_formula_iterations_6->setVisible(state);
+	ui->spinboxInt_formula_iterations_6->setVisible(state);
+	ui->sliderInt_formula_iterations_6->setVisible(state);
+	ui->label_formula_iterations_7->setVisible(state);
+	ui->spinboxInt_formula_iterations_7->setVisible(state);
+	ui->sliderInt_formula_iterations_7->setVisible(state);
+	ui->label_formula_iterations_8->setVisible(state);
+	ui->spinboxInt_formula_iterations_8->setVisible(state);
+	ui->sliderInt_formula_iterations_8->setVisible(state);
+	ui->label_formula_iterations_9->setVisible(state);
+	ui->spinboxInt_formula_iterations_9->setVisible(state);
+	ui->sliderInt_formula_iterations_9->setVisible(state);
 
 	ui->label_formula_weight_1->setVisible(state);
 	ui->spinbox_formula_weight_1->setVisible(state);
@@ -573,17 +588,44 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 	ui->label_formula_weight_4->setVisible(state);
 	ui->spinbox_formula_weight_4->setVisible(state);
 	ui->slider_formula_weight_4->setVisible(state);
+	ui->label_formula_weight_5->setVisible(state);
+	ui->spinbox_formula_weight_5->setVisible(state);
+	ui->slider_formula_weight_5->setVisible(state);
+	ui->label_formula_weight_6->setVisible(state);
+	ui->spinbox_formula_weight_6->setVisible(state);
+	ui->slider_formula_weight_6->setVisible(state);
+	ui->label_formula_weight_7->setVisible(state);
+	ui->spinbox_formula_weight_7->setVisible(state);
+	ui->slider_formula_weight_7->setVisible(state);
+	ui->label_formula_weight_8->setVisible(state);
+	ui->spinbox_formula_weight_8->setVisible(state);
+	ui->slider_formula_weight_8->setVisible(state);
+	ui->label_formula_weight_9->setVisible(state);
+	ui->spinbox_formula_weight_9->setVisible(state);
+	ui->slider_formula_weight_9->setVisible(state);
 
 	ui->frame_iterations_formula_2->setEnabled(state);
 	ui->frame_iterations_formula_3->setEnabled(state);
 	ui->frame_iterations_formula_4->setEnabled(state);
+	ui->frame_iterations_formula_5->setEnabled(state);
+	ui->frame_iterations_formula_6->setEnabled(state);
+	ui->frame_iterations_formula_7->setEnabled(state);
+	ui->frame_iterations_formula_8->setEnabled(state);
+	ui->frame_iterations_formula_9->setEnabled(state);
+
 	ui->scrollArea_fractal_2->setEnabled(state);
 	ui->scrollArea_fractal_3->setEnabled(state);
 	ui->scrollArea_fractal_4->setEnabled(state);
+	ui->scrollArea_fractal_5->setEnabled(state);
+	ui->scrollArea_fractal_6->setEnabled(state);
+	ui->scrollArea_fractal_7->setEnabled(state);
+	ui->scrollArea_fractal_8->setEnabled(state);
+	ui->scrollArea_fractal_9->setEnabled(state);
 }
 
 void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
 {
+	//TODO change number of fractals to 9 for boolean operators
 	if (state) ui->checkBox_hybrid_fractal_enable->setChecked(false);
 	gApplication->processEvents();
 
