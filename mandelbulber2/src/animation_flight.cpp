@@ -235,12 +235,22 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 															 cErrorMessage::errorMessage);
 		return;
 	}
-	emit updateProgressAndStatus(QObject::tr("Recordning flight path"),
-															 tr("waiting 3 seconds"),
-															 0.0,
-															 cProgressText::progress_ANIMATION);
-	gApplication->processEvents();
-	Wait(3000);
+
+	mainInterface->stopRequest = false;
+	for(int i = 0; i < 30; i++)
+	{
+		if(mainInterface->stopRequest)
+		{
+			emit updateProgressHide();
+			return;
+		}
+		emit updateProgressAndStatus(QObject::tr("Recordning flight path"),
+																 tr("waiting %1 seconds").arg(QString::number(3.0 - 0.1 * i)),
+																 0.0,
+																 cProgressText::progress_ANIMATION);
+		gApplication->processEvents();
+		Wait(100);
+	}
 
 	if (!continueRecording)
 	{
