@@ -72,6 +72,7 @@ public:
 	int minN;	  // minimum number of iterations
 	int N;
 	int reflectionsMax;
+	int repeatFrom;
 
 #ifdef CLSUPPORT
 	int OpenCLDOFMethod;

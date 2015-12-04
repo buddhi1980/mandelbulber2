@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1631</width>
-    <height>1195</height>
+    <width>1666</width>
+    <height>1288</height>
    </rect>
   </property>
   <property name="font">
@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1021</width>
-           <height>828</height>
+           <width>1056</width>
+           <height>703</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -248,7 +248,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1631</width>
+     <width>1666</width>
      <height>19</height>
     </rect>
    </property>
@@ -1211,7 +1211,7 @@
           <x>0</x>
           <y>0</y>
           <width>174</width>
-          <height>348</height>
+          <height>285</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -2864,8 +2864,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
-          <height>129</height>
+          <width>384</width>
+          <height>159</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2896,7 +2896,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>4</number>
+            <number>0</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -2934,7 +2934,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>334</width>
                   <height>724</height>
                  </rect>
                 </property>
@@ -4149,7 +4149,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>334</width>
                   <height>174</height>
                  </rect>
                 </property>
@@ -4477,7 +4477,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>334</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5317,7 +5317,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>334</width>
                   <height>225</height>
                  </rect>
                 </property>
@@ -5635,7 +5635,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>334</width>
                   <height>1433</height>
                  </rect>
                 </property>
@@ -7957,8 +7957,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>384</width>
-          <height>554</height>
+          <width>370</width>
+          <height>330</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -8046,8 +8046,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>340</width>
-                      <height>510</height>
+                      <width>312</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -8703,8 +8703,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>340</width>
-                      <height>510</height>
+                      <width>312</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -9354,8 +9354,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>340</width>
-                      <height>510</height>
+                      <width>312</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -9999,8 +9999,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>340</width>
-                      <height>510</height>
+                      <width>312</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -10644,8 +10644,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>340</width>
-                      <height>510</height>
+                      <width>312</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -11289,8 +11289,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>340</width>
-                      <height>510</height>
+                      <width>312</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -11934,8 +11934,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>340</width>
-                      <height>510</height>
+                      <width>312</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -12579,8 +12579,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>340</width>
-                      <height>510</height>
+                      <width>312</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -13224,8 +13224,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>340</width>
-                      <height>510</height>
+                      <width>312</width>
+                      <height>452</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -13873,8 +13873,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>348</width>
-                  <height>540</height>
+                  <width>320</width>
+                  <height>482</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -14542,20 +14542,59 @@ to target:</string>
                <property name="spacing">
                 <number>2</number>
                </property>
-               <item row="0" column="0">
-                <widget class="MyCheckBox" name="checkBox_hybrid_fractal_enable">
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_103">
+                 <property name="text">
+                  <string>Repeat sequence
+from fractal #:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QSlider" name="sliderInt_repeat_from">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                 <property name="maximum">
+                  <number>9</number>
+                 </property>
+                 <property name="singleStep">
+                  <number>1</number>
+                 </property>
+                 <property name="pageStep">
+                  <number>2</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="2">
+                <widget class="MySpinBox" name="spinboxInt_repeat_from">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="text">
-                  <string>Enable hybrid fractals</string>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls from which fractal component will be repeated hybrid formula sequence&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                 <property name="maximum">
+                  <number>9</number>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
+               <item row="1" column="0" colspan="3">
                 <widget class="MyCheckBox" name="checkBox_linear_DE_mode">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -14565,6 +14604,19 @@ to target:</string>
                  </property>
                  <property name="text">
                   <string>Linear distance estimation (good for Mandelbox or IFS)</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0" colspan="3">
+                <widget class="MyCheckBox" name="checkBox_hybrid_fractal_enable">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>Enable hybrid fractals</string>
                  </property>
                 </widget>
                </item>
@@ -15125,8 +15177,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>348</width>
-                  <height>540</height>
+                  <width>320</width>
+                  <height>354</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -15671,7 +15723,7 @@ and water):</string>
           <x>0</x>
           <y>0</y>
           <width>370</width>
-          <height>818</height>
+          <height>816</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -15716,13 +15768,6 @@ and water):</string>
               <property name="spacing">
                <number>2</number>
               </property>
-              <item row="0" column="0" rowspan="2">
-               <widget class="QLabel" name="label_103">
-                <property name="text">
-                 <string>Max. fractal iterations:</string>
-                </property>
-               </widget>
-              </item>
               <item row="1" column="1">
                <widget class="QSlider" name="sliderInt_N">
                 <property name="sizePolicy">
@@ -17038,8 +17083,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>341</width>
-                  <height>291</height>
+                  <width>355</width>
+                  <height>318</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -17868,8 +17913,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>303</width>
-                  <height>242</height>
+                  <width>317</width>
+                  <height>288</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -18551,8 +18596,8 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>285</width>
-          <height>365</height>
+          <width>306</width>
+          <height>428</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">

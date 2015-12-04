@@ -112,6 +112,7 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
 	reflect = container->Get<double>("reflect");
 	reflectionsMax = container->Get<int>("reflections_max");
+	repeatFrom = container->Get<int>("repeat_from");
 	resolution = 0.0;
 	shading = container->Get<double>("shading");
 	shadow = container->Get<bool>("shadows_enabled");

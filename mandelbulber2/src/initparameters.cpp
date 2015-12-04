@@ -137,6 +137,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("constant_DE_threshold", false, morphLinear, paramStandard);
 	par->addParam("hybrid_fractal_enable", false, morphNone, paramStandard);
 	par->addParam("bailout", 1e2, 1.0, 1e15, morphLinear, paramStandard);
+	par->addParam("repeat_from", 1, 1, 9, morphLinear, paramStandard);
 
 	//foldings
 	par->addParam("box_folding", false, morphLinear, paramStandard);

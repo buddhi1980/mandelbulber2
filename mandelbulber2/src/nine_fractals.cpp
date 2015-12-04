@@ -90,6 +90,8 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 	if (hybridFractalEnabled) isHybrid = true;
 	else isHybrid = false;
 
+	int repeatFrom = generalPar->Get<int>("repeat_from");
+
 	int fractalNo = 0;
 	int counter = 0;
 
@@ -109,7 +111,7 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 			while (fractals[fractalNo]->formula == fractal::none && repeatCount < NUMBER_OF_FRACTALS)
 			{
 				fractalNo++;
-				fractalNo = fractalNo % NUMBER_OF_FRACTALS;
+				if(fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
 				repeatCount++;
 			}
 			hybridSequence.append(fractalNo);
@@ -118,7 +120,7 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 			{
 				counter = 0;
 				fractalNo++;
-				fractalNo = fractalNo % NUMBER_OF_FRACTALS;
+				if(fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
 			}
 		}
 		else
