@@ -70,8 +70,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	sIFSAux ifsAux[NUMBER_OF_FRACTALS];
 	sAexionAux aexionAux[NUMBER_OF_FRACTALS];
 	sExtendedAux extendedAux[NUMBER_OF_FRACTALS];
-	int maxFractals = (fractals.IsHybrid() || in.forcedFormulaIndex >= 0) ? NUMBER_OF_FRACTALS : 1;
-	for (int i = 0; i < maxFractals; i++)
+	int maxFractal = (in.forcedFormulaIndex >= 0) ? in.forcedFormulaIndex : fractals.GetMaxFractalIndex();
+	int minFractal = (in.forcedFormulaIndex >= 0) ? in.forcedFormulaIndex : 0;
+	for (int i = minFractal; i <= maxFractal; i++)
 	{
 		bulbAux[i].r_dz = extendedAux[i].r_dz = 1.0;
 		bulbAux[i].r = extendedAux[i].r = r;
@@ -84,7 +85,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		extendedAux[i].axisBias = 1e+20;
 		extendedAux[i].orbitTraps = 1e+20;
 		extendedAux[i].transformSampling = 1e+20;
-
 	}
 
 	//main iteration loop
@@ -428,7 +428,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 			double mboxColor = 0.0;
 			double mboxDE = 1.0;
-			for (int h = 0; h < NUMBER_OF_FRACTALS; h++)
+			for (int h = minFractal; h <= maxFractal; h++)
 			{
 				mboxColor += mandelboxAux[h].mboxColor + extendedAux[h].color;
 				mboxDE *= (mandelboxAux[h].mboxDE + extendedAux[h].DE); //mboxDE *= mandelboxAux[h].mboxDE + extendedAux[h].color;

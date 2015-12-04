@@ -32,6 +32,7 @@ cNineFractals::cNineFractals()
 	}
 	maxN = 0;
 	isHybrid = false;
+	maxFractalIndex = 0;
 }
 
 cNineFractals::~cNineFractals()
@@ -60,6 +61,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	}
 
 	maxN = generalPar->Get<int>("N");
+	maxFractalIndex = 0;
 	CreateSequence(generalPar);
 
 	if (generalPar->Get<bool>("hybrid_fractal_enable"))
@@ -115,6 +117,7 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 				repeatCount++;
 			}
 			hybridSequence.append(fractalNo);
+			if(fractalNo > maxFractalIndex) maxFractalIndex = fractalNo;
 
 			if (counter >= counts[fractalNo])
 			{

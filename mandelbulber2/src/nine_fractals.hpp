@@ -41,6 +41,7 @@ public:
 	bool IsHybrid() const {return isHybrid;}
 	fractal::enumDEType GetDEType(int formulaIndex) const;
 	double GetWeight(int formulaIndex) const {return formulaWeight[formulaIndex];}
+	int GetMaxFractalIndex() const {return maxFractalIndex;}
 
 private:
 	fractal::enumDEType DEType[NUMBER_OF_FRACTALS];
@@ -49,6 +50,7 @@ private:
 	int maxN;
 	bool isHybrid;
 	double formulaWeight[NUMBER_OF_FRACTALS];
+	int maxFractalIndex;
 };
 
 
