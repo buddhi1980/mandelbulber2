@@ -171,7 +171,7 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 																																					 i + 1);
 	}
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		formulaPosition[i] = container->Get<CVector3>("formula_position", i + 1);
 		formulaRotation[i] = container->Get<CVector3>("formula_rotation", i + 1);

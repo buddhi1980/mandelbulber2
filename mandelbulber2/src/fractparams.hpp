@@ -29,6 +29,7 @@
 #include "primitives.h"
 #include "parameters.hpp"
 #include "commonparams.hpp"
+#include "fractal_container.hpp"
 
 namespace params
 {
@@ -158,7 +159,7 @@ public:
 	double fakeLightsVisibility;
 	double fakeLightsVisibilitySize;
 	double fogVisibility;
-	double formulaScale[4];
+	double formulaScale[NUMBER_OF_FRACTALS];
 	double fov; //perspective factor
 	double glowIntensity;
 	double iterFogColor1Maxiter;
@@ -192,9 +193,9 @@ public:
 
 	CVector3 auxLightPre[4];
 	CVector3 auxLightRandomCenter;
-	CVector3 formulaPosition[4];
-	CVector3 formulaRotation[4];
-	CVector3 formulaRepeat[4];
+	CVector3 formulaPosition[NUMBER_OF_FRACTALS];
+	CVector3 formulaRotation[NUMBER_OF_FRACTALS];
+	CVector3 formulaRepeat[NUMBER_OF_FRACTALS];
 	CVector3 limitMin;
 	CVector3 limitMax;
 	CVector3 repeat;
@@ -203,7 +204,7 @@ public:
 	CVector3 viewAngle;
 	CVector3 topVector;
 
-	CRotationMatrix mRotFormulaRotation[4];
+	CRotationMatrix mRotFormulaRotation[NUMBER_OF_FRACTALS];
 
 	cPrimitives primitives;
 
