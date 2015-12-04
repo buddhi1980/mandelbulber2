@@ -24,10 +24,10 @@
 
 cNineFractals::cNineFractals()
 {
-	fourFractals = new cFractal*[NUMBER_OF_FRACTALS];
+	fractals = new cFractal*[NUMBER_OF_FRACTALS];
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		fourFractals[i] = NULL;
+		fractals[i] = NULL;
 		DEType[i] = fractal::deltaDE;
 	}
 	maxN = 0;
@@ -36,26 +36,26 @@ cNineFractals::cNineFractals()
 
 cNineFractals::~cNineFractals()
 {
-	if (fourFractals)
+	if (fractals)
 	{
 		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 		{
-			if (fourFractals[i])
+			if (fractals[i])
 			{
-				delete fourFractals[i];
+				delete fractals[i];
 			}
 		}
-		delete[] fourFractals;
+		delete[] fractals;
 	}
 }
 
 cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterContainer *generalPar)
 {
-	fourFractals = new cFractal*[NUMBER_OF_FRACTALS];
+	fractals = new cFractal*[NUMBER_OF_FRACTALS];
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		fourFractals[i] = new cFractal(&par->at(i));
-		fourFractals[i]->formula = (fractal::enumFractalFormula) generalPar->Get<int>("formula", i + 1);
+		fractals[i] = new cFractal(&par->at(i));
+		fractals[i]->formula = (fractal::enumFractalFormula) generalPar->Get<int>("formula", i + 1);
 		formulaWeight[i] = generalPar->Get<double>("formula_weight", i + 1);
 	}
 
@@ -70,7 +70,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	{
 		for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 		{
-			fractal::enumFractalFormula formula = fourFractals[f]->formula;
+			fractal::enumFractalFormula formula = fractals[f]->formula;
 			for (int i = 0; i < fractalList.size(); i++)
 			{
 				if (fractalList[i].internalID == formula)
@@ -106,7 +106,7 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 			counter++;
 
 			int repeatCount = 0;
-			while (fourFractals[fractalNo]->formula == fractal::none && repeatCount < NUMBER_OF_FRACTALS)
+			while (fractals[fractalNo]->formula == fractal::none && repeatCount < NUMBER_OF_FRACTALS)
 			{
 				fractalNo++;
 				fractalNo = fractalNo % NUMBER_OF_FRACTALS;

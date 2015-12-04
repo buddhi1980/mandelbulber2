@@ -26,7 +26,7 @@
 
 using namespace std;
 
-double CalculateDistance(const cParamRender &params, const cNineFractals &four,
+double CalculateDistance(const cParamRender &params, const cNineFractals &fractals,
 		const sDistanceIn &in, sDistanceOut *out)
 {
 	double distance;
@@ -64,11 +64,11 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &four,
 		point *= params.formulaScale[0];
 		inTemp.point = point;
 
-		distance = CalculateDistanceSimple(params, four, inTemp, out, 0) / params.formulaScale[0];
+		distance = CalculateDistanceSimple(params, fractals, inTemp, out, 0) / params.formulaScale[0];
 
 		for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 		{
-			if (four.GetFractal(i + 1)->formula != fractal::none)
+			if (fractals.GetFractal(i + 1)->formula != fractal::none)
 			{
 				sDistanceOut outTemp = *out;
 
@@ -78,7 +78,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &four,
 				point *= params.formulaScale[i + 1];
 				inTemp.point = point;
 
-				double distTemp = CalculateDistanceSimple(params, four, inTemp, &outTemp, i + 1)
+				double distTemp = CalculateDistanceSimple(params, fractals, inTemp, &outTemp, i + 1)
 						/ params.formulaScale[i + 1];
 
 				params::enumBooleanOperator boolOperator = params.booleanOperator[i];
@@ -146,7 +146,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &four,
 	}
 	else
 	{
-		distance = CalculateDistanceSimple(params, four, in, out, -1);
+		distance = CalculateDistanceSimple(params, fractals, in, out, -1);
 	}
 
 	distance = min(distance,
@@ -169,7 +169,7 @@ double CalculateDistance(const cParamRender &params, const cNineFractals &four,
 	return distance;
 }
 
-double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &four,
+double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &fractals,
 		const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex)
 {
 	double distance;
@@ -182,9 +182,9 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 
 	if (true) //TODO !params.primitives.plane.onlyPlane
 	{
-		if (four.GetDEType(forcedFormulaIndex) == fractal::analitycDE)
+		if (fractals.GetDEType(forcedFormulaIndex) == fractal::analitycDE)
 		{
-			Compute<fractal::calcModeNormal>(four, fractIn, &fractOut);
+			Compute<fractal::calcModeNormal>(fractals, fractIn, &fractOut);
 			distance = fractOut.distance;
 			//qDebug() << "computed distance" << distance;
 			out->maxiter = fractOut.maxiter;
@@ -229,7 +229,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 		{
 			double deltaDE = 1e-10;
 
-			Compute<fractal::calcModeDeltaDE1>(four, fractIn, &fractOut);
+			Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
 			double r = fractOut.z.Length();
 			bool maxiter = out->maxiter = fractOut.maxiter;
 			out->iters = fractOut.iters;
@@ -239,19 +239,19 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 			fractIn.maxN = fractOut.iters; //for other directions must be the same number of iterations
 
 			fractIn.point = in.point + CVector3(deltaDE, 0.0, 0.0);
-			Compute<fractal::calcModeDeltaDE1>(four, fractIn, &fractOut);
+			Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
 			double r2 = fractOut.z.Length();
 			double dr1 = fabs(r2 - r) / deltaDE;
 			out->totalIters += fractOut.iters;
 
 			fractIn.point = in.point + CVector3(0.0, deltaDE, 0.0);
-			Compute<fractal::calcModeDeltaDE1>(four, fractIn, &fractOut);
+			Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
 			r2 = fractOut.z.Length();
 			double dr2 = fabs(r2 - r) / deltaDE;
 			out->totalIters += fractOut.iters;
 
 			fractIn.point = in.point + CVector3(0.0, 0.0, deltaDE);
-			Compute<fractal::calcModeDeltaDE1>(four, fractIn, &fractOut);
+			Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
 			r2 = fractOut.z.Length();
 			double dr3 = fabs(r2 - r) / deltaDE;
 			out->totalIters += fractOut.iters;

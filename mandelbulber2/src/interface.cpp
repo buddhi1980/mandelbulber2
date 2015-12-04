@@ -2153,12 +2153,12 @@ double cInterface::GetDistanceForPoint(CVector3 point, cParameterContainer *par,
 		cFractalContainer *parFractal)
 {
 	cParamRender *params = new cParamRender(par);
-	cNineFractals *fourFractals = new cNineFractals(parFractal, par);
+	cNineFractals *fractals = new cNineFractals(parFractal, par);
 	sDistanceIn in(point, 0, false);
 	sDistanceOut out;
-	double distance = CalculateDistance(*params, *fourFractals, in, &out);
+	double distance = CalculateDistance(*params, *fractals, in, &out);
 	delete params;
-	delete fourFractals;
+	delete fractals;
 	return distance;
 }
 
@@ -2413,7 +2413,7 @@ void cInterface::ResetView()
 	double maxDist = 0.0;
 
 	cParamRender *params = new cParamRender(gPar);
-	cNineFractals *fourFractals = new cNineFractals(gParFractal, gPar);
+	cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
 
 	for (int i = 0; i < 50; i++)
 	{
@@ -2433,7 +2433,7 @@ void cInterface::ResetView()
 			CVector3 point = direction * scan;
 			sDistanceIn in(point, 0, false);
 			sDistanceOut out;
-			double dist = CalculateDistance(*params, *fourFractals, in, &out);
+			double dist = CalculateDistance(*params, *fractals, in, &out);
 			if (dist < 0.1)
 			{
 				break;
@@ -2449,7 +2449,7 @@ void cInterface::ResetView()
 																		1.0,
 																		cProgressText::progress_IMAGE);
 	delete params;
-	delete fourFractals;
+	delete fractals;
 
 	double newCameraDist = maxDist / fov * 2.0 * sqrt(2);
 	if (perspType == params::perspFishEye || perspType == params::perspFishEyeCut

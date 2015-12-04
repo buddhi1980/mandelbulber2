@@ -39,7 +39,7 @@
 using namespace fractal;
 
 template<fractal::enumCalculationMode Mode>
-void Compute(const cNineFractals &four, const sFractalIn &in, sFractalOut *out)
+void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out)
 {
 	//QTextStream outStream(stdout);
 	//clock_t tim;
@@ -63,20 +63,20 @@ void Compute(const cNineFractals &four, const sFractalIn &in, sFractalOut *out)
 	int fractalIndex = 0;
 	if (in.forcedFormulaIndex >= 0) fractalIndex = in.forcedFormulaIndex;
 
-	const cFractal *defaultFractal = four.GetFractal(fractalIndex);
+	const cFractal *defaultFractal = fractals.GetFractal(fractalIndex);
 
-	sMandelbulbAux bulbAux[4];
-	sMandelboxAux mandelboxAux[4];
-	sIFSAux ifsAux[4];
-	sAexionAux aexionAux[4];
-	sExtendedAux extendedAux[4];
-	int maxFractals = (four.IsHybrid() || in.forcedFormulaIndex >= 0) ? 4 : 1;
+	sMandelbulbAux bulbAux[NUMBER_OF_FRACTALS];
+	sMandelboxAux mandelboxAux[NUMBER_OF_FRACTALS];
+	sIFSAux ifsAux[NUMBER_OF_FRACTALS];
+	sAexionAux aexionAux[NUMBER_OF_FRACTALS];
+	sExtendedAux extendedAux[NUMBER_OF_FRACTALS];
+	int maxFractals = (fractals.IsHybrid() || in.forcedFormulaIndex >= 0) ? NUMBER_OF_FRACTALS : 1;
 	for (int i = 0; i < maxFractals; i++)
 	{
 		bulbAux[i].r_dz = extendedAux[i].r_dz = 1.0;
 		bulbAux[i].r = extendedAux[i].r = r;
 		mandelboxAux[i].mboxColor = extendedAux[i].color = 1.0;
-		mandelboxAux[i].actualScale = extendedAux[i].actualScale = four.GetFractal(i)->mandelbox.scale;
+		mandelboxAux[i].actualScale = extendedAux[i].actualScale = fractals.GetFractal(i)->mandelbox.scale;
 		mandelboxAux[i].mboxDE = ifsAux[i].ifsDE = extendedAux[i].DE = 1.0;
 		aexionAux[i].c = c;
 		aexionAux[i].cw = 0;
@@ -112,14 +112,14 @@ void Compute(const cNineFractals &four, const sFractalIn &in, sFractalOut *out)
 		}
 		else
 		{
-			sequence = four.GetSequence(i);
+			sequence = fractals.GetSequence(i);
 		}
-		const cFractal *fractal = four.GetFractal(sequence);
+		const cFractal *fractal = fractals.GetFractal(sequence);
 
 		//temporary vector for weight function
 		CVector3 tempZ = z;
 
-		if (!four.IsHybrid() || four.GetWeight(sequence) > 0.0)
+		if (!fractals.IsHybrid() || fractals.GetWeight(sequence) > 0.0)
 		{
 			//calls for fractal formulas
 			switch (fractal->formula)
@@ -332,9 +332,9 @@ void Compute(const cNineFractals &four, const sFractalIn &in, sFractalOut *out)
 			}
 		}
 
-		if (four.IsHybrid())
+		if (fractals.IsHybrid())
 		{
-			z = SmoothCVector(tempZ, z, four.GetWeight(sequence));
+			z = SmoothCVector(tempZ, z, fractals.GetWeight(sequence));
 		}
 
 		//r calculation
@@ -422,7 +422,7 @@ void Compute(const cNineFractals &four, const sFractalIn &in, sFractalOut *out)
 	//color calculation
 	else if (Mode == calcModeColouring)
 	{
-		if (four.IsHybrid())
+		if (fractals.IsHybrid())
 		{
 			if (minimumR > 100) minimumR = 100;
 
@@ -496,13 +496,13 @@ void Compute(const cNineFractals &four, const sFractalIn &in, sFractalOut *out)
 	//------------- 3249 ns for all calculation  ----------------
 }
 
-template void Compute<calcModeNormal>(const cNineFractals &four, const sFractalIn &in,
+template void Compute<calcModeNormal>(const cNineFractals &fractals, const sFractalIn &in,
 		sFractalOut *out);
-template void Compute<calcModeDeltaDE1>(const cNineFractals &four, const sFractalIn &in,
+template void Compute<calcModeDeltaDE1>(const cNineFractals &fractals, const sFractalIn &in,
 		sFractalOut *out);
-template void Compute<calcModeDeltaDE2>(const cNineFractals &four, const sFractalIn &in,
+template void Compute<calcModeDeltaDE2>(const cNineFractals &fractals, const sFractalIn &in,
 		sFractalOut *out);
-template void Compute<calcModeColouring>(const cNineFractals &four, const sFractalIn &in,
+template void Compute<calcModeColouring>(const cNineFractals &fractals, const sFractalIn &in,
 		sFractalOut *out);
-template void Compute<calcModeOrbitTrap>(const cNineFractals &four, const sFractalIn &in,
+template void Compute<calcModeOrbitTrap>(const cNineFractals &fractals, const sFractalIn &in,
 		sFractalOut *out);

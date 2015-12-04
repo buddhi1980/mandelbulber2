@@ -317,7 +317,7 @@ bool cRenderJob::Execute(void)
 
 	//move parameters from containers to structures
 	cParamRender *params = new cParamRender(paramsContainer);
-	cNineFractals *fourFractals = new cNineFractals(fractalContainer, paramsContainer);
+	cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
 
 	//recalculation of some parameters;
 	params->resolution = 1.0 / image->GetHeight();
@@ -329,7 +329,7 @@ bool cRenderJob::Execute(void)
 	renderData->statistics.Reset();
 
 	//create and execute renderer
-	cRenderer *renderer = new cRenderer(params, fourFractals, renderData, image);
+	cRenderer *renderer = new cRenderer(params, fractals, renderData, image);
 
 	//connect signal for progress bar update
 	connect(renderer,
@@ -376,7 +376,7 @@ bool cRenderJob::Execute(void)
 	if (result) emit fullyRendered();
 
 	delete params;
-	delete fourFractals;
+	delete fractals;
 	delete renderer;
 	inProgress = false;
 

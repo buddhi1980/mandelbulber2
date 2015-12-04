@@ -51,9 +51,9 @@ struct sDistanceOut
 	bool maxiter;
 };
 
-double CalculateDistance(const cParamRender &params, const cNineFractals &four,
+double CalculateDistance(const cParamRender &params, const cNineFractals &fractals,
 		const sDistanceIn &in, sDistanceOut *out);
-double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &four,
+double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &fractals,
 		const sDistanceIn &in, sDistanceOut *out, int forcedFormulaIndex);
 
 #endif /* CALCULATE_DISTANCE_HPP_ */

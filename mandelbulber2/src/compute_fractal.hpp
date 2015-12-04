@@ -59,6 +59,6 @@ struct sFractalOut
 };
 
 template<fractal::enumCalculationMode Mode>
-void Compute(const cNineFractals &four, const sFractalIn &in, sFractalOut *out);
+void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out);
 
 #endif /* COMPUTE_FRACTAL_HPP_ */

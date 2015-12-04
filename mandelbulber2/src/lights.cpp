@@ -58,7 +58,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	WriteLog("Preparation of lights started");
 	//move parameters from containers to structures
 	const cParamRender *params = new cParamRender(_params);
-	const cNineFractals *fourFractals = new cNineFractals(_fractal, _params);
+	const cNineFractals *fractals = new cNineFractals(_fractal, _params);
 
 	numberOfLights = params->auxLightNumber + params->auxLightRandomNumber;
 
@@ -112,7 +112,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 				position = params->auxLightRandomCenter + rv * params->auxLightRandomRadius * radiusMultiplier;
 
 				sDistanceIn distanceIn(position, 0.0, false);
-				distance = CalculateDistance(*params, *fourFractals, distanceIn, &distanceOut);
+				distance = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
 
 				trialNumber++;
 				if (trialNumber % 100 == 0) radiusMultiplier *= 1.01;
@@ -141,7 +141,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	lightsReady = true;
 
 	delete params;
-	delete fourFractals;
+	delete fractals;
 
 	WriteLog("Preparation of lights finished");
 }
