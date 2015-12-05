@@ -37,6 +37,7 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 	auxLightRandomCenter = container->Get<CVector3>("random_lights_distribution_center");
 	auxLightRandomRadius = container->Get<double>("random_lights_distribution_radius");
 	auxLightRandomMaxDistanceFromFractal = container->Get<double>("random_lights_max_distance_from_fractal");
+	auxLightRandomIntensity = container->Get<double>("random_lights_intensity");
 	auxLightRandomEnabled = container->Get<bool>("random_lights_group");
 	auxLightVisibility = container->Get<double>("aux_light_visibility");
 	auxLightVisibilitySize = container->Get<double>("aux_light_visibility_size");
