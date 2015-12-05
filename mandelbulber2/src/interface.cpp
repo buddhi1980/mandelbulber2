@@ -1521,107 +1521,35 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 			fractalNames.append(name);
 		}
 
-		mainWindow->ui->comboBox_formula_1->clear();
-		mainWindow->ui->comboBox_formula_1->addItems(fractalNames);
-		mainWindow->ui->comboBox_formula_2->clear();
-		mainWindow->ui->comboBox_formula_2->addItems(fractalNames);
-		mainWindow->ui->comboBox_formula_3->clear();
-		mainWindow->ui->comboBox_formula_3->addItems(fractalNames);
-		mainWindow->ui->comboBox_formula_4->clear();
-		mainWindow->ui->comboBox_formula_4->addItems(fractalNames);
-		mainWindow->ui->comboBox_formula_5->clear();
-		mainWindow->ui->comboBox_formula_5->addItems(fractalNames);
-		mainWindow->ui->comboBox_formula_6->clear();
-		mainWindow->ui->comboBox_formula_6->addItems(fractalNames);
-		mainWindow->ui->comboBox_formula_7->clear();
-		mainWindow->ui->comboBox_formula_7->addItems(fractalNames);
-		mainWindow->ui->comboBox_formula_8->clear();
-		mainWindow->ui->comboBox_formula_8->addItems(fractalNames);
-		mainWindow->ui->comboBox_formula_9->clear();
-		mainWindow->ui->comboBox_formula_9->addItems(fractalNames);
+		for(int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+		{
+			QFrame *frame = mainWindow->ui->tabWidget_fractals->findChild<QFrame*>("frame_iterations_formula_" + QString::number(i));
 
-		mainWindow->ui->label_formula_iterations_1->setVisible(false);
-		mainWindow->ui->spinboxInt_formula_iterations_1->setVisible(false);
-		mainWindow->ui->sliderInt_formula_iterations_1->setVisible(false);
-		mainWindow->ui->label_formula_iterations_2->setVisible(false);
-		mainWindow->ui->spinboxInt_formula_iterations_2->setVisible(false);
-		mainWindow->ui->sliderInt_formula_iterations_2->setVisible(false);
-		mainWindow->ui->label_formula_iterations_3->setVisible(false);
-		mainWindow->ui->spinboxInt_formula_iterations_3->setVisible(false);
-		mainWindow->ui->sliderInt_formula_iterations_3->setVisible(false);
-		mainWindow->ui->label_formula_iterations_4->setVisible(false);
-		mainWindow->ui->spinboxInt_formula_iterations_4->setVisible(false);
-		mainWindow->ui->sliderInt_formula_iterations_4->setVisible(false);
-		mainWindow->ui->label_formula_iterations_5->setVisible(false);
-		mainWindow->ui->spinboxInt_formula_iterations_5->setVisible(false);
-		mainWindow->ui->sliderInt_formula_iterations_5->setVisible(false);
-		mainWindow->ui->label_formula_iterations_6->setVisible(false);
-		mainWindow->ui->spinboxInt_formula_iterations_6->setVisible(false);
-		mainWindow->ui->sliderInt_formula_iterations_6->setVisible(false);
-		mainWindow->ui->label_formula_iterations_7->setVisible(false);
-		mainWindow->ui->spinboxInt_formula_iterations_7->setVisible(false);
-		mainWindow->ui->sliderInt_formula_iterations_7->setVisible(false);
-		mainWindow->ui->label_formula_iterations_8->setVisible(false);
-		mainWindow->ui->spinboxInt_formula_iterations_8->setVisible(false);
-		mainWindow->ui->sliderInt_formula_iterations_8->setVisible(false);
-		mainWindow->ui->label_formula_iterations_9->setVisible(false);
-		mainWindow->ui->spinboxInt_formula_iterations_9->setVisible(false);
-		mainWindow->ui->sliderInt_formula_iterations_9->setVisible(false);
+			QComboBox *combo = frame->findChild<QComboBox*>(QString("comboBox_formula_") + QString::number(i));
+			combo->clear();
+			combo->addItems(fractalNames);
 
-		mainWindow->ui->label_formula_weight_1->setVisible(false);
-		mainWindow->ui->spinbox_formula_weight_1->setVisible(false);
-		mainWindow->ui->slider_formula_weight_1->setVisible(false);
-		mainWindow->ui->label_formula_weight_2->setVisible(false);
-		mainWindow->ui->spinbox_formula_weight_2->setVisible(false);
-		mainWindow->ui->slider_formula_weight_2->setVisible(false);
-		mainWindow->ui->label_formula_weight_3->setVisible(false);
-		mainWindow->ui->spinbox_formula_weight_3->setVisible(false);
-		mainWindow->ui->slider_formula_weight_3->setVisible(false);
-		mainWindow->ui->label_formula_weight_4->setVisible(false);
-		mainWindow->ui->spinbox_formula_weight_4->setVisible(false);
-		mainWindow->ui->slider_formula_weight_4->setVisible(false);
-		mainWindow->ui->label_formula_weight_5->setVisible(false);
-		mainWindow->ui->spinbox_formula_weight_5->setVisible(false);
-		mainWindow->ui->slider_formula_weight_5->setVisible(false);
-		mainWindow->ui->label_formula_weight_6->setVisible(false);
-		mainWindow->ui->spinbox_formula_weight_6->setVisible(false);
-		mainWindow->ui->slider_formula_weight_6->setVisible(false);
-		mainWindow->ui->label_formula_weight_7->setVisible(false);
-		mainWindow->ui->spinbox_formula_weight_7->setVisible(false);
-		mainWindow->ui->slider_formula_weight_7->setVisible(false);
-		mainWindow->ui->label_formula_weight_8->setVisible(false);
-		mainWindow->ui->spinbox_formula_weight_8->setVisible(false);
-		mainWindow->ui->slider_formula_weight_8->setVisible(false);
-		mainWindow->ui->label_formula_weight_9->setVisible(false);
-		mainWindow->ui->spinbox_formula_weight_9->setVisible(false);
-		mainWindow->ui->slider_formula_weight_9->setVisible(false);
+			frame->findChild<QLabel*>(QString("label_formula_iterations_") + QString::number(i))->setVisible(false);
+			frame->findChild<MySpinBox*>(QString("spinboxInt_formula_iterations_") + QString::number(i))->setVisible(false);
+			frame->findChild<QSlider*>(QString("sliderInt_formula_iterations_") + QString::number(i))->setVisible(false);
 
-		mainWindow->ui->frame_iterations_formula_2->setEnabled(false);
-		mainWindow->ui->frame_iterations_formula_3->setEnabled(false);
-		mainWindow->ui->frame_iterations_formula_4->setEnabled(false);
-		mainWindow->ui->frame_iterations_formula_5->setEnabled(false);
-		mainWindow->ui->frame_iterations_formula_6->setEnabled(false);
-		mainWindow->ui->frame_iterations_formula_7->setEnabled(false);
-		mainWindow->ui->frame_iterations_formula_8->setEnabled(false);
-		mainWindow->ui->frame_iterations_formula_9->setEnabled(false);
-		mainWindow->ui->scrollArea_fractal_2->setEnabled(false);
-		mainWindow->ui->scrollArea_fractal_3->setEnabled(false);
-		mainWindow->ui->scrollArea_fractal_4->setEnabled(false);
-		mainWindow->ui->scrollArea_fractal_5->setEnabled(false);
-		mainWindow->ui->scrollArea_fractal_6->setEnabled(false);
-		mainWindow->ui->scrollArea_fractal_7->setEnabled(false);
-		mainWindow->ui->scrollArea_fractal_8->setEnabled(false);
-		mainWindow->ui->scrollArea_fractal_9->setEnabled(false);
+			frame->findChild<QLabel*>(QString("label_formula_weight_") + QString::number(i))->setVisible(false);
+			frame->findChild<MyDoubleSpinBox*>(QString("spinbox_formula_weight_") + QString::number(i))->setVisible(false);
+			frame->findChild<QSlider*>(QString("slider_formula_weight_") + QString::number(i))->setVisible(false);
 
-		mainWindow->ui->groupBox_formula_transform_1->setVisible(false);
-		mainWindow->ui->groupBox_formula_transform_2->setVisible(false);
-		mainWindow->ui->groupBox_formula_transform_3->setVisible(false);
-		mainWindow->ui->groupBox_formula_transform_4->setVisible(false);
-		mainWindow->ui->groupBox_formula_transform_5->setVisible(false);
-		mainWindow->ui->groupBox_formula_transform_6->setVisible(false);
-		mainWindow->ui->groupBox_formula_transform_7->setVisible(false);
-		mainWindow->ui->groupBox_formula_transform_8->setVisible(false);
-		mainWindow->ui->groupBox_formula_transform_9->setVisible(false);
+			frame->findChild<QLabel*>(QString("label_formula_start_iteration_") + QString::number(i))->setVisible(false);
+			frame->findChild<QLabel*>(QString("label_formula_stop_iteration_") + QString::number(i))->setVisible(false);
+			frame->findChild<MySpinBox*>(QString("spinboxInt_formula_start_iteration_") + QString::number(i))->setVisible(false);
+			frame->findChild<MySpinBox*>(QString("spinboxInt_formula_stop_iteration_") + QString::number(i))->setVisible(false);
+
+			if(i > 1)
+			{
+				frame->setEnabled(false);
+				mainWindow->ui->tabWidget_fractals->findChild<QScrollArea*>("scrollArea_fractal_" + QString::number(i))->setEnabled(false);
+			}
+
+			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_formula_transform_" + QString::number(i))->setVisible(false);
+		}
 	}
 	else
 	{

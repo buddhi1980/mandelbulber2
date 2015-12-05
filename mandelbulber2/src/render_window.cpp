@@ -548,79 +548,29 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 	if (state) ui->groupCheck_boolean_operators->setChecked(false);
 	gApplication->processEvents();
 
-	ui->label_formula_iterations_1->setVisible(state);
-	ui->spinboxInt_formula_iterations_1->setVisible(state);
-	ui->sliderInt_formula_iterations_1->setVisible(state);
-	ui->label_formula_iterations_2->setVisible(state);
-	ui->spinboxInt_formula_iterations_2->setVisible(state);
-	ui->sliderInt_formula_iterations_2->setVisible(state);
-	ui->label_formula_iterations_3->setVisible(state);
-	ui->spinboxInt_formula_iterations_3->setVisible(state);
-	ui->sliderInt_formula_iterations_3->setVisible(state);
-	ui->label_formula_iterations_4->setVisible(state);
-	ui->spinboxInt_formula_iterations_4->setVisible(state);
-	ui->sliderInt_formula_iterations_4->setVisible(state);
-	ui->label_formula_iterations_5->setVisible(state);
-	ui->spinboxInt_formula_iterations_5->setVisible(state);
-	ui->sliderInt_formula_iterations_5->setVisible(state);
-	ui->label_formula_iterations_6->setVisible(state);
-	ui->spinboxInt_formula_iterations_6->setVisible(state);
-	ui->sliderInt_formula_iterations_6->setVisible(state);
-	ui->label_formula_iterations_7->setVisible(state);
-	ui->spinboxInt_formula_iterations_7->setVisible(state);
-	ui->sliderInt_formula_iterations_7->setVisible(state);
-	ui->label_formula_iterations_8->setVisible(state);
-	ui->spinboxInt_formula_iterations_8->setVisible(state);
-	ui->sliderInt_formula_iterations_8->setVisible(state);
-	ui->label_formula_iterations_9->setVisible(state);
-	ui->spinboxInt_formula_iterations_9->setVisible(state);
-	ui->sliderInt_formula_iterations_9->setVisible(state);
+	for(int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+	{
+		QFrame *frame = ui->tabWidget_fractals->findChild<QFrame*>("frame_iterations_formula_" + QString::number(i));
 
-	ui->label_formula_weight_1->setVisible(state);
-	ui->spinbox_formula_weight_1->setVisible(state);
-	ui->slider_formula_weight_1->setVisible(state);
-	ui->label_formula_weight_2->setVisible(state);
-	ui->spinbox_formula_weight_2->setVisible(state);
-	ui->slider_formula_weight_2->setVisible(state);
-	ui->label_formula_weight_3->setVisible(state);
-	ui->spinbox_formula_weight_3->setVisible(state);
-	ui->slider_formula_weight_3->setVisible(state);
-	ui->label_formula_weight_4->setVisible(state);
-	ui->spinbox_formula_weight_4->setVisible(state);
-	ui->slider_formula_weight_4->setVisible(state);
-	ui->label_formula_weight_5->setVisible(state);
-	ui->spinbox_formula_weight_5->setVisible(state);
-	ui->slider_formula_weight_5->setVisible(state);
-	ui->label_formula_weight_6->setVisible(state);
-	ui->spinbox_formula_weight_6->setVisible(state);
-	ui->slider_formula_weight_6->setVisible(state);
-	ui->label_formula_weight_7->setVisible(state);
-	ui->spinbox_formula_weight_7->setVisible(state);
-	ui->slider_formula_weight_7->setVisible(state);
-	ui->label_formula_weight_8->setVisible(state);
-	ui->spinbox_formula_weight_8->setVisible(state);
-	ui->slider_formula_weight_8->setVisible(state);
-	ui->label_formula_weight_9->setVisible(state);
-	ui->spinbox_formula_weight_9->setVisible(state);
-	ui->slider_formula_weight_9->setVisible(state);
+		frame->findChild<QLabel*>(QString("label_formula_iterations_") + QString::number(i))->setVisible(state);
+		frame->findChild<MySpinBox*>(QString("spinboxInt_formula_iterations_") + QString::number(i))->setVisible(state);
+		frame->findChild<QSlider*>(QString("sliderInt_formula_iterations_") + QString::number(i))->setVisible(state);
 
-	ui->frame_iterations_formula_2->setEnabled(state);
-	ui->frame_iterations_formula_3->setEnabled(state);
-	ui->frame_iterations_formula_4->setEnabled(state);
-	ui->frame_iterations_formula_5->setEnabled(state);
-	ui->frame_iterations_formula_6->setEnabled(state);
-	ui->frame_iterations_formula_7->setEnabled(state);
-	ui->frame_iterations_formula_8->setEnabled(state);
-	ui->frame_iterations_formula_9->setEnabled(state);
+		frame->findChild<QLabel*>(QString("label_formula_weight_") + QString::number(i))->setVisible(state);
+		frame->findChild<MyDoubleSpinBox*>(QString("spinbox_formula_weight_") + QString::number(i))->setVisible(state);
+		frame->findChild<QSlider*>(QString("slider_formula_weight_") + QString::number(i))->setVisible(state);
 
-	ui->scrollArea_fractal_2->setEnabled(state);
-	ui->scrollArea_fractal_3->setEnabled(state);
-	ui->scrollArea_fractal_4->setEnabled(state);
-	ui->scrollArea_fractal_5->setEnabled(state);
-	ui->scrollArea_fractal_6->setEnabled(state);
-	ui->scrollArea_fractal_7->setEnabled(state);
-	ui->scrollArea_fractal_8->setEnabled(state);
-	ui->scrollArea_fractal_9->setEnabled(state);
+		frame->findChild<QLabel*>(QString("label_formula_start_iteration_") + QString::number(i))->setVisible(state);
+		frame->findChild<QLabel*>(QString("label_formula_stop_iteration_") + QString::number(i))->setVisible(state);
+		frame->findChild<MySpinBox*>(QString("spinboxInt_formula_start_iteration_") + QString::number(i))->setVisible(state);
+		frame->findChild<MySpinBox*>(QString("spinboxInt_formula_stop_iteration_") + QString::number(i))->setVisible(state);
+
+		if(i > 1)
+		{
+			frame->setEnabled(state);
+			ui->tabWidget_fractals->findChild<QScrollArea*>("scrollArea_fractal_" + QString::number(i))->setEnabled(state);
+		}
+	}
 }
 
 void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
