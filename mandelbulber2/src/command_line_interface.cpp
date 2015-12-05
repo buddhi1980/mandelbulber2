@@ -33,8 +33,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		"handy application designed to help you render 3D Mandelbrot fractals called Mandelbulb "
         "and some other kind of 3D fractals like Mandelbox, Bulbbox, Juliabulb, Menger Sponge"));
 
-  QCommandLineOption helpOption(QStringList() << "h" << "help",
-		QCoreApplication::translate("main", "Displays this help."));
+	parser.addHelpOption();
+	parser.addVersionOption();
 
 	QCommandLineOption noguiOption(QStringList() << "n" << "nogui",
 		QCoreApplication::translate("main", "Starts the program without a GUI."));
@@ -113,7 +113,6 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 		"<settings_file> can also be specified as a list, see all options with --help-input"
 	));
 
-	parser.addOption(helpOption);
 	parser.addOption(noguiOption);
 	parser.addOption(outputOption);
 	parser.addOption(keyframeOption);
@@ -137,7 +136,6 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qapplication)
 	parser.process(*qapplication);
 	args = parser.positionalArguments();
 
-	cliData.help = parser.isSet(helpOption);
 	cliData.nogui = parser.isSet(noguiOption);
 	cliData.keyframe = parser.isSet(keyframeOption);
 	cliData.flight = parser.isSet(flightOption);
@@ -178,12 +176,6 @@ void cCommandLineInterface::ReadCLI(void)
 	bool checkParse = true;
 	bool settingsSpecified = false;
 	QTextStream out(stdout);
-
-	// show input help
-	if (cliData.help)
-	{
-		parser.showHelp(0);
-	}
 
 	// show input help only
 	if (cliData.showInputHelp)
