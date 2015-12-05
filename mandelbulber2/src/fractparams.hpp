@@ -145,6 +145,7 @@ public:
 	double auxLightVisibilitySize;
 	double auxLightRandomRadius;
 	double auxLightRandomMaxDistanceFromFractal;
+	double auxLightRandomIntensity;
 	double background_brightness;
 	double cameraDistanceToTarget; //zoom
 	double coloring_speed;

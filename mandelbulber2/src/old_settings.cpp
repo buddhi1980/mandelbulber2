@@ -774,6 +774,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 
 	par->Set("random_lights_random_seed", oldData->auxLightRandomSeed);
 	par->Set("random_lights_max_distance_from_fractal", oldData->doubles.auxLightMaxDist);
+	par->Set("random_lights_intensity", oldData->doubles.auxLightIntensity);
 	par->Set("random_lights_distribution_radius", oldData->doubles.auxLightDistributionRadius);
 	par->Set("random_lights_distribution_center", oldData->doubles.auxLightRandomCenter);
 	par->Set("random_lights_number", oldData->auxLightNumber > 4 ? (oldData->auxLightNumber - 4) : 0);
