@@ -60,7 +60,7 @@ void MyTableWidgetAnim::tableContextMenuRequest(QPoint point)
 	}
 	else
 	{
-		if(column < columnCount() - 1)
+		if(column < columnCount() - 1 && column >=0)
 		{
 			interpolateForward = menu->addAction(tr("Interpolate next frames"));
 		}
