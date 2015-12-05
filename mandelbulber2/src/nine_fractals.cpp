@@ -58,6 +58,8 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		fractals[i] = new cFractal(&par->at(i));
 		fractals[i]->formula = (fractal::enumFractalFormula) generalPar->Get<int>("formula", i + 1);
 		formulaWeight[i] = generalPar->Get<double>("formula_weight", i + 1);
+		formulaStartIteriation[i] = generalPar->Get<int>("formula_start_iteration", i + 1);
+		formulaStopIteration[i] = generalPar->Get<int>("formula_stop_iteration", i + 1);
 	}
 
 	maxN = generalPar->Get<int>("N");
@@ -110,10 +112,11 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 			counter++;
 
 			int repeatCount = 0;
-			while (fractals[fractalNo]->formula == fractal::none && repeatCount < NUMBER_OF_FRACTALS)
+			while ((fractals[fractalNo]->formula == fractal::none || i < formulaStartIteriation[fractalNo]
+					|| i > formulaStopIteration[fractalNo]) && repeatCount < NUMBER_OF_FRACTALS)
 			{
 				fractalNo++;
-				if(fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
+				if (fractalNo >= NUMBER_OF_FRACTALS) fractalNo = repeatFrom - 1;
 				repeatCount++;
 			}
 			hybridSequence.append(fractalNo);

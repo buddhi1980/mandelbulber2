@@ -50,6 +50,8 @@ private:
 	int maxN;
 	bool isHybrid;
 	double formulaWeight[NUMBER_OF_FRACTALS];
+	int formulaStartIteriation[NUMBER_OF_FRACTALS];
+	int formulaStopIteration[NUMBER_OF_FRACTALS];
 	int maxFractalIndex;
 };
 

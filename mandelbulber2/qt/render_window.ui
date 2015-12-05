@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1666</width>
+    <width>1578</width>
     <height>1288</height>
    </rect>
   </property>
@@ -67,8 +67,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1056</width>
-           <height>703</height>
+           <width>1009</width>
+           <height>921</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -248,7 +248,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1666</width>
+     <width>1578</width>
      <height>19</height>
     </rect>
    </property>
@@ -372,7 +372,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
+          <width>347</width>
           <height>442</height>
          </rect>
         </property>
@@ -1210,8 +1210,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>174</width>
-          <height>285</height>
+          <width>156</width>
+          <height>395</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -2864,8 +2864,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>384</width>
-          <height>159</height>
+          <width>361</width>
+          <height>215</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2934,7 +2934,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>311</width>
                   <height>724</height>
                  </rect>
                 </property>
@@ -4149,8 +4149,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
-                  <height>174</height>
+                  <width>325</width>
+                  <height>201</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -4477,7 +4477,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>311</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5317,7 +5317,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>311</width>
                   <height>225</height>
                  </rect>
                 </property>
@@ -5635,7 +5635,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>311</width>
                   <height>1433</height>
                  </rect>
                 </property>
@@ -7957,8 +7957,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
-          <height>330</height>
+          <width>361</width>
+          <height>356</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -8046,8 +8046,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>452</height>
+                      <width>303</width>
+                      <height>477</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -8222,6 +8222,59 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_30">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="0" column="3">
+                           <widget class="MySpinBox" name="spinboxInt_formula_stop_iteration_1">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_formula_start_iteration_1">
+                            <property name="text">
+                             <string>Start at iteration :</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="MySpinBox" name="spinboxInt_formula_start_iteration_1">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>0</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="value">
+                             <number>0</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="label_formula_stop_iteration_1">
+                            <property name="text">
+                             <string>Stop at Iteration:</string>
                             </property>
                            </widget>
                           </item>
@@ -8703,8 +8756,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>452</height>
+                      <width>303</width>
+                      <height>477</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -8768,28 +8821,16 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="1" column="1">
-                           <widget class="QSlider" name="sliderInt_formula_iterations_2">
+                          <item row="2" column="0">
+                           <widget class="QLabel" name="label_formula_weight_2">
                             <property name="sizePolicy">
-                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                               <horstretch>0</horstretch>
                               <verstretch>0</verstretch>
                              </sizepolicy>
                             </property>
-                            <property name="minimum">
-                             <number>1</number>
-                            </property>
-                            <property name="maximum">
-                             <number>250</number>
-                            </property>
-                            <property name="singleStep">
-                             <number>8</number>
-                            </property>
-                            <property name="pageStep">
-                             <number>64</number>
-                            </property>
-                            <property name="orientation">
-                             <enum>Qt::Horizontal</enum>
+                            <property name="text">
+                             <string>Weight:</string>
                             </property>
                            </widget>
                           </item>
@@ -8806,51 +8847,6 @@ to target:</string>
                             </property>
                             <property name="maximum">
                              <number>500</number>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="0" column="0" colspan="3">
-                           <widget class="QComboBox" name="comboBox_formula_2">
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                            <property name="maxVisibleItems">
-                             <number>50</number>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="2" column="0">
-                           <widget class="QLabel" name="label_formula_weight_2">
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                            <property name="text">
-                             <string>Weight:</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item row="2" column="1">
-                           <widget class="QSlider" name="slider_formula_weight_2">
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                            <property name="maximum">
-                             <number>100</number>
-                            </property>
-                            <property name="singleStep">
-                             <number>1</number>
-                            </property>
-                            <property name="orientation">
-                             <enum>Qt::Horizontal</enum>
                             </property>
                            </widget>
                           </item>
@@ -8879,6 +8875,116 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" colspan="3">
+                           <widget class="QComboBox" name="comboBox_formula_2">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maxVisibleItems">
+                             <number>50</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="1">
+                           <widget class="QSlider" name="slider_formula_weight_2">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>100</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>1</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="1">
+                           <widget class="QSlider" name="sliderInt_formula_iterations_2">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>1</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="singleStep">
+                             <number>8</number>
+                            </property>
+                            <property name="pageStep">
+                             <number>64</number>
+                            </property>
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_61">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="0" column="3">
+                           <widget class="MySpinBox" name="spinboxInt_formula_stop_iteration_2">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_formula_start_iteration_2">
+                            <property name="text">
+                             <string>Start at iteration :</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="MySpinBox" name="spinboxInt_formula_start_iteration_2">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>0</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="value">
+                             <number>0</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="label_formula_stop_iteration_2">
+                            <property name="text">
+                             <string>Stop at Iteration:</string>
                             </property>
                            </widget>
                           </item>
@@ -9354,8 +9460,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>452</height>
+                      <width>303</width>
+                      <height>477</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -9524,6 +9630,59 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_62">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="0" column="3">
+                           <widget class="MySpinBox" name="spinboxInt_formula_stop_iteration_3">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_formula_start_iteration_3">
+                            <property name="text">
+                             <string>Start at iteration :</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="MySpinBox" name="spinboxInt_formula_start_iteration_3">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>0</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="value">
+                             <number>0</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="label_formula_stop_iteration_3">
+                            <property name="text">
+                             <string>Stop at Iteration:</string>
                             </property>
                            </widget>
                           </item>
@@ -9999,8 +10158,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>452</height>
+                      <width>303</width>
+                      <height>477</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -10169,6 +10328,59 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_63">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="0" column="3">
+                           <widget class="MySpinBox" name="spinboxInt_formula_stop_iteration_4">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_formula_start_iteration_4">
+                            <property name="text">
+                             <string>Start at iteration :</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="MySpinBox" name="spinboxInt_formula_start_iteration_4">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>0</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="value">
+                             <number>0</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="label_formula_stop_iteration_4">
+                            <property name="text">
+                             <string>Stop at Iteration:</string>
                             </property>
                            </widget>
                           </item>
@@ -10644,8 +10856,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>452</height>
+                      <width>303</width>
+                      <height>477</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -10814,6 +11026,59 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_64">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="0" column="3">
+                           <widget class="MySpinBox" name="spinboxInt_formula_stop_iteration_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_formula_start_iteration_5">
+                            <property name="text">
+                             <string>Start at iteration :</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="MySpinBox" name="spinboxInt_formula_start_iteration_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>0</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="value">
+                             <number>0</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="label_formula_stop_iteration_5">
+                            <property name="text">
+                             <string>Stop at Iteration:</string>
                             </property>
                            </widget>
                           </item>
@@ -11289,8 +11554,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>452</height>
+                      <width>303</width>
+                      <height>477</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -11459,6 +11724,59 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_65">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="0" column="3">
+                           <widget class="MySpinBox" name="spinboxInt_formula_stop_iteration_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_formula_start_iteration_6">
+                            <property name="text">
+                             <string>Start at iteration :</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="MySpinBox" name="spinboxInt_formula_start_iteration_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>0</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="value">
+                             <number>0</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="label_formula_stop_iteration_6">
+                            <property name="text">
+                             <string>Stop at Iteration:</string>
                             </property>
                            </widget>
                           </item>
@@ -11934,8 +12252,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>452</height>
+                      <width>303</width>
+                      <height>477</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -12104,6 +12422,59 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_66">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="0" column="3">
+                           <widget class="MySpinBox" name="spinboxInt_formula_stop_iteration_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_formula_start_iteration_7">
+                            <property name="text">
+                             <string>Start at iteration :</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="MySpinBox" name="spinboxInt_formula_start_iteration_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>0</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="value">
+                             <number>0</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="label_formula_stop_iteration_7">
+                            <property name="text">
+                             <string>Stop at Iteration:</string>
                             </property>
                            </widget>
                           </item>
@@ -12579,8 +12950,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>452</height>
+                      <width>303</width>
+                      <height>477</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -12749,6 +13120,59 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_67">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="0" column="3">
+                           <widget class="MySpinBox" name="spinboxInt_formula_stop_iteration_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_formula_start_iteration_8">
+                            <property name="text">
+                             <string>Start at iteration :</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="MySpinBox" name="spinboxInt_formula_start_iteration_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>0</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="value">
+                             <number>0</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="label_formula_stop_iteration_8">
+                            <property name="text">
+                             <string>Stop at Iteration:</string>
                             </property>
                            </widget>
                           </item>
@@ -13224,8 +13648,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>452</height>
+                      <width>303</width>
+                      <height>477</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -13394,6 +13818,59 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QGridLayout" name="gridLayout_68">
+                          <property name="spacing">
+                           <number>2</number>
+                          </property>
+                          <item row="0" column="3">
+                           <widget class="MySpinBox" name="spinboxInt_formula_stop_iteration_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="0">
+                           <widget class="QLabel" name="label_formula_start_iteration_9">
+                            <property name="text">
+                             <string>Start at iteration :</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="1">
+                           <widget class="MySpinBox" name="spinboxInt_formula_start_iteration_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="minimum">
+                             <number>0</number>
+                            </property>
+                            <property name="maximum">
+                             <number>250</number>
+                            </property>
+                            <property name="value">
+                             <number>0</number>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="0" column="2">
+                           <widget class="QLabel" name="label_formula_stop_iteration_9">
+                            <property name="text">
+                             <string>Stop at Iteration:</string>
                             </property>
                            </widget>
                           </item>
@@ -13873,7 +14350,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>311</width>
                   <height>482</height>
                  </rect>
                 </property>
@@ -15177,7 +15654,7 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>325</width>
                   <height>354</height>
                  </rect>
                 </property>
@@ -15722,7 +16199,7 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
+          <width>347</width>
           <height>816</height>
          </rect>
         </property>
@@ -17083,8 +17560,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>355</width>
-                  <height>318</height>
+                  <width>341</width>
+                  <height>291</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -17913,8 +18390,8 @@ and water):</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>288</height>
+                  <width>303</width>
+                  <height>242</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -18596,8 +19073,8 @@ keyframes</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>306</width>
-          <height>428</height>
+          <width>235</width>
+          <height>365</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
