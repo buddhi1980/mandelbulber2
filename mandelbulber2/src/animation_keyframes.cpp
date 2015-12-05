@@ -919,15 +919,15 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	bool ok;
 	int lastFrame = QInputDialog::getInt(mainInterface->mainWindow,
 																			 "Parameter interpolation",
-																			 "Enter last frame number",
+																			 "Enter last keyframe number",
+																			 column,
 																			 column + 1,
-																			 column + 2,
-																			 keyframes->GetNumberOfFrames(),
+																			 keyframes->GetNumberOfFrames() - 1,
 																			 1,
 																			 &ok);
 	if (!ok) return;
 
-	int numberOfFrames = (lastFrame - column - 1);
+	int numberOfFrames = (lastFrame - column);
 
 	switch (type)
 	{
@@ -965,7 +965,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	{
 		finalInteger = QInputDialog::getInt(mainInterface->mainWindow,
 																				"Parameter interpolation",
-																				"Enter value for last frame",
+																				"Enter value for last keyframe",
 																				valueInteger,
 																				0,
 																				2147483647,
@@ -977,7 +977,7 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	{
 		finalDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow,
 																																	 "Parameter interpolation",
-																																	 "Enter value for last frame",
+																																	 "Enter value for last keyframe",
 																																	 QLineEdit::Normal,
 																																	 QString("%L1").arg(valueDouble,
 																																											0,
@@ -989,12 +989,12 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 
 	if (!ok) return;
 
-	for (int i = column; i < lastFrame; i++)
+	for (int i = column + 1; i <= lastFrame; i++)
 	{
 		QString newCellText;
 		if (valueIsInteger)
 		{
-			int newValue = integerStep * i + valueInteger;
+			int newValue = integerStep * (i - column) + valueInteger;
 			newCellText = QString::number(newValue);
 		}
 		else if (valueIsDouble)

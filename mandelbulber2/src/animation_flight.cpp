@@ -1176,7 +1176,7 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		QString newCellText;
 		if (valueIsInteger)
 		{
-			int newValue = integerStep * i + valueInteger;
+			int newValue = integerStep * (i - column) + valueInteger;
 			newCellText = QString::number(newValue);
 		}
 		else if (valueIsDouble)
