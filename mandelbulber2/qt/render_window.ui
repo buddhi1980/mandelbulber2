@@ -7037,6 +7037,9 @@ to target:</string>
                       <property name="title">
                        <string>Random lights options</string>
                       </property>
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/random lights placement.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Random seed&lt;/span&gt;&lt;/p&gt;&lt;p&gt;random seed for lights distribution &lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Maximum distance from the fractal&lt;/span&gt;&lt;/p&gt;&lt;p&gt;random lights are placed not further from the fractal surface than this distance value &lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Distribution radius of lights&lt;/span&gt;&lt;/p&gt;&lt;p&gt;maximum distance from Centre of distribution where lights can be placed. If there is not possible to place lights inside the sphere of this radius, because of Maximum distance from the fractal surface restriction, the program will automatically increase this radius. &lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Centre of distribution X, Y, Z&lt;/span&gt;&lt;/p&gt;&lt;p&gt;the centre point for random light distribution. To set this point by mouse pointer there has to be selected &amp;quot;Set position of centre for random lights&amp;quot; in Mouse click function combo box in Mandelbulber Render Window &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
                       <property name="checkable">
                        <bool>true</bool>
                       </property>

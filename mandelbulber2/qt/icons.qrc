@@ -73,6 +73,7 @@
     <file>tooltips_images/image - shader - specularity 5.jpg</file>
     <file>tooltips_images/image - shader - shading 0.jpg</file>
     <file>tooltips_images/image - shader - shading 1.jpg</file>
+    <file>tooltips_images/random lights placement.png</file>
   </qresource>
   <qresource prefix="/primitives">
     <file>icons/box.png</file>
