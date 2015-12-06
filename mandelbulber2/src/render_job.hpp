@@ -54,6 +54,7 @@ public:
 	void UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	void UpdateConfig(const cRenderingConfiguration &config) {renderData->configuration = config;}
 	static int GetRunningJobCount() {return runningJobs;}
+  cStatistics GetStatistics(void) {return renderData->statistics;}
 
 public slots:
 	void slotExecute();

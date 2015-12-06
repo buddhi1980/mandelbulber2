@@ -2004,6 +2004,18 @@ void RenderWindow::slotQuestionMessage(const QString &questionTitle, const QStri
 	*reply = QMessageBox::question(ui->centralwidget, questionTitle, questionText, buttons);
 }
 
+void RenderWindow::slotPressedButtonOptimizeForLQ()
+{
+	gMainInterface->OptimizeStepFactor(5.0);
+}
+void RenderWindow::slotPressedButtonOptimizeForMQ()
+{
+	gMainInterface->OptimizeStepFactor(1.0);
+}
+void RenderWindow::slotPressedButtonOptimizeForHQ()
+{
+	gMainInterface->OptimizeStepFactor(0.01);
+}
 #ifdef USE_GAMEPAD
 void RenderWindow::slotChangeGamepadIndex(int index)
 {

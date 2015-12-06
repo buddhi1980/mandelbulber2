@@ -88,6 +88,9 @@ private slots:
 	void slotPressedButtonImageApply();
 	void slotPressedButtonNewPrimitive();
 	void slotPressedButtonNewRandomPalette();
+	void slotPressedButtonOptimizeForLQ();
+	void slotPressedButtonOptimizeForMQ();
+	void slotPressedButtonOptimizeForHQ();
 	void slotPressedButtonRandomize();
 	void slotPressedButtonResetView();
 	void slotPressedButtonSetDOFByMouse();

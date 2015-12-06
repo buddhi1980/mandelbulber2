@@ -88,6 +88,7 @@ public:
 	void RebuildPrimitives(cParameterContainer *par);
 	void ComboMouseClickUpdate();
 	void AutoRecovery();
+	void OptimizeStepFactor(double qualityTarget);
 
 	bool QuitApplicationDialog();
 

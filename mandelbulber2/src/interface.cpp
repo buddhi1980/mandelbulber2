@@ -317,7 +317,6 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(clicked()),
 												mainWindow,
 												SLOT(slotMenuRedo()));
-
 	QApplication::connect(mainWindow->ui->pushButton_randomize,
 												SIGNAL(clicked()),
 												mainWindow,
@@ -342,6 +341,18 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(clicked()),
 												mainWindow,
 												SLOT(slotPressedButtonResetView()));
+	QApplication::connect(mainWindow->ui->pushButton_optimization_LQ,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonOptimizeForLQ()));
+	QApplication::connect(mainWindow->ui->pushButton_optimization_MQ,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonOptimizeForMQ()));
+	QApplication::connect(mainWindow->ui->pushButton_optimization_HQ,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonOptimizeForHQ()));
 	QApplication::connect(mainWindow->ui->spinbox_coloring_palette_offset,
 												SIGNAL(valueChanged(double)),
 												mainWindow,
@@ -2736,6 +2747,136 @@ void cInterface::AutoRecovery()
 			return;
 		}
 	}
+}
+
+void cInterface::OptimizeStepFactor(double qualityTarget)
+{
+	//check if main image is not used by other rendering process
+	if (mainImage->IsUsed())
+	{
+		cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"),
+															 cErrorMessage::errorMessage);
+		return;
+	}
+
+	SynchronizeInterface(gPar, gParFractal, cInterface::read);
+	gUndo.Store(gPar, gParFractal);
+
+	cParameterContainer tempParam = *gPar;
+	cFractalContainer tempFractal = *gParFractal;
+
+	//disabling all slow effects
+	tempParam.Set("shadows_enabled", false);
+	tempParam.Set("ambient_occlusion", false);
+	tempParam.Set("DOF_enabled", false);
+	tempParam.Set("iteration_threshold_mode", false);
+	tempParam.Set("raytraced_reflections", false);
+	tempParam.Set("textured_background", false);
+	tempParam.Set("iteration_fog_enable", false);
+	tempParam.Set("fake_lights_enabled", false);
+	tempParam.Set("main_light_volumetric_enabled", false);
+	for (int i = 1; i <= 4; i++)
+	{
+		tempParam.Set("aux_light_enabled", i, false);
+		tempParam.Set("aux_light_volumetric_enabled", i, false);
+	}
+
+	int maxDimension = max(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+	int newWidth = (double)gPar->Get<int>("image_width") / maxDimension * 256.0;
+	int newHeight = (double)gPar->Get<int>("image_height") / maxDimension * 256.0;
+
+	tempParam.Set("image_width", newWidth);
+	tempParam.Set("image_height", newHeight);
+	tempParam.Set("detail_level", 4.0);
+
+	gPar->Set("bailout", pow(50.0/qualityTarget, 2.0));
+
+	int scanCount = 0;
+	double DEfactor = 1.0;
+	double step = 1.0;
+
+	cRenderJob *renderJob = new cRenderJob(&tempParam,
+																				 &tempFractal,
+																				 mainImage,
+																				 &stopRequest,
+																				 renderedImage);
+	QObject::connect(renderJob,
+									 SIGNAL(updateStatistics(cStatistics)),
+									 mainWindow,
+									 SLOT(slotUpdateStatistics(cStatistics)));
+
+	cRenderingConfiguration config;
+	config.DisableRefresh();
+	config.DisableProgressiveRender();
+	config.DisableNetRender();
+	config.SetMaxRenderTime(5.0);
+
+	renderJob->Init(cRenderJob::still, config);
+
+	cProgressText::ProgressStatusText(QObject::tr("Looking for optimal DE factor"),
+																		QString("Percentage of wrong distance estimations: ")
+																				+ QString::number(0.0),
+																		0.0,
+																		cProgressText::progress_IMAGE);
+
+	stopRequest = false;
+
+	double missedDE = 0.0;
+
+	for (int i = 0; i < 100; i++)
+	{
+		if (stopRequest) return;
+		scanCount++;
+		tempParam.Set("DE_factor", DEfactor);
+
+		gPar->Set("DE_factor", DEfactor);
+		SynchronizeInterface(gPar, gParFractal, cInterface::write);
+
+		renderJob->UpdateParameters(&tempParam, &tempFractal);
+		renderJob->Execute();
+		missedDE = renderJob->GetStatistics().GetMissedDEPercentage();
+
+		if (missedDE < qualityTarget)
+		{
+			if (scanCount == 1)
+			{
+				if (step < 10000)
+				{
+					DEfactor = DEfactor * 2.0;
+					step = step * 2.0;
+					scanCount = 0;
+					continue;
+				}
+				else
+				{
+					return;
+				}
+			}
+			else
+			{
+				if (step < 0.05 * DEfactor) break;
+				DEfactor += step;
+			}
+		}
+
+		double progress = 1.0 - 1.0 / (1.0 + pow(qualityTarget / (missedDE - qualityTarget), 2.0));
+		cProgressText::ProgressStatusText(QObject::tr("Looking for optimal DE factor"),
+																			QObject::tr("Percentage of wrong distance estimations: %1").arg(missedDE),
+																			progress,
+																			cProgressText::progress_IMAGE);
+
+		step /= 2.0;
+		DEfactor -= step;
+	}
+
+	gPar->Set("DE_factor", DEfactor);
+	SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	cProgressText::ProgressStatusText(QObject::tr("Idle"),
+																		QObject::tr("Optimal DE factor is: %1 which gives %2% of bad distance estimations").arg(DEfactor).arg(missedDE),
+																		1.0,
+																		cProgressText::progress_IMAGE);
+
+	delete renderJob;
 }
 
 //----------- functions outside cInterface class -------------
