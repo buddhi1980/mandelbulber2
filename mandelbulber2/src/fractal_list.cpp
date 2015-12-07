@@ -61,5 +61,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Platonic Solid", "platonic_solid", platonicSolid, analitycDE));
 	fractalList->append(sFractalDescription("Mandelbulb6 beta", "mandelbulb6_beta", mandelbulb6Beta, analitycDE));
 	fractalList->append(sFractalDescription("Benesi Transforms DeltaDE", "benesi_transforms", benesiTransforms, deltaDE));
-
+  fractalList->append(sFractalDescription("FabsBoxMod", "fabsBoxMod", fabsBoxMod, analitycDE));
+  fractalList->append(sFractalDescription("AboxModKali", "aboxModKali", aboxModKali, analitycDE));
 }

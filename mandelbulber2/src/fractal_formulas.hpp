@@ -63,4 +63,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &fol
 void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 
+void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
+void AboxModKaliIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
+
 #endif /* FRACTAL_FORMULAS_HPP_ */

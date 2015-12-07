@@ -1225,6 +1225,43 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
 	//color trial 1
 	colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
 }
+
+//------------FabsBoxMod  --------------------------------
+void FabsBoxModIteration(CVector3 &z, CVector3 &c,  int &i,
+    const cFractal *fractal, sExtendedAux &aux)
+{
+  //fabsBoxMod
+  fabsBoxModTransform3D(fractal->transform.fabsBoxMod, z, i);
+
+  //boxFold1
+  boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
+
+  // sphericalFold1 Original (enabled); 1
+  sphericalFoldOriginalTransform3D(fractal->transform.sphericalFoldOriginal1, z, i, aux);
+
+  //scale Original (enabled); 1
+  scaleOriginalTransform3D(fractal->transform.scaleOriginal1, z, i, aux);
+
+  //mainRotation1
+  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+
+  // z = z + ( c * const.); Original (enabled); 1
+  constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
+
+
+}
+//------------AboxModKali  --------------------------------
+void AboxModKaliIteration(CVector3 &z, CVector3 &c, int &i,
+    const cFractal *fractal, sExtendedAux &aux)
+{
+  // AboxModKali
+  aboxModKaliTransform3D(fractal->transform.aboxModKali1, z, c, i, aux);
+
+  //mainRotation1
+  mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
+}
+
+
 void PlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
 {
 	double rho = sqrt(z.Length()); // the radius

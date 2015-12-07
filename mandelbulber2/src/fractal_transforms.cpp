@@ -1887,4 +1887,84 @@ void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, 
 
 // aboxModKali transform 3D
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+void aboxModKaliTransform3D(const sTransformAboxModKali &aboxModKali, CVector3 &z, CVector3 &c, int i, sExtendedAux &aux)
+{
+  if ( i >= aboxModKali.control.startIterations && i < aboxModKali.control.stopIterations)
+  {
+    CVector3 temp = z;
+    double tempAuxDE = aux.DE;
+    z = aboxModKali.additionConstant - fabs(z);
+    double rr = z.x * z.x + z.y * z.y + z.z * z.z;
+    if(rr < 1e-21) rr = 1e-21;
+    double MinR = aboxModKali.radMin;
+    if (MinR > -1e-21 && MinR < 1e-21) MinR = 1e-21; //  not sure if catches all exceptions
+    double m;
+    if (rr < (MinR)) m = aboxModKali.scale/(MinR);
+    else
+    {
+     if (rr < 1) m =  aboxModKali.scale/rr;
+     else m = aboxModKali.scale;
+    }
+    z = z * m + c  * aboxModKali.constantMultiplierVect;
+    aux.DE = aux.DE * fabs(aboxModKali.scale) + 1.0;
+    //weight function
+    if (aboxModKali.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, aboxModKali.control.weight);
+      double nkaux = 1.0 - (aboxModKali.control.weight);
+      aux.DE = (tempAuxDE * nkaux) + (aux.DE * aboxModKali.control.weight);
+    }
+  }
+}
 
+void fabsBoxModTransform3D(const sTransformFabsBoxMod &fabsBoxMod, CVector3 &z, int i)
+{
+  if ( i >= fabsBoxMod.control.startIterations
+    && i < fabsBoxMod.control.stopIterations)
+  {
+    CVector3 temp = z;
+    CVector3 tempA = z * 0;
+    CVector3 tempB = z * 0;
+    if (fabsBoxMod.constantF1Enabledx)
+    {
+      tempA.x = fabs(z.x + fabsBoxMod.constantF1.x);
+    }
+    if (fabsBoxMod.constantF2Enabledx)
+    {
+      tempB.x = fabs(z.x - fabsBoxMod.constantF2.x);
+    }
+    z.x = tempA.x - tempB.x
+        - (z.x * fabsBoxMod.constantF3.x );
+
+
+    if (fabsBoxMod.constantF1Enabledy)
+    {
+      tempA.y = fabs(z.y + fabsBoxMod.constantF1.y);
+    }
+    if (fabsBoxMod.constantF2Enabledy)
+    {
+      tempB.y = fabs(z.y - fabsBoxMod.constantF2.y);
+    }
+    z.y = tempA.y - tempB.y
+        - (z.y * fabsBoxMod.constantF3.y );
+
+
+    if (fabsBoxMod.constantF1Enabledz)
+    {
+      tempA.z = fabs(z.z + fabsBoxMod.constantF1.z);
+    }
+    if (fabsBoxMod.constantF2Enabledz)
+    {
+      tempB.z = fabs(z.z - fabsBoxMod.constantF2.z);
+    }
+    z.z = tempA.z - tempB.z
+        - (z.z * fabsBoxMod.constantF3.z);
+
+
+    //weight function
+    if (fabsBoxMod.control.weightEnabled)
+    {
+      z = SmoothCVector(temp, z, fabsBoxMod.control.weight);
+    }
+  }
+}

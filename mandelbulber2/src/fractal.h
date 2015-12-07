@@ -217,6 +217,14 @@ struct sMsltoeSym2
 {
 	double y_multiplier;
 };
+
+
+
+
+
+
+
+
 //----------------------Structure Transform---------------------------------
 struct sTransformControl
 {
@@ -611,6 +619,29 @@ struct sTransformSphereCube
 	sTransformControl control;
 };
 
+struct	sTransformAboxModKali
+{
+  sTransformControl control;
+  CVector3 additionConstant;
+  double radMin;
+  double scale;
+  CVector3 constantMultiplierVect;
+};
+struct sTransformFabsBoxMod
+{
+  sTransformControl control;
+  CVector3 constantF1;
+  CVector3 constantF2;
+  CVector3 constantF3;
+  bool constantF1Enabledx;
+  bool constantF1Enabledy;
+  bool constantF1Enabledz;
+  bool constantF2Enabledx;
+  bool constantF2Enabledy;
+  bool constantF2Enabledz;
+
+};
+
 struct sFractalTransform
 {
 	sTransformAdditionConstant additionConstant1;
@@ -693,6 +724,10 @@ struct sFractalTransform
 	sTransformCubeSphere cubeSphere2;
 	sTransformSphereCube sphereCube1;
 	sTransformSphereCube sphereCube2;
+
+  sTransformAboxModKali aboxModKali1;
+  sTransformFabsBoxMod fabsBoxMod;
+
 
 	//TODO here will be more transforms
 };

@@ -81,6 +81,8 @@ enum enumFractalFormula
 	platonicSolid = 56,
 	mandelbulb6Beta = 57,
 	benesiTransforms = 58,
+  fabsBoxMod = 59,
+  aboxModKali = 60,
 };
 
 enum enumDEType

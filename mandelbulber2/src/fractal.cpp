@@ -104,6 +104,9 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	msltoeSym2.y_multiplier = container->Get<double>("msltoesym2_y_multiplier");
 
+
+
+
 	//  transform parameters-----------------------
 	transform.additionConstant1.control.enabled =
 			container->Get<bool>("transform_additionConstant1_enabled");
@@ -1290,6 +1293,49 @@ cFractal::cFractal(const cParameterContainer *container)
 	transform.sphereCube2.control.stopIterations =
 			container->Get<int>("transform_sphereCube2_stop_iterations");
 	transform.sphereCube2.control.weight = container->Get<double>("transform_sphereCube2_weight");
+
+  //transform.aboxModKali1.control.enabled = container->Get<bool>("transform_aboxModKali1_enabled");
+  transform.aboxModKali1.control.weightEnabled =
+      container->Get<bool>("transform_aboxModKali1_weight_enabled");
+  transform.aboxModKali1.control.startIterations =
+      container->Get<int>("transform_aboxModKali1_start_iterations");
+  transform.aboxModKali1.control.stopIterations =
+      container->Get<int>("transform_aboxModKali1_stop_iterations");
+  transform.aboxModKali1.additionConstant =
+      container->Get<CVector3>("transform_aboxModKali1_additionConstant");
+  transform.aboxModKali1.radMin = container->Get<double>("transform_aboxModKali1_min_radius");
+  transform.aboxModKali1.scale = container->Get<double>("transform_aboxModKali1_scale");
+  transform.aboxModKali1.constantMultiplierVect =
+      container->Get<CVector3>("transform_aboxModKali1_constantMultiplier");
+
+  transform.fabsBoxMod.constantF1 =
+                  container->Get<CVector3>("transform_fabsBoxMod_constantF1");
+  transform.fabsBoxMod.constantF2 =
+                  container->Get<CVector3>("transform_fabsBoxMod_constantF2");
+  transform.fabsBoxMod.constantF3 =
+                  container->Get<CVector3>("transform_fabsBoxMod_constantF3");
+  transform.fabsBoxMod.control.weightEnabled =
+                  container->Get<bool>("transform_fabsBoxMod_weight_enabled");
+  transform.fabsBoxMod.constantF1Enabledx =
+                  container->Get<bool>("transform_fabsBoxMod_constantF1Enabledx");
+  transform.fabsBoxMod.constantF1Enabledy =
+                  container->Get<bool>("transform_fabsBoxMod_constantF1Enabledy");
+  transform.fabsBoxMod.constantF1Enabledz =
+                  container->Get<bool>("transform_fabsBoxMod_constantF1Enabledz");
+  transform.fabsBoxMod.constantF2Enabledx =
+                  container->Get<bool>("transform_fabsBoxMod_constantF2Enabledx");
+  transform.fabsBoxMod.constantF2Enabledy =
+                  container->Get<bool>("transform_fabsBoxMod_constantF2Enabledy");
+  transform.fabsBoxMod.constantF2Enabledz =
+                  container->Get<bool>("transform_fabsBoxMod_constantF2Enabledz");
+  transform.fabsBoxMod.control.startIterations =
+                  container->Get<int>("transform_fabsBoxMod_start_iterations");
+  transform.fabsBoxMod.control.stopIterations =
+                  container->Get<int>("transform_fabsBoxMod_stop_iterations");
+  transform.fabsBoxMod.control.weight =
+                  container->Get<double>("transform_fabsBoxMod_weight");
+
+
 
 //----------------------------------
 

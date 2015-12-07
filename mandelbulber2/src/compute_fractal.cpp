@@ -296,6 +296,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					BenesiTransformsIteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
+        case fabsBoxMod:
+        {
+          FabsBoxModIteration(z, c, i, fractal, extendedAux[sequence]);
+          break;
+        }
+        case aboxModKali:
+        {
+          AboxModKaliIteration(z, c, i, fractal, extendedAux[sequence]);
+          break;
+        }
+
 
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
@@ -315,6 +326,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			case mengerSponge105:
 			case mandelbulb6Beta:
 			case benesiTransforms:
+      case fabsBoxMod:
+      case aboxModKali:
 			{
 				break;
 			}
@@ -406,6 +419,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				//case benesiTransforms:
 			case mandelbox103:
 			case mengerSponge105:
+      case fabsBoxMod:
+      case aboxModKali:
 				out->distance = r / fabs(extendedAux[fractalIndex].DE * foldDE);
 				break;
 
@@ -453,6 +468,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 							+ r * defaultFractal->mandelbox.color.factorR * foldColor;
 					break;
 
+        case fabsBoxMod:
+            out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor;
+            break;
+
+
 					//case mandelbox103:
 					//out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor;
 					//	break;
@@ -470,6 +490,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulb6Beta:
 				case benesiTransforms:
 				case mengerSponge105:
+
 					out->colorIndex = extendedAux[fractalIndex].newR;
 					break;
 
