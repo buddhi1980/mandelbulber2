@@ -118,7 +118,7 @@ bool MyGroupBox::GetDefault()
 
 void MyGroupBox::slotToggled(bool on)
 {
-	QList<QWidget*> list = this->findChildren<QWidget*>();
+	QList<QWidget*> list = this->findChildren<QWidget*>(QString(), Qt::FindDirectChildrenOnly);
 	for (int i = 0; i < list.size(); ++i) {
 		if(on)
 		{
