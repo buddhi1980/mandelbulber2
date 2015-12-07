@@ -166,7 +166,7 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 		if (volumetricLightEnabled[i]) volumetricLightAnyEnabled = true;
 	}
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 	{
 		booleanOperator[i] = (params::enumBooleanOperator) container->Get<int>("boolean_operator",
 																																					 i + 1);

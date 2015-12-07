@@ -103,9 +103,10 @@ void InitParams(cParameterContainer *par)
 
 	//boolean operators
 	par->addParam("boolean_operators", false, morphLinear, paramStandard);
-	par->addParam("boolean_operator", 1, (int) params::booleanOperatorOR, morphLinear, paramStandard);
-	par->addParam("boolean_operator", 2, (int) params::booleanOperatorOR, morphLinear, paramStandard);
-	par->addParam("boolean_operator", 3, (int) params::booleanOperatorOR, morphLinear, paramStandard);
+	for(int i = 1; i < NUMBER_OF_FRACTALS; i++)
+	{
+		par->addParam("boolean_operator", i, (int) params::booleanOperatorOR, morphLinear, paramStandard);
+	}
 
 	//fractal transform
 	for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)

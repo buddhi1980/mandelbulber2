@@ -84,9 +84,9 @@ public:
 	params::enumPerspectiveType perspectiveType;
 	params::enumAOMode ambientOcclusionMode;
 	params::enumTextureMapType texturedBackgroundMapType;
-	params::enumBooleanOperator booleanOperator[3];
+	params::enumBooleanOperator booleanOperator[NUMBER_OF_FRACTALS - 1];
 
-	bool ambientOcclusionEnabled; //enable global ilumination
+	bool ambientOcclusionEnabled; //enable global illumination
 	bool analitycDEMode;	 //analytic DE mode
 	bool auxLightPreEnabled[4];
 	bool auxLightRandomEnabled;

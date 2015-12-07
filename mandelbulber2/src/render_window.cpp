@@ -579,16 +579,16 @@ void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
 	if (state) ui->checkBox_hybrid_fractal_enable->setChecked(false);
 	gApplication->processEvents();
 
-	ui->frame_iterations_formula_2->setEnabled(state);
-	ui->frame_iterations_formula_3->setEnabled(state);
-	ui->frame_iterations_formula_4->setEnabled(state);
-	ui->scrollArea_fractal_2->setEnabled(state);
-	ui->scrollArea_fractal_3->setEnabled(state);
-	ui->scrollArea_fractal_4->setEnabled(state);
-	ui->groupBox_formula_transform_1->setVisible(state);
-	ui->groupBox_formula_transform_2->setVisible(state);
-	ui->groupBox_formula_transform_3->setVisible(state);
-	ui->groupBox_formula_transform_4->setVisible(state);
+	for(int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+	{
+		QFrame *frame = ui->tabWidget_fractals->findChild<QFrame*>("frame_iterations_formula_" + QString::number(i));
+		if(i > 1)
+		{
+			frame->setEnabled(state);
+			ui->tabWidget_fractals->findChild<QScrollArea*>("scrollArea_fractal_" + QString::number(i))->setEnabled(state);
+		}
+		ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_formula_transform_" + QString::number(i))->setVisible(state);
+	}
 }
 
 void RenderWindow::slotMenuSaveSettings()
