@@ -1294,13 +1294,6 @@ cFractal::cFractal(const cParameterContainer *container)
 			container->Get<int>("transform_sphereCube2_stop_iterations");
 	transform.sphereCube2.control.weight = container->Get<double>("transform_sphereCube2_weight");
 
-  //transform.aboxModKali1.control.enabled = container->Get<bool>("transform_aboxModKali1_enabled");
-  transform.aboxModKali1.control.weightEnabled =
-      container->Get<bool>("transform_aboxModKali1_weight_enabled");
-  transform.aboxModKali1.control.startIterations =
-      container->Get<int>("transform_aboxModKali1_start_iterations");
-  transform.aboxModKali1.control.stopIterations =
-      container->Get<int>("transform_aboxModKali1_stop_iterations");
   transform.aboxModKali1.additionConstant =
       container->Get<CVector3>("transform_aboxModKali1_additionConstant");
   transform.aboxModKali1.radMin = container->Get<double>("transform_aboxModKali1_min_radius");
@@ -1335,7 +1328,12 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.fabsBoxMod.control.weight =
                   container->Get<double>("transform_fabsBoxMod_weight");
 
-
+  transform.aboxModKali1.additionConstant =
+      container->Get<CVector3>("transform_aboxModKali1_additionConstant");
+  transform.aboxModKali1.radMin = container->Get<double>("transform_aboxModKali1_min_radius");
+  transform.aboxModKali1.scale = container->Get<double>("transform_aboxModKali1_scale");
+  transform.aboxModKali1.constantMultiplierVect =
+      container->Get<CVector3>("transform_aboxModKali1_constantMultiplier");
 
 //----------------------------------
 

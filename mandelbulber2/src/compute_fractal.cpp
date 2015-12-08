@@ -494,6 +494,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->colorIndex = extendedAux[fractalIndex].newR;
 					break;
 
+        case aboxModKali:
 				case menger_sponge:
 				case kaleidoscopicIFS:
 					out->colorIndex = minimumR * 1000.0;

@@ -619,14 +619,6 @@ struct sTransformSphereCube
 	sTransformControl control;
 };
 
-struct	sTransformAboxModKali
-{
-  sTransformControl control;
-  CVector3 additionConstant;
-  double radMin;
-  double scale;
-  CVector3 constantMultiplierVect;
-};
 struct sTransformFabsBoxMod
 {
   sTransformControl control;
@@ -640,6 +632,13 @@ struct sTransformFabsBoxMod
   bool constantF2Enabledy;
   bool constantF2Enabledz;
 
+};
+struct	sTransformAboxModKali
+{
+  CVector3 additionConstant;
+  double radMin;
+  double scale;
+  CVector3 constantMultiplierVect;
 };
 
 struct sFractalTransform

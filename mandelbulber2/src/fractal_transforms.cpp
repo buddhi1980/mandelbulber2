@@ -1885,38 +1885,6 @@ void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, 
 	}
 }
 
-// aboxModKali transform 3D
-//http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
-void aboxModKaliTransform3D(const sTransformAboxModKali &aboxModKali, CVector3 &z, CVector3 &c, int i, sExtendedAux &aux)
-{
-  if ( i >= aboxModKali.control.startIterations && i < aboxModKali.control.stopIterations)
-  {
-    CVector3 temp = z;
-    double tempAuxDE = aux.DE;
-    z = aboxModKali.additionConstant - fabs(z);
-    double rr = z.x * z.x + z.y * z.y + z.z * z.z;
-    if(rr < 1e-21) rr = 1e-21;
-    double MinR = aboxModKali.radMin;
-    if (MinR > -1e-21 && MinR < 1e-21) MinR = 1e-21; //  not sure if catches all exceptions
-    double m;
-    if (rr < (MinR)) m = aboxModKali.scale/(MinR);
-    else
-    {
-     if (rr < 1) m =  aboxModKali.scale/rr;
-     else m = aboxModKali.scale;
-    }
-    z = z * m + c  * aboxModKali.constantMultiplierVect;
-    aux.DE = aux.DE * fabs(aboxModKali.scale) + 1.0;
-    //weight function
-    if (aboxModKali.control.weightEnabled)
-    {
-      z = SmoothCVector(temp, z, aboxModKali.control.weight);
-      double nkaux = 1.0 - (aboxModKali.control.weight);
-      aux.DE = (tempAuxDE * nkaux) + (aux.DE * aboxModKali.control.weight);
-    }
-  }
-}
-
 void fabsBoxModTransform3D(const sTransformFabsBoxMod &fabsBoxMod, CVector3 &z, int i)
 {
   if ( i >= fabsBoxMod.control.startIterations
@@ -1967,4 +1935,23 @@ void fabsBoxModTransform3D(const sTransformFabsBoxMod &fabsBoxMod, CVector3 &z, 
       z = SmoothCVector(temp, z, fabsBoxMod.control.weight);
     }
   }
+}
+// aboxModKali transform 3D
+//http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+void aboxModKaliTransform3D(const sTransformAboxModKali &aboxModKali, CVector3 &z, CVector3 &c, sExtendedAux &aux)
+{
+  z = aboxModKali.additionConstant - fabs(z);
+  double rr = z.x * z.x + z.y * z.y + z.z * z.z;
+  if(rr < 1e-21) rr = 1e-21;
+  double MinR = aboxModKali.radMin;
+  if (MinR > -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
+  double m;
+  if (rr < (MinR)) m = aboxModKali.scale/(MinR);
+  else
+  {
+   if (rr < 1) m =  aboxModKali.scale/rr;
+   else m = aboxModKali.scale;
+  }
+  z = z * m + c  * aboxModKali.constantMultiplierVect;
+  aux.DE = aux.DE * fabs(aboxModKali.scale) + 1.0;
 }

@@ -1109,16 +1109,6 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transform_sphereCube2_stop_iterations", 250, morphLinear, paramStandard);
 	par->addParam("transform_sphereCube2_weight", 1.0, morphLinear, paramStandard);
 
-  //par->addParam("transform_aboxModKali1_enabled", false, morphLinear, paramStandard);
-  par->addParam("transform_aboxModKali1_weight_enabled", false, morphLinear, paramStandard);
-  par->addParam("transform_aboxModKali1_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transform_aboxModKali1_stop_iterations", 250, morphLinear, paramStandard);
-  par->addParam("transform_aboxModKali1_additionConstant", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-  par->addParam("transform_aboxModKali1_min_radius", 0.5, morphAkima, paramStandard);
-  par->addParam("transform_aboxModKali1_scale", 2.0, morphAkima, paramStandard);
-  par->addParam("transform_aboxModKali1_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-  par->addParam("transform_aboxModKali1_weight", 1.0, morphLinear, paramStandard);
-
   par->addParam("transform_fabsBoxMod_constantF1", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transform_fabsBoxMod_constantF2", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transform_fabsBoxMod_constantF3", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
@@ -1133,7 +1123,10 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_fabsBoxMod_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_fabsBoxMod_weight", 1.0, morphLinear, paramStandard);
 
-
+  par->addParam("transform_aboxModKali1_additionConstant", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transform_aboxModKali1_min_radius", 0.5, morphAkima, paramStandard);
+  par->addParam("transform_aboxModKali1_scale", 2.0, morphAkima, paramStandard);
+  par->addParam("transform_aboxModKali1_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 
 	// platonic_solid
 

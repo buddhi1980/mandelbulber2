@@ -1247,15 +1247,13 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c,  int &i,
 
   // z = z + ( c * const.); Original (enabled); 1
   constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
-
-
 }
 //------------AboxModKali  --------------------------------
 void AboxModKaliIteration(CVector3 &z, CVector3 &c, int &i,
     const cFractal *fractal, sExtendedAux &aux)
 {
   // AboxModKali
-  aboxModKaliTransform3D(fractal->transform.aboxModKali1, z, c, i, aux);
+  aboxModKaliTransform3D(fractal->transform.aboxModKali1, z, c, aux);
 
   //mainRotation1
   mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
