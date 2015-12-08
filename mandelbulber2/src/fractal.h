@@ -218,7 +218,11 @@ struct sMsltoeSym2
 	double y_multiplier;
 };
 
-
+struct sFractalMengerMod
+{
+  double constantZ;
+  CVector3 factorConstantVect;
+};
 
 
 
@@ -757,6 +761,7 @@ public:
 	sMsltoeSym2 msltoeSym2;
 	sFractalTransform transform;
 	sFractalPlatonicSolid platonicSolid;
+  sFractalMengerMod mengerMod;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

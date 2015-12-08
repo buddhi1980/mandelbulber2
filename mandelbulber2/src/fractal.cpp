@@ -104,7 +104,8 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	msltoeSym2.y_multiplier = container->Get<double>("msltoesym2_y_multiplier");
 
-
+  mengerMod.constantZ =	container->Get<double>("mengerMod_constantZ");
+  mengerMod.factorConstantVect = container->Get<CVector3>("mengerMod_factorConstantVect");
 
 
 	//  transform parameters-----------------------

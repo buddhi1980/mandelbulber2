@@ -83,6 +83,7 @@ enum enumFractalFormula
 	benesiTransforms = 58,
   fabsBoxMod = 59,
   aboxModKali = 60,
+  mengerMod = 61,
 };
 
 enum enumDEType

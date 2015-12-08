@@ -688,6 +688,35 @@ void MsltoeSym2(CVector3 &z, const cFractal *fractal)
 	z.z = newz;
 }
 
+void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  double tempMS;
+  z = fabs(z);
+  if (z.x - z.y < 0)
+  {
+    tempMS = z.y;
+    z.y = z.x;
+    z.x = tempMS;
+  }
+  if (z.x - z.z < 0)
+  {
+    tempMS = z.z;
+    z.z = z.x;
+    z.x = tempMS;
+  }
+  if (z.y - z.z < 0)
+  {
+    tempMS = z.z;
+    z.z = z.y;
+    z.y = tempMS;
+  }
+  z *= 3.0 * fractal->mengerMod.constantZ;
+  z.x -= 2.0 * fractal->mengerMod.factorConstantVect.x;
+  z.y -= 2.0 * fractal->mengerMod.factorConstantVect.y;
+  if (z.z > 1.0) z.z -= 2.0 * fractal->mengerMod.factorConstantVect.z;
+  aux.DE *= 3.0 * fractal->mengerMod.constantZ;
+}
+
 //------------MANDELBULB EXTENDED--------------------------------
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 		const cFractal *fractal, sExtendedAux &aux)

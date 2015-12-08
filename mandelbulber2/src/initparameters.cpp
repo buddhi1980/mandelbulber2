@@ -468,6 +468,10 @@ void InitFractalParams(cParameterContainer *par)
 
 	par->addParam("msltoesym2_y_multiplier", 1.0, morphLinear, paramStandard);
 
+  par->addParam("mengerMod_constantZ", 1.0, morphAkima, paramStandard);
+  par->addParam("mengerMod_factorConstantVect", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+
+
 	//transform
 	par->addParam("transform_additionConstant1_enabled", false, morphLinear, paramStandard);
 	par->addParam("transform_additionConstant1_weight_enabled", false, morphLinear, paramStandard);
