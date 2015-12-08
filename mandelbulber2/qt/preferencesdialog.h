@@ -27,6 +27,7 @@ private slots:
 
 private:
 	Ui::cPreferencesDialog *ui;
+	bool initFinished;
 };
 
 #endif // PREFERENCESDIALOG_H

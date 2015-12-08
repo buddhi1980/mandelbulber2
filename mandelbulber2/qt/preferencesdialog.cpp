@@ -8,10 +8,11 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
   QDialog(parent),
   ui(new Ui::cPreferencesDialog)
 {
-  ui->setupUi(this);
+	initFinished = false;
+	ui->setupUi(this);
 
 	gMainInterface->ConnectSignalsForSlidersInWindow(this);
-  gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(this, gPar, cInterface::write);
 	ui->comboBox_ui_style_type->addItems(QStyleFactory::keys());
 	ui->comboBox_ui_style_type->setCurrentIndex(gPar->Get<int>("ui_style_type"));
 	ui->comboBox_ui_skin->setCurrentIndex(gPar->Get<int>("ui_skin"));
@@ -28,6 +29,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent) :
 		int index = ui->comboboxLanguage->findText(systemData.locale.name());
 		ui->comboboxLanguage->setCurrentIndex(index);
 	}
+	initFinished = true;
 }
 
 cPreferencesDialog::~cPreferencesDialog()
@@ -102,12 +104,14 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked()
 
 void cPreferencesDialog::on_comboBox_ui_style_type_currentIndexChanged(int index)
 {
+	if(!initFinished) return;
 	gPar->Set<int>("ui_style_type", index);
 	UpdateUIStyle();
 }
 
 void cPreferencesDialog::on_comboBox_ui_skin_currentIndexChanged(int index)
 {
+	if(!initFinished) return;
 	gPar->Set<int>("ui_skin", index);
 	UpdateUISkin();
 }
