@@ -714,6 +714,7 @@ void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux
   z.x -= 2.0 * fractal->mengerMod.factorConstantVect.x;
   z.y -= 2.0 * fractal->mengerMod.factorConstantVect.y;
   if (z.z > 1.0) z.z -= 2.0 * fractal->mengerMod.factorConstantVect.z;
+  z +=  fractal->mengerMod.additionConstant;
   aux.DE *= 3.0 * fractal->mengerMod.constantZ;
 }
 
@@ -1052,6 +1053,9 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 
 	// Benesi FastPwr2PineTree); 1
 	benesiFastPwr2PineTreeTransform3D(fractal->transform.benesiFastPwr2PineTree1, z, c, i, aux);
+
+  // Benesi MagTransformTwo); 1
+  benesiMagTransformTwoTransform3D(fractal->transform.benesiMagTransformTwo1, z, i, aux);
 
 	//MAIN FORMULA ORIGINAL1
 	// mandelbulb 3D 1

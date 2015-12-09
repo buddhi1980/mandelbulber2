@@ -222,6 +222,7 @@ struct sFractalMengerMod
 {
   double constantZ;
   CVector3 factorConstantVect;
+  CVector3 additionConstant;
 };
 
 

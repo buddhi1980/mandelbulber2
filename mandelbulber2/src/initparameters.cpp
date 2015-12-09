@@ -470,6 +470,8 @@ void InitFractalParams(cParameterContainer *par)
   // mengerMod
   par->addParam("mengerMod_constantZ", 1.0, morphAkima, paramStandard);
   par->addParam("mengerMod_factorConstantVect", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("mengerMod_additionConstant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+
   //quaternion3D
   par->addParam("quaternion3D_factorConstantVect", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("quaternion3D_additionConstant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
