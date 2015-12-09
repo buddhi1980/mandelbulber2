@@ -84,6 +84,7 @@ enum enumFractalFormula
   fabsBoxMod = 59,
   aboxModKali = 60,
   mengerMod = 61,
+  quaternion3D = 62,
 };
 
 enum enumDEType

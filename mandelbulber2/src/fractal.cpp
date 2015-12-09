@@ -107,6 +107,10 @@ cFractal::cFractal(const cParameterContainer *container)
   mengerMod.constantZ =	container->Get<double>("mengerMod_constantZ");
   mengerMod.factorConstantVect = container->Get<CVector3>("mengerMod_factorConstantVect");
 
+  quaternion3D.quaternionFactorConstant = container->Get<CVector3>("quaternion3D_factorConstantVect"),
+  quaternion3D.constantMultiplierVect = container->Get<CVector3>("quaternion3D_constantMultiplier");
+  quaternion3D.additionConstant = container->Get<CVector3>("quaternion3D_additionConstant");
+
 
 	//  transform parameters-----------------------
 	transform.additionConstant1.control.enabled =

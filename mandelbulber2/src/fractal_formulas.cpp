@@ -717,6 +717,16 @@ void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux
   aux.DE *= 3.0 * fractal->mengerMod.constantZ;
 }
 
+void Quaternion3DIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+{
+  CVector3 newz(fractal->quaternion3D.quaternionFactorConstant.x
+                    * (z.x * z.x - z.y * z.y - z.z * z.z),
+                fractal->quaternion3D.quaternionFactorConstant.y * z.x * z.y,
+                fractal->quaternion3D.quaternionFactorConstant.z * z.x * z.z);
+  z = newz;
+  z +=  fractal->quaternion3D.additionConstant +  c * fractal->quaternion3D.constantMultiplierVect;
+}
+
 //------------MANDELBULB EXTENDED--------------------------------
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 		const cFractal *fractal, sExtendedAux &aux)

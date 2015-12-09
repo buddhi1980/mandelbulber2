@@ -225,6 +225,12 @@ struct sFractalMengerMod
 };
 
 
+struct sFractalQuaternion3D
+{
+  CVector3 quaternionFactorConstant;
+  CVector3 constantMultiplierVect;
+  CVector3 additionConstant;
+};
 
 
 
@@ -762,6 +768,7 @@ public:
 	sFractalTransform transform;
 	sFractalPlatonicSolid platonicSolid;
   sFractalMengerMod mengerMod;
+  sFractalQuaternion3D quaternion3D;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

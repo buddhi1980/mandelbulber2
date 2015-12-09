@@ -311,6 +311,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MengerModIteration(z, fractal, extendedAux[sequence]);
           break;
         }
+        case quaternion3D:
+        {
+          Quaternion3DIteration(z, c, fractal);
+          break;
+        }
 
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
@@ -333,6 +338,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
       case fabsBoxMod:
       case aboxModKali:
       case mengerMod:
+      case quaternion3D:
 			{
 				break;
 			}
