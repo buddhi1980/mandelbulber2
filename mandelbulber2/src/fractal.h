@@ -240,7 +240,15 @@ struct sFractalAexionOctopus
   bool enabledFabsy;
   bool enabledFabsz;
 };
-
+struct sFractalAboxMod1
+{
+  double scale;
+  double scaleVary;
+  double fold;
+  double minR;
+  CVector3 foldM;
+  CVector3 constantMultiplier;
+};
 
 
 
@@ -779,6 +787,7 @@ public:
   sFractalMengerMod mengerMod;
   sFractalQuaternion3D quaternion3D;
   sFractalAexionOctopus aexionOctopus;
+  sFractalAboxMod1 aboxMod1;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

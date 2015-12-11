@@ -734,7 +734,6 @@ void Quaternion3DIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 
 void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
 {
-
   CVector3 tempN;
   tempN.x = -( 1.25 * z.x * z.z - 0.3075);
   tempN.y = -(z.x * z.x - z.z * z.z - 0.3);
@@ -753,6 +752,45 @@ void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
   }
   z = tempN;
 }
+
+
+//DarkBeam's aboxMod1, Inspired from a 2D formula proposed by Kali at the forums here;
+//http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+
+void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  z.x = fractal->aboxMod1.fold - fabs ( fabs (z.x + fractal->aboxMod1.foldM.x) -  fractal->aboxMod1.fold) - fabs(fractal->aboxMod1.foldM.x);
+  z.y = fractal->aboxMod1.fold - fabs ( fabs (z.y + fractal->aboxMod1.foldM.y) -  fractal->aboxMod1.fold) - fabs(fractal->aboxMod1.foldM.y);
+  z.z = fractal->aboxMod1.fold - fabs ( fabs (z.z + fractal->aboxMod1.foldM.z) -  fractal->aboxMod1.fold) - fabs(fractal->aboxMod1.foldM.z);
+  // rr = pow(x*x + y*y + z*z + w*w, R_power) <- removed to speedup
+
+  double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
+  double m;
+  double sqrtMinR = sqrt(fractal->aboxMod1.minR);
+    if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+  if (rr < sqrtMinR)
+  {
+    m = fractal->aboxMod1.scale/sqrtMinR;
+  }
+  else
+  {
+    if (rr < 1)
+    {
+      m = fractal->aboxMod1.scale/rr;
+    }
+    else
+    {
+      m = fractal->aboxMod1.scale;
+    }
+  }
+  z.x = z.x * m + (c.y * fractal->aboxMod1.constantMultiplier.y); // switch
+  z.y = z.y * m + (c.x * fractal->aboxMod1.constantMultiplier.x);
+  z.z = z.z * m + (c.z * fractal->aboxMod1.constantMultiplier.z);
+  aux.DE = aux.DE * fabs(m) + 1.0;
+}
+
+
+
 
 //------------MANDELBULB EXTENDED--------------------------------
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,

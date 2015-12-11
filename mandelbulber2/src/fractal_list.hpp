@@ -86,6 +86,7 @@ enum enumFractalFormula
   mengerMod = 61,
   quaternion3D = 62,
   aexionOctopus = 63,
+  aboxMod1 = 64,
 };
 
 enum enumDEType

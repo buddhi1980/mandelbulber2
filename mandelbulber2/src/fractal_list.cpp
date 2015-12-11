@@ -66,4 +66,5 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("MengerMod", "mengerMod", mengerMod, analitycDE));
   fractalList->append(sFractalDescription("Quaternion3D", "quaternion3D", quaternion3D, deltaDE));
   fractalList->append(sFractalDescription("AexionOctopus", "aexionOctopus", aexionOctopus, deltaDE));
+  fractalList->append(sFractalDescription("AboxMod1", "aboxMod1", aboxMod1, analitycDE));
 }

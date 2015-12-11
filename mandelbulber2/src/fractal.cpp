@@ -116,6 +116,12 @@ cFractal::cFractal(const cParameterContainer *container)
   aexionOctopus.enabledFabsy =  container->Get<bool>("aexionOctopus_enabledFabs_y");
   aexionOctopus.enabledFabsz =  container->Get<bool>("aexionOctopus_enabledFabs_z");
 
+  aboxMod1.scale = container->Get<double>("aboxMod1_scale");
+  aboxMod1.scaleVary = container->Get<double>("aboxMod1_scale_vary");
+  aboxMod1.fold = container->Get<double>("aboxMod1_fold");
+  aboxMod1.minR = container->Get<double>("aboxMod1_min_radius");
+  aboxMod1.foldM = container->Get<CVector3>("aboxMod1_foldM");
+  aboxMod1.constantMultiplier = container->Get<CVector3>("aboxMod1_constantMultiplier");
 
 	//  transform parameters-----------------------
 	transform.additionConstant1.control.enabled =

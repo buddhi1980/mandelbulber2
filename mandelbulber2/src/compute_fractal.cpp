@@ -322,6 +322,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           break;
         }
 
+        case aboxMod1:
+        {
+          AboxMod1Iteration(z, c, fractal, extendedAux[sequence]);
+          break;
+        }
+
 
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
@@ -346,6 +352,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
       case mengerMod:
       case quaternion3D:
       case aexionOctopus:
+      case aboxMod1:
 			{
 				break;
 			}
@@ -440,6 +447,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
       case fabsBoxMod:
       case aboxModKali:
       case mengerMod:
+      case aboxMod1:
 				out->distance = r / fabs(extendedAux[fractalIndex].DE * foldDE);
 				break;
 
@@ -514,6 +522,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
         case mengerMod:
         case aboxModKali:
+        case aboxMod1:
 				case menger_sponge:
 				case kaleidoscopicIFS:
 					out->colorIndex = minimumR * 1000.0;
