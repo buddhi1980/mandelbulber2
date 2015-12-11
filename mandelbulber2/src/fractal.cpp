@@ -112,6 +112,10 @@ cFractal::cFractal(const cParameterContainer *container)
   quaternion3D.constantMultiplierVect = container->Get<CVector3>("quaternion3D_constantMultiplier");
   quaternion3D.additionConstant = container->Get<CVector3>("quaternion3D_additionConstant");
 
+  aexionOctopus.enabledFabsx =  container->Get<bool>("aexionOctopus_enabledFabs_x");
+  aexionOctopus.enabledFabsy =  container->Get<bool>("aexionOctopus_enabledFabs_y");
+  aexionOctopus.enabledFabsz =  container->Get<bool>("aexionOctopus_enabledFabs_z");
+
 
 	//  transform parameters-----------------------
 	transform.additionConstant1.control.enabled =

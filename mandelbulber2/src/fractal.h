@@ -234,6 +234,14 @@ struct sFractalQuaternion3D
 };
 
 
+struct sFractalAexionOctopus
+{
+  bool enabledFabsx;
+  bool enabledFabsy;
+  bool enabledFabsz;
+};
+
+
 
 
 //----------------------Structure Transform---------------------------------
@@ -770,6 +778,7 @@ public:
 	sFractalPlatonicSolid platonicSolid;
   sFractalMengerMod mengerMod;
   sFractalQuaternion3D quaternion3D;
+  sFractalAexionOctopus aexionOctopus;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

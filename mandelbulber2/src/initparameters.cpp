@@ -477,6 +477,10 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("quaternion3D_additionConstant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("quaternion3D_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 
+  // aexionOctopus
+  par->addParam("aexionOctopus_enabledFabs_x", true, morphLinear, paramStandard);
+  par->addParam("aexionOctopus_enabledFabs_y", true, morphLinear, paramStandard);
+  par->addParam("aexionOctopus_enabledFabs_z", true, morphLinear, paramStandard);
 
 	//transform
 	par->addParam("transform_additionConstant1_enabled", false, morphLinear, paramStandard);

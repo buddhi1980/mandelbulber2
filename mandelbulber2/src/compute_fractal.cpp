@@ -316,6 +316,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           Quaternion3DIteration(z, c, fractal);
           break;
         }
+        case aexionOctopus:
+        {
+          AexionOctopusIteration(z, fractal);
+          break;
+        }
+
 
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
@@ -339,6 +345,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
       case aboxModKali:
       case mengerMod:
       case quaternion3D:
+      case aexionOctopus:
 			{
 				break;
 			}

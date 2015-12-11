@@ -728,6 +728,32 @@ void Quaternion3DIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
   z +=  fractal->quaternion3D.additionConstant +  c * fractal->quaternion3D.constantMultiplierVect;
 }
 
+//------------AexionOctopus  --------------------------------
+
+//http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+
+void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
+{
+
+  CVector3 tempN;
+  tempN.x = -( 1.25 * z.x * z.z - 0.3075);
+  tempN.y = -(z.x * z.x - z.z * z.z - 0.3);
+  tempN.z = z.y;
+  if (fractal->aexionOctopus.enabledFabsx)
+  {
+    tempN.x = fabs(tempN.x);
+  }
+  if ( fractal->aexionOctopus.enabledFabsy)
+  {
+    tempN.y = fabs(tempN.y);
+  }
+  if ( fractal->aexionOctopus.enabledFabsz)
+  {
+    tempN.z = fabs(tempN.z);
+  }
+  z = tempN;
+}
+
 //------------MANDELBULB EXTENDED--------------------------------
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 		const cFractal *fractal, sExtendedAux &aux)
