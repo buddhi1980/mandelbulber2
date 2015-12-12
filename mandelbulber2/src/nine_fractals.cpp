@@ -29,10 +29,12 @@ cNineFractals::cNineFractals()
 	{
 		fractals[i] = NULL;
 		DEType[i] = fractal::deltaDEType;
+		DEFunctionType[i] = fractal::logarythmicDEFunction;
 	}
 	maxN = 0;
 	isHybrid = false;
 	maxFractalIndex = 0;
+	forceDeltaDE = false;
 }
 
 cNineFractals::~cNineFractals()
@@ -60,15 +62,52 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		formulaWeight[i] = generalPar->Get<double>("formula_weight", i + 1);
 		formulaStartIteriation[i] = generalPar->Get<int>("formula_start_iteration", i + 1);
 		formulaStopIteration[i] = generalPar->Get<int>("formula_stop_iteration", i + 1);
+		DEType[i] = fractal::deltaDEType;
+		DEFunctionType[i] = fractal::logarythmicDEFunction;
 	}
+
+	if((fractal::enumDEMethod)generalPar->Get<int>("delta_DE_method") == fractal::forceDeltaDEMethod)
+		forceDeltaDE = true;
+	else
+		forceDeltaDE = false;
 
 	maxN = generalPar->Get<int>("N");
 	maxFractalIndex = 0;
 	CreateSequence(generalPar);
 
-	if (generalPar->Get<bool>("hybrid_fractal_enable"))
+	if (generalPar->Get<bool>("hybrid_fractal_enable") || forceDeltaDE)
 	{
 		DEType[0] = fractal::deltaDEType;
+		if((fractal::enumDEFunctionType)generalPar->Get<int>("delta_DE_function") == fractal::preferedDEfunction)
+		{
+			//finding prefered delta DE function
+			int linearDECount = 0;
+			int logarythmicDECount = 0;
+			for(int f = 0; f < NUMBER_OF_FRACTALS; f++)
+			{
+				fractal::enumFractalFormula formula = fractals[f]->formula;
+				for (int i = 0; i < fractalList.size(); i++)
+				{
+					if (fractalList[i].internalID == formula)
+					{
+						fractal::enumDEFunctionType DEFunction = fractalList[i].DEFunctionType;
+						if(DEFunction == fractal::logarythmicDEFunction)
+							logarythmicDECount += counts[f];
+
+						if(DEFunction == fractal::linearDEFunction)
+							linearDECount += counts[f];
+					}
+				}
+			}
+			if(linearDECount > logarythmicDECount)
+				DEFunctionType[0] = fractal::linearDEFunction;
+			else
+				DEFunctionType[0] = fractal::logarythmicDEFunction;
+		}
+		else
+		{
+			DEFunctionType[0] = (fractal::enumDEFunctionType)generalPar->Get<int>("delta_DE_function");
+		}
 	}
 	else
 	{
@@ -80,6 +119,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 				if (fractalList[i].internalID == formula)
 				{
 					DEType[f] = fractalList[i].DEType;
+					DEFunctionType[f] = fractalList[i].DEFunctionType;
 				}
 			}
 		}
@@ -99,7 +139,7 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 	int fractalNo = 0;
 	int counter = 0;
 
-	int counts[NUMBER_OF_FRACTALS];
+
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		counts[i] = generalPar->Get<int>("formula_iterations", i + 1);
@@ -158,6 +198,20 @@ fractal::enumDEType cNineFractals::GetDEType(int formulaIndex) const
 	else
 	{
 		type = DEType[formulaIndex];
+	}
+	return type;
+}
+
+fractal::enumDEFunctionType cNineFractals::GetDEFunctionType(int formulaIndex) const
+{
+	fractal::enumDEFunctionType type = fractal::logarythmicDEFunction;
+	if (formulaIndex == -1)
+	{
+		type = DEFunctionType[0];
+	}
+	else
+	{
+		type = DEFunctionType[formulaIndex];
 	}
 	return type;
 }

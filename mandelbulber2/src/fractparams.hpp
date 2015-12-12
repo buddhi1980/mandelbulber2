@@ -30,6 +30,7 @@
 #include "parameters.hpp"
 #include "commonparams.hpp"
 #include "fractal_container.hpp"
+#include "fractal.h"
 
 namespace params
 {
@@ -85,6 +86,8 @@ public:
 	params::enumAOMode ambientOcclusionMode;
 	params::enumTextureMapType texturedBackgroundMapType;
 	params::enumBooleanOperator booleanOperator[NUMBER_OF_FRACTALS - 1];
+	fractal::enumDEMethod delta_DE_method;
+	fractal::enumDEFunctionType delta_DE_function;
 
 	bool ambientOcclusionEnabled; //enable global illumination
 	bool analitycDEMode;	 //analytic DE mode
@@ -105,7 +108,6 @@ public:
 	bool iterThreshMode;	 //maxiter threshold mode
 	bool legacyCoordinateSystem;
 	bool limitsEnabled; // enable limits (intersections)
-	bool linearDEmode;
 	bool mainLightEnable;
 	bool mainLightPositionAsRelative;
 	bool penetratingLights;

@@ -533,6 +533,24 @@
                 </property>
                </widget>
               </item>
+              <item row="2" column="2">
+               <layout class="QHBoxLayout" name="horizontalLayout_increase_decrease">
+                <item>
+                 <widget class="QToolButton" name="pushButton_imagesize_increase">
+                  <property name="text">
+                   <string>×2</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="pushButton_imagesize_decrease">
+                  <property name="text">
+                   <string>÷2</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
               <item row="2" column="1">
                <widget class="QComboBox" name="comboBox_image_proportion">
                 <property name="sizePolicy">
@@ -580,24 +598,6 @@
                  </property>
                 </item>
                </widget>
-              </item>
-              <item row="2" column="2">
-               <layout class="QHBoxLayout" name="horizontalLayout_increase_decrease">
-                <item>
-                 <widget class="QToolButton" name="pushButton_imagesize_increase">
-                  <property name="text">
-                   <string>×2</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QToolButton" name="pushButton_imagesize_decrease">
-                  <property name="text">
-                   <string>÷2</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
               </item>
              </layout>
             </item>
@@ -4149,7 +4149,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>227</width>
                   <height>174</height>
                  </rect>
                 </property>
@@ -4477,7 +4477,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>196</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5317,7 +5317,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>273</width>
                   <height>225</height>
                  </rect>
                 </property>
@@ -5635,7 +5635,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>265</width>
                   <height>1455</height>
                  </rect>
                 </property>
@@ -7997,7 +7997,7 @@ to target:</string>
           <x>0</x>
           <y>0</y>
           <width>370</width>
-          <height>450</height>
+          <height>430</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -14389,8 +14389,8 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
-                  <height>482</height>
+                  <width>272</width>
+                  <height>532</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -14409,6 +14409,81 @@ to target:</string>
                  <property name="bottomMargin">
                   <number>2</number>
                  </property>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_69">
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_290">
+                     <property name="text">
+                      <string>Distance estimation function:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QComboBox" name="comboBox_delta_DE_function">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Force image proportion&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>Logarythmic</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Linear</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Prefered</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_291">
+                     <property name="text">
+                      <string>Distance estimation method:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QComboBox" name="comboBox_delta_DE_method">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Force image proportion&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>Prefered</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Force &quot;Delta DE&quot; method</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_julia_mode">
                    <property name="title">
@@ -15058,7 +15133,7 @@ to target:</string>
                <property name="spacing">
                 <number>2</number>
                </property>
-               <item row="2" column="0">
+               <item row="1" column="0">
                 <widget class="QLabel" name="label_103">
                  <property name="text">
                   <string>Repeat sequence
@@ -15066,7 +15141,7 @@ from fractal #:</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1">
+               <item row="1" column="1">
                 <widget class="QSlider" name="sliderInt_repeat_from">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -15091,7 +15166,7 @@ from fractal #:</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="2">
+               <item row="1" column="2">
                 <widget class="MySpinBox" name="spinboxInt_repeat_from">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -15107,19 +15182,6 @@ from fractal #:</string>
                  </property>
                  <property name="maximum">
                   <number>9</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0" colspan="3">
-                <widget class="MyCheckBox" name="checkBox_linear_DE_mode">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="text">
-                  <string>Linear distance estimation (good for Mandelbox or IFS)</string>
                  </property>
                 </widget>
                </item>
@@ -16003,8 +16065,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
-                  <height>436</height>
+                  <width>207</width>
+                  <height>354</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -16594,6 +16656,25 @@ and water):</string>
               <property name="spacing">
                <number>2</number>
               </property>
+              <item row="1" column="2">
+               <widget class="MySpinBox" name="spinboxInt_N">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The higher the maximum number of iterations (&amp;quot;maxiter&amp;quot;) is, the more detail and subtlety emerge in the final image, but also the longer time it will take to calculate the fractal image. &lt;/p&gt;&lt;p&gt;In normal operation this should be set as high as possible because &amp;quot;Distance estimation&amp;quot; algorithm limits number of iteration (almost no influence on rendering speed)&lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Stop at maximum iteration&lt;/span&gt; is selected, then this parameter controls detail level.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;maxiter = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;maxiter = 15&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 15.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>500</number>
+                </property>
+               </widget>
+              </item>
               <item row="6" column="1">
                <widget class="QSlider" name="logslider_smoothness">
                 <property name="sizePolicy">
@@ -16780,25 +16861,6 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="2">
-               <widget class="MySpinBox" name="spinboxInt_N">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The higher the maximum number of iterations (&amp;quot;maxiter&amp;quot;) is, the more detail and subtlety emerge in the final image, but also the longer time it will take to calculate the fractal image. &lt;/p&gt;&lt;p&gt;In normal operation this should be set as high as possible because &amp;quot;Distance estimation&amp;quot; algorithm limits number of iteration (almost no influence on rendering speed)&lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Stop at maximum iteration&lt;/span&gt; is selected, then this parameter controls detail level.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;maxiter = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;maxiter = 15&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 15.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="minimum">
-                 <number>1</number>
-                </property>
-                <property name="maximum">
-                 <number>500</number>
-                </property>
-               </widget>
-              </item>
               <item row="7" column="2">
                <widget class="MyLineEdit" name="logedit_view_distance_max">
                 <property name="sizePolicy">
@@ -16834,6 +16896,13 @@ and water):</string>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_222">
+                <property name="text">
+                 <string>Bailout (escape condition):</string>
                 </property>
                </widget>
               </item>
@@ -16884,13 +16953,6 @@ and water):</string>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_222">
-                <property name="text">
-                 <string>Bailout (escape condition):</string>
                 </property>
                </widget>
               </item>
@@ -17004,6 +17066,14 @@ and water):</string>
                 </property>
                </widget>
               </item>
+              <item row="5" column="2">
+               <widget class="QPushButton" name="pushButton_optimization_HQ">
+                <property name="text">
+                 <string>Optimization for
+high quality</string>
+                </property>
+               </widget>
+              </item>
               <item row="2" column="1">
                <widget class="QSlider" name="logslider_bailout">
                 <property name="sizePolicy">
@@ -17029,6 +17099,14 @@ and water):</string>
                 </property>
                </widget>
               </item>
+              <item row="5" column="1">
+               <widget class="QPushButton" name="pushButton_optimization_MQ">
+                <property name="text">
+                 <string>Optimization for
+medium quality</string>
+                </property>
+               </widget>
+              </item>
               <item row="2" column="2">
                <widget class="MyLineEdit" name="logedit_bailout">
                 <property name="sizePolicy">
@@ -17039,22 +17117,6 @@ and water):</string>
                 </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The vector values are checked during each iteration of fractal formula to see if they have reached a critical 'escape' condition or 'bailout'. If that condition is reached, the calculation is stopped. Condition is: if length of vector is greater than bailout, then break iteration loop.&lt;/p&gt;&lt;p&gt;In some cases higher value can increase image quality, but it will increase rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="2">
-               <widget class="QPushButton" name="pushButton_optimization_HQ">
-                <property name="text">
-                 <string>Optimization for
-high quality</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="1">
-               <widget class="QPushButton" name="pushButton_optimization_MQ">
-                <property name="text">
-                 <string>Optimization for
-medium quality</string>
                 </property>
                </widget>
               </item>
@@ -18771,8 +18833,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>288</height>
+                  <width>198</width>
+                  <height>242</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -20051,7 +20113,6 @@ keyframes</string>
   <tabstop>spinboxInt_image_width</tabstop>
   <tabstop>sliderInt_image_height</tabstop>
   <tabstop>spinboxInt_image_height</tabstop>
-  <tabstop>comboBox_image_proportion</tabstop>
   <tabstop>pushButton_imagesize_increase</tabstop>
   <tabstop>pushButton_imagesize_decrease</tabstop>
   <tabstop>pushButton_resolution_preset_480</tabstop>
@@ -20352,7 +20413,6 @@ keyframes</string>
   <tabstop>vect3_repeat_y</tabstop>
   <tabstop>vect3_repeat_z</tabstop>
   <tabstop>checkBox_hybrid_fractal_enable</tabstop>
-  <tabstop>checkBox_linear_DE_mode</tabstop>
   <tabstop>groupCheck_boolean_operators</tabstop>
   <tabstop>comboBox_boolean_operator_1</tabstop>
   <tabstop>comboBox_boolean_operator_2</tabstop>

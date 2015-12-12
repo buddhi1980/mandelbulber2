@@ -258,7 +258,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 
 			double dr = sqrt(dr1 * dr1 + dr2 * dr2 + dr3 * dr3);
 
-			if (params.linearDEmode)
+			if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::linearDEFunction)
 			{
 				distance = 0.5 * r / dr;
 			}

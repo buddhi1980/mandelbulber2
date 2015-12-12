@@ -98,7 +98,8 @@ enum enumDEFunctionType
 {
 	logarythmicDEFunction = 0,
 	linearDEFunction = 1,
-	withoutDEFunction = 2,
+	preferedDEfunction = 2,
+	withoutDEFunction = 3,
 };
 
 }

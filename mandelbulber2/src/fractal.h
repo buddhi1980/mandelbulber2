@@ -55,6 +55,12 @@ enum enumGeneralizedFoldBoxType
 	foldBox5 = 7
 };
 
+enum enumDEMethod
+{
+	preferedDEMethod = 0,
+	forceDeltaDEMethod = 1,
+};
+
 enum enumOCLDEMode
 {
 	ocl_DEcalculated = 0, ocl_deltaDE = 1, ocl_noDE = 2

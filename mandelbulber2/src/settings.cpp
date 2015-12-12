@@ -501,6 +501,8 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			}
 		}
 
+		Compatibility2(par);
+
 		return true;
 	}
 	else
@@ -585,13 +587,32 @@ void cSettings::Compatibility(QString &name, QString &value)
 			name.replace("volumetric_light", "aux_light_volumetric");
 		}
 	}
-	else if (fileVersion <= 2.04)
+
+	if (fileVersion <= 2.04)
 	{
 		if (name == QString("fractal_constant_factor"))
 		{
 			QString newValue = value + " " + value + " " + value;
 			value = newValue;
 		}
+	}
+
+	if (fileVersion <= 2.06)
+	{
+		if(name == QString("linear_DE_mode"))
+		{
+			name = QString("delta_DE_function");
+			value = QString("1");
+		}
+	}
+}
+
+void cSettings::Compatibility2(cParameterContainer *par)
+{
+	if(fileVersion <= 2.06)
+	{
+		if((fractal::enumDEFunctionType)par->Get<int>("delta_DE_function") != fractal::linearDEFunction)
+			par->Set("delta_DE_function", (int)fractal::logarythmicDEFunction);
 	}
 }
 

@@ -55,6 +55,8 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 	constantDEThreshold = container->Get<bool>("constant_DE_threshold");
 	constantFactor = container->Get<double>("fractal_constant_factor");
 	DEFactor = container->Get<double>("DE_factor");
+	delta_DE_function = (fractal::enumDEFunctionType)container->Get<int>("delta_DE_function");
+	delta_DE_method = (fractal::enumDEMethod)container->Get<int>("delta_DE_method");
 	detailLevel = container->Get<double>("detail_level");
 	DEThresh = container->Get<double>("DE_thresh");
 	DOFEnabled = container->Get<bool>("DOF_enabled");
@@ -96,7 +98,6 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 	limitMax = container->Get<CVector3>("limit_max");
 	limitMin = container->Get<CVector3>("limit_min");
 	limitsEnabled = container->Get<bool>("limits_enabled");
-	linearDEmode = container->Get<bool>("linear_DE_mode");
 	mainLightAlpha = container->Get<double>("main_light_alpha");
 	mainLightBeta = container->Get<double>("main_light_beta");
 	mainLightColour = container->Get<sRGB>("main_light_colour");

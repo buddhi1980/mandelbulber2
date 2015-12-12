@@ -40,12 +40,14 @@ public:
 	int GetSequence(int i) const;
 	bool IsHybrid() const {return isHybrid;}
 	fractal::enumDEType GetDEType(int formulaIndex) const;
+	fractal::enumDEFunctionType GetDEFunctionType(int formulaIndex) const;
 	double GetWeight(int formulaIndex) const {return formulaWeight[formulaIndex];}
 	int GetMaxFractalIndex() const {return maxFractalIndex;}
 
 private:
 	fractal::enumDEType DEType[NUMBER_OF_FRACTALS];
 	QVector<int> hybridSequence;
+	int counts[NUMBER_OF_FRACTALS];
 	void CreateSequence(const cParameterContainer *generalPar);
 	int maxN;
 	bool isHybrid;
@@ -53,6 +55,8 @@ private:
 	int formulaStartIteriation[NUMBER_OF_FRACTALS];
 	int formulaStopIteration[NUMBER_OF_FRACTALS];
 	int maxFractalIndex;
+	fractal::enumDEFunctionType DEFunctionType[NUMBER_OF_FRACTALS];
+	bool forceDeltaDE;
 };
 
 
