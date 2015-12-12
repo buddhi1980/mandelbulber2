@@ -1,4 +1,5 @@
-//Download the latest version of Xcode (and Developer Tools) from the Apple developer website or get it using the Mac App Store.
+//Download and install the latest version of Xcode (and Developer Tools) from the Apple developer website or get it using the Mac App Store.
+//Download and install the latest version of Qt from http://www.qt.io/download-open-source/
 //download source from http://sourceforge.net/projects/libpng/files/libpng16/
 //Build the PNG library
 cd libpng-1.6.x
