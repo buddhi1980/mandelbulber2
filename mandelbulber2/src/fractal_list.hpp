@@ -91,7 +91,14 @@ enum enumFractalFormula
 
 enum enumDEType
 {
-	analitycDE, deltaDE
+	analitycDEType, deltaDEType
+};
+
+enum enumDEFunctionType
+{
+	logarythmicDEFunction = 0,
+	linearDEFunction = 1,
+	withoutDEFunction = 2,
 };
 
 }
@@ -102,12 +109,16 @@ struct sFractalDescription
 	QString internalNane;
 	fractal::enumFractalFormula internalID;
 	fractal::enumDEType DEType;
+	fractal::enumDEFunctionType DEFunctionType;
+
 	sFractalDescription(QString _nameInComboBox, QString _internalNane,
-			fractal::enumFractalFormula _internalID, fractal::enumDEType _DEType) :
+			fractal::enumFractalFormula _internalID, fractal::enumDEType _DEType,
+			fractal::enumDEFunctionType _DEFunctionType) :
 					nameInComboBox(_nameInComboBox),
 					internalNane(_internalNane),
 					internalID(_internalID),
-					DEType(_DEType)
+					DEType(_DEType),
+					DEFunctionType(_DEFunctionType)
 	{
 	}
 };

@@ -28,7 +28,7 @@ cNineFractals::cNineFractals()
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		fractals[i] = NULL;
-		DEType[i] = fractal::deltaDE;
+		DEType[i] = fractal::deltaDEType;
 	}
 	maxN = 0;
 	isHybrid = false;
@@ -68,7 +68,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 	if (generalPar->Get<bool>("hybrid_fractal_enable"))
 	{
-		DEType[0] = fractal::deltaDE;
+		DEType[0] = fractal::deltaDEType;
 	}
 	else
 	{
@@ -150,7 +150,7 @@ int cNineFractals::GetSequence(int i) const
 
 fractal::enumDEType cNineFractals::GetDEType(int formulaIndex) const
 {
-	fractal::enumDEType type = fractal::deltaDE;
+	fractal::enumDEType type = fractal::deltaDEType;
 	if (formulaIndex == -1)
 	{
 		type = DEType[0];

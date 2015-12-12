@@ -182,7 +182,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 
 	if (true) //TODO !params.primitives.plane.onlyPlane
 	{
-		if (fractals.GetDEType(forcedFormulaIndex) == fractal::analitycDE)
+		if (fractals.GetDEType(forcedFormulaIndex) == fractal::analitycDEType)
 		{
 			Compute<fractal::calcModeNormal>(fractals, fractIn, &fractOut);
 			distance = fractOut.distance;
