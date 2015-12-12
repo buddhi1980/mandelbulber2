@@ -73,6 +73,7 @@ private slots:
 
 	//other
 	void slotChangedCheckBoxCursorVisibility(int state);
+	void slotChangedComboDistanceEstimationMethod(int index);
 	void slotChangedComboFractal(int index);
 	void slotChangedComboImageScale(int index);
 	void slotChangedComboMouseClickFunction(int index);

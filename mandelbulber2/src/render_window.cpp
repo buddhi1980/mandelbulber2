@@ -571,6 +571,9 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 			ui->tabWidget_fractals->findChild<QScrollArea*>("scrollArea_fractal_" + QString::number(i))->setEnabled(state);
 		}
 	}
+
+	ui->comboBox_delta_DE_function->setEnabled(state || ui->comboBox_delta_DE_method->currentIndex() == (int)fractal::forceDeltaDEMethod);
+	ui->comboBox_delta_DE_method->setEnabled(!state);
 }
 
 void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
@@ -589,6 +592,13 @@ void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
 		}
 		ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_formula_transform_" + QString::number(i))->setVisible(state);
 	}
+
+	ui->comboBox_delta_DE_function->setEnabled(!state);
+}
+
+void RenderWindow::slotChangedComboDistanceEstimationMethod(int index)
+{
+	ui->comboBox_delta_DE_function->setEnabled(ui->checkBox_hybrid_fractal_enable->isChecked() || index == (int)fractal::forceDeltaDEMethod);
 }
 
 void RenderWindow::slotMenuSaveSettings()

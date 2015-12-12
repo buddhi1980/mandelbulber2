@@ -590,6 +590,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(toggled(bool)),
 												mainWindow,
 												SLOT(slotChangedCheckBoxBooleanOperators(bool)));
+	QApplication::connect(mainWindow->ui->comboBox_delta_DE_method,
+													SIGNAL(currentIndexChanged(int)),
+													mainWindow,
+													SLOT(slotChangedComboDistanceEstimationMethod(int)));
 
 	QApplication::connect(mainWindow->ui->scrollAreaForImage,
 												SIGNAL(resized(int, int)),
