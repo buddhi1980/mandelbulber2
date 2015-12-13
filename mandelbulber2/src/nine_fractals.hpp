@@ -32,31 +32,36 @@
 class cNineFractals
 {
 public:
-	cNineFractals();
-	~cNineFractals();
 	cNineFractals(const cFractalContainer *fractalPar, const cParameterContainer *generalPar);
+	~cNineFractals();
 	cFractal* GetFractal(int index) const {return fractals[index];}
 	cFractal **fractals;
 	int GetSequence(int i) const;
 	bool IsHybrid() const {return isHybrid;}
 	fractal::enumDEType GetDEType(int formulaIndex) const;
 	fractal::enumDEFunctionType GetDEFunctionType(int formulaIndex) const;
-	double GetWeight(int formulaIndex) const {return formulaWeight[formulaIndex];}
-	int GetMaxFractalIndex() const {return maxFractalIndex;}
+	inline double GetWeight(int formulaIndex) const {return formulaWeight[formulaIndex];}
+	inline int GetMaxFractalIndex() const {return maxFractalIndex;}
+	inline bool IsDontAddCContant(int formulaIndex) const {return dontAddCConstant[formulaIndex];}
+	inline bool IsCheckForBaiout(int formulaIndex) const {return checkForBailout[formulaIndex];}
 
 private:
-	fractal::enumDEType DEType[NUMBER_OF_FRACTALS];
-	QVector<int> hybridSequence;
-	int counts[NUMBER_OF_FRACTALS];
-	void CreateSequence(const cParameterContainer *generalPar);
-	int maxN;
+	bool forceDeltaDE;
 	bool isHybrid;
+	int maxFractalIndex;
+	int maxN;
+	QVector<int> hybridSequence;
+
 	double formulaWeight[NUMBER_OF_FRACTALS];
+	fractal::enumDEFunctionType DEFunctionType[NUMBER_OF_FRACTALS];
+	fractal::enumDEType DEType[NUMBER_OF_FRACTALS];
+	int counts[NUMBER_OF_FRACTALS];
 	int formulaStartIteriation[NUMBER_OF_FRACTALS];
 	int formulaStopIteration[NUMBER_OF_FRACTALS];
-	int maxFractalIndex;
-	fractal::enumDEFunctionType DEFunctionType[NUMBER_OF_FRACTALS];
-	bool forceDeltaDE;
+	bool dontAddCConstant[NUMBER_OF_FRACTALS];
+	bool checkForBailout[NUMBER_OF_FRACTALS];
+
+	void CreateSequence(const cParameterContainer *generalPar);
 };
 
 

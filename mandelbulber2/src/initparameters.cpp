@@ -115,6 +115,8 @@ void InitParams(cParameterContainer *par)
 		par->addParam("formula_rotation", i, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 		par->addParam("formula_repeat", i, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 		par->addParam("formula_scale", i, 1.0, morphAkima, paramStandard);
+		par->addParam("dont_add_c_constant", i, false, morphLinear, paramStandard);
+		par->addParam("check_for_bailout", i, true, morphLinear, paramStandard);
 	}
 
 	//general fractal and engine

@@ -22,21 +22,6 @@
 
 #include "nine_fractals.hpp"
 
-cNineFractals::cNineFractals()
-{
-	fractals = new cFractal*[NUMBER_OF_FRACTALS];
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		fractals[i] = NULL;
-		DEType[i] = fractal::deltaDEType;
-		DEFunctionType[i] = fractal::logarithmicDEFunction;
-	}
-	maxN = 0;
-	isHybrid = false;
-	maxFractalIndex = 0;
-	forceDeltaDE = false;
-}
-
 cNineFractals::~cNineFractals()
 {
 	if (fractals)
@@ -64,6 +49,8 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		formulaStopIteration[i] = generalPar->Get<int>("formula_stop_iteration", i + 1);
 		DEType[i] = fractal::deltaDEType;
 		DEFunctionType[i] = fractal::logarithmicDEFunction;
+		checkForBailout[i] = generalPar->Get<bool>("check_for_bailout", i + 1);
+		dontAddCConstant[i] = generalPar->Get<bool>("dont_add_c_constant", i + 1);
 	}
 
 	if((fractal::enumDEMethod)generalPar->Get<int>("delta_DE_method") == fractal::forceDeltaDEMethod)

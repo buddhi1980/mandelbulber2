@@ -67,7 +67,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>968</width>
+           <width>978</width>
            <height>703</height>
           </rect>
          </property>
@@ -372,7 +372,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
+          <width>360</width>
           <height>442</height>
          </rect>
         </property>
@@ -2864,7 +2864,7 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>384</width>
+          <width>374</width>
           <height>159</height>
          </rect>
         </property>
@@ -2934,7 +2934,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>324</width>
                   <height>724</height>
                  </rect>
                 </property>
@@ -4149,7 +4149,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>227</width>
+                  <width>324</width>
                   <height>174</height>
                  </rect>
                 </property>
@@ -4477,7 +4477,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>196</width>
+                  <width>324</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5317,7 +5317,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>273</width>
+                  <width>324</width>
                   <height>225</height>
                  </rect>
                 </property>
@@ -5635,7 +5635,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>265</width>
+                  <width>324</width>
                   <height>1455</height>
                  </rect>
                 </property>
@@ -7995,8 +7995,8 @@ to target:</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>370</width>
+          <y>-10</y>
+          <width>360</width>
           <height>430</height>
          </rect>
         </property>
@@ -8022,7 +8022,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -8085,8 +8085,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
-                      <height>477</height>
+                      <width>302</width>
+                      <height>517</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1">
@@ -8137,6 +8137,34 @@ to target:</string>
                           <property name="spacing">
                            <number>2</number>
                           </property>
+                          <item row="2" column="2">
+                           <widget class="MyDoubleSpinBox" name="spinbox_formula_weight_1">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of result of fractal formula. If weight is zero then result is ignored. If result is 1 then is fully taken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="prefix">
+                             <string/>
+                            </property>
+                            <property name="suffix">
+                             <string/>
+                            </property>
+                            <property name="decimals">
+                             <number>2</number>
+                            </property>
+                            <property name="maximum">
+                             <double>1.000000000000000</double>
+                            </property>
+                            <property name="singleStep">
+                             <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
                           <item row="1" column="0">
                            <widget class="QLabel" name="label_formula_iterations_1">
                             <property name="sizePolicy">
@@ -8236,8 +8264,8 @@ to target:</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="2" column="2">
-                           <widget class="MyDoubleSpinBox" name="spinbox_formula_weight_1">
+                          <item row="4" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_check_for_bailout_1">
                             <property name="sizePolicy">
                              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                               <horstretch>0</horstretch>
@@ -8245,22 +8273,26 @@ to target:</string>
                              </sizepolicy>
                             </property>
                             <property name="toolTip">
-                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables checking for bailout condition for this fractal formula. &lt;/p&gt;&lt;p&gt;Baiout condition is at the end of iteration loop. It checks if length of iteration vector is longer than value defined by 'bailout' parameter. If it is, then it stops iterating. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
-                            <property name="prefix">
-                             <string/>
+                            <property name="text">
+                             <string>Check for bailout condition</string>
                             </property>
-                            <property name="suffix">
-                             <string/>
+                           </widget>
+                          </item>
+                          <item row="3" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_dont_add_c_constant_1">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
                             </property>
-                            <property name="decimals">
-                             <number>2</number>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding C constant to the result of fractal iteration (e.g. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
-                            <property name="maximum">
-                             <double>1.000000000000000</double>
-                            </property>
-                            <property name="singleStep">
-                             <double>0.100000000000000</double>
+                            <property name="text">
+                             <string>Don't add C constant</string>
                             </property>
                            </widget>
                           </item>
@@ -8795,8 +8827,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>477</height>
+                      <width>302</width>
+                      <height>517</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -8898,7 +8930,7 @@ to target:</string>
                              </sizepolicy>
                             </property>
                             <property name="toolTip">
-                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of result of fractal formula. If weight is zero then result is ignored. If result is 1 then is fully taken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="prefix">
                              <string/>
@@ -8971,6 +9003,38 @@ to target:</string>
                             </property>
                             <property name="orientation">
                              <enum>Qt::Horizontal</enum>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_dont_add_c_constant_2">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding C constant to the result of fractal iteration (e.g. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Don't add C constant</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_check_for_bailout_2">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables checking for bailout condition for this fractal formula. &lt;/p&gt;&lt;p&gt;Baiout condition is at the end of iteration loop. It checks if length of iteration vector is longer than value defined by 'bailout' parameter. If it is, then it stops iterating. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Check for bailout condition</string>
                             </property>
                            </widget>
                           </item>
@@ -9499,8 +9563,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>477</height>
+                      <width>302</width>
+                      <height>517</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -9653,7 +9717,7 @@ to target:</string>
                              </sizepolicy>
                             </property>
                             <property name="toolTip">
-                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of result of fractal formula. If weight is zero then result is ignored. If result is 1 then is fully taken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="prefix">
                              <string/>
@@ -9669,6 +9733,38 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_dont_add_c_constant_3">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding C constant to the result of fractal iteration (e.g. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Don't add C constant</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_check_for_bailout_3">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables checking for bailout condition for this fractal formula. &lt;/p&gt;&lt;p&gt;Baiout condition is at the end of iteration loop. It checks if length of iteration vector is longer than value defined by 'bailout' parameter. If it is, then it stops iterating. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Check for bailout condition</string>
                             </property>
                            </widget>
                           </item>
@@ -10197,8 +10293,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>477</height>
+                      <width>302</width>
+                      <height>517</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -10351,7 +10447,7 @@ to target:</string>
                              </sizepolicy>
                             </property>
                             <property name="toolTip">
-                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of result of fractal formula. If weight is zero then result is ignored. If result is 1 then is fully taken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="prefix">
                              <string/>
@@ -10367,6 +10463,38 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_dont_add_c_constant_4">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding C constant to the result of fractal iteration (e.g. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Don't add C constant</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_check_for_bailout_4">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables checking for bailout condition for this fractal formula. &lt;/p&gt;&lt;p&gt;Baiout condition is at the end of iteration loop. It checks if length of iteration vector is longer than value defined by 'bailout' parameter. If it is, then it stops iterating. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Check for bailout condition</string>
                             </property>
                            </widget>
                           </item>
@@ -10895,8 +11023,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>477</height>
+                      <width>302</width>
+                      <height>517</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -11049,7 +11177,7 @@ to target:</string>
                              </sizepolicy>
                             </property>
                             <property name="toolTip">
-                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of result of fractal formula. If weight is zero then result is ignored. If result is 1 then is fully taken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="prefix">
                              <string/>
@@ -11065,6 +11193,38 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_dont_add_c_constant_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding C constant to the result of fractal iteration (e.g. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Don't add C constant</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_check_for_bailout_5">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables checking for bailout condition for this fractal formula. &lt;/p&gt;&lt;p&gt;Baiout condition is at the end of iteration loop. It checks if length of iteration vector is longer than value defined by 'bailout' parameter. If it is, then it stops iterating. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Check for bailout condition</string>
                             </property>
                            </widget>
                           </item>
@@ -11593,8 +11753,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>477</height>
+                      <width>302</width>
+                      <height>517</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -11747,7 +11907,7 @@ to target:</string>
                              </sizepolicy>
                             </property>
                             <property name="toolTip">
-                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of result of fractal formula. If weight is zero then result is ignored. If result is 1 then is fully taken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="prefix">
                              <string/>
@@ -11763,6 +11923,38 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_dont_add_c_constant_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding C constant to the result of fractal iteration (e.g. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Don't add C constant</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_check_for_bailout_6">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables checking for bailout condition for this fractal formula. &lt;/p&gt;&lt;p&gt;Baiout condition is at the end of iteration loop. It checks if length of iteration vector is longer than value defined by 'bailout' parameter. If it is, then it stops iterating. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Check for bailout condition</string>
                             </property>
                            </widget>
                           </item>
@@ -12291,8 +12483,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>477</height>
+                      <width>302</width>
+                      <height>517</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -12445,7 +12637,7 @@ to target:</string>
                              </sizepolicy>
                             </property>
                             <property name="toolTip">
-                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of result of fractal formula. If weight is zero then result is ignored. If result is 1 then is fully taken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="prefix">
                              <string/>
@@ -12461,6 +12653,38 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_dont_add_c_constant_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding C constant to the result of fractal iteration (e.g. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Don't add C constant</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_check_for_bailout_7">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables checking for bailout condition for this fractal formula. &lt;/p&gt;&lt;p&gt;Baiout condition is at the end of iteration loop. It checks if length of iteration vector is longer than value defined by 'bailout' parameter. If it is, then it stops iterating. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Check for bailout condition</string>
                             </property>
                            </widget>
                           </item>
@@ -12989,8 +13213,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>477</height>
+                      <width>302</width>
+                      <height>517</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -13143,7 +13367,7 @@ to target:</string>
                              </sizepolicy>
                             </property>
                             <property name="toolTip">
-                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of result of fractal formula. If weight is zero then result is ignored. If result is 1 then is fully taken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="prefix">
                              <string/>
@@ -13159,6 +13383,38 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_dont_add_c_constant_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding C constant to the result of fractal iteration (e.g. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Don't add C constant</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_check_for_bailout_8">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables checking for bailout condition for this fractal formula. &lt;/p&gt;&lt;p&gt;Baiout condition is at the end of iteration loop. It checks if length of iteration vector is longer than value defined by 'bailout' parameter. If it is, then it stops iterating. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Check for bailout condition</string>
                             </property>
                            </widget>
                           </item>
@@ -13687,8 +13943,8 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>264</width>
-                      <height>477</height>
+                      <width>302</width>
+                      <height>517</height>
                      </rect>
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -13841,7 +14097,7 @@ to target:</string>
                              </sizepolicy>
                             </property>
                             <property name="toolTip">
-                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of main light source. When it's higher then objects illuminated by main light source will be brighter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of result of fractal formula. If weight is zero then result is ignored. If result is 1 then is fully taken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                             <property name="prefix">
                              <string/>
@@ -13857,6 +14113,38 @@ to target:</string>
                             </property>
                             <property name="singleStep">
                              <double>0.100000000000000</double>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_dont_add_c_constant_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding C constant to the result of fractal iteration (e.g. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Don't add C constant</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="4" column="0" colspan="3">
+                           <widget class="MyCheckBox" name="checkBox_check_for_bailout_9">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables checking for bailout condition for this fractal formula. &lt;/p&gt;&lt;p&gt;Baiout condition is at the end of iteration loop. It checks if length of iteration vector is longer than value defined by 'bailout' parameter. If it is, then it stops iterating. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                            <property name="text">
+                             <string>Check for bailout condition</string>
                             </property>
                            </widget>
                           </item>
@@ -14389,7 +14677,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>310</width>
                   <height>532</height>
                  </rect>
                 </property>
@@ -16068,8 +16356,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
-                  <height>354</height>
+                  <width>324</width>
+                  <height>416</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -16613,7 +16901,7 @@ and water):</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
+          <width>360</width>
           <height>851</height>
          </rect>
         </property>
@@ -16815,6 +17103,19 @@ and water):</string>
                 </property>
                </widget>
               </item>
+              <item row="6" column="2">
+               <widget class="MyLineEdit" name="logedit_smoothness">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Smoothness parameter defines averaging area for normal vector calculation.&lt;/p&gt;&lt;p&gt;Higher value gives smoother fractal surface.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;smoothness = 0.1&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 0.1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
               <item row="6" column="0">
                <widget class="QLabel" name="label_106">
                 <property name="text">
@@ -16835,19 +17136,6 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="6" column="2">
-               <widget class="MyLineEdit" name="logedit_smoothness">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Smoothness parameter defines averaging area for normal vector calculation.&lt;/p&gt;&lt;p&gt;Higher value gives smoother fractal surface.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;smoothness = 0.1&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 0.1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-               </widget>
-              </item>
               <item row="11" column="0" colspan="3">
                <widget class="MyCheckBox" name="checkBox_slow_shading">
                 <property name="sizePolicy">
@@ -16861,6 +17149,13 @@ and water):</string>
                 </property>
                 <property name="text">
                  <string>Non-DE shading mode (slow)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_222">
+                <property name="text">
+                 <string>Bailout (escape condition):</string>
                 </property>
                </widget>
               </item>
@@ -16899,13 +17194,6 @@ and water):</string>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_222">
-                <property name="text">
-                 <string>Bailout (escape condition):</string>
                 </property>
                </widget>
               </item>
@@ -16956,6 +17244,14 @@ and water):</string>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="2">
+               <widget class="QPushButton" name="pushButton_optimization_HQ">
+                <property name="text">
+                 <string>Optimization for
+high quality</string>
                 </property>
                </widget>
               </item>
@@ -17069,11 +17365,11 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="2">
-               <widget class="QPushButton" name="pushButton_optimization_HQ">
+              <item row="5" column="1">
+               <widget class="QPushButton" name="pushButton_optimization_MQ">
                 <property name="text">
                  <string>Optimization for
-high quality</string>
+medium quality</string>
                 </property>
                </widget>
               </item>
@@ -17102,27 +17398,6 @@ high quality</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="1">
-               <widget class="QPushButton" name="pushButton_optimization_MQ">
-                <property name="text">
-                 <string>Optimization for
-medium quality</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="MyLineEdit" name="logedit_bailout">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The vector values are checked during each iteration of fractal formula to see if they have reached a critical 'escape' condition or 'bailout'. If that condition is reached, the calculation is stopped. Condition is: if length of vector is greater than bailout, then break iteration loop.&lt;/p&gt;&lt;p&gt;In some cases higher value can increase image quality, but it will increase rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-               </widget>
-              </item>
               <item row="5" column="0">
                <widget class="QPushButton" name="pushButton_optimization_LQ">
                 <property name="text">
@@ -17136,6 +17411,19 @@ low quality</string>
                 <property name="text">
                  <string>Maximum number
 of fractal iterations:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="MyLineEdit" name="logedit_bailout">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The vector values are checked during each iteration of fractal formula to see if they have reached a critical 'escape' condition or 'bailout'. If that condition is reached, the calculation is stopped. Condition is: if length of vector is greater than bailout, then break iteration loop.&lt;/p&gt;&lt;p&gt;In some cases higher value can increase image quality, but it will increase rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
@@ -18836,8 +19124,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>198</width>
-                  <height>242</height>
+                  <width>317</width>
+                  <height>288</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">

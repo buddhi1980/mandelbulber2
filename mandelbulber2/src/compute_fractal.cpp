@@ -356,40 +356,43 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 
 		//addition of constant
-		switch (fractal->formula)
+		if (!fractals.IsDontAddCContant(sequence))
 		{
-			case menger_sponge:
-			case kaleidoscopicIFS:
-			case aexion:
-			case mandelbulb5:
-			case mandelbox103:
-			case quaternion104:
-			case mengerSponge105:
-			case mandelbulb6Beta:
-			case benesiTransforms:
-      case fabsBoxMod:
-      case mengerMod:
-      case quaternion3D:
-      case aexionOctopus:
-      case aboxMod1:
-      case transfAdditionConstant:
-      case transfRotation:
-      case transfScale:
-      case transfScale3D:
+			switch (fractal->formula)
 			{
-				break;
-			}
-			default:
-			{
-				if (in.common.juliaMode)
+				case menger_sponge:
+				case kaleidoscopicIFS:
+				case aexion:
+				case mandelbulb5:
+				case mandelbox103:
+				case quaternion104:
+				case mengerSponge105:
+				case mandelbulb6Beta:
+				case benesiTransforms:
+				case fabsBoxMod:
+				case mengerMod:
+				case quaternion3D:
+				case aexionOctopus:
+				case aboxMod1:
+				case transfAdditionConstant:
+				case transfRotation:
+				case transfScale:
+				case transfScale3D:
 				{
-					z += in.common.juliaC;
+					break;
 				}
-				else
+				default:
 				{
-					z += c * in.common.constantMultiplier;
+					if (in.common.juliaMode)
+					{
+						z += in.common.juliaC;
+					}
+					else
+					{
+						z += c * in.common.constantMultiplier;
+					}
+					break;
 				}
-				break;
 			}
 		}
 
@@ -402,44 +405,47 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 
 		//escape conditions
-		if (Mode == calcModeNormal)
+		if (fractals.IsCheckForBaiout(sequence))
 		{
-			if (r > in.common.bailout)
+			if (Mode == calcModeNormal)
 			{
-				out->maxiter = false;
-				break;
+				if (r > in.common.bailout)
+				{
+					out->maxiter = false;
+					break;
+				}
 			}
-		}
-		else if (Mode == calcModeDeltaDE1)
-		{
-			if (r > in.common.bailout)
+			else if (Mode == calcModeDeltaDE1)
 			{
-				out->maxiter = false;
-				break;
+				if (r > in.common.bailout)
+				{
+					out->maxiter = false;
+					break;
+				}
 			}
-		}
-		else if (Mode == calcModeDeltaDE2)
-		{
-			if (i == in.maxN) break;
-		}
-		else if (Mode == calcModeColouring)
-		{
-			if (fractal->formula != mandelbox)
+			else if (Mode == calcModeDeltaDE2)
 			{
-				if (r < minimumR) minimumR = r;
+				if (i == in.maxN) break;
 			}
-			if (r > 1e15) break;
-		}
-		else if (Mode == calcModeOrbitTrap)
-		{
-			CVector3 delta = z - in.common.fakeLightsOrbitTrap;
-			double distance = delta.Length();
-			if (i >= in.common.fakeLightsMinIter && i <= in.common.fakeLightsMaxIter) orbitTrapTotal +=
-					(1.0f / (distance * distance));
-			if (distance > 1000)
+			else if (Mode == calcModeColouring)
 			{
-				out->orbitTrapR = orbitTrapTotal;
-				break;
+				if (fractal->formula != mandelbox)
+				{
+					if (r < minimumR) minimumR = r;
+				}
+				if (r > 1e15) break;
+			}
+			else if (Mode == calcModeOrbitTrap)
+			{
+				CVector3 delta = z - in.common.fakeLightsOrbitTrap;
+				double distance = delta.Length();
+				if (i >= in.common.fakeLightsMinIter && i <= in.common.fakeLightsMaxIter) orbitTrapTotal +=
+						(1.0f / (distance * distance));
+				if (distance > 1000)
+				{
+					out->orbitTrapR = orbitTrapTotal;
+					break;
+				}
 			}
 		}
 	}
