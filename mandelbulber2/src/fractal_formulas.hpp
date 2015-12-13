@@ -50,7 +50,7 @@ void MandelbulbPower2Iteration(CVector3 &z);
 void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void MengerSpongeIteration(CVector3 &z, sIFSAux &aux);
 void MsltoeSym2(CVector3 &z, const cFractal *fractal);
-void PlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
+
 void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
 void QuaternionIteration(CVector3 &z, double &w);
 void QuickDudleyIteration(CVector3 &z);
@@ -64,11 +64,18 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 
 void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
-void AboxModKaliIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
+void AboxModKaliIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 
 void MengerModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion3DIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void AexionOctopusIteration(CVector3 &z, const cFractal *fractal);
 void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
+
+//transforming formulas
+void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);
+void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
+void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransfromPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

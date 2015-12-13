@@ -666,13 +666,6 @@ struct sTransformFabsBoxMod
   bool constantF2Enabledz;
 
 };
-struct	sTransformAboxModKali
-{
-  CVector3 additionConstant;
-  double radMin;
-  double scale;
-  CVector3 constantMultiplierVect;
-};
 
 struct sFractalTransform
 {
@@ -757,7 +750,6 @@ struct sFractalTransform
 	sTransformSphereCube sphereCube1;
 	sTransformSphereCube sphereCube2;
 
-  sTransformAboxModKali aboxModKali1;
   sTransformFabsBoxMod fabsBoxMod;
 
 
@@ -770,6 +762,17 @@ struct sFractalPlatonicSolid
 	double frequency;
 	double amplitude;
 	double rhoMul;
+};
+
+//common parameters for transforming formulas
+struct sFractalTransfromCommon
+{
+	double scale;
+	CVector3 additionConstant;
+	CVector3 rotation;
+	CVector3 scale3D;
+	CVector3 constantMultiplier;
+	CRotationMatrix rotationMatrix;
 };
 
 class cFractal
@@ -794,6 +797,7 @@ public:
   sFractalQuaternion3D quaternion3D;
   sFractalAexionOctopus aexionOctopus;
   sFractalAboxMod1 aboxMod1;
+  sFractalTransfromCommon transformCommon;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

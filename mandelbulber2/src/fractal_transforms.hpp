@@ -87,7 +87,7 @@ void boxFoldMultiTransform3D(const sTransformBoxFoldMulti &boxFoldMulti, CVector
 void cubeSphereTransform3D(const sTransformCubeSphere &cubeSphere, CVector3 &z, int i);
 void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, int i);
 
-void aboxModKaliTransform3D(const sTransformAboxModKali &aboxModKali, CVector3 &z, CVector3 &c, sExtendedAux &aux);
 void fabsBoxModTransform3D(const sTransformFabsBoxMod &fabsBoxMod, CVector3 &z, int i);
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_TRANSFORMS_HPP_ */
+

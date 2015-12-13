@@ -120,10 +120,10 @@
            </sizepolicy>
           </property>
           <property name="minimum">
-           <number>-10</number>
+           <number>-10000000</number>
           </property>
           <property name="maximum">
-           <number>10</number>
+           <number>10000000</number>
           </property>
           <property name="value">
            <number>0</number>
@@ -145,10 +145,10 @@
            </sizepolicy>
           </property>
           <property name="minimum">
-           <number>-10</number>
+           <number>-10000000</number>
           </property>
           <property name="maximum">
-           <number>10</number>
+           <number>10000000</number>
           </property>
           <property name="value">
            <number>0</number>
@@ -225,10 +225,10 @@
            </sizepolicy>
           </property>
           <property name="minimum">
-           <number>-10</number>
+           <number>-10000000</number>
           </property>
           <property name="maximum">
-           <number>10</number>
+           <number>10000000</number>
           </property>
           <property name="value">
            <number>0</number>
@@ -562,10 +562,10 @@
            </sizepolicy>
           </property>
           <property name="minimum">
-           <number>-10</number>
+           <number>-10000000</number>
           </property>
           <property name="maximum">
-           <number>10</number>
+           <number>10000000</number>
           </property>
           <property name="value">
            <number>0</number>

@@ -491,6 +491,12 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("aboxMod1_foldM", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("aboxMod1_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 
+  //common parameters for transforming formulas
+  par->addParam("transf_scale", 1.0, morphAkima, paramStandard);
+  par->addParam("transf_scale3D", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transf_additon_constant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transf_constant_multiplier", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 
 	//transform
 	par->addParam("transform_additionConstant1_enabled", false, morphLinear, paramStandard);
@@ -1146,11 +1152,6 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transform_fabsBoxMod_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("transform_fabsBoxMod_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("transform_fabsBoxMod_weight", 1.0, morphLinear, paramStandard);
-
-  par->addParam("transform_aboxModKali1_additionConstant", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-  par->addParam("transform_aboxModKali1_min_radius", 0.5, morphAkima, paramStandard);
-  par->addParam("transform_aboxModKali1_scale", 2.0, morphAkima, paramStandard);
-  par->addParam("transform_aboxModKali1_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 
 	// platonic_solid
 

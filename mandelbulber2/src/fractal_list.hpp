@@ -87,6 +87,11 @@ enum enumFractalFormula
   quaternion3D = 62,
   aexionOctopus = 63,
   aboxMod1 = 64,
+
+	transfAdditionConstant = 1001,
+	transfRotation = 1002,
+	transfScale = 1003,
+	transfScale3D = 1004
 };
 
 enum enumDEType

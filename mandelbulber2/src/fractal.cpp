@@ -1310,13 +1310,6 @@ cFractal::cFractal(const cParameterContainer *container)
 			container->Get<int>("transform_sphereCube2_stop_iterations");
 	transform.sphereCube2.control.weight = container->Get<double>("transform_sphereCube2_weight");
 
-  transform.aboxModKali1.additionConstant =
-      container->Get<CVector3>("transform_aboxModKali1_additionConstant");
-  transform.aboxModKali1.radMin = container->Get<double>("transform_aboxModKali1_min_radius");
-  transform.aboxModKali1.scale = container->Get<double>("transform_aboxModKali1_scale");
-  transform.aboxModKali1.constantMultiplierVect =
-      container->Get<CVector3>("transform_aboxModKali1_constantMultiplier");
-
   transform.fabsBoxMod.constantF1 =
                   container->Get<CVector3>("transform_fabsBoxMod_constantF1");
   transform.fabsBoxMod.constantF2 =
@@ -1344,13 +1337,6 @@ cFractal::cFractal(const cParameterContainer *container)
   transform.fabsBoxMod.control.weight =
                   container->Get<double>("transform_fabsBoxMod_weight");
 
-  transform.aboxModKali1.additionConstant =
-      container->Get<CVector3>("transform_aboxModKali1_additionConstant");
-  transform.aboxModKali1.radMin = container->Get<double>("transform_aboxModKali1_min_radius");
-  transform.aboxModKali1.scale = container->Get<double>("transform_aboxModKali1_scale");
-  transform.aboxModKali1.constantMultiplierVect =
-      container->Get<CVector3>("transform_aboxModKali1_constantMultiplier");
-
 //----------------------------------
 
 	//platonic_solid
@@ -1358,6 +1344,13 @@ cFractal::cFractal(const cParameterContainer *container)
 	platonicSolid.frequency = container->Get<double>("platonic_solid_frequency");
 	platonicSolid.amplitude = container->Get<double>("platonic_solid_amplitude");
 	platonicSolid.rhoMul = container->Get<double>("platonic_solid_rhoMul");
+
+	//common parameters for transforming formulas
+	transformCommon.scale = container->Get<double>("transf_scale");
+	transformCommon.scale3D = container->Get<CVector3>("transf_scale3D");
+	transformCommon.additionConstant = container->Get<CVector3>("transf_additon_constant");
+	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
+	transformCommon.constantMultiplier = container->Get<CVector3>("aboxMod1_constantMultiplier");
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();
@@ -1427,6 +1420,8 @@ void cFractal::RecalculateFractalParams(void)
 	transform.sphericalFold2.mR2 = transform.sphericalFold2.radMin * transform.sphericalFold2.radMin;
 	transform.sphericalFold2.mboxFactor1 = transform.sphericalFold2.fR2
 			/ transform.sphericalFold2.mR2;
+
+  transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
 
 	//Generalized Fold Box precalculated vectors
 	double sqrt_i3 = 1.0 / sqrt(3.0);

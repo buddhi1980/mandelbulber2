@@ -279,11 +279,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					MengerSponge105Iteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
-				case platonicSolid:
-				{
-					PlatonicSolidIteration(z, fractal);
-					break;
-				}
 				case mandelbulb6Beta:
 				{
 					bulbAux[sequence].r = r;
@@ -303,7 +298,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case aboxModKali:
         {
-          AboxModKaliIteration(z, c, i, fractal, extendedAux[sequence]);
+          AboxModKaliIteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
         case mengerMod:
@@ -321,13 +316,38 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           AexionOctopusIteration(z, fractal);
           break;
         }
-
         case aboxMod1:
         {
           AboxMod1Iteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
 
+        //transfrorms
+        case transfAdditionConstant:
+        {
+        	TransformAdditionConstantIteration(z, fractal);
+        	break;
+        }
+        case transfRotation:
+        {
+        	TransformRotationIteration(z, fractal);
+        	break;
+        }
+        case transfScale:
+        {
+        	TransformScaleIteration(z, fractal, extendedAux[sequence]);
+        	break;
+        }
+        case transfScale3D:
+        {
+        	TransformScale3DIteration(z, fractal, extendedAux[sequence]);
+        	break;
+        }
+				case platonicSolid:
+				{
+					TransfromPlatonicSolidIteration(z, fractal);
+					break;
+				}
 
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
@@ -348,11 +368,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			case mandelbulb6Beta:
 			case benesiTransforms:
       case fabsBoxMod:
-      case aboxModKali:
       case mengerMod:
       case quaternion3D:
       case aexionOctopus:
       case aboxMod1:
+      case transfAdditionConstant:
+      case transfRotation:
+      case transfScale:
+      case transfScale3D:
 			{
 				break;
 			}
