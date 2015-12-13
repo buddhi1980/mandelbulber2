@@ -32,7 +32,7 @@ namespace parameterContainer
 {
 enum enumVarType
 {
-	typeNull, typeInt, typeDouble, typeString, typeVector3, typeRgb, typeBool, typeColorPalette
+	typeNull, typeInt, typeDouble, typeString, typeVector3, typeVector4, typeRgb, typeBool, typeColorPalette
 };
 }
 
@@ -48,6 +48,7 @@ public:
 	enumVarType Store(int val);
 	enumVarType Store(QString val);
 	enumVarType Store(CVector3 val);
+	enumVarType Store(CVector4 val);
 	enumVarType Store(sRGB val);
 	enumVarType Store(bool val);
 	enumVarType Store(cColorPalette val);
@@ -55,6 +56,7 @@ public:
 	enumVarType Get(int &val) const;
 	enumVarType Get(QString &val) const;
 	enumVarType Get(CVector3 &val) const;
+	enumVarType Get(CVector4 &val) const;
 	enumVarType Get(sRGB &val) const;
 	enumVarType Get(bool &val) const;
 	enumVarType Get(cColorPalette &val) const;

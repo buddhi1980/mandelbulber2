@@ -587,6 +587,33 @@ int cFlightAnimation::AddVariableToTable(
 		table->setVerticalHeaderItem(row + 2, new QTableWidgetItem(varName));
 		rowParameter.append(index);
 	}
+	else if (type == typeVector4)
+	{
+		QString varName;
+		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
+		tableRowNames.append(varName);
+		table->insertRow(row);
+		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
+		rowParameter.append(index);
+
+		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_y";
+		tableRowNames.append(varName);
+		table->insertRow(row + 1);
+		table->setVerticalHeaderItem(row + 1, new QTableWidgetItem(varName));
+		rowParameter.append(index);
+
+		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_z";
+		tableRowNames.append(varName);
+		table->insertRow(row + 2);
+		table->setVerticalHeaderItem(row + 2, new QTableWidgetItem(varName));
+		rowParameter.append(index);
+
+		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_w";
+		tableRowNames.append(varName);
+		table->insertRow(row + 3);
+		table->setVerticalHeaderItem(row + 3, new QTableWidgetItem(varName));
+		rowParameter.append(index);
+	}
 	else if (type == typeRgb)
 	{
 		QString varName;
@@ -644,6 +671,20 @@ int cFlightAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame)
 			table->setItem(row + 2,
 										 newColumn,
 										 new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
+		}
+		else if (type == typeVector4)
+		{
+			CVector4 val = frame.parameters.Get<CVector4>(parameterName);
+			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
+			table->setItem(row + 1,
+										 newColumn,
+										 new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
+			table->setItem(row + 2,
+										 newColumn,
+										 new QTableWidgetItem(QString("%L1").arg(val.z, 0, 'g', 16)));
+			table->setItem(row + 3,
+										 newColumn,
+										 new QTableWidgetItem(QString("%L1").arg(val.w, 0, 'g', 16)));
 		}
 		else if (type == typeRgb)
 		{
@@ -1001,6 +1042,15 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 			if (vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
 			frame.parameters.Set(parameterName, vect);
 		}
+		else if (type == typeVector4)
+		{
+			CVector4 vect = frame.parameters.Get<CVector4>(parameterName);
+			if (vectIndex == 0) vect.x = systemData.locale.toDouble(cellText);
+			if (vectIndex == 1) vect.y = systemData.locale.toDouble(cellText);
+			if (vectIndex == 2) vect.z = systemData.locale.toDouble(cellText);
+			if (vectIndex == 3) vect.w = systemData.locale.toDouble(cellText);
+			frame.parameters.Set(parameterName, vect);
+		}
 		else if (type == typeRgb)
 		{
 			sRGB col = frame.parameters.Get<sRGB>(parameterName);
@@ -1124,6 +1174,7 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		}
 		case typeDouble:
 		case typeVector3:
+		case typeVector4:
 		{
 			valueIsDouble = true;
 			valueDouble = systemData.locale.toDouble(cellText);

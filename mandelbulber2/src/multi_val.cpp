@@ -72,6 +72,7 @@ enumVarType cMultiVal::Store(QString val)
 	{
 		case typeNull:
 		case typeVector3:
+		case typeVector4:
 		case typeString:
 		{
 			QStringList split = val.split(' ');
@@ -121,12 +122,32 @@ enumVarType cMultiVal::Store(CVector3 val)
 	iVal[0] = val.x;
 	iVal[1] = val.y;
 	iVal[2] = val.z;
-	sVal = QString("%L1 %L2 %L3").arg(val.x, 0, 'g', 16).arg(val.y, 0, 'g', 16).arg(val.z,
-																																									0,
-																																									'g',
-																																									16);
+	sVal = QString("%L1 %L2 %L3")
+			.arg(val.x, 0, 'g', 16)
+			.arg(val.y, 0, 'g', 16)
+			.arg(val.z, 0, 'g', 16);
 
 	if (!typeDefined) type = typeVector3;
+	return type;
+}
+
+enumVarType cMultiVal::Store(CVector4 val)
+{
+	dVal[0] = val.x;
+	dVal[1] = val.y;
+	dVal[2] = val.z;
+	dVal[3] = val.w;
+	iVal[0] = val.x;
+	iVal[1] = val.y;
+	iVal[2] = val.z;
+	iVal[3] = val.w;
+	sVal = QString("%L1 %L2 %L3 %L4")
+			.arg(val.x, 0, 'g', 16)
+			.arg(val.y, 0, 'g', 16)
+			.arg(val.z, 0, 'g', 16)
+			.arg(val.w, 0, 'g', 16);
+
+	if (!typeDefined) type = typeVector4;
 	return type;
 }
 
@@ -138,11 +159,11 @@ enumVarType cMultiVal::Store(sRGB val)
 	iVal[0] = val.R;
 	iVal[1] = val.G;
 	iVal[2] = val.B;
-	sVal =
-			QString("%1 %2 %3").arg(val.R, 4, 16, QChar('0')).arg(val.G, 4, 16, QChar('0')).arg(val.B,
-																																													4,
-																																													16,
-																																													QChar('0'));
+	sVal = QString("%1 %2 %3")
+			.arg(val.R, 4, 16, QChar('0'))
+			.arg(val.G, 4, 16, QChar('0'))
+			.arg(val.B, 4, 16, QChar('0'));
+
 	if (!typeDefined) type = typeRgb;
 	return typeRgb;
 }
@@ -181,6 +202,12 @@ enumVarType cMultiVal::Get(CVector3 &val) const
 {
 	val = CVector3(dVal[0], dVal[1], dVal[2]);
 	return typeVector3;
+}
+
+enumVarType cMultiVal::Get(CVector4 &val) const
+{
+	val = CVector4(dVal[0], dVal[1], dVal[2], dVal[3]);
+	return typeVector4;
 }
 
 enumVarType cMultiVal::Get(QString &val) const
@@ -262,6 +289,7 @@ bool cMultiVal::isEqual(const cMultiVal &m) const
 		}
 		case typeDouble:
 		case typeVector3:
+		case typeVector4:
 		{
 			for (int i = 0; i < 4; i++)
 			{

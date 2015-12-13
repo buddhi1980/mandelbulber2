@@ -170,6 +170,17 @@ cOneParameter cMorph::Linear(const int key, const double factor, const bool angu
 												 LinearInterpolate(factor, v1.z, v2.z, angular)));
 			break;
 		}
+		case typeVector4:
+		{
+			CVector4 v1, v2;
+			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
+			val.Store(CVector4(LinearInterpolate(factor, v1.x, v2.x, angular),
+												 LinearInterpolate(factor, v1.y, v2.y, angular),
+												 LinearInterpolate(factor, v1.z, v2.z, angular),
+												 LinearInterpolate(factor, v1.w, v2.w, angular)));
+			break;
+		}
 		case typeColorPalette:
 		{
 			cColorPalette v1, v2;
@@ -253,6 +264,19 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 			val.Store(CVector3(CatmullRomInterpolate(factor, v1.x, v2.x, v3.x, v4.x, angular),
 												 CatmullRomInterpolate(factor, v1.y, v2.y, v3.y, v4.y, angular),
 												 CatmullRomInterpolate(factor, v1.z, v2.z, v3.z, v4.z, angular)));
+			break;
+		}
+		case typeVector4:
+			{
+			CVector4 v1, v2, v3, v4;
+			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
+			val.Store(CVector4(CatmullRomInterpolate(factor, v1.x, v2.x, v3.x, v4.x, angular),
+												 CatmullRomInterpolate(factor, v1.y, v2.y, v3.y, v4.y, angular),
+												 CatmullRomInterpolate(factor, v1.z, v2.z, v3.z, v4.z, angular),
+												 CatmullRomInterpolate(factor, v1.w, v2.w, v3.w, v4.w, angular)));
 			break;
 		}
 		case typeColorPalette:
@@ -363,6 +387,21 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 			val.Store(CVector3(AkimaInterpolate(factor, v1.x, v2.x, v3.x, v4.x, v5.x, v6.x, angular),
 												 AkimaInterpolate(factor, v1.y, v2.y, v3.y, v4.y, v5.y, v6.y, angular),
 												 AkimaInterpolate(factor, v1.z, v2.z, v3.z, v4.z, v5.z, v6.z, angular)));
+			break;
+		}
+		case typeVector4:
+		{
+			CVector4 v1, v2, v3, v4, v5, v6;
+			dataSets[k1].parameter.GetMultival(valueActual).Get(v1);
+			dataSets[k2].parameter.GetMultival(valueActual).Get(v2);
+			dataSets[k3].parameter.GetMultival(valueActual).Get(v3);
+			dataSets[k4].parameter.GetMultival(valueActual).Get(v4);
+			dataSets[k5].parameter.GetMultival(valueActual).Get(v5);
+			dataSets[k6].parameter.GetMultival(valueActual).Get(v6);
+			val.Store(CVector4(AkimaInterpolate(factor, v1.x, v2.x, v3.x, v4.x, v5.x, v6.x, angular),
+												 AkimaInterpolate(factor, v1.y, v2.y, v3.y, v4.y, v5.y, v6.y, angular),
+												 AkimaInterpolate(factor, v1.z, v2.z, v3.z, v4.z, v5.z, v6.z, angular),
+												 AkimaInterpolate(factor, v1.w, v2.w, v3.w, v4.w, v5.w, v6.w, angular)));
 			break;
 		}
 		case typeColorPalette:

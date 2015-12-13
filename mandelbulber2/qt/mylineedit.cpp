@@ -53,7 +53,7 @@ void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
 			{
 				QString parName = parameterName;
 				QString type = GetType(objectName());
-				if (type == QString("vect3"))
+				if (type == QString("vect3") || type == QString("vect4"))
 					parName = parameterName.left(parameterName.length() - 2);
 
 				gAnimFrames->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
@@ -66,7 +66,7 @@ void MyLineEdit::contextMenuEvent(QContextMenuEvent *event)
 			{
 				QString parName = parameterName;
 				QString type = GetType(objectName());
-				if (type == QString("vect3"))
+				if (type == QString("vect3") || type == QString("vect4"))
 					parName = parameterName.left(parameterName.length() - 2);
 
 				gKeyframes->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
@@ -110,6 +110,15 @@ QString MyLineEdit::GetDefault()
 			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 			QString nameVect = parameterName.left(parameterName.length() - 2);
 			CVector3 val = parameterContainer->GetDefault<CVector3>(nameVect);
+			QString valS = QString("%L1").arg(val.itemByName(lastChar), 0, 'g', 16);
+			defaultText = valS;
+			gotDefault = true;
+		}
+		else if (type == QString("vect4"))
+		{
+			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
+			QString nameVect = parameterName.left(parameterName.length() - 2);
+			CVector4 val = parameterContainer->GetDefault<CVector4>(nameVect);
 			QString valS = QString("%L1").arg(val.itemByName(lastChar), 0, 'g', 16);
 			defaultText = valS;
 			gotDefault = true;

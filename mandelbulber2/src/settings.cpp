@@ -107,6 +107,13 @@ void cSettings::CreateAnimationString(QString &text, const QString &headerText,
 					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_y;";
 					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_z";
 				}
+				else if (parameterList[i].varType == parameterContainer::typeVector4)
+				{
+					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_x;";
+					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_y;";
+					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_z;";
+					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_w";
+				}
 				else if (parameterList[i].varType == parameterContainer::typeRgb)
 				{
 					text += parameterList[i].containerName + "_" + parameterList[i].parameterName + "_R;";
@@ -137,6 +144,16 @@ void cSettings::CreateAnimationString(QString &text, const QString &headerText,
 						text += QString("%L1").arg(val.x, 0, 'g', 16) + ";";
 						text += QString("%L1").arg(val.y, 0, 'g', 16) + ";";
 						text += QString("%L1").arg(val.z, 0, 'g', 16);
+					}
+					else if (parameterList[i].varType == parameterContainer::typeVector4)
+					{
+						CVector4 val =
+								frames->GetFrame(f).parameters.Get<CVector4>(parameterList[i].containerName + "_"
+										+ parameterList[i].parameterName);
+						text += QString("%L1").arg(val.x, 0, 'g', 16) + ";";
+						text += QString("%L1").arg(val.y, 0, 'g', 16) + ";";
+						text += QString("%L1").arg(val.z, 0, 'g', 16) + ";";
+						text += QString("%L1").arg(val.w, 0, 'g', 16);
 					}
 					else if (parameterList[i].varType == parameterContainer::typeRgb)
 					{
@@ -545,7 +562,7 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 		{
 			value = (value == QString("true")) ? "1" : "0";
 		}
-		else if (varType == typeDouble || varType == typeVector3)
+		else if (varType == typeDouble || varType == typeVector3 || typeVector4)
 		{
 			value = everyLocaleDouble(value);
 		}
@@ -720,6 +737,16 @@ bool cSettings::DecodeFramesLine(QString line, cParameterContainer *par,
 						vect.y = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 1]));
 						vect.z = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 2]));
 						column += 2;
+						container->Set(parameterName, vect);
+					}
+					else if (type == typeVector4)
+					{
+						CVector4 vect;
+						vect.x = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column]));
+						vect.y = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 1]));
+						vect.z = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 2]));
+						vect.w = systemData.locale.toDouble(everyLocaleDouble(lineSplit[column + 3]));
+						column += 3;
 						container->Set(parameterName, vect);
 					}
 					else if (type == typeRgb)

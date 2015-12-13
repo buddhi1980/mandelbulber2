@@ -971,6 +971,76 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 					}
 				}
 
+				//----- get vectors 4D  ------------
+				if (type == QString("vect4"))
+				{
+					char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
+					QString nameVect = parameterName.left(parameterName.length() - 2);
+
+					if (mode == read)
+					{
+						double value = systemData.locale.toDouble(lineEdit->text());
+						//out << nameVect << " - " << lastChar << " axis = " << value << endl;
+						CVector4 vect = par->Get<CVector4>(nameVect);
+
+						switch (lastChar)
+						{
+							case 'x':
+								vect.x = value;
+								break;
+
+							case 'y':
+								vect.y = value;
+								break;
+
+							case 'z':
+								vect.z = value;
+								break;
+
+							case 'w':
+								vect.w = value;
+								break;
+
+							default:
+								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
+										<< " has wrong axis name (is " << lastChar << ")" << endl;
+								break;
+						}
+						par->Set(nameVect, vect);
+					}
+					else if (mode == write)
+					{
+						CVector4 vect = par->Get<CVector4>(nameVect);
+						QString qtext;
+
+						switch (lastChar)
+						{
+							case 'x':
+								qtext = QString("%L1").arg(vect.x, 0, 'g', 16);
+								break;
+
+							case 'y':
+								qtext = QString("%L1").arg(vect.y, 0, 'g', 16);
+								break;
+
+							case 'z':
+								qtext = QString("%L1").arg(vect.z, 0, 'g', 16);
+								break;
+
+							case 'w':
+								qtext = QString("%L1").arg(vect.w, 0, 'g', 16);
+								break;
+
+							default:
+								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
+										<< " has wrong axis name (is " << lastChar << ")" << endl;
+								break;
+						}
+						lineEdit->setText(qtext);
+						lineEdit->setCursorPosition(0);
+					}
+				}
+
 				//---------- get double scalars --------
 				else if (type == QString("edit") || type == QString("logedit"))
 				{
@@ -1089,6 +1159,71 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 
 							case 'z':
 								value = vect.z;
+								break;
+
+							default:
+								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
+										<< nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+								break;
+						}
+						spinbox->setValue(value);
+					}
+				}
+				else if (type == QString("spinbox4") || type == QString("spinboxd4"))
+				{
+					char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
+					QString nameVect = parameterName.left(parameterName.length() - 2);
+					if (mode == read)
+					{
+						double value = spinbox->value();
+						CVector4 vect = par->Get<CVector4>(nameVect);
+
+						switch (lastChar)
+						{
+							case 'x':
+								vect.x = value;
+								break;
+
+							case 'y':
+								vect.y = value;
+								break;
+
+							case 'z':
+								vect.z = value;
+								break;
+
+							case 'w':
+								vect.w = value;
+								break;
+
+							default:
+								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
+										<< nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
+								break;
+						}
+						par->Set(nameVect, vect);
+					}
+					else if (mode == write)
+					{
+						CVector4 vect = par->Get<CVector4>(nameVect);
+						double value = 0;
+
+						switch (lastChar)
+						{
+							case 'x':
+								value = vect.x;
+								break;
+
+							case 'y':
+								value = vect.y;
+								break;
+
+							case 'z':
+								value = vect.z;
+								break;
+
+							case 'w':
+								value = vect.w;
 								break;
 
 							default:
@@ -1442,6 +1577,27 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 							<< " doesn't exists" << endl;
 				}
 			}
+			if (type == QString("slider4"))
+			{
+				QApplication::connect(slider,
+															SIGNAL(sliderMoved(int)),
+															mainWindow,
+															SLOT(slotSlider4Moved(int)));
+				QString spinboxName = QString("spinbox4_") + parameterName;
+				QDoubleSpinBox *spinbox = slider->parent()->findChild<QDoubleSpinBox*>(spinboxName);
+				if (spinbox)
+				{
+					QApplication::connect(spinbox,
+																SIGNAL(valueChanged(double)),
+																mainWindow,
+																SLOT(slotSpinBox4Changed(double)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinbox4 " << spinboxName
+							<< " doesn't exists" << endl;
+				}
+			}
 		}
 	}
 
@@ -1475,6 +1631,28 @@ void cInterface::ConnectSignalsForSlidersInWindow(QWidget *window)
 				else
 				{
 					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd3 " << spinBoxName
+							<< " doesn't exists" << endl;
+				}
+			}
+			if (type == QString("dial4"))
+			{
+				QApplication::connect(dial,
+															SIGNAL(sliderMoved(int)),
+															mainWindow,
+															SLOT(slotDial4Moved(int)));
+
+				QString spinBoxName = QString("spinboxd4_") + parameterName;
+				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox*>(spinBoxName);
+				if (spinBox)
+				{
+					QApplication::connect(spinBox,
+																SIGNAL(valueChanged(double)),
+																mainWindow,
+																SLOT(slotSpinBoxD4Changed(double)));
+				}
+				else
+				{
+					qWarning() << "ConnectSignalsForSlidersInWindow() error: spinboxd4 " << spinBoxName
 							<< " doesn't exists" << endl;
 				}
 			}

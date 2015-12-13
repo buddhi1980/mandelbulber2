@@ -69,6 +69,8 @@ template void cParameterContainer::addParam<QString>(QString name, QString defau
 		enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal,
 		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector4>(QString name, CVector4 defaultVal,
+		enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal,
 		enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<bool>(QString name, bool defaultVal,
@@ -105,6 +107,8 @@ template void cParameterContainer::addParam<int>(QString name, int defaultVal, i
 		int maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal,
 		CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector4>(QString name, CVector4 defaultVal,
+		CVector4 minVal, CVector4 maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, sRGB minVal,
 		sRGB maxVal, enumMorphType morphType, enumParameterType parType);
 
@@ -145,6 +149,8 @@ template void cParameterContainer::addParam<int>(QString name, int index, int de
 template void cParameterContainer::addParam<QString>(QString name, int index, QString defaultVal,
 		enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal,
+		enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector4>(QString name, int index, CVector4 defaultVal,
 		enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal,
 		enumMorphType morphType, enumParameterType parType);
@@ -189,6 +195,8 @@ template void cParameterContainer::addParam<int>(QString name, int index, int de
 		int minVal, int maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal,
 		CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<CVector4>(QString name, int index, CVector4 defaultVal,
+		CVector4 minVal, CVector4 maxVal, enumMorphType morphType, enumParameterType parType);
 template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal,
 		sRGB minVal, sRGB maxVal, enumMorphType morphType, enumParameterType parType);
 
@@ -211,6 +219,7 @@ template void cParameterContainer::Set<double>(QString name, double val);
 template void cParameterContainer::Set<int>(QString name, int val);
 template void cParameterContainer::Set<QString>(QString name, QString val);
 template void cParameterContainer::Set<CVector3>(QString name, CVector3 val);
+template void cParameterContainer::Set<CVector4>(QString name, CVector4 val);
 template void cParameterContainer::Set<sRGB>(QString name, sRGB val);
 template void cParameterContainer::Set<bool>(QString name, bool val);
 template void cParameterContainer::Set<cColorPalette>(QString name, cColorPalette val);
@@ -242,6 +251,7 @@ template void cParameterContainer::Set<double>(QString name, int index, double v
 template void cParameterContainer::Set<int>(QString name, int index, int val);
 template void cParameterContainer::Set<QString>(QString name, int index, QString val);
 template void cParameterContainer::Set<CVector3>(QString name, int index, CVector3 val);
+template void cParameterContainer::Set<CVector4>(QString name, int index, CVector4 val);
 template void cParameterContainer::Set<sRGB>(QString name, int index, sRGB val);
 template void cParameterContainer::Set<bool>(QString name, int index, bool val);
 
@@ -266,6 +276,7 @@ template double cParameterContainer::Get<double>(QString name) const;
 template int cParameterContainer::Get<int>(QString name) const;
 template QString cParameterContainer::Get<QString>(QString name) const;
 template CVector3 cParameterContainer::Get<CVector3>(QString name) const;
+template CVector4 cParameterContainer::Get<CVector4>(QString name) const;
 template sRGB cParameterContainer::Get<sRGB>(QString name) const;
 template bool cParameterContainer::Get<bool>(QString name) const;
 template cColorPalette cParameterContainer::Get<cColorPalette>(QString name) const;
@@ -299,6 +310,7 @@ template double cParameterContainer::Get<double>(QString name, int index) const;
 template int cParameterContainer::Get<int>(QString name, int index) const;
 template QString cParameterContainer::Get<QString>(QString name, int index) const;
 template CVector3 cParameterContainer::Get<CVector3>(QString name, int index) const;
+template CVector4 cParameterContainer::Get<CVector4>(QString name, int index) const;
 template sRGB cParameterContainer::Get<sRGB>(QString name, int index) const;
 template bool cParameterContainer::Get<bool>(QString name, int index) const;
 
@@ -323,6 +335,7 @@ template double cParameterContainer::GetDefault<double>(QString name) const;
 template int cParameterContainer::GetDefault<int>(QString name) const;
 template QString cParameterContainer::GetDefault<QString>(QString name) const;
 template CVector3 cParameterContainer::GetDefault<CVector3>(QString name) const;
+template CVector4 cParameterContainer::GetDefault<CVector4>(QString name) const;
 template sRGB cParameterContainer::GetDefault<sRGB>(QString name) const;
 template bool cParameterContainer::GetDefault<bool>(QString name) const;
 template cColorPalette cParameterContainer::GetDefault<cColorPalette>(QString name) const;
@@ -357,6 +370,7 @@ template double cParameterContainer::GetDefault<double>(QString name, int index)
 template int cParameterContainer::GetDefault<int>(QString name, int index) const;
 template QString cParameterContainer::GetDefault<QString>(QString name, int index) const;
 template CVector3 cParameterContainer::GetDefault<CVector3>(QString name, int index) const;
+template CVector4 cParameterContainer::GetDefault<CVector4>(QString name, int index) const;
 template sRGB cParameterContainer::GetDefault<sRGB>(QString name, int index) const;
 template bool cParameterContainer::GetDefault<bool>(QString name, int index) const;
 

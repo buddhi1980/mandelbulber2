@@ -53,7 +53,7 @@ void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
 			{
 				QString parName = parameterName;
 				QString type = GetType(objectName());
-				if (type == QString("spinbox3") || type == QString("spinboxd3"))
+				if (type == QString("spinbox3") || type == QString("spinboxd3") || type == QString("spinbox4") || type == QString("spinboxd4"))
 					parName = parameterName.left(parameterName.length() - 2);
 
 				gAnimFrames->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
@@ -66,7 +66,7 @@ void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
 			{
 				QString parName = parameterName;
 				QString type = GetType(objectName());
-				if (type == QString("spinbox3") || type == QString("spinboxd3"))
+				if (type == QString("spinbox3") || type == QString("spinboxd3") || type == QString("spinbox4") || type == QString("spinboxd4"))
 					parName = parameterName.left(parameterName.length() - 2);
 
 				gKeyframes->AddAnimatedParameter(parName, parameterContainer->GetAsOneParameter(parName));
@@ -110,6 +110,14 @@ double MyDoubleSpinBox::GetDefault()
 			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
 			QString nameVect = parameterName.left(parameterName.length() - 2);
 			CVector3 val = parameterContainer->GetDefault<CVector3>(nameVect);
+			defaultValue = val.itemByName(lastChar);
+			gotDefault = true;
+		}
+		else if (type == QString("spinbox4") || type == QString("spinboxd4"))
+		{
+			char lastChar = (parameterName.at(parameterName.length() - 1)).toLatin1();
+			QString nameVect = parameterName.left(parameterName.length() - 2);
+			CVector4 val = parameterContainer->GetDefault<CVector4>(nameVect);
 			defaultValue = val.itemByName(lastChar);
 			gotDefault = true;
 		}

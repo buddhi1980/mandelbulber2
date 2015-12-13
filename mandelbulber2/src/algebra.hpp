@@ -368,6 +368,8 @@ public:
 				+ QString::number(z) + QString(", ") + QString::number(w) + QString(" ]");
 	}
 
+	double itemByName(char item);
+
 	double x, y, z, w;
 };
 
