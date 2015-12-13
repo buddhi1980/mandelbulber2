@@ -8022,7 +8022,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -14436,11 +14436,11 @@ to target:</string>
                       </sizepolicy>
                      </property>
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point of space.&lt;/p&gt;&lt;p&gt;In some of fractal functions length of iteration vector icreases in exponential manner and some in linear.&lt;/p&gt;&lt;p&gt;- Prefered mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Logarythmic - the best for fractals with exponential grow of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Linear - the best for fractals with linear grow of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point of space.&lt;/p&gt;&lt;p&gt;In some of fractal functions length of iteration vector icreases in exponential manner and some in linear.&lt;/p&gt;&lt;p&gt;- Preferred mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Logarithmic - the best for fractals with exponential grow of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Linear - the best for fractals with linear grow of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <item>
                       <property name="text">
-                       <string>Logarythmic</string>
+                       <string>Logarithmic</string>
                       </property>
                      </item>
                      <item>
@@ -14450,7 +14450,7 @@ to target:</string>
                      </item>
                      <item>
                       <property name="text">
-                       <string>Prefered</string>
+                       <string>Preferred</string>
                       </property>
                      </item>
                     </widget>
@@ -14471,11 +14471,11 @@ to target:</string>
                       </sizepolicy>
                      </property>
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point of space.&lt;/p&gt;&lt;p&gt;- Prefered mode uses distance estimation method defined for selected fractal&lt;/p&gt;&lt;p&gt;- Force &amp;quot;Delta DE&amp;quot; method uses always Delta DE algorithm which is slower but works also with untypical fractal configurations&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point of space.&lt;/p&gt;&lt;p&gt;- Preferred mode uses distance estimation method defined for selected fractal&lt;/p&gt;&lt;p&gt;- Force &amp;quot;Delta DE&amp;quot; method uses always Delta DE algorithm which is slower but works also with untypical fractal configurations&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <item>
                       <property name="text">
-                       <string>Prefered</string>
+                       <string>Preferred</string>
                       </property>
                      </item>
                      <item>

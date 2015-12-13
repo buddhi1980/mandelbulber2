@@ -612,7 +612,7 @@ void cSettings::Compatibility2(cParameterContainer *par)
 	if(fileVersion <= 2.06)
 	{
 		if((fractal::enumDEFunctionType)par->Get<int>("delta_DE_function") != fractal::linearDEFunction)
-			par->Set("delta_DE_function", (int)fractal::logarythmicDEFunction);
+			par->Set("delta_DE_function", (int)fractal::logarithmicDEFunction);
 	}
 }
 

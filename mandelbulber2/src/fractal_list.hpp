@@ -96,7 +96,7 @@ enum enumDEType
 
 enum enumDEFunctionType
 {
-	logarythmicDEFunction = 0,
+	logarithmicDEFunction = 0,
 	linearDEFunction = 1,
 	preferedDEfunction = 2,
 	withoutDEFunction = 3,
