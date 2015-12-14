@@ -298,7 +298,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case aboxModKali:
         {
-          AboxModKaliIteration(z, c, fractal, extendedAux[sequence]);
+          AboxModKaliIteration(z, fractal, extendedAux[sequence]);
           break;
         }
         case mengerMod:

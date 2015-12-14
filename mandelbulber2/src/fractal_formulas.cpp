@@ -1357,7 +1357,7 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 }
 //------------AboxModKali  --------------------------------
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
-void AboxModKaliIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   z = fractal->transformCommon.additionConstant - fabs(z);
   double rr = z.x * z.x + z.y * z.y + z.z * z.z;
@@ -1372,7 +1372,7 @@ void AboxModKaliIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
    else m = fractal->mandelbox.scale;
   }
   z = z * m;
-  aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+  aux.DE = aux.DE * fabs(m) + 1.0;
 }
 
 /* GeneralizedFoldBox, ref: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/ */

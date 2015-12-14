@@ -64,7 +64,7 @@ void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 
 void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
-void AboxModKaliIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
+void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
 void MengerModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion3DIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
