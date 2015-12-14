@@ -267,7 +267,7 @@ struct sFractal
 
 	bool limits_enabled; // enable limits (intersections)
 	bool iterThresh;	 //maxiter threshold mode
-	bool analitycDE;	 //analytic DE mode
+	bool analyticDE;	 //analytic DE mode
 	bool juliaMode;				// Julia mode
 	bool tgladFoldingMode;		// Tglad's folding mode
 	bool sphericalFoldingMode;  // spherical folding mode

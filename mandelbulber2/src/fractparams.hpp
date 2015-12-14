@@ -90,7 +90,6 @@ public:
 	fractal::enumDEFunctionType delta_DE_function;
 
 	bool ambientOcclusionEnabled; //enable global illumination
-	bool analitycDEMode;	 //analytic DE mode
 	bool auxLightPreEnabled[4];
 	bool auxLightRandomEnabled;
 	bool booleanOperatorsEnabled;

@@ -249,7 +249,7 @@ bool cOldSettings::LoadOneSetting(const char* str1, const char *str2, sParamRend
 	else if (!strcmp(str1, "spherical_folding_min")) params->fractal.doubles.foldingSphericalMin = atof2(str2);
 	else if (!strcmp(str1, "IFS_folding_mode")) params->fractal.IFS.foldingMode = atoi(str2);
 	else if (!strcmp(str1, "iteration_threshold_mode")) params->fractal.iterThresh = atoi(str2);
-	else if (!strcmp(str1, "analityc_DE_mode")) params->fractal.analitycDE = atoi(str2);
+	else if (!strcmp(str1, "analityc_DE_mode")) params->fractal.analyticDE = atoi(str2);
 	else if (!strcmp(str1, "DE_factor")) params->doubles.DE_factor = atof2(str2);
 	else if (!strcmp(str1, "brightness")) params->doubles.imageAdjustments.brightness = atof2(str2);
 	else if (!strcmp(str1, "contrast")) params->doubles.imageAdjustments.contrast = atof2(str2);
@@ -672,7 +672,6 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("DE_thresh", oldData->doubles.quality);
 	par->Set("smoothness", oldData->doubles.smoothness);
 	par->Set("iteration_threshold_mode", oldData->fractal.iterThresh);
-	par->Set("analityc_DE_mode", oldData->fractal.analitycDE);
 	par->Set("DE_factor", oldData->doubles.DE_factor);
 	par->Set("slow_shading", oldData->slowShading);
 	par->Set("view_distance_max", oldData->doubles.viewDistanceMax);

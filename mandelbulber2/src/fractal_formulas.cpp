@@ -1651,7 +1651,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &fol
 	}
 }
 
-//***************** NEW TRANSFROM FORMULAS ******************
+//***************** NEW TRANSFORM FORMULAS ******************
 
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal)
 {
@@ -1675,7 +1675,7 @@ void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 	aux.DE *= fractal->transformCommon.scale3D.Length(); //prepared for future analytic DE for hybrids
 }
 
-void TransfromPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
+void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
 {
 	double rho = sqrt(z.Length()); // the radius
 	double theta = cos(fractal->platonicSolid.frequency * z.x)

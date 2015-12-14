@@ -345,7 +345,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
 				case platonicSolid:
 				{
-					TransfromPlatonicSolidIteration(z, fractal);
+					TransformPlatonicSolidIteration(z, fractal);
 					break;
 				}
 

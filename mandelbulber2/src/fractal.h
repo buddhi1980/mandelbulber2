@@ -765,7 +765,7 @@ struct sFractalPlatonicSolid
 };
 
 //common parameters for transforming formulas
-struct sFractalTransfromCommon
+struct sFractalTransformCommon
 {
 	double scale;
 	CVector3 additionConstant;
@@ -797,7 +797,7 @@ public:
   sFractalQuaternion3D quaternion3D;
   sFractalAexionOctopus aexionOctopus;
   sFractalAboxMod1 aboxMod1;
-  sFractalTransfromCommon transformCommon;
+  sFractalTransformCommon transformCommon;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

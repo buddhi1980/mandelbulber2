@@ -496,7 +496,7 @@ void InitFractalParams(cParameterContainer *par)
   //common parameters for transforming formulas
   par->addParam("transf_scale", 1.0, morphAkima, paramStandard);
   par->addParam("transf_scale3D", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-  par->addParam("transf_additon_constant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transf_addition_constant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_constant_multiplier", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 

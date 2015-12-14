@@ -96,7 +96,7 @@ enum enumFractalFormula
 
 enum enumDEType
 {
-	analitycDEType, deltaDEType
+	analyticDEType, deltaDEType
 };
 
 enum enumDEFunctionType

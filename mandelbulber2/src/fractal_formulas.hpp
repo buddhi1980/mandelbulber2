@@ -76,6 +76,6 @@ void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void TransfromPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
+void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */
