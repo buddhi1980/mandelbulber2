@@ -248,12 +248,12 @@ struct sFractalAexionOctopus
 };
 struct sFractalAboxMod1
 {
-  double scale;
-  double scaleVary;
-  double fold;
+  //double scale;
+  //double scaleVary;
+  //double fold;
   double minR;
   CVector3 foldM;
-  CVector3 constantMultiplier;
+  //CVector3 constantMultiplier;
 };
 
 

@@ -754,40 +754,6 @@ void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
 }
 
 
-//DarkBeam's aboxMod1, Inspired from a 2D formula proposed by Kali at the forums here;
-//http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
-
-void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
-{
-  z.x = fractal->aboxMod1.fold - fabs ( fabs (z.x + fractal->aboxMod1.foldM.x) -  fractal->aboxMod1.fold) - fabs(fractal->aboxMod1.foldM.x);
-  z.y = fractal->aboxMod1.fold - fabs ( fabs (z.y + fractal->aboxMod1.foldM.y) -  fractal->aboxMod1.fold) - fabs(fractal->aboxMod1.foldM.y);
-  z.z = fractal->aboxMod1.fold - fabs ( fabs (z.z + fractal->aboxMod1.foldM.z) -  fractal->aboxMod1.fold) - fabs(fractal->aboxMod1.foldM.z);
-  // rr = pow(x*x + y*y + z*z + w*w, R_power) <- removed to speedup
-
-  double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
-  double m;
-  double sqrtMinR = sqrt(fractal->aboxMod1.minR);
-    if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
-  if (rr < sqrtMinR)
-  {
-    m = fractal->aboxMod1.scale/sqrtMinR;
-  }
-  else
-  {
-    if (rr < 1)
-    {
-      m = fractal->aboxMod1.scale/rr;
-    }
-    else
-    {
-      m = fractal->aboxMod1.scale;
-    }
-  }
-  z.x = z.x * m + (c.y * fractal->aboxMod1.constantMultiplier.y); // switch
-  z.y = z.y * m + (c.x * fractal->aboxMod1.constantMultiplier.x);
-  z.z = z.z * m + (c.z * fractal->aboxMod1.constantMultiplier.z);
-  aux.DE = aux.DE * fabs(m) + 1.0;
-}
 
 
 
@@ -1355,6 +1321,47 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 	// z = z + ( c * const.); Original (enabled); 1
 	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 }
+
+//DarkBeam's aboxMod1, Inspired from a 2D formula proposed by Kali at the forums here;
+//http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+
+void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  aux.actualScale = aux.actualScale
+      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+
+  z.x = fractal->mandelbox.foldingValue - fabs ( fabs (z.x + fractal->aboxMod1.foldM.x) -  fractal->mandelbox.foldingValue) - fabs(fractal->aboxMod1.foldM.x);
+  z.y = fractal->mandelbox.foldingValue - fabs ( fabs (z.y + fractal->aboxMod1.foldM.y) -  fractal->mandelbox.foldingValue) - fabs(fractal->aboxMod1.foldM.y);
+  z.z = fractal->mandelbox.foldingValue - fabs ( fabs (z.z + fractal->aboxMod1.foldM.z) -  fractal->mandelbox.foldingValue) - fabs(fractal->aboxMod1.foldM.z);
+  // rr = pow(x*x + y*y + z*z + w*w, R_power) <- removed to speedup
+
+  double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
+  if(rr < 1e-21) rr = 1e-21;
+  double m;
+  double sqrtMinR = sqrt(fractal->aboxMod1.minR);
+  if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+  if (rr < sqrtMinR)
+  {
+    m = aux.actualScale/sqrtMinR;
+  }
+  else
+  {
+    if (rr < 1)
+    {
+      m = aux.actualScale/rr;
+    }
+    else
+    {
+      m = aux.actualScale;
+    }
+  }
+  z.x = z.x * m + (c.y * fractal->transformCommon.constantMultiplier.y); // switch
+  z.y = z.y * m + (c.x * fractal->transformCommon.constantMultiplier.x);
+  z.z = z.z * m + (c.z * fractal->transformCommon.constantMultiplier.z);
+  aux.DE = aux.DE * fabs(m) + 1.0;
+}
+
+
 //------------AboxModKali  --------------------------------
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
 void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
