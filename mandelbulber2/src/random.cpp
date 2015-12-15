@@ -52,9 +52,9 @@ double cRandom::Random(double min, double max, double resolution)
 
 // generates random number with more precision
 // works with range / resolution < unsigned long long MAX
-double cRandom::DoubleRandom(double min, double max, double resolution)
+double cRandom::DoubleRandom(double min, double max)
 {
 	double range = max - min;
-	unsigned long long n = round(range / resolution);
-	return min + resolution * (Random(n / UINT_MAX) * UINT_MAX + Random(n % UINT_MAX));
+	double random = gsl_rng_uniform(gBaseRand);
+	return min + random * range;
 }

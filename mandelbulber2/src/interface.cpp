@@ -2974,8 +2974,6 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	tempParam.Set("image_height", newHeight);
 	tempParam.Set("detail_level", 4.0);
 
-	gPar->Set("bailout", pow(50.0/qualityTarget, 2.0));
-
 	int scanCount = 0;
 	double DEfactor = 1.0;
 	double step = 1.0;

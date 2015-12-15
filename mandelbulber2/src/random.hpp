@@ -37,7 +37,7 @@ public:
 	void Initialize(int seed);
 	int Random(unsigned long max);
 	double Random(double min, double max, double resolution);
-	double DoubleRandom(double min, double max, double resolution);
+	double DoubleRandom(double min, double max);
 
 private:
 	gsl_rng *gBaseRand;

@@ -312,7 +312,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(const sShaderInputData &input, sRGBAf
 
 				miniStep = 0.1 * (lowestLightDist + 0.1 * lowestLightSize);
 				if (miniStep > step - miniSteps) miniStep = step - miniSteps;
-				//qDebug() << "ministeps" << miniSteps << "ministep" << miniStep;
+				//qDebug() << "lowDist:" << lowestLightDist << "lowSize" << lowestLightSize << "miniStep" << miniStep;
 
 				for (int i = 0; i < numberOfLights; ++i)
 				{

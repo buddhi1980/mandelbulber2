@@ -106,9 +106,9 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 			while(distance <= 0 || distance >= params->auxLightRandomMaxDistanceFromFractal * radiusMultiplier)
 			{
 				CVector3 rv;
-				rv.x = random.DoubleRandom(-1.0, 1.0, 1.0e-12);
-				rv.y = random.DoubleRandom(-1.0, 1.0, 1.0e-12);
-				rv.z = random.DoubleRandom(-1.0, 1.0, 1.0e-12);
+				rv.x = random.DoubleRandom(-1.0, 1.0);
+				rv.y = random.DoubleRandom(-1.0, 1.0);
+				rv.z = random.DoubleRandom(-1.0, 1.0);
 				position = params->auxLightRandomCenter + rv * params->auxLightRandomRadius * radiusMultiplier;
 
 				sDistanceIn distanceIn(position, 0.0, false);
@@ -125,9 +125,12 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 			colour.G *= convertColorRatio;
 			colour.B *= convertColorRatio;
 
+			double distanceLimited = max(0.1 * params->auxLightRandomMaxDistanceFromFractal, distance);
+			double intensity = params->auxLightRandomIntensity * distanceLimited * distanceLimited;
+
 			lights[i + params->auxLightNumber].position = position;
 			lights[i + params->auxLightNumber].colour = colour;
-			lights[i + params->auxLightNumber].intensity = params->auxLightRandomIntensity * distance * distance / params->auxLightRandomMaxDistanceFromFractal;
+			lights[i + params->auxLightNumber].intensity = intensity;
 			lights[i + params->auxLightNumber].enabled = true;
 
 			emit updateProgressAndStatus(
