@@ -449,7 +449,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("mandelbox_solid", 1.0, morphLinear, paramStandard);
 	par->addParam("mandelbox_melt", 0.0, morphLinear, paramStandard);
 
-	par->addParam("mandelbox_vary_scale_vary", 0.1, morphLinear, paramStandard);
+	par->addParam("mandelbox_vary_scale_vary", 0.0, morphLinear, paramStandard);
 	par->addParam("mandelbox_vary_fold", 1.0, morphLinear, paramStandard);
 	par->addParam("mandelbox_vary_minr", 0.5, morphLinear, paramStandard);
 	par->addParam("mandelbox_vary_rpower", 1.0, morphLinear, paramStandard);
