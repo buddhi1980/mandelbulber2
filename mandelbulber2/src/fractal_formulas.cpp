@@ -1325,7 +1325,7 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 //DarkBeam's aboxMod1, Inspired from a 2D formula proposed by Kali at the forums here;
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
 
-void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	aux.actualScale = aux.actualScale
 			+ fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
