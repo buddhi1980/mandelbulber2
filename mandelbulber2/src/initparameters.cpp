@@ -498,7 +498,10 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_scale3D", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-  par->addParam("transf_constant_multiplier", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
+  par->addParam("transf_constant_multiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transf_constant_julia_mode", false, morphLinear, paramStandard);
+  par->addParam("transf_constant_julia_c", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  //par->addParam("transf_cx_cy_swap", true, morphLinear, paramStandard);
 
 	//transform
 	par->addParam("transform_additionConstant1_enabled", false, morphLinear, paramStandard);

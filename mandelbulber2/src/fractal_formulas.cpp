@@ -1334,7 +1334,6 @@ void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExten
   z.y = fractal->mandelbox.foldingValue - fabs ( fabs (z.y + fractal->aboxMod1.foldM.y) -  fractal->mandelbox.foldingValue) - fabs(fractal->aboxMod1.foldM.y);
   z.z = fractal->mandelbox.foldingValue - fabs ( fabs (z.z + fractal->aboxMod1.foldM.z) -  fractal->mandelbox.foldingValue) - fabs(fractal->aboxMod1.foldM.z);
   // rr = pow(x*x + y*y + z*z + w*w, R_power) <- removed to speedup
-
   double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
   if(rr < 1e-21) rr = 1e-21;
   double m;
@@ -1355,9 +1354,25 @@ void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExten
       m = aux.actualScale;
     }
   }
-  z.x = z.x * m + (c.y * fractal->transformCommon.constantMultiplier.y); // switch
-  z.y = z.y * m + (c.x * fractal->transformCommon.constantMultiplier.x);
-  z.z = z.z * m + (c.z * fractal->transformCommon.constantMultiplier.z);
+  z *=m;
+ // z.x = z.x * m + (c.y * fractal->transformCommon.constantMultiplier.y); // switch
+ // z.y = z.y * m + (c.x * fractal->transformCommon.constantMultiplier.x);
+ // z.z = z.z * m + (c.z * fractal->transformCommon.constantMultiplier.z);
+
+    if (fractal->transformCommon.juliaMode)
+    {
+      z += fractal->transformCommon.juliaC;
+    }
+    else
+    {
+      CVector3 xyC ;
+      xyC = (c * fractal->transformCommon.constantMultiplier);
+      xyC = CVector3( xyC.y, xyC.x, xyC.z);
+      z += xyC;
+    }
+
+
+
   aux.DE = aux.DE * fabs(m) + 1.0;
 }
 

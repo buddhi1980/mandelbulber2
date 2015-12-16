@@ -373,7 +373,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerMod:
 				case quaternion3D:
 				case aexionOctopus:
-				case aboxMod1:
+        case aboxMod1:
 				case transfAdditionConstant:
 				case transfRotation:
 				case transfScale:

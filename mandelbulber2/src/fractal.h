@@ -773,6 +773,9 @@ struct sFractalTransformCommon
 	CVector3 scale3D;
 	CVector3 constantMultiplier;
 	CRotationMatrix rotationMatrix;
+  CVector3 juliaC;
+  bool juliaMode;
+  //bool CxCySwap;
 };
 
 class cFractal

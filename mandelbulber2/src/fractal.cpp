@@ -1351,6 +1351,10 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.additionConstant = container->Get<CVector3>("transf_addition_constant");
 	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
   transformCommon.constantMultiplier = container->Get<CVector3>("transf_constant_multiplier");
+  transformCommon.juliaC = container->Get<CVector3>("transf_constant_julia_c");
+  transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
+  //transformCommon.CxCySwap = container->Get<bool>("transf_cx_cy_swap");
+
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();
