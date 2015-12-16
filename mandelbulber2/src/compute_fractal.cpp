@@ -373,7 +373,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerMod:
 				case quaternion3D:
 				case aexionOctopus:
-        case aboxMod1:
 				case transfAdditionConstant:
 				case transfRotation:
 				case transfScale:
@@ -381,6 +380,18 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					break;
 				}
+        case aboxMod1:
+        {
+					if (in.common.juliaMode)
+					{
+						z += CVector3(in.common.juliaC.y, in.common.juliaC.x, in.common.juliaC.z);
+					}
+					else
+					{
+	          z += CVector3(c.y, c.x, c.z) * in.common.constantMultiplier;
+					}
+					break;
+        }
 				default:
 				{
 					if (in.common.juliaMode)

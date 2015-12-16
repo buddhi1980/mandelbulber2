@@ -486,22 +486,14 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("aexionOctopus_enabledFabs_z", true, morphLinear, paramStandard);
 
   // aboxMod1
-  //par->addParam("aboxMod1_scale", 2.0, morphAkima, paramStandard);
-  //par->addParam("aboxMod1_scale_vary", 0.0, morphAkima, paramStandard);
-  //par->addParam("aboxMod1_fold", 2.0, morphAkima, paramStandard);
   par->addParam("aboxMod1_min_radius", 0.0, morphAkima, paramStandard);
   par->addParam("aboxMod1_foldM", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-  //par->addParam("aboxMod1_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 
   //common parameters for transforming formulas
   par->addParam("transf_scale", 1.0, morphAkima, paramStandard);
   par->addParam("transf_scale3D", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-  par->addParam("transf_constant_multiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-  par->addParam("transf_constant_julia_mode", false, morphLinear, paramStandard);
-  par->addParam("transf_constant_julia_c", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-  //par->addParam("transf_cx_cy_swap", true, morphLinear, paramStandard);
 
 	//transform
 	par->addParam("transform_additionConstant1_enabled", false, morphLinear, paramStandard);

@@ -1327,53 +1327,41 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 
 void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
-  aux.actualScale = aux.actualScale
-      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+	aux.actualScale = aux.actualScale
+			+ fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
-  z.x = fractal->mandelbox.foldingValue - fabs ( fabs (z.x + fractal->aboxMod1.foldM.x) -  fractal->mandelbox.foldingValue) - fabs(fractal->aboxMod1.foldM.x);
-  z.y = fractal->mandelbox.foldingValue - fabs ( fabs (z.y + fractal->aboxMod1.foldM.y) -  fractal->mandelbox.foldingValue) - fabs(fractal->aboxMod1.foldM.y);
-  z.z = fractal->mandelbox.foldingValue - fabs ( fabs (z.z + fractal->aboxMod1.foldM.z) -  fractal->mandelbox.foldingValue) - fabs(fractal->aboxMod1.foldM.z);
-  // rr = pow(x*x + y*y + z*z + w*w, R_power) <- removed to speedup
-  double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
-  if(rr < 1e-21) rr = 1e-21;
-  double m;
-  double sqrtMinR = sqrt(fractal->aboxMod1.minR);
-  if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
-  if (rr < sqrtMinR)
-  {
-    m = aux.actualScale/sqrtMinR;
-  }
-  else
-  {
-    if (rr < 1)
-    {
-      m = aux.actualScale/rr;
-    }
-    else
-    {
-      m = aux.actualScale;
-    }
-  }
-  z *=m;
- // z.x = z.x * m + (c.y * fractal->transformCommon.constantMultiplier.y); // switch
- // z.y = z.y * m + (c.x * fractal->transformCommon.constantMultiplier.x);
- // z.z = z.z * m + (c.z * fractal->transformCommon.constantMultiplier.z);
-
-    if (fractal->transformCommon.juliaMode)
-    {
-      z += fractal->transformCommon.juliaC;
-    }
-    else
-    {
-      CVector3 xyC ;
-      xyC = (c * fractal->transformCommon.constantMultiplier);
-      xyC = CVector3( xyC.y, xyC.x, xyC.z);
-      z += xyC;
-    }
-
-
-
-  aux.DE = aux.DE * fabs(m) + 1.0;
+	z.x = fractal->mandelbox.foldingValue
+			- fabs(fabs(z.x + fractal->aboxMod1.foldM.x) - fractal->mandelbox.foldingValue)
+			- fabs(fractal->aboxMod1.foldM.x);
+	z.y = fractal->mandelbox.foldingValue
+			- fabs(fabs(z.y + fractal->aboxMod1.foldM.y) - fractal->mandelbox.foldingValue)
+			- fabs(fractal->aboxMod1.foldM.y);
+	z.z = fractal->mandelbox.foldingValue
+			- fabs(fabs(z.z + fractal->aboxMod1.foldM.z) - fractal->mandelbox.foldingValue)
+			- fabs(fractal->aboxMod1.foldM.z);
+	// rr = pow(x*x + y*y + z*z + w*w, R_power) <- removed to speedup
+	double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
+	if (rr < 1e-21) rr = 1e-21;
+	double m;
+	double sqrtMinR = sqrt(fractal->aboxMod1.minR);
+	if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+	if (rr < sqrtMinR)
+	{
+		m = aux.actualScale / sqrtMinR;
+	}
+	else
+	{
+		if (rr < 1)
+		{
+			m = aux.actualScale / rr;
+		}
+		else
+		{
+			m = aux.actualScale;
+		}
+	}
+	z *= m;
+	aux.DE = aux.DE * fabs(m) + 1.0;
 }
 
 
