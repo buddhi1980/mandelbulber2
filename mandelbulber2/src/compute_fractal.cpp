@@ -308,7 +308,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case quaternion3D:
         {
-          Quaternion3DIteration(z, c, fractal);
+          Quaternion3DIteration(z, fractal);
           break;
         }
         case aexionOctopus:
@@ -371,7 +371,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case benesiTransforms:
 				case fabsBoxMod:
 				case mengerMod:
-				case quaternion3D:
 				case aexionOctopus:
 				case transfAdditionConstant:
 				case transfRotation:

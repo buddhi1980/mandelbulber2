@@ -104,24 +104,18 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	msltoeSym2.y_multiplier = container->Get<double>("msltoesym2_y_multiplier");
 
-  mengerMod.constantZ =	container->Get<double>("mengerMod_constantZ");
-  mengerMod.factorConstantVect = container->Get<CVector3>("mengerMod_factorConstantVect");
-  mengerMod.additionConstant = container->Get<CVector3>("mengerMod_additionConstant");
+  mengerMod.scaleFactor =	container->Get<double>("mengerMod_scale_factor");
+  mengerMod.constantFactor = container->Get<CVector3>("mengerMod_constant_factor");
 
-  quaternion3D.quaternionFactorConstant = container->Get<CVector3>("quaternion3D_factorConstantVect"),
-  quaternion3D.constantMultiplierVect = container->Get<CVector3>("quaternion3D_constantMultiplier");
-  quaternion3D.additionConstant = container->Get<CVector3>("quaternion3D_additionConstant");
+  quaternion3D.constantFactor = container->Get<CVector3>("quaternion3D_constant_factor"),
 
   aexionOctopus.enabledFabsx =  container->Get<bool>("aexionOctopus_enabledFabs_x");
   aexionOctopus.enabledFabsy =  container->Get<bool>("aexionOctopus_enabledFabs_y");
   aexionOctopus.enabledFabsz =  container->Get<bool>("aexionOctopus_enabledFabs_z");
 
-  //aboxMod1.scale = container->Get<double>("aboxMod1_scale");
-  //aboxMod1.scaleVary = container->Get<double>("aboxMod1_scale_vary");
-  //aboxMod1.fold = container->Get<double>("aboxMod1_fold");
   aboxMod1.minR = container->Get<double>("aboxMod1_min_radius");
   aboxMod1.foldM = container->Get<CVector3>("aboxMod1_foldM");
-  //aboxMod1.constantMultiplier = container->Get<CVector3>("aboxMod1_constantMultiplier");
+
 
 	//  transform parameters-----------------------
 	transform.additionConstant1.control.enabled =

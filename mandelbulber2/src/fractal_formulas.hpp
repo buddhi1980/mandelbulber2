@@ -67,7 +67,7 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
 void MengerModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void Quaternion3DIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
+void Quaternion3DIteration(CVector3 &z, const cFractal *fractal);
 void AexionOctopusIteration(CVector3 &z, const cFractal *fractal);
 void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 

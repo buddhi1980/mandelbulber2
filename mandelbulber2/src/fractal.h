@@ -226,17 +226,14 @@ struct sMsltoeSym2
 
 struct sFractalMengerMod
 {
-  double constantZ;
-  CVector3 factorConstantVect;
-  CVector3 additionConstant;
+  double scaleFactor;
+  CVector3 constantFactor;
 };
 
 
 struct sFractalQuaternion3D
 {
-  CVector3 quaternionFactorConstant;
-  CVector3 constantMultiplierVect;
-  CVector3 additionConstant;
+  CVector3 constantFactor;
 };
 
 
