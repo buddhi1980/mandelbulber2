@@ -688,45 +688,8 @@ void MsltoeSym2(CVector3 &z, const cFractal *fractal)
 	z.z = newz;
 }
 
-void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-  double tempMS;
-  z = fabs(z);
-  if (z.x - z.y < 0)
-  {
-    tempMS = z.y;
-    z.y = z.x;
-    z.x = tempMS;
-  }
-  if (z.x - z.z < 0)
-  {
-    tempMS = z.z;
-    z.z = z.x;
-    z.x = tempMS;
-  }
-  if (z.y - z.z < 0)
-  {
-    tempMS = z.z;
-    z.z = z.y;
-    z.y = tempMS;
-  }
-  z *= 3.0 * fractal->mengerMod.constantZ;
-  z.x -= 2.0 * fractal->mengerMod.factorConstantVect.x;
-  z.y -= 2.0 * fractal->mengerMod.factorConstantVect.y;
-  if (z.z > 1.0) z.z -= 2.0 * fractal->mengerMod.factorConstantVect.z;
-  z +=  fractal->mengerMod.additionConstant;
-  aux.DE *= 3.0 * fractal->mengerMod.constantZ;
-}
 
-void Quaternion3DIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
-{
-  CVector3 newz(fractal->quaternion3D.quaternionFactorConstant.x
-                    * (z.x * z.x - z.y * z.y - z.z * z.z),
-                fractal->quaternion3D.quaternionFactorConstant.y * z.x * z.y,
-                fractal->quaternion3D.quaternionFactorConstant.z * z.x * z.z);
-  z = newz;
-  z +=  fractal->quaternion3D.additionConstant +  c * fractal->quaternion3D.constantMultiplierVect;
-}
+
 
 //------------AexionOctopus  --------------------------------
 
@@ -1321,6 +1284,46 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 	// z = z + ( c * const.); Original (enabled); 1
 	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 }
+
+// --------quaternion3D--------------
+void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
+{
+  CVector3 newz(fractal->quaternion3D.constantFactor.x
+                    * (z.x * z.x - z.y * z.y - z.z * z.z),
+                fractal->quaternion3D.constantFactor.y * z.x * z.y,
+                fractal->quaternion3D.constantFactor.z * z.x * z.z);
+  z = newz;
+}
+
+void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  double tempMS;
+  z = fabs(z);
+  if (z.x - z.y < 0)
+  {
+    tempMS = z.y;
+    z.y = z.x;
+    z.x = tempMS;
+  }
+  if (z.x - z.z < 0)
+  {
+    tempMS = z.z;
+    z.z = z.x;
+    z.x = tempMS;
+  }
+  if (z.y - z.z < 0)
+  {
+    tempMS = z.z;
+    z.z = z.y;
+    z.y = tempMS;
+  }
+  z *= fractal->mengerMod.scaleFactor;
+  z.x -= 2.0 * fractal->mengerMod.constantFactor.x;
+  z.y -= 2.0 * fractal->mengerMod.constantFactor.y;
+  if (z.z > 1.0) z.z -= 2.0 * fractal->mengerMod.constantFactor.z;
+  aux.DE *= fractal->mengerMod.scaleFactor;
+}
+
 
 //DarkBeam's aboxMod1, Inspired from a 2D formula proposed by Kali at the forums here;
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new

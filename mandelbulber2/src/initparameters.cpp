@@ -471,14 +471,12 @@ void InitFractalParams(cParameterContainer *par)
 
 	par->addParam("msltoesym2_y_multiplier", 1.0, morphLinear, paramStandard);
   // mengerMod
-  par->addParam("mengerMod_constantZ", 1.0, morphAkima, paramStandard);
-  par->addParam("mengerMod_factorConstantVect", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-  par->addParam("mengerMod_additionConstant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("mengerMod_scale_factor", 3.0, morphAkima, paramStandard);
+  par->addParam("mengerMod_constant_factor", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 
   //quaternion3D
-  par->addParam("quaternion3D_factorConstantVect", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
-  par->addParam("quaternion3D_additionConstant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-  par->addParam("quaternion3D_constantMultiplier", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("quaternion3D_constant_factor", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
+
 
   // aexionOctopus
   par->addParam("aexionOctopus_enabledFabs_x", true, morphLinear, paramStandard);
