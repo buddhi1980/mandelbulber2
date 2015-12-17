@@ -562,7 +562,7 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 		{
 			value = (value == QString("true")) ? "1" : "0";
 		}
-		else if (varType == typeDouble || varType == typeVector3 || typeVector4)
+		else if (varType == typeDouble || varType == typeVector3 || varType == typeVector4)
 		{
 			value = everyLocaleDouble(value);
 		}
