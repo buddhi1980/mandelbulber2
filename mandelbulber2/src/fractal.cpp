@@ -1343,7 +1343,12 @@ cFractal::cFractal(const cParameterContainer *container)
 	transformCommon.scale = container->Get<double>("transf_scale");
 	transformCommon.scale3D = container->Get<CVector3>("transf_scale3D");
 	transformCommon.additionConstant = container->Get<CVector3>("transf_addition_constant");
+  transformCommon.additionConstantOnes = container->Get<CVector3>("transf_addition_constant_ones");
 	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
+  transformCommon.offset = container->Get<double>("transf_offset");
+
+
+
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");
 	RecalculateFractalParams();

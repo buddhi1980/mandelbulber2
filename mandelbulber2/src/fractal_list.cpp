@@ -67,9 +67,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Smooth Mandelbox", 							"smooth_mandelbox", 				smoothMandelbox, 				analyticDEType, linearDEFunction));
 	fractalList->append(sFractalDescription("Xenodreambuie's formula", 				"xenodreambuie", 						xenodreambuie, 					deltaDEType, 		logarithmicDEFunction));
 
-	fractalList->append(sFractalDescription("Transform - Addition Constant",	"transf_addition_constant", transfAdditionConstant, analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Addition Constant",	"transf_addition_constant", transfAdditionConstant, analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Box_Offset",					"transf_box_offset",				transfBoxOffset,				analyticDEType,	withoutDEFunction));
 	fractalList->append(sFractalDescription("Transform - Platonic Solid", 		"platonic_solid", 					platonicSolid, 					deltaDEType,		withoutDEFunction));
 	fractalList->append(sFractalDescription("Transform - Rotation",						"transf_rotation", 					transfRotation, 				analyticDEType,	withoutDEFunction));
 	fractalList->append(sFractalDescription("Transform - Scale",							"transf_scale", 						transfScale, 						analyticDEType,	withoutDEFunction));
 	fractalList->append(sFractalDescription("Transform - Scale 3D",						"transf_scale_3D", 					transfScale3D, 					analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Spherical_Offset",		"transf_spherical_offset",	transfSphericalOffset,	analyticDEType,	withoutDEFunction));
 }

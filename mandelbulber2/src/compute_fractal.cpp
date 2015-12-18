@@ -322,7 +322,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           break;
         }
 
-        //transfrorms
+        //transforms
         case transfAdditionConstant:
         {
         	TransformAdditionConstantIteration(z, fractal);
@@ -348,6 +348,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformPlatonicSolidIteration(z, fractal);
 					break;
 				}
+        case transfBoxOffset:
+        {
+          TransformBoxOffset(z, fractal, extendedAux[sequence]);
+          break;
+        }
+        case transfSphericalOffset:
+        {
+          TransformSphericalOffset(z, fractal, extendedAux[sequence]);
+          break;
+        }
+
 
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
@@ -373,9 +384,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerMod:
 				case aexionOctopus:
 				case transfAdditionConstant:
+        case transfBoxOffset:
 				case transfRotation:
 				case transfScale:
 				case transfScale3D:
+        case transfSphericalOffset:
 				{
 					break;
 				}

@@ -1699,4 +1699,46 @@ void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
 	z *= r;
 }
 
+void TransformBoxOffset(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  if (z.x > 0)
+  {
+    z.x = z.x + fractal->transformCommon.additionConstant.x;
+    //aux.color += boxOffset.color.factor.x;
+  }
+  else
+  {
+    z.x = z.x - fractal->transformCommon.additionConstant.x;
+    //aux.color += boxOffset.color.factor.x;
+  }
+  if (z.y > 0)
+  {
+    z.y = z.y + fractal->transformCommon.additionConstant.y;
+    //aux.color += boxOffset.color.factor.y;
+  }
+  else
+  {
+    z.y = z.y - fractal->transformCommon.additionConstant.y;
+   // aux.color += boxOffset.color.factor.y;
+  }
+  if (z.z > 0)
+  {
+    z.z = z.z + fractal->transformCommon.additionConstant.z;
+   // aux.color += boxOffset.color.factor.z;
+  }
+  else
+  {
+    z.z = z.z - fractal->transformCommon.additionConstant.z;
+   // aux.color += boxOffset.color.factor.z;
+  }
+}
+
+void TransformSphericalOffset(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  double lengthTempZ = -z.Length();
+  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+  z *= 1 + fractal->transformCommon.offset / lengthTempZ;
+  z *= fractal->transformCommon.scale;
+  aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+}
 

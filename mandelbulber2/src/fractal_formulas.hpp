@@ -77,5 +77,7 @@ void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
+void TransformBoxOffset(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformSphericalOffset(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

@@ -766,12 +766,14 @@ struct sFractalTransformCommon
 {
 	double scale;
 	CVector3 additionConstant;
+  CVector3 additionConstantOnes;
 	CVector3 rotation;
 	CVector3 scale3D;
 	CVector3 constantMultiplier;
 	CRotationMatrix rotationMatrix;
   CVector3 juliaC;
   bool juliaMode;
+  double offset;
   //bool CxCySwap;
 };
 
