@@ -56,6 +56,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbulb 4", 									"mandelbulb4", 							mandelbulb4, 						deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Mandelbulb Classic Power 2", 		"mandelbulb_power_2", 			fast_mandelbulb_power2, deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Mandelbulb6 beta", 							"mandelbulb6_beta", 				mandelbulb6Beta, 				analyticDEType, logarithmicDEFunction));
+  fractalList->append(sFractalDescription("MandelbulbMulti", 								"mandelbulb_multi", 				mandelbulbMulti, 				analyticDEType, logarithmicDEFunction));
+
 	fractalList->append(sFractalDescription("Menger Sponge - extended", 			"menger_sponge105", 				mengerSponge105, 				analyticDEType, linearDEFunction));
 	fractalList->append(sFractalDescription("Menger sponge", 									"menger_sponge", 						menger_sponge, 					analyticDEType, linearDEFunction));
   fractalList->append(sFractalDescription("MengerMod", 											"mengerMod", 								mengerMod, 							analyticDEType, linearDEFunction));

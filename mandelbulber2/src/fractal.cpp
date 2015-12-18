@@ -116,6 +116,12 @@ cFractal::cFractal(const cParameterContainer *container)
   aboxMod1.minR = container->Get<double>("aboxMod1_min_radius");
   aboxMod1.foldM = container->Get<CVector3>("aboxMod1_foldM");
 
+  mandelbulbMulti.acosOrasin =
+      (sFractalMandelbulbMulti::multi_acosOrasin) container->Get<int>("mandelbulbMulti_acos_or_asin");
+  mandelbulbMulti.atanOratan2 =
+      (sFractalMandelbulbMulti::multi_atanOratan2) container->Get<int>("mandelbulbMulti_atan_or_atan2");
+  mandelbulbMulti.orderOfxyz =
+      (sFractalMandelbulbMulti::multi_OrderOfxyz) container->Get<int>("mandelbulbMulti_order_of_xyz");
 
 	//  transform parameters-----------------------
 	transform.additionConstant1.control.enabled =

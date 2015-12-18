@@ -486,6 +486,10 @@ void InitFractalParams(cParameterContainer *par)
   // aboxMod1
   par->addParam("aboxMod1_min_radius", 0.0, morphAkima, paramStandard);
   par->addParam("aboxMod1_foldM", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  // mandelbulbMulti
+  par->addParam("mandelbulbMulti_acos_or_asin", 0, morphNone, paramStandard);
+  par->addParam("mandelbulbMulti_atan_or_atan2", 0, morphNone, paramStandard);
+  par->addParam("mandelbulbMulti_order_of_xyz", 0, morphNone, paramStandard);
 
   //common parameters for transforming formulas
   par->addParam("transf_scale", 1.0, morphAkima, paramStandard);

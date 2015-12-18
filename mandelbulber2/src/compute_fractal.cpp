@@ -321,6 +321,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           AboxMod1Iteration(z, fractal, extendedAux[sequence]);
           break;
         }
+        case mandelbulbMulti:
+        {
+          MandelbulbMultiIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
 
         //transforms
         case transfAdditionConstant:
@@ -483,6 +488,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				break;
 			case mandelbulb5:
 			case mandelbulb6Beta:
+            case mandelbulbMulti:
 				//case benesiTransforms:
 				out->distance = 0.5 * r * log(r) / extendedAux[fractalIndex].r_dz;
 				break;
@@ -500,6 +506,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
       case aboxModKali:
       case mengerMod:
       case aboxMod1:
+
 				out->distance = r / fabs(extendedAux[fractalIndex].DE * foldDE);
 				break;
 

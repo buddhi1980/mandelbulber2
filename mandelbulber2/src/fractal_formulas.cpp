@@ -1285,6 +1285,84 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 }
 
+// mandelbulbMulti 3D
+void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  aux.r = z.Length();
+
+  //if (i == mandelbulbMulti.control.startIterations)
+  //{
+  //  z = mandelbulbMulti.mainRot.RotateVector(z);
+  //}
+  double th0 = fractal->bulb.betaAngleOffset;
+  double ph0 = fractal->bulb.alphaAngleOffset;
+  double v1, v2, v3;
+
+  switch (fractal->mandelbulbMulti.orderOfxyz)
+  {
+    case sFractalMandelbulbMulti::xyz:
+    default:
+      v1 = z.x;
+      v2 = z.y;
+      v3 = z.z;
+      break;
+    case sFractalMandelbulbMulti::xzy:
+      v1 = z.x;
+      v2 = z.z;
+      v3 = z.y;
+      break;
+    case sFractalMandelbulbMulti::yxz:
+      v1 = z.y;
+      v2 = z.x;
+      v3 = z.z;
+      break;
+    case sFractalMandelbulbMulti::yzx:
+      v1 = z.y;
+      v2 = z.z;
+      v3 = z.x;
+      break;
+    case sFractalMandelbulbMulti::zxy:
+      v1 = z.z;
+      v2 = z.x;
+      v3 = z.y;
+      break;
+    case sFractalMandelbulbMulti::zyx:
+      v1 = z.z;
+      v2 = z.y;
+      v3 = z.x;
+      break;
+  }
+  if (aux.r < 1e-21) aux.r = 1e-21;
+  if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
+  if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
+  {
+    th0 += acos(v1 / aux.r);
+  }
+  else
+  {
+    th0 += asin(v1 / aux.r);
+  }
+
+  if (fractal->mandelbulbMulti.atanOratan2 == sFractalMandelbulbMulti::atan)
+  {
+    ph0 += atan(v2 / v3);
+  }
+  else
+  {
+    ph0 += atan2(v2, v3);
+  }
+
+  double rp = pow(aux.r, fractal->bulb.power - 1.0);
+  double th = th0 * fractal->bulb.power;
+  double ph = ph0 * fractal->bulb.power;
+  double cth = cos(th);
+  aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
+  rp *= aux.r;
+  z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
+
+
+}
+
 // --------quaternion3D--------------
 void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
 {
@@ -1294,7 +1372,7 @@ void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
                 fractal->quaternion3D.constantFactor.z * z.x * z.z);
   z = newz;
 }
-
+// ----------mengerMod
 void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double tempMS;
@@ -1741,4 +1819,6 @@ void TransformSphericalOffset(CVector3 &z, const cFractal *fractal, sExtendedAux
   z *= fractal->transformCommon.scale;
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 }
+
+
 

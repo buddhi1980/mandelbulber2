@@ -70,6 +70,7 @@ void MengerModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 void Quaternion3DIteration(CVector3 &z, const cFractal *fractal);
 void AexionOctopusIteration(CVector3 &z, const cFractal *fractal);
 void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
 //transforming formulas
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);

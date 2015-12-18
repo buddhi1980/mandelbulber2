@@ -245,12 +245,27 @@ struct sFractalAexionOctopus
 };
 struct sFractalAboxMod1
 {
-  //double scale;
-  //double scaleVary;
-  //double fold;
   double minR;
   CVector3 foldM;
-  //CVector3 constantMultiplier;
+};
+
+struct sFractalMandelbulbMulti
+{
+  enum multi_acosOrasin
+  {
+    acos, asin
+  };
+  enum multi_atanOratan2
+  {
+    atan, atan2
+  };
+  enum multi_OrderOfxyz
+  {
+    xyz, xzy, yxz, yzx, zxy, zyx
+  };
+  multi_acosOrasin acosOrasin;
+  multi_atanOratan2 atanOratan2;
+  multi_OrderOfxyz orderOfxyz;
 };
 
 
@@ -800,6 +815,7 @@ public:
   sFractalAexionOctopus aexionOctopus;
   sFractalAboxMod1 aboxMod1;
   sFractalTransformCommon transformCommon;
+  sFractalMandelbulbMulti mandelbulbMulti;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

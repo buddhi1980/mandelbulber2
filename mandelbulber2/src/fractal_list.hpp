@@ -87,6 +87,8 @@ enum enumFractalFormula
   quaternion3D = 62,
   aexionOctopus = 63,
   aboxMod1 = 64,
+  mandelbulbMulti = 65,
+
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,
