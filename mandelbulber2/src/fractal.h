@@ -784,7 +784,8 @@ struct sFractalTransformCommon
   CVector3 additionConstantOnes;
 	CVector3 rotation;
 	CVector3 scale3D;
-	CVector3 constantMultiplier;
+  CVector3 constantMultiplier111;
+  CVector3 constantMultiplier100;
 	CRotationMatrix rotationMatrix;
   CVector3 juliaC;
   bool juliaMode;

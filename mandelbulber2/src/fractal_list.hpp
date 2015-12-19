@@ -88,7 +88,7 @@ enum enumFractalFormula
   aexionOctopus = 63,
   aboxMod1 = 64,
   mandelbulbMulti = 65,
-
+  benesiPineTree = 66,
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,

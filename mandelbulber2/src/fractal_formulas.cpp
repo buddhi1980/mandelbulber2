@@ -1285,6 +1285,23 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 }
 
+//benesiFastPwr2PineTree  3D
+//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+
+void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  CVector3 temp = z;
+  aux.r = z.Length();
+  z *= z;
+  double t = 2 * temp.x;
+  if (z.y + z.z > 0.0) t = t / sqrt(z.y + z.z);
+  else t = 1.0;
+  c *= fractal->transformCommon.constantMultiplier100;
+  z.x = (z.x - z.y - z.z) + c.x;
+  z.z = (t * (z.y - z.z)) + c.y;
+  z.y = (2 * t * temp.y * temp.z) + c.z;
+  aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
+}
 // mandelbulbMulti 3D
 void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {

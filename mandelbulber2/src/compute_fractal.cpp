@@ -326,7 +326,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MandelbulbMultiIteration(z, fractal, extendedAux[sequence]);
           break;
         }
-
+        case benesiPineTree:
+        {
+          BenesiPineTreeIteration(z, c, fractal, extendedAux[sequence]);
+          break;
+        }
         //transforms
         case transfAdditionConstant:
         {
@@ -388,7 +392,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case fabsBoxMod:
 				case mengerMod:
 				case aexionOctopus:
-				case transfAdditionConstant:
+        case benesiPineTree:
+        case transfAdditionConstant:
         case transfBoxOffset:
 				case transfRotation:
 				case transfScale:
@@ -409,6 +414,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					break;
         }
+        //case benesiPineTree:
+        //{
+        //  if (in.common.juliaMode)
+         // {
+         //   z += CVector3(in.common.juliaC.y, in.common.juliaC.x, in.common.juliaC.z);
+         // }
+         // else
+         // {
+         //   c *= in.common.constantMultiplier;
+          //  z += CVector3(c.x, c.z, c.y);
+        //  }
+        //  break;
+       // }
 				default:
 				{
 					if (in.common.juliaMode)
@@ -421,7 +439,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					break;
 				}
-			}
+      }
 		}
 
 		if (fractals.IsHybrid())
@@ -488,7 +506,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				break;
 			case mandelbulb5:
 			case mandelbulb6Beta:
-            case mandelbulbMulti:
+      case mandelbulbMulti:
+      case benesiPineTree:
 				//case benesiTransforms:
 				out->distance = 0.5 * r * log(r) / extendedAux[fractalIndex].r_dz;
 				break;

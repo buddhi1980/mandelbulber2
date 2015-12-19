@@ -498,6 +498,8 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_addition_constant_ones", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_offset",  0.0, morphAkima, paramStandard);
+  par->addParam("transf_constant_multiplier_111", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
+  par->addParam("transf_constant_multiplier_100", CVector3(1.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 
 	//transform
 	par->addParam("transform_additionConstant1_enabled", false, morphLinear, paramStandard);

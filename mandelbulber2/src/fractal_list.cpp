@@ -35,6 +35,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("AexionOctopus", 									"aexionOctopus", 						aexionOctopus, 					deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Benesi Transforms DeltaDE", 			"benesi_transforms", 				benesiTransforms, 			deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Benesi", 												"benesi", 									benesi, 								deltaDEType, 		logarithmicDEFunction));
+  fractalList->append(sFractalDescription("BenesiPineTree", 								"benesi_pine_tree", 				benesiPineTree, 				analyticDEType, logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", 						"boxfold_bulbpow2", 				boxFoldBulbPow2, 				deltaDEType, 		linearDEFunction));
 	fractalList->append(sFractalDescription("Bristorbrot", 										"bristorbrot", 							bristorbrot, 						deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Buffalo", 												"buffalo", 									buffalo, 								deltaDEType, 		logarithmicDEFunction));
