@@ -32,10 +32,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("AboxMod1", 											"aboxMod1", 								aboxMod1, 							analyticDEType, linearDEFunction));
   fractalList->append(sFractalDescription("AboxModKali",								 		"aboxModKali", 							aboxModKali, 						analyticDEType, linearDEFunction));
 	fractalList->append(sFractalDescription("Aexion", 												"aexion", 									aexion, 								deltaDEType, 		logarithmicDEFunction));
-  fractalList->append(sFractalDescription("AexionOctopus", 									"aexionOctopus", 						aexionOctopus, 					deltaDEType, 		logarithmicDEFunction));
+  fractalList->append(sFractalDescription("Aexion_Octopus", 									"aexionOctopus", 						aexionOctopus, 					deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Benesi Transforms DeltaDE", 			"benesi_transforms", 				benesiTransforms, 			deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Benesi", 												"benesi", 									benesi, 								deltaDEType, 		logarithmicDEFunction));
-  fractalList->append(sFractalDescription("BenesiPineTree", 								"benesi_pine_tree", 				benesiPineTree, 				analyticDEType, logarithmicDEFunction));
+  fractalList->append(sFractalDescription("Benesi_Pine_Tree", 							"benesi_pine_tree", 				benesiPineTree, 				analyticDEType, logarithmicDEFunction));
+  fractalList->append(sFractalDescription("Benesi_T1_Pine_Tree", 						"benesi_T1_pine_tree", 			benesiT1PineTree, 			analyticDEType, logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", 						"boxfold_bulbpow2", 				boxFoldBulbPow2, 				deltaDEType, 		linearDEFunction));
 	fractalList->append(sFractalDescription("Bristorbrot", 										"bristorbrot", 							bristorbrot, 						deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Buffalo", 												"buffalo", 									buffalo, 								deltaDEType, 		logarithmicDEFunction));

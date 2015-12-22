@@ -780,16 +780,24 @@ struct sFractalPlatonicSolid
 struct sFractalTransformCommon
 {
 	double scale;
-	CVector3 additionConstant;
-  CVector3 additionConstantOnes;
+  CVector3 additionConstant000;
+  CVector3 additionConstant111;
+  bool benesiT1Enabled;
+  bool rotationEnabled;
 	CVector3 rotation;
-	CVector3 scale3D;
+  CRotationMatrix rotationMatrix;
+  CVector3 scale3D111;
+  CVector3 scale3D222;
+  bool addCpixelEnabled;
   CVector3 constantMultiplier111;
   CVector3 constantMultiplier100;
-	CRotationMatrix rotationMatrix;
+
   CVector3 juliaC;
   bool juliaMode;
   double offset;
+  CVector3 offset200;
+  int startIterations;
+  int stopIterations;
   //bool CxCySwap;
 };
 

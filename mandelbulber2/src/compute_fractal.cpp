@@ -331,6 +331,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           BenesiPineTreeIteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
+        case benesiT1PineTree:
+        {
+          BenesiT1PineTreeIteration(z, c, i, fractal, extendedAux[sequence]);
+          break;
+        }
         //transforms
         case transfAdditionConstant:
         {
@@ -393,6 +398,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerMod:
 				case aexionOctopus:
         case benesiPineTree:
+        case benesiT1PineTree:
         case transfAdditionConstant:
         case transfBoxOffset:
 				case transfRotation:
@@ -508,6 +514,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			case mandelbulb6Beta:
       case mandelbulbMulti:
       case benesiPineTree:
+      case benesiT1PineTree:
 				//case benesiTransforms:
 				out->distance = 0.5 * r * log(r) / extendedAux[fractalIndex].r_dz;
 				break;

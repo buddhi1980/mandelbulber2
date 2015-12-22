@@ -1347,14 +1347,23 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	//common parameters for transforming formulas
 	transformCommon.scale = container->Get<double>("transf_scale");
-	transformCommon.scale3D = container->Get<CVector3>("transf_scale3D");
-	transformCommon.additionConstant = container->Get<CVector3>("transf_addition_constant");
-  transformCommon.additionConstantOnes = container->Get<CVector3>("transf_addition_constant_ones");
+  transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
+  transformCommon.scale3D111 = container->Get<CVector3>("transf_scale3D_111");
+  transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant_000");
+  transformCommon.additionConstant111 = container->Get<CVector3>("transf_addition_constant_111");
+  transformCommon.benesiT1Enabled = container->Get<bool>("transf_benesi_T1_enabled");
+  transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
 	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
   transformCommon.offset = container->Get<double>("transf_offset");
+  transformCommon.offset200 = container->Get<CVector3>("transf_offset_200");
+  transformCommon.addCpixelEnabled = container->Get<bool>("transf_addCpixel_enabled");
+
   transformCommon.constantMultiplier111 = container->Get<CVector3>("transf_constant_multiplier_111");
   transformCommon.constantMultiplier100 = container->Get<CVector3>("transf_constant_multiplier_100");
-
+  transformCommon.juliaC = container->Get<CVector3>("transf_constant_julia_c");
+  transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
+  transformCommon.startIterations = container->Get<int>("transf_start_iterations");
+  transformCommon.stopIterations = container->Get<int>("transf_stop_iterations");
 
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");

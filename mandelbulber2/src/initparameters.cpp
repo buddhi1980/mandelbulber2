@@ -493,13 +493,22 @@ void InitFractalParams(cParameterContainer *par)
 
   //common parameters for transforming formulas
   par->addParam("transf_scale", 1.0, morphAkima, paramStandard);
-  par->addParam("transf_scale3D", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-  par->addParam("transf_addition_constant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-  par->addParam("transf_addition_constant_ones", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transf_scale3D_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transf_scale3D_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
+  par->addParam("transf_addition_constant_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transf_addition_constant_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-  par->addParam("transf_offset",  0.0, morphAkima, paramStandard);
+  par->addParam("transf_rotation_enabled", false, morphLinear, paramStandard);
+  par->addParam("transf_benesi_T1_enabled", true, morphLinear, paramStandard);
+  par->addParam("transf_offset", 0.0, morphAkima, paramStandard);
+  par->addParam("transf_offset_200", CVector3(2.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transf_addCpixel_enabled", true, morphLinear, paramStandard);
   par->addParam("transf_constant_multiplier_111", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_constant_multiplier_100", CVector3(1.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transf_constant_julia_c", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transf_constant_julia_mode", false, morphLinear, paramStandard);
+  par->addParam("transf_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterations", 250, morphLinear, paramStandard);
 
 	//transform
 	par->addParam("transform_additionConstant1_enabled", false, morphLinear, paramStandard);

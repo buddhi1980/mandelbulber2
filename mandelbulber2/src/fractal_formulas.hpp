@@ -72,7 +72,7 @@ void AexionOctopusIteration(CVector3 &z, const cFractal *fractal);
 void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
-
+void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
 //transforming formulas
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);

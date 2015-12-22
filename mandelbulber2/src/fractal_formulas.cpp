@@ -25,6 +25,11 @@
 #include "fractal_transforms.hpp"
 #include "common_math.h"
 
+#define SQRT_1_3 0.57735026918962576450914878050196
+#define SQRT_1_2 0.70710678118654752440084436210485
+#define SQRT_2_3 0.81649658092772603273242802490196
+#define SQRT_3_2 1.22474487139158904909864203735295
+
 using namespace fractal;
 
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
@@ -1302,6 +1307,62 @@ void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, 
   z.y = (2 * t * temp.y * temp.z) + c.z;
   aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }
+
+//benesiT1PineTree  3D
+//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+
+void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+
+  if (fractal->transformCommon.benesiT1Enabled
+      && i >= fractal->transformCommon.startIterations
+      && i < fractal->transformCommon.stopIterations)
+  {
+    //CVector3 temp = z;
+    double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+    z = CVector3((tempXZ - z.y) * SQRT_1_2,
+                 (tempXZ + z.y) * SQRT_1_2,
+                 z.x * SQRT_1_3 + z.z * SQRT_2_3);
+    z = fabs(z) * fractal->transformCommon.scale3D222;
+    if (fractal->transformCommon.rotationEnabled)
+    {
+      z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+    }
+
+    double avgScale = (fabs(fractal->transformCommon.scale3D222.x)
+        + fabs(fractal->transformCommon.scale3D222.y) + fabs(fractal->transformCommon.scale3D222.z))
+        / 3;  // cheap approximation
+
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * avgScale + 1.0;
+    tempXZ = (z.y + z.x) * SQRT_1_2;
+
+    z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
+                 (z.y - z.x) * SQRT_1_2,
+                 z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+    z = z - fractal->transformCommon.offset200;
+  }
+  CVector3 temp = z;
+  aux.r = z.Length();
+  z *= z;
+  double t = 2 * temp.x;
+  if (z.y + z.z > 0.0) t = t / sqrt(z.y + z.z);
+  else t = 1.0;
+  if (fractal->transformCommon.addCpixelEnabled)
+  {
+    c *= fractal->transformCommon.constantMultiplier100;
+    z.x = (z.x - z.y - z.z) + c.x;
+    z.z = (t * (z.y - z.z)) + c.y;  // Cy Cx swap
+    z.y = (2 * t * temp.y * temp.z) + c.z;
+  }
+  if (fractal->transformCommon.juliaMode)
+    {
+      z += fractal->transformCommon.juliaC;
+    }
+  aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
+}
+
+
 // mandelbulbMulti 3D
 void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1467,7 +1528,7 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
 void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  z = fractal->transformCommon.additionConstant - fabs(z);
+  z = fractal->transformCommon.additionConstant111 - fabs(z);
   double rr = z.x * z.x + z.y * z.y + z.z * z.z;
   if(rr < 1e-21) rr = 1e-21;
   double MinR = fractal->mandelbox.foldingSphericalMin;
@@ -1763,7 +1824,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &fol
 
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal)
 {
-	z += fractal->transformCommon.additionConstant;
+  z += fractal->transformCommon.additionConstant000;
 }
 
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
@@ -1779,8 +1840,8 @@ void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	z *= fractal->transformCommon.scale3D;
-	aux.DE *= fractal->transformCommon.scale3D.Length(); //prepared for future analytic DE for hybrids
+  z *= fractal->transformCommon.scale3D111;
+  aux.DE *= fractal->transformCommon.scale3D111.Length(); //prepared for future analytic DE for hybrids
 }
 
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
@@ -1798,32 +1859,32 @@ void TransformBoxOffset(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   if (z.x > 0)
   {
-    z.x = z.x + fractal->transformCommon.additionConstant.x;
+    z.x = z.x + fractal->transformCommon.additionConstant000.x;
     //aux.color += boxOffset.color.factor.x;
   }
   else
   {
-    z.x = z.x - fractal->transformCommon.additionConstant.x;
+    z.x = z.x - fractal->transformCommon.additionConstant000.x;
     //aux.color += boxOffset.color.factor.x;
   }
   if (z.y > 0)
   {
-    z.y = z.y + fractal->transformCommon.additionConstant.y;
+    z.y = z.y + fractal->transformCommon.additionConstant000.y;
     //aux.color += boxOffset.color.factor.y;
   }
   else
   {
-    z.y = z.y - fractal->transformCommon.additionConstant.y;
+    z.y = z.y - fractal->transformCommon.additionConstant000.y;
    // aux.color += boxOffset.color.factor.y;
   }
   if (z.z > 0)
   {
-    z.z = z.z + fractal->transformCommon.additionConstant.z;
+    z.z = z.z + fractal->transformCommon.additionConstant000.z;
    // aux.color += boxOffset.color.factor.z;
   }
   else
   {
-    z.z = z.z - fractal->transformCommon.additionConstant.z;
+    z.z = z.z - fractal->transformCommon.additionConstant000.z;
    // aux.color += boxOffset.color.factor.z;
   }
 }
