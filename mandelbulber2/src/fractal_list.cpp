@@ -72,6 +72,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Xenodreambuie's formula", 				"xenodreambuie", 						xenodreambuie, 					deltaDEType, 		logarithmicDEFunction));
 
   fractalList->append(sFractalDescription("Transform - Addition Constant",	"transf_addition_constant", transfAdditionConstant, analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Add Cpixel",	 				"transf_add_Cpixel", 				transfAddCpixel, 				analyticDEType,	withoutDEFunction));
   fractalList->append(sFractalDescription("Transform - Box_Offset",					"transf_box_offset",				transfBoxOffset,				analyticDEType,	withoutDEFunction));
 	fractalList->append(sFractalDescription("Transform - Platonic Solid", 		"platonic_solid", 					platonicSolid, 					deltaDEType,		withoutDEFunction));
 	fractalList->append(sFractalDescription("Transform - Rotation",						"transf_rotation", 					transfRotation, 				analyticDEType,	withoutDEFunction));

@@ -1827,6 +1827,12 @@ void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal)
   z += fractal->transformCommon.additionConstant000;
 }
 
+void TransformAdditionCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+{
+  z +=  c * fractal->transformCommon.constantMultiplier111;
+}
+
+
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
 {
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
