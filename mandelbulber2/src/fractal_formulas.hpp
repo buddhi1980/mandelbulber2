@@ -76,6 +76,7 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
 //transforming formulas
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformAdditionCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
+void TransformAdditionCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);

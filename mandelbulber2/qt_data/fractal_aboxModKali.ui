@@ -43,7 +43,7 @@
      <property name="checked">
       <bool>false</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_18" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_18" stretch="0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -59,13 +59,6 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_32">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-       </layout>
-      </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_33">
         <property name="spacing">

@@ -347,6 +347,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformAdditionCpixelIteration(z, c, fractal);
           break;
         }
+        case transfAddCpixelAxisSwap:
+        {
+          TransformAdditionCpixelAxisSwapIteration(z, c, fractal);
+          break;
+        }
           case transfRotation:
         {
         	TransformRotationIteration(z, fractal);
@@ -406,6 +411,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case benesiT1PineTree:
         case transfAdditionConstant:
         case transfAddCpixel:
+        case transfAddCpixelAxisSwap:
         case transfBoxOffset:
 				case transfRotation:
 				case transfScale:

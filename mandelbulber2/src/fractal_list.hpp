@@ -97,7 +97,8 @@ enum enumFractalFormula
   transfScale3D = 1004,
   transfBoxOffset = 1005,
   transfSphericalOffset = 1006,
-  transfAddCpixel = 1007
+  transfAddCpixel = 1007,
+  transfAddCpixelAxisSwap = 1008
 };
 
 enum enumDEType

@@ -32,7 +32,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("AboxMod1", 											"aboxMod1", 								aboxMod1, 							analyticDEType, linearDEFunction));
   fractalList->append(sFractalDescription("AboxModKali",								 		"aboxModKali", 							aboxModKali, 						analyticDEType, linearDEFunction));
 	fractalList->append(sFractalDescription("Aexion", 												"aexion", 									aexion, 								deltaDEType, 		logarithmicDEFunction));
-  fractalList->append(sFractalDescription("Aexion_Octopus", 									"aexionOctopus", 						aexionOctopus, 					deltaDEType, 		logarithmicDEFunction));
+  fractalList->append(sFractalDescription("Aexion_Octopus", 								"aexionOctopus", 						aexionOctopus, 					deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Benesi Transforms DeltaDE", 			"benesi_transforms", 				benesiTransforms, 			deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Benesi", 												"benesi", 									benesi, 								deltaDEType, 		logarithmicDEFunction));
   fractalList->append(sFractalDescription("Benesi_Pine_Tree", 							"benesi_pine_tree", 				benesiPineTree, 				analyticDEType, logarithmicDEFunction));
@@ -71,12 +71,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Smooth Mandelbox", 							"smooth_mandelbox", 				smoothMandelbox, 				analyticDEType, linearDEFunction));
 	fractalList->append(sFractalDescription("Xenodreambuie's formula", 				"xenodreambuie", 						xenodreambuie, 					deltaDEType, 		logarithmicDEFunction));
 
-  fractalList->append(sFractalDescription("Transform - Addition Constant",	"transf_addition_constant", transfAdditionConstant, analyticDEType,	withoutDEFunction));
-  fractalList->append(sFractalDescription("Transform - Add Cpixel",	 				"transf_add_Cpixel", 				transfAddCpixel, 				analyticDEType,	withoutDEFunction));
-  fractalList->append(sFractalDescription("Transform - Box_Offset",					"transf_box_offset",				transfBoxOffset,				analyticDEType,	withoutDEFunction));
-	fractalList->append(sFractalDescription("Transform - Platonic Solid", 		"platonic_solid", 					platonicSolid, 					deltaDEType,		withoutDEFunction));
-	fractalList->append(sFractalDescription("Transform - Rotation",						"transf_rotation", 					transfRotation, 				analyticDEType,	withoutDEFunction));
-	fractalList->append(sFractalDescription("Transform - Scale",							"transf_scale", 						transfScale, 						analyticDEType,	withoutDEFunction));
-	fractalList->append(sFractalDescription("Transform - Scale 3D",						"transf_scale_3D", 					transfScale3D, 					analyticDEType,	withoutDEFunction));
-  fractalList->append(sFractalDescription("Transform - Spherical_Offset",		"transf_spherical_offset",	transfSphericalOffset,	analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Addition Constant",			"transf_addition_constant",			transfAdditionConstant,			analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Add Cpixel",	 						"transf_add_Cpixel", 						transfAddCpixel, 						analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Add Cpixel_Axis_Swap",	 	"transf_add_Cpixel_Axis_Swap", 	transfAddCpixelAxisSwap,		analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Box_Offset",							"transf_box_offset",						transfBoxOffset,						analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Platonic Solid", 				"platonic_solid", 							platonicSolid, 							deltaDEType,		withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Rotation",								"transf_rotation", 							transfRotation, 						analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Scale",									"transf_scale", 								transfScale, 								analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Scale 3D",								"transf_scale_3D", 							transfScale3D, 							analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Spherical_Offset",				"transf_spherical_offset",			transfSphericalOffset,			analyticDEType,	withoutDEFunction));
 }
