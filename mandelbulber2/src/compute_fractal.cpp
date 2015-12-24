@@ -352,6 +352,28 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformAdditionCpixelAxisSwapIteration(z, c, fractal);
           break;
         }
+        case transfBenesiT1:
+        {
+          TransformBenesiT1Iteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
+        case transfBenesiT1Mod:
+        {
+          TransformBenesiT1ModIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
+        case transfBenesiT2:
+        {
+          TransformBenesiT2Iteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
+
+
+        case transfBoxOffset:
+        {
+          TransformBoxOffsetIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
           case transfRotation:
         {
         	TransformRotationIteration(z, fractal);
@@ -372,14 +394,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformPlatonicSolidIteration(z, fractal);
 					break;
 				}
-        case transfBoxOffset:
-        {
-          TransformBoxOffset(z, fractal, extendedAux[sequence]);
-          break;
-        }
+
         case transfSphericalOffset:
         {
-          TransformSphericalOffset(z, fractal, extendedAux[sequence]);
+          TransformSphericalOffsetIteration(z, fractal, extendedAux[sequence]);
           break;
         }
 
@@ -412,6 +430,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfAdditionConstant:
         case transfAddCpixel:
         case transfAddCpixelAxisSwap:
+        case transfBenesiT1:
+        case transfBenesiT1Mod:
+        case transfBenesiT2:
         case transfBoxOffset:
 				case transfRotation:
 				case transfScale:
@@ -432,19 +453,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					break;
         }
-        //case benesiPineTree:
-        //{
-        //  if (in.common.juliaMode)
-         // {
-         //   z += CVector3(in.common.juliaC.y, in.common.juliaC.x, in.common.juliaC.z);
-         // }
-         // else
-         // {
-         //   c *= in.common.constantMultiplier;
-          //  z += CVector3(c.x, c.z, c.y);
-        //  }
-        //  break;
-       // }
+
 				default:
 				{
 					if (in.common.juliaMode)

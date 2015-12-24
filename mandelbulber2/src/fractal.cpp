@@ -1347,8 +1347,10 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	//common parameters for transforming formulas
 	transformCommon.scale = container->Get<double>("transf_scale");
-  transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
   transformCommon.scale3D111 = container->Get<CVector3>("transf_scale3D_111");
+  transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
+  transformCommon.scale3D333 = container->Get<CVector3>("transf_scale3D_333");
+  transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
   transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant_000");
   transformCommon.additionConstant111 = container->Get<CVector3>("transf_addition_constant_111");
   transformCommon.benesiT1Enabled = container->Get<bool>("transf_benesi_T1_enabled");

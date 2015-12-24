@@ -1362,7 +1362,6 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
   aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }
 
-
 // mandelbulbMulti 3D
 void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1857,7 +1856,96 @@ void TransformAdditionCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cF
   }
   z +=  c * fractal->transformCommon.constantMultiplier111;
 }
+//benesiT1  3D
+//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 
+void TransformBenesiT1Iteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
+{
+  double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+  z = CVector3((tempXZ - z.y) * SQRT_1_2,
+               (tempXZ + z.y) * SQRT_1_2,
+               z.x * SQRT_1_3 + z.z * SQRT_2_3);
+  z = fabs(z) * fractal->transformCommon.scale3D222;
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+
+  double avgScale = (fabs(fractal->transformCommon.scale3D222.x)
+      + fabs(fractal->transformCommon.scale3D222.y) + fabs(fractal->transformCommon.scale3D222.z))
+      / 3;  // cheap approximation
+
+  aux.r_dz *= avgScale;
+  aux.DE = aux.DE * avgScale + 1.0;
+  tempXZ = (z.y + z.x) * SQRT_1_2;
+
+  z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
+               (z.y - z.x) * SQRT_1_2,
+               z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+  z = z - fractal->transformCommon.offset200;
+}
+//benesiT1Mod  3D based on benesiT1
+//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+
+void TransformBenesiT1ModIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
+{
+  double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+  z = CVector3((tempXZ - z.y) * SQRT_1_2,
+               (tempXZ + z.y) * SQRT_1_2,
+               z.x * SQRT_1_3 + z.z * SQRT_2_3);
+  z *= fractal->transformCommon.scale3D333;
+  z = (fabs(z + fractal->transformCommon.additionConstant111)
+        - fabs(z - fractal->transformCommon.additionConstant111) - z);
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+
+  double avgScale = (fabs(fractal->transformCommon.scale3D333.x)
+      + fabs(fractal->transformCommon.scale3D333.y) + fabs(fractal->transformCommon.scale3D333.z))
+      / 3;  // cheap approximation
+
+  aux.r_dz *= avgScale;
+  aux.DE = aux.DE * avgScale + 1.0;
+  tempXZ = (z.y + z.x) * SQRT_1_2;
+
+  z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
+               (z.y - z.x) * SQRT_1_2,
+               z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+}
+//benesiT2  3D
+//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+
+void TransformBenesiT2Iteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
+{
+  double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+  z = CVector3((tempXZ - z.y) * SQRT_1_2,
+               (tempXZ + z.y) * SQRT_1_2,
+               z.x * SQRT_1_3 + z.z * SQRT_2_3);
+
+  //  Change this for different transforms
+  CVector3 tempV2 = z;
+  tempV2.x = sqrt(z.y * z.y + z.z * z.z);
+  tempV2.y = sqrt(z.x * z.x + z.z * z.z);  // switching, squared, sqrt
+  tempV2.z = sqrt(z.x * z.x + z.y * z.y);
+  z = fabs(tempV2 - fractal->transformCommon.additionConstant111) * fractal->transformCommon.scale3D444;
+  double avgScale = (fabs(fractal->transformCommon.scale3D444.x) + fabs(fractal->transformCommon.scale3D444.y)
+                  + fabs(fractal->transformCommon.scale3D444.z)) / 3; // cheap approximation
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+
+  //aux.r_dz *= avgScale;
+  aux.DE = aux.DE * avgScale + 1.0;
+  tempXZ = (z.y + z.x) * SQRT_1_2;
+
+  z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
+               (z.y - z.x) * SQRT_1_2,
+               z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+}
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
 {
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
@@ -1886,7 +1974,7 @@ void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
 	z *= r;
 }
 
-void TransformBoxOffset(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   if (z.x > 0)
   {
@@ -1920,7 +2008,7 @@ void TransformBoxOffset(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   }
 }
 
-void TransformSphericalOffset(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double lengthTempZ = -z.Length();
   if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)

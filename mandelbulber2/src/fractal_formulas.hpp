@@ -77,11 +77,15 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformAdditionCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformAdditionCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
+void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformBenesiT1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformBenesiT1ModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformBenesiT2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
-void TransformBoxOffset(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void TransformSphericalOffset(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+
+void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */
