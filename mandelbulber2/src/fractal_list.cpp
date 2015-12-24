@@ -77,6 +77,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Transform - Benesi_T1",							"transf_benesi_T1",							transfBenesiT1,							analyticDEType,	withoutDEFunction));
   fractalList->append(sFractalDescription("Transform - Benesi_T1Mod",						"transf_benesi_T1Mod",					transfBenesiT1Mod,					analyticDEType,	withoutDEFunction));
   fractalList->append(sFractalDescription("Transform - Benesi_T2",							"transf_benesi_T2",							transfBenesiT2,							analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Benesi_T3",							"transf_benesi_T3",							transfBenesiT3,							deltaDEType,		withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Benesi_T4",							"transf_benesi_T4",							transfBenesiT4,							deltaDEType,		withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Benesi_T5b",							"transf_benesi_T5b",						transfBenesiT5b,						deltaDEType,		withoutDEFunction));
 
   fractalList->append(sFractalDescription("Transform - Box_Offset",							"transf_box_offset",						transfBoxOffset,						analyticDEType,	withoutDEFunction));
   fractalList->append(sFractalDescription("Transform - Platonic Solid", 				"platonic_solid", 							platonicSolid, 							deltaDEType,		withoutDEFunction));

@@ -101,9 +101,10 @@ enum enumFractalFormula
   transfAddCpixelAxisSwap = 1008,
   transfBenesiT1 = 1009,
   transfBenesiT1Mod = 1010,
-  transfBenesiT2 = 1011
-
-
+  transfBenesiT2 = 1011,
+  transfBenesiT3 = 1012,
+  transfBenesiT4 = 1013,
+  transfBenesiT5b = 1014
 };
 
 enum enumDEType

@@ -331,7 +331,7 @@
    <item row="21" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformOne1_enabled">
      <property name="title">
-      <string>Enable Benesi MAG Transform ONE               ;  Copy ONE</string>
+      <string>Enable Benesi MAG Transform T1             ;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -487,7 +487,7 @@
         <item row="7" column="1">
          <widget class="QLabel" name="label_257">
           <property name="text">
-           <string>Offset z</string>
+           <string>Offset z:</string>
           </property>
          </widget>
         </item>
@@ -715,7 +715,7 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_255">
           <property name="text">
-           <string>Offset y</string>
+           <string>Offset y:</string>
           </property>
          </widget>
         </item>
@@ -1049,7 +1049,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_226">
           <property name="text">
-           <string>Constant Multiplier for C.x::</string>
+           <string>Constant Multiplier for C.x:</string>
           </property>
          </widget>
         </item>
@@ -2335,7 +2335,7 @@
         <item row="4" column="1">
          <widget class="QLabel" name="label_207">
           <property name="text">
-           <string>z.z factor:</string>
+           <string>Constant Factorz:</string>
           </property>
          </widget>
         </item>
@@ -2442,14 +2442,14 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_231">
           <property name="text">
-           <string>z.x factor:</string>
+           <string>Constant Factor x:</string>
           </property>
          </widget>
         </item>
         <item row="3" column="1">
          <widget class="QLabel" name="label_232">
           <property name="text">
-           <string>z.y factor:</string>
+           <string>Constant Factor y:</string>
           </property>
          </widget>
         </item>
@@ -2484,7 +2484,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_233">
           <property name="text">
-           <string>const.Z:</string>
+           <string>Menger Scale Factor: </string>
           </property>
          </widget>
         </item>
@@ -2582,7 +2582,7 @@
    <item row="17" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplier1_enabled">
      <property name="title">
-      <string>Enable Constant MULTIPLIER  z =  z +  ( c * const. );  Copy ONE</string>
+      <string>Enable addCpixel Constant MULTIPLIER  z =  z +  ( c * const. );  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2710,7 +2710,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_304">
           <property name="text">
-           <string>y:</string>
+           <string>Constant Multiplier for C.y:</string>
           </property>
          </widget>
         </item>
@@ -2745,14 +2745,14 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_305">
           <property name="text">
-           <string>x:</string>
+           <string>Constant Multiplier for C.x:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="QLabel" name="label_306">
           <property name="text">
-           <string>z:</string>
+           <string>Constant Multiplier for C.z:</string>
           </property>
          </widget>
         </item>
@@ -5166,7 +5166,7 @@
         <item row="4" column="1">
          <widget class="QLabel" name="label_167">
           <property name="text">
-           <string>x:</string>
+           <string>Variable Constant for C.x:</string>
           </property>
          </widget>
         </item>
@@ -5195,7 +5195,7 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_161">
           <property name="text">
-           <string>z:</string>
+           <string>Variable Constant for C.z:</string>
           </property>
          </widget>
         </item>
@@ -5252,7 +5252,7 @@
         <item row="5" column="1">
          <widget class="QLabel" name="label_164">
           <property name="text">
-           <string>y:</string>
+           <string>Variable Constant for C.y:</string>
           </property>
          </widget>
         </item>
@@ -5287,7 +5287,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_162">
           <property name="text">
-           <string>y:</string>
+           <string>Constant Multiplier for C.y:</string>
           </property>
          </widget>
         </item>
@@ -5316,7 +5316,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_160">
           <property name="text">
-           <string>x:</string>
+           <string>Constant Multiplier for C.x:</string>
           </property>
          </widget>
         </item>
@@ -5395,7 +5395,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_163">
           <property name="text">
-           <string>z:</string>
+           <string>Constant Multiplier for C.z:</string>
           </property>
          </widget>
         </item>
@@ -5577,7 +5577,7 @@
    <item row="50" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant2_enabled">
      <property name="title">
-      <string>Enable Addition Constant  z = z + const.;   Copy TWO</string>
+      <string>Enable Offset  z = z + const.;   Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -5730,14 +5730,14 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_13">
           <property name="text">
-           <string>z:</string>
+           <string>Offset z:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>x:</string>
+           <string>Offset x:</string>
           </property>
          </widget>
         </item>
@@ -5785,7 +5785,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_8">
           <property name="text">
-           <string>y:</string>
+           <string>Offset y:</string>
           </property>
          </widget>
         </item>
@@ -8262,7 +8262,7 @@
    <item row="42" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformOne2_enabled">
      <property name="title">
-      <string>Enable Benesi MAG Transform ONE               ;  Copy TWO</string>
+      <string>Enable Benesi MAG Transform T1               ;  Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -8758,7 +8758,7 @@
    <item row="22" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformOnePlusMinus1_enabled">
      <property name="title">
-      <string>Enable Benesi MAG Transform ONE_PlusMinusZ               ;  Copy ONE</string>
+      <string>Enable Benesi MAG Transform T1Mod               ;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -9044,7 +9044,7 @@
         <item row="5" column="1">
          <widget class="QLabel" name="label_28">
           <property name="text">
-           <string>Offset y</string>
+           <string>Offset y:</string>
           </property>
          </widget>
         </item>
@@ -9079,7 +9079,7 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_37">
           <property name="text">
-           <string>Offset z</string>
+           <string>Offset z:</string>
           </property>
          </widget>
         </item>
@@ -12537,7 +12537,7 @@
    <item row="18" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_additionConstant1_enabled">
      <property name="title">
-      <string>Enable Addition Constant  z = z +  const.;  Copy ONE</string>
+      <string>Enable Offset  z = z +  const.;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -12740,7 +12740,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>x:</string>
+           <string>Offset x:</string>
           </property>
          </widget>
         </item>
@@ -12804,14 +12804,14 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_11">
           <property name="text">
-           <string>z:</string>
+           <string>Offset z:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>y:</string>
+           <string>Offset y:</string>
           </property>
          </widget>
         </item>
@@ -13085,7 +13085,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_313">
           <property name="text">
-           <string>y:</string>
+           <string>Scale y:</string>
           </property>
          </widget>
         </item>
@@ -13114,7 +13114,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_314">
           <property name="text">
-           <string>x:</string>
+           <string>Scale x:</string>
           </property>
          </widget>
         </item>
@@ -13193,7 +13193,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_315">
           <property name="text">
-           <string>z:</string>
+           <string>Scale z:</string>
           </property>
          </widget>
         </item>
@@ -13375,7 +13375,7 @@
    <item row="24" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformTwo1_enabled">
      <property name="title">
-      <string>Enable Benesi MAG Transform TWO              ;  Copy ONE</string>
+      <string>Enable Benesi MAG Transform T2           ;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -13581,7 +13581,7 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_384">
           <property name="text">
-           <string>Offset z</string>
+           <string>Offset z:</string>
           </property>
          </widget>
         </item>
@@ -13794,7 +13794,7 @@
         <item row="5" column="1">
          <widget class="QLabel" name="label_388">
           <property name="text">
-           <string>Offset y</string>
+           <string>Offset y:</string>
           </property>
          </widget>
         </item>
@@ -13871,7 +13871,7 @@
    <item row="28" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformFour1_enabled">
      <property name="title">
-      <string>Enable Benesi MAG Transform FOUR               ;  Copy ONE</string>
+      <string>Enable Benesi MAG Transform T4              ;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -14077,7 +14077,7 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_276">
           <property name="text">
-           <string>Offset z</string>
+           <string>Offset z:</string>
           </property>
          </widget>
         </item>
@@ -14290,7 +14290,7 @@
         <item row="5" column="1">
          <widget class="QLabel" name="label_280">
           <property name="text">
-           <string>Offset y</string>
+           <string>Offset y:</string>
           </property>
          </widget>
         </item>
@@ -14367,7 +14367,7 @@
    <item row="26" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformThree1_enabled">
      <property name="title">
-      <string>Enable Benesi MAG Transform THREE               ;  Copy ONE</string>
+      <string>Enable Benesi MAG Transform T3             ;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -14573,7 +14573,7 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_339">
           <property name="text">
-           <string>Offset z</string>
+           <string>Offset z:</string>
           </property>
          </widget>
         </item>
@@ -14786,7 +14786,7 @@
         <item row="5" column="1">
          <widget class="QLabel" name="label_343">
           <property name="text">
-           <string>Offset y</string>
+           <string>Offset y:</string>
           </property>
          </widget>
         </item>
@@ -14863,7 +14863,7 @@
    <item row="30" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformFiveB1_enabled">
      <property name="title">
-      <string>Enable Benesi MAG Transform FIVE_B             ;  Copy ONE</string>
+      <string>Enable Benesi MAG Transform T5b            ;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -15134,7 +15134,7 @@
         <item row="5" column="1">
          <widget class="QLabel" name="label_355">
           <property name="text">
-           <string>Power Two.y</string>
+           <string>Power B.y:</string>
           </property>
          </widget>
         </item>
@@ -15163,7 +15163,7 @@
         <item row="13" column="1">
          <widget class="QLabel" name="label_352">
           <property name="text">
-           <string>Offset y</string>
+           <string>Offset y:</string>
           </property>
          </widget>
         </item>
@@ -15241,14 +15241,14 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_358">
           <property name="text">
-           <string>Power One.y</string>
+           <string>Power A.y:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label_359">
           <property name="text">
-           <string>Power One.x</string>
+           <string>Power A.x:</string>
           </property>
          </widget>
         </item>
@@ -15362,7 +15362,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_357">
           <property name="text">
-           <string>Power One.z</string>
+           <string>Power A.z:</string>
           </property>
          </widget>
         </item>
@@ -15397,7 +15397,7 @@
         <item row="4" column="1">
          <widget class="QLabel" name="label_356">
           <property name="text">
-           <string>Power Two.x</string>
+           <string>Power B.x:</string>
           </property>
          </widget>
         </item>
@@ -15582,7 +15582,7 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_354">
           <property name="text">
-           <string>Power Two.z</string>
+           <string>Power B.z:</string>
           </property>
          </widget>
         </item>
@@ -15617,7 +15617,7 @@
         <item row="14" column="1">
          <widget class="QLabel" name="label_348">
           <property name="text">
-           <string>Offset z</string>
+           <string>Offset z:</string>
           </property>
          </widget>
         </item>
@@ -15715,7 +15715,7 @@
    <item row="3" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_benesiMagTransformOneEnabled1_enabled">
      <property name="title">
-      <string>Enable Benesi MAG Transform ONE   Enabled            ;  Copy ONE</string>
+      <string>Enable Benesi MAG Transform T1   Enabled            ;  Copy ONE</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -15899,7 +15899,7 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_299">
           <property name="text">
-           <string>Offset z</string>
+           <string>Offset z:</string>
           </property>
          </widget>
         </item>
@@ -16112,7 +16112,7 @@
         <item row="5" column="1">
          <widget class="QLabel" name="label_320">
           <property name="text">
-           <string>Offset y</string>
+           <string>Offset y:</string>
           </property>
          </widget>
         </item>
@@ -16211,7 +16211,7 @@
    <item row="33" column="0">
     <widget class="MyGroupBox" name="groupCheck_transform_constantMultiplier2_enabled">
      <property name="title">
-      <string>Enable Constant MULTIPLIER  z =  z + c * const.;  Copy TWO</string>
+      <string>Enable addCpixel Constant MULTIPLIER  z =  z + c * const.;  Copy TWO</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -16342,7 +16342,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_71">
           <property name="text">
-           <string>y:</string>
+           <string>Constant Multiplier for C.y:</string>
           </property>
          </widget>
         </item>
@@ -16377,14 +16377,14 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_113">
           <property name="text">
-           <string>x:</string>
+           <string>Constant Multiplier for C.x:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="QLabel" name="label_117">
           <property name="text">
-           <string>z:</string>
+           <string>Constant Multiplier for C.z:</string>
           </property>
          </widget>
         </item>
@@ -16747,7 +16747,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_242">
           <property name="text">
-           <string>Constant Multiplier for C.x::</string>
+           <string>Constant Multiplier for C.x:</string>
           </property>
          </widget>
         </item>
@@ -17419,15 +17419,15 @@
    <header>mydoublespinbox.h</header>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>myspinbox.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>mygroupbox.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>myspinbox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

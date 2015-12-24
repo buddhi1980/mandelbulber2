@@ -1946,6 +1946,93 @@ void TransformBenesiT2Iteration(CVector3 &z,  const cFractal *fractal, sExtended
                (z.y - z.x) * SQRT_1_2,
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
+void TransformBenesiT3Iteration(CVector3 &z,  const cFractal *fractal)
+{
+  double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+  z = CVector3((tempXZ - z.y) * SQRT_1_2,
+               (tempXZ + z.y) * SQRT_1_2,
+               z.x * SQRT_1_3 + z.z * SQRT_2_3);
+
+  //  Change this for different transforms
+  CVector3 tempV2 = z;
+  tempV2.x = (z.y + z.z);
+  tempV2.y = (z.x + z.z);   // switching
+  tempV2.z = (z.x + z.y);
+  z = (fabs(tempV2 - fractal->transformCommon.additionConstant222)) * fractal->transformCommon.scale3D222;
+//double avgScale = (fabs(fractal->transformCommon.scale3D222.x) + fabs(fractal->transformCommon.scale3D222.y)
+  //                + fabs(fractal->transformCommon.scale3D222.z)) / 3; // cheap approximation
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+
+  //aux.r_dz *= avgScale;
+  //aux.DE = aux.DE * avgScale + 1.0;
+  tempXZ = (z.y + z.x) * SQRT_1_2;
+
+  z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
+               (z.y - z.x) * SQRT_1_2,
+               z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+}
+void TransformBenesiT4Iteration(CVector3 &z,  const cFractal *fractal)
+{
+  double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+  z = CVector3((tempXZ - z.y) * SQRT_1_2,
+               (tempXZ + z.y) * SQRT_1_2,
+               z.x * SQRT_1_3 + z.z * SQRT_2_3);
+
+  //  Change this for different transforms   This is T4:
+  CVector3 tempV2 = z;
+  tempV2.x = (z.y * z.y + z.z * z.z);
+  tempV2.y = (z.x * z.x + z.z * z.z);  // switching, squared,
+  tempV2.z = (z.x * z.x + z.y * z.y);
+  z = (fabs(tempV2 - fractal->transformCommon.additionConstant111)) * fractal->transformCommon.scale3D222;
+  //double avgScale = (fabs(fractal->transformCommon.scale3D222.x) + fabs(fractal->transformCommon.scale3D222.y)
+  //                + fabs(fractal->transformCommon.scale3D222.z)) / 3; // cheap approximation
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+}
+void TransformBenesiT5bIteration(CVector3 &z,  const cFractal *fractal)
+{
+  double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+  z = CVector3((tempXZ - z.y) * SQRT_1_2,
+               (tempXZ + z.y) * SQRT_1_2,
+               z.x * SQRT_1_3 + z.z * SQRT_2_3);
+
+  //  Change this for different transforms   This is T4:
+  if (z.x > -1e-21 && z.x < 1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
+  if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;
+  if (z.z > -1e-21 && z.z < 1e-21) z.z = (z.z > 0) ? 1e-21 : -1e-21;
+  CVector3 tempV2 = z;
+  tempV2.x = fabs(pow(pow(z.y, fractal->transformCommon.power8.x)
+                    + pow(z.z, fractal->transformCommon.power8.x),
+                               fractal->transformCommon.power025.x));
+  tempV2.y = fabs(pow(pow(z.x, fractal->transformCommon.power8.y)
+                    + pow(z.z, fractal->transformCommon.power8.y),
+                               fractal->transformCommon.power025.y));
+  tempV2.z = fabs(pow(pow(z.x, fractal->transformCommon.power8.z)
+                    + pow(z.y, fractal->transformCommon.power8.z),
+                               fractal->transformCommon.power025.z));
+  z = (fabs(tempV2 - fractal->transformCommon.additionConstant111)) * fractal->transformCommon.scale3D222;
+  //double avgScale = (fabs(fractal->transformCommon.scale3D222.x) + fabs(fractal->transformCommon.scale3D222.y)
+  //                + fabs(fractal->transformCommon.scale3D222.z)) / 3; // cheap approximation
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+  //aux.r_dz *= avgScale;
+  //aux.DE = aux.DE * avgScale + 1.0;
+  tempXZ = (z.y + z.x) * SQRT_1_2;
+
+  z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
+               (z.y - z.x) * SQRT_1_2,
+               z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+}
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
 {
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);

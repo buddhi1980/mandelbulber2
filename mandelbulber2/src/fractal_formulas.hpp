@@ -81,6 +81,9 @@ void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtended
 void TransformBenesiT1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBenesiT1ModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBenesiT2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformBenesiT3Iteration(CVector3 &z, const cFractal *fractal);
+void TransformBenesiT4Iteration(CVector3 &z, const cFractal *fractal);
+void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);

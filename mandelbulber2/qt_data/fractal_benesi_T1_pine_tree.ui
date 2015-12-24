@@ -185,7 +185,7 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_255">
           <property name="text">
-           <string>Offset y</string>
+           <string>Offset y:</string>
           </property>
          </widget>
         </item>
@@ -234,7 +234,7 @@
         <item row="7" column="1">
          <widget class="QLabel" name="label_257">
           <property name="text">
-           <string>Offset z</string>
+           <string>Offset z:</string>
           </property>
          </widget>
         </item>
@@ -734,14 +734,14 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_121">
           <property name="text">
-           <string>ConstantMultiplier y:</string>
+           <string>ConstantMultiplier C.y:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_120">
           <property name="text">
-           <string>ConstantMultiplier x:</string>
+           <string>ConstantMultiplier C.x:</string>
           </property>
          </widget>
         </item>
@@ -767,7 +767,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_123">
           <property name="text">
-           <string>ConstantMultiplier z:</string>
+           <string>ConstantMultiplier C.z:</string>
           </property>
          </widget>
         </item>

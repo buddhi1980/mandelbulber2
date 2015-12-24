@@ -782,6 +782,7 @@ struct sFractalTransformCommon
 	double scale;
   CVector3 additionConstant000;
   CVector3 additionConstant111;
+  CVector3 additionConstant222;
   bool benesiT1Enabled;
   bool rotationEnabled;
 	CVector3 rotation;
@@ -800,7 +801,9 @@ struct sFractalTransformCommon
   CVector3 offset200;
   int startIterations;
   int stopIterations;
-  //bool CxCySwap;
+  CVector3 power025;
+  CVector3 power8;
+
 };
 
 class cFractal

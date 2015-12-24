@@ -367,7 +367,21 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformBenesiT2Iteration(z, fractal, extendedAux[sequence]);
           break;
         }
-
+        case transfBenesiT3:
+        {
+          TransformBenesiT3Iteration(z, fractal);
+          break;
+        }
+        case transfBenesiT4:
+        {
+          TransformBenesiT4Iteration(z, fractal);
+          break;
+        }
+        case transfBenesiT5b:
+        {
+          TransformBenesiT5bIteration(z, fractal);
+          break;
+        }
 
         case transfBoxOffset:
         {
@@ -433,6 +447,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfBenesiT1:
         case transfBenesiT1Mod:
         case transfBenesiT2:
+        case transfBenesiT3:
+        case transfBenesiT4:
+        case transfBenesiT5b:
         case transfBoxOffset:
 				case transfRotation:
 				case transfScale:
