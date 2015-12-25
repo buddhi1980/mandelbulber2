@@ -382,7 +382,26 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformBenesiT5bIteration(z, fractal);
           break;
         }
-
+        case transfBenesiMagForward:
+        {
+          TransformBenesiMagForwardIteration(z);
+          break;
+        }
+        case transfBenesiMagBackward:
+        {
+          TransformBenesiMagBackwardIteration(z);
+          break;
+        }
+        case transfBenesiCubeSphere:
+        {
+          TransformBenesiCubeSphereIteration(z);
+          break;
+        }
+        case transfBenesiSphereCube:
+        {
+        TransformBenesiSphereCubeIteration(z);
+        break;
+        }
         case transfBoxOffset:
         {
           TransformBoxOffsetIteration(z, fractal, extendedAux[sequence]);
@@ -450,6 +469,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfBenesiT3:
         case transfBenesiT4:
         case transfBenesiT5b:
+        case transfBenesiMagForward:
+        case transfBenesiMagBackward:
+        case transfBenesiCubeSphere:
+        case transfBenesiSphereCube:
         case transfBoxOffset:
 				case transfRotation:
 				case transfScale:

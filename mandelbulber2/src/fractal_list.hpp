@@ -104,7 +104,11 @@ enum enumFractalFormula
   transfBenesiT2 = 1011,
   transfBenesiT3 = 1012,
   transfBenesiT4 = 1013,
-  transfBenesiT5b = 1014
+  transfBenesiT5b = 1014,
+  transfBenesiMagForward = 1015,
+  transfBenesiMagBackward = 1016,
+  transfBenesiCubeSphere = 1017,
+  transfBenesiSphereCube = 1018
 };
 
 enum enumDEType

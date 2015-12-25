@@ -2033,6 +2033,74 @@ void TransformBenesiT5bIteration(CVector3 &z,  const cFractal *fractal)
                (z.y - z.x) * SQRT_1_2,
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
+
+void TransformBenesiMagForwardIteration(CVector3 &z)
+{
+  double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+  z = CVector3((tempXZ - z.y) * SQRT_1_2,
+               (tempXZ + z.y) * SQRT_1_2,
+               z.x * SQRT_1_3 + z.z * SQRT_2_3);
+}
+
+void TransformBenesiMagBackwardIteration(CVector3 &z)
+{
+  double tempXZ = (z.y + z.x) * SQRT_1_2;
+  z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
+               (z.y - z.x) * SQRT_1_2,
+               z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
+}
+//Cube to sphere transform
+//Description: Warps a cube to a sphere; transform made by M.Benesi, optimized by Luca.
+//http://www.fractalforums.com/mathematics/circle2square/
+void TransformBenesiCubeSphereIteration(CVector3 &z)
+{
+  z *= z;       // so all now positive
+
+  if (z.x == 0.0) z.x = 1e-21;
+  if (z.z == 0.0) z.z = 1e-21;
+
+  double rCyz = z.y / z.z;
+
+  double rCxyz = (z.y + z.z) / z.x;
+
+  if (rCxyz == -1.0) z.z = 1.0 + 1e-21;
+  if (rCyz < 1.0) rCyz = sqrt(rCyz + 1.0);
+  else rCyz = sqrt(1.0 / rCyz + 1.0);
+
+  if (rCxyz < 1.0) rCxyz = sqrt(rCxyz + 1.0);
+  else rCxyz = sqrt(1.0 / rCxyz + 1.0);
+
+  z.y *= rCyz;
+  z.z *= rCyz;
+
+  z *= rCxyz / SQRT_3_2;
+}
+//sphere to Cube transform
+//Warps a sphere to a cube; transform made by M.Benesi, optimized by
+//Luca.  Scavenged and edited from code optimized by Luca.
+
+//http://www.fractalforums.com/mathematics/circle2square/
+void TransformBenesiSphereCubeIteration(CVector3 &z)
+{
+  z *= z;
+  if (z.z == 0.0) z.z = 1e-21;
+  double rCyz = z.y / z.z;
+  if (rCyz < 1.0) rCyz = 1.0 / sqrt(rCyz + 1.0);
+  else rCyz = 1.0 / sqrt(1.0 / rCyz + 1.0);
+
+  z.y *= rCyz;
+  z.z *= rCyz;
+
+  if (z.x == 0.0) z.x = 1e-21;
+  double rCxyz = (z.y * z.y + z.z * z.z) / z.x;
+
+  if (rCxyz < 1.0) rCxyz = 1.0 / sqrt(rCxyz + 1.0);
+  else rCxyz = 1.0 / sqrt(1.0 / rCxyz + 1.0);
+
+  z *= rCxyz * SQRT_3_2;
+
+}
+
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
 {
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);

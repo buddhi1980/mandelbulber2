@@ -20,7 +20,7 @@
    <string>Mandelbulber</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons.qrc">
+   <iconset>
     <normaloff>:/system/icons/mandelbulber.png</normaloff>:/system/icons/mandelbulber.png</iconset>
   </property>
   <property name="dockOptions">
@@ -1561,7 +1561,7 @@
           <string>RENDER</string>
          </property>
          <property name="icon">
-          <iconset theme="applications-graphics" resource="icons.qrc">
+          <iconset theme="applications-graphics">
            <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
          </property>
         </widget>
@@ -1575,7 +1575,7 @@
           <string>UNDO</string>
          </property>
          <property name="icon">
-          <iconset theme="edit-undo" resource="icons.qrc">
+          <iconset theme="edit-undo">
            <normaloff>:/system/icons/edit-undo.png</normaloff>:/system/icons/edit-undo.png</iconset>
          </property>
         </widget>
@@ -1589,7 +1589,7 @@
           <string>REDO</string>
          </property>
          <property name="icon">
-          <iconset theme="edit-redo" resource="icons.qrc">
+          <iconset theme="edit-redo">
            <normaloff>:/system/icons/edit-redo.png</normaloff>:/system/icons/edit-redo.png</iconset>
          </property>
         </widget>
@@ -1603,7 +1603,7 @@
           <string>STOP</string>
          </property>
          <property name="icon">
-          <iconset theme="process-stop" resource="icons.qrc">
+          <iconset theme="process-stop">
            <normaloff>:/system/icons/process-stop.svg</normaloff>:/system/icons/process-stop.svg</iconset>
          </property>
         </widget>
@@ -2040,7 +2040,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2072,7 +2072,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2110,7 +2110,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2154,7 +2154,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/arrow-up-double.png</normaloff>:/navigation/icons/arrow-up-double.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2186,7 +2186,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/arrow-down-double.png</normaloff>:/navigation/icons/arrow-down-double.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2218,7 +2218,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2386,7 +2386,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2424,7 +2424,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2456,7 +2456,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2488,7 +2488,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/object-rotate-right.png</normaloff>:/navigation/icons/object-rotate-right.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2520,7 +2520,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/object-rotate-left.png</normaloff>:/navigation/icons/object-rotate-left.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -2552,7 +2552,7 @@ to target:</string>
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset>
                     <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -5634,7 +5634,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-867</y>
                   <width>379</width>
                   <height>1714</height>
                  </rect>
@@ -16393,7 +16393,7 @@ from fractal #:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset>
                        <normaloff>:/primitives/icons/cylinder.png</normaloff>:/primitives/icons/cylinder.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -16416,7 +16416,7 @@ from fractal #:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset>
                        <normaloff>:/primitives/icons/cone.png</normaloff>:/primitives/icons/cone.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -16439,7 +16439,7 @@ from fractal #:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset>
                        <normaloff>:/primitives/icons/rectangle.png</normaloff>:/primitives/icons/rectangle.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -16462,7 +16462,7 @@ from fractal #:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset>
                        <normaloff>:/primitives/icons/circle.png</normaloff>:/primitives/icons/circle.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -16485,7 +16485,7 @@ from fractal #:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset>
                        <normaloff>:/primitives/icons/box.png</normaloff>:/primitives/icons/box.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -16508,7 +16508,7 @@ from fractal #:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset>
                        <normaloff>:/primitives/icons/water.png</normaloff>:/primitives/icons/water.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -16531,7 +16531,7 @@ from fractal #:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset>
                        <normaloff>:/primitives/icons/plane.png</normaloff>:/primitives/icons/plane.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -16554,7 +16554,7 @@ from fractal #:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset>
                        <normaloff>:/primitives/icons/torus.png</normaloff>:/primitives/icons/torus.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -16577,7 +16577,7 @@ from fractal #:</string>
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="icons.qrc">
+                      <iconset>
                        <normaloff>:/primitives/icons/sphere.png</normaloff>:/primitives/icons/sphere.png</iconset>
                      </property>
                      <property name="iconSize">
@@ -17812,7 +17812,7 @@ of fractal iterations:</string>
                     <string>Connect to server</string>
                    </property>
                    <property name="icon">
-                    <iconset theme="media-playback-start" resource="icons.qrc">
+                    <iconset theme="media-playback-start">
                      <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
                    </property>
                   </widget>
@@ -17832,7 +17832,7 @@ of fractal iterations:</string>
                     <string>Disconnect</string>
                    </property>
                    <property name="icon">
-                    <iconset theme="edit-delete" resource="icons.qrc">
+                    <iconset theme="edit-delete">
                      <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
                    </property>
                   </widget>
@@ -17937,7 +17937,7 @@ of fractal iterations:</string>
                     <string>Launch server and watch for clients</string>
                    </property>
                    <property name="icon">
-                    <iconset theme="media-playback-start" resource="icons.qrc">
+                    <iconset theme="media-playback-start">
                      <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
                    </property>
                   </widget>
@@ -17957,7 +17957,7 @@ of fractal iterations:</string>
                     <string>Stop Server</string>
                    </property>
                    <property name="icon">
-                    <iconset theme="edit-delete" resource="icons.qrc">
+                    <iconset theme="edit-delete">
                      <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
                    </property>
                   </widget>
@@ -18161,7 +18161,7 @@ of fractal iterations:</string>
                   <string>Render flight animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="video-x-generic" resource="icons.qrc">
+                  <iconset theme="video-x-generic">
                    <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
                  </property>
                 </widget>
@@ -18181,7 +18181,7 @@ of fractal iterations:</string>
                   <string>Record flight path</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record" resource="icons.qrc">
+                  <iconset theme="media-record">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -18201,7 +18201,7 @@ of fractal iterations:</string>
                   <string>Delete all images</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="edit-delete" resource="icons.qrc">
+                  <iconset theme="edit-delete">
                    <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
                  </property>
                 </widget>
@@ -18221,7 +18221,7 @@ of fractal iterations:</string>
                   <string>Show Animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-playback-start" resource="icons.qrc">
+                  <iconset theme="media-playback-start">
                    <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
                  </property>
                 </widget>
@@ -18241,7 +18241,7 @@ of fractal iterations:</string>
                   <string>Continue recording</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record" resource="icons.qrc">
+                  <iconset theme="media-record">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -18261,7 +18261,7 @@ of fractal iterations:</string>
                   <string>Refresh table</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="view-refresh" resource="icons.qrc">
+                  <iconset theme="view-refresh">
                    <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
                  </property>
                 </widget>
@@ -18931,7 +18931,7 @@ of fractal iterations:</string>
                   <string>Insert keyframe</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record" resource="icons.qrc">
+                  <iconset theme="media-record">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -18951,7 +18951,7 @@ of fractal iterations:</string>
                   <string>Delete keyframe</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record" resource="icons.qrc">
+                  <iconset theme="media-record">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -18971,7 +18971,7 @@ of fractal iterations:</string>
                   <string>Add keyframe</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record" resource="icons.qrc">
+                  <iconset theme="media-record">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -18991,7 +18991,7 @@ of fractal iterations:</string>
                   <string>Show Animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-playback-start" resource="icons.qrc">
+                  <iconset theme="media-playback-start">
                    <normaloff>:/system/icons/media-playback-start.svg</normaloff>:/system/icons/media-playback-start.svg</iconset>
                  </property>
                 </widget>
@@ -19011,7 +19011,7 @@ of fractal iterations:</string>
                   <string>Render animation</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="video-x-generic" resource="icons.qrc">
+                  <iconset theme="video-x-generic">
                    <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
                  </property>
                 </widget>
@@ -19031,7 +19031,7 @@ of fractal iterations:</string>
                   <string>Modify keyframe</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="media-record" resource="icons.qrc">
+                  <iconset theme="media-record">
                    <normaloff>:/system/icons/media-record.svg</normaloff>:/system/icons/media-record.svg</iconset>
                  </property>
                 </widget>
@@ -19067,7 +19067,7 @@ of fractal iterations:</string>
                   <string>Delete all images</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="edit-delete" resource="icons.qrc">
+                  <iconset theme="edit-delete">
                    <normaloff>:/system/icons/edit-delete.svg</normaloff>:/system/icons/edit-delete.svg</iconset>
                  </property>
                 </widget>
@@ -19087,7 +19087,7 @@ of fractal iterations:</string>
                   <string>Refresh table</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="view-refresh" resource="icons.qrc">
+                  <iconset theme="view-refresh">
                    <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
                  </property>
                 </widget>
@@ -19107,7 +19107,7 @@ of fractal iterations:</string>
                   <string>Validate</string>
                  </property>
                  <property name="icon">
-                  <iconset theme="dialog-ok-apply" resource="icons.qrc">
+                  <iconset theme="dialog-ok-apply">
                    <normaloff>:/system/icons/video-x-generic.svg</normaloff>:/system/icons/video-x-generic.svg</iconset>
                  </property>
                 </widget>
@@ -19844,7 +19844,7 @@ keyframes</string>
               <string>Remove orphaned</string>
              </property>
              <property name="icon">
-              <iconset theme="list-remove" resource="icons.qrc">
+              <iconset theme="list-remove">
                <normaloff>:/system/icons/list-remove.svg</normaloff>:/system/icons/list-remove.svg</iconset>
              </property>
             </widget>
@@ -19858,7 +19858,7 @@ keyframes</string>
               <string>Render queue</string>
              </property>
              <property name="icon">
-              <iconset theme="applications-graphics" resource="icons.qrc">
+              <iconset theme="applications-graphics">
                <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
              </property>
             </widget>
@@ -19872,7 +19872,7 @@ keyframes</string>
               <string>Add orphaned</string>
              </property>
              <property name="icon">
-              <iconset theme="view-refresh" resource="icons.qrc">
+              <iconset theme="view-refresh">
                <normaloff>:/system/icons/view-refresh.svg</normaloff>:/system/icons/view-refresh.svg</iconset>
              </property>
             </widget>
@@ -19886,7 +19886,7 @@ keyframes</string>
               <string>Add current settings</string>
              </property>
              <property name="icon">
-              <iconset theme="list-add" resource="icons.qrc">
+              <iconset theme="list-add">
                <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
              </property>
             </widget>
@@ -19900,7 +19900,7 @@ keyframes</string>
               <string>Add from file</string>
              </property>
              <property name="icon">
-              <iconset theme="list-add" resource="icons.qrc">
+              <iconset theme="list-add">
                <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
              </property>
             </widget>
@@ -19914,7 +19914,7 @@ keyframes</string>
               <string>STOP</string>
              </property>
              <property name="icon">
-              <iconset theme="process-stop" resource="icons.qrc">
+              <iconset theme="process-stop">
                <normaloff>:/system/icons/process-stop.svg</normaloff>:/system/icons/process-stop.svg</iconset>
              </property>
             </widget>
@@ -20059,7 +20059,7 @@ keyframes</string>
   </widget>
   <action name="actionSave_as_JPG">
    <property name="icon">
-    <iconset theme="document-save-as" resource="icons.qrc">
+    <iconset theme="document-save-as">
      <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
@@ -20068,7 +20068,7 @@ keyframes</string>
   </action>
   <action name="actionSave_as_PNG">
    <property name="icon">
-    <iconset theme="document-save-as" resource="icons.qrc">
+    <iconset theme="document-save-as">
      <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
@@ -20077,7 +20077,7 @@ keyframes</string>
   </action>
   <action name="actionSave_as_PNG_16_bit">
    <property name="icon">
-    <iconset theme="document-save-as" resource="icons.qrc">
+    <iconset theme="document-save-as">
      <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
@@ -20086,7 +20086,7 @@ keyframes</string>
   </action>
   <action name="actionSave_as_PNG_16_bit_with_alpha_channel">
    <property name="icon">
-    <iconset theme="document-save-as" resource="icons.qrc">
+    <iconset theme="document-save-as">
      <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
@@ -20095,7 +20095,7 @@ keyframes</string>
   </action>
   <action name="actionLoad_settings">
    <property name="icon">
-    <iconset theme="document-open" resource="icons.qrc">
+    <iconset theme="document-open">
      <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
@@ -20104,7 +20104,7 @@ keyframes</string>
   </action>
   <action name="actionLoad_settings_from_clipboard">
    <property name="icon">
-    <iconset theme="document-open" resource="icons.qrc">
+    <iconset theme="document-open">
      <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
@@ -20113,7 +20113,7 @@ keyframes</string>
   </action>
   <action name="actionSave_settings">
    <property name="icon">
-    <iconset theme="document-save" resource="icons.qrc">
+    <iconset theme="document-save">
      <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
    </property>
    <property name="text">
@@ -20122,7 +20122,7 @@ keyframes</string>
   </action>
   <action name="actionSave_settings_to_clipboard">
    <property name="icon">
-    <iconset theme="document-save" resource="icons.qrc">
+    <iconset theme="document-save">
      <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
    </property>
    <property name="text">
@@ -20131,7 +20131,7 @@ keyframes</string>
   </action>
   <action name="actionSave_settings_as">
    <property name="icon">
-    <iconset theme="document-save" resource="icons.qrc">
+    <iconset theme="document-save">
      <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
    </property>
    <property name="text">
@@ -20143,7 +20143,7 @@ keyframes</string>
   </action>
   <action name="actionProgramSettings">
    <property name="icon">
-    <iconset theme="preferences-system" resource="icons.qrc">
+    <iconset theme="preferences-system">
      <normaloff>:/system/icons/preferences-system.svg</normaloff>:/system/icons/preferences-system.svg</iconset>
    </property>
    <property name="text">
@@ -20152,7 +20152,7 @@ keyframes</string>
   </action>
   <action name="actionQuit">
    <property name="icon">
-    <iconset theme="application-exit" resource="icons.qrc">
+    <iconset theme="application-exit">
      <normaloff>:/system/icons/system-shutdown.svg</normaloff>:/system/icons/system-shutdown.svg</iconset>
    </property>
    <property name="text">
@@ -20181,7 +20181,7 @@ keyframes</string>
   </action>
   <action name="actionAbout_Mandelbulber">
    <property name="icon">
-    <iconset resource="icons.qrc">
+    <iconset>
      <normaloff>:/system/icons/mandelbulber.png</normaloff>:/system/icons/mandelbulber.png</iconset>
    </property>
    <property name="text">
@@ -20190,7 +20190,7 @@ keyframes</string>
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset theme="edit-undo" resource="icons.qrc">
+    <iconset theme="edit-undo">
      <normaloff>:/system/icons/edit-undo.png</normaloff>:/system/icons/edit-undo.png</iconset>
    </property>
    <property name="text">
@@ -20202,7 +20202,7 @@ keyframes</string>
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset theme="edit-redo" resource="icons.qrc">
+    <iconset theme="edit-redo">
      <normaloff>:/system/icons/edit-redo.png</normaloff>:/system/icons/edit-redo.png</iconset>
    </property>
    <property name="text">
@@ -20214,7 +20214,7 @@ keyframes</string>
   </action>
   <action name="actionImport_settings_from_old_Mandelbulber">
    <property name="icon">
-    <iconset theme="document-open" resource="icons.qrc">
+    <iconset theme="document-open">
      <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
@@ -20223,7 +20223,7 @@ keyframes</string>
   </action>
   <action name="actionLoad_example">
    <property name="icon">
-    <iconset theme="document-open" resource="icons.qrc">
+    <iconset theme="document-open">
      <normaloff>:/system/icons/document-open.svg</normaloff>:/system/icons/document-open.svg</iconset>
    </property>
    <property name="text">
@@ -20300,7 +20300,7 @@ keyframes</string>
   </action>
   <action name="actionSave_as_EXR">
    <property name="icon">
-    <iconset theme="document-save-as" resource="icons.qrc">
+    <iconset theme="document-save-as">
      <normaloff>:/system/icons/document-save-as.svg</normaloff>:/system/icons/document-save-as.svg</iconset>
    </property>
    <property name="text">
@@ -20309,7 +20309,7 @@ keyframes</string>
   </action>
   <action name="actionAdd_Settings_to_Toolbar">
    <property name="icon">
-    <iconset theme="list-add" resource="icons.qrc">
+    <iconset theme="list-add">
      <normaloff>:/system/icons/list-add.svg</normaloff>:/system/icons/list-add.svg</iconset>
    </property>
    <property name="text">
@@ -20321,7 +20321,7 @@ keyframes</string>
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="list-remove" resource="icons.qrc">
+    <iconset theme="list-remove">
      <normaloff>:/system/icons/list-remove.svg</normaloff>:/system/icons/list-remove.svg</iconset>
    </property>
    <property name="text">
@@ -20875,8 +20875,6 @@ keyframes</string>
   <tabstop>spinboxInt_keyframe_last_to_render</tabstop>
   <tabstop>checkBox_show_keyframe_thumbnails</tabstop>
  </tabstops>
- <resources>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

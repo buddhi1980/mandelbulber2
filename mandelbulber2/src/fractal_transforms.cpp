@@ -1860,8 +1860,8 @@ void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, 
 			&& i < sphereCube.control.stopIterations)
 	{
 		CVector3 temp = z;
-		if (z.z == 0.0) z.z = 1e-21;
 		z *= z;
+    if (z.z == 0.0) z.z = 1e-21;
 		double rCyz = z.y / z.z;
 		if (rCyz < 1.0) rCyz = 1.0 / sqrt(rCyz + 1.0);
 		else rCyz = 1.0 / sqrt(1.0 / rCyz + 1.0);

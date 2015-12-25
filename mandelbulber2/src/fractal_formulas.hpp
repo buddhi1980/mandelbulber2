@@ -84,6 +84,12 @@ void TransformBenesiT2Iteration(CVector3 &z, const cFractal *fractal, sExtendedA
 void TransformBenesiT3Iteration(CVector3 &z, const cFractal *fractal);
 void TransformBenesiT4Iteration(CVector3 &z, const cFractal *fractal);
 void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal);
+void TransformBenesiMagForwardIteration(CVector3 &z);
+void TransformBenesiMagBackwardIteration(CVector3 &z);
+void TransformBenesiCubeSphereIteration(CVector3 &z);
+void TransformBenesiSphereCubeIteration(CVector3 &z);
+
+
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
