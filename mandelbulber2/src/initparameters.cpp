@@ -469,7 +469,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("buffalo_abs_z", false, morphLinear, paramStandard);
 	par->addParam("buffalo_pos_z", false, morphLinear, paramStandard);
 
-	par->addParam("msltoesym2_y_multiplier", 1.0, morphLinear, paramStandard);
+
   // mengerMod
   par->addParam("mengerMod_scale_factor", 3.0, morphAkima, paramStandard);
   par->addParam("mengerMod_constant_factor", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
@@ -497,7 +497,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_scale3D_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transf_scale3D_333", CVector3(3.0, 3.0, 3.0), morphAkima, paramStandard);
   par->addParam("transf_scale3D_444", CVector3(4.0, 4.0, 4.0), morphAkima, paramStandard);
-  par->addParam("transf_addition_constant_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transf_addition_constant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);

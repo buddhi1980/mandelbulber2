@@ -219,10 +219,6 @@ struct sFractalBuffalo
 	bool posz;
 };
 
-struct sMsltoeSym2
-{
-	double y_multiplier;
-};
 
 struct sFractalMengerMod
 {
@@ -821,7 +817,6 @@ public:
 	sFractalMandelboxVary4D mandelboxVary4D;
 	sFractalAexion aexion;
 	sFractalBuffalo buffalo;
-	sMsltoeSym2 msltoeSym2;
 	sFractalTransform transform;
 	sFractalPlatonicSolid platonicSolid;
   sFractalMengerMod mengerMod;

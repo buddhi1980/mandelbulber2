@@ -587,7 +587,7 @@ void BuffaloIteration(CVector3 &z, const cFractal *fractal)
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
 	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2);
+  double temp = 1.0 - z2 / (x2 + y2);// may need exception catching
 	double newx = (x2 - y2) * temp;
 	double newy = 2.0 * z.x * z.y * temp;
 	double newz;
@@ -670,12 +670,13 @@ void Makin3D2Iteration(CVector3 &z)
 /* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */
 void MsltoeSym2(CVector3 &z, const cFractal *fractal)
 {
-	if (fabs(z.y) < fabs(z.z))
+  CVector3 temp = z;
+  if (fabs(z.y) < fabs(z.z))
 	{
-		double newy = z.z;
-		double newz = z.y;
-		z.y = newy;
-		z.z = newz;
+    temp.y = z.z;
+    temp.z = z.y;
+    z.y = temp.y;
+    z.z = temp.z;
 	}
 	if (z.y > z.z)
 	{
@@ -684,13 +685,14 @@ void MsltoeSym2(CVector3 &z, const cFractal *fractal)
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
 	double z2 = z.z * z.z;
-	double zr = 1 - z.z * z.z / (x2 + y2 + z2);
-	double newx = (x2 - y2) * zr;
-	double newy = 2 * z.x * z.y * zr * fractal->msltoeSym2.y_multiplier;
-	double newz = 2 * z.z * sqrt(x2 + z2);
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
+  double v3 = (x2 + y2 + z2);
+  if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
+  double zr = 1.0 - z.z * z.z / v3;
+  temp.x = (x2 - y2) * zr;
+  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;
+  temp.z = 2.0 * z.z * sqrt(x2 + z2);
+  z = temp +  fractal->transformCommon.additionConstant000;
+
 }
 
 

@@ -449,6 +449,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case menger_sponge:
 				case kaleidoscopicIFS:
 				case aexion:
+        case msltoesym2:
 				case mandelbulb5:
 				case mandelbox103:
 				case quaternion104:

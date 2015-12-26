@@ -102,8 +102,6 @@ cFractal::cFractal(const cParameterContainer *container)
 	buffalo.absz = container->Get<bool>("buffalo_abs_z");
 	buffalo.posz = container->Get<bool>("buffalo_pos_z");
 
-	msltoeSym2.y_multiplier = container->Get<double>("msltoesym2_y_multiplier");
-
   mengerMod.scaleFactor =	container->Get<double>("mengerMod_scale_factor");
   mengerMod.constantFactor = container->Get<CVector3>("mengerMod_constant_factor");
 
@@ -1351,7 +1349,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
   transformCommon.scale3D333 = container->Get<CVector3>("transf_scale3D_333");
   transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
-  transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant_000");
+  transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant");
   transformCommon.additionConstant111 = container->Get<CVector3>("transf_addition_constant_111");
   transformCommon.additionConstant222 = container->Get<CVector3>("transf_addition_constant_222");
 
