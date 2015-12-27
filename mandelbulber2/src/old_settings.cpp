@@ -70,7 +70,7 @@ bool cOldSettings::LoadSettings2(const QString &filename)
 	char str2[2000];
 
 	FILE * fileSettings;
-	fileSettings = fopen(filename.toUtf8(), "r");
+	fileSettings = fopen(filename.toLocal8Bit(), "r");
 
 	int lineCounter = 0;
 

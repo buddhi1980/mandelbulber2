@@ -59,12 +59,12 @@ std::string IndexFilename(const char* filename, const char* extension, int numbe
 void SavePNG(QString filename, int width, int height, png_byte *image)
 {
 	/* create file */
-	FILE *fp = fopen(filename.toUtf8().constData(), "wb");
+	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
 	if (!fp)
 	{
 		fprintf(stderr,
 						"[write_png_file] File %s could not be opened for writing",
-						filename.toUtf8().constData());
+						filename.toLocal8Bit().constData());
 		return;
 	}
 	/* initialize stuff */
@@ -276,12 +276,12 @@ void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles)
 void SavePNG16(QString filename, int width, int height, sRGB16* image16)
 {
 	/* create file */
-	FILE *fp = fopen(filename.toUtf8().constData(), "wb");
+	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
 	if (!fp)
 	{
 		fprintf(stderr,
 						"[write_png_file] File %s could not be opened for writing",
-						filename.toUtf8().constData());
+						filename.toLocal8Bit().constData());
 		return;
 	}
 
@@ -368,12 +368,12 @@ void SavePNG16(QString filename, int width, int height, sRGB16* image16)
 void SavePNG16Alpha(QString filename, int width, int height, cImage *image)
 {
 	/* create file */
-	FILE *fp = fopen(filename.toUtf8().constData(), "wb");
+	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
 	if (!fp)
 	{
 		fprintf(stderr,
 						"[write_png_file] File %s could not be opened for writing",
-						filename.toUtf8().constData());
+						filename.toLocal8Bit().constData());
 		return;
 	}
 	/* initialize stuff */
@@ -479,12 +479,12 @@ void SavePNG(QString filename, cImage *image, structSaveImageChannel imageChanne
 	int height = image->GetHeight();
 
 	/* create file */
-	FILE *fp = fopen(filename.toUtf8().constData(), "wb");
+	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
 	if (!fp)
 	{
 		fprintf(stderr,
 						"[write_png_file] File %s could not be opened for writing",
-						filename.toUtf8().constData());
+						filename.toLocal8Bit().constData());
 		return;
 	}
 

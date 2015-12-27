@@ -78,7 +78,7 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 
 	//hash code will be needed for generating thumbnails
 	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
-	hashCrypt.addData(settingsText.toUtf8());
+	hashCrypt.addData(settingsText.toLocal8Bit());
 	hash = hashCrypt.result();
 	//qDebug() << "hash code" << hash.toHex();
 
@@ -307,7 +307,7 @@ bool cSettings::LoadFromFile(QString filename)
 
 		//hash code will be needed for generating thumbnails
 		QCryptographicHash hashCrypt(QCryptographicHash::Md4);
-		hashCrypt.addData(settingsText.toUtf8());
+		hashCrypt.addData(settingsText.toLocal8Bit());
 		hash = hashCrypt.result();
 		//qDebug() << "hash code" << hash.toHex();
 
@@ -333,7 +333,7 @@ bool cSettings::LoadFromString(const QString &_settingsText)
 	textPrepared = true;
 
 	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
-	hashCrypt.addData(settingsText.toUtf8());
+	hashCrypt.addData(settingsText.toLocal8Bit());
 	hash = hashCrypt.result();
 	return true;
 }

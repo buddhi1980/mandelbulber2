@@ -70,7 +70,7 @@ bool InitSystem(void)
 #else
 	systemData.logfileName = systemData.homedir + ".mandelbulber_log.txt";
 #endif
-	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "w");
+	FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "w");
 	fclose(logfile);
 
 	out << "Mandelbulber " << MANDELBULBER_VERSION_STRING << ", build date: " << QString(__DATE__)
@@ -153,14 +153,14 @@ int get_cpu_count()
 
 void WriteLog(QString text)
 {
-	FILE *logfile = fopen(systemData.logfileName.toUtf8().constData(), "a");
+	FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "a");
 	QString logtext =
 			QString("PID: %1, time: %2, %3\n").arg(QCoreApplication::applicationPid()).arg(QString::number(clock()
 																																																				 / 1.0e6,
 																																																		 'f',
 																																																		 6)).arg(text);
 
-	fputs(logtext.toUtf8().constData(), logfile);
+	fputs(logtext.toLocal8Bit().constData(), logfile);
 	fclose(logfile);
 
 	// write to log in window
@@ -300,7 +300,7 @@ int fcopy(QString source, QString dest)
 	char *buffer;
 	size_t result;
 
-	pFile = fopen(source.toUtf8().constData(), "rb");
+	pFile = fopen(source.toLocal8Bit().constData(), "rb");
 	if (pFile == NULL)
 	{
 		qCritical() << "Can't open source file for copying: " << source << endl;
@@ -339,7 +339,7 @@ int fcopy(QString source, QString dest)
 
 	// ----- file writing
 
-	pFile = fopen(dest.toUtf8().constData(), "wb");
+	pFile = fopen(dest.toLocal8Bit().constData(), "wb");
 	if (pFile == NULL)
 	{
 		qCritical() << "Can't open destination file for copying: " << dest << endl;
