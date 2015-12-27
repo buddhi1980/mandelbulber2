@@ -668,7 +668,7 @@ void Makin3D2Iteration(CVector3 &z)
 }
 
 /* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */
-void MsltoeSym2(CVector3 &z, const cFractal *fractal)
+void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal)
 {
   CVector3 temp = z;
   if (fabs(z.y) < fabs(z.z))
@@ -691,11 +691,66 @@ void MsltoeSym2(CVector3 &z, const cFractal *fractal)
   temp.x = (x2 - y2) * zr;
   temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;
   temp.z = 2.0 * z.z * sqrt(x2 + z2);
-  z = temp +  fractal->transformCommon.additionConstant000;
-
+  z = temp +  fractal->transformCommon.additionConstantNeg100;
 }
+/* MsltoeSym3 from mbulb3d, also somewhere on fractalforums */
+void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal)
+{
+  CVector3 temp = z;
+  if (fabs(z.y) < fabs(z.z))
+  {
+    temp.y = z.z;
+    temp.z = z.y;
+    z.y = temp.y;
+    z.z = temp.z;
+  }
+  if (z.y > z.z)
+  {
+    z.x = -z.x;
+    z.z = -z.z;
+  }
+  double x2 = z.x * z.x;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+  double v3 = (x2 + y2 + z2);
+  if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
+  double zr = 1.0 - z.z * z.z / v3;
+  temp.x = (x2 - y2) * zr;
+  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;
+  temp.z = 2.0 * z.z * sqrt(x2 + z2);
+  z = temp +  fractal->transformCommon.additionConstantNeg100;
+}
+/* MsltoeSym4 from mbulb3d, also somewhere on fractalforums */
+void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal)
+{
+  CVector3 temp = z;
+  double swap = z.x;
+  if(fabs( z.x ) < fabs( z.z ) * fractal->transformCommon.constantMultiplier111.x)
+  {
+    z.x = z.z;
+    z.z = swap;
+  }
+  if (fabs( z.x ) < fabs( z.y ) *  fractal->transformCommon.constantMultiplier111.y)
+  {
+    swap = z.x;
+    z.x = z.y;
+    z.y = swap;
+  }
+  if (fabs( z.y ) < fabs( z.z ) * fractal->transformCommon.constantMultiplier111.z)
+  {
+    swap = z.y;
+    z.y = z.z;
+    z.z = swap;
+  }
 
+  if ( z.x * z.z  < 0)  z.z  = - z.z ;
+  if ( z.x * z.y  < 0)  z.y  = - z.y ;
+  temp.x =  z.x * z.x  -  z.y * z.y  -  z.z * z.z;
+  temp.y = 2* z.x * z.y ;
+  temp.z = 2* z.x * z.z ;
 
+  z = temp +  fractal->transformCommon.additionConstantNeg100;
+}
 
 
 //------------AexionOctopus  --------------------------------

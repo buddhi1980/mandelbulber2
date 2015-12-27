@@ -64,6 +64,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Menger sponge", 									"menger_sponge", 						menger_sponge, 					analyticDEType, linearDEFunction));
   fractalList->append(sFractalDescription("MengerMod", 											"mengerMod", 								mengerMod, 							analyticDEType, linearDEFunction));
 	fractalList->append(sFractalDescription("MsltoeSym2", 										"msltoesym2", 							msltoesym2, 						deltaDEType, 		logarithmicDEFunction));
+  fractalList->append(sFractalDescription("MsltoeSym3", 										"msltoesym3", 							msltoesym3, 						deltaDEType, 		logarithmicDEFunction));
+  fractalList->append(sFractalDescription("MsltoeSym4", 										"msltoesym4", 							msltoesym4, 						deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Quaternion", 										"quaternion", 							quaternion, 						deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Quaternion - extended", 					"quaternion104", 						quaternion104, 					deltaDEType, 		logarithmicDEFunction));
   fractalList->append(sFractalDescription("Quaternion3D", 									"quaternion3D", 						quaternion3D, 					deltaDEType, 		logarithmicDEFunction));

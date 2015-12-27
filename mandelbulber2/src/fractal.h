@@ -779,6 +779,7 @@ struct sFractalTransformCommon
   CVector3 additionConstant000;
   CVector3 additionConstant111;
   CVector3 additionConstant222;
+  CVector3 additionConstantNeg100;
   bool benesiT1Enabled;
   bool rotationEnabled;
 	CVector3 rotation;

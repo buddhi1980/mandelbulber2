@@ -90,6 +90,10 @@ enum enumFractalFormula
   mandelbulbMulti = 65,
   benesiPineTree = 66,
   benesiT1PineTree = 67,
+  msltoesym3 = 68,
+  msltoesym4 = 69,
+
+
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,

@@ -247,9 +247,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case msltoesym2:
 				{
-					MsltoeSym2(z, fractal);
+          MsltoeSym2Iteration(z, fractal);
 					break;
 				}
+        case msltoesym3:
+        {
+          MsltoeSym3Iteration(z, fractal);
+          break;
+        }
+        case msltoesym4:
+        {
+          MsltoeSym4Iteration(z, fractal);
+          break;
+        }
 				case generalizedFoldBox:
 				{
 					GeneralizedFoldBoxIteration(z, fractal, mandelboxAux[sequence]);
@@ -450,6 +460,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case kaleidoscopicIFS:
 				case aexion:
         case msltoesym2:
+        case msltoesym3:
+        case msltoesym4:
 				case mandelbulb5:
 				case mandelbox103:
 				case quaternion104:
