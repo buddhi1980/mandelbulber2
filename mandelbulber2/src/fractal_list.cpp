@@ -40,6 +40,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", 						"boxfold_bulbpow2", 				boxFoldBulbPow2, 				deltaDEType, 		linearDEFunction));
 	fractalList->append(sFractalDescription("Bristorbrot", 										"bristorbrot", 							bristorbrot, 						deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Buffalo", 												"buffalo", 									buffalo, 								deltaDEType, 		logarithmicDEFunction));
+  fractalList->append(sFractalDescription("Eiffie's MsltoeJulia",						"eiffie", 									eiffie, 								deltaDEType, 		logarithmicDEFunction));
+
   fractalList->append(sFractalDescription("FabsBoxMod", 										"fabsBoxMod", 							fabsBoxMod, 						analyticDEType, linearDEFunction));
 	fractalList->append(sFractalDescription("Generalized Fold Box", 					"generalized_fold_box", 		generalizedFoldBox, 		analyticDEType, linearDEFunction));
 	fractalList->append(sFractalDescription("Hypercomplex", 									"hypercomplex", 						hypercomplex, 					deltaDEType, 		logarithmicDEFunction));

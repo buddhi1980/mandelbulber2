@@ -29,6 +29,7 @@
 #define SQRT_1_2 0.70710678118654752440084436210485
 #define SQRT_2_3 0.81649658092772603273242802490196
 #define SQRT_3_2 1.22474487139158904909864203735295
+#define PI     3.1415926535897932384626433832795028
 
 using namespace fractal;
 
@@ -1599,6 +1600,24 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
   z = z * m;
   aux.DE = aux.DE * fabs(m) + 1.0;
 }
+//Post by Eiffie    Reply #69 on: January 27, 2015, 06:17:59 PM »
+//http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
+void EiffieIteration(CVector3 &z, const cFractal *fractal)
+{
+  double psi = fabs(fmod(atan2( z.z , z.y ) + PI/8.0, PI/4.0) - PI/8.0);
+  double r = sqrt( z.y * z.y + z.z * z.z );
+  z.y = cos(psi) * r;
+  z.z = sin(psi) * r;
+  double rr = z.x * z.x + z.y * z.y + z.z * z.z + 1e-60;
+  //if(rr < 1e-60) rr = 1e-60;
+  double m = 1.0 - z.z * z.z /rr;
+  CVector3 newz;
+  newz.x = ( z.x * z.x - z.y * z.y ) * m ;
+  newz.y = 2.0 * z.x * z.y * m;
+  newz.z = 2.0 * z.z * sqrt( z.x * z.x + z.y * z.y );
+  z = newz + fractal->transformCommon.additionConstantNeg100;
+}
+
 
 /* GeneralizedFoldBox, ref: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/ */
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux)

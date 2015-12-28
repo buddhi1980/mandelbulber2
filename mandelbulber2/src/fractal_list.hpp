@@ -92,6 +92,7 @@ enum enumFractalFormula
   benesiT1PineTree = 67,
   msltoesym3 = 68,
   msltoesym4 = 69,
+  eiffie = 70,
 
 
 

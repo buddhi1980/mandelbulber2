@@ -346,7 +346,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           BenesiT1PineTreeIteration(z, c, i, fractal, extendedAux[sequence]);
           break;
         }
-        //transforms
+        case eiffie:
+        {
+          EiffieIteration(z, fractal);
+          break;
+        }
+
+        //transforms ------------------------------------------------------------------------------------------
         case transfAdditionConstant:
         {
         	TransformAdditionConstantIteration(z, fractal);
@@ -473,6 +479,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case aexionOctopus:
         case benesiPineTree:
         case benesiT1PineTree:
+        case eiffie:
         case transfAdditionConstant:
         case transfAddCpixel:
         case transfAddCpixelAxisSwap:
