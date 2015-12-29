@@ -1908,29 +1908,36 @@ void TransformAdditionCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *
 }
 void TransformAdditionCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
-  switch (fractal->mandelbulbMulti.orderOfxyz)
+  if (fractal->transformCommon.addCpixelEnabled)
   {
-    case sFractalMandelbulbMulti::xyz:
-    default:
-      c = CVector3( c.x, c.y, c.z);
-      break;
-    case sFractalMandelbulbMulti::xzy:
-      c = CVector3( c.x, c.z, c.y);
-      break;
-    case sFractalMandelbulbMulti::yxz:
-      c = CVector3( c.y, c.x, c.z);
-      break;
-    case sFractalMandelbulbMulti::yzx:
-      c = CVector3( c.y, c.z, c.x);
-      break;
-    case sFractalMandelbulbMulti::zxy:
-      c = CVector3( c.z, c.x, c.y);
-      break;
-    case sFractalMandelbulbMulti::zyx:
-      c = CVector3( c.z, c.y, c.x);
-      break;
+    switch (fractal->mandelbulbMulti.orderOfxyz)
+    {
+      case sFractalMandelbulbMulti::xyz:
+      default:
+        c = CVector3( c.x, c.y, c.z);
+        break;
+      case sFractalMandelbulbMulti::xzy:
+        c = CVector3( c.x, c.z, c.y);
+        break;
+      case sFractalMandelbulbMulti::yxz:
+        c = CVector3( c.y, c.x, c.z);
+        break;
+      case sFractalMandelbulbMulti::yzx:
+        c = CVector3( c.y, c.z, c.x);
+        break;
+      case sFractalMandelbulbMulti::zxy:
+        c = CVector3( c.z, c.x, c.y);
+        break;
+      case sFractalMandelbulbMulti::zyx:
+        c = CVector3( c.z, c.y, c.x);
+        break;
+    }
+    z +=  c * fractal->transformCommon.constantMultiplier111;
   }
-  z +=  c * fractal->transformCommon.constantMultiplier111;
+  if (fractal->transformCommon.juliaMode)
+  {
+      z += fractal->transformCommon.juliaC;
+  }
 }
 //benesiT1  3D
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
