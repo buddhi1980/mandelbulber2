@@ -171,7 +171,7 @@ win32:QMAKE_CXXFLAGS -= -fopenmp
 
 unix:!mac:LIBS += -lpng -lgsl -lgslcblas -fopenmp
 macx:LIBS += -lpng -lgsl -lgslcblas -openmp
-win32:LIBS += -lz
+win32:LIBS += -lz -lpng -lgsl -lgslcblas
 win32:LIBS -= -fopenmp
 
 
