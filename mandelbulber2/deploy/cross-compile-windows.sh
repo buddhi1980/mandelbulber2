@@ -58,11 +58,11 @@ cp $MANDELBULBER_PREFIX/plugins/gamepads/* $MANDELBULBER_DLL_TARGET/gamepads/
 
 cp /usr/$MANDELBULBER_MINGW_HOST/lib/libwinpthread-1.dll $MANDELBULBER_DLL_TARGET
 
-cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/5.3-win32/libstdc++-6.dll $MANDELBULBER_DLL_TARGET
-cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/5.3-win32/libgomp-1.dll $MANDELBULBER_DLL_TARGET
-cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/5.3-win32/libgcc_s_seh-1.dll $MANDELBULBER_DLL_TARGET
+cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/*-win32/libstdc++-6.dll $MANDELBULBER_DLL_TARGET
+cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/*-win32/libgomp-1.dll $MANDELBULBER_DLL_TARGET
+cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/*-win32/libgcc_s_*-1.dll $MANDELBULBER_DLL_TARGET
 
-mkdir $MANDELBULBER_BUILD_FOLDER
+mkdir -p $MANDELBULBER_BUILD_FOLDER
 cd $MANDELBULBER_BUILD_FOLDER
 $MANDELBULBER_PREFIX/bin/qmake ../Release/mandelbulber.pro -r -spec win32-g++
 make -j8

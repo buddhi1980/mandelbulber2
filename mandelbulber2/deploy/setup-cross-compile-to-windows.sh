@@ -29,7 +29,7 @@ set -e # if any of the commands fail the script will exit immediately
 
 sudo apt-get install git make g++ dh-autoreconf sudo make
 sudo apt-get install mingw-w64
-mkdir $MANDELBULBER_PREFIX
+mkdir -p $MANDELBULBER_PREFIX
 
 ### qt
 wget $MANDELBULBER_QT_URL
@@ -45,7 +45,7 @@ cd ..
 ### gsl
 apt-get source gsl
 cd gsl-*
-mkdir doc
+mkdir -p doc
 cp -vax debian/Makefile.in.doc doc/Makefile.in
 dh_autoreconf 
 ./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
