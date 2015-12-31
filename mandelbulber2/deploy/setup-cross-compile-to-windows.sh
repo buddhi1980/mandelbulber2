@@ -25,7 +25,9 @@ else
 	MANDELBULBER_PREFIX="/usr/local/mingw-32bit"
 fi
 
-sudo apt-get install git make g++ dh-autoreconf
+set -e # if any of the commands fail the script will exit immediately
+
+sudo apt-get install git make g++ dh-autoreconf sudo make
 sudo apt-get install mingw-w64
 mkdir $MANDELBULBER_PREFIX
 

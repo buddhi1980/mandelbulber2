@@ -25,6 +25,8 @@ else
 	MANDELBULBER_BUILD_FOLDER="build-mandelbulber-MinGwQt-Release"
 fi
 
+set -e # if any of the commands fail the script will exit immediately
+
 git clone https://github.com/buddhi1980/mandelbulber2
 cd mandelbulber2/mandelbulber2
 
@@ -51,6 +53,8 @@ mkdir $MANDELBULBER_DLL_TARGET/platforms
 cp $MANDELBULBER_PREFIX/plugins/platforms/* $MANDELBULBER_DLL_TARGET/platforms/
 mkdir $MANDELBULBER_DLL_TARGET/imageformats
 cp $MANDELBULBER_PREFIX/plugins/imageformats/* $MANDELBULBER_DLL_TARGET/imageformats/
+mkdir $MANDELBULBER_DLL_TARGET/gamepads
+cp $MANDELBULBER_PREFIX/plugins/gamepads/* $MANDELBULBER_DLL_TARGET/gamepads/
 
 cp /usr/$MANDELBULBER_MINGW_HOST/lib/libwinpthread-1.dll $MANDELBULBER_DLL_TARGET
 
