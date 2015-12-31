@@ -80,8 +80,9 @@ void EiffieIteration(CVector3 &z, const cFractal *fractal);
 
 //transforming formulas
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);
-void TransformAdditionCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
-void TransformAdditionCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
+void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
+void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
+void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBenesiT1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBenesiT1ModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);

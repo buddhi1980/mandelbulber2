@@ -64,7 +64,7 @@ void additionConstantTransform4D(const sTransformAdditionConstant &additionConst
 	}
 }
 
-//boxConstantMultiplier transform 3D
+//AddCpixelPosNegConstantMultiplier transform 3D
 void boxConstantMultiplierTransform3D(const sTransformBoxConstantMultiplier &boxConstantMultiplier,
 		CVector3 &z, CVector3 &c, int i)
 {

@@ -1902,11 +1902,11 @@ void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal)
   z += fractal->transformCommon.additionConstant000;
 }
 
-void TransformAdditionCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   z +=  c * fractal->transformCommon.constantMultiplier111;
 }
-void TransformAdditionCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   if (fractal->transformCommon.addCpixelEnabled)
   {
@@ -1939,6 +1939,41 @@ void TransformAdditionCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cF
       z += fractal->transformCommon.juliaC;
   }
 }
+void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+{
+  if (fractal->transformCommon.addCpixelEnabled)
+  {
+    CVector3 tempFAB = c;
+    if (fractal->transformCommon.functionEnabledx)
+    {
+            tempFAB.x = fabs(tempFAB.x);
+    }
+    if (fractal->transformCommon.functionEnabledy)
+    {
+            tempFAB.y = fabs(tempFAB.y);
+    }
+    if (fractal->transformCommon.functionEnabledz)
+    {
+            tempFAB.z = fabs(tempFAB.z);
+    }
+    tempFAB *= fractal->transformCommon.constantMultiplier111;
+    if (z.x > 0) z.x += tempFAB.x;
+    else z.x -= tempFAB.x;
+    if (z.y > 0) z.y += tempFAB.y;
+    else z.y -= tempFAB.y;
+    if (z.z > 0) z.z += tempFAB.z;
+    else z.z -= tempFAB.z;
+  }
+  if (fractal->transformCommon.juliaMode)
+  {
+      z += fractal->transformCommon.juliaC;
+  }
+}
+
+
+
+
+
 //benesiT1  3D
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 
@@ -2254,6 +2289,5 @@ void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sEx
   z *= fractal->transformCommon.scale;
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 }
-
 
 

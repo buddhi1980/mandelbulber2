@@ -502,8 +502,9 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_addition_constant_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant_neg100", CVector3(-1.0, 0.0, 0.0), morphAkima, paramStandard);
-
-
+  par->addParam("transf_function_enabledx", true, morphLinear, paramStandard);
+  par->addParam("transf_function_enabledy", true, morphLinear, paramStandard);
+  par->addParam("transf_function_enabledz", true, morphLinear, paramStandard);
   par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_rotation_enabled", false, morphLinear, paramStandard);
   par->addParam("transf_benesi_T1_enabled", true, morphLinear, paramStandard);

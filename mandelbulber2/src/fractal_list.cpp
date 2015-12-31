@@ -78,6 +78,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Transform - Addition Constant",			"transf_addition_constant",			transfAdditionConstant,			analyticDEType,	withoutDEFunction));
   fractalList->append(sFractalDescription("Transform - Add Cpixel",	 						"transf_add_Cpixel", 						transfAddCpixel, 						analyticDEType,	withoutDEFunction));
   fractalList->append(sFractalDescription("Transform - Add Cpixel_Axis_Swap",	 	"transf_add_Cpixel_axis_swap", 	transfAddCpixelAxisSwap,		analyticDEType,	withoutDEFunction));
+  fractalList->append(sFractalDescription("Transform - Add Cpixel_Pos_Neg",			"transf_add_Cpixel_pos_neg", 		transfAddCpixelPosNeg,			analyticDEType,	withoutDEFunction));
   fractalList->append(sFractalDescription("Transform - Benesi_T1",							"transf_benesi_T1",							transfBenesiT1,							analyticDEType,	withoutDEFunction));
   fractalList->append(sFractalDescription("Transform - Benesi_T1Mod",						"transf_benesi_T1Mod",					transfBenesiT1Mod,					analyticDEType,	withoutDEFunction));
   fractalList->append(sFractalDescription("Transform - Benesi_T2",							"transf_benesi_T2",							transfBenesiT2,							analyticDEType,	withoutDEFunction));

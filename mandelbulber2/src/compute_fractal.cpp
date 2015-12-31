@@ -360,12 +360,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case transfAddCpixel:
         {
-          TransformAdditionCpixelIteration(z, c, fractal);
+          TransformAddCpixelIteration(z, c, fractal);
           break;
         }
         case transfAddCpixelAxisSwap:
         {
-          TransformAdditionCpixelAxisSwapIteration(z, c, fractal);
+          TransformAddCpixelAxisSwapIteration(z, c, fractal);
+          break;
+        }
+        case transfAddCpixelPosNeg:
+        {
+          TransformAddCpixelPosNegIteration(z, c, fractal);
           break;
         }
         case transfBenesiT1:
@@ -483,6 +488,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfAdditionConstant:
         case transfAddCpixel:
         case transfAddCpixelAxisSwap:
+        case transfAddCpixelPosNeg:
         case transfBenesiT1:
         case transfBenesiT1Mod:
         case transfBenesiT2:
