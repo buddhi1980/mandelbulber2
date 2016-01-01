@@ -93,7 +93,7 @@ enum enumFractalFormula
   msltoesym3 = 68,
   msltoesym4 = 69,
   eiffie = 70,
-
+  riemannSphereMsltoe = 71,
 
 
 	transfAdditionConstant = 1001,

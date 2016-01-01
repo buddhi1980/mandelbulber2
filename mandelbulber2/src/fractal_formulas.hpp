@@ -76,7 +76,7 @@ void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
 void EiffieIteration(CVector3 &z, const cFractal *fractal);
-
+void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal);
 
 //transforming formulas
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);

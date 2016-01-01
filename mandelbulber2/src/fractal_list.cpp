@@ -72,6 +72,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Quaternion - extended", 					"quaternion104", 						quaternion104, 					deltaDEType, 		logarithmicDEFunction));
   fractalList->append(sFractalDescription("Quaternion3D", 									"quaternion3D", 						quaternion3D, 					deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Quick-Dudley", 									"quickdudley", 							quickdudley, 						deltaDEType, 		logarithmicDEFunction));
+  fractalList->append(sFractalDescription("Riemann Sphere Msltoe",					"riemann_sphere_msltoe",		riemannSphereMsltoe, 		deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Smooth Mandelbox", 							"smooth_mandelbox", 				smoothMandelbox, 				analyticDEType, linearDEFunction));
 	fractalList->append(sFractalDescription("Xenodreambuie's formula", 				"xenodreambuie", 						xenodreambuie, 					deltaDEType, 		logarithmicDEFunction));
 

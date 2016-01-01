@@ -351,6 +351,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           EiffieIteration(z, fractal);
           break;
         }
+        case riemannSphereMsltoe:
+        {
+          RiemannSphereMsltoeIteration(z, fractal);
+          break;
+        }
+
+
 
         //transforms ------------------------------------------------------------------------------------------
         case transfAdditionConstant:
@@ -485,6 +492,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case benesiPineTree:
         case benesiT1PineTree:
         case eiffie:
+        case riemannSphereMsltoe:
         case transfAdditionConstant:
         case transfAddCpixel:
         case transfAddCpixelAxisSwap:

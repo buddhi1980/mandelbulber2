@@ -35,6 +35,7 @@ using namespace fractal;
 
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux)
 {
+  if (aux.r < 1e-21) aux.r = 1e-21;
 	double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
 	double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
@@ -1600,24 +1601,65 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
   z = z * m;
   aux.DE = aux.DE * fabs(m) + 1.0;
 }
-//Post by Eiffie    Reply #69 on: January 27, 2015, 06:17:59 PM »
+
+
+//Post by Eiffie    Reply #69 on: January 27, 2015, 06:17:59 PM »----------------------------------
 //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
 void EiffieIteration(CVector3 &z, const cFractal *fractal)
 {
+  //dr=dr*2.0*r; // outside the loop dr = 1.0 & r = z.Length()
+
+  //if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;// when atan used
   double psi = fabs(fmod(atan2( z.z , z.y ) + PI/8.0, PI/4.0) - PI/8.0);
-  double r = sqrt( z.y * z.y + z.z * z.z );
-  z.y = cos(psi) * r;
-  z.z = sin(psi) * r;
-  double rr = z.x * z.x + z.y * z.y + z.z * z.z + 1e-60;
-  //if(rr < 1e-60) rr = 1e-60;
+  double lengthYZ  = sqrt( z.y * z.y + z.z * z.z );
+
+  z.y = cos(psi) * lengthYZ;
+  z.z = sin(psi) * lengthYZ;
+
+  CVector3 z2 = z * z;
+  double rr = z2.x + z2.y  + z2.z + 1e-60;
   double m = 1.0 - z.z * z.z /rr;
   CVector3 newz;
-  newz.x = ( z.x * z.x - z.y * z.y ) * m ;
-  newz.y = 2.0 * z.x * z.y * m;
-  newz.z = 2.0 * z.z * sqrt( z.x * z.x + z.y * z.y );
+  newz.x = (z2.x - z2.y)  * m;
+  newz.y = 2.0 * z.x * z.y  * m;
+  newz.z = 2.0 * z.z * sqrt( z2.x + z2.y );
   z = newz + fractal->transformCommon.additionConstantNeg100;
+  // r = z.Length();   // return min(log(r)*r/max(dr,1.0),1.0);
 }
+//MsltoeRiemannSphereVariation----------------------------------
+//  http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/
+void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
+{
 
+
+  double r = z.Length();
+  if (r < 1e-21) r = 1e-21;
+
+
+  double r1 = fractal->transformCommon.scale/r;
+  z *= r1;
+
+  double t = 1.0 - z.z;
+
+
+  if (t > -1e-21 && t < 1e-21) t = (t > 0) ? 1e-21 : -1e-21;
+  CVector3 t3;
+  t3.x = z.x/t;
+  t3.y = z.y/t;
+  t3.z = (r - 1.5) * (1.0 + t3.x * t3.x + t3.y * t3.y);
+  t3.x = t3.x - floor(t3.x + 0.5);
+  t3.y = t3.y - floor(t3.y + 0.5);
+  z = t3 * fractal->transformCommon.constantMultiplier441;
+  //z.x = 4.0 * x1;
+  //z.y = 4.0 * y1;
+  //z.z =  z1;
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+
+  z += fractal->transformCommon.additionConstant000;
+}
 
 /* GeneralizedFoldBox, ref: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/ */
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux)

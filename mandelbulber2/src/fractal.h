@@ -791,6 +791,7 @@ struct sFractalTransformCommon
   bool addCpixelEnabled;
   CVector3 constantMultiplier111;
   CVector3 constantMultiplier100;
+  CVector3 constantMultiplier441;
   bool functionEnabledx;
   bool functionEnabledy;
   bool functionEnabledz;

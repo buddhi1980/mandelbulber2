@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If z is positive then fabs(Cpixel) is added, if z is negative then fabs(Cpixel) is subtracted. &lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If z is positive then fabs(Cpixel) is added, if z is negative then fabs(Cpixel) is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel Constant  Multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
       <string>addCpixel Pos Neg  ConstantMultiplier </string>

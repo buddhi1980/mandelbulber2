@@ -1364,6 +1364,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.functionEnabledz = container->Get<bool>("transf_function_enabledz");
   transformCommon.constantMultiplier111 = container->Get<CVector3>("transf_constant_multiplier_111");
   transformCommon.constantMultiplier100 = container->Get<CVector3>("transf_constant_multiplier_100");
+  transformCommon.constantMultiplier441 = container->Get<CVector3>("transf_constant_multiplier_441");
   transformCommon.juliaC = container->Get<CVector3>("transf_constant_julia_c");
   transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
   transformCommon.startIterations = container->Get<int>("transf_start_iterations");
