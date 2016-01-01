@@ -176,7 +176,7 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 				repeatCount++;
 			}
 			hybridSequence.append(fractalNo);
-			if(fractalNo > maxFractalIndex) maxFractalIndex = fractalNo;
+			if(fractals[fractalNo]->formula != fractal::none && fractalNo > maxFractalIndex) maxFractalIndex = fractalNo;
 
 			if (counter >= counts[fractalNo])
 			{
