@@ -56,12 +56,12 @@ bool InitSystem(void)
 
 	QTextStream out(stdout);
 
-	systemData.homedir = QDir::homePath() + QDir::separator();
+	systemData.homedir = QDir::toNativeSeparators(QDir::homePath() + QDir::separator());
 
 #ifdef WIN32 /* WINDOWS */
-	systemData.sharedDir = (QDir::currentPath() + QDir::separator());
+	systemData.sharedDir = QDir::toNativeSeparators((QDir::currentPath() + QDir::separator()));
 #else
-	systemData.sharedDir = QString(SHARED_DIR) + QDir::separator();
+	systemData.sharedDir = QDir::toNativeSeparators(QString(SHARED_DIR) + QDir::separator());
 #endif  /* WINDOWS */
 
 	//logfile
@@ -81,7 +81,6 @@ bool InitSystem(void)
 
 	//detecting number of CPU cores
 	systemData.numberOfThreads = get_cpu_count();
-	//NR_THREADS = 1;
 
 	printf("Detected %d CPUs\n", systemData.numberOfThreads);
 	WriteLogDouble("CPUs detected", systemData.numberOfThreads);
@@ -94,24 +93,29 @@ bool InitSystem(void)
 #ifdef WIN32 /* WINDOWS */
 	systemData.dataDirectory = systemData.homedir + "mandelbulber" + QDir::separator();
 #else
-	systemData.dataDirectory = systemData.homedir + ".mandelbulber" + QDir::separator();
+	systemData.dataDirectory = QDir::toNativeSeparators(systemData.homedir + ".mandelbulber"
+			+ QDir::separator());
 #endif
 	out << "Default data directory: " << systemData.dataDirectory << endl;
 	WriteLogString("Default data directory", systemData.dataDirectory);
 
-	systemData.thumbnailDir = systemData.dataDirectory + "thumbnails" + QDir::separator();
+	systemData.thumbnailDir = QDir::toNativeSeparators(systemData.dataDirectory + "thumbnails"
+			+ QDir::separator());
 
-	systemData.autosaveFile = systemData.dataDirectory + ".autosave.fract";
+	systemData.autosaveFile = QDir::toNativeSeparators(systemData.dataDirectory + ".autosave.fract");
 
 	//*********** temporary set to false ************
 	systemData.noGui = false;
 
-	systemData.lastSettingsFile = systemData.dataDirectory + "settings" + QDir::separator()
-			+ QString("settings.fract");
-	systemData.lastImageFile = systemData.dataDirectory + "images" + QDir::separator()
-			+ QString("image.jpg");
-	systemData.lastImagePaletteFile = systemData.sharedDir + "textures" + QDir::separator()
-			+ QString("colour palette.jpg");
+	systemData.lastSettingsFile = QDir::toNativeSeparators(systemData.dataDirectory + "settings"
+			+ QDir::separator()
+			+ QString("settings.fract"));
+	systemData.lastImageFile = QDir::toNativeSeparators(systemData.dataDirectory + "images"
+			+ QDir::separator()
+			+ QString("image.jpg"));
+	systemData.lastImagePaletteFile = QDir::toNativeSeparators(systemData.sharedDir + "textures"
+			+ QDir::separator()
+			+ QString("colour palette.jpg"));
 
 	QLocale systemLocale = QLocale::system();
 	systemData.decimalPoint = systemLocale.decimalPoint();
@@ -230,9 +234,17 @@ bool CreateDefaultFolders(void)
 
 	actualFileNames.actualFilenameSettings = QString("settings") + QDir::separator()
 			+ "default.fract";
+	actualFileNames.actualFilenameSettings = QDir::toNativeSeparators(actualFileNames
+			.actualFilenameSettings);
+
 	actualFileNames.actualFilenameImage = QString("images") + QDir::separator() + "image.jpg";
+	actualFileNames.actualFilenameImage =
+			QDir::toNativeSeparators(actualFileNames.actualFilenameImage);
+
 	actualFileNames.actualFilenamePalette = systemData.sharedDir + "textures" + QDir::separator()
 			+ "colour palette.jpg";
+	actualFileNames.actualFilenamePalette = QDir::toNativeSeparators(actualFileNames
+			.actualFilenamePalette);
 
 	return result;
 }

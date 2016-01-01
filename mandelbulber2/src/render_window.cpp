@@ -697,9 +697,9 @@ void RenderWindow::slotMenuSaveSettings()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings"
-			+ QDir::separator());
-	dialog.selectFile(systemData.lastSettingsFile);
+	dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator() + "settings"
+			+ QDir::separator()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.lastSettingsFile));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save settings..."));
 	dialog.setDefaultSuffix("fract");
@@ -707,7 +707,7 @@ void RenderWindow::slotMenuSaveSettings()
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		parSettings.SaveToFile(filename);
 		systemData.lastSettingsFile = filename;
 		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
@@ -739,16 +739,16 @@ void RenderWindow::slotMenuLoadSettings()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings"
-			+ QDir::separator());
-	dialog.selectFile(systemData.lastSettingsFile);
+	dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator() + "settings"
+			+ QDir::separator()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.lastSettingsFile));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Load settings..."));
 	QStringList filenames;
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		parSettings.LoadFromFile(filename);
 		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 		gMainInterface->RebuildPrimitives(gPar);
@@ -794,15 +794,15 @@ void RenderWindow::slotMenuLoadExample()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(systemData.sharedDir + QDir::separator() + "examples" + QDir::separator());
-	dialog.selectFile(QFileInfo(systemData.lastSettingsFile).fileName());
+	dialog.setDirectory(QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples" + QDir::separator()));
+	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).fileName()));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Load example settings..."));
 	QStringList filenames;
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		parSettings.LoadFromFile(filename);
 		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 		gMainInterface->RebuildPrimitives(gPar);
@@ -824,16 +824,16 @@ void RenderWindow::slotImportOldSettings()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "settings"
-			+ QDir::separator());
-	dialog.selectFile(systemData.lastSettingsFile);
+	dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator() + "settings"
+			+ QDir::separator()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.lastSettingsFile));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Import settings from old Mandelbulber (v1.21)..."));
 	QStringList filenames;
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		oldSettings::cOldSettings oldSettings;
 		oldSettings.LoadSettings(filename);
 		oldSettings.ConvertToNewContainer(gPar, gParFractal);
@@ -948,8 +948,8 @@ void RenderWindow::slotMenuSaveImageJPEG()
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("JPEG images (*.jpg *.jpeg)"));
-	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
-	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).completeBaseName()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("JPEG"));
 	dialog.setDefaultSuffix("jpeg");
@@ -957,7 +957,7 @@ void RenderWindow::slotMenuSaveImageJPEG()
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("JPG"),
 																			tr("Saving image started"),
 																			0.0,
@@ -978,8 +978,8 @@ void RenderWindow::slotMenuSaveImagePNG()
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
-	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
-	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).completeBaseName()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("8-bit PNG"));
 	dialog.setDefaultSuffix("png");
@@ -987,7 +987,7 @@ void RenderWindow::slotMenuSaveImagePNG()
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("PNG"),
 																			tr("Saving image started"),
 																			0.0,
@@ -1009,8 +1009,8 @@ void RenderWindow::slotMenuSaveImageEXR()
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("EXR images (*.exr)"));
-	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
-	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).completeBaseName()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("EXR"));
 	dialog.setDefaultSuffix("exr");
@@ -1018,7 +1018,7 @@ void RenderWindow::slotMenuSaveImageEXR()
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("EXR"),
 																			tr("Saving EXR image started"),
 																			0.0,
@@ -1040,8 +1040,8 @@ void RenderWindow::slotMenuSaveImagePNG16()
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
-	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
-	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).completeBaseName()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("16-bit PNG"));
 	dialog.setDefaultSuffix("png");
@@ -1049,7 +1049,7 @@ void RenderWindow::slotMenuSaveImagePNG16()
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"),
 																			tr("Saving image started"),
 																			0.0,
@@ -1071,8 +1071,8 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 	QFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("PNG images (*.png)"));
-	dialog.setDirectory(QFileInfo(systemData.lastImageFile).absolutePath());
-	dialog.selectFile(QFileInfo(systemData.lastImageFile).completeBaseName());
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).completeBaseName()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save image to %1 file...").arg("16-bit PNG + alpha channel"));
 	dialog.setDefaultSuffix("png");
@@ -1080,7 +1080,7 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"),
 																			tr("Saving image started"),
 																			0.0,
@@ -1102,16 +1102,17 @@ void RenderWindow::slotPressedButtonSelectBackgroundTexture()
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures"
-			+ QDir::separator());
-	dialog.selectFile(gPar->Get<QString>("file_background"));
+	dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator()
+			+ "textures"
+			+ QDir::separator()));
+	dialog.selectFile(QDir::toNativeSeparators(gPar->Get<QString>("file_background")));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select background texture..."));
 	QStringList filenames;
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		gPar->Set("file_background", filename);
 		ui->text_file_background->setText(filename);
 		gMainInterface->ShowImageInLabel(ui->label_backgroundTextureView, filename);
@@ -1123,16 +1124,17 @@ void RenderWindow::slotPressedButtonSelectEnvMapTexture()
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures"
-			+ QDir::separator());
-	dialog.selectFile(gPar->Get<QString>("file_envmap"));
+	dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator()
+			+ "textures"
+			+ QDir::separator()));
+	dialog.selectFile(QDir::toNativeSeparators(gPar->Get<QString>("file_envmap")));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select texture for environment mapping effect..."));
 	QStringList filenames;
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		gPar->Set("file_envmap", filename);
 		ui->text_file_envmap->setText(filename);
 		gMainInterface->ShowImageInLabel(ui->label_envmapTextureView, filename);
@@ -1144,16 +1146,16 @@ void RenderWindow::slotPressedButtonSelectLightMapTexture()
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures"
-			+ QDir::separator());
-	dialog.selectFile(gPar->Get<QString>("file_lightmap"));
+	dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator() + "textures"
+			+ QDir::separator()));
+	dialog.selectFile(QDir::toNativeSeparators(gPar->Get<QString>("file_lightmap")));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select texture for ambient occlusion light map..."));
 	QStringList filenames;
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		gPar->Set("file_lightmap", filename);
 		ui->text_file_lightmap->setText(filename);
 		gMainInterface->ShowImageInLabel(ui->label_lightmapTextureView, filename);
@@ -1165,16 +1167,16 @@ void RenderWindow::slotPressedButtonGetPaletteFromImage()
 	PreviewFileDialog dialog(this);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Images (*.jpg *.jpeg *.png *.bmp)"));
-	dialog.setDirectory(systemData.dataDirectory + QDir::separator() + "textures"
-			+ QDir::separator());
-	dialog.selectFile(systemData.lastImagePaletteFile);
+	dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator() + "textures"
+			+ QDir::separator()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.lastImagePaletteFile));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select image to grab colors..."));
 	QStringList filenames;
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
-		QString filename = filenames.first();
+		QString filename = QDir::toNativeSeparators(filenames.first());
 		cColorPalette palette = gMainInterface->GetPaletteFromImage(filename);
 		ui->colorpalette_surface_color_palette->SetPalette(palette);
 		systemData.lastImagePaletteFile = filename;

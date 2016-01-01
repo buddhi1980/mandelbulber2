@@ -303,12 +303,12 @@ void InitParams(cParameterContainer *par)
 #endif
 
 	//files
-	par->addParam("file_destination", systemData.dataDirectory + "images" + QDir::separator() + "image", morphNone, paramStandard);
-	par->addParam("file_background", systemData.sharedDir + "textures" + QDir::separator() + "background.jpg", morphNone, paramStandard);
-	par->addParam("file_envmap", systemData.sharedDir + "textures" + QDir::separator() + "envmap.jpg", morphNone, paramStandard);
-	par->addParam("file_lightmap", systemData.sharedDir + "textures" + QDir::separator() + "lightmap.jpg", morphNone, paramStandard);
-	par->addParam("file_animation_path", systemData.dataDirectory + "paths" + QDir::separator() + "path.txt", morphNone, paramStandard);
-	par->addParam("file_keyframes", systemData.dataDirectory + "keyframes" + QDir::separator() + "keyframe", morphNone, paramStandard);
+	par->addParam("file_destination", QDir::toNativeSeparators(systemData.dataDirectory + "images" + QDir::separator() + "image"), morphNone, paramStandard);
+	par->addParam("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "background.jpg"), morphNone, paramStandard);
+	par->addParam("file_envmap", QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "envmap.jpg"), morphNone, paramStandard);
+	par->addParam("file_lightmap", QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "lightmap.jpg"), morphNone, paramStandard);
+	par->addParam("file_animation_path", QDir::toNativeSeparators(systemData.dataDirectory + "paths" + QDir::separator() + "path.txt"), morphNone, paramStandard);
+	par->addParam("file_keyframes", QDir::toNativeSeparators(systemData.dataDirectory + "keyframes" + QDir::separator() + "keyframe"), morphNone, paramStandard);
 
 	//color palette
 	cColorPalette palette(par->Get<int>("coloring_palette_size"), par->Get<int>("coloring_random_seed"), 1.0);

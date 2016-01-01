@@ -830,7 +830,7 @@ void cKeyframeAnimation::slotSelectKeyframeAnimImageDir()
 	QFileDialog* dialog = new QFileDialog();
 	dialog->setFileMode(QFileDialog::DirectoryOnly);
 	dialog->setNameFilter(QObject::tr("Animation Image Folder"));
-	dialog->setDirectory(params->Get<QString>("anim_keyframe_dir"));
+	dialog->setDirectory(QDir::toNativeSeparators(params->Get<QString>("anim_keyframe_dir")));
 	dialog->setAcceptMode(QFileDialog::AcceptOpen);
 	dialog->setWindowTitle(QObject::tr("Choose Animation Image Folder"));
 	dialog->setOption(QFileDialog::ShowDirsOnly);
@@ -839,7 +839,7 @@ void cKeyframeAnimation::slotSelectKeyframeAnimImageDir()
 	if (dialog->exec())
 	{
 		filenames = dialog->selectedFiles();
-		QString filename = filenames.first() + "/";
+		QString filename = QDir::toNativeSeparators(filenames.first() + QDir::separator());
 		ui->text_anim_keyframe_dir->setText(filename);
 		params->Set("anim_keyframe_dir", filename);
 	}
