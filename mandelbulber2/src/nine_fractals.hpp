@@ -44,10 +44,13 @@ public:
 	inline int GetMaxFractalIndex() const {return maxFractalIndex;}
 	inline bool IsDontAddCContant(int formulaIndex) const {return dontAddCConstant[formulaIndex];}
 	inline bool IsCheckForBaiout(int formulaIndex) const {return checkForBailout[formulaIndex];}
+	inline bool UseOptimizedDE() const {return useOptimizedDE;}
 
 private:
 	bool forceDeltaDE;
 	bool isHybrid;
+	fractal::enumDEFunctionType optimizedDEType;
+	bool useOptimizedDE;
 	int maxFractalIndex;
 	int maxN;
 	QVector<int> hybridSequence;

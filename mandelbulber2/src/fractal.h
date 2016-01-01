@@ -67,30 +67,30 @@ enum enumOCLDEMode
 };
 }
 
-struct sMandelbulbAux
-{
-	double r_dz;
-	double r;
-};
+//struct sMandelbulbAux
+//{
+//	double r_dz;
+//	double r;
+//};
 
-struct sMandelboxAux
-{
-	double mboxDE;
-	double mboxColor;
-	double actualScale;
-};
+//struct sMandelboxAux
+//{
+//	double mboxDE;
+//	double mboxColor;
+//	double actualScale;
+//};
 
-struct sIFSAux
-{
-	double ifsDE;
-};
+//struct sIFSAux
+//{
+//	double ifsDE;
+//};
 
-struct sAexionAux
-{
-	CVector3 c;
-	double cw;
-	int iterNo;
-};
+//struct sAexionAux
+//{
+//	CVector3 c;
+//	double cw;
+//	int iterNo;
+//};
 
 struct sExtendedAux
 {
@@ -103,6 +103,8 @@ struct sExtendedAux
 	double orbitTraps;
 	double axisBias;
 	double transformSampling;
+	double cw;
+	CVector3 c;
 };
 
 struct sFoldColor

@@ -65,22 +65,18 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	const cFractal *defaultFractal = fractals.GetFractal(fractalIndex);
 
-	sMandelbulbAux bulbAux[NUMBER_OF_FRACTALS];
-	sMandelboxAux mandelboxAux[NUMBER_OF_FRACTALS];
-	sIFSAux ifsAux[NUMBER_OF_FRACTALS];
-	sAexionAux aexionAux[NUMBER_OF_FRACTALS];
 	sExtendedAux extendedAux[NUMBER_OF_FRACTALS];
 	int maxFractal = (in.forcedFormulaIndex >= 0) ? in.forcedFormulaIndex : fractals.GetMaxFractalIndex();
 	int minFractal = (in.forcedFormulaIndex >= 0) ? in.forcedFormulaIndex : 0;
 	for (int i = minFractal; i <= maxFractal; i++)
 	{
-		bulbAux[i].r_dz = extendedAux[i].r_dz = 1.0;
-		bulbAux[i].r = extendedAux[i].r = r;
-		mandelboxAux[i].mboxColor = extendedAux[i].color = 1.0;
-		mandelboxAux[i].actualScale = extendedAux[i].actualScale = fractals.GetFractal(i)->mandelbox.scale;
-		mandelboxAux[i].mboxDE = ifsAux[i].ifsDE = extendedAux[i].DE = 1.0;
-		aexionAux[i].c = c;
-		aexionAux[i].cw = 0;
+		extendedAux[i].r_dz = 1.0;
+		extendedAux[i].r = r;
+		extendedAux[i].color = 1.0;
+		extendedAux[i].actualScale = fractals.GetFractal(i)->mandelbox.scale;
+		extendedAux[i].DE = 1.0;
+		extendedAux[i].c = c;
+		extendedAux[i].cw = 0;
 		extendedAux[i].newR = 1e+20;
 		extendedAux[i].axisBias = 1e+20;
 		extendedAux[i].orbitTraps = 1e+20;
@@ -89,6 +85,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	//main iteration loop
 	int i;
+	int sequence = 0;
+	int lastSequnce = 0;
+
 	for (i = 0; i < in.maxN; i++)
 	{
 		//foldings
@@ -105,7 +104,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 
 		//hybrid fractal sequence
-		int sequence;
 		if (in.forcedFormulaIndex >= 0)
 		{
 			sequence = in.forcedFormulaIndex;
@@ -114,6 +112,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		{
 			sequence = fractals.GetSequence(i);
 		}
+
+		//for optimized DE calculation
+		if(fractals.UseOptimizedDE())
+		{
+			extendedAux[sequence] = extendedAux[lastSequnce];
+			lastSequnce = sequence;
+		}
+
 		const cFractal *fractal = fractals.GetFractal(sequence);
 
 		//temporary vector for weight function
@@ -126,26 +132,26 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				case mandelbulb:
 				{
-					bulbAux[sequence].r = r;
-					MandelbulbIteration(z, fractal, bulbAux[sequence]);
+					extendedAux[sequence].r = r;
+					MandelbulbIteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
 				case mandelbulb2:
 				{
-					bulbAux[sequence].r = r;
-					Mandelbulb2Iteration(z, bulbAux[sequence]);
+					extendedAux[sequence].r = r;
+					Mandelbulb2Iteration(z, extendedAux[sequence]);
 					break;
 				}
 				case mandelbulb3:
 				{
-					bulbAux[sequence].r = r;
-					Mandelbulb3Iteration(z, bulbAux[sequence]);
+					extendedAux[sequence].r = r;
+					Mandelbulb3Iteration(z, extendedAux[sequence]);
 					break;
 				}
 				case mandelbulb4:
 				{
-					bulbAux[sequence].r = r;
-					Mandelbulb4Iteration(z, fractal, bulbAux[sequence]);
+					extendedAux[sequence].r = r;
+					Mandelbulb4Iteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
 				case fast_mandelbulb_power2:
@@ -155,23 +161,23 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case xenodreambuie:
 				{
-					bulbAux[sequence].r = r;
-					XenodreambuieIteration(z, fractal, bulbAux[sequence]);
+					extendedAux[sequence].r = r;
+					XenodreambuieIteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
 				case mandelbox:
 				{
-					MandelboxIteration(z, fractal, mandelboxAux[sequence]);
+					MandelboxIteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
 				case mandelboxVaryScale4D:
 				{
-					MandelboxVaryScale4DIteration(z, w, fractal, mandelboxAux[sequence]);
+					MandelboxVaryScale4DIteration(z, w, fractal, extendedAux[sequence]);
 					break;
 				}
 				case smoothMandelbox:
 				{
-					SmoothMandelboxIteration(z, fractal, mandelboxAux[sequence]);
+					SmoothMandelboxIteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
 				case boxFoldBulbPow2:
@@ -181,18 +187,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case menger_sponge:
 				{
-					MengerSpongeIteration(z, ifsAux[sequence]);
+					MengerSpongeIteration(z, extendedAux[sequence]);
 					break;
 				}
 				case kaleidoscopicIFS:
 				{
-					KaleidoscopicIFSIteration(z, fractal, ifsAux[sequence]);
+					KaleidoscopicIFSIteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
 				case aexion:
 				{
-					aexionAux[sequence].iterNo = i;
-					AexionIteration(z, w, fractal, aexionAux[sequence]);
+					AexionIteration(z, w, i, fractal, extendedAux[sequence]);
 					break;
 				}
 				case hypercomplex:
@@ -262,12 +267,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
 				case generalizedFoldBox:
 				{
-					GeneralizedFoldBoxIteration(z, fractal, mandelboxAux[sequence]);
+					GeneralizedFoldBoxIteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
 				case mandelbulb5:
 				{
-					bulbAux[sequence].r = r;
+					extendedAux[sequence].r = r;
 					Mandelbulb5Iteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
@@ -291,13 +296,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mandelbulb6Beta:
 				{
-					bulbAux[sequence].r = r;
+					extendedAux[sequence].r = r;
 					Mandelbulb6BetaIteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
 				case benesiTransforms:
 				{
-					bulbAux[sequence].r = r;
+					extendedAux[sequence].r = r;
 					BenesiTransformsIteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
@@ -603,24 +608,18 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		switch (defaultFractal->formula)
 		{
 			case mandelbulb:
-				out->distance = 0.5 * r * log(r) / bulbAux[fractalIndex].r_dz;
-				break;
 			case mandelbulb5:
 			case mandelbulb6Beta:
       case mandelbulbMulti:
       case benesiPineTree:
       case benesiT1PineTree:
-				//case benesiTransforms:
-				out->distance = 0.5 * r * log(r) / extendedAux[fractalIndex].r_dz;
+				out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
 				break;
 
 			case mandelbox:
 			case smoothMandelbox:
 			case mandelboxVaryScale4D:
 			case generalizedFoldBox:
-				out->distance = r / fabs(mandelboxAux[fractalIndex].mboxDE * foldDE);
-				break;
-				//case benesiTransforms:
 			case mandelbox103:
 			case mengerSponge105:
       case fabsBoxMod:
@@ -628,12 +627,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
       case mengerMod:
       case aboxMod1:
 
-				out->distance = r / fabs(extendedAux[fractalIndex].DE * foldDE);
+				out->distance = r / fabs(extendedAux[sequence].DE * foldDE);
 				break;
 
 			case kaleidoscopicIFS:
 			case menger_sponge:
-				out->distance = (r - 2.0) / (ifsAux[fractalIndex].ifsDE * foldDE);
+				out->distance = (r - 2.0) / (extendedAux[sequence].DE * foldDE);
 				break;
 
 			default:
@@ -652,8 +651,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			double mboxDE = 1.0;
 			for (int h = minFractal; h <= maxFractal; h++)
 			{
-				mboxColor += mandelboxAux[h].mboxColor + extendedAux[h].color;
-				mboxDE *= (mandelboxAux[h].mboxDE + extendedAux[h].DE); //mboxDE *= mandelboxAux[h].mboxDE + extendedAux[h].color;
+				mboxColor += extendedAux[h].color;
+				mboxDE *= extendedAux[h].DE; //mboxDE *= mandelboxAux[h].mboxDE + extendedAux[h].color;
 			}
 
 			double r2 = r / fabs(mboxDE);
@@ -671,7 +670,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
-					out->colorIndex = mandelboxAux[fractalIndex].mboxColor * 100.0
+					out->colorIndex = extendedAux[fractalIndex].color * 100.0
 							+ r * defaultFractal->mandelbox.color.factorR * foldColor;
 					break;
 

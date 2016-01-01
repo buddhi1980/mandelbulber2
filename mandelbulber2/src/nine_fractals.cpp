@@ -58,6 +58,9 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	else
 		forceDeltaDE = false;
 
+	optimizedDEType = fractal::withoutDEFunction;
+	useOptimizedDE = false;
+
 	maxN = generalPar->Get<int>("N");
 	maxFractalIndex = 0;
 	CreateSequence(generalPar);
@@ -67,7 +70,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		DEType[0] = fractal::deltaDEType;
 		if((fractal::enumDEFunctionType)generalPar->Get<int>("delta_DE_function") == fractal::preferedDEfunction)
 		{
-			//finding prefered delta DE function
+			//finding preferred delta DE function
 			int linearDECount = 0;
 			int logarythmicDECount = 0;
 			for(int f = 0; f < NUMBER_OF_FRACTALS; f++)
@@ -77,12 +80,30 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 				{
 					if (fractalList[i].internalID == formula)
 					{
+						//looking for the best DE function for DeltaDE mode
+
 						fractal::enumDEFunctionType DEFunction = fractalList[i].DEFunctionType;
 						if(DEFunction == fractal::logarithmicDEFunction)
 							logarythmicDECount += counts[f];
 
 						if(DEFunction == fractal::linearDEFunction)
 							linearDECount += counts[f];
+
+						//looking if it's possible to use analyticDEType
+						if(!forceDeltaDE && fractalList[i].internalID != fractal::none)
+						{
+							if(optimizedDEType == fractal::withoutDEFunction)
+							{
+								optimizedDEType = DEFunction;
+							}
+							else
+							{
+								if((optimizedDEType != DEFunction && DEFunction != fractal::withoutDEFunction) || fractalList[i].DEType == fractal::deltaDEType)
+								{
+									optimizedDEType = fractal::preferedDEfunction;
+								}
+							}
+						}
 					}
 				}
 			}
@@ -94,6 +115,14 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		else
 		{
 			DEFunctionType[0] = (fractal::enumDEFunctionType)generalPar->Get<int>("delta_DE_function");
+		}
+
+		//if it's possible to use analyticDEType then use optimised settings
+		if(optimizedDEType == fractal::logarithmicDEFunction || optimizedDEType == fractal::linearDEFunction)
+		{
+			DEType[0] = fractal::analyticDEType;
+			DEFunctionType[0] = optimizedDEType;
+			useOptimizedDE = true;
 		}
 	}
 	else

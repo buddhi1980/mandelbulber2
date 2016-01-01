@@ -26,29 +26,29 @@
 #include "commonparams.hpp"
 #include "nine_fractals.hpp"
 
-void AexionIteration(CVector3 &z, double &w, const cFractal *fractal, sAexionAux &aux);
+void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux);
 void BenesiIteration(CVector3 &z, CVector3 &c);
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
 void BristorbrotIteration(CVector3 &z);
 void BuffaloIteration(CVector3 &z, const cFractal *fractal);
-void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux);
+void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void HypercomplexIteration(CVector3 &z, double &w);
 void Ides2Iteration(CVector3 &z, CVector3 &c);
 void IdesIteration(CVector3 &z);
-void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sIFSAux &aux);
+void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void LkmitchIteration(CVector3 &z);
 void Makin3D2Iteration(CVector3 &z);
 void Mandelbox103Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
-void MandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux);
-void MandelboxVaryScale4DIteration(CVector3 &z, double &w, const cFractal *fractal, sMandelboxAux &aux);
-void Mandelbulb2Iteration(CVector3 &z, sMandelbulbAux &aux);
-void Mandelbulb3Iteration(CVector3 &z, sMandelbulbAux &aux);
-void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
+void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void MandelboxVaryScale4DIteration(CVector3 &z, double &w, const cFractal *fractal, sExtendedAux &aux);
+void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux);
+void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux);
+void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
-void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
+void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbPower2Iteration(CVector3 &z);
 void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
-void MengerSpongeIteration(CVector3 &z, sIFSAux &aux);
+void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux);
 void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal);
 void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal);
 void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal);
@@ -56,8 +56,8 @@ void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal);
 void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
 void QuaternionIteration(CVector3 &z, double &w);
 void QuickDudleyIteration(CVector3 &z);
-void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sMandelboxAux &aux);
-void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sMandelbulbAux &aux);
+void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
 void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor);
 void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor, double &foldDE, double r);

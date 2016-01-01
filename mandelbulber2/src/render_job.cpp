@@ -144,6 +144,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 
 	totalNumberOfCPUs = systemData.numberOfThreads;
 	//totalNumberOfCPUs = 1;
+	//systemData.numberOfThreads = 1;
 
 	WriteLog("Init renderData");
 	//aux renderer data
