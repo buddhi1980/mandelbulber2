@@ -483,6 +483,7 @@ void RenderWindow::slotChangedComboFractal(int index)
 		QString formulaName = fractalList[index].internalNane;
 		QString uiFilename = systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_"
 				+ formulaName + ".ui";
+		QString fullFormulaName = fractalList[index].nameInComboBox;
 
 		if (fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
 		fractalWidgets[fractalNumber] = NULL;
@@ -504,6 +505,8 @@ void RenderWindow::slotChangedComboFractal(int index)
 			gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[fractalNumber],
 																								 &gParFractal->at(fractalNumber),
 																								 cInterface::write);
+
+			ui->tabWidget_fractals->setTabText(fractalNumber, QString("#%1: %2").arg(fractalNumber + 1).arg(fullFormulaName));
 
 			if (fractalList[index].internalID == fractal::kaleidoscopicIFS)
 			{

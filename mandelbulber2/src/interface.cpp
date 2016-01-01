@@ -1716,6 +1716,11 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 
 		for(int i = 1; i <= NUMBER_OF_FRACTALS; i++)
 		{
+			if(i == 1)
+				mainWindow->ui->tabWidget_fractals->setTabText(i - 1, QString("#1: Mandelbulb"));
+			else
+				mainWindow->ui->tabWidget_fractals->setTabText(i - 1, QString("#%1: None").arg(i));
+
 			QFrame *frame = mainWindow->ui->tabWidget_fractals->findChild<QFrame*>("frame_iterations_formula_" + QString::number(i));
 
 			QComboBox *combo = frame->findChild<QComboBox*>(QString("comboBox_formula_") + QString::number(i));
