@@ -231,3 +231,26 @@ fractal::enumDEFunctionType cNineFractals::GetDEFunctionType(int formulaIndex) c
 	}
 	return type;
 }
+
+QString cNineFractals::GetDETypeString() const
+{
+	QString text;
+	if(DEType[0] == fractal::analyticDEType)
+	{
+		text += "analytic";
+	}
+	else
+	{
+		text += "deltaDE";
+	}
+
+	if(DEFunctionType[0] == fractal::logarithmicDEFunction)
+	{
+		text += " logarithmic";
+	}
+	else
+	{
+		text += " linear";
+	}
+	return text;
+}

@@ -1949,6 +1949,7 @@ void RenderWindow::slotUpdateStatistics(cStatistics stat)
 	ui->tableWidget_statistics->item(1, 0)->setText(QString::number(stat.GetNumberOfIterationsPerPixel()));
 	ui->tableWidget_statistics->item(2, 0)->setText(QString::number(stat.GetNumberOfIterationsPerSecond()));
 	ui->tableWidget_statistics->item(3, 0)->setText(QString::number(stat.GetMissedDEPercentage()));
+	ui->tableWidget_statistics->item(5, 0)->setText(stat.GetDETypeString());
 }
 
 void RenderWindow::slotNetRenderServerStart()

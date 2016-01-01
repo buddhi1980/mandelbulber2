@@ -36,11 +36,13 @@ public:
 	int numberOfRaymarchings;
 	int numberOfRenderedPixels;
 	double time;
+	QString usedDEType;
 
 	double GetTotalNumberOfIterations() {return totalNumberOfIterations;}
 	double GetNumberOfIterationsPerPixel() {return (double)totalNumberOfIterations / numberOfRenderedPixels;}
 	double GetNumberOfIterationsPerSecond() {return (double)totalNumberOfIterations / time;}
 	double GetMissedDEPercentage() {return (double)missedDE / numberOfRaymarchings * 100.0;}
+	QString GetDETypeString() {return usedDEType;}
 	void Reset();
 };
 

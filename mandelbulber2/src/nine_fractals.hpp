@@ -45,6 +45,7 @@ public:
 	inline bool IsDontAddCContant(int formulaIndex) const {return dontAddCConstant[formulaIndex];}
 	inline bool IsCheckForBaiout(int formulaIndex) const {return checkForBailout[formulaIndex];}
 	inline bool UseOptimizedDE() const {return useOptimizedDE;}
+	QString GetDETypeString() const;
 
 private:
 	bool forceDeltaDE;

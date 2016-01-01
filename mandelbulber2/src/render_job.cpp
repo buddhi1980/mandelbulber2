@@ -328,6 +328,7 @@ bool cRenderJob::Execute(void)
 	renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
 	renderData->statistics.histogramStepCount.Resize(1000);
 	renderData->statistics.Reset();
+	renderData->statistics.usedDEType = fractals->GetDETypeString();
 
 	//create and execute renderer
 	cRenderer *renderer = new cRenderer(params, fractals, renderData, image);
