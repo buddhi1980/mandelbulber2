@@ -1982,6 +1982,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
 	{
 		z = z * fold_factor1_2;
 		aux.DE *= fold_factor1_2;
+		aux.r_dz*= sqrt(fold_factor1_2);
 		aux.color *= 0.9;
 	}
 	else if (r2_2 < fR2_2)
@@ -1989,6 +1990,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
 		double fold_factor2_2 = fR2_2 / r2_2;
 		z = z * fold_factor2_2;
 		aux.DE *= fold_factor2_2;
+		aux.r_dz*= sqrt(fold_factor1_2);
 		aux.color *= 0.9;
 	}
 }
@@ -2325,7 +2327,8 @@ void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	z *= fractal->transformCommon.scale;
-	aux.DE *= fractal->transformCommon.scale; //prepared for future analytic DE for hybrids
+	aux.DE *= fabs(fractal->transformCommon.scale); //prepared for future analytic DE for hybrids
+  aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -2386,6 +2389,7 @@ void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sEx
   z *= 1 + fractal->transformCommon.offset / lengthTempZ;
   z *= fractal->transformCommon.scale;
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+  aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 
 
