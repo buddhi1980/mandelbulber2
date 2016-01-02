@@ -478,11 +478,6 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("quaternion3D_constant_factor", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
 
 
-  // aexionOctopus
-  par->addParam("aexionOctopus_enabledFabs_x", true, morphLinear, paramStandard);
-  par->addParam("aexionOctopus_enabledFabs_y", true, morphLinear, paramStandard);
-  par->addParam("aexionOctopus_enabledFabs_z", true, morphLinear, paramStandard);
-
   // aboxMod1
   par->addParam("aboxMod1_min_radius", 0.0, morphAkima, paramStandard);
   par->addParam("aboxMod1_foldM", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);

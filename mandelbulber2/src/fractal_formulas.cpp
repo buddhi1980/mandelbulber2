@@ -755,31 +755,6 @@ void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal)
 }
 
 
-//------------AexionOctopus  --------------------------------
-
-//http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
-
-void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
-{
-  CVector3 tempN;
-  tempN.x = -( 1.25 * z.x * z.z - 0.3075);
-  tempN.y = -(z.x * z.x - z.z * z.z - 0.3);
-  tempN.z = z.y;
-  if (fractal->aexionOctopus.enabledFabsx)
-  {
-    tempN.x = fabs(tempN.x);
-  }
-  if ( fractal->aexionOctopus.enabledFabsy)
-  {
-    tempN.y = fabs(tempN.y);
-  }
-  if ( fractal->aexionOctopus.enabledFabsz)
-  {
-    tempN.z = fabs(tempN.z);
-  }
-  z = tempN;
-}
-
 
 
 
@@ -1348,6 +1323,42 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 	// z = z + ( c * const.); Original (enabled); 1
 	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 }
+
+
+//------------AexionOctopus  --------------------------------
+
+//http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+
+void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
+{
+  CVector3 tempN;
+  tempN.x = -( 1.25 * z.x * z.z - 0.3075);
+  tempN.y = -(z.x * z.x - z.z * z.z - 0.3);
+  tempN.z = z.y;
+
+  if (fractal->transformCommon.functionEnabledx)
+  {
+    tempN.x = fabs(tempN.x);
+  }
+  if (fractal->transformCommon.functionEnabledy)
+  {
+    tempN.y = fabs(tempN.y);
+  }
+  if (fractal->transformCommon.functionEnabledz)
+  {
+    tempN.z = fabs(tempN.z);
+  }
+  z = tempN;
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+  z += fractal->transformCommon.additionConstant000;
+
+}
+
+
 
 //benesiFastPwr2PineTree  3D
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/

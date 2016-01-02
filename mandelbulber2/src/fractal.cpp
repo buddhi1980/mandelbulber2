@@ -107,10 +107,6 @@ cFractal::cFractal(const cParameterContainer *container)
 
   quaternion3D.constantFactor = container->Get<CVector3>("quaternion3D_constant_factor"),
 
-  aexionOctopus.enabledFabsx =  container->Get<bool>("aexionOctopus_enabledFabs_x");
-  aexionOctopus.enabledFabsy =  container->Get<bool>("aexionOctopus_enabledFabs_y");
-  aexionOctopus.enabledFabsz =  container->Get<bool>("aexionOctopus_enabledFabs_z");
-
   aboxMod1.minR = container->Get<double>("aboxMod1_min_radius");
   aboxMod1.foldM = container->Get<CVector3>("aboxMod1_foldM");
 

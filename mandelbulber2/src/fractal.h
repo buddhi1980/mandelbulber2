@@ -235,12 +235,6 @@ struct sFractalQuaternion3D
 };
 
 
-struct sFractalAexionOctopus
-{
-  bool enabledFabsx;
-  bool enabledFabsy;
-  bool enabledFabsz;
-};
 struct sFractalAboxMod1
 {
   double minR;
@@ -828,7 +822,6 @@ public:
 	sFractalPlatonicSolid platonicSolid;
   sFractalMengerMod mengerMod;
   sFractalQuaternion3D quaternion3D;
-  sFractalAexionOctopus aexionOctopus;
   sFractalAboxMod1 aboxMod1;
   sFractalTransformCommon transformCommon;
   sFractalMandelbulbMulti mandelbulbMulti;
