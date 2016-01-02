@@ -2220,4 +2220,11 @@ void RenderWindow::slotGamepadZ()
 	}
 }
 
+void RenderWindow::slotPressedButtonResetFormula()
+{
+	QString comboName = this->sender()->objectName();
+	int fractalNumber = comboName.right(1).toInt() - 1;
+	gMainInterface->ResetFormula(fractalNumber);
+}
+
 #endif // USE_GAMEPAD

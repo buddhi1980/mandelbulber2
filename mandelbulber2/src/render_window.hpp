@@ -97,6 +97,7 @@ private slots:
 	void slotPressedButtonOptimizeForMQ();
 	void slotPressedButtonOptimizeForHQ();
 	void slotPressedButtonRandomize();
+	void slotPressedButtonResetFormula();
 	void slotPressedButtonResetView();
 	void slotPressedButtonSetDOFByMouse();
 	void slotPressedButtonSetFogByMouse();

@@ -545,43 +545,6 @@ void cInterface::ConnectSignals(void)
 												mainWindow,
 												SLOT(slotMenuProgramSettings()));
 
-	//formulas
-	QApplication::connect(mainWindow->ui->comboBox_formula_1,
-												SIGNAL(currentIndexChanged(int)),
-												mainWindow,
-												SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_2,
-												SIGNAL(currentIndexChanged(int)),
-												mainWindow,
-												SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_3,
-												SIGNAL(currentIndexChanged(int)),
-												mainWindow,
-												SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_4,
-												SIGNAL(currentIndexChanged(int)),
-												mainWindow,
-												SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_5,
-													SIGNAL(currentIndexChanged(int)),
-													mainWindow,
-													SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_6,
-													SIGNAL(currentIndexChanged(int)),
-													mainWindow,
-													SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_7,
-													SIGNAL(currentIndexChanged(int)),
-													mainWindow,
-													SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_8,
-													SIGNAL(currentIndexChanged(int)),
-													mainWindow,
-													SLOT(slotChangedComboFractal(int)));
-	QApplication::connect(mainWindow->ui->comboBox_formula_9,
-													SIGNAL(currentIndexChanged(int)),
-													mainWindow,
-													SLOT(slotChangedComboFractal(int)));
 	QApplication::connect(mainWindow->ui->checkBox_hybrid_fractal_enable,
 												SIGNAL(stateChanged(int)),
 												mainWindow,
@@ -1726,6 +1689,10 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 			QComboBox *combo = frame->findChild<QComboBox*>(QString("comboBox_formula_") + QString::number(i));
 			combo->clear();
 			combo->addItems(fractalNames);
+			QApplication::connect(combo, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
+
+			QPushButton *resetButton = frame->findChild<QPushButton*>(QString("pushButton_reset_formula_") + QString::number(i));
+			QApplication::connect(resetButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonResetFormula()));
 
 			frame->findChild<QLabel*>(QString("label_formula_iterations_") + QString::number(i))->setVisible(false);
 			frame->findChild<MySpinBox*>(QString("spinboxInt_formula_iterations_") + QString::number(i))->setVisible(false);
@@ -3065,6 +3032,14 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 																		cProgressText::progress_IMAGE);
 
 	delete renderJob;
+}
+
+void cInterface::ResetFormula(int fractalNumber)
+{
+	SynchronizeInterface(gPar, gParFractal, read);
+	cParameterContainer *fractal = &gParFractal->at(fractalNumber);
+	fractal->ResetAllToDefault();
+	SynchronizeInterface(gPar, gParFractal, write);
 }
 
 //----------- functions outside cInterface class -------------

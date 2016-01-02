@@ -89,6 +89,7 @@ public:
 	void ComboMouseClickUpdate();
 	void AutoRecovery();
 	void OptimizeStepFactor(double qualityTarget);
+	void ResetFormula(int fractalNumber);
 
 	bool QuitApplicationDialog();
 
