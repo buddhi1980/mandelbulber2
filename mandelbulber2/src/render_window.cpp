@@ -554,6 +554,7 @@ void RenderWindow::slotChangedComboFractal(int index)
 	{
 		if (fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
 		fractalWidgets[fractalNumber] = NULL;
+		ui->tabWidget_fractals->setTabText(fractalNumber, QString("#%1: %2").arg(fractalNumber + 1).arg("None"));
 	}
 
 }
