@@ -55,8 +55,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	double minimumR = 1e20;
 	double w = 0.0;
 	double orbitTrapTotal = 0.0;
-	double foldColor = 1.0;
-	double foldDE = 1.0;
 
 	out->maxiter = true;
 
@@ -90,18 +88,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	for (i = 0; i < in.maxN; i++)
 	{
-		//foldings
-		if (in.common.foldings.boxEnable)
-		{
-			BoxFolding(z, &in.common.foldings, foldColor);
-			r = z.Length();
-		}
 
-		if (in.common.foldings.sphericalEnable)
-		{
-			SphericalFolding(z, &in.common.foldings, foldColor, foldDE, r);
-			r = z.Length();
-		}
 
 		//hybrid fractal sequence
 		if (in.forcedFormulaIndex >= 0)
@@ -118,6 +105,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		{
 			extendedAux[sequence] = extendedAux[lastSequnce];
 			lastSequnce = sequence;
+		}
+
+		//foldings
+		if (in.common.foldings.boxEnable)
+		{
+			BoxFolding(z, &in.common.foldings, extendedAux[sequence]);
+			r = z.Length();
+		}
+
+		if (in.common.foldings.sphericalEnable)
+		{
+			SphericalFolding(z, &in.common.foldings, extendedAux[sequence]);
+			r = z.Length();
 		}
 
 		const cFractal *fractal = fractals.GetFractal(sequence);
@@ -641,12 +641,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
       case mengerMod:
       case aboxMod1:
 
-				out->distance = r / fabs(extendedAux[sequence].DE * foldDE);
+				out->distance = r / fabs(extendedAux[sequence].DE);
 				break;
 
 			case kaleidoscopicIFS:
 			case menger_sponge:
-				out->distance = (r - 2.0) / (extendedAux[sequence].DE * foldDE);
+				out->distance = (r - 2.0) / (extendedAux[sequence].DE);
 				break;
 
 			default:
@@ -685,11 +685,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
 					out->colorIndex = extendedAux[fractalIndex].color * 100.0
-							+ r * defaultFractal->mandelbox.color.factorR * foldColor;
+							+ r * defaultFractal->mandelbox.color.factorR;
 					break;
 
         case fabsBoxMod:
-            out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor;
+            out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR;
             break;
 
 

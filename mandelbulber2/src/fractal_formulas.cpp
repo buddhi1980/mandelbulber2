@@ -1937,60 +1937,59 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtended
 	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 }
 
-void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor)
+void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux)
 {
 	if (z.x > foldings->boxLimit)
 	{
 		z.x = foldings->boxValue - z.x;
-		foldColor *= 0.9;
+		aux.color *= 0.9;
 	}
 	else if (z.x < -foldings->boxLimit)
 	{
 		z.x = -foldings->boxValue - z.x;
-		foldColor *= 0.9;
+		aux.color *= 0.9;
 	}
 	if (z.y > foldings->boxLimit)
 	{
 		z.y = foldings->boxValue - z.y;
-		foldColor *= 0.9;
+		aux.color *= 0.9;
 	}
 	else if (z.y < -foldings->boxLimit)
 	{
 		z.y = -foldings->boxValue - z.y;
-		foldColor *= 0.9;
+		aux.color *= 0.9;
 	}
 	if (z.z > foldings->boxLimit)
 	{
 		z.z = foldings->boxValue - z.z;
-		foldColor *= 0.9;
+		aux.color *= 0.9;
 	}
 	else if (z.z < -foldings->boxLimit)
 	{
 		z.z = -foldings->boxValue - z.z;
-		foldColor *= 0.9;
+		aux.color *= 0.9;
 	}
 }
 
-void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor,
-		double &foldDE, double r)
+void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux)
 {
 	double fR2_2 = foldings->sphericalOuter * foldings->sphericalOuter;
 	double mR2_2 = foldings->sphericalInner * foldings->sphericalInner;
-	double r2_2 = r * r;
+	double r2_2 = aux.r * aux.r;
 	double fold_factor1_2 = fR2_2 / mR2_2;
 
 	if (r2_2 < mR2_2)
 	{
 		z = z * fold_factor1_2;
-		foldDE *= fold_factor1_2;
-		foldColor *= 0.9;
+		aux.DE *= fold_factor1_2;
+		aux.color *= 0.9;
 	}
 	else if (r2_2 < fR2_2)
 	{
 		double fold_factor2_2 = fR2_2 / r2_2;
 		z = z * fold_factor2_2;
-		foldDE *= fold_factor2_2;
-		foldColor *= 0.9;
+		aux.DE *= fold_factor2_2;
+		aux.color *= 0.9;
 	}
 }
 

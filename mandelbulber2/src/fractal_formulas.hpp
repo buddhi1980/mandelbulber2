@@ -26,11 +26,20 @@
 #include "commonparams.hpp"
 #include "nine_fractals.hpp"
 
+
+void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux);
+void AexionOctopusIteration(CVector3 &z, const cFractal *fractal);
 void BenesiIteration(CVector3 &z, CVector3 &c, sExtendedAux &aux);
+void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
+void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
+void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
 void BristorbrotIteration(CVector3 &z, sExtendedAux &aux);
 void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux);
 void Ides2Iteration(CVector3 &z, CVector3 &c);
@@ -45,63 +54,48 @@ void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux);
 void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux);
 void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
+void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux);
+void MengerModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux);
 void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-
 void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
+void Quaternion3DIteration(CVector3 &z, const cFractal *fractal);
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux);
 void QuickDudleyIteration(CVector3 &z);
+void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal);
+void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal);
 void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
-void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor);
-void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, double &foldColor, double &foldDE, double r);
-
-void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
-void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
-
-void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
-void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-
-void MengerModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void Quaternion3DIteration(CVector3 &z, const cFractal *fractal);
-void AexionOctopusIteration(CVector3 &z, const cFractal *fractal);
-void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
-void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
-void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal);
-void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal);
+void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux);
+void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux);
 
 //transforming formulas
-void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);
-void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
+void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
-void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);
+void TransformBenesiCubeSphereIteration(CVector3 &z);
+void TransformBenesiMagBackwardIteration(CVector3 &z);
+void TransformBenesiMagForwardIteration(CVector3 &z);
+void TransformBenesiSphereCubeIteration(CVector3 &z);
 void TransformBenesiT1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBenesiT1ModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBenesiT2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBenesiT3Iteration(CVector3 &z, const cFractal *fractal);
 void TransformBenesiT4Iteration(CVector3 &z, const cFractal *fractal);
 void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal);
-void TransformBenesiMagForwardIteration(CVector3 &z);
-void TransformBenesiMagBackwardIteration(CVector3 &z);
-void TransformBenesiCubeSphereIteration(CVector3 &z);
-void TransformBenesiSphereCubeIteration(CVector3 &z);
-
-
-void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
-void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
-
+void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
+void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
 #endif /* FRACTAL_FORMULAS_HPP_ */
