@@ -92,9 +92,9 @@ enum enumFractalFormula
   benesiT1PineTree = 67,
   msltoesym3 = 68,
   msltoesym4 = 69,
-  eiffie = 70,
-  riemannSphereMsltoe = 71,
-
+  eiffieMsltoe = 70,
+  riemannSphereMsltoeV1 = 71,
+  riemannSphereMsltoe = 72,
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,

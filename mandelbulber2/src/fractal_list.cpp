@@ -40,7 +40,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", 						"boxfold_bulbpow2", 				boxFoldBulbPow2, 				deltaDEType, 		linearDEFunction));
 	fractalList->append(sFractalDescription("Bristorbrot", 										"bristorbrot", 							bristorbrot, 						deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Buffalo", 												"buffalo", 									buffalo, 								deltaDEType, 		logarithmicDEFunction));
-  fractalList->append(sFractalDescription("Eiffie's MsltoeJulia",						"eiffie", 									eiffie, 								deltaDEType, 		logarithmicDEFunction));
+  fractalList->append(sFractalDescription("Eiffie's MsltoeJulia",						"eiffie_msltoe", 						eiffieMsltoe,						deltaDEType, 		logarithmicDEFunction));
 
   fractalList->append(sFractalDescription("FabsBoxMod", 										"fabsBoxMod", 							fabsBoxMod, 						analyticDEType, linearDEFunction));
 	fractalList->append(sFractalDescription("Generalized Fold Box", 					"generalized_fold_box", 		generalizedFoldBox, 		analyticDEType, linearDEFunction));
@@ -73,6 +73,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Quaternion3D", 									"quaternion3D", 						quaternion3D, 					deltaDEType, 		logarithmicDEFunction));
 	fractalList->append(sFractalDescription("Quick-Dudley", 									"quickdudley", 							quickdudley, 						deltaDEType, 		logarithmicDEFunction));
   fractalList->append(sFractalDescription("Riemann Sphere Msltoe",					"riemann_sphere_msltoe",		riemannSphereMsltoe, 		deltaDEType, 		logarithmicDEFunction));
+  fractalList->append(sFractalDescription("Riemann Sphere Msltoe V1",				"riemann_sphere_msltoeV1",	riemannSphereMsltoeV1, 	deltaDEType, 		logarithmicDEFunction));
+
 	fractalList->append(sFractalDescription("Smooth Mandelbox", 							"smooth_mandelbox", 				smoothMandelbox, 				analyticDEType, linearDEFunction));
 	fractalList->append(sFractalDescription("Xenodreambuie's formula", 				"xenodreambuie", 						xenodreambuie, 					deltaDEType, 		logarithmicDEFunction));
 
