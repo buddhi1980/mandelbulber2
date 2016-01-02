@@ -4149,7 +4149,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>227</width>
                   <height>174</height>
                  </rect>
                 </property>
@@ -4477,7 +4477,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>196</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5317,7 +5317,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>273</width>
                   <height>225</height>
                  </rect>
                 </property>
@@ -5635,7 +5635,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>265</width>
                   <height>1455</height>
                  </rect>
                 </property>
@@ -9577,7 +9577,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>519</height>
                      </rect>
                     </property>
@@ -10314,7 +10314,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>519</height>
                      </rect>
                     </property>
@@ -11051,7 +11051,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>519</height>
                      </rect>
                     </property>
@@ -11788,7 +11788,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>519</height>
                      </rect>
                     </property>
@@ -12525,7 +12525,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>519</height>
                      </rect>
                     </property>
@@ -13262,7 +13262,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>519</height>
                      </rect>
                     </property>
@@ -13999,7 +13999,7 @@ to target:</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>519</height>
                      </rect>
                     </property>
@@ -14741,7 +14741,7 @@ to target:</string>
                   <x>0</x>
                   <y>0</y>
                   <width>320</width>
-                  <height>532</height>
+                  <height>482</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -14760,84 +14760,6 @@ to target:</string>
                  <property name="bottomMargin">
                   <number>2</number>
                  </property>
-                 <item>
-                  <layout class="QGridLayout" name="gridLayout_69">
-                   <property name="topMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="spacing">
-                    <number>2</number>
-                   </property>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_290">
-                     <property name="text">
-                      <string>Distance estimation function:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QComboBox" name="comboBox_delta_DE_function">
-                     <property name="enabled">
-                      <bool>false</bool>
-                     </property>
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;In some  fractal functions the length of the iteration vector increases  exponentially  and some in a  linear manner.&lt;/p&gt;&lt;p&gt;- Preferred mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>Logarithmic</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Linear</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Preferred</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_291">
-                     <property name="text">
-                      <string>Distance estimation method:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QComboBox" name="comboBox_delta_DE_method">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;- Preferred mode uses distance estimation method defined for selected fractal&lt;/p&gt;&lt;p&gt;- Force &amp;quot;Delta DE&amp;quot; method uses  Delta DE algorithm which is slower but works also with untypical fractal configurations&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>Preferred</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Force &quot;Delta DE&quot; method</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_julia_mode">
                    <property name="title">
@@ -16419,8 +16341,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
-                  <height>416</height>
+                  <width>207</width>
+                  <height>354</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -16965,7 +16887,7 @@ and water):</string>
           <x>0</x>
           <y>0</y>
           <width>370</width>
-          <height>851</height>
+          <height>899</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -17010,6 +16932,22 @@ and water):</string>
               <property name="spacing">
                <number>2</number>
               </property>
+              <item row="12" column="0" colspan="3">
+               <widget class="MyCheckBox" name="checkBox_interior_mode">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes fractals hollow inside. It gives interesting results when a  cross section of the fractal is rendered using &lt;span style=&quot; font-style:italic;&quot;&gt;Limits (box)&lt;/span&gt; feature. &lt;/p&gt;&lt;p&gt;This effect is very slow to render because of the high number of iterations required to render the inside of the fractal. To speed up rendering try  reducing Max. fractal iterations .&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;interior mode enabled&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;interior mode disabled&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Interior mode</string>
+                </property>
+               </widget>
+              </item>
               <item row="1" column="2">
                <widget class="MySpinBox" name="spinboxInt_N">
                 <property name="sizePolicy">
@@ -17029,7 +16967,7 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="6" column="1">
+              <item row="8" column="1">
                <widget class="QSlider" name="logslider_smoothness">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -17079,7 +17017,7 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="8" column="2">
+              <item row="10" column="2">
                <widget class="MyLineEdit" name="logedit_view_distance_min">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -17092,7 +17030,7 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="9" column="0" colspan="3">
+              <item row="11" column="0" colspan="3">
                <widget class="MyCheckBox" name="checkBox_iteration_threshold_mode">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -17105,22 +17043,6 @@ and water):</string>
                 </property>
                 <property name="text">
                  <string>Stop at maximum iteration</string>
-                </property>
-               </widget>
-              </item>
-              <item row="10" column="0" colspan="3">
-               <widget class="MyCheckBox" name="checkBox_interior_mode">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes fractals hollow inside. It gives interesting results when a  cross section of the fractal is rendered using &lt;span style=&quot; font-style:italic;&quot;&gt;Limits (box)&lt;/span&gt; feature. &lt;/p&gt;&lt;p&gt;This effect is very slow to render because of the high number of iterations required to render the inside of the fractal. To speed up rendering try  reducing Max. fractal iterations .&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;interior mode enabled&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;interior mode disabled&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string>Interior mode</string>
                 </property>
                </widget>
               </item>
@@ -17152,37 +17074,17 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="8" column="0">
+              <item row="10" column="0">
                <widget class="QLabel" name="label_108">
                 <property name="text">
                  <string>minimum view distance:</string>
                 </property>
                </widget>
               </item>
-              <item row="7" column="0">
+              <item row="9" column="0">
                <widget class="QLabel" name="label_107">
                 <property name="text">
                  <string>maximum view distance:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="2">
-               <widget class="MyLineEdit" name="logedit_smoothness">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Smoothness parameter defines averaging area for normal vector calculation.&lt;/p&gt;&lt;p&gt;Higher value gives smoother fractal surface.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;smoothness = 0.1&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 0.1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0">
-               <widget class="QLabel" name="label_106">
-                <property name="text">
-                 <string>Smoothness:</string>
                 </property>
                </widget>
               </item>
@@ -17199,7 +17101,34 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="11" column="0" colspan="3">
+              <item row="8" column="2">
+               <widget class="MyLineEdit" name="logedit_smoothness">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Smoothness parameter defines averaging area for normal vector calculation.&lt;/p&gt;&lt;p&gt;Higher value gives smoother fractal surface.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;smoothness = 0.1&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;smoothness = 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 0.1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - smoothness 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="0">
+               <widget class="QLabel" name="label_106">
+                <property name="text">
+                 <string>Smoothness:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_222">
+                <property name="text">
+                 <string>Bailout (escape condition):</string>
+                </property>
+               </widget>
+              </item>
+              <item row="13" column="0" colspan="3">
                <widget class="MyCheckBox" name="checkBox_slow_shading">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -17215,14 +17144,7 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_222">
-                <property name="text">
-                 <string>Bailout (escape condition):</string>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="2">
+              <item row="9" column="2">
                <widget class="MyLineEdit" name="logedit_view_distance_max">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -17235,7 +17157,7 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="7" column="1">
+              <item row="9" column="1">
                <widget class="QSlider" name="logslider_view_distance_max">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -17260,7 +17182,15 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="8" column="1">
+              <item row="5" column="2">
+               <widget class="QPushButton" name="pushButton_optimization_HQ">
+                <property name="text">
+                 <string>Optimization for
+high quality</string>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="1">
                <widget class="QSlider" name="logslider_view_distance_min">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -17310,15 +17240,15 @@ and water):</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="2">
-               <widget class="QPushButton" name="pushButton_optimization_HQ">
+              <item row="5" column="1">
+               <widget class="QPushButton" name="pushButton_optimization_MQ">
                 <property name="text">
                  <string>Optimization for
-high quality</string>
+medium quality</string>
                 </property>
                </widget>
               </item>
-              <item row="12" column="0" colspan="3">
+              <item row="14" column="0" colspan="3">
                <widget class="MyGroupBox" name="groupCheck_constant_DE_threshold">
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When not enabled, the program automatically reduces the level of detail for the farthest regions of the fractal. If you go closer to the fractal surface, the program increases the level of detail.&lt;/p&gt;&lt;p&gt;If enabled, then in every region of the fractal,  the detail level (size) will be the same.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -17428,11 +17358,19 @@ high quality</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="1">
-               <widget class="QPushButton" name="pushButton_optimization_MQ">
+              <item row="5" column="0">
+               <widget class="QPushButton" name="pushButton_optimization_LQ">
                 <property name="text">
                  <string>Optimization for
-medium quality</string>
+low quality</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_284">
+                <property name="text">
+                 <string>Maximum number
+of fractal iterations:</string>
                 </property>
                </widget>
               </item>
@@ -17461,22 +17399,6 @@ medium quality</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="0">
-               <widget class="QPushButton" name="pushButton_optimization_LQ">
-                <property name="text">
-                 <string>Optimization for
-low quality</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_284">
-                <property name="text">
-                 <string>Maximum number
-of fractal iterations:</string>
-                </property>
-               </widget>
-              </item>
               <item row="2" column="2">
                <widget class="MyLineEdit" name="logedit_bailout">
                 <property name="sizePolicy">
@@ -17488,6 +17410,74 @@ of fractal iterations:</string>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The vector values are checked during each iteration of fractal formula to see if they have reached a critical 'escape' condition or 'bailout'. If that condition is reached, the calculation is stopped. Condition is: if length of vector is greater than bailout, then break iteration loop.&lt;/p&gt;&lt;p&gt;In some cases higher value can increase image quality, but it will increase rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
+               </widget>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="label_291">
+                <property name="text">
+                 <string>Distance estimation method:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1" colspan="2">
+               <widget class="QComboBox" name="comboBox_delta_DE_method">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;- Preferred mode uses distance estimation method defined for selected fractal&lt;/p&gt;&lt;p&gt;- Force &amp;quot;Delta DE&amp;quot; method uses  Delta DE algorithm which is slower but works also with untypical fractal configurations&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Preferred</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Force &quot;Delta DE&quot; method</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="7" column="0">
+               <widget class="QLabel" name="label_290">
+                <property name="text">
+                 <string>Distance estimation function:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="1" colspan="2">
+               <widget class="QComboBox" name="comboBox_delta_DE_function">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;In some  fractal functions the length of the iteration vector increases  exponentially  and some in a  linear manner.&lt;/p&gt;&lt;p&gt;- Preferred mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Logarithmic</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Linear</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Preferred</string>
+                 </property>
+                </item>
                </widget>
               </item>
              </layout>
@@ -19187,8 +19177,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>288</height>
+                  <width>198</width>
+                  <height>242</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -20668,7 +20658,6 @@ keyframes</string>
   <tabstop>vect3_fake_lights_orbit_trap_z</tabstop>
   <tabstop>scrollAreaForImage</tabstop>
   <tabstop>tabWidgetFlightKeyframe</tabstop>
-  <tabstop>tabWidget_fractal</tabstop>
   <tabstop>scrollArea_5</tabstop>
   <tabstop>tabWidget_fractals</tabstop>
   <tabstop>scrollArea_6</tabstop>
