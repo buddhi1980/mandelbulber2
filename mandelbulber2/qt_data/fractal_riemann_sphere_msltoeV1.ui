@@ -32,10 +32,10 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;MsltoeRiemannSphere&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#000000;&quot;&gt;http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500&lt;/span&gt;&lt;/p&gt;&lt;p</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#008000;&quot;&gt;/&lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;&gt;/MsltoeRiemannSphereVariation----------------------------------&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#000000;&quot;&gt;//  http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>Riemann Sphere Msltoe </string>
+      <string>Riemann Sphere Msltoe Variation1</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
@@ -69,7 +69,7 @@
          </widget>
         </item>
         <item row="2" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_221_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_441_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -97,7 +97,7 @@
          </widget>
         </item>
         <item row="3" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_221_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_441_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -125,7 +125,7 @@
          </widget>
         </item>
         <item row="4" column="3">
-         <widget class="QSlider" name="slider3_transf_constant_multiplier_221_z">
+         <widget class="QSlider" name="slider3_transf_constant_multiplier_441_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -157,7 +157,7 @@
          </widget>
         </item>
         <item row="4" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_221_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_441_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -611,7 +611,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QSlider" name="slider3_transf_constant_multiplier_221_x">
+         <widget class="QSlider" name="slider3_transf_constant_multiplier_441_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -650,7 +650,7 @@
          </widget>
         </item>
         <item row="3" column="3">
-         <widget class="QSlider" name="slider3_transf_constant_multiplier_221_y">
+         <widget class="QSlider" name="slider3_transf_constant_multiplier_441_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>

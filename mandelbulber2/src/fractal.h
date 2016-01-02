@@ -794,6 +794,7 @@ struct sFractalTransformCommon
   CVector3 constantMultiplier111;
   CVector3 constantMultiplier100;
   CVector3 constantMultiplier441;
+  CVector3 constantMultiplier221;
   bool functionEnabledx;
   bool functionEnabledy;
   bool functionEnabledz;

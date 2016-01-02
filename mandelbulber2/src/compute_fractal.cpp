@@ -351,9 +351,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           BenesiT1PineTreeIteration(z, c, i, fractal, extendedAux[sequence]);
           break;
         }
-        case eiffie:
+        case eiffieMsltoe:
         {
-          EiffieIteration(z, fractal);
+          EiffieMsltoeIteration(z, fractal);
           break;
         }
         case riemannSphereMsltoe:
@@ -361,7 +361,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           RiemannSphereMsltoeIteration(z, fractal);
           break;
         }
-
+        case riemannSphereMsltoeV1:
+        {
+          RiemannSphereMsltoeV1Iteration(z, fractal);
+          break;
+        }
 
 
         //transforms ------------------------------------------------------------------------------------------
@@ -496,8 +500,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case aexionOctopus:
         case benesiPineTree:
         case benesiT1PineTree:
-        case eiffie:
+        case eiffieMsltoe:
         case riemannSphereMsltoe:
+        case riemannSphereMsltoeV1:
         case transfAdditionConstant:
         case transfAddCpixel:
         case transfAddCpixelAxisSwap:

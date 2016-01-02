@@ -1605,7 +1605,7 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 
 //Post by Eiffie    Reply #69 on: January 27, 2015, 06:17:59 PM »----------------------------------
 //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
-void EiffieIteration(CVector3 &z, const cFractal *fractal)
+void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal)
 {
   //dr=dr*2.0*r; // outside the loop dr = 1.0 & r = z.Length()
 
@@ -1626,37 +1626,71 @@ void EiffieIteration(CVector3 &z, const cFractal *fractal)
   z = newz + fractal->transformCommon.additionConstantNeg100;
   // r = z.Length();   // return min(log(r)*r/max(dr,1.0),1.0);
 }
-//MsltoeRiemannSphereVariation----------------------------------
-//  http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/
+
+//MsltoeRiemannSphere----------------------------------
+//http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500
 void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
 {
-
-
   double r = z.Length();
+  if (r < 1e-21) r = 1e-21;
+  z *= fractal->transformCommon.scale/r;
+  double w = 1.0 - z.z;
+  if (w > -1e-21 && w < 1e-21) w = (w > 0) ? 1e-21 : -1e-21;
+  w = 1.0/w;
+  CVector3 t3;
+  t3.x = z.x * w;
+  t3.y = z.y * w;
+
+  w = 1.0 + t3.x * t3.x + t3.y * t3.y;
+  t3.x = fabs(sin(PI * t3.x));
+  t3.y = fabs(sin(PI * t3.y));
+  r *= r;
   if (r < 1e-21) r = 1e-21;
 
 
-  double r1 = fractal->transformCommon.scale/r;
-  z *= r1;
-
-  double t = 1.0 - z.z;
+  if (w > 36) w = 36;
+  r = -0.25 + pow( r , w);// problem with pow()
 
 
-  if (t > -1e-21 && t < 1e-21) t = (t > 0) ? 1e-21 : -1e-21;
-  CVector3 t3;
-  t3.x = z.x/t;
-  t3.y = z.y/t;
-  t3.z = (r - 1.5) * (1.0 + t3.x * t3.x + t3.y * t3.y);
-  t3.x = t3.x - floor(t3.x + 0.5);
-  t3.y = t3.y - floor(t3.y + 0.5);
-  z = t3 * fractal->transformCommon.constantMultiplier441;
-  //z.x = 4.0 * x1;
-  //z.y = 4.0 * y1;
-  //z.z =  z1;
+  w = r / (1.0 + t3.x * t3.x + t3.y * t3.y);
+  z.x =  t3.x;
+  z.y =  t3.y;
+  z.z =  -1.0 +  t3.x * t3.x + t3.y * t3.y;
+  z *= w * fractal->transformCommon.constantMultiplier221;
+
   if (fractal->transformCommon.rotationEnabled)
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
+  z += fractal->transformCommon.additionConstant000;
+}
+
+
+//MsltoeRiemannSphere     Variation1----------------------------------
+//  http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/
+void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
+{
+  double r = z.Length();
+  if (r < 1e-21) r = 1e-21;
+  z *= fractal->transformCommon.scale/r;
+  double w = 1.0 - z.z;
+  if (w > -1e-21 && w < 1e-21) w = (w > 0) ? 1e-21 : -1e-21;
+  w = 1.0/w;
+  CVector3 t3;
+  t3.x = z.x * w;
+  t3.y = z.y * w;
+
+  t3.z = (r - 1.5) * (1.0 + t3.x * t3.x + t3.y * t3.y);
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+   t3 = fractal->transformCommon.rotationMatrix.RotateVector(t3);
+  }
+
+  t3.x = t3.x - floor(t3.x + 0.5);
+  t3.y = t3.y - floor(t3.y + 0.5);
+
+  z = t3 * fractal->transformCommon.constantMultiplier441;
 
   z += fractal->transformCommon.additionConstant000;
 }
@@ -2163,7 +2197,7 @@ void TransformBenesiT5bIteration(CVector3 &z,  const cFractal *fractal)
                (tempXZ + z.y) * SQRT_1_2,
                z.x * SQRT_1_3 + z.z * SQRT_2_3);
 
-  //  Change this for different transforms   This is T4:
+  //  Change this for different transforms   This is T5:
   if (z.x > -1e-21 && z.x < 1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
   if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;
   if (z.z > -1e-21 && z.z < 1e-21) z.z = (z.z > 0) ? 1e-21 : -1e-21;
