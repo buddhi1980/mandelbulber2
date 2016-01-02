@@ -1605,7 +1605,7 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 
 //Post by Eiffie    Reply #69 on: January 27, 2015, 06:17:59 PM »----------------------------------
 //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
-void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal)
+void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   //dr=dr*2.0*r; // outside the loop dr = 1.0 & r = z.Length()
 
@@ -1615,6 +1615,7 @@ void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal)
 
   z.y = cos(psi) * lengthYZ;
   z.z = sin(psi) * lengthYZ;
+  aux.r_dz=aux.r_dz*2.0*aux.r;
 
   CVector3 z2 = z * z;
   double rr = z2.x + z2.y  + z2.z + 1e-60;
@@ -1624,7 +1625,6 @@ void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal)
   newz.y = 2.0 * z.x * z.y  * m;
   newz.z = 2.0 * z.z * sqrt( z2.x + z2.y );
   z = newz + fractal->transformCommon.additionConstantNeg100;
-  // r = z.Length();   // return min(log(r)*r/max(dr,1.0),1.0);
 }
 
 //MsltoeRiemannSphere----------------------------------

@@ -353,7 +353,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case eiffieMsltoe:
         {
-          EiffieMsltoeIteration(z, fractal);
+        	extendedAux[sequence].r = r;
+        	EiffieMsltoeIteration(z, fractal, extendedAux[sequence]);
           break;
         }
         case riemannSphereMsltoe:
@@ -618,6 +619,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
       case mandelbulbMulti:
       case benesiPineTree:
       case benesiT1PineTree:
+      case eiffieMsltoe:
 				out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
 				break;
 
