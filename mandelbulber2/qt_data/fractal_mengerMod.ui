@@ -155,24 +155,10 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="label_61">
-          <property name="text">
-           <string>Constant Factor z.y:</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1">
          <widget class="QLabel" name="label_60">
           <property name="text">
-           <string>Constant Factor z.x :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_64">
-          <property name="text">
-           <string>Menger Scale Factor: </string>
+           <string>z.x :</string>
           </property>
          </widget>
         </item>
@@ -286,7 +272,28 @@
         <item row="4" column="1">
          <widget class="QLabel" name="label_59">
           <property name="text">
-           <string>Constant Factor z.z :</string>
+           <string>z.z :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_62">
+          <property name="text">
+           <string>Constant Factor   </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_64">
+          <property name="text">
+           <string>Menger Scale Factor: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="label_61">
+          <property name="text">
+           <string>z.y :</string>
           </property>
          </widget>
         </item>

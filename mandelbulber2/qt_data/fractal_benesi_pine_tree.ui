@@ -37,12 +37,19 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;benesiFastPwr2PineTree  3D&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#000000;&quot;&gt;http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>Mandelbulb       Benesi Pine Tree     C constant multiplier</string>
+      <string> Pine Tree  addCpixel ConstantMultiplier  (Cy Cz Swap)</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
@@ -149,7 +156,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_113">
           <property name="text">
-           <string>Cx:</string>
+           <string>C.x:</string>
           </property>
          </widget>
         </item>
@@ -228,14 +235,21 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_71">
           <property name="text">
-           <string>Cy:</string>
+           <string>C.y:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="QLabel" name="label_117">
           <property name="text">
-           <string>Cz:</string>
+           <string>C.z:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_114">
+          <property name="text">
+           <string>Constant Multiplier   </string>
           </property>
          </widget>
         </item>
