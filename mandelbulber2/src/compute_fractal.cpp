@@ -125,6 +125,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		//temporary vector for weight function
 		CVector3 tempZ = z;
 
+		extendedAux[sequence].r = r;
+
 		if (!fractals.IsHybrid() || fractals.GetWeight(sequence) > 0.0)
 		{
 			//calls for fractal formulas
@@ -132,36 +134,31 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				case mandelbulb:
 				{
-					extendedAux[sequence].r = r;
 					MandelbulbIteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
 				case mandelbulb2:
 				{
-					extendedAux[sequence].r = r;
 					Mandelbulb2Iteration(z, extendedAux[sequence]);
 					break;
 				}
 				case mandelbulb3:
 				{
-					extendedAux[sequence].r = r;
 					Mandelbulb3Iteration(z, extendedAux[sequence]);
 					break;
 				}
 				case mandelbulb4:
 				{
-					extendedAux[sequence].r = r;
 					Mandelbulb4Iteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
 				case fast_mandelbulb_power2:
 				{
-					MandelbulbPower2Iteration(z);
+					MandelbulbPower2Iteration(z, extendedAux[sequence]);
 					break;
 				}
 				case xenodreambuie:
 				{
-					extendedAux[sequence].r = r;
 					XenodreambuieIteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
@@ -202,22 +199,22 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case hypercomplex:
 				{
-					HypercomplexIteration(z, w);
+					HypercomplexIteration(z, w, extendedAux[sequence]);
 					break;
 				}
 				case quaternion:
 				{
-					QuaternionIteration(z, w);
+					QuaternionIteration(z, w, extendedAux[sequence]);
 					break;
 				}
 				case benesi:
 				{
-					BenesiIteration(z, c);
+					BenesiIteration(z, c, extendedAux[sequence]);
 					break;
 				}
 				case bristorbrot:
 				{
-					BristorbrotIteration(z);
+					BristorbrotIteration(z, extendedAux[sequence]);
 					break;
 				}
 				case ides:
@@ -232,7 +229,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case buffalo:
 				{
-					BuffaloIteration(z, fractal);
+					BuffaloIteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
 				case quickdudley:
@@ -252,17 +249,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case msltoesym2:
 				{
-          MsltoeSym2Iteration(z, fractal);
+          MsltoeSym2Iteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
         case msltoesym3:
         {
-          MsltoeSym3Iteration(z, fractal);
+          MsltoeSym3Iteration(z, fractal, extendedAux[sequence]);
           break;
         }
         case msltoesym4:
         {
-          MsltoeSym4Iteration(z, fractal);
+          MsltoeSym4Iteration(z, fractal, extendedAux[sequence]);
           break;
         }
 				case generalizedFoldBox:
@@ -272,7 +269,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mandelbulb5:
 				{
-					extendedAux[sequence].r = r;
 					Mandelbulb5Iteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
@@ -296,13 +292,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case mandelbulb6Beta:
 				{
-					extendedAux[sequence].r = r;
 					Mandelbulb6BetaIteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
 				case benesiTransforms:
 				{
-					extendedAux[sequence].r = r;
 					BenesiTransformsIteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
@@ -353,7 +347,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case eiffieMsltoe:
         {
-        	extendedAux[sequence].r = r;
         	EiffieMsltoeIteration(z, fractal, extendedAux[sequence]);
           break;
         }
@@ -613,13 +606,27 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		switch (defaultFractal->formula)
 		{
+			case benesi:
+			case benesiPineTree:
+			case benesiT1PineTree:
+			case bristorbrot:
+			case buffalo:
+			case eiffieMsltoe:
+			case fast_mandelbulb_power2:
+			case hypercomplex:
 			case mandelbulb:
+			case mandelbulb2:
+			case mandelbulb3:
+			case mandelbulb4:
 			case mandelbulb5:
 			case mandelbulb6Beta:
-      case mandelbulbMulti:
-      case benesiPineTree:
-      case benesiT1PineTree:
-      case eiffieMsltoe:
+			case mandelbulbMulti:
+			case msltoesym2:
+			case msltoesym3:
+			case msltoesym4:
+			case quaternion:
+			case xenodreambuie:
+
 				out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
 				break;
 

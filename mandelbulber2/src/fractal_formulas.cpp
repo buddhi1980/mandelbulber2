@@ -171,6 +171,8 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 
 void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux)
 {
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
+
 	double temp, tempR;
 	tempR = sqrt(z.x * z.x + z.y * z.y);
 	z *= (1.0 / tempR);
@@ -198,6 +200,8 @@ void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux)
 
 void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
 {
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
+
 	double temp, tempR;
 
 	double sign = 1.0;
@@ -225,6 +229,7 @@ void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
 void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	double rp = pow(aux.r, fractal->bulb.power - 1);
+	aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
 
 	double angZ = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
 	double angY = atan2(z.z, z.x) + fractal->bulb.betaAngleOffset;
@@ -238,8 +243,9 @@ void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 	z = rotM.RotateVector(z) * rp;
 }
 
-void MandelbulbPower2Iteration(CVector3 &z)
+void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux)
 {
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
 	double z2 = z.z * z.z;
@@ -254,7 +260,10 @@ void MandelbulbPower2Iteration(CVector3 &z)
 
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	double rp = pow(aux.r, fractal->bulb.power);
+	double rp = pow(aux.r, fractal->bulb.power - 1);
+	aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
+	rp *= aux.r;
+
 	double th = atan2(z.y, z.x) + fractal->bulb.betaAngleOffset;
 	double ph = acos(z.z / aux.r) + fractal->bulb.alphaAngleOffset;
 	if (ph > 0.5 * M_PI)
@@ -265,6 +274,7 @@ void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &
 	{
 		ph = -M_PI - ph;
 	}
+
 	z.x = rp * cos(th * fractal->bulb.power) * sin(ph * fractal->bulb.power);
 	z.y = rp * sin(th * fractal->bulb.power) * sin(ph * fractal->bulb.power);
 	z.z = rp * cos(ph * fractal->bulb.power);
@@ -497,8 +507,9 @@ void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sEx
 	w = tempw;
 }
 
-void HypercomplexIteration(CVector3 &z, double &w)
+void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux)
 {
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	CVector3 newz(z.x * z.x - z.y * z.y - z.z * z.z - w * w,
 								2.0 * z.x * z.y - 2.0 * w * z.z,
 								2.0 * z.x * z.z - 2.0 * z.y * w);
@@ -507,16 +518,18 @@ void HypercomplexIteration(CVector3 &z, double &w)
 	w = neww;
 }
 
-void QuaternionIteration(CVector3 &z, double &w)
+void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux)
 {
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	CVector3 newz(z.x * z.x - z.y * z.y - z.z * z.z - w * w, 2.0 * z.x * z.y, 2.0 * z.x * z.z);
 	double neww = 2.0 * z.x * w;
 	z = newz;
 	w = neww;
 }
 
-void BenesiIteration(CVector3 &z, CVector3 &c)
+void BenesiIteration(CVector3 &z, CVector3 &c, sExtendedAux &aux)
 {
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	double r1 = z.y * z.y + z.z * z.z;
 	double newx = 0;
 	if (c.x < 0 || z.x < sqrt(r1))
@@ -536,8 +549,9 @@ void BenesiIteration(CVector3 &z, CVector3 &c)
 	z.z = newz;
 }
 
-void BristorbrotIteration(CVector3 &z)
+void BristorbrotIteration(CVector3 &z, sExtendedAux &aux)
 {
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	double newx = z.x * z.x - z.y * z.y - z.z * z.z;
 	double newy = z.y * (2.0 * z.x - z.z);
 	double newz = z.z * (2.0 * z.x + z.y);
@@ -572,8 +586,10 @@ void Ides2Iteration(CVector3 &z, CVector3 &c)
 	z.z = newz;
 }
 
-void BuffaloIteration(CVector3 &z, const cFractal *fractal)
+void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
+
 	if (fractal->buffalo.preabsx)
 	{
 		z.x = fabs(z.x);
@@ -670,9 +686,10 @@ void Makin3D2Iteration(CVector3 &z)
 }
 
 /* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */
-void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal)
+void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  CVector3 temp = z;
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
+	CVector3 temp = z;
   if (fabs(z.y) < fabs(z.z))
 	{
     temp.y = z.z;
@@ -696,9 +713,10 @@ void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal)
   z = temp +  fractal->transformCommon.additionConstantNeg100;
 }
 /* MsltoeSym3 from mbulb3d, also somewhere on fractalforums */
-void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal)
+void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  CVector3 temp = z;
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
+	CVector3 temp = z;
   if (fabs(z.y) < fabs(z.z))
   {
     temp.y = z.z;
@@ -723,9 +741,10 @@ void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal)
   z = temp +  fractal->transformCommon.additionConstantNeg100;
 }
 /* MsltoeSym4 from mbulb3d, also somewhere on fractalforums */
-void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal)
+void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  CVector3 temp = z;
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
+	CVector3 temp = z;
   double swap = z.x;
   if(fabs( z.x ) < fabs( z.z ) * fractal->transformCommon.constantMultiplier111.x)
   {
@@ -753,11 +772,6 @@ void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal)
 
   z = temp +  fractal->transformCommon.additionConstantNeg100;
 }
-
-
-
-
-
 
 
 //------------MANDELBULB EXTENDED--------------------------------
@@ -1331,7 +1345,7 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 
 void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
 {
-  CVector3 tempN;
+	CVector3 tempN;
   tempN.x = -( 1.25 * z.x * z.z - 0.3075);
   tempN.y = -(z.x * z.x - z.z * z.z - 0.3);
   tempN.z = z.y;
@@ -1618,15 +1632,13 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
 void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  //dr=dr*2.0*r; // outside the loop dr = 1.0 & r = z.Length()
-
   //if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;// when atan used
   double psi = fabs(fmod(atan2( z.z , z.y ) + PI/8.0, PI/4.0) - PI/8.0);
   double lengthYZ  = sqrt( z.y * z.y + z.z * z.z );
 
   z.y = cos(psi) * lengthYZ;
   z.z = sin(psi) * lengthYZ;
-  aux.r_dz=aux.r_dz*2.0*aux.r;
+	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 
   CVector3 z2 = z * z;
   double rr = z2.x + z2.y  + z2.z + 1e-60;

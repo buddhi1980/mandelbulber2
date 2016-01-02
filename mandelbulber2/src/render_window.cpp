@@ -662,7 +662,7 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
 	}
 
 	ui->comboBox_delta_DE_function->setEnabled(state || ui->comboBox_delta_DE_method->currentIndex() == (int)fractal::forceDeltaDEMethod);
-	ui->comboBox_delta_DE_method->setEnabled(!state);
+	//ui->comboBox_delta_DE_method->setEnabled(!state);
 }
 
 void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
