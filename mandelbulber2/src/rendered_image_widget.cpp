@@ -217,13 +217,13 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 		//preparing rotation matrix
 		CVector3 rotation = params->Get<CVector3>("camera_rotation") / 180.0 * M_PI;
-		double sweetSpotHAngle = gPar->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
-		double sweetSpotVAngle = gPar->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
+		double sweetSpotHAngle = params->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
+		double sweetSpotVAngle = params->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
 		CRotationMatrix mRot;
 		mRot.RotateZ(rotation.x);
 		mRot.RotateX(rotation.y);
 		mRot.RotateY(rotation.z);
-		mRot.RotateZ(sweetSpotHAngle);
+		mRot.RotateZ(-sweetSpotHAngle);
 		mRot.RotateX(sweetSpotVAngle);
 
 		double fov = params->Get<double>("fov");
@@ -573,19 +573,79 @@ void RenderedImage::wheelEvent(QWheelEvent * event)
 
 void RenderedImage::DisplayCrosshair()
 {
-	image->AntiAliasedLine(image->GetPreviewWidth() / 2,
+	//calculate crosshair center point according to sweet point
+
+	double sweetSpotHAngle = params->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
+	double sweetSpotVAngle = params->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
+	params::enumPerspectiveType perspType = (params::enumPerspectiveType) params->Get<int>("perspective_type");
+
+	double fov = params->Get<double>("fov");
+
+	double sw = image->GetPreviewWidth();
+	double sh = image->GetPreviewHeight();
+
+	double aspectRatio = sw / sh;
+
+	CVector2<double> crossShift;
+
+	switch (perspType)
+	{
+		case params::perspThreePoint:
+			crossShift.y = tan(sweetSpotVAngle) / fov;
+			crossShift.x = tan(-sweetSpotHAngle) / fov / cos(sweetSpotVAngle) / aspectRatio;
+			break;
+
+		case params::perspFishEye:
+			case params::perspFishEyeCut:
+			{
+			CVector3 forward(0.0, 0.0, 1.0);
+			forward = forward.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), -sweetSpotHAngle);
+			forward = forward.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), -sweetSpotVAngle);
+			forward.Normalize();
+			double r = sqrt(forward.x * forward.x + forward.y * forward.y);
+			if(r > 0)
+			{
+				double r2 = asin(r) / (M_PI * 0.5);
+				crossShift.x = (forward.x / fov) * r2 / r / 2.0 / aspectRatio;
+				crossShift.y = (forward.y / fov) * r2 / r / 2.0;
+			}
+			else
+			{
+				crossShift = CVector2<double>(0,0);
+			}
+			break;
+		}
+
+		case params::perspEquirectangular:
+		{
+			CVector3 forward(0.0, 0.0, 1.0);
+			forward = forward.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), -sweetSpotHAngle);
+			forward = forward.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), -sweetSpotVAngle);
+			crossShift.x = asin(forward.x / cos(asin(forward.y))) / M_PI / fov / aspectRatio;
+			if(forward.z < 0 && crossShift.x > 0) crossShift.x = fov / aspectRatio - crossShift.x;
+			if(forward.z < 0 && crossShift.x < 0) crossShift.x = -fov / aspectRatio - crossShift.x;
+			crossShift.y = asin(forward.y) / M_PI / fov;
+			break;
+		}
+	}
+
+	CVector2<double> crossCenter;
+	crossCenter.x = (sw * 0.5) * (1.0 + 2.0 * crossShift.x);
+	crossCenter.y = (sh * 0.5) * (1.0 + 2.0 * crossShift.y);
+
+	image->AntiAliasedLine(crossCenter.x,
 												 0,
-												 image->GetPreviewWidth() / 2,
-												 image->GetPreviewHeight(),
+												 crossCenter.x,
+												 sh,
 												 -1,
 												 -1,
 												 sRGB8(255, 255, 255),
 												 0.3,
 												 1);
 	image->AntiAliasedLine(0,
-												 image->GetPreviewHeight() / 2,
-												 image->GetPreviewWidth(),
-												 image->GetPreviewHeight() / 2,
+												 crossCenter.y,
+												 sw,
+												 crossCenter.y,
 												 -1,
 												 -1,
 												 sRGB8(255, 255, 255),

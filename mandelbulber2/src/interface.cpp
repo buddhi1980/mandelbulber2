@@ -2318,7 +2318,7 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 			CVector3 angles = cameraTarget.GetRotation();
 			CRotationMatrix mRot;
 			mRot.SetRotation(angles);
-			mRot.RotateZ(sweetSpotHAngle);
+			mRot.RotateZ(-sweetSpotHAngle);
 			mRot.RotateX(sweetSpotVAngle);
 
 			CVector2<double> normalizedPoint;

@@ -249,7 +249,7 @@ void cRenderWorker::PrepareMainVectors(void)
 		shadowVector = vector;
 	}
 
-	mRot.RotateZ(params->sweetSpotHAngle);
+	mRot.RotateZ(-params->sweetSpotHAngle);
 	mRot.RotateX(params->sweetSpotVAngle);
 }
 
