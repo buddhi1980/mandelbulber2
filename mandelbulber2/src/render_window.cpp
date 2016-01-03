@@ -2228,4 +2228,10 @@ void RenderWindow::slotPressedButtonResetFormula()
 	gMainInterface->ResetFormula(fractalNumber);
 }
 
+void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
+{
+	ui->logslider_bailout->setEnabled(!state);
+	ui->logedit_bailout->setEnabled(!state);
+}
+
 #endif // USE_GAMEPAD

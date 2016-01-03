@@ -213,6 +213,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(stateChanged(int)),
 												mainWindow,
 												SLOT(slotChangedCheckBoxCursorVisibility(int)));
+	QApplication::connect(mainWindow->ui->checkBox_use_default_bailout,
+												SIGNAL(stateChanged(int)),
+												mainWindow,
+												SLOT(slotChangedCheckBoxUseDefaultBailout(int)));
 	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode,
 												SIGNAL(currentIndexChanged(int)),
 												mainWindow,
