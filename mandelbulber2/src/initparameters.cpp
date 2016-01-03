@@ -470,13 +470,6 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("buffalo_pos_z", false, morphLinear, paramStandard);
 
 
-  // mengerMod
-  par->addParam("mengerMod_scale_factor", 3.0, morphAkima, paramStandard);
-  par->addParam("mengerMod_constant_factor", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-
-  //quaternion3D
-  par->addParam("quaternion3D_constant_factor", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
-
 
   // aboxMod1
   par->addParam("aboxMod1_min_radius", 0.0, morphAkima, paramStandard);
@@ -488,6 +481,7 @@ void InitFractalParams(cParameterContainer *par)
 
   //common parameters for transforming formulas
   par->addParam("transf_scale", 1.0, morphAkima, paramStandard);
+  par->addParam("transf_scale_3", 3.0, morphAkima, paramStandard);
   par->addParam("transf_scale3D_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_scale3D_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transf_scale3D_333", CVector3(3.0, 3.0, 3.0), morphAkima, paramStandard);

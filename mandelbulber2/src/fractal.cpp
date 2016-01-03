@@ -102,9 +102,6 @@ cFractal::cFractal(const cParameterContainer *container)
 	buffalo.absz = container->Get<bool>("buffalo_abs_z");
 	buffalo.posz = container->Get<bool>("buffalo_pos_z");
 
-  mengerMod.scaleFactor =	container->Get<double>("mengerMod_scale_factor");
-  mengerMod.constantFactor = container->Get<CVector3>("mengerMod_constant_factor");
-
   aboxMod1.minR = container->Get<double>("aboxMod1_min_radius");
   aboxMod1.foldM = container->Get<CVector3>("aboxMod1_foldM");
 
@@ -1338,7 +1335,8 @@ cFractal::cFractal(const cParameterContainer *container)
 	platonicSolid.rhoMul = container->Get<double>("platonic_solid_rhoMul");
 
 	//common parameters for transforming formulas
-	transformCommon.scale = container->Get<double>("transf_scale");
+  transformCommon.scale = container->Get<double>("transf_scale");
+  transformCommon.scale3 = container->Get<double>("transf_scale_3");
   transformCommon.scale3D111 = container->Get<CVector3>("transf_scale3D_111");
   transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
   transformCommon.scale3D333 = container->Get<CVector3>("transf_scale3D_333");

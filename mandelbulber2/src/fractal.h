@@ -222,13 +222,6 @@ struct sFractalBuffalo
 };
 
 
-struct sFractalMengerMod
-{
-  double scaleFactor;
-  CVector3 constantFactor;
-};
-
-
 struct sFractalAboxMod1
 {
   double minR;
@@ -766,6 +759,7 @@ struct sFractalPlatonicSolid
 struct sFractalTransformCommon
 {
 	double scale;
+  double scale3;
   CVector3 additionConstant000;
   CVector3 additionConstant111;
   CVector3 additionConstant222;
@@ -816,7 +810,6 @@ public:
 	sFractalBuffalo buffalo;
 	sFractalTransform transform;
 	sFractalPlatonicSolid platonicSolid;
-  sFractalMengerMod mengerMod;
   sFractalAboxMod1 aboxMod1;
   sFractalTransformCommon transformCommon;
   sFractalMandelbulbMulti mandelbulbMulti;

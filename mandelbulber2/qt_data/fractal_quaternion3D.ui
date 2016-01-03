@@ -133,7 +133,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QSlider" name="slider3_quaternion3D_constant_factor_x">
+         <widget class="QSlider" name="slider3_transf_constant_multiplier_122_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -155,7 +155,7 @@
          </widget>
         </item>
         <item row="4" column="3">
-         <widget class="QSlider" name="slider3_quaternion3D_constant_factor_z">
+         <widget class="QSlider" name="slider3_transf_constant_multiplier_122_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -205,7 +205,7 @@
          </widget>
         </item>
         <item row="3" column="3">
-         <widget class="QSlider" name="slider3_quaternion3D_constant_factor_y">
+         <widget class="QSlider" name="slider3_transf_constant_multiplier_122_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -227,7 +227,7 @@
          </widget>
         </item>
         <item row="4" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_quaternion3D_constant_factor_z">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_122_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -255,7 +255,7 @@
          </widget>
         </item>
         <item row="2" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_quaternion3D_constant_factor_x">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_122_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -591,7 +591,7 @@
          </widget>
         </item>
         <item row="3" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox3_quaternion3D_constant_factor_y">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_122_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>

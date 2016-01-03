@@ -1567,11 +1567,20 @@ void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux
     z.z = z.y;
     z.y = tempMS;
   }
-  z *= fractal->mengerMod.scaleFactor;
-  z.x -= 2.0 * fractal->mengerMod.constantFactor.x;
-  z.y -= 2.0 * fractal->mengerMod.constantFactor.y;
-  if (z.z > 1.0) z.z -= 2.0 * fractal->mengerMod.constantFactor.z;
-  aux.DE *= fractal->mengerMod.scaleFactor;
+  z *= fractal->transformCommon.scale3;
+  z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
+  z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
+  if (z.z > 1.0 * fractal->transformCommon.scale) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
+
+
+  aux.DE *= fractal->transformCommon.scale3;
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+  z += fractal->transformCommon.additionConstant000;
+
 }
 
 
@@ -1621,7 +1630,7 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 
 
 
-//Post by Eiffie    Reply #69 on: January 27, 2015, 06:17:59 PM »----------------------------------
+//--EiffieMsltoeJulia------Post by Eiffie    Reply #69 on: January 27, 2015, 06:17:59 PM »----------------------------------
 //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
 void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
