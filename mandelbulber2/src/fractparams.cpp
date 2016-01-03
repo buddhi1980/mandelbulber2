@@ -132,6 +132,7 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 	transparencyInteriorColor = container->Get<sRGB>("transparency_interior_color");
 	transparencyOfInterior = container->Get<double>("transparency_of_interior");
 	transparencyOfSurface = container->Get<double>("transparency_of_surface");
+	useDefaultBailout = container->Get<bool>("use_default_bailout");
 	viewAngle = container->Get<CVector3>("camera_rotation");
 	viewDistanceMax = container->Get<double>("view_distance_max");
 	viewDistanceMin = container->Get<double>("view_distance_min");
@@ -197,7 +198,6 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 	common.juliaMode = container->Get<bool>("julia_mode");
 	common.mRotFractalRotation.SetRotation2(common.fractalRotation / 180.0 * M_PI);
 	common.repeat = container->Get<CVector3>("repeat");
-	common.bailout = container->Get<double>("bailout");
 
 	//formula = Get<int>("tile_number");
 }

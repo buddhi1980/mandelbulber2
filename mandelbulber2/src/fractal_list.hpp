@@ -139,15 +139,17 @@ struct sFractalDescription
 	fractal::enumFractalFormula internalID;
 	fractal::enumDEType DEType;
 	fractal::enumDEFunctionType DEFunctionType;
+	double defaultBailout;
 
 	sFractalDescription(QString _nameInComboBox, QString _internalNane,
 			fractal::enumFractalFormula _internalID, fractal::enumDEType _DEType,
-			fractal::enumDEFunctionType _DEFunctionType) :
-					nameInComboBox(_nameInComboBox),
+			fractal::enumDEFunctionType _DEFunctionType, double _defaultBailout) :
+			nameInComboBox(_nameInComboBox),
 					internalNane(_internalNane),
 					internalID(_internalID),
 					DEType(_DEType),
-					DEFunctionType(_DEFunctionType)
+					DEFunctionType(_DEFunctionType),
+					defaultBailout(_defaultBailout)
 	{
 	}
 };

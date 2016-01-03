@@ -144,6 +144,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("repeat_from", 1, 1, 9, morphLinear, paramStandard);
 	par->addParam("delta_DE_function", (int)fractal::preferedDEfunction, 0, 2, morphNone, paramStandard);
 	par->addParam("delta_DE_method", (int)fractal::preferedDEMethod, 0, 1, morphNone, paramStandard);
+	par->addParam("use_default_bailout", true, morphNone, paramStandard);
 
 	//foldings
 	par->addParam("box_folding", false, morphLinear, paramStandard);

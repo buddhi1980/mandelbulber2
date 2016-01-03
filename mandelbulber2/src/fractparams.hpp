@@ -115,6 +115,7 @@ public:
 	bool slowShading; //enable fake gradient calculation for shading
 	bool SSAO_random_mode;
 	bool texturedBackground; //enable testured background
+	bool useDefaultBailout;
 	bool volumetricLightEnabled[5];
 	bool volumetricLightAnyEnabled;
 	bool volFogEnabled;

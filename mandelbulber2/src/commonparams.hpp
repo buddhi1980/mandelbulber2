@@ -41,7 +41,6 @@ struct sCommonParams
 	CVector3 juliaC;
 
 	CVector3 constantMultiplier;
-	double bailout;
 
 	int fakeLightsMaxIter;
 	int fakeLightsMinIter;

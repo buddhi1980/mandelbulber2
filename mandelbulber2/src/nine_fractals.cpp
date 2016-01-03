@@ -40,6 +40,10 @@ cNineFractals::~cNineFractals()
 cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterContainer *generalPar)
 {
 	fractals = new cFractal*[NUMBER_OF_FRACTALS];
+
+	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
+	double commonBailout = generalPar->Get<double>("bailout");
+
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		fractals[i] = new cFractal(&par->at(i));
@@ -51,6 +55,11 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		DEFunctionType[i] = fractal::logarithmicDEFunction;
 		checkForBailout[i] = generalPar->Get<bool>("check_for_bailout", i + 1);
 		dontAddCConstant[i] = generalPar->Get<bool>("dont_add_c_constant", i + 1);
+
+		if(useDefaultBailout)
+			bailout[i] = fractalList[GetIndexOnFractalList(fractals[i]->formula)].defaultBailout;
+		else
+			bailout[i] = commonBailout;
 	}
 
 	if((fractal::enumDEMethod)generalPar->Get<int>("delta_DE_method") == fractal::forceDeltaDEMethod)
@@ -73,44 +82,40 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 			//finding preferred delta DE function
 			int linearDECount = 0;
 			int logarythmicDECount = 0;
-			for(int f = 0; f < NUMBER_OF_FRACTALS; f++)
+			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 			{
 				fractal::enumFractalFormula formula = fractals[f]->formula;
-				for (int i = 0; i < fractalList.size(); i++)
+				int index = GetIndexOnFractalList(formula);
+
+				//looking for the best DE function for DeltaDE mode
+
+				fractal::enumDEFunctionType DEFunction = fractalList[index].DEFunctionType;
+				if (DEFunction == fractal::logarithmicDEFunction)
+				logarythmicDECount += counts[f];
+
+				if (DEFunction == fractal::linearDEFunction)
+				linearDECount += counts[f];
+
+				//looking if it's possible to use analyticDEType
+				if (!forceDeltaDE && fractalList[index].internalID != fractal::none)
 				{
-					if (fractalList[i].internalID == formula)
+					if (optimizedDEType == fractal::withoutDEFunction)
 					{
-						//looking for the best DE function for DeltaDE mode
-
-						fractal::enumDEFunctionType DEFunction = fractalList[i].DEFunctionType;
-						if(DEFunction == fractal::logarithmicDEFunction)
-							logarythmicDECount += counts[f];
-
-						if(DEFunction == fractal::linearDEFunction)
-							linearDECount += counts[f];
-
-						//looking if it's possible to use analyticDEType
-						if(!forceDeltaDE && fractalList[i].internalID != fractal::none)
-						{
-							if(optimizedDEType == fractal::withoutDEFunction)
-							{
-								optimizedDEType = DEFunction;
-							}
-
-							if ((optimizedDEType != DEFunction && DEFunction != fractal::withoutDEFunction)
-									|| fractalList[i].DEType == fractal::deltaDEType)
-							{
-								optimizedDEType = fractal::preferedDEfunction;
-							}
-
-						}
+						optimizedDEType = DEFunction;
 					}
+
+					if ((optimizedDEType != DEFunction && DEFunction != fractal::withoutDEFunction)
+							|| fractalList[index].DEType == fractal::deltaDEType)
+					{
+						optimizedDEType = fractal::preferedDEfunction;
+					}
+
 				}
 			}
-			if(linearDECount > logarythmicDECount)
-				DEFunctionType[0] = fractal::linearDEFunction;
+			if (linearDECount > logarythmicDECount)
+			DEFunctionType[0] = fractal::linearDEFunction;
 			else
-				DEFunctionType[0] = fractal::logarithmicDEFunction;
+			DEFunctionType[0] = fractal::logarithmicDEFunction;
 		}
 		else
 		{
@@ -130,14 +135,10 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
 		{
 			fractal::enumFractalFormula formula = fractals[f]->formula;
-			for (int i = 0; i < fractalList.size(); i++)
-			{
-				if (fractalList[i].internalID == formula)
-				{
-					DEType[f] = fractalList[i].DEType;
-					DEFunctionType[f] = fractalList[i].DEFunctionType;
-				}
-			}
+			int index = GetIndexOnFractalList(formula);
+
+			DEType[f] = fractalList[index].DEType;
+			DEFunctionType[f] = fractalList[index].DEFunctionType;
 		}
 	}
 }
@@ -253,4 +254,16 @@ QString cNineFractals::GetDETypeString() const
 		text += " linear";
 	}
 	return text;
+}
+
+int cNineFractals::GetIndexOnFractalList(fractal::enumFractalFormula formula)
+{
+	for (int i = 0; i < fractalList.size(); i++)
+	{
+		if (fractalList[i].internalID == formula)
+		{
+			return i;
+		}
+	}
+	return 0;
 }

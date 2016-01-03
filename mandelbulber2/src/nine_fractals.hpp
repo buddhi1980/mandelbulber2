@@ -43,9 +43,10 @@ public:
 	inline double GetWeight(int formulaIndex) const {return formulaWeight[formulaIndex];}
 	inline int GetMaxFractalIndex() const {return maxFractalIndex;}
 	inline bool IsDontAddCContant(int formulaIndex) const {return dontAddCConstant[formulaIndex];}
-	inline bool IsCheckForBaiout(int formulaIndex) const {return checkForBailout[formulaIndex];}
+	inline bool IsCheckForBailout(int formulaIndex) const {return checkForBailout[formulaIndex];}
 	inline bool UseOptimizedDE() const {return useOptimizedDE;}
 	QString GetDETypeString() const;
+	inline double GetBailout(int formulaIndex) const {return bailout[formulaIndex];};
 
 private:
 	bool forceDeltaDE;
@@ -64,8 +65,10 @@ private:
 	int formulaStopIteration[NUMBER_OF_FRACTALS];
 	bool dontAddCConstant[NUMBER_OF_FRACTALS];
 	bool checkForBailout[NUMBER_OF_FRACTALS];
+	double bailout[NUMBER_OF_FRACTALS];
 
 	void CreateSequence(const cParameterContainer *generalPar);
+	int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 };
 
 

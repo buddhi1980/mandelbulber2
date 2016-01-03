@@ -556,11 +556,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 
 		//escape conditions
-		if (fractals.IsCheckForBaiout(sequence))
+		if (fractals.IsCheckForBailout(sequence))
 		{
 			if (Mode == calcModeNormal)
 			{
-				if (r > in.common.bailout)
+				if (r > fractals.GetBailout(sequence))
 				{
 					out->maxiter = false;
 					break;
@@ -568,7 +568,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else if (Mode == calcModeDeltaDE1)
 			{
-				if (r > in.common.bailout)
+				if (r > fractals.GetBailout(sequence))
 				{
 					out->maxiter = false;
 					break;
