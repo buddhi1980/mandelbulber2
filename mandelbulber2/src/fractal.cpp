@@ -102,20 +102,6 @@ cFractal::cFractal(const cParameterContainer *container)
 	buffalo.absz = container->Get<bool>("buffalo_abs_z");
 	buffalo.posz = container->Get<bool>("buffalo_pos_z");
 
-  mengerMod.scaleFactor =	container->Get<double>("mengerMod_scale_factor");
-  mengerMod.constantFactor = container->Get<CVector3>("mengerMod_constant_factor");
-
-  quaternion3D.constantFactor = container->Get<CVector3>("quaternion3D_constant_factor"),
-
-  aboxMod1.minR = container->Get<double>("aboxMod1_min_radius");
-  aboxMod1.foldM = container->Get<CVector3>("aboxMod1_foldM");
-
-  mandelbulbMulti.acosOrasin =
-      (sFractalMandelbulbMulti::multi_acosOrasin) container->Get<int>("mandelbulbMulti_acos_or_asin");
-  mandelbulbMulti.atanOratan2 =
-      (sFractalMandelbulbMulti::multi_atanOratan2) container->Get<int>("mandelbulbMulti_atan_or_atan2");
-  mandelbulbMulti.orderOfxyz =
-      (sFractalMandelbulbMulti::multi_OrderOfxyz) container->Get<int>("mandelbulbMulti_order_of_xyz");
 
 	//  transform parameters-----------------------
 	transform.additionConstant1.control.enabled =
@@ -1334,40 +1320,54 @@ cFractal::cFractal(const cParameterContainer *container)
 //----------------------------------
 
 	//platonic_solid
-
 	platonicSolid.frequency = container->Get<double>("platonic_solid_frequency");
 	platonicSolid.amplitude = container->Get<double>("platonic_solid_amplitude");
 	platonicSolid.rhoMul = container->Get<double>("platonic_solid_rhoMul");
 
+  // mandelbulb multi
+  mandelbulbMulti.acosOrasin =
+      (sFractalMandelbulbMulti::multi_acosOrasin) container->Get<int>("mandelbulbMulti_acos_or_asin");
+  mandelbulbMulti.atanOratan2 =
+      (sFractalMandelbulbMulti::multi_atanOratan2) container->Get<int>("mandelbulbMulti_atan_or_atan2");
+  mandelbulbMulti.orderOfxyz =
+      (sFractalMandelbulbMulti::multi_OrderOfxyz) container->Get<int>("mandelbulbMulti_order_of_xyz");
+
 	//common parameters for transforming formulas
-	transformCommon.scale = container->Get<double>("transf_scale");
-  transformCommon.scale3D111 = container->Get<CVector3>("transf_scale3D_111");
-  transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
-  transformCommon.scale3D333 = container->Get<CVector3>("transf_scale3D_333");
-  transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
+
+  transformCommon.offset = container->Get<double>("transf_offset");
+  transformCommon.minR0 = container->Get<double>("transf_minimum_radius_0");
+  transformCommon.startIterations = container->Get<int>("transf_start_iterations");
+  transformCommon.stopIterations = container->Get<int>("transf_stop_iterations");
+  transformCommon.scale = container->Get<double>("transf_scale");
+  transformCommon.scale3 = container->Get<double>("transf_scale_3");
+
+
   transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant");
   transformCommon.additionConstant111 = container->Get<CVector3>("transf_addition_constant_111");
   transformCommon.additionConstant222 = container->Get<CVector3>("transf_addition_constant_222");
   transformCommon.additionConstantNeg100 = container->Get<CVector3>("transf_addition_constant_neg100");
-  transformCommon.benesiT1Enabled = container->Get<bool>("transf_benesi_T1_enabled");
-  transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
-	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
-  transformCommon.offset = container->Get<double>("transf_offset");
-  transformCommon.offset200 = container->Get<CVector3>("transf_offset_200");
-  transformCommon.addCpixelEnabled = container->Get<bool>("transf_addCpixel_enabled");
-  transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");
-  transformCommon.functionEnabledy = container->Get<bool>("transf_function_enabledy");
-  transformCommon.functionEnabledz = container->Get<bool>("transf_function_enabledz");
-  transformCommon.constantMultiplier111 = container->Get<CVector3>("transf_constant_multiplier_111");
   transformCommon.constantMultiplier100 = container->Get<CVector3>("transf_constant_multiplier_100");
+  transformCommon.constantMultiplier111 = container->Get<CVector3>("transf_constant_multiplier_111");
+  transformCommon.constantMultiplier122 = container->Get<CVector3>("transf_constant_multiplier_122");
   transformCommon.constantMultiplier221 = container->Get<CVector3>("transf_constant_multiplier_221");
   transformCommon.constantMultiplier441 = container->Get<CVector3>("transf_constant_multiplier_441");
   transformCommon.juliaC = container->Get<CVector3>("transf_constant_julia_c");
-  transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
-  transformCommon.startIterations = container->Get<int>("transf_start_iterations");
-  transformCommon.stopIterations = container->Get<int>("transf_stop_iterations");
+  transformCommon.offset200 = container->Get<CVector3>("transf_offset_200");
   transformCommon.power025 = container->Get<CVector3>("transf_power_025");
   transformCommon.power8 = container->Get<CVector3>("transf_power_8");
+  transformCommon.rotation = container->Get<CVector3>("transf_rotation");
+  transformCommon.scale3D111 = container->Get<CVector3>("transf_scale3D_111");
+  transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
+  transformCommon.scale3D333 = container->Get<CVector3>("transf_scale3D_333");
+  transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
+
+  transformCommon.addCpixelEnabled = container->Get<bool>("transf_addCpixel_enabled");
+  transformCommon.benesiT1Enabled = container->Get<bool>("transf_benesi_T1_enabled");
+  transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
+  transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");
+  transformCommon.functionEnabledy = container->Get<bool>("transf_function_enabledy");
+  transformCommon.functionEnabledz = container->Get<bool>("transf_function_enabledz");
+  transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
 
 
 

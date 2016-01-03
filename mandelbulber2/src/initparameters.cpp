@@ -471,52 +471,64 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("buffalo_pos_z", false, morphLinear, paramStandard);
 
 
-  // mengerMod
-  par->addParam("mengerMod_scale_factor", 3.0, morphAkima, paramStandard);
-  par->addParam("mengerMod_constant_factor", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 
-  //quaternion3D
-  par->addParam("quaternion3D_constant_factor", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
-
-
-  // aboxMod1
-  par->addParam("aboxMod1_min_radius", 0.0, morphAkima, paramStandard);
   par->addParam("aboxMod1_foldM", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+
+
   // mandelbulbMulti
   par->addParam("mandelbulbMulti_acos_or_asin", 0, morphNone, paramStandard);
   par->addParam("mandelbulbMulti_atan_or_atan2", 0, morphNone, paramStandard);
   par->addParam("mandelbulbMulti_order_of_xyz", 0, morphNone, paramStandard);
 
   //common parameters for transforming formulas
+
+
+  par->addParam("transf_offset", 0.0, morphAkima, paramStandard);
+  par->addParam("transf_minimum_radius_0", 0.0, morphAkima, paramStandard);
   par->addParam("transf_scale", 1.0, morphAkima, paramStandard);
-  par->addParam("transf_scale3D_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
-  par->addParam("transf_scale3D_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
-  par->addParam("transf_scale3D_333", CVector3(3.0, 3.0, 3.0), morphAkima, paramStandard);
-  par->addParam("transf_scale3D_444", CVector3(4.0, 4.0, 4.0), morphAkima, paramStandard);
+  par->addParam("transf_scale_3", 3.0, morphAkima, paramStandard);
+  par->addParam("transf_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterations", 250, morphLinear, paramStandard);
 
   par->addParam("transf_addition_constant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant_neg100", CVector3(-1.0, 0.0, 0.0), morphAkima, paramStandard);
-  par->addParam("transf_function_enabledx", true, morphLinear, paramStandard);
-  par->addParam("transf_function_enabledy", true, morphLinear, paramStandard);
-  par->addParam("transf_function_enabledz", true, morphLinear, paramStandard);
-  par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-  par->addParam("transf_rotation_enabled", false, morphLinear, paramStandard);
-  par->addParam("transf_benesi_T1_enabled", true, morphLinear, paramStandard);
-  par->addParam("transf_offset", 0.0, morphAkima, paramStandard);
-  par->addParam("transf_offset_200", CVector3(2.0, 0.0, 0.0), morphAkima, paramStandard);
-  par->addParam("transf_addCpixel_enabled", true, morphLinear, paramStandard);
+  par->addParam("transf_constant_factor", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transf_constant_multiplier_111", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_constant_multiplier_100", CVector3(1.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transf_constant_multiplier_122", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transf_constant_multiplier_221", CVector3(2.0, 2.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_constant_multiplier_441", CVector3(4.0, 4.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_constant_julia_c", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
-  par->addParam("transf_constant_julia_mode", false, morphLinear, paramStandard);
-  par->addParam("transf_start_iterations", 0, morphLinear, paramStandard);
-  par->addParam("transf_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transf_offset_200", CVector3(2.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("transf_power_025", CVector3(0.25, 0.25, 0.25), morphAkimaAngle, paramStandard);
   par->addParam("transf_power_8", CVector3(8.0, 8.0, 8.0), morphAkimaAngle, paramStandard);
+  par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transf_scale3D_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transf_scale3D_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
+  par->addParam("transf_scale3D_333", CVector3(3.0, 3.0, 3.0), morphAkima, paramStandard);
+  par->addParam("transf_scale3D_444", CVector3(4.0, 4.0, 4.0), morphAkima, paramStandard);
+
+  par->addParam("transf_addCpixel_enabled", true, morphLinear, paramStandard);
+  par->addParam("transf_benesi_T1_enabled", true, morphLinear, paramStandard);
+  par->addParam("transf_constant_julia_mode", false, morphLinear, paramStandard);
+  par->addParam("transf_function_enabledx", true, morphLinear, paramStandard);
+  par->addParam("transf_function_enabledy", true, morphLinear, paramStandard);
+  par->addParam("transf_function_enabledz", true, morphLinear, paramStandard);
+  par->addParam("transf_rotation_enabled", false, morphLinear, paramStandard);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	//transform

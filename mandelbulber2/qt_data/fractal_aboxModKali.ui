@@ -35,7 +35,7 @@
       <bool>true</bool>
      </property>
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#008000;&quot;&gt;http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
       <string/>
@@ -93,14 +93,14 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_106">
           <property name="text">
-           <string>AdditionConstant y:</string>
+           <string>Offset y:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_107">
           <property name="text">
-           <string>AdditionConstant z:</string>
+           <string>Offset z:</string>
           </property>
          </widget>
         </item>
@@ -291,7 +291,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_105">
           <property name="text">
-           <string>AdditionConstant x:</string>
+           <string>Offset x:</string>
           </property>
          </widget>
         </item>

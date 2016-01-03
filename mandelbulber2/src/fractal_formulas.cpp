@@ -685,93 +685,7 @@ void Makin3D2Iteration(CVector3 &z)
 	z.z = newz;
 }
 
-/* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */
-void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	CVector3 temp = z;
-  if (fabs(z.y) < fabs(z.z))
-	{
-    temp.y = z.z;
-    temp.z = z.y;
-    z.y = temp.y;
-    z.z = temp.z;
-	}
-	if (z.y > z.z)
-	{
-		z.x = -z.x;
-	}
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-  double v3 = (x2 + y2 + z2);
-  if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
-  double zr = 1.0 - z.z * z.z / v3;
-  temp.x = (x2 - y2) * zr;
-  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;
-  temp.z = 2.0 * z.z * sqrt(x2 + z2);
-  z = temp +  fractal->transformCommon.additionConstantNeg100;
-}
-/* MsltoeSym3 from mbulb3d, also somewhere on fractalforums */
-void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	CVector3 temp = z;
-  if (fabs(z.y) < fabs(z.z))
-  {
-    temp.y = z.z;
-    temp.z = z.y;
-    z.y = temp.y;
-    z.z = temp.z;
-  }
-  if (z.y > z.z)
-  {
-    z.x = -z.x;
-    z.z = -z.z;
-  }
-  double x2 = z.x * z.x;
-  double y2 = z.y * z.y;
-  double z2 = z.z * z.z;
-  double v3 = (x2 + y2 + z2);
-  if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
-  double zr = 1.0 - z.z * z.z / v3;
-  temp.x = (x2 - y2) * zr;
-  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;
-  temp.z = 2.0 * z.z * sqrt(x2 + z2);
-  z = temp +  fractal->transformCommon.additionConstantNeg100;
-}
-/* MsltoeSym4 from mbulb3d, also somewhere on fractalforums */
-void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	CVector3 temp = z;
-  double swap = z.x;
-  if(fabs( z.x ) < fabs( z.z ) * fractal->transformCommon.constantMultiplier111.x)
-  {
-    z.x = z.z;
-    z.z = swap;
-  }
-  if (fabs( z.x ) < fabs( z.y ) *  fractal->transformCommon.constantMultiplier111.y)
-  {
-    swap = z.x;
-    z.x = z.y;
-    z.y = swap;
-  }
-  if (fabs( z.y ) < fabs( z.z ) * fractal->transformCommon.constantMultiplier111.z)
-  {
-    swap = z.y;
-    z.y = z.z;
-    z.z = swap;
-  }
 
-  if ( z.x * z.z  < 0)  z.z  = - z.z ;
-  if ( z.x * z.y  < 0)  z.y  = - z.y ;
-  temp.x =  z.x * z.x  -  z.y * z.y  -  z.z * z.z;
-  temp.y = 2* z.x * z.y ;
-  temp.z = 2* z.x * z.z ;
-
-  z = temp +  fractal->transformCommon.additionConstantNeg100;
-}
 
 
 //------------MANDELBULB EXTENDED--------------------------------
@@ -1339,6 +1253,79 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 }
 
 
+
+
+
+
+
+// V2.07   new formula -----------------------------------------------------------------
+
+
+// aboxMod1, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
+//http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+
+void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  aux.actualScale = aux.actualScale
+      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+
+  z.x = fractal->mandelbox.foldingValue
+      - fabs(fabs(z.x + fractal->transformCommon.additionConstant000.x) - fractal->mandelbox.foldingValue)
+      - fabs(fractal->transformCommon.additionConstant000.x);
+  z.y = fractal->mandelbox.foldingValue
+      - fabs(fabs(z.y + fractal->transformCommon.additionConstant000.y) - fractal->mandelbox.foldingValue)
+      - fabs(fractal->transformCommon.additionConstant000.y);
+  z.z = fractal->mandelbox.foldingValue
+      - fabs(fabs(z.z + fractal->transformCommon.additionConstant000.z) - fractal->mandelbox.foldingValue)
+      - fabs(fractal->transformCommon.additionConstant000.z);
+  // rr = pow(x*x + y*y + z*z + w*w, R_power) <- removed to speedup
+  double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
+  if (rr < 1e-21) rr = 1e-21;
+  double m;
+  double sqrtMinR = sqrt(fractal->transformCommon.minR0);
+  if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+  if (rr < sqrtMinR)
+  {
+    m = aux.actualScale / sqrtMinR;
+  }
+  else
+  {
+    if (rr < 1)
+    {
+      m = aux.actualScale / rr;
+    }
+    else
+    {
+      m = aux.actualScale;
+    }
+  }
+  z *= m;
+  aux.DE = aux.DE * fabs(m) + 1.0;
+}
+
+
+
+
+//------------AboxModKali  --------------------------------
+//http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  z = fractal->transformCommon.additionConstant111 - fabs(z);
+  double rr = z.x * z.x + z.y * z.y + z.z * z.z;
+  if(rr < 1e-21) rr = 1e-21;
+  double MinR = fractal->mandelbox.foldingSphericalMin;
+  if (MinR > -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
+  double m;
+  if (rr < (MinR)) m = fractal->mandelbox.scale/(MinR);
+  else
+  {
+   if (rr < 1) m =  fractal->mandelbox.scale/rr;
+   else m = fractal->mandelbox.scale;
+  }
+  z = z * m;
+  aux.DE = aux.DE * fabs(m) + 1.0;
+}
+
 //------------AexionOctopus  --------------------------------
 
 //http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
@@ -1369,7 +1356,6 @@ void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
   z += fractal->transformCommon.additionConstant000;
-
 }
 
 
@@ -1446,6 +1432,29 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
   aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }
 
+//--EiffieMsltoeJulia------Post by Eiffie    Reply #69 on: January 27, 2015, 06:17:59 PM »----------------------------------
+//http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
+void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  //if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;// when atan used
+  double psi = fabs(fmod(atan2( z.z , z.y ) + PI/8.0, PI/4.0) - PI/8.0);
+  double lengthYZ  = sqrt( z.y * z.y + z.z * z.z );
+
+  z.y = cos(psi) * lengthYZ;
+  z.z = sin(psi) * lengthYZ;
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+
+  CVector3 z2 = z * z;
+  double rr = z2.x + z2.y  + z2.z + 1e-60;
+  double m = 1.0 - z.z * z.z /rr;
+  CVector3 newz;
+  newz.x = (z2.x - z2.y)  * m;
+  newz.y = 2.0 * z.x * z.y  * m;
+  newz.z = 2.0 * z.z * sqrt( z2.x + z2.y );
+  z = newz + fractal->transformCommon.additionConstantNeg100;
+}
+
+
 // mandelbulbMulti 3D
 void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1520,19 +1529,9 @@ void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
   aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
   rp *= aux.r;
   z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
-
-
 }
 
-// --------quaternion3D--------------
-void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
-{
-  CVector3 newz(fractal->quaternion3D.constantFactor.x
-                    * (z.x * z.x - z.y * z.y - z.z * z.z),
-                fractal->quaternion3D.constantFactor.y * z.x * z.y,
-                fractal->quaternion3D.constantFactor.z * z.x * z.z);
-  z = newz;
-}
+
 // ----------mengerMod
 void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1556,101 +1555,112 @@ void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux
     z.z = z.y;
     z.y = tempMS;
   }
-  z *= fractal->mengerMod.scaleFactor;
-  z.x -= 2.0 * fractal->mengerMod.constantFactor.x;
-  z.y -= 2.0 * fractal->mengerMod.constantFactor.y;
-  if (z.z > 1.0) z.z -= 2.0 * fractal->mengerMod.constantFactor.z;
-  aux.DE *= fractal->mengerMod.scaleFactor;
-}
+  z *= fractal->transformCommon.scale3;
+  z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
+  z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
+  if (z.z >  fractal->transformCommon.scale) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 
 
-//DarkBeam's aboxMod1, Inspired from a 2D formula proposed by Kali at the forums here;
-//http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+  aux.DE *= fractal->transformCommon.scale3;
 
-void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-	aux.actualScale = aux.actualScale
-			+ fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
-
-	z.x = fractal->mandelbox.foldingValue
-			- fabs(fabs(z.x + fractal->aboxMod1.foldM.x) - fractal->mandelbox.foldingValue)
-			- fabs(fractal->aboxMod1.foldM.x);
-	z.y = fractal->mandelbox.foldingValue
-			- fabs(fabs(z.y + fractal->aboxMod1.foldM.y) - fractal->mandelbox.foldingValue)
-			- fabs(fractal->aboxMod1.foldM.y);
-	z.z = fractal->mandelbox.foldingValue
-			- fabs(fabs(z.z + fractal->aboxMod1.foldM.z) - fractal->mandelbox.foldingValue)
-			- fabs(fractal->aboxMod1.foldM.z);
-	// rr = pow(x*x + y*y + z*z + w*w, R_power) <- removed to speedup
-	double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
-	if (rr < 1e-21) rr = 1e-21;
-	double m;
-	double sqrtMinR = sqrt(fractal->aboxMod1.minR);
-	if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
-	if (rr < sqrtMinR)
-	{
-		m = aux.actualScale / sqrtMinR;
-	}
-	else
-	{
-		if (rr < 1)
-		{
-			m = aux.actualScale / rr;
-		}
-		else
-		{
-			m = aux.actualScale;
-		}
-	}
-	z *= m;
-	aux.DE = aux.DE * fabs(m) + 1.0;
-}
-
-
-//------------AboxModKali  --------------------------------
-//http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
-void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-  z = fractal->transformCommon.additionConstant111 - fabs(z);
-  double rr = z.x * z.x + z.y * z.y + z.z * z.z;
-  if(rr < 1e-21) rr = 1e-21;
-  double MinR = fractal->mandelbox.foldingSphericalMin;
-  if (MinR > -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
-  double m;
-  if (rr < (MinR)) m = fractal->mandelbox.scale/(MinR);
-  else
+  if (fractal->transformCommon.rotationEnabled)
   {
-   if (rr < 1) m =  fractal->mandelbox.scale/rr;
-   else m = fractal->mandelbox.scale;
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
-  z = z * m;
-  aux.DE = aux.DE * fabs(m) + 1.0;
+  z += fractal->transformCommon.additionConstant000;
+
 }
 
-
-//Post by Eiffie    Reply #69 on: January 27, 2015, 06:17:59 PM »----------------------------------
-//http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
-void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+/* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */
+void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  //if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;// when atan used
-  double psi = fabs(fmod(atan2( z.z , z.y ) + PI/8.0, PI/4.0) - PI/8.0);
-  double lengthYZ  = sqrt( z.y * z.y + z.z * z.z );
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  CVector3 temp = z;
+  if (fabs(z.y) < fabs(z.z))
+  {
+    temp.y = z.z;
+    temp.z = z.y;
+    z.y = temp.y;
+    z.z = temp.z;
+  }
+  if (z.y > z.z)
+  {
+    z.x = -z.x;
+  }
+  double x2 = z.x * z.x;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+  double v3 = (x2 + y2 + z2);
+  if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
+  double zr = 1.0 - z.z * z.z / v3;
+  temp.x = (x2 - y2) * zr;
+  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;
+  temp.z = 2.0 * z.z * sqrt(x2 + z2);
+  z = temp +  fractal->transformCommon.additionConstantNeg100;
+}
+/* MsltoeSym3 from mbulb3d, also somewhere on fractalforums */
+void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  CVector3 temp = z;
+  if (fabs(z.y) < fabs(z.z))
+  {
+    temp.y = z.z;
+    temp.z = z.y;
+    z.y = temp.y;
+    z.z = temp.z;
+  }
+  if (z.y > z.z)
+  {
+    z.x = -z.x;
+    z.z = -z.z;
+  }
+  double x2 = z.x * z.x;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+  double v3 = (x2 + y2 + z2);
+  if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
+  double zr = 1.0 - z.z * z.z / v3;
+  temp.x = (x2 - y2) * zr;
+  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;
+  temp.z = 2.0 * z.z * sqrt(x2 + z2);
+  z = temp +  fractal->transformCommon.additionConstantNeg100;
+}
+/* MsltoeSym4 from mbulb3d, also somewhere on fractalforums */
+void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  CVector3 temp = z;
+  double swap = z.x;
+  if(fabs( z.x ) < fabs( z.z ) * fractal->transformCommon.constantMultiplier111.x)
+  {
+    z.x = z.z;
+    z.z = swap;
+  }
+  if (fabs( z.x ) < fabs( z.y ) *  fractal->transformCommon.constantMultiplier111.y)
+  {
+    swap = z.x;
+    z.x = z.y;
+    z.y = swap;
+  }
+  if (fabs( z.y ) < fabs( z.z ) * fractal->transformCommon.constantMultiplier111.z)
+  {
+    swap = z.y;
+    z.y = z.z;
+    z.z = swap;
+  }
 
-  z.y = cos(psi) * lengthYZ;
-  z.z = sin(psi) * lengthYZ;
-	aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  if ( z.x * z.z  < 0)  z.z  = - z.z ;
+  if ( z.x * z.y  < 0)  z.y  = - z.y ;
+  temp.x =  z.x * z.x  -  z.y * z.y  -  z.z * z.z;
+  temp.y = 2* z.x * z.y ;
+  temp.z = 2* z.x * z.z ;
 
-  CVector3 z2 = z * z;
-  double rr = z2.x + z2.y  + z2.z + 1e-60;
-  double m = 1.0 - z.z * z.z /rr;
-  CVector3 newz;
-  newz.x = (z2.x - z2.y)  * m;
-  newz.y = 2.0 * z.x * z.y  * m;
-  newz.z = 2.0 * z.z * sqrt( z2.x + z2.y );
-  z = newz + fractal->transformCommon.additionConstantNeg100;
+  z = temp +  fractal->transformCommon.additionConstantNeg100;
 }
 
-//MsltoeRiemannSphere----------------------------------
+
+//RiemannSphereMsltoe----------------------------------
 //http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500
 void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
 {
@@ -1689,7 +1699,7 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
 }
 
 
-//MsltoeRiemannSphere     Variation1----------------------------------
+//RiemannSphereMsltoe     Variation1----------------------------------
 //  http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/
 void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
 {
@@ -1718,6 +1728,30 @@ void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
   z += fractal->transformCommon.additionConstant000;
 }
 
+
+
+// --------quaternion3D--------------
+void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
+{
+  CVector3 newz(fractal->transformCommon.constantMultiplier122.x
+                    * (z.x * z.x - z.y * z.y - z.z * z.z),
+                fractal->transformCommon.constantMultiplier122.y * z.x * z.y,
+                fractal->transformCommon.constantMultiplier122.z * z.x * z.z);
+  z = newz;
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+  z += fractal->transformCommon.additionConstant000;
+
+}
+
+
+
+
+
+//-----------------------------------------------------------------------------------------------------------------------------
 /* GeneralizedFoldBox, ref: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/ */
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
