@@ -2120,6 +2120,20 @@ void RenderWindow::slotPressedButtonOptimizeForHQ()
 {
 	gMainInterface->OptimizeStepFactor(0.01);
 }
+
+void RenderWindow::slotPressedButtonResetFormula()
+{
+	QString comboName = this->sender()->objectName();
+	int fractalNumber = comboName.right(1).toInt() - 1;
+	gMainInterface->ResetFormula(fractalNumber);
+}
+
+void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
+{
+	ui->logslider_bailout->setEnabled(!state);
+	ui->logedit_bailout->setEnabled(!state);
+}
+
 #ifdef USE_GAMEPAD
 void RenderWindow::slotChangeGamepadIndex(int index)
 {
@@ -2220,19 +2234,6 @@ void RenderWindow::slotGamepadZ()
 			emit gMainInterface->renderedImage->SpeedChanged(0.9);
 		}
 	}
-}
-
-void RenderWindow::slotPressedButtonResetFormula()
-{
-	QString comboName = this->sender()->objectName();
-	int fractalNumber = comboName.right(1).toInt() - 1;
-	gMainInterface->ResetFormula(fractalNumber);
-}
-
-void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
-{
-	ui->logslider_bailout->setEnabled(!state);
-	ui->logedit_bailout->setEnabled(!state);
 }
 
 #endif // USE_GAMEPAD
