@@ -83,6 +83,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("stereo_eye_distance", 1.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
 	par->addParam("legacy_coordinate_system", false, morphNone, paramStandard);
+	par->addParam("sweet_spot_horizontal_angle", 0.0, -180.0, 180.0, morphAkima, paramStandard);
+	par->addParam("sweet_spot_vertical_angle", 0.0, -90.0, 90.0, morphAkima, paramStandard);
 
 	//fractal formula selections
 	par->addParam("formula", 1, (int) fractal::mandelbulb, morphNone, paramStandard);

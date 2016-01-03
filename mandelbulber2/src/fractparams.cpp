@@ -122,6 +122,8 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 	smoothness = container->Get<double>("smoothness");
 	specular = container->Get<double>("specular");
 	SSAO_random_mode = container->Get<bool>("SSAO_random_mode");
+	sweetSpotHAngle = container->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
+	sweetSpotVAngle = container->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
 	target = container->Get<CVector3>("target");
 	target = container->Get<CVector3>("target");
 	texturedBackground = container->Get<bool>("textured_background");

@@ -217,10 +217,14 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 
 		//preparing rotation matrix
 		CVector3 rotation = params->Get<CVector3>("camera_rotation") / 180.0 * M_PI;
+		double sweetSpotHAngle = gPar->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
+		double sweetSpotVAngle = gPar->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
 		CRotationMatrix mRot;
 		mRot.RotateZ(rotation.x);
 		mRot.RotateX(rotation.y);
 		mRot.RotateY(rotation.z);
+		mRot.RotateZ(sweetSpotHAngle);
+		mRot.RotateX(sweetSpotVAngle);
 
 		double fov = params->Get<double>("fov");
 

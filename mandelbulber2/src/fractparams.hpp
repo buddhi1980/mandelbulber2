@@ -181,6 +181,8 @@ public:
 	double shadowConeAngle;
 	double smoothness;
 	double specular;
+	double sweetSpotHAngle;
+	double sweetSpotVAngle;
 	double transparencyIndexOfRefraction;
 	double transparencyOfInterior;
 	double transparencyOfSurface;

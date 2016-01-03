@@ -67,7 +67,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>968</width>
+           <width>932</width>
            <height>703</height>
           </rect>
          </property>
@@ -1210,7 +1210,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>174</width>
+          <width>210</width>
           <height>285</height>
          </rect>
         </property>
@@ -1622,9 +1622,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>177</width>
-          <height>721</height>
+          <y>-553</y>
+          <width>202</width>
+          <height>838</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_coordinates">
@@ -1644,7 +1644,7 @@
           <number>2</number>
          </property>
          <item>
-          <layout class="QVBoxLayout" name="vl_side_functions" stretch="0,0,0">
+          <layout class="QVBoxLayout" name="vl_side_functions" stretch="0,0,0,0">
            <property name="spacing">
             <number>1</number>
            </property>
@@ -2785,6 +2785,142 @@ to target:</string>
                  </item>
                 </layout>
                </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_11">
+             <property name="title">
+              <string>Sweet spot angle:</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_117">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_72">
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item row="1" column="1">
+                 <widget class="QDial" name="dial_sweet_spot_vertical_angle">
+                  <property name="minimum">
+                   <number>-9000</number>
+                  </property>
+                  <property name="maximum">
+                   <number>9000</number>
+                  </property>
+                  <property name="wrapping">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QDial" name="dial_sweet_spot_horizontal_angle">
+                  <property name="minimum">
+                   <number>-18000</number>
+                  </property>
+                  <property name="maximum">
+                   <number>18000</number>
+                  </property>
+                  <property name="wrapping">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="MyDoubleSpinBox" name="spinboxd_sweet_spot_horizontal_angle">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>2</number>
+                  </property>
+                  <property name="minimum">
+                   <double>-180.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>180.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>1.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="MyDoubleSpinBox" name="spinboxd_sweet_spot_vertical_angle">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>2</number>
+                  </property>
+                  <property name="minimum">
+                   <double>-90.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>90.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>1.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_293">
+                  <property name="text">
+                   <string>horizontal:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLabel" name="label_294">
+                  <property name="text">
+                   <string>vertical:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
@@ -4477,7 +4613,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>196</width>
+                  <width>334</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5317,7 +5453,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>273</width>
+                  <width>334</width>
                   <height>225</height>
                  </rect>
                 </property>
@@ -5635,7 +5771,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>265</width>
+                  <width>334</width>
                   <height>1455</height>
                  </rect>
                 </property>
@@ -8022,7 +8158,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="documentMode">
             <bool>false</bool>
@@ -14740,7 +14876,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>210</width>
+                  <width>320</width>
                   <height>482</height>
                  </rect>
                 </property>
@@ -16341,8 +16477,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>207</width>
-                  <height>354</height>
+                  <width>334</width>
+                  <height>416</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -16885,7 +17021,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-182</y>
+          <y>0</y>
           <width>370</width>
           <height>1057</height>
          </rect>
@@ -19303,8 +19439,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>198</width>
-                  <height>242</height>
+                  <width>317</width>
+                  <height>288</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">

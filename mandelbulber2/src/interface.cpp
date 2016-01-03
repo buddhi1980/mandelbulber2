@@ -2297,6 +2297,9 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
 	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
 
+	double sweetSpotHAngle = gPar->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
+	double sweetSpotVAngle = gPar->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
+
 	CVector2<double> imagePoint;
 	imagePoint = screenPoint / mainImage->GetPreviewScale();
 
@@ -2315,6 +2318,8 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 			CVector3 angles = cameraTarget.GetRotation();
 			CRotationMatrix mRot;
 			mRot.SetRotation(angles);
+			mRot.RotateZ(sweetSpotHAngle);
+			mRot.RotateX(sweetSpotVAngle);
 
 			CVector2<double> normalizedPoint;
 			normalizedPoint.x = ((double) imagePoint.x / width - 0.5) * aspectRatio;
