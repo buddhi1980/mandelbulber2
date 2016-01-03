@@ -1337,7 +1337,26 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 	// z = z + ( c * const.); Original (enabled); 1
 	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 }
-
+// V2.07   new formula -----------------------------------------------------------------
+//------------AboxModKali  --------------------------------
+//http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  z = fractal->transformCommon.additionConstant111 - fabs(z);
+  double rr = z.x * z.x + z.y * z.y + z.z * z.z;
+  if(rr < 1e-21) rr = 1e-21;
+  double MinR = fractal->mandelbox.foldingSphericalMin;
+  if (MinR > -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
+  double m;
+  if (rr < (MinR)) m = fractal->mandelbox.scale/(MinR);
+  else
+  {
+   if (rr < 1) m =  fractal->mandelbox.scale/rr;
+   else m = fractal->mandelbox.scale;
+  }
+  z = z * m;
+  aux.DE = aux.DE * fabs(m) + 1.0;
+}
 
 //------------AexionOctopus  --------------------------------
 
@@ -1524,15 +1543,7 @@ void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 
 }
 
-// --------quaternion3D--------------
-void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
-{
-  CVector3 newz(fractal->quaternion3D.constantFactor.x
-                    * (z.x * z.x - z.y * z.y - z.z * z.z),
-                fractal->quaternion3D.constantFactor.y * z.x * z.y,
-                fractal->quaternion3D.constantFactor.z * z.x * z.z);
-  z = newz;
-}
+
 // ----------mengerMod
 void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1607,25 +1618,7 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 }
 
 
-//------------AboxModKali  --------------------------------
-//http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
-void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-  z = fractal->transformCommon.additionConstant111 - fabs(z);
-  double rr = z.x * z.x + z.y * z.y + z.z * z.z;
-  if(rr < 1e-21) rr = 1e-21;
-  double MinR = fractal->mandelbox.foldingSphericalMin;
-  if (MinR > -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
-  double m;
-  if (rr < (MinR)) m = fractal->mandelbox.scale/(MinR);
-  else
-  {
-   if (rr < 1) m =  fractal->mandelbox.scale/rr;
-   else m = fractal->mandelbox.scale;
-  }
-  z = z * m;
-  aux.DE = aux.DE * fabs(m) + 1.0;
-}
+
 
 
 //Post by Eiffie    Reply #69 on: January 27, 2015, 06:17:59 PM »----------------------------------
@@ -1650,7 +1643,27 @@ void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
   z = newz + fractal->transformCommon.additionConstantNeg100;
 }
 
-//MsltoeRiemannSphere----------------------------------
+// --------quaternion3D--------------
+void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
+{
+  CVector3 newz(fractal->transformCommon.constantMultiplier122.x
+                    * (z.x * z.x - z.y * z.y - z.z * z.z),
+                fractal->transformCommon.constantMultiplier122.y * z.x * z.y,
+                fractal->transformCommon.constantMultiplier122.z * z.x * z.z);
+  z = newz;
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+  z += fractal->transformCommon.additionConstant000;
+
+}
+
+
+
+
+//RiemannSphereMsltoe----------------------------------
 //http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500
 void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
 {
@@ -1689,7 +1702,7 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
 }
 
 
-//MsltoeRiemannSphere     Variation1----------------------------------
+//RiemannSphereMsltoe     Variation1----------------------------------
 //  http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/
 void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
 {

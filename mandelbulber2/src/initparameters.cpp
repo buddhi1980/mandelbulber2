@@ -508,6 +508,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_addCpixel_enabled", true, morphLinear, paramStandard);
   par->addParam("transf_constant_multiplier_111", CVector3(1.0, 1.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_constant_multiplier_100", CVector3(1.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam("transf_constant_multiplier_122", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transf_constant_multiplier_221", CVector3(2.0, 2.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_constant_multiplier_441", CVector3(4.0, 4.0, 1.0), morphAkimaAngle, paramStandard);
   par->addParam("transf_constant_julia_c", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
@@ -516,7 +517,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_stop_iterations", 250, morphLinear, paramStandard);
   par->addParam("transf_power_025", CVector3(0.25, 0.25, 0.25), morphAkimaAngle, paramStandard);
   par->addParam("transf_power_8", CVector3(8.0, 8.0, 8.0), morphAkimaAngle, paramStandard);
-
+  par->addParam("transf_constant_factor", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);
 
 	//transform
 	par->addParam("transform_additionConstant1_enabled", false, morphLinear, paramStandard);

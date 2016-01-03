@@ -229,12 +229,6 @@ struct sFractalMengerMod
 };
 
 
-struct sFractalQuaternion3D
-{
-  CVector3 constantFactor;
-};
-
-
 struct sFractalAboxMod1
 {
   double minR;
@@ -785,10 +779,12 @@ struct sFractalTransformCommon
   CVector3 scale3D333;
   CVector3 scale3D444;
   bool addCpixelEnabled;
-  CVector3 constantMultiplier111;
   CVector3 constantMultiplier100;
-  CVector3 constantMultiplier441;
+  CVector3 constantMultiplier111;
+  CVector3 constantMultiplier122;
   CVector3 constantMultiplier221;
+  CVector3 constantMultiplier441;
+
   bool functionEnabledx;
   bool functionEnabledy;
   bool functionEnabledz;
@@ -821,7 +817,6 @@ public:
 	sFractalTransform transform;
 	sFractalPlatonicSolid platonicSolid;
   sFractalMengerMod mengerMod;
-  sFractalQuaternion3D quaternion3D;
   sFractalAboxMod1 aboxMod1;
   sFractalTransformCommon transformCommon;
   sFractalMandelbulbMulti mandelbulbMulti;

@@ -105,8 +105,6 @@ cFractal::cFractal(const cParameterContainer *container)
   mengerMod.scaleFactor =	container->Get<double>("mengerMod_scale_factor");
   mengerMod.constantFactor = container->Get<CVector3>("mengerMod_constant_factor");
 
-  quaternion3D.constantFactor = container->Get<CVector3>("quaternion3D_constant_factor"),
-
   aboxMod1.minR = container->Get<double>("aboxMod1_min_radius");
   aboxMod1.foldM = container->Get<CVector3>("aboxMod1_foldM");
 
@@ -1358,8 +1356,10 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");
   transformCommon.functionEnabledy = container->Get<bool>("transf_function_enabledy");
   transformCommon.functionEnabledz = container->Get<bool>("transf_function_enabledz");
-  transformCommon.constantMultiplier111 = container->Get<CVector3>("transf_constant_multiplier_111");
+
   transformCommon.constantMultiplier100 = container->Get<CVector3>("transf_constant_multiplier_100");
+  transformCommon.constantMultiplier111 = container->Get<CVector3>("transf_constant_multiplier_111");
+  transformCommon.constantMultiplier122 = container->Get<CVector3>("transf_constant_multiplier_122");
   transformCommon.constantMultiplier221 = container->Get<CVector3>("transf_constant_multiplier_221");
   transformCommon.constantMultiplier441 = container->Get<CVector3>("transf_constant_multiplier_441");
   transformCommon.juliaC = container->Get<CVector3>("transf_constant_julia_c");
