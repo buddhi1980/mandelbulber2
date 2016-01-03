@@ -35,7 +35,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allows the axis swapping of the the Cpixel vector components before being multiplied by z.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>addCpixel axis swap ConstantMultiplier</string>
+      <string>addCpixel Axis Swap ConstantMultiplier</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -404,22 +404,8 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_114">
-          <property name="text">
-           <string>Julia constant </string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_117">
-          <property name="text">
-           <string>Julia constant </string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_118">
           <property name="text">
            <string>Julia constant </string>
           </property>

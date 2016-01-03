@@ -222,30 +222,8 @@ struct sFractalBuffalo
 };
 
 
-struct sFractalAboxMod1
-{
-  double minR;
-  CVector3 foldM;
-};
 
-struct sFractalMandelbulbMulti
-{
-  enum multi_acosOrasin
-  {
-    acos, asin
-  };
-  enum multi_atanOratan2
-  {
-    atan, atan2
-  };
-  enum multi_OrderOfxyz
-  {
-    xyz, xzy, yxz, yzx, zxy, zyx
-  };
-  multi_acosOrasin acosOrasin;
-  multi_atanOratan2 atanOratan2;
-  multi_OrderOfxyz orderOfxyz;
-};
+
 
 
 
@@ -755,41 +733,65 @@ struct sFractalPlatonicSolid
 	double rhoMul;
 };
 
+//mandelbulb multi
+struct sFractalMandelbulbMulti
+{
+  enum multi_acosOrasin
+  {
+    acos, asin
+  };
+  enum multi_atanOratan2
+  {
+    atan, atan2
+  };
+  enum multi_OrderOfxyz
+  {
+    xyz, xzy, yxz, yzx, zxy, zyx
+  };
+  multi_acosOrasin acosOrasin;
+  multi_atanOratan2 atanOratan2;
+  multi_OrderOfxyz orderOfxyz;
+};
+
 //common parameters for transforming formulas
 struct sFractalTransformCommon
 {
+  double offset;
+  double minR0;
 	double scale;
   double scale3;
+
+  int startIterations;
+  int stopIterations;
+
   CVector3 additionConstant000;
   CVector3 additionConstant111;
   CVector3 additionConstant222;
   CVector3 additionConstantNeg100;
-  bool benesiT1Enabled;
-  bool rotationEnabled;
+  CVector3 constantMultiplier100;
+  CVector3 constantMultiplier111;
+  CVector3 constantMultiplier122;
+  CVector3 constantMultiplier221;
+  CVector3 constantMultiplier441;
+  CVector3 juliaC;
+  CVector3 offset200;
+  CVector3 power025;
+  CVector3 power8;
 	CVector3 rotation;
   CRotationMatrix rotationMatrix;
   CVector3 scale3D111;
   CVector3 scale3D222;
   CVector3 scale3D333;
   CVector3 scale3D444;
-  bool addCpixelEnabled;
-  CVector3 constantMultiplier100;
-  CVector3 constantMultiplier111;
-  CVector3 constantMultiplier122;
-  CVector3 constantMultiplier221;
-  CVector3 constantMultiplier441;
 
+
+  bool addCpixelEnabled;
+  bool benesiT1Enabled;
+  bool juliaMode;
   bool functionEnabledx;
   bool functionEnabledy;
   bool functionEnabledz;
-  CVector3 juliaC;
-  bool juliaMode;
-  double offset;
-  CVector3 offset200;
-  int startIterations;
-  int stopIterations;
-  CVector3 power025;
-  CVector3 power8;
+  bool rotationEnabled;
 
 };
 
@@ -810,7 +812,6 @@ public:
 	sFractalBuffalo buffalo;
 	sFractalTransform transform;
 	sFractalPlatonicSolid platonicSolid;
-  sFractalAboxMod1 aboxMod1;
   sFractalTransformCommon transformCommon;
   sFractalMandelbulbMulti mandelbulbMulti;
 
