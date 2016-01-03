@@ -1782,7 +1782,7 @@ void cInterface::StartRender(bool noUndo)
 
 	//show distance in statistics table
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
-	mainWindow->ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
+	mainWindow->ui->tableWidget_statistics->item(5, 0)->setText(QString::number(distance));
 
 	QThread *thread = new QThread; //deleted by deleteLater()
 	renderJob->moveToThread(thread);

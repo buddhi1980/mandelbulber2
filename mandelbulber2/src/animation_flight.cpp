@@ -843,7 +843,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 				double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"),
 																														 params,
 																														 fractalParams);
-				ui->tableWidget_statistics->item(4, 0)->setText(QString("%L1").arg(distance));
+				ui->tableWidget_statistics->item(5, 0)->setText(QString("%L1").arg(distance));
 			}
 
 			if (gNetRender->IsServer())

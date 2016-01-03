@@ -1949,8 +1949,9 @@ void RenderWindow::slotUpdateStatistics(cStatistics stat)
 	ui->tableWidget_statistics->item(0, 0)->setText(QString::number(stat.GetTotalNumberOfIterations()));
 	ui->tableWidget_statistics->item(1, 0)->setText(QString::number(stat.GetNumberOfIterationsPerPixel()));
 	ui->tableWidget_statistics->item(2, 0)->setText(QString::number(stat.GetNumberOfIterationsPerSecond()));
-	ui->tableWidget_statistics->item(3, 0)->setText(QString::number(stat.GetMissedDEPercentage()));
-	ui->tableWidget_statistics->item(5, 0)->setText(stat.GetDETypeString());
+	ui->tableWidget_statistics->item(3, 0)->setText(stat.GetDETypeString());
+	ui->tableWidget_statistics->item(4, 0)->setText(QString::number(stat.GetMissedDEPercentage()));
+	ui->label_wrong_DE_percentage->setText(tr("Percentage of wrong distance estimations: %1").arg(stat.GetMissedDEPercentage()));
 }
 
 void RenderWindow::slotNetRenderServerStart()

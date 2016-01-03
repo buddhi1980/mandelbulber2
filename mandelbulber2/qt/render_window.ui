@@ -2864,8 +2864,8 @@ to target:</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>370</width>
-          <height>129</height>
+          <width>384</width>
+          <height>159</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -2896,7 +2896,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -4149,7 +4149,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>334</width>
                   <height>174</height>
                  </rect>
                 </property>
@@ -16885,7 +16885,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-67</y>
+          <y>-182</y>
           <width>370</width>
           <height>1057</height>
          </rect>
@@ -19903,17 +19903,17 @@ keyframes</string>
        </row>
        <row>
         <property name="text">
+         <string>Distance estimation algorithm</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
          <string>Percentage of wrong distance estimations</string>
         </property>
        </row>
        <row>
         <property name="text">
          <string>Distance of camera to fractal surface</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>Distance estimation algorithm</string>
         </property>
        </row>
        <column>
@@ -19938,7 +19938,7 @@ keyframes</string>
        </item>
        <item row="3" column="0">
         <property name="text">
-         <string>0</string>
+         <string/>
         </property>
        </item>
        <item row="4" column="0">
@@ -19948,7 +19948,7 @@ keyframes</string>
        </item>
        <item row="5" column="0">
         <property name="text">
-         <string/>
+         <string>0</string>
         </property>
        </item>
       </widget>

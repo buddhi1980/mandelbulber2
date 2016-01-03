@@ -689,7 +689,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					double distance = mainInterface->GetDistanceForPoint(params->Get<CVector3>("camera"),
 																															 params,
 																															 fractalParams);
-					ui->tableWidget_statistics->item(4, 0)->setText(QString::number(distance));
+					ui->tableWidget_statistics->item(5, 0)->setText(QString::number(distance));
 				}
 
 				if (gNetRender->IsServer())
