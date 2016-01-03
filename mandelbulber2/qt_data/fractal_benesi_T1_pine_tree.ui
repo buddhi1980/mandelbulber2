@@ -931,7 +931,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_124">
           <property name="text">
-           <string>Constant Multiplier  </string>
+           <string>Cpixel Multiplier  </string>
           </property>
          </widget>
         </item>

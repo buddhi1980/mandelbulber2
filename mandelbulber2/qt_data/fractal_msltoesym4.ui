@@ -403,22 +403,8 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
-         <widget class="QLabel" name="label_256">
-          <property name="text">
-           <string>x:</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="2">
          <widget class="QLabel" name="label_259">
-          <property name="text">
-           <string>y:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="2">
-         <widget class="QLabel" name="label_262">
           <property name="text">
            <string>y:</string>
           </property>
@@ -435,13 +421,6 @@
          <widget class="QLabel" name="label_257">
           <property name="text">
            <string>Offset</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="2">
-         <widget class="QLabel" name="label_264">
-          <property name="text">
-           <string>z:</string>
           </property>
          </widget>
         </item>
