@@ -3041,8 +3041,10 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 void cInterface::ResetFormula(int fractalNumber)
 {
 	SynchronizeInterface(gPar, gParFractal, read);
+	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 	cParameterContainer *fractal = &gParFractal->at(fractalNumber);
 	fractal->ResetAllToDefault();
+	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 	SynchronizeInterface(gPar, gParFractal, write);
 }
 
