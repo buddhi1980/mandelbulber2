@@ -45,6 +45,9 @@
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_benesi_T1_enabled">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;benesi Transform T1  and FastPwr2PineTree &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#000000;&quot;&gt;http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="title">
       <string>Mag Transform T1</string>
      </property>
@@ -755,10 +758,10 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;benesiFastPwr2PineTree 3D&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Courier New,courier'; color:#000000;&quot;&gt;http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;In this formula the c.y and c.z components of  &amp;quot;CVector3 c&amp;quot;  are swapped before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>Pine Tree  addCpixel ConstantMultiplier  (Cy Cz Swap)</string>
+      <string>Pine Tree  addCpixel ConstantMultiplier  ( c.y c.z Swap)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -809,14 +812,14 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_121">
           <property name="text">
-           <string>C.y:</string>
+           <string>c.y:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label_120">
           <property name="text">
-           <string>C.x:</string>
+           <string>cx:</string>
           </property>
          </widget>
         </item>
@@ -842,7 +845,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_123">
           <property name="text">
-           <string>C.z:</string>
+           <string>c.z:</string>
           </property>
          </widget>
         </item>

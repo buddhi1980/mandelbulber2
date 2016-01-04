@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Allows the axis swapping of the the Cpixel vector components before being multiplied by z.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
       <string>addCpixel Axis Swap ConstantMultiplier</string>
@@ -167,7 +167,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_109">
           <property name="text">
-           <string>C.x:</string>
+           <string>c.x:</string>
           </property>
          </widget>
         </item>
@@ -230,7 +230,7 @@
         <item row="0" column="2">
          <widget class="QLabel" name="label_multi2_order_of_xyz_2">
           <property name="text">
-           <string>function order of C.x, C.y and C.z: </string>
+           <string>function order of c.x, c.y and c.z: </string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -274,7 +274,7 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_110">
           <property name="text">
-           <string>C.y:</string>
+           <string>c.y:</string>
           </property>
          </widget>
         </item>
@@ -288,7 +288,7 @@
         <item row="3" column="1">
          <widget class="QLabel" name="label_111">
           <property name="text">
-           <string>C.z:</string>
+           <string>c.z:</string>
           </property>
          </widget>
         </item>

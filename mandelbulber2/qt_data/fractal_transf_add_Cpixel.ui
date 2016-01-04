@@ -31,6 +31,9 @@
    </property>
    <item>
     <widget class="QLabel" name="label">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="text">
       <string>addCpixel ConstantMultiplier</string>
      </property>
@@ -97,7 +100,7 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_109">
        <property name="text">
-        <string>C.x:</string>
+        <string>c.x:</string>
        </property>
       </widget>
      </item>
@@ -210,14 +213,14 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_110">
        <property name="text">
-        <string>C.y:</string>
+        <string>c.y:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_111">
        <property name="text">
-        <string>C.z:</string>
+        <string>c.z:</string>
        </property>
       </widget>
      </item>

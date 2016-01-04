@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If z is positive then fabs(Cpixel) is added, if z is negative then fabs(Cpixel) is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel Constant  Multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is  each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
       <string>addCpixel Positive Negative Bias  ConstantMultiplier </string>
@@ -167,7 +167,7 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_109">
           <property name="text">
-           <string>C.x:</string>
+           <string>c.x:</string>
           </property>
          </widget>
         </item>
@@ -230,14 +230,14 @@
         <item row="2" column="2">
          <widget class="QLabel" name="label_110">
           <property name="text">
-           <string>C.y:</string>
+           <string>c.y:</string>
           </property>
          </widget>
         </item>
         <item row="3" column="2">
          <widget class="QLabel" name="label_111">
           <property name="text">
-           <string>C.z:</string>
+           <string>c.z:</string>
           </property>
          </widget>
         </item>
