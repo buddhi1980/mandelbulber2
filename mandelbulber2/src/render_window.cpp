@@ -703,7 +703,7 @@ void RenderWindow::slotMenuSaveSettings()
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
 	dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator() + "settings"
 			+ QDir::separator()));
-	dialog.selectFile(QDir::toNativeSeparators(systemData.lastSettingsFile));
+	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).completeBaseName()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save settings..."));
 	dialog.setDefaultSuffix("fract");
