@@ -34,22 +34,18 @@ class MyLineEdit : public QLineEdit
 	Q_OBJECT
 
 public:
-	MyLineEdit(QWidget *parent = 0)  : QLineEdit(parent)
-	{
-		actionResetToDefault = NULL;
-		actionAddToFlightAnimation = NULL;
-		actionAddToKeyframeAnimation = NULL;
-		parameterContainer = NULL;
-		gotDefault = false;
-	};
+	MyLineEdit(QWidget *parent = 0);
 
 	void AssignParameterContainer(cParameterContainer *container) {parameterContainer = container;}
 	void AssingParameterName(QString name) {parameterName = name;}
 
 private:
 	QAction *actionResetToDefault;
+	QAction *actionResetVectorToDefault;
 	QAction *actionAddToFlightAnimation;
 	QAction *actionAddToKeyframeAnimation;
+	QAction *actionCopyVectorToClipboard;
+	QAction *actionPasteVectorFromClipboard;
 	QString GetType(const QString &name);
 	cParameterContainer *parameterContainer;
 	QString parameterName;
@@ -57,6 +53,9 @@ private:
 	QString GetDefault();
 	QString defaultText;
 	bool gotDefault;
+	void CopyToClipboard();
+	void PasteFromClipboard();
+	void ResetVectorToDefault();
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
