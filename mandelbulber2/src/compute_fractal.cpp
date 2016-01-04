@@ -56,6 +56,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	double w = 0.0;
 	double orbitTrapTotal = 0.0;
 
+	enumFractalFormula formula = fractal::none;
+
 	out->maxiter = true;
 
 	int fractalIndex = 0;
@@ -121,6 +123,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 
 		const cFractal *fractal = fractals.GetFractal(sequence);
+		formula = fractal->formula;
 
 		//temporary vector for weight function
 		CVector3 tempZ = z;
@@ -130,7 +133,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		if (!fractals.IsHybrid() || fractals.GetWeight(sequence) > 0.0)
 		{
 			//calls for fractal formulas
-			switch (fractal->formula)
+			switch (formula)
 			{
 				case mandelbulb:
 				{
@@ -475,7 +478,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		//addition of constant
 		if (!fractals.IsDontAddCContant(sequence))
 		{
-			switch (fractal->formula)
+			switch (formula)
 			{
 				case menger_sponge:
 				case kaleidoscopicIFS:
@@ -604,7 +607,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	//final calculations
 	if (Mode == calcModeNormal)
 	{
-		switch (defaultFractal->formula)
+		switch (formula)
 		{
 			case benesi:
 			case benesiPineTree:
@@ -678,7 +681,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 		else
 		{
-			switch (defaultFractal->formula)
+			switch (formula)
 			{
 				case mandelbox:
 				case smoothMandelbox:
