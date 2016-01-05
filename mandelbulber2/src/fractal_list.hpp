@@ -114,7 +114,10 @@ enum enumFractalFormula
   transfBenesiMagBackward = 1016,
   transfBenesiCubeSphere = 1017,
   transfBenesiSphereCube = 1018,
-  transfAddCpixelPosNeg = 1019
+  transfAddCpixelPosNeg = 1019,
+  transfBoxFold = 1020,
+  transfSphericalFold = 1021,
+  transfZvectorAxisSwap = 1022
 };
 
 enum enumDEType

@@ -91,11 +91,16 @@ void TransformBenesiT2Iteration(CVector3 &z, const cFractal *fractal, sExtendedA
 void TransformBenesiT3Iteration(CVector3 &z, const cFractal *fractal);
 void TransformBenesiT4Iteration(CVector3 &z, const cFractal *fractal);
 void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal);
+void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal);
+
+
 
 #endif /* FRACTAL_FORMULAS_HPP_ */

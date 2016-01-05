@@ -1750,7 +1750,6 @@ void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
 
 
 
-
 //-----------------------------------------------------------------------------------------------------------------------------
 /* GeneralizedFoldBox, ref: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/ */
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -2327,10 +2326,10 @@ void TransformBenesiCubeSphereIteration(CVector3 &z)
 
   z *= rCxyz / SQRT_3_2;
 }
+
 //sphere to Cube transform
 //Warps a sphere to a cube; transform made by M.Benesi, optimized by
 //Luca.  Scavenged and edited from code optimized by Luca.
-
 //http://www.fractalforums.com/mathematics/circle2square/
 void TransformBenesiSphereCubeIteration(CVector3 &z)
 {
@@ -2382,6 +2381,42 @@ void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
 	z *= r;
 }
 
+void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  if (z.x > fractal->mandelbox.foldingLimit)
+  {
+    z.x = fractal->mandelbox.foldingValue - z.x;
+    aux.color += fractal->mandelbox.color.factor.x;
+  }
+  else if (z.x < -fractal->mandelbox.foldingLimit)
+  {
+    z.x = -fractal->mandelbox.foldingValue - z.x;
+    aux.color += fractal->mandelbox.color.factor.x;
+  }
+  if (z.y > fractal->mandelbox.foldingLimit)
+  {
+    z.y = fractal->mandelbox.foldingValue - z.y;
+    aux.color += fractal->mandelbox.color.factor.y;
+  }
+  else if (z.y < -fractal->mandelbox.foldingLimit)
+  {
+    z.y = -fractal->mandelbox.foldingValue - z.y;
+    aux.color += fractal->mandelbox.color.factor.y;
+  }
+  if (z.z > fractal->mandelbox.foldingLimit)
+  {
+    z.z = fractal->mandelbox.foldingValue - z.z;
+    aux.color += fractal->mandelbox.color.factor.z;
+  }
+  else if (z.z < -fractal->mandelbox.foldingLimit)
+  {
+    z.z = -fractal->mandelbox.foldingValue - z.z;
+    aux.color += fractal->mandelbox.color.factor.z;
+  }
+}
+
+
+
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   if (z.x > 0)
@@ -2415,6 +2450,28 @@ void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtended
    // aux.color += boxOffset.color.factor.z;
   }
 }
+void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  double r2 = z.Dot(z);
+  if (r2 < fractal->mandelbox.mR2)
+  {
+    z *= fractal->mandelbox.mboxFactor1;
+    aux.DE *= fractal->mandelbox.mboxFactor1;
+    aux.color += fractal->mandelbox.color.factorSp1;
+  }
+  else if (r2 < fractal->mandelbox.fR2)
+  {
+    double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+    z *= tglad_factor2;
+    aux.DE *= tglad_factor2;
+    aux.color += fractal->mandelbox.color.factorSp2;
+  }
+
+}
+
+
+
+
 
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -2424,6 +2481,35 @@ void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sEx
   z *= fractal->transformCommon.scale;
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
   aux.r_dz *= fabs(fractal->transformCommon.scale);
+}
+
+// --------Z vector Axis swap--------------
+void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
+
+{
+  switch (fractal->mandelbulbMulti.orderOfxyz)
+  {
+    case sFractalMandelbulbMulti::xyz:
+    default:
+      z = CVector3( z.x, z.y, z.z);
+      break;
+    case sFractalMandelbulbMulti::xzy:
+      z = CVector3( z.x, z.z, z.y);
+      break;
+    case sFractalMandelbulbMulti::yxz:
+      z = CVector3( z.y, z.x, z.z);
+      break;
+    case sFractalMandelbulbMulti::yzx:
+      z = CVector3( z.y, z.z, z.x);
+      break;
+    case sFractalMandelbulbMulti::zxy:
+      z = CVector3( z.z, z.x, z.y);
+      break;
+    case sFractalMandelbulbMulti::zyx:
+      z = CVector3( z.z, z.y, z.x);
+      break;
+  }
+
 }
 
 

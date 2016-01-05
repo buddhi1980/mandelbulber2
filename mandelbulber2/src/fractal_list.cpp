@@ -89,10 +89,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Transform - Benesi_Mag_Backward",		"transf_benesi_mag_backward",		transfBenesiMagBackward,		deltaDEType,		withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Benesi_Cube_Sphere",			"transf_benesi_cube_sphere",		transfBenesiCubeSphere,			deltaDEType,		withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Benesi_Sphere_Cube",			"transf_benesi_sphere_cube",		transfBenesiSphereCube,			deltaDEType,		withoutDEFunction, 100));
+  fractalList->append(sFractalDescription("Transform - Box_Fold",								"transf_box_fold",							transfBoxFold,							analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Box_Offset",							"transf_box_offset",						transfBoxOffset,						analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Platonic Solid", 				"platonic_solid", 							platonicSolid, 							deltaDEType,		withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Rotation",								"transf_rotation", 							transfRotation, 						analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Scale",									"transf_scale", 								transfScale, 								analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Scale 3D",								"transf_scale_3D", 							transfScale3D, 							analyticDEType,	withoutDEFunction, 100));
+  fractalList->append(sFractalDescription("Transform - Spherical_Fold",					"transf_spherical_fold",				transfSphericalFold,				analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Spherical_Offset",				"transf_spherical_offset",			transfSphericalOffset,			analyticDEType,	withoutDEFunction, 100));
+  fractalList->append(sFractalDescription("Transform - Zvector_Axis_Swap",			"transf_zVector_axis_swap",			transfZvectorAxisSwap,			analyticDEType,	withoutDEFunction, 100));
+
 }

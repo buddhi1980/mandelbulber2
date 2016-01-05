@@ -467,7 +467,21 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformSphericalOffsetIteration(z, fractal, extendedAux[sequence]);
           break;
         }
-
+        case transfSphericalFold:
+        {
+          TransformSphericalFoldIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
+        case transfBoxFold:
+        {
+          TransformBoxFoldIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
+        case transfZvectorAxisSwap:
+        {
+          TransformZvectorAxisSwapIteration(z, fractal );
+          break;
+        }
 
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
@@ -514,11 +528,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfBenesiMagBackward:
         case transfBenesiCubeSphere:
         case transfBenesiSphereCube:
+        case transfBoxFold:
         case transfBoxOffset:
 				case transfRotation:
 				case transfScale:
 				case transfScale3D:
+        case transfSphericalFold:
         case transfSphericalOffset:
+        case transfZvectorAxisSwap:
+
 				{
 					break;
 				}
