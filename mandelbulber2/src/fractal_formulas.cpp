@@ -685,9 +685,6 @@ void Makin3D2Iteration(CVector3 &z)
 	z.z = newz;
 }
 
-
-
-
 //------------MANDELBULB EXTENDED--------------------------------
 void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 		const cFractal *fractal, sExtendedAux &aux)
@@ -1252,15 +1249,7 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 }
 
-
-
-
-
-
-
 // V2.07   new formula -----------------------------------------------------------------
-
-
 // aboxMod1, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
 
@@ -1303,9 +1292,6 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   aux.DE = aux.DE * fabs(m) + 1.0;
 }
 
-
-
-
 //------------AboxModKali  --------------------------------
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
 void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -1327,9 +1313,7 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 }
 
 //------------AexionOctopus  --------------------------------
-
 //http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
-
 void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
 {
 	CVector3 tempN;
@@ -1358,11 +1342,8 @@ void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
   z += fractal->transformCommon.additionConstant000;
 }
 
-
-
 //benesiFastPwr2PineTree  3D
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
-
 void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   CVector3 temp = z;
@@ -1380,7 +1361,6 @@ void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, 
 
 //benesiT1PineTree  3D
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
-
 void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
 
@@ -1453,7 +1433,6 @@ void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
   newz.z = 2.0 * z.z * sqrt( z2.x + z2.y );
   z = newz + fractal->transformCommon.additionConstantNeg100;
 }
-
 
 // mandelbulbMulti 3D
 void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -1531,7 +1510,6 @@ void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
   z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 }
 
-
 // ----------mengerMod
 void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1598,6 +1576,7 @@ void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux
   temp.z = 2.0 * z.z * sqrt(x2 + z2);
   z = temp +  fractal->transformCommon.additionConstantNeg100;
 }
+
 /* MsltoeSym3 from mbulb3d, also somewhere on fractalforums */
 void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1626,6 +1605,7 @@ void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux
   temp.z = 2.0 * z.z * sqrt(x2 + z2);
   z = temp +  fractal->transformCommon.additionConstantNeg100;
 }
+
 /* MsltoeSym4 from mbulb3d, also somewhere on fractalforums */
 void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1658,7 +1638,6 @@ void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux
 
   z = temp +  fractal->transformCommon.additionConstantNeg100;
 }
-
 
 //RiemannSphereMsltoe----------------------------------
 //http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500
@@ -1698,7 +1677,6 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
   z += fractal->transformCommon.additionConstant000;
 }
 
-
 //RiemannSphereMsltoe     Variation1----------------------------------
 //  http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/
 void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
@@ -1728,8 +1706,6 @@ void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
   z += fractal->transformCommon.additionConstant000;
 }
 
-
-
 // --------quaternion3D--------------
 void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
 {
@@ -1746,9 +1722,6 @@ void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
   z += fractal->transformCommon.additionConstant000;
 
 }
-
-
-
 
 //-----------------------------------------------------------------------------------------------------------------------------
 /* GeneralizedFoldBox, ref: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/ */
@@ -2039,6 +2012,7 @@ void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fract
 {
   z +=  c * fractal->transformCommon.constantMultiplier111;
 }
+
 void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   if (fractal->transformCommon.addCpixelEnabled)
@@ -2072,6 +2046,7 @@ void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFracta
       z += fractal->transformCommon.juliaC;
   }
 }
+
 void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   if (fractal->transformCommon.addCpixelEnabled)
@@ -2103,10 +2078,8 @@ void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal 
   }
 }
 
-
 //benesiT1  3D
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
-
 void TransformBenesiT1Iteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2194,6 +2167,7 @@ void TransformBenesiT2Iteration(CVector3 &z,  const cFractal *fractal, sExtended
                (z.y - z.x) * SQRT_1_2,
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
+
 void TransformBenesiT3Iteration(CVector3 &z,  const cFractal *fractal)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2223,6 +2197,7 @@ void TransformBenesiT3Iteration(CVector3 &z,  const cFractal *fractal)
                (z.y - z.x) * SQRT_1_2,
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
+
 void TransformBenesiT4Iteration(CVector3 &z,  const cFractal *fractal)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2244,6 +2219,7 @@ void TransformBenesiT4Iteration(CVector3 &z,  const cFractal *fractal)
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
 }
+
 void TransformBenesiT5bIteration(CVector3 &z,  const cFractal *fractal)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2436,7 +2412,7 @@ void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	z *= fractal->transformCommon.scale;
-	aux.DE *= fabs(fractal->transformCommon.scale); //prepared for future analytic DE for hybrids
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0; //prepared for future analytic DE for hybrids
   aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 

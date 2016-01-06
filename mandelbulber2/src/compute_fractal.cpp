@@ -542,15 +542,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfBenesiMagBackward:
         case transfBenesiCubeSphere:
         case transfBenesiSphereCube:
-//			case transfBoxFold:
+        case transfBoxFold:
 	      case transfBoxOffset:
         case transfFabsAddConstant:
         case transfFabsAddConstantV2:
         case transfNegFabsAddConstant:
 				case transfRotation:
-//			case transfScale:
+				case transfScale:
 				case transfScale3D:
-//			case transfSphericalFold:
+				case transfSphericalFold:
 				case transfSphericalOffset:
 				case transfZvectorAxisSwap:
 
@@ -644,10 +644,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		if (fractals.IsHybrid())
 		{
-			if (fractals.GetDEFunctionType(sequence) == fractal::linearDEFunction)
+			if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
+			{
 				out->distance = r / fabs(extendedAux[sequence].DE);
-			else if (fractals.GetDEFunctionType(sequence) == fractal::logarithmicDEFunction)
+			}
+			else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
+			{
 				out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
+			}
 		}
 		else
 		{
