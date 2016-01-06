@@ -79,6 +79,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Transform - Add Cpixel",	 						"transf_add_Cpixel", 						transfAddCpixel, 						analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Add Cpixel_Axis_Swap",	 	"transf_add_Cpixel_axis_swap", 	transfAddCpixelAxisSwap,		analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Add Cpixel_Pos_Neg",			"transf_add_Cpixel_pos_neg", 		transfAddCpixelPosNeg,			analyticDEType,	withoutDEFunction, 100));
+
   fractalList->append(sFractalDescription("Transform - Benesi_T1",							"transf_benesi_T1",							transfBenesiT1,							analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Benesi_T1Mod",						"transf_benesi_T1Mod",					transfBenesiT1Mod,					analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Benesi_T2",							"transf_benesi_T2",							transfBenesiT2,							deltaDEType,		withoutDEFunction, 100));
@@ -91,6 +92,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Transform - Benesi_Sphere_Cube",			"transf_benesi_sphere_cube",		transfBenesiSphereCube,			deltaDEType,		withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Box_Fold",								"transf_box_fold",							transfBoxFold,							analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Box_Offset",							"transf_box_offset",						transfBoxOffset,						analyticDEType,	withoutDEFunction, 100));
+  fractalList->append(sFractalDescription("Transform - Fabs_Add_Constant",			"transf_fabs_add_constant",			transfFabsAddConstant,			analyticDEType,	withoutDEFunction, 100));
+  fractalList->append(sFractalDescription("Transform - Fabs_Add_ConstantV2",		"transf_fabs_add_constantV2",		transfFabsAddConstantV2,		analyticDEType,	withoutDEFunction, 100));
+  fractalList->append(sFractalDescription("Transform - Neg_Fabs_Add_Constant",	"transf_neg_fabs_add_constant",	transfNegFabsAddConstant,		analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Platonic Solid", 				"platonic_solid", 							platonicSolid, 							deltaDEType,		withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Rotation",								"transf_rotation", 							transfRotation, 						analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Scale",									"transf_scale", 								transfScale, 								analyticDEType,	withoutDEFunction, 100));

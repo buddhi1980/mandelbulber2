@@ -2104,9 +2104,6 @@ void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal 
 }
 
 
-
-
-
 //benesiT1  3D
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 
@@ -2300,7 +2297,8 @@ void TransformBenesiMagBackwardIteration(CVector3 &z)
                (z.y - z.x) * SQRT_1_2,
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
-//Cube to sphere transform
+
+//Benesi Cube to sphere transform
 //Description: Warps a cube to a sphere; transform made by M.Benesi, optimized by Luca.
 //http://www.fractalforums.com/mathematics/circle2square/
 void TransformBenesiCubeSphereIteration(CVector3 &z)
@@ -2327,7 +2325,7 @@ void TransformBenesiCubeSphereIteration(CVector3 &z)
   z *= rCxyz / SQRT_3_2;
 }
 
-//sphere to Cube transform
+//sBenesi Sphere to Cube transform
 //Warps a sphere to a cube; transform made by M.Benesi, optimized by
 //Luca.  Scavenged and edited from code optimized by Luca.
 //http://www.fractalforums.com/mathematics/circle2square/
@@ -2349,36 +2347,6 @@ void TransformBenesiSphereCubeIteration(CVector3 &z)
   else rCxyz = 1.0 / sqrt(1.0 / rCxyz + 1.0);
 
   z *= rCxyz * SQRT_3_2;
-
-}
-
-void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
-{
-	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-}
-
-void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-	z *= fractal->transformCommon.scale;
-	aux.DE *= fabs(fractal->transformCommon.scale); //prepared for future analytic DE for hybrids
-  aux.r_dz *= fabs(fractal->transformCommon.scale);
-}
-
-void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-  z *= fractal->transformCommon.scale3D111;
-  aux.DE *= fractal->transformCommon.scale3D111.Length(); //prepared for future analytic DE for hybrids
-}
-
-void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
-{
-	double rho = sqrt(z.Length()); // the radius
-	double theta = cos(fractal->platonicSolid.frequency * z.x)
-			* sin(fractal->platonicSolid.frequency * z.y)
-			+ cos(fractal->platonicSolid.frequency * z.y) * sin(fractal->platonicSolid.frequency * z.z)
-			+ cos(fractal->platonicSolid.frequency * z.z) * sin(fractal->platonicSolid.frequency * z.x);
-	double r = theta * fractal->platonicSolid.amplitude + rho * fractal->platonicSolid.rhoMul;
-	z *= r;
 }
 
 void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -2415,8 +2383,6 @@ void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
   }
 }
 
-
-
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   if (z.x > 0)
@@ -2450,6 +2416,36 @@ void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtended
    // aux.color += boxOffset.color.factor.z;
   }
 }
+
+void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
+{
+  double rho = sqrt(z.Length()); // the radius
+  double theta = cos(fractal->platonicSolid.frequency * z.x)
+      * sin(fractal->platonicSolid.frequency * z.y)
+      + cos(fractal->platonicSolid.frequency * z.y) * sin(fractal->platonicSolid.frequency * z.z)
+      + cos(fractal->platonicSolid.frequency * z.z) * sin(fractal->platonicSolid.frequency * z.x);
+  double r = theta * fractal->platonicSolid.amplitude + rho * fractal->platonicSolid.rhoMul;
+  z *= r;
+}
+
+void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
+{
+	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+}
+
+void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+	z *= fractal->transformCommon.scale;
+	aux.DE *= fabs(fractal->transformCommon.scale); //prepared for future analytic DE for hybrids
+  aux.r_dz *= fabs(fractal->transformCommon.scale);
+}
+
+void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  z *= fractal->transformCommon.scale3D111;
+  aux.DE *= fractal->transformCommon.scale3D111.Length(); //prepared for future analytic DE for hybrids
+}
+
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double r2 = z.Dot(z);
@@ -2469,10 +2465,6 @@ void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExte
 
 }
 
-
-
-
-
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double lengthTempZ = -z.Length();
@@ -2483,9 +2475,50 @@ void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sEx
   aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 
-// --------Z vector Axis swap--------------
-void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
+// fabs add  constant,  z = fabs( z + constant)
+void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
+{
+  z += fractal->transformCommon.additionConstant000;
+  if (fractal->transformCommon.functionEnabledx)
+  {
+    z.x = fabs(z.x);
+  }
+  if (fractal->transformCommon.functionEnabledy)
+  {
+    z.y = fabs(z.y);
+  }
+  if (fractal->transformCommon.functionEnabledz)
+  {
+    z.z = fabs(z.z);
+  }
+}
 
+// Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
+void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal)
+{
+  z = fabs(z + fractal->transformCommon.additionConstant000)
+      - fabs(z - fractal->transformCommon.additionConstant000) - z;
+}
+
+// Negative fabs constant,  z = - fabs( z + constant)
+void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
+{
+  z += fractal->transformCommon.additionConstant000;
+  if (fractal->transformCommon.functionEnabledx)
+  {
+    z.x = -fabs(z.x);
+  }
+  if (fractal->transformCommon.functionEnabledy)
+  {
+    z.y = -fabs(z.y);
+  }
+  if (fractal->transformCommon.functionEnabledz)
+  {
+    z.z = -fabs(z.z);
+  }
+}
+
+void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
 {
   switch (fractal->mandelbulbMulti.orderOfxyz)
   {

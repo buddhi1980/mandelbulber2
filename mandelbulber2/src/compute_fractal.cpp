@@ -436,9 +436,29 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         TransformBenesiSphereCubeIteration(z);
         break;
         }
+        case transfBoxFold:
+        {
+          TransformBoxFoldIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
         case transfBoxOffset:
         {
           TransformBoxOffsetIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
+        case transfFabsAddConstant:
+        {
+          TransformFabsAddConstantIteration(z, fractal);
+          break;
+        }
+        case transfFabsAddConstantV2:
+        {
+          TransformFabsAddConstantV2Iteration(z, fractal);
+          break;
+        }
+        case transfNegFabsAddConstant:
+        {
+          TransformNegFabsAddConstantIteration(z, fractal);
           break;
         }
           case transfRotation:
@@ -461,7 +481,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformPlatonicSolidIteration(z, fractal);
 					break;
 				}
-
         case transfSphericalOffset:
         {
           TransformSphericalOffsetIteration(z, fractal, extendedAux[sequence]);
@@ -470,11 +489,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfSphericalFold:
         {
           TransformSphericalFoldIteration(z, fractal, extendedAux[sequence]);
-          break;
-        }
-        case transfBoxFold:
-        {
-          TransformBoxFoldIteration(z, fractal, extendedAux[sequence]);
           break;
         }
         case transfZvectorAxisSwap:
@@ -530,6 +544,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfBenesiSphereCube:
         case transfBoxFold:
         case transfBoxOffset:
+        case transfFabsAddConstant:
+        case transfFabsAddConstantV2:
+        case transfNegFabsAddConstant:
 				case transfRotation:
 				case transfScale:
 				case transfScale3D:
