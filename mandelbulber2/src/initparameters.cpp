@@ -491,6 +491,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_scale_3", 3.0, morphAkima, paramStandard);
   par->addParam("transf_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transf_multiplication", 2.0, morphAkima, paramStandard);
 
   par->addParam("transf_addition_constant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);

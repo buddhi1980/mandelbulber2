@@ -92,11 +92,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Transform - Benesi_Sphere_Cube",			"transf_benesi_sphere_cube",		transfBenesiSphereCube,			deltaDEType,		withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Box_Fold",								"transf_box_fold",							transfBoxFold,							analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Box_Offset",							"transf_box_offset",						transfBoxOffset,						analyticDEType,	withoutDEFunction, 100));
+  fractalList->append(sFractalDescription("Transform - Multiple angle",					"transf_multiple_angle",				transfMultipleAngle,					analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Fabs_Add_Constant",			"transf_fabs_add_constant",			transfFabsAddConstant,			analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Fabs_Add_ConstantV2",		"transf_fabs_add_constantV2",		transfFabsAddConstantV2,		analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Neg_Fabs_Add_Constant",	"transf_neg_fabs_add_constant",	transfNegFabsAddConstant,		analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Platonic Solid", 				"platonic_solid", 							platonicSolid, 							deltaDEType,		withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Rotation",								"transf_rotation", 							transfRotation, 						analyticDEType,	withoutDEFunction, 100));
+  fractalList->append(sFractalDescription("Transform - R^Power",								"transf_rpower", 								transfRPower, 							analyticDEType,	logarithmicDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Scale",									"transf_scale", 								transfScale, 								analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Scale 3D",								"transf_scale_3D", 							transfScale3D, 							analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Spherical_Fold",					"transf_spherical_fold",				transfSphericalFold,				analyticDEType,	linearDEFunction,  100));

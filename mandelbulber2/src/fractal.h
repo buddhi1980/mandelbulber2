@@ -760,6 +760,7 @@ struct sFractalTransformCommon
   double minR0;
 	double scale;
   double scale3;
+  double multiplication;
 
   int startIterations;
   int stopIterations;

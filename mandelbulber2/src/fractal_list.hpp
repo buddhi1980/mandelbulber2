@@ -120,7 +120,9 @@ enum enumFractalFormula
   transfZvectorAxisSwap = 1022,
   transfFabsAddConstant = 1023,
   transfNegFabsAddConstant = 1024,
-  transfFabsAddConstantV2 = 1025
+  transfFabsAddConstantV2 = 1025,
+	transfMultipleAngle = 1026,
+	transfRPower = 1027
 };
 
 enum enumDEType

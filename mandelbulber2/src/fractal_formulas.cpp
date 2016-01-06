@@ -2521,4 +2521,20 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
 
 }
 
+void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+	double th0 = asin(z.z / aux.r);
+	double ph0 = atan2(z.y, z.x);
+	double th = th0 * fractal->transformCommon.multiplication;
+	double ph = ph0 * fractal->transformCommon.multiplication;
+	double cth = cos(th);
+	z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * aux.r;
+}
 
+void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+	double rp = pow(aux.r, fractal->bulb.power - 1.0);
+	aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
+	z *= rp;
+	aux.DE *= rp;
+}
