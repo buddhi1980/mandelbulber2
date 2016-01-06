@@ -81,6 +81,7 @@ void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFracta
 void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal);
+
 void TransformBenesiCubeSphereIteration(CVector3 &z);
 void TransformBenesiMagBackwardIteration(CVector3 &z);
 void TransformBenesiMagForwardIteration(CVector3 &z);
@@ -93,12 +94,16 @@ void TransformBenesiT4Iteration(CVector3 &z, const cFractal *fractal);
 void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal);
 void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
+void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal);
+void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+
 void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal);
 
 

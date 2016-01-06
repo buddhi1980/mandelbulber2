@@ -117,7 +117,10 @@ enum enumFractalFormula
   transfAddCpixelPosNeg = 1019,
   transfBoxFold = 1020,
   transfSphericalFold = 1021,
-  transfZvectorAxisSwap = 1022
+  transfZvectorAxisSwap = 1022,
+  transfFabsAddConstant = 1023,
+  transfNegFabsAddConstant = 1024,
+  transfFabsAddConstantV2 = 1025
 };
 
 enum enumDEType
