@@ -528,14 +528,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfBenesiMagBackward:
         case transfBenesiCubeSphere:
         case transfBenesiSphereCube:
-        case transfBoxFold:
-        case transfBoxOffset:
+//			case transfBoxFold:
+	      case transfBoxOffset:
 				case transfRotation:
-				case transfScale:
+//			case transfScale:
 				case transfScale3D:
-        case transfSphericalFold:
-        case transfSphericalOffset:
-        case transfZvectorAxisSwap:
+//			case transfSphericalFold:
+				case transfSphericalOffset:
+				case transfZvectorAxisSwap:
 
 				{
 					break;
@@ -625,54 +625,64 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	//final calculations
 	if (Mode == calcModeNormal)
 	{
-		switch (formula)
+		if (fractals.IsHybrid())
 		{
-			case benesi:
-			case benesiPineTree:
-			case benesiT1PineTree:
-			case bristorbrot:
-			case buffalo:
-			case eiffieMsltoe:
-			case fast_mandelbulb_power2:
-			case hypercomplex:
-			case mandelbulb:
-			case mandelbulb2:
-			case mandelbulb3:
-			case mandelbulb4:
-			case mandelbulb5:
-			case mandelbulb6Beta:
-			case mandelbulbMulti:
-			case msltoesym2:
-			case msltoesym3:
-			case msltoesym4:
-			case quaternion:
-			case xenodreambuie:
-
-				out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
-				break;
-
-			case mandelbox:
-			case smoothMandelbox:
-			case mandelboxVaryScale4D:
-			case generalizedFoldBox:
-			case mandelbox103:
-			case mengerSponge105:
-      case fabsBoxMod:
-      case aboxModKali:
-      case mengerMod:
-      case aboxMod1:
-
+			if (fractals.GetDEFunctionType(sequence) == fractal::linearDEFunction)
 				out->distance = r / fabs(extendedAux[sequence].DE);
-				break;
+			else if (fractals.GetDEFunctionType(sequence) == fractal::logarithmicDEFunction)
+				out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
+		}
+		else
+		{
+			switch (formula)
+			{
+				case benesi:
+				case benesiPineTree:
+				case benesiT1PineTree:
+				case bristorbrot:
+				case buffalo:
+				case eiffieMsltoe:
+				case fast_mandelbulb_power2:
+				case hypercomplex:
+				case mandelbulb:
+				case mandelbulb2:
+				case mandelbulb3:
+				case mandelbulb4:
+				case mandelbulb5:
+				case mandelbulb6Beta:
+				case mandelbulbMulti:
+				case msltoesym2:
+				case msltoesym3:
+				case msltoesym4:
+				case quaternion:
+				case xenodreambuie:
 
-			case kaleidoscopicIFS:
-			case menger_sponge:
-				out->distance = (r - 2.0) / (extendedAux[sequence].DE);
-				break;
+					out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
+					break;
 
-			default:
-				out->distance = -1.0;
-				break;
+				case mandelbox:
+				case smoothMandelbox:
+				case mandelboxVaryScale4D:
+				case generalizedFoldBox:
+				case mandelbox103:
+				case mengerSponge105:
+				case fabsBoxMod:
+				case aboxModKali:
+				case mengerMod:
+				case aboxMod1:
+
+					out->distance = r / fabs(extendedAux[sequence].DE);
+					break;
+
+				case kaleidoscopicIFS:
+				case menger_sponge:
+					out->distance = (r - 2.0) / (extendedAux[sequence].DE);
+					break;
+
+				default:
+					out->distance = -1.0;
+					break;
+			}
 		}
 	}
 	//color calculation

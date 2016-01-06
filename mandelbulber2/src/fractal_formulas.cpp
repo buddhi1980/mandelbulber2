@@ -2383,36 +2383,36 @@ void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
 
 void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  if (z.x > fractal->mandelbox.foldingLimit)
-  {
-    z.x = fractal->mandelbox.foldingValue - z.x;
-    aux.color += fractal->mandelbox.color.factor.x;
-  }
-  else if (z.x < -fractal->mandelbox.foldingLimit)
-  {
-    z.x = -fractal->mandelbox.foldingValue - z.x;
-    aux.color += fractal->mandelbox.color.factor.x;
-  }
-  if (z.y > fractal->mandelbox.foldingLimit)
-  {
-    z.y = fractal->mandelbox.foldingValue - z.y;
-    aux.color += fractal->mandelbox.color.factor.y;
-  }
-  else if (z.y < -fractal->mandelbox.foldingLimit)
-  {
-    z.y = -fractal->mandelbox.foldingValue - z.y;
-    aux.color += fractal->mandelbox.color.factor.y;
-  }
-  if (z.z > fractal->mandelbox.foldingLimit)
-  {
-    z.z = fractal->mandelbox.foldingValue - z.z;
-    aux.color += fractal->mandelbox.color.factor.z;
-  }
-  else if (z.z < -fractal->mandelbox.foldingLimit)
-  {
-    z.z = -fractal->mandelbox.foldingValue - z.z;
-    aux.color += fractal->mandelbox.color.factor.z;
-  }
+	if (z.x > fractal->mandelbox.foldingLimit)
+	{
+		z.x = fractal->mandelbox.foldingValue - z.x;
+		aux.color += fractal->mandelbox.color.factor.x;
+	}
+	else if (z.x < -fractal->mandelbox.foldingLimit)
+	{
+		z.x = -fractal->mandelbox.foldingValue - z.x;
+		aux.color += fractal->mandelbox.color.factor.x;
+	}
+	if (z.y > fractal->mandelbox.foldingLimit)
+	{
+		z.y = fractal->mandelbox.foldingValue - z.y;
+		aux.color += fractal->mandelbox.color.factor.y;
+	}
+	else if (z.y < -fractal->mandelbox.foldingLimit)
+	{
+		z.y = -fractal->mandelbox.foldingValue - z.y;
+		aux.color += fractal->mandelbox.color.factor.y;
+	}
+	if (z.z > fractal->mandelbox.foldingLimit)
+	{
+		z.z = fractal->mandelbox.foldingValue - z.z;
+		aux.color += fractal->mandelbox.color.factor.z;
+	}
+	else if (z.z < -fractal->mandelbox.foldingLimit)
+	{
+		z.z = -fractal->mandelbox.foldingValue - z.z;
+		aux.color += fractal->mandelbox.color.factor.z;
+	}
 }
 
 
@@ -2450,22 +2450,23 @@ void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtended
    // aux.color += boxOffset.color.factor.z;
   }
 }
+
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double r2 = z.Dot(z);
-  if (r2 < fractal->mandelbox.mR2)
-  {
-    z *= fractal->mandelbox.mboxFactor1;
-    aux.DE *= fractal->mandelbox.mboxFactor1;
-    aux.color += fractal->mandelbox.color.factorSp1;
-  }
-  else if (r2 < fractal->mandelbox.fR2)
-  {
-    double tglad_factor2 = fractal->mandelbox.fR2 / r2;
-    z *= tglad_factor2;
-    aux.DE *= tglad_factor2;
-    aux.color += fractal->mandelbox.color.factorSp2;
-  }
+	if (r2 < fractal->mandelbox.mR2)
+	{
+		z *= fractal->mandelbox.mboxFactor1;
+		aux.DE *= fractal->mandelbox.mboxFactor1;
+		aux.color += fractal->mandelbox.color.factorSp1;
+	}
+	else if (r2 < fractal->mandelbox.fR2)
+	{
+		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+		z *= tglad_factor2;
+		aux.DE *= tglad_factor2;
+		aux.color += fractal->mandelbox.color.factorSp2;
+	}
 
 }
 

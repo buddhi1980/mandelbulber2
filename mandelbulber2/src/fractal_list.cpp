@@ -95,7 +95,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Transform - Rotation",								"transf_rotation", 							transfRotation, 						analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Scale",									"transf_scale", 								transfScale, 								analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Scale 3D",								"transf_scale_3D", 							transfScale3D, 							analyticDEType,	withoutDEFunction, 100));
-  fractalList->append(sFractalDescription("Transform - Spherical_Fold",					"transf_spherical_fold",				transfSphericalFold,				analyticDEType,	withoutDEFunction, 100));
+  fractalList->append(sFractalDescription("Transform - Spherical_Fold",					"transf_spherical_fold",				transfSphericalFold,				analyticDEType,	linearDEFunction,  100));
   fractalList->append(sFractalDescription("Transform - Spherical_Offset",				"transf_spherical_offset",			transfSphericalOffset,			analyticDEType,	withoutDEFunction, 100));
   fractalList->append(sFractalDescription("Transform - Zvector_Axis_Swap",			"transf_zVector_axis_swap",			transfZvectorAxisSwap,			analyticDEType,	withoutDEFunction, 100));
 

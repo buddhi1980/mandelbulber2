@@ -2110,11 +2110,11 @@ void RenderWindow::slotQuestionMessage(const QString &questionTitle, const QStri
 
 void RenderWindow::slotPressedButtonOptimizeForLQ()
 {
-	gMainInterface->OptimizeStepFactor(5.0);
+	gMainInterface->OptimizeStepFactor(1.0);
 }
 void RenderWindow::slotPressedButtonOptimizeForMQ()
 {
-	gMainInterface->OptimizeStepFactor(1.0);
+	gMainInterface->OptimizeStepFactor(0.1);
 }
 void RenderWindow::slotPressedButtonOptimizeForHQ()
 {
