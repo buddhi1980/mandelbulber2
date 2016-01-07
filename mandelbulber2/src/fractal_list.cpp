@@ -33,6 +33,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("AboxModKali",								 		"aboxModKali", 							aboxModKali, 						analyticDEType, linearDEFunction, 			100));
 	fractalList->append(sFractalDescription("Aexion", 												"aexion", 									aexion, 								deltaDEType, 		logarithmicDEFunction, 	10000));
   fractalList->append(sFractalDescription("Aexion_Octopus", 								"aexionOctopus", 						aexionOctopus, 					deltaDEType, 		logarithmicDEFunction, 	10));
+  fractalList->append(sFractalDescription("Amazing_Surf", 									"amazing_surf", 						amazingSurf, 						analyticDEType, linearDEFunction, 			100));
 	fractalList->append(sFractalDescription("Benesi Transforms DeltaDE", 			"benesi_transforms", 				benesiTransforms, 			deltaDEType, 		logarithmicDEFunction, 	10));
 	fractalList->append(sFractalDescription("Benesi", 												"benesi", 									benesi, 								analyticDEType,	logarithmicDEFunction, 	10));
   fractalList->append(sFractalDescription("Benesi_Pine_Tree", 							"benesi_pine_tree", 				benesiPineTree, 				analyticDEType, logarithmicDEFunction, 	10));
@@ -47,6 +48,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Ides 1", 												"ides", 										ides, 									deltaDEType,		logarithmicDEFunction, 	10));
 	fractalList->append(sFractalDescription("Ides 2", 												"ides2", 										ides2, 									deltaDEType, 		logarithmicDEFunction, 	10));
 	fractalList->append(sFractalDescription("Kaleidoscopic IFS", 							"ifs", 											kaleidoscopicIFS, 			analyticDEType, linearDEFunction, 			10));
+  fractalList->append(sFractalDescription("Kalisets1", 											"kalisets1", 								kalisets1, 							analyticDEType, linearDEFunction, 			10));
 	fractalList->append(sFractalDescription("Lkmitch", 												"lkmitch", 									lkmitch, 								deltaDEType, 		logarithmicDEFunction, 	10));
 	fractalList->append(sFractalDescription("Makin3D-2", 											"makin3d2", 								makin3d2, 							deltaDEType, 		logarithmicDEFunction, 	10));
 	fractalList->append(sFractalDescription("Mandelbox", 											"mandelbox", 								mandelbox, 							analyticDEType, linearDEFunction, 			100));

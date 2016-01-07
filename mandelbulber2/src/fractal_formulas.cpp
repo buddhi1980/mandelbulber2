@@ -1296,21 +1296,23 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
 void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  z = fractal->transformCommon.additionConstant111 - fabs(z);
+  z = fractal->transformCommon.additionConstant0555 - fabs(z);
   double rr = z.x * z.x + z.y * z.y + z.z * z.z;
   if(rr < 1e-21) rr = 1e-21;
-  double MinR = fractal->mandelbox.foldingSphericalMin;
+  double MinR = fractal->transformCommon.minR06;
   if (MinR > -1e-21 && MinR < 1e-21) MinR = (MinR > 0) ? 1e-21 : -1e-21;
   double m;
-  if (rr < (MinR)) m = fractal->mandelbox.scale/(MinR);
+  if (rr < (MinR)) m = fractal->transformCommon.scale015/(MinR);
   else
   {
-   if (rr < 1) m =  fractal->mandelbox.scale/rr;
-   else m = fractal->mandelbox.scale;
+   if (rr < 1) m =  fractal->transformCommon.scale015/rr;
+   else m = fractal->transformCommon.scale015;
   }
-  z = z * m;
+  z = z * m ;
   aux.DE = aux.DE * fabs(m) + 1.0;
 }
+
+
 
 //------------AexionOctopus  --------------------------------
 //http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
@@ -1340,6 +1342,81 @@ void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
   z += fractal->transformCommon.additionConstant000;
+}
+
+/*Formula proposed by Kali, with features added by Darkbeam
+Luca GN 2012*/
+void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  aux.actualScale = aux.actualScale
+      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix -----------------------------
+
+
+  z.x = abs(z.x + fractal->transformCommon.additionConstant111.x) - abs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+  z.y = abs(z.y + fractal->transformCommon.additionConstant111.y) - abs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+  //z.z = abs(z.z);
+  /*if (z.x > fractal->mandelbox.foldingLimit)
+  {
+    z.x = fractal->mandelbox.foldingValue - z.x;
+    aux.color += fractal->mandelbox.color.factor.x;
+  }
+  else if (z.x < -fractal->mandelbox.foldingLimit)
+  {
+    z.x = -fractal->mandelbox.foldingValue - z.x;
+    aux.color += fractal->mandelbox.color.factor.x;
+  }*/
+  /*z.x = fold – fabs ( fabs (z.x + foldM.x) – fold) – fabs(foldM.x);
+  z.y = fold – fabs ( fabs (z.y + foldM.y) – fold) – fabs(foldM.y);*/
+
+
+  /*z.x = fractal->mandelbox.foldingValue
+      - fabs(fabs(z.x + fractal->transformCommon.additionConstant111.x) - fractal->mandelbox.foldingValue)
+      - fabs(fractal->transformCommon.additionConstant111.x);
+  z.y = fractal->mandelbox.foldingValue
+      - fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y) - fractal->mandelbox.foldingValue)
+      - fabs(fractal->transformCommon.additionConstant111.y);
+  z.z = fractal->mandelbox.foldingValue
+      - fabs(fabs(z.z + fractal->transformCommon.additionConstant111.z) - fractal->mandelbox.foldingValue)
+      - fabs(fractal->transformCommon.additionConstant111.z);*/  // no z fold
+  double rr;
+  if (fractal->transformCommon.functionEnabledx) // force cyfrindral fold
+  {
+    rr = (z.x * z.x + z.y * z.y); // cylindral fold  ;
+  }
+  else
+  {
+    rr = (z.x * z.x + z.y * z.y + z.z * z.z);
+  }
+  if (rr < 1e-21) rr = 1e-21;
+
+  double m;
+  double sqrtMinR = sqrt(fractal->transformCommon.minR05);
+  if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+  if (rr < sqrtMinR)
+  {
+    m = aux.actualScale / sqrtMinR;
+  }
+  else
+  {
+    if (rr < 1)
+    {
+      m = aux.actualScale / rr;
+    }
+    else
+    {
+      m = aux.actualScale;
+    }
+  }
+  c *= fractal->transformCommon.constantMultiplier111;
+  z.x = z.x * m + c.y ;
+  z.y = z.y * m + c.x ;    // swap
+  z.z = z.z * m + c.z ;
+
+  aux.DE = aux.DE * fabs(m) + 1.0;
+
+
+  z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  //z = fractal->transformCommon.additionConstant000;
 }
 
 //benesiFastPwr2PineTree  3D
@@ -1432,6 +1509,19 @@ void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
   newz.y = 2.0 * z.x * z.y  * m;
   newz.z = 2.0 * z.z * sqrt( z2.x + z2.y );
   z = newz + fractal->transformCommon.additionConstantNeg100;
+}
+
+// ----------Kalisets1
+/*A formula suggested by Kali at fractalforums.com, added Scale and Fix parameters.
+Try out julias and low R_bailout values of 2 down to 1!
+You might have to cutoff at z=0 or so, to see something.*/
+
+void Kalisets1Iteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  z = fabs(z);
+  double m = fractal->transformCommon.scale/(z.x * z.x + z.y * z.y + z.z * z.z + 1e-21);
+  z = z * m;
+  aux.DE = aux.DE * fabs(m) + 1.0;
 }
 
 // mandelbulbMulti 3D

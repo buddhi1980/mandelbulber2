@@ -363,7 +363,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           RiemannSphereMsltoeV1Iteration(z, fractal);
           break;
         }
-
+        case amazingSurf:
+        {
+          AmazingSurfIteration(z, c, fractal, extendedAux[sequence]);
+          break;
+        }
+        case kalisets1:
+        {
+          Kalisets1Iteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
 
         //transforms ------------------------------------------------------------------------------------------
         case transfAdditionConstant:
@@ -521,6 +530,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case menger_sponge:
 				case kaleidoscopicIFS:
 				case aexion:
+
+        case amazingSurf:
         case msltoesym2:
         case msltoesym3:
         case msltoesym4:
@@ -701,7 +712,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case aboxModKali:
 				case mengerMod:
 				case aboxMod1:
-
+        case amazingSurf:
+        case kalisets1:
 					out->distance = r / fabs(extendedAux[sequence].DE);
 					break;
 

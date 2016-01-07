@@ -756,19 +756,25 @@ struct sFractalMandelbulbMulti
 //common parameters for transforming formulas
 struct sFractalTransformCommon
 {
+
   double offset;
-  double minR0;
-	double scale;
-  double scale3;
   double multiplication;
+  double minR0;
+  double minR05;
+  double minR06;
+  double scale;
+  double scale015;
+  double scale3;
 
   int startIterations;
   int stopIterations;
 
+  CVector3 additionConstant0555;
   CVector3 additionConstant000;
   CVector3 additionConstant111;
   CVector3 additionConstant222;
   CVector3 additionConstantNeg100;
+  CVector3 constantMultiplier010;
   CVector3 constantMultiplier100;
   CVector3 constantMultiplier111;
   CVector3 constantMultiplier122;

@@ -95,6 +95,9 @@ enum enumFractalFormula
   eiffieMsltoe = 70,
   riemannSphereMsltoeV1 = 71,
   riemannSphereMsltoe = 72,
+  amazingSurf = 73,
+  kalisets1 = 74,
+
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,
