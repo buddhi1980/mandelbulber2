@@ -141,6 +141,13 @@ enum enumDEFunctionType
 	withoutDEFunction = 3,
 };
 
+enum enumCPixelAddition
+{
+	cpixelEnabledByDefault = 0,
+	cpixelDisabledByDefault = 1,
+	cpixelAlreadyHas = 2
+};
+
 }
 
 struct sFractalDescription
@@ -150,16 +157,19 @@ struct sFractalDescription
 	fractal::enumFractalFormula internalID;
 	fractal::enumDEType DEType;
 	fractal::enumDEFunctionType DEFunctionType;
+	fractal::enumCPixelAddition cpixelAddition;
 	double defaultBailout;
 
 	sFractalDescription(QString _nameInComboBox, QString _internalNane,
 			fractal::enumFractalFormula _internalID, fractal::enumDEType _DEType,
-			fractal::enumDEFunctionType _DEFunctionType, double _defaultBailout) :
-			nameInComboBox(_nameInComboBox),
+			fractal::enumDEFunctionType _DEFunctionType, fractal::enumCPixelAddition _cpixelAddition,
+			double _defaultBailout) :
+					nameInComboBox(_nameInComboBox),
 					internalNane(_internalNane),
 					internalID(_internalID),
 					DEType(_DEType),
 					DEFunctionType(_DEFunctionType),
+					cpixelAddition(_cpixelAddition),
 					defaultBailout(_defaultBailout)
 	{
 	}

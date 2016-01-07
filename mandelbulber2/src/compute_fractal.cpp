@@ -527,28 +527,27 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		{
 			switch (formula)
 			{
-				case menger_sponge:
-				case kaleidoscopicIFS:
 				case aexion:
-
-        case amazingSurf:
-        case msltoesym2:
-        case msltoesym3:
-        case msltoesym4:
-				case mandelbulb5:
-				case mandelbox103:
-				case quaternion104:
-				case mengerSponge105:
-				case mandelbulb6Beta:
-				case benesiTransforms:
-				case fabsBoxMod:
-				case mengerMod:
 				case aexionOctopus:
-        case benesiPineTree:
-        case benesiT1PineTree:
-        case eiffieMsltoe:
-        case riemannSphereMsltoe:
-        case riemannSphereMsltoeV1:
+				case amazingSurf:
+				case benesiPineTree:
+				case benesiT1PineTree:
+				case benesiTransforms:
+				case eiffieMsltoe:
+				case fabsBoxMod:
+				case kaleidoscopicIFS:
+				case mandelbox103:
+				case mandelbulb5:
+				case mandelbulb6Beta:
+				case menger_sponge:
+				case mengerMod:
+				case mengerSponge105:
+				case msltoesym2:
+				case msltoesym3:
+				case msltoesym4:
+				case quaternion104:
+				case riemannSphereMsltoe:
+				case riemannSphereMsltoeV1:
         case transfAdditionConstant:
         case transfAddCpixel:
         case transfAddCpixelAxisSwap:

@@ -24,11 +24,11 @@ LICENCE: GNU GPL v3.0
 ------------
 
 packages needed to run: libqt5gui5, libpng12-0, libgsl2, libgomp1
-packages needed to compile: qt5-default, libpng12-dev, qttools5-dev, qttools5-dev-tools, libgsl-dev, libgomp1
+packages needed to compile: build-essential, qt5-default, libpng12-dev, qttools5-dev, qttools5-dev-tools, libgsl-dev, libgomp1
 
 
-On Ubuntu or Debian: 
-apt-get install libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgsl2 libgsl-dev libgomp1
+On Ubuntu, Debian or Mint: 
+apt-get install build-essential libqt5gui5 qt5-default libpng12-0 libpng12-dev qttools5-dev qttools5-dev-tools libgsl2 libgsl-dev libgomp1
 
 Then:
 
