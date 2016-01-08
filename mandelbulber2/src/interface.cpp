@@ -1433,7 +1433,7 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 							{
 								if (fractalList[i].internalID == selection)
 								{
-									selection = i;
+									selection = comboBox->findData(i);
 									break;
 								}
 							}
