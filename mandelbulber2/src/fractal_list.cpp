@@ -52,6 +52,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					100));
 
+  fractalList->append(sFractalDescription("AboxMod2",
+                                          "aboxMod2",
+                                          aboxMod2,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelEnabledByDefault,
+                                          100));
+
 	fractalList->append(sFractalDescription("AboxModKali",
 																					"aboxModKali",
 																					aboxModKali,

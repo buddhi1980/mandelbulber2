@@ -373,6 +373,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           Kalisets1Iteration(z, fractal, extendedAux[sequence]);
           break;
         }
+        case aboxMod2:
+        {
+        AboxMod2Iteration(z, c, fractal, extendedAux[sequence]);
+        break;
+        }
 
         //transforms ------------------------------------------------------------------------------------------
         case transfAdditionConstant:
@@ -711,6 +716,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case aboxModKali:
 				case mengerMod:
 				case aboxMod1:
+        case aboxMod2:
         case amazingSurf:
         case kalisets1:
 					out->distance = r / fabs(extendedAux[sequence].DE);

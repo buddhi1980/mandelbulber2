@@ -486,6 +486,7 @@ void InitFractalParams(cParameterContainer *par)
 
 
   par->addParam("transf_offset", 0.0, morphAkima, paramStandard);
+  par->addParam("transf_offset_05", 0.5, morphAkima, paramStandard);
   par->addParam("transf_multiplication", 2.0, morphAkima, paramStandard);
   par->addParam("transf_minimum_radius_0", 0.0, morphAkima, paramStandard);
   par->addParam("transf_minimum_radius_05", 0.5, morphAkima, paramStandard);
@@ -520,6 +521,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_scale3D_444", CVector3(4.0, 4.0, 4.0), morphAkima, paramStandard);
 
   par->addParam("transf_addCpixel_enabled", true, morphLinear, paramStandard);
+  par->addParam("transf_addCpixel_enabled_false", false, morphLinear, paramStandard);
   par->addParam("transf_benesi_T1_enabled", true, morphLinear, paramStandard);
   par->addParam("transf_constant_julia_mode", false, morphLinear, paramStandard);
   par->addParam("transf_function_enabledx", false, morphLinear, paramStandard);

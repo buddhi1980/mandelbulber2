@@ -1335,6 +1335,7 @@ cFractal::cFractal(const cParameterContainer *container)
 	//common parameters for transforming formulas
 
   transformCommon.offset = container->Get<double>("transf_offset");
+  transformCommon.offset05 = container->Get<double>("transf_offset_05");
   transformCommon.multiplication = container->Get<double>("transf_multiplication");
   transformCommon.minR0 = container->Get<double>("transf_minimum_radius_0");
   transformCommon.minR05 = container->Get<double>("transf_minimum_radius_05");
@@ -1365,13 +1366,13 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.scale3D333 = container->Get<CVector3>("transf_scale3D_333");
   transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
   transformCommon.addCpixelEnabled = container->Get<bool>("transf_addCpixel_enabled");
+  transformCommon.addCpixelEnabledFalse = container->Get<bool>("transf_addCpixel_enabled_false");
   transformCommon.benesiT1Enabled = container->Get<bool>("transf_benesi_T1_enabled");
   transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
   transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");
   transformCommon.functionEnabledy = container->Get<bool>("transf_function_enabledy");
   transformCommon.functionEnabledz = container->Get<bool>("transf_function_enabledz");
   transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
-
 
 
 	WriteLog("cFractal::RecalculateFractalParams(void)");

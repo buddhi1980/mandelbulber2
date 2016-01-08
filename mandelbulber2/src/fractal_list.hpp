@@ -97,6 +97,7 @@ enum enumFractalFormula
   riemannSphereMsltoe = 72,
   amazingSurf = 73,
   kalisets1 = 74,
+  aboxMod2 = 75,
 
 
 	transfAdditionConstant = 1001,
