@@ -758,6 +758,7 @@ struct sFractalTransformCommon
 {
 
   double offset;
+  double offset05;
   double multiplication;
   double minR0;
   double minR05;
@@ -793,6 +794,7 @@ struct sFractalTransformCommon
 
 
   bool addCpixelEnabled;
+  bool addCpixelEnabledFalse;
   bool benesiT1Enabled;
   bool juliaMode;
   bool functionEnabledx;

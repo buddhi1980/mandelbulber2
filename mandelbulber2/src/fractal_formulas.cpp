@@ -1250,7 +1250,7 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 }
 
 // V2.07   new formula -----------------------------------------------------------------
-// aboxMod1, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
+// From M3D ABoxMod1, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
 
 void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -1290,6 +1290,69 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   }
   z *= m;
   aux.DE = aux.DE * fabs(m) + 1.0;
+}
+
+
+// From M3D -ABboxMod2, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
+//http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+/*A curious ABox non-conformal variation, with a different fold for z and a non-conformal inversion.
+Looks like a wardrobe, a phone box... or you name it!*/
+
+void AboxMod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+
+  z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+      - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+  z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+      - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+  z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+      - fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // should be default 1.5
+
+  double tem = fabs(z.z) - fractal->transformCommon.offset05;
+
+
+
+  double rr;
+
+  if (tem > 0.0)
+  {
+    rr = (z.x * z.x + z.y * z.y + z.z * z.z); //on top & bottom of cyl
+  }
+  else
+  {
+    rr = (z.x * z.x + z.y * z.y);// on cyl body
+  }
+
+  if (rr < 1e-21) rr = 1e-21;
+  double m;
+  double sqrtMinR = sqrt(fractal->transformCommon.minR05);
+  if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+  if (rr < sqrtMinR)
+  {
+    m = fractal->mandelbox.scale / sqrtMinR;
+  }
+  else
+  {
+    if (rr < 1)
+    {
+      m = fractal->mandelbox.scale / rr;
+    }
+    else
+    {
+      m = fractal->mandelbox.scale;
+    }
+  }
+  z *= m;
+  aux.DE = aux.DE * fabs(m) + 1.0;
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    z +=  c * fractal->transformCommon.constantMultiplier111;
+  }
+  if (fractal->transformCommon.juliaMode)
+  {
+      z += fractal->transformCommon.juliaC;
+  }
+
 }
 
 //------------AboxModKali  --------------------------------
@@ -1349,39 +1412,16 @@ Luca GN 2012*/
 void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.actualScale = aux.actualScale
-      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix -----------------------------
+      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
 
 
-  z.x = abs(z.x + fractal->transformCommon.additionConstant111.x) - abs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-  z.y = abs(z.y + fractal->transformCommon.additionConstant111.y) - abs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-  //z.z = abs(z.z);
-  /*if (z.x > fractal->mandelbox.foldingLimit)
-  {
-    z.x = fractal->mandelbox.foldingValue - z.x;
-    aux.color += fractal->mandelbox.color.factor.x;
-  }
-  else if (z.x < -fractal->mandelbox.foldingLimit)
-  {
-    z.x = -fractal->mandelbox.foldingValue - z.x;
-    aux.color += fractal->mandelbox.color.factor.x;
-  }*/
-  /*z.x = fold – fabs ( fabs (z.x + foldM.x) – fold) – fabs(foldM.x);
-  z.y = fold – fabs ( fabs (z.y + foldM.y) – fold) – fabs(foldM.y);*/
-
-
-  /*z.x = fractal->mandelbox.foldingValue
-      - fabs(fabs(z.x + fractal->transformCommon.additionConstant111.x) - fractal->mandelbox.foldingValue)
-      - fabs(fractal->transformCommon.additionConstant111.x);
-  z.y = fractal->mandelbox.foldingValue
-      - fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y) - fractal->mandelbox.foldingValue)
-      - fabs(fractal->transformCommon.additionConstant111.y);
-  z.z = fractal->mandelbox.foldingValue
-      - fabs(fabs(z.z + fractal->transformCommon.additionConstant111.z) - fractal->mandelbox.foldingValue)
-      - fabs(fractal->transformCommon.additionConstant111.z);*/  // no z fold
+  z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x) - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+  z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y) - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+  // no z fold
   double rr;
-  if (fractal->transformCommon.functionEnabledx) // force cyfrindral fold
+  if (fractal->transformCommon.functionEnabledx) // force cylinder fold
   {
-    rr = (z.x * z.x + z.y * z.y); // cylindral fold  ;
+    rr = (z.x * z.x + z.y * z.y); // cylinder fold  ;
   }
   else
   {
