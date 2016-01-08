@@ -1668,17 +1668,9 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 		mainWindow->fractalWidgets[0] = loader.load(&uiFile);
 		mainWindow->ui->verticalLayout_fractal_1->addWidget(mainWindow->fractalWidgets[0]);
 		mainWindow->fractalWidgets[0]->show();
-
 		for(int i = 1; i < NUMBER_OF_FRACTALS; i++)
 		{
 			mainWindow->fractalWidgets[i] = NULL;
-		}
-
-		QStringList fractalNames;
-		for (int i = 0; i < fractalList.size(); i++)
-		{
-			QString name = fractalList[i].nameInComboBox;
-			fractalNames.append(name);
 		}
 
 		for(int i = 1; i <= NUMBER_OF_FRACTALS; i++)
@@ -1692,7 +1684,26 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 
 			QComboBox *combo = frame->findChild<QComboBox*>(QString("comboBox_formula_") + QString::number(i));
 			combo->clear();
-			combo->addItems(fractalNames);
+
+			for (int f = 0; f < fractalList.size(); f++)
+			{
+				combo->addItem(QIcon(fractalList[f].getIconName()), fractalList[f].nameInComboBox, f);
+			}
+
+			// set headings and separator of formulas and transforms
+			QFont fontHeading;
+			fontHeading.setBold(true);
+			combo->insertItem(0, QObject::tr("Formulas"));
+			combo->setItemData(0, fontHeading, Qt::FontRole);
+			combo->setItemData(0, Qt::AlignCenter, Qt::TextAlignmentRole);
+			qobject_cast<QStandardItemModel *>(combo->model())->item(0)->setEnabled(false);
+			int indexBeforeTransforms = combo->findText("Transform - Addition Constant");
+			combo->insertItem(indexBeforeTransforms, QObject::tr("Transforms"));
+			combo->setItemData(indexBeforeTransforms, fontHeading, Qt::FontRole);
+			combo->setItemData(indexBeforeTransforms, Qt::AlignCenter, Qt::TextAlignmentRole);
+			qobject_cast<QStandardItemModel *>(combo->model())->item(indexBeforeTransforms)->setEnabled(false);
+			combo->insertSeparator(indexBeforeTransforms);
+
 			QApplication::connect(combo, SIGNAL(currentIndexChanged(int)), mainWindow, SLOT(slotChangedComboFractal(int)));
 
 			QPushButton *resetButton = frame->findChild<QPushButton*>(QString("pushButton_reset_formula_") + QString::number(i));

@@ -154,25 +154,32 @@ enum enumCPixelAddition
 struct sFractalDescription
 {
 	QString nameInComboBox;
-	QString internalNane;
+	QString internalName;
 	fractal::enumFractalFormula internalID;
 	fractal::enumDEType DEType;
 	fractal::enumDEFunctionType DEFunctionType;
 	fractal::enumCPixelAddition cpixelAddition;
 	double defaultBailout;
 
-	sFractalDescription(QString _nameInComboBox, QString _internalNane,
+	sFractalDescription(QString _nameInComboBox, QString _internalName,
 			fractal::enumFractalFormula _internalID, fractal::enumDEType _DEType,
 			fractal::enumDEFunctionType _DEFunctionType, fractal::enumCPixelAddition _cpixelAddition,
 			double _defaultBailout) :
 					nameInComboBox(_nameInComboBox),
-					internalNane(_internalNane),
+					internalName(_internalName),
 					internalID(_internalID),
 					DEType(_DEType),
 					DEFunctionType(_DEFunctionType),
 					cpixelAddition(_cpixelAddition),
 					defaultBailout(_defaultBailout)
 	{
+	}
+	QString getIconName(){
+		if(internalID == fractal::none)
+		{
+			return QString(":system/icons/list-remove.svg");
+		}
+		return QString(":/formula_and_transform/formula_and_transform_images/" + internalName + ".png");
 	}
 };
 

@@ -473,17 +473,18 @@ void RenderWindow::slotMenuResetDocksPositions()
 	ui->dockWidget_queue_dock->hide();
 }
 
-void RenderWindow::slotChangedComboFractal(int index)
+void RenderWindow::slotChangedComboFractal(int indexInComboBox)
 {
 	QString comboName = this->sender()->objectName();
+	int index = qobject_cast<QComboBox *>(this->sender())->itemData(indexInComboBox).toInt();
 	int fractalNumber = comboName.right(1).toInt() - 1;
 
+	QString fullFormulaName = fractalList[index].nameInComboBox;
 	if (fractalList[index].internalID > 0)
 	{
-		QString formulaName = fractalList[index].internalNane;
+		QString formulaName = fractalList[index].internalName;
 		QString uiFilename = systemData.sharedDir + "qt_data" + QDir::separator() + "fractal_"
 				+ formulaName + ".ui";
-		QString fullFormulaName = fractalList[index].nameInComboBox;
 
 		if (fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
 		fractalWidgets[fractalNumber] = NULL;
@@ -505,8 +506,6 @@ void RenderWindow::slotChangedComboFractal(int index)
 			gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[fractalNumber],
 																								 &gParFractal->at(fractalNumber),
 																								 cInterface::write);
-
-			ui->tabWidget_fractals->setTabText(fractalNumber, QString("#%1: %2").arg(fractalNumber + 1).arg(fullFormulaName));
 
 			if (fractalList[index].internalID == fractal::kaleidoscopicIFS)
 			{
@@ -554,9 +553,9 @@ void RenderWindow::slotChangedComboFractal(int index)
 	{
 		if (fractalWidgets[fractalNumber]) delete fractalWidgets[fractalNumber];
 		fractalWidgets[fractalNumber] = NULL;
-		ui->tabWidget_fractals->setTabText(fractalNumber, QString("#%1: %2").arg(fractalNumber + 1).arg("None"));
 	}
-
+	ui->tabWidget_fractals->setTabText(fractalNumber, QString("#%1: %2").arg(fractalNumber + 1).arg(fullFormulaName));
+	// ui->tabWidget_fractals->setTabIcon(fractalNumber, QIcon(fractalList[index].getIconName()));
 }
 
 void RenderWindow::slotResizedScrolledAreaImage(int width, int height)

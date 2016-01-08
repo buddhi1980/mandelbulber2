@@ -96,4 +96,16 @@
     <file>icons/object-rotate-left.png</file>
     <file>icons/object-rotate-right.png</file>
   </qresource>
+  <qresource prefix="/formula_and_transform">
+    <file>formula_and_transform_images/mandelbulb.png</file>
+    <file>formula_and_transform_images/mandelbulb2.png</file>
+    <file>formula_and_transform_images/mandelbulb3.png</file>
+    <file>formula_and_transform_images/mandelbulb4.png</file>
+    <file>formula_and_transform_images/mandelbulb5.png</file>
+    <file>formula_and_transform_images/mandelbulb6_beta.png</file>
+    <file>formula_and_transform_images/mandelbulb_multi.png</file>
+    <file>formula_and_transform_images/mandelbulb_power_2.png</file>
+    <file>formula_and_transform_images/menger_sponge.png</file>
+    <file>formula_and_transform_images/menger_sponge105.png</file>
+  </qresource>
 </RCC>
