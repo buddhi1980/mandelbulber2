@@ -36,17 +36,18 @@ Q_OBJECT
 
 public:
 
-enum enumClickMode
-{
-	clickDoNothing = 0,
-	clickMoveCamera = 1,
-	clickFogVisibility = 2,
-	clickDOFFocus = 3,
-	clickGetJuliaConstant = 4,
-	clickPlaceLight = 5,
-	clickPlacePrimitive = 6,
-	clickFlightSpeedControl = 7
-};
+	enum enumClickMode
+	{
+		clickDoNothing = 0,
+		clickMoveCamera = 1,
+		clickFogVisibility = 2,
+		clickDOFFocus = 3,
+		clickGetJuliaConstant = 4,
+		clickPlaceLight = 5,
+		clickPlacePrimitive = 6,
+		clickFlightSpeedControl = 7,
+		clickPlaceRandomLightCenter = 8
+	};
 
 	struct sFlightData
 	{

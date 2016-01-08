@@ -337,6 +337,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(clicked()),
 												mainWindow,
 												SLOT(slotPressedButtonSetFogByMouse()));
+	QApplication::connect(mainWindow->ui->pushButton_place_random_lights_by_mouse,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonPlaceRandomLightsByMouse()));
 	QApplication::connect(mainWindow->ui->pushButton_stop,
 												SIGNAL(clicked()),
 												mainWindow,
@@ -2458,6 +2462,16 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 				case RenderedImage::clickFlightSpeedControl:
 					//nothing
 					break;
+				case RenderedImage::clickPlaceRandomLightCenter:
+				{
+					double distanceCameraToCenter = CVector3(camera - point).Length();
+					gPar->Set("random_lights_distribution_center", point);
+					gPar->Set("random_lights_distribution_radius", 0.5 * distanceCameraToCenter);
+					gPar->Set("random_lights_max_distance_from_fractal", 0.1 * distanceCameraToCenter);
+					SynchronizeInterfaceWindow(mainWindow->ui->groupCheck_random_lights_group, gPar, cInterface::write);
+					StartRender();
+					break;
+				}
 			}
 		}
 	}
@@ -2814,6 +2828,11 @@ void cInterface::ComboMouseClickUpdate()
 	item.append((int) RenderedImage::clickPlaceLight);
 	item.append(4);
 	combo->addItem(QObject::tr("Place light #4"), item);
+
+	item.clear();
+	item.append((int) RenderedImage::clickPlaceRandomLightCenter);
+	combo->addItem(QObject::tr("Place random light center"), item);
+
 
 	if (listOfPrimitives.size() > 0)
 	{

@@ -144,6 +144,13 @@ void RenderedImage::DisplayCoordinates()
 		case clickDoNothing:
 			text  = "";
 			break;
+		case clickPlaceRandomLightCenter:
+			text = tr("Place center of random light");
+			text += tr("\nalso calculates");
+			text += tr("\ndistribution radius of lights to 50%,");
+			text += tr("\nmax distance from fractal to 10%");
+			text += tr("\nof distance [center to camera position]");
+			break;
 	}
 
 	if(clickMode != clickDoNothing)
