@@ -118,7 +118,6 @@
         <file>formula_and_transform_images/benesi_T1_pine_tree.png</file>
         <file>formula_and_transform_images/benesi_transforms.png</file>
         <file>formula_and_transform_images/benesi.png</file>
-        <file>formula_and_transform_images/aboxVSIcen1.png</file>
         <file>formula_and_transform_images/boxfold_bulbpow2.png</file>
         <file>formula_and_transform_images/bristorbrot.png</file>
         <file>formula_and_transform_images/buffalo.png</file>
@@ -126,5 +125,13 @@
         <file>formula_and_transform_images/fabsBoxMod.png</file>
         <file>formula_and_transform_images/generalized_fold_box.png</file>
         <file>formula_and_transform_images/hypercomplex.png</file>
+        <file>formula_and_transform_images/aboxVS_icen1.png</file>
+        <file>formula_and_transform_images/ides.png</file>
+        <file>formula_and_transform_images/ides2.png</file>
+        <file>formula_and_transform_images/ifs.png</file>
+        <file>formula_and_transform_images/lkmitch.png</file>
+        <file>formula_and_transform_images/makin3d2.png</file>
+        <file>formula_and_transform_images/mandelbox_vary_scale_4d.png</file>
+        <file>formula_and_transform_images/mandelbox.png</file>
     </qresource>
 </RCC>
