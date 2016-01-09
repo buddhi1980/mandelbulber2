@@ -1688,6 +1688,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 			QComboBox *combo = frame->findChild<QComboBox*>(QString("comboBox_formula_") + QString::number(i));
 			combo->clear();
 
+			combo->setIconSize(QSize(32,32));
 			for (int f = 0; f < fractalList.size(); f++)
 			{
 				combo->addItem(QIcon(fractalList[f].getIconName()), fractalList[f].nameInComboBox, f);
