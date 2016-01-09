@@ -27,9 +27,9 @@
 #include "nine_fractals.hpp"
 
 
-void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void AboxMod1Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void AboxMod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
-void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void AboxModKaliIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux);
 void AexionOctopusIteration(CVector3 &z, const cFractal *fractal);
 void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
@@ -47,7 +47,7 @@ void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux);
 void Ides2Iteration(CVector3 &z, CVector3 &c);
 void IdesIteration(CVector3 &z);
 void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void Kalisets1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void Kalisets1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void LkmitchIteration(CVector3 &z);
 void Makin3D2Iteration(CVector3 &z);
 void Mandelbox103Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);

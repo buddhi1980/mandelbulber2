@@ -310,7 +310,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case aboxModKali:
         {
-          AboxModKaliIteration(z, fractal, extendedAux[sequence]);
+          AboxModKaliIteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
         case mengerMod:
@@ -330,7 +330,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case aboxMod1:
         {
-          AboxMod1Iteration(z, fractal, extendedAux[sequence]);
+          AboxMod1Iteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
         case mandelbulbMulti:
@@ -370,7 +370,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case kalisets1:
         {
-          Kalisets1Iteration(z, fractal, extendedAux[sequence]);
+          Kalisets1Iteration(z, c,  fractal, extendedAux[sequence]);
           break;
         }
         case aboxMod2:

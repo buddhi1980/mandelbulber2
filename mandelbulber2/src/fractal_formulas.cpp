@@ -1249,11 +1249,11 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
 }
 
-// V2.07   new formula -----------------------------------------------------------------
+// NEW FORMULAS-----------------------------------------------------------------
 // From M3D ABoxMod1, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
 
-void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.actualScale = aux.actualScale
       + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
@@ -1290,6 +1290,14 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   }
   z *= m;
   aux.DE = aux.DE * fabs(m) + 1.0;
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+   z += CVector3(c.y, c.x, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
+  }
+  if (fractal->transformCommon.juliaMode)
+  {
+    z += fractal->transformCommon.juliaC;
+  }
 }
 
 
@@ -1300,20 +1308,14 @@ Looks like a wardrobe, a phone box... or you name it!*/
 
 void AboxMod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
-
   z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
       - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
   z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
       - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
   z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
       - fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // should be default 1.5
-
   double tem = fabs(z.z) - fractal->transformCommon.offset05;
-
-
-
   double rr;
-
   if (tem > 0.0)
   {
     rr = (z.x * z.x + z.y * z.y + z.z * z.z); //on top & bottom of cyl
@@ -1322,7 +1324,6 @@ void AboxMod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExten
   {
     rr = (z.x * z.x + z.y * z.y);// on cyl body
   }
-
   if (rr < 1e-21) rr = 1e-21;
   double m;
   double sqrtMinR = sqrt(fractal->transformCommon.minR05);
@@ -1350,14 +1351,14 @@ void AboxMod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExten
   }
   if (fractal->transformCommon.juliaMode)
   {
-      z += fractal->transformCommon.juliaC;
+    z += fractal->transformCommon.juliaC;
   }
 
 }
 
 //------------AboxModKali  --------------------------------
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
-void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void AboxModKaliIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   z = fractal->transformCommon.additionConstant0555 - fabs(z);
   double rr = z.x * z.x + z.y * z.y + z.z * z.z;
@@ -1373,6 +1374,15 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
   }
   z = z * m ;
   aux.DE = aux.DE * fabs(m) + 1.0;
+
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    z +=  c * fractal->transformCommon.constantMultiplier111;
+  }
+  if (fractal->transformCommon.juliaMode)
+  {
+    z += fractal->transformCommon.juliaC;
+  }
 }
 
 
@@ -1447,16 +1457,19 @@ void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
       m = aux.actualScale;
     }
   }
-  c *= fractal->transformCommon.constantMultiplier111;
-  z.x = z.x * m + c.y ;
-  z.y = z.y * m + c.x ;    // swap
-  z.z = z.z * m + c.z ;
+  if (fractal->transformCommon.addCpixelEnabled)
+  {
+   z += CVector3(c.y, c.x, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
+  }
+  if (fractal->transformCommon.juliaMode)
+  {
+    z += fractal->transformCommon.juliaC;
+  }
 
   aux.DE = aux.DE * fabs(m) + 1.0;
 
-
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-  //z = fractal->transformCommon.additionConstant000;
+
 }
 
 //benesiFastPwr2PineTree  3D
@@ -1552,16 +1565,40 @@ void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
 }
 
 // ----------Kalisets1
-/*A formula suggested by Kali at fractalforums.com, added Scale and Fix parameters.
+/*From M3D, A formula suggested by Kali at fractalforums.com, added Scale and Fix parameters.
 Try out julias and low R_bailout values of 2 down to 1!
 You might have to cutoff at z=0 or so, to see something.*/
 
-void Kalisets1Iteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
-  z = fabs(z);
-  double m = fractal->transformCommon.scale/(z.x * z.x + z.y * z.y + z.z * z.z + 1e-21);
+  if (fractal->transformCommon.functionEnabledx)
+  {
+    z.x = fabs(z.x);
+  }
+  if (fractal->transformCommon.functionEnabledy)
+  {
+    z.y = fabs(z.y);
+  }
+  if (fractal->transformCommon.functionEnabledz)
+  {
+    z.z = fabs(z.z);
+  }
+
+
+  double m = fractal->transformCommon.scale/(z.x * z.x + z.y * z.y + z.z * z.z + 1e-21); // need to change to cover neg
   z = z * m;
   aux.DE = aux.DE * fabs(m) + 1.0;
+
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    z +=  c * fractal->transformCommon.constantMultiplier111;
+  }
+  if (fractal->transformCommon.juliaMode)
+  {
+    z += fractal->transformCommon.juliaC;
+  }
+
+
 }
 
 // mandelbulbMulti 3D
