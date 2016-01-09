@@ -1384,7 +1384,60 @@ void AboxModKaliIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
     z += fractal->transformCommon.juliaC;
   }
 }
+// From M3D ABoxVS_icen1, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
+//http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
 
+void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  aux.actualScale = aux.actualScale
+      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+
+  z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+      - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+  z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+      - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+  z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+      - fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+
+  if (fractal->transformCommon.juliaMode)
+  {
+    z += c * fractal->transformCommon.constantMultiplier111;
+  }
+  else
+  {
+    z += fractal->transformCommon.juliaC;
+  }
+
+
+
+  double r2 = z.Dot(z);
+    if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
+  if (r2 < fractal->mandelbox.mR2)
+  {
+    z *= fractal->mandelbox.mboxFactor1;
+    aux.DE *= fractal->mandelbox.mboxFactor1;
+    aux.color += fractal->mandelbox.color.factorSp1;
+  }
+  else if (r2 < fractal->mandelbox.fR2)
+  {
+    double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+    z *= tglad_factor2;
+    aux.DE *= tglad_factor2;
+    aux.color += fractal->mandelbox.color.factorSp2;
+  }
+  z *= aux.actualScale;
+
+  aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+
+  if (fractal->transformCommon.juliaMode)
+  {
+   z += fractal->transformCommon.juliaC - c * fractal->transformCommon.constantMultiplier111;
+  }
+  else
+  {
+    z += c * fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.juliaC;
+  }
+}
 
 
 //------------AexionOctopus  --------------------------------
@@ -2592,6 +2645,7 @@ void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double r2 = z.Dot(z);
+  if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
 	if (r2 < fractal->mandelbox.mR2)
 	{
 		z *= fractal->mandelbox.mboxFactor1;
@@ -2685,7 +2739,6 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
       z = CVector3( z.z, z.y, z.x);
       break;
   }
-
 }
 
 void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)

@@ -1369,6 +1369,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.addCpixelEnabledFalse = container->Get<bool>("transf_addCpixel_enabled_false");
   transformCommon.benesiT1Enabled = container->Get<bool>("transf_benesi_T1_enabled");
   transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
+  transformCommon.functionEnabled = container->Get<bool>("transf_function_enabled");
   transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");
   transformCommon.functionEnabledy = container->Get<bool>("transf_function_enabledy");
   transformCommon.functionEnabledz = container->Get<bool>("transf_function_enabledz");

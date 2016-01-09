@@ -797,6 +797,7 @@ struct sFractalTransformCommon
   bool addCpixelEnabledFalse;
   bool benesiT1Enabled;
   bool juliaMode;
+  bool functionEnabled;
   bool functionEnabledx;
   bool functionEnabledy;
   bool functionEnabledz;

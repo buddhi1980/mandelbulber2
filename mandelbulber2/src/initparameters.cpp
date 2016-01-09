@@ -524,6 +524,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_addCpixel_enabled_false", false, morphLinear, paramStandard);
   par->addParam("transf_benesi_T1_enabled", true, morphLinear, paramStandard);
   par->addParam("transf_constant_julia_mode", false, morphLinear, paramStandard);
+  par->addParam("transf_function_enabled", true, morphLinear, paramStandard);
   par->addParam("transf_function_enabledx", true, morphLinear, paramStandard);
   par->addParam("transf_function_enabledy", true, morphLinear, paramStandard);
   par->addParam("transf_function_enabledz", true, morphLinear, paramStandard);

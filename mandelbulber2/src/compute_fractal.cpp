@@ -375,8 +375,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case aboxMod2:
         {
-        AboxMod2Iteration(z, c, fractal, extendedAux[sequence]);
-        break;
+          AboxMod2Iteration(z, c, fractal, extendedAux[sequence]);
+          break;
+        }
+        case aboxVSIcen1:
+        {
+          AboxVSIcen1Iteration(z, c, fractal, extendedAux[sequence]);
+          break;
         }
 
         //transforms ------------------------------------------------------------------------------------------
@@ -534,6 +539,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				case aexion:
 				case aexionOctopus:
+        case aboxVSIcen1:
 				case amazingSurf:
 				case benesiPineTree:
 				case benesiT1PineTree:
@@ -717,8 +723,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerMod:
 				case aboxMod1:
         case aboxMod2:
+
         case amazingSurf:
         case kalisets1:
+        case aboxVSIcen1:
 					out->distance = r / fabs(extendedAux[sequence].DE);
 					break;
 
