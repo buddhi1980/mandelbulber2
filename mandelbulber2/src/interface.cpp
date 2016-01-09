@@ -1417,10 +1417,9 @@ void cInterface::SynchronizeInterfaceWindow(QWidget *window, cParameterContainer
 					if (mode == read)
 					{
 						int selection = comboBox->currentIndex();
-
 						if (parameterName.left(7) == QString("formula"))
 						{
-							selection = fractalList[selection].internalID;
+							selection = fractalList[comboBox->itemData(selection).toInt()].internalID;
 						}
 						par->Set(parameterName, selection);
 					}
