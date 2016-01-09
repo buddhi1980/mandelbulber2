@@ -1689,6 +1689,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 			combo->clear();
 
 			combo->setIconSize(QSize(32,32));
+			combo->setFixedHeight(32);
 			for (int f = 0; f < fractalList.size(); f++)
 			{
 				combo->addItem(QIcon(fractalList[f].getIconName()), fractalList[f].nameInComboBox, f);
@@ -1727,7 +1728,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 			frame->findChild<MySpinBox*>(QString("spinboxInt_formula_stop_iteration_") + QString::number(i))->setVisible(false);
 
 			frame->findChild<MyCheckBox*>(QString("checkBox_check_for_bailout_") + QString::number(i))->setVisible(false);
-			//frame->findChild<MyCheckBox*>(QString("checkBox_dont_add_c_constant_") + QString::number(i))->setVisible(false);
+			frame->findChild<MyCheckBox*>(QString("checkBox_dont_add_c_constant_") + QString::number(i))->setText(QObject::tr("Don't add C constant"));
 
 			if(i > 1)
 			{

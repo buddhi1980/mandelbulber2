@@ -507,6 +507,35 @@ void RenderWindow::slotChangedComboFractal(int indexInComboBox)
 																								 &gParFractal->at(fractalNumber),
 																								 cInterface::write);
 
+			QFrame *frame = ui->tabWidget_fractals->findChild<QFrame*>("frame_iterations_formula_"
+					+ QString::number(fractalNumber + 1));
+			MyCheckBox *caddCheckBoxframe =
+					frame->findChild<MyCheckBox*>(QString("checkBox_dont_add_c_constant_")
+							+ QString::number(fractalNumber + 1));
+
+			switch(fractalList[index].cpixelAddition)
+			{
+				case fractal::cpixelEnabledByDefault:
+					caddCheckBoxframe->setText(QObject::tr("Don't add C constant"));
+					caddCheckBoxframe->setEnabled(true);
+					break;
+
+				case fractal::cpixelDisabledByDefault:
+				{
+					caddCheckBoxframe->setText(QObject::tr("Add C constant"));
+					caddCheckBoxframe->setEnabled(true);
+					break;
+				}
+
+				case fractal::cpixelAlreadyHas:
+				{
+					caddCheckBoxframe->setText(QObject::tr("Don't add C constant"));
+					caddCheckBoxframe->setEnabled(false);
+					break;
+				}
+			}
+
+
 			if (fractalList[index].internalID == fractal::kaleidoscopicIFS)
 			{
 				QWidget *pushButton_preset_dodecahedron =

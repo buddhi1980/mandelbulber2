@@ -54,7 +54,19 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		DEType[i] = fractal::deltaDEType;
 		DEFunctionType[i] = fractal::logarithmicDEFunction;
 		checkForBailout[i] = generalPar->Get<bool>("check_for_bailout", i + 1);
-		dontAddCConstant[i] = generalPar->Get<bool>("dont_add_c_constant", i + 1);
+
+		bool addc = false;
+		if(fractalList[GetIndexOnFractalList(fractals[i]->formula)].cpixelAddition == fractal::cpixelAlreadyHas)
+		{
+			addc = false;
+		}
+		else
+		{
+			addc = !generalPar->Get<bool>("dont_add_c_constant", i + 1);
+			if(fractalList[GetIndexOnFractalList(fractals[i]->formula)].cpixelAddition == fractal::cpixelDisabledByDefault)
+				addc = !addc;
+		}
+		addCConstant[i] = addc;
 
 		if(useDefaultBailout)
 			bailout[i] = fractalList[GetIndexOnFractalList(fractals[i]->formula)].defaultBailout;

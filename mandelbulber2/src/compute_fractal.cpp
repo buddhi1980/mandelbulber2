@@ -533,61 +533,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 
 		//addition of constant
-		if (!fractals.IsDontAddCContant(sequence))
+		if (fractals.IsAddCContant(sequence))
 		{
 			switch (formula)
 			{
-				case aexion:
-				case aexionOctopus:
-        case aboxVSIcen1:
-				case amazingSurf:
-				case benesiPineTree:
-				case benesiT1PineTree:
-				case benesiTransforms:
-				case eiffieMsltoe:
-				case fabsBoxMod:
-				case kaleidoscopicIFS:
-				case mandelbox103:
-				case mandelbulb5:
-				case mandelbulb6Beta:
-				case menger_sponge:
-				case mengerMod:
-				case mengerSponge105:
-				case msltoesym2:
-				case msltoesym3:
-				case msltoesym4:
-				case quaternion104:
-				case riemannSphereMsltoe:
-				case riemannSphereMsltoeV1:
-        case transfAdditionConstant:
-        case transfAddCpixel:
-        case transfAddCpixelAxisSwap:
-        case transfAddCpixelPosNeg:
-        case transfBenesiT1:
-        case transfBenesiT1Mod:
-        case transfBenesiT2:
-        case transfBenesiT3:
-        case transfBenesiT4:
-        case transfBenesiT5b:
-        case transfBenesiMagForward:
-        case transfBenesiMagBackward:
-        case transfBenesiCubeSphere:
-        case transfBenesiSphereCube:
-        case transfBoxFold:
-	      case transfBoxOffset:
-        case transfFabsAddConstant:
-        case transfFabsAddConstantV2:
-        case transfNegFabsAddConstant:
-				case transfRotation:
-				case transfScale:
-				case transfScale3D:
-				case transfSphericalFold:
-				case transfSphericalOffset:
-				case transfZvectorAxisSwap:
-
-				{
-					break;
-				}
         case aboxMod1:
         {
 					if (in.common.juliaMode)
