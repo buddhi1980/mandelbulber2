@@ -133,5 +133,44 @@
         <file>formula_and_transform_images/makin3d2.png</file>
         <file>formula_and_transform_images/mandelbox_vary_scale_4d.png</file>
         <file>formula_and_transform_images/mandelbox.png</file>
+        <file>formula_and_transform_images/mengerMod.png</file>
+        <file>formula_and_transform_images/msltoesym2.png</file>
+        <file>formula_and_transform_images/msltoesym3.png</file>
+        <file>formula_and_transform_images/msltoesym4.png</file>
+        <file>formula_and_transform_images/quaternion.png</file>
+        <file>formula_and_transform_images/quaternion3D.png</file>
+        <file>formula_and_transform_images/quickdudley.png</file>
+        <file>formula_and_transform_images/riemann_sphere_msltoe.png</file>
+        <file>formula_and_transform_images/riemann_sphere_msltoeV1.png</file>
+        <file>formula_and_transform_images/smooth_mandelbox.png</file>
+        <file>formula_and_transform_images/xenodreambuie.png</file>
+        <file>formula_and_transform_images/transf_add_Cpixel_axis_swap.png</file>
+        <file>formula_and_transform_images/transf_add_Cpixel_pos_neg.png</file>
+        <file>formula_and_transform_images/transf_add_Cpixel.png</file>
+        <file>formula_and_transform_images/transf_addition_constant.png</file>
+        <file>formula_and_transform_images/transf_benesi_cube_sphere.png</file>
+        <file>formula_and_transform_images/transf_benesi_mag_backward.png</file>
+        <file>formula_and_transform_images/transf_benesi_mag_forward.png</file>
+        <file>formula_and_transform_images/transf_benesi_sphere_cube.png</file>
+        <file>formula_and_transform_images/transf_benesi_T1.png</file>
+        <file>formula_and_transform_images/transf_benesi_T1Mod.png</file>
+        <file>formula_and_transform_images/transf_benesi_T2.png</file>
+        <file>formula_and_transform_images/transf_benesi_T3.png</file>
+        <file>formula_and_transform_images/transf_benesi_T4.png</file>
+        <file>formula_and_transform_images/transf_benesi_T5b.png</file>
+        <file>formula_and_transform_images/transf_box_fold.png</file>
+        <file>formula_and_transform_images/transf_box_offset.png</file>
+        <file>formula_and_transform_images/transf_fabs_add_constant.png</file>
+        <file>formula_and_transform_images/transf_fabs_add_constantV2.png</file>
+        <file>formula_and_transform_images/transf_multiple_angle.png</file>
+        <file>formula_and_transform_images/transf_neg_fabs_add_constant.png</file>
+        <file>formula_and_transform_images/transf_rotation.png</file>
+        <file>formula_and_transform_images/transf_rpower.png</file>
+        <file>formula_and_transform_images/transf_scale_3D.png</file>
+        <file>formula_and_transform_images/transf_scale.png</file>
+        <file>formula_and_transform_images/transf_spherical_fold.png</file>
+        <file>formula_and_transform_images/transf_spherical_offset.png</file>
+        <file>formula_and_transform_images/transf_zVector_axis_swap.png</file>
+        <file>formula_and_transform_images/platonic_solid.png</file>
     </qresource>
 </RCC>
