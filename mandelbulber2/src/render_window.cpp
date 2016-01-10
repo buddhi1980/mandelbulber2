@@ -535,6 +535,13 @@ void RenderWindow::slotChangedComboFractal(int indexInComboBox)
 				}
 			}
 
+			fractal::enumCPixelAddition cPixelAddition = fractalList[index].cpixelAddition;
+			bool boleanState = ui->groupCheck_boolean_operators->isChecked();
+			if (cPixelAddition == fractal::cpixelAlreadyHas)
+				ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_c_constant_addition_"
+						+ QString::number(fractalNumber + 1))->setVisible(false);
+			else ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_c_constant_addition_"
+					+ QString::number(fractalNumber + 1))->setVisible(boleanState);
 
 			if (fractalList[index].internalID == fractal::kaleidoscopicIFS)
 			{
@@ -709,7 +716,17 @@ void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
 			ui->tabWidget_fractals->findChild<QScrollArea*>("scrollArea_fractal_" + QString::number(i))->setEnabled(state);
 		}
 		ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_formula_transform_" + QString::number(i))->setVisible(state);
-		ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_c_constant_addition_" + QString::number(i))->setVisible(state);
+
+		QComboBox *comboBox = ui->tabWidget_fractals->findChild<QComboBox*>("comboBox_formula_"
+				+ QString::number(i));
+		fractal::enumCPixelAddition cPixelAddition = fractalList[comboBox->itemData(comboBox
+				->currentIndex()).toInt()].cpixelAddition;
+
+		if (cPixelAddition == fractal::cpixelAlreadyHas)
+			ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_c_constant_addition_"
+					+ QString::number(i))->setVisible(false);
+		else ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_c_constant_addition_"
+				+ QString::number(i))->setVisible(state);
 	}
 
 	ui->comboBox_delta_DE_function->setEnabled(!state);

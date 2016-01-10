@@ -68,7 +68,7 @@ private:
 	double bailout[NUMBER_OF_FRACTALS];
 
 	void CreateSequence(const cParameterContainer *generalPar);
-	int GetIndexOnFractalList(fractal::enumFractalFormula formula);
+	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 };
 
 
