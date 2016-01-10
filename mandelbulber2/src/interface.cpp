@@ -2528,6 +2528,7 @@ void cInterface::ResetView()
 	double fov = gPar->Get<double>("fov");
 	params::enumPerspectiveType perspType =
 			(params::enumPerspectiveType) gPar->Get<int>("perspective_type");
+	double DEactor = gPar->Get<double>("DE_factor");
 
 	cParameterContainer parTemp = *gPar;
 	parTemp.Set("limits_enabled", false);
@@ -2562,7 +2563,7 @@ void cInterface::ResetView()
 			{
 				break;
 			}
-			distStep = dist;
+			distStep = dist * DEactor * 0.5;
 			if (distStep > 5.0) distStep = 5.0;
 			//qDebug() << "i" << i << "scan" << scan << "direction" << direction.Debug();
 		}
