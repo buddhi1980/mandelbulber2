@@ -47,6 +47,9 @@ public:
 	inline bool UseOptimizedDE() const {return useOptimizedDE;}
 	QString GetDETypeString() const;
 	inline double GetBailout(int formulaIndex) const {return bailout[formulaIndex];};
+	inline bool IsJuliaEnabled(int formulaIndex) const {return juliaEnabled[formulaIndex];}
+	inline CVector3 GetJuliaConstant(int formulaIndex) const {return juliaConstant[formulaIndex];}
+	inline CVector3 GetConstantMultiplier(int formulaIndex) const {return constantMultiplier[formulaIndex];}
 
 private:
 	bool forceDeltaDE;
@@ -66,6 +69,9 @@ private:
 	bool addCConstant[NUMBER_OF_FRACTALS];
 	bool checkForBailout[NUMBER_OF_FRACTALS];
 	double bailout[NUMBER_OF_FRACTALS];
+	bool juliaEnabled[NUMBER_OF_FRACTALS];
+	CVector3 juliaConstant[NUMBER_OF_FRACTALS];
+	CVector3 constantMultiplier[NUMBER_OF_FRACTALS];
 
 	void CreateSequence(const cParameterContainer *generalPar);
 	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);

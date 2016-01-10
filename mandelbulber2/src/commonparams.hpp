@@ -38,14 +38,9 @@ struct sFractalFoldings
 struct sCommonParams
 {
 	CVector3 fakeLightsOrbitTrap;
-	CVector3 juliaC;
-
-	CVector3 constantMultiplier;
 
 	int fakeLightsMaxIter;
 	int fakeLightsMinIter;
-
-	bool juliaMode;
 
 	CVector3 fractalPosition;
 	CVector3 fractalRotation;

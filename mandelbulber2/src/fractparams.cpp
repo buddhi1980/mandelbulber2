@@ -184,7 +184,6 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 		mRotFormulaRotation[i].SetRotation2(formulaRotation[i] * (M_PI / 180.0));
 	}
 
-	common.constantMultiplier = container->Get<CVector3>("fractal_constant_factor");
 	common.fakeLightsMaxIter = container->Get<double>("fake_lights_max_iter");
 	common.fakeLightsMinIter = container->Get<double>("fake_lights_min_iter");
 	common.fakeLightsOrbitTrap = container->Get<CVector3>("fake_lights_orbit_trap");
@@ -196,8 +195,6 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 	common.foldings.sphericalOuter = container->Get<double>("spherical_folding_outer");
 	common.fractalPosition = container->Get<CVector3>("fractal_position");
 	common.fractalRotation = container->Get<CVector3>("fractal_rotation");
-	common.juliaC = container->Get<CVector3>("julia_c");
-	common.juliaMode = container->Get<bool>("julia_mode");
 	common.mRotFractalRotation.SetRotation2(common.fractalRotation / 180.0 * M_PI);
 	common.repeat = container->Get<CVector3>("repeat");
 

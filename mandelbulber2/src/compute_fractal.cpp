@@ -549,26 +549,27 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
         case aboxMod1:
         {
-					if (in.common.juliaMode)
+					if (fractals.IsJuliaEnabled(sequence))
 					{
-						z += CVector3(in.common.juliaC.y, in.common.juliaC.x, in.common.juliaC.z);
+						CVector3 juliaC = fractals.GetJuliaConstant(sequence) * fractals.GetConstantMultiplier(sequence);;
+						z += CVector3(juliaC.y, juliaC.x, juliaC.z);
 					}
 					else
 					{
-	          z += CVector3(c.y, c.x, c.z) * in.common.constantMultiplier;
+	          z += CVector3(c.y, c.x, c.z) * fractals.GetConstantMultiplier(sequence);
 					}
 					break;
         }
 
 				default:
 				{
-					if (in.common.juliaMode)
+					if (fractals.IsJuliaEnabled(sequence))
 					{
-						z += in.common.juliaC;
+						z += fractals.GetJuliaConstant(sequence) * fractals.GetConstantMultiplier(sequence);
 					}
 					else
 					{
-						z += c * in.common.constantMultiplier;
+						z += c * fractals.GetConstantMultiplier(sequence);
 					}
 					break;
 				}

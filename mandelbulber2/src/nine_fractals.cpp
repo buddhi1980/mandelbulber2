@@ -43,6 +43,8 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 	bool useDefaultBailout = generalPar->Get<bool>("use_default_bailout");
 	double commonBailout = generalPar->Get<double>("bailout");
+	isHybrid = generalPar->Get<bool>("hybrid_fractal_enable");
+	bool isBoolean =  generalPar->Get<bool>("boolean_operators");
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
@@ -55,6 +57,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		DEFunctionType[i] = fractal::logarithmicDEFunction;
 		checkForBailout[i] = generalPar->Get<bool>("check_for_bailout", i + 1);
 
+		//decide if use addition of C constant
 		bool addc = false;
 		if(fractalList[GetIndexOnFractalList(fractals[i]->formula)].cpixelAddition == fractal::cpixelAlreadyHas)
 		{
@@ -68,10 +71,26 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		}
 		addCConstant[i] = addc;
 
+		//defualt bailout or global one
 		if(useDefaultBailout)
 			bailout[i] = fractalList[GetIndexOnFractalList(fractals[i]->formula)].defaultBailout;
 		else
 			bailout[i] = commonBailout;
+
+		//Julia parameters - local or global
+		if (isBoolean)
+		{
+			juliaEnabled[i] = generalPar->Get<bool>("julia_mode", i + 1);
+			juliaConstant[i] = generalPar->Get<CVector3>("julia_c", i + 1);
+			constantMultiplier[i] = generalPar->Get<CVector3>("fractal_constant_factor", i + 1);
+		}
+		else
+		{
+			juliaEnabled[i] = generalPar->Get<bool>("julia_mode");
+			juliaConstant[i] = generalPar->Get<CVector3>("julia_c");
+			constantMultiplier[i] = generalPar->Get<CVector3>("fractal_constant_factor");
+		}
+
 	}
 
 	if((fractal::enumDEMethod)generalPar->Get<int>("delta_DE_method") == fractal::forceDeltaDEMethod)
@@ -86,7 +105,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	maxFractalIndex = 0;
 	CreateSequence(generalPar);
 
-	if (generalPar->Get<bool>("hybrid_fractal_enable") || forceDeltaDE)
+	if (isHybrid || forceDeltaDE)
 	{
 		DEType[0] = fractal::deltaDEType;
 		if((fractal::enumDEFunctionType)generalPar->Get<int>("delta_DE_function") == fractal::preferedDEfunction)
@@ -159,10 +178,6 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 {
 	hybridSequence.clear();
 
-	bool hybridFractalEnabled = generalPar->Get<bool>("hybrid_fractal_enable");
-	if (hybridFractalEnabled) isHybrid = true;
-	else isHybrid = false;
-
 	int repeatFrom = generalPar->Get<int>("repeat_from");
 
 	int fractalNo = 0;
@@ -176,7 +191,7 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 
 	for (int i = 0; i < maxN * 5; i++)
 	{
-		if (hybridFractalEnabled)
+		if (isHybrid)
 		{
 			counter++;
 
