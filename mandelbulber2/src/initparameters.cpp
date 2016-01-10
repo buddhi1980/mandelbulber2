@@ -1209,6 +1209,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("platonic_solid_amplitude", 1.0, morphAkima, paramStandard);
 	par->addParam("platonic_solid_rhoMul", 1.0, morphAkima, paramStandard);
 
+	par->addParam("info", false, morphNone, paramStandard); //dummy parameter for information groupbox
+
 	WriteLog("Fractal parameters initialization finished");
 }
 
