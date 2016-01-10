@@ -822,27 +822,19 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 	for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		SynchronizeInterfaceWindow(mainWindow->fractalWidgets[i], &parFractal->at(i), mode);
+		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QFrame*>(QString("frame_iterations_formula_%1")
+																	 .arg(i + 1)),
+															 par,
+															 mode);
+		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>(QString("groupBox_formula_transform_%1")
+																	 .arg(i + 1)),
+															 par,
+															 mode);
+		SynchronizeInterfaceWindow(mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>(QString("groupBox_c_constant_addition_%1")
+																	 .arg(i + 1)),
+															 par,
+															 mode);
 	}
-
-	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_1, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_2, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_3, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_4, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_5, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_6, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_7, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_8, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->frame_iterations_formula_9, par, mode);
-
-	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_1, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_2, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_3, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_4, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_5, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_6, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_7, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_8, par, mode);
-	SynchronizeInterfaceWindow(mainWindow->ui->groupBox_formula_transform_9, par, mode);
 }
 
 //Reading ad writing parameters from/to selected widget to/from parameters container
@@ -1737,6 +1729,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 			}
 
 			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_formula_transform_" + QString::number(i))->setVisible(false);
+			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_c_constant_addition_" + QString::number(i))->setVisible(false);
 		}
 	}
 	else

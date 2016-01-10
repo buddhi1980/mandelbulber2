@@ -101,6 +101,9 @@ void InitParams(cParameterContainer *par)
 		par->addParam("formula_weight", i, 1.0, 0.0, 1.0, morphAkima, paramStandard);
 		par->addParam("formula_start_iteration", i, 0, 0, 65536, morphAkima, paramStandard);
 		par->addParam("formula_stop_iteration", i, 250, 0, 65536, morphAkima, paramStandard);
+		par->addParam("julia_mode", i, false, morphLinear, paramStandard);
+		par->addParam("julia_c", i, CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+		par->addParam("fractal_constant_factor", i, CVector3(1.0, 1.0, 1.0), morphLinear, paramStandard);
 	}
 
 	//boolean operators
