@@ -29,7 +29,6 @@
 #define SQRT_1_2 0.70710678118654752440084436210485
 #define SQRT_2_3 0.81649658092772603273242802490196
 #define SQRT_3_2 1.22474487139158904909864203735295
-#define PI     3.1415926535897932384626433832795028
 
 using namespace fractal;
 
@@ -1575,7 +1574,7 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
 void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   //if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;// when atan used
-  double psi = fabs(fmod(atan2( z.z , z.y ) + PI/8.0, PI/4.0) - PI/8.0);
+  double psi = fabs(fmod(atan2( z.z , z.y ) + M_PI/8.0, M_PI/4.0) - M_PI/8.0);
   double lengthYZ  = sqrt( z.y * z.y + z.z * z.z );
 
   z.y = cos(psi) * lengthYZ;
@@ -1865,8 +1864,8 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
   t3.y = z.y * w;
 
   w = 1.0 + t3.x * t3.x + t3.y * t3.y;
-  t3.x = fabs(sin(PI * t3.x));
-  t3.y = fabs(sin(PI * t3.y));
+  t3.x = fabs(sin(M_PI * t3.x));
+  t3.y = fabs(sin(M_PI * t3.y));
   r *= r;
   if (r < 1e-21) r = 1e-21;
 
