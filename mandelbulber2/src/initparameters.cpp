@@ -486,15 +486,20 @@ void InitFractalParams(cParameterContainer *par)
 
 
   par->addParam("transf_offset", 0.0, morphAkima, paramStandard);
+  par->addParam("transf_offset_0", 0.0, morphAkima, paramStandard);
   par->addParam("transf_offset_05", 0.5, morphAkima, paramStandard);
   par->addParam("transf_multiplication", 2.0, morphAkima, paramStandard);
   par->addParam("transf_minimum_radius_0", 0.0, morphAkima, paramStandard);
   par->addParam("transf_minimum_radius_05", 0.5, morphAkima, paramStandard);
   par->addParam("transf_minimum_radius_06", 0.6, morphAkima, paramStandard);
   par->addParam("transf_scale", 1.0, morphAkima, paramStandard);
+  par->addParam("transf_scale_1", 1.0, morphAkima, paramStandard);
   par->addParam("transf_scale_015", 1.5, morphAkima, paramStandard);
   par->addParam("transf_scale_3", 3.0, morphAkima, paramStandard);
 
+
+  par->addParam("transf_int_A", 0, morphLinear, paramStandard);
+  par->addParam("transf_int_B", 0, morphLinear, paramStandard);
   par->addParam("transf_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations", 250, morphLinear, paramStandard);
 
@@ -526,6 +531,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_benesi_T1_enabled", true, morphLinear, paramStandard);
   par->addParam("transf_constant_julia_mode", false, morphLinear, paramStandard);
   par->addParam("transf_function_enabled", true, morphLinear, paramStandard);
+  par->addParam("transf_function_enabled_false", false, morphLinear, paramStandard);
   par->addParam("transf_function_enabledx", true, morphLinear, paramStandard);
   par->addParam("transf_function_enabledy", true, morphLinear, paramStandard);
   par->addParam("transf_function_enabledz", true, morphLinear, paramStandard);

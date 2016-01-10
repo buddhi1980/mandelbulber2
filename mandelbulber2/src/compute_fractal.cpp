@@ -315,7 +315,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case mengerMod:
         {
-          MengerModIteration(z, fractal, extendedAux[sequence]);
+          MengerModIteration(z, i, fractal, extendedAux[sequence]);
           break;
         }
         case quaternion3D:
@@ -478,6 +478,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfFabsAddMulti:
         {
           TransformFabsAddMultiIteration(z, fractal);
+          break;
+        }
+        case transfIterationWeight:
+        {
+          TransformIterationWeightIteration(z, i, fractal);
           break;
         }
         case transfMultipleAngle:

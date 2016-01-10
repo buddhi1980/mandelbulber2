@@ -758,17 +758,21 @@ struct sFractalTransformCommon
 {
 
   double offset;
+  double offset0;
   double offset05;
   double multiplication;
   double minR0;
   double minR05;
   double minR06;
   double scale;
+  double scale1;
   double scale015;
   double scale3;
 
   int startIterations;
   int stopIterations;
+  int intA;
+  int intB;
 
   CVector3 additionConstant0555;
   CVector3 additionConstant000;
@@ -799,6 +803,7 @@ struct sFractalTransformCommon
   bool benesiT1Enabled;
   bool juliaMode;
   bool functionEnabled;
+  bool functionEnabledFalse;
   bool functionEnabledx;
   bool functionEnabledy;
   bool functionEnabledz;

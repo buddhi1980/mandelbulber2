@@ -1731,7 +1731,7 @@ void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 }
 
 // ----------mengerMod
-void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void MengerModIteration( CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   double tempMS;
   z = fabs(z);
@@ -1767,6 +1767,22 @@ void MengerModIteration( CVector3 &z, const cFractal *fractal, sExtendedAux &aux
   }
   z += fractal->transformCommon.additionConstant000;
 
+  if (fractal->transformCommon.functionEnabledFalse)
+  {
+    CVector3 zA = z * 0;
+    CVector3 zB = z * 0;
+    if (i == fractal->transformCommon.intA )
+    {
+      zA = z;
+    }
+    if (i == fractal->transformCommon.intB)
+    {
+      zB = z;
+    }
+    z = (z * fractal->transformCommon.scale1)
+        + (zA * fractal->transformCommon.offset)
+        + (zB * fractal->transformCommon.offset0);
+  }
 }
 
 /* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */
@@ -2755,6 +2771,23 @@ void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
         - (z.z * fractal->transformCommon.scale3D111.z);
 }
 
+void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal)
+{
+  CVector3 zA = z * 0;
+  CVector3 zB = z * 0;
+
+  if (i - 1.0 == fractal->transformCommon.intA )
+  {
+    zA = z;
+  }
+  if (i == fractal->transformCommon.intB)
+  {
+    zB = z;
+  }
+  z = (z * fractal->transformCommon.scale)
+      + (zA * fractal->transformCommon.offset)
+      + (zB * fractal->transformCommon.offset0);
+}
 
 void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
 {
