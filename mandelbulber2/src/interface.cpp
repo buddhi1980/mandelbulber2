@@ -1728,7 +1728,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 			frame->findChild<MySpinBox*>(QString("spinboxInt_formula_stop_iteration_") + QString::number(i))->setVisible(false);
 
 			frame->findChild<MyCheckBox*>(QString("checkBox_check_for_bailout_") + QString::number(i))->setVisible(false);
-			frame->findChild<MyCheckBox*>(QString("checkBox_dont_add_c_constant_") + QString::number(i))->setText(QObject::tr("Don't add C constant"));
+			frame->findChild<MyCheckBox*>(QString("checkBox_dont_add_c_constant_") + QString::number(i))->setText(QObject::tr("Don't add global C constant"));
 
 			if(i > 1)
 			{

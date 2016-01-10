@@ -538,7 +538,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 
 		//addition of constant
-		if (fractals.IsAddCContant(sequence))
+		if (fractals.IsAddCConstant(sequence))
 		{
 			switch (formula)
 			{

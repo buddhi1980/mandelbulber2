@@ -516,20 +516,20 @@ void RenderWindow::slotChangedComboFractal(int indexInComboBox)
 			switch(fractalList[index].cpixelAddition)
 			{
 				case fractal::cpixelEnabledByDefault:
-					caddCheckBoxframe->setText(QObject::tr("Don't add C constant"));
+					caddCheckBoxframe->setText(QObject::tr("Don't add global C constant"));
 					caddCheckBoxframe->setEnabled(true);
 					break;
 
 				case fractal::cpixelDisabledByDefault:
 				{
-					caddCheckBoxframe->setText(QObject::tr("Add C constant"));
+					caddCheckBoxframe->setText(QObject::tr("Add global C constant"));
 					caddCheckBoxframe->setEnabled(true);
 					break;
 				}
 
 				case fractal::cpixelAlreadyHas:
 				{
-					caddCheckBoxframe->setText(QObject::tr("Don't add C constant"));
+					caddCheckBoxframe->setText(QObject::tr("Don't add global C constant"));
 					caddCheckBoxframe->setEnabled(false);
 					break;
 				}

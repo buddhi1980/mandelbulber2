@@ -42,7 +42,7 @@ public:
 	fractal::enumDEFunctionType GetDEFunctionType(int formulaIndex) const;
 	inline double GetWeight(int formulaIndex) const {return formulaWeight[formulaIndex];}
 	inline int GetMaxFractalIndex() const {return maxFractalIndex;}
-	inline bool IsAddCContant(int formulaIndex) const {return addCConstant[formulaIndex];}
+	inline bool IsAddCConstant(int formulaIndex) const {return addCConstant[formulaIndex];}
 	inline bool IsCheckForBailout(int formulaIndex) const {return checkForBailout[formulaIndex];}
 	inline bool UseOptimizedDE() const {return useOptimizedDE;}
 	QString GetDETypeString() const;
