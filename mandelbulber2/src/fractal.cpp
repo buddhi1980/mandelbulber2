@@ -1335,14 +1335,18 @@ cFractal::cFractal(const cParameterContainer *container)
 	//common parameters for transforming formulas
 
   transformCommon.offset = container->Get<double>("transf_offset");
+  transformCommon.offset0 = container->Get<double>("transf_offset_0");
   transformCommon.offset05 = container->Get<double>("transf_offset_05");
   transformCommon.multiplication = container->Get<double>("transf_multiplication");
   transformCommon.minR0 = container->Get<double>("transf_minimum_radius_0");
   transformCommon.minR05 = container->Get<double>("transf_minimum_radius_05");
   transformCommon.minR06 = container->Get<double>("transf_minimum_radius_06");
   transformCommon.scale = container->Get<double>("transf_scale");
+  transformCommon.scale1 = container->Get<double>("transf_scale_1");
   transformCommon.scale015 = container->Get<double>("transf_scale_015");
   transformCommon.scale3 = container->Get<double>("transf_scale_3");
+  transformCommon.intA = container->Get<int>("transf_int_A");
+  transformCommon.intB = container->Get<int>("transf_int_B");
   transformCommon.startIterations = container->Get<int>("transf_start_iterations");
   transformCommon.stopIterations = container->Get<int>("transf_stop_iterations");
   transformCommon.additionConstant0555 = container->Get<CVector3>("transf_addition_constant_0555");
@@ -1371,6 +1375,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.benesiT1Enabled = container->Get<bool>("transf_benesi_T1_enabled");
   transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
   transformCommon.functionEnabled = container->Get<bool>("transf_function_enabled");
+  transformCommon.functionEnabledFalse = container->Get<bool>("transf_function_enabled_false");
   transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");
   transformCommon.functionEnabledy = container->Get<bool>("transf_function_enabledy");
   transformCommon.functionEnabledz = container->Get<bool>("transf_function_enabledz");
