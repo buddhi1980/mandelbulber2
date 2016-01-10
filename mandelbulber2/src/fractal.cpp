@@ -1357,6 +1357,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.constantMultiplier221 = container->Get<CVector3>("transf_constant_multiplier_221");
   transformCommon.constantMultiplier441 = container->Get<CVector3>("transf_constant_multiplier_441");
   transformCommon.juliaC = container->Get<CVector3>("transf_constant_julia_c");
+  transformCommon.offset000 = container->Get<CVector3>("transf_offset_000");
   transformCommon.offset200 = container->Get<CVector3>("transf_offset_200");
   transformCommon.power025 = container->Get<CVector3>("transf_power_025");
   transformCommon.power8 = container->Get<CVector3>("transf_power_8");
@@ -1373,6 +1374,9 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");
   transformCommon.functionEnabledy = container->Get<bool>("transf_function_enabledy");
   transformCommon.functionEnabledz = container->Get<bool>("transf_function_enabledz");
+  transformCommon.functionEnabledAx = container->Get<bool>("transf_function_enabledAx");
+  transformCommon.functionEnabledAy = container->Get<bool>("transf_function_enabledAy");
+  transformCommon.functionEnabledAz = container->Get<bool>("transf_function_enabledAz");
   transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
 
 

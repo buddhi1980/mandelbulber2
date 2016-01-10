@@ -102,12 +102,15 @@ void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &
 void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal);
 void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
+void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal);
+void TransformFIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal);
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 
 void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal);

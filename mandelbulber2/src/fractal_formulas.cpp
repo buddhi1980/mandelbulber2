@@ -2715,6 +2715,47 @@ void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
   }
 }
 
+// fabs Multi
+void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
+{
+  CVector3 tempA = z * 0;
+  CVector3 tempB = z * 0;
+  if (fractal->transformCommon.functionEnabledAx)
+  {
+    tempA.x = fabs(z.x + fractal->transformCommon.additionConstant000.x);
+  }
+  if (fractal->transformCommon.functionEnabledx)
+  {
+    tempB.x = fabs(z.x - fractal->transformCommon.offset000.x);
+  }
+  z.x = tempA.x - tempB.x
+      - (z.x *  fractal->transformCommon.scale3D111.x);
+
+
+  if (fractal->transformCommon.functionEnabledAy)
+  {
+    tempA.y = fabs(z.y + fractal->transformCommon.additionConstant000.y);
+  }
+  if (fractal->transformCommon.functionEnabledy)
+  {
+    tempB.y = fabs(z.y - fractal->transformCommon.offset000.y);
+  }
+  z.y = tempA.y - tempB.y
+      - (z.y * fractal->transformCommon.scale3D111.y);
+
+  if (fractal->transformCommon.functionEnabledAz)
+  {
+    tempA.z = fabs(z.z + fractal->transformCommon.additionConstant000.z);
+  }
+  if (fractal->transformCommon.functionEnabledz)
+  {
+    tempB.z = fabs(z.z - fractal->transformCommon.offset000.z);
+  }
+  z.z = tempA.z - tempB.z
+        - (z.z * fractal->transformCommon.scale3D111.z);
+}
+
+
 void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
 {
   switch (fractal->mandelbulbMulti.orderOfxyz)

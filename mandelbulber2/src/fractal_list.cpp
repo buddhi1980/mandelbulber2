@@ -588,6 +588,22 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					100));
 
+  fractalList->append(sFractalDescription("Transform - Fabs_Add_Multi",
+                                          "transf_fabs_add_multi",
+                                          transfFabsAddMulti,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Iteration Weight",
+                                          "transf_iteration_weight",
+                                          transfIterationWeight,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
 	fractalList->append(sFractalDescription("Transform - Neg_Fabs_Add_Constant",
 																					"transf_neg_fabs_add_constant",
 																					transfNegFabsAddConstant,
@@ -636,13 +652,21 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					100));
 
-	fractalList->append(sFractalDescription("Transform - Spherical_Fold",
-																					"transf_spherical_fold",
-																					transfSphericalFold,
-																					analyticDEType,
-																					linearDEFunction,
-																					cpixelDisabledByDefault,
-																					100));
+  fractalList->append(sFractalDescription("Transform - Spherical_Fold",
+                                          "transf_spherical_fold",
+                                          transfSphericalFold,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Spherical_Pwr_Fold",
+                                          "transf_spherical_pwr_fold",
+                                          transfSphericalPwrFold,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
 
 	fractalList->append(sFractalDescription("Transform - Spherical_Offset",
 																					"transf_spherical_offset",

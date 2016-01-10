@@ -782,6 +782,7 @@ struct sFractalTransformCommon
   CVector3 constantMultiplier221;
   CVector3 constantMultiplier441;
   CVector3 juliaC;
+  CVector3 offset000;
   CVector3 offset200;
   CVector3 power025;
   CVector3 power8;
@@ -801,6 +802,9 @@ struct sFractalTransformCommon
   bool functionEnabledx;
   bool functionEnabledy;
   bool functionEnabledz;
+  bool functionEnabledAx;
+  bool functionEnabledAy;
+  bool functionEnabledAz;
   bool rotationEnabled;
 
 };

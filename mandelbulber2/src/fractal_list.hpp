@@ -126,7 +126,11 @@ enum enumFractalFormula
   transfNegFabsAddConstant = 1024,
   transfFabsAddConstantV2 = 1025,
 	transfMultipleAngle = 1026,
-	transfRPower = 1027
+  transfRPower = 1027,
+  transfIterationWeight = 1028,
+  transfFabsAddMulti = 1029,
+  transfSphericalPwrFold = 1030,
+
 };
 
 enum enumDEType

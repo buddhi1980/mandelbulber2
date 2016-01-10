@@ -475,6 +475,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformFabsAddConstantV2Iteration(z, fractal);
           break;
         }
+        case transfFabsAddMulti:
+        {
+          TransformFabsAddMultiIteration(z, fractal);
+          break;
+        }
         case transfMultipleAngle:
         {
           TransformMultipleAngle(z, fractal, extendedAux[sequence]);
