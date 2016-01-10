@@ -1253,7 +1253,7 @@ void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fract
 // From M3D ABoxMod1, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
 
-void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.actualScale = aux.actualScale
       + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
@@ -1290,14 +1290,6 @@ void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExten
   }
   z *= m;
   aux.DE = aux.DE * fabs(m) + 1.0;
-  if (fractal->transformCommon.addCpixelEnabledFalse)
-  {
-   z += CVector3(c.y, c.x, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
-  }
-  if (fractal->transformCommon.juliaMode)
-  {
-    z += fractal->transformCommon.juliaC;
-  }
 }
 
 
@@ -1306,7 +1298,7 @@ void AboxMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExten
 /*A curious ABox non-conformal variation, with a different fold for z and a non-conformal inversion.
 Looks like a wardrobe, a phone box... or you name it!*/
 
-void AboxMod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
       - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
@@ -1345,20 +1337,11 @@ void AboxMod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExten
   }
   z *= m;
   aux.DE = aux.DE * fabs(m) + 1.0;
-  if (fractal->transformCommon.addCpixelEnabledFalse)
-  {
-    z +=  c * fractal->transformCommon.constantMultiplier111;
-  }
-  if (fractal->transformCommon.juliaMode)
-  {
-    z += fractal->transformCommon.juliaC;
-  }
-
 }
 
 //------------AboxModKali  --------------------------------
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
-void AboxModKaliIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   z = fractal->transformCommon.additionConstant0555 - fabs(z);
   double rr = z.x * z.x + z.y * z.y + z.z * z.z;
@@ -1374,15 +1357,6 @@ void AboxModKaliIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
   }
   z = z * m ;
   aux.DE = aux.DE * fabs(m) + 1.0;
-
-  if (fractal->transformCommon.addCpixelEnabledFalse)
-  {
-    z +=  c * fractal->transformCommon.constantMultiplier111;
-  }
-  if (fractal->transformCommon.juliaMode)
-  {
-    z += fractal->transformCommon.juliaC;
-  }
 }
 // From M3D ABoxVS_icen1, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
@@ -1535,10 +1509,10 @@ void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, 
   double t = 2 * temp.x;
   if (z.y + z.z > 0.0) t = t / sqrt(z.y + z.z);
   else t = 1.0;
-  c *= fractal->transformCommon.constantMultiplier100;
-  z.x = (z.x - z.y - z.z) + c.x;
-  z.z = (t * (z.y - z.z)) + c.y;
-  z.y = (2 * t * temp.y * temp.z) + c.z;
+
+  z.x = (z.x - z.y - z.z) + c.x * fractal->transformCommon.constantMultiplier100.x;
+  z.z = (t * (z.y - z.z)) + c.y * fractal->transformCommon.constantMultiplier100.y;
+  z.y = (2 * t * temp.y * temp.z) + c.z * fractal->transformCommon.constantMultiplier100.z;
   aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }
 
@@ -1583,14 +1557,15 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
   else t = 1.0;
   if (fractal->transformCommon.addCpixelEnabled)
   {
-    c *= fractal->transformCommon.constantMultiplier100;
-    z.x = (z.x - z.y - z.z) + c.x;
-    z.z = (t * (z.y - z.z)) + c.y;  // Cy Cx swap
-    z.y = (2 * t * temp.y * temp.z) + c.z;
+    z.x = (z.x - z.y - z.z) + c.x * fractal->transformCommon.constantMultiplier100.x;
+    z.z = (t * (z.y - z.z)) + c.y * fractal->transformCommon.constantMultiplier100.y;  // Cy Cx swap
+    z.y = (2 * t * temp.y * temp.z) + c.z * fractal->transformCommon.constantMultiplier100.z; ;
   }
   if (fractal->transformCommon.juliaMode)
     {
-      z += fractal->transformCommon.juliaC;
+      z.x += fractal->transformCommon.juliaC.x * fractal->transformCommon.constantMultiplier100.x;
+      z.z += fractal->transformCommon.juliaC.y * fractal->transformCommon.constantMultiplier100.y;
+      z.y += fractal->transformCommon.juliaC.z * fractal->transformCommon.constantMultiplier100.z;
     }
   aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }

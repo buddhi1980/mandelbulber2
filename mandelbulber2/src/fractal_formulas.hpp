@@ -27,9 +27,9 @@
 #include "nine_fractals.hpp"
 
 
-void AboxMod1Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
-void AboxMod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
-void AboxModKaliIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
+void AboxMod1Iteration(CVector3 &z,const cFractal *fractal, sExtendedAux &aux);
+void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux);
 void AexionOctopusIteration(CVector3 &z, const cFractal *fractal);
