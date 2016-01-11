@@ -1482,15 +1482,7 @@ void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
       m = aux.actualScale;
     }
   }
-  z *= m;
-  if (fractal->transformCommon.addCpixelEnabled)
-  {
-   z += CVector3(c.y, c.x, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
-  }
-  if (fractal->transformCommon.juliaMode)
-  {
-    z += fractal->transformCommon.juliaC;
-  }
+  z *= m * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
 
   aux.DE = aux.DE * fabs(m) + 1.0;
 

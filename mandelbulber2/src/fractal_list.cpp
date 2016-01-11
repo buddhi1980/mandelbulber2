@@ -97,7 +97,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					amazingSurf,
 																					analyticDEType,
 																					linearDEFunction,
-																					cpixelAlreadyHas,
+																					cpixelEnabledByDefault,
                                           100));
 
   fractalList->append(sFractalDescription("Amazing_Surf_Mod1",

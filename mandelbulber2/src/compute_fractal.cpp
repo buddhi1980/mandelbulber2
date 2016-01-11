@@ -553,6 +553,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			switch (formula)
 			{
         case aboxMod1:
+        case amazingSurf:
         {
 					if (fractals.IsJuliaEnabled(sequence))
 					{
