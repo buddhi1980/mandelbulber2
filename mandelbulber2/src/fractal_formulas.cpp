@@ -1447,9 +1447,8 @@ void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
 Luca GN 2012*/
 void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
-  aux.actualScale = aux.actualScale
-      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
-
+  //aux.actualScale = aux.actualScale
+  //    + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
 
   z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x) - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
   z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y) - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
@@ -1483,6 +1482,7 @@ void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
       m = aux.actualScale;
     }
   }
+  z *= m;
   if (fractal->transformCommon.addCpixelEnabled)
   {
    z += CVector3(c.y, c.x, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
@@ -1497,7 +1497,9 @@ void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 }
-/*Amzing Surf Mod 1      Formula proposed by Kali, with features added by Darkbeam
+
+
+/*Amazing Surf Mod 1      Formula proposed by Kali, with features added by Darkbeam
 Luca GN 2012*/
 void AmazingSurfMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1524,9 +1526,31 @@ void AmazingSurfMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
     z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
   }
 
+  if (fractal->transformCommon.functionEnabledxFalse) // if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
+  {
+    if (z.x > fractal->transformCommon.additionConstant111.x)
+    {
+      z.x = fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    else if (z.x < -fractal->transformCommon.additionConstant111.x)
+    {
+      z.x = -fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    if (z.y > fractal->transformCommon.additionConstant111.y)
+    {
+      z.y = fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    else if (z.y < -fractal->transformCommon.additionConstant111.y)
+    {
+      z.y = -fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+  }
+
   z += fractal->transformCommon.additionConstant000;
-
-
 
   double rr;
   if (fractal->transformCommon.functionEnabledFalse) // force cylinder fold
@@ -1557,6 +1581,7 @@ void AmazingSurfMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
       m = aux.actualScale;
     }
   }
+  z *= m;
   if (fractal->transformCommon.addCpixelEnabled)
   {
    z += CVector3(c.y, c.x, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
@@ -1803,7 +1828,7 @@ void MengerModIteration( CVector3 &z, int i, const cFractal *fractal, sExtendedA
   z *= fractal->transformCommon.scale3;
   z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
   z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
-  if (z.z >  fractal->transformCommon.scale) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
+  if (z.z >  1) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 
 
   aux.DE *= fractal->transformCommon.scale3;

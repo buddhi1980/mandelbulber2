@@ -36,7 +36,7 @@ cFractal::cFractal(const cParameterContainer *container)
 
 	mandelbox.scale = container->Get<double>("mandelbox_scale");
 	mandelbox.foldingLimit = container->Get<double>("mandelbox_folding_limit");
-	mandelbox.foldingValue = container->Get<double>("mandelbox_folding_value");
+  mandelbox.foldingValue = container->Get<double>("mandelbox_folding_value");
 	mandelbox.foldingSphericalMin = container->Get<double>("mandelbox_folding_min_radius");
 	mandelbox.foldingSphericalFixed = container->Get<double>("mandelbox_folding_fixed_radius");
 	mandelbox.sharpness = container->Get<double>("mandelbox_sharpness");
@@ -1379,6 +1379,9 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");
   transformCommon.functionEnabledy = container->Get<bool>("transf_function_enabledy");
   transformCommon.functionEnabledz = container->Get<bool>("transf_function_enabledz");
+  transformCommon.functionEnabledxFalse = container->Get<bool>("transf_function_enabledx_false");
+  transformCommon.functionEnabledyFalse = container->Get<bool>("transf_function_enabledy_false");
+  transformCommon.functionEnabledzFalse = container->Get<bool>("transf_function_enabledz_false");
   transformCommon.functionEnabledAx = container->Get<bool>("transf_function_enabledAx");
   transformCommon.functionEnabledAy = container->Get<bool>("transf_function_enabledAy");
   transformCommon.functionEnabledAz = container->Get<bool>("transf_function_enabledAz");
