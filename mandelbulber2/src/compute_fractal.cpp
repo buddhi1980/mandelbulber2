@@ -368,6 +368,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           AmazingSurfIteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
+        case amazingSurfMod1:
+        {
+          AmazingSurfMod1Iteration(z, c, fractal, extendedAux[sequence]);
+          break;
+        }
         case kalisets1:
         {
           Kalisets1Iteration(z, c,  fractal, extendedAux[sequence]);
@@ -683,8 +688,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mengerMod:
 				case aboxMod1:
         case aboxMod2:
-
         case amazingSurf:
+        case amazingSurfMod1:
         case kalisets1:
         case aboxVSIcen1:
 					out->distance = r / fabs(extendedAux[sequence].DE);

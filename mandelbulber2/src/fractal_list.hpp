@@ -99,6 +99,7 @@ enum enumFractalFormula
   kalisets1 = 74,
   aboxMod2 = 75,
   aboxVSIcen1 = 76,
+  amazingSurfMod1 = 77,
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,

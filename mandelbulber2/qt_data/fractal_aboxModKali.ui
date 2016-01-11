@@ -305,13 +305,6 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_172">
-       <property name="text">
-        <string>Scale:</string>
-       </property>
-      </widget>
-     </item>
      <item row="6" column="2">
       <widget class="QFrame" name="frame">
        <property name="frameShape">

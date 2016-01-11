@@ -1455,7 +1455,7 @@ void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
   z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y) - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
   // no z fold
   double rr;
-  if (fractal->transformCommon.functionEnabledx) // force cylinder fold
+  if (fractal->transformCommon.functionEnabledFalse) // force cylinder fold
   {
     rr = (z.x * z.x + z.y * z.y); // cylinder fold  ;
   }
@@ -1497,7 +1497,80 @@ void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
 }
+/*Amzing Surf Mod 1      Formula proposed by Kali, with features added by Darkbeam
+Luca GN 2012*/
+void AmazingSurfMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  aux.actualScale = aux.actualScale
+      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
 
+  //  folds     no fabs(z.z)
+
+  if (fractal->transformCommon.functionEnabledAx)
+  {
+    z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x) - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+    z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y) - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+  }
+
+  if (fractal->transformCommon.functionEnabledAyFalse) //z = fold - fabs( fabs(z) - fold)
+  {
+    z.x =  fractal->transformCommon.additionConstant111.x - fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
+    z.y =  fractal->transformCommon.additionConstant111.y - fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
+  }
+
+  if (fractal->transformCommon.functionEnabledAzFalse)
+  {
+    z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
+    z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
+  }
+
+  z += fractal->transformCommon.additionConstant000;
+
+
+
+  double rr;
+  if (fractal->transformCommon.functionEnabledFalse) // force cylinder fold
+  {
+    rr = (z.x * z.x + z.y * z.y); // cylinder fold  ;
+  }
+  else
+  {
+    rr = (z.x * z.x + z.y * z.y + z.z * z.z);
+  }
+  if (rr < 1e-21) rr = 1e-21;
+
+  double m;
+  double sqrtMinR = sqrt(fractal->transformCommon.minR05);
+  if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+  if (rr < sqrtMinR)
+  {
+    m = aux.actualScale / sqrtMinR;
+  }
+  else
+  {
+    if (rr < 1)
+    {
+      m = aux.actualScale / rr;
+    }
+    else
+    {
+      m = aux.actualScale;
+    }
+  }
+  if (fractal->transformCommon.addCpixelEnabled)
+  {
+   z += CVector3(c.y, c.x, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
+  }
+  if (fractal->transformCommon.juliaMode)
+  {
+    z += fractal->transformCommon.juliaC;
+  }
+
+  aux.DE = aux.DE * fabs(m) + 1.0;
+
+  z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+}
 //benesiFastPwr2PineTree  3D
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)

@@ -810,6 +810,10 @@ struct sFractalTransformCommon
   bool functionEnabledAx;
   bool functionEnabledAy;
   bool functionEnabledAz;
+  bool functionEnabledAxFalse;
+  bool functionEnabledAyFalse;
+  bool functionEnabledAzFalse;
+
   bool rotationEnabled;
 
 };
