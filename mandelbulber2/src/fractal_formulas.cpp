@@ -1445,7 +1445,7 @@ void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
 
 /*Formula proposed by Kali, with features added by Darkbeam
 Luca GN 2012*/
-void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void AmazingSurfIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
   //aux.actualScale = aux.actualScale
   //    + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
@@ -1487,16 +1487,15 @@ void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
   aux.DE = aux.DE * fabs(m) + 1.0;
 
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-
 }
 
 
 /*Amazing Surf Mod 1      Formula proposed by Kali, with features added by Darkbeam
 Luca GN 2012*/
-void AmazingSurfMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  aux.actualScale = aux.actualScale
-      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
+  //aux.actualScale = aux.actualScale
+  //    + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
 
   //  folds     no fabs(z.z)
 
@@ -1566,22 +1565,14 @@ void AmazingSurfMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
   {
     if (rr < 1)
     {
-      m = aux.actualScale / rr;
+      m = aux.actualScale/ rr;
     }
     else
     {
       m = aux.actualScale;
     }
   }
-  z *= m;
-  if (fractal->transformCommon.addCpixelEnabled)
-  {
-   z += CVector3(c.x, c.y, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
-  }
-  if (fractal->transformCommon.juliaMode)
-  {
-    z += fractal->transformCommon.juliaC;
-  }
+  z *= m * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
 
   aux.DE = aux.DE * fabs(m) + 1.0;
 

@@ -365,17 +365,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case amazingSurf:
         {
-          AmazingSurfIteration(z, c, fractal, extendedAux[sequence]);
+          AmazingSurfIteration(z, fractal, extendedAux[sequence]);
           break;
         }
         case amazingSurfMod1:
         {
-          AmazingSurfMod1Iteration(z, c, fractal, extendedAux[sequence]);
+          AmazingSurfMod1Iteration(z, fractal, extendedAux[sequence]);
           break;
         }
         case kalisets1:
         {
-          Kalisets1Iteration(z, c,  fractal, extendedAux[sequence]);
+          Kalisets1Iteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
         case aboxMod2:
@@ -562,7 +562,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         {
 					if (fractals.IsJuliaEnabled(sequence))
 					{
-						CVector3 juliaC = fractals.GetJuliaConstant(sequence) * fractals.GetConstantMultiplier(sequence);;
+            CVector3 juliaC = fractals.GetJuliaConstant(sequence) * fractals.GetConstantMultiplier(sequence);
 						z += CVector3(juliaC.y, juliaC.x, juliaC.z);
 					}
 					else
