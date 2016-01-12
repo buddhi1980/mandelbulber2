@@ -897,8 +897,18 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input)
 			if (params->coloringEnabled)
 			{
 				int formulaIndex = input.formulaIndex;
+
+				CVector3 tempPoint = input.point;
+
 				if (!params->booleanOperatorsEnabled) formulaIndex = -1;
-				sFractalIn fractIn(input.point, 0, params->N * 10, params->common, formulaIndex);
+				else
+				{
+					tempPoint = tempPoint.mod(params->formulaRepeat[formulaIndex]) - params->formulaPosition[formulaIndex];
+					tempPoint = params->mRotFormulaRotation[formulaIndex].RotateVector(tempPoint);
+					tempPoint *= params->formulaScale[formulaIndex];
+				}
+
+				sFractalIn fractIn(tempPoint, 0, params->N * 10, params->common, formulaIndex);
 				sFractalOut fractOut;
 				Compute<fractal::calcModeColouring>(*fractal, fractIn, &fractOut);
 				int nrCol = floor(fractOut.colorIndex);
