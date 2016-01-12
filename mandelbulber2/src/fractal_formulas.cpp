@@ -1574,18 +1574,21 @@ void AmazingSurfMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
     }
   }
   z *= m;
+
   if (fractal->transformCommon.addCpixelEnabled)
   {
    z += CVector3(c.y, c.x, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
   }
   if (fractal->transformCommon.juliaMode)
   {
-    z += fractal->transformCommon.juliaC;
+    z.x += fractal->transformCommon.juliaC.y;
+    z.y += fractal->transformCommon.juliaC.x;
+    z.z += fractal->transformCommon.juliaC.z;
   }
 
   aux.DE = aux.DE * fabs(m) + 1.0;
-
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
 
 }
 //benesiFastPwr2PineTree  3D
