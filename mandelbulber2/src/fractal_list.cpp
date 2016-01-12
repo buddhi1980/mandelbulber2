@@ -105,8 +105,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           amazingSurfMod1,
                                           analyticDEType,
                                           linearDEFunction,
-                                          cpixelAlreadyHas,
-                                          10));
+                                          cpixelEnabledByDefault,
+                                          100));
 
 	fractalList->append(sFractalDescription("Benesi Transforms DeltaDE",
 																					"benesi_transforms",

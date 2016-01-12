@@ -768,6 +768,8 @@ struct sFractalTransformCommon
   double scale1;
   double scale015;
   double scale3;
+  double pwr05;
+  double pwr4;
 
   int startIterations;
   int stopIterations;

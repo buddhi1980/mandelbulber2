@@ -1445,7 +1445,7 @@ void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
 
 /*Formula proposed by Kali, with features added by Darkbeam
 Luca GN 2012*/
-void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void AmazingSurfIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
   //aux.actualScale = aux.actualScale
   //    + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
@@ -1487,16 +1487,15 @@ void AmazingSurfIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
   aux.DE = aux.DE * fabs(m) + 1.0;
 
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-
 }
 
 
 /*Amazing Surf Mod 1      Formula proposed by Kali, with features added by Darkbeam
 Luca GN 2012*/
-void AmazingSurfMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  aux.actualScale = aux.actualScale
-      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
+  //aux.actualScale = aux.actualScale
+  //    + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
 
   //  folds     no fabs(z.z)
 
@@ -1566,25 +1565,15 @@ void AmazingSurfMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
   {
     if (rr < 1)
     {
-      m = aux.actualScale / rr;
+      m = aux.actualScale/ rr;
     }
     else
     {
       m = aux.actualScale;
     }
   }
-  z *= m;
-
-  if (fractal->transformCommon.addCpixelEnabled)
-  {
-   z += CVector3(c.y, c.x, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
-  }
-  if (fractal->transformCommon.juliaMode)
-  {
-    z.x += fractal->transformCommon.juliaC.y;
-    z.y += fractal->transformCommon.juliaC.x;
-    z.z += fractal->transformCommon.juliaC.z;
-  }
+  
+  z *= m * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
 
   aux.DE = aux.DE * fabs(m) + 1.0;
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
@@ -2743,6 +2732,31 @@ void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExte
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 
+}
+
+void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  if (z.x > -1e-21 && z.x < 1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
+  if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;
+  if (z.z > -1e-21 && z.z < 1e-21) z.z = (z.z > 0) ? 1e-21 : -1e-21;
+  double r2 = pow( pow(z.x, fractal->transformCommon.pwr4)
+                 + pow(z.y, fractal->transformCommon.pwr4)
+                 + pow(z.z, fractal->transformCommon.pwr4), fractal->transformCommon.pwr05);
+
+  if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
+  if (r2 < fractal->mandelbox.mR2)
+  {
+    z *= fractal->mandelbox.mboxFactor1;
+    aux.DE *= fractal->mandelbox.mboxFactor1;
+    aux.color += fractal->mandelbox.color.factorSp1;
+  }
+  else if (r2 < fractal->mandelbox.fR2)
+  {
+    double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+    z *= tglad_factor2;
+    aux.DE *= tglad_factor2;
+    aux.color += fractal->mandelbox.color.factorSp2;
+  }
 }
 
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
