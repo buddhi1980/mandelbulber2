@@ -106,7 +106,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           analyticDEType,
                                           linearDEFunction,
                                           cpixelAlreadyHas,
-                                          10));
+                                          100));
 
 	fractalList->append(sFractalDescription("Benesi Transforms DeltaDE",
 																					"benesi_transforms",

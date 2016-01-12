@@ -1576,7 +1576,7 @@ void AmazingSurfMod1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal,
   z *= m;
   if (fractal->transformCommon.addCpixelEnabled)
   {
-   z += CVector3(c.y, c.x, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
+   z += CVector3(c.x, c.y, c.z) * fractal->transformCommon.constantMultiplier111; // x y swap
   }
   if (fractal->transformCommon.juliaMode)
   {
@@ -2740,6 +2740,31 @@ void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExte
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 
+}
+
+void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  if (z.x > -1e-21 && z.x < 1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
+  if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;
+  if (z.z > -1e-21 && z.z < 1e-21) z.z = (z.z > 0) ? 1e-21 : -1e-21;
+  double r2 = pow( pow(z.x, fractal->transformCommon.pwr4)
+                 + pow(z.y, fractal->transformCommon.pwr4)
+                 + pow(z.z, fractal->transformCommon.pwr4), fractal->transformCommon.pwr05);
+
+  if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
+  if (r2 < fractal->mandelbox.mR2)
+  {
+    z *= fractal->mandelbox.mboxFactor1;
+    aux.DE *= fractal->mandelbox.mboxFactor1;
+    aux.color += fractal->mandelbox.color.factorSp1;
+  }
+  else if (r2 < fractal->mandelbox.fR2)
+  {
+    double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+    z *= tglad_factor2;
+    aux.DE *= tglad_factor2;
+    aux.color += fractal->mandelbox.color.factorSp2;
+  }
 }
 
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)

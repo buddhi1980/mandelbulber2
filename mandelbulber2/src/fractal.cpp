@@ -1341,6 +1341,8 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.minR0 = container->Get<double>("transf_minimum_radius_0");
   transformCommon.minR05 = container->Get<double>("transf_minimum_radius_05");
   transformCommon.minR06 = container->Get<double>("transf_minimum_radius_06");
+  transformCommon.pwr05 = container->Get<double>("transf_pwr_05");
+  transformCommon.pwr4 = container->Get<double>("transf_pwr_4");
   transformCommon.scale = container->Get<double>("transf_scale");
   transformCommon.scale1 = container->Get<double>("transf_scale_1");
   transformCommon.scale015 = container->Get<double>("transf_scale_015");

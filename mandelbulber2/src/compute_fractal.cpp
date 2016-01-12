@@ -535,6 +535,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformSphericalFoldIteration(z, fractal, extendedAux[sequence]);
           break;
         }
+        case transfSphericalPwrFold:
+        {
+          TransformSphericalPwrFoldIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
         case transfZvectorAxisSwap:
         {
           TransformZvectorAxisSwapIteration(z, fractal );
