@@ -1847,10 +1847,11 @@ void MengerModIteration( CVector3 &z, int i, const cFractal *fractal, sExtendedA
   z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
   if (z.z >  1) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 
-
   aux.DE *= fractal->transformCommon.scale3;
 
-  if (fractal->transformCommon.rotationEnabled)
+  if (fractal->transformCommon.rotationEnabled
+      && i >= fractal->transformCommon.startIterations
+      && i < fractal->transformCommon.stopIterations)
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
