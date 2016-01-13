@@ -323,13 +323,21 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelAlreadyHas,
 																					10));
 
-	fractalList->append(sFractalDescription("MandelbulbMulti",
+  fractalList->append(sFractalDescription("Mandelbulb_Multi",
 																					"mandelbulb_multi",
 																					mandelbulbMulti,
 																					analyticDEType,
 																					logarithmicDEFunction,
 																					cpixelEnabledByDefault,
 																					10));
+
+  fractalList->append(sFractalDescription("Mandelbulb_Vary_PowerV1",
+                                          "mandelbulb_vary_powerV1",
+                                          mandelbulbVaryPowerV1,
+                                          analyticDEType,
+                                          logarithmicDEFunction,
+                                          cpixelEnabledByDefault,
+                                          10));
 
 	fractalList->append(sFractalDescription("Menger Sponge - extended",
 																					"menger_sponge105",

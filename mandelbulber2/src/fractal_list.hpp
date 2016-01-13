@@ -100,6 +100,7 @@ enum enumFractalFormula
   aboxMod2 = 75,
   aboxVSIcen1 = 76,
   amazingSurfMod1 = 77,
+  mandelbulbVaryPowerV1 = 78,
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,

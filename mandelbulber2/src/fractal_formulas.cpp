@@ -1715,10 +1715,6 @@ void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 {
   aux.r = z.Length();
 
-  //if (i == mandelbulbMulti.control.startIterations)
-  //{
-  //  z = mandelbulbMulti.mainRot.RotateVector(z);
-  //}
   double th0 = fractal->bulb.betaAngleOffset;
   double ph0 = fractal->bulb.alphaAngleOffset;
   double v1, v2, v3;
@@ -1782,6 +1778,43 @@ void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
   double ph = ph0 * fractal->bulb.power;
   double cth = cos(th);
   aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
+  rp *= aux.r;
+  z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
+}
+
+// mandelbulb vary scaleV1
+void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+  double tempVC = fractal->bulb.power;   // constant to be varied
+  if (i < fractal->transformCommon.startIterations250)
+  {
+    ;
+  }
+  if (i >= fractal->transformCommon.startIterations250
+      && i < fractal->transformCommon.stopIterations
+      && (fractal->transformCommon.stopIterations
+          - fractal->transformCommon.startIterations250 != 0))
+  {
+    tempVC = (tempVC
+        + fractal->transformCommon.offset0
+            * (i - fractal->transformCommon.startIterations250)
+            / (fractal->transformCommon.stopIterations
+                - fractal->transformCommon.startIterations250));
+  }
+  if (i >= fractal->transformCommon.stopIterations)
+  {
+    tempVC = (tempVC + fractal->transformCommon.offset0);
+  }
+
+  aux.r = z.Length();
+  if (aux.r < 1e-21) aux.r = 1e-21;
+  double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
+  double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
+  double rp = pow(aux.r, tempVC - 1.0);
+  double th = th0 * tempVC;
+  double ph = ph0 * tempVC;
+  double cth = cos(th);
+  aux.r_dz = rp * aux.r_dz * tempVC + 1.0;
   rp *= aux.r;
   z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 }

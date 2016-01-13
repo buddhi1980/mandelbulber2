@@ -338,6 +338,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MandelbulbMultiIteration(z, fractal, extendedAux[sequence]);
           break;
         }
+        case mandelbulbVaryPowerV1:
+        {
+          MandelbulbVaryPowerV1Iteration(z, i, fractal, extendedAux[sequence]);
+          break;
+        }
         case benesiPineTree:
         {
           BenesiPineTreeIteration(z, c, fractal, extendedAux[sequence]);
@@ -675,6 +680,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulb5:
 				case mandelbulb6Beta:
 				case mandelbulbMulti:
+        case mandelbulbVaryPowerV1:
 				case msltoesym2:
 				case msltoesym3:
 				case msltoesym4:

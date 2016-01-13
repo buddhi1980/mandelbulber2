@@ -1350,6 +1350,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.intA = container->Get<int>("transf_int_A");
   transformCommon.intB = container->Get<int>("transf_int_B");
   transformCommon.startIterations = container->Get<int>("transf_start_iterations");
+  transformCommon.startIterations250 = container->Get<int>("transf_start_iterations_250");
   transformCommon.stopIterations = container->Get<int>("transf_stop_iterations");
   transformCommon.additionConstant0555 = container->Get<CVector3>("transf_addition_constant_0555");
   transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant");

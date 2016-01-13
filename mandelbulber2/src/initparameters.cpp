@@ -505,6 +505,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_int_A", 0, morphLinear, paramStandard);
   par->addParam("transf_int_B", 0, morphLinear, paramStandard);
   par->addParam("transf_start_iterations", 0, morphLinear, paramStandard);
+  par->addParam("transf_start_iterations_250", 250, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations", 250, morphLinear, paramStandard);
 
   par->addParam("transf_addition_constant_0555", CVector3(0.5, 0.5, 0.5), morphAkima, paramStandard);
