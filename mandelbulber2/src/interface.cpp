@@ -2634,9 +2634,9 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	QHBoxLayout *buttonsLayout = new QHBoxLayout();
 	layout->addLayout(buttonsLayout);
 
-	QPushButton *setPositionButton = new QPushButton(QObject::tr("Set position of ") + primitiveType
-																											 + " # " + QString::number(newId),
-																									 mainWidget);
+	QPushButton *setPositionButton =
+			new QPushButton(QObject::tr("Set position of %1 # %2 by mouse pointer").arg(primitiveType).arg(newId),
+											mainWidget);
 	setPositionButton->setObjectName(QString("setPositionButton_") + primitiveFullName);
 	buttonsLayout->addWidget(setPositionButton);
 
