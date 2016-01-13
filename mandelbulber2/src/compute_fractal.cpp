@@ -400,6 +400,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         	TransformAdditionConstantIteration(z, fractal);
         	break;
         }
+        case transfAdditionConstantVaryV1:
+        {
+          TransformAdditionConstantVaryV1Iteration(z, i, fractal);
+          break;
+        }
         case transfAddCpixel:
         {
           TransformAddCpixelIteration(z, c, fractal);
@@ -413,6 +418,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfAddCpixelPosNeg:
         {
           TransformAddCpixelPosNegIteration(z, c, fractal);
+          break;
+        }
+        case transfAddCpixelVaryV1:
+        {
+          TransformAddCpixelVaryV1Iteration(z, c, i, fractal);
           break;
         }
         case transfBenesiT1:
@@ -514,6 +524,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         {
         	TransformScaleIteration(z, fractal, extendedAux[sequence]);
         	break;
+        }
+        case transfScaleVaryV1:
+        {
+          TransformScaleVaryV1Iteration(z, i, fractal, extendedAux[sequence]);
+          break;
         }
         case transfScale3D:
         {

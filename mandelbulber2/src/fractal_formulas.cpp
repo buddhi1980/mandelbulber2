@@ -2333,6 +2333,33 @@ void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal)
   z += fractal->transformCommon.additionConstant000;
 }
 
+void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
+{
+  CVector3 tempVC = fractal->transformCommon.additionConstant000;   // constant to be varied
+  if (i < fractal->transformCommon.startIterations250)
+  {
+    ;
+  }
+  if (i >= fractal->transformCommon.startIterations250
+      && i < fractal->transformCommon.stopIterations
+      && (fractal->transformCommon.stopIterations
+          - fractal->transformCommon.startIterations250 != 0))
+  {
+    tempVC = (tempVC
+        + fractal->transformCommon.offset000
+            * (i - fractal->transformCommon.startIterations250)
+            / (fractal->transformCommon.stopIterations
+                - fractal->transformCommon.startIterations250));
+  }
+  if (i >= fractal->transformCommon.stopIterations)
+  {
+    tempVC = (tempVC + fractal->transformCommon.offset000);
+  }
+  z += tempVC;
+}
+
+
+
 void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   z +=  c * fractal->transformCommon.constantMultiplier111;
@@ -2402,6 +2429,33 @@ void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal 
       z += fractal->transformCommon.juliaC;
   }
 }
+
+void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal)
+{
+  CVector3 tempVC = fractal->transformCommon.constantMultiplier111;   // constant to be varied
+  if (i < fractal->transformCommon.startIterations250)
+  {
+    ;
+  }
+  if (i >= fractal->transformCommon.startIterations250
+      && i < fractal->transformCommon.stopIterations
+      && (fractal->transformCommon.stopIterations
+          - fractal->transformCommon.startIterations250 != 0))
+  {
+    tempVC = (tempVC
+        + fractal->transformCommon.offset000
+            * (i - fractal->transformCommon.startIterations250)
+            / (fractal->transformCommon.stopIterations
+                - fractal->transformCommon.startIterations250));
+  }
+  if (i >= fractal->transformCommon.stopIterations)
+  {
+    tempVC = (tempVC + fractal->transformCommon.offset000);
+  }
+    z += c * tempVC;
+}
+
+
 
 //benesiT1  3D
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
@@ -2740,6 +2794,34 @@ void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0; //prepared for future analytic DE for hybrids
   aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
+
+void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+{
+  double tempVC = fractal->transformCommon.scale;   // constant to be varied
+  if (i < fractal->transformCommon.startIterations250)
+  {
+    ;
+  }
+  if (i >= fractal->transformCommon.startIterations250
+      && i < fractal->transformCommon.stopIterations
+      && (fractal->transformCommon.stopIterations
+          - fractal->transformCommon.startIterations250 != 0))
+  {
+    tempVC = (tempVC
+        + fractal->transformCommon.offset0
+            * (i - fractal->transformCommon.startIterations250)
+            / (fractal->transformCommon.stopIterations
+                - fractal->transformCommon.startIterations250));
+  }
+  if (i >= fractal->transformCommon.stopIterations)
+  {
+    tempVC = (tempVC + fractal->transformCommon.offset0);
+  }
+  z *= tempVC;
+  aux.DE = aux.DE * fabs(tempVC) + 1.0; //prepared for future analytic DE for hybrids
+  aux.r_dz *= fabs(tempVC);
+}
+
 
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {

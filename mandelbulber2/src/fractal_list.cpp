@@ -460,6 +460,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					100));
 
+  fractalList->append(sFractalDescription("Transform - Addition Constant VaryV1",
+                                          "transf_addition_constant_varyV1",
+                                          transfAdditionConstantVaryV1,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
 	fractalList->append(sFractalDescription("Transform - Add Cpixel",
 																					"transf_add_Cpixel",
 																					transfAddCpixel,
@@ -483,6 +491,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					withoutDEFunction,
 																					cpixelAlreadyHas,
 																					100));
+
+  fractalList->append(sFractalDescription("Transform - Add Cpixel_VaryV1",
+                                          "transf_add_Cpixel_varyV1",
+                                          transfAddCpixelVaryV1,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelAlreadyHas,
+                                          100));
 
 	fractalList->append(sFractalDescription("Transform - Benesi_T1",
 																					"transf_benesi_T1",
@@ -659,6 +675,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					withoutDEFunction,
 																					cpixelDisabledByDefault,
 																					100));
+
+  fractalList->append(sFractalDescription("Transform - Scale VaryV1",
+                                          "transf_scale_varyV1",
+                                          transfScaleVaryV1,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
 
 	fractalList->append(sFractalDescription("Transform - Scale 3D",
 																					"transf_scale_3D",
