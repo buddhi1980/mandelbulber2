@@ -51,7 +51,6 @@ void MyTabWidget::slotDragDropChange()
 	}
 	if(swapA != swapB)
 	{
-		qDebug() << "TODO: swapTabs, " << swapA << ", " << swapB;
 		emit swapTabs(swapA, swapB);
 	}
 }

@@ -778,7 +778,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(triggered()),
 												mainWindow,
 												SLOT(slotPresetAddToToolbar()));
-
+	QApplication::connect(mainWindow->ui->tabWidget_fractals,
+												SIGNAL(swapTabs(int, int)),
+												mainWindow,
+												SLOT(slotFractalSwap(int, int)));
 #ifdef USE_GAMEPAD
 	// ------------ gamepad -----------
 	QApplication::connect(mainWindow->ui->comboBox_gamepad_device,

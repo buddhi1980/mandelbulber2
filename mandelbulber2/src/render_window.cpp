@@ -2184,6 +2184,20 @@ void RenderWindow::slotPressedButtonResetFormula()
 	gMainInterface->ResetFormula(fractalNumber);
 }
 
+void RenderWindow::slotFractalSwap(int swapA, int swapB)
+{
+	cParameterContainer swap = gParFractal->at(swapA);
+	gParFractal[swapA] = gParFractal[swapB];
+	gParFractal->at(swapB) = swap;
+	qSwap(gParFractal[swapA], gParFractal[swapB]);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapA],
+																						 &gParFractal->at(swapA),
+																						 cInterface::write);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapB],
+																						 &gParFractal->at(swapB),
+																						 cInterface::write);
+}
+
 void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
 {
 	ui->logslider_bailout->setEnabled(!state);
