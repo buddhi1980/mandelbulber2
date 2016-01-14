@@ -93,6 +93,8 @@ SOURCES +=  ../src/algebra.cpp\
 			../qt/my_table_widget_keyframes.cpp\
 			../qt/mylogwidget.cpp\
 			../qt/myhistogramlabel.cpp \
+			../qt/mytabbar.cpp \
+			../qt/mytabwidget.cpp \
     	../qt/preferencesdialog.cpp \
     	../qt/color_palette_widget.cpp
 
@@ -109,6 +111,8 @@ HEADERS  += ../src/render_window.hpp\
 			../qt/my_table_widget_keyframes.hpp\
 			../qt/mylogwidget.h\
 			../qt/myhistogramlabel.h\
+			../qt/mytabbar.h\
+			../qt/mytabwidget.h\
 			../src/my_ui_loader.h\
 			../src/preview_file_dialog.h\
 			../src/ssao_worker.h\

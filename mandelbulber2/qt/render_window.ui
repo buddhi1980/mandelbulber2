@@ -8200,7 +8200,7 @@ to target:</string>
               <number>2</number>
              </property>
              <item>
-              <widget class="QTabWidget" name="tabWidget_fractals">
+              <widget class="MyTabWidget" name="tabWidget_fractals">
                <property name="currentIndex">
                 <number>0</number>
                </property>
@@ -23524,6 +23524,16 @@ keyframes</string>
    <class>MyTableWidgetKeyframes</class>
    <extends>QTableWidget</extends>
    <header>my_table_widget_keyframes.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>MyTabBar</class>
+   <extends>QTabBar</extends>
+   <header>mytabbar.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>mytabwidget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
