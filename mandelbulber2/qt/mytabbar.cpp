@@ -32,6 +32,7 @@ MyTabBar::MyTabBar(QWidget *parent) :	QTabBar(parent)
 
 void MyTabBar::mouseReleaseEvent(QMouseEvent *event)
 {
+	QTabBar::mouseMoveEvent(event);
 	emit dragDropChange();
 }
 
