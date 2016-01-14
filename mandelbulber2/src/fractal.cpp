@@ -1347,11 +1347,13 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.scale1 = container->Get<double>("transf_scale_1");
   transformCommon.scale015 = container->Get<double>("transf_scale_015");
   transformCommon.scale3 = container->Get<double>("transf_scale_3");
+
   transformCommon.intA = container->Get<int>("transf_int_A");
   transformCommon.intB = container->Get<int>("transf_int_B");
   transformCommon.startIterations = container->Get<int>("transf_start_iterations");
   transformCommon.startIterations250 = container->Get<int>("transf_start_iterations_250");
   transformCommon.stopIterations = container->Get<int>("transf_stop_iterations");
+
   transformCommon.additionConstant0555 = container->Get<CVector3>("transf_addition_constant_0555");
   transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant");
   transformCommon.additionConstant111 = container->Get<CVector3>("transf_addition_constant_111");
@@ -1373,6 +1375,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
   transformCommon.scale3D333 = container->Get<CVector3>("transf_scale3D_333");
   transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
+
   transformCommon.addCpixelEnabled = container->Get<bool>("transf_addCpixel_enabled");
   transformCommon.addCpixelEnabledFalse = container->Get<bool>("transf_addCpixel_enabled_false");
   transformCommon.benesiT1Enabled = container->Get<bool>("transf_benesi_T1_enabled");

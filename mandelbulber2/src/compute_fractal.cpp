@@ -480,6 +480,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformBoxFoldIteration(z, fractal, extendedAux[sequence]);
           break;
         }
+        case transfBoxFoldXYZ:
+        {
+          TransformBoxFoldXYZIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
+
         case transfBoxOffset:
         {
           TransformBoxOffsetIteration(z, fractal, extendedAux[sequence]);

@@ -588,6 +588,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					100));
 
+  fractalList->append(sFractalDescription("Transform - Box_Fold XYZ",
+                                          "transf_box_fold_XYZ",
+                                          transfBoxFoldXYZ,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
 	fractalList->append(sFractalDescription("Transform - Box_Offset",
 																					"transf_box_offset",
 																					transfBoxOffset,

@@ -100,6 +100,7 @@ void TransformBenesiT3Iteration(CVector3 &z, const cFractal *fractal);
 void TransformBenesiT4Iteration(CVector3 &z, const cFractal *fractal);
 void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal);
 void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);

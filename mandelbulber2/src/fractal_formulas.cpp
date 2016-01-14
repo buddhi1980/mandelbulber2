@@ -2739,6 +2739,41 @@ void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 	}
 }
 
+void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  if (z.x > fractal->transformCommon.additionConstant111.x)
+  {
+    z.x = fractal->transformCommon.additionConstant222.x - z.x;
+    aux.color += fractal->mandelbox.color.factor.x;
+  }
+  else if (z.x < -fractal->transformCommon.additionConstant111.x)
+  {
+    z.x = -fractal->transformCommon.additionConstant222 .x - z.x;
+    aux.color += fractal->mandelbox.color.factor.x;
+  }
+  if (z.y > fractal->transformCommon.additionConstant111.y)
+  {
+    z.y = fractal->transformCommon.additionConstant222.y - z.y;
+    aux.color += fractal->mandelbox.color.factor.y;
+  }
+  else if (z.y < -fractal->transformCommon.additionConstant111.y)
+  {
+    z.y = -fractal->transformCommon.additionConstant222.y - z.y;
+    aux.color += fractal->mandelbox.color.factor.y;
+  }
+  if (z.z > fractal->transformCommon.additionConstant111.z)
+  {
+    z.z = fractal->transformCommon.additionConstant222.z - z.z;
+    aux.color += fractal->mandelbox.color.factor.z;
+  }
+  else if (z.z < -fractal->transformCommon.additionConstant111.z)
+  {
+    z.z = -fractal->transformCommon.additionConstant222 .z - z.z;
+    aux.color += fractal->mandelbox.color.factor.z;
+  }
+}
+
+
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   if (z.x > 0)
