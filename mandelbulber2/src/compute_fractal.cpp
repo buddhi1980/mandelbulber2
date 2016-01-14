@@ -649,7 +649,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				if (fractal->formula != mandelbox)
 				{
-					if (r < minimumR) minimumR = r;
+					//double len = fabs(z.Dot(in.point));
+					//double len = fabs((z - in.point).Length() - 0.5);
+					//double len = fabs(z.x + z.y + z.z);
+					//if (len < minimumR) minimumR = len;
+					if(r < minimumR) minimumR = r;
 				}
 				if (r > 1e15) break;
 			}
@@ -805,6 +809,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case menger_sponge:
 				case kaleidoscopicIFS:
 					out->colorIndex = minimumR * 1000.0;
+					break;
+
+				case amazingSurf:
+				case amazingSurfMod1:
+					out->colorIndex = minimumR * 200.0;
 					break;
 
 				default:
