@@ -1653,10 +1653,9 @@ void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
 }
 
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux)
-
 {
   if ( i >= fractal->transformCommon.startIterations
-        && i < fractal->transformCommon.stopIterations)
+        && i < fractal->transformCommon.stopIterations)  // fabs
   {
     CVector3 tempA = z * 0;
     CVector3 tempB = z * 0;
@@ -1669,7 +1668,7 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
       tempB.x = fabs(z.x - fractal->transformCommon.additionConstantA111.x);
     }
     z.x = tempA.x - tempB.x
-        - (z.x * fractal->transformCommon.scale3D111.x );
+        - (z.x * fractal->transformCommon.scale3D111.x);
     if (fractal->transformCommon.functionEnabledy)
     {
       tempA.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
@@ -1679,7 +1678,7 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
       tempB.y = fabs(z.y - fractal->transformCommon.additionConstantA111.y);
     }
     z.y = tempA.y - tempB.y
-        - (z.y * fractal->transformCommon.scale3D111.y );
+        - (z.y * fractal->transformCommon.scale3D111.y);
     if (fractal->transformCommon.functionEnabledz)
     {
       tempA.z = fabs(z.z + fractal->transformCommon.additionConstant111.z);
@@ -1691,10 +1690,9 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
     z.z = tempA.z - tempB.z
         - (z.z * fractal->transformCommon.scale3D111.z);
   }
-
   if (fractal->transformCommon.functionEnabledFalse
         && i >= fractal->transformCommon.startIterationsA
-        && i < fractal->transformCommon.stopIterationsA)
+        && i < fractal->transformCommon.stopIterationsA) // box fold
   {
     if (z.x > fractal->mandelbox.foldingLimit)
     {
@@ -1716,19 +1714,21 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
       z.y = -fractal->mandelbox.foldingValue - z.y;
       aux.color += fractal->mandelbox.color.factor.y;
     }
-    if (z.z > fractal->mandelbox.foldingLimit)
+    double zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
+    double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
+    if (z.z > zLimit)
     {
-      z.z = fractal->mandelbox.foldingValue - z.z;
+      z.z = zValue - z.z;
       aux.color += fractal->mandelbox.color.factor.z;
     }
-    else if (z.z < -fractal->mandelbox.foldingLimit)
+    else if (z.z < -zLimit)
     {
-      z.z = -fractal->mandelbox.foldingValue - z.z;
+      z.z = -zValue - z.z;
       aux.color += fractal->mandelbox.color.factor.z;
     }
   }
   if ( i >= fractal->transformCommon.startIterationsB
-        && i < fractal->transformCommon.stopIterationsB)
+        && i < fractal->transformCommon.stopIterationsB) // spherical fold
   {
     double r2 = z.Dot(z);
     if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
