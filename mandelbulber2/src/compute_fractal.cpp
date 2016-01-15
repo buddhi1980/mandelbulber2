@@ -303,9 +303,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					BenesiTransformsIteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
 					break;
 				}
-        case fabsBoxMod:
+
+
+        case aboxMod1:
         {
-          FabsBoxModIteration(z, c, i, fractal, extendedAux[sequence]);
+          AboxMod1Iteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
+        case aboxMod2:
+        {
+          AboxMod2Iteration(z, fractal, extendedAux[sequence]);
           break;
         }
         case aboxModKali:
@@ -313,14 +320,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           AboxModKaliIteration(z, fractal, extendedAux[sequence]);
           break;
         }
-        case mengerMod:
+        case aboxVSIcen1:
         {
-          MengerModIteration(z, i, fractal, extendedAux[sequence]);
-          break;
-        }
-        case quaternion3D:
-        {
-          Quaternion3DIteration(z, fractal);
+          AboxVSIcen1Iteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
         case aexionOctopus:
@@ -328,19 +330,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           AexionOctopusIteration(z, fractal);
           break;
         }
-        case aboxMod1:
+        case amazingSurf:
         {
-          AboxMod1Iteration(z, fractal, extendedAux[sequence]);
+          AmazingSurfIteration(z, fractal, extendedAux[sequence]);
           break;
         }
-        case mandelbulbMulti:
+        case amazingSurfMod1:
         {
-          MandelbulbMultiIteration(z, fractal, extendedAux[sequence]);
-          break;
-        }
-        case mandelbulbVaryPowerV1:
-        {
-          MandelbulbVaryPowerV1Iteration(z, i, fractal, extendedAux[sequence]);
+          AmazingSurfMod1Iteration(z, fractal, extendedAux[sequence]);
           break;
         }
         case benesiPineTree:
@@ -355,7 +352,27 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case eiffieMsltoe:
         {
-        	EiffieMsltoeIteration(z, fractal, extendedAux[sequence]);
+          EiffieMsltoeIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
+        case foldBoxMod1:
+        {
+          FoldBoxMod1Iteration(z, i, fractal, extendedAux[sequence]);
+          break;
+        }
+        case mandelbulbMulti:
+        {
+          MandelbulbMultiIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
+        case mandelbulbVaryPowerV1:
+        {
+          MandelbulbVaryPowerV1Iteration(z, i, fractal, extendedAux[sequence]);
+          break;
+        }
+        case mengerMod1:
+        {
+          MengerMod1Iteration(z, i, fractal, extendedAux[sequence]);
           break;
         }
         case riemannSphereMsltoe:
@@ -368,31 +385,22 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           RiemannSphereMsltoeV1Iteration(z, fractal);
           break;
         }
-        case amazingSurf:
+        case quaternion3D:
         {
-          AmazingSurfIteration(z, fractal, extendedAux[sequence]);
+          Quaternion3DIteration(z, fractal);
           break;
         }
-        case amazingSurfMod1:
-        {
-          AmazingSurfMod1Iteration(z, fractal, extendedAux[sequence]);
-          break;
-        }
+
+
+
+
+
         case kalisets1:
         {
           Kalisets1Iteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
-        case aboxMod2:
-        {
-          AboxMod2Iteration(z, fractal, extendedAux[sequence]);
-          break;
-        }
-        case aboxVSIcen1:
-        {
-          AboxVSIcen1Iteration(z, c, fractal, extendedAux[sequence]);
-          break;
-        }
+
 
         //transforms ------------------------------------------------------------------------------------------
         case transfAdditionConstant:
@@ -721,9 +729,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case generalizedFoldBox:
 				case mandelbox103:
 				case mengerSponge105:
-				case fabsBoxMod:
+        case foldBoxMod1:
 				case aboxModKali:
-				case mengerMod:
+        case mengerMod1:
 				case aboxMod1:
         case aboxMod2:
         case amazingSurf:
@@ -774,26 +782,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
+        case foldBoxMod1:
 					out->colorIndex = extendedAux[fractalIndex].color * 100.0
 							+ r * defaultFractal->mandelbox.color.factorR;
 					break;
-
-        case fabsBoxMod:
-            out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR;
-            break;
-
-
-					//case mandelbox103:
-					//out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor;
-					//	break;
-
-					//case mengerSponge105:
-					//out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor + minimumR * 1000.0;;
-					//	break;
-
-					//case mandelbulb5:
-					//	out->colorIndex = extendedAux[fractalIndex].color * 100.0 + r * defaultFractal->mandelbox.color.factorR * foldColor + minimumR * 5000.0;
-					//	break;
 
 				case mandelbulb5:
 				case mandelbox103:
@@ -803,7 +795,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->colorIndex = extendedAux[fractalIndex].newR;
 					break;
 
-        case mengerMod:
+        case mengerMod1:
         case aboxModKali:
         case aboxMod1:
 				case menger_sponge:

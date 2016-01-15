@@ -774,12 +774,19 @@ struct sFractalTransformCommon
   int startIterations;
   int startIterations250;
   int stopIterations;
+  int startIterationsA;
+  int stopIterationsA;
+  int startIterationsB;
+  int stopIterationsB;
+  int startIterationsC;
+  int stopIterationsC;
   int intA;
   int intB;
 
   CVector3 additionConstant0555;
   CVector3 additionConstant000;
   CVector3 additionConstant111;
+  CVector3 additionConstantA111;
   CVector3 additionConstant222;
   CVector3 additionConstantNeg100;
   CVector3 constantMultiplier010;

@@ -1353,10 +1353,17 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.startIterations = container->Get<int>("transf_start_iterations");
   transformCommon.startIterations250 = container->Get<int>("transf_start_iterations_250");
   transformCommon.stopIterations = container->Get<int>("transf_stop_iterations");
+  transformCommon.startIterationsA = container->Get<int>("transf_start_iterations_A");
+  transformCommon.stopIterationsA = container->Get<int>("transf_stop_iterations_A");
+  transformCommon.startIterationsB = container->Get<int>("transf_start_iterations_B");
+  transformCommon.stopIterationsB = container->Get<int>("transf_stop_iterations_B");
+  transformCommon.startIterationsC = container->Get<int>("transf_start_iterations_C");
+  transformCommon.stopIterationsC = container->Get<int>("transf_stop_iterations_C");
 
   transformCommon.additionConstant0555 = container->Get<CVector3>("transf_addition_constant_0555");
   transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant");
   transformCommon.additionConstant111 = container->Get<CVector3>("transf_addition_constant_111");
+  transformCommon.additionConstantA111 = container->Get<CVector3>("transf_addition_constantA_111");
   transformCommon.additionConstant222 = container->Get<CVector3>("transf_addition_constant_222");
   transformCommon.additionConstantNeg100 = container->Get<CVector3>("transf_addition_constant_neg100");
   transformCommon.constantMultiplier010 = container->Get<CVector3>("transf_constant_multiplier_010");

@@ -1225,28 +1225,7 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
 	colorTrialTransform3D(fractal->transform.colorTrial1, z, i, aux);
 }
 
-//------------FabsBoxMod  --------------------------------
-void FabsBoxModIteration(CVector3 &z, CVector3 &c, int &i, const cFractal *fractal,
-		sExtendedAux &aux)
-{
-	//fabsBoxMod
-	fabsBoxModTransform3D(fractal->transform.fabsBoxMod, z, i);
 
-	//boxFold1
-	boxFoldTransform3D(fractal->transform.boxFold1, z, i, aux);
-
-	// sphericalFold1 Original (enabled); 1
-	sphericalFoldOriginalTransform3D(fractal->transform.sphericalFoldOriginal1, z, i, aux);
-
-	//scale Original (enabled); 1
-	scaleOriginalTransform3D(fractal->transform.scaleOriginal1, z, i, aux);
-
-	//mainRotation1
-	mainRotationTransform3D(fractal->transform.mainRotation1, z, i);
-
-	// z = z + ( c * const.); Original (enabled); 1
-	constantMultiplierOriginalTransform3D(fractal->transform.constantMultiplierOriginal1, z, c, i);
-}
 
 // NEW FORMULAS-----------------------------------------------------------------
 // From M3D ABoxMod1, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
@@ -1673,6 +1652,116 @@ void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
   z = newz + fractal->transformCommon.additionConstantNeg100;
 }
 
+void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux)
+
+{
+  if ( i >= fractal->transformCommon.startIterations
+        && i < fractal->transformCommon.stopIterations)
+  {
+    CVector3 tempA = z * 0;
+    CVector3 tempB = z * 0;
+    if (fractal->transformCommon.functionEnabledx)
+    {
+      tempA.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
+    }
+    if (fractal->transformCommon.functionEnabledAx)
+    {
+      tempB.x = fabs(z.x - fractal->transformCommon.additionConstantA111.x);
+    }
+    z.x = tempA.x - tempB.x
+        - (z.x * fractal->transformCommon.scale3D111.x );
+    if (fractal->transformCommon.functionEnabledy)
+    {
+      tempA.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
+    }
+    if (fractal->transformCommon.functionEnabledAy)
+    {
+      tempB.y = fabs(z.y - fractal->transformCommon.additionConstantA111.y);
+    }
+    z.y = tempA.y - tempB.y
+        - (z.y * fractal->transformCommon.scale3D111.y );
+    if (fractal->transformCommon.functionEnabledz)
+    {
+      tempA.z = fabs(z.z + fractal->transformCommon.additionConstant111.z);
+    }
+    if (fractal->transformCommon.functionEnabledAz)
+    {
+      tempB.z = fabs(z.z - fractal->transformCommon.additionConstantA111.z);
+    }
+    z.z = tempA.z - tempB.z
+        - (z.z * fractal->transformCommon.scale3D111.z);
+  }
+
+  if (fractal->transformCommon.functionEnabledFalse
+        && i >= fractal->transformCommon.startIterationsA
+        && i < fractal->transformCommon.stopIterationsA)
+  {
+    if (z.x > fractal->mandelbox.foldingLimit)
+    {
+      z.x = fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    else if (z.x < -fractal->mandelbox.foldingLimit)
+    {
+      z.x = -fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    if (z.y > fractal->mandelbox.foldingLimit)
+    {
+      z.y = fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    else if (z.y < -fractal->mandelbox.foldingLimit)
+    {
+      z.y = -fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    if (z.z > fractal->mandelbox.foldingLimit)
+    {
+      z.z = fractal->mandelbox.foldingValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+    else if (z.z < -fractal->mandelbox.foldingLimit)
+    {
+      z.z = -fractal->mandelbox.foldingValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+  }
+  if ( i >= fractal->transformCommon.startIterationsB
+        && i < fractal->transformCommon.stopIterationsB)
+  {
+    double r2 = z.Dot(z);
+    if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
+    if (r2 < fractal->mandelbox.mR2)
+    {
+      z *= fractal->mandelbox.mboxFactor1;
+      aux.DE *= fractal->mandelbox.mboxFactor1;
+      aux.color += fractal->mandelbox.color.factorSp1;
+    }
+    else if (r2 < fractal->mandelbox.fR2)
+    {
+      double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+      z *= tglad_factor2;
+      aux.DE *= tglad_factor2;
+      aux.color += fractal->mandelbox.color.factorSp2;
+    }
+  }
+  z *= fractal->mandelbox.scale;
+  aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+  aux.r_dz *= fabs(fractal->mandelbox.scale);
+
+  if (fractal->mandelbox.mainRotationEnabled
+        &&  i >= fractal->transformCommon.startIterationsC
+        && i < fractal->transformCommon.stopIterationsC)
+  {
+    z = fractal->mandelbox.mainRot.RotateVector(z);
+  }
+}
+
+
+
+
+
 // ----------Kalisets1
 /*From M3D, A formula suggested by Kali at fractalforums.com, added Scale and Fix parameters.
 Try out julias and low R_bailout values of 2 down to 1!
@@ -1819,8 +1908,8 @@ void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal,
   z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 }
 
-// ----------mengerMod
-void MengerModIteration( CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
+// ----------menger Mod1
+void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   double tempMS;
   z = fabs(z);

@@ -507,10 +507,19 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_start_iterations", 0, morphLinear, paramStandard);
   par->addParam("transf_start_iterations_250", 250, morphLinear, paramStandard);
   par->addParam("transf_stop_iterations", 250, morphLinear, paramStandard);
+  par->addParam("transf_start_iterations_A", 0, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterations_A", 250, morphLinear, paramStandard);
+  par->addParam("transf_start_iterations_B", 0, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterations_B", 250, morphLinear, paramStandard);
+  par->addParam("transf_start_iterations_C", 0, morphLinear, paramStandard);
+  par->addParam("transf_stop_iterations_C", 250, morphLinear, paramStandard);
+
+
 
   par->addParam("transf_addition_constant_0555", CVector3(0.5, 0.5, 0.5), morphAkima, paramStandard);
   par->addParam("transf_addition_constant", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam("transf_addition_constantA_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transf_addition_constant_neg100", CVector3(-1.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("transf_constant_factor", CVector3(1.0, 2.0, 2.0), morphAkima, paramStandard);

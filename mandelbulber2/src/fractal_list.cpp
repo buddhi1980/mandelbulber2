@@ -172,12 +172,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelAlreadyHas,
 																					10));
 
-	fractalList->append(sFractalDescription("FabsBoxMod",
-																					"fabsBoxMod",
-																					fabsBoxMod,
+  fractalList->append(sFractalDescription("Fold_Box_Mod1",
+                                          "fold_box_mod1",
+                                          foldBoxMod1,
 																					analyticDEType,
 																					linearDEFunction,
-																					cpixelAlreadyHas,
+                                          cpixelEnabledByDefault,
 																					100));
 	fractalList->append(sFractalDescription("Generalized Fold Box",
 																					"generalized_fold_box",
@@ -355,9 +355,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					10));
 
-	fractalList->append(sFractalDescription("MengerMod",
-																					"mengerMod",
-																					mengerMod,
+  fractalList->append(sFractalDescription("Menger-Mod1",
+                                          "menger-mod1",
+                                          mengerMod1,
 																					analyticDEType,
 																					linearDEFunction,
 																					cpixelDisabledByDefault,
