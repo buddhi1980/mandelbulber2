@@ -24,6 +24,7 @@
 #define COMMONPARAMS_HPP_
 
 #include "algebra.hpp"
+#include "fractal.h"
 
 struct sFractalFoldings
 {
@@ -37,13 +38,16 @@ struct sFractalFoldings
 
 struct sCommonParams
 {
-	CVector3 fakeLightsOrbitTrap;
-
 	int fakeLightsMaxIter;
 	int fakeLightsMinIter;
+	fractal::enumFractalColoringAlgorithm fractalColoringAlgorithm;
 
+	double fractalColoringCircleRadius;
+
+	CVector3 fakeLightsOrbitTrap;
 	CVector3 fractalPosition;
 	CVector3 fractalRotation;
+	CVector3 fractalColoringLineDirection;
 	CVector3 repeat;
 	CRotationMatrix mRotFractalRotation;
 

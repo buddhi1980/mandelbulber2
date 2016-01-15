@@ -2187,9 +2187,9 @@ void RenderWindow::slotPressedButtonResetFormula()
 void RenderWindow::slotFractalSwap(int swapA, int swapB)
 {
 	cParameterContainer swap = gParFractal->at(swapA);
-	gParFractal[swapA] = gParFractal[swapB];
+	gParFractal->at(swapA) = gParFractal->at(swapB);
 	gParFractal->at(swapB) = swap;
-	qSwap(gParFractal[swapA], gParFractal[swapB]);
+	//qSwap(gParFractal[swapA], gParFractal[swapB]);
 	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapA],
 																						 &gParFractal->at(swapA),
 																						 cInterface::write);

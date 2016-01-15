@@ -151,6 +151,11 @@ void InitParams(cParameterContainer *par)
 	par->addParam("delta_DE_method", (int)fractal::preferedDEMethod, 0, 1, morphNone, paramStandard);
 	par->addParam("use_default_bailout", true, morphNone, paramStandard);
 
+	//fractal coloring
+	par->addParam("fractal_coloring_algorithm", (int)fractal::fractalColoringStandard, 0, 4, morphNone, paramStandard);
+	par->addParam("fractal_coloring_circle_radius", 1.0, 0.0, 1e20, morphNone, paramStandard);
+	par->addParam("fractal_coloring_line_direction", CVector3(1.0, 0.0, 0.0), morphNone, paramStandard);
+
 	//foldings
 	par->addParam("box_folding", false, morphLinear, paramStandard);
 	par->addParam("box_folding_limit", 1.0, morphLinear, paramStandard);

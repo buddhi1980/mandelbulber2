@@ -655,13 +655,38 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else if (Mode == calcModeColouring)
 			{
-				if (fractal->formula != mandelbox)
+				double len;
+				switch (in.common.fractalColoringAlgorithm)
 				{
-					//double len = fabs(z.Dot(in.point));
-					//double len = fabs((z - in.point).Length() - 0.5);
-					//double len = fabs(z.x + z.y + z.z);
-					//if (len < minimumR) minimumR = len;
-					if(r < minimumR) minimumR = r;
+					case fractalColoringStandard:
+					{
+						len = r;
+						break;
+					}
+					case fractalColoringZDotPoint:
+					{
+						len = fabs(z.Dot(in.point));
+						break;
+					}
+					case fractalColoringCircle:
+					{
+						len = fabs((z - in.point).Length() - in.common.fractalColoringCircleRadius);
+						break;
+					}
+					case fractalColoringCross:
+					{
+						len = dMin(fabs(z.x), fabs(z.y), fabs(z.z));
+						break;
+					}
+					case fractalColoringLine:
+					{
+						len = fabs(z.Dot(in.common.fractalColoringLineDirection));
+						break;
+					}
+				}
+				if (fractal->formula != mandelbox || in.common.fractalColoringAlgorithm != fractalColoringStandard)
+				{
+					if (len < minimumR) minimumR = len;
 				}
 				if (r > 1e15) break;
 			}
