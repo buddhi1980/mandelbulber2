@@ -84,6 +84,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
 
 //transforming formulas
 void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
+void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal);
@@ -111,6 +112,7 @@ void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fract
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal);
 void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal);
+void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal);
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);

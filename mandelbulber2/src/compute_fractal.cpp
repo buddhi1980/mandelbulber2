@@ -423,6 +423,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformAddCpixelAxisSwapIteration(z, c, fractal);
           break;
         }
+        case transfAddCpixelCxCyAxisSwap:
+        {
+          TransformAddCpixelCxCyAxisSwapIteration(z, c, fractal);
+          break;
+        }
         case transfAddCpixelPosNeg:
         {
           TransformAddCpixelPosNegIteration(z, c, fractal);
@@ -534,7 +539,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         	TransformRotationIteration(z, fractal);
         	break;
         }
-        case transfScale:
+        case transfRotationVaryV1:
+        {
+          TransformRotationVaryV1Iteration(z, i, fractal);
+          break;
+        }
+          case transfScale:
         {
         	TransformScaleIteration(z, fractal, extendedAux[sequence]);
         	break;

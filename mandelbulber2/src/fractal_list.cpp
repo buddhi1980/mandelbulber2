@@ -484,6 +484,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelAlreadyHas,
 																					100));
 
+  fractalList->append(sFractalDescription("Transform - Add Cpixel_CxCy_Axis_Swap",
+                                          "transf_add_Cpixel_CxCy_axis_swap",
+                                          transfAddCpixelCxCyAxisSwap,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelAlreadyHas,
+                                          100));
+
 	fractalList->append(sFractalDescription("Transform - Add Cpixel_Pos_Neg",
 																					"transf_add_Cpixel_pos_neg",
 																					transfAddCpixelPosNeg,
@@ -667,6 +675,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					withoutDEFunction,
 																					cpixelDisabledByDefault,
 																					100));
+
+  fractalList->append(sFractalDescription("Transform - Rotation_VaryV1",
+                                          "transf_rotation_varyV1",
+                                          transfRotationVaryV1,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
 
 	fractalList->append(sFractalDescription("Transform - R^Power",
 																					"transf_rpower",

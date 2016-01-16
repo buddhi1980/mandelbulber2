@@ -135,7 +135,10 @@ enum enumFractalFormula
   transfAddCpixelVaryV1 = 1031,
   transfScaleVaryV1 = 1032,
   transfAdditionConstantVaryV1 = 1033,
-  transfBoxFoldXYZ = 1034
+  transfBoxFoldXYZ = 1034,
+  transfAddCpixelCxCyAxisSwap = 1035,
+  transfRotationVaryV1 = 1036
+
 };
 
 enum enumDEType

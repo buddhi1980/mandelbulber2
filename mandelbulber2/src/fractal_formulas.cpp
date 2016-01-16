@@ -2455,6 +2455,16 @@ void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fract
   z +=  c * fractal->transformCommon.constantMultiplier111;
 }
 
+void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+{
+
+  if(fractal->transformCommon.functionEnabled) c = CVector3(c.y, c.x, c.z);
+ // {
+ //   c = CVector3(c.x, c.y, c.z);
+//  }
+  z +=  c * fractal->transformCommon.constantMultiplier111;
+}
+
 void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   if (fractal->transformCommon.addCpixelEnabled)
@@ -2912,6 +2922,34 @@ void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
 {
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
+
+void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
+{
+  CVector3 tempVC = fractal->transformCommon.rotation;   // constant to be varied
+  if (i < fractal->transformCommon.startIterations250)
+  {
+    ;
+  }
+  if (i >= fractal->transformCommon.startIterations250
+      && i < fractal->transformCommon.stopIterations
+      && (fractal->transformCommon.stopIterations
+          - fractal->transformCommon.startIterations250 != 0))
+  {
+    tempVC = (tempVC
+        + fractal->transformCommon.offset000
+            * (i - fractal->transformCommon.startIterations250)
+            / (fractal->transformCommon.stopIterations
+                - fractal->transformCommon.startIterations250));
+  }
+  if (i >= fractal->transformCommon.stopIterations)
+  {
+    tempVC = (tempVC + fractal->transformCommon.offset000);
+  }
+  //h'mmmmm   ?? = fractal->transformCommon.rotation + tempVC;
+  // mabe i require a  copy of matrix
+  z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+}
+
 
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
