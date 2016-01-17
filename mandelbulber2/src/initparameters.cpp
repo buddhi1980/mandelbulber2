@@ -153,7 +153,7 @@ void InitParams(cParameterContainer *par)
 
 	//fractal coloring
 	par->addParam("fractal_coloring_algorithm", (int)fractal::fractalColoringStandard, 0, 4, morphNone, paramStandard);
-	par->addParam("fractal_coloring_circle_radius", 1.0, 0.0, 1e20, morphNone, paramStandard);
+	par->addParam("fractal_coloring_sphere_radius", 1.0, 0.0, 1e20, morphNone, paramStandard);
 	par->addParam("fractal_coloring_line_direction", CVector3(1.0, 0.0, 0.0), morphNone, paramStandard);
 
 	//foldings

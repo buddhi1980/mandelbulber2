@@ -65,7 +65,7 @@ enum enumFractalColoringAlgorithm
 {
 	fractalColoringStandard = 0,
 	fractalColoringZDotPoint = 1,
-	fractalColoringCircle = 2,
+	fractalColoringSphere = 2,
 	fractalColoringCross = 3,
 	fractalColoringLine = 4
 };

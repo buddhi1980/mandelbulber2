@@ -2204,6 +2204,16 @@ void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
 	ui->logedit_bailout->setEnabled(!state);
 }
 
+void RenderWindow::slotChangedComboFractalColoringAlgorithm(int index)
+{
+	fractal::enumFractalColoringAlgorithm selection = (fractal::enumFractalColoringAlgorithm)index;
+	ui->slider_fractal_coloring_sphere_radius->setEnabled(selection == fractal::fractalColoringSphere);
+	ui->spinbox_fractal_coloring_sphere_radius->setEnabled(selection == fractal::fractalColoringSphere);
+	ui->vect3_fractal_coloring_line_direction_x->setEnabled(selection == fractal::fractalColoringLine);
+	ui->vect3_fractal_coloring_line_direction_y->setEnabled(selection == fractal::fractalColoringLine);
+	ui->vect3_fractal_coloring_line_direction_z->setEnabled(selection == fractal::fractalColoringLine);
+}
+
 #ifdef USE_GAMEPAD
 void RenderWindow::slotChangeGamepadIndex(int index)
 {

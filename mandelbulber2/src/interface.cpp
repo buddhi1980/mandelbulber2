@@ -221,6 +221,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(currentIndexChanged(int)),
 												mainWindow,
 												SLOT(slotChangedComboAmbientOcclusionMode(int)));
+	QApplication::connect(mainWindow->ui->comboBox_fractal_coloring_algorithm,
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangedComboFractalColoringAlgorithm(int)));
 	QApplication::connect(mainWindow->ui->comboBox_mouse_click_function,
 												SIGNAL(currentIndexChanged(int)),
 												mainWindow,

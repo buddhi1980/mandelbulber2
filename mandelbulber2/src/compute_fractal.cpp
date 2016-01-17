@@ -678,9 +678,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						len = fabs(z.Dot(in.point));
 						break;
 					}
-					case fractalColoringCircle:
+					case fractalColoringSphere:
 					{
-						len = fabs((z - in.point).Length() - in.common.fractalColoringCircleRadius);
+						len = fabs((z - in.point).Length() - in.common.fractalColoringSphereRadius);
 						break;
 					}
 					case fractalColoringCross:
@@ -817,9 +817,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
-        case foldBoxMod1:
+				case foldBoxMod1:
 					out->colorIndex = extendedAux[fractalIndex].color * 100.0
-							+ r * defaultFractal->mandelbox.color.factorR;
+							+ r * defaultFractal->mandelbox.color.factorR
+							+ ((in.common.fractalColoringAlgorithm != fractalColoringStandard) ? minimumR
+									* 1000.0 :
+									0.0);
 					break;
 
 				case mandelbulb5:
@@ -827,7 +830,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulb6Beta:
 				case benesiTransforms:
 				case mengerSponge105:
-					out->colorIndex = extendedAux[fractalIndex].newR;
+					out->colorIndex = extendedAux[fractalIndex].newR
+							+ ((in.common.fractalColoringAlgorithm != fractalColoringStandard) ? minimumR
+									* 1000.0 :
+									0.0);
 					break;
 
         case mengerMod1:

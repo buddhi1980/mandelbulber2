@@ -80,6 +80,7 @@ private slots:
 	void slotChangedCheckBoxUseDefaultBailout(int state);
 	void slotChangedComboDistanceEstimationMethod(int index);
 	void slotChangedComboFractal(int index);
+	void slotChangedComboFractalColoringAlgorithm(int index);
 	void slotChangedComboImageScale(int index);
 	void slotChangedComboMouseClickFunction(int index);
 	void slotChangedComboPerspectiveType(int index);
