@@ -356,7 +356,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					10));
 
   fractalList->append(sFractalDescription("Menger-Mod1",
-                                          "menger-mod1",
+                                          "menger_mod1",
                                           mengerMod1,
 																					analyticDEType,
 																					linearDEFunction,
@@ -368,23 +368,23 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					msltoesym2,
 																					analyticDEType,
 																					logarithmicDEFunction,
-																					cpixelAlreadyHas,
+                                          cpixelDisabledByDefault,
 																					10));
 
-	fractalList->append(sFractalDescription("MsltoeSym3",
-																					"msltoesym3",
-																					msltoesym3,
+  fractalList->append(sFractalDescription("MsltoeSym3_Mod",
+                                          "msltoesym3_mod",
+                                          msltoesym3Mod,
 																					analyticDEType,
 																					logarithmicDEFunction,
-																					cpixelAlreadyHas,
+                                          cpixelDisabledByDefault,
 																					10));
 
-	fractalList->append(sFractalDescription("MsltoeSym4",
-																					"msltoesym4",
-																					msltoesym4,
+  fractalList->append(sFractalDescription("MsltoeSym4_Mod",
+                                          "msltoesym4_mod",
+                                          msltoesym4Mod,
 																					analyticDEType,
 																					logarithmicDEFunction,
-																					cpixelAlreadyHas,
+                                          cpixelDisabledByDefault,
 																					10));
 
 	fractalList->append(sFractalDescription("Quaternion",

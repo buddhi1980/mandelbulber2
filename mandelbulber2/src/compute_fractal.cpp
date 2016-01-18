@@ -255,14 +255,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MsltoeSym2Iteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
-        case msltoesym3:
+        case msltoesym3Mod:
         {
-          MsltoeSym3Iteration(z, fractal, extendedAux[sequence]);
+          MsltoeSym3ModIteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
-        case msltoesym4:
+        case msltoesym4Mod:
         {
-          MsltoeSym4Iteration(z, fractal, extendedAux[sequence]);
+          MsltoeSym4ModIteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
 				case generalizedFoldBox:
@@ -750,8 +750,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulbMulti:
         case mandelbulbVaryPowerV1:
 				case msltoesym2:
-				case msltoesym3:
-				case msltoesym4:
+        case msltoesym3Mod:
+        case msltoesym4Mod:
 				case quaternion:
 				case xenodreambuie:
 
