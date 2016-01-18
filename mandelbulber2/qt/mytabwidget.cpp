@@ -32,25 +32,25 @@ MyTabWidget::MyTabWidget(QWidget *parent) : QTabWidget(parent)
 
 void MyTabWidget::slotDragDropChange()
 {
-	int swapA = 0;
-	int swapB = 0;
-	bool firstSwapFound = false;
-	for(int i = 0; i < count(); i++){
-		if(widget(i)->objectName() != "tab_fractal_formula_" + QString::number(i + 1)){
-			if(!firstSwapFound)
+	QRegularExpression re("^.*([0-9])+$");
+	for(int l = 0; l < count(); l++)
+	{
+		QRegularExpressionMatch matchL = re.match(widget(l)->objectName());
+		if (!matchL.hasMatch()) return;
+		int indexInWidgetL = matchL.captured(1).toInt() - 1;
+		if(indexInWidgetL != l)
+		{
+			for(int r = count() - 1; r >= 0; r--)
 			{
-				swapA = i;
-				firstSwapFound = true;
-			}
-			else
-			{
-				swapB = i;
-				break;
+				QRegularExpressionMatch matchR = re.match(widget(r)->objectName());
+				if (!matchR.hasMatch()) return;
+				int indexInWidgetR = matchR.captured(1).toInt() - 1;
+				if(indexInWidgetR != r)
+				{
+					emit swapTabs(l, r);
+					return;
+				}
 			}
 		}
-	}
-	if(swapA != swapB)
-	{
-		emit swapTabs(swapA, swapB);
 	}
 }
