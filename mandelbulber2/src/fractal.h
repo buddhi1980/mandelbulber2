@@ -65,7 +65,7 @@ enum enumFractalColoringAlgorithm
 {
 	fractalColoringStandard = 0,
 	fractalColoringZDotPoint = 1,
-	fractalColoringCircle = 2,
+	fractalColoringSphere = 2,
 	fractalColoringCross = 3,
 	fractalColoringLine = 4
 };
@@ -798,6 +798,7 @@ struct sFractalTransformCommon
   CVector3 additionConstantA111;
   CVector3 additionConstant222;
   CVector3 additionConstantNeg100;
+  CVector3 constantMultiplier000;
   CVector3 constantMultiplier010;
   CVector3 constantMultiplier100;
   CVector3 constantMultiplier111;

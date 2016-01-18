@@ -1644,12 +1644,13 @@ void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
 
   CVector3 z2 = z * z;
   double rr = z2.x + z2.y  + z2.z + 1e-60;
-  double m = 1.0 - z.z * z.z /rr;
+  double m = 1.0 - z2.z/rr;
   CVector3 newz;
   newz.x = (z2.x - z2.y)  * m;
   newz.y = 2.0 * z.x * z.y  * m;
   newz.z = 2.0 * z.z * sqrt( z2.x + z2.y );
   z = newz + fractal->transformCommon.additionConstantNeg100;
+
 }
 
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux)
@@ -1968,7 +1969,31 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
 void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  CVector3 z2 = z * z;
   CVector3 temp = z;
+  if(z2.x > z2.y && z2.x > z2.z)
+  {
+    temp.x = z2.x - z2.y - z2.z;
+    temp.y = 2 * z.x * z.y;
+    temp.z = 2 * z.x * z.z;
+  }
+  if(z2.y > z2.z && z2.y > z2.x)
+  {
+    temp.x = 2 * z.x * z.y;
+    temp.y = z2.y - z2.x - z2.z;
+    temp.z = 2 * z.z * z.y;
+  }
+  if(z2.z > z2.y && z2.z > z2.x)
+  {
+    temp.x = 2 * z.x * z.z;
+    temp.y = 2 * z.y * z.z;
+    temp.z = z2.z - z2.x - z2.y;
+  }
+  //r = z.Length();
+  //if(z.x == z.y && z.y == z.z) z = CVector3( 1e-21, 1e-21, 1e-21);
+  z =temp + fractal->transformCommon.additionConstantNeg100;
+
+  /*CVector3 temp = z;
   if (fabs(z.y) < fabs(z.z))
   {
     temp.y = z.z;
@@ -1980,20 +2005,21 @@ void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux
   {
     z.x = -z.x;
   }
-  double x2 = z.x * z.x;
-  double y2 = z.y * z.y;
-  double z2 = z.z * z.z;
-  double v3 = (x2 + y2 + z2);
+ // double x2 = z.x * z.x;
+  //double y2 = z.y * z.y;
+  CVector3 z2 = z * z ;  // squares
+
+  double v3 = (z2.x + z2.y + z2.z); // sum of squares
   if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
-  double zr = 1.0 - z.z * z.z / v3;
-  temp.x = (x2 - y2) * zr;
+  double zr = 1.0 - z2.z / v3;
+  temp.x = (z2.x - z2.y) * zr;
   temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;
-  temp.z = 2.0 * z.z * sqrt(x2 + z2);
-  z = temp +  fractal->transformCommon.additionConstantNeg100;
+  temp.z = 2.0 * z.z * sqrt(z2.x + z2.y);
+  z = temp +  fractal->transformCommon.additionConstantNeg100;*/
 }
 
 /* MsltoeSym3 from mbulb3d, also somewhere on fractalforums */
-void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
   CVector3 temp = z;
@@ -2007,38 +2033,72 @@ void MsltoeSym3Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux
   if (z.y > z.z)
   {
     z.x = -z.x;
-    z.z = -z.z;
+    z.z = -z.z;// adding this line is the difference from sym2
   }
-  double x2 = z.x * z.x;
-  double y2 = z.y * z.y;
-  double z2 = z.z * z.z;
-  double v3 = (x2 + y2 + z2);
+  CVector3 z2 = z * z ;  // squares
+  double v3 = (z2.x + z2.y + z2.z); // sum of squares
   if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
-  double zr = 1.0 - z.z * z.z / v3;
-  temp.x = (x2 - y2) * zr;
-  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;
-  temp.z = 2.0 * z.z * sqrt(x2 + z2);
+  double zr = 1.0 - z2.z / v3;
+  temp.x = (z2.x - z2.y) * zr;
+  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;// scaling temp.y
+  temp.z = 2.0 * z.z * sqrt(z2.x + z2.y);
   z = temp +  fractal->transformCommon.additionConstantNeg100;
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    CVector3 tempFAB = c;
+    if (fractal->transformCommon.functionEnabledx)
+    {
+            tempFAB.x = fabs(tempFAB.x);
+    }
+    if (fractal->transformCommon.functionEnabledy)
+    {
+            tempFAB.y = fabs(tempFAB.y);
+    }
+    if (fractal->transformCommon.functionEnabledz)
+    {
+            tempFAB.z = fabs(tempFAB.z);
+    }
+    tempFAB *= fractal->transformCommon.constantMultiplier000;
+    if (z.x > 0) z.x += tempFAB.x;
+    else z.x -= tempFAB.x;
+    if (z.y > 0) z.y += tempFAB.y;
+    else z.y -= tempFAB.y;
+    if (z.z > 0) z.z += tempFAB.z;
+    else z.z -= tempFAB.z;
+  }
+
 }
 
 /* MsltoeSym4 from mbulb3d, also somewhere on fractalforums */
-void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
   CVector3 temp = z;
+  double tempL = temp.Length();
+  if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
+  z *= fractal->transformCommon.scale3D111;
+
+  aux.r_dz *= fabs(z.Length()/tempL);
+
   double swap = z.x;
-  if(fabs( z.x ) < fabs( z.z ) * fractal->transformCommon.constantMultiplier111.x)
+  if(fabs( z.x ) < fabs( z.z )) // fractal->transformCommon.constantMultiplier111.x)
   {
     z.x = z.z;
     z.z = swap;
   }
-  if (fabs( z.x ) < fabs( z.y ) *  fractal->transformCommon.constantMultiplier111.y)
+  if (fabs( z.x ) < fabs( z.y) ) //  fractal->transformCommon.constantMultiplier111.y)
   {
     swap = z.x;
     z.x = z.y;
     z.y = swap;
   }
-  if (fabs( z.y ) < fabs( z.z ) * fractal->transformCommon.constantMultiplier111.z)
+  if (fabs( z.y ) < fabs( z.z ))//  fractal->transformCommon.constantMultiplier111.z)
   {
     swap = z.y;
     z.y = z.z;
@@ -2052,6 +2112,38 @@ void MsltoeSym4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux
   temp.z = 2* z.x * z.z ;
 
   z = temp +  fractal->transformCommon.additionConstantNeg100;
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    CVector3 tempFAB = c;
+    if (fractal->transformCommon.functionEnabledx)
+    {
+            tempFAB.x = fabs(tempFAB.x);
+    }
+    if (fractal->transformCommon.functionEnabledy)
+    {
+            tempFAB.y = fabs(tempFAB.y);
+    }
+    if (fractal->transformCommon.functionEnabledz)
+    {
+            tempFAB.z = fabs(tempFAB.z);
+    }
+    tempFAB *= fractal->transformCommon.constantMultiplier000;
+    if (z.x > 0) z.x += tempFAB.x;
+    else z.x -= tempFAB.x;
+    if (z.y > 0) z.y += tempFAB.y;
+    else z.y -= tempFAB.y;
+    if (z.z > 0) z.z += tempFAB.z;
+    else z.z -= tempFAB.z;
+
+
+    //aux.r_dz *= fabs(z.Length()/tempL);
+  }
 }
 
 //RiemannSphereMsltoe----------------------------------
@@ -2452,6 +2544,16 @@ void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal
 
 void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
+  z +=  c * fractal->transformCommon.constantMultiplier111;
+}
+
+void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+{
+
+  if(fractal->transformCommon.functionEnabled) c = CVector3(c.y, c.x, c.z);
+ // {
+ //   c = CVector3(c.x, c.y, c.z);
+//  }
   z +=  c * fractal->transformCommon.constantMultiplier111;
 }
 
@@ -2912,6 +3014,34 @@ void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
 {
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
+
+void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
+{
+  CVector3 tempVC = fractal->transformCommon.rotation;   // constant to be varied
+  if (i < fractal->transformCommon.startIterations250)
+  {
+    ;
+  }
+  if (i >= fractal->transformCommon.startIterations250
+      && i < fractal->transformCommon.stopIterations
+      && (fractal->transformCommon.stopIterations
+          - fractal->transformCommon.startIterations250 != 0))
+  {
+    tempVC = (tempVC
+        + fractal->transformCommon.offset000
+            * (i - fractal->transformCommon.startIterations250)
+            / (fractal->transformCommon.stopIterations
+                - fractal->transformCommon.startIterations250));
+  }
+  if (i >= fractal->transformCommon.stopIterations)
+  {
+    tempVC = (tempVC + fractal->transformCommon.offset000);
+  }
+  //h'mmmmm   ?? = fractal->transformCommon.rotation + tempVC;
+  // mabe i require a  copy of matrix
+  z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+}
+
 
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {

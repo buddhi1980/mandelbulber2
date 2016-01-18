@@ -42,7 +42,7 @@ struct sCommonParams
 	int fakeLightsMinIter;
 	fractal::enumFractalColoringAlgorithm fractalColoringAlgorithm;
 
-	double fractalColoringCircleRadius;
+	double fractalColoringSphereRadius;
 
 	CVector3 fakeLightsOrbitTrap;
 	CVector3 fractalPosition;

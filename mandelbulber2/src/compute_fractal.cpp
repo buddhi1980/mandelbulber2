@@ -255,14 +255,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MsltoeSym2Iteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
-        case msltoesym3:
+        case msltoesym3Mod:
         {
-          MsltoeSym3Iteration(z, fractal, extendedAux[sequence]);
+          MsltoeSym3ModIteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
-        case msltoesym4:
+        case msltoesym4Mod:
         {
-          MsltoeSym4Iteration(z, fractal, extendedAux[sequence]);
+          MsltoeSym4ModIteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
 				case generalizedFoldBox:
@@ -423,6 +423,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformAddCpixelAxisSwapIteration(z, c, fractal);
           break;
         }
+        case transfAddCpixelCxCyAxisSwap:
+        {
+          TransformAddCpixelCxCyAxisSwapIteration(z, c, fractal);
+          break;
+        }
         case transfAddCpixelPosNeg:
         {
           TransformAddCpixelPosNegIteration(z, c, fractal);
@@ -534,7 +539,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         	TransformRotationIteration(z, fractal);
         	break;
         }
-        case transfScale:
+        case transfRotationVaryV1:
+        {
+          TransformRotationVaryV1Iteration(z, i, fractal);
+          break;
+        }
+          case transfScale:
         {
         	TransformScaleIteration(z, fractal, extendedAux[sequence]);
         	break;
@@ -668,9 +678,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						len = fabs(z.Dot(in.point));
 						break;
 					}
-					case fractalColoringCircle:
+					case fractalColoringSphere:
 					{
-						len = fabs((z - in.point).Length() - in.common.fractalColoringCircleRadius);
+						len = fabs((z - in.point).Length() - in.common.fractalColoringSphereRadius);
 						break;
 					}
 					case fractalColoringCross:
@@ -740,8 +750,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulbMulti:
         case mandelbulbVaryPowerV1:
 				case msltoesym2:
-				case msltoesym3:
-				case msltoesym4:
+        case msltoesym3Mod:
+        case msltoesym4Mod:
 				case quaternion:
 				case xenodreambuie:
 
@@ -807,9 +817,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
-        case foldBoxMod1:
+				case foldBoxMod1:
 					out->colorIndex = extendedAux[fractalIndex].color * 100.0
-							+ r * defaultFractal->mandelbox.color.factorR;
+							+ r * defaultFractal->mandelbox.color.factorR
+							+ ((in.common.fractalColoringAlgorithm != fractalColoringStandard) ? minimumR
+									* 1000.0 :
+									0.0);
 					break;
 
 				case mandelbulb5:
@@ -817,7 +830,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulb6Beta:
 				case benesiTransforms:
 				case mengerSponge105:
-					out->colorIndex = extendedAux[fractalIndex].newR;
+					out->colorIndex = extendedAux[fractalIndex].newR
+							+ ((in.common.fractalColoringAlgorithm != fractalColoringStandard) ? minimumR
+									* 1000.0 :
+									0.0);
 					break;
 
         case mengerMod1:

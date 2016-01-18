@@ -356,7 +356,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					10));
 
   fractalList->append(sFractalDescription("Menger-Mod1",
-                                          "menger-mod1",
+                                          "menger_mod1",
                                           mengerMod1,
 																					analyticDEType,
 																					linearDEFunction,
@@ -368,23 +368,23 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					msltoesym2,
 																					analyticDEType,
 																					logarithmicDEFunction,
-																					cpixelAlreadyHas,
+                                          cpixelDisabledByDefault,
 																					10));
 
-	fractalList->append(sFractalDescription("MsltoeSym3",
-																					"msltoesym3",
-																					msltoesym3,
+  fractalList->append(sFractalDescription("MsltoeSym3_Mod",
+                                          "msltoesym3_mod",
+                                          msltoesym3Mod,
 																					analyticDEType,
 																					logarithmicDEFunction,
-																					cpixelAlreadyHas,
+                                          cpixelDisabledByDefault,
 																					10));
 
-	fractalList->append(sFractalDescription("MsltoeSym4",
-																					"msltoesym4",
-																					msltoesym4,
+  fractalList->append(sFractalDescription("MsltoeSym4_Mod",
+                                          "msltoesym4_mod",
+                                          msltoesym4Mod,
 																					analyticDEType,
 																					logarithmicDEFunction,
-																					cpixelAlreadyHas,
+                                          cpixelDisabledByDefault,
 																					10));
 
 	fractalList->append(sFractalDescription("Quaternion",
@@ -483,6 +483,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					withoutDEFunction,
 																					cpixelAlreadyHas,
 																					100));
+
+  fractalList->append(sFractalDescription("Transform - Add Cpixel_CxCy_Axis_Swap",
+                                          "transf_add_Cpixel_CxCy_axis_swap",
+                                          transfAddCpixelCxCyAxisSwap,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelAlreadyHas,
+                                          100));
 
 	fractalList->append(sFractalDescription("Transform - Add Cpixel_Pos_Neg",
 																					"transf_add_Cpixel_pos_neg",
@@ -667,6 +675,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					withoutDEFunction,
 																					cpixelDisabledByDefault,
 																					100));
+
+  fractalList->append(sFractalDescription("Transform - Rotation_VaryV1",
+                                          "transf_rotation_varyV1",
+                                          transfRotationVaryV1,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
 
 	fractalList->append(sFractalDescription("Transform - R^Power",
 																					"transf_rpower",
