@@ -22,6 +22,7 @@
 
 #include "nine_fractals.hpp"
 
+#include <algorithm>
 cNineFractals::~cNineFractals()
 {
 	if (fractals)
@@ -45,6 +46,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	double commonBailout = generalPar->Get<double>("bailout");
 	isHybrid = generalPar->Get<bool>("hybrid_fractal_enable");
 	bool isBoolean =  generalPar->Get<bool>("boolean_operators");
+	double maxBailout = 0.0;
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
@@ -72,10 +74,18 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		addCConstant[i] = addc;
 
 		//defualt bailout or global one
+
 		if(useDefaultBailout)
-			bailout[i] = fractalList[GetIndexOnFractalList(fractals[i]->formula)].defaultBailout;
+		{
+			if(isHybrid)
+				maxBailout = qMax(maxBailout, fractalList[GetIndexOnFractalList(fractals[i]->formula)].defaultBailout);
+			else
+				bailout[i] = fractalList[GetIndexOnFractalList(fractals[i]->formula)].defaultBailout;
+		}
 		else
+		{
 			bailout[i] = commonBailout;
+		}
 
 		//Julia parameters - local or global
 		if (isBoolean)
@@ -90,7 +100,15 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 			juliaConstant[i] = generalPar->Get<CVector3>("julia_c");
 			constantMultiplier[i] = generalPar->Get<CVector3>("fractal_constant_factor");
 		}
+	}
 
+	//common bailout for all hybrid components
+	if(isHybrid)
+	{
+		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+		{
+			bailout[i] = maxBailout;
+		}
 	}
 
 	if((fractal::enumDEMethod)generalPar->Get<int>("delta_DE_method") == fractal::forceDeltaDEMethod)
