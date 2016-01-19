@@ -524,6 +524,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformIterationWeightIteration(z, i, fractal);
           break;
         }
+        case transfLinCombineCxyz:
+        {
+          TransformLinCombineCxyz(c, fractal);
+          break;
+        }
         case transfMultipleAngle:
         {
           TransformMultipleAngle(z, fractal, extendedAux[sequence]);
@@ -569,6 +574,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					TransformPowerR(z, fractal, extendedAux[sequence]);
 					break;
 				}
+        case transfSphereInvC:
+        {
+          TransformSphereInvCIteration(z, c, fractal);
+          break;
+        }
         case transfSphericalOffset:
         {
           TransformSphericalOffsetIteration(z, fractal, extendedAux[sequence]);

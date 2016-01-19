@@ -612,14 +612,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					100));
 
-	fractalList->append(sFractalDescription("Transform - Multiple angle",
-																					"transf_multiple_angle",
-																					transfMultipleAngle,
-																					analyticDEType,
-																					withoutDEFunction,
-																					cpixelDisabledByDefault,
-																					100));
-
 	fractalList->append(sFractalDescription("Transform - Fabs_Add_Constant",
 																					"transf_fabs_add_constant",
 																					transfFabsAddConstant,
@@ -647,6 +639,22 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Transform - Iteration Weight",
                                           "transf_iteration_weight",
                                           transfIterationWeight,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Linear Combine Cxyz",
+                                          "transf_lin_combine_Cxyz",
+                                          transfLinCombineCxyz,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelAlreadyHas,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Multiple angle",
+                                          "transf_multiple_angle",
+                                          transfMultipleAngle,
                                           analyticDEType,
                                           withoutDEFunction,
                                           cpixelDisabledByDefault,
@@ -715,6 +723,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					withoutDEFunction,
 																					cpixelDisabledByDefault,
 																					100));
+
+  fractalList->append(sFractalDescription("Transform - Sphere_InvertC",
+                                          "transf_sphere_invC",
+                                          transfSphereInvC,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelAlreadyHas,
+                                          100));
 
   fractalList->append(sFractalDescription("Transform - Spherical_Fold",
                                           "transf_spherical_fold",
