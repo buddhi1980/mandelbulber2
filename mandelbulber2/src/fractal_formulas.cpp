@@ -2997,6 +2997,16 @@ void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtended
    // aux.color += boxOffset.color.factor.z;
   }
 }
+void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal)
+{
+  CVector3 temp = c;
+  CVector3 mulX = fractal->transformCommon.constantMultiplier100;
+  CVector3 mulY = fractal->transformCommon.constantMultiplier010;
+  CVector3 mulZ = fractal->transformCommon.constantMultiplier001;
+  c.x = mulX.x * temp.x + mulX.y * temp.y + mulX.z * temp.z;
+  c.y = mulY.x * temp.x + mulY.y * temp.y + mulY.z * temp.z;
+  c.z = mulZ.x * temp.x + mulZ.y * temp.y + mulZ.z * temp.z;
+}
 
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
 {
@@ -3079,11 +3089,24 @@ void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, 
   aux.r_dz *= fabs(tempVC);
 }
 
-
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   z *= fractal->transformCommon.scale3D111;
   aux.DE *= fractal->transformCommon.scale3D111.Length(); //prepared for future analytic DE for hybrids
+}
+
+void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
+{
+  c *= fractal->transformCommon.constantMultiplier111;
+  double rSqrL = c.x * c.x + c.y * c.y + c.z * c.z;
+  if (rSqrL < 1e-21) rSqrL = 1e-21;
+  rSqrL = 1/rSqrL;
+  c *= rSqrL;
+
+  rSqrL = z.x * z.x + z.y * z.y + z.z * z.z;
+  if (rSqrL < 1e-21) rSqrL = 1e-21;
+  rSqrL = 1/rSqrL;
+  z *= rSqrL;
 }
 
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)

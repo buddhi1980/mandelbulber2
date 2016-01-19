@@ -103,6 +103,7 @@ void TransformBenesiT5bIteration(CVector3 &z, const cFractal *fractal);
 void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal);
 void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal);
@@ -116,6 +117,7 @@ void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fracta
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *fractal);
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);

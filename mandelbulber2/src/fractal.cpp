@@ -1367,6 +1367,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.additionConstant222 = container->Get<CVector3>("transf_addition_constant_222");
   transformCommon.additionConstantNeg100 = container->Get<CVector3>("transf_addition_constant_neg100");
   transformCommon.constantMultiplier000 = container->Get<CVector3>("transf_constant_multiplier_000");
+  transformCommon.constantMultiplier001 = container->Get<CVector3>("transf_constant_multiplier_001");
   transformCommon.constantMultiplier010 = container->Get<CVector3>("transf_constant_multiplier_010");
   transformCommon.constantMultiplier100 = container->Get<CVector3>("transf_constant_multiplier_100");
   transformCommon.constantMultiplier111 = container->Get<CVector3>("transf_constant_multiplier_111");
@@ -1387,7 +1388,6 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.addCpixelEnabled = container->Get<bool>("transf_addCpixel_enabled");
   transformCommon.addCpixelEnabledFalse = container->Get<bool>("transf_addCpixel_enabled_false");
   transformCommon.benesiT1Enabled = container->Get<bool>("transf_benesi_T1_enabled");
-  transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
   transformCommon.functionEnabled = container->Get<bool>("transf_function_enabled");
   transformCommon.functionEnabledFalse = container->Get<bool>("transf_function_enabled_false");
   transformCommon.functionEnabledx = container->Get<bool>("transf_function_enabledx");
@@ -1402,6 +1402,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.functionEnabledAxFalse = container->Get<bool>("transf_function_enabledAx_false");
   transformCommon.functionEnabledAyFalse = container->Get<bool>("transf_function_enabledAy_false");
   transformCommon.functionEnabledAzFalse = container->Get<bool>("transf_function_enabledAz_false");
+  transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
   transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
 
 
