@@ -181,7 +181,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
 			thumbWidget->UseOneCPUCore(false);
 			thumbWidget->AssignParameters(*params, *fractalParams);
 			table->setCellWidget(0, newColumn, thumbWidget);
@@ -231,7 +231,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
 			thumbWidget->UseOneCPUCore(false);
 			thumbWidget->AssignParameters(*params, *fractalParams);
 			table->setCellWidget(0, newColumn, thumbWidget);
@@ -749,7 +749,7 @@ void cKeyframeAnimation::RefreshTable()
 
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
 			thumbWidget->UseOneCPUCore(true);
 			keyframes->GetFrameAndConsolidate(i, &tempPar, &tempFract);
 			tempPar.Set("frame_no", keyframes->GetFramesPerKeyframe() * i);
@@ -904,7 +904,7 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 
 			if (!thumbWidget)
 			{
-				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
+				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
 				thumbWidget->UseOneCPUCore(true);
 				thumbWidget->AssignParameters(tempPar, tempFract);
 				table->setCellWidget(0, column, thumbWidget);

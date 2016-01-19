@@ -1852,7 +1852,7 @@ void RenderWindow::slotPopulateToolbar()
 			continue;
 		}
 		QString filename = systemData.dataDirectory + "toolbar/" + toolbarFiles.at(i);
-		cThumbnailWidget *thumbWidget;
+		cThumbnailWidget *thumbWidget = NULL;
 
 		if (QFileInfo(filename).suffix() == QString("fract"))
 		{
@@ -1869,7 +1869,7 @@ void RenderWindow::slotPopulateToolbar()
 					InitFractalParams(&parFractal->at(i));
 				if (parSettings.Decode(par, parFractal))
 				{
-					thumbWidget = new cThumbnailWidget(40, 40, this);
+					thumbWidget = new cThumbnailWidget(40, 40, 4, this);
 					thumbWidget->UseOneCPUCore(true);
 					thumbWidget->AssignParameters(*par, *parFractal);
 				}
@@ -1878,28 +1878,31 @@ void RenderWindow::slotPopulateToolbar()
 			}
 		}
 
-		QWidgetAction *action = new QWidgetAction(this);
-		QToolButton *buttonLoad = new QToolButton;
-		QVBoxLayout *tooltipLayout = new QVBoxLayout;
-		QToolButton *buttonRemove = new QToolButton;
+		if(thumbWidget)
+		{
+			QWidgetAction *action = new QWidgetAction(this);
+			QToolButton *buttonLoad = new QToolButton;
+			QVBoxLayout *tooltipLayout = new QVBoxLayout;
+			QToolButton *buttonRemove = new QToolButton;
 
-		tooltipLayout->setContentsMargins(3, 3, 3, 3);
-		tooltipLayout->addWidget(thumbWidget);
-		QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
-		buttonRemove->setIcon(iconDelete);
-		buttonRemove->setMaximumSize(QSize(15, 15));
-		buttonRemove->setStyleSheet("margin-bottom: -2px; margin-left: -2px;");
-		tooltipLayout->addWidget(buttonRemove);
-		buttonLoad->setToolTip(QObject::tr("Toolbar settings: ") + filename);
-		buttonLoad->setLayout(tooltipLayout);
-		action->setDefaultWidget(buttonLoad);
-		action->setObjectName(toolbarFiles.at(i));
-		ui->toolBar->addAction(action);
+			tooltipLayout->setContentsMargins(3, 3, 3, 3);
+			tooltipLayout->addWidget(thumbWidget);
+			QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
+			buttonRemove->setIcon(iconDelete);
+			buttonRemove->setMaximumSize(QSize(15, 15));
+			buttonRemove->setStyleSheet("margin-bottom: -2px; margin-left: -2px;");
+			tooltipLayout->addWidget(buttonRemove);
+			buttonLoad->setToolTip(QObject::tr("Toolbar settings: ") + filename);
+			buttonLoad->setLayout(tooltipLayout);
+			action->setDefaultWidget(buttonLoad);
+			action->setObjectName(toolbarFiles.at(i));
+			ui->toolBar->addAction(action);
 
-		mapPresetsFromExamplesLoad->setMapping(buttonLoad, filename);
-		mapPresetsFromExamplesRemove->setMapping(buttonRemove, filename);
-		QApplication::connect(buttonLoad, SIGNAL(clicked()), mapPresetsFromExamplesLoad, SLOT(map()));
-		QApplication::connect(buttonRemove, SIGNAL(clicked()), mapPresetsFromExamplesRemove, SLOT(map()));
+			mapPresetsFromExamplesLoad->setMapping(buttonLoad, filename);
+			mapPresetsFromExamplesRemove->setMapping(buttonRemove, filename);
+			QApplication::connect(buttonLoad, SIGNAL(clicked()), mapPresetsFromExamplesLoad, SLOT(map()));
+			QApplication::connect(buttonRemove, SIGNAL(clicked()), mapPresetsFromExamplesRemove, SLOT(map()));
+		}
 	}
 	QApplication::connect(mapPresetsFromExamplesLoad,
 												SIGNAL(mapped(QString)),

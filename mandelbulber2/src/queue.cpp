@@ -714,7 +714,7 @@ void cQueue::slotQueueListUpdate(int i, int j)
 					cThumbnailWidget *thumbWidget = (cThumbnailWidget*) table->cellWidget(i, j);
 					if (!thumbWidget)
 					{
-						thumbWidget = new cThumbnailWidget(100, 70, table);
+						thumbWidget = new cThumbnailWidget(100, 70, 1, table);
 						thumbWidget->UseOneCPUCore(true);
 						thumbWidget->AssignParameters(tempPar, tempFract);
 						table->setCellWidget(i, j, thumbWidget);

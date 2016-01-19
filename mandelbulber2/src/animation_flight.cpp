@@ -901,7 +901,7 @@ void cFlightAnimation::RefreshTable()
 
 		if (ui->checkBox_flight_show_thumbnails->isChecked())
 		{
-			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
+			cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
 			thumbWidget->UseOneCPUCore(true);
 			frames->GetFrameAndConsolidate(i, &tempPar, &tempFract);
 			thumbWidget->AssignParameters(tempPar, tempFract);
@@ -1076,7 +1076,7 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 			if (!thumbWidget)
 			{
-				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, table);
+				cThumbnailWidget *thumbWidget = new cThumbnailWidget(100, 70, 1, table);
 				thumbWidget->UseOneCPUCore(true);
 				thumbWidget->AssignParameters(tempPar, tempFract);
 				table->setCellWidget(0, column, thumbWidget);

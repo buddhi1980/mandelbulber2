@@ -45,7 +45,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) :
 	preview->setAlignment(Qt::AlignCenter);
 	preview->setObjectName("label_preview");
 
-	thumbWidget = new cThumbnailWidget(200, 200, this);
+	thumbWidget = new cThumbnailWidget(200, 200, 1, this);
 
 	info = new QLabel("");
 

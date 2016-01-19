@@ -31,7 +31,7 @@ class cThumbnailWidget: public QWidget
 {
 	Q_OBJECT
 public:
-	cThumbnailWidget(int _width, int _height, QWidget *parent);
+	cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent);
 	~cThumbnailWidget();
 	void AssignParameters(const cParameterContainer &_params, const cFractalContainer &_fractal);
 	void UseOneCPUCore(bool onlyOne) {useOneCPUCore = onlyOne;}
@@ -55,6 +55,7 @@ private:
 	cFractalContainer *fractal;
 	int tWidth;
 	int tHeight;
+	int oversample;
 	QString hash;
 	QProgressBar *progressBar;
 	bool stopRequest;

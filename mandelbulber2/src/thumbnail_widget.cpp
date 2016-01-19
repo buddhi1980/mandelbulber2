@@ -30,13 +30,14 @@
 #include "common_math.h"
 #include "system.hpp"
 
-cThumbnailWidget::cThumbnailWidget(int _width, int _height, QWidget *parent) :
+cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent) :
 		QWidget(parent)
 {
 	tWidth = _width;
 	tHeight = _height;
-	image = new cImage(tWidth, tHeight);
-	image->CreatePreview(1.0, tWidth, tWidth, this);
+	oversample = _oversample;
+	image = new cImage(tWidth * oversample, tHeight * oversample);
+	image->CreatePreview(1.0/oversample, tWidth, tWidth, this);
 	progressBar = NULL;
 	setFixedWidth(tWidth);
 	setFixedHeight(tHeight);
@@ -61,8 +62,7 @@ cThumbnailWidget::~cThumbnailWidget()
 	{
 	}
 
-	delete image;
-	delete timer;
+	if (image) delete image;
 	if (params) delete params;
 	if (fractal) delete fractal;
 	instanceCount--;
@@ -94,8 +94,8 @@ void cThumbnailWidget::AssignParameters(const cParameterContainer &_params,
 	}
 	*params = _params;
 	*fractal = _fractal;
-	params->Set("image_width", tWidth);
-	params->Set("image_height", tHeight);
+	params->Set("image_width", tWidth * oversample);
+	params->Set("image_height", tHeight * oversample);
 	cSettings tempSettings(cSettings::formatCondensedText);
 	tempSettings.CreateText(params, fractal);
 	hash = tempSettings.GetHashCode();
