@@ -1880,16 +1880,14 @@ void RenderWindow::slotPopulateToolbar()
 
 		QWidgetAction *action = new QWidgetAction(this);
 		QToolButton *buttonLoad = new QToolButton;
-		QHBoxLayout *tooltipLayout = new QHBoxLayout;
+		QVBoxLayout *tooltipLayout = new QVBoxLayout;
 		QToolButton *buttonRemove = new QToolButton;
 
-		tooltipLayout->setSpacing(0);
-		tooltipLayout->setContentsMargins(2, 2, 2, 2);
+		tooltipLayout->setContentsMargins(3, 3, 3, 3);
 		tooltipLayout->addWidget(thumbWidget);
-		tooltipLayout->setAlignment(thumbWidget, AlignVCenter | AlignHCenter);
 		QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
 		buttonRemove->setIcon(iconDelete);
-		tooltipLayout->addWidget(buttonRemove, AlignBottom | AlignRight);
+		tooltipLayout->addWidget(buttonRemove);
 		buttonLoad->setToolTip(QObject::tr("Toolbar settings: ") + filename);
 		buttonLoad->setLayout(tooltipLayout);
 		action->setDefaultWidget(buttonLoad);
