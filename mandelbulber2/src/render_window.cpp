@@ -1887,6 +1887,8 @@ void RenderWindow::slotPopulateToolbar()
 		tooltipLayout->addWidget(thumbWidget);
 		QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
 		buttonRemove->setIcon(iconDelete);
+		buttonRemove->setMaximumSize(QSize(15, 15));
+		buttonRemove->setStyleSheet("margin-bottom: -2px; margin-left: -2px;");
 		tooltipLayout->addWidget(buttonRemove);
 		buttonLoad->setToolTip(QObject::tr("Toolbar settings: ") + filename);
 		buttonLoad->setLayout(tooltipLayout);
