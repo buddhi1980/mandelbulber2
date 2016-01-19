@@ -2023,14 +2023,12 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sE
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
   CVector3 temp = z;
-  if (fabs(z.y) < fabs(z.z))
+  if (fabs(z.y) < fabs(z.z)) // then swap
   {
-    temp.y = z.z;
-    temp.z = z.y;
-    z.y = temp.y;
-    z.z = temp.z;
+    z.y = temp.z;  // making z.y furthest away from axis
+    z.z = temp.y;
   }
-  if (z.y > z.z)
+  if (z.y > z.z) // then change sign of z.x and z.z
   {
     z.x = -z.x;
     z.z = -z.z;// adding this line is the difference from sym2
@@ -2087,18 +2085,18 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   aux.r_dz *= fabs(z.Length()/tempL);
 
   double swap = z.x;
-  if(fabs( z.x ) < fabs( z.z )) // fractal->transformCommon.constantMultiplier111.x)
+  if(fabs( z.x ) < fabs( z.z ))
   {
     z.x = z.z;
     z.z = swap;
   }
-  if (fabs( z.x ) < fabs( z.y) ) //  fractal->transformCommon.constantMultiplier111.y)
+  if (fabs( z.x ) < fabs( z.y) )
   {
     swap = z.x;
     z.x = z.y;
     z.y = swap;
   }
-  if (fabs( z.y ) < fabs( z.z ))//  fractal->transformCommon.constantMultiplier111.z)
+  if (fabs( z.y ) < fabs( z.z ))
   {
     swap = z.y;
     z.y = z.z;
@@ -2107,6 +2105,7 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 
   if ( z.x * z.z  < 0)  z.z  = - z.z ;
   if ( z.x * z.y  < 0)  z.y  = - z.y ;
+
   temp.x =  z.x * z.x  -  z.y * z.y  -  z.z * z.z;
   temp.y = 2* z.x * z.y ;
   temp.z = 2* z.x * z.z ;
@@ -3035,11 +3034,14 @@ void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fracta
   }
   if (i >= fractal->transformCommon.stopIterations)
   {
-    tempVC = (tempVC + fractal->transformCommon.offset000);
+    tempVC = (tempVC + fractal->transformCommon.offset000) * (M_PI / 180.0);
   }
+  z.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), tempVC.x);
+  z.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), tempVC.y);
+  z.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), tempVC.z);
   //h'mmmmm   ?? = fractal->transformCommon.rotation + tempVC;
   // mabe i require a  copy of matrix
-  z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  //z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
 
 

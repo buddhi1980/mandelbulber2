@@ -73,7 +73,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           aboxVSIcen1,
                                           analyticDEType,
                                           linearDEFunction,
-                                          cpixelEnabledByDefault,
+                                          cpixelDisabledByDefault,
                                           100));
 
 	fractalList->append(sFractalDescription("Aexion",
