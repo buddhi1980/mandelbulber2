@@ -376,7 +376,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           msltoesym3Mod,
 																					analyticDEType,
 																					logarithmicDEFunction,
-                                          cpixelDisabledByDefault,
+                                          cpixelEnabledByDefault,
 																					10));
 
   fractalList->append(sFractalDescription("MsltoeSym4_Mod",
@@ -384,7 +384,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           msltoesym4Mod,
 																					analyticDEType,
 																					logarithmicDEFunction,
-                                          cpixelDisabledByDefault,
+                                          cpixelEnabledByDefault,
 																					10));
 
 	fractalList->append(sFractalDescription("Quaternion",

@@ -2040,7 +2040,7 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sE
   temp.x = (z2.x - z2.y) * zr;
   temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;// scaling temp.y
   temp.z = 2.0 * z.z * sqrt(z2.x + z2.y);
-  z = temp +  fractal->transformCommon.additionConstantNeg100;
+  z = temp +  fractal->transformCommon.additionConstant000;
 
   if (fractal->transformCommon.rotationEnabled)
   {
@@ -2110,7 +2110,7 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   temp.y = 2* z.x * z.y ;
   temp.z = 2* z.x * z.z ;
 
-  z = temp +  fractal->transformCommon.additionConstantNeg100;
+  z = temp +  fractal->transformCommon.additionConstant000;
 
   if (fractal->transformCommon.rotationEnabled)
   {
