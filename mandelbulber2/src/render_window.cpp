@@ -94,7 +94,7 @@ RenderWindow::RenderWindow(QWidget *parent) :
 												SLOT(setConnected(bool)));
 #else
 	ui->menuView->removeAction(ui->actionShow_gamepad_dock);
-	ui->dockWidget_gamepad_dock->hide();
+	removeDockWidget(ui->dockWidget_gamepad_dock);
 #endif
 }
 
@@ -1821,26 +1821,45 @@ void RenderWindow::slotPopulateToolbar()
 {
 	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) started");
 	QDir toolbarDir = QDir(systemData.dataDirectory + "toolbar");
+	toolbarDir.setSorting(QDir::Time);
 	QStringList toolbarFiles = toolbarDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
-	QSignalMapper *mapPresetsFromExamples = new QSignalMapper(this);
+	QSignalMapper *mapPresetsFromExamplesLoad = new QSignalMapper(this);
+	QSignalMapper *mapPresetsFromExamplesRemove = new QSignalMapper(this);
 	ui->toolBar->setIconSize(QSize(40, 40));
 
 	QList<QAction *> actions = ui->toolBar->actions();
+	QStringList toolbarInActions;
 	for (int i = 0; i < actions.size(); i++)
 	{
-		if (actions.at(i)->objectName() == "preset") ui->toolBar->removeAction(actions.at(i));
+		QAction * action = actions.at(i);
+		if(action->objectName() == "actionAdd_Settings_to_Toolbar") continue;
+		if(!toolbarFiles.contains(action->objectName()))
+		{
+			// preset has been removed
+			ui->toolBar->removeAction(action);
+		}
+		else
+		{
+			toolbarInActions << action->objectName();
+		}
 	}
 
 	for (int i = 0; i < toolbarFiles.size(); i++)
 	{
+		if(toolbarInActions.contains(toolbarFiles.at(i)))
+		{
+			// already present
+			continue;
+		}
 		QString filename = systemData.dataDirectory + "toolbar/" + toolbarFiles.at(i);
-		QPixmap pixmap;
-		QIcon icon;
+		cThumbnailWidget *thumbWidget;
+
 		if (QFileInfo(filename).suffix() == QString("fract"))
 		{
 			WriteLogString("Generating thumbnail for preset", filename);
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.BeQuiet(true);
+
 			if (parSettings.LoadFromFile(filename))
 			{
 				cParameterContainer *par = new cParameterContainer;
@@ -1850,28 +1869,48 @@ void RenderWindow::slotPopulateToolbar()
 					InitFractalParams(&parFractal->at(i));
 				if (parSettings.Decode(par, parFractal))
 				{
-					cThumbnail thumbnail(par, parFractal, 120, 120, parSettings.GetHashCode());
-					pixmap = thumbnail.Render();
-					icon.addPixmap(pixmap.scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+					thumbWidget = new cThumbnailWidget(40, 40, this);
+					thumbWidget->UseOneCPUCore(true);
+					thumbWidget->AssignParameters(*par, *parFractal);
 				}
 				delete par;
 				delete parFractal;
 			}
 		}
 
-		QAction *action = new QAction(QObject::tr("Toolbar settings: ") + filename, this);
-		action->setIcon(icon);
-		action->setObjectName("preset");
+		QWidgetAction *action = new QWidgetAction(this);
+		QToolButton *buttonLoad = new QToolButton;
+		QHBoxLayout *tooltipLayout = new QHBoxLayout;
+		QToolButton *buttonRemove = new QToolButton;
+
+		tooltipLayout->setSpacing(0);
+		tooltipLayout->setContentsMargins(2, 2, 2, 2);
+		tooltipLayout->addWidget(thumbWidget);
+		tooltipLayout->setAlignment(thumbWidget, AlignVCenter | AlignHCenter);
+		QIcon iconDelete = QIcon::fromTheme("list-remove", QIcon(":system/icons/list-remove.svg"));
+		buttonRemove->setIcon(iconDelete);
+		tooltipLayout->addWidget(buttonRemove, AlignBottom | AlignRight);
+		buttonLoad->setToolTip(QObject::tr("Toolbar settings: ") + filename);
+		buttonLoad->setLayout(tooltipLayout);
+		action->setDefaultWidget(buttonLoad);
+		action->setObjectName(toolbarFiles.at(i));
 		ui->toolBar->addAction(action);
 
-		mapPresetsFromExamples->setMapping(action, filename);
-		QApplication::connect(action, SIGNAL(triggered()), mapPresetsFromExamples, SLOT(map()));
-		gApplication->processEvents();
+		mapPresetsFromExamplesLoad->setMapping(buttonLoad, filename);
+		mapPresetsFromExamplesRemove->setMapping(buttonRemove, filename);
+		QApplication::connect(buttonLoad, SIGNAL(clicked()), mapPresetsFromExamplesLoad, SLOT(map()));
+		QApplication::connect(buttonRemove, SIGNAL(clicked()), mapPresetsFromExamplesRemove, SLOT(map()));
 	}
-	QApplication::connect(mapPresetsFromExamples,
+	QApplication::connect(mapPresetsFromExamplesLoad,
 												SIGNAL(mapped(QString)),
 												this,
 												SLOT(slotMenuLoadPreset(QString)));
+
+	QApplication::connect(mapPresetsFromExamplesRemove,
+												SIGNAL(mapped(QString)),
+												this,
+												SLOT(slotMenuRemovePreset(QString)));
+
 	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) finished");
 }
 
@@ -1887,23 +1926,21 @@ void RenderWindow::slotPresetAddToToolbar()
 
 void RenderWindow::slotMenuLoadPreset(QString filename)
 {
-	if (ui->actionRemove_Settings_from_Toolbar->isChecked())
-	{
-		QFile::remove(filename);
-		slotPopulateToolbar();
-	}
-	else
-	{
-		cSettings parSettings(cSettings::formatFullText);
-		parSettings.LoadFromFile(filename);
-		parSettings.Decode(gPar, gParFractal);
-		gMainInterface->RebuildPrimitives(gPar);
-		gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
-		gMainInterface->ComboMouseClickUpdate();
-		systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator()
-				+ QFileInfo(filename).fileName();
-		this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
-	}
+	cSettings parSettings(cSettings::formatFullText);
+	parSettings.LoadFromFile(filename);
+	parSettings.Decode(gPar, gParFractal);
+	gMainInterface->RebuildPrimitives(gPar);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
+	gMainInterface->ComboMouseClickUpdate();
+	systemData.lastSettingsFile = gPar->Get<QString>("default_settings_path") + QDir::separator()
+			+ QFileInfo(filename).fileName();
+	this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
+}
+
+void RenderWindow::slotMenuRemovePreset(QString filename)
+{
+	QFile::remove(filename);
+	slotPopulateToolbar();
 }
 
 void RenderWindow::slotQuit()
@@ -2186,16 +2223,26 @@ void RenderWindow::slotPressedButtonResetFormula()
 
 void RenderWindow::slotFractalSwap(int swapA, int swapB)
 {
-	cParameterContainer swap = gParFractal->at(swapA);
-	gParFractal->at(swapA) = gParFractal->at(swapB);
-	gParFractal->at(swapB) = swap;
-	//qSwap(gParFractal[swapA], gParFractal[swapB]);
+	qDebug() << "swapping " << swapA << " with " << swapB;
+	QWidget *fractalWidgetTemp;
+
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapB],
+																						 &gParFractal->at(swapA),
+																						 cInterface::read);
+	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapA],
+																						 &gParFractal->at(swapB),
+																						 cInterface::read);
 	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapA],
 																						 &gParFractal->at(swapA),
 																						 cInterface::write);
 	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapB],
 																						 &gParFractal->at(swapB),
 																						 cInterface::write);
+
+	QString nameA = ui->tabWidget_fractals->widget(swapA)->objectName();
+	ui->tabWidget_fractals->widget(swapA)->setObjectName(
+				ui->tabWidget_fractals->widget(swapB)->objectName());
+	ui->tabWidget_fractals->widget(swapB)->setObjectName(nameA);
 }
 
 void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)

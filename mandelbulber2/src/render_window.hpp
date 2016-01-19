@@ -112,6 +112,7 @@ private slots:
 	void slotResizedScrolledAreaImage(int width, int height);
 	void slotSliderMovedEditManualLightPlacementDistance(int value);
 	void slotMenuLoadPreset(QString filename);
+	void slotMenuRemovePreset(QString filename);
 	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
 			double progress,
 			cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
