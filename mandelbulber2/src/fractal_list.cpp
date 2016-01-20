@@ -89,7 +89,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           aexionOctopusMod,
 																					deltaDEType,
 																					logarithmicDEFunction,
-                                          cpixelEnabledByDefault,
+																					cpixelAlreadyHas,
 																					10));
 
 	fractalList->append(sFractalDescription("Amazing_Surf",
