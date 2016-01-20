@@ -84,12 +84,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelAlreadyHas,
 																					10000));
 
-	fractalList->append(sFractalDescription("Aexion_Octopus",
-																					"aexionOctopus",
-																					aexionOctopus,
+  fractalList->append(sFractalDescription("Aexion_Octopus_Mod",
+                                          "aexion_octopus_mod",
+                                          aexionOctopusMod,
 																					deltaDEType,
 																					logarithmicDEFunction,
-																					cpixelAlreadyHas,
+                                          cpixelEnabledByDefault,
 																					10));
 
 	fractalList->append(sFractalDescription("Amazing_Surf",
@@ -352,7 +352,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					menger_sponge,
 																					analyticDEType,
 																					linearDEFunction,
-																					cpixelDisabledByDefault,
+                                          cpixelAlreadyHas,
 																					10));
 
   fractalList->append(sFractalDescription("Menger-Mod1",
@@ -360,7 +360,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           mengerMod1,
 																					analyticDEType,
 																					linearDEFunction,
-																					cpixelDisabledByDefault,
+                                          cpixelAlreadyHas,
 																					10));
 
   fractalList->append(sFractalDescription("MsltoeSym2_Mod",

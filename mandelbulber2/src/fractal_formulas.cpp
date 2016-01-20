@@ -1392,24 +1392,24 @@ void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
 }
 
 
-//------------AexionOctopus  --------------------------------
+//------------AexionOctopus  M3D--------------------------------
 //http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
-void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
+void AexionOctopusModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
 	CVector3 tempN;
-  tempN.x = -( 1.25 * z.x * z.z - 0.3075);
-  tempN.y = -(z.x * z.x - z.z * z.z - 0.3);
+  tempN.x =  z.x * z.z * fractal->transformCommon.scale3D111.x;
+  tempN.y = (z.x * z.x - z.z * z.z) * fractal->transformCommon.scale3D111.y;
   tempN.z = z.y;
 
-  if (fractal->transformCommon.functionEnabledx)
+  if (fractal->transformCommon.functionEnabledAx)
   {
     tempN.x = fabs(tempN.x);
   }
-  if (fractal->transformCommon.functionEnabledy)
+  if (fractal->transformCommon.functionEnabledAy)
   {
     tempN.y = fabs(tempN.y);
   }
-  if (fractal->transformCommon.functionEnabledz)
+  if (fractal->transformCommon.functionEnabledAz)
   {
     tempN.z = fabs(tempN.z);
   }
@@ -1420,6 +1420,30 @@ void AexionOctopusIteration(CVector3 &z, const cFractal *fractal)
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
   z += fractal->transformCommon.additionConstant000;
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    CVector3 tempFAB = c;
+    if (fractal->transformCommon.functionEnabledx)
+    {
+            tempFAB.x = fabs(tempFAB.x);
+    }
+    if (fractal->transformCommon.functionEnabledy)
+    {
+            tempFAB.y = fabs(tempFAB.y);
+    }
+    if (fractal->transformCommon.functionEnabledz)
+    {
+            tempFAB.z = fabs(tempFAB.z);
+    }
+    tempFAB *= fractal->transformCommon.constantMultiplier000;
+    if (z.x > 0) z.x += tempFAB.x;
+    else z.x -= tempFAB.x;
+    if (z.y > 0) z.y += tempFAB.y;
+    else z.y -= tempFAB.y;
+    if (z.z > 0) z.z += tempFAB.z;
+    else z.z -= tempFAB.z;
+  }
+
 }
 
 /*Formula proposed by Kali, with features added by Darkbeam

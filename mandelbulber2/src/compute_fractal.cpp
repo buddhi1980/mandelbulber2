@@ -325,9 +325,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           AboxVSIcen1Iteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
-        case aexionOctopus:
+        case aexionOctopusMod:
         {
-          AexionOctopusIteration(z, fractal);
+          AexionOctopusModIteration(z, c, fractal);
           break;
         }
         case amazingSurf:

@@ -85,7 +85,7 @@ enum enumFractalFormula
   aboxModKali = 60,
   mengerMod1 = 61,
   quaternion3D = 62,
-  aexionOctopus = 63,
+  aexionOctopusMod = 63,
   aboxMod1 = 64,
   mandelbulbMulti = 65,
   benesiPineTree = 66,
