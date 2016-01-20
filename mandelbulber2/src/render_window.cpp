@@ -1817,7 +1817,7 @@ void RenderWindow::slotUpdateDocksandToolbarbyView()
 }
 
 //adds dynamic actions to the toolbar (example settings)
-void RenderWindow::slotPopulateToolbar()
+void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 {
 	WriteLog("cInterface::PopulateToolbar(QWidget *window, QToolBar *toolBar) started");
 	QDir toolbarDir = QDir(systemData.dataDirectory + "toolbar");
@@ -1825,7 +1825,7 @@ void RenderWindow::slotPopulateToolbar()
 	QStringList toolbarFiles = toolbarDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 	QSignalMapper *mapPresetsFromExamplesLoad = new QSignalMapper(this);
 	QSignalMapper *mapPresetsFromExamplesRemove = new QSignalMapper(this);
-	ui->toolBar->setIconSize(QSize(40, 40));
+	ui->toolBar->setIconSize(QSize(gPar->Get<int>("toolbar_icon_size"), gPar->Get<int>("toolbar_icon_size")));
 
 	QList<QAction *> actions = ui->toolBar->actions();
 	QStringList toolbarInActions;
@@ -1833,7 +1833,7 @@ void RenderWindow::slotPopulateToolbar()
 	{
 		QAction * action = actions.at(i);
 		if(action->objectName() == "actionAdd_Settings_to_Toolbar") continue;
-		if(!toolbarFiles.contains(action->objectName()))
+		if(!toolbarFiles.contains(action->objectName()) || completeRefresh)
 		{
 			// preset has been removed
 			ui->toolBar->removeAction(action);
@@ -1869,7 +1869,7 @@ void RenderWindow::slotPopulateToolbar()
 					InitFractalParams(&parFractal->at(i));
 				if (parSettings.Decode(par, parFractal))
 				{
-					thumbWidget = new cThumbnailWidget(40, 40, 4, this);
+					thumbWidget = new cThumbnailWidget(gPar->Get<int>("toolbar_icon_size"), gPar->Get<int>("toolbar_icon_size"), 4, this);
 					thumbWidget->UseOneCPUCore(true);
 					thumbWidget->AssignParameters(*par, *parFractal);
 				}

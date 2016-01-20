@@ -48,6 +48,9 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	QString value = ui->comboboxLanguage->currentText();
 	QString key = systemData.supportedLanguages.key(value);
 	gPar->Set<QString>("language", key);
+
+	gPar->Set<int>("toolbar_icon_size", gPar->Get<int>("toolbar_icon_size"));
+	gMainInterface->mainWindow->slotPopulateToolbar(true);
 }
 
 void cPreferencesDialog::on_pushButton_select_image_path_clicked()

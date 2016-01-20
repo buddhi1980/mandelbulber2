@@ -362,6 +362,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("ui_style_type", -1, morphNone, paramApp);
 	par->addParam("ui_skin", -1, morphNone, paramApp);
 	par->addParam("ui_font_size", 9, 5, 50, morphNone, paramApp);
+	par->addParam("toolbar_icon_size", 40, 20, 100, morphNone, paramApp);
 
 	//image file configuration
 	par->addParam("color_enabled", true, morphNone, paramApp);

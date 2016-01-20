@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>483</width>
-    <height>586</height>
+    <height>643</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,7 +40,7 @@
         <x>0</x>
         <y>0</y>
         <width>477</width>
-        <height>555</height>
+        <height>612</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -179,23 +179,18 @@
             <property name="spacing">
              <number>2</number>
             </property>
-            <item row="2" column="1">
-             <widget class="QComboBox" name="comboBox_ui_skin">
-              <item>
-               <property name="text">
-                <string>normal</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>dark</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>light</string>
-               </property>
-              </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_11">
+              <property name="text">
+               <string>Language</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="comboboxLanguage">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
              </widget>
             </item>
             <item row="1" column="0">
@@ -215,6 +210,25 @@
               </property>
              </widget>
             </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="comboBox_ui_skin">
+              <item>
+               <property name="text">
+                <string>normal</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>dark</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>light</string>
+               </property>
+              </item>
+             </widget>
+            </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_7">
               <property name="text">
@@ -232,17 +246,23 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_11">
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_toolbar_icon_size">
               <property name="text">
-               <string>Language</string>
+               <string>Toolbar icon size (pixels)</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QComboBox" name="comboboxLanguage">
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <item row="4" column="1">
+             <widget class="MySpinBox" name="spinboxInt_toolbar_icon_size">
+              <property name="minimum">
+               <number>20</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="value">
+               <number>40</number>
               </property>
              </widget>
             </item>
@@ -500,7 +520,7 @@
        <item>
         <widget class="QCheckBox" name="checkBox_quit_do_not_ask_again">
          <property name="text">
-           <string>Do not ask for quit confirmation</string>
+          <string>Do not ask for quit confirmation</string>
          </property>
         </widget>
        </item>
@@ -545,7 +565,9 @@
    <header>myspinbox.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>
@@ -580,7 +602,4 @@
    </hints>
   </connection>
  </connections>
- <resources>
-  <include location="icons.qrc"/>
- </resources>
 </ui>

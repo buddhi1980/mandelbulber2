@@ -168,7 +168,7 @@ private slots:
 	void slotUpdateDocksandToolbarbyAction();
 	void slotUpdateDocksandToolbarbyView();
 	void slotStackAllDocks();
-	void slotPopulateToolbar();
+	void slotPopulateToolbar(bool completeRefresh = false);
 	void slotPresetAddToToolbar();
 
 	//textures
@@ -256,6 +256,7 @@ private:
 	friend class PreviewFileDialog;
 	friend class cQueue;
 	friend class cProgressText;
+	friend class cPreferencesDialog;
 };
 
 
