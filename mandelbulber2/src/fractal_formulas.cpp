@@ -1966,56 +1966,57 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
 }
 
 /* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */
-void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
-  CVector3 z2 = z * z;
   CVector3 temp = z;
-  if(z2.x > z2.y && z2.x > z2.z)
+  if (fabs(z.y) < fabs(z.z)) // then swap
   {
-    temp.x = z2.x - z2.y - z2.z;
-    temp.y = 2 * z.x * z.y;
-    temp.z = 2 * z.x * z.z;
+    z.y = temp.z;  // making z.y furthest away from axis
+    z.z = temp.y;
   }
-  if(z2.y > z2.z && z2.y > z2.x)
-  {
-    temp.x = 2 * z.x * z.y;
-    temp.y = z2.y - z2.x - z2.z;
-    temp.z = 2 * z.z * z.y;
-  }
-  if(z2.z > z2.y && z2.z > z2.x)
-  {
-    temp.x = 2 * z.x * z.z;
-    temp.y = 2 * z.y * z.z;
-    temp.z = z2.z - z2.x - z2.y;
-  }
-  //r = z.Length();
-  //if(z.x == z.y && z.y == z.z) z = CVector3( 1e-21, 1e-21, 1e-21);
-  z =temp + fractal->transformCommon.additionConstantNeg100;
-
-  /*CVector3 temp = z;
-  if (fabs(z.y) < fabs(z.z))
-  {
-    temp.y = z.z;
-    temp.z = z.y;
-    z.y = temp.y;
-    z.z = temp.z;
-  }
-  if (z.y > z.z)
+  if (z.y > z.z) // then change sign of z.x and z.z
   {
     z.x = -z.x;
   }
- // double x2 = z.x * z.x;
-  //double y2 = z.y * z.y;
   CVector3 z2 = z * z ;  // squares
-
   double v3 = (z2.x + z2.y + z2.z); // sum of squares
   if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
   double zr = 1.0 - z2.z / v3;
   temp.x = (z2.x - z2.y) * zr;
-  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;
+  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;// scaling temp.y
   temp.z = 2.0 * z.z * sqrt(z2.x + z2.y);
-  z = temp +  fractal->transformCommon.additionConstantNeg100;*/
+  z = temp +  fractal->transformCommon.additionConstant000;
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    CVector3 tempFAB = c;
+    if (fractal->transformCommon.functionEnabledx)
+    {
+            tempFAB.x = fabs(tempFAB.x);
+    }
+    if (fractal->transformCommon.functionEnabledy)
+    {
+            tempFAB.y = fabs(tempFAB.y);
+    }
+    if (fractal->transformCommon.functionEnabledz)
+    {
+            tempFAB.z = fabs(tempFAB.z);
+    }
+    tempFAB *= fractal->transformCommon.constantMultiplier000;
+    if (z.x > 0) z.x += tempFAB.x;
+    else z.x -= tempFAB.x;
+    if (z.y > 0) z.y += tempFAB.y;
+    else z.y -= tempFAB.y;
+    if (z.z > 0) z.z += tempFAB.z;
+    else z.z -= tempFAB.z;
+  }
+
 }
 
 /* MsltoeSym3 from mbulb3d, also somewhere on fractalforums */
@@ -2031,7 +2032,7 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sE
   if (z.y > z.z) // then change sign of z.x and z.z
   {
     z.x = -z.x;
-    z.z = -z.z;// adding this line is the difference from sym2
+    z.z = -z.z;
   }
   CVector3 z2 = z * z ;  // squares
   double v3 = (z2.x + z2.y + z2.z); // sum of squares

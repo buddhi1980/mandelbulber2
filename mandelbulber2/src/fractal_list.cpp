@@ -363,12 +363,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					10));
 
-	fractalList->append(sFractalDescription("MsltoeSym2",
-																					"msltoesym2",
-																					msltoesym2,
+  fractalList->append(sFractalDescription("MsltoeSym2_Mod",
+                                          "msltoesym2_mod",
+                                          msltoesym2Mod,
 																					analyticDEType,
 																					logarithmicDEFunction,
-                                          cpixelDisabledByDefault,
+                                          cpixelEnabledByDefault,
 																					10));
 
   fractalList->append(sFractalDescription("MsltoeSym3_Mod",

@@ -67,7 +67,7 @@ void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal,
 void MengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux);
-void MsltoeSym2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym3ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
