@@ -204,7 +204,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 		}
 		throw progressText.getText(1.0);
 	}
-	catch (QString status)
+	catch (QString &status)
 	{
 		emit updateProgressAndStatus(statusText, status, 1.0);
 		delete[] temp_image;

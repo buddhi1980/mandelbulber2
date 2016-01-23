@@ -30,6 +30,10 @@
 #define SQRT_2_3 0.81649658092772603273242802490196
 #define SQRT_3_2 1.22474487139158904909864203735295
 
+#ifndef M_PI_8
+#define M_PI_8 0.39269908169 // PI/8 TODO more accurate value
+#endif
+
 using namespace fractal;
 
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
