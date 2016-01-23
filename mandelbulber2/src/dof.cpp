@@ -65,165 +65,148 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 	emit updateProgressAndStatus(statusText, QObject::tr("Randomizing zBuffer"), 0.0);
 	gApplication->processEvents();
 
-	//Randomize Z-buffer
-	int imgSize = height * width;
-	for (int i = imgSize - 1; i >= 0; i--)
+	try
 	{
-		if (*stopRequest)
+		//Randomize Z-buffer
+		int imgSize = height * width;
+		for (int i = imgSize - 1; i >= 0; i--)
 		{
-			// delete allocated memory
-			delete[] temp_image;
-			delete[] temp_alpha;
-			delete[] temp_sort;
-			return;
-		}
-		sSortZ<float> temp;
-		temp = temp_sort[i];
-		double z1 = temp.z;
-		double size1 = (z1 - neutral) / z1 * deep;
+			if (*stopRequest) throw tr("DOF terminated");
+			sSortZ<float> temp;
+			temp = temp_sort[i];
+			double z1 = temp.z;
+			double size1 = (z1 - neutral) / z1 * deep;
 
-		int randomStep = i;
+			int randomStep = i;
 
-		bool done = false;
-		int ii;
-		do
-		{
-			ii = i - Random(randomStep);
-			if (ii <= 0) ii = 0;
-			sSortZ<float> temp2 = temp_sort[ii];
-			double z2 = temp2.z;
-			double size2 = (z2 - neutral) / z2 * deep;
-
-			if (size1 == 0 && size2 == 0) done = true;
-
-			if (size1 * size2 > 0)
+			bool done = false;
+			int ii;
+			do
 			{
-				double sizeCompare;
-				if (size1 > 0)
-				{
-					sizeCompare = size2 / size1;
-				}
-				else
-				{
-					sizeCompare = size1 / size2;
-				}
+				ii = i - Random(randomStep);
+				if (ii <= 0) ii = 0;
+				sSortZ<float> temp2 = temp_sort[ii];
+				double z2 = temp2.z;
+				double size2 = (z2 - neutral) / z2 * deep;
 
-				if (sizeCompare > 0.9) //originally was 0.7, but 0.9 will give better quality
+				if (size1 == 0 && size2 == 0) done = true;
+
+				if (size1 * size2 > 0)
 				{
-					done = true;
+					double sizeCompare;
+					if (size1 > 0)
+					{
+						sizeCompare = size2 / size1;
+					}
+					else
+					{
+						sizeCompare = size1 / size2;
+					}
+
+					if (sizeCompare > 0.9) //originally was 0.7, but 0.9 will give better quality
+					{
+						done = true;
+					}
+					else
+					{
+						done = false;
+					}
 				}
 				else
 				{
 					done = false;
 				}
-			}
-			else
-			{
-				done = false;
-			}
-			randomStep = randomStep * 0.7 - 1.0;
+				randomStep = randomStep * 0.7 - 1.0;
 
-			if (randomStep <= 0) done = true;
-		} while (!done);
-		temp_sort[i] = temp_sort[ii];
-		temp_sort[ii] = temp;
-	}
-
-	cProgressText progressText;
-	progressText.ResetTimer();
-	double percentDone = 0.0;
-
-	emit updateProgressAndStatus(statusText, progressText.getText(0.0), 0.0);
-	gApplication->processEvents();
-
-	QElapsedTimer timerRefresh;
-	timerRefresh.start();
-	qint64 lastRefreshTime = 0;
-
-	QElapsedTimer timerRefreshProgressBar;
-	timerRefreshProgressBar.start();
-
-	for (int i = 0; i < height * width; i++)
-	{
-		if (*stopRequest)
-		{
-			// delete allocated memory
-			delete[] temp_image;
-			delete[] temp_alpha;
-			delete[] temp_sort;
-			return;
+				if (randomStep <= 0) done = true;
+			} while (!done);
+			temp_sort[i] = temp_sort[ii];
+			temp_sort[ii] = temp;
 		}
 
-		int ii = temp_sort[height * width - i - 1].i;
-		int x = ii % width;
-		int y = ii / width;
-		double z = image->GetPixelZBuffer(x, y);
-		double blur = fabs((double) z - neutral) / z * deep;
-		if (blur > 100) blur = 100.0;
-		int size = blur;
-		sRGB16 center = temp_image[x + y * width];
-		unsigned short center_alpha = temp_alpha[x + y * width];
-		double factor = blur * blur * sqrt(blur) * M_PI / 3.0;
+		cProgressText progressText;
+		progressText.ResetTimer();
+		double percentDone = 0.0;
+
+		emit updateProgressAndStatus(statusText, progressText.getText(0.0), 0.0);
+		gApplication->processEvents();
+
+		QElapsedTimer timerRefresh;
+		timerRefresh.start();
+		qint64 lastRefreshTime = 0;
+
+		QElapsedTimer timerRefreshProgressBar;
+		timerRefreshProgressBar.start();
+
+		for (int i = 0; i < height * width; i++)
+		{
+			if (*stopRequest) throw tr("DOF terminated");
+			int ii = temp_sort[height * width - i - 1].i;
+			int x = ii % width;
+			int y = ii / width;
+			double z = image->GetPixelZBuffer(x, y);
+			double blur = fabs((double) z - neutral) / z * deep;
+			if (blur > 100) blur = 100.0;
+			int size = blur;
+			sRGB16 center = temp_image[x + y * width];
+			unsigned short center_alpha = temp_alpha[x + y * width];
+			double blur_2 = blur * blur;
+			double factor = blur_2 * sqrt(blur) * M_PI / 3.0;
 
 #pragma omp parallel for
-		for (int yy = y - size; yy <= y + size; yy++)
-		{
-			for (int xx = x - size; xx <= x + size; xx++)
+			for (int yy = y - size; yy <= y + size; yy++)
 			{
-				if (xx >= 0 && xx < width && yy >= 0 && yy < height)
+				for (int xx = x - size; xx <= x + size; xx++)
 				{
-					int dx = xx - x;
-					int dy = yy - y;
-					double r = sqrt((float) dx * dx + dy * dy);
-					double op = (blur - r) / factor;
-					if (op > 1.0) op = 1.0;
-					if (op < 0.0) op = 0.0;
-					if (op > 0.0)
+					if (xx >= 0 && xx < width && yy >= 0 && yy < height)
 					{
-						double opN = 1.0 - op;
-						sRGB16 old = image->GetPixelImage16(xx, yy);
-						unsigned short old_alpha = image->GetPixelAlpha(xx, yy);
-						sRGB16 pixel;
-						pixel.R = old.R * opN + center.R * op;
-						pixel.G = old.G * opN + center.G * op;
-						pixel.B = old.B * opN + center.B * op;
-						unsigned short alpha = old_alpha * opN + center_alpha * op;
-						image->PutPixelImage16(xx, yy, pixel);
-						image->PutPixelAlpha(xx, yy, alpha);
+						int dx = xx - x;
+						int dy = yy - y;
+						double r_2 = dx * dx + dy * dy;
+						if(blur_2 > r_2)
+						{
+							double r = sqrt((float) r_2);
+							double op = (blur - r) / factor;
+							if (op > 1.0) op = 1.0;
+							image->BlendPixelImage16(xx, yy, op, center);
+							image->BlendPixelAlpha(xx, yy, op, center_alpha);
+						}
 					}
 				}
 			}
+
+			if (timerRefreshProgressBar.elapsed() > 100)
+			{
+				timerRefreshProgressBar.restart();
+
+				percentDone = (double) i / (height * width);
+				progressTxt = progressText.getText(percentDone);
+
+				emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+				gApplication->processEvents();
+			}
+
+			if (timerRefresh.elapsed() > lastRefreshTime && image->IsPreview())
+			{
+				timerRefresh.restart();
+
+				image->ConvertTo8bit();
+				image->UpdatePreview();
+				image->GetImageWidget()->update();
+
+				lastRefreshTime = timerRefresh.elapsed() * 20.0;
+				timerRefresh.restart();
+			}
 		}
-
-		if (timerRefreshProgressBar.elapsed() > 100)
-		{
-			timerRefreshProgressBar.restart();
-
-			percentDone = (double) i / (height * width);
-			progressTxt = progressText.getText(percentDone);
-
-			emit updateProgressAndStatus(statusText, progressTxt, percentDone);
-			gApplication->processEvents();
-		}
-
-		if (timerRefresh.elapsed() > lastRefreshTime && image->IsPreview())
-		{
-			timerRefresh.restart();
-
-			image->ConvertTo8bit();
-			image->UpdatePreview();
-			image->GetImageWidget()->update();
-
-			lastRefreshTime = timerRefresh.elapsed() * 20.0;
-			timerRefresh.restart();
-		}
+		throw progressText.getText(1.0);
 	}
-
-	emit updateProgressAndStatus(statusText, "Finished", 1.0);
-
-	delete[] temp_image;
-	delete[] temp_alpha;
-	delete[] temp_sort;
+	catch (QString status)
+	{
+		emit updateProgressAndStatus(statusText, status, 1.0);
+		delete[] temp_image;
+		delete[] temp_alpha;
+		delete[] temp_sort;
+	}
 }
 
 template<class T>
@@ -272,4 +255,4 @@ void cPostRenderingDOF::QuickSortZBuffer(sSortZ<T> *buffer, int l, int r)
 		QuickSortZBuffer(buffer, i, r);
 	}
 }
-template void cPostRenderingDOF::QuickSortZBuffer<double>(sSortZ<double> *dane, int l, int p);
+template void cPostRenderingDOF::QuickSortZBuffer<double>(sSortZ<double> *buffer, int l, int p);

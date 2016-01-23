@@ -132,6 +132,19 @@ public:
 		else return 1e20;
 	}
 
+	inline void BlendPixelImage16(int x, int y, double factor, sRGB16 other)
+	{
+		double factorN = 1.0 - factor;
+		image16[x + y * width].R = image16[x + y * width].R * factorN + other.R * factor;
+		image16[x + y * width].G = image16[x + y * width].G * factorN + other.G * factor;
+		image16[x + y * width].B = image16[x + y * width].B * factorN + other.B * factor;
+	}
+	inline void BlendPixelAlpha(int x, int y, double factor, unsigned short int other)
+	{
+		double factorN = 1.0 - factor;
+		alphaBuffer16[x + y * width] = alphaBuffer16[x + y * width] * factorN + other * factor;
+	}
+
   sRGB16* GetImage16Ptr(void) {return image16;}
 	sRGB8* GetImage8Ptr(void) {return image8;}
 	unsigned short* GetAlphaBufPtr(void) {return alphaBuffer16;}
@@ -140,7 +153,7 @@ public:
   sRGB8* GetColorPtr(void) {return colourBuffer;}
   unsigned short* GetOpacityPtr(void) {return opacityBuffer;}
   size_t GetZBufferSize(void) {return sizeof(float) * height * width;}
-  QWidget* GetImageWidget(void) {return imageWidget;};
+	QWidget* GetImageWidget(void) {return imageWidget;}
 
   void CompileImage(QList<int> *list = NULL);
 
