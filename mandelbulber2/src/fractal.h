@@ -119,6 +119,7 @@ struct sExtendedAux
 struct sFoldColor
 {
 	CVector3 factor;
+  CVector4 factor4D;
 	double factorR;
 	double factorSp1;
 	double factorSp2;
@@ -774,6 +775,7 @@ struct sFractalTransformCommon
   double minR05;
   double minR06;
   double scale;
+  double scale0;
   double scale1;
   double scale015;
   double scale3;
@@ -817,6 +819,9 @@ struct sFractalTransformCommon
   CVector3 scale3D222;
   CVector3 scale3D333;
   CVector3 scale3D444;
+
+  CVector4 additionConstant0000;
+  CVector4 constantMultiplier1220;
 
   bool addCpixelEnabled;
   bool addCpixelEnabledFalse;

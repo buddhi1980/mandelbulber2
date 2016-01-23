@@ -1885,56 +1885,6 @@ void sphereCubeTransform3D(const sTransformSphereCube &sphereCube, CVector3 &z, 
 	}
 }
 
-void fabsBoxModTransform3D(const sTransformFabsBoxMod &fabsBoxMod, CVector3 &z, int i)
-{
-  if ( i >= fabsBoxMod.control.startIterations
-    && i < fabsBoxMod.control.stopIterations)
-  {
-    CVector3 temp = z;
-    CVector3 tempA = z * 0;
-    CVector3 tempB = z * 0;
-    if (fabsBoxMod.constantF1Enabledx)
-    {
-      tempA.x = fabs(z.x + fabsBoxMod.constantF1.x);
-    }
-    if (fabsBoxMod.constantF2Enabledx)
-    {
-      tempB.x = fabs(z.x - fabsBoxMod.constantF2.x);
-    }
-    z.x = tempA.x - tempB.x
-        - (z.x * fabsBoxMod.constantF3.x );
 
-
-    if (fabsBoxMod.constantF1Enabledy)
-    {
-      tempA.y = fabs(z.y + fabsBoxMod.constantF1.y);
-    }
-    if (fabsBoxMod.constantF2Enabledy)
-    {
-      tempB.y = fabs(z.y - fabsBoxMod.constantF2.y);
-    }
-    z.y = tempA.y - tempB.y
-        - (z.y * fabsBoxMod.constantF3.y );
-
-
-    if (fabsBoxMod.constantF1Enabledz)
-    {
-      tempA.z = fabs(z.z + fabsBoxMod.constantF1.z);
-    }
-    if (fabsBoxMod.constantF2Enabledz)
-    {
-      tempB.z = fabs(z.z - fabsBoxMod.constantF2.z);
-    }
-    z.z = tempA.z - tempB.z
-        - (z.z * fabsBoxMod.constantF3.z);
-
-
-    //weight function
-    if (fabsBoxMod.control.weightEnabled)
-    {
-      z = SmoothCVector(temp, z, fabsBoxMod.control.weight);
-    }
-  }
-}
 
 

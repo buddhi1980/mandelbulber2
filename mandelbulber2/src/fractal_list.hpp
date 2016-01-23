@@ -101,6 +101,7 @@ enum enumFractalFormula
   aboxVSIcen1 = 76,
   amazingSurfMod1 = 77,
   mandelbulbVaryPowerV1 = 78,
+  quaternion4D = 79,
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,
@@ -139,7 +140,12 @@ enum enumFractalFormula
   transfAddCpixelCxCyAxisSwap = 1035,
   transfRotationVaryV1 = 1036,
   transfLinCombineCxyz = 1037,
-  transfSphereInvC = 1038
+  transfSphereInvC = 1038,
+  transfAdditionConstant4D = 1039,
+  transfBoxFold4D = 1040,
+  transfIterationWeight4D = 1041,
+  transfSphericalFold4D = 1042,
+  transfScale4D = 1043
 };
 
 enum enumDEType

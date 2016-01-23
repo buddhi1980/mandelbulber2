@@ -599,6 +599,55 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformZvectorAxisSwapIteration(z, fractal );
           break;
         }
+        // 4D  ---------------------------------------------------------------------------
+        case quaternion4D:
+        {
+          CVector4 z4D(z, w);
+          Quaternion4DIteration(z4D, fractal);
+          z = z4D.GetXYZ();
+          w = z4D.w;
+          break;
+        }
+        case transfAdditionConstant4D:
+        {
+          CVector4 z4D(z, w);
+          TransformAdditionConstant4DIteration(z4D, fractal);
+          z = z4D.GetXYZ();
+          w = z4D.w;
+          break;
+        }
+        case transfBoxFold4D:
+        {
+          CVector4 z4D(z, w);
+          TransformBoxFold4DIteration(z4D, fractal, extendedAux[sequence]);
+          z = z4D.GetXYZ();
+          w = z4D.w;
+          break;
+        }
+        case transfIterationWeight4D:
+        {
+          CVector4 z4D(z, w);
+          TransformIterationWeight4DIteration(z4D, i, fractal);
+          z = z4D.GetXYZ();
+          w = z4D.w;
+          break;
+        }
+        case transfScale4D:
+        {
+          CVector4 z4D(z, w);
+          TransformScale4DIteration(z4D, fractal, extendedAux[sequence]);
+          z = z4D.GetXYZ();
+          w = z4D.w;
+          break;
+        }
+        case transfSphericalFold4D:
+        {
+          CVector4 z4D(z, w);
+          TransformSphericalFold4DIteration(z4D, fractal, extendedAux[sequence]);
+          z = z4D.GetXYZ();
+          w = z4D.w;
+          break;
+        }
 
 				default:
 					z = CVector3(0.0, 0.0, 0.0);
@@ -872,7 +921,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	}
 
 	out->iters = i + 1;
-	out->z = z;
+  out->z = z; // CVector3( z.x, z.y, w);
 	//tim = rdtsc() - tim; perf+= tim; perfCount++; outStream << (double)perf/perfCount - 560.0 << endl;
 	//------------- 3249 ns for all calculation  ----------------
 }

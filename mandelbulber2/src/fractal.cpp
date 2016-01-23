@@ -48,7 +48,7 @@ cFractal::cFractal(const cParameterContainer *container)
 		mandelbox.rotation[0][i - 1] = container->Get<CVector3>("mandelbox_rotation_neg", i);
 		mandelbox.rotation[1][i - 1] = container->Get<CVector3>("mandelbox_rotation_pos", i);
 	}
-
+  mandelbox.color.factor4D = container->Get<CVector4>("mandelbox_color_4D");
 	mandelbox.color.factor = container->Get<CVector3>("mandelbox_color");
 	mandelbox.color.factorR = container->Get<double>("mandelbox_color_R");
 	mandelbox.color.factorSp1 = container->Get<double>("mandelbox_color_Sp1");
@@ -1344,6 +1344,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.pwr05 = container->Get<double>("transf_pwr_05");
   transformCommon.pwr4 = container->Get<double>("transf_pwr_4");
   transformCommon.scale = container->Get<double>("transf_scale");
+  transformCommon.scale0 = container->Get<double>("transf_scale_0");
   transformCommon.scale1 = container->Get<double>("transf_scale_1");
   transformCommon.scale015 = container->Get<double>("transf_scale_015");
   transformCommon.scale3 = container->Get<double>("transf_scale_3");
@@ -1384,6 +1385,9 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.scale3D222 = container->Get<CVector3>("transf_scale3D_222");
   transformCommon.scale3D333 = container->Get<CVector3>("transf_scale3D_333");
   transformCommon.scale3D444 = container->Get<CVector3>("transf_scale3D_444");
+
+  transformCommon.additionConstant0000 = container->Get<CVector4>("transf_addition_constant_0000");
+  transformCommon.constantMultiplier1220 = container->Get<CVector4>("transf_constant_multiplier_1220");
 
   transformCommon.addCpixelEnabled = container->Get<bool>("transf_addCpixel_enabled");
   transformCommon.addCpixelEnabledFalse = container->Get<bool>("transf_addCpixel_enabled_false");

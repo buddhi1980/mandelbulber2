@@ -452,6 +452,7 @@ void InitFractalParams(cParameterContainer *par)
 		par->addParam("mandelbox_rotation_pos", i, CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	}
 	par->addParam("mandelbox_color", CVector3(0.03, 0.05, 0.07), morphLinear, paramStandard);
+  par->addParam("mandelbox_color_4D", CVector4(0.03, 0.05, 0.07, 0.0), morphLinear, paramStandard);//  to fix
 	par->addParam("mandelbox_color_R", 0.0, morphLinear, paramStandard);
 	par->addParam("mandelbox_color_Sp1", 0.2, morphLinear, paramStandard);
 	par->addParam("mandelbox_color_Sp2", 0.2, morphLinear, paramStandard);
@@ -502,6 +503,7 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_minimum_radius_05", 0.5, morphAkima, paramStandard);
   par->addParam("transf_minimum_radius_06", 0.6, morphAkima, paramStandard);
   par->addParam("transf_scale", 1.0, morphAkima, paramStandard);
+  par->addParam("transf_scale_0", 0.0, morphAkima, paramStandard);
   par->addParam("transf_scale_1", 1.0, morphAkima, paramStandard);
   par->addParam("transf_scale_015", 1.5, morphAkima, paramStandard);
   par->addParam("transf_scale_3", 3.0, morphAkima, paramStandard);
@@ -547,6 +549,10 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_scale3D_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
   par->addParam("transf_scale3D_333", CVector3(3.0, 3.0, 3.0), morphAkima, paramStandard);
   par->addParam("transf_scale3D_444", CVector3(4.0, 4.0, 4.0), morphAkima, paramStandard);
+
+  par->addParam("transf_addition_constant_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam("transf_constant_multiplier_1220", CVector4(1.0, 2.0, 2.0, 0.0), morphAkima, paramStandard);
+
 
   par->addParam("transf_addCpixel_enabled", true, morphLinear, paramStandard);
   par->addParam("transf_addCpixel_enabled_false", false, morphLinear, paramStandard);

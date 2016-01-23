@@ -764,4 +764,56 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					100));
 
+
+
+    // 4D-----------------------
+  fractalList->append(sFractalDescription("Quaternion_4D",
+                                          "quaternion_4D",
+                                          quaternion4D,
+                                          deltaDEType,
+                                          logarithmicDEFunction,
+                                          cpixelEnabledByDefault,
+                                          10));
+
+  fractalList->append(sFractalDescription("Transform - Addition Constant_4D",
+                                          "transf_addition_constant_4D",
+                                          transfAdditionConstant4D,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Box_Fold_4D",
+                                          "transf_box_fold_4D",
+                                          transfBoxFold4D,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Iteration Weight_4D",
+                                          "transf_iteration_weight_4D",
+                                          transfIterationWeight4D,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Scale_4D",
+                                          "transf_scale_4D",
+                                          transfScale4D,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Spherical_Fold_4D",
+                                          "transf_spherical_fold_4D",
+                                          transfSphericalFold4D,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+
 }
