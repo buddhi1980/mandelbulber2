@@ -32,7 +32,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;based on MsltoeSym3 from Mandelbulb3D, also refer&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;refer Msltoe's post:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 31&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
       <string/>
@@ -61,7 +61,7 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="4" column="3">
+        <item row="3" column="3">
          <widget class="QSlider" name="slider3_transf_addition_constant_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -83,7 +83,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="4">
+        <item row="4" column="4">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -111,21 +111,21 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="1" colspan="4">
+        <item row="6" column="1" colspan="4">
          <widget class="Line" name="line_59">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
-        <item row="3" column="1" colspan="4">
+        <item row="2" column="1" colspan="4">
          <widget class="QLabel" name="label">
           <property name="text">
            <string>Offset. Use in normal mode or use to fine tune in Julia mode</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="3">
+        <item row="5" column="3">
          <widget class="QSlider" name="slider3_transf_addition_constant_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -147,7 +147,7 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="4">
+        <item row="5" column="4">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -175,54 +175,22 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Y scale:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
+        <item row="4" column="1">
          <widget class="QLabel" name="label_267">
           <property name="text">
            <string>Offset</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1" colspan="4">
+        <item row="1" column="1" colspan="4">
          <widget class="Line" name="line_56">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
-        <item row="1" column="3">
-         <widget class="QSlider" name="slider_transf_scale">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>0</number>
-          </property>
-          <property name="maximum">
-           <number>1000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="pageStep">
-           <number>100</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
+        <item row="0" column="4">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -242,7 +210,7 @@
            <double>0.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>1.100000000000000</double>
+           <double>115.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -256,14 +224,14 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
+        <item row="4" column="2">
          <widget class="QLabel" name="label_264">
           <property name="text">
            <string>y:</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="3">
+        <item row="4" column="3">
          <widget class="QSlider" name="slider3_transf_addition_constant_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -285,7 +253,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="4">
+        <item row="3" column="4">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -338,45 +306,17 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="2">
+        <item row="5" column="2">
          <widget class="QLabel" name="label_266">
           <property name="text">
            <string>z:</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
+        <item row="3" column="2">
          <widget class="QLabel" name="label_257">
           <property name="text">
            <string>x:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_0">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>3</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>115.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>

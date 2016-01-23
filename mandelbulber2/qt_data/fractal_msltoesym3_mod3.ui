@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>524</width>
-    <height>457</height>
+    <height>463</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;based on MsltoeSym3 from Mandelbulb3D, also refer&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;refer Msltoe's post :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Liberation Mono, monospace'; font-size:small; color:#000000;&quot;&gt;http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 39&lt;/span&gt;&lt;/p&gt;&lt;p</string>
      </property>
      <property name="title">
       <string/>

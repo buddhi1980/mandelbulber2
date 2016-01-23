@@ -2040,7 +2040,7 @@ void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   }
 }
 
-/* MsltoeSym3 from mbulb3d, also somewhere on fractalforums */
+/* MsltoeSym3Mod  from mbulb3d, also somewhere on fractalforums */
 void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -2062,38 +2062,129 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sE
   temp.x = (z2.x - z2.y) * zr;
   temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;// scaling temp.y
   temp.z = 2.0 * z.z * sqrt(z2.x + z2.y);
+
   z = temp +  fractal->transformCommon.additionConstant000;
 
-  /*
-  { // a trig version
-    double theta;
-    double phi;
-    CVector3 z2 = z * z;
-    double r = z2.x + z2.y + z2.z ;
-    if (r < 1e-21) r = 1e-21;
-    double r1 = sqrt(r + fractal->transformCommon.scale0 * z2.y  * z2.z);
-    if (r1 < 1e-21) r1 = 1e-21;
-    if ( z2.z < z2.y)
-    {
-      theta = 2 * atan2(z.y,z.x);
-      phi = 2 * asin(z.z/r1);
-      z.x = r * cos(theta)*cos(phi);
-      z.y = r * sin(theta)*cos(phi);
-      z.z = -r * sin(phi);
-    }
-     else
-    {
-    theta = 2 * atan2(z.z,z.x);
-      phi = 2 * asin(z.y/r1);
-      z.x = r * cos(theta)*cos(phi);
-      z.y = -r * sin(phi);
-      z.z = r * sin(theta)*cos(phi);
-    }
-    z += fractal->transformCommon.additionConstant000;
-
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
-  */
 
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    CVector3 tempFAB = c;
+    if (fractal->transformCommon.functionEnabledx)
+    {
+            tempFAB.x = fabs(tempFAB.x);
+    }
+    if (fractal->transformCommon.functionEnabledy)
+    {
+            tempFAB.y = fabs(tempFAB.y);
+    }
+    if (fractal->transformCommon.functionEnabledz)
+    {
+            tempFAB.z = fabs(tempFAB.z);
+    }
+    tempFAB *= fractal->transformCommon.constantMultiplier000;
+    if (z.x > 0) z.x += tempFAB.x;
+    else z.x -= tempFAB.x;
+    if (z.y > 0) z.y += tempFAB.y;
+    else z.y -= tempFAB.y;
+    if (z.z > 0) z.z += tempFAB.z;
+    else z.z -= tempFAB.z;
+  }
+}
+    //  MsltoeSym3Mod2  a trig version http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 31
+void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+
+  double theta;
+  double phi;
+  CVector3 z2 = z * z;
+  double r = z2.x + z2.y + z2.z ;
+  if (r < 1e-21) r = 1e-21;
+  double r1 = sqrt(r + fractal->transformCommon.scale0 * z2.y  * z2.z);
+  if (r1 < 1e-21) r1 = 1e-21;
+  if ( z2.z < z2.y)
+  {
+    theta = 2 * atan2(z.y,z.x);
+    phi = 2 * asin(z.z/r1);
+    z.x = r * cos(theta)*cos(phi);
+    z.y = r * sin(theta)*cos(phi);
+    z.z = -r * sin(phi);
+  }
+   else
+  {
+  theta = 2 * atan2(z.z,z.x);
+    phi = 2 * asin(z.y/r1);
+    z.x = r * cos(theta)*cos(phi);
+    z.y = -r * sin(phi);
+    z.z = r * sin(theta)*cos(phi);
+  }
+  z += fractal->transformCommon.additionConstant000;
+
+
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    CVector3 tempFAB = c;
+    if (fractal->transformCommon.functionEnabledx)
+    {
+            tempFAB.x = fabs(tempFAB.x);
+    }
+    if (fractal->transformCommon.functionEnabledy)
+    {
+            tempFAB.y = fabs(tempFAB.y);
+    }
+    if (fractal->transformCommon.functionEnabledz)
+    {
+            tempFAB.z = fabs(tempFAB.z);
+    }
+    tempFAB *= fractal->transformCommon.constantMultiplier000;
+    if (z.x > 0) z.x += tempFAB.x;
+    else z.x -= tempFAB.x;
+    if (z.y > 0) z.y += tempFAB.y;
+    else z.y -= tempFAB.y;
+    if (z.z > 0) z.z += tempFAB.z;
+    else z.z -= tempFAB.z;
+  }
+}
+  // MsltoeSym3Mod3  //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 39
+void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  CVector3 z1 = z;
+  double psi = atan2(z.z,z.y) + M_PI*2.0;
+  double psi2 = 0;
+  while (psi > M_PI_4 * 0.5)
+  {
+    psi -= M_PI_4;
+    psi2 -= M_PI_4;  // M_PI_4 = pi/4
+  }
+  double cs = cos(psi2);
+  double sn = sin(psi2);
+  z1.y = z.y * cs - z.z * sn;
+  z1.z = z.y * sn + z.z * cs;
+  z.y = z1.y;
+  z.z = z1.z;
+  CVector3 zs = z * z;
+  double zs2 = zs.x + zs.y;
+  if (zs2 < 1e-21) zs2 = 1e-21;
+  double zs3 = (zs2 + zs.z) + fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * zs.y  * zs.z;
+  double zsd = ( 1 - zs.z/ zs3);
+
+  z1.x  = (zs.x - zs.y) * zsd;
+  z1.y = (2 * z.x * z.y)* zsd * fractal->transformCommon.scale;// scaling temp.y;
+  z1.z = 2 * z.z * sqrt(zs2);
+  z.x = z1.x;
+  z.y = z1.y * cs + z1.z * sn;
+  z.z = -z1.y * sn + z1.z * cs;
+  z +=  fractal->transformCommon.additionConstant000;
 
   if (fractal->transformCommon.rotationEnabled)
   {

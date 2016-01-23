@@ -260,6 +260,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MsltoeSym3ModIteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
+        case msltoesym3Mod2:
+        {
+          MsltoeSym3Mod2Iteration(z, c, fractal, extendedAux[sequence]);
+          break;
+        }
+        case msltoesym3Mod3:
+        {
+          MsltoeSym3Mod3Iteration(z, c, fractal, extendedAux[sequence]);
+          break;
+        }
         case msltoesym4Mod:
         {
           MsltoeSym4ModIteration(z, c, fractal, extendedAux[sequence]);
@@ -810,6 +820,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case mandelbulbVaryPowerV1:
         case msltoesym2Mod:
         case msltoesym3Mod:
+        case msltoesym3Mod2:
+        case msltoesym3Mod3:
         case msltoesym4Mod:
 				case quaternion:
 				case xenodreambuie:
