@@ -1971,18 +1971,16 @@ void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 	double rad2 = fractal->donut.ringThickness;
 	double nSect = 2 * M_PI / fractal->donut.number;
 	double fact = fractal->donut.factor;
-	double theta2 = 0.0;
 
 	double R = sqrt(z.x * z.x + z.y * z.y);
 	double R2 = fractal->donut.ringRadius - R;
 	double t = R2 * R2 + z.z * z.z - rad2 * rad2;
 
+	double theta = atan2(z.y, z.x);
+	double theta2 = nSect * round(theta / nSect);
+
 	if (t > 0.03)
 	{
-
-		double theta = atan2(z.y, z.x);
-		theta2 = nSect * round(theta / nSect);
-
 		double c1 = cos(theta2);
 		double s1 = sin(theta2);
 
@@ -1995,11 +1993,13 @@ void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 		z.x = fact * x1;
 		z.y = fact * z1;
 		z.z = fact * y1;
+
 	}
 	else
 	{
 		z /= t;
 	}
+	aux.color += theta2;
 }
 
 /* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */

@@ -52,7 +52,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	CVector3 z = point2;
 	double r = z.Length();
 	CVector3 c = z;
-	double minimumR = 1e20;
+	double minimumR = 100.0;
 	double w = 0.0;
 	double orbitTrapTotal = 0.0;
 
@@ -758,7 +758,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else if (Mode == calcModeColouring)
 			{
-				double len;
+				double len = 0.0;
 				switch (in.common.fractalColoringAlgorithm)
 				{
 					case fractalColoringStandard:
@@ -943,6 +943,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case amazingSurf:
 				case amazingSurfMod1:
 					out->colorIndex = minimumR * 200.0;
+					break;
+
+				case msltoeDonut:
+					out->colorIndex = extendedAux[fractalIndex].color * 2000.0 / i;
 					break;
 
 				default:
