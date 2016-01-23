@@ -149,7 +149,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 	WriteLog("Preparation of lights finished");
 }
 
-cLights::sLight cLights::GetLight(int index) const
+cLights::sLight cLights::GetLight(const int index) const
 {
 	sLight light;
 	if (lightsReady)
