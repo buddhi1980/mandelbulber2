@@ -245,6 +245,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					Makin3D2Iteration(z);
 					break;
 				}
+        case msltoeDonut:
+				{
+          MsltoeDonutIteration(z, fractal, extendedAux[sequence]);
+					break;
+				}
         case msltoesym2Mod:
 				{
           MsltoeSym2ModIteration(z, c, fractal, extendedAux[sequence]);

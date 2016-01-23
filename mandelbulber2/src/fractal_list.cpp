@@ -355,6 +355,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelAlreadyHas,
 																					10));
 
+  fractalList->append(sFractalDescription("Msltoe Donut",
+                                          "msltoe_donut",
+																					msltoeDonut,
+																					deltaDEType,
+																					linearDEFunction,
+                                          cpixelDisabledByDefault,
+																					4));
+
   fractalList->append(sFractalDescription("MsltoeSym2_Mod",
                                           "msltoesym2_mod",
                                           msltoesym2Mod,
