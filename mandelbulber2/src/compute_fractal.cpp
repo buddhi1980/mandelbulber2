@@ -544,7 +544,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformNegFabsAddConstantIteration(z, fractal);
           break;
         }
-          case transfRotation:
+        case transfRotation:
         {
         	TransformRotationIteration(z, fractal);
         	break;
@@ -554,7 +554,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           TransformRotationVaryV1Iteration(z, i, fractal);
           break;
         }
-          case transfScale:
+        case transfScale:
         {
         	TransformScaleIteration(z, fractal, extendedAux[sequence]);
         	break;
@@ -633,6 +633,22 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         {
           CVector4 z4D(z, w);
           TransformBoxFold4DIteration(z4D, fractal, extendedAux[sequence]);
+          z = z4D.GetXYZ();
+          w = z4D.w;
+          break;
+        }
+        case transfFabsAddConstant4D:
+        {
+          CVector4 z4D(z, w);
+          TransformFabsAddConstant4DIteration(z4D, fractal);
+          z = z4D.GetXYZ();
+          w = z4D.w;
+          break;
+        }
+        case transfFabsAddConstantV24D:
+        {
+          CVector4 z4D(z, w);
+          TransformFabsAddConstantV24DIteration(z4D, fractal);
           z = z4D.GetXYZ();
           w = z4D.w;
           break;

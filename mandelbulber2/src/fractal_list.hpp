@@ -147,7 +147,9 @@ enum enumFractalFormula
   transfBoxFold4D = 1040,
   transfIterationWeight4D = 1041,
   transfSphericalFold4D = 1042,
-  transfScale4D = 1043
+  transfScale4D = 1043,
+  transfFabsAddConstant4D = 1044,
+  transfFabsAddConstantV24D = 1045
 };
 
 enum enumDEType

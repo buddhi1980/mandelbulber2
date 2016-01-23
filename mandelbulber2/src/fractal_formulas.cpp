@@ -3111,6 +3111,23 @@ void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtended
    // aux.color += boxOffset.color.factor.z;
   }
 }
+// fabs add  constant,  z = fabs( z + constant)
+void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
+{
+  z += fractal->transformCommon.additionConstant000;
+  if (fractal->transformCommon.functionEnabledx)
+  {
+    z.x = fabs(z.x);
+  }
+  if (fractal->transformCommon.functionEnabledy)
+  {
+    z.y = fabs(z.y);
+  }
+  if (fractal->transformCommon.functionEnabledz)
+  {
+    z.z = fabs(z.z);
+  }
+}
 
 // fabs.  Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
 void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal)
@@ -3353,23 +3370,6 @@ void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sEx
   aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 
-// fabs add  constant,  z = fabs( z + constant)
-void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
-{
-  z += fractal->transformCommon.additionConstant000;
-  if (fractal->transformCommon.functionEnabledx)
-  {
-    z.x = fabs(z.x);
-  }
-  if (fractal->transformCommon.functionEnabledy)
-  {
-    z.y = fabs(z.y);
-  }
-  if (fractal->transformCommon.functionEnabledz)
-  {
-    z.z = fabs(z.z);
-  }
-}
 
 void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -3515,6 +3515,35 @@ void TransformBoxFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtend
     z4D.z = -fractal->mandelbox.foldingValue - z4D.w;
     aux.color += fractal->mandelbox.color.factor4D.w;
   }
+}
+
+// fabs add  constant,  z = fabs( z + constant)
+void TransformFabsAddConstant4DIteration(CVector4 &z4D, const cFractal *fractal)
+{
+  z4D += fractal->transformCommon.additionConstant0000;
+  if (fractal->transformCommon.functionEnabledx)
+  {
+     z4D.x = fabs( z4D.x);
+  }
+  if (fractal->transformCommon.functionEnabledy)
+  {
+     z4D.y = fabs( z4D.y);
+  }
+  if (fractal->transformCommon.functionEnabledz)
+  {
+     z4D.z = fabs( z4D.z);
+  }
+  if (fractal->transformCommon.functionEnabled)
+  {
+     z4D.w = fabs( z4D.w);
+  }
+}
+
+// fabs.  Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
+void TransformFabsAddConstantV24DIteration(CVector4 &z4D, const cFractal *fractal)
+{
+   z4D = fabs( z4D + fractal->transformCommon.additionConstant0000)
+      - fabs( z4D - fractal->transformCommon.additionConstant0000) -  z4D;
 }
 
 void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *fractal)

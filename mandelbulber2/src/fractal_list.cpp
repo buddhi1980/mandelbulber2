@@ -259,14 +259,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelAlreadyHas,
 																					100));
 
-	fractalList->append(sFractalDescription("Mandelbox Vary Scale 4D",
-																					"mandelbox_vary_scale_4d",
-																					mandelboxVaryScale4D,
-																					analyticDEType,
-																					linearDEFunction,
-																					cpixelEnabledByDefault,
-																					100));
-
 	fractalList->append(sFractalDescription("Mandelbulb",
 																					"mandelbulb",
 																					mandelbulb,
@@ -791,6 +783,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelEnabledByDefault,
                                           10));
 
+  fractalList->append(sFractalDescription("Mandelbox Vary Scale 4D",
+                                          "mandelbox_vary_scale_4d",
+                                          mandelboxVaryScale4D,
+                                          analyticDEType,
+                                          linearDEFunction,
+                                          cpixelEnabledByDefault,
+                                          100));
+
   fractalList->append(sFractalDescription("Transform - Addition Constant_4D",
                                           "transf_addition_constant_4D",
                                           transfAdditionConstant4D,
@@ -806,6 +806,23 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           withoutDEFunction,
                                           cpixelDisabledByDefault,
                                           100));
+
+  fractalList->append(sFractalDescription("Transform - Fabs_Add_Constant_4D",
+                                          "transf_fabs_add_constant_4D",
+                                          transfFabsAddConstant4D,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+  fractalList->append(sFractalDescription("Transform - Fabs_Add_ConstantV2_4D",
+                                          "transf_fabs_add_constantV2_4D",
+                                          transfFabsAddConstantV24D,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
 
   fractalList->append(sFractalDescription("Transform - Iteration Weight_4D",
                                           "transf_iteration_weight_4D",

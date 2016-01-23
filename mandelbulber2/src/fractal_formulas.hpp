@@ -112,6 +112,8 @@ void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal);
 void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal);
+void TransformFabsAddConstant4DIteration(CVector4 &z4D, const cFractal *fractal);
+void TransformFabsAddConstantV24DIteration(CVector4 &z4D, const cFractal *fractal);
 void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal);
 void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal);
 void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal);
