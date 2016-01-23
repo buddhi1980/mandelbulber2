@@ -102,6 +102,10 @@ cFractal::cFractal(const cParameterContainer *container)
 	buffalo.absz = container->Get<bool>("buffalo_abs_z");
 	buffalo.posz = container->Get<bool>("buffalo_pos_z");
 
+	donut.ringRadius = container->Get<double>("donut_ring_radius");
+	donut.ringThickness = container->Get<double>("donut_ring_thickness");
+	donut.factor = container->Get<double>("donut_factor");
+	donut.number = container->Get<double>("donut_number");
 
 	//  transform parameters-----------------------
 	transform.additionConstant1.control.enabled =

@@ -482,15 +482,18 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("buffalo_abs_z", false, morphLinear, paramStandard);
 	par->addParam("buffalo_pos_z", false, morphLinear, paramStandard);
 
-
-
   par->addParam("aboxMod1_foldM", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-
 
   // mandelbulbMulti
   par->addParam("mandelbulbMulti_acos_or_asin", 0, morphNone, paramStandard);
   par->addParam("mandelbulbMulti_atan_or_atan2", 0, morphNone, paramStandard);
   par->addParam("mandelbulbMulti_order_of_xyz", 0, morphNone, paramStandard);
+
+  //donut
+	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
+	par->addParam("donut_ring_thickness", 0.1, morphAkima, paramStandard);
+	par->addParam("donut_factor", 3.0, morphAkima, paramStandard);
+	par->addParam("donut_number", 9.0, morphAkima, paramStandard);
 
   //common parameters for transforming formulas
 

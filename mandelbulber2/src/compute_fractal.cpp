@@ -868,6 +868,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case amazingSurfMod1:
         case kalisets1:
         case aboxVSIcen1:
+        case msltoeDonut:
 					out->distance = r / fabs(extendedAux[sequence].DE);
 					break;
 

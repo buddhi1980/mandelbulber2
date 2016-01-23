@@ -1968,40 +1968,16 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
  */
 void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	double rad1 = 1.0;
-	double rad2 = 0.2;
-	double nSect = 2 * M_PI / 9;
-	double fact = 3;
-	double maxnorm = 0;
+	double rad2 = fractal->donut.ringThickness;
+	double nSect = 2 * M_PI / fractal->donut.number;
+	double fact = fractal->donut.factor;
 	double theta2 = 0.0;
 
-	double norm = z.x * z.x + z.y * z.y + z.z * z.z;
+	double R = sqrt(z.x * z.x + z.y * z.y);
+	double R2 = fractal->donut.ringRadius - R;
+	double t = R2 * R2 + z.z * z.z - rad2 * rad2;
 
-	double r1 = z.x * z.x + z.y * z.y;
-	bool flag = 0;
-	if (r1 < (rad1 + rad2) * (rad1 + rad2))
-	{
-		double r = sqrt(r1);
-
-		double c1 = rad1 * z.x / r;
-		double s1 = rad1 * z.y / r;
-
-		double x1 = (z.x - c1);
-		double y1 = (z.y - s1);
-		double z1 = z.z;
-
-		double r2 = x1 * x1 + y1 * y1 + z1 * z1;
-
-		if (r2 < rad2 * rad2)
-		{
-			//maxnorm = (iter % 5); maxnorm /= 4.0;iter=imax+1;
-			maxnorm = (theta2 + M_PI) / (2.0 * M_PI);
-			//iter=imax+1;
-			flag = 1;
-		}
-	}
-
-	if (!flag)
+	if (t > 0.03)
 	{
 
 		double theta = atan2(z.y, z.x);
@@ -2014,12 +1990,15 @@ void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 		double y1 = -s1 * z.x + c1 * z.y;
 		double z1 = z.z;
 
-		x1 = x1 - rad1;
+		x1 = x1 - fractal->donut.ringRadius;
 
 		z.x = fact * x1;
 		z.y = fact * z1;
 		z.z = fact * y1;
-
+	}
+	else
+	{
+		z /= t;
 	}
 }
 

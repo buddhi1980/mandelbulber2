@@ -231,7 +231,13 @@ struct sFractalBuffalo
 	bool posz;
 };
 
-
+struct sFractalDonut
+{
+	double ringRadius;
+	double ringThickness;
+	double factor;
+	double number;
+};
 
 
 
@@ -866,6 +872,7 @@ public:
 	sFractalPlatonicSolid platonicSolid;
   sFractalTransformCommon transformCommon;
   sFractalMandelbulbMulti mandelbulbMulti;
+  sFractalDonut donut;
 
 #ifdef CLSUPPORT
 	double customParameters[15];
