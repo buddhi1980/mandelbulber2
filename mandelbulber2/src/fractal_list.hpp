@@ -104,6 +104,7 @@ enum enumFractalFormula
   quaternion4D = 79,
   msltoesym3Mod2 = 80,
   msltoesym3Mod3 = 81,
+	msltoeDonut = 82,
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,

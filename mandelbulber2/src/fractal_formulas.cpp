@@ -30,6 +30,10 @@
 #define SQRT_2_3 0.81649658092772603273242802490196
 #define SQRT_3_2 1.22474487139158904909864203735295
 
+#ifndef M_PI_8
+#define M_PI_8 0.39269908169 // PI/8 TODO more accurate value
+#endif
+
 using namespace fractal;
 
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -1957,6 +1961,66 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
         + (zA * fractal->transformCommon.offset)
         + (zB * fractal->transformCommon.offset0);
   }
+}
+
+/* Msltoe Donut formula
+ * ref: http://www.fractalforums.com/new-theories-and-research/low-hanging-dessert-an-escape-time-donut-fractal/msg90171/#msg90171
+ */
+void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+	double rad1 = 1.0;
+	double rad2 = 0.2;
+	double nSect = 2 * M_PI / 9;
+	double fact = 3;
+	double maxnorm = 0;
+	double theta2 = 0.0;
+
+	double norm = z.x * z.x + z.y * z.y + z.z * z.z;
+
+	double r1 = z.x * z.x + z.y * z.y;
+	bool flag = 0;
+	if (r1 < (rad1 + rad2) * (rad1 + rad2))
+	{
+		double r = sqrt(r1);
+
+		double c1 = rad1 * z.x / r;
+		double s1 = rad1 * z.y / r;
+
+		double x1 = (z.x - c1);
+		double y1 = (z.y - s1);
+		double z1 = z.z;
+
+		double r2 = x1 * x1 + y1 * y1 + z1 * z1;
+
+		if (r2 < rad2 * rad2)
+		{
+			//maxnorm = (iter % 5); maxnorm /= 4.0;iter=imax+1;
+			maxnorm = (theta2 + M_PI) / (2.0 * M_PI);
+			//iter=imax+1;
+			flag = 1;
+		}
+	}
+
+	if (!flag)
+	{
+
+		double theta = atan2(z.y, z.x);
+		theta2 = nSect * round(theta / nSect);
+
+		double c1 = cos(theta2);
+		double s1 = sin(theta2);
+
+		double x1 = c1 * z.x + s1 * z.y;
+		double y1 = -s1 * z.x + c1 * z.y;
+		double z1 = z.z;
+
+		x1 = x1 - rad1;
+
+		z.x = fact * x1;
+		z.y = fact * z1;
+		z.z = fact * y1;
+
+	}
 }
 
 /* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */
