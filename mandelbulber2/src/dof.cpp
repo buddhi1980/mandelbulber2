@@ -141,7 +141,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 		for (int i = 0; i < width; i++)
 		{
 			if (*stopRequest) throw tr("DOF terminated");
-			#pragma omp parallel for
+      #pragma omp parallel for
 			for (int j = 0; j < height; j++)
 			{
 				int index = i * height + j;

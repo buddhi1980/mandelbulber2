@@ -164,19 +164,18 @@ QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3
  
 QMAKE_LFLAGS_RELEASE -= -O1
-win32:QMAKE_LFLAGS_RELEASE -= -fopenmp
 
 unix:!mac:QMAKE_CXXFLAGS += -ffast-math -fopenmp
 macx:QMAKE_CXXFLAGS += -ffast-math -openmp
+win32:QMAKE_CXXFLAGS += -ffast-math -fopenmp
+
 # test hardcoded lib path for gsl in travis container 
 QMAKE_CXXFLAGS += -I/usr/include/gsl
 
-win32:QMAKE_CXXFLAGS -= -fopenmp
-
 unix:!mac:LIBS += -lpng -lgsl -lgslcblas -fopenmp
 macx:LIBS += -lpng -lgsl -lgslcblas -openmp
-win32:LIBS += -lz -lpng -lgsl -lgslcblas
-win32:LIBS -= -fopenmp
+win32:LIBS += -lz -lpng -lgsl -lgslcblas -fopenmp
+#win32:LIBS -= +fopenmp
 
 
 # gsl png osx absolute path
