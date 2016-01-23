@@ -699,6 +699,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(sRayRecursionIn in,
 			resultShader.B = reflectShader.B * reflect * reflectance
 					+ (1.0 - reflect * reflectance) * resultShader.B;
 		}
+		if(resultShader.R < 0.0) resultShader.R = 0.0;
+		if(resultShader.G < 0.0) resultShader.G = 0.0;
+		if(resultShader.B < 0.0) resultShader.B = 0.0;
 	}
 	else //if object not found then calculate background
 	{
