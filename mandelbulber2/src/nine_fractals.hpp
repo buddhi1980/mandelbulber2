@@ -36,7 +36,7 @@ public:
 	~cNineFractals();
 	cFractal* GetFractal(int index) const {return fractals[index];}
 	cFractal **fractals;
-	int GetSequence(int i) const;
+	int GetSequence(const int i) const;
 	bool IsHybrid() const {return isHybrid;}
 	fractal::enumDEType GetDEType(int formulaIndex) const;
 	fractal::enumDEFunctionType GetDEFunctionType(int formulaIndex) const;

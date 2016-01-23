@@ -238,7 +238,7 @@ void cNineFractals::CreateSequence(const cParameterContainer *generalPar)
 	}
 }
 
-int cNineFractals::GetSequence(int i) const
+int cNineFractals::GetSequence(const int i) const
 {
 	if (i < hybridSequence.size())
 	{

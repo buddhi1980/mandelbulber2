@@ -77,8 +77,7 @@ private:
 
 	static bool compareStrings(const QString &p1, const QString &p2)
 	{
-		if (p1.toLower() < p2.toLower()) return true;
-		else return false;
+		return QString::compare(p1, p2, Qt::CaseInsensitive) < 0;
 	}
 
 	//std::map contairer
