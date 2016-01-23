@@ -103,7 +103,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	}
 
 	//common bailout for all hybrid components
-	if(isHybrid)
+	if(isHybrid && useDefaultBailout)
 	{
 		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 		{
