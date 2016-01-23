@@ -170,11 +170,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					MandelboxIteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
-				case mandelboxVaryScale4D:
-				{
-					MandelboxVaryScale4DIteration(z, w, fractal, extendedAux[sequence]);
-					break;
-				}
 				case smoothMandelbox:
 				{
 					SmoothMandelboxIteration(z, fractal, extendedAux[sequence]);
@@ -614,6 +609,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         {
           CVector4 z4D(z, w);
           Quaternion4DIteration(z4D, fractal);
+          z = z4D.GetXYZ();
+          w = z4D.w;
+          break;
+        }
+        case mandelboxVaryScale4D:
+        {
+          CVector4 z4D(z, w);
+          MandelboxVaryScale4DIteration(z4D, fractal, extendedAux[sequence]);
           z = z4D.GetXYZ();
           w = z4D.w;
           break;
