@@ -138,38 +138,42 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 		QElapsedTimer timerRefreshProgressBar;
 		timerRefreshProgressBar.start();
 
-		for (int i = 0; i < height * width; i++)
+		for (int i = 0; i < width; i++)
 		{
 			if (*stopRequest) throw tr("DOF terminated");
-			int ii = temp_sort[height * width - i - 1].i;
-			int x = ii % width;
-			int y = ii / width;
-			double z = image->GetPixelZBuffer(x, y);
-			double blur = fabs((double) z - neutral) / z * deep;
-			if (blur > 100) blur = 100.0;
-			int size = blur;
-			sRGB16 center = temp_image[x + y * width];
-			unsigned short center_alpha = temp_alpha[x + y * width];
-			double blur_2 = blur * blur;
-			double factor = blur_2 * sqrt(blur) * M_PI / 3.0;
-
-#pragma omp parallel for
-			for (int yy = y - size; yy <= y + size; yy++)
+			#pragma omp parallel for
+			for (int j = 0; j < height; j++)
 			{
-				for (int xx = x - size; xx <= x + size; xx++)
+				int index = i * height + j;
+				int ii = temp_sort[height * width - index - 1].i;
+				int x = ii % width;
+				int y = ii / width;
+				double z = image->GetPixelZBuffer(x, y);
+				double blur = fabs((double) z - neutral) / z * deep;
+				if (blur > 100) blur = 100.0;
+				int size = blur;
+				sRGB16 center = temp_image[x + y * width];
+				unsigned short center_alpha = temp_alpha[x + y * width];
+				double blur_2 = blur * blur;
+				double factor = blur_2 * sqrt(blur) * M_PI / 3.0;
+
+				for (int yy = y - size; yy <= y + size; yy++)
 				{
-					if (xx >= 0 && xx < width && yy >= 0 && yy < height)
+					for (int xx = x - size; xx <= x + size; xx++)
 					{
-						int dx = xx - x;
-						int dy = yy - y;
-						double r_2 = dx * dx + dy * dy;
-						if(blur_2 > r_2)
+						if (xx >= 0 && xx < width && yy >= 0 && yy < height)
 						{
-							double r = sqrt((float) r_2);
-							double op = (blur - r) / factor;
-							if (op > 1.0) op = 1.0;
-							image->BlendPixelImage16(xx, yy, op, center);
-							image->BlendPixelAlpha(xx, yy, op, center_alpha);
+							int dx = xx - x;
+							int dy = yy - y;
+							double r_2 = dx * dx + dy * dy;
+							if(blur_2 > r_2)
+							{
+								double r = sqrt((float) r_2);
+								double op = (blur - r) / factor;
+								if (op > 1.0) op = 1.0;
+								image->BlendPixelImage16(xx, yy, op, center);
+								image->BlendPixelAlpha(xx, yy, op, center_alpha);
+							}
 						}
 					}
 				}
@@ -179,7 +183,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 			{
 				timerRefreshProgressBar.restart();
 
-				percentDone = (double) i / (height * width);
+				percentDone = (double) i / width;
 				progressTxt = progressText.getText(percentDone);
 
 				emit updateProgressAndStatus(statusText, progressTxt, percentDone);
