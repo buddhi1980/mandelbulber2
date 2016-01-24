@@ -31,7 +31,7 @@
 #define SQRT_3_2 1.22474487139158904909864203735295
 
 #ifndef M_PI_8
-#define M_PI_8 0.39269908169 // PI/8 TODO more accurate value
+#define M_PI_8  0.39269908169872415480783042290994
 #endif
 
 using namespace fractal;
@@ -2373,11 +2373,8 @@ void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
 // --------quaternion3D--------------
 void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
 {
-  CVector3 newz(fractal->transformCommon.constantMultiplier122.x
-                    * (z.x * z.x - z.y * z.y - z.z * z.z),
-                fractal->transformCommon.constantMultiplier122.y * z.x * z.y,
-                fractal->transformCommon.constantMultiplier122.z * z.x * z.z);
-  z = newz;
+  z = CVector3(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z);
+  z *= fractal->transformCommon.constantMultiplier122;
 
   if (fractal->transformCommon.rotationEnabled)
   {
@@ -3468,15 +3465,20 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
 
   //4D----------------------------------------------
 // --------quaternion4D--------------
-void Quaternion4DIteration(CVector4 &z4D, const cFractal *fractal)
+void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
 {
-CVector4 newz(fractal->transformCommon.constantMultiplier1220.x
-                  * (z4D.x * z4D.x - z4D.y * z4D.y - z4D.z * z4D.z - z4D.w * z4D.w),
-              fractal->transformCommon.constantMultiplier1220.y * z4D.x * z4D.y,
-              fractal->transformCommon.constantMultiplier1220.z * z4D.x * z4D.z,
-              fractal->transformCommon.constantMultiplier1220.w * z4D.w);
-z4D = newz;
-z4D += fractal->transformCommon.additionConstant0000;
+
+  double w0 = 0.0;
+  if( i < 1.0) w0 = fractal->transformCommon.scale0;
+  z4D.w += w0;
+
+  z4D = CVector4 (
+               z4D.x * z4D.x - z4D.y * z4D.y - z4D.z * z4D.z - z4D.w * z4D.w,
+               z4D.x * z4D.y,
+               z4D.x * z4D.z,
+               z4D.w);
+  z4D *= fractal->transformCommon.constantMultiplier1220;
+  z4D += fractal->transformCommon.additionConstant0000;
 }
 void MandelboxVaryScale4DIteration(CVector4 &z4D,  const cFractal *fractal,
     sExtendedAux &aux)
