@@ -54,24 +54,154 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 		}
 	}
 
-	QString statusText = QObject::tr("Rendering Depth Of Field effect");
+	QString statusText = QObject::tr("Rendering Depth Of Field effect - phase I");
 	QString progressTxt;
 
-	emit updateProgressAndStatus(statusText, QObject::tr("Sorting zBuffer"), 0.0);
+	cProgressText progressText;
+	progressText.ResetTimer();
+	double percentDone = 0.0;
+
+	emit updateProgressAndStatus(statusText, progressText.getText(0.0), 0.0);
 	gApplication->processEvents();
 
-	QuickSortZBuffer(temp_sort, 1, height * width - 1);
+	QElapsedTimer timerRefresh;
+	timerRefresh.start();
+	qint64 lastRefreshTime = 0;
 
-	emit updateProgressAndStatus(statusText, QObject::tr("Randomizing zBuffer"), 0.0);
-	gApplication->processEvents();
+	QElapsedTimer timerRefreshProgressBar;
+	timerRefreshProgressBar.start();
 
 	try
 	{
+		//preprocessing (1-st pass)
+		for (int y = 0; y < height; y++)
+		{
+			if (*stopRequest)
+				throw tr("DOF terminated");
+#pragma omp parallel for
+			for (int x = 0; x < width; x++)
+			{
+				double z = image->GetPixelZBuffer(x, y);
+				double blur1 = ((double) z - neutral) / z * deep;
+				double blur = fabs(blur1);
+				if (blur > 100)
+					blur = 100.0;
+				int size = blur;
+				int xStart = max(x - size, 0);
+				int xStop = min(x + size, width - 1);
+				int yStart = max(y - size, 0);
+				int yStop = min(y + size, height - 1);
+
+				double totalWeight = 0;
+				sRGBfloat tempPixel;
+				for (int yy = yStart; yy <= yStop; yy++)
+				{
+					for (int xx = xStart; xx <= xStop; xx++)
+					{
+						double dx = x - xx;
+						double dy = y - yy;
+						double r = sqrt(dx * dx + dy * dy);
+						double weight = blur - r;
+						if (weight < 0.0)
+							weight = 0.0;
+						if (weight > 1.0)
+							weight = 1.0;
+
+						double z2 = image->GetPixelZBuffer(xx, yy);
+						double blur2 = ((double) z2 - neutral) / z2 * deep;
+						if (blur1 > blur2)
+						{
+							double weight2 = 1.0 - fabs((blur1 - blur2) / blur1);
+							if (weight2 < 0.0)
+								weight2 = 0.0;
+							weight *= weight2;
+							weight = 0.0;
+						}
+
+						totalWeight += weight;
+						if (weight > 0.0)
+						{
+							sRGB16 pix = image->GetPixelImage16(xx, yy);
+							tempPixel.R += pix.R * weight;
+							tempPixel.G += pix.G * weight;
+							tempPixel.B += pix.B * weight;
+						}
+					}
+				}
+
+				sRGB16 newPixel;
+				if (totalWeight >= 0.0)
+				{
+					newPixel = sRGB16(tempPixel.R / totalWeight,
+														tempPixel.G / totalWeight,
+														tempPixel.B / totalWeight);
+				}
+				else
+				{
+					newPixel = image->GetPixelImage16(x, y);
+				}
+				int ptr = x + y * width;
+				temp_image[ptr] = newPixel;
+			}
+
+			if (timerRefreshProgressBar.elapsed() > 100)
+			{
+				timerRefreshProgressBar.restart();
+
+				percentDone = (double) y / height;
+				progressTxt = progressText.getText(percentDone);
+
+				emit updateProgressAndStatus(statusText, progressTxt, percentDone);
+				gApplication->processEvents();
+			}
+
+			if (timerRefresh.elapsed() > lastRefreshTime && image->IsPreview())
+			{
+				timerRefresh.restart();
+
+				image->ConvertTo8bit();
+				image->UpdatePreview();
+				image->GetImageWidget()->update();
+
+				lastRefreshTime = timerRefresh.elapsed() * 20.0;
+				timerRefresh.restart();
+			}
+
+		}
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				int ptr = x + y * width;
+				image->PutPixelImage16(x, y, temp_image[ptr]);
+			}
+		}
+		image->ConvertTo8bit();
+		image->UpdatePreview();
+		image->GetImageWidget()->update();
+
+		statusText = QObject::tr("Rendering Depth Of Field effect - phase II");
+
+		emit updateProgressAndStatus(statusText, QObject::tr("Sorting zBuffer"), 0.0);
+		gApplication->processEvents();
+
+		QuickSortZBuffer(temp_sort, 1, height * width - 1);
+
+		emit updateProgressAndStatus(statusText, QObject::tr("Randomizing zBuffer"), 0.0);
+		gApplication->processEvents();
+
+		progressText.ResetTimer();
+		timerRefresh.restart();
+		timerRefreshProgressBar.restart();
+		lastRefreshTime = 0;
+
 		//Randomize Z-buffer
 		int imgSize = height * width;
 		for (int i = imgSize - 1; i >= 0; i--)
 		{
-			if (*stopRequest) throw tr("DOF terminated");
+			if (*stopRequest)
+				throw tr("DOF terminated");
 			sSortZ<float> temp;
 			temp = temp_sort[i];
 			double z1 = temp.z;
@@ -84,12 +214,14 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 			do
 			{
 				ii = i - Random(randomStep);
-				if (ii <= 0) ii = 0;
+				if (ii <= 0)
+					ii = 0;
 				sSortZ<float> temp2 = temp_sort[ii];
 				double z2 = temp2.z;
 				double size2 = (z2 - neutral) / z2 * deep;
 
-				if (size1 == 0 && size2 == 0) done = true;
+				if (size1 == 0 && size2 == 0)
+					done = true;
 
 				if (size1 * size2 > 0)
 				{
@@ -118,30 +250,20 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 				}
 				randomStep = randomStep * 0.7 - 1.0;
 
-				if (randomStep <= 0) done = true;
+				if (randomStep <= 0)
+					done = true;
 			} while (!done);
 			temp_sort[i] = temp_sort[ii];
 			temp_sort[ii] = temp;
 		}
 
-		cProgressText progressText;
-		progressText.ResetTimer();
-		double percentDone = 0.0;
-
-		emit updateProgressAndStatus(statusText, progressText.getText(0.0), 0.0);
-		gApplication->processEvents();
-
-		QElapsedTimer timerRefresh;
-		timerRefresh.start();
-		qint64 lastRefreshTime = 0;
-
-		QElapsedTimer timerRefreshProgressBar;
-		timerRefreshProgressBar.start();
+		//2-nd pass - reversed blur
 
 		for (int i = 0; i < width; i++)
 		{
-			if (*stopRequest) throw tr("DOF terminated");
-      #pragma omp parallel for
+			if (*stopRequest)
+				throw tr("DOF terminated");
+#pragma omp parallel for
 			for (int j = 0; j < height; j++)
 			{
 				int index = i * height + j;
@@ -150,12 +272,13 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 				int y = ii / width;
 				double z = image->GetPixelZBuffer(x, y);
 				double blur = fabs((double) z - neutral) / z * deep;
-				if (blur > 100) blur = 100.0;
+				if (blur > 100)
+					blur = 100.0;
 				int size = blur;
 				sRGB16 center = temp_image[x + y * width];
 				unsigned short center_alpha = temp_alpha[x + y * width];
 				double blur_2 = blur * blur;
-				double factor = blur_2 * sqrt(blur) * M_PI / 3.0;
+				double factor = blur * sqrt(blur) * M_PI;
 
 				for (int yy = y - size; yy <= y + size; yy++)
 				{
@@ -166,11 +289,17 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 							int dx = xx - x;
 							int dy = yy - y;
 							double r_2 = dx * dx + dy * dy;
-							if(blur_2 > r_2)
+							if (blur_2 > r_2)
 							{
-								double r = sqrt((float) r_2);
-								double op = (blur - r) / factor;
-								if (op > 1.0) op = 1.0;
+								double r = sqrt(r_2);
+								double op = (blur - r) + 1.0;
+								if (op < 0.0)
+									op = 0.0;
+								if (op > 1.0)
+									op = 1.0;
+								op /= factor;
+								if (op > 1.0)
+									op = 1.0;
 								image->BlendPixelImage16(xx, yy, op, center);
 								image->BlendPixelAlpha(xx, yy, op, center_alpha);
 							}
@@ -203,8 +332,8 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool *stopRequest)
 			}
 		}
 		throw progressText.getText(1.0);
-	}
-	catch (QString &status)
+
+	} catch (QString &status)
 	{
 		emit updateProgressAndStatus(statusText, status, 1.0);
 		delete[] temp_image;
