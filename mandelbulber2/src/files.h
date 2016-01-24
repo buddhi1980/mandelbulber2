@@ -42,7 +42,7 @@ extern std::string logfileName;
 
 enum enumImageFileType
 {
-	IMAGE_FILE_TYPE_PNG = 0, IMAGE_FILE_TYPE_JPG = 1, IMAGE_FILE_TYPE_EXR = 2
+	IMAGE_FILE_TYPE_PNG = 0, IMAGE_FILE_TYPE_JPG = 1, IMAGE_FILE_TYPE_EXR = 2, IMAGE_FILE_TYPE_TIFF
 };
 
 enum enumImageContentType
@@ -101,6 +101,10 @@ void SaveImage(QString filename, enumImageFileType filetype, cImage *image,
 void SaveEXR(QString filename, cImage* image,
 		QMap<enumImageContentType, structSaveImageChannel> imageConfig);
 #endif /* USE_EXR */
+#ifdef USE_TIFF
+bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChannel,
+		bool appendAlpha = false);
+#endif /* USE_TIFF */
 
 #endif /* FILES_H_ */
 

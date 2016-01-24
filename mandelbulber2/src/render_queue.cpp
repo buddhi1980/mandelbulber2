@@ -213,6 +213,9 @@ bool cRenderQueue::RenderStill(const QString& filename)
 		case IMAGE_FILE_TYPE_EXR:
 			extension += QString(".exr");
 			break;
+		case IMAGE_FILE_TYPE_TIFF:
+			extension += QString(".tiff");
+			break;
 	}
 
 	QString saveFilename = QFileInfo(filename).baseName() + extension;

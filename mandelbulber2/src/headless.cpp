@@ -67,18 +67,7 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	filename = fi.path() + QDir::separator() + fi.baseName();
 
 	QString ext;
-
-	if (imageFileFormat == "jpg")
-	{
-		ext = ".jpg";
-		SaveImage(filename + ext, IMAGE_FILE_TYPE_JPG, image);
-	}
-	else if (imageFileFormat == "png")
-	{
-		ext = ".png";
-		SaveImage(filename + ext, IMAGE_FILE_TYPE_PNG, image);
-	}
-	else if (imageFileFormat == "png16")
+	if (imageFileFormat == "png16")
 	{
 		ext = ".png";
 		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
@@ -90,10 +79,17 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 		structSaveImageChannel saveImageChannel(IMAGE_CONTENT_COLOR, IMAGE_CHANNEL_QUALITY_16, "");
 		SavePNG(filename + ext, image, saveImageChannel, true);
 	}
-	else if (imageFileFormat == "exr")
+	else
 	{
-		ext = ".exr";
-		SaveImage(filename + ext, IMAGE_FILE_TYPE_EXR, image);
+		ext = "." + imageFileFormat;
+		enumImageFileType imageFileType = IMAGE_FILE_TYPE_JPG;
+
+		if(imageFileFormat == "jpg") imageFileType = IMAGE_FILE_TYPE_JPG;
+		else if(imageFileFormat == "png") imageFileType = IMAGE_FILE_TYPE_PNG;
+		else if(imageFileFormat == "exr") imageFileType = IMAGE_FILE_TYPE_EXR;
+		else if(imageFileFormat == "tiff") imageFileType = IMAGE_FILE_TYPE_TIFF;
+
+		SaveImage(filename + ext, imageFileType, image);
 	}
 
 	QTextStream out(stdout);

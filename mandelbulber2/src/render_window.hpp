@@ -159,7 +159,9 @@ private slots:
 #ifdef USE_EXR
 	void slotMenuSaveImageEXR();
 #endif // USE_EXR
-
+#ifdef USE_TIFF
+	void slotMenuSaveImageTIFF();
+#endif // USE_TIFF
 	void slotMenuSaveImagePNG16();
 	void slotMenuSaveImagePNG16Alpha();
 

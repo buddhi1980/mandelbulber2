@@ -22,6 +22,12 @@ packagesExist(IlmBase) {
 	DEFINES += USE_EXR
 }
 
+packagesExist(libtiff-4){
+	PKGCONFIG += libtiff-4
+	LIBS += -ltiff
+	DEFINES += USE_TIFF
+}
+
 DEFINES += QT_MESSAGELOGCONTEXT
 
 TARGET = mandelbulber2 

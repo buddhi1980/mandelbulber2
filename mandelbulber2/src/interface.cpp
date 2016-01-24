@@ -172,6 +172,14 @@ void cInterface::ShowUi(void)
 	}
 #endif
 
+#ifndef USE_TIFF
+	{
+		mainWindow->ui->actionSave_as_TIFF->setVisible(false);
+		mainWindow->ui->comboBox_keyframe_animation_image_type->removeItem(IMAGE_FILE_TYPE_TIFF);
+		mainWindow->ui->comboBox_flight_animation_image_type->removeItem(IMAGE_FILE_TYPE_TIFF);
+	}
+#endif
+
 	renderedImage->show();
 
 	//loading default ui for all fractal components
@@ -535,6 +543,13 @@ void cInterface::ConnectSignals(void)
 												mainWindow,
 												SLOT(slotMenuSaveImageEXR()));
 #endif // USE_EXR
+
+#ifdef USE_TIFF
+	QApplication::connect(mainWindow->ui->actionSave_as_TIFF,
+												SIGNAL(triggered()),
+												mainWindow,
+												SLOT(slotMenuSaveImageTIFF()));
+#endif // USE_TIFF
 
 	QApplication::connect(mainWindow->ui->actionAbout_Qt,
 												SIGNAL(triggered()),

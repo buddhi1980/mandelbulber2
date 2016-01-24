@@ -1087,6 +1087,9 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subindex)
 		case IMAGE_FILE_TYPE_EXR:
 			filename += QString(".exr");
 			break;
+		case IMAGE_FILE_TYPE_TIFF:
+			filename += QString(".tiff");
+			break;
 	}
 	return filename;
 }

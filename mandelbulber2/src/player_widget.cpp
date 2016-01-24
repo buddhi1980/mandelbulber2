@@ -95,7 +95,7 @@ void PlayerWidget::SetFilePath(QString filePath)
 
 	QDir imageDir = QDir(filePath);
 	QStringList imageFileExtensions;
-	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png";
+	imageFileExtensions << "*.jpg" << "*.jpeg" << "*.png" << "*.tiff";
 	imageDir.setNameFilters(imageFileExtensions);
 	imageFiles = imageDir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 

@@ -1264,6 +1264,9 @@ QString cFlightAnimation::GetFlightFilename(int index)
 		case IMAGE_FILE_TYPE_EXR:
 			filename += QString(".exr");
 			break;
+		case IMAGE_FILE_TYPE_TIFF:
+			filename += QString(".tiff");
+			break;
 	}
 	return filename;
 }

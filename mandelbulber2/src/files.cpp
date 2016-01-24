@@ -21,12 +21,18 @@
  */
 
 #include <cstdio>
+#include <stdarg.h>
 #include <string.h>
 #define PNG_DEBUG 3
 
 #include "files.h"
 #include "error_message.hpp"
 #include "global_data.hpp"
+
+#ifdef USE_TIFF
+#include "tiff.h"
+#include "tiffio.h"
+#endif // USE_TIFF
 
 #ifdef USE_EXR
 #include <ImfAttribute.h>
@@ -1239,6 +1245,202 @@ void SaveEXR(QString filename, cImage* image,
 }
 #endif /* USE_EXR */
 
+#ifdef USE_TIFF
+
+bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChannel, bool appendAlpha)
+{
+	int width = image->GetWidth();
+	int height = image->GetHeight();
+
+	TIFF* tiff = TIFFOpen(filename.toLocal8Bit().constData(), "w");
+	if (!tiff)
+	{
+		qDebug() << "SaveTiff() cannot open file";
+		return false;
+	}
+
+	int qualitySize;
+	switch (imageChannel.channelQuality)
+	{
+		case IMAGE_CHANNEL_QUALITY_8:
+			qualitySize = 8;
+			break;
+		case IMAGE_CHANNEL_QUALITY_16:
+			qualitySize = 16;
+			break;
+		default:
+			qualitySize = 32;
+			break;
+	}
+
+	int colorType;
+	switch (imageChannel.contentType)
+	{
+		case IMAGE_CONTENT_COLOR:
+			colorType = appendAlpha ? PHOTOMETRIC_RGB : PHOTOMETRIC_RGB;
+			break;
+		case IMAGE_CONTENT_ALPHA:
+			colorType = PHOTOMETRIC_MINISBLACK;
+			break;
+		case IMAGE_CONTENT_ZBUFFER:
+			colorType = PHOTOMETRIC_MINISBLACK;
+			break;
+		default:
+			colorType = PHOTOMETRIC_RGB;
+			break;
+	}
+
+	int samplesPerPixel;
+	switch (imageChannel.contentType)
+	{
+		case IMAGE_CONTENT_COLOR:
+			samplesPerPixel = appendAlpha ? 4 : 3;
+			break;
+		case IMAGE_CONTENT_ALPHA:
+			samplesPerPixel = 1;
+			break;
+		case IMAGE_CONTENT_ZBUFFER:
+			samplesPerPixel = 1;
+			break;
+	}
+
+	TIFFSetField(tiff, TIFFTAG_IMAGEWIDTH,        width);
+	TIFFSetField(tiff, TIFFTAG_IMAGELENGTH,       height);
+	TIFFSetField(tiff, TIFFTAG_BITSPERSAMPLE,     qualitySize);
+	TIFFSetField(tiff, TIFFTAG_SAMPLESPERPIXEL,   samplesPerPixel);
+	TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP,      height);
+
+	TIFFSetField(tiff, TIFFTAG_COMPRESSION,   COMPRESSION_DEFLATE);
+	TIFFSetField(tiff, TIFFTAG_PHOTOMETRIC,   colorType);
+	TIFFSetField(tiff, TIFFTAG_FILLORDER,     FILLORDER_MSB2LSB);
+	TIFFSetField(tiff, TIFFTAG_PLANARCONFIG,  PLANARCONFIG_CONTIG);
+
+	int pixelSize = samplesPerPixel * qualitySize / 8;
+	char* colorPtr = new char[(unsigned long int) width * height * pixelSize];
+
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			unsigned long int ptr = (x + y * width) * pixelSize;
+			switch (imageChannel.contentType)
+			{
+				case IMAGE_CONTENT_COLOR:
+				{
+					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
+					{
+						if (appendAlpha)
+						{
+							sRGBAfloat* typedColorPtr = (sRGBAfloat*) &colorPtr[ptr];
+							sRGB16 rgbPointer = image->GetPixelImage16(x, y);
+							typedColorPtr->R = rgbPointer.R;
+							typedColorPtr->G = rgbPointer.G;
+							typedColorPtr->B = rgbPointer.B;
+							typedColorPtr->A = image->GetPixelAlpha(x, y);
+						}
+						else
+						{
+							sRGBfloat* typedColorPtr = (sRGBfloat*) &colorPtr[ptr];
+							sRGB16 rgbPointer = image->GetPixelImage16(x, y);
+							typedColorPtr->R = rgbPointer.R;
+							typedColorPtr->G = rgbPointer.G;
+							typedColorPtr->B = rgbPointer.B;
+						}
+					}
+					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+					{
+						if (appendAlpha)
+						{
+							sRGBA16* typedColorPtr = (sRGBA16*) &colorPtr[ptr];
+							*typedColorPtr = sRGBA16(image->GetPixelImage16(x, y));
+							typedColorPtr->A = image->GetPixelAlpha(x, y);
+						}
+						else
+						{
+							sRGB16* typedColorPtr = (sRGB16*) &colorPtr[ptr];
+							*typedColorPtr = sRGB16(image->GetPixelImage16(x, y));
+						}
+					}
+					else
+					{
+						if (appendAlpha)
+						{
+							if (x == 0 && y == 0)
+							{
+								image->ConvertAlphaTo8bit();
+								image->ConvertTo8bit();
+							}
+							sRGBA8* typedColorPtr = (sRGBA8*) &colorPtr[ptr];
+							*typedColorPtr = sRGBA8(image->GetPixelImage8(x, y));
+							typedColorPtr->A = image->GetPixelAlpha8(x, y);
+						}
+						else
+						{
+							if (x == 0 && y == 0)
+							{
+								image->ConvertTo8bit();
+							}
+							sRGB8* typedColorPtr = (sRGB8*) &colorPtr[ptr];
+							*typedColorPtr = sRGB8(image->GetPixelImage8(x, y));
+						}
+					}
+				}
+					break;
+				case IMAGE_CONTENT_ALPHA:
+				{
+					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
+					{
+						float* typedColorPtr = (float*) &colorPtr[ptr];
+						*typedColorPtr = image->GetPixelAlpha(x, y);
+					}
+					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+					{
+						unsigned short* typedColorPtr = (unsigned short*) &colorPtr[ptr];
+						*typedColorPtr = (unsigned short) (image->GetPixelAlpha(x, y));
+					}
+					else
+					{
+						if (x == 0 && y == 0)
+						{
+							image->ConvertAlphaTo8bit();
+						}
+						unsigned char* typedColorPtr = (unsigned char*) &colorPtr[ptr];
+						*typedColorPtr = (unsigned char) (image->GetPixelAlpha8(x, y));
+					}
+				}
+					break;
+				case IMAGE_CONTENT_ZBUFFER:
+				{
+					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
+					{
+						float* typedColorPtr = (float*) &colorPtr[ptr];
+						*typedColorPtr = (float) (image->GetPixelZBuffer(x, y));
+					}
+					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+					{
+						unsigned short* typedColorPtr = (unsigned short*) &colorPtr[ptr];
+						*typedColorPtr = (unsigned short) (image->GetPixelZBuffer(x, y) * 65536);
+					}
+					else
+					{
+						unsigned char* typedColorPtr = (unsigned char*) &colorPtr[ptr];
+						*typedColorPtr = (unsigned char) (image->GetPixelZBuffer(x, y) * 256);
+					}
+				}
+				break;
+			}
+		}
+	}
+
+	TIFFWriteEncodedStrip(tiff, 0,
+												(void*)colorPtr,
+												tsize_t(width * height * pixelSize));
+	TIFFClose(tiff);
+	return true;
+}
+
+#endif /* USE_TIFF */
+
 void SaveImage(QString filename, enumImageFileType filetype, cImage *image)
 {
 	QMap<enumImageContentType, structSaveImageChannel> imageConfig;
@@ -1323,6 +1525,30 @@ void SaveImage(QString filename, enumImageFileType filetype, cImage *image,
 			QString fullFilename = filename + ".exr";
 			SaveEXR(fullFilename, image, imageConfig);
 #endif /* USE_EXR */
+		}
+			break;
+		case IMAGE_FILE_TYPE_TIFF:
+		{
+#ifdef USE_TIFF
+			bool appendAlpha = gPar->Get<bool>("append_alpha_png")
+					&& imageConfig.contains(IMAGE_CONTENT_COLOR) && imageConfig.contains(IMAGE_CONTENT_ALPHA);
+
+			if (imageConfig.contains(IMAGE_CONTENT_COLOR))
+			{
+				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_COLOR].postfix + ".tiff";
+				SaveTIFF(fullFilename, image, imageConfig[IMAGE_CONTENT_COLOR], appendAlpha);
+			}
+			if (imageConfig.contains(IMAGE_CONTENT_ALPHA) && !appendAlpha)
+			{
+				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ALPHA].postfix + ".tiff";
+				SaveTIFF(fullFilename, image, imageConfig[IMAGE_CONTENT_ALPHA]);
+			}
+			if (imageConfig.contains(IMAGE_CONTENT_ZBUFFER))
+			{
+				QString fullFilename = filename + imageConfig[IMAGE_CONTENT_ZBUFFER].postfix + ".tiff";
+				SaveTIFF(fullFilename, image, imageConfig[IMAGE_CONTENT_ZBUFFER]);
+			}
+#endif /* USE_TIFF */
 		}
 			break;
 	}

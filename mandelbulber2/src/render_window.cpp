@@ -1082,6 +1082,38 @@ void RenderWindow::slotMenuSaveImageEXR()
 }
 #endif // USE_EXR
 
+#ifdef USE_TIFF
+void RenderWindow::slotMenuSaveImageTIFF()
+{
+	QFileDialog dialog(this);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("TIFF images (*.tiff)"));
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).completeBaseName()));
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle(tr("Save image to %1 file...").arg("TIFF"));
+	dialog.setDefaultSuffix("tiff");
+	QStringList filenames;
+	if (dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = QDir::toNativeSeparators(filenames.first());
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("TIFF"),
+																			tr("Saving TIFF image started"),
+																			0.0,
+																			cProgressText::progress_IMAGE);
+		gApplication->processEvents();
+		SaveImage(filename, IMAGE_FILE_TYPE_TIFF, gMainInterface->mainImage);
+		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("TIFF"),
+																			tr("Saving TIFF image finished"),
+																			1.0,
+																			cProgressText::progress_IMAGE);
+		gApplication->processEvents();
+		systemData.lastImageFile = filename;
+	}
+}
+#endif // USE_TIFF
+
 void RenderWindow::slotMenuSaveImagePNG16()
 {
 	QFileDialog dialog(this);
