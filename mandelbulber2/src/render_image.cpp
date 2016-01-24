@@ -312,6 +312,7 @@ bool cRenderer::RenderImage()
 
 	if (!(gNetRender->IsClient() && data->configuration.UseNetRender()))
 	{
+		bool ssaoUsed = false;
 		if (params->ambientOcclusionEnabled
 				&& params->ambientOcclusionMode == params::AOmodeScreenSpace)
 		{
@@ -321,6 +322,7 @@ bool cRenderer::RenderImage()
 							this,
 							SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 			rendererSSAO.RenderSSAO();
+			ssaoUsed = true;
 		}
 		if (params->DOFEnabled && !*data->stopRequest)
 		{
@@ -331,6 +333,7 @@ bool cRenderer::RenderImage()
 							SIGNAL(updateProgressAndStatus(const QString&, const QString&, double)));
 			dof.Render(params->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
 								 params->DOFFocus,
+								 !ssaoUsed && params->DOFHDRmode,
 								 data->stopRequest);
 		}
 	}

@@ -3031,7 +3031,7 @@ to target:</string>
             <enum>QTabWidget::West</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="usesScrollButtons">
             <bool>true</bool>
@@ -3068,7 +3068,7 @@ to target:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-584</y>
+                  <y>0</y>
                   <width>334</width>
                   <height>844</height>
                  </rect>
@@ -4479,9 +4479,9 @@ direction vector:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-29</y>
                   <width>334</width>
-                  <height>174</height>
+                  <height>216</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -4614,20 +4614,6 @@ direction vector:</string>
                       <property name="spacing">
                        <number>2</number>
                       </property>
-                      <item row="0" column="0">
-                       <widget class="QLabel" name="label_131">
-                        <property name="text">
-                         <string>Focus distance:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="0">
-                       <widget class="QLabel" name="label_136">
-                        <property name="text">
-                         <string>Radius:</string>
-                        </property>
-                       </widget>
-                      </item>
                       <item row="0" column="1">
                        <widget class="QSlider" name="logslider_DOF_focus">
                         <property name="sizePolicy">
@@ -4650,6 +4636,20 @@ direction vector:</string>
                         </property>
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="label_131">
+                        <property name="text">
+                         <string>Focus distance:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="label_136">
+                        <property name="text">
+                         <string>Radius:</string>
                         </property>
                        </widget>
                       </item>
@@ -4719,6 +4719,21 @@ direction vector:</string>
                         </property>
                         <property name="value">
                          <double>1.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="0" colspan="3">
+                       <widget class="MyCheckBox" name="checkBox_DOF_HDR">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="text">
+                         <string>Use HDR version of DOF effect
+(not possible to use together with SSAO.
+Disables 'Update image' options)</string>
                         </property>
                        </widget>
                       </item>

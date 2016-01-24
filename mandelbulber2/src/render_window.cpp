@@ -2261,6 +2261,16 @@ void RenderWindow::slotChangedComboFractalColoringAlgorithm(int index)
 	ui->vect3_fractal_coloring_line_direction_z->setEnabled(selection == fractal::fractalColoringLine);
 }
 
+void RenderWindow::slotChangedCheckBoxDOFHDR(int state)
+{
+	ui->pushButton_DOF_update->setEnabled(!state);
+	ui->pushButton_apply_image_changes->setEnabled(!state);
+	if(ui->comboBox_ambient_occlusion_mode->currentIndex() == 2 && !state)
+	{
+		ui->comboBox_ambient_occlusion_mode->setCurrentIndex(0);
+	}
+}
+
 #ifdef USE_GAMEPAD
 void RenderWindow::slotChangeGamepadIndex(int index)
 {

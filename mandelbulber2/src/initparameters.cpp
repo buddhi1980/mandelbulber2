@@ -234,6 +234,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("DOF_enabled", false, morphLinear, paramStandard);
 	par->addParam("DOF_focus", 6.0, 0.0, 200.0, morphLinear, paramStandard);
 	par->addParam("DOF_radius", 10.0, 0.0, 200.0, morphLinear, paramStandard);
+	par->addParam("DOF_HDR", false, morphLinear, paramStandard);
 
 	//main light
 	par->addParam("main_light_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);

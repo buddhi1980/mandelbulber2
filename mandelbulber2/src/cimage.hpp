@@ -139,6 +139,15 @@ public:
 		image16[x + y * width].G = image16[x + y * width].G * factorN + other.G * factor;
 		image16[x + y * width].B = image16[x + y * width].B * factorN + other.B * factor;
 	}
+
+	inline void BlendPixelImage(int x, int y, double factor, sRGBfloat other)
+	{
+		double factorN = 1.0 - factor;
+		imageFloat[x + y * width].R = imageFloat[x + y * width].R * factorN + other.R * factor;
+		imageFloat[x + y * width].G = imageFloat[x + y * width].G * factorN + other.G * factor;
+		imageFloat[x + y * width].B = imageFloat[x + y * width].B * factorN + other.B * factor;
+	}
+
 	inline void BlendPixelAlpha(int x, int y, double factor, unsigned short int other)
 	{
 		double factorN = 1.0 - factor;

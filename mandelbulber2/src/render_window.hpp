@@ -78,6 +78,7 @@ private slots:
 	//other
 	void slotChangedCheckBoxCursorVisibility(int state);
 	void slotChangedCheckBoxUseDefaultBailout(int state);
+	void slotChangedCheckBoxDOFHDR(int state);
 	void slotChangedComboDistanceEstimationMethod(int index);
 	void slotChangedComboFractal(int index);
 	void slotChangedComboFractalColoringAlgorithm(int index);

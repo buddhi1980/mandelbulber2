@@ -96,6 +96,7 @@ public:
 	bool coloringEnabled;
 	bool constantDEThreshold;
 	bool DOFEnabled;
+	bool DOFHDRmode;
 	bool envMappingEnable;
 	bool fakeLightsEnabled;
 	bool fogEnabled;

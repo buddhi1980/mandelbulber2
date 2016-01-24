@@ -217,6 +217,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(stateChanged(int)),
 												mainWindow,
 												SLOT(slotChangedCheckBoxUseDefaultBailout(int)));
+	QApplication::connect(mainWindow->ui->checkBox_DOF_HDR,
+												SIGNAL(stateChanged(int)),
+												mainWindow,
+												SLOT(slotChangedCheckBoxDOFHDR(int)));
 	QApplication::connect(mainWindow->ui->comboBox_ambient_occlusion_mode,
 												SIGNAL(currentIndexChanged(int)),
 												mainWindow,
@@ -2188,6 +2192,7 @@ void cInterface::RefreshMainImage()
 	mainImage->CompileImage();
 
 	stopRequest = false;
+	bool ssaoUsed = false;
 	if (gPar->Get<bool>("ambient_occlusion_enabled")
 			&& gPar->Get<int>("ambient_occlusion_mode") == params::AOmodeScreenSpace)
 	{
@@ -2202,6 +2207,7 @@ void cInterface::RefreshMainImage()
 										 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 
 		rendererSSAO.RenderSSAO();
+		ssaoUsed = true;
 	}
 
 	if (gPar->Get<bool>("DOF_enabled"))
@@ -2215,6 +2221,7 @@ void cInterface::RefreshMainImage()
 										 SLOT(slotUpdateProgressAndStatus(const QString&, const QString&, double)));
 		dof.Render(params.DOFRadius * (mainImage->GetWidth() + mainImage->GetPreviewHeight()) / 2000.0,
 							 params.DOFFocus,
+							 !ssaoUsed && gPar->Get<bool>("DOF_HDR"),
 							 &stopRequest);
 	}
 

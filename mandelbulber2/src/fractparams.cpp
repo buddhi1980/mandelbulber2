@@ -61,6 +61,7 @@ cParamRender::cParamRender(const cParameterContainer *container) :
 	DOFEnabled = container->Get<bool>("DOF_enabled");
 	DOFFocus = container->Get<double>("DOF_focus");
 	DOFRadius = container->Get<double>("DOF_radius");
+	DOFHDRmode = container->Get<bool>("DOF_HDR");
 	envMappingEnable = container->Get<bool>("env_mapping_enable");
 	fakeLightsEnabled = container->Get<double>("fake_lights_enabled");
 	fakeLightsIntensity = container->Get<double>("fake_lights_intensity");
