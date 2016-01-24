@@ -202,22 +202,7 @@ bool cRenderQueue::RenderStill(const QString& filename)
 {
 	QString extension;
 	enumImageFileType imageFormat = (enumImageFileType) gPar->Get<int>("queue_image_format");
-	switch (imageFormat)
-	{
-		case IMAGE_FILE_TYPE_JPG:
-			extension += QString(".jpg");
-			break;
-		case IMAGE_FILE_TYPE_PNG:
-			extension += QString(".png");
-			break;
-		case IMAGE_FILE_TYPE_EXR:
-			extension += QString(".exr");
-			break;
-		case IMAGE_FILE_TYPE_TIFF:
-			extension += QString(".tiff");
-			break;
-	}
-
+	extension = ImageFileExtension(imageFormat);
 	QString saveFilename = QFileInfo(filename).baseName() + extension;
 
 	//setup of rendering engine

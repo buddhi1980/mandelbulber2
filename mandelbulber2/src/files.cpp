@@ -21,7 +21,6 @@
  */
 
 #include <cstdio>
-#include <stdarg.h>
 #include <string.h>
 #define PNG_DEBUG 3
 
@@ -60,6 +59,18 @@ std::string IndexFilename(const char* filename, const char* extension, int numbe
 	char tmp[10];
 	sprintf(tmp, "%.5i", number);
 	return std::string(filename) + tmp + "." + extension;
+}
+
+QString ImageFileExtension(enumImageFileType imageFileType)
+{
+	switch(imageFileType)
+	{
+		case IMAGE_FILE_TYPE_JPG: return "jpg"; break;
+		case IMAGE_FILE_TYPE_PNG: return "png"; break;
+		case IMAGE_FILE_TYPE_EXR: return "exr"; break;
+		case IMAGE_FILE_TYPE_TIFF: return "tiff"; break;
+	}
+	return "";
 }
 
 void SavePNG(QString filename, int width, int height, png_byte *image)

@@ -1076,21 +1076,8 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subindex)
 	int frameIndex = index * keyframes->GetFramesPerKeyframe() + subindex;
 	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_"
 			+ QString("%1").arg(frameIndex, 5, 10, QChar('0'));
-	switch ((enumImageFileType) params->Get<double>("keyframe_animation_image_type"))
-	{
-		case IMAGE_FILE_TYPE_JPG:
-			filename += QString(".jpg");
-			break;
-		case IMAGE_FILE_TYPE_PNG:
-			filename += QString(".png");
-			break;
-		case IMAGE_FILE_TYPE_EXR:
-			filename += QString(".exr");
-			break;
-		case IMAGE_FILE_TYPE_TIFF:
-			filename += QString(".tiff");
-			break;
-	}
+	filename += "." + ImageFileExtension(
+				(enumImageFileType) params->Get<double>("keyframe_animation_image_type"));
 	return filename;
 }
 

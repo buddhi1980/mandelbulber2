@@ -42,17 +42,24 @@ extern std::string logfileName;
 
 enum enumImageFileType
 {
-	IMAGE_FILE_TYPE_PNG = 0, IMAGE_FILE_TYPE_JPG = 1, IMAGE_FILE_TYPE_EXR = 2, IMAGE_FILE_TYPE_TIFF
+	IMAGE_FILE_TYPE_PNG = 0,
+	IMAGE_FILE_TYPE_JPG = 1,
+	IMAGE_FILE_TYPE_EXR = 2,
+	IMAGE_FILE_TYPE_TIFF = 3
 };
 
 enum enumImageContentType
 {
-	IMAGE_CONTENT_COLOR = 0, IMAGE_CONTENT_ALPHA = 1, IMAGE_CONTENT_ZBUFFER = 2
+	IMAGE_CONTENT_COLOR = 0,
+	IMAGE_CONTENT_ALPHA = 1,
+	IMAGE_CONTENT_ZBUFFER = 2
 };
 
 enum enumImageChannelQualityType
 {
-	IMAGE_CHANNEL_QUALITY_8 = 0, IMAGE_CHANNEL_QUALITY_16 = 1, IMAGE_CHANNEL_QUALITY_32 = 2
+	IMAGE_CHANNEL_QUALITY_8 = 0,
+	IMAGE_CHANNEL_QUALITY_16 = 1,
+	IMAGE_CHANNEL_QUALITY_32 = 2
 };
 
 struct structSaveImageChannel
@@ -76,6 +83,7 @@ struct structSaveImageChannel
 
 std::string IndexFilename(const char* filename, const char* extension, int number);
 //METHODDEF(void) my_error_exit(j_common_ptr cinfo);
+QString ImageFileExtension(enumImageFileType imageFileType);
 void SavePNG(QString filename, int width, int height, png_byte *image);
 void SavePNG16(QString filename, int width, int height, sRGB16* image16);
 void SavePNG16Alpha(QString filename, int width, int height, cImage *image);
