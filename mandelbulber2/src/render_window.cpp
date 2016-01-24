@@ -747,8 +747,7 @@ void RenderWindow::slotMenuSaveSettings()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator() + "settings"
-			+ QDir::separator()));
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath()));
 	dialog.selectFile(QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).completeBaseName()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
 	dialog.setWindowTitle(tr("Save settings..."));
@@ -789,8 +788,7 @@ void RenderWindow::slotMenuLoadSettings()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator() + "settings"
-			+ QDir::separator()));
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath()));
 	dialog.selectFile(QDir::toNativeSeparators(systemData.lastSettingsFile));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Load settings..."));
@@ -874,8 +872,7 @@ void RenderWindow::slotImportOldSettings()
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
-	dialog.setDirectory(QDir::toNativeSeparators(systemData.dataDirectory + QDir::separator() + "settings"
-			+ QDir::separator()));
+	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath()));
 	dialog.selectFile(QDir::toNativeSeparators(systemData.lastSettingsFile));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Import settings from old Mandelbulber (v1.21)..."));
