@@ -1257,7 +1257,6 @@ void SaveEXR(QString filename, cImage* image,
 #endif /* USE_EXR */
 
 #ifdef USE_TIFF
-
 bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChannel, bool appendAlpha)
 {
 	int width = image->GetWidth();
@@ -1271,16 +1270,20 @@ bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChann
 	}
 
 	int qualitySize;
+	int sampleFormat;
 	switch (imageChannel.channelQuality)
 	{
 		case IMAGE_CHANNEL_QUALITY_8:
 			qualitySize = 8;
+			sampleFormat = SAMPLEFORMAT_UINT;
 			break;
 		case IMAGE_CHANNEL_QUALITY_16:
 			qualitySize = 16;
+			sampleFormat = SAMPLEFORMAT_UINT;
 			break;
 		default:
 			qualitySize = 32;
+			sampleFormat = SAMPLEFORMAT_IEEEFP;
 			break;
 	}
 
@@ -1325,10 +1328,27 @@ bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChann
 	TIFFSetField(tiff, TIFFTAG_PHOTOMETRIC,   colorType);
 	TIFFSetField(tiff, TIFFTAG_FILLORDER,     FILLORDER_MSB2LSB);
 	TIFFSetField(tiff, TIFFTAG_PLANARCONFIG,  PLANARCONFIG_CONTIG);
+	TIFFSetField(tiff, TIFFTAG_SAMPLEFORMAT,  sampleFormat);
 
 	int pixelSize = samplesPerPixel * qualitySize / 8;
 	char* colorPtr = new char[(unsigned long int) width * height * pixelSize];
 
+	// calculate min / max values from zbuffer range
+	float minZ = 1.0e50;
+	float maxZ = 0.0;
+	float rangeZ = 0.0;
+	if (imageChannel.contentType == IMAGE_CONTENT_ZBUFFER)
+	{
+		float *zbuffer = image->GetZBufferPtr();
+		unsigned int size = width * height;
+		for (unsigned int i = 0; i < size; i++)
+		{
+			float z = zbuffer[i];
+			if (z > maxZ && z < 1e19) maxZ = z;
+			if (z < minZ) minZ = z;
+		}
+		rangeZ = maxZ - minZ;
+	}
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
@@ -1344,18 +1364,18 @@ bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChann
 						{
 							sRGBAfloat* typedColorPtr = (sRGBAfloat*) &colorPtr[ptr];
 							sRGB16 rgbPointer = image->GetPixelImage16(x, y);
-							typedColorPtr->R = rgbPointer.R;
-							typedColorPtr->G = rgbPointer.G;
-							typedColorPtr->B = rgbPointer.B;
-							typedColorPtr->A = image->GetPixelAlpha(x, y);
+							typedColorPtr->R = rgbPointer.R / 65536.0;
+							typedColorPtr->G = rgbPointer.G / 65536.0;
+							typedColorPtr->B = rgbPointer.B / 65536.0;
+							typedColorPtr->A = image->GetPixelAlpha(x, y) / 65536.0;
 						}
 						else
 						{
 							sRGBfloat* typedColorPtr = (sRGBfloat*) &colorPtr[ptr];
 							sRGB16 rgbPointer = image->GetPixelImage16(x, y);
-							typedColorPtr->R = rgbPointer.R;
-							typedColorPtr->G = rgbPointer.G;
-							typedColorPtr->B = rgbPointer.B;
+							typedColorPtr->R = rgbPointer.R / 65536.0;
+							typedColorPtr->G = rgbPointer.G / 65536.0;
+							typedColorPtr->B = rgbPointer.B / 65536.0;
 						}
 					}
 					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
@@ -1402,7 +1422,7 @@ bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChann
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
 					{
 						float* typedColorPtr = (float*) &colorPtr[ptr];
-						*typedColorPtr = image->GetPixelAlpha(x, y);
+						*typedColorPtr = image->GetPixelAlpha(x, y) / 65536.0;
 					}
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
@@ -1425,17 +1445,17 @@ bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChann
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
 					{
 						float* typedColorPtr = (float*) &colorPtr[ptr];
-						*typedColorPtr = (float) (image->GetPixelZBuffer(x, y));
+						*typedColorPtr = (image->GetPixelZBuffer(x, y) - minZ) / rangeZ;
 					}
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
 						unsigned short* typedColorPtr = (unsigned short*) &colorPtr[ptr];
-						*typedColorPtr = (unsigned short) (image->GetPixelZBuffer(x, y) * 65536);
+						*typedColorPtr = (unsigned short) (((image->GetPixelZBuffer(x, y) - minZ) / rangeZ) * 65535);
 					}
 					else
 					{
 						unsigned char* typedColorPtr = (unsigned char*) &colorPtr[ptr];
-						*typedColorPtr = (unsigned char) (image->GetPixelZBuffer(x, y) * 256);
+						*typedColorPtr = (unsigned char) (((image->GetPixelZBuffer(x, y) - minZ) / rangeZ) * 255);
 					}
 				}
 				break;
