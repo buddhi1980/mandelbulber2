@@ -113,11 +113,21 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 								double blur2 = ((double) z2 - neutral) / z2 * deep;
 								if (blur1 > blur2)
 								{
-									double weight2 = 1.0 - fabs((blur1 - blur2) / blur1);
-									if (weight2 < 0.0)
-										weight2 = 0.0;
-									weight *= weight2;
-									weight = 0.0;
+									if(blur1 * blur2 < 0)
+									{
+										weight = 0.0;
+									}
+									else
+									{
+										double maxDiff = 0.1;
+										double weight2 = 0.0;
+										if(blur1 > 0)
+											weight2 = 1.0 + maxDiff - blur1/blur2;
+										else
+											weight2 = 1.0 + maxDiff - blur2/blur1;
+										if (weight2 < 0.0) weight2 = 0.0;
+										weight *= weight2 / maxDiff;
+									}
 								}
 
 								totalWeight += weight;
@@ -185,6 +195,8 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 				timerRefresh.restart();
 				timerRefreshProgressBar.restart();
 				lastRefreshTime = 0;
+
+
 
 				//Randomize Z-buffer
 				int imgSize = height * width;
@@ -333,7 +345,7 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 				delete[] temp_sort;
 			}
 	}
-	else
+	else //integer version compatible with SSAO
 	{
 		sRGB16 *temp_image = new sRGB16[width * height];
 		unsigned short *temp_alpha = new unsigned short[width * height];
@@ -407,11 +419,21 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 							double blur2 = ((double) z2 - neutral) / z2 * deep;
 							if (blur1 > blur2)
 							{
-								double weight2 = 1.0 - fabs((blur1 - blur2) / blur1);
-								if (weight2 < 0.0)
-									weight2 = 0.0;
-								weight *= weight2;
-								weight = 0.0;
+								if(blur1 * blur2 < 0)
+								{
+									weight = 0.0;
+								}
+								else
+								{
+									double maxDiff = 0.1;
+									double weight2 = 0.0;
+									if(blur1 > 0)
+										weight2 = 1.0 + maxDiff - blur1/blur2;
+									else
+										weight2 = 1.0 + maxDiff - blur2/blur1;
+									if (weight2 < 0.0) weight2 = 0.0;
+									weight *= weight2 / maxDiff;
+								}
 							}
 
 							totalWeight += weight;
