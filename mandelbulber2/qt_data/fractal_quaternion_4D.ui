@@ -69,7 +69,7 @@
          </widget>
         </item>
         <item row="2" column="3">
-         <widget class="QSlider" name="slider_transf_scale_0">
+         <widget class="QSlider" name="slider_transf_offset_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -176,7 +176,7 @@
          </widget>
         </item>
         <item row="2" column="4">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_0">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>

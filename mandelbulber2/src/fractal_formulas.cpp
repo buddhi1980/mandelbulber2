@@ -3469,7 +3469,7 @@ void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
 {
 
   double w0 = 0.0;
-  if( i < 1.0) w0 = fractal->transformCommon.scale0;
+  if( i < 1.0) w0 = fractal->transformCommon.offset0;
   z4D.w += w0;
 
   z4D = CVector4 (
@@ -3480,9 +3480,15 @@ void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
   z4D *= fractal->transformCommon.constantMultiplier1220;
   z4D += fractal->transformCommon.additionConstant0000;
 }
-void MandelboxVaryScale4DIteration(CVector4 &z4D,  const cFractal *fractal,
+
+void MandelboxVaryScale4DIteration(CVector4 &z4D, int i,  const cFractal *fractal,
     sExtendedAux &aux)
 {
+  double w0 = 0.0;
+  if( i < 1.0) w0 = fractal->transformCommon.offset0;
+  z4D.w += w0;
+
+
   aux.actualScale = aux.actualScale
       + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
   CVector4 oldz = z4D;

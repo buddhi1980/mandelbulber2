@@ -621,7 +621,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case mandelboxVaryScale4D:
         {
           CVector4 z4D(z, w);
-          MandelboxVaryScale4DIteration(z4D, fractal, extendedAux[sequence]);
+          MandelboxVaryScale4DIteration(z4D, i, fractal, extendedAux[sequence]);
           z = z4D.GetXYZ();
           w = z4D.w;
           break;
