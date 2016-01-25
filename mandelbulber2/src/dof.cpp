@@ -119,14 +119,13 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 									}
 									else
 									{
-										double maxDiff = 0.1;
 										double weight2 = 0.0;
 										if(blur1 > 0)
-											weight2 = 1.0 + maxDiff - blur1/blur2;
+											weight2 = 1.1 - blur1/blur2;
 										else
-											weight2 = 1.0 + maxDiff - blur2/blur1;
+											weight2 = 1.1 - blur2/blur1;
 										if (weight2 < 0.0) weight2 = 0.0;
-										weight *= weight2 / maxDiff;
+										weight *= weight2 * 10.0;
 									}
 								}
 
@@ -425,14 +424,13 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 								}
 								else
 								{
-									double maxDiff = 0.1;
 									double weight2 = 0.0;
 									if(blur1 > 0)
-										weight2 = 1.0 + maxDiff - blur1/blur2;
+										weight2 = 1.1 - blur1/blur2;
 									else
-										weight2 = 1.0 + maxDiff - blur2/blur1;
+										weight2 = 1.1 - blur2/blur1;
 									if (weight2 < 0.0) weight2 = 0.0;
-									weight *= weight2 / maxDiff;
+									weight *= weight2 * 10.0;
 								}
 							}
 
