@@ -787,6 +787,8 @@ struct sFractalTransformCommon
   double scale3;
   double pwr05;
   double pwr4;
+  double pwr8;
+  double pwr8a;
 
   int startIterations;
   int startIterations250;

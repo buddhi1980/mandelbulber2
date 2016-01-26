@@ -1760,6 +1760,28 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
 }
 
 
+//IQ-Bulb http://iquilezles.org/www/articles/mandelbulb/mandelbulb.htm
+
+void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  // extract polar coordinates
+  double wr = sqrt( z.Dot(z));
+  if (wr < 1e-21) wr = 1e-21;
+  double wo = acos(z.y/wr);
+  double wi= atan2(z.x, z.z);
+
+    // scale and rotate the point
+  wr = pow(wr, fractal->transformCommon.pwr8);
+  wo *=  fractal->transformCommon.pwr8;
+  wi *=  fractal->transformCommon.pwr8a ;
+
+   // convert back to cartesian coordinates
+  z.x = sin(wo) *  sin(wi);
+  z.y = cos(wo);
+  z.z = sin(wo) * cos(wi);
+
+  z *= wr;  //  and add Cpixel constant
+}
 
 
 
@@ -2313,13 +2335,13 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
   double w = 1.0 - z.z;
   if (w > -1e-21 && w < 1e-21) w = (w > 0) ? 1e-21 : -1e-21;
   w = 1.0/w;
-  CVector3 t3;
-  t3.x = z.x * w;
-  t3.y = z.y * w;
 
-  w = 1.0 + t3.x * t3.x + t3.y * t3.y;
-  t3.x = fabs(sin(M_PI * t3.x));
-  t3.y = fabs(sin(M_PI * t3.y));
+  double s = z.x * w;
+  double t = z.y * w;
+
+  w = 1.0 + s * s + t * t;
+  s = fabs(sin(M_PI * s));
+  t = fabs(sin(M_PI * t));
   r *= r;
   if (r < 1e-21) r = 1e-21;
 
@@ -2328,10 +2350,10 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
   r = -0.25 + pow( r , w);// problem with pow()
 
 
-  w = r / (1.0 + t3.x * t3.x + t3.y * t3.y);
-  z.x =  t3.x;
-  z.y =  t3.y;
-  z.z =  -1.0 +  t3.x * t3.x + t3.y * t3.y;
+  w = r / (1.0 + s * s + t * t);
+  z.x =  s;
+  z.y =  t;
+  z.z =  -1.0 +  s * s + t * t;
   z *= w * fractal->transformCommon.constantMultiplier221;
 
   if (fractal->transformCommon.rotationEnabled)

@@ -48,6 +48,7 @@ void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtended
 void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux);
 void Ides2Iteration(CVector3 &z, CVector3 &c);
 void IdesIteration(CVector3 &z);
+void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Kalisets1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void LkmitchIteration(CVector3 &z);

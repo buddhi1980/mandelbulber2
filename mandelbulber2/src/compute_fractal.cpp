@@ -370,6 +370,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           FoldBoxMod1Iteration(z, i, fractal, extendedAux[sequence]);
           break;
         }
+        case iqBulb:
+        {
+          IQbulbIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
         case mandelbulbMulti:
         {
           MandelbulbMultiIteration(z, fractal, extendedAux[sequence]);

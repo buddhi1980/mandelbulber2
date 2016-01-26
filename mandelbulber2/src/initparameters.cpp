@@ -506,13 +506,16 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_minimum_radius_0", 0.0, morphAkima, paramStandard);
   par->addParam("transf_minimum_radius_05", 0.5, morphAkima, paramStandard);
   par->addParam("transf_minimum_radius_06", 0.6, morphAkima, paramStandard);
+  par->addParam("transf_pwr_05", 0.5, morphAkima, paramStandard);
+  par->addParam("transf_pwr_4", 4.0, morphAkima, paramStandard);
+  par->addParam("transf_pwr_8", 8.0, morphAkima, paramStandard);
+  par->addParam("transf_pwr_8a", 8.0, morphAkima, paramStandard);
   par->addParam("transf_scale", 1.0, morphAkima, paramStandard);
   par->addParam("transf_scale_0", 0.0, morphAkima, paramStandard);
   par->addParam("transf_scale_1", 1.0, morphAkima, paramStandard);
   par->addParam("transf_scale_015", 1.5, morphAkima, paramStandard);
   par->addParam("transf_scale_3", 3.0, morphAkima, paramStandard);
-  par->addParam("transf_pwr_05", 0.5, morphAkima, paramStandard);
-  par->addParam("transf_pwr_4", 4.0, morphAkima, paramStandard);
+
 
   par->addParam("transf_int_A", 0, morphLinear, paramStandard);
   par->addParam("transf_int_B", 0, morphLinear, paramStandard);

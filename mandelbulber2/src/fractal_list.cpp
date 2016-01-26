@@ -211,6 +211,15 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
+  fractalList->append(sFractalDescription("IQ-Bulb",
+                                          "iq_bulb",
+                                          iqBulb,
+                                          deltaDEType,
+                                          logarithmicDEFunction,
+                                          cpixelEnabledByDefault,
+                                          10));
+
+
 	fractalList->append(sFractalDescription("Kaleidoscopic IFS",
 																					"ifs",
 																					kaleidoscopicIFS,
