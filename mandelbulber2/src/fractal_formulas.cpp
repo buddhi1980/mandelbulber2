@@ -2131,7 +2131,7 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sE
     else z.z -= tempFAB.z;
   }
 }
-    //  MsltoeSym3Mod2  a trig version http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 31
+    //  Msltoe_Juia_Bulb_Mod2  a trig version http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 31
 void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -2191,14 +2191,14 @@ void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
     else z.z -= tempFAB.z;
   }
 }
-  // MsltoeSym3Mod3  //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 39
+  // Msltoe_Julia_Bulb_Mod3  //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 39
 void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
   CVector3 z1 = z;
   double psi = atan2(z.z,z.y) + M_PI*2.0;
   double psi2 = 0;
-  while (psi > M_PI_4 * 0.5)
+  while (psi > M_PI_8)
   {
     psi -= M_PI_4;
     psi2 -= M_PI_4;  // M_PI_4 = pi/4
@@ -2216,19 +2216,19 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
   double zsd = ( 1 - zs.z/ zs3);
 
   z1.x  = (zs.x - zs.y) * zsd;
-  z1.y = (2 * z.x * z.y)* zsd * fractal->transformCommon.scale;// scaling temp.y;
+  z1.y = (2 * z.x * z.y)* zsd * fractal->transformCommon.scale;// scaling y;
   z1.z = 2 * z.z * sqrt(zs2);
   z.x = z1.x;
   z.y = z1.y * cs + z1.z * sn;
   z.z = -z1.y * sn + z1.z * cs;
   z +=  fractal->transformCommon.additionConstant000;
 
-  if (fractal->transformCommon.rotationEnabled)
+  if (fractal->transformCommon.rotationEnabled) // rotation, might remove it
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
 
-  if (fractal->transformCommon.addCpixelEnabledFalse)
+  if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
   {
     CVector3 tempFAB = c;
     if (fractal->transformCommon.functionEnabledx)
@@ -2346,9 +2346,8 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
   if (r < 1e-21) r = 1e-21;
 
 
-  if (w > 36) w = 36;
-  r = -0.25 + pow( r , w);// problem with pow()
-
+  if (w > 36) w = 36;// problem with pow()
+  r = -0.25 + pow( r , w );
 
   w = r / (1.0 + s * s + t * t);
   z.x =  s;

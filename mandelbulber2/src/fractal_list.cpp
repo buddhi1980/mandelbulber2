@@ -388,7 +388,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelEnabledByDefault,
 																					10));
 
-  fractalList->append(sFractalDescription("MsltoeSym3_Mod2",
+  fractalList->append(sFractalDescription("Msltoe_Juia_Bulb_Mod2",
                                           "msltoesym3_mod2",
                                           msltoesym3Mod2,
                                           analyticDEType,
@@ -396,7 +396,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelEnabledByDefault,
                                           10));
 
-  fractalList->append(sFractalDescription("MsltoeSym3_Mod3",
+  fractalList->append(sFractalDescription("Msltoe_Juia_Bulb_Mod3",
                                           "msltoesym3_mod3",
                                           msltoesym3Mod3,
                                           analyticDEType,
@@ -450,7 +450,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					deltaDEType,
 																					logarithmicDEFunction,
 																					cpixelDisabledByDefault,
-																					10));
+                                          1.5));
 
 	fractalList->append(sFractalDescription("Riemann Sphere Msltoe V1",
 																					"riemann_sphere_msltoeV1",
