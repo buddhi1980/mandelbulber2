@@ -1765,13 +1765,15 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
 void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   // extract polar coordinates
-  double wr = sqrt( z.Dot(z));
+  double wr = aux.r;
   if (wr < 1e-21) wr = 1e-21;
   double wo = acos(z.y/wr);
   double wi= atan2(z.x, z.z);
 
     // scale and rotate the point
-  wr = pow(wr, fractal->transformCommon.pwr8);
+  wr = pow(wr, fractal->transformCommon.pwr8 - 1.0);
+	aux.r_dz = wr * aux.r_dz * fractal->transformCommon.pwr8 + 1.0;
+	wr *= aux.r;
   wo *=  fractal->transformCommon.pwr8;
   wi *=  fractal->transformCommon.pwr8a ;
 

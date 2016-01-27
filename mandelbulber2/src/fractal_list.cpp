@@ -214,7 +214,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("IQ-Bulb",
                                           "iq_bulb",
                                           iqBulb,
-                                          deltaDEType,
+                                          analyticDEType,
                                           logarithmicDEFunction,
                                           cpixelEnabledByDefault,
                                           10));
