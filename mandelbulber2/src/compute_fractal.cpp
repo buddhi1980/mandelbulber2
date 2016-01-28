@@ -839,6 +839,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case eiffieMsltoe:
 				case fast_mandelbulb_power2:
 				case hypercomplex:
+				case iqBulb:
 				case mandelbulb:
 				case mandelbulb2:
 				case mandelbulb3:
@@ -854,7 +855,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case msltoesym4Mod:
 				case quaternion:
 				case xenodreambuie:
-				case iqBulb:
 
 					out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
 					break;

@@ -172,5 +172,17 @@
         <file>formula_and_transform_images/transf_spherical_offset.png</file>
         <file>formula_and_transform_images/transf_zVector_axis_swap.png</file>
         <file>formula_and_transform_images/platonic_solid.png</file>
+        <file>formula_and_transform_images/aexion_octopus_mod.png</file>
+        <file>formula_and_transform_images/amazing_surf_mod1.png</file>
+        <file>formula_and_transform_images/fold_box_mod1.png</file>
+        <file>formula_and_transform_images/iq_bulb.png</file>
+        <file>formula_and_transform_images/kalisets1.png</file>
+        <file>formula_and_transform_images/menger_mod1.png</file>
+        <file>formula_and_transform_images/msltoe_donut.png</file>
+        <file>formula_and_transform_images/msltoesym2_mod.png</file>
+        <file>formula_and_transform_images/msltoesym3_mod.png</file>
+        <file>formula_and_transform_images/msltoesym3_mod2.png</file>
+        <file>formula_and_transform_images/msltoesym3_mod3.png</file>
+        <file>formula_and_transform_images/msltoesym4_mod.png</file>
     </qresource>
 </RCC>
