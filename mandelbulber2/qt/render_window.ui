@@ -295,6 +295,7 @@
     <addaction name="actionShow_statistics_dock"/>
     <addaction name="actionShow_gamepad_dock"/>
     <addaction name="actionShow_queue_dock"/>
+    <addaction name="actionShow_measurement_dock"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -1212,7 +1213,7 @@
           <x>0</x>
           <y>0</y>
           <width>210</width>
-          <height>285</height>
+          <height>201</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_gamepad">
@@ -3070,7 +3071,7 @@ to target:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>291</width>
                   <height>844</height>
                  </rect>
                 </property>
@@ -4480,7 +4481,7 @@ direction vector:</string>
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-29</y>
+                  <y>0</y>
                   <width>334</width>
                   <height>216</height>
                  </rect>
@@ -4824,7 +4825,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>196</width>
                   <height>513</height>
                  </rect>
                 </property>
@@ -5664,7 +5665,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>273</width>
                   <height>225</height>
                  </rect>
                 </property>
@@ -5982,7 +5983,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
+                  <width>265</width>
                   <height>1477</height>
                  </rect>
                 </property>
@@ -9504,7 +9505,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -10557,7 +10558,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -11604,7 +11605,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -12651,7 +12652,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -13698,7 +13699,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -14745,7 +14746,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -15792,7 +15793,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -16839,7 +16840,7 @@ Disables 'Update image' options)</string>
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>312</width>
+                      <width>264</width>
                       <height>716</height>
                      </rect>
                     </property>
@@ -17890,7 +17891,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>210</width>
                   <height>482</height>
                  </rect>
                 </property>
@@ -19491,8 +19492,8 @@ from fractal #:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>334</width>
-                  <height>416</height>
+                  <width>207</width>
+                  <height>354</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -22458,8 +22459,8 @@ of fractal iterations:</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>317</width>
-                  <height>288</height>
+                  <width>198</width>
+                  <height>242</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -23411,6 +23412,179 @@ keyframes</string>
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dockWidget_measurement">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="windowTitle">
+    <string>&amp;Measurement</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_6">
+    <layout class="QVBoxLayout" name="verticalLayout_118">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>2</number>
+     </property>
+     <property name="topMargin">
+      <number>2</number>
+     </property>
+     <property name="rightMargin">
+      <number>2</number>
+     </property>
+     <property name="bottomMargin">
+      <number>2</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="pushButton_meas_get_point">
+       <property name="text">
+        <string>Get point by mouse pointer</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QFormLayout" name="formLayout_coordinates_10">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::ExpandingFieldsGrow</enum>
+       </property>
+       <property name="horizontalSpacing">
+        <number>2</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>1</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_296">
+         <property name="text">
+          <string>x:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="MyLineEdit" name="vect3_meas_point_x">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_297">
+         <property name="text">
+          <string>y:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="MyLineEdit" name="vect3_meas_point_y">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_298">
+         <property name="text">
+          <string>z:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="MyLineEdit" name="vect3_meas_point_z">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QFormLayout" name="formLayout">
+       <property name="horizontalSpacing">
+        <number>2</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>2</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_299">
+         <property name="text">
+          <string>Distance from last point:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="edit_meas_distance_from_last">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance between camera and target&lt;/p&gt;&lt;p&gt;In&lt;span style=&quot; font-style:italic;&quot;&gt; Move camera and target&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; modes it moves camera closer/further from target.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_345">
+         <property name="text">
+          <string>Distance from camera:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="edit_meas_distance_from_camera">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance between camera and target&lt;/p&gt;&lt;p&gt;In&lt;span style=&quot; font-style:italic;&quot;&gt; Move camera and target&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; modes it moves camera closer/further from target.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_23">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionSave_as_JPG">
    <property name="icon">
     <iconset theme="document-save-as" resource="icons.qrc">
@@ -23677,6 +23851,14 @@ keyframes</string>
    </property>
    <property name="text">
     <string>Add current settings to toolbar</string>
+   </property>
+  </action>
+  <action name="actionShow_measurement_dock">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show &amp;measurement dock</string>
    </property>
   </action>
  </widget>
