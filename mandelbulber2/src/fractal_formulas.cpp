@@ -1812,6 +1812,8 @@ void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExt
   z = z * m;
   aux.DE = aux.DE * fabs(m) + 1.0;
 
+
+
   if (fractal->transformCommon.addCpixelEnabledFalse)
   {
     z +=  c * fractal->transformCommon.constantMultiplier111;
@@ -1819,6 +1821,9 @@ void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExt
   if (fractal->transformCommon.juliaMode)
   {
     z += fractal->transformCommon.juliaC;
+  }  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
 }
 
@@ -2163,12 +2168,6 @@ void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
   }
   z += fractal->transformCommon.additionConstant000;
 
-
-  if (fractal->transformCommon.rotationEnabled)
-  {
-    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-  }
-
   if (fractal->transformCommon.addCpixelEnabledFalse)
   {
     CVector3 tempFAB = c;
@@ -2192,6 +2191,15 @@ void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
     if (z.z > 0) z.z += tempFAB.z;
     else z.z -= tempFAB.z;
   }
+  double lengthTempZ = -z.Length();
+  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+  z *= 1 + fractal->transformCommon.offset / lengthTempZ;
+  z *= fractal->transformCommon.scale1;
+  aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
+  aux.r_dz *= fabs(fractal->transformCommon.scale1);
+
+
+
 }
   // Msltoe_Julia_Bulb_Mod3  //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 39
 void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
@@ -2225,11 +2233,6 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
   z.z = -z1.y * sn + z1.z * cs;
   z +=  fractal->transformCommon.additionConstant000;
 
-  if (fractal->transformCommon.rotationEnabled) // rotation, might remove it
-  {
-    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-  }
-
   if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
   {
     CVector3 tempFAB = c;
@@ -2253,6 +2256,12 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
     if (z.z > 0) z.z += tempFAB.z;
     else z.z -= tempFAB.z;
   }
+    double lengthTempZ = -z.Length();
+  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+  z *= 1 + fractal->transformCommon.offset / lengthTempZ;
+  z *= fractal->transformCommon.scale1;
+  aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
+  aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
 /* MsltoeSym4 from mbulb3d, also somewhere on fractalforums */
@@ -2261,7 +2270,7 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
   CVector3 temp = z;
   double tempL = temp.Length();
-  if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
+  if (tempL < 1e-21 ) tempL = 1e-21;
   z *= fractal->transformCommon.scale3D111;
 
   aux.r_dz *= fabs(z.Length()/tempL);
@@ -2331,9 +2340,15 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 //http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500
 void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
 {
+  if (fractal->transformCommon.rotationEnabled)
+  {
+    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+  }
+
   double r = z.Length();
   if (r < 1e-21) r = 1e-21;
   z *= fractal->transformCommon.scale/r;
+
   double w = 1.0 - z.z;
   if (w > -1e-21 && w < 1e-21) w = (w > 0) ? 1e-21 : -1e-21;
   w = 1.0/w;
@@ -2342,8 +2357,10 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
   double t = z.y * w;
 
   w = 1.0 + s * s + t * t;
+
   s = fabs(sin(M_PI * s));
   t = fabs(sin(M_PI * t));
+
   r *= r;
   if (r < 1e-21) r = 1e-21;
 
@@ -2352,16 +2369,56 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
   r = -0.25 + pow( r , w );
 
   w = r / (1.0 + s * s + t * t);
-  z.x =  s;
-  z.y =  t;
+  z.x = 2 * s;
+  z.y = 2 * t;
   z.z =  -1.0 +  s * s + t * t;
-  z *= w * fractal->transformCommon.constantMultiplier221;
+  z *= w;
 
-  if (fractal->transformCommon.rotationEnabled)
+  z += fractal->transformCommon.additionConstant000;
+  //.......................................................................
+ /* if (fractal->transformCommon.rotationEnabled)
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
-  z += fractal->transformCommon.additionConstant000;
+  double r = z.Length();
+  if (r < 1e-21) r = 1e-21;
+  double r1 = fractal->transformCommon.scale/sqrt(r); // scale/length
+  if (r1 < 1e-21) r1 = 1e-21;
+  z *= r1;
+  //r = fabs(r);
+
+  double s;
+  double t;
+  double w = 1.0 - z.x;
+  if (w > -1e-21 && w < 1e-21) w = (w > 0) ? 1e-21 : -1e-21;
+
+  if(fabs(w) > 1e-20) //fractal->transformCommon.scale0/100)      // smallest  // w > -1e-05 && w < 1e-05)
+  {
+    s = z.z/w;
+    t = z.y/w;
+  }
+  else
+  {
+    s = z.z;
+    t = z.y; // introduce discontinuities
+  }
+  w = 1.0 + s * s + t * t;
+
+  s = fabs(fabs(sin(M_PI * s + 0.0)) + 0.0);
+  t = fabs(fabs(sin(M_PI * t + 0.0)) + 0.0);
+
+  r = -0.25 + pow( r , 2.0 * w );
+  w = (1.0 + s * s + t * t);
+  if (w > -1e-21 && w < 1e-21) w = (w > 0) ? 1e-21 : -1e-21;
+  w = 2/w;
+  z.x =  r * (1.0 - w);
+  z.y =  r * t * w;
+  z.z =  r * s * w;
+
+  z += fractal->transformCommon.additionConstant000;*/
+
+
+
 }
 
 //RiemannSphereMsltoe     Variation1----------------------------------
@@ -2830,22 +2887,36 @@ void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 &c, int i, const cF
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 void TransformBenesiT1Iteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
+
+
+
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
   z = CVector3((tempXZ - z.y) * SQRT_1_2,
                (tempXZ + z.y) * SQRT_1_2,
                z.x * SQRT_1_3 + z.z * SQRT_2_3);
+
+  CVector3 temp = z;
+  double tempL = temp.Length();
+
   z = fabs(z) * fractal->transformCommon.scale3D222;
+
+  if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
+  double avgScale = fabs(z.Length()/tempL);
+
+  aux.r_dz *= avgScale;
+  aux.DE = aux.DE * avgScale + 1.0;
+
   if (fractal->transformCommon.rotationEnabled)
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
 
-  double avgScale = (fabs(fractal->transformCommon.scale3D222.x)
+  /*double avgScale = (fabs(fractal->transformCommon.scale3D222.x)
       + fabs(fractal->transformCommon.scale3D222.y) + fabs(fractal->transformCommon.scale3D222.z))
       / 3;  // cheap approximation
-
   aux.r_dz *= avgScale;
-  aux.DE = aux.DE * avgScale + 1.0;
+  aux.DE = aux.DE * avgScale + 1.0;*/
+
   tempXZ = (z.y + z.x) * SQRT_1_2;
 
   z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,

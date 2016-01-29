@@ -234,7 +234,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					analyticDEType,
 																					linearDEFunction,
 																					cpixelEnabledByDefault,
-																					10));
+                                          4));
 
 	fractalList->append(sFractalDescription("Lkmitch",
 																					"lkmitch",
@@ -388,7 +388,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelEnabledByDefault,
 																					10));
 
-  fractalList->append(sFractalDescription("Msltoe_Juia_Bulb_Mod2",
+  fractalList->append(sFractalDescription("Msltoe_Julia_Bulb_Mod2",
                                           "msltoesym3_mod2",
                                           msltoesym3Mod2,
                                           analyticDEType,
@@ -396,7 +396,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelEnabledByDefault,
                                           10));
 
-  fractalList->append(sFractalDescription("Msltoe_Juia_Bulb_Mod3",
+  fractalList->append(sFractalDescription("Msltoe_Julia_Bulb_Mod3",
                                           "msltoesym3_mod3",
                                           msltoesym3Mod3,
                                           analyticDEType,
