@@ -1794,7 +1794,7 @@ You might have to cutoff at z=0 or so, to see something.*/
 
 void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
-  /*if (fractal->transformCommon.functionEnabledx)
+  if (fractal->transformCommon.functionEnabledx)
   {
     z.x = fabs(z.x);
   }
@@ -1805,9 +1805,9 @@ void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExt
   if (fractal->transformCommon.functionEnabledz)
   {
     z.z = fabs(z.z);
-  }*/
+  }
 
-   z = fabs(z)/(z.x*z.y * z.z) + c;
+   //z = fabs(z)/(z.x*z.y * z.z) + c;
 
 
 
