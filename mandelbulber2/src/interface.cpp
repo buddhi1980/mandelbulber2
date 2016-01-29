@@ -273,6 +273,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(clicked()),
 												mainWindow,
 												SLOT(slotPressedButtonGetJuliaConstant()));
+	QApplication::connect(mainWindow->ui->pushButton_meas_get_point,
+												SIGNAL(clicked()),
+												mainWindow,
+												SLOT(slotPressedButtonGetPoint()));
 	QApplication::connect(mainWindow->ui->pushButton_getPaletteFromImage,
 												SIGNAL(clicked()),
 												mainWindow,
@@ -844,6 +848,7 @@ void cInterface::SynchronizeInterface(cParameterContainer *par, cFractalContaine
 	SynchronizeInterfaceWindow(mainWindow->ui->tab_primitives, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->centralwidget, par, mode);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidgetContents_animation, par, mode);
+	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, par, mode);
 
 	for(int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
@@ -2495,6 +2500,18 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					StartRender();
 					break;
 				}
+				case RenderedImage::clickGetPoint:
+				{
+					SynchronizeInterface(gPar, gParFractal, cInterface::read);
+					CVector3 oldPoint = gPar->Get<CVector3>("meas_point");
+					double distanceFromLast = (point - oldPoint).Length();
+					double distanceFromCamera = (point - camera).Length();
+					gPar->Set("meas_point", point);
+					gPar->Set("meas_distance_from_last", distanceFromLast);
+					gPar->Set("meas_distance_from_camera", distanceFromCamera);
+					SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, gPar, cInterface::write);
+					break;
+				}
 			}
 		}
 	}
@@ -2857,6 +2874,10 @@ void cInterface::ComboMouseClickUpdate()
 	item.append((int) RenderedImage::clickPlaceRandomLightCenter);
 	combo->addItem(QObject::tr("Place random light center"), item);
 
+	item.clear();
+	item.append((int) RenderedImage::clickGetPoint);
+	combo->addItem(QObject::tr("Measure point coordinates"), item);
+
 
 	if (listOfPrimitives.size() > 0)
 	{
@@ -3105,6 +3126,11 @@ void cInterface::ResetFormula(int fractalNumber)
 	fractal->ResetAllToDefault();
 	gUndo.Store(gPar, gParFractal, gAnimFrames, gKeyframes);
 	SynchronizeInterface(gPar, gParFractal, write);
+}
+
+void cInterface::MeasurementGetPoint()
+{
+
 }
 
 //----------- functions outside cInterface class -------------

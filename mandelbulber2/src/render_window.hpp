@@ -92,6 +92,7 @@ private slots:
 	void slotPressedButtonDeletePrimitive();
 	void slotPressedButtonDOFUpdate();
 	void slotPressedButtonGetJuliaConstant();
+	void slotPressedButtonGetPoint();
 	void slotPressedButtonGetPaletteFromImage();
 	void slotPressedButtonImageApply();
 	void slotPressedButtonNewPrimitive();

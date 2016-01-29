@@ -90,6 +90,7 @@ public:
 	void AutoRecovery();
 	void OptimizeStepFactor(double qualityTarget);
 	void ResetFormula(int fractalNumber);
+	void MeasurementGetPoint();
 
 	bool QuitApplicationDialog();
 

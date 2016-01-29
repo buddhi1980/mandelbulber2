@@ -151,6 +151,10 @@ void RenderedImage::DisplayCoordinates()
 			text += tr("\nmax distance from fractal to 10%");
 			text += tr("\nof distance [center to camera position]");
 			break;
+		case clickGetPoint:
+			text = tr("Measure coordinates");
+			text += tr("\nand distance");
+			break;
 	}
 
 	if(clickMode != clickDoNothing)
@@ -159,7 +163,7 @@ void RenderedImage::DisplayCoordinates()
 		textRect.setHeight(textRect.height() + 2);
 		textRect.moveBottomLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y - 3));
 
-		painter.setOpacity(0.5);
+		painter.setOpacity(0.8);
 		painter.setPen(penWhite);
 		painter.setBrush(brushBrown);
 		painter.drawRoundedRect(textRect, 3, 3);
@@ -188,7 +192,7 @@ void RenderedImage::DisplayCoordinates()
 	QRect textRect2 = painter.boundingRect(QRect(), Qt::AlignTop || Qt::AlignLeft, textCoordinates);
 	textRect2.setHeight(textRect2.height() + 2);
 	textRect2.moveTopLeft(QPoint(lastMousePosition.x + 30, lastMousePosition.y + 3));
-	painter.setOpacity(0.5);
+	painter.setOpacity(0.8);
 	painter.setPen(penWhite);
 	painter.setBrush(brushDarkBlue);
 	painter.drawRoundedRect(textRect2, 3, 3);

@@ -46,7 +46,8 @@ public:
 		clickPlaceLight = 5,
 		clickPlacePrimitive = 6,
 		clickFlightSpeedControl = 7,
-		clickPlaceRandomLightCenter = 8
+		clickPlaceRandomLightCenter = 8,
+		clickGetPoint = 9
 	};
 
 	struct sFlightData

@@ -1504,6 +1504,7 @@ void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button)
 		case RenderedImage::clickGetJuliaConstant:
 		case RenderedImage::clickPlacePrimitive:
 		case RenderedImage::clickPlaceRandomLightCenter:
+		case RenderedImage::clickGetPoint:
 		{
 			gMainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
 			break;
@@ -1664,6 +1665,15 @@ void RenderWindow::slotPressedButtonGetJuliaConstant()
 {
 	QList<QVariant> item;
 	item.append((int) RenderedImage::clickGetJuliaConstant);
+	int index = ui->comboBox_mouse_click_function->findData(item);
+	ui->comboBox_mouse_click_function->setCurrentIndex(index);
+	gMainInterface->renderedImage->setClickMode(item);
+}
+
+void RenderWindow::slotPressedButtonGetPoint()
+{
+	QList<QVariant> item;
+	item.append((int) RenderedImage::clickGetPoint);
 	int index = ui->comboBox_mouse_click_function->findData(item);
 	ui->comboBox_mouse_click_function->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);

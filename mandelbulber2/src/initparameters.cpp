@@ -358,6 +358,11 @@ void InitParams(cParameterContainer *par)
 
 	par->addParam("quit_do_not_ask_again", false, morphNone, paramApp);
 
+	//measurement
+	par->addParam("meas_point", CVector3(0.0,0.0,0.0), morphNone, paramNoSave);
+	par->addParam("meas_distance_from_last", 0.0, morphNone, paramNoSave);
+	par->addParam("meas_distance_from_camera", 0.0, morphNone, paramNoSave);
+
 	//----------------------- preferences ---------------------
 	par->addParam("language", QString("unknown"), morphNone, paramApp);
 	par->addParam("ui_style_type", -1, morphNone, paramApp);
