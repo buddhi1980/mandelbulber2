@@ -517,8 +517,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelAlreadyHas,
                                           100));
 
-	fractalList->append(sFractalDescription("Transform - Add Cpixel_Pos_Neg",
-																					"transf_add_Cpixel_pos_neg",
+  fractalList->append(sFractalDescription("Transform - Add Cpixel_Symmetrical",
+                                          "transf_add_Cpixel_symmetrical",
 																					transfAddCpixelPosNeg,
 																					analyticDEType,
 																					withoutDEFunction,

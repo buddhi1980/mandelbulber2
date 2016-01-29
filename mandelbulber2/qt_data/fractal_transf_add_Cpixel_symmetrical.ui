@@ -276,6 +276,13 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="3">
+         <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+          <property name="text">
+           <string>add negative fABS</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>

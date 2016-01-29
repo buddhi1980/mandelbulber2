@@ -2839,7 +2839,7 @@ void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFracta
       z += fractal->transformCommon.juliaC;
   }
 }
-
+// addCpixel Symmetrical Constant Multipier
 void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   if (fractal->transformCommon.addCpixelEnabled)
@@ -2858,6 +2858,10 @@ void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal 
             tempFAB.z = fabs(tempFAB.z);
     }
     tempFAB *= fractal->transformCommon.constantMultiplier111;
+    if (fractal->transformCommon.functionEnabledFalse)
+    {
+      tempFAB *= -1.0;
+    }
     if (z.x > 0) z.x += tempFAB.x;
     else z.x -= tempFAB.x;
     if (z.y > 0) z.y += tempFAB.y;
