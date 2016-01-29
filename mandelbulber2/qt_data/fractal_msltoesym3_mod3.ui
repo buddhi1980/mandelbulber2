@@ -394,10 +394,10 @@
              </sizepolicy>
             </property>
             <property name="minimum">
-             <number>-18000</number>
+             <number>-2000</number>
             </property>
             <property name="maximum">
-             <number>18000</number>
+             <number>2000</number>
             </property>
             <property name="value">
              <number>0</number>
@@ -428,10 +428,10 @@
              <number>3</number>
             </property>
             <property name="minimum">
-             <double>-36000.000000000000000</double>
+             <double>-2000.000000000000000</double>
             </property>
             <property name="maximum">
-             <double>36000.000000000000000</double>
+             <double>2000.000000000000000</double>
             </property>
             <property name="singleStep">
              <double>0.100000000000000</double>
@@ -456,10 +456,10 @@
              <number>3</number>
             </property>
             <property name="minimum">
-             <double>-36000.000000000000000</double>
+             <double>-2000.000000000000000</double>
             </property>
             <property name="maximum">
-             <double>36000.000000000000000</double>
+             <double>2000.000000000000000</double>
             </property>
             <property name="singleStep">
              <double>0.100000000000000</double>
@@ -475,7 +475,7 @@
              </sizepolicy>
             </property>
             <property name="minimum">
-             <number>-18000</number>
+             <number>-2000</number>
             </property>
             <property name="maximum">
              <number>18000</number>
@@ -532,7 +532,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot; towards the origin.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>addCpixel Positive Negative Bias  Constant Multiplier </string>
+      <string>addCpixel Symmetrical  Constant Multiplier </string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -688,6 +688,13 @@
           </property>
          </widget>
         </item>
+        <item row="2" column="1">
+         <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
+          <property name="text">
+           <string>fABS</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="3">
          <widget class="QSlider" name="slider3_transf_constant_multiplier_000_y">
           <property name="sizePolicy">
@@ -710,6 +717,13 @@
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+          <property name="text">
+           <string>fABS</string>
           </property>
          </widget>
         </item>
@@ -738,20 +752,6 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
-          <property name="text">
-           <string>fABS</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
-          <property name="text">
-           <string>fABS</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
           <property name="text">
@@ -767,6 +767,46 @@
          </widget>
         </item>
        </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="MyGroupBox" name="groupCheck_info">
+     <property name="title">
+      <string>&amp;Information</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Apolonia Nova Lekka OT'; font-size:10pt;&quot;&gt;Msltoe Julia Bulb Mod3 &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 39 &quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 39 &lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

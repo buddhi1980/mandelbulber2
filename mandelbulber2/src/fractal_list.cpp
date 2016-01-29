@@ -234,7 +234,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					analyticDEType,
 																					linearDEFunction,
 																					cpixelEnabledByDefault,
-                                          4));
+                                          10));
 
 	fractalList->append(sFractalDescription("Lkmitch",
 																					"lkmitch",

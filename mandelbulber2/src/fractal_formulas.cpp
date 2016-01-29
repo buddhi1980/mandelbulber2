@@ -1794,7 +1794,7 @@ You might have to cutoff at z=0 or so, to see something.*/
 
 void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
-  if (fractal->transformCommon.functionEnabledx)
+  /*if (fractal->transformCommon.functionEnabledx)
   {
     z.x = fabs(z.x);
   }
@@ -1805,13 +1805,25 @@ void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExt
   if (fractal->transformCommon.functionEnabledz)
   {
     z.z = fabs(z.z);
-  }
+  }*/
+
+   z = fabs(z)/(z.x*z.y * z.z) + c;
 
 
-  double m = fractal->transformCommon.scale/(z.x * z.x + z.y * z.y + z.z * z.z + 1e-21); // need to change to cover neg
+
+  double sqs = (z.x * z.x + z.y * z.y + z.z * z.z + 1e-21); // sph inv
+  double m = fractal->transformCommon.scale/sqs;
   z = z * m;
   aux.DE = aux.DE * fabs(m) + 1.0;
-
+  /*double r = 1.0; // temp TODO change
+  if ( m < r )
+  {
+     z = z * (r*r);
+  }
+  else
+  {
+      z = z * m;
+  }*/
 
 
   if (fractal->transformCommon.addCpixelEnabledFalse)
@@ -2054,11 +2066,6 @@ void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   temp.z = 2.0 * z.z * sqrt(z2.x + z2.y);
   z = temp +  fractal->transformCommon.additionConstant000;
 
-  if (fractal->transformCommon.rotationEnabled)
-  {
-    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-  }
-
   if (fractal->transformCommon.addCpixelEnabledFalse)
   {
     CVector3 tempFAB = c;
@@ -2082,6 +2089,12 @@ void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
     if (z.z > 0) z.z += tempFAB.z;
     else z.z -= tempFAB.z;
   }
+  double lengthTempZ = -z.Length();
+  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+  z *= 1 + fractal->transformCommon.offset / lengthTempZ;
+  z *= fractal->transformCommon.scale1;
+  aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
+  aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
 /* MsltoeSym3Mod  from mbulb3d, also somewhere on fractalforums */
@@ -2109,11 +2122,6 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sE
 
   z = temp +  fractal->transformCommon.additionConstant000;
 
-  if (fractal->transformCommon.rotationEnabled)
-  {
-    z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-  }
-
   if (fractal->transformCommon.addCpixelEnabledFalse)
   {
     CVector3 tempFAB = c;
@@ -2137,8 +2145,14 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sE
     if (z.z > 0) z.z += tempFAB.z;
     else z.z -= tempFAB.z;
   }
+  double lengthTempZ = -z.Length();
+  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+  z *= 1 + fractal->transformCommon.offset / lengthTempZ;
+  z *= fractal->transformCommon.scale1;
+  aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
+  aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
-    //  Msltoe_Juia_Bulb_Mod2  a trig version http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 31
+    //  Msltoe_Julia_Bulb_Mod2  a trig version http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 31
 void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -2197,10 +2211,8 @@ void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
   z *= fractal->transformCommon.scale1;
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
-
-
-
 }
+
   // Msltoe_Julia_Bulb_Mod3  //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 39
 void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -2256,7 +2268,7 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
     if (z.z > 0) z.z += tempFAB.z;
     else z.z -= tempFAB.z;
   }
-    double lengthTempZ = -z.Length();
+  double lengthTempZ = -z.Length();
   if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
   z *= 1 + fractal->transformCommon.offset / lengthTempZ;
   z *= fractal->transformCommon.scale1;
@@ -2303,7 +2315,7 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 
   z = temp +  fractal->transformCommon.additionConstant000;
 
-  if (fractal->transformCommon.rotationEnabled)
+  if (fractal->transformCommon.rotationEnabled)  // rotation
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
@@ -2330,10 +2342,13 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
     else z.y -= tempFAB.y;
     if (z.z > 0) z.z += tempFAB.z;
     else z.z -= tempFAB.z;
-
-
-    //aux.r_dz *= fabs(z.Length()/tempL);
   }
+  double lengthTempZ = -z.Length();
+  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+  z *= 1 + fractal->transformCommon.offset / lengthTempZ;
+  z *= fractal->transformCommon.scale1;
+  aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
+  aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
 //RiemannSphereMsltoe----------------------------------
