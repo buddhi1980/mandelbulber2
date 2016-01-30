@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.07
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -25,9 +25,10 @@ coloring_random_seed 783848;
 coloring_speed 0,1;
 DE_factor 0,5;
 DE_thresh 1;
+delta_DE_function 1;
 DOF_focus 1,479108388168207e-14;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
+fog_color_1 0000 0000 0000;
 formula_1 8;
 formula_2 7;
 formula_iterations_1 40;
@@ -39,16 +40,15 @@ glow_intensity 0,015625;
 hybrid_fractal_enable true;
 image_height 1080;
 image_width 1920;
-iteration_fog_color_1 0 0 0;
+iteration_fog_color_1 0000 0000 0000;
 iteration_fog_color_1_maxiter 82;
-iteration_fog_color_2 0 7530 ffff;
+iteration_fog_color_2 0000 7530 ffff;
 iteration_fog_color_2_maxiter 165;
 julia_c 0 0 -4;
 julia_mode true;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 limit_min -10 0 -10;
-linear_DE_mode true;
 main_light_beta -45;
 main_light_intensity 0,7;
 main_light_volumetric_intensity 100;
@@ -59,9 +59,10 @@ reflections_max 3;
 shadows_enabled false;
 specular 0;
 stereo_eye_distance 0,1;
-surface_color_palette ec073a ff5a33 ffff00 7800b4 981400 ;
+surface_color_palette ec073a ff5a33 ffff00 7800b4 981400;
 target -2,015358739587989 1,471752217777013 -4,002254680125891;
 transparency_index_of_refraction 5;
+use_default_bailout false;
 view_distance_max 520;
 volumetric_fog_density 0;
 [fractal_1]
@@ -106,3 +107,8 @@ mandelbox_rotation_neg_3 6,410329913817894e-315 0 0;
 mandelbox_rotation_pos_1 6,707875133873133e-315 0 0;
 mandelbox_rotation_pos_2 5,969189029558899e-315 0 0;
 mandelbox_rotation_pos_3 6,696896204717507e-315 0 0;
+[fractal_5]
+[fractal_6]
+[fractal_7]
+[fractal_8]
+[fractal_9]

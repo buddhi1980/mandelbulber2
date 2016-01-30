@@ -3420,7 +3420,7 @@ void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fracta
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	z *= fractal->transformCommon.scale;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0; //prepared for future analytic DE for hybrids
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
   aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 
@@ -3454,7 +3454,7 @@ void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, 
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   z *= fractal->transformCommon.scale3D111;
-  aux.DE *= fractal->transformCommon.scale3D111.Length(); //prepared for future analytic DE for hybrids
+  aux.DE = aux.DE * fractal->transformCommon.scale3D111.Length()/1.732 + 1.0;
 }
 
 // A transform from Mandelbulb3D.
