@@ -58,13 +58,17 @@ cThumbnailWidget::cThumbnailWidget(int _width, int _height, int _oversample, QWi
 cThumbnailWidget::~cThumbnailWidget()
 {
 	stopRequest = true;
-	while (image->IsUsed())
+	if (image)
 	{
+		while (image->IsUsed())
+		{
+		}
+		delete image;
 	}
-
-	if (image) delete image;
-	if (params) delete params;
-	if (fractal) delete fractal;
+	if (params)
+		delete params;
+	if (fractal)
+		delete fractal;
 	instanceCount--;
 	//qDebug() << "cThumbnailWidget destructed" << instanceCount;
 }
