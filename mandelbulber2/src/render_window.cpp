@@ -2109,6 +2109,7 @@ void RenderWindow::slotUpdateStatistics(cStatistics stat)
 	ui->tableWidget_statistics->item(3, 0)->setText(stat.GetDETypeString());
 	ui->tableWidget_statistics->item(4, 0)->setText(QString::number(stat.GetMissedDEPercentage()));
 	ui->label_wrong_DE_percentage->setText(tr("Percentage of wrong distance estimations: %1").arg(stat.GetMissedDEPercentage()));
+	ui->label_used_distance_estimation->setText(tr("Used distance estimation algorithm: %1").arg(stat.GetDETypeString()));
 }
 
 void RenderWindow::slotNetRenderServerStart()
