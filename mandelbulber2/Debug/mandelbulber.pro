@@ -19,9 +19,11 @@ packagesExist(IlmBase){
 }
 
 packagesExist(libtiff-4){
-	PKGCONFIG += libtiff-4
-	LIBS += -ltiff
-	DEFINES += USE_TIFF
+  PKGCONFIG += libtiff-4
+}
+win32|packagesExist(libtiff-4) {
+  LIBS += -ltiff
+  DEFINES += USE_TIFF
 }
 
 TARGET = mandelbulber2 
