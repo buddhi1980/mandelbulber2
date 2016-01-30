@@ -449,37 +449,37 @@ void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 	aux.DE *= fractal->IFS.scale;
 }
 
-
-
+//Aexion's Quadray Sets from FractalForums:
+//http://www.fractalforums.com/the-3d-mandelbulb/quadray-sets/msg31458/#msg31458
 void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-	if (i == 0)
-	{
-		double cx = fabs(aux.c.x + aux.c.y + aux.c.z) + fractal->aexion.cadd;
-		double cy = fabs(-aux.c.x - aux.c.y + aux.c.z) + fractal->aexion.cadd;
-		double cz = fabs(-aux.c.x + aux.c.y - aux.c.z) + fractal->aexion.cadd;
-		double cw = fabs(aux.c.x - aux.c.y - aux.c.z) + fractal->aexion.cadd;
-		aux.c.x = cx;
-		aux.c.y = cy;
-		aux.c.z = cz;
-		aux.cw = cw;
-		double tempx = fabs(z.x + z.y + z.z) + fractal->aexion.cadd;
-		double tempy = fabs(-z.x - z.y + z.z) + fractal->aexion.cadd;
-		double tempz = fabs(-z.x + z.y - z.z) + fractal->aexion.cadd;
-		double tempw = fabs(z.x - z.y - z.z) + fractal->aexion.cadd;
-		z.x = tempx;
-		z.y = tempy;
-		z.z = tempz;
-		w = tempw;
-	}
-	double tempx = z.x * z.x - z.y * z.y + 2.0 * w * z.z + aux.c.x;
-	double tempy = z.y * z.y - z.x * z.x + 2.0 * w * z.z + aux.c.y;
-	double tempz = z.z * z.z - w * w + 2.0 * z.x * z.y + aux.c.z;
-	double tempw = w * w - z.z * z.z + 2.0 * z.x * z.y + aux.cw;
-	z.x = tempx;
-	z.y = tempy;
-	z.z = tempz;
-	w = tempw;
+  if (i == 0)
+  {
+    double cx = fabs(aux.c.x + aux.c.y + aux.c.z) + fractal->aexion.cadd;
+    double cy = fabs(-aux.c.x - aux.c.y + aux.c.z) + fractal->aexion.cadd;
+    double cz = fabs(-aux.c.x + aux.c.y - aux.c.z) + fractal->aexion.cadd;
+    double cw = fabs(aux.c.x - aux.c.y - aux.c.z) + fractal->aexion.cadd;
+    aux.c.x = cx;
+    aux.c.y = cy;
+    aux.c.z = cz;
+    aux.cw = cw;
+    double tempx = fabs(z.x + z.y + z.z) + fractal->aexion.cadd;
+    double tempy = fabs(-z.x - z.y + z.z) + fractal->aexion.cadd;
+    double tempz = fabs(-z.x + z.y - z.z) + fractal->aexion.cadd;
+    double tempw = fabs(z.x - z.y - z.z) + fractal->aexion.cadd;
+    z.x = tempx;
+    z.y = tempy;
+    z.z = tempz;
+    w = tempw;
+  }
+  double tempx = z.x * z.x - z.y * z.y + 2.0 * w * z.z + aux.c.x;
+  double tempy = z.y * z.y - z.x * z.x + 2.0 * w * z.z + aux.c.y;
+  double tempz = z.z * z.z - w * w + 2.0 * z.x * z.y + aux.c.z;
+  double tempw = w * w - z.z * z.z + 2.0 * z.x * z.y + aux.cw;
+  z.x = tempx;
+  z.y = tempy;
+  z.z = tempz;
+  w = tempw;
 }
 
 void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux)
@@ -1204,7 +1204,7 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
 
 
 // NEW FORMULAS-----------------------------------------------------------------
-//ABoxMod1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums;
+//ABoxMod1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums:
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
 void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1220,7 +1220,7 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   z.z = fractal->mandelbox.foldingValue
       - fabs(fabs(z.z + fractal->transformCommon.additionConstant000.z) - fractal->mandelbox.foldingValue)
       - fabs(fractal->transformCommon.additionConstant000.z);
-  // rr = pow(x*x + y*y + z*z + w*w, R_power) <- removed to speedup
+
   double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
   if (rr < 1e-21) rr = 1e-21;
   double m;
@@ -1245,8 +1245,7 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   aux.DE = aux.DE * fabs(m) + 1.0;
 }
 
-
-//ABoxMod2,  Based on a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums;
+//ABoxMod2,  Based on a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums:
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
 
 void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -1336,7 +1335,8 @@ void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
   }
 
   double r2 = z.Dot(z);
-    if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
+  if (r2 < 1e-21 && r2 > -1e-21)
+    r2 = (r2 > 0) ? 1e-21 : -1e-21;
   if (r2 < fractal->mandelbox.mR2)
   {
     z *= fractal->mandelbox.mboxFactor1;
@@ -1356,7 +1356,7 @@ void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
 
   if (fractal->transformCommon.juliaMode)
   {
-   z += fractal->transformCommon.juliaC - c * fractal->transformCommon.constantMultiplier111;
+    z += fractal->transformCommon.juliaC - c * fractal->transformCommon.constantMultiplier111;
   }
   else
   {
@@ -1370,53 +1370,52 @@ void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
 //http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
 void AexionOctopusModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
-
   CVector3 tempN;
-  tempN.x =  z.x * z.z * fractal->transformCommon.scale3D111.x;
+  tempN.x = z.x * z.z * fractal->transformCommon.scale3D111.x;
   tempN.y = (z.x * z.x - z.z * z.z) * fractal->transformCommon.scale3D111.y;
   tempN.z = z.y;
 
   if (fractal->transformCommon.functionEnabledAx)
-  {
     tempN.x = fabs(tempN.x);
-  }
+
   if (fractal->transformCommon.functionEnabledAy)
-  {
     tempN.y = fabs(tempN.y);
-  }
+
   if (fractal->transformCommon.functionEnabledAz)
-  {
     tempN.z = fabs(tempN.z);
-  }
+
   z = tempN;
 
   if (fractal->transformCommon.rotationEnabled)
-  {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-  }
+
   z += fractal->transformCommon.additionConstant000;
+
   if (fractal->transformCommon.addCpixelEnabledFalse)
   {
     CVector3 tempFAB = c;
     if (fractal->transformCommon.functionEnabledx)
-    {
-            tempFAB.x = fabs(tempFAB.x);
-    }
+      tempFAB.x = fabs(tempFAB.x);
+
     if (fractal->transformCommon.functionEnabledy)
-    {
-            tempFAB.y = fabs(tempFAB.y);
-    }
+      tempFAB.y = fabs(tempFAB.y);
+
     if (fractal->transformCommon.functionEnabledz)
-    {
-            tempFAB.z = fabs(tempFAB.z);
-    }
+      tempFAB.z = fabs(tempFAB.z);
+
     tempFAB *= fractal->transformCommon.constantMultiplier000;
-    if (z.x > 0) z.x += tempFAB.x;
-    else z.x -= tempFAB.x;
-    if (z.y > 0) z.y += tempFAB.y;
-    else z.y -= tempFAB.y;
-    if (z.z > 0) z.z += tempFAB.z;
-    else z.z -= tempFAB.z;
+    if (z.x > 0)
+      z.x += tempFAB.x;
+    else
+      z.x -= tempFAB.x;
+    if (z.y > 0)
+      z.y += tempFAB.y;
+    else
+      z.y -= tempFAB.y;
+    if (z.z > 0)
+      z.z += tempFAB.z;
+    else
+      z.z -= tempFAB.z;
   }
 }
 
@@ -1426,9 +1425,12 @@ void AmazingSurfIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &a
   aux.actualScale = aux.actualScale
       + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
-  z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x) - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-  z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y) - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+  z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+      - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+  z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+      - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
   // no z fold
+
   double rr;
   if (fractal->transformCommon.functionEnabledFalse) // force cylinder fold
   {
@@ -1438,25 +1440,21 @@ void AmazingSurfIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &a
   {
     rr = (z.x * z.x + z.y * z.y + z.z * z.z);
   }
-  if (rr < 1e-21) rr = 1e-21;
+  if (rr < 1e-21)
+    rr = 1e-21;
 
   double m;
   double sqrtMinR = sqrt(fractal->transformCommon.minR05);
-  if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+  if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21)
+    sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
   if (rr < sqrtMinR)
-  {
     m = aux.actualScale / sqrtMinR;
-  }
   else
   {
     if (rr < 1)
-    {
       m = aux.actualScale / rr;
-    }
     else
-    {
       m = aux.actualScale;
-    }
   }
   z *= m * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
 
@@ -1475,14 +1473,19 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 
   if (fractal->transformCommon.functionEnabledAx)
   {
-    z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x) - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-    z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y) - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+    z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+        - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+    z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+        - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
   }
 
-  if (fractal->transformCommon.functionEnabledAyFalse) //z = fold - fabs( fabs(z) - fold)
+  //z = fold - fabs( fabs(z) - fold)
+  if (fractal->transformCommon.functionEnabledAyFalse)
   {
-    z.x =  fractal->transformCommon.additionConstant111.x - fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
-    z.y =  fractal->transformCommon.additionConstant111.y - fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
+    z.x = fractal->transformCommon.additionConstant111.x
+        - fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
+    z.y = fractal->transformCommon.additionConstant111.y
+        - fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
   }
 
   if (fractal->transformCommon.functionEnabledAzFalse)
@@ -1491,7 +1494,8 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
     z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
   }
 
-  if (fractal->transformCommon.functionEnabledxFalse) // if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
+  // if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
+  if (fractal->transformCommon.functionEnabledxFalse)
   {
     if (z.x > fractal->transformCommon.additionConstant111.x)
     {
@@ -1526,11 +1530,13 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
   {
     rr = (z.x * z.x + z.y * z.y + z.z * z.z);
   }
-  if (rr < 1e-21) rr = 1e-21;
+  if (rr < 1e-21)
+    rr = 1e-21;
 
   double m;
   double sqrtMinR = sqrt(fractal->transformCommon.minR05);
-  if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21) sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
+  if (sqrtMinR < 1e-21 && sqrtMinR > -1e-21)
+    sqrtMinR = (sqrtMinR > 0) ? 1e-21 : -1e-21;
   if (rr < sqrtMinR)
   {
     m = aux.actualScale / sqrtMinR;
@@ -1539,21 +1545,20 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
   {
     if (rr < 1)
     {
-      m = aux.actualScale/ rr;
+      m = aux.actualScale / rr;
     }
     else
     {
       m = aux.actualScale;
     }
   }
-  
+
   z *= m * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
 
   aux.DE = aux.DE * fabs(m) + 1.0;
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-
-
 }
+
 //benesiFastPwr2PineTree  3D
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
