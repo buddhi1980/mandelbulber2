@@ -1856,11 +1856,13 @@ void RenderWindow::slotUpdateDocksandToolbarbyView()
 		ui->actionShow_toolbar->setChecked(ui->toolBar->isVisible());
 	}
 
+#ifdef USE_GAMEPAD
 	// Gamepad dock
 	if (ui->actionShow_gamepad_dock->isChecked() != ui->dockWidget_gamepad_dock->isVisible())
 	{
 		ui->actionShow_gamepad_dock->setChecked(ui->dockWidget_gamepad_dock->isVisible());
 	}
+#endif
 
 	// Queue dock
 	if (ui->actionShow_queue_dock->isChecked() != ui->dockWidget_queue_dock->isVisible())

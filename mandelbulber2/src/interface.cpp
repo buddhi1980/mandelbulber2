@@ -180,6 +180,12 @@ void cInterface::ShowUi(void)
 	}
 #endif
 
+#ifndef USE_GAMEPAD
+	{
+	  delete mainWindow->ui->dockWidget_gamepad_dock;
+	}
+#endif
+
 	renderedImage->show();
 
 	//loading default ui for all fractal components
@@ -796,10 +802,12 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(visibilityChanged(bool)),
 												mainWindow,
 												SLOT(slotUpdateDocksandToolbarbyView()));
+#ifdef USE_GAMEPAD
 	QApplication::connect(mainWindow->ui->dockWidget_gamepad_dock,
 												SIGNAL(visibilityChanged(bool)),
 												mainWindow,
 												SLOT(slotUpdateDocksandToolbarbyView()));
+#endif
 	QApplication::connect(mainWindow->ui->dockWidget_queue_dock,
 												SIGNAL(visibilityChanged(bool)),
 												mainWindow,
