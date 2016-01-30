@@ -97,6 +97,15 @@ make -j8
 sudo make -j8 install
 cd ..
 
+# tiff
+apt-get source tiff
+cd tiff-*
+./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX \
+    --with-zlib-include-dir=$MANDELBULBER_PREFIX/include \
+    --with-zlib-lib-dir=$MANDELBULBER_PREFIX/lib
+make && make install
+cd ..
+
 cd ..
 
 ## clean up
