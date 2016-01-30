@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.07
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -26,12 +26,13 @@ coloring_random_seed 776147;
 coloring_speed 0,01;
 constant_DE_threshold true;
 DE_thresh 0,0003;
+delta_DE_function 1;
 detail_level 0,0003;
 DOF_enabled true;
-DOF_focus 0,1048598140478139;
+DOF_focus 0,1657465547323227;
 DOF_radius 10,2;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
+fog_color_1 0000 0000 0000;
 formula_1 37;
 formula_2 8;
 formula_3 16;
@@ -39,20 +40,19 @@ formula_iterations_1 2;
 formula_iterations_2 4;
 formula_iterations_3 250;
 fov 1,2;
-glow_color_1 ffff 4da6 0;
+glow_color_1 ffff 4da6 0000;
 glow_color_2 ffff 6f75 86d7;
 glow_enabled false;
 glow_intensity 0;
 hybrid_fractal_enable true;
 image_height 1200;
 image_width 1600;
-iteration_fog_color_1 0 0 0;
+iteration_fog_color_1 0000 0000 0000;
 iteration_fog_color_1_maxiter 82;
-iteration_fog_color_2 0 7530 ffff;
+iteration_fog_color_2 0000 7530 ffff;
 iteration_fog_color_2_maxiter 165;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
-linear_DE_mode true;
 main_light_beta -45;
 main_light_volumetric_intensity 100;
 raytraced_reflections true;
@@ -60,7 +60,7 @@ reflect 0,6;
 reflections_max 2;
 smoothness 0,1;
 stereo_eye_distance 0,1;
-surface_color_palette 2d9502 fdbb4d 7b30e1 5500 48db2c ;
+surface_color_palette 2d9502 fdbb4d 7b30e1 005500 48db2c;
 target 3,527651603137343 -3,568537135899882 -3,747313358587218;
 view_distance_max 103,3333333333333;
 volumetric_fog_colour_1_distance 0,001529834562977511;
@@ -124,3 +124,8 @@ mandelbox_generalized_fold_type 3;
 mandelbox_main_rotation_enabled true;
 mandelbox_rotation_main 3 -8 20;
 power 8;
+[fractal_5]
+[fractal_6]
+[fractal_7]
+[fractal_8]
+[fractal_9]

@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.07
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -12,9 +12,9 @@ aux_light_volumetric_intensity_1 100;
 aux_light_volumetric_intensity_2 100;
 aux_light_volumetric_intensity_3 100;
 aux_light_volumetric_intensity_4 100;
-background_color_1 0 0 0;
-background_color_2 0 0 0;
-background_color_3 0 0 0;
+background_color_1 0000 0000 0000;
+background_color_2 0000 0000 0000;
+background_color_3 0000 0000 0000;
 bailout 1000;
 basic_fog_color ffff ffff ffff;
 basic_fog_visibility 0,0001905460717963252;
@@ -31,7 +31,7 @@ DE_thresh 1;
 DOF_focus 0,0001957148672124998;
 DOF_radius 2;
 flight_last_to_render 0;
-fog_color_1 28a8 12da 0;
+fog_color_1 28a8 12da 0000;
 fog_color_2 ffff c097 2472;
 fog_color_3 d452 c927 b784;
 formula_1 8;
@@ -40,12 +40,13 @@ formula_iterations_1 32;
 formula_iterations_2 2;
 fov 0,8;
 gamma 0,6;
-glow_color_1 0 4edc ffff;
+glow_color_1 0000 4edc ffff;
 glow_color_2 ffff d696 5f98;
+glow_intensity 3,0903;
 hybrid_fractal_enable true;
 image_height 1080;
 image_width 1920;
-iteration_fog_color_1 28a8 12da 0;
+iteration_fog_color_1 28a8 12da 0000;
 iteration_fog_color_1_maxiter 82;
 iteration_fog_color_2 ffff c097 2472;
 iteration_fog_color_2_maxiter 165;
@@ -56,7 +57,6 @@ keyframe_last_to_render 0;
 legacy_coordinate_system true;
 limit_max 20 20 20;
 limit_min -20 0 -20;
-linear_DE_mode true;
 main_light_alpha -60;
 main_light_beta -30;
 main_light_colour ffff c531 6af5;
@@ -66,12 +66,12 @@ raytraced_reflections true;
 reflect 0,5;
 reflections_max 2;
 stereo_eye_distance 0,1;
-surface_color_palette aa7f8b db8776 cf08a8 94008f 22768d ;
+surface_color_palette aa7f8b db8776 cf08a8 94008f 22768d;
 target 3,997702617576684 7,696204113425017 -15,77373746532737;
 view_distance_max 133,5705587035978;
 volumetric_fog_colour_1_distance 0,3068296668809934;
 volumetric_fog_colour_2_distance 0,6136593337619868;
-volumetric_fog_density 0,2;
+volumetric_fog_density 0,354813;
 volumetric_fog_distance_factor 0,6136593337619868;
 volumetric_fog_enabled true;
 [fractal_1]
@@ -95,3 +95,8 @@ IFS_offset 0 0 0;
 IFS_scale 1;
 mandelbox_folding_min_radius 0;
 mandelbox_generalized_fold_type 1;
+[fractal_5]
+[fractal_6]
+[fractal_7]
+[fractal_8]
+[fractal_9]

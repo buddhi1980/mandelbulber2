@@ -122,7 +122,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					analyticDEType,
 																					logarithmicDEFunction,
 																					cpixelEnabledByDefault,
-																					10));
+																					100));
 
 	fractalList->append(sFractalDescription("Benesi_Pine_Tree",
 																					"benesi_pine_tree",
