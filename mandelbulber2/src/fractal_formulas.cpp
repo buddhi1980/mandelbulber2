@@ -1575,7 +1575,6 @@ void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, 
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-
   if (fractal->transformCommon.benesiT1Enabled
       && i >= fractal->transformCommon.startIterations
       && i < fractal->transformCommon.stopIterations)
@@ -1587,9 +1586,7 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
 
     CVector3 temp = z;
     double tempL = temp.Length();
-
     z = fabs(z) * fractal->transformCommon.scale3D222;
-
     if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
     double avgScale = fabs(z.Length()/tempL);
 
@@ -1629,7 +1626,7 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
   aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }
 
-//--EiffieMsltoeJulia------Post by Eiffie    Reply #69 on: January 27, 2015, 06:17:59 PM »----------------------------------
+//--EiffieMsltoeJulia. Refer post by Eiffie    Reply #69 on: January 27, 2015
 //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
 void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1649,13 +1646,12 @@ void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
   newz.y = 2.0 * z.x * z.y  * m;
   newz.z = 2.0 * z.z * sqrt( z2.x + z2.y );
   z = newz + fractal->transformCommon.additionConstantNeg100;
-
 }
 
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
   if ( i >= fractal->transformCommon.startIterations
-        && i < fractal->transformCommon.stopIterations)  // fabs
+        && i < fractal->transformCommon.stopIterations)
   {
     CVector3 tempA = z * 0;
     CVector3 tempB = z * 0;
@@ -1758,9 +1754,7 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
   }
 }
 
-
 //IQ-Bulb http://iquilezles.org/www/articles/mandelbulb/mandelbulb.htm
-
 void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   // extract polar coordinates
@@ -1781,7 +1775,7 @@ void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   z.y = cos(wo);
   z.z = sin(wo) * cos(wi);
 
-  z *= wr;  //  and add Cpixel constant
+  z *= wr;  // then add Cpixel constant
 }
 
 
@@ -1807,8 +1801,6 @@ void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExt
   }
 
    //z = fabs(z)/(z.x*z.y * z.z) + c;
-
-
 
   double sqs = (z.x * z.x + z.y * z.y + z.z * z.z + 1e-21); // sph inv
   double m = fractal->transformCommon.scale/sqs;
@@ -2042,7 +2034,7 @@ void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
 	aux.color += theta2;
 }
 
-/* MsltoeSym2 from mbulb3d, also somewhere on fractalforums */
+// MsltoeSym2Mod   Based on the formula from Mandelbulb3D.also refer  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
 void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -2096,7 +2088,7 @@ void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
-/* MsltoeSym3Mod  from mbulb3d, also somewhere on fractalforums */
+// MsltoeSym3Mod   Based on the formula from Mandelbulb3D. also refer  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
 void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -2151,7 +2143,7 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sE
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
-    //  Msltoe_Julia_Bulb_Mod2  a trig version http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 31
+    //  Msltoe_Julia_Bulb_Mod2  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 31
 void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -2275,7 +2267,7 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
-/* MsltoeSym4 from mbulb3d, also somewhere on fractalforums */
+// MsltoeSym4Mod  Based on the formula from Mandelbulb3D.also refer  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
 void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -2314,7 +2306,7 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 
   z = temp +  fractal->transformCommon.additionConstant000;
 
-  if (fractal->transformCommon.rotationEnabled)  // rotation
+  if (fractal->transformCommon.rotationEnabled)
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
@@ -3344,7 +3336,7 @@ void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fract
       + (zA * fractal->transformCommon.offset)
       + (zB * fractal->transformCommon.offset0);
 }
-
+ // A transform from Mandelbulb3D.
 void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal)
 {
   CVector3 temp = c;
@@ -3460,6 +3452,7 @@ void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
   aux.DE *= fractal->transformCommon.scale3D111.Length(); //prepared for future analytic DE for hybrids
 }
 
+// A transform from Mandelbulb3D.
 void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   c *= fractal->transformCommon.constantMultiplier111;
