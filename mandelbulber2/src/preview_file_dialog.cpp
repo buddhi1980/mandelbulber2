@@ -113,7 +113,7 @@ void PreviewFileDialog::OnCurrentChanged(const QString & _filename)
 {
 	filename = _filename;
 	QPixmap pixmap;
-	if (QFileInfo(filename).suffix() == QString("fract"))
+	if (QFileInfo(filename).suffix() == QString("fract") && checkbox->isChecked())
 	{
 		thumbWidget->show();
 		preview->hide();
