@@ -1204,9 +1204,8 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
 
 
 // NEW FORMULAS-----------------------------------------------------------------
-// From M3D ABoxMod1, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
+//ABoxMod1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums;
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
-
 void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.actualScale = aux.actualScale
@@ -1247,10 +1246,8 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 }
 
 
-// From M3D -ABboxMod2, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
+//ABoxMod2,  Based on a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums;
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
-/*A curious ABox non-conformal variation, with a different fold for z and a non-conformal inversion.
-Looks like a wardrobe, a phone box... or you name it!*/
 
 void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1294,6 +1291,7 @@ void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 }
 
 //------------AboxModKali  --------------------------------
+//ABoxModKali, a formula from Mandelbulb3D
 //http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
 void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1312,7 +1310,8 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
   z = z * m ;
   aux.DE = aux.DE * fabs(m) + 1.0;
 }
-// From M3D ABoxVS_icen1, DarkBeam.  Inspired from a 2D formula proposed by Kali at the forums here;
+
+//ABoxVS_icen1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums;
 //http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
 
 void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
@@ -1335,8 +1334,6 @@ void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
   {
     z += fractal->transformCommon.juliaC;
   }
-
-
 
   double r2 = z.Dot(z);
     if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
@@ -1369,6 +1366,7 @@ void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
 
 
 //------------AexionOctopus  M3D--------------------------------
+//aexion octopus. Based on Aex_Octo from Mandelbulber3D
 //http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
 void AexionOctopusModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
@@ -1422,12 +1420,11 @@ void AexionOctopusModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal
   }
 }
 
-/*Formula proposed by Kali, with features added by Darkbeam
-Luca GN 2012*/
+//amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
 void AmazingSurfIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
-  //aux.actualScale = aux.actualScale
-  //    + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
+  aux.actualScale = aux.actualScale
+      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
   z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x) - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
   z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y) - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
@@ -1469,14 +1466,12 @@ void AmazingSurfIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &a
 }
 
 
-/*Amazing Surf Mod 1      Formula proposed by Kali, with features added by Darkbeam
-Luca GN 2012*/
+//. Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali, with features added by Darkbeam
+
 void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  //aux.actualScale = aux.actualScale
-  //    + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);  // vary scale original aux.actualScale = mandelbox scale----------------- fix for default value 1.5-----------------------------
-
-  //  folds     no fabs(z.z)
+  aux.actualScale = aux.actualScale
+      + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
   if (fractal->transformCommon.functionEnabledAx)
   {
@@ -1585,23 +1580,27 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
       && i >= fractal->transformCommon.startIterations
       && i < fractal->transformCommon.stopIterations)
   {
-    //CVector3 temp = z;
     double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
     z = CVector3((tempXZ - z.y) * SQRT_1_2,
                  (tempXZ + z.y) * SQRT_1_2,
                  z.x * SQRT_1_3 + z.z * SQRT_2_3);
+
+    CVector3 temp = z;
+    double tempL = temp.Length();
+
     z = fabs(z) * fractal->transformCommon.scale3D222;
+
+    if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
+    double avgScale = fabs(z.Length()/tempL);
+
+    aux.r_dz *= avgScale;
+    aux.DE = aux.DE * avgScale + 1.0;
+
     if (fractal->transformCommon.rotationEnabled)
     {
       z = fractal->transformCommon.rotationMatrix.RotateVector(z);
     }
 
-    double avgScale = (fabs(fractal->transformCommon.scale3D222.x)
-        + fabs(fractal->transformCommon.scale3D222.y) + fabs(fractal->transformCommon.scale3D222.z))
-        / 3;  // cheap approximation
-
-    aux.r_dz *= avgScale;
-    aux.DE = aux.DE * avgScale + 1.0;
     tempXZ = (z.y + z.x) * SQRT_1_2;
 
     z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
@@ -2900,15 +2899,10 @@ void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 &c, int i, const cF
     z += c * tempVC;
 }
 
-
-
 //benesiT1  3D
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 void TransformBenesiT1Iteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
-
-
-
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
   z = CVector3((tempXZ - z.y) * SQRT_1_2,
                (tempXZ + z.y) * SQRT_1_2,
@@ -2916,12 +2910,9 @@ void TransformBenesiT1Iteration(CVector3 &z,  const cFractal *fractal, sExtended
 
   CVector3 temp = z;
   double tempL = temp.Length();
-
   z = fabs(z) * fractal->transformCommon.scale3D222;
-
   if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
   double avgScale = fabs(z.Length()/tempL);
-
   aux.r_dz *= avgScale;
   aux.DE = aux.DE * avgScale + 1.0;
 
@@ -2929,12 +2920,6 @@ void TransformBenesiT1Iteration(CVector3 &z,  const cFractal *fractal, sExtended
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
-
-  /*double avgScale = (fabs(fractal->transformCommon.scale3D222.x)
-      + fabs(fractal->transformCommon.scale3D222.y) + fabs(fractal->transformCommon.scale3D222.z))
-      / 3;  // cheap approximation
-  aux.r_dz *= avgScale;
-  aux.DE = aux.DE * avgScale + 1.0;*/
 
   tempXZ = (z.y + z.x) * SQRT_1_2;
 
@@ -2943,16 +2928,24 @@ void TransformBenesiT1Iteration(CVector3 &z,  const cFractal *fractal, sExtended
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
   z = z - fractal->transformCommon.offset200;
 }
+
 //benesiT1Mod  3D based on benesiT1
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
-
 void TransformBenesiT1ModIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
   z = CVector3((tempXZ - z.y) * SQRT_1_2,
                (tempXZ + z.y) * SQRT_1_2,
                z.x * SQRT_1_3 + z.z * SQRT_2_3);
-  z *= fractal->transformCommon.scale3D333;
+
+  CVector3 temp = z;
+  double tempL = temp.Length();
+  z = fabs(z) * fractal->transformCommon.scale3D333;
+  if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
+  double avgScale = fabs(z.Length()/tempL);
+  aux.r_dz *= avgScale;
+  aux.DE = aux.DE * avgScale + 1.0;
+
   z = (fabs(z + fractal->transformCommon.additionConstant111)
         - fabs(z - fractal->transformCommon.additionConstant111) - z);
 
@@ -2961,21 +2954,15 @@ void TransformBenesiT1ModIteration(CVector3 &z,  const cFractal *fractal, sExten
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
 
-  double avgScale = (fabs(fractal->transformCommon.scale3D333.x)
-      + fabs(fractal->transformCommon.scale3D333.y) + fabs(fractal->transformCommon.scale3D333.z))
-      / 3;  // cheap approximation
-
-  aux.r_dz *= avgScale;
-  aux.DE = aux.DE * avgScale + 1.0;
   tempXZ = (z.y + z.x) * SQRT_1_2;
 
   z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
                (z.y - z.x) * SQRT_1_2,
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
-//benesiT2  3D
-//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 
+//benesi T2
+//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 void TransformBenesiT2Iteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2983,29 +2970,34 @@ void TransformBenesiT2Iteration(CVector3 &z,  const cFractal *fractal, sExtended
                (tempXZ + z.y) * SQRT_1_2,
                z.x * SQRT_1_3 + z.z * SQRT_2_3);
 
-  //  Change this for different transforms
   CVector3 tempV2 = z;
   tempV2.x = sqrt(z.y * z.y + z.z * z.z);
   tempV2.y = sqrt(z.x * z.x + z.z * z.z);  // switching, squared, sqrt
   tempV2.z = sqrt(z.x * z.x + z.y * z.y);
-  z = fabs(tempV2 - fractal->transformCommon.additionConstant111) * fractal->transformCommon.scale3D444;
-  double avgScale = (fabs(fractal->transformCommon.scale3D444.x) + fabs(fractal->transformCommon.scale3D444.y)
-                  + fabs(fractal->transformCommon.scale3D444.z)) / 3; // cheap approximation
+
+  z = fabs(tempV2 - fractal->transformCommon.additionConstant111);
+
+  CVector3 temp = z;
+  double tempL = temp.Length();
+  z = fabs(z) * fractal->transformCommon.scale3D444;
+  if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
+  double avgScale = fabs(z.Length()/tempL);
+  aux.r_dz *= avgScale;
+  aux.DE = aux.DE * avgScale + 1.0;
 
   if (fractal->transformCommon.rotationEnabled)
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
 
-  //aux.r_dz *= avgScale;
-  aux.DE = aux.DE * avgScale + 1.0;
+
   tempXZ = (z.y + z.x) * SQRT_1_2;
 
   z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
                (z.y - z.x) * SQRT_1_2,
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
-
+// BensesiT3
 void TransformBenesiT3Iteration(CVector3 &z,  const cFractal *fractal)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -3013,22 +3005,17 @@ void TransformBenesiT3Iteration(CVector3 &z,  const cFractal *fractal)
                (tempXZ + z.y) * SQRT_1_2,
                z.x * SQRT_1_3 + z.z * SQRT_2_3);
 
-  //  Change this for different transforms
   CVector3 tempV2 = z;
   tempV2.x = (z.y + z.z);
   tempV2.y = (z.x + z.z);   // switching
   tempV2.z = (z.x + z.y);
   z = (fabs(tempV2 - fractal->transformCommon.additionConstant222)) * fractal->transformCommon.scale3D222;
-//double avgScale = (fabs(fractal->transformCommon.scale3D222.x) + fabs(fractal->transformCommon.scale3D222.y)
-  //                + fabs(fractal->transformCommon.scale3D222.z)) / 3; // cheap approximation
 
   if (fractal->transformCommon.rotationEnabled)
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
 
-  //aux.r_dz *= avgScale;
-  //aux.DE = aux.DE * avgScale + 1.0;
   tempXZ = (z.y + z.x) * SQRT_1_2;
 
   z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
@@ -3043,14 +3030,11 @@ void TransformBenesiT4Iteration(CVector3 &z,  const cFractal *fractal)
                (tempXZ + z.y) * SQRT_1_2,
                z.x * SQRT_1_3 + z.z * SQRT_2_3);
 
-  //  Change this for different transforms   This is T4:
   CVector3 tempV2 = z;
   tempV2.x = (z.y * z.y + z.z * z.z);
   tempV2.y = (z.x * z.x + z.z * z.z);  // switching, squared,
   tempV2.z = (z.x * z.x + z.y * z.y);
   z = (fabs(tempV2 - fractal->transformCommon.additionConstant111)) * fractal->transformCommon.scale3D222;
-  //double avgScale = (fabs(fractal->transformCommon.scale3D222.x) + fabs(fractal->transformCommon.scale3D222.y)
-  //                + fabs(fractal->transformCommon.scale3D222.z)) / 3; // cheap approximation
 
   if (fractal->transformCommon.rotationEnabled)
   {
@@ -3065,7 +3049,6 @@ void TransformBenesiT5bIteration(CVector3 &z,  const cFractal *fractal)
                (tempXZ + z.y) * SQRT_1_2,
                z.x * SQRT_1_3 + z.z * SQRT_2_3);
 
-  //  Change this for different transforms   This is T5:
   if (z.x > -1e-21 && z.x < 1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
   if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;
   if (z.z > -1e-21 && z.z < 1e-21) z.z = (z.z > 0) ? 1e-21 : -1e-21;
@@ -3080,15 +3063,12 @@ void TransformBenesiT5bIteration(CVector3 &z,  const cFractal *fractal)
                     + pow(z.y, fractal->transformCommon.power8.z),
                                fractal->transformCommon.power025.z));
   z = (fabs(tempV2 - fractal->transformCommon.additionConstant111)) * fractal->transformCommon.scale3D222;
-  //double avgScale = (fabs(fractal->transformCommon.scale3D222.x) + fabs(fractal->transformCommon.scale3D222.y)
-  //                + fabs(fractal->transformCommon.scale3D222.z)) / 3; // cheap approximation
 
   if (fractal->transformCommon.rotationEnabled)
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
-  //aux.r_dz *= avgScale;
-  //aux.DE = aux.DE * avgScale + 1.0;
+
   tempXZ = (z.y + z.x) * SQRT_1_2;
 
   z = CVector3(z.z * SQRT_1_3 + tempXZ * SQRT_2_3,
