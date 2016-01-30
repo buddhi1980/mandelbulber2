@@ -118,7 +118,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 		if (in.common.foldings.sphericalEnable)
 		{
-			SphericalFolding(z, &in.common.foldings, extendedAux[sequence]);
+			extendedAux[sequence].r = r;
+		  SphericalFolding(z, &in.common.foldings, extendedAux[sequence]);
 			r = z.Length();
 		}
 
