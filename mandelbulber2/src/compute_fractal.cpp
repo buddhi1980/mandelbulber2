@@ -818,13 +818,20 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		if (fractals.IsHybrid())
 		{
-			if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
+			if(extendedAux[sequence].r_dz != 0)
 			{
-				out->distance = r / fabs(extendedAux[sequence].DE);
+				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
+				{
+					out->distance = r / fabs(extendedAux[sequence].DE);
+				}
+				else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
+				{
+					out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
+				}
 			}
-			else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
+			else
 			{
-				out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
+				out->distance = r;
 			}
 		}
 		else
@@ -855,10 +862,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case msltoesym4Mod:
 				case quaternion:
 				case xenodreambuie:
-
-					out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
+				{
+					if(extendedAux[sequence].r_dz != 0)
+						out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
+					else
+						out->distance = r;
 					break;
-
+				}
 				case mandelbox:
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
@@ -874,14 +884,22 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case amazingSurfMod1:
         case kalisets1:
         case aboxVSIcen1:
-        case msltoeDonut:
-					out->distance = r / fabs(extendedAux[sequence].DE);
+        {
+					if(extendedAux[sequence].r_dz != 0)
+						out->distance = r / fabs(extendedAux[sequence].DE);
+					else
+						out->distance = r;
 					break;
-
+        }
 				case kaleidoscopicIFS:
 				case menger_sponge:
-					out->distance = (r - 2.0) / (extendedAux[sequence].DE);
+        {
+					if(extendedAux[sequence].r_dz != 0)
+						out->distance = (r - 2.0) / (extendedAux[sequence].DE);
+					else
+						out->distance = r;
 					break;
+        }
 
 				default:
 					out->distance = -1.0;
