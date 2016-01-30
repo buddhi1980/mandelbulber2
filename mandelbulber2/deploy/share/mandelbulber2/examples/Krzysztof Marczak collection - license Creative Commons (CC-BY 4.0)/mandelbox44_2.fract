@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.07
 # only modified parameters
 [main_parameters]
 ambient_occlusion_mode 1;
@@ -20,8 +20,8 @@ aux_light_volumetric_intensity_1 100;
 aux_light_volumetric_intensity_2 100;
 aux_light_volumetric_intensity_3 100;
 aux_light_volumetric_intensity_4 100;
-background_color_1 0 0 0;
-background_color_2 0 0 0;
+background_color_1 0000 0000 0000;
+background_color_2 0000 0000 0000;
 bailout 1000;
 basic_fog_color ffff ffff ffff;
 basic_fog_visibility 123,0268770812381;
@@ -36,30 +36,29 @@ DE_factor 0,7;
 DE_thresh 1;
 DOF_focus 1,479108388168207e-14;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
+fog_color_1 0000 0000 0000;
 formula_1 8;
 formula_2 7;
 formula_iterations_1 10;
 fov 1,2;
 fresnel_reflectance true;
 gamma 1,27;
-glow_color_1 ffff 2ddf 0;
-glow_color_2 ffff e684 0;
+glow_color_1 ffff 2ddf 0000;
+glow_color_2 ffff e684 0000;
 glow_intensity 0,4;
 hdr true;
 hybrid_fractal_enable true;
 image_height 1080;
 image_width 1920;
-iteration_fog_color_1 0 0 0;
+iteration_fog_color_1 0000 0000 0000;
 iteration_fog_color_1_maxiter 82;
-iteration_fog_color_2 0 7530 ffff;
+iteration_fog_color_2 0000 7530 ffff;
 iteration_fog_color_2_maxiter 165;
 julia_c 8 0 0;
 julia_mode true;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 limit_min -10 -10 0;
-linear_DE_mode true;
 main_light_alpha 45;
 main_light_beta -45;
 main_light_intensity 0,7;
@@ -68,7 +67,7 @@ raytraced_reflections true;
 reflect 0,99;
 reflections_max 2;
 stereo_eye_distance 0,1;
-surface_color_palette 8eba06 b10000 d2a964 9e4659 8e009b ;
+surface_color_palette 8eba06 b10000 d2a964 9e4659 8e009b;
 target 4,007993748431515 -7,709322547984652 3,626159059841306;
 transparency_index_of_refraction 6;
 view_distance_max 9,54993;
@@ -115,3 +114,8 @@ mandelbox_rotation_pos_1 5,673387574675405e-315 0 0;
 mandelbox_rotation_pos_2 5,877100109127267e-315 0 0;
 mandelbox_rotation_pos_3 6,695156970127735e-315 0 0;
 mandelbox_scale 1,2;
+[fractal_5]
+[fractal_6]
+[fractal_7]
+[fractal_8]
+[fractal_9]

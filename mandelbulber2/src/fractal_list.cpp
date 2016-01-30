@@ -226,7 +226,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					analyticDEType,
 																					linearDEFunction,
 																					cpixelDisabledByDefault,
-																					10));
+																					100));
 
   fractalList->append(sFractalDescription("Kalisets1 Mod",
 																					"kalisets1",
