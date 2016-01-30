@@ -2535,10 +2535,14 @@ void cInterface::MovementStepModeChanged(int mode)
 	if (stepMode == absolute)
 	{
 		newStep = oldStep * distance;
+		if(distance > 1.0 && newStep > distance * 0.5)
+		  newStep = distance * 0.5;
 	}
 	else
 	{
 		newStep = oldStep / distance;
+		if(distance > 1.0 && newStep > 0.5)
+		  newStep = 0.5;
 	}
 	gPar->Set("camera_movement_step", newStep);
 	SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_navigation, gPar, cInterface::write);
