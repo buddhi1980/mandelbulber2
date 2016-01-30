@@ -819,7 +819,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		if (fractals.IsHybrid())
 		{
-			if(extendedAux[sequence].r_dz != 0)
+			if(extendedAux[sequence].r_dz > 0)
 			{
 				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
 				{
@@ -864,7 +864,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case quaternion:
 				case xenodreambuie:
 				{
-					if(extendedAux[sequence].r_dz != 0)
+					if(extendedAux[sequence].r_dz > 0)
 						out->distance = 0.5 * r * log(r) / extendedAux[sequence].r_dz;
 					else
 						out->distance = r;
@@ -886,7 +886,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case kalisets1:
         case aboxVSIcen1:
         {
-					if(extendedAux[sequence].r_dz != 0)
+					if(extendedAux[sequence].r_dz > 0)
 						out->distance = r / fabs(extendedAux[sequence].DE);
 					else
 						out->distance = r;
@@ -895,7 +895,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case kaleidoscopicIFS:
 				case menger_sponge:
         {
-					if(extendedAux[sequence].r_dz != 0)
+					if(extendedAux[sequence].r_dz > 0)
 						out->distance = (r - 2.0) / (extendedAux[sequence].DE);
 					else
 						out->distance = r;

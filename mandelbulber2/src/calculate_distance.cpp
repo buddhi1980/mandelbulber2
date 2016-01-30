@@ -192,10 +192,9 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 			out->colorIndex = fractOut.colorIndex;
 			out->totalIters += fractOut.iters;
 
-			if (out->maxiter) distance = 0.0;
-			//qDebug() << "maxiter" << out->maxiter;
+			if (distance < 1e-20) distance = 1e-20;
 
-			if (distance < 0) distance = 0;
+      if (out->maxiter) distance = 0.0;
 
 			if (fractOut.iters < params.minN && distance < in.detailSize) distance = in.detailSize;
 
@@ -270,7 +269,7 @@ double CalculateDistanceSimple(const cParamRender &params, const cNineFractals &
 				distance = r;
 			}
 
-			if (distance < 0) distance = 0;
+			if (distance < 1e-20) distance = 1e-20;
 
 			if (maxiter)
 			{
