@@ -501,6 +501,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(triggered()),
 												mainWindow,
 												SLOT(slotUpdateDocksandToolbarbyAction()));
+  QApplication::connect(mainWindow->ui->actionShow_measurement_dock,
+                        SIGNAL(triggered()),
+                        mainWindow,
+                        SLOT(slotUpdateDocksandToolbarbyAction()));
 	QApplication::connect(mainWindow->ui->actionSave_settings,
 												SIGNAL(triggered()),
 												mainWindow,
@@ -800,6 +804,10 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(visibilityChanged(bool)),
 												mainWindow,
 												SLOT(slotUpdateDocksandToolbarbyView()));
+  QApplication::connect(mainWindow->ui->dockWidget_measurement,
+                        SIGNAL(visibilityChanged(bool)),
+                        mainWindow,
+                        SLOT(slotUpdateDocksandToolbarbyView()));
 
 	QApplication::connect(mainWindow->ui->actionAdd_Settings_to_Toolbar,
 												SIGNAL(triggered()),

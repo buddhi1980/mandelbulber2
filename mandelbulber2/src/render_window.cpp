@@ -1758,7 +1758,7 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 	{
 		if (ui->actionShow_info_dock->isChecked())
 		{
-			addDockWidget(Qt::TopDockWidgetArea, ui->dockWidget_info);
+			addDockWidget(Qt::LeftDockWidgetArea, ui->dockWidget_info);
 		}
 		else
 		{
@@ -1772,7 +1772,7 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 	{
 		if (ui->actionShow_statistics_dock->isChecked())
 		{
-			addDockWidget(Qt::TopDockWidgetArea, ui->dockWidget_histogram);
+			addDockWidget(Qt::LeftDockWidgetArea, ui->dockWidget_histogram);
 		}
 		else
 		{
@@ -1814,6 +1814,20 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
 		}
 		ui->dockWidget_queue_dock->setVisible(ui->actionShow_queue_dock->isChecked());
 	}
+
+  // Queue dock
+  if (ui->actionShow_measurement_dock->isChecked() != ui->dockWidget_measurement->isVisible())
+  {
+    if (ui->actionShow_measurement_dock->isChecked())
+    {
+      addDockWidget(Qt::RightDockWidgetArea, ui->dockWidget_measurement);
+    }
+    else
+    {
+      removeDockWidget(ui->dockWidget_measurement);
+    }
+    ui->dockWidget_measurement->setVisible(ui->actionShow_measurement_dock->isChecked());
+  }
 }
 
 void RenderWindow::slotUpdateDocksandToolbarbyView()
@@ -1853,6 +1867,12 @@ void RenderWindow::slotUpdateDocksandToolbarbyView()
 	{
 		ui->actionShow_queue_dock->setChecked(ui->dockWidget_queue_dock->isVisible());
 	}
+
+  // Queue dock
+  if (ui->actionShow_measurement_dock->isChecked() != ui->dockWidget_measurement->isVisible())
+  {
+    ui->actionShow_measurement_dock->setChecked(ui->dockWidget_measurement->isVisible());
+  }
 }
 
 //adds dynamic actions to the toolbar (example settings)
