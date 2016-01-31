@@ -822,7 +822,6 @@ struct sFractalTransformCommon
   CVector3 power025;
   CVector3 power8;
 	CVector3 rotation;
-  CRotationMatrix rotationMatrix;
   CVector3 scale3D111;
   CVector3 scale3D222;
   CVector3 scale3D333;
@@ -831,10 +830,12 @@ struct sFractalTransformCommon
   CVector4 additionConstant0000;
   CVector4 constantMultiplier1220;
 
+  CRotationMatrix rotationMatrix;
+  CRotationMatrix tempRotmatrix;
+
   bool addCpixelEnabled;
   bool addCpixelEnabledFalse;
   bool benesiT1Enabled;
-
   bool functionEnabled;
   bool functionEnabledFalse;
   bool functionEnabledx;
@@ -843,7 +844,6 @@ struct sFractalTransformCommon
   bool functionEnabledxFalse;
   bool functionEnabledyFalse;
   bool functionEnabledzFalse;
-
   bool functionEnabledAx;
   bool functionEnabledAy;
   bool functionEnabledAz;
@@ -852,7 +852,6 @@ struct sFractalTransformCommon
   bool functionEnabledAzFalse;
   bool juliaMode;
   bool rotationEnabled;
-
 };
 
 class cFractal

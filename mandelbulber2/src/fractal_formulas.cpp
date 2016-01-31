@@ -2773,8 +2773,6 @@ void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal
   z += tempVC;
 }
 
-
-
 void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   z +=  c * fractal->transformCommon.constantMultiplier111;
@@ -3387,14 +3385,17 @@ void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fracta
   }
   if (i >= fractal->transformCommon.stopIterations)
   {
-    tempVC = (tempVC + fractal->transformCommon.offset000) * (M_PI / 180.0);
+    tempVC = (tempVC + fractal->transformCommon.offset000);
   }
-  z.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), tempVC.x);
-  z.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), tempVC.y);
-  z.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), tempVC.z);
-  //h'mmmmm   ?? = fractal->transformCommon.rotation + tempVC;
-  // mabe i require a  copy of matrix
-  //z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+  tempVC *= (M_PI / 180.0);
+
+  /*CRotationMatrix tempRotmatrix;
+  tempRotmatrix.SetRotation2(tempVC );
+  z = fractal->transformCommon.tempRotmatrix.RotateVector(z);*/
+  z = z.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), tempVC.x);
+  z = z.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), tempVC.y);
+  z = z.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), tempVC.z);
 }
 
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
