@@ -1786,7 +1786,10 @@ void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 
 
 // ----------Kalisets1
-/*From M3D, A formula suggested by Kali at fractalforums.com, added Scale and Fix parameters.
+/*Based on Kalisets1 and KaliDucks, from Mandelbulb 3D, and refer  Formula proposed by Kali, with features added by Darkbeam.
+ and refer
+http://www.fractalforums.com/new-theories-and-research/very-simple-formula-for-fractal-patterns
+M3D notes:
 Try out julias and low R_bailout values of 2 down to 1!
 You might have to cutoff at z=0 or so, to see something.*/
 
@@ -1808,19 +1811,18 @@ void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExt
    //z = fabs(z)/(z.x*z.y * z.z) + c;
 
   double sqs = (z.x * z.x + z.y * z.y + z.z * z.z + 1e-21); // sph inv
-  double m = fractal->transformCommon.scale/sqs;
-  z = z * m;
-  aux.DE = aux.DE * fabs(m) + 1.0;
-  /*double r = 1.0; // temp TODO change
-  if ( m < r )
+  double m;
+  double minR = fractal->transformCommon.minR0;  //  KaliDucks
+  if ( sqs < minR )
   {
-     z = z * (r*r);
+   m = 1/sqrt (minR );
   }
   else
   {
-      z = z * m;
-  }*/
-
+     m = fractal->transformCommon.scale/sqs; //kalisets
+  }
+  z = z * m;
+  aux.DE = aux.DE * fabs(m) + 1.0;
 
   if (fractal->transformCommon.addCpixelEnabledFalse)
   {
