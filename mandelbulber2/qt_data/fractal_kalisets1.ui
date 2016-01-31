@@ -64,14 +64,7 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
-          <property name="text">
-           <string>fABS z.x</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" colspan="4">
+        <item row="0" column="1" colspan="3">
          <widget class="QSlider" name="slider_transf_scale">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -96,21 +89,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
-          <property name="text">
-           <string> fABS z.y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
-          <property name="text">
-           <string>fABS.z.z</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="6">
+        <item row="0" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -138,21 +117,21 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item row="0" column="0">
          <widget class="QLabel" name="label_172">
           <property name="text">
            <string>Scale:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="1" column="0">
          <widget class="QLabel" name="label_173">
           <property name="text">
            <string>KaliDucks minR</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1" colspan="4">
+        <item row="1" column="1" colspan="3">
          <widget class="QSlider" name="slider_transf_minimum_radius_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -177,7 +156,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="6">
+        <item row="1" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -217,7 +196,7 @@
       <item>
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Enable Limits (box) on Rendering Engine tab,  and change bottom parameter   z: 10   to    z: 0,  and try maximum iterations of 1 or 2.</string>
+         <string>Enable Limits (box) on Rendering Engine tab,  and change bottom parameter   z: 10   to    z: 0,  and try low bailout  of 1 or 2.</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

@@ -1795,21 +1795,7 @@ You might have to cutoff at z=0 or so, to see something.*/
 
 void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
-  if (fractal->transformCommon.functionEnabledx)
-  {
-    z.x = fabs(z.x);
-  }
-  if (fractal->transformCommon.functionEnabledy)
-  {
-    z.y = fabs(z.y);
-  }
-  if (fractal->transformCommon.functionEnabledz)
-  {
-    z.z = fabs(z.z);
-  }
-
-   //z = fabs(z)/(z.x*z.y * z.z) + c;
-
+  z = fabs(z);
   double sqs = (z.x * z.x + z.y * z.y + z.z * z.z + 1e-21); // sph inv
   double m;
   double minR = fractal->transformCommon.minR0;  //  KaliDucks
