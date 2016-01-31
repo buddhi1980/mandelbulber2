@@ -1,0 +1,27 @@
+# Mandelbulber settings file
+# version 2.07
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera -0,4967583301054567 -0,1317684514971884 0,6753787116436084;
+camera_distance_to_target 0,0005233864740901782;
+camera_rotation -112,6156410931013 44,68881378957956 49,25043147279748;
+camera_top -0,7150758652598117 -0,5227891072329658 0,4640668661750053;
+DOF_enabled true;
+DOF_focus 0,0004515531763900071;
+formula_1 60;
+image_height 1200;
+image_width 1600;
+keyframe_last_to_render 0;
+target -0,4964148475262024 -0,1319115395217505 0,6757467862776655;
+view_distance_max 765,685424949238;
+[fractal_1]
+mandelbox_scale -2;
+[fractal_2]
+[fractal_3]
+[fractal_4]
+[fractal_5]
+[fractal_6]
+[fractal_7]
+[fractal_8]
+[fractal_9]
