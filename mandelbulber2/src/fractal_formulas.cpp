@@ -362,48 +362,51 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal)
 {
-	if (z.x > fractal->foldingIntPow.foldfactor) z.x = fractal->foldingIntPow.foldfactor * 2.0 - z.x;
-	else if (z.x < -fractal->foldingIntPow.foldfactor) z.x = -fractal->foldingIntPow.foldfactor * 2.0
-			- z.x;
+  if (z.x > fractal->foldingIntPow.foldfactor)
+    z.x = fractal->foldingIntPow.foldfactor * 2.0 - z.x;
+  else if (z.x < -fractal->foldingIntPow.foldfactor)
+    z.x = -fractal->foldingIntPow.foldfactor * 2.0 - z.x;
 
-	if (z.y > fractal->foldingIntPow.foldfactor) z.y = fractal->foldingIntPow.foldfactor * 2.0 - z.y;
-	else if (z.y < -fractal->foldingIntPow.foldfactor) z.y = -fractal->foldingIntPow.foldfactor * 2.0
-			- z.y;
+  if (z.y > fractal->foldingIntPow.foldfactor)
+    z.y = fractal->foldingIntPow.foldfactor * 2.0 - z.y;
+  else if (z.y < -fractal->foldingIntPow.foldfactor)
+    z.y = -fractal->foldingIntPow.foldfactor * 2.0 - z.y;
 
-	if (z.z > fractal->foldingIntPow.foldfactor) z.z = fractal->foldingIntPow.foldfactor * 2.0 - z.z;
-	else if (z.z < -fractal->foldingIntPow.foldfactor) z.z = -fractal->foldingIntPow.foldfactor * 2.0
-			- z.z;
+  if (z.z > fractal->foldingIntPow.foldfactor)
+    z.z = fractal->foldingIntPow.foldfactor * 2.0 - z.z;
+  else if (z.z < -fractal->foldingIntPow.foldfactor)
+    z.z = -fractal->foldingIntPow.foldfactor * 2.0 - z.z;
 
-	double r = z.Length();
+  double r = z.Length();
 
-	double fR2_2 = 1.0;
-	double mR2_2 = 0.25;
-	double r2_2 = r * r;
-	double tglad_factor1_2 = fR2_2 / mR2_2;
+  double fR2_2 = 1.0;
+  double mR2_2 = 0.25;
+  double r2_2 = r * r;
+  double tglad_factor1_2 = fR2_2 / mR2_2;
 
-	if (r2_2 < mR2_2)
-	{
-		z = z * tglad_factor1_2;
-	}
-	else if (r2_2 < fR2_2)
-	{
-		double tglad_factor2_2 = fR2_2 / r2_2;
-		z = z * tglad_factor2_2;
-	}
+  if (r2_2 < mR2_2)
+  {
+    z = z * tglad_factor1_2;
+  }
+  else if (r2_2 < fR2_2)
+  {
+    double tglad_factor2_2 = fR2_2 / r2_2;
+    z = z * tglad_factor2_2;
+  }
 
-	z = z * 2.0;
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2);
-	CVector3 zTemp;
-	zTemp.x = (x2 - y2) * temp;
-	zTemp.y = 2.0 * z.x * z.y * temp;
-	zTemp.z = -2.0 * z.z * sqrt(x2 + y2);
-	z = zTemp;
-	z.z *= fractal->foldingIntPow.zFactor;
+  z = z * 2.0;
+  double x2 = z.x * z.x;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+  double temp = 1.0 - z2 / (x2 + y2);
+  CVector3 zTemp;
+  zTemp.x = (x2 - y2) * temp;
+  zTemp.y = 2.0 * z.x * z.y * temp;
+  zTemp.z = -2.0 * z.z * sqrt(x2 + y2);
+  z = zTemp;
+  z.z *= fractal->foldingIntPow.zFactor;
 
-	//INFO remark: changed sequence of operation. adding of C constant was before multiplying by z-factor
+  //INFO remark: changed sequence of operation. adding of C constant was before multiplying by z-factor
 }
 
 void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -502,37 +505,38 @@ void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux)
 	w = neww;
 }
 
+//Bnenesi's formula (http://www.fractalforums.com/index.php?action=profile;u=1170)
 void BenesiIteration(CVector3 &z, CVector3 &c, sExtendedAux &aux)
 {
-	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	double r1 = z.y * z.y + z.z * z.z;
-	double newx = 0;
-	if (c.x < 0 || z.x < sqrt(r1))
-	{
-		newx = z.x * z.x - r1;
-	}
-	else
-	{
-		newx = -z.x * z.x + r1;
-	}
-	r1 = -1.0 / sqrt(r1) * 2.0 * fabs(z.x);
-	double newy = r1 * (z.y * z.y - z.z * z.z);
-	double newz = r1 * 2.0 * z.y * z.z;
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  double r1 = z.y * z.y + z.z * z.z;
+  double newx = 0;
+  if (c.x < 0 || z.x < sqrt(r1))
+  {
+    newx = z.x * z.x - r1;
+  }
+  else
+  {
+    newx = -z.x * z.x + r1;
+  }
+  r1 = -1.0 / sqrt(r1) * 2.0 * fabs(z.x);
+  double newy = r1 * (z.y * z.y - z.z * z.z);
+  double newz = r1 * 2.0 * z.y * z.z;
 
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
+  z.x = newx;
+  z.y = newy;
+  z.z = newz;
 }
 
 void BristorbrotIteration(CVector3 &z, sExtendedAux &aux)
 {
-	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	double newx = z.x * z.x - z.y * z.y - z.z * z.z;
-	double newy = z.y * (2.0 * z.x - z.z);
-	double newz = z.z * (2.0 * z.x + z.y);
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  double newx = z.x * z.x - z.y * z.y - z.z * z.z;
+  double newy = z.y * (2.0 * z.x - z.z);
+  double newz = z.z * (2.0 * z.x + z.y);
+  z.x = newx;
+  z.y = newy;
+  z.z = newz;
 }
 
 void IdesIteration(CVector3 &z)
@@ -563,59 +567,42 @@ void Ides2Iteration(CVector3 &z, CVector3 &c)
 
 void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
 
-	if (fractal->buffalo.preabsx)
-	{
-		z.x = fabs(z.x);
-	}
-	if (fractal->buffalo.preabsy)
-	{
-		z.y = fabs(z.y);
-	}
-	if (fractal->buffalo.preabsz)
-	{
-		z.z = fabs(z.z);
-	}
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-  double temp = 1.0 - z2 / (x2 + y2);// may need exception catching
-	double newx = (x2 - y2) * temp;
-	double newy = 2.0 * z.x * z.y * temp;
-	double newz;
-	if (fractal->buffalo.posz)
-	{
-		newz = 2.0 * z.z * sqrt(x2 + y2);
-	}
-	else
-	{
-		newz = -2.0 * z.z * sqrt(x2 + y2);
-	}
-	if (fractal->buffalo.absx)
-	{
-		z.x = fabs(newx);
-	}
-	else
-	{
-		z.x = newx;
-	}
-	if (fractal->buffalo.absy)
-	{
-		z.y = fabs(newy);
-	}
-	else
-	{
-		z.y = newy;
-	}
-	if (fractal->buffalo.absz)
-	{
-		z.z = fabs(newz);
-	}
-	else
-	{
-		z.z = newz;
-	}
+  if (fractal->buffalo.preabsx)
+    z.x = fabs(z.x);
+  if (fractal->buffalo.preabsy)
+    z.y = fabs(z.y);
+  if (fractal->buffalo.preabsz)
+    z.z = fabs(z.z);
+
+  double x2 = z.x * z.x;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+  double temp = 1.0 - z2 / (x2 + y2); // may need exception catching
+  double newx = (x2 - y2) * temp;
+  double newy = 2.0 * z.x * z.y * temp;
+  double newz;
+
+  if (fractal->buffalo.posz)
+    newz = 2.0 * z.z * sqrt(x2 + y2);
+  else
+    newz = -2.0 * z.z * sqrt(x2 + y2);
+
+  if (fractal->buffalo.absx)
+    z.x = fabs(newx);
+  else
+    z.x = newx;
+
+  if (fractal->buffalo.absy)
+    z.y = fabs(newy);
+  else
+    z.y = newy;
+
+  if (fractal->buffalo.absz)
+    z.z = fabs(newz);
+  else
+    z.z = newz;
 }
 
 /* http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
@@ -1567,8 +1554,10 @@ void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, 
   aux.r = z.Length();
   z *= z;
   double t = 2 * temp.x;
-  if (z.y + z.z > 0.0) t = t / sqrt(z.y + z.z);
-  else t = 1.0;
+  if (z.y + z.z > 0.0)
+    t = t / sqrt(z.y + z.z);
+  else
+    t = 1.0;
 
   z.x = (z.x - z.y - z.z) + c.x * fractal->transformCommon.constantMultiplier100.x;
   z.z = (t * (z.y - z.z)) + c.y * fractal->transformCommon.constantMultiplier100.y;
@@ -1580,8 +1569,7 @@ void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, 
 //http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
 void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
-  if (fractal->transformCommon.benesiT1Enabled
-      && i >= fractal->transformCommon.startIterations
+  if (fractal->transformCommon.benesiT1Enabled && i >= fractal->transformCommon.startIterations
       && i < fractal->transformCommon.stopIterations)
   {
     double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -1592,16 +1580,15 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
     CVector3 temp = z;
     double tempL = temp.Length();
     z = fabs(z) * fractal->transformCommon.scale3D222;
-    if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
-    double avgScale = fabs(z.Length()/tempL);
+    if (tempL < 1e-21 && tempL > -1e-21)
+      tempL = (tempL > 0) ? 1e-21 : -1e-21;
+    double avgScale = fabs(z.Length() / tempL);
 
     aux.r_dz *= avgScale;
     aux.DE = aux.DE * avgScale + 1.0;
 
     if (fractal->transformCommon.rotationEnabled)
-    {
       z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-    }
 
     tempXZ = (z.y + z.x) * SQRT_1_2;
 
@@ -1614,20 +1601,22 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
   aux.r = z.Length();
   z *= z;
   double t = 2 * temp.x;
-  if (z.y + z.z > 0.0) t = t / sqrt(z.y + z.z);
-  else t = 1.0;
+  if (z.y + z.z > 0.0)
+    t = t / sqrt(z.y + z.z);
+  else
+    t = 1.0;
   if (fractal->transformCommon.addCpixelEnabled)
   {
     z.x = (z.x - z.y - z.z) + c.x * fractal->transformCommon.constantMultiplier100.x;
     z.z = (t * (z.y - z.z)) + c.y * fractal->transformCommon.constantMultiplier100.y;  // Cy Cx swap
-    z.y = (2 * t * temp.y * temp.z) + c.z * fractal->transformCommon.constantMultiplier100.z; ;
+    z.y = (2 * t * temp.y * temp.z) + c.z * fractal->transformCommon.constantMultiplier100.z;
   }
   if (fractal->transformCommon.juliaMode)
-    {
-      z.x += fractal->transformCommon.juliaC.x * fractal->transformCommon.constantMultiplier100.x;
-      z.z += fractal->transformCommon.juliaC.y * fractal->transformCommon.constantMultiplier100.y;
-      z.y += fractal->transformCommon.juliaC.z * fractal->transformCommon.constantMultiplier100.z;
-    }
+  {
+    z.x += fractal->transformCommon.juliaC.x * fractal->transformCommon.constantMultiplier100.x;
+    z.z += fractal->transformCommon.juliaC.y * fractal->transformCommon.constantMultiplier100.y;
+    z.y += fractal->transformCommon.juliaC.z * fractal->transformCommon.constantMultiplier100.z;
+  }
   aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }
 
@@ -1635,65 +1624,53 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
 //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
 void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-  if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;// when atan used
-  double psi = fabs(fmod(atan( z.z / z.y ) + M_PI/8.0, M_PI/4.0) - M_PI/8.0);
-  double lengthYZ  = sqrt( z.y * z.y + z.z * z.z );
+  double psi = fabs(fmod(atan2(z.z, z.y) + M_PI + M_PI / 8.0, M_PI / 4.0) - M_PI / 8.0);
+  double lengthYZ = sqrt(z.y * z.y + z.z * z.z);
 
   z.y = cos(psi) * lengthYZ;
   z.z = sin(psi) * lengthYZ;
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
 
   CVector3 z2 = z * z;
-  double rr = z2.x + z2.y  + z2.z + 1e-60;
-  double m = 1.0 - z2.z/rr;
+  double rr = z2.x + z2.y + z2.z + 1e-60;
+  double m = 1.0 - z2.z / rr;
   CVector3 newz;
-  newz.x = (z2.x - z2.y)  * m;
-  newz.y = 2.0 * z.x * z.y  * m;
-  newz.z = 2.0 * z.z * sqrt( z2.x + z2.y );
+  newz.x = (z2.x - z2.y) * m;
+  newz.y = 2.0 * z.x * z.y * m;
+  newz.z = 2.0 * z.z * sqrt(z2.x + z2.y);
   z = newz + fractal->transformCommon.additionConstantNeg100;
 }
 
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
-  if ( i >= fractal->transformCommon.startIterations
-        && i < fractal->transformCommon.stopIterations)
+  if (i >= fractal->transformCommon.startIterations && i < fractal->transformCommon.stopIterations)
   {
     CVector3 tempA = z * 0;
     CVector3 tempB = z * 0;
+
     if (fractal->transformCommon.functionEnabledx)
-    {
       tempA.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
-    }
     if (fractal->transformCommon.functionEnabledAx)
-    {
       tempB.x = fabs(z.x - fractal->transformCommon.additionConstantA111.x);
-    }
-    z.x = tempA.x - tempB.x
-        - (z.x * fractal->transformCommon.scale3D111.x);
+    z.x = tempA.x - tempB.x - (z.x * fractal->transformCommon.scale3D111.x);
+
     if (fractal->transformCommon.functionEnabledy)
-    {
       tempA.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
-    }
     if (fractal->transformCommon.functionEnabledAy)
-    {
       tempB.y = fabs(z.y - fractal->transformCommon.additionConstantA111.y);
-    }
-    z.y = tempA.y - tempB.y
-        - (z.y * fractal->transformCommon.scale3D111.y);
+    z.y = tempA.y - tempB.y - (z.y * fractal->transformCommon.scale3D111.y);
+
     if (fractal->transformCommon.functionEnabledz)
-    {
       tempA.z = fabs(z.z + fractal->transformCommon.additionConstant111.z);
-    }
     if (fractal->transformCommon.functionEnabledAz)
-    {
       tempB.z = fabs(z.z - fractal->transformCommon.additionConstantA111.z);
-    }
-    z.z = tempA.z - tempB.z
-        - (z.z * fractal->transformCommon.scale3D111.z);
+
+    z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
   }
+
   if (fractal->transformCommon.functionEnabledFalse
-        && i >= fractal->transformCommon.startIterationsA
-        && i < fractal->transformCommon.stopIterationsA) // box fold
+      && i >= fractal->transformCommon.startIterationsA
+      && i < fractal->transformCommon.stopIterationsA) // box fold
   {
     if (z.x > fractal->mandelbox.foldingLimit)
     {
@@ -1728,11 +1705,13 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
       aux.color += fractal->mandelbox.color.factor.z;
     }
   }
-  if ( i >= fractal->transformCommon.startIterationsB
-        && i < fractal->transformCommon.stopIterationsB) // spherical fold
+
+  if (i >= fractal->transformCommon.startIterationsB
+      && i < fractal->transformCommon.stopIterationsB) // spherical fold
   {
     double r2 = z.Dot(z);
-    if (r2 < 1e-21 && r2 > -1e-21) r2 = (r2 > 0) ? 1e-21 : -1e-21;
+    if (r2 < 1e-21 && r2 > -1e-21)
+      r2 = (r2 > 0) ? 1e-21 : -1e-21;
     if (r2 < fractal->mandelbox.mR2)
     {
       z *= fractal->mandelbox.mboxFactor1;
@@ -1747,13 +1726,13 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
       aux.color += fractal->mandelbox.color.factorSp2;
     }
   }
+
   z *= fractal->mandelbox.scale;
   aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
   aux.r_dz *= fabs(fractal->mandelbox.scale);
 
-  if (fractal->mandelbox.mainRotationEnabled
-        &&  i >= fractal->transformCommon.startIterationsC
-        && i < fractal->transformCommon.stopIterationsC)
+  if (fractal->mandelbox.mainRotationEnabled && i >= fractal->transformCommon.startIterationsC
+      && i < fractal->transformCommon.stopIterationsC)
   {
     z = fractal->mandelbox.mainRot.RotateVector(z);
   }
@@ -3454,7 +3433,7 @@ void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, 
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   z *= fractal->transformCommon.scale3D111;
-  aux.DE = aux.DE * fractal->transformCommon.scale3D111.Length()/1.732 + 1.0;
+  aux.DE = aux.DE * z.Length()/aux.r + 1.0;
 }
 
 // A transform from Mandelbulb3D.

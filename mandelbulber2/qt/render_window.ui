@@ -17863,7 +17863,7 @@ Disables 'Update image' options)</string>
            </widget>
            <widget class="QWidget" name="tabWidget_fractal_common">
             <attribute name="title">
-             <string>Options</string>
+             <string>Global parameters</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_47">
              <property name="spacing">
@@ -17891,7 +17891,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>210</width>
+                  <width>320</width>
                   <height>482</height>
                  </rect>
                 </property>
@@ -20036,7 +20036,7 @@ and water):</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-202</y>
+          <y>0</y>
           <width>370</width>
           <height>1071</height>
          </rect>
