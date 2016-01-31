@@ -1765,41 +1765,29 @@ void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 
 
 // ----------Kalisets1
-/*From M3D, A formula suggested by Kali at fractalforums.com, added Scale and Fix parameters.
+/*Based on Kalisets1 and KaliDucks, from Mandelbulb 3D, and refer  Formula proposed by Kali, with features added by Darkbeam.
+ and refer
+http://www.fractalforums.com/new-theories-and-research/very-simple-formula-for-fractal-patterns
+M3D notes:
 Try out julias and low R_bailout values of 2 down to 1!
 You might have to cutoff at z=0 or so, to see something.*/
 
 void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
-  if (fractal->transformCommon.functionEnabledx)
-  {
-    z.x = fabs(z.x);
-  }
-  if (fractal->transformCommon.functionEnabledy)
-  {
-    z.y = fabs(z.y);
-  }
-  if (fractal->transformCommon.functionEnabledz)
-  {
-    z.z = fabs(z.z);
-  }
-
-   //z = fabs(z)/(z.x*z.y * z.z) + c;
-
+  z = fabs(z);
   double sqs = (z.x * z.x + z.y * z.y + z.z * z.z + 1e-21); // sph inv
-  double m = fractal->transformCommon.scale/sqs;
-  z = z * m;
-  aux.DE = aux.DE * fabs(m) + 1.0;
-  /*double r = 1.0; // temp TODO change
-  if ( m < r )
+  double m;
+  double minR = fractal->transformCommon.minR0;  //  KaliDucks
+  if ( sqs < minR )
   {
-     z = z * (r*r);
+   m = 1/sqrt (minR );
   }
   else
   {
-      z = z * m;
-  }*/
-
+     m = fractal->transformCommon.scale/sqs; //kalisets
+  }
+  z = z * m;
+  aux.DE = aux.DE * fabs(m) + 1.0;
 
   if (fractal->transformCommon.addCpixelEnabledFalse)
   {
@@ -2764,8 +2752,6 @@ void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal
   z += tempVC;
 }
 
-
-
 void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   z +=  c * fractal->transformCommon.constantMultiplier111;
@@ -2809,10 +2795,6 @@ void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFracta
     }
     z +=  c * fractal->transformCommon.constantMultiplier111;
   }
-  if (fractal->transformCommon.juliaMode)
-  {
-      z += fractal->transformCommon.juliaC;
-  }
 }
 // addCpixel Symmetrical Constant Multipier
 void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
@@ -2843,10 +2825,6 @@ void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal 
     else z.y -= tempFAB.y;
     if (z.z > 0) z.z += tempFAB.z;
     else z.z -= tempFAB.z;
-  }
-  if (fractal->transformCommon.juliaMode)
-  {
-      z += fractal->transformCommon.juliaC;
   }
 }
 
@@ -3386,14 +3364,17 @@ void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fracta
   }
   if (i >= fractal->transformCommon.stopIterations)
   {
-    tempVC = (tempVC + fractal->transformCommon.offset000) * (M_PI / 180.0);
+    tempVC = (tempVC + fractal->transformCommon.offset000);
   }
-  z.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), tempVC.x);
-  z.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), tempVC.y);
-  z.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), tempVC.z);
-  //h'mmmmm   ?? = fractal->transformCommon.rotation + tempVC;
-  // mabe i require a  copy of matrix
-  //z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+
+  tempVC *= (M_PI / 180.0);
+
+  /*CRotationMatrix tempRotmatrix;
+  tempRotmatrix.SetRotation2(tempVC );
+  z = fractal->transformCommon.tempRotmatrix.RotateVector(z);*/
+  z = z.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), tempVC.x);
+  z = z.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), tempVC.y);
+  z = z.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), tempVC.z);
 }
 
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)

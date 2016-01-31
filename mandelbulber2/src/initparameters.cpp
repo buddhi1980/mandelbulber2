@@ -565,7 +565,6 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_addition_constant_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
   par->addParam("transf_constant_multiplier_1220", CVector4(1.0, 2.0, 2.0, 0.0), morphAkima, paramStandard);
 
-
   par->addParam("transf_addCpixel_enabled", true, morphLinear, paramStandard);
   par->addParam("transf_addCpixel_enabled_false", false, morphLinear, paramStandard);
   par->addParam("transf_benesi_T1_enabled", true, morphLinear, paramStandard);

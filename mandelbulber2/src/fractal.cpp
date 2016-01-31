@@ -1486,6 +1486,7 @@ void cFractal::RecalculateFractalParams(void)
 			/ transform.sphericalFold2.mR2;
 
   transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
+  transformCommon.tempRotmatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
 
 	//Generalized Fold Box precalculated vectors
 	double sqrt_i3 = 1.0 / sqrt(3.0);
