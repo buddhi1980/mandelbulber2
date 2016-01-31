@@ -175,11 +175,14 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 						image->PutPixelImage(x, y, temp_image[ptr]);
 					}
 				}
-				image->CompileImage();
-				image->ConvertTo8bit();
-				image->UpdatePreview();
-				image->GetImageWidget()->update();
 
+        image->CompileImage();
+        if(image->IsPreview())
+        {
+          image->ConvertTo8bit();
+          image->UpdatePreview();
+          image->GetImageWidget()->update();
+				}
 				statusText = QObject::tr("Rendering Depth Of Field effect - phase II");
 
 				emit updateProgressAndStatus(statusText, QObject::tr("Sorting zBuffer"), 0.0);
@@ -480,9 +483,13 @@ void cPostRenderingDOF::Render(double deep, double neutral, bool floatVersion, b
 					image->PutPixelImage16(x, y, temp_image[ptr]);
 				}
 			}
-			image->ConvertTo8bit();
-			image->UpdatePreview();
-			image->GetImageWidget()->update();
+
+      if(image->IsPreview())
+      {
+        image->ConvertTo8bit();
+        image->UpdatePreview();
+        image->GetImageWidget()->update();
+      }
 
 			statusText = QObject::tr("Rendering Depth Of Field effect - phase II");
 
