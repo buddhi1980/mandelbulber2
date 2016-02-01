@@ -42,6 +42,8 @@
 #include "settings.hpp"
 #include "thumbnail.hpp"
 #include <QMessageBox>
+#include "mytabbar.h"
+
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
 #endif // USE_GAMEPAD
@@ -1778,6 +1780,7 @@ void cInterface::InitializeFractalUi(QString &uiFileName)
 			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_formula_transform_" + QString::number(i))->setVisible(false);
 			mainWindow->ui->tabWidget_fractals->findChild<QGroupBox*>("groupBox_c_constant_addition_" + QString::number(i))->setVisible(false);
 		}
+		static_cast<MyTabBar *>(mainWindow->ui->tabWidget_fractals->tabBar())->setupMoveButtons();
 	}
 	else
 	{

@@ -22,14 +22,19 @@
 
 #include "mytabwidget.h"
 #include "mytabbar.h"
+#include <QPushButton>
 
 MyTabWidget::MyTabWidget(QWidget *parent) : QTabWidget(parent)
 {
 	MyTabBar* bar = new MyTabBar();
-	connect(bar, SIGNAL(dragDropChange()), this, SLOT(slotDragDropChange()));
+	connect(bar, SIGNAL(swapTabs(int, int)), this, SIGNAL(swapTabs(int, int)));
 	this->setTabBar(bar);
+	bar->setupMoveButtons();
 }
 
+
+
+/*
 void MyTabWidget::slotDragDropChange()
 {
 	QRegularExpression re("^.*([0-9])+$");
@@ -54,3 +59,4 @@ void MyTabWidget::slotDragDropChange()
 		}
 	}
 }
+*/

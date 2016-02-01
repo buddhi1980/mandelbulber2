@@ -27,12 +27,56 @@
 
 MyTabBar::MyTabBar(QWidget *parent) :	QTabBar(parent)
 {
-	setMovable (true);
+	// setMovable (true);
+}
+
+void MyTabBar::setupMoveButtons()
+{
+	for(int i = 0; i < count(); i++)
+	{
+		if(i > 0)
+		{
+			QToolButton* tbMoveLeft = new QToolButton();
+			QIcon arrowLeft = this->style()->standardIcon(QStyle::SP_ArrowLeft);
+			tbMoveLeft->setIcon(arrowLeft);
+			tbMoveLeft->setIconSize(QSize(16, 16));
+			tbMoveLeft->setObjectName(QString::number(i));
+			setTabButton(i, QTabBar::LeftSide, tbMoveLeft);
+			connect(tbMoveLeft, SIGNAL(clicked()), this, SLOT(slotMoveLeft()));
+		}
+
+		if(i < count() - 1)
+		{
+			QToolButton* tbMoveRight = new QToolButton();
+			QIcon arrowRight = this->style()->standardIcon(QStyle::SP_ArrowRight);
+			tbMoveRight->setIcon(arrowRight);
+			tbMoveRight->setIconSize(QSize(16, 16));
+			tbMoveRight->setObjectName(QString::number(i));
+			setTabButton(i, QTabBar::RightSide, tbMoveRight);
+			connect(tbMoveRight, SIGNAL(clicked()), this, SLOT(slotMoveRight()));
+		}
+	}
+}
+
+void MyTabBar::slotMoveLeft()
+{
+	QString buttonName = this->sender()->objectName();
+	int index = buttonName.toInt();
+	if(index == 0) return;
+	emit swapTabs(index - 1, index);
+}
+
+void MyTabBar::slotMoveRight()
+{
+	QString buttonName = this->sender()->objectName();
+	int index = buttonName.toInt();
+	if(index == count() - 1) return;
+	emit swapTabs(index, index + 1);
 }
 
 void MyTabBar::mouseReleaseEvent(QMouseEvent *event)
 {
 	QTabBar::mouseMoveEvent(event);
-	emit dragDropChange();
+	// emit dragDropChange();
 }
 

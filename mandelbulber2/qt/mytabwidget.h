@@ -41,7 +41,7 @@ signals:
 	void swapTabs(int swapA, int swapB);
 
 private slots:
-	void slotDragDropChange();
+	// void slotDragDropChange();
 };
 
 

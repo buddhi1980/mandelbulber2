@@ -36,8 +36,15 @@ class MyTabBar : public QTabBar
 
 public:
 	MyTabBar(QWidget *parent = 0);
+	void setupMoveButtons();
+
 signals:
-	void dragDropChange();
+	void swapTabs(int, int);
+
+public slots:
+	// void dragDropChange();
+	void slotMoveLeft();
+	void slotMoveRight();
 
 protected:
 	void mouseReleaseEvent(QMouseEvent *event);
