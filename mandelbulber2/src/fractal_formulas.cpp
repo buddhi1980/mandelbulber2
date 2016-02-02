@@ -1506,6 +1506,19 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
     }
   }
 
+  //z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
+  if (fractal->transformCommon.functionEnabledyFalse)
+  {
+    z.x = fractal->transformCommon.offset2
+        - fabs(fabs(z.x + fractal->transformCommon.additionConstant111.x)
+        - fractal->transformCommon.offset2)
+        - fractal->transformCommon.additionConstant111.x;
+    z.y = fractal->transformCommon.offset2
+        - fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
+        - fractal->transformCommon.offset2)
+        - fractal->transformCommon.additionConstant111.y;
+  }
+
   z += fractal->transformCommon.additionConstant000;
 
   double rr;
