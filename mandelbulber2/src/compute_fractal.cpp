@@ -363,7 +363,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case eiffieMsltoe:
         {
-          EiffieMsltoeIteration(z, fractal, extendedAux[sequence]);
+          EiffieMsltoeIteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
         case foldBoxMod1:

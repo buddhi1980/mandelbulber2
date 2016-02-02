@@ -164,14 +164,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
-	fractalList->append(sFractalDescription("Eiffie's MsltoeJulia",
-																					"eiffie_msltoe",
-																					eiffieMsltoe,
-																					analyticDEType,
-																					logarithmicDEFunction,
-																					cpixelAlreadyHas,
-																					10));
-
   fractalList->append(sFractalDescription("Fold_Box_Mod1",
                                           "fold_box_mod1",
                                           foldBoxMod1,
@@ -179,6 +171,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					linearDEFunction,
                                           cpixelEnabledByDefault,
 																					100));
+
 	fractalList->append(sFractalDescription("Generalized Fold Box",
 																					"generalized_fold_box",
 																					generalizedFoldBox,
@@ -218,7 +211,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           logarithmicDEFunction,
                                           cpixelEnabledByDefault,
                                           10));
-
 
 	fractalList->append(sFractalDescription("Kaleidoscopic IFS",
 																					"ifs",
@@ -387,6 +379,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					logarithmicDEFunction,
                                           cpixelEnabledByDefault,
 																					10));
+
+  fractalList->append(sFractalDescription("Msltoe_Julia_Bulb_Eiffie",
+                                          "eiffie_msltoe",
+                                          eiffieMsltoe,
+                                          analyticDEType,
+                                          logarithmicDEFunction,
+                                          cpixelEnabledByDefault,
+                                          10));
 
   fractalList->append(sFractalDescription("Msltoe_Julia_Bulb_Mod2",
                                           "msltoesym3_mod2",

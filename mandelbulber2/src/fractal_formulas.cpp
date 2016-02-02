@@ -1620,27 +1620,6 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
   aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }
 
-//--EiffieMsltoeJulia. Refer post by Eiffie    Reply #69 on: January 27, 2015
-//http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
-void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
-{
-  double psi = fabs(fmod(atan2(z.z, z.y) + M_PI + M_PI / 8.0, M_PI / 4.0) - M_PI / 8.0);
-  double lengthYZ = sqrt(z.y * z.y + z.z * z.z);
-
-  z.y = cos(psi) * lengthYZ;
-  z.z = sin(psi) * lengthYZ;
-  aux.r_dz = aux.r_dz * 2.0 * aux.r;
-
-  CVector3 z2 = z * z;
-  double rr = z2.x + z2.y + z2.z + 1e-60;
-  double m = 1.0 - z2.z / rr;
-  CVector3 newz;
-  newz.x = (z2.x - z2.y) * m;
-  newz.y = 2.0 * z.x * z.y * m;
-  newz.z = 2.0 * z.z * sqrt(z2.x + z2.y);
-  z = newz + fractal->transformCommon.additionConstantNeg100;
-}
-
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
   if (i >= fractal->transformCommon.startIterations && i < fractal->transformCommon.stopIterations)
@@ -2115,6 +2094,59 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sE
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
+
+//--MsltoeJuliaBulb Eiffie.Refer post by Eiffie    Reply #69 on: January 27, 2015
+//http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
+void EiffieMsltoeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  double psi = fabs(fmod(atan2(z.z, z.y) + M_PI + M_PI_8,  M_PI_4) - M_PI_8);
+  double lengthYZ = sqrt(z.y * z.y + z.z * z.z);
+
+  z.y = cos(psi) * lengthYZ;
+  z.z = sin(psi) * lengthYZ;
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+
+  CVector3 z2 = z * z;
+  double rr = z2.x + z2.y + z2.z + 1e-60;
+  double m = 1.0 - z2.z / rr;
+  CVector3 newz;
+  newz.x = (z2.x - z2.y) * m;
+  newz.y = 2.0 * z.x * z.y * m * fractal->transformCommon.scale;// scaling y;;
+  newz.z = 2.0 * z.z * sqrt(z2.x + z2.y);
+  z = newz + fractal->transformCommon.additionConstant000;
+
+  if (fractal->transformCommon.addCpixelEnabledFalse)
+  {
+    CVector3 tempFAB = c;
+    if (fractal->transformCommon.functionEnabledx)
+    {
+            tempFAB.x = fabs(tempFAB.x);
+    }
+    if (fractal->transformCommon.functionEnabledy)
+    {
+            tempFAB.y = fabs(tempFAB.y);
+    }
+    if (fractal->transformCommon.functionEnabledz)
+    {
+            tempFAB.z = fabs(tempFAB.z);
+    }
+    tempFAB *= fractal->transformCommon.constantMultiplier000;
+    if (z.x > 0) z.x += tempFAB.x;
+    else z.x -= tempFAB.x;
+    if (z.y > 0) z.y += tempFAB.y;
+    else z.y -= tempFAB.y;
+    if (z.z > 0) z.z += tempFAB.z;
+    else z.z -= tempFAB.z;
+  }
+  double lengthTempZ = -z.Length();
+  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+  z *= 1 + fractal->transformCommon.offset / lengthTempZ;
+  z *= fractal->transformCommon.scale1;
+  aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
+  aux.r_dz *= fabs(fractal->transformCommon.scale1);
+
+}
+
     //  Msltoe_Julia_Bulb_Mod2  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 31
 void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {

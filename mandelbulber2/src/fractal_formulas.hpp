@@ -42,7 +42,7 @@ void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
 void BristorbrotIteration(CVector3 &z, sExtendedAux &aux);
 void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void EiffieMsltoeIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
+void EiffieMsltoeIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux);
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux);
