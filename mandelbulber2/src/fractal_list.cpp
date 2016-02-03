@@ -431,7 +431,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Quaternion3D",
 																					"quaternion3D",
 																					quaternion3D,
-																					deltaDEType,
+                                          analyticDEType,
 																					logarithmicDEFunction,
 																					cpixelEnabledByDefault,
 																					10));
@@ -661,6 +661,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelDisabledByDefault,
                                           100));
 
+  fractalList->append(sFractalDescription("Transform - Fabs_Add_Neg",
+                                          "transf_neg_fabs_add_constant",
+                                          transfNegFabsAddConstant,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
   fractalList->append(sFractalDescription("Transform - Iteration Weight",
                                           "transf_iteration_weight",
                                           transfIterationWeight,
@@ -684,14 +692,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           withoutDEFunction,
                                           cpixelDisabledByDefault,
                                           100));
-
-	fractalList->append(sFractalDescription("Transform - Neg_Fabs_Add_Constant",
-																					"transf_neg_fabs_add_constant",
-																					transfNegFabsAddConstant,
-																					analyticDEType,
-																					withoutDEFunction,
-																					cpixelDisabledByDefault,
-																					100));
 
 	fractalList->append(sFractalDescription("Transform - Platonic Solid",
 																					"platonic_solid",

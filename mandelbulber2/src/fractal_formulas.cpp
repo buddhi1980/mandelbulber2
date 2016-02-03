@@ -2474,16 +2474,30 @@ void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
 }
 
 // --------quaternion3D--------------
-void Quaternion3DIteration(CVector3 &z, const cFractal *fractal)
+void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
   z = CVector3(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z);
+
+  CVector3 temp = z;
+  double tempL = temp.Length();
   z *= fractal->transformCommon.constantMultiplier122;
+  if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
+  double avgScale = fabs(z.Length()/tempL);
+  aux.r_dz *= avgScale;
+  //aux.DE = aux.DE * avgScale + 1.0;
+
+
+
+
 
   if (fractal->transformCommon.rotationEnabled)
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
   z += fractal->transformCommon.additionConstant000;
+
+
 
 }
 

@@ -75,7 +75,7 @@ void MsltoeSym3Mod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, 
 void MsltoeSym3Mod3Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
-void Quaternion3DIteration(CVector3 &z, const cFractal *fractal);
+void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion4DIteration(CVector4 &z, int i, const cFractal *fractal);
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux);
 void QuickDudleyIteration(CVector3 &z);

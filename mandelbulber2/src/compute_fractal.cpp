@@ -403,7 +403,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case quaternion3D:
         {
-          Quaternion3DIteration(z, fractal);
+          Quaternion3DIteration(z, fractal, extendedAux[sequence]);
           break;
         }
 
@@ -862,6 +862,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case msltoesym3Mod3:
         case msltoesym4Mod:
 				case quaternion:
+        case quaternion3D:
 				case xenodreambuie:
 				{
 					if(extendedAux[sequence].r_dz > 0)
