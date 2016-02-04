@@ -169,16 +169,20 @@ void cInterface::ShowUi(void)
 #ifndef USE_EXR
 	{
 		mainWindow->ui->actionSave_as_EXR->setVisible(false);
-		mainWindow->ui->comboBox_keyframe_animation_image_type->removeItem(IMAGE_FILE_TYPE_EXR);
-		mainWindow->ui->comboBox_flight_animation_image_type->removeItem(IMAGE_FILE_TYPE_EXR);
+		qobject_cast<QStandardItemModel *>(mainWindow->ui->comboBox_keyframe_animation_image_type->model())
+				->item(IMAGE_FILE_TYPE_EXR)->setEnabled(false);
+		qobject_cast<QStandardItemModel *>(mainWindow->ui->comboBox_flight_animation_image_type->model())
+				->item(IMAGE_FILE_TYPE_EXR)->setEnabled(false);
 	}
 #endif
 
 #ifndef USE_TIFF
 	{
 		mainWindow->ui->actionSave_as_TIFF->setVisible(false);
-		mainWindow->ui->comboBox_keyframe_animation_image_type->removeItem(IMAGE_FILE_TYPE_TIFF);
-		mainWindow->ui->comboBox_flight_animation_image_type->removeItem(IMAGE_FILE_TYPE_TIFF);
+		qobject_cast<QStandardItemModel *>(mainWindow->ui->comboBox_keyframe_animation_image_type->model())
+				->item(IMAGE_FILE_TYPE_TIFF)->setEnabled(false);
+		qobject_cast<QStandardItemModel *>(mainWindow->ui->comboBox_flight_animation_image_type->model())
+				->item(IMAGE_FILE_TYPE_TIFF)->setEnabled(false);
 	}
 #endif
 
