@@ -177,7 +177,7 @@ void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux)
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 
 	double temp, tempR;
-	tempR = sqrt(z.x * z.x + z.y * z.y);
+  tempR = sqrt(z.x * z.x + z.y * z.y + 1e-021);
 	z *= (1.0 / tempR);
 	temp = z.x * z.x - z.y * z.y;
 	z.y = 2.0 * z.x * z.y;
@@ -211,7 +211,7 @@ void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
 	double sign2 = 1.0;
 
 	if (z.x < 0) sign2 = -1.0;
-	tempR = sqrt(z.x * z.x + z.y * z.y);
+  tempR = sqrt(z.x * z.x + z.y * z.y + 1e-021);
 	z *= (1.0 / tempR);
 	temp = z.x * z.x - z.y * z.y;
 	z.y = 2.0 * z.x * z.y;
@@ -1593,9 +1593,8 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
     CVector3 temp = z;
     double tempL = temp.Length();
     z = fabs(z) * fractal->transformCommon.scale3D222;
-    if (tempL < 1e-21 && tempL > -1e-21)
-      tempL = (tempL > 0) ? 1e-21 : -1e-21;
-    double avgScale = fabs(z.Length() / tempL);
+    if (tempL < 1e-21) tempL =  1e-21;
+    double avgScale = z.Length()/tempL;
 
     aux.r_dz *= avgScale;
     aux.DE = aux.DE * avgScale + 1.0;
@@ -2481,24 +2480,17 @@ void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
 
   CVector3 temp = z;
   double tempL = temp.Length();
-  z *= fractal->transformCommon.constantMultiplier122;
+  z *= fractal->transformCommon.constantMultiplier122; // mult. scale (1,2,2)
   if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
   double avgScale = fabs(z.Length()/tempL);
   aux.r_dz *= avgScale;
   //aux.DE = aux.DE * avgScale + 1.0;
 
-
-
-
-
-  if (fractal->transformCommon.rotationEnabled)
+  if (fractal->transformCommon.rotationEnabled) // rotation tweak
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
   }
-  z += fractal->transformCommon.additionConstant000;
-
-
-
+  z += fractal->transformCommon.additionConstant000; // addition of constant (0,0,0)
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------
@@ -2924,8 +2916,8 @@ void TransformBenesiT1Iteration(CVector3 &z,  const cFractal *fractal, sExtended
   CVector3 temp = z;
   double tempL = temp.Length();
   z = fabs(z) * fractal->transformCommon.scale3D222;
-  if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
-  double avgScale = fabs(z.Length()/tempL);
+  if (tempL < 1e-21) tempL =  1e-21;
+  double avgScale = z.Length()/tempL;
   aux.r_dz *= avgScale;
   aux.DE = aux.DE * avgScale + 1.0;
 
@@ -2954,8 +2946,8 @@ void TransformBenesiT1ModIteration(CVector3 &z,  const cFractal *fractal, sExten
   CVector3 temp = z;
   double tempL = temp.Length();
   z = fabs(z) * fractal->transformCommon.scale3D333;
-  if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
-  double avgScale = fabs(z.Length()/tempL);
+  if (tempL < 1e-21) tempL =  1e-21;
+  double avgScale = z.Length()/tempL;
   aux.r_dz *= avgScale;
   aux.DE = aux.DE * avgScale + 1.0;
 
@@ -2993,8 +2985,8 @@ void TransformBenesiT2Iteration(CVector3 &z,  const cFractal *fractal, sExtended
   CVector3 temp = z;
   double tempL = temp.Length();
   z = fabs(z) * fractal->transformCommon.scale3D444;
-  if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
-  double avgScale = fabs(z.Length()/tempL);
+  if (tempL < 1e-21) tempL =  1e-21;
+  double avgScale = z.Length()/tempL;
   aux.r_dz *= avgScale;
   aux.DE = aux.DE * avgScale + 1.0;
 
@@ -3473,6 +3465,7 @@ void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, 
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   z *= fractal->transformCommon.scale3D111;
+  aux.r_dz *= z.Length()/aux.r;
   aux.DE = aux.DE * z.Length()/aux.r + 1.0;
 }
 
