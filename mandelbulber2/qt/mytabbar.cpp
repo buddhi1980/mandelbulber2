@@ -39,7 +39,7 @@ void MyTabBar::setupMoveButtons()
 			QToolButton* tbMoveLeft = new QToolButton();
 			QIcon arrowLeft = this->style()->standardIcon(QStyle::SP_ArrowLeft);
 			tbMoveLeft->setIcon(arrowLeft);
-			tbMoveLeft->setIconSize(QSize(16, 16));
+			tbMoveLeft->setIconSize(QSize(10, 10));
 			tbMoveLeft->setObjectName(QString::number(i));
 			setTabButton(i, QTabBar::LeftSide, tbMoveLeft);
 			connect(tbMoveLeft, SIGNAL(clicked()), this, SLOT(slotMoveLeft()));
@@ -50,7 +50,7 @@ void MyTabBar::setupMoveButtons()
 			QToolButton* tbMoveRight = new QToolButton();
 			QIcon arrowRight = this->style()->standardIcon(QStyle::SP_ArrowRight);
 			tbMoveRight->setIcon(arrowRight);
-			tbMoveRight->setIconSize(QSize(16, 16));
+			tbMoveRight->setIconSize(QSize(10, 10));
 			tbMoveRight->setObjectName(QString::number(i));
 			setTabButton(i, QTabBar::RightSide, tbMoveRight);
 			connect(tbMoveRight, SIGNAL(clicked()), this, SLOT(slotMoveRight()));

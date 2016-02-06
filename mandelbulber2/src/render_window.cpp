@@ -2288,26 +2288,36 @@ void RenderWindow::slotPressedButtonResetFormula()
 
 void RenderWindow::slotFractalSwap(int swapA, int swapB)
 {
-	qDebug() << "swapping " << swapA << " with " << swapB;
-	QWidget *fractalWidgetTemp;
+	// qDebug() << "swapping " << swapA << " with " << swapB;
 
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapB],
-																						 &gParFractal->at(swapA),
-																						 cInterface::read);
+	// read all data from ui
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::read);
+
+	// swap formula specific fields in gPar
+	QStringList gParFormulaSpecificFields;
+	gParFormulaSpecificFields << "formula" << "formula_iterations" << "formula_weight"
+		<< "formula_start_iteration" << "formula_stop_iteration" << "julia_mode" << "julia_c"
+		<< "fractal_constant_factor" << "formula_position" << "formula_rotation" << "formula_repeat"
+		<< "formula_scale" << "dont_add_c_constant" << "check_for_bailout";
+
+	for(int i = 0; i < gParFormulaSpecificFields.size(); i++)
+	{
+		cOneParameter formulaA = gPar->GetAsOneParameter(gParFormulaSpecificFields.at(i) + "_" + QString::number(swapA + 1));
+		cOneParameter formulaB = gPar->GetAsOneParameter(gParFormulaSpecificFields.at(i) + "_" + QString::number(swapB + 1));
+		gPar->SetFromOneParameter(gParFormulaSpecificFields.at(i) + "_" + QString::number(swapA + 1), formulaB);
+		gPar->SetFromOneParameter(gParFormulaSpecificFields.at(i) + "_" + QString::number(swapB + 1), formulaA);
+	}
+
+	// swap formula specific fields in gParFractal by swapping whole container
 	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapA],
 																						 &gParFractal->at(swapB),
 																						 cInterface::read);
-	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapA],
-																						 &gParFractal->at(swapA),
-																						 cInterface::write);
 	gMainInterface->SynchronizeInterfaceWindow(fractalWidgets[swapB],
-																						 &gParFractal->at(swapB),
-																						 cInterface::write);
+																						 &gParFractal->at(swapA),
+																						 cInterface::read);
 
-	QString nameA = ui->tabWidget_fractals->widget(swapA)->objectName();
-	ui->tabWidget_fractals->widget(swapA)->setObjectName(
-				ui->tabWidget_fractals->widget(swapB)->objectName());
-	ui->tabWidget_fractals->widget(swapB)->setObjectName(nameA);
+	// write swapped changes to ui
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, cInterface::write);
 }
 
 void RenderWindow::slotChangedCheckBoxUseDefaultBailout(int state)
