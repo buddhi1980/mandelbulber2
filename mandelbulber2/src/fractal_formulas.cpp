@@ -2221,7 +2221,7 @@ void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
 }
 
   // Msltoe_Julia_Bulb_Mod3  //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 39
-void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
   CVector3 z1 = z;
@@ -2275,12 +2275,34 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
     if (z.z > 0) z.z += tempFAB.z;
     else z.z -= tempFAB.z;
   }
-  double lengthTempZ = -z.Length();
+  double lengthTempZ = -z.Length(); // spherical offset
   if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
   z *= 1 + fractal->transformCommon.offset / lengthTempZ;
   z *= fractal->transformCommon.scale1;
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
+
+  if (fractal->transformCommon.functionEnabledFalse // quaternion fold
+      && i >= fractal->transformCommon.startIterationsA
+      && i < fractal->transformCommon.stopIterationsA)
+  {
+    aux.r_dz = aux.r_dz * 2.0 * z.Length();
+    z = CVector3(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z);
+    if (fractal->transformCommon.functionEnabledAxFalse)
+    {
+      CVector3 temp = z;
+      double tempL = temp.Length();
+      z *= CVector3(1.0, 2.0, 2.0); // mult. scale (1,2,2)
+      if (tempL < 1e-21) tempL = 1e-21;
+      double avgScale = z.Length()/tempL;
+      aux.r_dz *= avgScale;
+    }
+    else
+    {
+      z *= CVector3(1.0, 2.0, 2.0); // mult. scale (1,2,2)
+    }
+  }
+
 }
 
 // MsltoeSym4Mod  Based on the formula from Mandelbulb3D.also refer  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
@@ -2480,9 +2502,9 @@ void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
 
   CVector3 temp = z;
   double tempL = temp.Length();
-  z *= fractal->transformCommon.constantMultiplier122; // mult. scale (1,2,2)
-  if (tempL < 1e-21 && tempL > -1e-21) tempL = (tempL > 0) ? 1e-21 : -1e-21;
-  double avgScale = fabs(z.Length()/tempL);
+    z *= fractal->transformCommon.constantMultiplier122; // mult. scale (1,2,2)
+  if (tempL < 1e-21) tempL = 1e-21;
+  double avgScale = z.Length()/tempL;
   aux.r_dz *= avgScale;
   //aux.DE = aux.DE * avgScale + 1.0;
 

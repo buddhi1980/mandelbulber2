@@ -268,7 +268,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case msltoesym3Mod3:
         {
-          MsltoeSym3Mod3Iteration(z, c, fractal, extendedAux[sequence]);
+          MsltoeSym3Mod3Iteration(z, c, i, fractal, extendedAux[sequence]);
           break;
         }
         case msltoesym4Mod:
@@ -376,6 +376,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           IQbulbIteration(z, fractal, extendedAux[sequence]);
           break;
         }
+        case kalisets1:
+        {
+          Kalisets1Iteration(z, c, fractal, extendedAux[sequence]);
+          break;
+        }
         case mandelbulbMulti:
         {
           MandelbulbMultiIteration(z, fractal, extendedAux[sequence]);
@@ -407,15 +412,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           break;
         }
 
-
-
-
-
-        case kalisets1:
-        {
-          Kalisets1Iteration(z, c, fractal, extendedAux[sequence]);
-          break;
-        }
 
 
         //transforms ------------------------------------------------------------------------------------------
