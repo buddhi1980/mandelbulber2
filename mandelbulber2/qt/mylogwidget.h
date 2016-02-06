@@ -31,11 +31,14 @@
 class MyLogWidget : public QPlainTextEdit
 {
 	Q_OBJECT
+
 public:
 	MyLogWidget(QWidget *parent = 0)  : QPlainTextEdit(parent)
 	{
-		this->setReadOnly(true);
+		setReadOnly(true);
 		initializedFromLogFile = false;
+		QPalette p = palette();
+		defaultTextColor = p.windowText().color().name();
 	};
 
 public slots:
@@ -45,6 +48,7 @@ public slots:
 
 private:
 	bool initializedFromLogFile;
+	QString defaultTextColor;
 };
 
 #endif /* MYLOGWIDGET_HPP_ */

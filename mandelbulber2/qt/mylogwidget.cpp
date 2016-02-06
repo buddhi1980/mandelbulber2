@@ -31,7 +31,7 @@ void MyLogWidget::appendMessage(const QString& text)
 	}
 	else
 	{
-		moveCursor (QTextCursor::End);
+		moveCursor(QTextCursor::End);
 		this->appendHtml(formatLine(text));
 	}
 }
@@ -60,7 +60,7 @@ QString MyLogWidget::formatLine(const QString& text)
 		QRegularExpressionMatch matchType = reType.match(match.captured(5));
 		if (matchType.hasMatch())
 		{
-			QString color = "black";
+			QString color = defaultTextColor;
 			if(matchType.captured(1) == "Debug") color = "green";
 			else if(matchType.captured(1) == "Warning") color = "orange";
 			else if(matchType.captured(1) == "Critical") color = "red";
@@ -72,7 +72,7 @@ QString MyLogWidget::formatLine(const QString& text)
 		}
 		else
 		{
-			out += "<span style=\"color: black;\"><b>" + match.captured(5) + "</b></span>";
+			out += "<span style=\"color: " + defaultTextColor + ";\"><b>" + match.captured(5) + "</b></span>";
 		}
 		return out;
 	}
