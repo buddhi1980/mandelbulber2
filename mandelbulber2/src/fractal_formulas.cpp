@@ -409,47 +409,54 @@ void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal)
   //INFO remark: changed sequence of operation. adding of C constant was before multiplying by z-factor
 }
 
+//ref: http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
 void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->IFS.absX) z.x = fabs(z.x);
-	if (fractal->IFS.absY) z.y = fabs(z.y);
-	if (fractal->IFS.absZ) z.z = fabs(z.z);
+  if (fractal->IFS.absX)
+    z.x = fabs(z.x);
+  if (fractal->IFS.absY)
+    z.y = fabs(z.y);
+  if (fractal->IFS.absZ)
+    z.z = fabs(z.z);
 
-	for (int i = 0; i < IFS_VECTOR_COUNT; i++)
-	{
-		if (fractal->IFS.enabled[i])
-		{
-			z = fractal->IFS.rot[i].RotateVector(z);
-			double length = z.Dot(fractal->IFS.direction[i]);
+  for (int i = 0; i < IFS_VECTOR_COUNT; i++)
+  {
+    if (fractal->IFS.enabled[i])
+    {
+      z = fractal->IFS.rot[i].RotateVector(z);
+      double length = z.Dot(fractal->IFS.direction[i]);
 
-			if (length < fractal->IFS.distance[i])
-			{
-				z -= fractal->IFS.direction[i]
-						* (2.0 * (length - fractal->IFS.distance[i]) * fractal->IFS.intensity[i]);
-			}
+      if (length < fractal->IFS.distance[i])
+      {
+        z -= fractal->IFS.direction[i]
+            * (2.0 * (length - fractal->IFS.distance[i]) * fractal->IFS.intensity[i]);
+      }
+    }
+  }
 
-		}
-	}
-	z = fractal->IFS.mainRot.RotateVector(z - fractal->IFS.offset) + fractal->IFS.offset;
+  z = fractal->IFS.mainRot.RotateVector(z - fractal->IFS.offset) + fractal->IFS.offset;
 
-	if (fractal->IFS.edge.x > 0) z.x = fractal->IFS.edge.x - fabs(fractal->IFS.edge.x - z.x);
-	if (fractal->IFS.edge.y > 0) z.y = fractal->IFS.edge.y - fabs(fractal->IFS.edge.y - z.y);
-	if (fractal->IFS.edge.z > 0) z.z = fractal->IFS.edge.z - fabs(fractal->IFS.edge.z - z.z);
+  if (fractal->IFS.edge.x > 0)
+    z.x = fractal->IFS.edge.x - fabs(fractal->IFS.edge.x - z.x);
+  if (fractal->IFS.edge.y > 0)
+    z.y = fractal->IFS.edge.y - fabs(fractal->IFS.edge.y - z.y);
+  if (fractal->IFS.edge.z > 0)
+    z.z = fractal->IFS.edge.z - fabs(fractal->IFS.edge.z - z.z);
 
-	z *= fractal->IFS.scale;
-	if (fractal->IFS.mengerSpongeMode)
-	{
-		z.x -= fractal->IFS.offset.x * (fractal->IFS.scale - 1.0);
-		z.y -= fractal->IFS.offset.y * (fractal->IFS.scale - 1.0);
-		if (z.z > 0.5 * fractal->IFS.offset.z * (fractal->IFS.scale - 1.0)) z.z -= fractal->IFS.offset.z
-				* (fractal->IFS.scale - 1.0);
-	}
-	else
-	{
-		z -= fractal->IFS.offset * (fractal->IFS.scale - 1.0);
-	}
+  z *= fractal->IFS.scale;
+  if (fractal->IFS.mengerSpongeMode)
+  {
+    z.x -= fractal->IFS.offset.x * (fractal->IFS.scale - 1.0);
+    z.y -= fractal->IFS.offset.y * (fractal->IFS.scale - 1.0);
+    if (z.z > 0.5 * fractal->IFS.offset.z * (fractal->IFS.scale - 1.0))
+      z.z -= fractal->IFS.offset.z * (fractal->IFS.scale - 1.0);
+  }
+  else
+  {
+    z -= fractal->IFS.offset * (fractal->IFS.scale - 1.0);
+  }
 
-	aux.DE *= fractal->IFS.scale;
+  aux.DE *= fractal->IFS.scale;
 }
 
 //Aexion's Quadray Sets from FractalForums:
@@ -485,15 +492,17 @@ void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sEx
   w = tempw;
 }
 
+//3D Mandelbrot formula invented by David Makin
+//http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/msg7235/#msg7235
 void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux)
 {
-	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	CVector3 newz(z.x * z.x - z.y * z.y - z.z * z.z - w * w,
-								2.0 * z.x * z.y - 2.0 * w * z.z,
-								2.0 * z.x * z.z - 2.0 * z.y * w);
-	double neww = 2.0 * z.x * w - 2.0 * z.y * z.z;
-	z = newz;
-	w = neww;
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  CVector3 newz(z.x * z.x - z.y * z.y - z.z * z.z - w * w,
+                2.0 * z.x * z.y - 2.0 * w * z.z,
+                2.0 * z.x * z.z - 2.0 * z.y * w);
+  double neww = 2.0 * z.x * w - 2.0 * z.y * z.z;
+  z = newz;
+  w = neww;
 }
 
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux)
@@ -541,28 +550,28 @@ void BristorbrotIteration(CVector3 &z, sExtendedAux &aux)
 
 void IdesIteration(CVector3 &z)
 {
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double newx = x2 - 0.5 * (y2 + z2) + z.x;
-	double newy = 2.0 * z.x * z.y * z.z + z.y;
-	double newz = z2 - 0.5 * (x2 + y2) + z.z;
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
+  double x2 = z.x * z.x;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+  double newx = x2 - 0.5 * (y2 + z2) + z.x;
+  double newy = 2.0 * z.x * z.y * z.z + z.y;
+  double newz = z2 - 0.5 * (x2 + y2) + z.z;
+  z.x = newx;
+  z.y = newy;
+  z.z = newz;
 }
 
 void Ides2Iteration(CVector3 &z, CVector3 &c)
 {
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double newx = x2 - 0.5 * (y2 + z2) + c.x;
-	double newy = 2.0 * z.x * z.y * z.z + c.y;
-	double newz = z2 - 0.5 * (x2 + y2) + c.z;
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
+  double x2 = z.x * z.x;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+  double newx = x2 - 0.5 * (y2 + z2) + c.x;
+  double newy = 2.0 * z.x * z.y * z.z + c.y;
+  double newz = z2 - 0.5 * (x2 + y2) + c.z;
+  z.x = newx;
+  z.y = newy;
+  z.z = newz;
 }
 
 void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -622,15 +631,15 @@ void QuickDudleyIteration(CVector3 &z)
 /* http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
 void LkmitchIteration(CVector3 &z)
 {
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double newx = x2 - 2 * z.y * z.z;
-	double newy = z2 + 2 * z.x * z.y;
-	double newz = y2 - 2 * z.x * z.z;
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
+  double x2 = z.x * z.x;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+  double newx = x2 - 2 * z.y * z.z;
+  double newy = z2 + 2 * z.x * z.y;
+  double newz = y2 - 2 * z.x * z.z;
+  z.x = newx;
+  z.y = newy;
+  z.z = newz;
 }
 
 /* Makin3D-2 found through the another shot at the holy grail topic at ff */
@@ -1734,19 +1743,20 @@ void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   // extract polar coordinates
   double wr = aux.r;
-  if (wr < 1e-21) wr = 1e-21;
-  double wo = acos(z.y/wr);
-  double wi= atan2(z.x, z.z);
+  if (wr < 1e-21)
+    wr = 1e-21;
+  double wo = acos(z.y / wr);
+  double wi = atan2(z.x, z.z);
 
-    // scale and rotate the point
+  // scale and rotate the point
   wr = pow(wr, fractal->transformCommon.pwr8 - 1.0);
-	aux.r_dz = wr * aux.r_dz * fractal->transformCommon.pwr8 + 1.0;
-	wr *= aux.r;
-  wo *=  fractal->transformCommon.pwr8;
-  wi *=  fractal->transformCommon.pwr8a ;
+  aux.r_dz = wr * aux.r_dz * fractal->transformCommon.pwr8 + 1.0;
+  wr *= aux.r;
+  wo *= fractal->transformCommon.pwr8;
+  wi *= fractal->transformCommon.pwr8a;
 
-   // convert back to cartesian coordinates
-  z.x = sin(wo) *  sin(wi);
+  // convert back to cartesian coordinates
+  z.x = sin(wo) * sin(wi);
   z.y = cos(wo);
   z.z = sin(wo) * cos(wi);
 
@@ -1763,34 +1773,29 @@ M3D notes:
 Try out julias and low R_bailout values of 2 down to 1!
 You might have to cutoff at z=0 or so, to see something.*/
 
-void Kalisets1Iteration( CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void Kalisets1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   z = fabs(z);
   double sqs = (z.x * z.x + z.y * z.y + z.z * z.z + 1e-21); // sph inv
   double m;
   double minR = fractal->transformCommon.minR0;  //  KaliDucks
-  if ( sqs < minR )
-  {
-   m = 1/sqrt (minR );
-  }
+
+  if (sqs < minR)
+    m = 1 / sqrt(minR);
   else
-  {
-     m = fractal->transformCommon.scale/sqs; //kalisets
-  }
+    m = fractal->transformCommon.scale / sqs; //kalisets
+
   z = z * m;
   aux.DE = aux.DE * fabs(m) + 1.0;
 
   if (fractal->transformCommon.addCpixelEnabledFalse)
-  {
-    z +=  c * fractal->transformCommon.constantMultiplier111;
-  }
+    z += c * fractal->transformCommon.constantMultiplier111;
+
   if (fractal->transformCommon.juliaMode)
-  {
     z += fractal->transformCommon.juliaC;
-  }  if (fractal->transformCommon.rotationEnabled)
-  {
+
+  if (fractal->transformCommon.rotationEnabled)
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-  }
 }
 
 // mandelbulbMulti 3D
@@ -2519,220 +2524,220 @@ void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
 /* GeneralizedFoldBox, ref: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/ */
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	int i;
-	const CVector3 *Nv;
-	int sides;
+  int i;
+  const CVector3 *Nv;
+  int sides;
 
-	Nv = fractal->genFoldBox.Nv_tet;
-	sides = fractal->genFoldBox.sides_tet;
+  Nv = fractal->genFoldBox.Nv_tet;
+  sides = fractal->genFoldBox.sides_tet;
 
-	if (fractal->genFoldBox.type == foldCube)
-	{
-		Nv = fractal->genFoldBox.Nv_cube;
-		sides = fractal->genFoldBox.sides_cube;
-	}
-	else if (fractal->genFoldBox.type == foldOct)
-	{
-		Nv = fractal->genFoldBox.Nv_oct;
-		sides = fractal->genFoldBox.sides_oct;
-	}
-	else if (fractal->genFoldBox.type == foldDodeca)
-	{
-		Nv = fractal->genFoldBox.Nv_dodeca;
-		sides = fractal->genFoldBox.sides_dodeca;
-	}
-	else if (fractal->genFoldBox.type == foldOctCube)
-	{
-		Nv = fractal->genFoldBox.Nv_oct_cube;
-		sides = fractal->genFoldBox.sides_oct_cube;
-	}
-	else if (fractal->genFoldBox.type == foldIcosa)
-	{
-		Nv = fractal->genFoldBox.Nv_icosa;
-		sides = fractal->genFoldBox.sides_icosa;
-	}
-	else if (fractal->genFoldBox.type == foldBox6)
-	{
-		Nv = fractal->genFoldBox.Nv_box6;
-		sides = fractal->genFoldBox.sides_box6;
-	}
-	else if (fractal->genFoldBox.type == foldBox5)
-	{
-		Nv = fractal->genFoldBox.Nv_box5;
-		sides = fractal->genFoldBox.sides_box5;
-	}
+  if (fractal->genFoldBox.type == foldCube)
+  {
+    Nv = fractal->genFoldBox.Nv_cube;
+    sides = fractal->genFoldBox.sides_cube;
+  }
+  else if (fractal->genFoldBox.type == foldOct)
+  {
+    Nv = fractal->genFoldBox.Nv_oct;
+    sides = fractal->genFoldBox.sides_oct;
+  }
+  else if (fractal->genFoldBox.type == foldDodeca)
+  {
+    Nv = fractal->genFoldBox.Nv_dodeca;
+    sides = fractal->genFoldBox.sides_dodeca;
+  }
+  else if (fractal->genFoldBox.type == foldOctCube)
+  {
+    Nv = fractal->genFoldBox.Nv_oct_cube;
+    sides = fractal->genFoldBox.sides_oct_cube;
+  }
+  else if (fractal->genFoldBox.type == foldIcosa)
+  {
+    Nv = fractal->genFoldBox.Nv_icosa;
+    sides = fractal->genFoldBox.sides_icosa;
+  }
+  else if (fractal->genFoldBox.type == foldBox6)
+  {
+    Nv = fractal->genFoldBox.Nv_box6;
+    sides = fractal->genFoldBox.sides_box6;
+  }
+  else if (fractal->genFoldBox.type == foldBox5)
+  {
+    Nv = fractal->genFoldBox.Nv_box5;
+    sides = fractal->genFoldBox.sides_box5;
+  }
 
-	double melt = fractal->mandelbox.melt;
-	double solid = fractal->mandelbox.solid;
+  double melt = fractal->mandelbox.melt;
+  double solid = fractal->mandelbox.solid;
 
-	// Find the closest cutting plane if any that cuts the line between the origin and z.
-	// Line is parameterized as X = Y + L*a;
-	// Cutting plane is X.Dot(Nv) = Solid.
-	// (Y + L*a).Dot(Nv) = solid.
-	// a = (solid - Y.Dot(Nv))/L.Dot(Nv) = b/c
-	CVector3 L = z;
-	double a = 1;
-	CVector3 Y; // Y is the origin in this case.
-	int side = -1;
-	double b, c;
+  // Find the closest cutting plane if any that cuts the line between the origin and z.
+  // Line is parameterized as X = Y + L*a;
+  // Cutting plane is X.Dot(Nv) = Solid.
+  // (Y + L*a).Dot(Nv) = solid.
+  // a = (solid - Y.Dot(Nv))/L.Dot(Nv) = b/c
+  CVector3 L = z;
+  double a = 1;
+  CVector3 Y; // Y is the origin in this case.
+  int side = -1;
+  double b, c;
 
-	for (i = 0; i < sides; i++)
-	{
-		b = solid;
-		c = L.Dot(Nv[i]);
-		// A bit subtle here. a_r must be positive and I want to avoid divide by zero.
-		if ((c > 0) && ((a * c) > b))
-		{
-			side = i;
-			a = b / c;
-		}
-	}
+  for (i = 0; i < sides; i++)
+  {
+    b = solid;
+    c = L.Dot(Nv[i]);
+    // A bit subtle here. a_r must be positive and I want to avoid divide by zero.
+    if ((c > 0) && ((a * c) > b))
+    {
+      side = i;
+      a = b / c;
+    }
+  }
 
-	// If z is above the foldingValue we may have to fold. Else early out.
-	if (side != -1)
-	{ // mirror check
-		int side_m = side;
-		CVector3 Nv_m = Nv[side_m];
-		CVector3 X_m = z - Nv_m * (z.Dot(Nv_m) - solid);
+  // If z is above the foldingValue we may have to fold. Else early out.
+  if (side != -1)
+  { // mirror check
+    int side_m = side;
+    CVector3 Nv_m = Nv[side_m];
+    CVector3 X_m = z - Nv_m * (z.Dot(Nv_m) - solid);
 
-		// Find any plane (Nv_r) closest to X_m that cuts the line between Nv_m and X_m.
-		// Nv_m cross Nv_r will define a possible rotation axis.
-		// a = (solid - Y.Dot(Nv)/L.Dot(Nv) = b/c.
-		L = X_m - Nv_m;
-		Y = Nv_m;
-		a = 1;
-		side = -1;
+    // Find any plane (Nv_r) closest to X_m that cuts the line between Nv_m and X_m.
+    // Nv_m cross Nv_r will define a possible rotation axis.
+    // a = (solid - Y.Dot(Nv)/L.Dot(Nv) = b/c.
+    L = X_m - Nv_m;
+    Y = Nv_m;
+    a = 1;
+    side = -1;
 
-		for (i = 0; i < sides; i++)
-		{
-			if (i != side_m)
-			{
-				b = solid - Y.Dot(Nv[i]);
-				c = L.Dot(Nv[i]);
-				// A bit subtle here. a_r must be positive and I want to avoid divide by zero.
-				if ((c > 0) && ((a * c) > b))
-				{
-					side = i;
-					a = b / c;
-				}
-			}
-		}
+    for (i = 0; i < sides; i++)
+    {
+      if (i != side_m)
+      {
+        b = solid - Y.Dot(Nv[i]);
+        c = L.Dot(Nv[i]);
+        // A bit subtle here. a_r must be positive and I want to avoid divide by zero.
+        if ((c > 0) && ((a * c) > b))
+        {
+          side = i;
+          a = b / c;
+        }
+      }
+    }
 
-		// Was a cutting plane found?
-		if (side != -1)
-		{ // rotation check
-			CVector3 Xmr_intersect = Y + L * a;
-			int side_r = side;
-			CVector3 Nv_r = Nv[side_r];
-			// The axis of rotation is define by the cross product of Nv_m and Nv_r and
-			// the intersection of the line between Nv_m and Nv_r and  Xmr_intersect.
-			CVector3 L_r = Nv_m.Cross(Nv_r);
-			// The closest point between z and the line of rotation can be found by minimizing
-			// the square of the distance (D) between z and the line
-			// X = Xmr_intersect + L_r * a_rmin.
-			// Setting dD/da_rmin equal to zero and solving for a_rmin.
-			double a_rmin = (z.Dot(L_r) - Xmr_intersect.Dot(L_r)) / (L_r.Dot(L_r));
+    // Was a cutting plane found?
+    if (side != -1)
+    { // rotation check
+      CVector3 Xmr_intersect = Y + L * a;
+      int side_r = side;
+      CVector3 Nv_r = Nv[side_r];
+      // The axis of rotation is define by the cross product of Nv_m and Nv_r and
+      // the intersection of the line between Nv_m and Nv_r and  Xmr_intersect.
+      CVector3 L_r = Nv_m.Cross(Nv_r);
+      // The closest point between z and the line of rotation can be found by minimizing
+      // the square of the distance (D) between z and the line
+      // X = Xmr_intersect + L_r * a_rmin.
+      // Setting dD/da_rmin equal to zero and solving for a_rmin.
+      double a_rmin = (z.Dot(L_r) - Xmr_intersect.Dot(L_r)) / (L_r.Dot(L_r));
 
-			// force a_rmin to be positive. I think I made an even number of sign errors here.
-			if (a_rmin < 0)
-			{
-				a_rmin = -a_rmin;
-				L_r = L_r * (-1);
-			}
-			CVector3 X_r = Xmr_intersect + L_r * a_rmin;
+      // force a_rmin to be positive. I think I made an even number of sign errors here.
+      if (a_rmin < 0)
+      {
+        a_rmin = -a_rmin;
+        L_r = L_r * (-1);
+      }
+      CVector3 X_r = Xmr_intersect + L_r * a_rmin;
 
-			// Find any plane (Nv_i) closest to Xmr_intersect that cuts the line between
-			// Xmr_intersect and X_r. This will define a possible inversion point.
-			// a = (solid - Y.Dot(Nv)/L.Dot(Nv) = b/c.
-			L = X_r - Xmr_intersect;
-			Y = Xmr_intersect;
-			a = 1;
-			side = -1;
+      // Find any plane (Nv_i) closest to Xmr_intersect that cuts the line between
+      // Xmr_intersect and X_r. This will define a possible inversion point.
+      // a = (solid - Y.Dot(Nv)/L.Dot(Nv) = b/c.
+      L = X_r - Xmr_intersect;
+      Y = Xmr_intersect;
+      a = 1;
+      side = -1;
 
-			for (i = 0; i < sides; i++)
-			{
-				if ((i != side_m) && (i != side_r))
-				{
-					b = solid - Y.Dot(Nv[i]);
-					c = L.Dot(Nv[i]);
-					// A bit subtile here. a must be positive and I want to avoid divide by zero.
-					if ((c > 0) && ((a * c) > b))
-					{
-						side = i;
-						a = b / c;
-					}
-				}
-			}
+      for (i = 0; i < sides; i++)
+      {
+        if ((i != side_m) && (i != side_r))
+        {
+          b = solid - Y.Dot(Nv[i]);
+          c = L.Dot(Nv[i]);
+          // A bit subtile here. a must be positive and I want to avoid divide by zero.
+          if ((c > 0) && ((a * c) > b))
+          {
+            side = i;
+            a = b / c;
+          }
+        }
+      }
 
-			if (side != -1)
-			{ // inversion check
-				// Only inversion point possible but still need to check for melt.
+      if (side != -1)
+      { // inversion check
+        // Only inversion point possible but still need to check for melt.
 
-				CVector3 X_i = Y + L * a;
-				CVector3 z2X = X_i - z;
-				// Is z above the melt layer.
-				if (z2X.Dot(z2X) > (melt * melt))
-				{
-					double z2X_mag = z2X.Length();
-					z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
-					aux.color += fractal->mandelbox.color.factor.z;
-				}
-			}
-			else
-			{
-				// Only rotation line possible but still need to check for melt.
-				// Is z above the melt layer.
-				CVector3 z2X = X_r - z;
-				if (z2X.Dot(z2X) > (melt * melt))
-				{
-					double z2X_mag = z2X.Length();
-					z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
-					aux.color += fractal->mandelbox.color.factor.y;
-				}
-			}
+        CVector3 X_i = Y + L * a;
+        CVector3 z2X = X_i - z;
+        // Is z above the melt layer.
+        if (z2X.Dot(z2X) > (melt * melt))
+        {
+          double z2X_mag = z2X.Length();
+          z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
+          aux.color += fractal->mandelbox.color.factor.z;
+        }
+      }
+      else
+      {
+        // Only rotation line possible but still need to check for melt.
+        // Is z above the melt layer.
+        CVector3 z2X = X_r - z;
+        if (z2X.Dot(z2X) > (melt * melt))
+        {
+          double z2X_mag = z2X.Length();
+          z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
+          aux.color += fractal->mandelbox.color.factor.y;
+        }
+      }
 
-		}
-		else
-		{
-			// Only mirror plane possible but still need to check for melt.
-			CVector3 z2X = X_m - z;
-			if (z2X.Dot(z2X) > (melt * melt))
-			{
-				double z2X_mag = z2X.Length();
-				z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
-				aux.color += fractal->mandelbox.color.factor.x;
-			}
-		}
-	} // outside solid
+    }
+    else
+    {
+      // Only mirror plane possible but still need to check for melt.
+      CVector3 z2X = X_m - z;
+      if (z2X.Dot(z2X) > (melt * melt))
+      {
+        double z2X_mag = z2X.Length();
+        z = z + z2X * (2 * (z2X_mag - melt) / (z2X_mag + .00000001));
+        aux.color += fractal->mandelbox.color.factor.x;
+      }
+    }
+  } // outside solid
 
-	double r = z.Length();
-	double r2 = r * r;
+  double r = z.Length();
+  double r2 = r * r;
 
-	z += fractal->mandelbox.offset;
+  z += fractal->mandelbox.offset;
 
-	if (r2 < fractal->mandelbox.mR2)
-	{
-		z *= fractal->mandelbox.mboxFactor1;
-		aux.DE *= fractal->mandelbox.mboxFactor1;
-		aux.color += fractal->mandelbox.color.factorSp1;
-	}
-	else if (r2 < fractal->mandelbox.fR2)
-	{
-		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
-		z *= tglad_factor2;
-		aux.DE *= tglad_factor2;
-		aux.color += fractal->mandelbox.color.factorSp2;
-	}
+  if (r2 < fractal->mandelbox.mR2)
+  {
+    z *= fractal->mandelbox.mboxFactor1;
+    aux.DE *= fractal->mandelbox.mboxFactor1;
+    aux.color += fractal->mandelbox.color.factorSp1;
+  }
+  else if (r2 < fractal->mandelbox.fR2)
+  {
+    double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+    z *= tglad_factor2;
+    aux.DE *= tglad_factor2;
+    aux.color += fractal->mandelbox.color.factorSp2;
+  }
 
-	z -= fractal->mandelbox.offset;
+  z -= fractal->mandelbox.offset;
 
-	if (fractal->mandelbox.mainRotationEnabled)
-	{
-		z = fractal->mandelbox.mainRot.RotateVector(z);
-	}
+  if (fractal->mandelbox.mainRotationEnabled)
+  {
+    z = fractal->mandelbox.mainRot.RotateVector(z);
+  }
 
-	z = z * fractal->mandelbox.scale;
-	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+  z = z * fractal->mandelbox.scale;
+  aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 }
 
 void BoxFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAux &aux)
