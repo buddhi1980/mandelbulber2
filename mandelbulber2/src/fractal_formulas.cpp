@@ -50,126 +50,127 @@ void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux
 	z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 }
 
+/*
+ * Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
+ * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ */
 void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->mandelbox.rotationsEnabled)
-	{
-		bool lockout = false;
-		z = fractal->mandelbox.rot[0][0].RotateVector(z);
-		if (z.x > fractal->mandelbox.foldingLimit)
-		{
-			z.x = fractal->mandelbox.foldingValue - z.x;
-			aux.color += fractal->mandelbox.color.factor.x;
-			lockout = true;
-		}
-		z = fractal->mandelbox.rotinv[0][0].RotateVector(z);
+  if (fractal->mandelbox.rotationsEnabled)
+  {
+    bool lockout = false;
+    z = fractal->mandelbox.rot[0][0].RotateVector(z);
+    if (z.x > fractal->mandelbox.foldingLimit)
+    {
+      z.x = fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+      lockout = true;
+    }
+    z = fractal->mandelbox.rotinv[0][0].RotateVector(z);
 
-		z = fractal->mandelbox.rot[1][0].RotateVector(z);
-		if (!lockout && z.x < -fractal->mandelbox.foldingLimit)
-		{
-			z.x = -fractal->mandelbox.foldingValue - z.x;
-			aux.color += fractal->mandelbox.color.factor.x;
-		}
-		z = fractal->mandelbox.rotinv[1][0].RotateVector(z);
+    z = fractal->mandelbox.rot[1][0].RotateVector(z);
+    if (!lockout && z.x < -fractal->mandelbox.foldingLimit)
+    {
+      z.x = -fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    z = fractal->mandelbox.rotinv[1][0].RotateVector(z);
 
-		lockout = false;
-		z = fractal->mandelbox.rot[0][1].RotateVector(z);
-		if (z.y > fractal->mandelbox.foldingLimit)
-		{
-			z.y = fractal->mandelbox.foldingValue - z.y;
-			aux.color += fractal->mandelbox.color.factor.y;
-			lockout = true;
-		}
-		z = fractal->mandelbox.rotinv[0][1].RotateVector(z);
+    lockout = false;
+    z = fractal->mandelbox.rot[0][1].RotateVector(z);
+    if (z.y > fractal->mandelbox.foldingLimit)
+    {
+      z.y = fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+      lockout = true;
+    }
+    z = fractal->mandelbox.rotinv[0][1].RotateVector(z);
 
-		z = fractal->mandelbox.rot[1][1].RotateVector(z);
-		if (!lockout && z.y < -fractal->mandelbox.foldingLimit)
-		{
-			z.y = -fractal->mandelbox.foldingValue - z.y;
-			aux.color += fractal->mandelbox.color.factor.y;
-		}
-		z = fractal->mandelbox.rotinv[1][1].RotateVector(z);
+    z = fractal->mandelbox.rot[1][1].RotateVector(z);
+    if (!lockout && z.y < -fractal->mandelbox.foldingLimit)
+    {
+      z.y = -fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    z = fractal->mandelbox.rotinv[1][1].RotateVector(z);
 
-		lockout = false;
-		z = fractal->mandelbox.rot[0][2].RotateVector(z);
-		if (z.z > fractal->mandelbox.foldingLimit)
-		{
-			z.z = fractal->mandelbox.foldingValue - z.z;
-			aux.color += fractal->mandelbox.color.factor.z;
-			lockout = true;
-		}
-		z = fractal->mandelbox.rotinv[0][2].RotateVector(z);
+    lockout = false;
+    z = fractal->mandelbox.rot[0][2].RotateVector(z);
+    if (z.z > fractal->mandelbox.foldingLimit)
+    {
+      z.z = fractal->mandelbox.foldingValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+      lockout = true;
+    }
+    z = fractal->mandelbox.rotinv[0][2].RotateVector(z);
 
-		z = fractal->mandelbox.rot[1][2].RotateVector(z);
-		if (!lockout && z.z < -fractal->mandelbox.foldingLimit)
-		{
-			z.z = -fractal->mandelbox.foldingValue - z.z;
-			aux.color += fractal->mandelbox.color.factor.z;
-		}
-		z = fractal->mandelbox.rotinv[1][2].RotateVector(z);
-	}
-	else
-	{
-		if (z.x > fractal->mandelbox.foldingLimit)
-		{
-			z.x = fractal->mandelbox.foldingValue - z.x;
-			aux.color += fractal->mandelbox.color.factor.x;
-		}
-		else if (z.x < -fractal->mandelbox.foldingLimit)
-		{
-			z.x = -fractal->mandelbox.foldingValue - z.x;
-			aux.color += fractal->mandelbox.color.factor.x;
-		}
-		if (z.y > fractal->mandelbox.foldingLimit)
-		{
-			z.y = fractal->mandelbox.foldingValue - z.y;
-			aux.color += fractal->mandelbox.color.factor.y;
-		}
-		else if (z.y < -fractal->mandelbox.foldingLimit)
-		{
-			z.y = -fractal->mandelbox.foldingValue - z.y;
-			aux.color += fractal->mandelbox.color.factor.y;
-		}
-		if (z.z > fractal->mandelbox.foldingLimit)
-		{
-			z.z = fractal->mandelbox.foldingValue - z.z;
-			aux.color += fractal->mandelbox.color.factor.z;
-		}
-		else if (z.z < -fractal->mandelbox.foldingLimit)
-		{
-			z.z = -fractal->mandelbox.foldingValue - z.z;
-			aux.color += fractal->mandelbox.color.factor.z;
-		}
-	}
+    z = fractal->mandelbox.rot[1][2].RotateVector(z);
+    if (!lockout && z.z < -fractal->mandelbox.foldingLimit)
+    {
+      z.z = -fractal->mandelbox.foldingValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+    z = fractal->mandelbox.rotinv[1][2].RotateVector(z);
+  }
+  else
+  {
+    if (z.x > fractal->mandelbox.foldingLimit)
+    {
+      z.x = fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    else if (z.x < -fractal->mandelbox.foldingLimit)
+    {
+      z.x = -fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    if (z.y > fractal->mandelbox.foldingLimit)
+    {
+      z.y = fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    else if (z.y < -fractal->mandelbox.foldingLimit)
+    {
+      z.y = -fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    if (z.z > fractal->mandelbox.foldingLimit)
+    {
+      z.z = fractal->mandelbox.foldingValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+    else if (z.z < -fractal->mandelbox.foldingLimit)
+    {
+      z.z = -fractal->mandelbox.foldingValue - z.z;
+      aux.color += fractal->mandelbox.color.factor.z;
+    }
+  }
 
-	double r2 = z.Dot(z);
+  double r2 = z.Dot(z);
 
-	z += fractal->mandelbox.offset;
+  z += fractal->mandelbox.offset;
 
-	if (r2 < fractal->mandelbox.mR2)
-	{
-		z *= fractal->mandelbox.mboxFactor1;
-		aux.DE *= fractal->mandelbox.mboxFactor1;
-		aux.color += fractal->mandelbox.color.factorSp1;
-	}
-	else if (r2 < fractal->mandelbox.fR2)
-	{
-		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
-		z *= tglad_factor2;
-		aux.DE *= tglad_factor2;
-		aux.color += fractal->mandelbox.color.factorSp2;
-	}
+  if (r2 < fractal->mandelbox.mR2)
+  {
+    z *= fractal->mandelbox.mboxFactor1;
+    aux.DE *= fractal->mandelbox.mboxFactor1;
+    aux.color += fractal->mandelbox.color.factorSp1;
+  }
+  else if (r2 < fractal->mandelbox.fR2)
+  {
+    double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+    z *= tglad_factor2;
+    aux.DE *= tglad_factor2;
+    aux.color += fractal->mandelbox.color.factorSp2;
+  }
 
-	z -= fractal->mandelbox.offset;
+  z -= fractal->mandelbox.offset;
 
-	if (fractal->mandelbox.mainRotationEnabled)
-	{
-		z = fractal->mandelbox.mainRot.RotateVector(z);
-	}
+  if (fractal->mandelbox.mainRotationEnabled)
+    z = fractal->mandelbox.mainRot.RotateVector(z);
 
-	z = z * fractal->mandelbox.scale;
-	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
-
+  z = z * fractal->mandelbox.scale;
+  aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 }
 
 void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux)
@@ -642,18 +643,20 @@ void LkmitchIteration(CVector3 &z)
   z.z = newz;
 }
 
-/* Makin3D-2 found through the another shot at the holy grail topic at ff */
+/* Makin3D-2 found through the another shot at the holy grail topic at ff
+ * http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
+ */
 void Makin3D2Iteration(CVector3 &z)
 {
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double newx = x2 + 2 * z.y * z.z;
-	double newy = -y2 - 2 * z.x * z.z;
-	double newz = -z2 + 2 * z.x * z.y;
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
+  double x2 = z.x * z.x;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+  double newx = x2 + 2 * z.y * z.z;
+  double newy = -y2 - 2 * z.x * z.z;
+  double newz = -z2 + 2 * z.x * z.y;
+  z.x = newx;
+  z.y = newy;
+  z.z = newz;
 }
 
 //------------MANDELBULB EXTENDED--------------------------------
@@ -3615,23 +3618,33 @@ void MandelboxVaryScale4DIteration(CVector4 &z4D, int i,  const cFractal *fracta
     sExtendedAux &aux)
 {
   double w0 = 0.0;
-  if( i < 1.0) w0 = fractal->transformCommon.offset0;
+  if (i < 1.0)
+    w0 = fractal->transformCommon.offset0;
   z4D.w += w0;
-
 
   aux.actualScale = aux.actualScale
       + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
   CVector4 oldz = z4D;
-  z4D.x = fabs(z4D.x + fractal->mandelboxVary4D.fold) - fabs(z4D.x - fractal->mandelboxVary4D.fold) - z4D.x;
-  z4D.y = fabs(z4D.y + fractal->mandelboxVary4D.fold) - fabs(z4D.y - fractal->mandelboxVary4D.fold) - z4D.y;
-  z4D.z = fabs(z4D.z + fractal->mandelboxVary4D.fold) - fabs(z4D.z - fractal->mandelboxVary4D.fold) - z4D.z;
-  z4D.w = fabs(z4D.w + fractal->mandelboxVary4D.fold) - fabs(z4D.w - fractal->mandelboxVary4D.fold) - z4D.w;
+  z4D.x = fabs(z4D.x + fractal->mandelboxVary4D.fold)
+      - fabs(z4D.x - fractal->mandelboxVary4D.fold) - z4D.x;
+  z4D.y = fabs(z4D.y + fractal->mandelboxVary4D.fold)
+      - fabs(z4D.y - fractal->mandelboxVary4D.fold) - z4D.y;
+  z4D.z = fabs(z4D.z + fractal->mandelboxVary4D.fold)
+      - fabs(z4D.z - fractal->mandelboxVary4D.fold) - z4D.z;
+  z4D.w = fabs(z4D.w + fractal->mandelboxVary4D.fold)
+      - fabs(z4D.w - fractal->mandelboxVary4D.fold) - z4D.w;
 
-  if (z4D.x != oldz.x) aux.color += fractal->mandelbox.color.factor4D.x;
-  if (z4D.y != oldz.y) aux.color += fractal->mandelbox.color.factor4D.y;
-  if (z4D.z != oldz.z) aux.color += fractal->mandelbox.color.factor4D.z;
-  if (z4D.w != oldz.w) aux.color += fractal->mandelbox.color.factor4D.w;
-  double rr = pow(z4D.x * z4D.x + z4D.y * z4D.y + z4D.z * z4D.z + z4D.w * z4D.w, fractal->mandelboxVary4D.rPower);
+  if (z4D.x != oldz.x)
+    aux.color += fractal->mandelbox.color.factor4D.x;
+  if (z4D.y != oldz.y)
+    aux.color += fractal->mandelbox.color.factor4D.y;
+  if (z4D.z != oldz.z)
+    aux.color += fractal->mandelbox.color.factor4D.z;
+  if (z4D.w != oldz.w)
+    aux.color += fractal->mandelbox.color.factor4D.w;
+
+  double rr = pow(z4D.x * z4D.x + z4D.y * z4D.y + z4D.z * z4D.z + z4D.w * z4D.w,
+                  fractal->mandelboxVary4D.rPower);
   double m = aux.actualScale;
   if (rr < fractal->mandelboxVary4D.minR * fractal->mandelboxVary4D.minR)
   {
