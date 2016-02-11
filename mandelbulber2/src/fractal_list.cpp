@@ -444,6 +444,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
+  fractalList->append(sFractalDescription("Quick-Dudley Eiffie",
+                                          "quick_dudley_eiffie",
+                                          quickDudleyEiffie,
+                                          deltaDEType,// analytic
+                                          logarithmicDEFunction,
+                                          cpixelEnabledByDefault,
+                                          10));
+
 	fractalList->append(sFractalDescription("Riemann Sphere Msltoe",
 																					"riemann_sphere_msltoe",
 																					riemannSphereMsltoe,

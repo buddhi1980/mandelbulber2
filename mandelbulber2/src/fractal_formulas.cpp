@@ -553,7 +553,7 @@ void BristorbrotIteration(CVector3 &z, sExtendedAux &aux)
 //http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/
 void IdesIteration(CVector3 &z, const cFractal *fractal)
 {
-  CVector3 z2 = z *z;
+  CVector3 z2 = z * z;
   CVector3 newZ;
   newZ.x = fractal->transformCommon.constantMultiplier121.x * z2.x - fractal->transformCommon.additionConstant0555.x * (z2.y + z2.z);
   newZ.y = fractal->transformCommon.constantMultiplier121.y * z.x * z.y * z.z;
@@ -611,10 +611,10 @@ void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
     z.z = newz;
 }
 
-/* http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
+/* From M3D and http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
 void QuickDudleyIteration(CVector3 &z)
 {
-	double x2 = z.x * z.x;
+  double x2 = z.x * z.x;
 	double y2 = z.y * z.y;
 	double z2 = z.z * z.z;
 	double newx = x2 - 2 * z.y * z.z;
@@ -622,7 +622,20 @@ void QuickDudleyIteration(CVector3 &z)
 	double newz = y2 + 2 * z.x * z.z;
 	z.x = newx;
 	z.y = newy;
-	z.z = newz;
+  z.z = newz;
+}
+
+/*« Eiffie's Reply #6 » http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
+void QuickDudleyEiffieIteration(CVector3 &z, sExtendedAux &aux)
+{
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  CVector3 p = z;
+  z = CVector3(p.x * p.x - 2.0 * p.y * p.z,
+    2.0 * p.x * p.y + p.z * p.z,
+    -2.0 * p.x * p.z + p.y * p.y);
+
+  //return min(log(r) * (r-1.0) / aux.r_dz,.8);
+
 }
 
 /* http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */

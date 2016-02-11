@@ -236,6 +236,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					QuickDudleyIteration(z);
 					break;
 				}
+        case quickDudleyEiffie:
+        {
+          QuickDudleyEiffieIteration(z, extendedAux[sequence]);
+          break;
+        }
 				case lkmitch:
 				{
 					LkmitchIteration(z);
