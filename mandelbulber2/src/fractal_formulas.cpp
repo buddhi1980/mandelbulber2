@@ -549,30 +549,26 @@ void BristorbrotIteration(CVector3 &z, sExtendedAux &aux)
   z.z = newz;
 }
 
-void IdesIteration(CVector3 &z)
+//From M3D. A formula made by Trafassel, the original Ide's Formula thread:
+//http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/
+void IdesIteration(CVector3 &z, const cFractal *fractal)
 {
-  double x2 = z.x * z.x;
-  double y2 = z.y * z.y;
-  double z2 = z.z * z.z;
-  double newx = x2 - 0.5 * (y2 + z2) + z.x;
-  double newy = 2.0 * z.x * z.y * z.z + z.y;
-  double newz = z2 - 0.5 * (x2 + y2) + z.z;
-  z.x = newx;
-  z.y = newy;
-  z.z = newz;
+  CVector3 z2 = z *z;
+  CVector3 newZ;
+  newZ.x = fractal->transformCommon.constantMultiplier121.x * z2.x - fractal->transformCommon.additionConstant0555.x * (z2.y + z2.z);
+  newZ.y = fractal->transformCommon.constantMultiplier121.y * z.x * z.y * z.z;
+  newZ.z = fractal->transformCommon.constantMultiplier121.z * z2.z - fractal->transformCommon.additionConstant0555.z * (z2.x + z2.y);
+  z = newZ;
 }
 
-void Ides2Iteration(CVector3 &z, CVector3 &c)
+void Ides2Iteration(CVector3 &z, const cFractal *fractal)
 {
-  double x2 = z.x * z.x;
-  double y2 = z.y * z.y;
-  double z2 = z.z * z.z;
-  double newx = x2 - 0.5 * (y2 + z2) + c.x;
-  double newy = 2.0 * z.x * z.y * z.z + c.y;
-  double newz = z2 - 0.5 * (x2 + y2) + c.z;
-  z.x = newx;
-  z.y = newy;
-  z.z = newz;
+  CVector3 z2 = z *z;
+  CVector3 newZ;
+  newZ.x = fractal->transformCommon.constantMultiplier121.x * z2.x - fractal->transformCommon.additionConstant0555.x * (z2.y + z2.z);
+  newZ.y = fractal->transformCommon.constantMultiplier121.y * z.x * z.y * z.z;
+  newZ.z = fractal->transformCommon.constantMultiplier121.z * z2.z - fractal->transformCommon.additionConstant0555.z * (z2.x + z2.y);
+  z = newZ + z;
 }
 
 void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -2060,7 +2056,7 @@ void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 }
 
 // MsltoeSym3Mod   Based on the formula from Mandelbulb3D. also refer  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
-void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
   CVector3 temp = z;
@@ -2113,6 +2109,28 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sE
   z *= fractal->transformCommon.scale1;
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
+
+  if (fractal->transformCommon.functionEnabledFalse // quaternion fold
+      && i >= fractal->transformCommon.startIterationsA
+      && i < fractal->transformCommon.stopIterationsA)
+  {
+    aux.r_dz = aux.r_dz * 2.0 * z.Length();
+    z = CVector3(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z);
+    if (fractal->transformCommon.functionEnabledAxFalse)
+    {
+      CVector3 temp = z;
+      double tempL = temp.Length();
+      z *= CVector3(1.0, 2.0, 2.0); // mult. scale (1,2,2)
+      if (tempL < 1e-21) tempL = 1e-21;
+      double avgScale = z.Length()/tempL;
+      aux.r_dz *= avgScale * fractal->transformCommon.scale3;
+    }
+    else
+    {
+      z *= CVector3(1.0, 2.0, 2.0); // mult. scale (1,2,2)
+    }
+  }
+
 }
 
 //--MsltoeJuliaBulb Eiffie.Refer post by Eiffie    Reply #69 on: January 27, 2015

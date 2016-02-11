@@ -1379,6 +1379,7 @@ cFractal::cFractal(const cParameterContainer *container)
   transformCommon.constantMultiplier010 = container->Get<CVector3>("transf_constant_multiplier_010");
   transformCommon.constantMultiplier100 = container->Get<CVector3>("transf_constant_multiplier_100");
   transformCommon.constantMultiplier111 = container->Get<CVector3>("transf_constant_multiplier_111");
+  transformCommon.constantMultiplier121 = container->Get<CVector3>("transf_constant_multiplier_121");
   transformCommon.constantMultiplier122 = container->Get<CVector3>("transf_constant_multiplier_122");
   transformCommon.constantMultiplier221 = container->Get<CVector3>("transf_constant_multiplier_221");
   transformCommon.constantMultiplier441 = container->Get<CVector3>("transf_constant_multiplier_441");

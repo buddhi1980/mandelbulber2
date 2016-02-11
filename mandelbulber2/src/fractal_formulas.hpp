@@ -46,8 +46,8 @@ void EiffieMsltoeIteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sEx
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux);
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux);
-void Ides2Iteration(CVector3 &z, CVector3 &c);
-void IdesIteration(CVector3 &z);
+void Ides2Iteration(CVector3 &z, const cFractal *fractal);
+void IdesIteration(CVector3 &z, const cFractal *fractal);
 void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Kalisets1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
@@ -70,7 +70,7 @@ void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i,
 void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux);
 void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
-void MsltoeSym3ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
+void MsltoeSym3ModIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym3Mod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym3Mod3Iteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);

@@ -814,6 +814,7 @@ struct sFractalTransformCommon
   CVector3 constantMultiplier010;
   CVector3 constantMultiplier100;
   CVector3 constantMultiplier111;
+  CVector3 constantMultiplier121;
   CVector3 constantMultiplier122;
   CVector3 constantMultiplier221;
   CVector3 constantMultiplier441;

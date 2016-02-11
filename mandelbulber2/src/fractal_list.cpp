@@ -188,7 +188,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
-	fractalList->append(sFractalDescription("Ides 1",
+  fractalList->append(sFractalDescription("Ides",
 																					"ides",
 																					ides,
 																					deltaDEType,

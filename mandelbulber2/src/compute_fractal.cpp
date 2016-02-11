@@ -218,12 +218,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case ides:
 				{
-					IdesIteration(z);
+          IdesIteration(z, fractal);
 					break;
 				}
 				case ides2:
 				{
-					Ides2Iteration(z, c);
+          Ides2Iteration(z, fractal);
 					break;
 				}
 				case buffalo:
@@ -258,7 +258,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
         case msltoesym3Mod:
         {
-          MsltoeSym3ModIteration(z, c, fractal, extendedAux[sequence]);
+          MsltoeSym3ModIteration(z, c, i, fractal, extendedAux[sequence]);
           break;
         }
         case msltoesym3Mod2:
