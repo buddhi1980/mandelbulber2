@@ -106,7 +106,7 @@ enum enumFractalFormula
   msltoesym3Mod3 = 81,
 	msltoeDonut = 82,
   iqBulb = 83,
-  quickDudleyEiffie = 84,
+  quickDudleyMod = 84,
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,

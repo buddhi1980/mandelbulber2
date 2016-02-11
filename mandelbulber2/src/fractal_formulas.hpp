@@ -79,7 +79,7 @@ void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
 void Quaternion4DIteration(CVector4 &z, int i, const cFractal *fractal);
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux);
 void QuickDudleyIteration(CVector3 &z);
-void QuickDudleyEiffieIteration(CVector3 &z, sExtendedAux &aux);
+void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal);
 void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal);
 void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);

@@ -625,14 +625,29 @@ void QuickDudleyIteration(CVector3 &z)
   z.z = newz;
 }
 
-/*« Eiffie's Reply #6 » http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
-void QuickDudleyEiffieIteration(CVector3 &z, sExtendedAux &aux)
+/*« http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
+void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
-  CVector3 p = z;
+
+  double x2 = z.x * z.x;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+  double newx = x2 * fractal->transformCommon.constantMultiplier111.x - fractal->transformCommon.constantMultiplier222.x * z.y * z.z;
+  double newy = z2 * fractal->transformCommon.constantMultiplier111.y + fractal->transformCommon.constantMultiplier222.y * z.x * z.y;
+  double newz = y2 * fractal->transformCommon.constantMultiplier111.z + fractal->transformCommon.constantMultiplier222.z * z.z * z.x;
+  z.x = newx;
+  z.y = newy;
+  z.z = newz;
+
+
+
+
+
+ /* CVector3 p = z;
   z = CVector3(p.x * p.x - 2.0 * p.y * p.z,
     2.0 * p.x * p.y + p.z * p.z,
-    -2.0 * p.x * p.z + p.y * p.y);
+    -2.0 * p.x * p.z + p.y * p.y); //only diff is -2.0*/
 
   //return min(log(r) * (r-1.0) / aux.r_dz,.8);
 

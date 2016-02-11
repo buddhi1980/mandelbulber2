@@ -444,9 +444,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
-  fractalList->append(sFractalDescription("Quick-Dudley Eiffie",
-                                          "quick_dudley_eiffie",
-                                          quickDudleyEiffie,
+  fractalList->append(sFractalDescription("Quick-Dudley Mod",
+                                          "quick_dudley_mod",
+                                          quickDudleyMod,
                                           deltaDEType,// analytic
                                           logarithmicDEFunction,
                                           cpixelEnabledByDefault,
