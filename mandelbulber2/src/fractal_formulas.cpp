@@ -286,39 +286,40 @@ void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &
 	z.z = rp * cos(ph * fractal->bulb.power);
 }
 
+//ref: http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
 void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux)
 {
-	double temp;
-	z.x = fabs(z.x);
-	z.y = fabs(z.y);
-	z.z = fabs(z.z);
-	if (z.x - z.y < 0)
-	{
-		temp = z.y;
-		z.y = z.x;
-		z.x = temp;
-	}
-	if (z.x - z.z < 0)
-	{
-		temp = z.z;
-		z.z = z.x;
-		z.x = temp;
-	}
-	if (z.y - z.z < 0)
-	{
-		temp = z.z;
-		z.z = z.y;
-		z.y = temp;
-	}
+  double temp;
+  z.x = fabs(z.x);
+  z.y = fabs(z.y);
+  z.z = fabs(z.z);
+  if (z.x - z.y < 0)
+  {
+    temp = z.y;
+    z.y = z.x;
+    z.x = temp;
+  }
+  if (z.x - z.z < 0)
+  {
+    temp = z.z;
+    z.z = z.x;
+    z.x = temp;
+  }
+  if (z.y - z.z < 0)
+  {
+    temp = z.z;
+    z.z = z.y;
+    z.y = temp;
+  }
 
-	z *= 3.0;
+  z *= 3.0;
 
-	z.x -= 2.0;
-	z.y -= 2.0;
-	if (z.z > 1.0) z.z -= 2.0;
+  z.x -= 2.0;
+  z.y -= 2.0;
+  if (z.z > 1.0)
+    z.z -= 2.0;
 
-	aux.DE *= 3.0;
-
+  aux.DE *= 3.0;
 }
 
 void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -1954,12 +1955,12 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
   z *= fractal->transformCommon.scale3;
   z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
   z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
-  if (z.z >  1) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
+  if (z.z > 1)
+    z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 
   aux.DE *= fractal->transformCommon.scale3;
 
-  if (fractal->transformCommon.rotationEnabled
-      && i >= fractal->transformCommon.startIterations
+  if (fractal->transformCommon.rotationEnabled && i >= fractal->transformCommon.startIterations
       && i < fractal->transformCommon.stopIterations)
   {
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
@@ -1970,7 +1971,7 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
   {
     CVector3 zA = z * 0;
     CVector3 zB = z * 0;
-    if (i == fractal->transformCommon.intA )
+    if (i == fractal->transformCommon.intA)
     {
       zA = z;
     }
@@ -1978,8 +1979,7 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
     {
       zB = z;
     }
-    z = (z * fractal->transformCommon.scale1)
-        + (zA * fractal->transformCommon.offset)
+    z = (z * fractal->transformCommon.scale1) + (zA * fractal->transformCommon.offset)
         + (zB * fractal->transformCommon.offset0);
   }
 }
@@ -1989,38 +1989,38 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
  */
 void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	double rad2 = fractal->donut.ringThickness;
-	double nSect = 2 * M_PI / fractal->donut.number;
-	double fact = fractal->donut.factor;
+  double rad2 = fractal->donut.ringThickness;
+  double nSect = 2 * M_PI / fractal->donut.number;
+  double fact = fractal->donut.factor;
 
-	double R = sqrt(z.x * z.x + z.y * z.y);
-	double R2 = fractal->donut.ringRadius - R;
-	double t = R2 * R2 + z.z * z.z - rad2 * rad2;
+  double R = sqrt(z.x * z.x + z.y * z.y);
+  double R2 = fractal->donut.ringRadius - R;
+  double t = R2 * R2 + z.z * z.z - rad2 * rad2;
 
-	double theta = atan2(z.y, z.x);
-	double theta2 = nSect * round(theta / nSect);
+  double theta = atan2(z.y, z.x);
+  double theta2 = nSect * round(theta / nSect);
 
-	if (t > 0.03)
-	{
-		double c1 = cos(theta2);
-		double s1 = sin(theta2);
+  if (t > 0.03)
+  {
+    double c1 = cos(theta2);
+    double s1 = sin(theta2);
 
-		double x1 = c1 * z.x + s1 * z.y;
-		double y1 = -s1 * z.x + c1 * z.y;
-		double z1 = z.z;
+    double x1 = c1 * z.x + s1 * z.y;
+    double y1 = -s1 * z.x + c1 * z.y;
+    double z1 = z.z;
 
-		x1 = x1 - fractal->donut.ringRadius;
+    x1 = x1 - fractal->donut.ringRadius;
 
-		z.x = fact * x1;
-		z.y = fact * z1;
-		z.z = fact * y1;
+    z.x = fact * x1;
+    z.y = fact * z1;
+    z.z = fact * y1;
 
-	}
-	else
-	{
-		z /= t;
-	}
-	aux.color += theta2;
+  }
+  else
+  {
+    z /= t;
+  }
+  aux.color += theta2;
 }
 
 // MsltoeSym2Mod   Based on the formula from Mandelbulb3D.also refer  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
@@ -2028,6 +2028,7 @@ void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
   CVector3 temp = z;
+
   if (fabs(z.y) < fabs(z.z)) // then swap
   {
     z.y = temp.z;  // making z.y furthest away from axis
@@ -2037,40 +2038,47 @@ void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   {
     z.x = -z.x;
   }
-  CVector3 z2 = z * z ;  // squares
+
+  CVector3 z2 = z * z;  // squares
   double v3 = (z2.x + z2.y + z2.z); // sum of squares
-  if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
+  if (v3 < 1e-21 && v3 > -1e-21)
+    v3 = (v3 > 0) ? 1e-21 : -1e-21;
   double zr = 1.0 - z2.z / v3;
   temp.x = (z2.x - z2.y) * zr;
-  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale;// scaling temp.y
+  temp.y = 2.0 * z.x * z.y * zr * fractal->transformCommon.scale; // scaling temp.y
   temp.z = 2.0 * z.z * sqrt(z2.x + z2.y);
-  z = temp +  fractal->transformCommon.additionConstant000;
+  z = temp + fractal->transformCommon.additionConstant000;
 
   if (fractal->transformCommon.addCpixelEnabledFalse)
   {
     CVector3 tempFAB = c;
     if (fractal->transformCommon.functionEnabledx)
-    {
-            tempFAB.x = fabs(tempFAB.x);
-    }
+      tempFAB.x = fabs(tempFAB.x);
+
     if (fractal->transformCommon.functionEnabledy)
-    {
-            tempFAB.y = fabs(tempFAB.y);
-    }
+      tempFAB.y = fabs(tempFAB.y);
+
     if (fractal->transformCommon.functionEnabledz)
-    {
-            tempFAB.z = fabs(tempFAB.z);
-    }
+      tempFAB.z = fabs(tempFAB.z);
+
     tempFAB *= fractal->transformCommon.constantMultiplier000;
-    if (z.x > 0) z.x += tempFAB.x;
-    else z.x -= tempFAB.x;
-    if (z.y > 0) z.y += tempFAB.y;
-    else z.y -= tempFAB.y;
-    if (z.z > 0) z.z += tempFAB.z;
-    else z.z -= tempFAB.z;
+    if (z.x > 0)
+      z.x += tempFAB.x;
+    else
+      z.x -= tempFAB.x;
+    if (z.y > 0)
+      z.y += tempFAB.y;
+    else
+      z.y -= tempFAB.y;
+    if (z.z > 0)
+      z.z += tempFAB.z;
+    else
+      z.z -= tempFAB.z;
   }
+
   double lengthTempZ = -z.Length();
-  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+  if (lengthTempZ > -1e-21)
+    lengthTempZ = -1e-21;   //  z is neg.)
   z *= 1 + fractal->transformCommon.offset / lengthTempZ;
   z *= fractal->transformCommon.scale1;
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
@@ -2152,7 +2160,6 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, int i, const cFractal *frac
       z *= CVector3(1.0, 2.0, 2.0); // mult. scale (1,2,2)
     }
   }
-
 }
 
 //--MsltoeJuliaBulb Eiffie.Refer post by Eiffie    Reply #69 on: January 27, 2015
@@ -2207,7 +2214,7 @@ void EiffieMsltoeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sE
 
 }
 
-    //  Msltoe_Julia_Bulb_Mod2  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 31
+//  Msltoe_Julia_Bulb_Mod2  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/msg14198/#msg14198
 void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -2215,25 +2222,27 @@ void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
   double theta;
   double phi;
   CVector3 z2 = z * z;
-  double r = z2.x + z2.y + z2.z ;
-  if (r < 1e-21) r = 1e-21;
-  double r1 = sqrt(r + fractal->transformCommon.scale0 * z2.y  * z2.z);
-  if (r1 < 1e-21) r1 = 1e-21;
-  if ( z2.z < z2.y)
+  double r = z2.x + z2.y + z2.z;
+  if (r < 1e-21)
+    r = 1e-21;
+  double r1 = sqrt(r + fractal->transformCommon.scale0 * z2.y * z2.z);
+  if (r1 < 1e-21)
+    r1 = 1e-21;
+  if (z2.z < z2.y)
   {
-    theta = 2 * atan2(z.y,z.x);
-    phi = 2 * asin(z.z/r1);
-    z.x = r * cos(theta)*cos(phi);
-    z.y = r * sin(theta)*cos(phi);
+    theta = 2 * atan2(z.y, z.x);
+    phi = 2 * asin(z.z / r1);
+    z.x = r * cos(theta) * cos(phi);
+    z.y = r * sin(theta) * cos(phi);
     z.z = -r * sin(phi);
   }
-   else
+  else
   {
-  theta = 2 * atan2(z.z,z.x);
-    phi = 2 * asin(z.y/r1);
-    z.x = r * cos(theta)*cos(phi);
+    theta = 2 * atan2(z.z, z.x);
+    phi = 2 * asin(z.y / r1);
+    z.x = r * cos(theta) * cos(phi);
     z.y = -r * sin(phi);
-    z.z = r * sin(theta)*cos(phi);
+    z.z = r * sin(theta) * cos(phi);
   }
   z += fractal->transformCommon.additionConstant000;
 
@@ -2241,39 +2250,43 @@ void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
   {
     CVector3 tempFAB = c;
     if (fractal->transformCommon.functionEnabledx)
-    {
-            tempFAB.x = fabs(tempFAB.x);
-    }
+      tempFAB.x = fabs(tempFAB.x);
+
     if (fractal->transformCommon.functionEnabledy)
-    {
-            tempFAB.y = fabs(tempFAB.y);
-    }
+      tempFAB.y = fabs(tempFAB.y);
+
     if (fractal->transformCommon.functionEnabledz)
-    {
-            tempFAB.z = fabs(tempFAB.z);
-    }
+      tempFAB.z = fabs(tempFAB.z);
+
     tempFAB *= fractal->transformCommon.constantMultiplier000;
-    if (z.x > 0) z.x += tempFAB.x;
-    else z.x -= tempFAB.x;
-    if (z.y > 0) z.y += tempFAB.y;
-    else z.y -= tempFAB.y;
-    if (z.z > 0) z.z += tempFAB.z;
-    else z.z -= tempFAB.z;
+    if (z.x > 0)
+      z.x += tempFAB.x;
+    else
+      z.x -= tempFAB.x;
+    if (z.y > 0)
+      z.y += tempFAB.y;
+    else
+      z.y -= tempFAB.y;
+    if (z.z > 0)
+      z.z += tempFAB.z;
+    else
+      z.z -= tempFAB.z;
   }
   double lengthTempZ = -z.Length();
-  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+  if (lengthTempZ > -1e-21)
+    lengthTempZ = -1e-21;   //  z is neg.)
   z *= 1 + fractal->transformCommon.offset / lengthTempZ;
   z *= fractal->transformCommon.scale1;
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
-  // Msltoe_Julia_Bulb_Mod3  //http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/30/ reply 39
+// Msltoe_Julia_Bulb_Mod3  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/msg14320/#msg14320
 void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
   CVector3 z1 = z;
-  double psi = atan2(z.z,z.y) + M_PI*2.0;
+  double psi = atan2(z.z, z.y) + M_PI * 2.0;
   double psi2 = 0;
   while (psi > M_PI_8)
   {
@@ -2288,51 +2301,56 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fra
   z.z = z1.z;
   CVector3 zs = z * z;
   double zs2 = zs.x + zs.y;
-  if (zs2 < 1e-21) zs2 = 1e-21;
-  double zs3 = (zs2 + zs.z) + fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * zs.y  * zs.z;
-  double zsd = ( 1 - zs.z/ zs3);
+  if (zs2 < 1e-21)
+    zs2 = 1e-21;
+  double zs3 = (zs2 + zs.z)
+      + fractal->transformCommon.scale0 * fractal->transformCommon.scale0 * zs.y * zs.z;
+  double zsd = (1 - zs.z / zs3);
 
-  z1.x  = (zs.x - zs.y) * zsd;
-  z1.y = (2 * z.x * z.y)* zsd * fractal->transformCommon.scale;// scaling y;
+  z1.x = (zs.x - zs.y) * zsd;
+  z1.y = (2 * z.x * z.y) * zsd * fractal->transformCommon.scale;  // scaling y;
   z1.z = 2 * z.z * sqrt(zs2);
   z.x = z1.x;
   z.y = z1.y * cs + z1.z * sn;
   z.z = -z1.y * sn + z1.z * cs;
-  z +=  fractal->transformCommon.additionConstant000;
+  z += fractal->transformCommon.additionConstant000;
 
   if (fractal->transformCommon.addCpixelEnabledFalse) // symmetrical addCpixel
   {
     CVector3 tempFAB = c;
     if (fractal->transformCommon.functionEnabledx)
-    {
-            tempFAB.x = fabs(tempFAB.x);
-    }
+      tempFAB.x = fabs(tempFAB.x);
+
     if (fractal->transformCommon.functionEnabledy)
-    {
-            tempFAB.y = fabs(tempFAB.y);
-    }
+      tempFAB.y = fabs(tempFAB.y);
+
     if (fractal->transformCommon.functionEnabledz)
-    {
-            tempFAB.z = fabs(tempFAB.z);
-    }
+      tempFAB.z = fabs(tempFAB.z);
+
     tempFAB *= fractal->transformCommon.constantMultiplier000;
-    if (z.x > 0) z.x += tempFAB.x;
-    else z.x -= tempFAB.x;
-    if (z.y > 0) z.y += tempFAB.y;
-    else z.y -= tempFAB.y;
-    if (z.z > 0) z.z += tempFAB.z;
-    else z.z -= tempFAB.z;
+    if (z.x > 0)
+      z.x += tempFAB.x;
+    else
+      z.x -= tempFAB.x;
+    if (z.y > 0)
+      z.y += tempFAB.y;
+    else
+      z.y -= tempFAB.y;
+    if (z.z > 0)
+      z.z += tempFAB.z;
+    else
+      z.z -= tempFAB.z;
   }
   double lengthTempZ = -z.Length(); // spherical offset
-  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+  if (lengthTempZ > -1e-21)
+    lengthTempZ = -1e-21;   //  z is neg.)
   z *= 1 + fractal->transformCommon.offset / lengthTempZ;
   z *= fractal->transformCommon.scale1;
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
 
   if (fractal->transformCommon.functionEnabledFalse // quaternion fold
-      && i >= fractal->transformCommon.startIterationsA
-      && i < fractal->transformCommon.stopIterationsA)
+  && i >= fractal->transformCommon.startIterationsA && i < fractal->transformCommon.stopIterationsA)
   {
     aux.r_dz = aux.r_dz * 2.0 * z.Length();
     z = CVector3(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z);
@@ -2341,8 +2359,9 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fra
       CVector3 temp = z;
       double tempL = temp.Length();
       z *= CVector3(1.0, 2.0, 2.0); // mult. scale (1,2,2)
-      if (tempL < 1e-21) tempL = 1e-21;
-      double avgScale = z.Length()/tempL;
+      if (tempL < 1e-21)
+        tempL = 1e-21;
+      double avgScale = z.Length() / tempL;
       aux.r_dz *= avgScale;
     }
     else
@@ -2350,7 +2369,6 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fra
       z *= CVector3(1.0, 2.0, 2.0); // mult. scale (1,2,2)
     }
   }
-
 }
 
 // MsltoeSym4Mod  Based on the formula from Mandelbulb3D.also refer  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
@@ -2359,38 +2377,41 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
   CVector3 temp = z;
   double tempL = temp.Length();
-  if (tempL < 1e-21 ) tempL = 1e-21;
+  if (tempL < 1e-21)
+    tempL = 1e-21;
   z *= fractal->transformCommon.scale3D111;
 
-  aux.r_dz *= fabs(z.Length()/tempL);
+  aux.r_dz *= fabs(z.Length() / tempL);
 
   double swap = z.x;
-  if(fabs( z.x ) < fabs( z.z ))
+  if (fabs(z.x) < fabs(z.z))
   {
     z.x = z.z;
     z.z = swap;
   }
-  if (fabs( z.x ) < fabs( z.y) )
+  if (fabs(z.x) < fabs(z.y))
   {
     swap = z.x;
     z.x = z.y;
     z.y = swap;
   }
-  if (fabs( z.y ) < fabs( z.z ))
+  if (fabs(z.y) < fabs(z.z))
   {
     swap = z.y;
     z.y = z.z;
     z.z = swap;
   }
 
-  if ( z.x * z.z  < 0)  z.z  = - z.z ;
-  if ( z.x * z.y  < 0)  z.y  = - z.y ;
+  if (z.x * z.z < 0)
+    z.z = -z.z;
+  if (z.x * z.y < 0)
+    z.y = -z.y;
 
-  temp.x =  z.x * z.x  -  z.y * z.y  -  z.z * z.z;
-  temp.y = 2* z.x * z.y ;
-  temp.z = 2* z.x * z.z ;
+  temp.x = z.x * z.x - z.y * z.y - z.z * z.z;
+  temp.y = 2 * z.x * z.y;
+  temp.z = 2 * z.x * z.z;
 
-  z = temp +  fractal->transformCommon.additionConstant000;
+  z = temp + fractal->transformCommon.additionConstant000;
 
   if (fractal->transformCommon.rotationEnabled)
   {
@@ -2401,27 +2422,31 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   {
     CVector3 tempFAB = c;
     if (fractal->transformCommon.functionEnabledx)
-    {
-            tempFAB.x = fabs(tempFAB.x);
-    }
+      tempFAB.x = fabs(tempFAB.x);
+
     if (fractal->transformCommon.functionEnabledy)
-    {
-            tempFAB.y = fabs(tempFAB.y);
-    }
+      tempFAB.y = fabs(tempFAB.y);
+
     if (fractal->transformCommon.functionEnabledz)
-    {
-            tempFAB.z = fabs(tempFAB.z);
-    }
+      tempFAB.z = fabs(tempFAB.z);
+
     tempFAB *= fractal->transformCommon.constantMultiplier000;
-    if (z.x > 0) z.x += tempFAB.x;
-    else z.x -= tempFAB.x;
-    if (z.y > 0) z.y += tempFAB.y;
-    else z.y -= tempFAB.y;
-    if (z.z > 0) z.z += tempFAB.z;
-    else z.z -= tempFAB.z;
+    if (z.x > 0)
+      z.x += tempFAB.x;
+    else
+      z.x -= tempFAB.x;
+    if (z.y > 0)
+      z.y += tempFAB.y;
+    else
+      z.y -= tempFAB.y;
+    if (z.z > 0)
+      z.z += tempFAB.z;
+    else
+      z.z -= tempFAB.z;
   }
   double lengthTempZ = -z.Length();
-  if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+  if (lengthTempZ > -1e-21)
+    lengthTempZ = -1e-21;   //  z is neg.)
   z *= 1 + fractal->transformCommon.offset / lengthTempZ;
   z *= fractal->transformCommon.scale1;
   aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
