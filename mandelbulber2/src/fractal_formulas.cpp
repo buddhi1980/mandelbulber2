@@ -39,15 +39,15 @@ using namespace fractal;
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   if (aux.r < 1e-21) aux.r = 1e-21;
-	double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
-	double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
-	double rp = pow(aux.r, fractal->bulb.power - 1.0);
-	double th = th0 * fractal->bulb.power;
-	double ph = ph0 * fractal->bulb.power;
-	double cth = cos(th);
-	aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
-	rp *= aux.r;
-	z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
+  double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
+  double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
+  double rp = pow(aux.r, fractal->bulb.power - 1.0);
+  double th = th0 * fractal->bulb.power;
+  double ph = ph0 * fractal->bulb.power;
+  double cth = cos(th);
+  aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
+  rp *= aux.r;
+  z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 }
 
 /*
@@ -175,91 +175,93 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 
 void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux)
 {
-	aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
 
-	double temp, tempR;
+  double temp, tempR;
   tempR = sqrt(z.x * z.x + z.y * z.y + 1e-021);
-	z *= (1.0 / tempR);
-	temp = z.x * z.x - z.y * z.y;
-	z.y = 2.0 * z.x * z.y;
-	z.x = temp;
-	z *= tempR;
+  z *= (1.0 / tempR);
+  temp = z.x * z.x - z.y * z.y;
+  z.y = 2.0 * z.x * z.y;
+  z.x = temp;
+  z *= tempR;
 
-	tempR = sqrt(z.y * z.y + z.z * z.z);
-	z *= (1.0 / tempR);
-	temp = z.y * z.y - z.z * z.z;
-	z.z = 2.0 * z.y * z.z;
-	z.y = temp;
-	z *= tempR;
+  tempR = sqrt(z.y * z.y + z.z * z.z);
+  z *= (1.0 / tempR);
+  temp = z.y * z.y - z.z * z.z;
+  z.z = 2.0 * z.y * z.z;
+  z.y = temp;
+  z *= tempR;
 
-	tempR = sqrt(z.x * z.x + z.z * z.z);
-	z *= (1.0 / tempR);
-	temp = z.x * z.x - z.z * z.z;
-	z.z = 2.0 * z.x * z.z;
-	z.x = temp;
-	z *= tempR;
+  tempR = sqrt(z.x * z.x + z.z * z.z);
+  z *= (1.0 / tempR);
+  temp = z.x * z.x - z.z * z.z;
+  z.z = 2.0 * z.x * z.z;
+  z.x = temp;
+  z *= tempR;
 
-	z = z * aux.r;
+  z = z * aux.r;
 }
 
 void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
 {
-	aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
 
-	double temp, tempR;
+  double temp, tempR;
 
-	double sign = 1.0;
-	double sign2 = 1.0;
+  double sign = 1.0;
+  double sign2 = 1.0;
 
-	if (z.x < 0) sign2 = -1.0;
+  if (z.x < 0)
+    sign2 = -1.0;
   tempR = sqrt(z.x * z.x + z.y * z.y + 1e-021);
-	z *= (1.0 / tempR);
-	temp = z.x * z.x - z.y * z.y;
-	z.y = 2.0 * z.x * z.y;
-	z.x = temp;
-	z *= tempR;
+  z *= (1.0 / tempR);
+  temp = z.x * z.x - z.y * z.y;
+  z.y = 2.0 * z.x * z.y;
+  z.x = temp;
+  z *= tempR;
 
-	if (z.x < 0) sign = -1.0;
-	tempR = sqrt(z.x * z.x + z.z * z.z);
-	z *= (1.0 / tempR);
-	temp = z.x * z.x - z.z * z.z;
-	z.z = 2.0 * z.x * z.z * sign2;
-	z.x = temp * sign;
-	z *= tempR;
+  if (z.x < 0)
+    sign = -1.0;
+  tempR = sqrt(z.x * z.x + z.z * z.z);
+  z *= (1.0 / tempR);
+  temp = z.x * z.x - z.z * z.z;
+  z.z = 2.0 * z.x * z.z * sign2;
+  z.x = temp * sign;
+  z *= tempR;
 
-	z = z * aux.r;
+  z = z * aux.r;
 }
 
 void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
-	double rp = pow(aux.r, fractal->bulb.power - 1);
-	aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
+  double rp = pow(aux.r, fractal->bulb.power - 1);
+  aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
 
-	double angZ = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
-	double angY = atan2(z.z, z.x) + fractal->bulb.betaAngleOffset;
-	double angX = atan2(z.z, z.y) + fractal->bulb.gammaAngleOffset;
+  double angZ = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
+  double angY = atan2(z.z, z.x) + fractal->bulb.betaAngleOffset;
+  double angX = atan2(z.z, z.y) + fractal->bulb.gammaAngleOffset;
 
-	CRotationMatrix rotM;
-	rotM.RotateX(angX * (fractal->bulb.power - 1));
-	rotM.RotateY(angY * (fractal->bulb.power - 1));
-	rotM.RotateZ(angZ * (fractal->bulb.power - 1));
+  CRotationMatrix rotM;
+  rotM.RotateX(angX * (fractal->bulb.power - 1));
+  rotM.RotateY(angY * (fractal->bulb.power - 1));
+  rotM.RotateZ(angZ * (fractal->bulb.power - 1));
 
-	z = rotM.RotateVector(z) * rp;
+  z = rotM.RotateVector(z) * rp;
 }
 
 void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux)
 {
-	aux.r_dz = aux.r_dz * 2.0 * aux.r;
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2);
-	double newx = (x2 - y2) * temp;
-	double newy = 2.0 * z.x * z.y * temp;
-	double newz = -2.0 * z.z * sqrt(x2 + y2);
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
+  aux.r_dz = aux.r_dz * 2.0 * aux.r;
+  double x2 = z.x * z.x;
+  double y2 = z.y * z.y;
+  double z2 = z.z * z.z;
+  double temp = 1.0 - z2 / (x2 + y2);
+  double newx = (x2 - y2) * temp;
+  double newy = 2.0 * z.x * z.y * temp;
+  double newz = -2.0 * z.z * sqrt(x2 + y2);
+  z.x = newx;
+  z.y = newy;
+  z.z = newz;
 }
 
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
@@ -1868,25 +1870,20 @@ void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
       v3 = z.x;
       break;
   }
-  if (aux.r < 1e-21) aux.r = 1e-21;
-  if (v3 < 1e-21 && v3 > -1e-21) v3 = (v3 > 0) ? 1e-21 : -1e-21;
+  if (aux.r < 1e-21)
+    aux.r = 1e-21;
+  if (v3 < 1e-21 && v3 > -1e-21)
+    v3 = (v3 > 0) ? 1e-21 : -1e-21;
+
   if (fractal->mandelbulbMulti.acosOrasin == sFractalMandelbulbMulti::acos)
-  {
     th0 += acos(v1 / aux.r);
-  }
   else
-  {
     th0 += asin(v1 / aux.r);
-  }
 
   if (fractal->mandelbulbMulti.atanOratan2 == sFractalMandelbulbMulti::atan)
-  {
     ph0 += atan(v2 / v3);
-  }
   else
-  {
     ph0 += atan2(v2, v3);
-  }
 
   double rp = pow(aux.r, fractal->bulb.power - 1.0);
   double th = th0 * fractal->bulb.power;
@@ -1901,20 +1898,16 @@ void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   double tempVC = fractal->bulb.power;   // constant to be varied
-  if (i < fractal->transformCommon.startIterations250)
-  {
-    ;
-  }
+
   if (i >= fractal->transformCommon.startIterations250
       && i < fractal->transformCommon.stopIterations
-      && (fractal->transformCommon.stopIterations
-          - fractal->transformCommon.startIterations250 != 0))
+      && (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250 != 0))
   {
-    tempVC = (tempVC
-        + fractal->transformCommon.offset0
-            * (i - fractal->transformCommon.startIterations250)
-            / (fractal->transformCommon.stopIterations
-                - fractal->transformCommon.startIterations250));
+    tempVC =
+        (tempVC
+            + fractal->transformCommon.offset0 * (i - fractal->transformCommon.startIterations250)
+                / (fractal->transformCommon.stopIterations
+                    - fractal->transformCommon.startIterations250));
   }
   if (i >= fractal->transformCommon.stopIterations)
   {
@@ -1922,7 +1915,8 @@ void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal,
   }
 
   aux.r = z.Length();
-  if (aux.r < 1e-21) aux.r = 1e-21;
+  if (aux.r < 1e-21)
+    aux.r = 1e-21;
   double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
   double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
   double rp = pow(aux.r, tempVC - 1.0);
