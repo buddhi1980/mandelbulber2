@@ -93,6 +93,7 @@ void cInterface::ShowUi(void)
 	mainWindow->restoreGeometry(mainWindow->settings.value("mainWindowGeometry").toByteArray());
 
 	WriteLog("Restoring window state");
+
 	if (!mainWindow->restoreState(mainWindow->settings.value("mainWindowState").toByteArray()))
 	{
 		mainWindow->tabifyDockWidget(mainWindow->ui->dockWidget_effects,
@@ -193,6 +194,11 @@ void cInterface::ShowUi(void)
 #endif
 
 	renderedImage->show();
+
+  mainWindow->setCorner( Qt::TopLeftCorner, Qt::LeftDockWidgetArea );
+  mainWindow->setCorner( Qt::TopRightCorner, Qt::RightDockWidgetArea );
+  mainWindow->setCorner( Qt::BottomLeftCorner, Qt::LeftDockWidgetArea );
+  mainWindow->setCorner( Qt::BottomRightCorner, Qt::RightDockWidgetArea );
 
 	//loading default ui for all fractal components
 	QString uiFilename = systemData.sharedDir + "qt_data" + QDir::separator()
