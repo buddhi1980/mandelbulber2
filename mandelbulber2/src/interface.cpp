@@ -2909,7 +2909,7 @@ void cInterface::ComboMouseClickUpdate()
 
 	item.clear();
 	item.append((int) RenderedImage::clickGetPoint);
-	combo->addItem(QObject::tr("Measure point coordinates"), item);
+	combo->addItem(QObject::tr("Get point coordinates"), item);
 
 
 	if (listOfPrimitives.size() > 0)

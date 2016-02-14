@@ -152,7 +152,7 @@ void RenderedImage::DisplayCoordinates()
 			text += tr("\nof distance [center to camera position]");
 			break;
 		case clickGetPoint:
-			text = tr("Measure coordinates");
+			text = tr("Get coordinates");
 			text += tr("\nand distance");
 			break;
 	}
