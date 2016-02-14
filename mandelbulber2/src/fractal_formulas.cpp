@@ -560,26 +560,28 @@ void BristorbrotIteration(CVector3 &z, sExtendedAux &aux)
 //http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/
 void IdesIteration(CVector3 &z, const cFractal *fractal)
 {
-  if(fabs(z.x) < 2.5) z.x = z.x *.9;
-  //if(fabs(z.y) < 2.5) z.y = z.y * .9;
-  if(fabs(z.z) < 2.5) z.z = z.z *.9;
-
+  if (fabs(z.x) < 2.5) z.x = z.x * .9;
+  if (fabs(z.z) < 2.5) z.z = z.z * .9;
 
   CVector3 z2 = z * z;
   CVector3 newZ;
-  newZ.x = fractal->transformCommon.constantMultiplier121.x * z2.x - fractal->transformCommon.additionConstant0555.x * (z2.y + z2.z);
+  newZ.x = fractal->transformCommon.constantMultiplier121.x * z2.x
+      - fractal->transformCommon.additionConstant0555.x * (z2.y + z2.z);
   newZ.y = fractal->transformCommon.constantMultiplier121.y * z.x * z.y * z.z;
-  newZ.z = fractal->transformCommon.constantMultiplier121.z * z2.z - fractal->transformCommon.additionConstant0555.z * (z2.x + z2.y);
+  newZ.z = fractal->transformCommon.constantMultiplier121.z * z2.z
+      - fractal->transformCommon.additionConstant0555.z * (z2.x + z2.y);
   z = newZ;
 }
 
 void Ides2Iteration(CVector3 &z, const cFractal *fractal)
 {
-  CVector3 z2 = z *z;
+  CVector3 z2 = z * z;
   CVector3 newZ;
-  newZ.x = fractal->transformCommon.constantMultiplier121.x * z2.x - fractal->transformCommon.additionConstant0555.x * (z2.y + z2.z);
+  newZ.x = fractal->transformCommon.constantMultiplier121.x * z2.x
+      - fractal->transformCommon.additionConstant0555.x * (z2.y + z2.z);
   newZ.y = fractal->transformCommon.constantMultiplier121.y * z.x * z.y * z.z;
-  newZ.z = fractal->transformCommon.constantMultiplier121.z * z2.z - fractal->transformCommon.additionConstant0555.z * (z2.x + z2.y);
+  newZ.z = fractal->transformCommon.constantMultiplier121.z * z2.z
+      - fractal->transformCommon.additionConstant0555.z * (z2.x + z2.y);
   z = newZ + z;
 }
 
@@ -2853,15 +2855,15 @@ void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal
 
 void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
-  z +=  c * fractal->transformCommon.constantMultiplier111;
+  z += c * fractal->transformCommon.constantMultiplier111;
 }
 
 void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
+  if (fractal->transformCommon.functionEnabled)
+    c = CVector3(c.y, c.x, c.z);
 
-  if(fractal->transformCommon.functionEnabled) c = CVector3(c.y, c.x, c.z);
-
-  z +=  c * fractal->transformCommon.constantMultiplier111;
+  z += c * fractal->transformCommon.constantMultiplier111;
 }
 
 void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
@@ -2872,25 +2874,25 @@ void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFracta
     {
       case sFractalMandelbulbMulti::xyz:
       default:
-        c = CVector3( c.x, c.y, c.z);
+        c = CVector3(c.x, c.y, c.z);
         break;
       case sFractalMandelbulbMulti::xzy:
-        c = CVector3( c.x, c.z, c.y);
+        c = CVector3(c.x, c.z, c.y);
         break;
       case sFractalMandelbulbMulti::yxz:
-        c = CVector3( c.y, c.x, c.z);
+        c = CVector3(c.y, c.x, c.z);
         break;
       case sFractalMandelbulbMulti::yzx:
-        c = CVector3( c.y, c.z, c.x);
+        c = CVector3(c.y, c.z, c.x);
         break;
       case sFractalMandelbulbMulti::zxy:
-        c = CVector3( c.z, c.x, c.y);
+        c = CVector3(c.z, c.x, c.y);
         break;
       case sFractalMandelbulbMulti::zyx:
-        c = CVector3( c.z, c.y, c.x);
+        c = CVector3(c.z, c.y, c.x);
         break;
     }
-    z +=  c * fractal->transformCommon.constantMultiplier111;
+    z += c * fractal->transformCommon.constantMultiplier111;
   }
 }
 // addCpixel Symmetrical Constant Multipier
@@ -2899,29 +2901,33 @@ void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal 
   if (fractal->transformCommon.addCpixelEnabled)
   {
     CVector3 tempFAB = c;
+
     if (fractal->transformCommon.functionEnabledx)
-    {
-            tempFAB.x = fabs(tempFAB.x);
-    }
+      tempFAB.x = fabs(tempFAB.x);
+
     if (fractal->transformCommon.functionEnabledy)
-    {
-            tempFAB.y = fabs(tempFAB.y);
-    }
+
+      tempFAB.y = fabs(tempFAB.y);
     if (fractal->transformCommon.functionEnabledz)
-    {
-            tempFAB.z = fabs(tempFAB.z);
-    }
+      tempFAB.z = fabs(tempFAB.z);
+
     tempFAB *= fractal->transformCommon.constantMultiplier111;
+
     if (fractal->transformCommon.functionEnabledFalse)
-    {
       tempFAB *= -1.0;
-    }
-    if (z.x > 0) z.x += tempFAB.x;
-    else z.x -= tempFAB.x;
-    if (z.y > 0) z.y += tempFAB.y;
-    else z.y -= tempFAB.y;
-    if (z.z > 0) z.z += tempFAB.z;
-    else z.z -= tempFAB.z;
+
+    if (z.x > 0)
+      z.x += tempFAB.x;
+    else
+      z.x -= tempFAB.x;
+    if (z.y > 0)
+      z.y += tempFAB.y;
+    else
+      z.y -= tempFAB.y;
+    if (z.z > 0)
+      z.z += tempFAB.z;
+    else
+      z.z -= tempFAB.z;
   }
 }
 
