@@ -805,6 +805,7 @@ struct sFractalTransformCommon
 
   CVector3 additionConstant0555;
   CVector3 additionConstant000;
+  CVector3 additionConstantA000;
   CVector3 additionConstant111;
   CVector3 additionConstantA111;
   CVector3 additionConstant222;

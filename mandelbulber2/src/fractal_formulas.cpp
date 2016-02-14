@@ -560,6 +560,11 @@ void BristorbrotIteration(CVector3 &z, sExtendedAux &aux)
 //http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/
 void IdesIteration(CVector3 &z, const cFractal *fractal)
 {
+  if(fabs(z.x) < 2.5) z.x = z.x *.9;
+  //if(fabs(z.y) < 2.5) z.y = z.y * .9;
+  if(fabs(z.z) < 2.5) z.z = z.z *.9;
+
+
   CVector3 z2 = z * z;
   CVector3 newZ;
   newZ.x = fractal->transformCommon.constantMultiplier121.x * z2.x - fractal->transformCommon.additionConstant0555.x * (z2.y + z2.z);
@@ -633,10 +638,8 @@ void QuickDudleyIteration(CVector3 &z)
 }
 
 /*« http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
-void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal)
 {
-  aux.r_dz = aux.r_dz * 2.0 * aux.r;
-
   double x2 = z.x * z.x;
   double y2 = z.y * z.y;
   double z2 = z.z * z.z;
@@ -649,18 +652,6 @@ void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
   z.x = newx;
   z.y = newy;
   z.z = newz;
-
-
-
-
-
- /* CVector3 p = z;
-  z = CVector3(p.x * p.x - 2.0 * p.y * p.z,
-    2.0 * p.x * p.y + p.z * p.z,
-    -2.0 * p.x * p.z + p.y * p.y); //only diff is -2.0*/
-
-  //return min(log(r) * (r-1.0) / aux.r_dz,.8);
-
 }
 
 /* http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
@@ -2832,6 +2823,7 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal)
 {
   z += fractal->transformCommon.additionConstant000;
+  z += fractal->transformCommon.additionConstantA000;
 }
 
 void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
@@ -2868,9 +2860,7 @@ void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 &c, const cFr
 {
 
   if(fractal->transformCommon.functionEnabled) c = CVector3(c.y, c.x, c.z);
- // {
- //   c = CVector3(c.x, c.y, c.z);
-//  }
+
   z +=  c * fractal->transformCommon.constantMultiplier111;
 }
 

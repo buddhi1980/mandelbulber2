@@ -1370,6 +1370,7 @@ cFractal::cFractal(const cParameterContainer *container)
 
   transformCommon.additionConstant0555 = container->Get<CVector3>("transf_addition_constant_0555");
   transformCommon.additionConstant000 = container->Get<CVector3>("transf_addition_constant");
+  transformCommon.additionConstantA000 = container->Get<CVector3>("transf_addition_constantA_000");
   transformCommon.additionConstant111 = container->Get<CVector3>("transf_addition_constant_111");
   transformCommon.additionConstantA111 = container->Get<CVector3>("transf_addition_constantA_111");
   transformCommon.additionConstant222 = container->Get<CVector3>("transf_addition_constant_222");

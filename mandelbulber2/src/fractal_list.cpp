@@ -447,7 +447,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
   fractalList->append(sFractalDescription("Quick-Dudley Mod",
                                           "quick_dudley_mod",
                                           quickDudleyMod,
-                                          deltaDEType,// analytic
+                                          deltaDEType,
                                           logarithmicDEFunction,
                                           cpixelEnabledByDefault,
                                           10));

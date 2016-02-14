@@ -238,7 +238,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
         case quickDudleyMod:
         {
-          QuickDudleyModIteration(z, fractal, extendedAux[sequence]);
+          QuickDudleyModIteration(z, fractal);
           break;
         }
 				case lkmitch:
