@@ -18054,7 +18054,7 @@ Disables 'Update image' options)</string>
                    <property name="spacing">
                     <number>2</number>
                    </property>
-                   <item row="0" column="1">
+                   <item row="0" column="2">
                     <widget class="QSlider" name="slider3_fractal_constant_factor_x">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -18076,7 +18076,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="2">
+                   <item row="0" column="3">
                     <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_x">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -18104,7 +18104,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1">
+                   <item row="2" column="2">
                     <widget class="QSlider" name="slider3_fractal_constant_factor_z">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -18126,7 +18126,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="2">
+                   <item row="1" column="3">
                     <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_y">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -18154,7 +18154,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="2">
+                   <item row="2" column="3">
                     <widget class="MyDoubleSpinBox" name="spinbox3_fractal_constant_factor_z">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -18182,7 +18182,7 @@ Disables 'Update image' options)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="1">
+                   <item row="1" column="2">
                     <widget class="QSlider" name="slider3_fractal_constant_factor_y">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -18208,6 +18208,54 @@ Disables 'Update image' options)</string>
                     <widget class="QLabel" name="label_135">
                      <property name="text">
                       <string>Constant multiplier:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLabel" name="label_346">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>x:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLabel" name="label_347">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>y:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLabel" name="label_348">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>z:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
