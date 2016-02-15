@@ -37,8 +37,6 @@ public:
 	{
 		setReadOnly(true);
 		initializedFromLogFile = false;
-		QPalette p = palette();
-		defaultTextColor = p.windowText().color().name();
 	};
 
 public slots:
@@ -48,7 +46,6 @@ public slots:
 
 private:
 	bool initializedFromLogFile;
-	QString defaultTextColor;
 };
 
 #endif /* MYLOGWIDGET_HPP_ */

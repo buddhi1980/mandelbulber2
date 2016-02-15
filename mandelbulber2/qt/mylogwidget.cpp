@@ -60,7 +60,7 @@ QString MyLogWidget::formatLine(const QString& text)
 		QRegularExpressionMatch matchType = reType.match(match.captured(5));
 		if (matchType.hasMatch())
 		{
-			QString color = defaultTextColor;
+			QString color = "";
 			if(matchType.captured(1) == "Debug") color = "green";
 			else if(matchType.captured(1) == "Warning") color = "orange";
 			else if(matchType.captured(1) == "Critical") color = "red";
@@ -68,11 +68,12 @@ QString MyLogWidget::formatLine(const QString& text)
 			else if(matchType.captured(1) == "NetRender") color = "darkblue";
 			else if(matchType.captured(1) == "Gamepad") color = "purple";
 
-			out += "<span style=\"color: " + color + ";\">" + matchType.captured(1) + "<b>" + matchType.captured(2) + "</b></span>";
+			out += color != "" ? "<span style=\"color: " + color + ";\">" : "<span>";
+			out += matchType.captured(1) + "<b>" + matchType.captured(2) + "</b></span>";
 		}
 		else
 		{
-			out += "<span style=\"color: " + defaultTextColor + ";\"><b>" + match.captured(5) + "</b></span>";
+			out += "<span><b>" + match.captured(5) + "</b></span>";
 		}
 		return out;
 	}
