@@ -428,7 +428,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
-	fractalList->append(sFractalDescription("Quaternion3D",
+  fractalList->append(sFractalDescription("Quaternion3DE",
 																					"quaternion3D",
 																					quaternion3D,
                                           analyticDEType,
@@ -457,7 +457,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					riemannSphereMsltoe,
 																					deltaDEType,
 																					logarithmicDEFunction,
-																					cpixelDisabledByDefault,
+                                          cpixelEnabledByDefault,
                                           1.5));
 
 	fractalList->append(sFractalDescription("Riemann Sphere Msltoe V1",
@@ -465,7 +465,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					riemannSphereMsltoeV1,
 																					deltaDEType,
 																					logarithmicDEFunction,
-																					cpixelDisabledByDefault,
+                                          cpixelEnabledByDefault,
 																					10));
 
 	fractalList->append(sFractalDescription("Smooth Mandelbox",

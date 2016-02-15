@@ -2153,7 +2153,9 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, int i, const cFractal *frac
       z *= CVector3(1.0, 2.0, 2.0); // mult. scale (1,2,2)
       if (tempL < 1e-21) tempL = 1e-21;
       double avgScale = z.Length()/tempL;
-      aux.r_dz *= avgScale * fractal->transformCommon.scale3;
+      //aux.r_dz *= avgScale * fractal->transformCommon.scaleA1;
+      double tempAux = aux.r_dz * avgScale;
+      aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
     }
     else
     {
@@ -2521,7 +2523,7 @@ void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
   z += fractal->transformCommon.additionConstant000;
 }
 
-// --------quaternion3D--------------
+// --------quaternion3DE--------------
 void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -2530,11 +2532,11 @@ void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
   CVector3 temp = z;
   double tempL = temp.Length();
   z *= fractal->transformCommon.constantMultiplier122; // mult. scale (1,2,2)
-  if (tempL < 1e-21)
-    tempL = 1e-21;
-  double avgScale = z.Length() / tempL;
-  aux.r_dz *= avgScale;
-  //aux.DE = aux.DE * avgScale + 1.0;
+  if (tempL < 1e-21) tempL = 1e-21;
+  double avgScale = z.Length()/tempL;
+  //aux.r_dz *= avgScale * fractal->transformCommon.scaleA1;
+  double tempAux = aux.r_dz * avgScale;
+  aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
 
   if (fractal->transformCommon.rotationEnabled) // rotation tweak
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
