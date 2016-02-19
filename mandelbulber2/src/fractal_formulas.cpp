@@ -3158,19 +3158,26 @@ void TransformBenesiCubeSphereIteration(CVector3 &z)
 {
   z *= z;       // so all now positive
 
-  if (z.x == 0.0) z.x = 1e-21;
-  if (z.z == 0.0) z.z = 1e-21;
+  if (z.x == 0.0)
+    z.x = 1e-21;
+  if (z.z == 0.0)
+    z.z = 1e-21;
 
   double rCyz = z.y / z.z;
 
   double rCxyz = (z.y + z.z) / z.x;
 
-  if (rCxyz == -1.0) z.z = 1.0 + 1e-21;
-  if (rCyz < 1.0) rCyz = sqrt(rCyz + 1.0);
-  else rCyz = sqrt(1.0 / rCyz + 1.0);
+  if (rCxyz == -1.0)
+    z.z = 1.0 + 1e-21;
+  if (rCyz < 1.0)
+    rCyz = sqrt(rCyz + 1.0);
+  else
+    rCyz = sqrt(1.0 / rCyz + 1.0);
 
-  if (rCxyz < 1.0) rCxyz = sqrt(rCxyz + 1.0);
-  else rCxyz = sqrt(1.0 / rCxyz + 1.0);
+  if (rCxyz < 1.0)
+    rCxyz = sqrt(rCxyz + 1.0);
+  else
+    rCxyz = sqrt(1.0 / rCxyz + 1.0);
 
   z.y *= rCyz;
   z.z *= rCyz;
