@@ -108,14 +108,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelEnabledByDefault,
                                           100));
 
-	fractalList->append(sFractalDescription("Benesi Transforms DeltaDE",
-																					"benesi_transforms",
-																					benesiTransforms,
-																					deltaDEType,
-																					logarithmicDEFunction,
-																					cpixelAlreadyHas,
-																					10));
-
 	fractalList->append(sFractalDescription("Benesi",
 																					"benesi",
 																					benesi,
@@ -252,28 +244,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					100));
 
-	fractalList->append(sFractalDescription("Mandelbox - extended",
-																					"mandelbox103",
-																					mandelbox103,
-																					analyticDEType,
-																					linearDEFunction,
-																					cpixelAlreadyHas,
-																					100));
-
 	fractalList->append(sFractalDescription("Mandelbulb",
 																					"mandelbulb",
 																					mandelbulb,
 																					analyticDEType,
 																					logarithmicDEFunction,
 																					cpixelEnabledByDefault,
-																					10));
-
-	fractalList->append(sFractalDescription("Mandelbulb - extended",
-																					"mandelbulb5",
-																					mandelbulb5,
-																					analyticDEType,
-																					logarithmicDEFunction,
-																					cpixelAlreadyHas,
 																					10));
 
 	fractalList->append(sFractalDescription("Mandelbulb 2",
@@ -308,14 +284,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelEnabledByDefault,
 																					10));
 
-	fractalList->append(sFractalDescription("Mandelbulb6 beta",
-																					"mandelbulb6_beta",
-																					mandelbulb6Beta,
-																					analyticDEType,
-																					logarithmicDEFunction,
-																					cpixelAlreadyHas,
-																					10));
-
   fractalList->append(sFractalDescription("Mandelbulb_Multi",
 																					"mandelbulb_multi",
 																					mandelbulbMulti,
@@ -331,14 +299,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           logarithmicDEFunction,
                                           cpixelEnabledByDefault,
                                           10));
-
-	fractalList->append(sFractalDescription("Menger Sponge - extended",
-																					"menger_sponge105",
-																					mengerSponge105,
-																					analyticDEType,
-																					linearDEFunction,
-																					cpixelAlreadyHas,
-																					10));
 
 	fractalList->append(sFractalDescription("Menger sponge",
 																					"menger_sponge",
@@ -416,14 +376,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					"quaternion",
 																					quaternion,
 																					analyticDEType,
-																					logarithmicDEFunction,
-																					cpixelEnabledByDefault,
-																					10));
-
-	fractalList->append(sFractalDescription("Quaternion - extended",
-																					"quaternion104",
-																					quaternion104,
-																					deltaDEType,
 																					logarithmicDEFunction,
 																					cpixelEnabledByDefault,
 																					10));

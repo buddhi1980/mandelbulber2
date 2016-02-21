@@ -50,7 +50,6 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/fractal_container.cpp\
 			../src/fractal_formulas.cpp\
 			../src/fractal_list.cpp\
-			../src/fractal_transforms.cpp\
 			../src/global_data.cpp\
 			../src/initparameters.cpp\
 			../src/interface.cpp\

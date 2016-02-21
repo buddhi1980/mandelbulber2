@@ -286,41 +286,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					GeneralizedFoldBoxIteration(z, fractal, extendedAux[sequence]);
 					break;
 				}
-				case mandelbulb5:
-				{
-					Mandelbulb5Iteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
-					break;
-				}
-				case mandelbox103:
-				{
-					Mandelbox103Iteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
-					break;
-				}
-				case quaternion104:
-				{
-					CVector4 z4D(z, w);
-					Quaternion104Iteration(z4D, CVector4(c, 0.0), i, fractal, extendedAux[sequence]);
-					z = z4D.GetXYZ();
-					w = z4D.w;
-					break;
-				}
-				case mengerSponge105:
-				{
-					MengerSponge105Iteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
-					break;
-				}
-				case mandelbulb6Beta:
-				{
-					Mandelbulb6BetaIteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
-					break;
-				}
-				case benesiTransforms:
-				{
-					BenesiTransformsIteration(z, c, minimumR, i, fractal, extendedAux[sequence]);
-					break;
-				}
-
-
         case aboxMod1:
         {
           AboxMod1Iteration(z, fractal, extendedAux[sequence]);
@@ -853,8 +818,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case mandelbulb2:
 				case mandelbulb3:
 				case mandelbulb4:
-				case mandelbulb5:
-				case mandelbulb6Beta:
 				case mandelbulbMulti:
         case mandelbulbVaryPowerV1:
         case msltoesym2Mod:
@@ -876,8 +839,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case smoothMandelbox:
 				case mandelboxVaryScale4D:
 				case generalizedFoldBox:
-				case mandelbox103:
-				case mengerSponge105:
         case foldBoxMod1:
 				case aboxModKali:
         case mengerMod1:
@@ -943,17 +904,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case foldBoxMod1:
 					out->colorIndex = extendedAux[fractalIndex].color * 100.0
 							+ r * defaultFractal->mandelbox.color.factorR
-							+ ((in.common.fractalColoringAlgorithm != fractalColoringStandard) ? minimumR
-									* 1000.0 :
-									0.0);
-					break;
-
-				case mandelbulb5:
-				case mandelbox103:
-				case mandelbulb6Beta:
-				case benesiTransforms:
-				case mengerSponge105:
-					out->colorIndex = extendedAux[fractalIndex].newR
 							+ ((in.common.fractalColoringAlgorithm != fractalColoringStandard) ? minimumR
 									* 1000.0 :
 									0.0);

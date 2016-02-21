@@ -38,7 +38,6 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
 void BenesiIteration(CVector3 &z, CVector3 &c, sExtendedAux &aux);
 void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
-void BenesiTransformsIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal);
 void BristorbrotIteration(CVector3 &z, sExtendedAux &aux);
 void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
@@ -53,20 +52,16 @@ void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 void Kalisets1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void LkmitchIteration(CVector3 &z);
 void Makin3D2Iteration(CVector3 &z);
-void Mandelbox103Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MandelboxVaryScale4DIteration(CVector4 &z4D, int i, const cFractal *fractal, sExtendedAux &aux);
 void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux);
 void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux);
 void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
-void Mandelbulb5Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
-void Mandelbulb6BetaIteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux);
 void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
 void MengerMod1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux);
-void MengerSponge105Iteration(CVector3 &z, CVector3 &c, double minimumR, int &i, const cFractal *fractal, sExtendedAux &aux);
 void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux);
 void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
@@ -74,7 +69,6 @@ void MsltoeSym3ModIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fra
 void MsltoeSym3Mod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym3Mod3Iteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
-void Quaternion104Iteration(CVector4 &z, const CVector4 &c, int &i, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion4DIteration(CVector4 &z, int i, const cFractal *fractal);
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux);
