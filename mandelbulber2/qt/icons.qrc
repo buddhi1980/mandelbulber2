@@ -184,5 +184,20 @@
         <file>formula_and_transform_images/msltoesym3_mod2.png</file>
         <file>formula_and_transform_images/msltoesym3_mod3.png</file>
         <file>formula_and_transform_images/msltoesym4_mod.png</file>
+        <file>formula_and_transform_images/mandelbulb_vary_powerV1.png</file>
+        <file>formula_and_transform_images/quick_dudley_mod.png</file>
+        <file>formula_and_transform_images/quaternion_4D.png</file>
+        <file>formula_and_transform_images/transf_addition_constant_varyV1.png</file>
+        <file>formula_and_transform_images/transf_add_Cpixel_CxCy_axis_swap.png</file>
+        <file>formula_and_transform_images/transf_add_Cpixel_symmetrical.png</file>
+        <file>formula_and_transform_images/transf_add_Cpixel_varyV1.png</file>
+        <file>formula_and_transform_images/transf_box_fold_XYZ.png</file>
+        <file>formula_and_transform_images/transf_iteration_weight.png</file>
+        <file>formula_and_transform_images/transf_lin_combine_Cxyz.png</file>
+        <file>formula_and_transform_images/transf_rotation_varyV1.png</file>
+        <file>formula_and_transform_images/transf_scale_varyV1.png</file>
+        <file>formula_and_transform_images/transf_sphere_invC.png</file>
+        <file>formula_and_transform_images/transf_spherical_pwr_fold.png</file>
+        <file>formula_and_transform_images/transf_fabs_add_multi.png</file>
     </qresource>
 </RCC>
