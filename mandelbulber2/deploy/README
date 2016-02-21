@@ -40,8 +40,8 @@ cd ..
 for gamepad support (which is optional and actually works only under Linux) there are needed additional packages:
 qt5base-private-dev, libsdl2-dev
 
-additionally you need to compile qtgamepad module (needed at least Qt5 5
-git clone http://code.qt.io/cgit/qt-labs/qtgamepad.git
+additionally you need to compile qtgamepad module (needed at least Qt5 5)
+git clone https://github.com/qtproject/qtgamepad
 cd qtgamepad
 qmake
 make

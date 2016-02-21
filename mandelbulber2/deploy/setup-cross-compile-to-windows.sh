@@ -90,7 +90,7 @@ cd ..
 cd ..
 
 # qtgamepad
-git clone http://code.qt.io/cgit/qt-labs/qtgamepad.git
+git clone https://github.com/qtproject/qtgamepad
 cd qtgamepad
 $MANDELBULBER_PREFIX/bin/qmake
 make -j8
