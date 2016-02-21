@@ -27,11 +27,19 @@
 #include "fractparams.hpp"
 #include <QtCore>
 
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
+#endif
+
+#include <math.h>
+
 #undef	MAX
 #define MAX(a, b)  (((a) > (b)) ? (a) : (b))
 
 #undef	MIN
 #define MIN(a, b)  (((a) < (b)) ? (a) : (b))
+
+
 
 struct sVectorsAround
 {

@@ -86,6 +86,14 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/render_queue.cpp\
 			../src/render_ssao.cpp\
 			../src/render_window.cpp\
+			../src/render_window_automated_widgets.cpp\
+			../src/render_window_buttons.cpp\
+			../src/render_window_camera.cpp\
+			../src/render_window_menu.cpp\
+			../src/render_window_gamepad.cpp\
+			../src/render_window_netrender.cpp\
+			../src/render_window_slots.cpp\
+			../src/render_window_textures.cpp\
 			../src/render_worker.cpp\
 			../src/rendering_configuration.cpp\
 			../src/scheduler.cpp\
