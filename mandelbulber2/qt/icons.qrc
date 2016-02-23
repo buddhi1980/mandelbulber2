@@ -199,5 +199,12 @@
         <file>formula_and_transform_images/transf_sphere_invC.png</file>
         <file>formula_and_transform_images/transf_spherical_pwr_fold.png</file>
         <file>formula_and_transform_images/transf_fabs_add_multi.png</file>
+        <file>formula_and_transform_images/transf_addition_constant_4D.png</file>
+        <file>formula_and_transform_images/transf_box_fold_4D.png</file>
+        <file>formula_and_transform_images/transf_fabs_add_constant_4D.png</file>
+        <file>formula_and_transform_images/transf_fabs_add_constantV2_4D.png</file>
+        <file>formula_and_transform_images/transf_iteration_weight_4D.png</file>
+        <file>formula_and_transform_images/transf_scale_4D.png</file>
+        <file>formula_and_transform_images/transf_spherical_fold_4D.png</file>
     </qresource>
 </RCC>
