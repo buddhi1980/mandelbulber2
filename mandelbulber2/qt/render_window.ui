@@ -1624,7 +1624,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-502</y>
           <width>202</width>
           <height>838</height>
          </rect>
@@ -2630,7 +2630,7 @@ to target:</string>
                       <double>90.000000000000000</double>
                      </property>
                      <property name="singleStep">
-                      <double>5.000000000000000</double>
+                      <double>1.000000000000000</double>
                      </property>
                      <property name="value">
                       <double>15.000000000000000</double>
@@ -17891,7 +17891,7 @@ Disables 'Update image' options)</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>320</width>
+                  <width>210</width>
                   <height>482</height>
                  </rect>
                 </property>

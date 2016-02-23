@@ -1304,7 +1304,7 @@ bool SaveTIFF(QString filename, cImage* image, structSaveImageChannel imageChann
 			break;
 	}
 
-	int samplesPerPixel;
+	int samplesPerPixel = IMAGE_CONTENT_COLOR;
 	switch (imageChannel.contentType)
 	{
 		case IMAGE_CONTENT_COLOR:

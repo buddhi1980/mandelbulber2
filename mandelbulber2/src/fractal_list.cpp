@@ -305,7 +305,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					menger_sponge,
 																					analyticDEType,
 																					linearDEFunction,
-                                          cpixelAlreadyHas,
+                                          cpixelDisabledByDefault,
 																					10));
 
   fractalList->append(sFractalDescription("Menger-Mod1",

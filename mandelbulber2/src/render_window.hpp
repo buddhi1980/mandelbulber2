@@ -172,6 +172,8 @@ private slots:
 	void slotUpdateDocksandToolbarbyAction();
 	void slotUpdateDocksandToolbarbyView();
 	void slotStackAllDocks();
+
+	//toolbar
 	void slotPopulateToolbar(bool completeRefresh = false);
 	void slotPresetAddToToolbar();
 

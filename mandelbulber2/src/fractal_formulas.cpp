@@ -2735,7 +2735,7 @@ void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtende
   }
 }
 
-void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal)
 {
   if (z.x > 0)
     z.x = z.x + fractal->transformCommon.additionConstant000.x;
