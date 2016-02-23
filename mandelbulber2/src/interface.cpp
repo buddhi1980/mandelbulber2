@@ -2539,6 +2539,11 @@ void cInterface::SetByMouse(CVector2<double> screenPoint, Qt::MouseButton button
 					gPar->Set("meas_distance_from_last", distanceFromLast);
 					gPar->Set("meas_distance_from_camera", distanceFromCamera);
 					SynchronizeInterfaceWindow(mainWindow->ui->dockWidget_measurement, gPar, cInterface::write);
+					if(!mainWindow->ui->actionShow_measurement_dock->isChecked())
+					{
+						mainWindow->ui->actionShow_measurement_dock->setChecked(true);
+						mainWindow->slotUpdateDocksandToolbarbyAction();
+					}
 					break;
 				}
 			}
