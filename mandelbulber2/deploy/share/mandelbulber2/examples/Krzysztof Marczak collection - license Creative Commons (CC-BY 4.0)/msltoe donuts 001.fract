@@ -1,0 +1,54 @@
+# Mandelbulber settings file
+# version 2.07
+# only modified parameters
+[main_parameters]
+aux_light_colour_1 ff00 8200 1c00;
+aux_light_enabled_1 true;
+aux_light_intensity_1 9,332540000000001e-05;
+aux_light_position_1 0,7301309027141474 0,03988412726053243 -0,6704765903243346;
+aux_light_visibility 3,46737;
+aux_light_visibility_size 0,630957;
+background_color_1 2300 2300 7800;
+background_color_2 0000 0000 0000;
+background_color_3 3400 0d00 4800;
+brightness 1,58;
+camera 0,7267813945924951 0,06263990842857148 -0,684559308543468;
+camera_distance_to_target 0,01239276721888785;
+camera_rotation -137,3670568687526 51,26502187660356 157,4750256973379;
+camera_top 0,2061821439420917 -0,7895712801905146 -0,5779845300851525;
+DE_factor 0,239883;
+detail_level 0,2;
+flight_last_to_render 0;
+formula_1 82;
+fresnel_reflectance true;
+gamma 0,72;
+hdr true;
+image_height 2400;
+image_width 3200;
+keyframe_last_to_render 0;
+N 100;
+raytraced_reflections true;
+reflect 2;
+reflections_max 2;
+target 0,7320334356414955 0,05693494359072902 -0,6748923482994131;
+transparency_interior_color 0000 1500 1500;
+transparency_of_interior 0,74131;
+transparency_of_surface 0,85;
+view_distance_max 12,42652880693021;
+volumetric_fog_colour_1_distance 0,002876151532092547;
+volumetric_fog_colour_2_distance 0,005752303064185093;
+volumetric_fog_density 0,0776247;
+volumetric_fog_distance_factor 0,005752303064185093;
+volumetric_fog_enabled true;
+[fractal_1]
+donut_factor 2;
+donut_number 3;
+donut_ring_thickness 0,101;
+[fractal_2]
+[fractal_3]
+[fractal_4]
+[fractal_5]
+[fractal_6]
+[fractal_7]
+[fractal_8]
+[fractal_9]
