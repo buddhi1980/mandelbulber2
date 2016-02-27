@@ -409,7 +409,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					riemannSphereMsltoe,
 																					deltaDEType,
 																					logarithmicDEFunction,
-                                          cpixelEnabledByDefault,
+                                          cpixelDisabledByDefault,
                                           1.5));
 
 	fractalList->append(sFractalDescription("Riemann Sphere Msltoe V1",
@@ -417,7 +417,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					riemannSphereMsltoeV1,
 																					deltaDEType,
 																					logarithmicDEFunction,
-                                          cpixelEnabledByDefault,
+																					cpixelDisabledByDefault,
 																					10));
 
 	fractalList->append(sFractalDescription("Smooth Mandelbox",

@@ -1949,6 +1949,8 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
   z *= w;
 
   z += fractal->transformCommon.additionConstant000;
+
+
 }
 
 //RiemannSphereMsltoe     Variation1----------------------------------
