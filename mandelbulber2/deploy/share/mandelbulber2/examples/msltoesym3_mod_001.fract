@@ -1,0 +1,43 @@
+# Mandelbulber settings file
+# version 2.07
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 0;
+aux_light_colour_1 ff00 9700 2000;
+aux_light_enabled_1 true;
+aux_light_intensity_1 2,13796e-07;
+aux_light_position_1 0,4634250833616439 -1,117967182925606 0,04857847383191713;
+aux_light_visibility 15;
+aux_light_visibility_size 0,162181;
+camera 0,4635895160697694 -1,118002387725331 0,04911600174897757;
+camera_distance_to_target 7,722115596673211e-05;
+camera_rotation 35,60365268323689 -72,43592635085263 18,04865801202675;
+camera_top -0,2758156340268386 0,917388078829143 0,2869230713075321;
+formula_1 68;
+fresnel_reflectance true;
+hdr true;
+image_height 1200;
+image_width 1600;
+keyframe_last_to_render 0;
+raytraced_reflections true;
+reflect 1;
+target 0,4635759495372228 -1,117983440745236 0,04904238063740768;
+transparency_index_of_refraction 3;
+view_distance_max 10,3421363321595;
+volumetric_fog_colour_1_distance 5,044238721644066e-06;
+volumetric_fog_colour_2_distance 1,008847744328813e-05;
+volumetric_fog_density 0,0074131;
+volumetric_fog_distance_factor 1,008847744328813e-05;
+volumetric_fog_enabled true;
+[fractal_1]
+mandelbox_scale -2;
+transf_function_enabled_false true;
+[fractal_2]
+[fractal_3]
+[fractal_4]
+[fractal_5]
+[fractal_6]
+[fractal_7]
+[fractal_8]
+[fractal_9]
