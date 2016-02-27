@@ -1985,12 +1985,10 @@ void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
   z = CVector3(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z);
 
-  CVector3 temp = z;
-  double tempL = temp.Length();
+  double tempL = z.Length();
   z *= fractal->transformCommon.constantMultiplier122; // mult. scale (1,2,2)
   if (tempL < 1e-21) tempL = 1e-21;
-  double avgScale = z.Length()/tempL;
-  //aux.r_dz *= avgScale * fractal->transformCommon.scaleA1;
+  double avgScale = CVector3(z.x, z.y / 2.0, z.z / 2.0).Length() / tempL;
   double tempAux = aux.r_dz * avgScale;
   aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
 
