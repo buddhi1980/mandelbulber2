@@ -282,7 +282,7 @@ void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux)
 
 /**
  * Xenodreambuie
- * @reference ????
+ * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/273/
  */
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {

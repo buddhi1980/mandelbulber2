@@ -86,9 +86,11 @@ void RenderWindow::slotMenuAboutThirdParty()
 {
   QString text = "<h2>Third Party</h2>";
   text += "<ul>";
-  text +=
-      " <li><b>Dark Skin</b> based on <br><a href=\"https://gist.github.com/QuantumCD/6245215\">gist.github.com/QuantumCD/6245215</a><br>thanks to QuantumCD</li>";
-  text += "</ul>";
+	text += " <li><b>Dark Skin</b> based on <br>";
+	text += "		<a href=\"https://gist.github.com/QuantumCD/6245215\">gist.github.com/QuantumCD/6245215</a><br>thanks to QuantumCD</li><br>";
+	text += " <li><b>Code highlighting in ui files</b><br>generated with<br>";
+	text += "		<a href=\"http://www.andre-simon.de/doku/highlight/highlight.php\">highlight</a><br>thanks to André Simon</li>";
+	text += "</ul>";
   QMessageBox::about(this, "About Third Party", text);
 }
 
