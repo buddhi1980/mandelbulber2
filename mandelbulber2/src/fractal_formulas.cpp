@@ -715,6 +715,7 @@ void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
+ * LkmitchIteration
  * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
  */
 void LkmitchIteration(CVector3 &z)
@@ -1126,8 +1127,10 @@ void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
 
-//benesiFastPwr2PineTree  3D
-//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+/**
+ * benesiFastPwr2PineTree  3D
+ * @reference http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ */
 void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   CVector3 temp = z;
@@ -1145,8 +1148,10 @@ void BenesiPineTreeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, 
   aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }
 
-//benesiT1PineTree  3D
-//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+/**
+ * benesiT1PineTree 3D
+ * @reference http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ */
 void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   if (fractal->transformCommon.benesiT1Enabled && i >= fractal->transformCommon.startIterations
@@ -1199,6 +1204,9 @@ void BenesiT1PineTreeIteration(CVector3 &z, CVector3 &c, int i, const cFractal *
   aux.r_dz = aux.r * aux.r_dz * 2.0 + 1.0;
 }
 
+/**
+ * Modified Mandelbox (ABox) formula
+ */
 void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtendedAux &aux)
 {
   if (i >= fractal->transformCommon.startIterations && i < fractal->transformCommon.stopIterations)
@@ -1295,7 +1303,10 @@ void FoldBoxMod1Iteration(CVector3 &z, int &i, const cFractal *fractal, sExtende
   }
 }
 
-//IQ-Bulb http://iquilezles.org/www/articles/mandelbulb/mandelbulb.htm
+/**
+ * IQ-Bulb from Mandelbulb 3D and Inigo Quilez
+ * @reference http://iquilezles.org/www/articles/mandelbulb/mandelbulb.htm
+ */
 void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   // extract polar coordinates
@@ -1320,16 +1331,14 @@ void IQbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   z *= wr;  // then add Cpixel constant
 }
 
-
-
-// ----------Kalisets1
-/*Based on Kalisets1 and KaliDucks, from Mandelbulb 3D, and refer  Formula proposed by Kali, with features added by Darkbeam.
- and refer
-http://www.fractalforums.com/new-theories-and-research/very-simple-formula-for-fractal-patterns
-M3D notes:
-Try out julias and low R_bailout values of 2 down to 1!
-You might have to cutoff at z=0 or so, to see something.*/
-
+/**
+ * Based on Kalisets1 and KaliDucks, from Mandelbulb 3D, and refer Formula proposed by Kali, with features added by Darkbeam.
+ *
+ * <b>M3D notes:</b>
+ * Try out julias and low R_bailout values of 2 down to 1!
+ * You might have to cutoff at z=0 or so, to see something.
+ * @reference http://www.fractalforums.com/new-theories-and-research/very-simple-formula-for-fractal-patterns
+ */
 void Kalisets1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   z = fabs(z);
@@ -1355,7 +1364,9 @@ void Kalisets1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExte
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
 
-// mandelbulbMulti 3D
+/**
+ * mandelbulbMulti 3D
+ */
 void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r = z.Length();
@@ -1422,7 +1433,9 @@ void MandelbulbMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
   z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 }
 
-// mandelbulb vary scaleV1
+/**
+ * mandelbulb vary scaleV1
+ */
 void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   double tempVC = fractal->bulb.power;   // constant to be varied
@@ -1456,7 +1469,9 @@ void MandelbulbVaryPowerV1Iteration(CVector3 &z, int i, const cFractal *fractal,
   z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 }
 
-// ----------menger Mod1
+/**
+ * Menger Sponge formula modified by Mclarekin
+ */
 void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   double tempMS;
@@ -1511,8 +1526,9 @@ void MengerMod1Iteration( CVector3 &z, int i, const cFractal *fractal, sExtended
   }
 }
 
-/* Msltoe Donut formula
- * ref: http://www.fractalforums.com/new-theories-and-research/low-hanging-dessert-an-escape-time-donut-fractal/msg90171/#msg90171
+/**
+ * Msltoe Donut formula
+ * @reference http://www.fractalforums.com/new-theories-and-research/low-hanging-dessert-an-escape-time-donut-fractal/msg90171/#msg90171
  */
 void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -1550,7 +1566,10 @@ void MsltoeDonutIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
   aux.color += theta2;
 }
 
-// MsltoeSym2Mod   Based on the formula from Mandelbulb3D.also refer  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
+/**
+ * MsltoeSym2Mod based on the formula from Mandelbulb3D
+ * @reference http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
+ */
 void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -1612,7 +1631,10 @@ void MsltoeSym2ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
-// MsltoeSym3Mod   Based on the formula from Mandelbulb3D. also refer  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
+/**
+ * MsltoeSym2Mod based on the formula from Mandelbulb3D
+ * @reference http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
+ */
 void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -1691,8 +1713,10 @@ void MsltoeSym3ModIteration(CVector3 &z,CVector3 &c, int i, const cFractal *frac
   }
 }
 
-//--MsltoeJuliaBulb Eiffie.Refer post by Eiffie    Reply #69 on: January 27, 2015
-//http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
+/**
+ * MsltoeJuliaBulb Eiffie. Refer post by Eiffie    Reply #69 on: January 27, 2015
+ * @reference http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/60/
+ */
 void EiffieMsltoeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   double psi = fabs(fmod(atan2(z.z, z.y) + M_PI + M_PI_8,  M_PI_4) - M_PI_8);
@@ -1743,7 +1767,10 @@ void EiffieMsltoeIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sE
 
 }
 
-//  Msltoe_Julia_Bulb_Mod2  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/msg14198/#msg14198
+/**
+ * Msltoe_Julia_Bulb_Mod2
+ * @reference http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/msg14198/#msg14198
+ */
 void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -1810,7 +1837,10 @@ void MsltoeSym3Mod2Iteration(CVector3 &z,CVector3 &c, const cFractal *fractal, s
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
-// Msltoe_Julia_Bulb_Mod3  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/msg14320/#msg14320
+/**
+ * Msltoe_Julia_Bulb_Mod3
+ * @reference http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/msg14320/#msg14320
+ */
 void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -1900,7 +1930,10 @@ void MsltoeSym3Mod3Iteration(CVector3 &z,CVector3 &c, int i, const cFractal *fra
   }
 }
 
-// MsltoeSym4Mod  Based on the formula from Mandelbulb3D.also refer  http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
+/**
+ * MsltoeSym4Mod  Based on the formula from Mandelbulb3D
+ * @reference http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
+ */
 void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -1982,8 +2015,10 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
-//RiemannSphereMsltoe----------------------------------
-//http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500
+/**
+ * RiemannSphereMsltoe
+ * @reference http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500
+ */
 void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
 {
   if (fractal->transformCommon.rotationEnabled)
@@ -2024,8 +2059,10 @@ void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal)
 
 }
 
-//RiemannSphereMsltoe     Variation1----------------------------------
-//  http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/
+/**
+ * RiemannSphereMsltoe Variation1
+ * @reference http://www.fractalforums.com/new-theories-and-research/revisiting-the-riemann-sphere-%28again%29/
+ */
 void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
 {
   double r = z.Length();
@@ -2052,7 +2089,10 @@ void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
   z += fractal->transformCommon.additionConstant000;
 }
 
-// --------quaternion3DE--------------
+/**
+ * Quaternion3DE - Quaternion fractal with extended controls
+ * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/
+ */
 void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -2071,8 +2111,10 @@ void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &a
   z += fractal->transformCommon.additionConstant000; // addition of constant (0,0,0)
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------
-/* GeneralizedFoldBox, ref: http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/ */
+/**
+ * GeneralizedFoldBoxIteration - Quaternion fractal with extended controls
+ * @reference http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/
+ */
 void GeneralizedFoldBoxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   int i;

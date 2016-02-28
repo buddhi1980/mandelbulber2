@@ -2,6 +2,11 @@
 #
 # this file generates the information boxes in the ui from the source code
 # requires highlight package and php (apt-get install highlight php5-cli)
+# 
+# on default this script runs dry, 
+# it will try to parse all formulas and show which ui files would be modified
+# this should always be run first, to see if any issues occur
+# if you invoke this script with "nondry" as cli argument it will write changes to ui files
 #
 
 <?php
@@ -71,9 +76,12 @@ foreach($formula_matches[0] as $key => $formulaMatch){
 
 foreach($formulas as $index => $formula){
 	$formattedEscapedCode = getFormatCode($formula['code']);
+	// remove hardcoded font-size, to use system defined font-size
+	$formattedEscapedCode = str_replace ('font-size:10pt;', '', $formattedEscapedCode);
+
 	$comment = $formula['comment'];
 	if(!empty($comment['description'])){
-		$informationText = '<p>' . implode(' ', $comment['description']) . '</p>';
+		$informationText = '<p>' . implode('<br>', $comment['description']) . '</p>';
 	}
 	$informationText .= "<table>" . PHP_EOL;
 	// $informationText .= "<tr><th>Name</th><td>" . $formula['name'] . "</td></tr>" . PHP_EOL;
