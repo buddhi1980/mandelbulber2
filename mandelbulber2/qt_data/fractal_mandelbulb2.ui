@@ -64,42 +64,51 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Fractal formula created by Buddhi&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Code:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; text-decoration: underline;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  aux.r_dz = aux.r_dz * 2.0 * aux.r;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  double temp, tempR;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  tempR = sqrt(z.x * z.x + z.y * z.y + 1e-021);&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z *= (1.0 / tempR);&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  temp = z.x * z.x - z.y * z.y;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z.y = 2.0 * z.x * z.y;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z.x = temp;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z *= tempR;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  tempR = sqrt(z.y * z.y + z.z * z.z);&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z *= (1.0 / tempR);&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  temp = z.y * z.y - z.z * z.z;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z.z = 2.0 * z.y * z.z;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z.y = temp;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z *= tempR;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  tempR = sqrt(z.x * z.x + z.z * z.z);&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z *= (1.0 / tempR);&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  temp = z.x * z.x - z.z * z.z;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z.z = 2.0 * z.x * z.z;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z.x = temp;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z *= tempR;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z = z * aux.r;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;p&gt;Fractal formula created by Buddhi&lt;/p&gt;&lt;table&gt;
+&lt;/table&gt;
+&lt;h3&gt;Code&lt;/h3&gt;
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=ISO-8859-1&quot;&gt;
+&lt;title&gt;Source file&lt;/title&gt;
+&lt;/head&gt;
+&lt;body style=&quot;background-color:#202020&quot;&gt;
+&lt;pre style=&quot;color:#d0d0d0; background-color:#202020; font-size:10pt; font-family:'Courier New';&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;Mandelbulb2Iteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
+  aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r_dz &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r_dz &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;2.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+
+  &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; temp&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; tempR&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  tempR &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;+&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;1e-021&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+  z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*= (&lt;/span&gt;&lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/&lt;/span&gt; tempR&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+  temp &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;2.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; temp&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; tempR&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+
+  tempR &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;+&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+  z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*= (&lt;/span&gt;&lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/&lt;/span&gt; tempR&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+  temp &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;2.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; temp&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; tempR&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+
+  tempR &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;+&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+  z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*= (&lt;/span&gt;&lt;span style=&quot;color:#87df71&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;/&lt;/span&gt; tempR&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+  temp &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;2.0&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; temp&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; tempR&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+
+  z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; aux&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;r&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;!--HTML generated by highlight 3.9, http://www.andre-simon.de/--&gt;
+</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

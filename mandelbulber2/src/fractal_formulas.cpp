@@ -35,6 +35,10 @@
 
 using namespace fractal;
 
+/**
+ * Classic Mandelbulb fractal.
+ * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/
+ */
 void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   if (aux.r < 1e-21) aux.r = 1e-21;
@@ -49,9 +53,9 @@ void MandelbulbIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux
   z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * rp;
 }
 
-/*
+/**
  * Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
- * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ * @reference http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  */
 void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -172,6 +176,9 @@ void MandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 }
 
+/**
+ * Fractal formula created by Buddhi
+ */
 void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -201,6 +208,9 @@ void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux)
   z = z * aux.r;
 }
 
+/**
+ * Fractal formula created by Buddhi
+ */
 void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -231,6 +241,9 @@ void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
   z = z * aux.r;
 }
 
+/**
+ * Fractal formula created by Buddhi
+ */
 void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double rp = pow(aux.r, fractal->bulb.power - 1);
@@ -248,6 +261,10 @@ void Mandelbulb4Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
   z = rotM.RotateVector(z) * rp;
 }
 
+/**
+ * Classic Mandelbulb Power 2 fractal
+ * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/
+ */
 void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -285,7 +302,10 @@ void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &
 	z.z = rp * cos(ph * fractal->bulb.power);
 }
 
-//ref: http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
+/**
+ * Menger Sponge formula created by Knighty
+ * @reference http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
+ */
 void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux)
 {
   double temp;
@@ -321,7 +341,10 @@ void MengerSpongeIteration(CVector3 &z, sExtendedAux &aux)
   aux.DE *= 3.0;
 }
 
-//http://www.fractalforums.com/3d-fractal-generation/mandelbox-with-'smooth'-conditions/
+/**
+ * Smooth Mandelbox created by Buddhi
+ * @reference http://www.fractalforums.com/3d-fractal-generation/mandelbox-with-'smooth'-conditions/
+ */
 void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double sm = fractal->mandelbox.sharpness;
@@ -364,6 +387,9 @@ void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux
   aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 }
 
+/**
+ * Hybrid of Mandelbox and Mandelbulb power 2 with scaling of z axis
+ */
 void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal)
 {
   if (z.x > fractal->foldingIntPow.foldfactor)
@@ -413,7 +439,10 @@ void BoxFoldBulbPow2Iteration(CVector3 &z, const cFractal *fractal)
   //INFO remark: changed sequence of operation. adding of C constant was before multiplying by z-factor
 }
 
-//ref: http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
+/**
+ * Kaleidoscopic Iterated Function Systems (IFS)
+ * @reference http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
+ */
 void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   if (fractal->IFS.absX)
@@ -464,8 +493,10 @@ void KaleidoscopicIFSIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
   aux.DE *= fractal->IFS.scale;
 }
 
-//Aexion's Quadray Sets from FractalForums:
-//http://www.fractalforums.com/the-3d-mandelbulb/quadray-sets/msg31458/#msg31458
+/**
+ * Aexion's Quadray Sets from FractalForums
+ * @reference http://www.fractalforums.com/the-3d-mandelbulb/quadray-sets/msg31458/#msg31458
+ */
 void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   if (i == 0)
@@ -497,8 +528,10 @@ void AexionIteration(CVector3 &z, double &w, int i, const cFractal *fractal, sEx
   w = tempw;
 }
 
-//3D Mandelbrot formula invented by David Makin
-//http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/msg7235/#msg7235
+/**
+ * 3D Mandelbrot formula invented by David Makin
+ * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/msg7235/#msg7235
+ */
 void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -510,6 +543,10 @@ void HypercomplexIteration(CVector3 &z, double &w, sExtendedAux &aux)
   w = neww;
 }
 
+/**
+ * Quaternion fractal
+ * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/
+ */
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -522,7 +559,10 @@ void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux)
   w = neww;
 }
 
-//Bnenesi's formula (http://www.fractalforums.com/index.php?action=profile;u=1170)
+/**
+ * Formula invented by Benesi
+ * @reference http://www.fractalforums.com/index.php?action=profile;u=1170
+ */
 void BenesiIteration(CVector3 &z, CVector3 &c, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -545,6 +585,9 @@ void BenesiIteration(CVector3 &z, CVector3 &c, sExtendedAux &aux)
   z.z = newz;
 }
 
+/**
+ * Bristorbrot formula
+ */
 void BristorbrotIteration(CVector3 &z, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -556,8 +599,10 @@ void BristorbrotIteration(CVector3 &z, sExtendedAux &aux)
   z.z = newz;
 }
 
-//From M3D. A formula made by Trafassel, the original Ide's Formula thread:
-//http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/
+/**
+ * From M3D. A formula made by Trafassel, the original Ide's Formula thread
+ * @reference http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/
+ */
 void IdesIteration(CVector3 &z, const cFractal *fractal)
 {
   if (fabs(z.x) < 2.5) z.x = z.x * .9;
@@ -573,6 +618,10 @@ void IdesIteration(CVector3 &z, const cFractal *fractal)
   z = newZ;
 }
 
+/**
+ * From M3D. A formula made by Trafassel, the original Ide's Formula thread
+ * @reference http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/
+ */
 void Ides2Iteration(CVector3 &z, const cFractal *fractal)
 {
   CVector3 z2 = z * z;
@@ -585,6 +634,9 @@ void Ides2Iteration(CVector3 &z, const cFractal *fractal)
   z = newZ + z;
 }
 
+/**
+ * Buffalo fractal
+ */
 void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
@@ -625,7 +677,10 @@ void BuffaloIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
     z.z = newz;
 }
 
-/* From M3D and http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
+/**
+ * From M3D
+ * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
+ */
 void QuickDudleyIteration(CVector3 &z)
 {
   double x2 = z.x * z.x;
@@ -639,7 +694,10 @@ void QuickDudleyIteration(CVector3 &z)
   z.z = newz;
 }
 
-/*« http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
+/**
+ * From M3D
+ * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
+ */
 void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal)
 {
   double x2 = z.x * z.x;
@@ -656,7 +714,9 @@ void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal)
   z.z = newz;
 }
 
-/* http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/ */
+/**
+ * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
+ */
 void LkmitchIteration(CVector3 &z)
 {
   double x2 = z.x * z.x;
@@ -670,8 +730,9 @@ void LkmitchIteration(CVector3 &z)
   z.z = newz;
 }
 
-/* Makin3D-2 found through the another shot at the holy grail topic at ff
- * http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
+/**
+ * Makin3D-2 found through the another shot at the holy grail topic at ff
+ * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
  */
 void Makin3D2Iteration(CVector3 &z)
 {
@@ -687,8 +748,11 @@ void Makin3D2Iteration(CVector3 &z)
 }
 
 // NEW FORMULAS-----------------------------------------------------------------
-//ABoxMod1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums:
-//http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+
+/**
+ * ABoxMod1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums
+ * @reference http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+ */
 void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.actualScale = aux.actualScale
@@ -728,9 +792,10 @@ void AboxMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   aux.DE = aux.DE * fabs(m) + 1.0;
 }
 
-//ABoxMod2,  Based on a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums:
-//http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
-
+/**
+ * ABoxMod2, Based on a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums
+ * @reference http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+ */
 void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -772,9 +837,10 @@ void AboxMod2Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   aux.DE = aux.DE * fabs(m) + 1.0;
 }
 
-//------------AboxModKali  --------------------------------
-//ABoxModKali, a formula from Mandelbulb3D
-//http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+/**
+ * ABoxModKali, a formula from Mandelbulb3D
+ * @reference http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+ */
 void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   z = fractal->transformCommon.additionConstant0555 - fabs(z);
@@ -793,9 +859,10 @@ void AboxModKaliIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &au
   aux.DE = aux.DE * fabs(m) + 1.0;
 }
 
-//ABoxVS_icen1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums;
-//http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
-
+/**
+ * ABoxVS_icen1, a formula from Mandelbulb3D.  Inspired from a 2D formula proposed by Kali at Fractal Forums
+ * @reference http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+ */
 void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.actualScale = aux.actualScale
@@ -847,10 +914,10 @@ void AboxVSIcen1Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sEx
   }
 }
 
-
-//------------AexionOctopus  M3D--------------------------------
-//aexion octopus. Based on Aex_Octo from Mandelbulber3D
-//http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+/**
+ * aexion octopus. Based on Aex_Octo from Mandelbulber3D
+ * @reference http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ */
 void AexionOctopusModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   CVector3 tempN;
@@ -902,7 +969,10 @@ void AexionOctopusModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal
   }
 }
 
-//amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
+/**
+ * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
+ * @reference ????
+ */
 void AmazingSurfIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
   aux.actualScale = aux.actualScale
@@ -946,9 +1016,10 @@ void AmazingSurfIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &a
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
 
-
-//. Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali, with features added by Darkbeam
-
+/**
+ * Based on Amazing Surf Mod 1 from Mandelbulber3D, a formula proposed by Kali, with features added by Darkbeam
+ * @reference ????
+ */
 void AmazingSurfMod1Iteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   aux.actualScale = aux.actualScale

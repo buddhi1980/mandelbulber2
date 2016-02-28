@@ -874,64 +874,74 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;aexion octopus. Based on Aex_Octo from Mandelbulber3D&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#e85290;&quot;&gt;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Code:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; text-decoration: underline;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  CVector3 tempN;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  tempN.x = z.x * z.z * fractal-&amp;gt;transformCommon.scale3D111.x;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  tempN.y = (z.x * z.x - z.z * z.z) * fractal-&amp;gt;transformCommon.scale3D111.y;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  tempN.z = z.y;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  if (fractal-&amp;gt;transformCommon.functionEnabledAx)&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    tempN.x = fabs(tempN.x);&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  if (fractal-&amp;gt;transformCommon.functionEnabledAy)&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    tempN.y = fabs(tempN.y);&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  if (fractal-&amp;gt;transformCommon.functionEnabledAz)&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    tempN.z = fabs(tempN.z);&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z = tempN;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  if (fractal-&amp;gt;transformCommon.rotationEnabled)&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    z = fractal-&amp;gt;transformCommon.rotationMatrix.RotateVector(z);&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z += fractal-&amp;gt;transformCommon.additionConstant000;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  if (fractal-&amp;gt;transformCommon.addCpixelEnabledFalse)&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  {&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    CVector3 tempFAB = c;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    if (fractal-&amp;gt;transformCommon.functionEnabledx)&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;      tempFAB.x = fabs(tempFAB.x);&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    if (fractal-&amp;gt;transformCommon.functionEnabledy)&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;      tempFAB.y = fabs(tempFAB.y);&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    if (fractal-&amp;gt;transformCommon.functionEnabledz)&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;      tempFAB.z = fabs(tempFAB.z);&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    tempFAB *= fractal-&amp;gt;transformCommon.constantMultiplier000;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    if (z.x &amp;gt; 0)&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;      z.x += tempFAB.x;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    else&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;      z.x -= tempFAB.x;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    if (z.y &amp;gt; 0)&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;      z.y += tempFAB.y;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    else&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;      z.y -= tempFAB.y;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    if (z.z &amp;gt; 0)&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;      z.z += tempFAB.z;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;    else&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;      z.z -= tempFAB.z;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  }&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;p&gt;aexion octopus. Based on Aex_Octo from Mandelbulber3D&lt;/p&gt;&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&quot;&gt;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3&gt;Code&lt;/h3&gt;
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=ISO-8859-1&quot;&gt;
+&lt;title&gt;Source file&lt;/title&gt;
+&lt;/head&gt;
+&lt;body style=&quot;background-color:#202020&quot;&gt;
+&lt;pre style=&quot;color:#d0d0d0; background-color:#202020; font-size:10pt; font-family:'Courier New';&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;AexionOctopusModIteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;c&lt;span style=&quot;color:#d0d0d0&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;const&lt;/span&gt; cFractal &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
+  CVector3 tempN&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  tempN&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale3D111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  tempN&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;= (&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;scale3D111&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  tempN&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+
+  &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledAx&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+    tempN&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;tempN&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+
+  &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledAy&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+    tempN&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;tempN&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+
+  &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledAz&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+    tempN&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;tempN&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+
+  z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; tempN&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+
+  &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;rotationEnabled&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+    z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;rotationMatrix&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#e47eed&quot;&gt;RotateVector&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+
+  z &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;additionConstant000&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+
+  &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;addCpixelEnabledFalse&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
+    CVector3 tempFAB &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; c&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledx&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+  tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+
+    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledy&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+  tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+
+    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;functionEnabledz&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+  tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;);&lt;/span&gt;
+
+    tempFAB &lt;span style=&quot;color:#d0d0d0&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#d0d0d0&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;constantMultiplier000&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;else&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;-=&lt;/span&gt; tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;else&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;-=&lt;/span&gt; tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;+=&lt;/span&gt; tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color:#7ec0ee; font-weight:bold&quot;&gt;else&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;-=&lt;/span&gt; tempFAB&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;!--HTML generated by highlight 3.9, http://www.andre-simon.de/--&gt;
+</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

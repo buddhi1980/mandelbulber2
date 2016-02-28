@@ -64,25 +64,36 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;From M3D and &lt;a href=&quot;http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#e85290;&quot;&gt;http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Code:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; text-decoration: underline;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  double x2 = z.x * z.x;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  double y2 = z.y * z.y;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  double z2 = z.z * z.z;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  double newx = x2 - 2 * z.y * z.z;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  double newy = z2 + 2 * z.x * z.y;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  double newz = y2 + 2 * z.x * z.z;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z.x = newx;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z.y = newy;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;  z.z = newz;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;p&gt;From M3D&lt;/p&gt;&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/&quot;&gt;http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3&gt;Code&lt;/h3&gt;
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=ISO-8859-1&quot;&gt;
+&lt;title&gt;Source file&lt;/title&gt;
+&lt;/head&gt;
+&lt;body style=&quot;background-color:#202020&quot;&gt;
+&lt;pre style=&quot;color:#d0d0d0; background-color:#202020; font-size:10pt; font-family:'Courier New';&quot;&gt;&lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#e47eed&quot;&gt;QuickDudleyIteration&lt;/span&gt;&lt;span style=&quot;color:#d0d0d0&quot;&gt;(&lt;/span&gt;CVector3 &lt;span style=&quot;color:#d0d0d0&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;)&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0d0&quot;&gt;{&lt;/span&gt;
+  &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; x2 &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; y2 &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; z2 &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; newx &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; x2 &lt;span style=&quot;color:#d0d0d0&quot;&gt;-&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;2&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; newy &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; z2 &lt;span style=&quot;color:#d0d0d0&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;2&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#f09479; font-weight:bold&quot;&gt;double&lt;/span&gt; newz &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; y2 &lt;span style=&quot;color:#d0d0d0&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#87df71&quot;&gt;2&lt;/span&gt; &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; newx&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; newy&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+  z&lt;span style=&quot;color:#d0d0d0&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#d0d0d0&quot;&gt;=&lt;/span&gt; newz&lt;span style=&quot;color:#d0d0d0&quot;&gt;;&lt;/span&gt;
+&lt;span style=&quot;color:#d0d0d0&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;!--HTML generated by highlight 3.9, http://www.andre-simon.de/--&gt;
+</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
