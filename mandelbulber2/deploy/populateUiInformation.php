@@ -135,7 +135,7 @@ else{
 
 function getFormatCode($code){
 	$cmd = "echo " . escapeshellarg($code);
-	$cmd .= " | sed 's/      /  /g' "; // replace tab with double space
+	$cmd .= " | sed 's/	/  /g' "; // replace tab with double space
 	$cmd .= " | highlight -O html --style moria --inline-css --syntax cpp";
 	return shell_exec($cmd);
 }
