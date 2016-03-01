@@ -134,8 +134,10 @@ private slots:
 	void slotCameraDistanceSlider(int value);
 	void slotMovementStepModeChanged(int index);
 
+	//fractal
 	void slotChangedCheckBoxHybridFractal(int state);
 	void slotChangedCheckBoxBooleanOperators(bool state);
+  void slotChangedCheckBoxJuliaMode(bool state);
 
 	//IFS
 	void slotPressedButtonIFSDefaultsDodecahedron();

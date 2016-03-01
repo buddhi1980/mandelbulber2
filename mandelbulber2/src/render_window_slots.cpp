@@ -229,6 +229,12 @@ void RenderWindow::slotChangedCheckBoxHybridFractal(int state)
   }
 
   ui->comboBox_delta_DE_function->setEnabled(state || ui->comboBox_delta_DE_method->currentIndex() == (int)fractal::forceDeltaDEMethod);
+
+  ui->label_fractals_remark_hybrid->setVisible(!state);
+  ui->label_repeat_from->setEnabled(state);
+  ui->sliderInt_repeat_from->setEnabled(state);
+  ui->spinboxInt_repeat_from->setEnabled(state);
+
   //ui->comboBox_delta_DE_method->setEnabled(!state);
 }
 
@@ -261,6 +267,11 @@ void RenderWindow::slotChangedCheckBoxBooleanOperators(bool state)
   }
 
   ui->comboBox_delta_DE_function->setEnabled(!state);
+}
+
+void RenderWindow::slotChangedCheckBoxJuliaMode(bool state)
+{
+  ui->label_fractals_remark_julia->setVisible(state);
 }
 
 void RenderWindow::slotChangedComboDistanceEstimationMethod(int index)

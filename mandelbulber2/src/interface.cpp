@@ -166,6 +166,10 @@ void cInterface::ShowUi(void)
 	mainWindow->ui->statusbar->addPermanentWidget(progressBarFrame);
 
 	mainWindow->ui->groupBox_netrender_client_config->setVisible(false);
+	mainWindow->ui->label_repeat_from->setEnabled(false);
+	mainWindow->ui->sliderInt_repeat_from->setEnabled(false);
+	mainWindow->ui->spinboxInt_repeat_from->setEnabled(false);
+	mainWindow->ui->label_fractals_remark_julia->setVisible(false);
 
 #ifndef USE_EXR
 	{
@@ -610,10 +614,14 @@ void cInterface::ConnectSignals(void)
 												SIGNAL(toggled(bool)),
 												mainWindow,
 												SLOT(slotChangedCheckBoxBooleanOperators(bool)));
+  QApplication::connect(mainWindow->ui->groupCheck_julia_mode,
+                        SIGNAL(toggled(bool)),
+                        mainWindow,
+                        SLOT(slotChangedCheckBoxJuliaMode(bool)));
 	QApplication::connect(mainWindow->ui->comboBox_delta_DE_method,
-													SIGNAL(currentIndexChanged(int)),
-													mainWindow,
-													SLOT(slotChangedComboDistanceEstimationMethod(int)));
+												SIGNAL(currentIndexChanged(int)),
+												mainWindow,
+												SLOT(slotChangedComboDistanceEstimationMethod(int)));
 
 	QApplication::connect(mainWindow->ui->scrollAreaForImage,
 												SIGNAL(resized(int, int)),
