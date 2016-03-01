@@ -280,6 +280,10 @@ void MandelbulbPower2Iteration(CVector3 &z, sExtendedAux &aux)
   z.z = newz;
 }
 
+/**
+ * Xenodreambuie
+ * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/273/
+ */
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	double rp = pow(aux.r, fractal->bulb.power - 1);
@@ -2391,14 +2395,20 @@ void SphericalFolding(CVector3 &z, const sFractalFoldings *foldings, sExtendedAu
 	}
 }
 
-//***************** NEW TRANSFORM FORMULAS ******************
+// NEW TRANSFORM FORMULAS-----------------------------------------------------------------
 
+/**
+ * Adds c constant to z vector
+ */
 void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal)
 {
   z += fractal->transformCommon.additionConstant000;
   z += fractal->transformCommon.additionConstantA000;
 }
 
+/**
+ * Adds c constant to z vector. C varies after every iteration.
+ */
 void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
 {
   CVector3 tempVC = fractal->transformCommon.additionConstant000;   // constant to be varied
@@ -2424,11 +2434,17 @@ void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal
   z += tempVC;
 }
 
+/**
+ * Adds c constant to z vector
+ */
 void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   z += c * fractal->transformCommon.constantMultiplier111;
 }
 
+/**
+ * Adds c constant to z vector with swaping x and y axes
+ */
 void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   if (fractal->transformCommon.functionEnabled)
@@ -2437,6 +2453,9 @@ void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 &c, const cFr
   z += c * fractal->transformCommon.constantMultiplier111;
 }
 
+/**
+ * Adds c constant to z vector. Possible to swap vector axes.
+ */
 void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   if (fractal->transformCommon.addCpixelEnabled)
@@ -2466,7 +2485,10 @@ void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFracta
     z += c * fractal->transformCommon.constantMultiplier111;
   }
 }
-// addCpixel Symmetrical Constant Multipier
+
+/**
+ * Adds c constant to z vector with symetry
+ */
 void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   if (fractal->transformCommon.addCpixelEnabled)
@@ -2502,6 +2524,9 @@ void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal 
   }
 }
 
+/**
+ * Adds c constant to z with a varying factor for each dimension based on the iteration count
+ */
 void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal)
 {
   CVector3 tempVC = fractal->transformCommon.constantMultiplier111;   // constant to be varied
@@ -2527,8 +2552,10 @@ void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 &c, int i, const cF
     z += c * tempVC;
 }
 
-//benesiT1  3D
-//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+/**
+ * benesiT1  3D
+ * @reference http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ */
 void TransformBenesiT1Iteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2557,8 +2584,10 @@ void TransformBenesiT1Iteration(CVector3 &z,  const cFractal *fractal, sExtended
   z = z - fractal->transformCommon.offset200;
 }
 
-//benesiT1Mod  3D based on benesiT1
-//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+/**
+ * benesiT1Mod  3D based on benesiT1
+ * @reference http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ */
 void TransformBenesiT1ModIteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2589,8 +2618,10 @@ void TransformBenesiT1ModIteration(CVector3 &z,  const cFractal *fractal, sExten
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
 
-//benesi T2
-//http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+/**
+ * benesi T2
+ * @reference http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ */
 void TransformBenesiT2Iteration(CVector3 &z,  const cFractal *fractal, sExtendedAux &aux)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2625,7 +2656,10 @@ void TransformBenesiT2Iteration(CVector3 &z,  const cFractal *fractal, sExtended
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
 
-// BensesiT3
+/**
+ * benesi T3
+ * @reference http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ */
 void TransformBenesiT3Iteration(CVector3 &z,  const cFractal *fractal)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2652,6 +2686,10 @@ void TransformBenesiT3Iteration(CVector3 &z,  const cFractal *fractal)
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
 
+/**
+ * benesi T4
+ * @reference http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ */
 void TransformBenesiT4Iteration(CVector3 &z,  const cFractal *fractal)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2670,6 +2708,10 @@ void TransformBenesiT4Iteration(CVector3 &z,  const cFractal *fractal)
     z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
 
+/**
+ * benesi T5
+ * @reference http://www.fractalforums.com/new-theories-and-research/do-m3d-formula-have-to-be-distance-estimation-formulas/
+ */
 void TransformBenesiT5bIteration(CVector3 &z,  const cFractal *fractal)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2706,6 +2748,9 @@ void TransformBenesiT5bIteration(CVector3 &z,  const cFractal *fractal)
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
 
+/**
+ * benesi mag forward
+ */
 void TransformBenesiMagForwardIteration(CVector3 &z)
 {
   double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
@@ -2714,6 +2759,9 @@ void TransformBenesiMagForwardIteration(CVector3 &z)
                z.x * SQRT_1_3 + z.z * SQRT_2_3);
 }
 
+/**
+ * benesi mag backward
+ */
 void TransformBenesiMagBackwardIteration(CVector3 &z)
 {
   double tempXZ = (z.y + z.x) * SQRT_1_2;
@@ -2722,9 +2770,11 @@ void TransformBenesiMagBackwardIteration(CVector3 &z)
                z.z * SQRT_2_3 - tempXZ * SQRT_1_3);
 }
 
-//Benesi Cube to sphere transform
-//Description: Warps a cube to a sphere; transform made by M.Benesi, optimized by Luca.
-//http://www.fractalforums.com/mathematics/circle2square/
+/**
+ * Benesi Cube to sphere transform
+ * Warps a cube to a sphere; transform made by M.Benesi, optimized by Luca.
+ * @reference http://www.fractalforums.com/mathematics/circle2square/
+ */
 void TransformBenesiCubeSphereIteration(CVector3 &z)
 {
   z *= z;       // so all now positive
@@ -2756,10 +2806,12 @@ void TransformBenesiCubeSphereIteration(CVector3 &z)
   z *= rCxyz / SQRT_3_2;
 }
 
-//sBenesi Sphere to Cube transform
-//Warps a sphere to a cube; transform made by M.Benesi, optimized by
-//Luca.  Scavenged and edited from code optimized by Luca.
-//http://www.fractalforums.com/mathematics/circle2square/
+/**
+ * Benesi Sphere to Cube transform
+ * Warps a sphere to a cube; transform made by M.Benesi, optimized by
+ * Luca.  Scavenged and edited from code optimized by Luca.
+ * @reference http://www.fractalforums.com/mathematics/circle2square/
+ */
 void TransformBenesiSphereCubeIteration(CVector3 &z)
 {
   z *= z;
@@ -2780,6 +2832,9 @@ void TransformBenesiSphereCubeIteration(CVector3 &z)
   z *= rCxyz * SQRT_3_2;
 }
 
+/**
+ * Box Fold
+ */
 void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   if (z.x > fractal->mandelbox.foldingLimit)
@@ -2814,6 +2869,9 @@ void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
   }
 }
 
+/**
+ * Box Fold XYZ
+ */
 void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   if (z.x > fractal->transformCommon.additionConstant111.x)
@@ -2848,6 +2906,9 @@ void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtende
   }
 }
 
+/**
+ * Box Offset
+ */
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal)
 {
   if (z.x > 0)
@@ -2866,7 +2927,9 @@ void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal)
     z.z = z.z - fractal->transformCommon.additionConstant000.z;
 }
 
-// fabs add  constant,  z = fabs( z + constant)
+/**
+ * fabs add  constant,  z = fabs( z + constant)
+ */
 void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
 {
   z += fractal->transformCommon.additionConstant000;
@@ -2881,14 +2944,18 @@ void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
     z.z = fabs(z.z);
 }
 
-// fabs.  Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
+/**
+ * fabs.  Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
+ */
 void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal)
 {
   z = fabs(z + fractal->transformCommon.additionConstant000)
       - fabs(z - fractal->transformCommon.additionConstant000) - z;
 }
 
-// fabs.  Negative fabs constant,  z = - fabs( z + constant)
+/**
+ * fabs.  Negative fabs constant,  z = - fabs( z + constant)
+ */
 void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
 {
   z += fractal->transformCommon.additionConstant000;
@@ -2902,7 +2969,9 @@ void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
     z.z = -fabs(z.z);
 }
 
-// fabs Multi
+/**
+ * fabs Multi
+ */
 void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
 {
   CVector3 tempA, tempB;
@@ -2932,6 +3001,9 @@ void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
   z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
 }
 
+/**
+ * fabs iteration weight
+ */
 void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal)
 {
   CVector3 zA, zB;
@@ -2949,7 +3021,9 @@ void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fract
       + (zB * fractal->transformCommon.offset0);
 }
 
- // A transform from Mandelbulb3D.
+/**
+ * A transform from Mandelbulb3D
+ */
 void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal)
 {
   CVector3 temp = c;
@@ -2961,6 +3035,9 @@ void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal)
   c.z = mulZ.x * temp.x + mulZ.y * temp.y + mulZ.z * temp.z;
 }
 
+/**
+ * multiple angle
+ */
 void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double th0 = asin(z.z / aux.r);
@@ -2971,7 +3048,10 @@ void TransformMultipleAngle(CVector3 &z, const cFractal *fractal, sExtendedAux &
   z = CVector3(cth * cos(ph), cth * sin(ph), sin(th)) * aux.r;
 }
 
-//http://www.fractalforums.com/3d-fractal-generation/platonic-dimensions/msg36528/#msg36528
+/**
+ * platonic solid
+ * @reference http://www.fractalforums.com/3d-fractal-generation/platonic-dimensions/msg36528/#msg36528
+ */
 void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
 {
   double rho = sqrt(z.Length()); // the radius
@@ -2983,6 +3063,9 @@ void TransformPlatonicSolidIteration(CVector3 &z, const cFractal *fractal)
   z *= r;
 }
 
+/**
+ * z(n+1) = z(n) * abs(z(n)) ^ p-1
+ */
 void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double rp = pow(aux.r, fractal->bulb.power - 1.0);
@@ -2991,11 +3074,17 @@ void TransformPowerR(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
   aux.DE *= rp;
 }
 
+/**
+ * rotation
+ */
 void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
 {
   z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
 
+/**
+ * rotation variation v1
+ */
 void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
 {
   CVector3 tempVC = fractal->transformCommon.rotation;   // constant to be varied
@@ -3022,6 +3111,9 @@ void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fracta
   z = z.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), tempVC.z);
 }
 
+/**
+ * scale
+ */
 void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   z *= fractal->transformCommon.scale;
@@ -3029,6 +3121,9 @@ void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
   aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 
+/**
+ * scale variation v1
+ */
 void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
   double tempVC = fractal->transformCommon.scale;   // constant to be varied
@@ -3051,6 +3146,9 @@ void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, 
   aux.r_dz *= fabs(tempVC);
 }
 
+/**
+ * scale 3d
+ */
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   z *= fractal->transformCommon.scale3D111;
@@ -3058,7 +3156,9 @@ void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
   aux.DE = aux.DE * z.Length() / aux.r + 1.0;
 }
 
-// A transform from Mandelbulb3D.
+/**
+ * inverted sphere - A transform from Mandelbulb3D.
+ */
 void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
   c *= fractal->transformCommon.constantMultiplier111;
@@ -3073,6 +3173,9 @@ void TransformSphereInvCIteration(CVector3 &z, CVector3 &c, const cFractal *frac
   z *= rSqrL;
 }
 
+/**
+ * spherical fold
+ */
 void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double r2 = z.Dot(z);
@@ -3092,6 +3195,9 @@ void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExte
   }
 }
 
+/**
+ * spherical fold with offset
+ */
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   double lengthTempZ = -z.Length();
@@ -3102,7 +3208,9 @@ void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sEx
   aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 
-
+/**
+ * spherical pwr fold
+ */
 void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
   if (z.x > -1e-21 && z.x < 1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
@@ -3129,6 +3237,9 @@ void TransformSphericalPwrFoldIteration(CVector3 &z, const cFractal *fractal, sE
   }
 }
 
+/**
+ * z vector - axis swap
+ */
 void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
 {
   switch (fractal->mandelbulbMulti.orderOfxyz)
@@ -3155,9 +3266,11 @@ void TransformZvectorAxisSwapIteration(CVector3 &z, const cFractal *fractal)
   }
 }
 
-
 //-------------------------------- 4D ----------------------------------------------
-// --------quaternion4D--------------
+
+/**
+ * Quaternion4D
+ */
 void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
 {
   double w0 = 0.0;
@@ -3173,6 +3286,9 @@ void Quaternion4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
   z4D += fractal->transformCommon.additionConstant0000;
 }
 
+/**
+ * Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale parameter.
+ */
 void MandelboxVaryScale4DIteration(CVector4 &z4D, int i,  const cFractal *fractal,
     sExtendedAux &aux)
 {
@@ -3220,11 +3336,17 @@ void MandelboxVaryScale4DIteration(CVector4 &z4D, int i,  const cFractal *fracta
   aux.DE = aux.DE * fabs(m) + 1.0;
 }
 
+/**
+ * Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale parameter.
+ */
 void TransformAdditionConstant4DIteration(CVector4 &z4D, const cFractal *fractal)
 {
   z4D += fractal->transformCommon.additionConstant0000;
 }
 
+/**
+ * box fold 4D
+ */
 void TransformBoxFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
   if (z4D.x > fractal->mandelbox.foldingLimit)
@@ -3269,7 +3391,9 @@ void TransformBoxFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtend
   }
 }
 
-// fabs add  constant,  z = fabs( z + constant)
+/**
+ * fabs add  constant,  z = fabs( z + constant)
+ */
 void TransformFabsAddConstant4DIteration(CVector4 &z4D, const cFractal *fractal)
 {
   z4D += fractal->transformCommon.additionConstant0000;
@@ -3287,13 +3411,18 @@ void TransformFabsAddConstant4DIteration(CVector4 &z4D, const cFractal *fractal)
     z4D.w = fabs(z4D.w);
 }
 
-// fabs.  Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
+/**
+ * fabs.  Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
+ */
 void TransformFabsAddConstantV24DIteration(CVector4 &z4D, const cFractal *fractal)
 {
   z4D = fabs(z4D + fractal->transformCommon.additionConstant0000)
       - fabs(z4D - fractal->transformCommon.additionConstant0000) - z4D;
 }
 
+/**
+ * iteration weight 4D
+ */
 void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *fractal)
 {
   CVector4 zA, zB;
@@ -3308,6 +3437,9 @@ void TransformIterationWeight4DIteration(CVector4 &z4D, int i, const cFractal *f
       + (zB * fractal->transformCommon.offset0);
 }
 
+/**
+ * scale 4D
+ */
 void TransformScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
   z4D *= fractal->transformCommon.scale;
@@ -3315,6 +3447,9 @@ void TransformScale4DIteration(CVector4 &z4D, const cFractal *fractal, sExtended
   aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 
+/**
+ * spherical fold 4D
+ */
 void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, sExtendedAux &aux)
 {
   double r2 = z4D.Dot(z4D);
