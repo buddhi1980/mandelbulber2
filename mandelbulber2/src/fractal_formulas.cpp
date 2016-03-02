@@ -3337,7 +3337,7 @@ void MandelboxVaryScale4DIteration(CVector4 &z4D, int i,  const cFractal *fracta
 }
 
 /**
- * Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale parameter.
+ * Adds c constant to z vector 4D
  */
 void TransformAdditionConstant4DIteration(CVector4 &z4D, const cFractal *fractal)
 {
