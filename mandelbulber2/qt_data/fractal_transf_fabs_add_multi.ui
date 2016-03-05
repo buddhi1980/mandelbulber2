@@ -655,7 +655,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;p&gt;fabs Multi&lt;/p&gt;&lt;table&gt;
+         <string>&lt;p&gt;fabs Multi - Multiple parameters for fabs functions&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;

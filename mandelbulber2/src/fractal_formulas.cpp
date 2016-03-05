@@ -2407,7 +2407,7 @@ void TransformAdditionConstantIteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
- * Adds c constant to z vector. C varies after every iteration.
+ * Adds c constant to z vector. C addition constant varies based on iteration parameters.
  */
 void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
 {
@@ -2435,7 +2435,7 @@ void TransformAdditionConstantVaryV1Iteration(CVector3 &z, int i, const cFractal
 }
 
 /**
- * Adds c constant to z vector
+ * Adds Cpixel constant to z vector
  */
 void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
@@ -2443,7 +2443,7 @@ void TransformAddCpixelIteration(CVector3 &z, CVector3 &c, const cFractal *fract
 }
 
 /**
- * Adds c constant to z vector with swaping x and y axes
+ * Adds Cpixel constant to z vector, swapping the Cpixel vector x and y axes
  */
 void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
@@ -2454,7 +2454,7 @@ void TransformAddCpixelCxCyAxisSwapIteration(CVector3 &z, CVector3 &c, const cFr
 }
 
 /**
- * Adds c constant to z vector. Possible to swap vector axes.
+ * Adds Cpixel constant to z vector. Possible to swap Cpixel vector axes.
  */
 void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
@@ -2487,7 +2487,7 @@ void TransformAddCpixelAxisSwapIteration(CVector3 &z, CVector3 &c, const cFracta
 }
 
 /**
- * Adds c constant to z vector with symetry
+ * Adds Cpixel constant to z vector, with symmetry
  */
 void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal *fractal)
 {
@@ -2525,7 +2525,7 @@ void TransformAddCpixelPosNegIteration(CVector3 &z, CVector3 &c, const cFractal 
 }
 
 /**
- * Adds c constant to z with a varying factor for each dimension based on the iteration count
+ * Adds Cpixel constant to z, Cpixel scaled  based on variable iteration parameters.
  */
 void TransformAddCpixelVaryV1Iteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal)
 {
@@ -2870,7 +2870,7 @@ void TransformBoxFoldIteration(CVector3 &z, const cFractal *fractal, sExtendedAu
 }
 
 /**
- * Box Fold XYZ
+ * Box Fold XYZ, set different folding parameters for each axis
  */
 void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -2907,7 +2907,7 @@ void TransformBoxFoldXYZIteration(CVector3 &z, const cFractal *fractal, sExtende
 }
 
 /**
- * Box Offset
+ * Box Offset, set different offset for each axis, added symmetrically about the origin
  */
 void TransformBoxOffsetIteration(CVector3 &z, const cFractal *fractal)
 {
@@ -2945,7 +2945,7 @@ void TransformFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
- * fabs.  Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
+ * fabs. Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
  */
 void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal)
 {
@@ -2954,7 +2954,7 @@ void TransformFabsAddConstantV2Iteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
- * fabs.  Negative fabs constant,  z = - fabs( z + constant)
+ * fabs. Negative fabs constant,  z = - fabs( z + constant)
  */
 void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
 {
@@ -2970,7 +2970,7 @@ void TransformNegFabsAddConstantIteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
- * fabs Multi
+ * fabs Multi - Multiple parameters for fabs functions
  */
 void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
 {
@@ -3002,7 +3002,8 @@ void TransformFabsAddMultiIteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
- * fabs iteration weight
+ * iteration weight. Influence fractal based on the weight of
+ * Z values after different iterations
  */
 void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fractal)
 {
@@ -3022,7 +3023,8 @@ void TransformIterationWeightIteration(CVector3 &z, int i, const cFractal *fract
 }
 
 /**
- * A transform from Mandelbulb3D
+ * Linear Combine transform from Mandelbulb3D.
+ * Can create multiple combination for the addition of Cpixel
  */
 void TransformLinCombineCxyz(CVector3 &c, const cFractal *fractal)
 {
@@ -3083,7 +3085,7 @@ void TransformRotationIteration(CVector3 &z, const cFractal *fractal)
 }
 
 /**
- * rotation variation v1
+ * rotation variation v1. Rotation angles vary based on iteration parameters.
  */
 void TransformRotationVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal)
 {
@@ -3122,7 +3124,7 @@ void TransformScaleIteration(CVector3 &z, const cFractal *fractal, sExtendedAux 
 }
 
 /**
- * scale variation v1
+ * scale variation v1. Scale varies based on iteration parameters.
  */
 void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -3147,7 +3149,7 @@ void TransformScaleVaryV1Iteration(CVector3 &z, int i, const cFractal *fractal, 
 }
 
 /**
- * scale 3d
+ * scale 3d. Scale each axis individually
  */
 void TransformScale3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
@@ -3196,7 +3198,7 @@ void TransformSphericalFoldIteration(CVector3 &z, const cFractal *fractal, sExte
 }
 
 /**
- * spherical fold with offset
+ * spherical fold with offset. Offset radially.
  */
 void TransformSphericalOffsetIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {

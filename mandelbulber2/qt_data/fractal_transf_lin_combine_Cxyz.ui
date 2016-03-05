@@ -671,7 +671,7 @@
       <item>
        <widget class="QLabel" name="label_code_content">
         <property name="text">
-         <string>&lt;p&gt;A transform from Mandelbulb3D&lt;/p&gt;&lt;table&gt;
+         <string>&lt;p&gt;Linear Combine transform from Mandelbulb3D.&lt;br&gt;Can create multiple combination for the addition of Cpixel&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;
 &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
