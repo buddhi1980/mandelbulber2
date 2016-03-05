@@ -171,6 +171,8 @@ void cInterface::ShowUi(void)
 	mainWindow->ui->spinboxInt_repeat_from->setEnabled(false);
 	mainWindow->ui->label_fractals_remark_julia->setVisible(false);
 
+	mainWindow->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
+
 #ifndef USE_EXR
 	{
 		mainWindow->ui->actionSave_as_EXR->setVisible(false);
@@ -193,7 +195,7 @@ void cInterface::ShowUi(void)
 
 #ifndef USE_GAMEPAD
 	{
-	  delete mainWindow->ui->dockWidget_gamepad_dock;
+		delete mainWindow->ui->dockWidget_gamepad_dock;
 	}
 #endif
 
@@ -212,8 +214,6 @@ void cInterface::ShowUi(void)
 	ComboMouseClickUpdate();
 
 	mainWindow->slotPopulateToolbar();
-
-	mainWindow->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 
 	WriteLog("cInterface::ConnectSignals(void)");
 	ConnectSignals();
