@@ -142,10 +142,13 @@ void handle_winch(int sig)
 	(void) sig;
 #ifndef WIN32
 	signal(SIGWINCH, SIG_IGN);
-	struct winsize w;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	systemData.terminalWidth = w.ws_col;
-	if (systemData.terminalWidth <= 0) systemData.terminalWidth = 80;
+	if(sig != -1)
+	{
+		struct winsize w;
+		ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+		systemData.terminalWidth = w.ws_col;
+		if (systemData.terminalWidth <= 0) systemData.terminalWidth = 80;
+	}
 	signal(SIGWINCH, handle_winch);
 #endif
 }
