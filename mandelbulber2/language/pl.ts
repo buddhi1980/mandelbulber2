@@ -3010,7 +3010,7 @@ Dezaktywuje opcję &apos;Nanieś zmiany&apos;)</translation>
     <message>
         <location filename="../qt/render_window.ui" line="21017"/>
         <source>Limits (bo&amp;x)</source>
-        <translation>Granice (sześcian)</translation>
+        <translation>Granice (prostopadłościan)</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switches between server and client.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Server&lt;/span&gt; is main appcation in the network. It controls rendering process, sends data to all clients and collects data from them. &lt;br/&gt;Server compiles parts of images received from clients and finally display whole image. It also renders image.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Client&lt;/span&gt; receives jobs from server. It renders only that parts of image which server ask for. It display only partial image.&lt;/p&gt;&lt;p&gt;To start rendering process on all computers you need to press Render button on Server.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -4500,7 +4500,7 @@ od fraktala #:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="19393"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables box folding like is used in Mandelbox formula.&lt;/p&gt;&lt;p&gt;(It&apos;s to keep compatibility with Mandelbulber 1.21)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia zawijanie sześcienne podobne jak we fraktalu Mandelbox&lt;/p&gt;&lt;p&gt;(przydatne do zachowania zgodności z Mandelbulber 1.21)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="19396"/>
@@ -4520,7 +4520,7 @@ od fraktala #:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="19538"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables spherical folding like is used in Mandelbox formula.&lt;/p&gt;&lt;p&gt;(It&apos;s to keep compatibility with Mandelbulber 1.21)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia zawijanie sferyczne podobne jak we fraktalu Mandelbox&lt;/p&gt;&lt;p&gt;(przydatne do zachowania zgodności z Mandelbulber 1.21)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="19541"/>
@@ -4540,7 +4540,7 @@ od fraktala #:</translation>
     <message>
         <location filename="../qt/render_window.ui" line="24101"/>
         <source>Show &amp;measurement dock</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż dok z pomiarami</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Swithes off stopping of ray-marching at distance threshold. When it&apos;s checked detail level is controlled with &lt;span style=&quot; font-style:italic;&quot;&gt;Max. fractal iterations&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -4729,7 +4729,7 @@ klatek kluczowych</translation>
     <message>
         <location filename="../qt/render_window.ui" line="24084"/>
         <source>Save as &amp;TIFF</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako TIFF</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="24093"/>
@@ -4906,164 +4906,165 @@ animacji lotu</translation>
     <message>
         <location filename="../qt/render_window.ui" line="20290"/>
         <source>Fractal formula iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>Iteracje wzoru fraktala</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20319"/>
         <source>Maximum number
 of fractal iterations:</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksymalna ilość
+iteracji fraktala:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20422"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switches off stopping of ray-marching at distance threshold. When it&apos;s checked detail level is controlled with &lt;span style=&quot; font-style:italic;&quot;&gt;Max. fractal iterations&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wyłącza zatrzymywanie śledzenia promieni światła na progu dystansu. Kiedy jest to włączone, to ilość detali jest kontrolowana przez &lt;span style=&quot; font-style:italic;&quot;&gt;Maksymalna ilość iteracji fraktala&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20438"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables using default (recommended) bailout value. Each fractal formula has different optimal bailout value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uaktywnia używanie domyślnej (rekomendowanej) wartości bailout. Każda formuła ma inną optymalną wartość parametru bailout.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20441"/>
         <source>Use default bailout for each fractal formula</source>
-        <translation type="unfinished"></translation>
+        <translation>Użyj domyślnej wartości bailout dla każdej formuły</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20453"/>
         <source>Distance estimation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Estymacja dystansu:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20482"/>
         <source>Distance estimation function:</source>
-        <translation type="unfinished"></translation>
+        <translation>Funkcja do estymacji dystansu:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20489"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimize &apos;Raymarching step multiplier&apos; for high image quality and slow rendering&lt;/p&gt;&lt;p&gt;It gives 0.01% of wrong distance estimations (pixels with potential noise)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optymalizuje &apos;Mnożnik kroku śledzenia promieni&apos; tak aby uzyskać wysoką jakość renderowania&lt;/p&gt;&lt;p&gt;Uzyska się około 0.01% nieprawidłowych estymacji dystansu (pikseli z prawdopodobnym szumem)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20492"/>
         <source>High quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Wysoka jakość</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20499"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimize &apos;Raymarching step multiplier&apos; for medium image quality.&lt;/p&gt;&lt;p&gt;It gives 0.1% of wrong distance estimations (pixels with potential noise)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optymalizuje &apos;Mnożnik kroku śledzenia promieni&apos; tak aby uzyskać średnią jakość renderowania&lt;/p&gt;&lt;p&gt;Uzyska się około 0.1% nieprawidłowych estymacji dystansu (pikseli z prawdopodobnym szumem)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20502"/>
         <source>Medium quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Średnia jakość</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20522"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimize &apos;Raymarching step multiplier&apos; for low image quality and fast rendering&lt;/p&gt;&lt;p&gt;It gives 1% of wrong distance estimations (pixels with potential noise)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optymalizuje &apos;Mnożnik kroku śledzenia promieni&apos; tak aby uzyskać niską jakość ale szybkie renderowanie&lt;/p&gt;&lt;p&gt;Uzyska się około 1% nieprawidłowych estymacji dystansu (pikseli z prawdopodobnym szumem)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20525"/>
         <source>Low quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Niska jakość</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20532"/>
         <source>Distance estimation method:</source>
-        <translation type="unfinished"></translation>
+        <translation>Metoda estymacji dystansu:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20539"/>
         <source>Optimization:</source>
-        <translation type="unfinished"></translation>
+        <translation>Optymalizacja:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20588"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;In some  fractal functions the length of the iteration vector increases  exponentially  and some in a  linear manner.&lt;/p&gt;&lt;p&gt;- Preferred mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estymacja dystansu jest metodą, która pozwala na obliczenie przybliżonej odległości do powierzchni fraktala od dowolnego punktu przestrzeni.&lt;/p&gt;&lt;p&gt;W niektórych fraktalach długość iterowanego wektora zmienia się wykładniczo a w niektórych liniowo.&lt;/p&gt;&lt;p&gt;- Preferowany tryb - znajduje najlepszą metodę dla aktualnych ustawień fraktala&lt;/p&gt;&lt;p&gt;- Logarytmiczna - najlepsza dla fraktali, gdzie długość wektora rośnie wykładniczo (np. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Liniowa - najlepsza dla fraktali, gdzie długość wektora rośnie liniowo  (np. Mandelbox, IFS)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20592"/>
         <source>Logarithmic</source>
-        <translation type="unfinished"></translation>
+        <translation>Logarytmiczna</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20597"/>
         <source>Linear</source>
-        <translation type="unfinished">Liniowa</translation>
+        <translation>Liniowa</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20602"/>
         <location filename="../qt/render_window.ui" line="20620"/>
         <source>Preferred</source>
-        <translation type="unfinished"></translation>
+        <translation>Preferowana</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20616"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;- Preferred mode uses distance estimation method defined for selected fractal&lt;/p&gt;&lt;p&gt;- Force &amp;quot;Delta DE&amp;quot; method uses  Delta DE algorithm which is slower but works also with untypical fractal configurations&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estymacja dystansu jest metodą, która pozwala na obliczenie przybliżonej odległości do powierzchni fraktala od dowolnego punktu przestrzeni.&lt;/p&gt;&lt;p&gt;- Tryb &apos;Preferowana&apos; używa metodę estymacji dystasu jaka jest zdefiniowana dla wybranego fraktala.&lt;/p&gt;&lt;p&gt;- Wymuś &amp;quot;Delta DE&amp;quot; ta metoda używa algorytm &apos;Delta DE&apos; (metoda róznicowa), który jest wolniejszy, ale działa także dobrze dla nietypowych konfiguracji fraktali&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20625"/>
         <source>Force &quot;Delta DE&quot; method</source>
-        <translation type="unfinished"></translation>
+        <translation>Wymuś metodę &quot;Delta DE&quot;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20671"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Percentage of points on image which are probably calculated wrong.&lt;/p&gt;&lt;p&gt;Higher value usually means more visible noise or artifacts on image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Procent ilości punktów obrazu, które najprawdopodobniej zostały nieprawidłowo obliczone&lt;/p&gt;&lt;p&gt;Wyższa wartość z reguły oznacza widoczniejszy szum na obrazie.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20674"/>
         <source>Percentage of wrong distance estimations:</source>
-        <translation type="unfinished"></translation>
+        <translation>Procent błędnych estymacji dystansu:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20688"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When not enabled, the program automatically reduces the level of detail for the farthest regions of the fractal. If you go closer to the fractal surface, the program increases the level of detail.&lt;/p&gt;&lt;p&gt;If enabled, then in every region of the fractal,  the detail level (size) will be the same.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kiedy nie jest aktywne, program automatycznie redukuje ilość detali w odległych regionach fraktala. Jak tylko zbiżasz kamerę do powierzchni fraktala, program zwiększa ilość detali.&lt;/p&gt;&lt;p&gt;Jeśli wybrane, to w każdym regionie fraktala poziom detali (ich wielkość), będzie taka sama.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20773"/>
         <source>Used distance estimation algorithm:</source>
-        <translation type="unfinished"></translation>
+        <translation>Używany algorytm estymacji dystansu:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20785"/>
         <source>Surface (normal vector) calculation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Obliczanie powierzchni (wektora normalnego)</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="20916"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Makes fractals hollow inside. It gives interesting results when a  cross section of the fractal is rendered using &lt;span style=&quot; font-style:italic;&quot;&gt;Limits (box)&lt;/span&gt; feature. &lt;/p&gt;&lt;p&gt;This effect is very slow to render because of the high number of iterations required to render the inside of the fractal. To speed up rendering try  reducing Max. fractal iterations .&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;interior mode enabled&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;interior mode disabled&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Powoduje, że fraktal jest w środku pusty. Daje to ciekawe rezultaty, gdy jest renderowany przekrój fraktala przy uzyciu funkcji&lt;span style=&quot; font-style:italic;&quot;&gt;Granice (prostopadłościan)&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;Ten efekt jest bardzo powolny do renderowania, ponieważ we wnętrzu fraktala program musi obliczać dużo więcej iteracji fraktala. Aby przyspieszyć renderowanie, spróbuj znacznie zmniejszyć parametr &apos;Maksymalna ilość iteracji fraktala&apos;.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;tryb wnętrz włączony&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;tryb wnętrz wyłączony&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - interior disabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="21227"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature allows the connection of multiple computers into a network to share rendering.&lt;/p&gt;&lt;p&gt;The same image or animation can be rendered using an unlimited number of computers. The increased computing power will reduce rendering time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ta funkcjonalność pozwala na połączenie wielu komputerów w sieć i dzielenie się zadaniami renderowania&lt;/p&gt;&lt;p&gt;Ten sam obraz może być jednocześnie renderowany przez wiele komputerów. W ten sposób może być zwiększona moc obliczeniowa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="21275"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switches between server and client.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Server&lt;/span&gt; is the main application in the network. It controls rendering process, sends data to all clients and collects data from them. &lt;br/&gt;Server compiles parts of images received from the clients and finally displays the whole image. It also renders image.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Client&lt;/span&gt; receives jobs from server. It renders only the parts of the image which the server ask for. It displays only partial image.&lt;/p&gt;&lt;p&gt;To start rendering process on all computers you need to press Render button on Server.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Przełącza między pracą jako serwer also klient.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Serwer&lt;/span&gt; jest głównym programem w sieci. Kontroluje on proces renderowania, wysyła dane do klientów i zbiera od nich dane. &lt;br/&gt;Serwer łączy fragmenty obrazu odebrane od klientów i ostatecznie wyświetla cały obraz. Serwer także renderuje obraz.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Klient&lt;/span&gt; otrzymuje zadania od serwera. Renderuje tylko te fragmenty obrazu o które prosi serwer. Wyświetla on tylko fragmenty obrazu.&lt;/p&gt;&lt;p&gt;Aby rozpocząć renderowanie na wszystkich komputerach, wciśnij przycisk RENDERUJ na serwerze.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="21332"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;IP addres or name of the computer where Mandelbulber  is launched in server mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adres IP lub nazwa komputera, gdzie jest uruchomiony Mandelbulber w trybie serwera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="21477"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Internet port number which will be used for server. This port has to not be blocked by a firewall or  passed through a router.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Numer portu TCP/IP, który będzie używany przez serwer. Ten port nie może być blokowany przez zaporę (firewall) i powinien być przepuszczany przez router&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="21510"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts Mandelbulber to work as server.&lt;/p&gt;&lt;p&gt;After pressing this button, application starts to watch clients and connect to them. &lt;/p&gt;&lt;p&gt;If connection with a client is established, then this client is displayed in the table below.&lt;/p&gt;&lt;p&gt;To establish a connection with a client, the Connect button must be pressed on the client side &lt;/p&gt;&lt;p&gt;If all needed computers are already connected, then the server is ready for operation. If you presss Render button, then the server and all the clients will start rendering of the same image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rozpoczyna pracę Mandelbulbera jako serwer.&lt;/p&gt;&lt;p&gt;Po wciśnięciu tego przycisku, program zaczyna szukać klientów i łączyć się z nimi. &lt;/p&gt;&lt;p&gt;Jeśli połączenie z klientem jest ustanowione, wtedy jest on wyświetlany w tabeli poniżej &lt;/p&gt;&lt;p&gt;Aby połączyć się z klientem, po stronie klienta musi być wciśnięty przycisk &lt;i&gt;Połącz z serwerem&lt;/i&gt;.&lt;/p&gt;&lt;p&gt;Gdy wszystkie potrzebne komputery są już połączone, wtedy serwer jest gotowy do pracy. Gdy wciśniesz przycisk RENDERUJ, serwer i wszystkie klienty rozpoczną renderowanie tego samego obrazu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="21682"/>
@@ -5073,7 +5074,7 @@ of fractal iterations:</source>
     <message>
         <location filename="../qt/render_window.ui" line="21754"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts recording flight path. &lt;/p&gt;&lt;p&gt;It is recommended to decrease image resolution for better rendering performance.&lt;/p&gt;&lt;p&gt;The mouse pointer is used as the controller. &lt;br/&gt;Move the mouse pointer to change flight direction.&lt;br/&gt;Left mouse button increases flight speed. Right mouse button decreases speed.&lt;br/&gt;Arrow keys moves camera up, down, left and right (strafe)&lt;br/&gt;Z and X keys rotate the camera (roll)&lt;br/&gt;Spacebar pauses flight path recording . &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rozpoczyna nagrywanie trasy przelotu. &lt;/p&gt;&lt;p&gt; Jest rekomendowane użycie niskiej rozdzielczości obrazu, aby wydajność programu była lepsza.&lt;/p&gt;&lt;p&gt;Do sterowania lotem jest używany wskaźnik myszy. &lt;br/&gt;Przez poruszanie myszą możesz zmienić kierunek lotu.&lt;br/&gt;Lewy przycisk myszy zwięsza prędkość lotu a lewy ją zmniejsza.&lt;br/&gt;Klawiszami strzałek można przemieszczać kamerę w górę, dół, w prawo i w lewo (strafe)&lt;br/&gt;Klawisze Z i X obracają kamerę (roll)&lt;br/&gt;Spacja wstrzymuje (pauza) nagrywanie trasy przelotu. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="21932"/>
@@ -5149,7 +5150,7 @@ of fractal iterations:</source>
         <location filename="../qt/render_window.ui" line="22786"/>
         <location filename="../qt/render_window.ui" line="23546"/>
         <source>TIFF</source>
-        <translation type="unfinished"></translation>
+        <translation>TIFF</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="22460"/>
@@ -5273,17 +5274,17 @@ of fractal iterations:</source>
     <message>
         <location filename="../src/render_window_menu.cpp" line="303"/>
         <source>TIFF images (*.tiff)</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazy TIFF (*.tiff)</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="315"/>
         <source>Saving TIFF image started</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapis obrazu TIFF rozpoczęty</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="321"/>
         <source>Saving TIFF image finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapis obrazu TIFF zakończony</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="405"/>
@@ -5444,12 +5445,12 @@ of fractal iterations:</source>
     <message>
         <location filename="../src/render_window_slots.cpp" line="778"/>
         <source>Percentage of wrong distance estimations: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Procent nieprawidłowych estymacji dystansu: %1</translation>
     </message>
     <message>
         <location filename="../src/render_window_slots.cpp" line="779"/>
         <source>Used distance estimation algorithm: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Używany algorytm estymacji dystansu: %1</translation>
     </message>
 </context>
 <context>
@@ -5528,47 +5529,52 @@ spacja - pauza</translation>
         <location filename="../src/rendered_image_widget.cpp" line="142"/>
         <source>
 hold shift key - orthogonal strafe</source>
-        <translation>klawisz shift - prostopadły ruch </translation>
+        <translation>
+klawisz shift - prostopadły ruch </translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="148"/>
         <source>Place center of random light</source>
-        <translation type="unfinished"></translation>
+        <translation>Umieść centrum losowych świateł</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="149"/>
         <source>
 also calculates</source>
-        <translation type="unfinished"></translation>
+        <translation>
+oblicza także</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="150"/>
         <source>
 distribution radius of lights to 50%,</source>
-        <translation type="unfinished"></translation>
+        <translation>
+promień dystrybucji jako 50%, </translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="151"/>
         <source>
 max distance from fractal to 10%</source>
-        <translation type="unfinished"></translation>
+        <translation>
+maks. dystans od fraktala jako 10%</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="152"/>
         <source>
 of distance [center to camera position]</source>
-        <translation type="unfinished"></translation>
+        <translation>dystansu kamery do fraktala</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="155"/>
         <source>Get coordinates</source>
-        <translation type="unfinished"></translation>
+        <translation>Pobierz współrzędne</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="156"/>
         <source>
 and distance</source>
-        <translation type="unfinished"></translation>
+        <translation>
+oraz odległość</translation>
     </message>
 </context>
 <context>
@@ -5580,7 +5586,7 @@ and distance</source>
     <message>
         <location filename="../src/animation_flight.cpp" line="248"/>
         <source>waiting %1 seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>czekanie %1 sekund</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="347"/>
@@ -5662,7 +5668,7 @@ klatek</translation>
         <location filename="../src/dof.cpp" line="514"/>
         <location filename="../src/dof.cpp" line="575"/>
         <source>DOF terminated</source>
-        <translation type="unfinished"></translation>
+        <translation>DOF przerwane</translation>
     </message>
 </context>
 <context>
@@ -5755,18 +5761,19 @@ oraz zapis klatek animacji.</translation>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="252"/>
         <source>Toolbar icon size (pixels)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wielkość ikon na pasku narzędzi</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="277"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value will be ignored, since JPG only supports 8 bit precision.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file with appended postfix.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit or 16 bit (32 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit, 16 bit or 32 bit.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 16 bit or 32 bit (8 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;The postfix will be ignored since all image channels will be saved to one file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Rozdzielczość bitowa będzie zignorowana, jako że JPG wspiera tylko 8-bitową precyzję.&lt;/p&gt;&lt;p&gt;Każdy kanał obrazu będzie zapisany jako osobny plik z dodanym rozszerzeniem.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Format może być 8-bitowy lub 16-bitowy (ustawienie na 32 bity da w rezultacie 16-bitową jakość).&lt;/p&gt;&lt;p&gt;Każdy kanał obrazu będzie zapisany w osobnym pliku. &lt;/p&gt;&lt;p&gt;Jedynym wyjątkiem jest kanał alpha:&lt;/p&gt;&lt;p&gt;Jeżeli Kolor i Alpha są wybrane i &amp;quot;Dodaj kanał alpha do brazu (tulko PNG i TIFF)&amp;quot;, to kolor + alpha będą zapisane do obrazu w formacie RGBA z jakością i rozszerzeniem takim jak dla koloru.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Format może być 8-bitowy, 16-bitowy lub 32-bitowy.&lt;/p&gt;&lt;p&gt;Każdy kanał obrazu będzie zapisany w osobnym pliku. &lt;/p&gt;&lt;p&gt;Jedynym wyjątkiem jest kanał alpha:&lt;/p&gt;&lt;p&gt;Jeżeli Kolor i Alpha są wybrane i &amp;quot;Dodaj kanał alpha do brazu (tulko PNG i TIFF)&amp;quot;, to kolor + alpha będą zapisane do obrazu w formacie RGBA z jakością i rozszerzeniem takim jak dla koloru.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Jakość może być 16-bitowa lub 32-bitowa (8-bitowa da w rezultacie 16-bitową jakość).&lt;/p&gt;&lt;p&gt;Rozszerzenia zostaną zignorowane jako, że wszystkie kanały zostaną zapisane do tego samego pliku.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="301"/>
         <source>These settings affect &quot;Save as JPG/PNG/EXR/TIFF&quot; actions
  and saving animation frames.</source>
-        <translation type="unfinished"></translation>
+        <translation>Te ustawienia mają wpływ na funkcje &quot;Zapisz jako JPG/PNG/EXR/TIFF&quot;
+oraz zapis klatek animacji.</translation>
     </message>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="314"/>
@@ -5832,7 +5839,7 @@ oraz zapis klatek animacji.</translation>
     <message>
         <location filename="../qt/preferencesdialog.ui" line="504"/>
         <source>Append alpha to image (only PNG and TIFF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj kanał alpha do obrazu (tylko PNG i TIFF)</translation>
     </message>
     <message>
         <source>Append alpha to image (only PNG)</source>
@@ -6006,7 +6013,13 @@ png16 - 16-bit PNG format
 png16alpha - 16-bit PNG with alpha channel format
 exr - EXR format
 tiff - TIFF format</source>
-        <translation type="unfinished"></translation>
+        <translation>Format zapisywanego obrazu:
+jpg - format JPEG
+png - format PNG
+png16 - 16-bitowy format PNG
+png16alpha - 16 bitowy format PNG z kanałem alpha
+exr - format EXR
+tiff - format TIFF</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="76"/>
