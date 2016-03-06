@@ -70,9 +70,9 @@ public:
 	void AssignImage(cImage *_image) {image = _image;}
 	void AssignParameters(cParameterContainer *_mainParams) {params = _mainParams;}
 	void setNewZ(double z) {smoothLastZMouse = z;}
-	void setClickMode(QList<QVariant> _clickMode) {clickModeData = _clickMode;}
+	void setClickMode(QList<QVariant> _clickMode);
 	void SetFrontDist(double dist) {frontDist = dist;}
-	void SetCursorVisibility(bool enable) {cursorVisible = enable;};
+	void SetCursorVisibility(bool enable) {cursorVisible = enable;}
 	void SetFlightData(const sFlightData &fData) {flightData = fData;}
 	CVector2<double> GetLastMousePositionScaled(void);
 

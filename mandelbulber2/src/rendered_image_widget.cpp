@@ -781,6 +781,13 @@ CVector3 RenderedImage::CalcPointPersp(const CVector3 &point, const CRotationMat
 	return out;
 }
 
+void RenderedImage::setClickMode(QList<QVariant> _clickMode) {
+	if(_clickMode.size() > 0)
+		clickModeData = _clickMode;
+	else
+		qWarning() << "_clickMode cannot be empty!";
+}
+
 void RenderedImage::slotSetMinimumSize(int width, int height)
 {
 	setMinimumSize(width, height);
