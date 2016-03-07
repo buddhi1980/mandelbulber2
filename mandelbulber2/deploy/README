@@ -61,9 +61,11 @@ please type:
 
 - Debian Stretch x64
 - Ubuntu 14.10
-- Minux Mint 17.2
+- Linux Mint 17.2
+- Chakra 2016.02 "Ian"
 
 - gcc 5.2.1
+- clang 3.7.0
 - Qt 5.5.1
 
 5. USAGE
