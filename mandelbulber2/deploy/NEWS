@@ -1,5 +1,135 @@
 Version history
 
+v2.07
+- Added new fractal formulas:
+  * AboxModKali
+  * FabsBoxMod1
+  * MengerMod
+  * Quaternion3D
+  * AexionOctopus
+  * AexionOctopusMod
+  * aboxMod1
+  * aboxMod2
+  * MandelbulbMulti
+  * BenesiPineTree
+  * BenesiT1PineTree
+  * msltoesym2
+  * msltoesym3
+  * msltoesym3mod2
+  * msltoesym3mod3
+  * msltoesym4
+  * Eiffie's MisltoeJulia
+  * RiemannSphereMsltoe
+  * RiemannSphereMsltoeV1
+  * amazing surf
+  * amazing surf mod1
+  * Kalisets1 Mod
+  * aboxVS icen1
+  * mandelbulb vary power V1
+  * Quaternion 4D
+  * Mandelbox vary scale 4D
+  * msltoe donut
+  * iq bulb
+  * quick dudley eiffie
+  
+  
+- Added new transforms (pseudo-fractal formulas)
+  * addition constant
+  * add Cpixel
+  * rotation
+  * scale
+  * scale 3D
+  * box offset
+  * spherical offset
+  * cpixel axis swap
+  * BenesiT1
+  * BenesiT1Mod
+  * BenesiT2
+  * Benesi cube sphere
+  * Benesi sphere cube
+  * Benesi mag backward
+  * Benesi mag forward
+  * add Cpixel pos neg
+  * box fold
+  * spherical fold
+	* zVector axis swap
+	* fabs add constant
+	* fabs add constant V2
+	* neg fabs add constant
+	* multiple angle
+	* R^power
+	* fabs add multi
+	* iteration weight
+	* spherical power fold
+	* addition constant vary V1
+	* add Cpixel vary V1
+	* scale vary V1
+	* box fold XYZ
+	* Cpixel CxCy axis swap
+	* linear combine Cxyz
+	* sphere invC
+	* addition constant 4D
+	* box fold 4D
+	* iteration weight 4D
+	* scale 4D
+	* spherical fold 4D
+	* rotation vary V1
+	
+- Increased number of fractal slots from 4 to 9
+- Implemented optimized (analytic) calculation of estimated distance for hybrid fractals.
+- Added calculation of analytic DE for benesi, bristorbrot, buffalo, fast_mandelbulb_power2, hypercomplex, mandelbulb2, mandelbulb3, mandelbulb4, quaternion, xenodreambuie
+- Added "start iteration" and "stop iteration" numbers on each hybrid formula tab.
+- Added selection for distance estimation method (Preferred / Force DeltaDE)
+- Added selection for distance estimation function (Preferred / Logarithmic / Linear)
+- Added displaying of actual distance estimation method and function
+- Added displaying of "wrong distance estimations" below optimization buttons
+- Added automatic selection of preferred distance estimation function and method for hybrid fractals
+- Added checkboxes to disable constant addition for each fractal formula tab
+- Added 'repeat from' setting for hybrid fractal sequence
+- Display fractal names on fractal tabs
+- Added reset button on each fractal tab to reset fractal parameters
+- Added default bailout values for all formulas
+- Added information box to each formula, where is reference and formula code
+- Added icons to fractal selection combobox
+- Added settings for Julia mode on each fractal tab to be able to render Julia fractals in boolean mode
+- Added swapping of fractal tabs 
+- Added many interesting example setting files (at least one for each fractal formula)
+- Removed "extended" formulas. It reduced number of parameters used internally in the program (about 600 less). Now processing of animations is much faster.
+
+- Added random lights effect (reimplemented from Mandelbulber 1.21 with improvements)
+- Added buttons for automatic optimization of distance estimation factor
+- Modified user interface for rendering engine (grouped into categories)
+- Added support for "sweet spot" rotation (needed for fulldome images)
+- Added several coloring algorithms based on orbit traps calculation
+- Much faster rendering of DOF (better usage of OpenMP). Enabled OpenMP for DOF effect under Windows.
+- Added preliminary pass for DOF effect (much better quality). Now is used focal blur instead of gaussian blur
+- Added HDR version of DOF effect
+- Enhanced toolbar. Icons are rendered in background process. There is possible to change icons size. Changed way of removing icons.
+- Added measurement tool to get pixel 3D position and distance between two indicated points
+- Added copy / paste / reset functions for vectors (in context menu for edit fields)
+- Added TIFF support
+- Improved scaling of 3D cursor
+- Added flight animation countdown for start capture
+- Optimized initialization of fractal sequence (speeds up rendering)
+- Formulas sorted on the list in alphabetical order
+- Added support for 4D parameters
+- Changed corner assignment for docks. It improves UI on low resolution displays when animation dock is displayed.
+- Renamed "Options" tab to "Global parameters" 
+- Fixed bug: Wrong frame numbers in "Interpolate next keyframes"
+- Fixed bug: "Interpolate next keyframes" caused application crashing when right clicked in the white space to the right of the keyframe parameters
+- Fixed bug: Found bug in MyGroupBox in slotToggled. It hid all objects also inside widgets. It caused problem with showing them again and could make application hang.
+- Fixed bug: Missing creation of "settings" directory at first program start.
+- Fixed bug: PNG files weren't saved properly when used special chars in filename under Windows
+- Fixed big: mixed slashes and backslashes in filenames under Windows
+- Fixed bug: there was problem with saving settings when lastSettingsFile pointed to file which didn't exist. Then in file chooser in filename edit field appeared full file path.
+- Fixed bug: reset view function sometimes failed
+- Fixed bug: Corrected coloring of translated/rotated objects in boolean mode
+- Fixed bug: sometimes calculation of refractions gave negative results. It caused dark spots on image.
+- Fixed bug: fixed problems with dividing by zero in DE calculation (rendering sometimes hanged)
+- Fixed bug: Camera absolute step mode gave strange step value at application start
+- Fixed bug: Default text color in dark skin was unreadable in Info window
+- Fixed bug: program crashed when at first program start there was used language different than English
+
 v2.06
 - Added Command Line Interface, which allows application to run on headless systems. From simple terminal (e.g. ssh session) it is possible to render still images and animations and also launch NetRender client or server. Full list of available options can be listed using --help option.
 - Added Queue feature to manage collection of settings which can be rendered automatically in background.

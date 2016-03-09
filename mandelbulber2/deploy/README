@@ -1,5 +1,5 @@
 
-MANDELBULBER 2.06
+MANDELBULBER 2.07
 -----------------
 
 project leader: Krzysztof Marczak
@@ -64,7 +64,7 @@ please type:
 - Linux Mint 17.2
 - Chakra 2016.02 "Ian"
 
-- gcc 5.2.1
+- gcc 5.3.1
 - clang 3.7.0
 - Qt 5.5.1
 

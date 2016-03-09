@@ -1,4 +1,4 @@
-MANDELBULBER 2.06
+MANDELBULBER 2.07
 
 project leader: Krzysztof Marczak
 project members: knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa, Sebastian Jennen, Graeme McLaren
@@ -24,6 +24,7 @@ Copy this folder somewhere and run Mandelbulber2.exe or run Mandelbulber v2-2.xx
 
 4. TESTED ON:
 
+- Windows XP
 - Windows Vista
 - Windows 7
 - Windows 8
