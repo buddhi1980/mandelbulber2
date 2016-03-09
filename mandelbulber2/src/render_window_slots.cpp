@@ -696,7 +696,7 @@ void RenderWindow::changeEvent(QEvent* event)
   if (event->type() == QEvent::LanguageChange)
   {
     // retranslate designer form (single inheritance approach)
-    ui->retranslateUi(this);
+		// ui->retranslateUi(this);
   }
 
   // remember to call base class implementation
