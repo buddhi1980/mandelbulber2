@@ -1,19 +1,46 @@
-sudo: false
+language: cpp
 
-addons:
-  apt:
-    packages:
-      - libqt5gui5
-      - qt5-default
-      - libpng12-0
-      - libpng12-dev
-      - qttools5-dev
-      - qttools5-dev-tools
-      - libgsl0-dev
-      - libgsl0ldbl
-      - libgomp1
+os:
+  - linux
+  - osx
+
+env:
+  matrix:
+    - CONFIG=release
+
+install:
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+      lsb_release -a
+      && sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
+      && sudo apt-add-repository -y ppa:beineri/opt-qt551
+      && sudo add-apt-repository -y ppa:ubuntu-sdk-team/ppa
+      && sudo apt-get -qq update
+      && sudo apt-get -qq install g++-4.8 libc6-i386
+      && sudo apt-get install -y libqt5gui5 qt55base qt55tools qt5-default
+      && sudo apt-get install -y libpng12-0 libpng12-dev libgsl0-dev libgsl0ldbl libgomp1
+      && export CXX="g++-4.8"
+      && export CC="gcc-4.8"
+      ;
+    else
+         brew update > /dev/null
+      && brew install qt5 gsl
+      && chmod -R 755 /usr/local/opt/qt5/*
+      ;
+    fi
 
 script:
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+         QTDIR="/opt/qt55"
+      && PATH="$QTDIR/bin:$PATH"
+      && qt55-env.sh 
+      ;
+    else
+         QTDIR="/usr/local/opt/qt5"
+      && PATH="$QTDIR/bin:$PATH"
+      && LDFLAGS=-L$QTDIR/lib
+      && CPPFLAGS=-I$QTDIR/include
+      ;
+    fi
   - cd mandelbulber2/Release
   - qmake mandelbulber.pro
   - make
