@@ -3,10 +3,9 @@ Version history
 v2.07
 - Added new fractal formulas:
   * AboxModKali
-  * FabsBoxMod1
+  * FoldBoxMod1
   * MengerMod
   * Quaternion3D
-  * AexionOctopus
   * AexionOctopusMod
   * aboxMod1
   * aboxMod2
@@ -15,10 +14,10 @@ v2.07
   * BenesiT1PineTree
   * msltoesym2
   * msltoesym3
-  * msltoesym3mod2
-  * msltoesym3mod3
+  * msltoe Julia Bulb mod2
+  * msltoe Julia Bulb mod3
   * msltoesym4
-  * Eiffie's MisltoeJulia
+  * msltoe Julia Bulb Eiffie
   * RiemannSphereMsltoe
   * RiemannSphereMsltoeV1
   * amazing surf
@@ -27,53 +26,58 @@ v2.07
   * aboxVS icen1
   * mandelbulb vary power V1
   * Quaternion 4D
-  * Mandelbox vary scale 4D
   * msltoe donut
   * iq bulb
-  * quick dudley eiffie
+  * quick dudley mod
   
   
 - Added new transforms (pseudo-fractal formulas)
   * addition constant
+  * addition constant vary V1
   * add Cpixel
-  * rotation
-  * scale
-  * scale 3D
-  * box offset
-  * spherical offset
-  * cpixel axis swap
+  * add Cpixel Axis Swap
+  * add Cpixel CxCy Axis Swap
+  * add Cpixel vary Symmetrical
+  * add Cpixel vary V1
   * BenesiT1
   * BenesiT1Mod
-  * BenesiT2
+  * BenesiT2 
+  * BenesiT3
+  * BenesiT4 
+  * BenesiT5b 
   * Benesi cube sphere
   * Benesi sphere cube
   * Benesi mag backward
   * Benesi mag forward
-  * add Cpixel pos neg
   * box fold
+  * box fold XYZ
+  * box offset
+  * fabs add constant
+  * fabs add constant V2
+  * fabs add multi
+  * fabs add neg
+  * iteration weight
+  * multiple angle
+  * linear combine Cxyz
+  * rotation
+  * rotation vary V1
+  * R^power
+  * scale
+  * scale vary V1
+  * scale 3D
+  * sphere InvertC
   * spherical fold
-	* zVector axis swap
-	* fabs add constant
-	* fabs add constant V2
-	* neg fabs add constant
-	* multiple angle
-	* R^power
-	* fabs add multi
-	* iteration weight
-	* spherical power fold
-	* addition constant vary V1
-	* add Cpixel vary V1
-	* scale vary V1
-	* box fold XYZ
-	* Cpixel CxCy axis swap
-	* linear combine Cxyz
-	* sphere invC
-	* addition constant 4D
-	* box fold 4D
-	* iteration weight 4D
-	* scale 4D
-	* spherical fold 4D
-	* rotation vary V1
+  * spherical power fold
+  * spherical offset
+  * zVector axis swap
+  * addition constant 4D
+  * box fold 4D
+  * fabs add constant 4D
+  * fabs add constantV2 4D
+  * iteration weight 4D
+  * scale 4D
+  * spherical fold 4D
+
 	
 - Increased number of fractal slots from 4 to 9
 - Implemented optimized (analytic) calculation of estimated distance for hybrid fractals.
