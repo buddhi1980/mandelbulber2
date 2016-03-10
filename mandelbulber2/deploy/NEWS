@@ -29,8 +29,6 @@ v2.07
   * msltoe donut
   * iq bulb
   * quick dudley mod
-  
-  
 - Added new transforms (pseudo-fractal formulas)
   * addition constant
   * addition constant vary V1
@@ -77,8 +75,6 @@ v2.07
   * iteration weight 4D
   * scale 4D
   * spherical fold 4D
-
-	
 - Increased number of fractal slots from 4 to 9
 - Implemented optimized (analytic) calculation of estimated distance for hybrid fractals.
 - Added calculation of analytic DE for benesi, bristorbrot, buffalo, fast_mandelbulb_power2, hypercomplex, mandelbulb2, mandelbulb3, mandelbulb4, quaternion, xenodreambuie
@@ -99,7 +95,6 @@ v2.07
 - Added swapping of fractal tabs 
 - Added many interesting example setting files (at least one for each fractal formula)
 - Removed "extended" formulas. It reduced number of parameters used internally in the program (about 600 less). Now processing of animations is much faster.
-
 - Added random lights effect (reimplemented from Mandelbulber 1.21 with improvements)
 - Added buttons for automatic optimization of distance estimation factor
 - Modified user interface for rendering engine (grouped into categories)

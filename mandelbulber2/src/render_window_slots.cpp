@@ -471,9 +471,12 @@ void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button)
 
 void RenderWindow::slotChangedComboMouseClickFunction(int index)
 {
-  QComboBox *comboBox = static_cast<QComboBox*>(this->sender());
-  QList<QVariant> item = comboBox->itemData(index).toList();
-  gMainInterface->renderedImage->setClickMode(item);
+  if(index >= 0) //if list is empty, then index = -1
+  {
+    QComboBox *comboBox = static_cast<QComboBox*>(this->sender());
+    QList<QVariant> item = comboBox->itemData(index).toList();
+    gMainInterface->renderedImage->setClickMode(item);
+  }
 }
 
 void RenderWindow::slotKeyPressOnImage(Qt::Key key)
