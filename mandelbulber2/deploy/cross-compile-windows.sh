@@ -10,6 +10,8 @@ then
 	exit
 fi
 
+CXXFLAGS=""
+
 MANDELBULBER_WIN_VERSION=$2
 MANDELBULBER_VERSION=$1
 MANDELBULBER_BINARY_TARGET="/tmp/mandelbulberBinaries"
@@ -27,13 +29,19 @@ fi
 
 set -e # if any of the commands fail the script will exit immediately
 
-git clone https://github.com/buddhi1980/mandelbulber2
-cd mandelbulber2/mandelbulber2
+if [ ! -d mandelbulber2 ]; then
+	git clone https://github.com/buddhi1980/mandelbulber2
+	cd mandelbulber2/mandelbulber2
+else
+	cd mandelbulber2
+	git pull
+	cd mandelbulber2
+fi
 
 MANDELBULBER_DLL_TARGET=deploy/win$MANDELBULBER_WIN_VERSION/dll/
 
 # purge dll folder
-rm -r $MANDELBULBER_DLL_TARGET*
+mkdir $MANDELBULBER_DLL_TARGET
 
 ## copy dlls
 cp $MANDELBULBER_PREFIX/bin/libgsl-*.dll $MANDELBULBER_DLL_TARGET
@@ -46,7 +54,7 @@ cp $MANDELBULBER_PREFIX/bin/Qt5Svg.dll $MANDELBULBER_DLL_TARGET
 cp $MANDELBULBER_PREFIX/bin/Qt5Widgets.dll $MANDELBULBER_DLL_TARGET
 cp $MANDELBULBER_PREFIX/bin/Qt5Gamepad.dll $MANDELBULBER_DLL_TARGET
 cp $MANDELBULBER_PREFIX/bin/zlib*.dll $MANDELBULBER_DLL_TARGET
-cp $MANDELBULBER_PREFIX/bin/libtiff-*.dll $MANDELBULBER_DLL_TARGET
+cp $MANDELBULBER_PREFIX/bin/libtiff*.dll $MANDELBULBER_DLL_TARGET
 
 mkdir $MANDELBULBER_DLL_TARGET/iconengines
 cp $MANDELBULBER_PREFIX/plugins/iconengines/* $MANDELBULBER_DLL_TARGET/iconengines/
@@ -59,9 +67,15 @@ cp $MANDELBULBER_PREFIX/plugins/gamepads/* $MANDELBULBER_DLL_TARGET/gamepads/
 
 cp /usr/$MANDELBULBER_MINGW_HOST/lib/libwinpthread-1.dll $MANDELBULBER_DLL_TARGET
 
-cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/*-win32/libstdc++-6.dll $MANDELBULBER_DLL_TARGET
-cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/*-win32/libgomp-1.dll $MANDELBULBER_DLL_TARGET
-cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/*-win32/libgcc_s_*-1.dll $MANDELBULBER_DLL_TARGET
+cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/5.3-win32/libstdc++-6.dll $MANDELBULBER_DLL_TARGET
+cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/5.3-win32/libgomp-1.dll $MANDELBULBER_DLL_TARGET
+
+if [ $MANDELBULBER_WIN_VERSION -eq "64" ]
+then
+	cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/5.3-win32/libgcc_s_seh-1.dll $MANDELBULBER_DLL_TARGET
+else
+	cp /usr/lib/gcc/$MANDELBULBER_MINGW_HOST/5.3-win32/libgcc_s_sjlj-1.dll $MANDELBULBER_DLL_TARGET
+fi
 
 mkdir -p $MANDELBULBER_BUILD_FOLDER
 cd $MANDELBULBER_BUILD_FOLDER
@@ -70,6 +84,8 @@ make -j8
 cd ..
 ./make-package.sh $MANDELBULBER_VERSION $MANDELBULBER_BINARY_TARGET
 tar cf $MANDELBULBER_BINARY_TARGET.tar.gz $MANDELBULBER_BINARY_TARGET
+
+echo Finished
 
 # to get the compiled binaries, do
 # sftp root@thisHost

@@ -27,27 +27,34 @@ fi
 
 set -e # if any of the commands fail the script will exit immediately
 
-sudo apt-get install git make g++ dh-autoreconf sudo make
+sudo apt-get install git make g++ dh-autoreconf
 sudo apt-get install mingw-w64
 mkdir -p $MANDELBULBER_PREFIX
 
 ### qt
-wget $MANDELBULBER_QT_URL
-tar xf qt-everywhere-*.tar.gz
-cd qt-everywhere-*
-yes | ./configure -release -xplatform win32-g++ -opengl desktop -nomake examples -device-option \
-	CROSS_COMPILE=$MANDELBULBER_MINGW_HOST- -prefix $MANDELBULBER_PREFIX -opensource \
-	-skip qtactiveqt -skip qtcanvas3d
-make -j8
-sudo make -j8 install
-cd ..
+if [ ! -f qt-everywhere-opensource-src-5.5.1.tar.gz ]; then
+	wget $MANDELBULBER_QT_URL
+fi
+
+if [ ! -d qt-everywhere-opensource-src-5.5.1 ]; then
+	tar xf qt-everywhere-*.tar.gz
+	cd qt-everywhere-*
+	yes | ./configure -release -xplatform win32-g++ -opengl desktop -nomake examples -device-option \
+		CROSS_COMPILE=$MANDELBULBER_MINGW_HOST- -prefix $MANDELBULBER_PREFIX -opensource \
+		-skip qtactiveqt -skip qtcanvas3d
+	make -j8
+	sudo make -j8 install
+	cd ..
+fi
 
 ### gsl
 apt-get source gsl
 cd gsl-*
 mkdir -p doc
-cp -vax debian/Makefile.in.doc doc/Makefile.in
-dh_autoreconf 
+if [ ! -f doc/Makefile.in ]; then
+	cp -vax debian/Makefile.in.doc doc/Makefile.in
+	dh_autoreconf
+fi
 ./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
 make -j8
 sudo make -j8 install
@@ -75,34 +82,32 @@ cd ..
 
 ### openexr
 sudo apt-get install cmake
-
 if [ ! -d openexr ]; then
 	git clone https://github.com/openexr/openexr
 	cd openexr
-else
-	cd openexr
-	git pull
+	
+	cd IlmBase
+	cmake -DCMAKE_HOST_SYSTEM=$MANDELBULBER_MINGW_HOST -DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
+	make
+	sudo make install
+	cd ..
+	cd OpenEXR
+	cmake -DILMBASE_PACKAGE_PREFIX=$MANDELBULBER_PREFIX -DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
+	make
+	sudo make install
+	cd ..
+	cd ..
 fi
 
-cd IlmBase
-cmake -DCMAKE_HOST_SYSTEM=$MANDELBULBER_MINGW_HOST -DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
-make
-sudo make install
-cd ..
-cd OpenEXR
-cmake -DILMBASE_PACKAGE_PREFIX=$MANDELBULBER_PREFIX -DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
-make
-sudo make install
-cd ..
-cd ..
-
 # qtgamepad
-git clone https://github.com/qtproject/qtgamepad
-cd qtgamepad
-$MANDELBULBER_PREFIX/bin/qmake
-make -j8
-sudo make -j8 install
-cd ..
+if [ ! -d qtgamepad ]; then
+	git clone https://github.com/qtproject/qtgamepad
+	cd qtgamepad
+	$MANDELBULBER_PREFIX/bin/qmake
+	make -j8
+	sudo make -j8 install
+	cd ..
+fi
 
 # tiff
 apt-get source tiff
@@ -110,10 +115,12 @@ cd tiff-*
 ./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX \
     --with-zlib-include-dir=$MANDELBULBER_PREFIX/include \
     --with-zlib-lib-dir=$MANDELBULBER_PREFIX/lib
-make && make install
+make
+sudo make install
 cd ..
 
 cd ..
 
+echo Finished
 ## clean up
 #rm -r libtemp
