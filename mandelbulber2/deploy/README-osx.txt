@@ -15,6 +15,15 @@ cd gsl-latest
 make
 //Install the GSL library under /usr/local
 sudo make install
+//Build TIFF library
+curl --remote-name http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz
+tar -xzvf tiff-4.0.6.tar.gz
+cd tiff-4.0.6
+./configure --prefix=/usr/local/libtiff-4.0.6
+make
+//Install the TIFF library under /usr/local
+make install
+ln -s libtiff-4.0.6 /usr/local/libtiff
 //download source from https://github.com/buddhi1980/mandelbulber2
 //Build mandelbulber
 cd Release
