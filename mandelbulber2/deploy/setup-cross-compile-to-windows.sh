@@ -75,8 +75,15 @@ cd ..
 
 ### openexr
 sudo apt-get install cmake
-git clone https://github.com/openexr/openexr
-cd openexr
+
+if [ ! -d openexr ]; then
+	git clone https://github.com/openexr/openexr
+	cd openexr
+else
+	cd openexr
+	git pull
+fi
+
 cd IlmBase
 cmake -DCMAKE_HOST_SYSTEM=$MANDELBULBER_MINGW_HOST -DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
 make
