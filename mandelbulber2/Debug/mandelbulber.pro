@@ -6,16 +6,23 @@
 
 QT       += core gui uitools widgets network
 
-qtHaveModule(gamepad){
-		QT += gamepad
+macx:QT += svg
+
+!win32 {
+  qtHaveModule(gamepad){
+    QT += gamepad
     DEFINES += USE_GAMEPAD
+  }
 }
 
 CONFIG += link_pkgconfig
+
 packagesExist(IlmBase){
-	PKGCONFIG += IlmBase
-	LIBS += -lIlmImf -lHalf
-	DEFINES += USE_EXR
+  PKGCONFIG += IlmBase
+}
+win32|packagesExist(IlmBase) {
+        LIBS += -lIlmImf -lHalf
+        DEFINES += USE_EXR
 }
 
 packagesExist(libtiff-4){

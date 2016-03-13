@@ -16,8 +16,11 @@ macx:QT += svg
 }
 
 CONFIG += link_pkgconfig
-packagesExist(IlmBase) {
-	PKGCONFIG += IlmBase
+
+packagesExist(IlmBase){
+  PKGCONFIG += IlmBase
+}
+win32|packagesExist(IlmBase) {
 	LIBS += -lIlmImf -lHalf
 	DEFINES += USE_EXR
 }

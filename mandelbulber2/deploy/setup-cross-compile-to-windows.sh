@@ -48,37 +48,43 @@ if [ ! -d qt-everywhere-opensource-src-5.5.1 ]; then
 fi
 
 ### gsl
-apt-get source gsl
-cd gsl-*
-mkdir -p doc
-if [ ! -f doc/Makefile.in ]; then
-	cp -vax debian/Makefile.in.doc doc/Makefile.in
-	dh_autoreconf
+if [ ! -d gsl-* ]; then
+	apt-get source gsl
+	cd gsl-*
+	mkdir -p doc
+	if [ ! -f doc/Makefile.in ]; then
+		cp -vax debian/Makefile.in.doc doc/Makefile.in
+		dh_autoreconf
+	fi
+	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
+	make -j8
+	sudo make -j8 install
+	cd ..
 fi
-./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX
-make -j8
-sudo make -j8 install
-cd ..
- 
+
 ### zlib
-apt-get source zlib
-cd zlib-*
-cp win32/Makefile.gcc Makefile
-make PREFIX=/usr/bin/$MANDELBULBER_MINGW_HOST- \
-	INCLUDE_PATH=$MANDELBULBER_PREFIX/include LIBRARY_PATH=$MANDELBULBER_PREFIX/lib \
-	BINARY_PATH=$MANDELBULBER_PREFIX/bin SHARED_MODE=1
-sudo make PREFIX=/usr/bin/$MANDELBULBER_MINGW_HOST- \
-	INCLUDE_PATH=$MANDELBULBER_PREFIX/include LIBRARY_PATH=$MANDELBULBER_PREFIX/lib \
-	BINARY_PATH=$MANDELBULBER_PREFIX/bin SHARED_MODE=1 install
-cd ..
+if [ ! -d zlib-* ]; then
+	apt-get source zlib
+	cd zlib-*
+	cp win32/Makefile.gcc Makefile
+	make PREFIX=/usr/bin/$MANDELBULBER_MINGW_HOST- \
+		INCLUDE_PATH=$MANDELBULBER_PREFIX/include LIBRARY_PATH=$MANDELBULBER_PREFIX/lib \
+		BINARY_PATH=$MANDELBULBER_PREFIX/bin SHARED_MODE=1
+	sudo make PREFIX=/usr/bin/$MANDELBULBER_MINGW_HOST- \
+		INCLUDE_PATH=$MANDELBULBER_PREFIX/include LIBRARY_PATH=$MANDELBULBER_PREFIX/lib \
+		BINARY_PATH=$MANDELBULBER_PREFIX/bin SHARED_MODE=1 install
+	cd ..
+fi
 
 ### libpng
-apt-get source libpng
-cd libpng-*
-./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX LDFLAGS=-L$MANDELBULBER_PREFIX/lib
-make -j8 CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include
-sudo make -j8 CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include install
-cd ..
+#if [ ! -d libpng-* ]; then
+	apt-get source libpng
+	cd libpng-*
+	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX LDFLAGS=-L$MANDELBULBER_PREFIX/lib
+	make -j8 CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include
+	sudo make -j8 CFLAGS=-I$MANDELBULBER_PREFIX/include CPPFLAGS=-I$MANDELBULBER_PREFIX/include install
+	cd ..
+#fi
 
 ### openexr
 sudo apt-get install cmake
@@ -87,13 +93,21 @@ if [ ! -d openexr ]; then
 	cd openexr
 	
 	cd IlmBase
-	cmake -DCMAKE_HOST_SYSTEM=$MANDELBULBER_MINGW_HOST -DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
-	make
+	cmake -DCMAKE_SYSTEM=$MANDELBULBER_MINGW_HOST \
+		-DZLIB_INCLUDE_DIR=$MANDELBULBER_PREFIX/include \
+		-DZLIB_ROOT=$MANDELBULBER_PREFIX/lib \
+		-DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
+	make LIBRARY_PATH=$MANDELBULBER_PREFIX/lib
 	sudo make install
 	cd ..
+
 	cd OpenEXR
-	cmake -DILMBASE_PACKAGE_PREFIX=$MANDELBULBER_PREFIX -DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
-	make
+	cmake -DCMAKE_SYSTEM=$MANDELBULBER_MINGW_HOST \
+		-DILMBASE_PACKAGE_PREFIX=$MANDELBULBER_PREFIX \
+		-DZLIB_INCLUDE_DIR=$MANDELBULBER_PREFIX/include \
+		-DZLIB_ROOT=$MANDELBULBER_PREFIX/lib \
+		-DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
+	make LIBRARY_PATH=$MANDELBULBER_PREFIX/lib
 	sudo make install
 	cd ..
 	cd ..
@@ -110,14 +124,16 @@ if [ ! -d qtgamepad ]; then
 fi
 
 # tiff
-apt-get source tiff
-cd tiff-*
-./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX \
-    --with-zlib-include-dir=$MANDELBULBER_PREFIX/include \
-    --with-zlib-lib-dir=$MANDELBULBER_PREFIX/lib
-make
-sudo make install
-cd ..
+if [ ! -d tiff-* ]; then
+	apt-get source tiff
+	cd tiff-*
+	./configure --host=$MANDELBULBER_MINGW_HOST -prefix=$MANDELBULBER_PREFIX \
+	    --with-zlib-include-dir=$MANDELBULBER_PREFIX/include \
+	    --with-zlib-lib-dir=$MANDELBULBER_PREFIX/lib
+	make
+	sudo make install
+	cd ..
+fi
 
 cd ..
 
