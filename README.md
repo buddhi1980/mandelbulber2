@@ -31,7 +31,7 @@ The possibilities are literally **infinite**!
 - OpenCL support (not yet in v2, soon to be added)
 
 
-![GUI](https://raw.githubusercontent.com/buddhi1980/mandelbulber2/wiki/assets/images/mandelbulberGUI.jpg)
+![image](https://cloud.githubusercontent.com/assets/11696990/13788910/173cf11a-eae2-11e5-884e-f1d03924a5f3.png)
 
 ## Resources
 
