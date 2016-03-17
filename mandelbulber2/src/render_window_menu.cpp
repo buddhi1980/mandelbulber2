@@ -486,6 +486,7 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
   }
 
   // Gamepad dock
+#ifdef USE_GAMEPAD
   if (ui->actionShow_gamepad_dock->isChecked() != ui->dockWidget_gamepad_dock->isVisible())
   {
     if (ui->actionShow_gamepad_dock->isChecked())
@@ -498,6 +499,7 @@ void RenderWindow::slotUpdateDocksandToolbarbyAction()
     }
     ui->dockWidget_gamepad_dock->setVisible(ui->actionShow_gamepad_dock->isChecked());
   }
+#endif
 
   // Queue dock
   if (ui->actionShow_queue_dock->isChecked() != ui->dockWidget_queue_dock->isVisible())

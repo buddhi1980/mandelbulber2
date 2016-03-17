@@ -196,6 +196,7 @@ void cInterface::ShowUi(void)
 #ifndef USE_GAMEPAD
 	{
 		delete mainWindow->ui->dockWidget_gamepad_dock;
+    mainWindow->ui->dockWidget_gamepad_dock = NULL;
 	}
 #endif
 
