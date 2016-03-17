@@ -1,5 +1,8 @@
 Version history
 
+v2.07-1
+- Fixed bug: program crashed on win64/win32 if any sub-menu in "View" was de-selected
+
 v2.07
 - Added new fractal formulas:
   * AboxModKali
