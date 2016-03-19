@@ -1,0 +1,29 @@
+# AppVeyor build configuration
+# https://www.appveyor.com/docs/build-configuration
+
+install:
+  - set QTDIR=C:\Qt\5.5\mingw492_32
+  - set PATH=%PATH%;%QTDIR%\bin;C:\MinGW\bin
+# gsl
+  - git clone git://github.com/ampl/gsl.git
+  - cd gsl
+  - cmake -G "Visual Studio 14 2015" -D CMAKE_CXX_FLAGS_RELEASE="/MD" \
+  - 	-D CMAKE_CXX_FLAGS_DEBUG="/MDd" -D CMAKE_C_FLAGS_RELEASE="/MD" \
+  - 	-D CMAKE_C_FLAGS_DEBUG="/MDd" .
+  - msbuild GSL.sln /p:Configuration=Release
+  - cd ..
+  
+build_script:
+  - cd mandelbulber2/Release
+  - qmake mandelbulber.pro
+  - mingw32-make \
+  - 	-IC:/projects/mandelbulber2/gsl -LC:/projects/mandelbulber2/gsl/Release
+
+notifications:
+  - provider: Webhook
+    url: https://webhooks.gitter.im/e/045502f8fca741c11771
+  - provider: Email
+    to:
+      - buddhi1980@gmail.com
+      - sebastian.jennen@gmx.de
+  
