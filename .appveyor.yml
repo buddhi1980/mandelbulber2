@@ -19,7 +19,7 @@ build_script:
   - cd mandelbulber2/Release
   - qmake mandelbulber.pro
   - mingw32-make \
-  - 	-IC:/projects/mandelbulber2/gsl -LC:/projects/mandelbulber2/gsl/Release
+  -   -IC:/projects/mandelbulber2/gsl -LC:/projects/mandelbulber2/gsl/Release
 
 notifications:
   - provider: Webhook
