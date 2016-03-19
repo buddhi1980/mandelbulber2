@@ -63,6 +63,7 @@ SOURCES +=  ../src/algebra.cpp\
 			../src/keyframes.cpp\
 			../src/lights.cpp\
 			../src/main.cpp\
+			../src/material.cpp\
 			../src/morph.cpp\
 			../src/multi_val.cpp\
 			../src/my_ui_loader.cpp\
@@ -177,7 +178,7 @@ QMAKE_CXXFLAGS_RELEASE += -O3
  
 QMAKE_LFLAGS_RELEASE -= -O1 -fopenmp
 
-QMAKE_CXXFLAGS += -ffast-math -fopenmp
+QMAKE_CXXFLAGS += -ffast-math -fopenmp -std=c++11
 # test hardcoded lib path for gsl in travis container 
 QMAKE_CXXFLAGS += -I/usr/include/gsl
 

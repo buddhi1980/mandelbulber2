@@ -29,6 +29,7 @@
 #include "netrender.hpp"
 #include "files.h"
 #include <QtCore>
+#include "material.h"
 
 //definition of all parameters
 void InitParams(cParameterContainer *par)
@@ -662,6 +663,59 @@ void InitPrimitiveParams(fractal::enumObjectType objectType, const QString primi
 		default:
 			break;
 	}
+}
+
+void InitMaterialParams(int materialId, cParameterContainer *par)
+{
+  par->addParam(cMaterial::Name("shading", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("specular", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("specularWidth", materialId), 1.0, 1e-10, 1e15, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("reflection", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("lightness", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("bump_map_intensity", materialId), 1.0, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("transparency_of_surface", materialId), 0.0, 0.0, 1.0, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("transparency_of_interior", materialId), 1.0, 0.0, 1.0, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("transparency_index_of_refraction", materialId), 1.5, 0.0, 100.0, morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("surface_color", materialId), sRGB(50000, 50000, 50000), morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("transparency_interior_color", materialId), sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("lightness_color", materialId), sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("fresnel_reflectance", materialId), false, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("texture_center", materialId), CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("texture_rotation", materialId), CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+  par->addParam(cMaterial::Name("texture_scale", materialId), CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
+  par->addParam(cMaterial::Name("coloring_random_seed", materialId), 269259, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("coloring_saturation", materialId), 1.0, 0.0, 1000.0, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("coloring_speed", materialId), 1.0, 0.0, 1e15, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("coloring_palette_size", materialId), 10, 1, 255, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("coloring_palette_offset", materialId), 0.0, 0.0, 256.0, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("texture_mapping_type", materialId), (int)cMaterial::mappingPlanar, morphNone, paramStandard);
+  par->addParam(cMaterial::Name("use_colors_from_palette", materialId), true, morphLinear, paramStandard);
+
+  par->addParam(cMaterial::Name("file_color_texture", materialId),
+                QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
+                    + "diffu_texture.jpg"),
+                morphNone,
+                paramStandard);
+  par->addParam(cMaterial::Name("file_diffusion_texture", materialId),
+                QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
+                    + "diffusion_texture.jpg"),
+                morphNone,
+                paramStandard);
+  par->addParam(cMaterial::Name("file_lightness_texture", materialId),
+                QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
+                    + "lightness_texture.jpg"),
+                morphNone,
+                paramStandard);
+  par->addParam(cMaterial::Name("file_bumpmap_texture", materialId),
+                QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
+                    + "bumpmap_texture.jpg"),
+                morphNone,
+                paramStandard);
+
+  cColorPalette palette(par->Get<int>(cMaterial::Name("coloring_palette_size", materialId)),
+                        par->Get<int>(cMaterial::Name("coloring_random_seed", materialId)),
+                        1.0);
+  par->addParam(cMaterial::Name("surface_color_palette", materialId), palette, morphLinear, paramStandard);
 }
 
 void DeletePrimitiveParams(fractal::enumObjectType objectType, const QString primitiveName, cParameterContainer *par)
