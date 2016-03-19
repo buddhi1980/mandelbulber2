@@ -23,7 +23,7 @@ build_script:
 
 notifications:
   - provider: Webhook
-    url: https://webhooks.gitter.im/e/045502f8fca741c11771
+    url: https://webhooks.gitter.im/e/093389bb43bd353724ae
   - provider: Email
     to:
       - buddhi1980@gmail.com
