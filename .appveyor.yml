@@ -10,10 +10,10 @@ install:
 # gsl
   - git clone git://github.com/ampl/gsl.git
   - cd gsl
-  - cmake -G "Visual Studio 14 2015" -D CMAKE_CXX_FLAGS_RELEASE="/MD" \
+  - cmake -G "NMake Makefiles" -D CMAKE_CXX_FLAGS_RELEASE="/MD" \
      -D CMAKE_CXX_FLAGS_DEBUG="/MDd" -D CMAKE_C_FLAGS_RELEASE="/MD" \
      -D CMAKE_C_FLAGS_DEBUG="/MDd" .
-  - msbuild GSL.sln /p:Configuration=Release
+  - nmake
   - cd ..
   
 build_script:
