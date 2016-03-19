@@ -19,7 +19,7 @@ install:
 build_script:
   - cd mandelbulber2/Release
   - qmake mandelbulber.pro
-  - nmake "-IC:\projects\mandelbulber2\gsl -LC:\projects\mandelbulber2\gsl\Release"
+  - nmake /I "C:\projects\mandelbulber2\gsl" /L "C:\projects\mandelbulber2\gsl\Release"
 
 notifications:
   - provider: Webhook
