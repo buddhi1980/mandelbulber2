@@ -1,3 +1,6 @@
+# Travis build configuration
+# https://docs.travis-ci.com/user/customizing-the-build/
+
 language: cpp
 
 os:
@@ -44,3 +47,10 @@ script:
   - cd mandelbulber2/Release
   - qmake mandelbulber.pro
   - make
+
+notifications:
+  email:
+    - buddhi1980@gmail.com
+    - sebastian.jennen@gmx.de
+  webhooks:
+    - https://webhooks.gitter.im/e/045502f8fca741c11771
