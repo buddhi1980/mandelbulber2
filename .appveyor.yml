@@ -4,6 +4,7 @@
 build: false # use custom build_script instead
 
 install:
+  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
   - set QTDIR=C:\Qt\5.5\mingw492_32
   - set PATH=%PATH%;%QTDIR%\bin;C:\MinGW\bin
 # gsl
