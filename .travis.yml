@@ -20,8 +20,8 @@ install:
       && sudo apt-get -qq install g++-4.8 libc6-i386
       && sudo apt-get install -y libqt5gui5 qt55base qt55tools qt5-default
       && sudo apt-get install -y libpng12-0 libpng12-dev libgsl0-dev libgsl0ldbl libgomp1
-      && export CXX="g++-4.8"
-      && export CC="gcc-4.8"
+      && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8
+      && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8
       && lsb_release -a
       ;
     else
@@ -45,7 +45,7 @@ script:
       ;
     fi
   - cd mandelbulber2/Release
-  - qmake "QMAKE_CC=gcc-4.8 QMAKE_CXX=g++-4.8" mandelbulber.pro
+  - qmake mandelbulber.pro
   - make
 
 notifications:
