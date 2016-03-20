@@ -1,0 +1,32 @@
+# AppVeyor build configuration
+# https://www.appveyor.com/docs/build-configuration
+
+build: false # use custom build_script instead
+
+install:
+  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
+  - set QTDIR=C:\Qt\5.5\mingw492_32
+  - set PATH=%PATH%;%QTDIR%\bin;C:\MinGW\bin
+# gsl
+  - git clone git://github.com/ampl/gsl.git
+  - cd gsl
+  - cmake -G "NMake Makefiles" -D CMAKE_CXX_FLAGS_RELEASE="/MD" \
+     -D CMAKE_CXX_FLAGS_DEBUG="/MDd" -D CMAKE_C_FLAGS_RELEASE="/MD" \
+     -D CMAKE_C_FLAGS_DEBUG="/MDd" .
+  - nmake
+  - cd ..
+  
+build_script:
+  - cd mandelbulber2/Release
+  - qmake mandelbulber.pro
+  - SET INCLUDE=%INCLUDE%;C:\projects\mandelbulber2\gsl
+  - SET LIB=%LIB%;C:\projects\mandelbulber2\gsl\Release
+  - nmake
+
+notifications:
+  - provider: Webhook
+    url: https://webhooks.gitter.im/e/093389bb43bd353724ae
+  - provider: Email
+    to:
+      - buddhi1980@gmail.com
+      - sebastian.jennen@gmx.de

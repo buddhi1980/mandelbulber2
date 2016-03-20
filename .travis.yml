@@ -1,3 +1,6 @@
+# Travis build configuration
+# https://docs.travis-ci.com/user/customizing-the-build/
+
 language: cpp
 
 os:
@@ -10,16 +13,16 @@ env:
 
 install:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-      lsb_release -a
-      && sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
+      sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
       && sudo apt-add-repository -y ppa:beineri/opt-qt551
       && sudo add-apt-repository -y ppa:ubuntu-sdk-team/ppa
       && sudo apt-get -qq update
       && sudo apt-get -qq install g++-4.8 libc6-i386
       && sudo apt-get install -y libqt5gui5 qt55base qt55tools qt5-default
       && sudo apt-get install -y libpng12-0 libpng12-dev libgsl0-dev libgsl0ldbl libgomp1
-      && export CXX="g++-4.8"
-      && export CC="gcc-4.8"
+      && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 100
+      && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 100
+      && lsb_release -a
       ;
     else
          brew update > /dev/null
@@ -44,3 +47,10 @@ script:
   - cd mandelbulber2/Release
   - qmake mandelbulber.pro
   - make
+
+notifications:
+  email:
+    - buddhi1980@gmail.com
+    - sebastian.jennen@gmx.de
+  webhooks:
+    - https://webhooks.gitter.im/e/045502f8fca741c11771
