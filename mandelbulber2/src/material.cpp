@@ -10,7 +10,7 @@
 cMaterial::cMaterial()
 {
   // TODO Auto-generated constructor stub
-
+  id = -1;
   shading = 0.0;
   specular = 0.0;
   specularWidth = 0.0;
@@ -24,7 +24,16 @@ cMaterial::cMaterial()
   transparencyOfInterior = 0.0;
   transparencyOfSurface = 0.0;
   useColorsFromPalette = false;
+  useColorTexture = false;
+  useDiffusionTexture = false;
+  useLightnessTexture = false;
+  useBumpmapTexture = false;
   textureMappingType = mappingPlanar;
+}
+
+cMaterial::cMaterial(int _id, const cParameterContainer &materialParam, bool quiet)
+{
+  setParameters(_id, materialParam, quiet);
 }
 
 cMaterial::~cMaterial()
@@ -63,3 +72,51 @@ QStringList cMaterial::paramsList = {
     "file_bumpmap_texture",
     "surface_color_palette",
 };
+
+void cMaterial::setParameters(int _id, const cParameterContainer &materialParam, bool quiet = false)
+{
+  id = _id;
+  shading = materialParam.Get<double>(Name("shading", id));
+  specular = materialParam.Get<double>(Name("specular", id));
+  specularWidth = materialParam.Get<double>(Name("specularWidth", id));
+  reflection = materialParam.Get<double>(Name("reflection", id));
+  lightness = materialParam.Get<double>(Name("lightness", id));
+  bumpMapIntensity = materialParam.Get<double>(Name("bump_map_intensity", id));
+  transparencyIndexOfRefraction = materialParam.Get<double>(Name("transparency_index_of_refraction", id));
+  transparencyOfInterior = materialParam.Get<double>(Name("transparency_of_interior", id));
+  transparencyOfSurface = materialParam.Get<double>(Name("transparency_of_surface", id));
+  paletteOffset = materialParam.Get<double>(Name("coloring_palette_offset", id));
+  coloring_speed = materialParam.Get<double>(Name("coloring_speed", id));
+
+  color = materialParam.Get<sRGB>(Name("color", id));
+  lightnessColor = materialParam.Get<sRGB>(Name("lightness_color", id));
+  transparencyInteriorColor = materialParam.Get<sRGB>(Name("transparency_interior_color", id));
+
+  palette = materialParam.Get<cColorPalette>(Name("transparency_interior_color", id));
+
+  textureCenter = materialParam.Get<CVector3>(Name("texture_center", id));
+  textureRotation = materialParam.Get<CVector3>(Name("texture_rotation", id));
+  textureScale = materialParam.Get<CVector3>(Name("texture_scale", id));
+
+  textureMappingType = (enumTextureMapping)materialParam.Get<int>(Name("texture_mapping_type", id));
+
+  fresnelReflectance = materialParam.Get<bool>(Name("fresnel_reflectance", id));
+  useColorsFromPalette = materialParam.Get<bool>(Name("use_colors_from_palette", id));
+
+  useColorTexture = materialParam.Get<bool>(Name("use_color_texture", id));
+  useDiffusionTexture = materialParam.Get<bool>(Name("use_diffusion_texture", id));
+  useLightnessTexture = materialParam.Get<bool>(Name("use_lightness_texture", id));
+  useBumpmapTexture = materialParam.Get<bool>(Name("use_bumpmap_texture", id));
+
+  if (useColorTexture)
+    colorTexture = cTexture(materialParam.Get<QString>("file_color_texture"), quiet);
+
+  if (useDiffusionTexture)
+    diffusionTexture = cTexture(materialParam.Get<QString>("file_diffusion_texture"), quiet);
+
+  if (useLightnessTexture)
+    lightnessTexture = cTexture(materialParam.Get<QString>("file_lightness_texture"), quiet);
+
+  if (useBumpmapTexture)
+    bumpmapTexture = cTexture(materialParam.Get<QString>("file_bumpmap_texture"), quiet);
+}

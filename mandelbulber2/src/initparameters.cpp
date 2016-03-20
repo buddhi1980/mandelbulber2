@@ -690,6 +690,10 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
   par->addParam(cMaterial::Name("coloring_palette_offset", materialId), 0.0, 0.0, 256.0, morphLinear, paramStandard);
   par->addParam(cMaterial::Name("texture_mapping_type", materialId), (int)cMaterial::mappingPlanar, morphNone, paramStandard);
   par->addParam(cMaterial::Name("use_colors_from_palette", materialId), true, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("use_color_texture", materialId), false, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("use_diffusion_texture", materialId), false, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("use_lightness_texture", materialId), false, morphLinear, paramStandard);
+  par->addParam(cMaterial::Name("use_bumpmap_texture", materialId), false, morphLinear, paramStandard);
 
   par->addParam(cMaterial::Name("file_color_texture", materialId),
                 QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()

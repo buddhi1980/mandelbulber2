@@ -16,21 +16,23 @@ class cMaterial
 {
 public:
   cMaterial();
-  cMaterial(const cParameterContainer &materialParam);
+  cMaterial(int _id, const cParameterContainer &materialParam, bool quiet);
   ~cMaterial();
-  void setParameters(const cParameterContainer &materialParam);
+  void setParameters(int _id, const cParameterContainer &materialParam, bool quiet);
 
 static QString Name(const QString &name, int materialId) {return QString("mat%1_").arg(materialId) + name;}
 
 static QStringList paramsList;
 
-enum cTextureMapping
+enum enumTextureMapping
 {
   mappingSpherical = 0,
   mappingCubic = 1,
   mappingCylindrical = 2,
   mappingPlanar = 3
 };
+
+  int id;
 
   double shading;
   double specular;
@@ -59,9 +61,15 @@ enum cTextureMapping
   CVector3 textureRotation;
   CVector3 textureScale;
 
-  cTextureMapping textureMappingType;
+  enumTextureMapping textureMappingType;
   bool fresnelReflectance;
   bool useColorsFromPalette;
+
+  bool useColorTexture;
+  bool useDiffusionTexture;
+  bool useLightnessTexture;
+  bool useBumpmapTexture;
+
 };
 
 
