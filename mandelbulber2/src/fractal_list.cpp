@@ -372,6 +372,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           cpixelEnabledByDefault,
 																					10));
 
+  fractalList->append(sFractalDescription("Msltoe Toroidal Bulb",
+                                          "msltoe_toroidal",
+                                          msltoeToroidal,
+                                          deltaDEType,
+                                          logarithmicDEFunction,
+                                          cpixelEnabledByDefault,
+                                          10));
+
 	fractalList->append(sFractalDescription("Quaternion",
 																					"quaternion",
 																					quaternion,
@@ -419,6 +427,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					logarithmicDEFunction,
 																					cpixelDisabledByDefault,
 																					10));
+
+  fractalList->append(sFractalDescription("Riemann Bulb Msltoe Mod2",
+                                          "riemann_bulb_msltoe_mod2",
+                                          riemannBulbMsltoeMod2,
+                                          deltaDEType,
+                                          logarithmicDEFunction,
+                                          cpixelDisabledByDefault,
+                                          1.5));
 
 	fractalList->append(sFractalDescription("Smooth Mandelbox",
 																					"smooth_mandelbox",
