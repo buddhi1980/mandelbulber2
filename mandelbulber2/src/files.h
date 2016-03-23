@@ -50,9 +50,20 @@ enum enumImageFileType
 
 enum enumImageContentType
 {
+	// rgb color
 	IMAGE_CONTENT_COLOR = 0,
+
+	// alpha channel / opacity
 	IMAGE_CONTENT_ALPHA = 1,
-	IMAGE_CONTENT_ZBUFFER = 2
+
+	// depth of the image pixels, distance to the spectator
+	IMAGE_CONTENT_ZBUFFER = 2,
+
+	// direction vector of the surface normal with vector (x,y,z) ~> (r,g,b)
+	// x E[-1,1], y E[-1,1], z E[0,1] and rgb channels xyz mapped to full range of selected quality
+	// see reference Normal maps at
+	// https://www.blender.org/manual/render/blender_render/textures/influence/material/bump_and_normal.html
+	IMAGE_CONTENT_NORMAL = 3
 };
 
 enum enumImageChannelQualityType
