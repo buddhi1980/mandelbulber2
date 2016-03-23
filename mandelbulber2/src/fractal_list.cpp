@@ -774,6 +774,15 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 																					cpixelDisabledByDefault,
 																					100));
 
+  fractalList->append(sFractalDescription("Transform - Surf Fold Multi",
+                                          "transf_surf_fold_multi",
+                                          transfSurfFoldMulti,
+                                          analyticDEType,
+                                          withoutDEFunction,
+                                          cpixelDisabledByDefault,
+                                          100));
+
+
 	fractalList->append(sFractalDescription("Transform - Zvector_Axis_Swap",
 																					"transf_zVector_axis_swap",
 																					transfZvectorAxisSwap,

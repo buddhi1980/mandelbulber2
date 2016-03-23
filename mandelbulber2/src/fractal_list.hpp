@@ -104,15 +104,15 @@ enum enumFractalFormula
   quaternion4D = 79,
   msltoesym3Mod2 = 80,
   msltoesym3Mod3 = 81,
-	msltoeDonut = 82,
+  msltoeDonut = 82,
   iqBulb = 83,
   quickDudleyMod = 84,
   riemannBulbMsltoeMod2 = 85,
   msltoeToroidal = 86,
 
-	transfAdditionConstant = 1001,
-	transfRotation = 1002,
-	transfScale = 1003,
+  transfAdditionConstant = 1001,
+  transfRotation = 1002,
+   transfScale = 1003,
   transfScale3D = 1004,
   transfBoxOffset = 1005,
   transfSphericalOffset = 1006,
@@ -135,7 +135,7 @@ enum enumFractalFormula
   transfFabsAddConstant = 1023,
   transfNegFabsAddConstant = 1024,
   transfFabsAddConstantV2 = 1025,
-	transfMultipleAngle = 1026,
+  transfMultipleAngle = 1026,
   transfRPower = 1027,
   transfIterationWeight = 1028,
   transfFabsAddMulti = 1029,
@@ -154,7 +154,8 @@ enum enumFractalFormula
   transfSphericalFold4D = 1042,
   transfScale4D = 1043,
   transfFabsAddConstant4D = 1044,
-  transfFabsAddConstantV24D = 1045
+  transfFabsAddConstantV24D = 1045,
+  transfSurfFoldMulti = 1046
 };
 
 enum enumDEType

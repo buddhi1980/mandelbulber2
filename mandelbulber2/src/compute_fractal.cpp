@@ -283,7 +283,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case msltoeToroidal:
         {
-          MsltoeToroidalIteration(z, c, fractal, extendedAux[sequence]);
+          MsltoeToroidalIteration(z, fractal, extendedAux[sequence]);
           break;
         }
 
@@ -385,7 +385,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
         case riemannBulbMsltoeMod2:
         {
-          RiemannBulbMsltoeMod2Iteration(z, i, fractal);
+          RiemannBulbMsltoeMod2Iteration(z, fractal);
           break;
         }
         case quaternion3D:
@@ -586,6 +586,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case transfSphericalPwrFold:
         {
           TransformSphericalPwrFoldIteration(z, fractal, extendedAux[sequence]);
+          break;
+        }
+        case transfSurfFoldMulti:
+        {
+          TransformSurfFoldMultiIteration(z, fractal, extendedAux[sequence]);
           break;
         }
         case transfZvectorAxisSwap:
@@ -837,7 +842,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case msltoesym3Mod2:
         case msltoesym3Mod3:
         case msltoesym4Mod:
-        case msltoeToroidal:
+        //case msltoeToroidal:
 				case quaternion:
         case quaternion3D:
 				case xenodreambuie:

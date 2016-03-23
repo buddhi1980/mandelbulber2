@@ -2024,7 +2024,7 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
  * MsltoeToroidal
  * @reference http://www.fractalforums.com/theory/toroidal-coordinates/msg9428/
  */
-void MsltoeToroidalIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+void MsltoeToroidalIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledFalse)// pre-scale
 	{
@@ -2141,7 +2141,7 @@ void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
  * RiemannBulbMsltoe Mod2
  * @reference http://www.fractalforums.com/new-theories-and-research/another-way-to-make-my-riemann-sphere-'bulb'-using-a-conformal-transformation/
  */
-void RiemannBulbMsltoeMod2Iteration(CVector3 &z, int i, const cFractal *fractal)
+void RiemannBulbMsltoeMod2Iteration(CVector3 &z, const cFractal *fractal)
 {
 	double rad2 = fractal->transformCommon.minR05; // radius default = 0.5
 	double r2 = z.x * z.x + z.y * z.y + z.z * z.z;// r2 or point radius squared
@@ -3556,5 +3556,67 @@ void TransformSphericalFold4DIteration(CVector4 &z4D, const cFractal *fractal, s
 	}
 }
 
+void TransformSurfFoldMultiIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux)
+{
+  if (fractal->transformCommon.functionEnabledAx)
+  {
+    z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+        - fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+    z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+        - fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+  }
 
+  //z = fold - fabs( fabs(z) - fold)
+  if (fractal->transformCommon.functionEnabledAyFalse)
+  {
+    z.x = fractal->transformCommon.additionConstant111.x
+        - fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
+    z.y = fractal->transformCommon.additionConstant111.y
+        - fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
+  }
+
+  if (fractal->transformCommon.functionEnabledAzFalse)
+  {
+    z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
+    z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
+  }
+
+  // if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
+  if (fractal->transformCommon.functionEnabledxFalse)
+  {
+    if (z.x > fractal->transformCommon.additionConstant111.x)
+    {
+      z.x = fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    else if (z.x < -fractal->transformCommon.additionConstant111.x)
+    {
+      z.x = -fractal->mandelbox.foldingValue - z.x;
+      aux.color += fractal->mandelbox.color.factor.x;
+    }
+    if (z.y > fractal->transformCommon.additionConstant111.y)
+    {
+      z.y = fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+    else if (z.y < -fractal->transformCommon.additionConstant111.y)
+    {
+      z.y = -fractal->mandelbox.foldingValue - z.y;
+      aux.color += fractal->mandelbox.color.factor.y;
+    }
+  }
+
+  //z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
+  if (fractal->transformCommon.functionEnabledyFalse)
+  {
+    z.x = fractal->transformCommon.offset2
+        - fabs(fabs(z.x + fractal->transformCommon.additionConstant111.x)
+        - fractal->transformCommon.offset2)
+        - fractal->transformCommon.additionConstant111.x;
+    z.y = fractal->transformCommon.offset2
+        - fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
+        - fractal->transformCommon.offset2)
+        - fractal->transformCommon.additionConstant111.y;
+  }
+}
 
