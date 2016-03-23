@@ -119,7 +119,7 @@ struct sExtendedAux
 struct sFoldColor
 {
 	CVector3 factor;
-  CVector4 factor4D;
+        CVector4 factor4D;
 	double factorR;
 	double factorSp1;
 	double factorSp2;
@@ -272,6 +272,8 @@ struct sFractalTransformCommon
   double offset;
   double offset0;
   double offset05;
+  double offset1;
+  double offset105;
   double offset2;
   double multiplication;
   double minR0;
@@ -322,7 +324,7 @@ struct sFractalTransformCommon
   CVector3 offset200;
   CVector3 power025;
   CVector3 power8;
-	CVector3 rotation;
+  CVector3 rotation;
   CVector3 scale3D111;
   CVector3 scale3D222;
   CVector3 scale3D333;
@@ -371,9 +373,9 @@ public:
 	sFractalAexion aexion;
 	sFractalBuffalo buffalo;
 	sFractalPlatonicSolid platonicSolid;
-  sFractalTransformCommon transformCommon;
-  sFractalMandelbulbMulti mandelbulbMulti;
-  sFractalDonut donut;
+        sFractalTransformCommon transformCommon;
+        sFractalMandelbulbMulti mandelbulbMulti;
+        sFractalDonut donut;
 
 #ifdef CLSUPPORT
 	double customParameters[15];

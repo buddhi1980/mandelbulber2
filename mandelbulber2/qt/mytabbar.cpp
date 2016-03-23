@@ -34,6 +34,17 @@ void MyTabBar::setupMoveButtons()
 {
 	for(int i = 0; i < count(); i++)
 	{
+		QFrame *leftFrame = new QFrame;
+		QHBoxLayout *leftSide = new QHBoxLayout;
+		leftSide->setContentsMargins(0, 0, 0, 0);
+		leftSide->setSpacing(2);
+
+		QCheckBox* chActive = new QCheckBox();
+		chActive->setObjectName(QString::number(i));
+		leftSide->addWidget(chActive);
+		connect(chActive, SIGNAL(stateChanged(int)), this, SLOT(slotToggleActive(int)));
+		chActive->setChecked(i == 0);
+
 		if(i > 0)
 		{
 			QToolButton* tbMoveLeft = new QToolButton();
@@ -41,9 +52,11 @@ void MyTabBar::setupMoveButtons()
 			tbMoveLeft->setIcon(arrowLeft);
 			tbMoveLeft->setIconSize(QSize(10, 10));
 			tbMoveLeft->setObjectName(QString::number(i));
-			setTabButton(i, QTabBar::LeftSide, tbMoveLeft);
 			connect(tbMoveLeft, SIGNAL(clicked()), this, SLOT(slotMoveLeft()));
+			leftSide->addWidget(tbMoveLeft);
 		}
+		leftFrame->setLayout(leftSide);
+		setTabButton(i, QTabBar::LeftSide, leftFrame);
 
 		if(i < count() - 1)
 		{
@@ -74,9 +87,17 @@ void MyTabBar::slotMoveRight()
 	emit swapTabs(index, index + 1);
 }
 
+void MyTabBar::slotToggleActive(int state){
+
+	QString buttonName = this->sender()->objectName();
+	int index = buttonName.toInt();
+	QPalette palette;
+	setTabTextColor(index, state == Qt::Checked ? palette.text().color() : palette.highlight().color());
+	// setTabEnabled(index, state == Qt::Checked);
+}
+
 void MyTabBar::mouseReleaseEvent(QMouseEvent *event)
 {
 	QTabBar::mouseMoveEvent(event);
 	// emit dragDropChange();
 }
-

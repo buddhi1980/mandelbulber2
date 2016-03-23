@@ -69,6 +69,7 @@ void MsltoeSym3ModIteration(CVector3 &z, CVector3 &c, int i, const cFractal *fra
 void MsltoeSym3Mod2Iteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym3Mod3Iteration(CVector3 &z, CVector3 &c, int i, const cFractal *fractal, sExtendedAux &aux);
 void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
+void MsltoeToroidalIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion3DIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void Quaternion4DIteration(CVector4 &z, int i, const cFractal *fractal);
 void QuaternionIteration(CVector3 &z, double &w, sExtendedAux &aux);
@@ -76,6 +77,7 @@ void QuickDudleyIteration(CVector3 &z);
 void QuickDudleyModIteration(CVector3 &z, const cFractal *fractal);
 void RiemannSphereMsltoeIteration(CVector3 &z, const cFractal *fractal);
 void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal);
+void RiemannBulbMsltoeMod2Iteration(CVector3 &z, int i, const cFractal *fractal);
 void SmoothMandelboxIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 void XenodreambuieIteration(CVector3 &z, const cFractal *fractal, sExtendedAux &aux);
 

@@ -184,21 +184,21 @@ void Mandelbulb2Iteration(CVector3 &z, sExtendedAux &aux)
   aux.r_dz = aux.r_dz * 2.0 * aux.r;
 
   double temp, tempR;
-  tempR = sqrt(z.x * z.x + z.y * z.y + 1e-021);
+  tempR = sqrt(z.x * z.x + z.y * z.y + 1e-061);
   z *= (1.0 / tempR);
   temp = z.x * z.x - z.y * z.y;
   z.y = 2.0 * z.x * z.y;
   z.x = temp;
   z *= tempR;
 
-  tempR = sqrt(z.y * z.y + z.z * z.z);
+  tempR = sqrt(z.y * z.y + z.z * z.z + 1e-061);
   z *= (1.0 / tempR);
   temp = z.y * z.y - z.z * z.z;
   z.z = 2.0 * z.y * z.z;
   z.y = temp;
   z *= tempR;
 
-  tempR = sqrt(z.x * z.x + z.z * z.z);
+  tempR = sqrt(z.x * z.x + z.z * z.z + 1e-061);
   z *= (1.0 / tempR);
   temp = z.x * z.x - z.z * z.z;
   z.z = 2.0 * z.x * z.z;
@@ -222,7 +222,7 @@ void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
 
   if (z.x < 0)
     sign2 = -1.0;
-  tempR = sqrt(z.x * z.x + z.y * z.y + 1e-021);
+  tempR = sqrt(z.x * z.x + z.y * z.y + 1e-061);
   z *= (1.0 / tempR);
   temp = z.x * z.x - z.y * z.y;
   z.y = 2.0 * z.x * z.y;
@@ -231,7 +231,7 @@ void Mandelbulb3Iteration(CVector3 &z, sExtendedAux &aux)
 
   if (z.x < 0)
     sign = -1.0;
-  tempR = sqrt(z.x * z.x + z.z * z.z);
+  tempR = sqrt(z.x * z.x + z.z * z.z + 1e-061);
   z *= (1.0 / tempR);
   temp = z.x * z.x - z.z * z.z;
   z.z = 2.0 * z.x * z.z * sign2;
@@ -2019,6 +2019,50 @@ void MsltoeSym4ModIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, s
   aux.r_dz *= fabs(fractal->transformCommon.scale1);
 }
 
+//http://www.fractalforums.com/theory/toroidal-coordinates/msg9428/
+void MsltoeToroidalIteration(CVector3 &z, CVector3 &c, const cFractal *fractal, sExtendedAux &aux)
+{
+  if (fractal->transformCommon.functionEnabledFalse)// pre-scale
+  {
+    z *= fractal->transformCommon.scale3D111;
+    aux.r_dz *= z.Length() / aux.r;
+    aux.DE = aux.DE * z.Length() / aux.r + 1.0;
+  }
+  // Torioidal bulb
+  double r1 = fractal->transformCommon.minR05;// default 0.5
+  double theta = atan2(z.y, z.x);
+  double x1 = r1 * cos(theta);
+  double y1 = r1 * sin(theta);
+  double r = (z.x -  x1) * (z.x -  x1) + ( z.y - y1) *  (z.y - y1) + z.z * z.z + 1e-061;
+
+  aux.r = r;
+  double rp = pow(aux.r, fractal->transformCommon.pwr4);// default 4.0
+
+  double phi = asin( z.z / sqrt( aux.r ));
+
+  phi = fractal->transformCommon.pwr8 * phi; // default 8
+  theta = fractal->bulb.power * theta;// default 9 gives 8 symmetry
+  // convert back to cartesian coordinates
+  z.x= ( r1 + rp * cos(phi)) * cos(theta);
+  z.y = ( r1 + rp * cos(phi)) * sin(theta);
+  z.z = -rp * sin(phi);
+
+  if (fractal->transformCommon.functionEnabledAxFalse)// spherical offset
+  {
+    double lengthTempZ = -z.Length();
+    if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+    z *= 1 + fractal->transformCommon.offset / lengthTempZ;
+    z *= fractal->transformCommon.scale;
+    aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+    aux.r_dz *= fabs(fractal->transformCommon.scale);
+  }
+
+
+} // then add Cpixel constant vector
+
+
+
+
 /**
  * RiemannSphereMsltoe
  * @reference http://www.fractalforums.com/the-3d-mandelbulb/riemann-fractals/msg33500/#msg33500
@@ -2091,6 +2135,44 @@ void RiemannSphereMsltoeV1Iteration(CVector3 &z, const cFractal *fractal)
   z = t3 * fractal->transformCommon.constantMultiplier441;
 
   z += fractal->transformCommon.additionConstant000;
+}
+
+//RiemannBulbMsltoe Mod2--based on--------------------------------
+  //http://www.fractalforums.com/new-theories-and-research/another-way-to-make-my-riemann-sphere-'bulb'-using-a-conformal-transformation/
+void RiemannBulbMsltoeMod2Iteration(CVector3 &z, int i, const cFractal *fractal)
+{
+  double rad2 = fractal->transformCommon.minR05; // radius default = 0.5
+  double r2 = z.x * z.x + z.y * z.y + z.z * z.z;// r2 or point radius squared
+  if (r2 < rad2 * rad2)
+  {
+    if (fractal->transformCommon.functionEnabled)
+      z *= rad2 * ((r2 * 0.1) + 0.4) * 1.18 * fractal->transformCommon.scaleA1 /r2; // smooth inside
+    else
+    {
+      z *= fractal->transformCommon.constantMultiplier111;
+    }
+  } // if internal smooth function is not enabled → z = z * scale, default vect3(1,1,1)
+  else
+  {
+    z *= fractal->transformCommon.constantMultiplier222; //1st scale variable, default vect3 (1.7, 1.7, 1.7),
+    double shift = fractal->transformCommon.offset1;
+    double r1 = z.x * z.x + (z.y-shift)*(z.y-shift) + z.z * z.z  + 1e-061;// r1 = length^2,
+    z.x = z.x / r1; // inversions by length^2
+    z.y = (z.y - shift) / r1;
+    z.z = z.z / r1;
+    z *= fractal->transformCommon.scale3;// 2nd scale variable , default = double (3.0)
+    z.y = z.y + fractal->transformCommon.offset105;// y offset variable, default = double (1.9);
+    if (fractal->transformCommon.functionEnabledx)
+    {
+      z.x = z.x - round(z.x); // periodic cubic tiling,
+      z.z = z.z - round(z.z);
+    }
+    if (fractal->transformCommon.functionEnabledxFalse)
+    {
+      z.x = fabs(sin(M_PI * z.x * fractal->transformCommon.scale1));
+      z.z = fabs(sin(M_PI * z.z * fractal->transformCommon.scale1));
+    }
+  }
 }
 
 /**

@@ -281,6 +281,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
           MsltoeSym4ModIteration(z, c, fractal, extendedAux[sequence]);
           break;
         }
+        case msltoeToroidal:
+        {
+          MsltoeToroidalIteration(z, c, fractal, extendedAux[sequence]);
+          break;
+        }
+
+
 				case generalizedFoldBox:
 				{
 					GeneralizedFoldBoxIteration(z, fractal, extendedAux[sequence]);
@@ -374,6 +381,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case riemannSphereMsltoeV1:
         {
           RiemannSphereMsltoeV1Iteration(z, fractal);
+          break;
+        }
+        case riemannBulbMsltoeMod2:
+        {
+          RiemannBulbMsltoeMod2Iteration(z, i, fractal);
           break;
         }
         case quaternion3D:
@@ -825,6 +837,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         case msltoesym3Mod2:
         case msltoesym3Mod3:
         case msltoesym4Mod:
+        case msltoeToroidal:
 				case quaternion:
         case quaternion3D:
 				case xenodreambuie:

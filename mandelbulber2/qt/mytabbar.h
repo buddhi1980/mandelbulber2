@@ -45,6 +45,7 @@ public slots:
 	// void dragDropChange();
 	void slotMoveLeft();
 	void slotMoveRight();
+	void slotToggleActive(int state);
 
 protected:
 	void mouseReleaseEvent(QMouseEvent *event);

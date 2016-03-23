@@ -107,6 +107,8 @@ enum enumFractalFormula
 	msltoeDonut = 82,
   iqBulb = 83,
   quickDudleyMod = 84,
+  riemannBulbMsltoeMod2 = 85,
+  msltoeToroidal = 86,
 
 	transfAdditionConstant = 1001,
 	transfRotation = 1002,

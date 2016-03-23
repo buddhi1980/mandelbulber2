@@ -507,6 +507,8 @@ void InitFractalParams(cParameterContainer *par)
   par->addParam("transf_offset", 0.0, morphAkima, paramStandard);
   par->addParam("transf_offset_0", 0.0, morphAkima, paramStandard);
   par->addParam("transf_offset_05", 0.5, morphAkima, paramStandard);
+  par->addParam("transf_offset_1", 1.0, morphAkima, paramStandard);
+  par->addParam("transf_offset_105", 1.5, morphAkima, paramStandard);
   par->addParam("transf_offset_2", 2.0, morphAkima, paramStandard);
   par->addParam("transf_multiplication", 2.0, morphAkima, paramStandard);
   par->addParam("transf_minimum_radius_0", 0.0, morphAkima, paramStandard);
