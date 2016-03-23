@@ -325,7 +325,8 @@ void CNetRender::ResetMessage(sMessage *msg)
 		msg->command = netRender_NONE;
 		msg->id = 0;
 		msg->size = 0;
-		msg->payload.clear();
+		if(!msg->payload.isEmpty())
+			msg->payload.clear();
 	}
 }
 
@@ -376,6 +377,7 @@ void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 			}
 			msg->size = msg->payload.size();
 		}
+		//qDebug() << "cmd: "<< msg->command << " size:" << msg->size << " payload:" << msg->payload;
 		ProcessData(socket, msg);
 
 		bytesAvailable = socket->bytesAvailable();
@@ -573,8 +575,15 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			{
 				case netRender_BAD:
 				{
-					clients.removeAt(index);
+
+		      cErrorMessage::showMessage(QObject::tr("NetRender - Client version mismatch!\n Client address:")
+		                                     + socket->peerAddress().toString(),
+		                                 cErrorMessage::errorMessage,
+		                                 gMainInterface->mainWindow);
+
+				  clients.removeAt(index);
 					emit ClientsChanged();
+					return; //to avoid reseting already deleted message buffer
 					break;
 				}
 				case netRender_WORKER:
