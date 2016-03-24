@@ -157,6 +157,8 @@ private:
 	void ResetMessage(sMessage *msg);
 	//get client index by given socket pointer
 	int GetClientIndexFromSocket(const QTcpSocket *socket);
+	//compare major version of software
+	bool CompareMajorVersion(qint32 version1, qint32 version2);
 
 //---------------- private data -----------------
 private:

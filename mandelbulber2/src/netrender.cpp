@@ -397,7 +397,9 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			case netRender_VERSION:
 			{
 				sMessage outMsg;
-				if (*(qint32*) inMsg->payload.data() == version)
+				qint32 serverVersion = *(qint32*) inMsg->payload.data();
+
+				if (CompareMajorVersion(serverVersion, version))
 				{
 					WriteLog("NetRender - version matches (" + QString::number(version)
 							+ "), connection established");
@@ -422,8 +424,12 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				}
 				else
 				{
-					qWarning() << "CNetRender - version mismatch! client version: " << version << ", server: "
-							<< *(qint32*) inMsg->payload.data();
+          cErrorMessage::showMessage(tr("NetRender - version mismatch!\n")
+                                         + tr("Client version: %1\n").arg(version)
+                                         + tr("Server version: %1").arg(serverVersion),
+                                     cErrorMessage::errorMessage,
+                                     gMainInterface->mainWindow);
+
 					outMsg.command = netRender_BAD;
 				}
 				SendData(clientSocket, outMsg);
@@ -907,4 +913,11 @@ bool CNetRender::Block()
 		isUsed = true;
 		return true;
 	}
+}
+
+bool CNetRender::CompareMajorVersion(qint32 version1, qint32 version2)
+{
+  qint32 majorVersion1 = version1 / 10;
+  qint32 majorVersion2 = version2 / 10;
+  return majorVersion1 == majorVersion2;
 }
