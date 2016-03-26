@@ -859,7 +859,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case generalizedFoldBox:
         case foldBoxMod1:
 				case aboxModKali:
-        case mengerMod1:
+
 				case aboxMod1:
         case aboxMod2:
         case amazingSurf:
@@ -875,6 +875,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
         }
 				case kaleidoscopicIFS:
 				case menger_sponge:
+        case mengerMod1:
         {
 					if(extendedAux[sequence].r_dz > 0)
 						out->distance = (r - 2.0) / (extendedAux[sequence].DE);
