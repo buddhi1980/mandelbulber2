@@ -313,7 +313,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
                                           mengerMod1,
 																					analyticDEType,
 																					linearDEFunction,
-                                          cpixelAlreadyHas,
+                                          cpixelDisabledByDefault,
 																					10));
 
   fractalList->append(sFractalDescription("Msltoe Donut",

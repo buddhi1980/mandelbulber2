@@ -127,12 +127,10 @@ bool InitSystem(void)
 	systemData.supportedLanguages.insert("it_IT", "Italiano");
 
 	//get number of columns of console
-#ifdef WIN32
 	systemData.terminalWidth = 80;
-#else
+#ifndef WIN32
 	handle_winch(-1);
 #endif
-
 	return true;
 }
 
@@ -142,13 +140,10 @@ void handle_winch(int sig)
 	(void) sig;
 #ifndef WIN32
 	signal(SIGWINCH, SIG_IGN);
-	if(sig != -1)
-	{
-		struct winsize w;
-		ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-		systemData.terminalWidth = w.ws_col;
-		if (systemData.terminalWidth <= 0) systemData.terminalWidth = 80;
-	}
+	struct winsize w;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	systemData.terminalWidth = w.ws_col;
+	if (systemData.terminalWidth <= 0) systemData.terminalWidth = 80;
 	signal(SIGWINCH, handle_winch);
 #endif
 }
